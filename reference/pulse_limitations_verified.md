@@ -1,0 +1,151 @@
+# Pulse 4.3.1 — Verified Limitations (as of 2026-04-19)
+
+Every claim here is traceable. Use this list when writing the preprint, preparing the demo, or designing experiments. Do NOT add items without re-verifying against a primary source or a logged experiment.
+
+---
+
+## 1. No formal sensitivity analysis / uncertainty quantification
+
+**Verbatim from the [Pulse FAQ](https://pulse.kitware.com/_f_a_q.html):**
+
+> We have not performed a systematic forward propagation or inverse quantification of model uncertainty, nor have we conducted a formal sensitivity analysis. We plan to begin this type of analysis in the near future.
+
+**Version history check.** v3.0.0 listed a sensitivity/correlation framework as a "planned improvement." v4.2.0 did not deliver it. v4.3.0 added "initial architecture for automated validation" — regression-testing templates, not uncertainty quantification. v4.3.1 (Sept 2024, current release) still has no published SA or UQ.
+
+**This is the core gap PulseProbe fills.**
+
+---
+
+## 2. Blood pressure init rejection
+
+- **SBP > 120 or DBP > 80** at patient setup is silently rejected. Error message says "use a condition to model hypertension" but no hypertension condition exists in v4.3.1.
+- **Pulse-pressure ratio DBP/SBP ≤ 0.75** is also enforced at init.
+
+**Evidence:** Pulse_translation_new experiments E10 (100 Docker runs mapping all input boundaries) + source audit 2026-04-07.
+
+**Available conditions in v4.3.1:** ARDS, ChronicAnemia, COPD, ChronicVentricularSystolicDysfunction, ChronicPericardialEffusion, ChronicRenalStenosis, ImpairedAlveolarExchange, Pneumonia, PulmonaryFibrosis, PulmonaryShunt, Sepsis, Dehydration. **No hypertension.**
+
+---
+
+## 3. Adult-only hard age gate
+
+`src/cpp/engine/human_adult/whole_body/controller/SetupPatient.cpp` lines 41–64 explicitly reject `age < 18`:
+
+```cpp
+double ageMin_yr = 18.0;
+if (age_yr < ageMin_yr) {
+  ss << "Patient age of " << age_yr << " years is too young. "
+     << "We do not model pediatrics. Minimum age allowed is "
+     << ageMin_yr << " years.";
+```
+
+**Evidence:** direct C++ source audit 2026-04-07 (cloned `gitlab.kitware.com/physiology/engine.git`).
+
+---
+
+## 4. HR init acceptance: 50–110 bpm only
+
+**Evidence:** Pulse_translation_new experiment E29. 11 Docker runs, 11/11 matched expectations. HR 45/48/49 rejected; 50–110 accepted; 111/115 rejected.
+
+---
+
+## 5. RR init acceptance: 8–20 bpm only
+
+**Evidence:** Pulse_translation_new experiment E28. 9 Docker runs. RR 5,7 rejected; 8–20 accepted; 21,25 rejected.
+
+---
+
+## 6. ARDS solver instability zone: 0.91–0.945
+
+ARDS severity multiplier in this range causes solver divergence. Calibrated severity values: **mild = 0.26, moderate = 0.60, severe = 0.95** (severe has only 0.005 margin above instability — use with care).
+
+**Evidence (three independent sources):**
+- E6 (32 Docker runs, refined calibration)
+- E10 (10 runs, cross-check)
+- Original Pulse calibration (28 runs)
+
+---
+
+## 7. PC-AC over-delivers tidal volume 24–59%
+
+PC-AC mode significantly over-delivers Vt versus VC-AC. Pulse's own validation reports 11–25% error in PC-AC Vt; our probing pushed to 24–59% at wider configurations.
+
+**Evidence:** Pulse_translation_new experiment (see Pulse translation experiments_log.md) + Webb et al. 2023, PMC10224749, concordant.
+
+**Operational consequence:** use **VC-AC** (Vt error 0.07–2.25% across healthy/restrictive/obstructive) for any analysis where delivered Vt matters.
+
+---
+
+## 8. Upper airway simplified to single trachea resistance
+
+No separate nose/pharynx compartments. The entire upper airway is one resistor. Runtime scaling available via `UpperInspiratoryResistanceMultiplier` and `UpperExpiratoryResistanceMultiplier` APIs — can approximate stridor, laryngospasm, post-extubation edema, but cannot model dead-space partitioning or heat/humidity exchange.
+
+**Evidence:** source audit 2026-04-07.
+
+---
+
+## 9. No regional V/Q mismatch
+
+Inherent to the lumped-parameter architecture (5-compartment respiratory circuit: carina, left/right anatomic dead space, left/right alveoli). Cannot model regional ventilation-perfusion heterogeneity. Matters especially in severe ARDS.
+
+**Source:** Pulse design documentation; Bray et al. 2019 (DOI [10.1007/s42399-019-00053-w](https://doi.org/10.1007/s42399-019-00053-w)).
+
+---
+
+## 10. Vital capacity +7% vs literature
+
+Pulse's own validation shows VC = 4.93 L vs ~4.6 L literature, attributed to weight-based scaling methodology. Not a blocker for ventilated scenarios but a known offset.
+
+**Source:** Pulse documentation validation table.
+
+---
+
+## 11. Lumped-parameter physical simplifications
+
+- **No airway inertance** — unsuitable for high-frequency ventilation (>40 Hz). Not relevant to VC-AC.
+- **Linear resistance** — airway resistance independent of flow rate at normal conditions.
+- **Idealized one-way valves** — no retrograde flow, no regurgitation modeling.
+- **Linear compliance** — constant-compliance equations, not viscoelastic.
+
+**Source:** Pulse documentation + Bray 2019.
+
+---
+
+## 12. Cardiovascular waveform simplifications
+
+- **No dicrotic notch** — ideal valve model.
+- **ECG P/T wave merge at high HR** — P and T waves less distinct than real ECG data.
+- **Right heart diastolic pressure** falls ~10% below physiological due to zero unstressed volume assumption.
+- **Aorta volume** substantially below literature due to compliance tuning trade-off.
+
+**Source:** Pulse documentation validation; Bray 2019.
+
+---
+
+## Validation quality baseline (for context)
+
+From Pulse's official validation (male patient, 474 scenarios):
+- Good (<10% deviation): 397 scenarios (83.7%)
+- Fair (10–30% deviation): 51 scenarios (10.8%)
+- Poor (>30% deviation): 26 scenarios (5.5%)
+
+VC-AC is Pulse's strongest ventilation mode (Vt error 0.07–2.25%). This is the mode PulseProbe uses.
+
+---
+
+## Withdrawn claims — do NOT cite these as limitations
+
+- **FiO2 crash at 1.0** — disproved by Pulse_translation_new experiment E20 (Apr 2026). Pulse accepts FiO2 = 1.0 fine. Previous precautionary cap of 0.95 was unnecessary.
+- **"No sex-specific physiology beyond weight/height"** — unverified. Pulse has sex-specific hemoglobin and body composition handling. Do not assert this until source-checked.
+
+---
+
+## Sources
+
+- Pulse FAQ — https://pulse.kitware.com/_f_a_q.html
+- Pulse Version History — https://pulse.kitware.com/version.html
+- Pulse 4.3 Release — https://www.kitware.com/pulse-4-3-release/
+- Bray et al. 2019 — https://doi.org/10.1007/s42399-019-00053-w
+- Webb et al. 2023 (ventilator validation) — https://pmc.ncbi.nlm.nih.gov/articles/PMC10224749/
+- Pulse_translation_new experiments_log.md (E6, E10, E20, E28, E29)
+- Pulse GitLab source — https://gitlab.kitware.com/physiology/engine

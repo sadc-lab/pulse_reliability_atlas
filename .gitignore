@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.venv/
+venv/
+env/
+
+# uv
+.uv/
+
+# Data outputs (keep small curated datasets, ignore raw runs)
+data/runs/*/output.csv
+data/runs/*/log.txt
+data/runs/*/*.log
+!data/runs/.gitkeep
+
+# Notebooks checkpoints
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Claude Code local
+.claude/settings.local.json
+.claude/hooks/
+
+# Figures that are generated, not hand-made
+figures/auto/
+
+# Preprint build
+preprint/build/
+preprint/*.aux
+preprint/*.log
+preprint/*.out
+preprint/*.bbl
+preprint/*.blg
