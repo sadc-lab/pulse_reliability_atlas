@@ -82,6 +82,7 @@ Steady-state = mean over final 60 s of a 120 s simulation (sample every 30 s).
 ## What we do NOT commit to here
 
 - Extended Sobol analysis, Mode C scenarios, live-simulator dashboard — these are bolt-ons that will be added only if safety allows (see scope rules in `CLAUDE.md`).
+- **D6 pediatric-patches bonus chapter** — conditional, added only if Mode A is 100% locked by end of D5. Produces a `proposed_pediatric_patches.md` file with prioritized C++ diffs + literature citations for pediatric-friendly replacements of adult-fit Pulse formulas (BMR, blood volume, max HR, etc.). NOT compiled, NOT tested, NOT using real patient data. See CLAUDE.md for trigger rule and scope.
 - Specific p-value thresholds. Morris is a screening method, not a hypothesis test.
 
 ## Deliverables

@@ -14,6 +14,7 @@ Every Pulse user — researchers, medical-device companies, educators — theref
 2. **Interactive Streamlit dashboard** — move sliders for a patient + intervention, see green/yellow/red reliability for every output, a ranked bar of which inputs matter most, and warnings when inputs will be silently clamped or the solver will diverge.
 3. **Preprint** — "First sensitivity and operational-envelope characterization of Pulse 4.3.1."
 4. **Demo video** — 2-minute walkthrough.
+5. **Conditional bonus chapter** (if the core lands early): prioritized proposed pediatric patches to Pulse's C++ source — diffs + literature citations. Not compiled, not tested; a roadmap informed by PulseProbe's sensitivity ranking.
 
 ## Why it exists
 
