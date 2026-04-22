@@ -1,0 +1,23 @@
+#!/bin/sh
+# PulseProbe pre-commit hook.
+#
+# Regenerates experiments_log/INDEX.md from frontmatter and stages the update
+# into the current commit. Fast, idempotent, stdlib-only.
+#
+# To enable this hook in a fresh clone, run once:
+#     git config core.hooksPath .githooks
+
+set -e
+
+# Pick whichever Python is available (Git Bash on Windows usually has `python`;
+# Linux / macOS often have only `python3`).
+if command -v python >/dev/null 2>&1; then
+    PY=python
+elif command -v python3 >/dev/null 2>&1; then
+    PY=python3
+else
+    echo "pre-commit: python not found on PATH — skipping INDEX.md regeneration." >&2
+    exit 0
+fi
+
+"$PY" scripts/regenerate_index.py

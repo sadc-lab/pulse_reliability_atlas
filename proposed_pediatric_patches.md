@@ -1,11 +1,13 @@
-# Proposed Pediatric Patches to the Pulse C++ Engine (D6 Bonus)
+# Proposed Pediatric Patches to the Pulse C++ Engine (Paper 2 Input)
 
-**Status:** EMPTY TEMPLATE — skeleton only. This file is populated **only if the D6 trigger fires**:
-Mode A must be 100% locked (dataset landed, dashboard MVP running, preprint skeleton
-started, demo outline clear) by end of D5 Saturday night. Otherwise this file stays empty
-and D6 is spent on core polish.
+**Status:** SEED DOCUMENT for PhD Paper 2 (native pediatric Pulse fork). Populated incrementally as the Pulse Reliability Atlas produces Morris μ* rankings per output.
 
-See `CLAUDE.md` section "D6 conditional bonus chapter" for the full trigger rule.
+**Role in the PhD pipeline:**
+1. **Methods paper (this repo)** delivers Morris μ* rankings — which inputs dominate which outputs.
+2. **Paper 1 (`Pulse_translation_new/`)** uses the rankings to justify translator priorities and limitations.
+3. **Paper 2 (native pediatric Pulse fork)** uses this file as the prioritized patch list, driven by the μ* rankings: highest μ* → biggest leverage → patch first.
+
+This file is **not** a methods-paper deliverable. It is an input to Paper 2. It is versioned here because the code targets live in the adult Pulse source, and the μ*-ranking logic is specific to this repo.
 
 ---
 
@@ -13,41 +15,33 @@ See `CLAUDE.md` section "D6 conditional bonus chapter" for the full trigger rule
 
 - **NOT compiled.** Proposals are on paper only.
 - **NOT tested.** No validation has been performed.
-- **NOT using real patient data.** PICU data from Sainte-Justine Hospital remains
-  inside the PhD project and is never touched by this hackathon deliverable.
-- **NOT a native pediatric engine.** These are candidate edits to seed PhD Paper 2,
-  not a shipped pediatric Pulse.
-- **Open-source only.** Pulse is Apache-2.0, so reading and proposing diffs is
-  legally and ethically clean.
+- **NOT using real patient data.** PICU data from Sainte-Justine Hospital remains inside the PhD project and is never touched by this methods-paper deliverable.
+- **NOT a native pediatric engine.** These are candidate edits to seed PhD Paper 2, not a shipped pediatric Pulse.
+- **Open-source only.** Pulse is Apache-2.0; reading and proposing diffs is legally and ethically clean.
 
 ---
 
 ## Methodology
 
-1. Claude Code reads the open-source Pulse C++ at
-   `C:\Users\santi\projets\Pulse_engine_adults_Gitlab\engine`.
-2. Targets 2–3 formula sites that are adult-fit and dominate pediatric error,
-   as identified by PulseProbe's Morris μ* sensitivity ranking (typically:
-   `SetupPatient.cpp` age/sex gate, BMR equation, blood-volume equation,
-   max-HR equation, baroreflex gain).
-3. For each site, produces:
+1. Read the open-source Pulse C++ at `C:\Users\santi\projets\Pulse_engine_adults_Gitlab\engine`.
+2. Target formula sites that are adult-fit and dominate pediatric error, as identified by the Pulse Reliability Atlas Morris μ* sensitivity ranking (candidate sites: `SetupPatient.cpp` age/sex gate, BMR equation, blood-volume equation, max-HR equation, baroreflex gain).
+3. For each site, produce:
    - Current (adult-fit) code excerpt.
    - Proposed pediatric replacement as a code diff.
-   - ≥2 independent literature citations justifying the replacement
-     (two-references rule from `CLAUDE.md`).
-   - Priority rank from PulseProbe's own Morris analysis.
+   - ≥2 independent literature citations justifying the replacement (two-references rule).
+   - Priority rank from the atlas Morris analysis.
 
 ---
 
 ## Patches
 
-_(Populated only if D6 triggers. Structure below is the template.)_
+_(Populated incrementally as the atlas Morris rankings land. Structure below is the template.)_
 
 ### Patch 1 — [name]
 
 - **File:** `engine/src/...`
 - **Function / lines:** `...`
-- **Morris μ* rank (from PulseProbe):** _e.g. #1 for Vt delivered_
+- **Morris μ* rank (from atlas):** _e.g. #1 for Vt delivered_
 - **Current (adult-fit):**
   ```cpp
   // placeholder
