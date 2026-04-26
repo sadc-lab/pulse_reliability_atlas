@@ -119,7 +119,11 @@ def compute_ee_for_cell(
     """Compute elementary effects for one (scenario, sex) cell.
 
     Returns a long-format DataFrame:
-        columns = [output, input, ee, j_lo_case, j_hi_case, both_clean]
+        columns = [trajectory, output, input, ee, j_lo_case, j_hi_case, both_clean]
+
+    The ``trajectory`` column is added so downstream callers can do a
+    *block bootstrap by trajectory* (preserves within-trajectory
+    dependence; honest for Morris-OAT geometry).
     """
     # Index by case_id for fast lookup
     by_case = df_cell.set_index("case_id")
@@ -142,6 +146,7 @@ def compute_ee_for_cell(
             else:
                 ee = (float(y_hi) - float(y_lo)) / p.delta_normalized
             rows.append({
+                "trajectory": p.trajectory,
                 "output": ch,
                 "input": p.flipped_input,
                 "ee": ee,
@@ -171,7 +176,14 @@ def _bootstrap_mu_star_ci(
     rng: np.random.Generator,
     alpha: float = 0.05,
 ) -> tuple[float, float]:
-    """Percentile bootstrap CI for μ*. Returns (lo, hi)."""
+    """Percentile bootstrap CI for mu_star. Returns (lo, hi).
+
+    Naive bootstrap — resamples individual elementary effects
+    independently. Implicitly assumes EEs are exchangeable. Kept for
+    completeness; prefer ``_block_bootstrap_mu_star_ci`` which respects
+    trajectory-level structure (Morris OAT pairs from one trajectory
+    are not independent of each other).
+    """
     if ees.size < 2:
         return float("nan"), float("nan")
     boot = np.empty(n_bootstrap)
@@ -179,6 +191,51 @@ def _bootstrap_mu_star_ci(
     for b in range(n_bootstrap):
         idx = rng.integers(0, n, size=n)
         boot[b] = float(np.mean(np.abs(ees[idx])))
+    lo = float(np.quantile(boot, alpha / 2))
+    hi = float(np.quantile(boot, 1 - alpha / 2))
+    return lo, hi
+
+
+def _block_bootstrap_mu_star_ci(
+    ee_df_input: pd.DataFrame,
+    n_bootstrap: int,
+    rng: np.random.Generator,
+    alpha: float = 0.05,
+) -> tuple[float, float]:
+    """Block (trajectory-level) bootstrap CI for mu_star.
+
+    ``ee_df_input`` is the subset of ``compute_ee_for_cell``'s output for
+    one (cell, output, input) combo, restricted to clean & non-NaN EEs.
+    The block is the trajectory: we resample trajectory IDs *with
+    replacement*, then take all surviving EEs from the chosen
+    trajectories. This preserves within-trajectory dependence and gives
+    an honest CI for Morris-OAT geometry.
+
+    If only one or zero trajectories contribute to this combo, the CI
+    collapses to NaN — Morris is not estimable on a single trajectory.
+    """
+    trajs = ee_df_input["trajectory"].to_numpy()
+    ees = ee_df_input["ee"].to_numpy(dtype=float)
+    unique_trajs = np.unique(trajs)
+    if unique_trajs.size < 2:
+        return float("nan"), float("nan")
+
+    # Pre-build trajectory -> EE-array index for speed.
+    by_traj: dict[int, np.ndarray] = {
+        int(t): ees[trajs == t] for t in unique_trajs
+    }
+
+    boot = np.empty(n_bootstrap)
+    for b in range(n_bootstrap):
+        chosen = rng.choice(unique_trajs, size=unique_trajs.size, replace=True)
+        sample_ees = np.concatenate([by_traj[int(t)] for t in chosen])
+        if sample_ees.size == 0:
+            boot[b] = np.nan
+        else:
+            boot[b] = float(np.mean(np.abs(sample_ees)))
+    boot = boot[~np.isnan(boot)]
+    if boot.size == 0:
+        return float("nan"), float("nan")
     lo = float(np.quantile(boot, alpha / 2))
     hi = float(np.quantile(boot, 1 - alpha / 2))
     return lo, hi
@@ -218,10 +275,12 @@ def morris_indices(
         for (out_name, inp_name), grp in ee_clean.groupby(["output", "input"]):
             ees = grp["ee"].to_numpy()
             mu, mu_star, sigma = _morris_stats(ees)
-            mu_star_lo, mu_star_hi = _bootstrap_mu_star_ci(
-                np.abs(ees), n_bootstrap, rng
+            # Block (trajectory-level) bootstrap — honest for Morris OAT.
+            mu_star_lo, mu_star_hi = _block_bootstrap_mu_star_ci(
+                grp[["trajectory", "ee"]], n_bootstrap, rng
             )
             n_total = int(((ee_df["output"] == out_name) & (ee_df["input"] == inp_name)).sum())
+            n_unique_trajs = int(grp["trajectory"].nunique())
             rows.append({
                 "scenario": sk,
                 "sex": xk,
@@ -234,6 +293,7 @@ def morris_indices(
                 "mu_star_hi": mu_star_hi,
                 "n_clean_pairs": int(ees.size),
                 "n_total_pairs": n_total,
+                "n_trajectories": n_unique_trajs,
             })
     return pd.DataFrame(rows)
 

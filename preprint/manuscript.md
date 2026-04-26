@@ -63,17 +63,21 @@ computed only on `clean` runs.
   instability zone being left below by S4 = 0.95 but stress increasing
   overall). The atlas thus identifies **sex** as a previously
   uncharacterized reliability-sensitivity axis for Pulse 4.3.1.
-* **H4 — sex-specific reliability is supported:** Wasserstein distances
-  between male and female clean-run distributions are non-trivial across
-  all six outputs and all four scenarios — particularly large for Vt
-  (13.8 – 36.3 mL across scenarios) and PaO2 (4.6 – 16.1 mmHg). Spearman
-  ρ between male and female μ\* rankings, computable for S2 and S3, is
-  0.75 – 1.00 — meaning the *order* of input importance is well preserved
-  by sex but the *magnitudes* differ. The S1 and S4_F cells lose
-  computable Spearman because the FiO2 input has no clean elementary-
-  effect pairs in those cells (see §3.5 and §4.2). The atlas therefore
-  documents both the convergent (input ranking) and divergent (effect
-  magnitude, divergence rate, implausibility rate) sex effects.
+* **H4 — sex-specific reliability is partially supported:** with a
+  within-sex subsampling null reference, only **6 of 24 (cell × output)
+  Wasserstein distances** are distinguishable from random — and **all
+  six are gas-exchange channels** (PaCO2 ×3, SpO2 ×2, PaO2 ×1). The
+  cardiovascular (HR, MAP) and ventilator-output (Vt) M-vs-F differences
+  reported in an earlier draft fall *within* the within-sex null
+  distribution at our sample size — the apparent ~ 13 – 36 mL Vt
+  difference between sexes is not larger than what either sex produces
+  by random sub-sampling. **Where sex matters, it matters on gas
+  exchange — not on cardiac output or delivered tidal volume.** Spearman
+  ρ on input-importance rankings is 0.75 – 1.00 (point estimates,
+  computable in S2 / S3) with paired-input bootstrap CI lower bounds
+  ≥ 0.34 for most outputs (Vt CI [-0.06, 1.0] is the exception);
+  rankings are qualitatively preserved but the per-output precision is
+  modest because the ρ vector has only 7 entries.
 
 In addition, two structural findings from the pilot scaled up cleanly to
 the full sweep ([S005](../experiments_log/santino/S005_pilot_S1_male.md)):
@@ -107,13 +111,60 @@ at certain (PEEP, Vt-target) combinations even in healthy adults.
 
 ### 1.1 Motivation
 
-[draft] Brief overview of Pulse, scope of its use in research / device
-work / training, and the explicit absence of UQ/SA documented on the Pulse
-FAQ. The reader needs to leave this subsection with a clear understanding
-of why a reliability atlas is the first publishable artifact in the
-maintainer's PhD pipeline (the methods paper precedes the pediatric-
-translation Paper 1 and the native-pediatric Paper 2 because both
-downstream papers depend on knowing where Pulse is trustworthy).
+The Pulse Physiology Engine (Kitware, Apache-2.0) is the most-used
+open-source whole-body human physiology simulator. It provides a
+0-dimensional lumped-parameter model of the cardiovascular,
+respiratory, gas-exchange, and pharmacological systems, and is used in
+three broad communities:
+
+* **Clinical research** — virtual-patient cohorts for hypothesis
+  generation when human data are unavailable, ethically constrained,
+  or impractically expensive to collect (e.g. dual-patient ventilator
+  sharing during the COVID-19 pandemic, Webb et al. 2020).
+* **Medical-device development** — early-stage validation of
+  ventilators, pumps, and monitors against a virtual patient. ASL 5000
+  benchmarking against Pulse's VC-AC mode reports tidal-volume errors
+  of 0.07 – 2.25 % (Pulse self-validation; cited verbatim from the
+  Pulse documentation).
+* **Education** — anaesthesia, critical-care, and paramedic training
+  curricula increasingly use Pulse for case-based simulation.
+
+Despite this footprint, the engine's developers state explicitly on
+the public Pulse FAQ (verified verbatim 2026-04-19, S003):
+
+> "We have not performed a systematic forward propagation or inverse
+> quantification of model uncertainty, nor have we conducted a formal
+> sensitivity analysis."
+
+The corollary is operational: every Pulse user — clinical, industrial,
+educational — is operating *without a map* of where the engine is
+reliable, where it silently bends inputs out of acceptance, and which
+inputs dominate which outputs. Each user re-encounters the same
+limitations independently. Each medical-device validation pipeline
+re-derives its own working envelope by trial and error.
+
+This paper closes that gap with the first open reliability atlas for
+Pulse v4.3.1 across the adult operational envelope relevant to
+critical care. The methodology follows three commitments locked
+before any data was collected (preregistration §Inputs, §Scenarios,
+§Flags): inputs swept from Pulse's *verified* acceptance ranges (E10 /
+E28 / E29 boundary probes), scenarios spanning healthy adult and three
+PALICC-2 ARDS severities, and a four-flag classifier that categorizes
+every run rather than discarding flagged ones.
+
+Three properties make this paper a methods-paper rather than a
+findings-paper: (1) the entire pipeline is preregistered with
+amendment history; (2) every quoted number is reproducible from the
+canonical Morris sample (seed = 42) plus the atlas Docker image,
+verified at three independent layers (S007); and (3) the four-flag
+classifier is a generic instrument that future Pulse users can apply
+to their own configurations without re-running our sweep.
+
+The paper is the first publishable output in the maintainer's PhD
+pipeline. Two downstream papers — pediatric translation layer (in
+preparation, validation underway) and native pediatric Pulse fork
+(planned) — both depend on knowing where adult Pulse is trustworthy.
+This atlas is that prerequisite.
 
 ### 1.2 Verified limitations of Pulse 4.3.1
 
@@ -406,8 +457,47 @@ output HR as the engine's reflex response, not a setpoint.
 
 ### 3.5 H3 — solver divergence is sex-stratified (supported)
 
-20 / 1,280 runs (1.6 %) diverged. **All 20 are in male cells.** Per-cell
-counts:
+20 / 1,280 runs (1.6 %) diverged. **All 20 are in male cells.**
+
+**Input-combination signature.** The 20 divergence events are not
+spread uniformly across the input space — they cluster on a specific
+input pattern. Of the 20:
+
+* **HR = 50 (the locked low boundary)** appears in 16 / 20 runs.
+* **SBP = 90 (locked low boundary)** appears in 16 / 20 runs.
+* **DBP = 67.5 (= 0.75 × 90, the post-clip value)** appears in 16 / 20.
+* **RR = 20 (locked high boundary)** appears in 16 / 20 runs.
+* **FiO2 = 1.0** appears in 12 / 20.
+* The 16 shared cases correspond to **the same 4 Morris sample
+  indices repeated across S1 / S2 / S3 / S4_M** (run_idx 119, 157,
+  158, 159 in the canonical sample). The remaining 4 are unique to
+  (S4, M) and add a complementary cluster at high HR / low Vt.
+
+The divergence signature reads as: **low cardiovascular output (low
+HR + low SBP) combined with high respiratory drive (high RR + high
+FiO2) on the male standard surrogate** drives Pulse to a numerical
+edge case. The compound input is plausible clinically (a hypotensive,
+tachypneic, fully oxygenated patient — recognizable as a septic / pre-
+arrest configuration) yet inside Pulse's verified acceptance ranges.
+Users should treat this corner of the envelope as fragile when running
+the male standard surrogate.
+
+**Mechanism candidate (Pulse source audit).** Pulse's
+`SetupPatient.cpp` computes blood-volume baseline as
+`computedBloodVolume_mL = 65.6 × weight_kg^1.02`. For the standard
+male (67.3 kg) this yields ≈ 5,060 mL; for the standard female
+(56.2 kg) ≈ 4,200 mL. Several other parameters are sex-conditional:
+ideal-body-weight (Devine formula coefficient 50.0 vs 45.5),
+fat-fraction standard (0.21 vs 0.28), height bounds (151 – 176 cm vs
+163 – 190 cm). The 20 % blood-volume difference is the most plausible
+candidate for the divergence asymmetry: it directly enters the
+cardiovascular circuit's stabilization and shifts the operating-point
+neighborhood between the two sexes. We do not claim this is the
+mechanism — confirming it would require a targeted source-level
+experiment manipulating only blood-volume baseline — but it is the
+falsifiable hypothesis to test in follow-up work.
+
+Per-cell counts:
 
 | Cell  | diverged |
 |-------|----------|
@@ -439,36 +529,82 @@ H3 is therefore **partially supported** with a stronger qualifier: a
 divergence regime exists outside the documented 0.91 – 0.945 ARDS zone
 *and* the regime is sex-conditioned.
 
-### 3.6 H4 — sex-specific reliability (supported)
+### 3.6 H4 — sex-specific reliability (partially supported, gas-exchange only)
 
 We report H4 with two complementary statistics: Wasserstein distance
 between M and F clean-run output *distributions* (effect magnitude),
 and Spearman ρ between M and F Morris μ\* *vectors* (effect ranking).
+For both we add a null reference because raw point estimates on this
+sample size overstate precision.
 
-**Wasserstein distance** (M vs F, units = output unit):
+**Wasserstein distance with within-sex null** (M-vs-F observed; null
+built by repeatedly splitting the *combined* M+F clean runs randomly
+into halves of the original sizes; n_null = 2,000):
 
-| Scenario | HR    | MAP  | Vt    | SpO2  | PaO2  | PaCO2 |
-|----------|-------|------|-------|-------|-------|-------|
-| S1       | 5.02  | 0.58 | 21.4  | 0.008 | 11.0  | 4.69  |
-| S2       | 1.91  | 0.88 | 13.8  | 0.012 | 16.1  | 5.12  |
-| S3       | 4.77  | 0.94 | 36.3  | 0.014 |  8.82 | 2.94  |
-| S4       | 1.38  | 1.50 | 14.1  | 0.016 |  4.65 | 1.05  |
+| Scenario | Output | M-vs-F | null p50 | null p95 | p_emp | Sig.? |
+|----------|--------|--------|----------|----------|-------|-------|
+| S1       | HR     | 5.02   | 3.91     | 8.56     | 0.305 |       |
+| S1       | MAP    | 0.58   | 1.38     | 2.78     | 0.995 |       |
+| S1       | Vt     | 21.4   | 34.4     | 76.6     | 0.798 |       |
+| S1       | SpO2   | 0.008  | 0.004    | 0.010    | 0.123 |       |
+| S1       | PaO2   | 11.0   | 12.6     | 28.4     | 0.598 |       |
+| S1       | **PaCO2** | **4.69** | 1.65     | 3.56     | **0.009** | * |
+| S2       | HR     | 1.91   | 3.60     | 7.72     | 0.958 |       |
+| S2       | MAP    | 0.88   | 1.03     | 2.11     | 0.652 |       |
+| S2       | Vt     | 13.8   | 25.1     | 55.4     | 0.840 |       |
+| S2       | **SpO2** | **0.012** | 0.006    | 0.011    | **0.022** | * |
+| S2       | PaO2   | 16.1   | 8.90     | 17.2     | 0.073 |       |
+| S2       | **PaCO2** | **5.12** | 1.07     | 2.13     | **0.000** | * |
+| S3       | HR     | 4.77   | 3.86     | 8.61     | 0.333 |       |
+| S3       | MAP    | 0.94   | 0.98     | 2.02     | 0.538 |       |
+| S3       | Vt     | 36.3   | 20.8     | 45.9     | 0.129 |       |
+| S3       | SpO2   | 0.014  | 0.009    | 0.017    | 0.119 |       |
+| S3       | PaO2   | 8.82   | 6.57     | 12.8     | 0.245 |       |
+| S3       | **PaCO2** | **2.94** | 0.75     | 1.33     | **0.000** | * |
+| S4       | HR     | 1.38   | 4.73     | 11.2     | 0.953 |       |
+| S4       | MAP    | 1.50   | 1.44     | 2.82     | 0.460 |       |
+| S4       | Vt     | 14.1   | 29.0     | 64.1     | 0.897 |       |
+| S4       | **SpO2** | **0.016** | 0.006    | 0.011    | **0.002** | * |
+| S4       | **PaO2** | **4.65** | 1.91     | 3.38     | **0.003** | * |
+| S4       | PaCO2  | 1.05   | 0.61     | 1.13     | 0.083 |       |
 
-* **Vt and PaO2 show the largest sex effects.** Male and female
-  delivered tidal-volume distributions differ by 13.8 – 36.3 mL (the
-  largest sex effect at S3 = moderate ARDS). PaO2 distributions differ
-  by up to 16.1 mmHg.
-* **MAP, SpO2, PaCO2 show small but non-zero sex effects** — small
-  magnitudes (≤ 1.5 mmHg / 0.02 / 5 mmHg) but consistently present.
-* **HR is intermediate.**
+\* significant at α = 0.05.
 
-**Spearman ρ on μ\* rankings** (M vs F, computed where both sexes have
-clean EE pairs across all 7 inputs):
+**Honest interpretation:** 6 of 24 (cell × output) Wasserstein
+distances are distinguishable from a within-sex subsampling null.
+**All six are gas-exchange channels (PaCO2 ×3, SpO2 ×2, PaO2 ×1).**
+Cardiovascular outputs (HR, MAP) and ventilator output (Vt) show
+M-vs-F distances *within* the within-sex null distribution — i.e.
+the ~ 13 – 36 mL Vt difference and the ~ 1 – 5 bpm HR difference are
+not larger than what the same population produces by random sub-
+sampling. **An earlier draft of this paper presented those Vt and HR
+distances as "the largest sex effects"; the within-sex null
+correction shows that conclusion was overstated.**
 
-| Scenario | HR   | MAP  | Vt   | SpO2 | PaO2 | PaCO2 |
-|----------|------|------|------|------|------|-------|
-| S2       | 0.96 | 1.00 | 0.75 | 0.96 | 0.93 | 0.89  |
-| S3       | 0.96 | 0.96 | 0.86 | 0.96 | 0.93 | 0.89  |
+The remaining sex-stratified effect concentrates exactly where
+sex-specific physiology should matter most: gas exchange, where
+alveolar volume scaling and lung-volume-to-body-mass ratios diverge
+by sex. PaCO2 is the strongest signal (significant in 3 of 4
+scenarios, very small p_emp values in S2 and S3).
+
+**Spearman ρ on μ\* rankings with paired-input bootstrap CI**
+(M vs F, computed where both sexes have clean EE pairs across all
+7 inputs):
+
+| Scenario | Output | ρ    | 95% CI         |
+|----------|--------|------|----------------|
+| S2       | HR     | 0.96 | [0.70, 1.00]   |
+| S2       | MAP    | 1.00 | [1.00, 1.00]   |
+| S2       | Vt     | 0.75 | [-0.06, 1.00]  |
+| S2       | SpO2   | 0.96 | [0.70, 1.00]   |
+| S2       | PaO2   | 0.93 | [0.41, 1.00]   |
+| S2       | PaCO2  | 0.89 | [0.35, 1.00]   |
+| S3       | HR     | 0.96 | [0.70, 1.00]   |
+| S3       | MAP    | 0.96 | [0.70, 1.00]   |
+| S3       | Vt     | 0.86 | [0.34, 1.00]   |
+| S3       | SpO2   | 0.96 | [0.70, 1.00]   |
+| S3       | PaO2   | 0.93 | [0.41, 1.00]   |
+| S3       | PaCO2  | 0.89 | [0.41, 1.00]   |
 
 S1 and S4_F do not have a computable Spearman ρ because FiO2 has zero
 clean elementary-effect pairs in those cells (every trajectory step
@@ -476,11 +612,25 @@ that flips FiO2 between 0.21 and 1.0 has at least one endpoint
 flagged, predominantly by SpO2 ceiling pinning at FiO2 ≈ 1.0). This
 itself is a finding (§4.2 limitations).
 
-The combined picture: **Sex shifts effect magnitudes but not effect
-rankings** in the cells where both can be computed. The "Pulse standard
-adult patient" choice has measurable consequences for Vt and PaO2
-quantitative output and for solver-divergence rate, even when the
-sensitivity ordering of inputs is preserved.
+The bootstrap CI on Spearman ρ is wide for output Vt (S2 lower bound
+−0.06) — meaning the input-importance ranking for Vt is not
+clearly preserved across sex. For other outputs, the lower CI bound
+is ≥ 0.34, supporting "rankings preserved" qualitatively but not
+strongly.
+
+**Combined H4 picture:**
+
+* H4 is **partially supported**, with the strong signal concentrated
+  on gas-exchange outputs.
+* **Sex effect is real on PaCO2, SpO2 (in S2 and S4), and PaO2 in S4** —
+  these survive the within-sex null.
+* **Sex effect on HR, MAP, Vt is not distinguishable from
+  within-sex sub-sampling** at our sample size. Either it does not
+  exist, or it is below the detection floor of 49 – 144 clean runs
+  per cell.
+* **Input-importance rankings are similar by sex** (Spearman ρ
+  point estimates 0.75 – 1.00 in S2 / S3) but the CIs are wide —
+  the ranking-similarity claim is qualitative, not high-precision.
 
 ### 3.7 Reliability traffic-light (Figure 6)
 
@@ -647,15 +797,62 @@ source code, and the experiments logged in this repository.
 
 ## 6. References
 
-[draft]
+Primary sources only — every cited fact in this paper traces to one of
+the following or to an experiment-log entry in this repository.
 
-* Pulse FAQ (verified verbatim 2026-04-19, S003):
-  <https://pulse.kitware.com/_f_a_q.html>
-* Webb 2023 (PMC10224749) — VC-AC validation context.
-* Bray 2019 — lumped-parameter limits, dicrotic notch absence.
-* PALICC-2 — ARDS severity classification.
-* SALib (Iwanaga, Usher, Herman 2022, Socio-Environmental Systems
-  Modelling).
+1. **Pulse Physiology Engine v4.3.1 (Kitware, Apache-2.0).**
+   Distributed at <https://pulse.kitware.com>. Source verified from
+   the locally-cloned engine repository
+   (`C:/Users/santi/projets/Pulse_engine_adults_Gitlab/engine/`,
+   2026-04-07).
+2. **Pulse FAQ.** *Have you done UQ / SA?*
+   <https://pulse.kitware.com/_f_a_q.html> — verified verbatim
+   2026-04-19, paragraph quoted in §1.1 (recorded in S003).
+3. **Pulse Setup audit.**
+   `engine/src/cpp/engine/human_adult/whole_body/controller/SetupPatient.cpp`
+   — referenced for adult age gate (lines 41 – 64), BMI bounds (lines
+   179 – 200), blood-volume formula (line 534), HR / SBP / DBP
+   acceptance bounds (verified by E10 / E28 / E29).
+4. **Webb et al. 2023.** Comparison of mechanical ventilator behaviour
+   under VC-AC against an ASL 5000 lung simulator. PubMed Central
+   article PMC10224749. Cited for VC-AC tidal-volume error and as the
+   basis for our preregistered ventilator-mode restriction.
+5. **Bray et al. 2019.** Cardiovascular limitations of the
+   lumped-parameter model — referenced for valve idealization,
+   dicrotic-notch absence, and viscoelastic limitation.
+6. **Pediatric Acute Lung Injury Consensus Conference (PALICC-2).**
+   ARDS severity classification (mild / moderate / severe), used to
+   anchor scenarios S2 (0.26), S3 (0.60), S4 (0.95). Berlin Criteria
+   correspondence verified through Pulse's own ARDS validation table.
+7. **SALib (Iwanaga, Usher, Herman 2022).** Socio-Environmental
+   Systems Modelling. Morris and Sobol implementations used for
+   sampling and analysis.
+8. **Barnes et al. 2020.** *Comparison of three open-source physiology
+   engines on hemorrhage scenarios.* DOI:
+   [10.1097/SIH.0000000000000427](https://doi.org/10.1097/SIH.0000000000000427).
+   Cited as the only independent multi-engine assessment we are aware
+   of (BioGears tested, not Pulse).
+9. **Clipp et al. 2025 (MHSRS).** Updated Pulse hemorrhage validation —
+   cited for context that Pulse has improved since the Barnes 2020
+   tests.
+10. **JOSS issue #4929** (Pulse review, 2022 – 2023). Cited for context
+    on the engine's open peer-review status.
+
+Internal references (`experiments_log/santino/Sxxx_*.md`) are
+additionally available in the repository:
+
+* **S001** — Docker + 3-parallel hardware smoke test (CPU / RAM
+  budget verification).
+* **S002** — Project bootstrap, repo layout, licensing.
+* **S003** — Verified Pulse 4.3.1 limitations from primary sources.
+* **S004** — Atlas Docker image, scenario smoke test, detector regex
+  empirical recalibration.
+* **S005** — 22-run pilot, all 5 preregistered gates passed.
+* **S006** — Full 1,280-run sweep with 8 sanity checks.
+* **S007** — Targeted reproducibility check at three independent
+  layers, all bit-exact.
+* **S008** — Tier-1 statistical refinement (block bootstrap, within-
+  sex Wasserstein null, divergence-input mechanism, Spearman CI).
 
 ---
 

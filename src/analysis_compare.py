@@ -27,10 +27,23 @@ from src.sampler import INPUT_NAMES
 
 
 def wasserstein_per_output(
-    df_master: pd.DataFrame, scenarios: Iterable[str]
+    df_master: pd.DataFrame,
+    scenarios: Iterable[str],
+    n_null: int = 2000,
+    seed: int = 13579,
 ) -> pd.DataFrame:
-    """Wasserstein distance between male and female clean-run output distributions
-    per scenario per output. Larger ⇒ greater sex difference."""
+    """Wasserstein distance between male and female clean-run output distributions.
+
+    Adds a within-sex null reference: for each (scenario, output), build a null
+    Wasserstein distribution by repeatedly splitting the *combined* M+F clean
+    runs randomly into two equal-sized halves and computing the distance.
+    Report the empirical p-value (fraction of null distances >= observed) and
+    the 95th-percentile null distance.
+
+    Larger observed Wasserstein than the null 95th-percentile ⇒ sex effect
+    distinguishable from random sub-sampling within the same population.
+    """
+    rng = np.random.default_rng(seed)
     rows: list[dict] = []
     for sk in scenarios:
         m = df_master[
@@ -44,23 +57,52 @@ def wasserstein_per_output(
             fv = f[f"{ch}_mean"].dropna().to_numpy()
             if mv.size < 2 or fv.size < 2:
                 w = float("nan")
+                p_emp = float("nan")
+                null_p95 = float("nan")
+                null_p50 = float("nan")
             else:
                 w = float(wasserstein_distance(mv, fv))
+                # Build within-population null: shuffle combined sample,
+                # split into halves of the original M / F sizes, distance.
+                pool = np.concatenate([mv, fv])
+                n_m = mv.size
+                null = np.empty(n_null)
+                for b in range(n_null):
+                    rng.shuffle(pool)
+                    a = pool[:n_m]
+                    b_ = pool[n_m:]
+                    null[b] = float(wasserstein_distance(a, b_))
+                p_emp = float(np.mean(null >= w))
+                null_p95 = float(np.quantile(null, 0.95))
+                null_p50 = float(np.quantile(null, 0.50))
             rows.append({
                 "scenario": sk,
                 "output": ch,
                 "n_male": int(mv.size),
                 "n_female": int(fv.size),
                 "wasserstein": w,
+                "wasserstein_null_p50": null_p50,
+                "wasserstein_null_p95": null_p95,
+                "p_value_empirical": p_emp,
             })
     return pd.DataFrame(rows)
 
 
 def spearman_mu_star_male_vs_female(
-    morris_df: pd.DataFrame, scenarios: Iterable[str]
+    morris_df: pd.DataFrame,
+    scenarios: Iterable[str],
+    n_bootstrap: int = 2000,
+    seed: int = 24680,
 ) -> pd.DataFrame:
-    """Per scenario × output: Spearman ρ between male mu_star vector and female mu_star vector
-    indexed by input. ρ near 1 ⇒ same input ranking by sex."""
+    """Per scenario x output: Spearman rho between male and female mu_star vectors.
+
+    Adds a percentile bootstrap CI on rho. The bootstrap resamples the
+    input axis with replacement (paired across sexes) and recomputes rho.
+    On a 7-input vector this CI is wide by construction — that *is* the
+    point, since reporting rho=0.96 on 7 inputs without a CI overstates
+    precision.
+    """
+    rng = np.random.default_rng(seed)
     rows: list[dict] = []
     for sk in scenarios:
         m = morris_df[(morris_df["scenario"] == sk) & (morris_df["sex"] == "M")]
@@ -81,15 +123,34 @@ def spearman_mu_star_male_vs_female(
             if np.isnan(mv).any() or np.isnan(fv).any() or mv.size < 3:
                 rho = float("nan")
                 pval = float("nan")
+                rho_lo, rho_hi = float("nan"), float("nan")
             else:
                 rho_obj = spearmanr(mv, fv)
                 rho = float(rho_obj.correlation)
                 pval = float(rho_obj.pvalue)
+                # Bootstrap CI on rho via paired input-axis resample
+                k = mv.size
+                boot = np.empty(n_bootstrap)
+                for b in range(n_bootstrap):
+                    idx = rng.integers(0, k, size=k)
+                    if np.unique(idx).size < 2:
+                        boot[b] = np.nan
+                        continue
+                    r = spearmanr(mv[idx], fv[idx]).correlation
+                    boot[b] = float(r) if not np.isnan(r) else np.nan
+                boot = boot[~np.isnan(boot)]
+                if boot.size == 0:
+                    rho_lo, rho_hi = float("nan"), float("nan")
+                else:
+                    rho_lo = float(np.quantile(boot, 0.025))
+                    rho_hi = float(np.quantile(boot, 0.975))
             rows.append({
                 "scenario": sk,
                 "output": ch,
                 "spearman_rho": rho,
                 "spearman_p": pval,
+                "spearman_rho_lo": rho_lo,
+                "spearman_rho_hi": rho_hi,
             })
     return pd.DataFrame(rows)
 
