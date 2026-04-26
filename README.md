@@ -1,47 +1,307 @@
 # Pulse Reliability Atlas
 
-**The first open reliability atlas for the Pulse Physiology Engine (v4.3.1).**
+**The first open reliability atlas for the Pulse Physiology Engine
+(v4.3.1).** This repository tells you — clinician, engineer, researcher,
+educator — *where Pulse can be trusted*, *where it silently bends inputs
+out of acceptance*, *where its solver gives up*, and *which inputs
+actually drive each output*.
 
-Pulse is the most-used open-source whole-body human physiology simulator (Kitware, Apache-2.0). Its developers state on the [Pulse FAQ](https://pulse.kitware.com/_f_a_q.html):
+The full result is [`preprint/manuscript.md`](preprint/manuscript.md). The
+short answer: see [Section "Plain-language summary"](#plain-language-summary)
+below.
 
-> We have not performed a systematic forward propagation or inverse quantification of model uncertainty, nor have we conducted a formal sensitivity analysis.
+---
 
-Every Pulse user — researchers, medical-device companies, educators — therefore operates blind to where the engine silently clamps inputs, where the solver diverges, and which inputs dominate which outputs. This repository fills that gap.
+## What is Pulse?
 
-## What this repo produces
+[Pulse](https://pulse.kitware.com) is the most-used open-source whole-body
+human physiology simulator (Kitware, Apache-2.0). It models cardiovascular,
+respiratory, gas-exchange, and pharmacology dynamics. People use it for:
 
-1. **Open dataset** — Pulse 4.3.1 simulations across the adult operational envelope, sampled via Morris elementary effects (targeted Sobol indices conditional on Morris σ/μ* ratios). Released on Zenodo as CSV + Parquet.
-2. **Short methods paper (preprint on arXiv)** — "First sensitivity and operational-envelope characterization of Pulse 4.3.1," including the first male-vs-female reliability comparison for the standard Pulse patient.
-3. **Automated reliability classifier** — every run is flagged on four failure modes: silent input clamping, solver divergence, physiologically implausible output, and non-steady-state output. No run discarded; each categorized.
-4. **Interactive Streamlit dashboard** (optional, post-atlas) — sliders for patient + intervention, green/yellow/red reliability per output, clamp warnings.
+- **Clinical research** (hypothesis generation, virtual-patient cohorts).
+- **Medical-device validation** (testing ventilators, pumps, monitors against
+  a virtual patient instead of human subjects in early-stage trials).
+- **Teaching** (anaesthesia, ICU, paramedic training).
 
-## Scope (locked in preregistration)
+Pulse is widely cited and downloaded — but its developers themselves state
+on the [Pulse FAQ](https://pulse.kitware.com/_f_a_q.html):
 
-- **Inputs swept (7):** HR, SBP, DBP, RR, Vt, FiO2, PEEP.
-- **Scenarios (4):** healthy, mild/moderate/severe ARDS (PALICC-2 impairments 0.00 / 0.26 / 0.60 / 0.95).
-- **Patients (2):** Pulse standard adult male and adult female.
-- **Ventilator:** VC-AC only (validated best per Webb 2023).
+> "We have not performed a systematic forward propagation or inverse
+> quantification of model uncertainty, nor have we conducted a formal
+> sensitivity analysis."
 
-## Status
+That means **every Pulse user has been operating without a map of where the
+engine is reliable** — until this repository.
 
-Under active development. Preregistration and experiments log are the sources of truth:
-- [`preregistration.md`](preregistration.md) — commitments locked before any data was collected
-- [`experiments_log/INDEX.md`](experiments_log/INDEX.md) — running log of every experiment
+---
 
-## Connection to the maintainer's PhD
+## Plain-language summary
 
-- This repo delivers a short **methods paper** — the first publishable output.
-- The maintainer's **Paper 1** (pediatric translation layer, `Pulse_translation_new/`) will cite this repo for baseline Pulse behavior.
-- The planned **Paper 2** (native pediatric Pulse fork) will use this repo's Morris μ* ranking to prioritize which adult-tuned C++ equations to patch first.
+We ran Pulse 4.3.1 **1,280 times** across:
 
-## Origin note
+- **7 inputs** (heart rate, blood pressures, breathing rate, tidal volume,
+  inspired oxygen, PEEP) — sampled with Morris elementary effects.
+- **4 scenarios** (healthy ventilated adult; mild, moderate, and severe
+  acute respiratory distress syndrome — ARDS).
+- **2 patient surrogates** (Pulse standard adult male and female).
 
-This repository began as a 7-day Cerebral Valley "Built with Opus 4.7" hackathon entry (PulseProbe). The hackathon credit application was not granted; the scientific scope survived, now executed as a methods-paper contribution to the PhD. Hackathon-era framing documents are preserved in [`attic/`](attic/) for historical traceability.
+Every run was classified by a four-flag detector:
 
-## License
+- **clamped** — Pulse silently substituted an input we asked for.
+- **diverged** — solver crashed / NaN / Inf.
+- **implausible** — output ended up outside hard physiological bounds.
+- **not_steady_state** — output didn't settle in the final 60 seconds.
 
-Apache 2.0, matching the Pulse engine license.
+What the atlas says, in one paragraph:
+
+> Pulse 4.3.1 is **strongly skewed**: a handful of inputs dominate each
+> output (top 3 inputs explain 93 % of sensitivity, on median). It does
+> **not silently clamp** at the verified acceptance ranges — it rejects
+> out-of-range inputs *loudly* with explicit error logs. Its solver
+> diverges in **1.6 %** of our runs, and **all 20 divergent runs are in
+> male patient cells** — the first quantitative sex-specific reliability
+> finding for Pulse. Severe ARDS on the male surrogate is the worst
+> reliability cell — every output unreliable. Healthy male and female
+> adults at FiO2 = 1.0 produce **PaO2 above 600 mmHg with ongoing drift**
+> — a probable Pulse hyperoxia overshoot. And Pulse's preferred
+> ventilator mode (VC-AC) fails to deliver a steady tidal volume inside
+> the 60-second window in **20.6 %** of healthy or ARDS configurations.
+
+The detailed numbers, figures, and discussion live in
+[`preprint/manuscript.md`](preprint/manuscript.md). The traffic-light grid
+([Figure 6](figures/fig06_reliability_traffic_light.png)) is the most
+actionable single artifact.
+
+---
+
+## What you get from this repo
+
+| You are a … | Read this first | Then this |
+|---|---|---|
+| **Clinician / domain expert** wanting to know where Pulse is safe | [`preprint/manuscript.md`](preprint/manuscript.md) §3.7 (traffic-light table) and [Figure 6](figures/fig06_reliability_traffic_light.png) | [§4.1](preprint/manuscript.md) practical recommendations |
+| **Engineer / device developer** building a Pulse-based validation pipeline | [`preprint/interim_findings.md`](preprint/interim_findings.md) (every finding linked to data) | [`results/cell_flag_summary.csv`](results/cell_flag_summary.csv) (Table 1 — failure breakdown per scenario × sex) |
+| **Researcher / reviewer** auditing the methodology | [`preregistration.md`](preregistration.md) (commitments locked before data collection) and [`experiments_log/INDEX.md`](experiments_log/INDEX.md) | [`src/detector.py`](src/detector.py) (locked-threshold classifier) |
+| **Student** wanting to learn how Pulse and Morris-EE sensitivity work | this README + [`src/sampler.py`](src/sampler.py) (~50 lines, well commented) | [`scripts/run_pilot.py`](scripts/run_pilot.py) (the 22-run gate study) |
+| **Future Pulse user** running their own simulations | [`engine/run_atlas_engine.py`](engine/run_atlas_engine.py) (drop-in wrapper without the silent FiO2 cap) | [`reference/pulse_run_template.md`](reference/pulse_run_template.md) |
+
+---
+
+## Headline results
+
+(All numbers from the 1,280-run Morris sweep. Source artifacts in
+[`results/`](results/) and figures in [`figures/`](figures/). See
+[`experiments_log/santino/S006_full_morris_sweep.md`](experiments_log/santino/S006_full_morris_sweep.md)
+for the lab-notebook entry.)
+
+| Hypothesis | Outcome |
+|---|---|
+| **H1 — top-3 inputs explain ≥ 50 % of sensitivity** | **PASS, 48 / 48** cell × output combos. Median 0.928, range 0.658 – 0.998. |
+| **H2 — silent clamping ≥ 5 %** | **NOT supported**, 0 / 1,280. Pulse rejects out-of-range inputs *loudly* (verified by explicit clamp probes in S005). |
+| **H3 — divergence outside ARDS 0.91 – 0.945** | **PASS** — 1.6 % overall divergence rate. **All 20 divergent runs are male.** |
+| **H4 — sex-specific reliability** | **PASS** — Wasserstein distance M-vs-F is non-trivial across all 4 scenarios; Spearman ρ on input rankings is 0.75 – 1.00 (rankings preserved, magnitudes differ). |
+
+Two structural Pulse findings, independent of the hypotheses:
+
+- **F-003** — 34 healthy / severe-ARDS runs produce PaO2 > 600 mmHg at
+  FiO2 = 1.0, still drifting at t = 120 s. Hyperoxia overshoot in
+  Pulse's oxygenation model.
+- **F-004** — 264 / 1,280 (20.6 %) of runs fail VC-AC's tidal-volume
+  steady-state test in 60 s. Pulse's preferred ventilator mode is
+  not as steady as documentation implies.
+
+---
+
+## How the data was produced (in one diagram)
+
+```
+              ┌────────────────────────────────────┐
+              │  preregistration.md (locked plan)  │
+              └────────────────────────────────────┘
+                              │
+                              ▼
+       ┌──────────────────────────────────────────────────┐
+       │  src/sampler.py  ──→  Morris N=20, levels=4      │
+       │                       7 inputs, 160 unique pts   │
+       └──────────────────────────────────────────────────┘
+                              │
+                              ▼   (× 4 scenarios × 2 sexes = 8 cells)
+       ┌──────────────────────────────────────────────────┐
+       │  src/scenario.py  ──→  builds 1,280 configs      │
+       │                       enforces DBP/SBP ratio     │
+       └──────────────────────────────────────────────────┘
+                              │
+                              ▼
+       ┌──────────────────────────────────────────────────┐
+       │  src/runner.py  ──→  Docker pulse-atlas-engine   │
+       │                       2 parallel containers      │
+       └──────────────────────────────────────────────────┘
+                              │
+                              ▼   (per-run: output.csv + pulse.log)
+       ┌──────────────────────────────────────────────────┐
+       │  src/detector.py ─→ 4 flags per run              │
+       │  src/aggregator.py → one parquet row per run     │
+       └──────────────────────────────────────────────────┘
+                              │
+                              ▼
+       ┌──────────────────────────────────────────────────┐
+       │  src/analysis_morris.py  + src/analysis_compare.py│
+       │   → Morris μ*, σ, bootstrap CI                   │
+       │   → H1 / H2 / H3 / H4 evaluation                 │
+       │   → reliability traffic light                    │
+       └──────────────────────────────────────────────────┘
+                              │
+                              ▼
+              figures/  +  preprint/manuscript.md
+```
+
+---
+
+## Reproducing the atlas
+
+You need: Docker, [uv](https://github.com/astral-sh/uv), a machine with
+≥ 8 GB RAM and ≥ 3 CPU cores, and ~ 7 hours of compute.
+
+```bash
+# 1. Build the atlas Pulse image (Apache-2.0 from kitware/pulse:4.3.1)
+docker build -t pulse-atlas-engine engine/
+
+# 2. Run the 1,280-simulation sweep
+uv run python scripts/run_full_sweep.py --resume
+
+# 3. Compute Morris indices, sex comparison, reliability classification
+uv run python scripts/analyze_sweep.py
+
+# 4. Generate paper figures
+uv run python scripts/make_figures.py
+```
+
+`--resume` makes the sweep crash-safe: every successful run writes
+`run_meta.json` with `exit_code = 0`, and the next launch skips them.
+Pulse 4.3.1 is bit-exact deterministic for fixed inputs (verified by
+S005, gate G5), so reruns reproduce upstream values to 1e-6 relative
+tolerance for all 6 outputs.
+
+The pilot gate study is its own runnable test:
+
+```bash
+uv run python scripts/run_pilot.py     # 22 runs, ~5 minutes
+```
+
+It exercises everything end-to-end on cell (S1, M) with reproducibility
+reruns and deliberate clamp probes — useful as a smoke test on a new
+machine.
+
+---
+
+## Repository layout
+
+```
+pulse_reliability_atlas/
+├── CLAUDE.md                    project rules (AI sparring partner mode)
+├── preregistration.md           commitments locked before data collection
+├── README.md                    you are here
+├── preprint/
+│   ├── manuscript.md            the methods paper draft
+│   ├── interim_findings.md      every finding (F-001..F-013) traced to its experiment
+├── engine/
+│   ├── Dockerfile               atlas-only Pulse image
+│   ├── run_atlas_engine.py      wrapper without the silent FiO2 cap
+├── src/
+│   ├── sampler.py               Morris (SALib)
+│   ├── scenario.py              sample row → Pulse config
+│   ├── runner.py                Docker exec, parallel, --resume
+│   ├── aggregator.py            CSVs → parquet, applies detector
+│   ├── detector.py              4-flag classifier (clamped / diverged / implausible / not_steady_state)
+│   ├── analysis_morris.py       μ*, σ, bootstrap CI, H1, Sobol promotion
+│   ├── analysis_compare.py      H4 Wasserstein, Spearman, traffic light, flag heatmaps
+├── scripts/
+│   ├── run_pilot.py             22-run preregistration §Pilot gate (S005)
+│   ├── run_full_sweep.py        1,280-run Morris sweep (S006)
+│   ├── analyze_sweep.py         all post-sweep analyses
+│   ├── make_figures.py          figures for the preprint
+│   ├── scenario_smoke_test.py   8-cell mid-range smoke test (S004)
+│   ├── validate_detector_on_existing_runs.py
+│   ├── regenerate_index.py      rebuilds experiments_log/INDEX.md from frontmatter
+├── data/runs/full_sweep/
+│   ├── morris_sample.parquet    canonical 160-point sample (seed=42)
+│   ├── aggregated.parquet       1,280 rows × all outputs + flags + meta
+│   └── <cell>/aggregated.parquet  per-cell mirror
+├── results/                     analysis artifacts (csv + parquet)
+├── figures/                     Figures 1–6 (PNG + PDF)
+├── experiments_log/
+│   ├── INDEX.md                 auto-regenerated table of all experiments
+│   ├── README.md                lab-notebook conventions
+│   └── santino/                 S001 … S006 entries (one .md each)
+└── reference/                   verified Pulse run templates and limits
+```
+
+---
+
+## Project context
+
+This atlas is the **first publishable output** in the maintainer's PhD
+pipeline. Two downstream papers will cite it:
+
+- **Paper 1** — pediatric translation layer for Pulse 4.3.1. Cites this
+  atlas for baseline adult Pulse behaviour and the verified reliability
+  envelope. [`Pulse_translation_new/`](https://github.com/santinon/) (separate repo, in progress).
+- **Paper 2** — native pediatric Pulse fork. Will use this atlas's Morris
+  μ\* ranking to prioritize which adult-tuned C++ equations to patch first.
+
+Origin note: this repository began as a 7-day Cerebral Valley "Built with
+Opus 4.7" hackathon entry (PulseProbe). The hackathon credit application
+was not granted; the scientific scope survived, executed as a methods-paper
+contribution to the PhD. Hackathon-era framing documents are preserved in
+[`attic/`](attic/) for historical traceability.
+
+---
+
+## How to read the experiments log
+
+`experiments_log/santino/S001` … `S006` are individual lab-notebook
+entries. Every entry follows the same template — *hypothesis →
+motivation → method → what we tried (incl. dead ends) → results →
+interpretation → next steps* — so a reviewer can audit any decision
+without prior context.
+
+Quick map:
+
+- **S001** Docker + hardware smoke test (3-parallel verified safe).
+- **S002** Project bootstrap.
+- **S003** 12 verified Pulse 4.3.1 limitations (every claim → a primary
+  source).
+- **S004** Atlas Docker image + 8-cell scenario smoke + detector regex
+  recalibration (this is where we discovered the upstream silent FiO2
+  cap and the false-positive `clamped` regex).
+- **S005** Pilot gate (22 runs, S1_M, all 5 preregistered criteria pass,
+  3 pipeline bugs surfaced + fixed).
+- **S006** Full sweep + analysis + 8-step verification (this is the
+  paper's data-collection event).
+
+---
 
 ## Citation
 
-Preprint forthcoming.
+```
+Nanini, S. (2026). Pulse Reliability Atlas: first sensitivity, clamping,
+and divergence map for the Pulse Physiology Engine v4.3.1.
+Preprint forthcoming. Code: https://github.com/santinon/pulse_probe
+```
+
+(arXiv DOI added on preprint upload. Zenodo dataset DOI added when the
+raw run-level data is deposited.)
+
+---
+
+## License
+
+Apache 2.0, matching the upstream Pulse engine licence. See [LICENSE](LICENSE).
+
+---
+
+## Contact
+
+Santino Nanini · santino.nanini@learningplanetinstitute.org
+
+PhD work conducted under the maintainer's PhD programme; this repo is
+self-contained and runs without any other internal dependencies.

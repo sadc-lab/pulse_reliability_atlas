@@ -74,16 +74,33 @@ STEADY_STATE_T_LO: float = 60.0
 STEADY_STATE_T_HI: float = 120.0
 
 # Clamping detection regexes (case-insensitive) — matched against Pulse stdout/stderr log
+#
+# Empirically calibrated 2026-04-25 against:
+#   - clamp_probe_sbp140 (SBP=140 → loud ERROR + init failure)
+#   - 8-run scenario_smoke (mid-range healthy + ARDS, no clamping expected)
+#
+# Patterns dropped after calibration:
+#   - "out of range", "out of bounds"  → matched "Stomach is out of Sodium"
+#                                        and "out of CO2/N2/O2" (substance depletion)
+#   - "clamp"                          → matched normal solver behaviour text
+#   - r"\bexceeds\b"                   → not present in any verified clamp log
+#   - "below minimum", "above maximum" → not present in any verified clamp log
+#   - "adjusted to"                    → too generic; never seen in real clamp log
+#   - "setting .+ to"                  → matched "Resetting the target for X to Y"
+#                                        which is normal solver convergence (52 hits/run)
+#   - "requires a value"               → not Pulse phrasing
+#
+# Patterns kept (verified to fire only on genuine init clamping / rejection):
 CLAMP_PATTERNS: list[str] = [
-    r"out of range",
-    r"out of bounds",
-    r"clamp",
-    r"\bexceeds\b",
-    r"below minimum",
-    r"above maximum",
-    r"adjusted to",
-    r"setting .+ to",
-    r"requires a value",
+    # Pulse's setup-time rejection format. Examples observed:
+    #   "Patient systolic pressure baseline of 140 mmHg is too high"
+    #   "Maximum systolic pressure baseline allowed is 120 mmHg"
+    #   "must be modeled by adding/using a condition"
+    r"baseline of [\d\.]+ \S+ is too (?:high|low)",
+    r"maximum [\w\s]+ baseline allowed is",
+    r"must be modeled by adding/using a condition",
+    # The Pulse Setup pipeline emits this when an input is silently substituted.
+    r"is outside the valid range",
 ]
 
 

@@ -12,10 +12,22 @@ env/
 # uv
 .uv/
 
-# Data outputs (keep small curated datasets, ignore raw runs)
-data/runs/*/output.csv
-data/runs/*/log.txt
-data/runs/*/*.log
+# Data outputs — keep curated parquets + sample, exclude per-run raw artifacts.
+# Rationale: 1,280-run raw CSVs (~17 MB) + Pulse logs (~50 MB) belong on Zenodo,
+# not in git history. Per-run config.json + run_meta.json are also excluded —
+# every config is reproducible from `morris_sample.parquet` + `src/scenario.py`.
+data/runs/**/output.csv
+data/runs/**/output_pulse_native.csv
+data/runs/**/pulse.log
+data/runs/**/run_meta.json
+data/runs/**/config.json
+data/runs/**/log.txt
+data/runs/**/*.log
+data/clamp_probe/
+data/smoke_check/
+data/smoke_check_fio2_1/
+!data/runs/**/aggregated.parquet
+!data/runs/**/morris_sample.parquet
 !data/runs/.gitkeep
 
 # Notebooks checkpoints
@@ -32,9 +44,11 @@ Thumbs.db
 # Streamlit
 .streamlit/secrets.toml
 
-# Claude Code local
-.claude/settings.local.json
-.claude/hooks/
+# Claude Code local — ALL of .claude/ is local state (not part of the paper)
+.claude/
+
+# Sweep run logs — useful while debugging, not part of the publication
+logs/
 
 # Figures that are generated, not hand-made
 figures/auto/
