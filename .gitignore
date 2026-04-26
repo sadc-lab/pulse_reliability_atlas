@@ -50,6 +50,9 @@ Thumbs.db
 # Sweep run logs — useful while debugging, not part of the publication
 logs/
 
+# S007 raw-CSV reproducibility backup (see experiments_log/santino/S007_*)
+data/runs/repro_backup_S007/
+
 # Figures that are generated, not hand-made
 figures/auto/
 

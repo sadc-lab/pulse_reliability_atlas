@@ -6,12 +6,13 @@ This file is rebuilt from the YAML frontmatter of every entry in
 `santino/`, `contributor2/`, and `shared/`. To update it, edit the experiment
 and recommit — the pre-commit hook regenerates and stages this file.
 
-Total entries: **6**
+Total entries: **7**
 
 ## All experiments (newest first)
 
 | ID | Date | Author | Status | Title |
 |---|---|---|---|---|
+| `S007` | 2026-04-26 | santino | done | [S007 — Targeted reproducibility check (pre-publication)](santino/S007_reproducibility_targeted_check.md) |
 | `S006` | 2026-04-26 | santino | done | [S006 — Full 1,280-run Morris sweep + post-sweep analysis](santino/S006_full_morris_sweep.md) |
 | `S005` | 2026-04-25 | santino | done | [S005 — 22-run pilot on cell (S1, Male) — preregistration §Pilot gate](santino/S005_pilot_S1_male.md) |
 | `S004` | 2026-04-25 | santino | done | [S004 — Scenario-init smoke test (4×2 cells) + atlas Docker image + detector recalibration](santino/S004_scenario_smoke_and_atlas_image.md) |
@@ -27,6 +28,7 @@ Total entries: **6**
 - `S004` (2026-04-25, done) — [S004 — Scenario-init smoke test (4×2 cells) + atlas Docker image + detector recalibration](santino/S004_scenario_smoke_and_atlas_image.md) — _smoke-test, docker, image-build, detector-calibration, pre-pilot_
 - `S005` (2026-04-25, done) — [S005 — 22-run pilot on cell (S1, Male) — preregistration §Pilot gate](santino/S005_pilot_S1_male.md) — _pilot, gate, morris, detector-bug-fix, time-origin_
 - `S006` (2026-04-26, done) — [S006 — Full 1,280-run Morris sweep + post-sweep analysis](santino/S006_full_morris_sweep.md) — _sweep, morris, full-1280-runs, sex-comparison, h1, h2, h3, h4, atlas-finished_
+- `S007` (2026-04-26, done) — [S007 — Targeted reproducibility check (pre-publication)](santino/S007_reproducibility_targeted_check.md) — _reproducibility, verification, docker, determinism, pre-publication_
 
 ## By tag
 
@@ -42,9 +44,13 @@ Total entries: **6**
 ### `detector-calibration`
 - `S004` — [S004 — Scenario-init smoke test (4×2 cells) + atlas Docker image + detector recalibration](santino/S004_scenario_smoke_and_atlas_image.md)
 
+### `determinism`
+- `S007` — [S007 — Targeted reproducibility check (pre-publication)](santino/S007_reproducibility_targeted_check.md)
+
 ### `docker`
 - `S001` — [S001 — Docker + hardware smoke test (3× parallel Pulse)](santino/S001_docker_smoke_test.md)
 - `S004` — [S004 — Scenario-init smoke test (4×2 cells) + atlas Docker image + detector recalibration](santino/S004_scenario_smoke_and_atlas_image.md)
+- `S007` — [S007 — Targeted reproducibility check (pre-publication)](santino/S007_reproducibility_targeted_check.md)
 
 ### `full-1280-runs`
 - `S006` — [S006 — Full 1,280-run Morris sweep + post-sweep analysis](santino/S006_full_morris_sweep.md)
@@ -90,11 +96,17 @@ Total entries: **6**
 ### `pre-pilot`
 - `S004` — [S004 — Scenario-init smoke test (4×2 cells) + atlas Docker image + detector recalibration](santino/S004_scenario_smoke_and_atlas_image.md)
 
+### `pre-publication`
+- `S007` — [S007 — Targeted reproducibility check (pre-publication)](santino/S007_reproducibility_targeted_check.md)
+
 ### `pulse`
 - `S003` — [S003 — Verified Pulse 4.3.1 limitations (primary-source re-check)](santino/S003_pulse_limitations_verified.md)
 
 ### `repo-setup`
 - `S002` — [S002 — Project bootstrap (separate repo, skeleton, licensing)](santino/S002_project_bootstrap.md)
+
+### `reproducibility`
+- `S007` — [S007 — Targeted reproducibility check (pre-publication)](santino/S007_reproducibility_targeted_check.md)
 
 ### `sex-comparison`
 - `S006` — [S006 — Full 1,280-run Morris sweep + post-sweep analysis](santino/S006_full_morris_sweep.md)
@@ -111,4 +123,5 @@ Total entries: **6**
 
 ### `verification`
 - `S003` — [S003 — Verified Pulse 4.3.1 limitations (primary-source re-check)](santino/S003_pulse_limitations_verified.md)
+- `S007` — [S007 — Targeted reproducibility check (pre-publication)](santino/S007_reproducibility_targeted_check.md)
 
