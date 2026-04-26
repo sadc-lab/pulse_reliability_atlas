@@ -351,6 +351,36 @@ Two implications:
    **revised**: rejection is loud and observable, not silent. We
    recommend updating the upstream limitation list accordingly.
 
+### 3.4.1 Compensatory tachycardia: input HR ≠ output HR under hypoxemia
+
+A clarification about *what* Morris EE on input HR is actually measuring.
+Aggregated across all clean Morris runs:
+
+| Scenario | input HR range | output HR mean ± std |
+|----------|----------------|-----------------------|
+| S1       | [50, 110]      | 73.8 ± 20.4          |
+| S2       | [50, 110]      | 87.3 ± 24.3          |
+| S3       | [50, 110]      | 155.7 ± 34.7         |
+| S4       | [50, 110]      | 147.1 ± 31.8         |
+
+In S1 (healthy), Pulse settles output HR near a physiological norm
+(~74 bpm) regardless of the requested baseline. By S3 / S4, output HR
+is in the 145 – 160 bpm range *despite* the input being drawn from
+[50, 110] — a 60 bpm sympathetic overshoot. This is the engine's
+documented baroreceptor / chemoreceptor reflex asserting itself: the
+patient is hypoxemic, the reflex commands tachycardia, and the
+compensation is *strong enough to dominate the explicit input HR
+baseline*.
+
+Operational implication: **Morris elementary effects on input HR in
+ARDS scenarios capture the *coupling between compensation gain and
+input setting*, not the steady-state effect of resting HR.** The H1
+support for HR-dominated cardiovascular outputs (HR, MAP) is robust;
+the *interpretation* is "the compensation responds proportionally to
+the input baseline" rather than "the input HR is the steady-state
+HR." Users running Pulse for ARDS device-validation should treat
+output HR as the engine's reflex response, not a setpoint.
+
 ### 3.5 H3 — solver divergence is sex-stratified (supported)
 
 20 / 1,280 runs (1.6 %) diverged. **All 20 are in male cells.** Per-cell
@@ -468,7 +498,14 @@ Distribution: **12 green, 24 yellow, 12 red** out of 48 cells.
   0.95**. Spot-checks confirmed PaO2 is still drifting upward at the end
   of the 120 s window in these runs (slope > 15 mmHg / 60 s). Either
   Pulse's oxygenation model overshoots at pure-oxygen, or 120 s is
-  insufficient for hyperoxia convergence.
+  insufficient for hyperoxia convergence. In the *clean* S1 healthy
+  runs (N = 91), PaO2 is well-approximated by a linear function of
+  FiO2: PaO2 ≈ 505 × FiO2 − 25 mmHg (R² = 0.90), i.e. roughly **5
+  mmHg PaO2 per 0.01 FiO2** in the clean range. Linear extrapolation
+  from FiO2 = 0.5 (PaO2 ≈ 228 mmHg) to FiO2 = 1.0 predicts PaO2 ≈ 481
+  mmHg — yet measured S1 means at FiO2 ≈ 1.0 are 600 – 660 mmHg.
+  The *deviation from linear extrapolation at the FiO2 = 1.0 endpoint*
+  is the quantitative signature of the hyperoxia overshoot.
 * **F-004** — Pulse VC-AC delivered tidal volume has CV > 5 % within
   the [60, 120] s steady-state window in **264 / 1,280 runs (20.6 %)**,
   including healthy adults at standard ventilator settings. Pulse's
@@ -549,8 +586,26 @@ that operational extreme.**
 
 ### 4.3 Connection to downstream PhD work
 
-[draft] How Paper 1 (pediatric translation) and Paper 2 (native pediatric
-Pulse fork) cite this paper.
+This atlas is the first publishable output in the maintainer's PhD
+pipeline. Two downstream papers, both currently in preparation and
+independent of this preprint's review, will build on it:
+
+* **Paper 1 — pediatric translation layer (in preparation,
+  validation in progress with Sainte-Justine PICU cohort).** Maps
+  pediatric vital signs onto Pulse's adult engine via quantile
+  matching, and uses *this atlas's* μ\* rankings and reliability
+  traffic-light grid as the backdrop for what the translation layer
+  is allowed to do — explicitly, the translation layer must keep its
+  output baselines inside the green / yellow cells of Figure 6.
+* **Paper 2 — native pediatric Pulse fork (planned).** Will modify
+  Pulse's C++ source for paediatric physiology. The patches will be
+  prioritized by this atlas's input-importance ranking: equations
+  driving high-μ\* inputs (heart-rate baseline, FiO2 / PEEP, Vt) are
+  patched first, equations driving low-μ\* inputs are deferred.
+
+Neither downstream paper is required for this atlas's claims. The
+atlas stands on Pulse's public documentation, the cloned Pulse v4.3.1
+source code, and the experiments logged in this repository.
 
 ---
 
