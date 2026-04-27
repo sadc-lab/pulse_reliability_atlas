@@ -6,12 +6,13 @@ This file is rebuilt from the YAML frontmatter of every entry in
 `santino/`, `contributor2/`, and `shared/`. To update it, edit the experiment
 and recommit — the pre-commit hook regenerates and stages this file.
 
-Total entries: **9**
+Total entries: **10**
 
 ## All experiments (newest first)
 
 | ID | Date | Author | Status | Title |
 |---|---|---|---|---|
+| `S010` | 2026-04-27 | santino | done | [S010 — Literature-review pass: every reference verified against DOI / PMID](santino/S010_literature_review.md) |
 | `S009` | 2026-04-27 | santino | done | [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md) |
 | `S008` | 2026-04-26 | santino | done | [S008 — Tier-1 statistical refinement: block bootstrap, within-sex Wasserstein null, divergence mechanism, manuscript polish](santino/S008_tier1_statistical_refinement.md) |
 | `S007` | 2026-04-26 | santino | done | [S007 — Targeted reproducibility check (pre-publication)](santino/S007_reproducibility_targeted_check.md) |
@@ -33,6 +34,7 @@ Total entries: **9**
 - `S007` (2026-04-26, done) — [S007 — Targeted reproducibility check (pre-publication)](santino/S007_reproducibility_targeted_check.md) — _reproducibility, verification, docker, determinism, pre-publication_
 - `S008` (2026-04-26, done) — [S008 — Tier-1 statistical refinement: block bootstrap, within-sex Wasserstein null, divergence mechanism, manuscript polish](santino/S008_tier1_statistical_refinement.md) — _statistics, bootstrap, null-distribution, mechanism, manuscript-polish, h4_
 - `S009` (2026-04-27, done) — [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md) — _tier-2, seed-stability, continuous-ards, divergence-regime, sex-stratification, pytest, ci_
+- `S010` (2026-04-27, done) — [S010 — Literature-review pass: every reference verified against DOI / PMID](santino/S010_literature_review.md) — _literature-review, references, citations, manuscript-polish, doi-verification_
 
 ## By tag
 
@@ -45,6 +47,9 @@ Total entries: **9**
 
 ### `ci`
 - `S009` — [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md)
+
+### `citations`
+- `S010` — [S010 — Literature-review pass: every reference verified against DOI / PMID](santino/S010_literature_review.md)
 
 ### `continuous-ards`
 - `S009` — [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md)
@@ -65,6 +70,9 @@ Total entries: **9**
 - `S001` — [S001 — Docker + hardware smoke test (3× parallel Pulse)](santino/S001_docker_smoke_test.md)
 - `S004` — [S004 — Scenario-init smoke test (4×2 cells) + atlas Docker image + detector recalibration](santino/S004_scenario_smoke_and_atlas_image.md)
 - `S007` — [S007 — Targeted reproducibility check (pre-publication)](santino/S007_reproducibility_targeted_check.md)
+
+### `doi-verification`
+- `S010` — [S010 — Literature-review pass: every reference verified against DOI / PMID](santino/S010_literature_review.md)
 
 ### `full-1280-runs`
 - `S006` — [S006 — Full 1,280-run Morris sweep + post-sweep analysis](santino/S006_full_morris_sweep.md)
@@ -100,8 +108,12 @@ Total entries: **9**
 ### `literature`
 - `S003` — [S003 — Verified Pulse 4.3.1 limitations (primary-source re-check)](santino/S003_pulse_limitations_verified.md)
 
+### `literature-review`
+- `S010` — [S010 — Literature-review pass: every reference verified against DOI / PMID](santino/S010_literature_review.md)
+
 ### `manuscript-polish`
 - `S008` — [S008 — Tier-1 statistical refinement: block bootstrap, within-sex Wasserstein null, divergence mechanism, manuscript polish](santino/S008_tier1_statistical_refinement.md)
+- `S010` — [S010 — Literature-review pass: every reference verified against DOI / PMID](santino/S010_literature_review.md)
 
 ### `mechanism`
 - `S008` — [S008 — Tier-1 statistical refinement: block bootstrap, within-sex Wasserstein null, divergence mechanism, manuscript polish](santino/S008_tier1_statistical_refinement.md)
@@ -128,6 +140,9 @@ Total entries: **9**
 
 ### `pytest`
 - `S009` — [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md)
+
+### `references`
+- `S010` — [S010 — Literature-review pass: every reference verified against DOI / PMID](santino/S010_literature_review.md)
 
 ### `repo-setup`
 - `S002` — [S002 — Project bootstrap (separate repo, skeleton, licensing)](santino/S002_project_bootstrap.md)

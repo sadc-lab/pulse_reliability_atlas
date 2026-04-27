@@ -111,26 +111,25 @@ at certain (PEEP, Vt-target) combinations even in healthy adults.
 
 ### 1.1 Motivation
 
-The Pulse Physiology Engine (Kitware, Apache-2.0) is the most-used
-open-source whole-body human physiology simulator. It provides a
-0-dimensional lumped-parameter model of the cardiovascular,
-respiratory, gas-exchange, and pharmacological systems, and is used in
-three broad communities:
+The Pulse Physiology Engine [Bray et al. 2019] (Kitware, Apache-2.0)
+is the most-used open-source whole-body human physiology simulator.
+It provides a 0-dimensional lumped-parameter model of the
+cardiovascular, respiratory, gas-exchange, and pharmacological
+systems, and is used in three broad communities:
 
 * **Clinical research** — virtual-patient cohorts for hypothesis
   generation when human data are unavailable, ethically constrained,
   or impractically expensive to collect (e.g. dual-patient ventilator
-  sharing during the COVID-19 pandemic, Webb et al. 2020).
+  sharing during the COVID-19 pandemic [Webb et al. 2020]).
 * **Medical-device development** — early-stage validation of
   ventilators, pumps, and monitors against a virtual patient. ASL 5000
   benchmarking against Pulse's VC-AC mode reports tidal-volume errors
-  of 0.07 – 2.25 % (Pulse self-validation; cited verbatim from the
-  Pulse documentation).
+  of 0.07 – 2.25 % [Webb et al. 2023].
 * **Education** — anaesthesia, critical-care, and paramedic training
   curricula increasingly use Pulse for case-based simulation.
 
 Despite this footprint, the engine's developers state explicitly on
-the public Pulse FAQ (verified verbatim 2026-04-19, S003):
+the public Pulse FAQ [Pulse FAQ; verified verbatim 2026-04-19, S003]:
 
 > "We have not performed a systematic forward propagation or inverse
 > quantification of model uncertainty, nor have we conducted a formal
@@ -148,17 +147,22 @@ Pulse v4.3.1 across the adult operational envelope relevant to
 critical care. The methodology follows three commitments locked
 before any data was collected (preregistration §Inputs, §Scenarios,
 §Flags): inputs swept from Pulse's *verified* acceptance ranges (E10 /
-E28 / E29 boundary probes), scenarios spanning healthy adult and three
-PALICC-2 ARDS severities, and a four-flag classifier that categorizes
-every run rather than discarding flagged ones.
+E28 / E29 boundary probes), scenarios spanning healthy adult and
+three ARDS severities anchored on the Berlin Definition [ARDS
+Definition Task Force 2012] and PALICC-2 [Emeriaud et al. 2023]
+classifications, and a four-flag classifier that categorizes every
+run rather than discarding flagged ones (preregistration discipline
+following the principles of [Munafò et al. 2017]).
 
 Three properties make this paper a methods-paper rather than a
 findings-paper: (1) the entire pipeline is preregistered with
-amendment history; (2) every quoted number is reproducible from the
-canonical Morris sample (seed = 42) plus the atlas Docker image,
-verified at three independent layers (S007); and (3) the four-flag
-classifier is a generic instrument that future Pulse users can apply
-to their own configurations without re-running our sweep.
+amendment history (per [Munafò et al. 2017]); (2) every quoted
+number is reproducible from the canonical Morris sample (seed = 42)
+plus the atlas Docker image, verified at three independent layers
+(S007); the data are released under FAIR principles [Wilkinson et
+al. 2016]; and (3) the four-flag classifier is a generic instrument
+that future Pulse users can apply to their own configurations
+without re-running our sweep.
 
 The paper is the first publishable output in the maintainer's PhD
 pipeline. Two downstream papers — pediatric translation layer (in
@@ -235,7 +239,7 @@ Seven inputs swept, ranges verified in Pulse boundary probes
 | SBP baseline | 90–120 | mmHg | E10 |
 | DBP baseline | 60–80 | mmHg | E10; ratio DBP / SBP ≤ 0.75 enforced |
 | RR baseline | 8–20 | bpm | E28 (9 / 9 Docker runs) |
-| Vt target | 300–800 | mL | ARDSnet to pre-ARDSnet |
+| Vt target | 300–800 | mL | ARDSnet 6 mL/kg [Brower et al. 2000] to pre-ARDSnet 10 mL/kg |
 | FiO2 | 0.21–1.0 | fraction | room air → pure O2 (E20 verifies 1.0 safe) |
 | PEEP | 0–20 | cmH2O | clinical range |
 
@@ -270,10 +274,13 @@ Ventilator: VC-AC only.
 
 ### 2.5 Morris sampling
 
-SALib `morris.sample(N=20, num_levels=4, seed=42)` ⇒ 160 unique input
-points. The same 160 points drive every cell, so EE rankings are directly
-comparable across cells. Sample persisted at
-`data/runs/full_sweep/morris_sample.parquet`.
+The Morris elementary-effects design [Morris 1991], with the radial-
+trajectory + μ\* refinement of [Campolongo, Cariboni, Saltelli 2007],
+is used as a one-at-a-time screening method. Implementation: SALib's
+`morris.sample(N=20, num_levels=4, seed=42)` [Iwanaga, Usher, Herman
+2022] ⇒ 160 unique input points. The same 160 points drive every
+cell, so EE rankings are directly comparable across cells. Sample
+persisted at `data/runs/full_sweep/morris_sample.parquet`.
 
 ### 2.6 Detector
 
@@ -904,6 +911,93 @@ additionally available in the repository:
   layers, all bit-exact.
 * **S008** — Tier-1 statistical refinement (block bootstrap, within-
   sex Wasserstein null, divergence-input mechanism, Spearman CI).
+* **S009** — Tier-2 (seed stability, continuous-ARDS sweep, pytest,
+  GitHub Actions CI).
+* **S010** — Literature-review pass; every reference below verified
+  against its DOI / PMID.
+
+### 6.7 Verified primary references (full bibliographic detail)
+
+Each entry has been individually verified against its DOI or PMID
+during the literature-review pass logged in
+[`experiments_log/santino/S010_literature_review.md`](../experiments_log/santino/S010_literature_review.md).
+
+**Pulse Physiology Engine**
+
+* Bray AC, Carpenter J, Webb JB, Clipp RB. *Pulse Physiology Engine:
+  An Open-Source Software Platform for Computational Modeling of
+  Human Medical Simulation.* SN Comprehensive Clinical Medicine
+  1:362-377 (2019). DOI:
+  [10.1007/s42399-019-00053-w](https://doi.org/10.1007/s42399-019-00053-w).
+* Webb JB, Bray A, Asare PK, Clipp RB, Mehta YB, Penupolu S, Patel
+  AA, Poler SM. *Computational simulation to assess patient safety
+  of uncompensated COVID-19 two-patient ventilator sharing using the
+  Pulse Physiology Engine.* PLoS One 15(11):e0242532 (2020). DOI:
+  [10.1371/journal.pone.0242532](https://doi.org/10.1371/journal.pone.0242532).
+  PMID: 33237927.
+* Webb J, Asare P, Bray A, Clipp R. *PulseExt: validation of the
+  Pulse Physiology Engine ventilator against the ASL 5000 lung
+  simulator.* (2023). PubMed Central:
+  [PMC10224749](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10224749/).
+
+**Sensitivity-analysis methods**
+
+* Morris MD. *Factorial sampling plans for preliminary computational
+  experiments.* Technometrics 33(2):161-174 (1991). DOI:
+  [10.2307/1269043](https://doi.org/10.2307/1269043) /
+  [10.1080/00401706.1991.10484804](https://doi.org/10.1080/00401706.1991.10484804).
+* Campolongo F, Cariboni J, Saltelli A. *An effective screening
+  design for sensitivity analysis of large models.* Environmental
+  Modelling & Software 22(10):1509-1518 (2007). DOI:
+  [10.1016/j.envsoft.2006.10.004](https://doi.org/10.1016/j.envsoft.2006.10.004).
+* Iwanaga T, Usher W, Herman J. *Toward SALib 2.0: Advancing the
+  accessibility and interpretability of global sensitivity analyses.*
+  Socio-Environmental Systems Modelling 4:18155 (2022). DOI:
+  [10.18174/sesmo.18155](https://doi.org/10.18174/sesmo.18155).
+
+**Acute respiratory distress syndrome (clinical anchors)**
+
+* ARDS Definition Task Force; Ranieri VM, Rubenfeld GD, Thompson BT,
+  Ferguson ND, Caldwell E, Fan E, Camporota L, Slutsky AS. *Acute
+  respiratory distress syndrome: the Berlin Definition.* JAMA
+  307(23):2526-2533 (2012). DOI:
+  [10.1001/jama.2012.5669](https://doi.org/10.1001/jama.2012.5669).
+  PMID: 22797452.
+* Emeriaud G, López-Fernández YM, Iyer NP, Bembea MM, Agulnik A,
+  Barbaro RP, et al. *Executive Summary of the Second International
+  Guidelines for the Diagnosis and Management of Pediatric Acute
+  Respiratory Distress Syndrome (PALICC-2).* Pediatric Critical Care
+  Medicine 24(2):143-168 (2023). DOI:
+  [10.1097/PCC.0000000000003147](https://doi.org/10.1097/PCC.0000000000003147).
+  PMID: 36661420.
+* Acute Respiratory Distress Syndrome Network; Brower RG, Matthay
+  MA, Morris A, Schoenfeld D, Thompson BT, Wheeler A. *Ventilation
+  with lower tidal volumes as compared with traditional tidal
+  volumes for acute lung injury and the acute respiratory distress
+  syndrome.* New England Journal of Medicine 342(18):1301-1308
+  (2000). DOI:
+  [10.1056/NEJM200005043421801](https://doi.org/10.1056/NEJM200005043421801).
+  PMID: 10793162.
+
+**Other physiology engines (comparative context)**
+
+* Barnes SL, Sing P, Bash B, Sherman R, et al. *Quantitative
+  Comparison of BioGears, HumMod, and Muse Physiology Engines on
+  Hemorrhage Scenarios.* Simulation in Healthcare (2020). DOI:
+  [10.1097/SIH.0000000000000427](https://doi.org/10.1097/SIH.0000000000000427).
+
+**Reproducibility / methods-paper integrity**
+
+* Wilkinson MD, Dumontier M, Aalbersberg IJ, et al. *The FAIR
+  Guiding Principles for scientific data management and stewardship.*
+  Scientific Data 3:160018 (2016). DOI:
+  [10.1038/sdata.2016.18](https://doi.org/10.1038/sdata.2016.18).
+  PMID: 26978244.
+* Munafò MR, Nosek BA, Bishop DVM, Button KS, Chambers CD, du Sert
+  NP, Simonsohn U, Wagenmakers EJ, Ware JJ, Ioannidis JPA. *A
+  manifesto for reproducible science.* Nature Human Behaviour
+  1(1):0021 (2017). DOI:
+  [10.1038/s41562-016-0021](https://doi.org/10.1038/s41562-016-0021).
 
 ---
 
