@@ -24,7 +24,10 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "pytest>=8.0.0",
-    "ruff>=0.6.0",
+    # Pin ruff to a narrow band so CI matches local. New ruff minor versions
+    # enable rules by default that older versions ignored, which broke S009/S010
+    # CI runs while local was clean. Bump deliberately; do not let it drift.
+    "ruff>=0.15.0,<0.16.0",
 ]
 
 [build-system]
