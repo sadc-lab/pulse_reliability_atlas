@@ -7,7 +7,6 @@ amend `preregistration.md` first, then update tests.
 
 from __future__ import annotations
 
-import math
 from pathlib import Path
 
 import numpy as np
@@ -86,13 +85,16 @@ def test_clean_run_stats_have_13_points(clean_csv: Path) -> None:
 @pytest.mark.parametrize(
     "log_text",
     [
-        "HeartRate 130 is out of range [50, 110]",
-        "Systolic BP exceeds maximum of 120",
-        "Value below minimum, adjusted to 60",
-        "Respiration Rate out of bounds",
+        # Real Pulse error strings empirically captured in S004 clamp probe.
+        "[ERROR] Patient systolic pressure baseline of 140 mmHg is too high. "
+        "Hypertension must be modeled by adding/using a condition.",
+        "Maximum systolic pressure baseline allowed is 120 mmHg",
+        "must be modeled by adding/using a condition",
+        "is outside the valid range",
     ],
 )
-def test_clamped_detects_rejection_strings(log_text: str, clean_csv: Path) -> None:
+def test_clamped_detects_pulse_rejection_strings(log_text: str, clean_csv: Path) -> None:
+    """Verified Pulse-specific error patterns calibrated in S004."""
     result = d.classify(clean_csv, pulse_log=log_text)
     assert result.clamped.fired, f"log={log_text!r}"
 
@@ -100,6 +102,22 @@ def test_clamped_detects_rejection_strings(log_text: str, clean_csv: Path) -> No
 def test_clamped_does_not_fire_on_clean_log(clean_csv: Path) -> None:
     result = d.classify(clean_csv, pulse_log="Pulse 4.3.1 initialized\nSimulation complete")
     assert not result.clamped.fired
+
+
+@pytest.mark.parametrize(
+    "log_text",
+    [
+        # Patterns previously over-matched by the old regex set; must NOT fire now.
+        "Resetting the target for TidalVolume to 0.343",  # solver convergence text
+        "Stomach is out of Sodium",  # substance depletion, NOT clamping
+        "[INFO] Setting respiratory drive to 1.0",
+        "out of CO2",
+    ],
+)
+def test_clamped_does_not_false_positive(log_text: str, clean_csv: Path) -> None:
+    """S004-calibrated regex must not flag normal Pulse runtime text."""
+    result = d.classify(clean_csv, pulse_log=log_text)
+    assert not result.clamped.fired, f"false positive on {log_text!r}"
 
 
 # ---------- diverged ---------- #

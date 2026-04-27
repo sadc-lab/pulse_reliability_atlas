@@ -40,14 +40,13 @@ not-steady-state lose the EEs that span those endpoints. We log
 from __future__ import annotations
 
 from dataclasses import dataclass
-from pathlib import Path
 from typing import Iterable
 
 import numpy as np
 import pandas as pd
 
 from src.aggregator import STAT_CHANNELS
-from src.sampler import INPUT_NAMES, NUM_INPUTS
+from src.sampler import INPUT_NAMES
 
 
 # ---------- Trajectory bookkeeping ---------- #

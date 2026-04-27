@@ -29,8 +29,6 @@ if str(REPO_ROOT) not in sys.path:
 from src.aggregator import aggregate_under, write_parquet  # noqa: E402
 from src.runner import run_many  # noqa: E402
 from src.scenario import (  # noqa: E402
-    PATIENTS,
-    SCENARIOS,
     build_config,
     case_id,
     iter_cells,
@@ -61,7 +59,7 @@ def main() -> int:
         jobs.append((cfg, cid))
 
     print(f"[smoke] {len(jobs)} cells x 1 mid-range run each -> {RUNS_ROOT}")
-    results = run_many(jobs, runs_root=RUNS_ROOT, overwrite=True)
+    run_many(jobs, runs_root=RUNS_ROOT, overwrite=True)
 
     # Aggregate
     df = aggregate_under(RUNS_ROOT)

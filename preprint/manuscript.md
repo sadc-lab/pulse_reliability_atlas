@@ -529,6 +529,57 @@ H3 is therefore **partially supported** with a stronger qualifier: a
 divergence regime exists outside the documented 0.91 – 0.945 ARDS zone
 *and* the regime is sex-conditioned.
 
+### 3.5.1 Continuous-severity divergence regime (Tier-2 follow-up)
+
+The S006 sweep used four fixed ARDS severities. A complementary
+200-run sweep at continuous severity (Tier-2 follow-up,
+[S009](../experiments_log/santino/S009_tier2_seed_stability_continuous_ards.md))
+maps the divergence regime as a function of ARDS impairment, holding
+all 7 Morris inputs at midrange (HR = 80, SBP = 105, DBP = 70, RR =
+14, Vt = 550, FiO2 = 0.6, PEEP = 10):
+
+| Severity range  | F diverged | M diverged |
+|------------------|------------|------------|
+| [0, 0.5]         | 0 / 31     | 0 / 31     |
+| (0.5, 0.85]      | 0 / 20     | 0 / 20     |
+| (0.85, 0.91]     | **14 / 18**| 5 / 18     |
+| (0.91, 0.945]    | 5 / 10     | **9 / 10** |
+| (0.945, 0.95]    | 0 / 2      | 0 / 2      |
+| (0.95, 1.0]      | 0 / 19     | 0 / 19     |
+
+Two refinements of the literature picture:
+
+1. **The instability band is wider than previously reported.** The
+   `Pulse_translation_new` E6 audit reported an instability zone at
+   `[0.91, 0.945]`. Our continuous sweep at midrange inputs places
+   the band at `[0.879, 0.945]` — about 35 % wider on the low side.
+   The discrepancy is consistent with input dependence: E6 used
+   ventilator settings tailored to ARDS calibration; the atlas's
+   midrange settings reach instability earlier.
+
+2. **The S006 sex-stratification is regime-dependent.** In the
+   continuous-severity sweep (midrange inputs), the divergences are
+   approximately balanced (F = 19, M = 14), with F diverging at
+   *lower* severities (0.879 onwards) and M continuing into
+   `[0.91, 0.945]`. So the original S006 claim "all 20 male
+   divergences" is a property of the *input-extreme + 4-scenario*
+   combination, not a global sex effect on solver reliability.
+
+The atlas therefore distinguishes **two separate divergence regimes**:
+
+* **Input-driven regime** (S006): male standard surrogate at low HR
+  + low SBP + high RR + FiO2 = 1.0. ~ 5× higher than female.
+  Mechanism candidate: 20 % blood-volume difference (§3.5).
+* **Severity-driven regime** (S009): both sexes, midrange inputs,
+  severity in the band `[0.879, 0.945]`. F slightly higher overall;
+  F earlier in the band, M later. Mechanism: solver-stability
+  gradient at the high-impairment compliance edge.
+
+Together these regimes give a more honest H3 picture: divergence
+exists, it is partially sex-conditional, but the sex effect varies
+by *what is varying* (Morris-extreme inputs vs ARDS severity), not
+sex per se.
+
 ### 3.6 H4 — sex-specific reliability (partially supported, gas-exchange only)
 
 We report H4 with two complementary statistics: Wasserstein distance

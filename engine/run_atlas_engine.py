@@ -41,10 +41,7 @@ from pulse.cdm.physiology import eLungCompartment
 from pulse.cdm.mechanical_ventilator import eSwitch
 from pulse.cdm.mechanical_ventilator_actions import (
     SEMechanicalVentilatorVolumeControl,
-    SEMechanicalVentilatorPressureControl,
-    SEMechanicalVentilatorContinuousPositiveAirwayPressure,
     eMechanicalVentilator_VolumeControlMode,
-    eMechanicalVentilator_PressureControlMode,
 )
 from pulse.cdm.patient_actions import SEIntubation, eIntubationType
 from pulse.cdm.scalars import (

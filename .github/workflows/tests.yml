@@ -1,0 +1,57 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+# Cancel duplicate workflows on the same ref.
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: pytest on ubuntu-latest
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          version: "latest"
+
+      - name: Install project + dev deps
+        run: uv sync --extra dev
+
+      - name: Run pytest (no Pulse / Docker — fast suite)
+        run: uv run pytest tests/ -v --tb=short
+
+      - name: Verify analysis modules import on a clean Python
+        run: |
+          uv run python -c "from src import sampler, scenario, runner, aggregator, detector, analysis_morris, analysis_compare; print('imports OK')"
+
+  ruff:
+    name: ruff lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v3
+        with:
+          version: "latest"
+      - run: uv sync --extra dev
+      - run: uv run ruff check src/ scripts/ tests/ engine/
