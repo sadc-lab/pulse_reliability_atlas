@@ -150,6 +150,35 @@ class DetectorResult:
     def clean(self) -> bool:
         return not self.any_flag
 
+    @property
+    def primary_flag(self) -> str:
+        """Highest-priority flag that fired, or "clean" if none.
+
+        Priority hierarchy (locked S013, root-cause severity top-down):
+
+            clamped > diverged > implausible > not_steady_state > clean
+
+        Rationale:
+            * clamped     — Pulse silently modified an input; downstream
+                            interpretation of any other flag is based on the
+                            substituted (not requested) input.
+            * diverged    — solver failed; no interpretable output exists.
+            * implausible — solver produced a value outside hard physiological
+                            bounds; output is mathematically valid but
+                            biologically incompatible with life.
+            * not_steady_state — output is physiological but did not converge
+                            in window; still interpretable as a transient.
+        """
+        if self.clamped.fired:
+            return "clamped"
+        if self.diverged.fired:
+            return "diverged"
+        if self.implausible.fired:
+            return "implausible"
+        if self.not_steady_state.fired:
+            return "not_steady_state"
+        return "clean"
+
     def summary(self) -> dict[str, object]:
         """Flat dict suitable for rolling into a parquet/CSV summary table."""
         return {
@@ -162,6 +191,7 @@ class DetectorResult:
             "not_steady_state": self.not_steady_state.fired,
             "not_steady_state_reason": self.not_steady_state.reason,
             "clean": self.clean,
+            "primary_flag": self.primary_flag,
         }
 
 

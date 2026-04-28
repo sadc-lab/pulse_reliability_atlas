@@ -6,12 +6,13 @@ This file is rebuilt from the YAML frontmatter of every entry in
 `santino/`, `contributor2/`, and `shared/`. To update it, edit the experiment
 and recommit — the pre-commit hook regenerates and stages this file.
 
-Total entries: **10**
+Total entries: **11**
 
 ## All experiments (newest first)
 
 | ID | Date | Author | Status | Title |
 |---|---|---|---|---|
+| `S011` | 2026-04-27 | santino | done | [S011 — Sex vs mass disentangling (controlled 2×2 design)](santino/S011_sex_vs_mass_disentangle.md) |
 | `S010` | 2026-04-27 | santino | done | [S010 — Literature-review pass: every reference verified against DOI / PMID](santino/S010_literature_review.md) |
 | `S009` | 2026-04-27 | santino | done | [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md) |
 | `S008` | 2026-04-26 | santino | done | [S008 — Tier-1 statistical refinement: block bootstrap, within-sex Wasserstein null, divergence mechanism, manuscript polish](santino/S008_tier1_statistical_refinement.md) |
@@ -35,8 +36,12 @@ Total entries: **10**
 - `S008` (2026-04-26, done) — [S008 — Tier-1 statistical refinement: block bootstrap, within-sex Wasserstein null, divergence mechanism, manuscript polish](santino/S008_tier1_statistical_refinement.md) — _statistics, bootstrap, null-distribution, mechanism, manuscript-polish, h4_
 - `S009` (2026-04-27, done) — [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md) — _tier-2, seed-stability, continuous-ards, divergence-regime, sex-stratification, pytest, ci_
 - `S010` (2026-04-27, done) — [S010 — Literature-review pass: every reference verified against DOI / PMID](santino/S010_literature_review.md) — _literature-review, references, citations, manuscript-polish, doi-verification_
+- `S011` (2026-04-27, done) — [S011 — Sex vs mass disentangling (controlled 2×2 design)](santino/S011_sex_vs_mass_disentangle.md) — _sex-vs-mass, h4, confounding, ards-instability, divergence, decomposition_
 
 ## By tag
+
+### `ards-instability`
+- `S011` — [S011 — Sex vs mass disentangling (controlled 2×2 design)](santino/S011_sex_vs_mass_disentangle.md)
 
 ### `atlas-finished`
 - `S006` — [S006 — Full 1,280-run Morris sweep + post-sweep analysis](santino/S006_full_morris_sweep.md)
@@ -51,8 +56,14 @@ Total entries: **10**
 ### `citations`
 - `S010` — [S010 — Literature-review pass: every reference verified against DOI / PMID](santino/S010_literature_review.md)
 
+### `confounding`
+- `S011` — [S011 — Sex vs mass disentangling (controlled 2×2 design)](santino/S011_sex_vs_mass_disentangle.md)
+
 ### `continuous-ards`
 - `S009` — [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md)
+
+### `decomposition`
+- `S011` — [S011 — Sex vs mass disentangling (controlled 2×2 design)](santino/S011_sex_vs_mass_disentangle.md)
 
 ### `detector-bug-fix`
 - `S005` — [S005 — 22-run pilot on cell (S1, Male) — preregistration §Pilot gate](santino/S005_pilot_S1_male.md)
@@ -62,6 +73,9 @@ Total entries: **10**
 
 ### `determinism`
 - `S007` — [S007 — Targeted reproducibility check (pre-publication)](santino/S007_reproducibility_targeted_check.md)
+
+### `divergence`
+- `S011` — [S011 — Sex vs mass disentangling (controlled 2×2 design)](santino/S011_sex_vs_mass_disentangle.md)
 
 ### `divergence-regime`
 - `S009` — [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md)
@@ -92,6 +106,7 @@ Total entries: **10**
 ### `h4`
 - `S006` — [S006 — Full 1,280-run Morris sweep + post-sweep analysis](santino/S006_full_morris_sweep.md)
 - `S008` — [S008 — Tier-1 statistical refinement: block bootstrap, within-sex Wasserstein null, divergence mechanism, manuscript polish](santino/S008_tier1_statistical_refinement.md)
+- `S011` — [S011 — Sex vs mass disentangling (controlled 2×2 design)](santino/S011_sex_vs_mass_disentangle.md)
 
 ### `hardware`
 - `S001` — [S001 — Docker + hardware smoke test (3× parallel Pulse)](santino/S001_docker_smoke_test.md)
@@ -158,6 +173,9 @@ Total entries: **10**
 
 ### `sex-stratification`
 - `S009` — [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md)
+
+### `sex-vs-mass`
+- `S011` — [S011 — Sex vs mass disentangling (controlled 2×2 design)](santino/S011_sex_vs_mass_disentangle.md)
 
 ### `smoke-test`
 - `S001` — [S001 — Docker + hardware smoke test (3× parallel Pulse)](santino/S001_docker_smoke_test.md)
