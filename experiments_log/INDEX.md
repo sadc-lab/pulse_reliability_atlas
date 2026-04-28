@@ -6,12 +6,13 @@ This file is rebuilt from the YAML frontmatter of every entry in
 `santino/`, `contributor2/`, and `shared/`. To update it, edit the experiment
 and recommit — the pre-commit hook regenerates and stages this file.
 
-Total entries: **11**
+Total entries: **12**
 
 ## All experiments (newest first)
 
 | ID | Date | Author | Status | Title |
 |---|---|---|---|---|
+| `S012` | 2026-04-27 | santino | done | [S012 — Dual steady-state audit (F-003 hyperoxia + F-004 Vt oscillation)](santino/S012_steady_state_window_audit.md) |
 | `S011` | 2026-04-27 | santino | done | [S011 — Sex vs mass disentangling (controlled 2×2 design)](santino/S011_sex_vs_mass_disentangle.md) |
 | `S010` | 2026-04-27 | santino | done | [S010 — Literature-review pass: every reference verified against DOI / PMID](santino/S010_literature_review.md) |
 | `S009` | 2026-04-27 | santino | done | [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md) |
@@ -37,6 +38,7 @@ Total entries: **11**
 - `S009` (2026-04-27, done) — [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md) — _tier-2, seed-stability, continuous-ards, divergence-regime, sex-stratification, pytest, ci_
 - `S010` (2026-04-27, done) — [S010 — Literature-review pass: every reference verified against DOI / PMID](santino/S010_literature_review.md) — _literature-review, references, citations, manuscript-polish, doi-verification_
 - `S011` (2026-04-27, done) — [S011 — Sex vs mass disentangling (controlled 2×2 design)](santino/S011_sex_vs_mass_disentangle.md) — _sex-vs-mass, h4, confounding, ards-instability, divergence, decomposition_
+- `S012` (2026-04-27, done) — [S012 — Dual steady-state audit (F-003 hyperoxia + F-004 Vt oscillation)](santino/S012_steady_state_window_audit.md) — _steady-state-audit, f-003, f-004, drift, reviewer-defense, manuscript-polish_
 
 ## By tag
 
@@ -88,6 +90,15 @@ Total entries: **11**
 ### `doi-verification`
 - `S010` — [S010 — Literature-review pass: every reference verified against DOI / PMID](santino/S010_literature_review.md)
 
+### `drift`
+- `S012` — [S012 — Dual steady-state audit (F-003 hyperoxia + F-004 Vt oscillation)](santino/S012_steady_state_window_audit.md)
+
+### `f-003`
+- `S012` — [S012 — Dual steady-state audit (F-003 hyperoxia + F-004 Vt oscillation)](santino/S012_steady_state_window_audit.md)
+
+### `f-004`
+- `S012` — [S012 — Dual steady-state audit (F-003 hyperoxia + F-004 Vt oscillation)](santino/S012_steady_state_window_audit.md)
+
 ### `full-1280-runs`
 - `S006` — [S006 — Full 1,280-run Morris sweep + post-sweep analysis](santino/S006_full_morris_sweep.md)
 
@@ -129,6 +140,7 @@ Total entries: **11**
 ### `manuscript-polish`
 - `S008` — [S008 — Tier-1 statistical refinement: block bootstrap, within-sex Wasserstein null, divergence mechanism, manuscript polish](santino/S008_tier1_statistical_refinement.md)
 - `S010` — [S010 — Literature-review pass: every reference verified against DOI / PMID](santino/S010_literature_review.md)
+- `S012` — [S012 — Dual steady-state audit (F-003 hyperoxia + F-004 Vt oscillation)](santino/S012_steady_state_window_audit.md)
 
 ### `mechanism`
 - `S008` — [S008 — Tier-1 statistical refinement: block bootstrap, within-sex Wasserstein null, divergence mechanism, manuscript polish](santino/S008_tier1_statistical_refinement.md)
@@ -165,6 +177,9 @@ Total entries: **11**
 ### `reproducibility`
 - `S007` — [S007 — Targeted reproducibility check (pre-publication)](santino/S007_reproducibility_targeted_check.md)
 
+### `reviewer-defense`
+- `S012` — [S012 — Dual steady-state audit (F-003 hyperoxia + F-004 Vt oscillation)](santino/S012_steady_state_window_audit.md)
+
 ### `seed-stability`
 - `S009` — [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md)
 
@@ -183,6 +198,9 @@ Total entries: **11**
 
 ### `statistics`
 - `S008` — [S008 — Tier-1 statistical refinement: block bootstrap, within-sex Wasserstein null, divergence mechanism, manuscript polish](santino/S008_tier1_statistical_refinement.md)
+
+### `steady-state-audit`
+- `S012` — [S012 — Dual steady-state audit (F-003 hyperoxia + F-004 Vt oscillation)](santino/S012_steady_state_window_audit.md)
 
 ### `sweep`
 - `S006` — [S006 — Full 1,280-run Morris sweep + post-sweep analysis](santino/S006_full_morris_sweep.md)

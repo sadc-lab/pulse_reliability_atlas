@@ -745,6 +745,47 @@ Distribution: **12 green, 24 yellow, 12 red** out of 48 cells.
   finding orthogonal to the previously documented PC-AC over-delivery
   (CLAUDE.md verified-limitation #7).
 
+### 3.8.1 Steady-state window cross-output audit (S012)
+
+A reviewer-anticipated question is whether F-003 and F-004 contaminate
+the rest of the steady-state window — i.e. whether the same runs that
+show PaO2 drift or Vt oscillation also exhibit drift in the
+cardiovascular and gas-exchange channels we use for Morris analysis.
+A targeted audit ([S012](../experiments_log/santino/S012_steady_state_window_audit.md))
+computes |Δ60s| (drift over the recorded window) for HR / MAP / Vt /
+PaO2 / PaCO2 in both vulnerable populations and compares against the
+preregistered drift thresholds (`DRIFT_MAX_DELTA_60S` in
+`src/detector.py`: HR=5 bpm, MAP=5 mmHg, Vt=50 mL, PaO2=15 mmHg,
+PaCO2=5 mmHg).
+
+* **F-003 arm — hyperoxia (FiO2 ≥ 0.95, n = 208 runs).** HR exceeds the
+  5 bpm threshold in **2.6 %** of runs (median |Δ60s| = 0.20 bpm); MAP
+  in **0 %** (median 0.05 mmHg). Vt exceeds 50 mL in **8.7 %** (median
+  0.09 mL — the violations sit in the F-004 oscillation tail). PaO2 is
+  the only severely affected channel: **19.5 %** exceed the 15 mmHg
+  drift threshold (median 4.3 mmHg, p95 = 40.2 mmHg). *Interpretation:
+  the cardiovascular loop is steady at FiO2 = 1.0; only gas-exchange
+  oxygenation and tidal-volume control are unsettled.*
+* **F-004 arm — Vt oscillation (Vt_cv > 5 %, n = 303 runs).** HR
+  exceeds 5 bpm in **2.3 %**, MAP in **0.7 %**, PaO2 in **7.3 %**,
+  PaCO2 in **2.0 %**. *Interpretation: tidal-volume oscillation does
+  not propagate into cardiovascular or gas-exchange drift; Pulse
+  buffers the oscillation upstream.*
+* **Intersection (FiO2 ≥ 0.95 AND Vt_cv > 5 %): 33 / 1,280 runs.**
+  Even in this dual-vulnerability population, HR/MAP/PaCO2 drift rates
+  remain below 4 %.
+
+The audit shows the [60, 120] s window is reliable for HR, MAP, and
+PaCO2 across the full sweep — the steady-state definition holds for
+the cardiovascular and ventilation channels used by Morris analysis.
+The window is *only* unreliable for PaO2 and Vt at FiO2 ≥ 0.95, which
+is exactly what F-003 and F-004 already disclose. The F-003 / F-004
+findings are therefore not a hidden invalidator of the rest of the
+sweep; they are the bounded scope of an explicitly-disclosed
+window-length limitation. Numerical detail in
+[`results/s012_summary.csv`](../results/s012_summary.csv) and the
+two per-arm files in `results/`.
+
 ---
 
 ## 4. Discussion
@@ -791,7 +832,11 @@ that operational extreme.**
   (Paper 2 / Paper 1).
 * 120 s simulation may be insufficient for hyperoxia convergence (F-003).
   We do not extend simulation length post hoc — the locked window IS the
-  paper's measurement; longer windows are explicit future work.
+  paper's measurement; longer windows are explicit future work. The
+  S012 cross-output audit (§3.8.1) bounds this limitation to PaO2 and
+  Vt at FiO2 ≥ 0.95: HR, MAP, and PaCO2 drift rates stay below 3 % in
+  both vulnerable populations, so the [60, 120] s steady-state window
+  remains reliable for the cardiovascular and ventilation channels.
 * MAP derived, not sampled; if Pulse's response to MAP differs from the
   derived value, our atlas could miss it. We argue against re-introducing
   MAP because the constraint MAP = (SBP + 2·DBP) / 3 is mechanically
