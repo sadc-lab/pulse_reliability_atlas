@@ -156,8 +156,10 @@ def main() -> int:
                     return None
                 v = sel.iloc[0][f"{ch}_mean"]
                 return None if pd.isna(v) else float(v)
-            m67 = get("M", 67.3); f67 = get("F", 67.3)
-            m56 = get("M", 56.2); f56 = get("F", 56.2)
+            m67 = get("M", 67.3)
+            f67 = get("F", 67.3)
+            m56 = get("M", 56.2)
+            f56 = get("F", 56.2)
             sex_at_67 = (f67 - m67) if (m67 is not None and f67 is not None) else None
             sex_at_56 = (f56 - m56) if (m56 is not None and f56 is not None) else None
             mass_M = (m67 - m56) if (m67 is not None and m56 is not None) else None
