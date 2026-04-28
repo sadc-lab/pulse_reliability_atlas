@@ -96,7 +96,7 @@ the full sweep. **Source:**
 Pre-pilot concern: `Pulse_translation_new/experiments_log.md` documents an
 ARDS solver instability zone at impairment 0.91–0.945. Severity 0.95 sits
 above this zone. Preregistration §Scenarios chose 0.95 specifically to be
-above the instability — but if every S4 init crashed regardless, the
+above the instability — but if every S4 init diverged regardless, the
 preregistered design would have needed amendment.
 
 In the 4 × 2 scenario smoke: both S4 cells (M and F) initialised at mid-range

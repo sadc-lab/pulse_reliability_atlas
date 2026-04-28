@@ -16,7 +16,7 @@ manuscript. All numbers are reproducible from the artifacts in
 | DBP baseline  | 60    | 80    | mmHg     | E10; ratio DBP/SBP ≤ 0.75 enforced (clip at submission)       | 2026-04-19 |
 | RR baseline   | 8     | 20    | bpm      | E28 (9/9 Docker runs) + `SetupPatient.cpp` line 568          | 2026-04-19 |
 | Vt target     | 300   | 800   | mL       | ARDSnet 6 mL/kg → pre-ARDSnet 10 mL/kg @ 67 kg              | preregistered |
-| FiO2          | 0.21  | 1.0   | fraction | E20 (9-run probe, no crash); atlas wrapper raises FIO2_MAX  | preregistered |
+| FiO2          | 0.21  | 1.0   | fraction | E20 (9-run probe, no solver-divergence); atlas wrapper raises FIO2_MAX | preregistered |
 | PEEP          | 0     | 20    | cmH2O    | clinical practice                                              | preregistered |
 
 ---

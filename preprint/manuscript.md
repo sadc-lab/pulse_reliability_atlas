@@ -188,7 +188,7 @@ This atlas adds quantitative coverage to those:
 7. PC-AC over-delivers Vt — atlas restricts to VC-AC.
 8–12. Structural lumped-parameter limits — discussed in §6.
 
-The two previously asserted but unverified claims (FiO2 crash at 1.0 and
+The two previously asserted but unverified claims (FiO2 solver-divergence at 1.0 and
 absence of sex-specific physiology) were withdrawn before the
 preregistration locked. The atlas wrapper deliberately raises FiO2_MAX from
 0.95 to 1.0 ([S004](../experiments_log/santino/S004_scenario_smoke_and_atlas_image.md))
@@ -223,7 +223,7 @@ silently capped at the wrapper layer.
   `Pulse_translation_new/engine/run_validation_engine.py` with two
   documented changes (see §2.6 and S004):
   1. `FIO2_MAX` raised 0.95 → 1.0 (justified by PhD experiment E20, April
-     2026: 9-run probe, no Pulse crash at FiO2 = 1.0).
+     2026: 9-run probe, no Pulse solver-divergence at FiO2 = 1.0).
   2. Recording-relative time origin (S005): wrapper now subtracts the
      ventilator-settle time so emitted `time_s` starts at 0, allowing the
      locked steady-state window [60, 120] s to capture data.
