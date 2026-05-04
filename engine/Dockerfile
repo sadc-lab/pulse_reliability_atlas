@@ -18,6 +18,18 @@ ENV LD_LIBRARY_PATH=/pulse/bin
 
 RUN python3 -m pip install --no-cache-dir pandas
 
+# Patch upstream Pulse 4.3.1 Python SDK bug: serialize_mechanical_ventilator_*_to_bind
+# writes patient-trigger fields to dst.InspirationCycle{Flow,Pressure}, but the
+# protobuf field names are dst.InspirationPatientTrigger{Flow,Pressure}. Result:
+# AttributeError on any VC-AC / PC-AC / CPAP action that sets a patient trigger.
+# Verified against MechanicalVentilatorActions.proto. Only Inspiration* is
+# affected; Expiration*Cycle{Flow,Pressure} are real fields and untouched.
+# See experiments_log/santino/S014_trigger_pressure_lockout.md for diagnosis.
+RUN sed -i \
+    -e 's/dst\.InspirationCycleFlow/dst.InspirationPatientTriggerFlow/g' \
+    -e 's/dst\.InspirationCyclePressure/dst.InspirationPatientTriggerPressure/g' \
+    /pulse/python/pulse/cdm/io/mechanical_ventilator_actions.py
+
 COPY run_atlas_engine.py /app/run_atlas_engine.py
 
 RUN mkdir -p /data /pulse/bin/out

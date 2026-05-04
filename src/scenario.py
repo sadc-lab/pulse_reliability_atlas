@@ -103,6 +103,7 @@ def build_config(
     sex_key: str,
     case_id: str,
     clip_dbp: bool = True,
+    trigger_pressure_cmh2o: float | None = None,
 ) -> dict[str, Any]:
     """Build one atlas config dict for a given Morris sample point.
 
@@ -122,6 +123,11 @@ def build_config(
         If True (default), clip DBP to the Pulse acceptance envelope. Set to
         False only for deliberate clamp probes that need to submit out-of-range
         values (e.g. pilot gate G4).
+    trigger_pressure_cmh2o
+        If provided, sets `InspirationPatientTriggerPressure` on the VC-AC
+        action. Disables Pulse's default fallback to a respiratory-model-driven
+        patient trigger. Used by S014 to test the F-004 dyssynchrony mechanism.
+        None (default) preserves the original sweep behaviour.
     """
     if scenario_key not in SCENARIOS:
         raise KeyError(f"unknown scenario {scenario_key!r}")
@@ -159,6 +165,11 @@ def build_config(
             "set_rr": float(sample_row["rr"]),
             "peep_cmh2o": float(sample_row["peep"]),
             "fio2": float(sample_row["fio2"]),
+            **(
+                {"inspiration_patient_trigger_pressure_cmh2o": float(trigger_pressure_cmh2o)}
+                if trigger_pressure_cmh2o is not None
+                else {}
+            ),
         },
         # Atlas metadata — preserved through to the aggregated Parquet so that
         # Morris EE can use the requested (pre-clip) DBP and clamping analysis

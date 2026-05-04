@@ -186,6 +186,19 @@ def _connect_volume_control(pulse: PulseEngine, vent_params: dict) -> None:
         action.get_inspiratory_period().set_value(
             vent_params.get("insp_period_s", DEFAULT_INSP_PERIOD_S), TimeUnit.s
         )
+        # Optional explicit patient trigger pressure (cmH2O, magnitude — Pulse
+        # treats the supplied value as an absolute magnitude; sign is ignored
+        # internally per `MechanicalVentilatorModel.cpp` line 835). Setting this
+        # disables the default `InspirationPatientTriggerRespiratoryModel = On`
+        # that VC-AC falls back to when neither flow nor pressure trigger is
+        # provided (see SEMechanicalVentilatorVolumeControl.cpp lines 120–128).
+        # Used by S014 to causally test whether the respiratory-model trigger
+        # is the source of F-004 dyssynchrony.
+        trig_p = vent_params.get("inspiration_patient_trigger_pressure_cmh2o")
+        if trig_p is not None:
+            action.get_inspiration_patient_trigger_pressure().set_value(
+                float(trig_p), PressureUnit.cmH2O
+            )
         pulse.process_action(action)
     else:
         raise ValueError(

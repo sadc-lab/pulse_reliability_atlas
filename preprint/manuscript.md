@@ -668,7 +668,7 @@ S1 and S4_F do not have a computable Spearman ρ because FiO2 has zero
 clean elementary-effect pairs in those cells (every trajectory step
 that flips FiO2 between 0.21 and 1.0 has at least one endpoint
 flagged, predominantly by SpO2 ceiling pinning at FiO2 ≈ 1.0). This
-itself is a finding (§4.2 limitations).
+itself is a finding (§4.3 limitations).
 
 The bootstrap CI on Spearman ρ is wide for output Vt (S2 lower bound
 −0.06) — meaning the input-importance ranking for Vt is not
@@ -737,13 +737,58 @@ Distribution: **12 green, 24 yellow, 12 red** out of 48 cells.
   mmHg — yet measured S1 means at FiO2 ≈ 1.0 are 600 – 660 mmHg.
   The *deviation from linear extrapolation at the FiO2 = 1.0 endpoint*
   is the quantitative signature of the hyperoxia overshoot.
-* **F-004** — Pulse VC-AC delivered tidal volume has CV > 5 % within
-  the [60, 120] s steady-state window in **264 / 1,280 runs (20.6 %)**,
-  including healthy adults at standard ventilator settings. Pulse's
-  preferred ventilator mode is therefore an unreliable steady-state
-  producer for many sampled (PEEP, Vt, RR) combinations — a usability
-  finding orthogonal to the previously documented PC-AC over-delivery
-  (CLAUDE.md verified-limitation #7).
+* **F-004 — Patient-ventilator dyssynchrony in VC-AC at extreme inputs.**
+  Across the full sweep, 264 / 1,280 (20.6 %) Morris runs failed the
+  preregistered steady-state criterion on delivered tidal volume
+  (`Vt_cv > 5 %` in the [60, 120] s window). Inspecting the
+  native-resolution ventilator timeseries (sampled at 0.02 s; the same
+  Pulse runs that produce the 5 s atlas CSV) shows a stereotyped pattern:
+  a mandatory breath at the set respiratory rate delivers Vt close to
+  the requested target, followed by two to three smaller "assist"
+  breaths fired between mandatory cycles. Mean instantaneous respiratory
+  rate during these episodes alternates between the set rate
+  (e.g. 20 bpm) and roughly twice the set rate (~46 bpm). Lung
+  compliance is constant within numerical precision throughout the
+  window (e.g. 0.0900 ± 5×10⁻⁶ L/cmH2O for the worst-CV run S1_F_0008),
+  excluding dynamic hyperinflation as a contributor.
+
+  Source audit of `SEMechanicalVentilatorVolumeControl::ToSettings`
+  (`SEMechanicalVentilatorVolumeControl.cpp` lines 120–128, Pulse 4.3.1)
+  identifies the mechanism. Pulse's VC-AC mode falls through to
+  `InspirationPatientTriggerRespiratoryModel = On` when the action
+  specifies neither `InspirationPatientTriggerFlow` nor
+  `InspirationPatientTriggerPressure`:
+
+  ```
+  if (!HasInspirationPatientTriggerFlow() && !HasInspirationPatientTriggerPressure())
+      SetInspirationPatientTriggerRespiratoryModel(On);
+  ```
+
+  With this default, the simulated patient's spontaneous respiratory
+  drive (modelled by Pulse's whole-body respiratory controller) can
+  trigger an assist breath whenever its inspiratory effort registers as
+  a `StartOfInhale` event (`MechanicalVentilatorModel.cpp` lines
+  810–818). At extreme ventilator settings — high Vt on a small
+  predicted-body-weight lung, very low Vt with high PEEP, or RR
+  mismatched to the simulated metabolic CO₂ load — the simulated drive
+  overshoots the mandatory rate, generating the observed mandatory +
+  assist alternation.
+
+  **Causal confirmation (S014).** A pre-registered controlled experiment
+  on the top-64 Vt-CV runs reran each with identical inputs but with an
+  explicit `InspirationPatientTriggerPressure = −2 cmH2O`. Setting any
+  explicit trigger threshold disables the respiratory-model branch (the
+  fall-through guard becomes false). **Median (Vt_cv_original −
+  Vt_cv_lockout) = +0.326** (pre-registered threshold ≥ 0.04, exceeded
+  8×); **proportion of locked runs with Vt_cv < 0.05 = 78.1 %**
+  (pre-registered threshold ≥ 75 %). Median Vt_cv collapses from 0.351
+  to 0.016 (96 % reduction); worst-case from 1.826 to 0.112. Both
+  pre-registered thresholds were met, confirming that the dyssynchrony
+  — not solver instability, not Nyquist aliasing of the breath cycle,
+  and not auto-PEEP — drives the original 20.6 % flag rate. Full
+  protocol and per-run paired data:
+  [`experiments_log/santino/S014_trigger_pressure_lockout.md`](../experiments_log/santino/S014_trigger_pressure_lockout.md);
+  raw artefacts in `data/runs/s014_trigger_lockout/`.
 
 ### 3.8.1 Steady-state window cross-output audit (S012)
 
@@ -817,16 +862,56 @@ artifact:
   mmHg, ongoing drift) implies that researchers running pure-O2
   simulations should either lengthen the simulation window beyond 120
   s or treat PaO2 as a transient, not steady-state, output.
-* **VC-AC is not as steady as expected.** F-004 (Vt CV > 5 % in 20.6
-  % of runs) means VC-AC's "steady-state Vt" should be reported as a
-  windowed mean with explicit CV, not a point estimate.
+* **VC-AC dyssynchrony refines rather than indicts Pulse's
+  implementation.** The F-004 finding (Vt CV > 5 % in 20.6 % of runs) is
+  not a controller pathology: patient-ventilator dyssynchrony at extreme
+  settings is a real intensive-care phenomenon and Pulse models it
+  correctly. The atlas's preregistered steady-state detector simply
+  flags the resulting Vt variability as a non-steady-state outcome, by
+  design. Two practical consequences follow. First, atlas users who
+  require pure mandatory ventilation (e.g. for medical-device validation
+  against a known-volume reference) must specify an explicit
+  `InspirationPatientTriggerPressure` (or
+  `InspirationPatientTriggerFlow`) on the VC-AC action. The default
+  configuration in the upstream `kitware/pulse:4.3.1` image and in the
+  `pulse-pediatric-engine` wrapper allows the respiratory-model trigger;
+  this is realistic but produces non-steady tidal volumes at exactly
+  the ventilator-stress points where validation matters most. Section
+  4.2 recommends the −2 cmH2O setting validated by S014 as a sensible
+  default for atlas-style sensitivity work. Second, the prevalence of
+  dyssynchrony events (20.6 % across the full 7-input sweep) bounds how
+  much of Pulse's VC-AC behaviour at the default trigger configuration
+  is steady-state interpretable. Sensitivity indices computed on the
+  dyssynchrony-flagged subset are not directly comparable to those on
+  the steady runs; the atlas's preregistered analysis plan correctly
+  excludes flagged runs from Morris EE computation. Future work using
+  Pulse for closed-loop VC-AC studies should commit to an explicit
+  trigger configuration up-front and re-derive baseline reliability
+  under that configuration.
 
 The practical operational recommendation is captured succinctly: **use
 the cells coloured green; report results from yellow cells with their
 flag counts; avoid red cells unless the use-case is specifically about
 that operational extreme.**
 
-### 4.2 Limitations
+### 4.2 Practical recommendations
+
+**VC-AC trigger configuration.** When using Pulse 4.3.1's
+`SEMechanicalVentilatorVolumeControl` action in *AssistedControl* mode,
+always set `InspirationPatientTriggerPressure` or
+`InspirationPatientTriggerFlow` explicitly. Leaving both unspecified
+causes Pulse to enable a respiratory-model-driven patient trigger
+(`SEMechanicalVentilatorVolumeControl.cpp` lines 120–128), which
+produces realistic patient-ventilator dyssynchrony but renders
+delivered tidal volume non-steady at extreme input combinations. For
+sensitivity-analysis-style sweeps where steady-state interpretation is
+required, we recommend `InspirationPatientTriggerPressure = −2 cmH2O`
+as a default; this matches a clinically standard ICU sensitivity
+setting and is the configuration validated by S014 in this paper
+(median Vt_cv collapses from 0.351 to 0.016, a 96 % reduction; 78.1 %
+of locked runs fall below the 0.05 steady-state threshold).
+
+### 4.3 Limitations
 
 * Atlas restricted to VC-AC adults; pediatric and PC modes out of scope
   (Paper 2 / Paper 1).
@@ -860,7 +945,7 @@ that operational extreme.**
   control thermal load; resume-safe). Larger-scale Sobol bolt-on
   (preregistration §Sampling method) would benefit from a cluster.
 
-### 4.3 Connection to downstream PhD work
+### 4.4 Connection to downstream PhD work
 
 This atlas is the first publishable output in the maintainer's PhD
 pipeline. Two downstream papers, both currently in preparation and

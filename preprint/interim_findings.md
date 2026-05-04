@@ -65,18 +65,46 @@ the hyperoxia overshoot is a Pulse modelling artifact or a tolerance
 mismatch is a paper discussion point. The atlas reports the observation
 faithfully without changing the bound.
 
-### F-004 — VC-AC delivered Vt has CV > 5% inside the [60, 120] s window for some (PEEP, Vt-target) combinations on HEALTHY adults
+### F-004 — VC-AC patient-ventilator dyssynchrony, not controller pathology
 
-**Status:** observed in pilot (4/16 Morris points at S1, Male, FiO2 ≈ 0.47).
-**Source:** [S005](../experiments_log/santino/S005_pilot_S1_male.md).
+**Status:** mechanism identified by source audit and confirmed causally
+by S014. **Source:**
+[S005](../experiments_log/santino/S005_pilot_S1_male.md) (initial
+observation),
+[S014](../experiments_log/santino/S014_trigger_pressure_lockout.md)
+(causal test).
 
-VC-AC is preregistered as the "validated best" mode (per Webb 2023 and the
-Pulse validation table). Yet four pilot points show Vt CV ranging 0.05 to
-0.32 inside the 60 s steady-state window. Connects to the verified
-limitation #7 (PC-AC over-delivers Vt 24–59%) but specifically points the
-finger at VC-AC steady-state oscillation, which had not been previously
-characterized. To watch in the full sweep: whether the CV > 5% pattern
-clusters in particular (PEEP, Vt) corners.
+264 / 1,280 (20.6 %) of full-sweep runs flagged `not_steady_state` on
+`Vt_cv > 0.05` over the [60, 120] s window. Mechanism, identified by
+source audit and confirmed causally by S014: Pulse's
+`SEMechanicalVentilatorVolumeControl::ToSettings` enables
+`InspirationPatientTriggerRespiratoryModel` by default in VC-AC when no
+flow or pressure trigger threshold is supplied
+(`SEMechanicalVentilatorVolumeControl.cpp` lines 120–128, Pulse 4.3.1).
+The simulated patient's spontaneous respiratory drive then triggers
+extra assist breaths between mandatory cycles, delivering sub-target Vt
+at high instantaneous RR. Three competing mechanisms ruled out:
+
+* **PID controller ringing** — would show constant RR with rapid Vt
+  swings. Native CSVs of flagged runs show RR alternating between
+  mandatory and ~2× mandatory.
+* **Nyquist alias of breath cycle at 5 s atlas sampling** — Pulse's
+  `TidalVolume` channel is breath-integrated and held between cycles,
+  not continuous; aliasing physically cannot apply.
+* **Auto-PEEP / dynamic hyperinflation** — `LungCompliance` is flat to
+  ≤ 5×10⁻⁶ L/cmH2O across the entire steady-state window in the
+  worst-CV exemplar.
+
+S014 reran the top-64 flagged runs with
+`InspirationPatientTriggerPressure = −2 cmH2O`, disabling the
+respiratory-model branch. Median (Vt_cv_original − Vt_cv_lockout) =
+**+0.326** (pre-registered threshold ≥ 0.04, exceeded 8×); proportion
+of locked runs with Vt_cv < 0.05 = **78.1 %** (pre-registered threshold
+≥ 75 %). Both pre-registered criteria met → decision PASS. Median Vt_cv
+collapses from 0.351 to 0.016 (96 % reduction); worst-case from 1.826
+to 0.112. The dyssynchrony is *correct Pulse behaviour*, not solver
+failure. Atlas users requiring pure mandatory ventilation must set an
+explicit trigger threshold; recommendation in §4.2.
 
 ### F-005 — Pulse 4.3.1 is bit-exact deterministic for fixed inputs and scenario
 

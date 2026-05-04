@@ -6,12 +6,13 @@ This file is rebuilt from the YAML frontmatter of every entry in
 `santino/`, `contributor2/`, and `shared/`. To update it, edit the experiment
 and recommit — the pre-commit hook regenerates and stages this file.
 
-Total entries: **13**
+Total entries: **14**
 
 ## All experiments (newest first)
 
 | ID | Date | Author | Status | Title |
 |---|---|---|---|---|
+| `S014` | 2026-04-28 | santino | done | [S014 — Trigger-pressure lockout: causal test of F-004 mechanism](santino/S014_trigger_pressure_lockout.md) |
 | `S013` | 2026-04-27 | santino | done | [S013 — Lexical lockdown (solver-divergence vs implausible-output taxonomy)](santino/S013_lexical_lockdown.md) |
 | `S012` | 2026-04-27 | santino | done | [S012 — Dual steady-state audit (F-003 hyperoxia + F-004 Vt oscillation)](santino/S012_steady_state_window_audit.md) |
 | `S011` | 2026-04-27 | santino | done | [S011 — Sex vs mass disentangling (controlled 2×2 design)](santino/S011_sex_vs_mass_disentangle.md) |
@@ -41,6 +42,7 @@ Total entries: **13**
 - `S011` (2026-04-27, done) — [S011 — Sex vs mass disentangling (controlled 2×2 design)](santino/S011_sex_vs_mass_disentangle.md) — _sex-vs-mass, h4, confounding, ards-instability, divergence, decomposition_
 - `S012` (2026-04-27, done) — [S012 — Dual steady-state audit (F-003 hyperoxia + F-004 Vt oscillation)](santino/S012_steady_state_window_audit.md) — _steady-state-audit, f-003, f-004, drift, reviewer-defense, manuscript-polish_
 - `S013` (2026-04-27, done) — [S013 — Lexical lockdown (solver-divergence vs implausible-output taxonomy)](santino/S013_lexical_lockdown.md) — _lexical-precision, manuscript-polish, taxonomy, reviewer-defense_
+- `S014` (2026-04-28, done) — [S014 — Trigger-pressure lockout: causal test of F-004 mechanism](santino/S014_trigger_pressure_lockout.md) — _f-004, mechanism-test, vc-ac, trigger-pressure, dyssynchrony, causal-test, reviewer-defense_
 
 ## By tag
 
@@ -53,6 +55,9 @@ Total entries: **13**
 ### `bootstrap`
 - `S002` — [S002 — Project bootstrap (separate repo, skeleton, licensing)](santino/S002_project_bootstrap.md)
 - `S008` — [S008 — Tier-1 statistical refinement: block bootstrap, within-sex Wasserstein null, divergence mechanism, manuscript polish](santino/S008_tier1_statistical_refinement.md)
+
+### `causal-test`
+- `S014` — [S014 — Trigger-pressure lockout: causal test of F-004 mechanism](santino/S014_trigger_pressure_lockout.md)
 
 ### `ci`
 - `S009` — [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md)
@@ -95,11 +100,15 @@ Total entries: **13**
 ### `drift`
 - `S012` — [S012 — Dual steady-state audit (F-003 hyperoxia + F-004 Vt oscillation)](santino/S012_steady_state_window_audit.md)
 
+### `dyssynchrony`
+- `S014` — [S014 — Trigger-pressure lockout: causal test of F-004 mechanism](santino/S014_trigger_pressure_lockout.md)
+
 ### `f-003`
 - `S012` — [S012 — Dual steady-state audit (F-003 hyperoxia + F-004 Vt oscillation)](santino/S012_steady_state_window_audit.md)
 
 ### `f-004`
 - `S012` — [S012 — Dual steady-state audit (F-003 hyperoxia + F-004 Vt oscillation)](santino/S012_steady_state_window_audit.md)
+- `S014` — [S014 — Trigger-pressure lockout: causal test of F-004 mechanism](santino/S014_trigger_pressure_lockout.md)
 
 ### `full-1280-runs`
 - `S006` — [S006 — Full 1,280-run Morris sweep + post-sweep analysis](santino/S006_full_morris_sweep.md)
@@ -151,6 +160,9 @@ Total entries: **13**
 ### `mechanism`
 - `S008` — [S008 — Tier-1 statistical refinement: block bootstrap, within-sex Wasserstein null, divergence mechanism, manuscript polish](santino/S008_tier1_statistical_refinement.md)
 
+### `mechanism-test`
+- `S014` — [S014 — Trigger-pressure lockout: causal test of F-004 mechanism](santino/S014_trigger_pressure_lockout.md)
+
 ### `morris`
 - `S005` — [S005 — 22-run pilot on cell (S1, Male) — preregistration §Pilot gate](santino/S005_pilot_S1_male.md)
 - `S006` — [S006 — Full 1,280-run Morris sweep + post-sweep analysis](santino/S006_full_morris_sweep.md)
@@ -186,6 +198,7 @@ Total entries: **13**
 ### `reviewer-defense`
 - `S012` — [S012 — Dual steady-state audit (F-003 hyperoxia + F-004 Vt oscillation)](santino/S012_steady_state_window_audit.md)
 - `S013` — [S013 — Lexical lockdown (solver-divergence vs implausible-output taxonomy)](santino/S013_lexical_lockdown.md)
+- `S014` — [S014 — Trigger-pressure lockout: causal test of F-004 mechanism](santino/S014_trigger_pressure_lockout.md)
 
 ### `seed-stability`
 - `S009` — [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md)
@@ -220,6 +233,12 @@ Total entries: **13**
 
 ### `time-origin`
 - `S005` — [S005 — 22-run pilot on cell (S1, Male) — preregistration §Pilot gate](santino/S005_pilot_S1_male.md)
+
+### `trigger-pressure`
+- `S014` — [S014 — Trigger-pressure lockout: causal test of F-004 mechanism](santino/S014_trigger_pressure_lockout.md)
+
+### `vc-ac`
+- `S014` — [S014 — Trigger-pressure lockout: causal test of F-004 mechanism](santino/S014_trigger_pressure_lockout.md)
 
 ### `verification`
 - `S003` — [S003 — Verified Pulse 4.3.1 limitations (primary-source re-check)](santino/S003_pulse_limitations_verified.md)
