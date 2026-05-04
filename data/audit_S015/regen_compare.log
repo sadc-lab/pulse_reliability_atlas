@@ -1,0 +1,70 @@
+======================================================================
+S015 P1.4 — regenerate-and-compare audit
+  REPO:    C:\Users\santi\projets\pulse_reliability_atlas
+  audit:   C:\Users\santi\projets\pulse_reliability_atlas\data\audit_S015
+  tol:     atol=1e-09, rtol=1e-09
+======================================================================
+
+[1/8] full_sweep/aggregated.parquet — re-aggregating from per-run CSVs ...
+
+[DRIFT] data/runs/full_sweep/aggregated.parquet
+   rows: committed=1280  regen=1280
+   extra cols in regen: ['primary_flag']
+   DRIFT wall_time_s: 5 value mismatches; first at row 181: 40.78099999995902 vs 40.39099999994505
+
+[2/8] results/cell_flag_summary.csv — regenerating ...
+
+[EXACT] results/cell_flag_summary.csv
+   rows: committed=8  regen=8
+
+[3/8] results/morris_indices.parquet — regenerating (block bootstrap, seed=12345, B=1000) ...
+
+[EXACT] results/morris_indices.parquet
+   rows: committed=318  regen=318
+
+[4/8] results/h1_top3_fraction.csv — regenerating ...
+
+[EXACT] results/h1_top3_fraction.csv
+   rows: committed=48  regen=48
+
+[5/8] results/sobol_promotion.csv — regenerating ...
+
+[EXACT] results/sobol_promotion.csv
+   rows: committed=144  regen=144
+
+[6/8] results/wasserstein_male_vs_female.csv — regenerating ...
+
+[EXACT] results/wasserstein_male_vs_female.csv
+   rows: committed=24  regen=24
+
+[7/8] results/spearman_mu_star.csv — regenerating ...
+
+[EXACT] results/spearman_mu_star.csv
+   rows: committed=24  regen=24
+
+[8/8] heatmaps + reliability_classification — regenerating ...
+
+[EXACT] results/clamp_grid.parquet
+   rows: committed=1624  regen=1624
+
+[EXACT] results/diverged_grid.parquet
+   rows: committed=1624  regen=1624
+
+[EXACT] results/reliability_classification.csv
+   rows: committed=48  regen=48
+
+======================================================================
+SUMMARY
+======================================================================
+                   DRIFT:  1 artifact(s)
+     - data/runs/full_sweep/aggregated.parquet
+                   EXACT:  9 artifact(s)
+     - results/cell_flag_summary.csv
+     - results/morris_indices.parquet
+     - results/h1_top3_fraction.csv
+     - results/sobol_promotion.csv
+     - results/wasserstein_male_vs_female.csv
+     - results/spearman_mu_star.csv
+     - results/clamp_grid.parquet
+     - results/diverged_grid.parquet
+     - results/reliability_classification.csv

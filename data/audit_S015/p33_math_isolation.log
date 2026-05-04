@@ -1,0 +1,25 @@
+======================================================================
+S015 P3.3 - Morris math isolation
+======================================================================
+
+Hand-built EEs: [10.0, -6.0, 8.0, -4.0, 12.0, -2.0]
+  expected mu       = 3.0        got = 3.0
+  expected mu_star  = 7.0        got = 7.0
+  expected sigma    = 7.874008  got = 7.874008
+
+[PASS] _morris_stats matches hand-computed reference.
+[PASS] single-EE edge case: mu=mu_star=5.0, sigma=0.0
+[PASS] empty-EE edge case: all NaN
+
+Block bootstrap (3 traj x 2 EE, B=5000, alpha=0.05):
+  mu_star point = 7.0
+  CI = [6.0000, 8.0000]
+[PASS] block bootstrap CI brackets the mu_star point estimate.
+[PASS] single-trajectory block bootstrap correctly returns NaN CI
+
+Independent OAT cross-check:
+  hr mu_star: expected 5.0, got 5.0
+  vt mu_star: expected 10.0, got 10.0
+[PASS] independent OAT cross-check
+
+All P3.3 math-isolation tests PASSED.

@@ -1,0 +1,133 @@
+[subset_repro] selected 40 runs (seed=42):
+  S1_M_0013
+  S1_M_0069
+  S1_M_0103
+  S1_M_0121
+  S1_M_0159
+  S1_F_0014
+  S1_F_0082
+  S1_F_0116
+  S1_F_0121
+  S1_F_0154
+  S2_M_0029
+  S2_M_0058
+  S2_M_0070
+  S2_M_0079
+  S2_M_0131
+  S2_F_0036
+  S2_F_0070
+  S2_F_0071
+  S2_F_0085
+  S2_F_0128
+  S3_M_0026
+  S3_M_0043
+  S3_M_0100
+  S3_M_0129
+  S3_M_0133
+  S3_F_0069
+  S3_F_0107
+  S3_F_0124
+  S3_F_0141
+  S3_F_0151
+  S4_M_0006
+  S4_M_0024
+  S4_M_0077
+  S4_M_0086
+  S4_M_0118
+  S4_F_0051
+  S4_F_0059
+  S4_F_0064
+  S4_F_0143
+  S4_F_0150
+
+[subset_repro] re-running 40 jobs through fresh pulse-atlas-engine image ...
+[runner] launching 40 job(s) on 2 workers, image=pulse-atlas-engine
+[runner] 1/40 OK  S1_M_0069 (84.3s)
+[runner] 2/40 OK  S1_M_0013 (88.0s)
+[runner] 3/40 OK  S1_M_0121 (58.1s)
+[runner] 4/40 OK  S1_M_0103 (61.8s)
+[runner] 5/40 OK  S1_F_0014 (62.3s)
+[runner] 6/40 FAIL(1) S1_M_0159 (107.6s)
+[runner] 7/40 OK  S1_F_0082 (67.4s)
+[runner] 8/40 OK  S1_F_0116 (51.0s)
+[runner] 9/40 OK  S1_F_0121 (55.4s)
+[runner] 10/40 OK  S1_F_0154 (65.4s)
+[runner] 11/40 OK  S2_M_0029 (134.6s)
+[runner] 12/40 OK  S2_M_0058 (123.8s)
+[runner] 13/40 OK  S2_M_0070 (91.8s)
+[runner] 14/40 OK  S2_M_0079 (91.3s)
+[runner] 15/40 OK  S2_M_0131 (66.8s)
+[runner] 16/40 OK  S2_F_0036 (71.7s)
+[runner] 17/40 OK  S2_F_0070 (81.5s)
+[runner] 18/40 OK  S2_F_0071 (78.6s)
+[runner] 19/40 OK  S2_F_0085 (91.4s)
+[runner] 20/40 OK  S2_F_0128 (73.1s)
+[runner] 21/40 OK  S3_M_0026 (82.0s)
+[runner] 22/40 OK  S3_M_0043 (79.1s)
+[runner] 23/40 OK  S3_M_0129 (86.2s)
+[runner] 24/40 OK  S3_M_0100 (108.0s)
+[runner] 25/40 OK  S3_M_0133 (94.2s)
+[runner] 26/40 OK  S3_F_0069 (92.9s)
+[runner] 27/40 OK  S3_F_0124 (88.0s)
+[runner] 28/40 OK  S3_F_0107 (103.1s)
+[runner] 29/40 OK  S3_F_0151 (92.5s)
+[runner] 30/40 OK  S3_F_0141 (110.1s)
+[runner] 31/40 FAIL(1) S4_M_0024 (104.4s)
+[runner] 32/40 OK  S4_M_0006 (127.9s)
+[runner] 33/40 OK  S4_M_0077 (123.5s)
+[runner] 34/40 OK  S4_M_0086 (148.3s)
+[runner] 35/40 OK  S4_M_0118 (119.4s)
+[runner] 36/40 OK  S4_F_0051 (106.3s)
+[runner] 37/40 OK  S4_F_0059 (116.8s)
+[runner] 38/40 OK  S4_F_0064 (103.4s)
+[runner] 39/40 OK  S4_F_0143 (129.9s)
+[runner] 40/40 OK  S4_F_0150 (127.3s)
+[subset_repro] all 40 runs completed.
+
+======================================================================
+SUBSET RE-EXECUTION SUMMARY
+======================================================================
+             BIT_EXACT: 38
+     - S1_M_0013
+     - S1_M_0069
+     - S1_M_0103
+     - S1_M_0121
+     - S1_F_0014
+     - S1_F_0082
+     - S1_F_0116
+     - S1_F_0121
+     - S1_F_0154
+     - S2_M_0029
+     - S2_M_0058
+     - S2_M_0070
+     - S2_M_0079
+     - S2_M_0131
+     - S2_F_0036
+     - S2_F_0070
+     - S2_F_0071
+     - S2_F_0085
+     - S2_F_0128
+     - S3_M_0026
+     - S3_M_0043
+     - S3_M_0100
+     - S3_M_0129
+     - S3_M_0133
+     - S3_F_0069
+     - S3_F_0107
+     - S3_F_0124
+     - S3_F_0141
+     - S3_F_0151
+     - S4_M_0006
+     - S4_M_0077
+     - S4_M_0086
+     - S4_M_0118
+     - S4_F_0051
+     - S4_F_0059
+     - S4_F_0064
+     - S4_F_0143
+     - S4_F_0150
+       NEW_CSV_MISSING:  2
+     - S1_M_0159
+     - S4_M_0024
+
+FAILED — 2 runs not bit-exact. Detail in data\audit_S015\subset_repro_report.json.

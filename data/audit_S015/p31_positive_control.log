@@ -1,0 +1,14 @@
+======================================================================
+S015 P3.1 - synthetic positive control on detector
+======================================================================
+[PASS] T1 clamped: regex matched on Pulse error log -> log matched: baseline of [\d\.]+ \S+ is too (?:high|low), maximum [\w\s]+ baseline allowed is
+[PASS] T1b clamped: did NOT match normal solver text (regression test)
+[PASS] T2 diverged: NaN at row 5 -> NaN in CSV
+[PASS] T2b diverged: exit_code=1 -> exit_code=1
+[PASS] T3 implausible: HR=300 outside [20,220] -> HR=300 ? [20.0, 220.0]
+[PASS] T4 not_steady_state: Vt CV=0.518 > 0.05 -> Vt CV=0.518 > 0.05
+[PASS] T5 classify integration: extreme HR -> primary=implausible
+[PASS] T6 priority: clamped+implausible -> primary=clamped
+[PASS] T7 drift: HR delta_60s=10.00 > 5 -> HR ?60s=+10 > 5.0
+
+All 7 positive-control tests PASSED.

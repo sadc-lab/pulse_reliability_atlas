@@ -304,6 +304,14 @@ X to Y`); this would have made the `clamped` flag useless across the entire
 sweep. Detector validation on 20 reference runs in `Pulse_translation_new/`
 remains 20 / 20 clean with the new regex set.
 
+Atlas-side input validation in `src/scenario.py` is restricted to
+scenario and sex keys; physiological-bound enforcement is delegated to
+the locked Morris sampler ranges (§2.2), Pulse's setup-time rejection
+(captured by the `clamped` flag), and the detector's `implausible`
+hard-bound check on the steady-state mean. This three-layer
+defense-in-depth contract was verified end-to-end in
+[S015](../experiments_log/santino/S015_reproducibility_and_logic_audit.md).
+
 ### 2.7 Pilot gate (S005)
 
 A 22-run pilot on cell (S1, M) with 16 unique Morris points + 4

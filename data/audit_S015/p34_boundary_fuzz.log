@@ -1,0 +1,38 @@
+======================================================================
+S015 P3.4 - boundary fuzzing
+======================================================================
+
+[A] sampler.sample_morris input validation:
+  trajectories=0 -> RAISES: ValueError: trajectories must be >= 1
+  levels=1       -> RAISES: ValueError: levels must be >= 2
+
+[B] scenario.build_config with out-of-envelope sample row:
+  hr=-50              -> SILENT (atlas does not validate; relies on Pulse rejection)
+  rr=900              -> SILENT
+  fio2=-0.5           -> SILENT
+  sbp=0, dbp=0        -> SILENT
+  vt=5000             -> SILENT
+
+[C] scenario / sex key validation (should RAISE):
+  scenario='S99'      -> RAISES: KeyError: "unknown scenario 'S99'"
+  sex='X'             -> RAISES: KeyError: "unknown sex 'X'"
+
+[D] clip_dbp_to_pulse_constraint:
+  sbp=100, dbp_req=90 -> dbp_app=75.0 (expect 75.0), was_clipped=True
+
+[E] detector.check_implausible on hand-built stats:
+  HR=1000             -> implausible fired (HR=1e+03 ? [20.0, 220.0])
+
+======================================================================
+FINDING TABLE
+======================================================================
+  RAISES (explicit error): 4
+  SILENT (passes through): 5
+  Other (FIRED / OK):      2
+
+Interpretation:
+  By design (src/scenario.py docstring), build_config does NOT validate
+  physiological bounds. Defense in depth = Pulse-side rejection (clamped
+  flag) + post-hoc implausible flag. The findings above confirm that
+  contract: only scenario_key / sex_key raise; all physiological out-of-
+  envelope values pass through silently and rely on Pulse + detector.

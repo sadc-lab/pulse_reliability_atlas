@@ -1,0 +1,205 @@
+{
+  "seed": 42,
+  "n_runs": 40,
+  "image": "pulse-atlas-engine",
+  "results": [
+    {
+      "case_id": "S1_M_0013",
+      "status": "BIT_EXACT",
+      "sha256": "2d3265cb938325ebc69ead27f908b17193dc60a0cd0b06a4971ddf994174eb80"
+    },
+    {
+      "case_id": "S1_M_0069",
+      "status": "BIT_EXACT",
+      "sha256": "8baceb5ca73dda76a87cd98d4f0a77cb84e994afeed903459995b8664c4698bc"
+    },
+    {
+      "case_id": "S1_M_0103",
+      "status": "BIT_EXACT",
+      "sha256": "96872b5197bcf6f6991652f1187a4aa46b588f83fb0838d133667b55bd797446"
+    },
+    {
+      "case_id": "S1_M_0121",
+      "status": "BIT_EXACT",
+      "sha256": "9ecef4ff418abfe94a0bace45f5a1c1a70780ef7ad42fd7cdac4a9d4ef255fe2"
+    },
+    {
+      "case_id": "S1_M_0159",
+      "status": "NEW_CSV_MISSING"
+    },
+    {
+      "case_id": "S1_F_0014",
+      "status": "BIT_EXACT",
+      "sha256": "2bffbfd6b3dbbc176c6468616ea93ce774fe148b0b3be0df4fcf0b9bf659eb0c"
+    },
+    {
+      "case_id": "S1_F_0082",
+      "status": "BIT_EXACT",
+      "sha256": "81b33ed0605ec893196b85972e9fe63a190709e3da4cb54411da2a41047e429e"
+    },
+    {
+      "case_id": "S1_F_0116",
+      "status": "BIT_EXACT",
+      "sha256": "49e618dce80341361d6be0fe5cacbc08b37b3d92e2f9b80a236f07acec6eff40"
+    },
+    {
+      "case_id": "S1_F_0121",
+      "status": "BIT_EXACT",
+      "sha256": "2b6ef2f1fedaa5e7990b77fe1fbf064da6039c789a548b07f76020ac67fee4a2"
+    },
+    {
+      "case_id": "S1_F_0154",
+      "status": "BIT_EXACT",
+      "sha256": "608544dc8c55feed19ee45965e9b0f73f954c5cf1d336d7ef4d35c0d558ff73b"
+    },
+    {
+      "case_id": "S2_M_0029",
+      "status": "BIT_EXACT",
+      "sha256": "e607f4946f038777db24c5e1526ade8b3f2cd85aff7c61f3f5ab2f7a28ed08c0"
+    },
+    {
+      "case_id": "S2_M_0058",
+      "status": "BIT_EXACT",
+      "sha256": "e758227d114a9ae4b412d75d6e502158a73497f220fd519603e17070676f7dba"
+    },
+    {
+      "case_id": "S2_M_0070",
+      "status": "BIT_EXACT",
+      "sha256": "6873db75549b1bae47a272474b9a4df27e549cf93097f53e85ff5365ea554276"
+    },
+    {
+      "case_id": "S2_M_0079",
+      "status": "BIT_EXACT",
+      "sha256": "d27627db5d4747ea77aaeb698af451b00ea157b347ff7d9294ba971598f02d0d"
+    },
+    {
+      "case_id": "S2_M_0131",
+      "status": "BIT_EXACT",
+      "sha256": "926975fb5d56e952a5bea691a5d59977dd080f86920710e48765efd5a0d1aa83"
+    },
+    {
+      "case_id": "S2_F_0036",
+      "status": "BIT_EXACT",
+      "sha256": "e1dddc425a59e3a1d5e3ece50cec3e420493714cafdbbae5c39ee16a49500d71"
+    },
+    {
+      "case_id": "S2_F_0070",
+      "status": "BIT_EXACT",
+      "sha256": "792cca20f9867cec83d67670024e68d96bfdb0695af2541ac7f4874bc424813f"
+    },
+    {
+      "case_id": "S2_F_0071",
+      "status": "BIT_EXACT",
+      "sha256": "3306a47ddc4c5d7a9770ebcc97cdb780489af1abe4bbdb2d727e5155f622d822"
+    },
+    {
+      "case_id": "S2_F_0085",
+      "status": "BIT_EXACT",
+      "sha256": "994167695f01464be4efa821e789a4a0085d9bfdfe9dff252fb449b67b03be20"
+    },
+    {
+      "case_id": "S2_F_0128",
+      "status": "BIT_EXACT",
+      "sha256": "190bf1a2e8e348a2e0576660be40517ba2acad4201e5fb152c62ef6963b4f2e7"
+    },
+    {
+      "case_id": "S3_M_0026",
+      "status": "BIT_EXACT",
+      "sha256": "9005d27b1b3d79e9ce8cb704c4a8955b3e72d5b2e9273256bbe141511698c9cd"
+    },
+    {
+      "case_id": "S3_M_0043",
+      "status": "BIT_EXACT",
+      "sha256": "7758bc867290a2e8d0a4cde0c9c3ddc5c401bb5a21be5d358eac58945c576216"
+    },
+    {
+      "case_id": "S3_M_0100",
+      "status": "BIT_EXACT",
+      "sha256": "1787a288e4e68f6ec4df9ae9a1d4c06fb8e94cf0ddbe83c70e4e370af38cec29"
+    },
+    {
+      "case_id": "S3_M_0129",
+      "status": "BIT_EXACT",
+      "sha256": "4758b57124ae741ea85341c7b35010e670241a99e8ee091dc228c23cb62e660e"
+    },
+    {
+      "case_id": "S3_M_0133",
+      "status": "BIT_EXACT",
+      "sha256": "4edef9942462bc354a9e6d53672e84e396191a9ad0780e1638bad486738bfc17"
+    },
+    {
+      "case_id": "S3_F_0069",
+      "status": "BIT_EXACT",
+      "sha256": "6de89bdfd78c7ed51f935247f689022134b9b894a7d6b5d6c138f1897afa3fd0"
+    },
+    {
+      "case_id": "S3_F_0107",
+      "status": "BIT_EXACT",
+      "sha256": "15fdd8ac82d2d0d50107b757f0fd43f3edb7766885aeed874f5a8406a76d14e5"
+    },
+    {
+      "case_id": "S3_F_0124",
+      "status": "BIT_EXACT",
+      "sha256": "698167db28e5ec229ae3b9b4c447a39581d183cbe50c65ad5b6b37a1ce8c2448"
+    },
+    {
+      "case_id": "S3_F_0141",
+      "status": "BIT_EXACT",
+      "sha256": "cd62c182e389cd390e9130557111e886a5949d44c31c927647538a3c14ff1522"
+    },
+    {
+      "case_id": "S3_F_0151",
+      "status": "BIT_EXACT",
+      "sha256": "3ae6265a71b9c9bfac28b9e1785e33057393368ed5ac6bc1064668f40ee6bab7"
+    },
+    {
+      "case_id": "S4_M_0006",
+      "status": "BIT_EXACT",
+      "sha256": "a0bcd8382b705a191b60035dee3b9f51107a882ee1220e0892e8808308775082"
+    },
+    {
+      "case_id": "S4_M_0024",
+      "status": "NEW_CSV_MISSING"
+    },
+    {
+      "case_id": "S4_M_0077",
+      "status": "BIT_EXACT",
+      "sha256": "4d4a78e7329acd2abe0242346b944d3f4ab93e384032d32abd8903638ced7225"
+    },
+    {
+      "case_id": "S4_M_0086",
+      "status": "BIT_EXACT",
+      "sha256": "227c10ce3d91600068b0b6d35d992cfc5c5e98fc1e8b0e68149b3ef681c743a9"
+    },
+    {
+      "case_id": "S4_M_0118",
+      "status": "BIT_EXACT",
+      "sha256": "370a22ea5c0b6dad15aaacbd16206d5d135110d18b73893dfe545985a3a9a6c7"
+    },
+    {
+      "case_id": "S4_F_0051",
+      "status": "BIT_EXACT",
+      "sha256": "33ff1053789d057140aeca74e5897297bff23f2f8d4d08f111e872c064b3c5e1"
+    },
+    {
+      "case_id": "S4_F_0059",
+      "status": "BIT_EXACT",
+      "sha256": "b4bf72cbda610009ec0e78a5d47203fcea6f8a124434c97132317e444533c221"
+    },
+    {
+      "case_id": "S4_F_0064",
+      "status": "BIT_EXACT",
+      "sha256": "dc2c8facbb6b89ae5b9cf99e59c490e49e721fd901d894d42f68830d4eb0f325"
+    },
+    {
+      "case_id": "S4_F_0143",
+      "status": "BIT_EXACT",
+      "sha256": "ded194f6cc031d4e1a8fef8b998266044c7e72612d12109515ef5ee9ab9e4d64"
+    },
+    {
+      "case_id": "S4_F_0150",
+      "status": "BIT_EXACT",
+      "sha256": "2bcb11305a3aefc24d72e1ea2fb543edc27e3266532fb0972c0b5358befc618e"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+======================================================================
+S015 P3.2 - negative control on detector
+======================================================================
+[PASS] S1_M_0000: flags={'clamped': False, 'diverged': False, 'implausible': False, 'not_steady_state': False} primary=clean | HR=99.1, MAP=87.9, Vt=319, SpO2=0.996, PaO2=187, PaCO2=44.6
+[PASS] S2_M_0000: flags={'clamped': False, 'diverged': False, 'implausible': False, 'not_steady_state': False} primary=clean | HR=135, MAP=91.2, Vt=317, SpO2=0.952, PaO2=74.3, PaCO2=45.1
+[PASS] S3_M_0000: flags={'clamped': False, 'diverged': False, 'implausible': False, 'not_steady_state': False} primary=clean | HR=195, MAP=96.2, Vt=313, SpO2=0.904, PaO2=56.1, PaCO2=44.7
+[PASS] S4_M_0002: flags={'clamped': False, 'diverged': False, 'implausible': False, 'not_steady_state': False} primary=clean | HR=175, MAP=96.1, Vt=644, SpO2=0.873, PaO2=47.2, PaCO2=38.3
+[PASS] S1_M_0001: flags={'clamped': False, 'diverged': False, 'implausible': False, 'not_steady_state': False} primary=clean | HR=99.3, MAP=87.9, Vt=318, SpO2=0.997, PaO2=211, PaCO2=44.6
+
+All 5/5 negative-control runs CLEAN as expected.
