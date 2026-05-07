@@ -83,9 +83,12 @@ From the repo root:
 git config core.hooksPath .githooks
 ```
 
-That's it. After this, every commit that touches `experiments_log/` auto-regenerates `INDEX.md` and stages the update into the same commit.
+That's it. After this, every commit:
 
-If the hook is not set, the index will drift. If it drifts, run the generator manually:
+1. Auto-regenerates `experiments_log/INDEX.md` and stages the update into the same commit.
+2. Runs `ruff check src/ scripts/ tests/ engine/` (mirrors the GitHub Actions tests workflow) and **blocks the commit** if any violation remains. Auto-fix safe violations with `uv run ruff check --fix src/ scripts/ tests/ engine/`, then re-stage and re-commit. This is the same gate that runs in CI, just enforced locally so you don't push a red build.
+
+If the hook is not set, the index will drift and lint failures will only appear on push. If it drifts, run the generator manually:
 
 ```
 python scripts/regenerate_index.py

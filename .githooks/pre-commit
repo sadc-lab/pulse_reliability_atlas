@@ -1,13 +1,20 @@
 #!/bin/sh
 # PulseProbe pre-commit hook.
 #
-# Regenerates experiments_log/INDEX.md from frontmatter and stages the update
-# into the current commit. Fast, idempotent, stdlib-only.
+# Two checks, in order:
+#   1. Regenerates experiments_log/INDEX.md from frontmatter and stages the
+#      update into the current commit. Fast, idempotent, stdlib-only.
+#   2. Runs `ruff check` over the same scope as the GitHub Actions tests
+#      workflow (src/ scripts/ tests/ engine/) and blocks the commit if any
+#      violation remains. This catches CI-failing lint locally rather than
+#      after push.
 #
 # To enable this hook in a fresh clone, run once:
 #     git config core.hooksPath .githooks
 
 set -e
+
+# ---- 1. Regenerate experiments_log/INDEX.md ---------------------------------
 
 # Pick whichever Python is available (Git Bash on Windows usually has `python`;
 # Linux / macOS often have only `python3`).
@@ -16,8 +23,43 @@ if command -v python >/dev/null 2>&1; then
 elif command -v python3 >/dev/null 2>&1; then
     PY=python3
 else
+    PY=""
     echo "pre-commit: python not found on PATH — skipping INDEX.md regeneration." >&2
+fi
+
+if [ -n "$PY" ]; then
+    "$PY" scripts/regenerate_index.py
+    # Stage the regenerated index if it changed (no-op otherwise).
+    git add experiments_log/INDEX.md 2>/dev/null || true
+fi
+
+# ---- 2. Ruff lint (mirrors GitHub Actions tests workflow) -------------------
+
+# Prefer `uv run ruff` to match CI exactly; fall back to a plain `ruff`
+# binary on PATH; if neither is available, skip with a clear note rather
+# than blocking the commit (since the contributor may not have the project
+# environment set up yet — CI will still catch it on push).
+if command -v uv >/dev/null 2>&1; then
+    RUFF_CMD="uv run ruff"
+elif command -v ruff >/dev/null 2>&1; then
+    RUFF_CMD="ruff"
+else
+    echo "pre-commit: ruff not found on PATH — skipping lint check." >&2
+    echo "            install with:  uv add --dev ruff    (or)    pip install ruff" >&2
     exit 0
 fi
 
-"$PY" scripts/regenerate_index.py
+if ! $RUFF_CMD check src/ scripts/ tests/ engine/; then
+    echo ""
+    echo "pre-commit: ruff lint failed — commit aborted."
+    echo ""
+    echo "  To auto-fix safe violations:"
+    echo "    uv run ruff check --fix src/ scripts/ tests/ engine/"
+    echo "  Then re-stage the affected files and re-commit:"
+    echo "    git add <files>"
+    echo "    git commit"
+    echo ""
+    echo "  This is the same check that runs in GitHub Actions; CI will fail"
+    echo "  on push if these violations remain."
+    exit 1
+fi
