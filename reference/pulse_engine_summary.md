@@ -6,7 +6,7 @@
 
 ## What Pulse is
 
-Open-source, C++ whole-body physiology simulator (Kitware, Apache-2.0). Forked from BioGears in 2017 by the original BioGears core developers (Clipp, Bray, Webb). Current version: **4.3.1** (released Sept 2024).
+Open-source, C++ whole-body physiology simulator (Kitware, Apache-2.0). Forked from BioGears in 2017 by the original BioGears core developers (Clipp, Bray, Webb). Current `stable` head: **4.3.2** (released Aug 2025; build-system patch — web-WASM support — with no physiology changes vs 4.3.1, S016). This atlas pins **4.3.1** (released Jan 2025); results apply identically to 4.3.2.
 
 Primary citation: **Bray et al. (2019)**, "Pulse Physiology Engine: an Open-Source Software Platform for Computational Modeling of Human Medical Simulation," *SN Comprehensive Clinical Medicine*, [DOI:10.1007/s42399-019-00053-w](https://doi.org/10.1007/s42399-019-00053-w).
 
@@ -41,7 +41,11 @@ Ventilator modes (VC-AC validated best, Webb 2023):
 - VC-AC Vt error: **0.07–2.25%** across healthy / restrictive / obstructive.
 - PC-AC Vt error: **11–25%** (Pulse validation) to **24–59%** (our probing).
 
-**Critical gap (Pulse FAQ, verbatim):** *"We have not performed a systematic forward propagation or inverse quantification of model uncertainty, nor have we conducted a formal sensitivity analysis."*
+**Critical gap (Pulse FAQ, verbatim, still current 2026-05-07):** *"We have not performed a systematic forward propagation or inverse quantification of model uncertainty, nor have we conducted a formal sensitivity analysis."*
+
+**Nuance (S016 GitLab re-audit, 2026-05-07).** The Pulse repo carries a `STUDY_SENSITIVITY_ANALYSIS_1_0_0` tag (2020-07-20) with code at `src/cpp/study/sensitivity_analysis/` — a one-off Sobol study on **internal lumped-parameter circuit resistances** for model calibration, not on user-facing operational inputs (HR, BP, RR, Vt, FiO2, PEEP). It has not been re-run for Pulse 4.3.x. PulseProbe's contribution is the first SA on operational inputs; the 2020 study addressed a different parameter class.
+
+**Version-pin status (S016).** Pulse `REL_4_3_2` (2025-08-12) is the current `stable` head, but it is a build-system-only patch (web-WASM dockcross, 7 files / +46 −17). No physiology, validation, or solver code changed vs 4.3.1. Atlas runs on `pulse-pediatric-engine:latest` (4.3.1) remain the correct evaluation target.
 
 ---
 

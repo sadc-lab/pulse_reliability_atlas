@@ -6,12 +6,14 @@ This file is rebuilt from the YAML frontmatter of every entry in
 `santino/`, `contributor2/`, and `shared/`. To update it, edit the experiment
 and recommit — the pre-commit hook regenerates and stages this file.
 
-Total entries: **14**
+Total entries: **16**
 
 ## All experiments (newest first)
 
 | ID | Date | Author | Status | Title |
 |---|---|---|---|---|
+| `S016` | 2026-05-07 | santino | done | [S016 — Pulse GitLab + literature re-audit (May 2026): version state, V&V infrastructure, and the 2020 sensitivity-analysis study tag](santino/S016_pulse_gitlab_audit_may2026.md) |
+| `S015` | 2026-05-04 | santino | in_progress | [S015 — Reproducibility and Logic Audit (pre-publication double-check)](santino/S015_reproducibility_and_logic_audit.md) |
 | `S014` | 2026-04-28 | santino | done | [S014 — Trigger-pressure lockout: causal test of F-004 mechanism](santino/S014_trigger_pressure_lockout.md) |
 | `S013` | 2026-04-27 | santino | done | [S013 — Lexical lockdown (solver-divergence vs implausible-output taxonomy)](santino/S013_lexical_lockdown.md) |
 | `S012` | 2026-04-27 | santino | done | [S012 — Dual steady-state audit (F-003 hyperoxia + F-004 Vt oscillation)](santino/S012_steady_state_window_audit.md) |
@@ -43,6 +45,8 @@ Total entries: **14**
 - `S012` (2026-04-27, done) — [S012 — Dual steady-state audit (F-003 hyperoxia + F-004 Vt oscillation)](santino/S012_steady_state_window_audit.md) — _steady-state-audit, f-003, f-004, drift, reviewer-defense, manuscript-polish_
 - `S013` (2026-04-27, done) — [S013 — Lexical lockdown (solver-divergence vs implausible-output taxonomy)](santino/S013_lexical_lockdown.md) — _lexical-precision, manuscript-polish, taxonomy, reviewer-defense_
 - `S014` (2026-04-28, done) — [S014 — Trigger-pressure lockout: causal test of F-004 mechanism](santino/S014_trigger_pressure_lockout.md) — _f-004, mechanism-test, vc-ac, trigger-pressure, dyssynchrony, causal-test, reviewer-defense_
+- `S015` (2026-05-04, in_progress) — [S015 — Reproducibility and Logic Audit (pre-publication double-check)](santino/S015_reproducibility_and_logic_audit.md) — _reproducibility, verification, audit, pre-publication, docker, determinism, logic-validation_
+- `S016` (2026-05-07, done) — [S016 — Pulse GitLab + literature re-audit (May 2026): version state, V&V infrastructure, and the 2020 sensitivity-analysis study tag](santino/S016_pulse_gitlab_audit_may2026.md) — _literature, verification, pulse, gitlab, sensitivity-analysis, version-tracking_
 
 ## By tag
 
@@ -51,6 +55,9 @@ Total entries: **14**
 
 ### `atlas-finished`
 - `S006` — [S006 — Full 1,280-run Morris sweep + post-sweep analysis](santino/S006_full_morris_sweep.md)
+
+### `audit`
+- `S015` — [S015 — Reproducibility and Logic Audit (pre-publication double-check)](santino/S015_reproducibility_and_logic_audit.md)
 
 ### `bootstrap`
 - `S002` — [S002 — Project bootstrap (separate repo, skeleton, licensing)](santino/S002_project_bootstrap.md)
@@ -82,6 +89,7 @@ Total entries: **14**
 
 ### `determinism`
 - `S007` — [S007 — Targeted reproducibility check (pre-publication)](santino/S007_reproducibility_targeted_check.md)
+- `S015` — [S015 — Reproducibility and Logic Audit (pre-publication double-check)](santino/S015_reproducibility_and_logic_audit.md)
 
 ### `divergence`
 - `S011` — [S011 — Sex vs mass disentangling (controlled 2×2 design)](santino/S011_sex_vs_mass_disentangle.md)
@@ -93,6 +101,7 @@ Total entries: **14**
 - `S001` — [S001 — Docker + hardware smoke test (3× parallel Pulse)](santino/S001_docker_smoke_test.md)
 - `S004` — [S004 — Scenario-init smoke test (4×2 cells) + atlas Docker image + detector recalibration](santino/S004_scenario_smoke_and_atlas_image.md)
 - `S007` — [S007 — Targeted reproducibility check (pre-publication)](santino/S007_reproducibility_targeted_check.md)
+- `S015` — [S015 — Reproducibility and Logic Audit (pre-publication double-check)](santino/S015_reproducibility_and_logic_audit.md)
 
 ### `doi-verification`
 - `S010` — [S010 — Literature-review pass: every reference verified against DOI / PMID](santino/S010_literature_review.md)
@@ -115,6 +124,9 @@ Total entries: **14**
 
 ### `gate`
 - `S005` — [S005 — 22-run pilot on cell (S1, Male) — preregistration §Pilot gate](santino/S005_pilot_S1_male.md)
+
+### `gitlab`
+- `S016` — [S016 — Pulse GitLab + literature re-audit (May 2026): version state, V&V infrastructure, and the 2020 sensitivity-analysis study tag](santino/S016_pulse_gitlab_audit_may2026.md)
 
 ### `h1`
 - `S006` — [S006 — Full 1,280-run Morris sweep + post-sweep analysis](santino/S006_full_morris_sweep.md)
@@ -147,9 +159,13 @@ Total entries: **14**
 
 ### `literature`
 - `S003` — [S003 — Verified Pulse 4.3.1 limitations (primary-source re-check)](santino/S003_pulse_limitations_verified.md)
+- `S016` — [S016 — Pulse GitLab + literature re-audit (May 2026): version state, V&V infrastructure, and the 2020 sensitivity-analysis study tag](santino/S016_pulse_gitlab_audit_may2026.md)
 
 ### `literature-review`
 - `S010` — [S010 — Literature-review pass: every reference verified against DOI / PMID](santino/S010_literature_review.md)
+
+### `logic-validation`
+- `S015` — [S015 — Reproducibility and Logic Audit (pre-publication double-check)](santino/S015_reproducibility_and_logic_audit.md)
 
 ### `manuscript-polish`
 - `S008` — [S008 — Tier-1 statistical refinement: block bootstrap, within-sex Wasserstein null, divergence mechanism, manuscript polish](santino/S008_tier1_statistical_refinement.md)
@@ -179,9 +195,11 @@ Total entries: **14**
 
 ### `pre-publication`
 - `S007` — [S007 — Targeted reproducibility check (pre-publication)](santino/S007_reproducibility_targeted_check.md)
+- `S015` — [S015 — Reproducibility and Logic Audit (pre-publication double-check)](santino/S015_reproducibility_and_logic_audit.md)
 
 ### `pulse`
 - `S003` — [S003 — Verified Pulse 4.3.1 limitations (primary-source re-check)](santino/S003_pulse_limitations_verified.md)
+- `S016` — [S016 — Pulse GitLab + literature re-audit (May 2026): version state, V&V infrastructure, and the 2020 sensitivity-analysis study tag](santino/S016_pulse_gitlab_audit_may2026.md)
 
 ### `pytest`
 - `S009` — [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md)
@@ -194,6 +212,7 @@ Total entries: **14**
 
 ### `reproducibility`
 - `S007` — [S007 — Targeted reproducibility check (pre-publication)](santino/S007_reproducibility_targeted_check.md)
+- `S015` — [S015 — Reproducibility and Logic Audit (pre-publication double-check)](santino/S015_reproducibility_and_logic_audit.md)
 
 ### `reviewer-defense`
 - `S012` — [S012 — Dual steady-state audit (F-003 hyperoxia + F-004 Vt oscillation)](santino/S012_steady_state_window_audit.md)
@@ -202,6 +221,9 @@ Total entries: **14**
 
 ### `seed-stability`
 - `S009` — [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md)
+
+### `sensitivity-analysis`
+- `S016` — [S016 — Pulse GitLab + literature re-audit (May 2026): version state, V&V infrastructure, and the 2020 sensitivity-analysis study tag](santino/S016_pulse_gitlab_audit_may2026.md)
 
 ### `sex-comparison`
 - `S006` — [S006 — Full 1,280-run Morris sweep + post-sweep analysis](santino/S006_full_morris_sweep.md)
@@ -243,4 +265,9 @@ Total entries: **14**
 ### `verification`
 - `S003` — [S003 — Verified Pulse 4.3.1 limitations (primary-source re-check)](santino/S003_pulse_limitations_verified.md)
 - `S007` — [S007 — Targeted reproducibility check (pre-publication)](santino/S007_reproducibility_targeted_check.md)
+- `S015` — [S015 — Reproducibility and Logic Audit (pre-publication double-check)](santino/S015_reproducibility_and_logic_audit.md)
+- `S016` — [S016 — Pulse GitLab + literature re-audit (May 2026): version state, V&V infrastructure, and the 2020 sensitivity-analysis study tag](santino/S016_pulse_gitlab_audit_may2026.md)
+
+### `version-tracking`
+- `S016` — [S016 — Pulse GitLab + literature re-audit (May 2026): version state, V&V infrastructure, and the 2020 sensitivity-analysis study tag](santino/S016_pulse_gitlab_audit_may2026.md)
 

@@ -129,18 +129,32 @@ systems, and is used in three broad communities:
   curricula increasingly use Pulse for case-based simulation.
 
 Despite this footprint, the engine's developers state explicitly on
-the public Pulse FAQ [Pulse FAQ; verified verbatim 2026-04-19, S003]:
+the public Pulse FAQ [Pulse FAQ; verified verbatim 2026-04-19, still
+current as of the May 2026 GitLab re-audit, S003 / S016]:
 
 > "We have not performed a systematic forward propagation or inverse
 > quantification of model uncertainty, nor have we conducted a formal
 > sensitivity analysis."
 
-The corollary is operational: every Pulse user — clinical, industrial,
-educational — is operating *without a map* of where the engine is
-reliable, where it silently bends inputs out of acceptance, and which
-inputs dominate which outputs. Each user re-encounters the same
-limitations independently. Each medical-device validation pipeline
-re-derives its own working envelope by trial and error.
+A May 2026 re-audit of `gitlab.kitware.com/physiology/engine` (S016)
+identified one nuance worth stating precisely: the repository carries
+a 2020 tag `STUDY_SENSITIVITY_ANALYSIS_1_0_0` whose ReadMe defines
+its scope as *"sensitivity analysis as a path towards improved lumped
+parameter optimization"* — a one-off Sobol study on **internal
+vascular-circuit resistance multipliers** (model-calibration
+parameters that override the engine's learned values during
+simulation). That study addressed a different parameter class and has
+not been re-run for the 4.3.x release line. No systematic sensitivity
+analysis on **user-facing operational inputs** (HR, BP, RR, Vt, FiO2,
+PEEP) has been published.
+
+The corollary is operational: every Pulse user driving the engine
+from operational settings — clinical, industrial, educational — is
+operating *without a map* of where the engine is reliable, where it
+silently bends inputs out of acceptance, and which inputs dominate
+which outputs. Each user re-encounters the same limitations
+independently. Each medical-device validation pipeline re-derives its
+own working envelope by trial and error.
 
 This paper closes that gap with the first open reliability atlas for
 Pulse v4.3.1 across the adult operational envelope relevant to
@@ -176,7 +190,12 @@ Twelve limitations were verified against primary sources before the
 preregistration was locked ([S003](../experiments_log/santino/S003_pulse_limitations_verified.md)).
 This atlas adds quantitative coverage to those:
 
-1. No formal SA / UQ — addressed by this paper.
+1. No formal SA / UQ on user-facing operational inputs — addressed by
+   this paper. The 2020 `STUDY_SENSITIVITY_ANALYSIS_1_0_0` tag in the
+   Pulse repository (Sobol on internal lumped-parameter circuit
+   resistances for model calibration) addressed a different parameter
+   class and has not been ported to 4.3.x; the FAQ statement remains
+   current. Audit details in S016.
 2. BP clamping above SBP > 120 / DBP > 80 — verified empirically; locked
    sampler ranges respect this so it does not contaminate H2.
 3. Adult-only (age ≥ 18 hard-gated in `SetupPatient.cpp`) — atlas restricted
@@ -1000,10 +1019,28 @@ the following or to an experiment-log entry in this repository.
    Distributed at <https://pulse.kitware.com>. Source verified from
    the locally-cloned engine repository
    (`C:/Users/santi/projets/Pulse_engine_adults_Gitlab/engine/`,
-   2026-04-07).
+   2026-04-07; GitLab re-audit 2026-05-07, S016). The current
+   `stable` head is `REL_4_3_2` (2025-08-12), whose full diff vs
+   `REL_4_3_1` is 7 files / +46 −17 lines (web-WASM dockcross
+   support, .NET binding tweak); no physiology, validation,
+   patient-setup, or solver code changed. Atlas results on 4.3.1
+   apply identically to 4.3.2.
 2. **Pulse FAQ.** *Have you done UQ / SA?*
    <https://pulse.kitware.com/_f_a_q.html> — verified verbatim
-   2026-04-19, paragraph quoted in §1.1 (recorded in S003).
+   2026-04-19, still current at the May 2026 re-audit; paragraph
+   quoted in §1.1 (recorded in S003 / S016).
+2a. **Pulse `STUDY_SENSITIVITY_ANALYSIS_1_0_0` tag (Kitware, 2020-07-20).**
+    Code at `src/cpp/study/sensitivity_analysis/` and
+    `src/python/pulse/study/sensitivity_analysis/` in the Pulse
+    GitLab repository. Sobol S1/ST analysis with an ML surrogate
+    over internal lumped-parameter vascular-circuit resistance
+    multipliers (model-calibration parameters); ReadMe scope
+    statement: *"sensitivity analysis as a path towards improved
+    lumped parameter optimization."* Last functional commit
+    2020-08-24; not ported to Pulse 4.3.x. Cited in §1.1 to
+    distinguish internal-calibration SA (their scope) from
+    operational-input SA (this paper's scope). Audit logged in
+    S016 (2026-05-07).
 3. **Pulse Setup audit.**
    `engine/src/cpp/engine/human_adult/whole_body/controller/SetupPatient.cpp`
    — referenced for adult age gate (lines 41 – 64), BMI bounds (lines

@@ -64,3 +64,15 @@ Two lessons:
 
 - Lock `preregistration.md` (done on same day).
 - **Rule going forward:** no new limitation added to CLAUDE.md without a traceable source (DOI, Pulse FAQ URL, source file + line number, or own experiment ID).
+
+---
+
+## Update 2026-05-07 — see [S016](S016_pulse_gitlab_audit_may2026.md)
+
+Re-audit of `gitlab.kitware.com/physiology/engine` surfaced one nuance that **does not invalidate any finding above** but sharpens limitation #1's wording:
+
+- The Pulse repo carries a tag `STUDY_SENSITIVITY_ANALYSIS_1_0_0` (2020-07-20) with code at `src/cpp/study/sensitivity_analysis/` (C++ ~56 KB) and `src/python/pulse/study/sensitivity_analysis/` (analysis.py, ml_surrogate.py, …). Its ReadMe defines the scope as *"sensitivity analysis as a path towards improved lumped parameter optimization"* — Sobol indices over internal vascular-circuit resistance multipliers (model-calibration parameters), not user-facing operational inputs. Last functional commit 2020-08-24; not ported to 4.3.x.
+- The literal FAQ statement quoted above remains correct (no SA on the shipped engine). The framing across CLAUDE.md, README, `reference/pulse_limitations_verified.md`, `reference/pulse_engine_summary.md`, and `preprint/manuscript.md` was updated to say "no formal SA / UQ on **user-facing operational inputs**" rather than the broader "no SA" claim.
+- Pulse `REL_4_3_2` (2025-08-12, current `stable` head) was diffed vs `REL_4_3_1` and is build-system only (7 files, +46 / −17, web-WASM + .NET binding); no physiology / validation / patient-setup / solver code changed. Our 4.3.1 pin remains the correct evaluation target.
+
+S003's central finding — Pulse 4.3.1 ships with no formal SA / UQ on operational inputs and the FAQ is still current — is unchanged. S016 documents the audit in full.

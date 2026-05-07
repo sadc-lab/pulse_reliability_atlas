@@ -1,18 +1,26 @@
-# Pulse 4.3.1 — Verified Limitations (as of 2026-04-19)
+# Pulse 4.3.1 — Verified Limitations (as of 2026-04-19, GitLab re-audit 2026-05-07)
 
 Every claim here is traceable. Use this list when writing the preprint, preparing the demo, or designing experiments. Do NOT add items without re-verifying against a primary source or a logged experiment.
 
+> **Version-pin status (S016, 2026-05-07).** Pulse `REL_4_3_2` (2025-08-12) is on the public `stable` branch but its full diff vs `REL_4_3_1` is **7 files / +46 −17 lines, all build-system** (CMake, dockcross, web-WASM, .NET binding). No physiology, validation, patient-setup, or solver code changed. Our atlas's `pulse-pediatric-engine:latest` (built from 4.3.1) and `kitware/pulse:4.3.1` remain the correct evaluation targets — re-running on 4.3.2 would yield numerically identical results. Re-confirm before paper submission.
+
 ---
 
-## 1. No formal sensitivity analysis / uncertainty quantification
+## 1. No formal sensitivity analysis / uncertainty quantification on operational inputs
 
-**Verbatim from the [Pulse FAQ](https://pulse.kitware.com/_f_a_q.html):**
+**Verbatim from the [Pulse FAQ](https://pulse.kitware.com/_f_a_q.html) (verified 2026-04-19, still current 2026-05-07):**
 
 > We have not performed a systematic forward propagation or inverse quantification of model uncertainty, nor have we conducted a formal sensitivity analysis. We plan to begin this type of analysis in the near future.
 
-**Version history check.** v3.0.0 listed a sensitivity/correlation framework as a "planned improvement." v4.2.0 did not deliver it. v4.3.0 added "initial architecture for automated validation" — regression-testing templates, not uncertainty quantification. v4.3.1 (Sept 2024, current release) still has no published SA or UQ.
+**Version history check.** v3.0.0 listed a sensitivity/correlation framework as a "planned improvement." v4.2.0 did not deliver it. v4.3.0 added "initial architecture for automated validation" — regression-testing templates, not uncertainty quantification. v4.3.1 (Sept 2024) and v4.3.2 (Aug 2025) still ship with no formal SA or UQ pipeline.
 
-**This is the core gap PulseProbe fills.**
+**Important nuance from the GitLab re-audit (S016, 2026-05-07).** The Pulse repo carries a tag `STUDY_SENSITIVITY_ANALYSIS_1_0_0` (2020-07-20), with code at `src/cpp/study/sensitivity_analysis/` (SARunner.cpp, ~56 KB) and `src/python/pulse/study/sensitivity_analysis/` (analysis.py, ml_surrogate.py, …). Its `ReadMe.md` states: *"This study uses sensitivity analysis as a path towards improved lumped parameter optimization."* It computes Sobol S1 / ST indices via an ML surrogate over **internal vascular-circuit resistance multipliers** (Aorta1ToBrain1, Aorta1ToFat1, Bone1ToBone2, AbdominalCavity1ToGround, …) — i.e. model-calibration parameters that override the engine's learned values during simulation. The last functional commit on the directory was 2020-08-24; everything since is build-system maintenance. The study has **not** been ported to Pulse 4.3.x.
+
+This means the literal FAQ statement is correct (no formal SA on the shipped engine), but the framing for our paper must be precise:
+
+> Kitware released a one-off Sobol study in 2020 (`STUDY_SENSITIVITY_ANALYSIS_1_0_0`) on internal circuit-element values for parameter optimization. No systematic sensitivity analysis on **user-facing operational inputs** (HR, BP, RR, Vt, FiO2, PEEP) has been published, and the FAQ continues to state that no formal SA exists for the engine as currently shipped.
+
+**This — operational-input SA, missing — is the core gap our atlas fills.** The 2020 study tag is complementary work on a different parameter class (internal calibration), not a substitute.
 
 ---
 
@@ -149,3 +157,5 @@ VC-AC is Pulse's strongest ventilation mode (Vt error 0.07–2.25%). This is the
 - Webb et al. 2023 (ventilator validation) — https://pmc.ncbi.nlm.nih.gov/articles/PMC10224749/
 - Pulse_translation_new experiments_log.md (E6, E10, E20, E28, E29)
 - Pulse GitLab source — https://gitlab.kitware.com/physiology/engine
+- `STUDY_SENSITIVITY_ANALYSIS_1_0_0` tag (2020-07-20) — `src/cpp/study/sensitivity_analysis/` and `src/python/pulse/study/sensitivity_analysis/` (S016 audit, 2026-05-07)
+- Pulse `REL_4_3_2` tag (2025-08-12) — diffed vs `REL_4_3_1`, build-system only (S016 audit)

@@ -24,14 +24,24 @@ respiratory, gas-exchange, and pharmacology dynamics. People use it for:
 - **Teaching** (anaesthesia, ICU, paramedic training).
 
 Pulse is widely cited and downloaded — but its developers themselves state
-on the [Pulse FAQ](https://pulse.kitware.com/_f_a_q.html):
+on the [Pulse FAQ](https://pulse.kitware.com/_f_a_q.html) (verified verbatim
+2026-04-19, still current 2026-05-07):
 
 > "We have not performed a systematic forward propagation or inverse
 > quantification of model uncertainty, nor have we conducted a formal
 > sensitivity analysis."
 
-That means **every Pulse user has been operating without a map of where the
-engine is reliable** — until this repository.
+A 2020 study tag (`STUDY_SENSITIVITY_ANALYSIS_1_0_0`) in the Pulse repo did
+apply Sobol indices to a different parameter class — **internal
+lumped-parameter circuit resistances** used for model calibration — but no
+sensitivity analysis on **user-facing operational inputs** (HR, BP, RR, Vt,
+FiO2, PEEP) has been published, and that 2020 study has not been ported to
+the 4.3.x release line (audit logged in
+[`experiments_log/santino/S016`](experiments_log/santino/S016_pulse_gitlab_audit_may2026.md)).
+
+That means **every Pulse user driving the engine from operational settings
+has been operating without a map of where the engine is reliable** — until
+this repository.
 
 ---
 
