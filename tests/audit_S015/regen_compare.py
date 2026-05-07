@@ -186,7 +186,8 @@ def main() -> int:
     regen = regen_aggregated()
     _save(regen, AUDIT / "full_sweep_aggregated.parquet")
     r = compare("data/runs/full_sweep/aggregated.parquet", committed, regen, sort_by=["case_id"])
-    report(r); results.append(r)
+    report(r)
+    results.append(r)
 
     master = regen.copy()
     sample = pd.read_parquet(SWEEP / "morris_sample.parquet")
@@ -199,7 +200,8 @@ def main() -> int:
     regen = cell_flag_summary(master)
     _save(regen, AUDIT / "cell_flag_summary.csv")
     r = compare("results/cell_flag_summary.csv", committed, regen, sort_by=["scenario", "sex"])
-    report(r); results.append(r)
+    report(r)
+    results.append(r)
 
     # 3. morris_indices (with default seed/n_bootstrap that analyze_sweep.py uses)
     print("\n[3/8] results/morris_indices.parquet — regenerating (block bootstrap, seed=12345, B=1000) ...")
@@ -207,7 +209,8 @@ def main() -> int:
     regen = morris_indices(master, sample, cells, n_bootstrap=1000)
     _save(regen, AUDIT / "morris_indices.parquet")
     r = compare("results/morris_indices.parquet", committed, regen, sort_by=["scenario", "sex", "output", "input"])
-    report(r); results.append(r)
+    report(r)
+    results.append(r)
 
     morris_for_downstream = regen
 
@@ -217,7 +220,8 @@ def main() -> int:
     regen = evaluate_h1(morris_for_downstream)
     _save(regen, AUDIT / "h1_top3_fraction.csv")
     r = compare("results/h1_top3_fraction.csv", committed, regen, sort_by=["scenario", "sex", "output"])
-    report(r); results.append(r)
+    report(r)
+    results.append(r)
 
     # 5. sobol_promotion
     print("\n[5/8] results/sobol_promotion.csv — regenerating ...")
@@ -225,7 +229,8 @@ def main() -> int:
     regen = sobol_promotion(morris_for_downstream)
     _save(regen, AUDIT / "sobol_promotion.csv")
     r = compare("results/sobol_promotion.csv", committed, regen, sort_by=["scenario", "sex", "output", "input"])
-    report(r); results.append(r)
+    report(r)
+    results.append(r)
 
     # 6. wasserstein_male_vs_female
     print("\n[6/8] results/wasserstein_male_vs_female.csv — regenerating ...")
@@ -233,7 +238,8 @@ def main() -> int:
     regen = wasserstein_per_output(master, scenarios)
     _save(regen, AUDIT / "wasserstein_male_vs_female.csv")
     r = compare("results/wasserstein_male_vs_female.csv", committed, regen, sort_by=["scenario", "output"])
-    report(r); results.append(r)
+    report(r)
+    results.append(r)
 
     # 7. spearman_mu_star
     print("\n[7/8] results/spearman_mu_star.csv — regenerating ...")
@@ -241,7 +247,8 @@ def main() -> int:
     regen = spearman_mu_star_male_vs_female(morris_for_downstream, scenarios)
     _save(regen, AUDIT / "spearman_mu_star.csv")
     r = compare("results/spearman_mu_star.csv", committed, regen, sort_by=["scenario", "output"])
-    report(r); results.append(r)
+    report(r)
+    results.append(r)
 
     # 8. clamp_grid + diverged_grid + reliability_classification
     print("\n[8/8] heatmaps + reliability_classification — regenerating ...")
@@ -249,19 +256,22 @@ def main() -> int:
     regen = flag_count_grid(master, "clamped")
     _save(regen, AUDIT / "clamp_grid.parquet")
     r = compare("results/clamp_grid.parquet", committed, regen)
-    report(r); results.append(r)
+    report(r)
+    results.append(r)
 
     committed = _load(RESULTS / "diverged_grid.parquet")
     regen = flag_count_grid(master, "diverged")
     _save(regen, AUDIT / "diverged_grid.parquet")
     r = compare("results/diverged_grid.parquet", committed, regen)
-    report(r); results.append(r)
+    report(r)
+    results.append(r)
 
     committed = _load(RESULTS / "reliability_classification.csv")
     regen = reliability_classification(master)
     _save(regen, AUDIT / "reliability_classification.csv")
     r = compare("results/reliability_classification.csv", committed, regen, sort_by=["scenario", "sex"])
-    report(r); results.append(r)
+    report(r)
+    results.append(r)
 
     # Final summary
     print("\n" + "=" * 70)

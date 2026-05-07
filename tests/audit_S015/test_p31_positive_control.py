@@ -20,7 +20,6 @@ REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO))
 
 from src.detector import (  # noqa: E402
-    HARD_BOUNDS,
     classify,
     check_clamped,
     check_diverged,
@@ -97,7 +96,7 @@ def main() -> int:
 
     r = check_clamped("Resetting the target for X to Y. Solver normal text.")
     assert not r.fired, f"clamped MUST NOT fire on normal solver convergence text; got {r}"
-    print(_safe(f"[PASS] T1b clamped: did NOT match normal solver text (regression test)"))
+    print(_safe("[PASS] T1b clamped: did NOT match normal solver text (regression test)"))
 
     # --- Test 2: diverged via NaN ---
     csv = _csv_with_nan(tmp)

@@ -24,15 +24,12 @@ import pandas as pd
 REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO))
 
-from src.detector import HARD_BOUNDS, check_implausible, compute_steady_state_stats  # noqa: E402
-from src.sampler import InputSpec, sample_morris  # noqa: E402
+from src.detector import check_implausible, compute_steady_state_stats  # noqa: E402
+from src.sampler import sample_morris  # noqa: E402
 from src.scenario import (  # noqa: E402
-    PATIENTS,
-    Patient,
     build_config,
     case_id,
     clip_dbp_to_pulse_constraint,
-    derive_map,
 )
 
 
@@ -74,31 +71,37 @@ def main() -> int:
     })
 
     # Negative HR
-    bad = base_row.copy(); bad["hr"] = -50.0
+    bad = base_row.copy()
+    bad["hr"] = -50.0
     s, msg = try_call("hr=-50", build_config, bad, "S1", "M", case_id("S1", "M", 9999))
     print(_safe(f"  hr=-50              -> {s} (atlas does not validate; relies on Pulse rejection)"))
     findings.append({"test": "build_config hr=-50", "outcome": s, "detail": msg[:120]})
 
     # RR = 900 bpm
-    bad = base_row.copy(); bad["rr"] = 900.0
+    bad = base_row.copy()
+    bad["rr"] = 900.0
     s, msg = try_call("rr=900", build_config, bad, "S1", "M", case_id("S1", "M", 9998))
     print(_safe(f"  rr=900              -> {s}"))
     findings.append({"test": "build_config rr=900", "outcome": s, "detail": msg[:120]})
 
     # FiO2 = -0.5
-    bad = base_row.copy(); bad["fio2"] = -0.5
+    bad = base_row.copy()
+    bad["fio2"] = -0.5
     s, msg = try_call("fio2=-0.5", build_config, bad, "S1", "M", case_id("S1", "M", 9997))
     print(_safe(f"  fio2=-0.5           -> {s}"))
     findings.append({"test": "build_config fio2=-0.5", "outcome": s, "detail": msg[:120]})
 
     # SBP = 0
-    bad = base_row.copy(); bad["sbp"] = 0.0; bad["dbp"] = 0.0
+    bad = base_row.copy()
+    bad["sbp"] = 0.0
+    bad["dbp"] = 0.0
     s, msg = try_call("sbp=0", build_config, bad, "S1", "M", case_id("S1", "M", 9996))
     print(_safe(f"  sbp=0, dbp=0        -> {s}"))
     findings.append({"test": "build_config sbp=0", "outcome": s, "detail": msg[:120]})
 
     # Vt = 5000 mL
-    bad = base_row.copy(); bad["vt"] = 5000.0
+    bad = base_row.copy()
+    bad["vt"] = 5000.0
     s, msg = try_call("vt=5000", build_config, bad, "S1", "M", case_id("S1", "M", 9995))
     print(_safe(f"  vt=5000             -> {s}"))
     findings.append({"test": "build_config vt=5000", "outcome": s, "detail": msg[:120]})

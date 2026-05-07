@@ -59,12 +59,12 @@ def main() -> int:
     # --- Edge case: single EE ---
     mu1, mus1, sig1 = _morris_stats(np.array([5.0]))
     assert mu1 == 5.0 and mus1 == 5.0 and sig1 == 0.0
-    print(_safe(f"[PASS] single-EE edge case: mu=mu_star=5.0, sigma=0.0"))
+    print(_safe("[PASS] single-EE edge case: mu=mu_star=5.0, sigma=0.0"))
 
     # --- Edge case: empty ---
     mu0, mus0, sig0 = _morris_stats(np.array([]))
     assert np.isnan(mu0) and np.isnan(mus0) and np.isnan(sig0)
-    print(_safe(f"[PASS] empty-EE edge case: all NaN"))
+    print(_safe("[PASS] empty-EE edge case: all NaN"))
 
     # --- Block bootstrap CI: 3 trajectories, 2 EEs each ---
     df = pd.DataFrame({
@@ -73,20 +73,20 @@ def main() -> int:
     })
     rng = np.random.default_rng(123)
     lo, hi = _block_bootstrap_mu_star_ci(df, n_bootstrap=5000, rng=rng, alpha=0.05)
-    print(_safe(f"\nBlock bootstrap (3 traj x 2 EE, B=5000, alpha=0.05):"))
+    print(_safe("\nBlock bootstrap (3 traj x 2 EE, B=5000, alpha=0.05):"))
     print(_safe(f"  mu_star point = {expected_mu_star}"))
     print(_safe(f"  CI = [{lo:.4f}, {hi:.4f}]"))
     # CI should bracket the point estimate
     assert lo <= expected_mu_star <= hi, f"CI [{lo}, {hi}] does not bracket mu_star={expected_mu_star}"
     # Sanity: lo > 0 since all |EE| are positive integers
     assert lo > 0, f"CI lower bound should be > 0; got {lo}"
-    print(_safe(f"[PASS] block bootstrap CI brackets the mu_star point estimate."))
+    print(_safe("[PASS] block bootstrap CI brackets the mu_star point estimate."))
 
     # --- Block bootstrap CI: 1 trajectory only -> NaN ---
     df1 = pd.DataFrame({"trajectory": [0, 0, 0], "ee": [1.0, 2.0, 3.0]})
     lo1, hi1 = _block_bootstrap_mu_star_ci(df1, n_bootstrap=100, rng=rng)
     assert np.isnan(lo1) and np.isnan(hi1)
-    print(_safe(f"[PASS] single-trajectory block bootstrap correctly returns NaN CI"))
+    print(_safe("[PASS] single-trajectory block bootstrap correctly returns NaN CI"))
 
     # --- Cross-check: hand-walked Morris OAT step ---
     # Construct a 2-trajectory sample where flipping `hr` by +1.0 normalized
