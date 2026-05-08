@@ -1011,6 +1011,15 @@ of locked runs fall below the 0.05 steady-state threshold).
   formally closed in §3.3.1; if future work re-opens it on the
   Group B cells, larger-scale variance decomposition would benefit
   from a cluster.
+* **Theoretical vs. empirical coverage.** The Morris sweep samples the
+  extremes of Pulse's theoretical acceptance envelope based on
+  standardized ARDS definitions. It does not quantify the engine's
+  empirical operational coverage — i.e., what fraction of actual,
+  real-world ICU patient configurations (such as those found in
+  MIMIC-IV or pediatric databases) fall safely within the stable,
+  linear regimes identified here. Mapping the engine's reliability
+  against the empirical distribution of clinical datasets remains a
+  necessary limitation of the current theoretical atlas.
 
 ### 4.4 Connection to downstream PhD work
 
