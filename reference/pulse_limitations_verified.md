@@ -24,10 +24,11 @@ This means the literal FAQ statement is correct (no formal SA on the shipped eng
 
 ---
 
-## 2. Blood pressure init rejection
+## 2. Blood pressure init rejection (loud, not silent)
 
-- **SBP > 120 or DBP > 80** at patient setup is silently rejected. Error message says "use a condition to model hypertension" but no hypertension condition exists in v4.3.1.
+- **SBP > 120 or DBP > 80** at patient setup is rejected **loudly** with an explicit `[ERROR]` log line and exit code 1 — *not* a silent substitution. Error message says "use a condition to model hypertension" but no hypertension condition exists in v4.3.1.
 - **Pulse-pressure ratio DBP/SBP ≤ 0.75** is also enforced at init.
+- *Earlier characterization of this gate as "silent" was overstated.* The atlas's H2 hypothesis (silent clamping ≥ 5 %) returned 0 / 1,280 runs (manuscript §3.4); rejection is observable from `pulse.log` alone with no special instrumentation. Update made 2026-05-08 from the deliberate-clamp probes in S005 and the H2 null result.
 
 **Evidence:** Pulse_translation_new experiments E10 (100 Docker runs mapping all input boundaries) + source audit 2026-04-07.
 

@@ -27,7 +27,8 @@ combinations have ≥ 50 % of summed μ\* in their top-3 inputs (median
 0.928), and the engine is **predominantly linear** for these dominant
 parameters. Pulse rejects out-of-range inputs *loudly*: 0 of 1,280 runs
 fired the silent-clamping flag. Solver divergence is sex-stratified —
-20 of 1,280 runs (1.6 %) diverged, **all 20 male**. Two boundary
+20 of 1,280 runs (1.6 %) diverged, **all 20 male in the input-extreme
+regime** (sex-stratification is regime-dependent; §3.5.1). Two boundary
 findings: **F-003**, Pulse produces PaO2 > 600 mmHg at FiO2 = 1.0
 (hyperoxia overshoot); **F-004**, VC-AC tidal-volume instability in
 20.6 % of runs, **causally identified as patient-ventilator
@@ -362,12 +363,37 @@ auto-updated when the analysis script re-runs.*
 
 ### 3.2 Morris sensitivity (Figures 2 a–f)
 
-[μ\* heatmaps per output × input × cell from
-`results/morris_indices.parquet`]
+Figures 2 a–f show the Morris μ\* heatmap for each of the six outputs.
+Rows are the seven swept inputs; columns are the eight (scenario, sex)
+cells. The colour scale is the magnitude of the elementary effect — how
+much each output moves when the corresponding input is perturbed. Four
+visual patterns dominate:
 
-**Bootstrap 95 % CI on μ\*** (1000 resamples) is reported alongside each
-μ\* point estimate in the table; CI overlap between the top-3 and the rest
-is the formal H1 test.
+* **Cardiovascular outputs are cardio-input dominated.** Output HR is
+  driven by input HR in every cell (μ\* ≈ 55 in healthy → ≈ 95 in
+  severe ARDS); output MAP is driven by SBP in every cell (μ\* ≈ 17 –
+  20). No cross-talk from ventilator settings.
+* **Gas-exchange outputs are ventilator-driven.** PaO2 is dominated by
+  FiO2 in S2 / S3 (μ\* peaks at 147 mmHg in (S2, F)) — the regime
+  where shunt-fraction kinetics make oxygenation FiO2-limited. PaCO2
+  is dominated by Vt in most cells, consistent with the alveolar-
+  ventilation identity V̇A = RR · (Vt − V_dead). SpO2 is also
+  ventilator-driven but at a tiny absolute scale (μ\* ≤ 0.12) because
+  the output sits at the hemoglobin saturation ceiling.
+* **The ARDS gradient is visible.** PaO2's FiO2 sensitivity peaks at
+  S2 / S3 (μ\* = 133 – 147 mmHg) and *collapses* in severe ARDS (μ\* =
+  31 in (S4, M)). Pulse correctly captures the regime where shunt
+  physiology pins PaO2 regardless of FiO2 — a textbook ARDS finding,
+  captured by the engine without explicit programming.
+* **Output Vt tracks input Vt at μ\* ≈ 500 mL** in every cell — by
+  far the largest μ\* in the atlas. In VC-AC mode, asking Pulse for a
+  500 mL tidal volume produces close to a 500 mL delivered tidal
+  volume, cell-invariant. The cells where this coupling fails are the
+  F-004 dyssynchrony runs (§3.8).
+
+**Bootstrap 95 % CI on μ\*** (1,000 resamples) is reported alongside
+each μ\* point estimate in the table; CI overlap between the top-3 and
+the rest is the formal H1 test.
 
 ### 3.3 H1 — skewed sensitivity (PASS, 48 / 48)
 
@@ -454,11 +480,9 @@ Two implications:
    silent substitution.
 2. Pulse rejects out-of-envelope inputs *loudly* — the deliberate clamp
    probes in S005 confirmed this: SBP = 140 produces an explicit `[ERROR]`
-   line and exit code 1, not a silent substitution. The earlier verbal
-   description of "BP clamping … silently rejected at setup" (project
-   CLAUDE.md, verified-limitations table item 2) is therefore
-   **revised**: rejection is loud and observable, not silent. We
-   recommend updating the upstream limitation list accordingly.
+   line and exit code 1, not a silent substitution. Rejection is loud and
+   observable; users can detect it from logs alone with no special
+   instrumentation.
 
 ### 3.4.1 Compensatory tachycardia: input HR ≠ output HR under hypoxemia
 
@@ -490,7 +514,7 @@ the input baseline" rather than "the input HR is the steady-state
 HR." Users running Pulse for ARDS device-validation should treat
 output HR as the engine's reflex response, not a setpoint.
 
-### 3.5 H3 — solver divergence is sex-stratified (supported)
+### 3.5 H3 — solver divergence exists; sex-stratification is regime-dependent (partially supported)
 
 20 / 1,280 runs (1.6 %) diverged. **All 20 are in male cells.**
 
