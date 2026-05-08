@@ -116,8 +116,11 @@ Two structural Pulse findings, independent of the hypotheses:
   FiO2 = 1.0, still drifting at t = 120 s. Hyperoxia overshoot in
   Pulse's oxygenation model.
 - **F-004** — 264 / 1,280 (20.6 %) of runs fail VC-AC's tidal-volume
-  steady-state test in 60 s. Pulse's preferred ventilator mode is
-  not as steady as documentation implies.
+  steady-state test in 60 s. **Mechanism causally identified (S014):**
+  patient-ventilator dyssynchrony at the inspiration trigger.
+  **Operator fix:** set inspiration trigger pressure to −2 cmH2O
+  (collapses worst-case Vt CV from 0.351 → 0.016, lock-below-0.05
+  fraction = 78.1 %). See `preprint/manuscript.md` §3.8 + §4.2.
 
 ---
 

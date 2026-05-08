@@ -2,7 +2,7 @@
 id: S015
 author: santino
 date: 2026-05-04
-status: in_progress
+status: done
 tags: [reproducibility, verification, audit, pre-publication, docker, determinism, logic-validation]
 linked_code:
   - src/detector.py

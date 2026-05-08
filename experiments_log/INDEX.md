@@ -13,7 +13,7 @@ Total entries: **16**
 | ID | Date | Author | Status | Title |
 |---|---|---|---|---|
 | `S016` | 2026-05-07 | santino | done | [S016 — Pulse GitLab + literature re-audit (May 2026): version state, V&V infrastructure, and the 2020 sensitivity-analysis study tag](santino/S016_pulse_gitlab_audit_may2026.md) |
-| `S015` | 2026-05-04 | santino | in_progress | [S015 — Reproducibility and Logic Audit (pre-publication double-check)](santino/S015_reproducibility_and_logic_audit.md) |
+| `S015` | 2026-05-04 | santino | done | [S015 — Reproducibility and Logic Audit (pre-publication double-check)](santino/S015_reproducibility_and_logic_audit.md) |
 | `S014` | 2026-04-28 | santino | done | [S014 — Trigger-pressure lockout: causal test of F-004 mechanism](santino/S014_trigger_pressure_lockout.md) |
 | `S013` | 2026-04-27 | santino | done | [S013 — Lexical lockdown (solver-divergence vs implausible-output taxonomy)](santino/S013_lexical_lockdown.md) |
 | `S012` | 2026-04-27 | santino | done | [S012 — Dual steady-state audit (F-003 hyperoxia + F-004 Vt oscillation)](santino/S012_steady_state_window_audit.md) |
@@ -45,7 +45,7 @@ Total entries: **16**
 - `S012` (2026-04-27, done) — [S012 — Dual steady-state audit (F-003 hyperoxia + F-004 Vt oscillation)](santino/S012_steady_state_window_audit.md) — _steady-state-audit, f-003, f-004, drift, reviewer-defense, manuscript-polish_
 - `S013` (2026-04-27, done) — [S013 — Lexical lockdown (solver-divergence vs implausible-output taxonomy)](santino/S013_lexical_lockdown.md) — _lexical-precision, manuscript-polish, taxonomy, reviewer-defense_
 - `S014` (2026-04-28, done) — [S014 — Trigger-pressure lockout: causal test of F-004 mechanism](santino/S014_trigger_pressure_lockout.md) — _f-004, mechanism-test, vc-ac, trigger-pressure, dyssynchrony, causal-test, reviewer-defense_
-- `S015` (2026-05-04, in_progress) — [S015 — Reproducibility and Logic Audit (pre-publication double-check)](santino/S015_reproducibility_and_logic_audit.md) — _reproducibility, verification, audit, pre-publication, docker, determinism, logic-validation_
+- `S015` (2026-05-04, done) — [S015 — Reproducibility and Logic Audit (pre-publication double-check)](santino/S015_reproducibility_and_logic_audit.md) — _reproducibility, verification, audit, pre-publication, docker, determinism, logic-validation_
 - `S016` (2026-05-07, done) — [S016 — Pulse GitLab + literature re-audit (May 2026): version state, V&V infrastructure, and the 2020 sensitivity-analysis study tag](santino/S016_pulse_gitlab_audit_may2026.md) — _literature, verification, pulse, gitlab, sensitivity-analysis, version-tracking_
 
 ## By tag
