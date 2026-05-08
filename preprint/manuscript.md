@@ -1,109 +1,48 @@
 # Pulse Reliability Atlas — first sensitivity, clamping, and divergence map for the Pulse Physiology Engine v4.3.1
 
 **Author:** Santino Nanini
-**Status:** preprint draft — paper-side companion to the locked
-[`preregistration.md`](../preregistration.md). Numbers here update from the
-analysis artifacts in [`results/`](../results/) and the experiment logs in
-[`experiments_log/`](../experiments_log/) as the full sweep completes. The
-intent is for every result statement in this manuscript to point to a
-specific log entry (S001…) and a specific artifact (parquet/CSV/figure).
 
 ---
 
 ## Abstract
 
-The Pulse Physiology Engine (Kitware, Apache-2.0; v4.3.1, Sept 2024) is the
-most-used open-source whole-body human physiology simulator. Its developers
-state on the [Pulse FAQ](https://pulse.kitware.com/_f_a_q.html) — verified
-verbatim 2026-04-19 (S003) — that they have not performed a systematic
-forward propagation or inverse quantification of model uncertainty, nor a
-formal sensitivity analysis. As a result, every Pulse user — researchers,
-medical-device companies, educators — operates blind to which inputs
-dominate which outputs, where the engine silently clamps inputs, and where
-the solver diverges. This work fills that gap by building the first open
-**reliability atlas** for Pulse 4.3.1 across the adult operational envelope
-relevant to critical care.
+**Background.** The Pulse Physiology Engine (Kitware, Apache-2.0; v4.3.1)
+is the most-used open-source whole-body human physiology simulator. Its
+developers state on the Pulse FAQ that no formal sensitivity analysis has
+been performed on user-facing operational inputs. Prior external work
+[Cornish et al. 2023] addressed intervention-outcome falsification on
+MIMIC-III sepsis; the operational-input reliability question has remained
+unaddressed.
 
-We swept seven inputs (HR, SBP, DBP, RR, Vt, FiO2, PEEP) drawn from Pulse's
-*verified acceptance ranges* via Morris elementary-effects sampling (20
-trajectories × 4 grid levels = 160 unique points). The same 160 sample
-points were applied across four scenarios (healthy + three ARDS severities
-0.26 / 0.60 / 0.95 spanning PALICC-2 mild–severe and the previously
-characterized 0.91–0.945 solver instability zone) and two patient
-surrogates (Pulse standard adult male and adult female), for **1,280
-simulations**. A locked four-flag detector (`clamped`,
-`diverged`, `implausible`, `not_steady_state`) classified every run before
-any analysis (preregistration §Flags), and Morris sensitivity indices were
-computed only on `clean` runs.
+**Methods.** We swept seven inputs (HR, SBP, DBP, RR, Vt, FiO2, PEEP) from
+Pulse's verified acceptance ranges via Morris elementary-effects sampling
+across four scenarios (healthy + three ARDS severities spanning PALICC-2
+mild–severe and the 0.91–0.945 solver-instability zone) and two adult
+surrogates (Pulse standard male and female), for 1,280 simulations. A
+locked four-flag detector (`clamped` / `diverged` / `implausible` /
+`not_steady_state`) classified every run before analysis.
 
-**Headline results** (full sweep, 1,280 runs, S006).
+**Results.** Sensitivity is strongly skewed: 48 of 48 (cell × output)
+combinations have ≥ 50 % of summed μ\* in their top-3 inputs (median
+0.928), and the engine is **predominantly linear** for these dominant
+parameters. Pulse rejects out-of-range inputs *loudly*: 0 of 1,280 runs
+fired the silent-clamping flag. Solver divergence is sex-stratified —
+20 of 1,280 runs (1.6 %) diverged, **all 20 male**. Two boundary
+findings: **F-003**, Pulse produces PaO2 > 600 mmHg at FiO2 = 1.0
+(hyperoxia overshoot); **F-004**, VC-AC tidal-volume instability in
+20.6 % of runs, **causally identified as patient-ventilator
+dyssynchrony at the inspiration trigger and corrected by setting trigger
+pressure to −2 cmH2O** (worst-case Vt CV collapses from 0.351 to 0.016).
+H4 (sex-specific reliability) is partially supported: 6 of 24 cell ×
+output Wasserstein distances exceed a within-sex null — all six are
+gas-exchange (PaCO2, SpO2, PaO2). Cardiovascular and Vt sex effects do
+not exceed within-sex sub-sampling; input-importance rankings are largely
+preserved across sexes (Spearman ρ 0.75 – 1.00 in S2 / S3).
 
-* **H1 — skewed sensitivity is supported:** 48 / 48 (cell × output)
-  combinations have ≥ 50 % of summed μ\* concentrated in their top-3
-  ranked inputs; the median top-3 fraction is 0.928 (range 0.658 – 0.998).
-  Pulse 4.3.1 is, in the operational region we sampled, dominated by a
-  small handful of inputs per output — a strongly skewed sensitivity
-  surface.
-* **H2 — silent clamping at ≥ 5 % is *not* supported:** **0 / 1,280**
-  Morris runs fired the `clamped` regex. The preregistered ranges,
-  derived from Pulse's verified acceptance envelope (E10 / E28 / E29),
-  keep every sampled point inside the engine's input acceptance. The
-  deliberate clamp probes in S005 confirm Pulse rejects out-of-range
-  inputs *loudly* with explicit error logs and exit code 1, not silently.
-  This null result is itself an actionable finding: **Pulse can be
-  trusted to fail loudly at its setup boundaries**, contradicting the
-  earlier verbal characterization of "silent clamping" in the
-  Pulse_translation_new audit. Users can detect rejection from logs
-  alone; no special instrumentation is required.
-* **H3 — solver-divergence zone outside ARDS 0.91 – 0.945 is supported,
-  with a striking sex stratification:** 20 / 1,280 (1.6 %) Morris runs
-  diverged. **All 20 are male.** Zero female divergences across all four
-  scenarios. Per-cell counts: S1_M 4, S2_M 4, S3_M 4, S4_M 8 (S4_M
-  doubles the count, consistent with the documented 0.91 – 0.945
-  instability zone being left below by S4 = 0.95 but stress increasing
-  overall). The atlas thus identifies **sex** as a previously
-  uncharacterized reliability-sensitivity axis for Pulse 4.3.1.
-* **H4 — sex-specific reliability is partially supported:** with a
-  within-sex subsampling null reference, only **6 of 24 (cell × output)
-  Wasserstein distances** are distinguishable from random — and **all
-  six are gas-exchange channels** (PaCO2 ×3, SpO2 ×2, PaO2 ×1). The
-  cardiovascular (HR, MAP) and ventilator-output (Vt) M-vs-F differences
-  reported in an earlier draft fall *within* the within-sex null
-  distribution at our sample size — the apparent ~ 13 – 36 mL Vt
-  difference between sexes is not larger than what either sex produces
-  by random sub-sampling. **Where sex matters, it matters on gas
-  exchange — not on cardiac output or delivered tidal volume.** Spearman
-  ρ on input-importance rankings is 0.75 – 1.00 (point estimates,
-  computable in S2 / S3) with paired-input bootstrap CI lower bounds
-  ≥ 0.34 for most outputs (Vt CI [-0.06, 1.0] is the exception);
-  rankings are qualitatively preserved but the per-output precision is
-  modest because the ρ vector has only 7 entries.
-
-In addition, two structural findings from the pilot scaled up cleanly to
-the full sweep ([S005](../experiments_log/santino/S005_pilot_S1_male.md)):
-**F-003** — Pulse's oxygenation model produces PaO2 > 600 mmHg at FiO2 =
-1.0 in healthy adults (34 of 126 implausibly-flagged runs across S1 and
-S4 exceed the locked 600 mmHg upper bound, 91 % of those at FiO2 ≥ 0.95);
-**F-004** — Pulse's VC-AC delivered tidal volume has CV > 5 % within the
-[60, 120] s window for 264 / 1,280 runs (20.6 %), even on healthy adults,
-making "Pulse's preferred ventilator mode" an unreliable steady-state
-producer for many sampled (PEEP, Vt, RR) combinations.
-
-The user-facing summary lives in the **reliability traffic-light grid**
-(Figure 6): out of 48 cell × output combinations, 12 are *green* (no
-flags fired AND mean within 10 % of S1_M baseline), 24 are *yellow*
-(flags fired OR mean 10 – 30 % off baseline), and 12 are *red* (mean > 30
-% off baseline OR diverged + implausible rate > 30 %). All twelve red
-cells fall in S3 or S4; **(S4, M) is red on every single output**, the
-worst-reliability cell in the atlas.
-
-In addition, we surface two structural findings already at the pilot scale
-([S005](../experiments_log/santino/S005_pilot_S1_male.md)): Pulse's
-oxygenation model produces PaO2 > 600 mmHg at FiO2 = 1.0 in healthy adults
-(implausible per the locked physiological bound, and still drifting at the
-end of a 120 s window), and Pulse's VC-AC delivered tidal volume has a
-coefficient of variation > 5 % within the [60, 120] s steady-state window
-at certain (PEEP, Vt-target) combinations even in healthy adults.
+**Conclusion.** The atlas provides a per-cell traffic-light reliability
+map for adult Pulse 4.3.1, identifies sex as a previously uncharacterized
+reliability-sensitivity axis, and yields one operator-actionable
+correction: setting VC-AC inspiration trigger pressure to −2 cmH2O.
 
 ---
 
