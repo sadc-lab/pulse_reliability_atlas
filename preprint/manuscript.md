@@ -908,7 +908,12 @@ artifact:
   (S4_M).** Every output is red; divergence rate is doubled relative to
   other male cells (8 / 160 vs 4 / 160); 46 / 160 runs are
   implausible. Users should not interpret S4_M outputs as
-  ground-truth physiology without careful per-input validation.
+  ground-truth physiology without careful per-input validation. Note
+  that the male-divergence clustering reported here is specific to the
+  S006 input-extreme regime; the complementary continuous-severity
+  sweep (§3.5.1) at midrange inputs produced balanced female / male
+  divergence in the [0.879, 0.945] band, with the sex effect varying
+  with what is varying (Morris-extreme inputs vs ARDS severity).
 * **Cardiovascular outputs (HR, MAP) become red at and below moderate
   ARDS regardless of sex.** The S3_M, S3_F, S4_M, S4_F cells all show
   HR > 30 % away from the S1_M healthy baseline (mean HR 147 – 158 bpm
