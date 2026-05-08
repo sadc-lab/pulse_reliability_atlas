@@ -1234,7 +1234,16 @@ during the literature-review pass logged in
 | S004 | Atlas image + scenario smoke + detector recalibration |
 | S005 | 22-run pilot on (S1, M) |
 | S006 | Full Morris sweep (1,280 runs) |
-| S007 | Sobol bolt-on (conditional, post-sweep) |
+| S007 | Targeted reproducibility check (3-layer, all bit-exact) |
+| S008 | Tier-1 statistical refinement (block bootstrap, Wasserstein null) |
+| S009 | Tier-2 (seed stability, continuous-ARDS, pytest, GHA CI) |
+| S010 | Literature-review pass (every reference DOI / PMID-verified) |
+| S011 | Sex-vs-mass disentangle |
+| S012 | Steady-state window cross-output audit |
+| S013 | Lexical lockdown (manuscript taxonomy) |
+| S014 | Trigger-pressure lockout (F-004 mechanism) |
+| S015 | Reproducibility and logic audit (pre-publication) |
+| S016 | Pulse GitLab + literature re-audit (May 2026) |
 
 Each log file in `experiments_log/santino/` follows the template:
 hypothesis → motivation → method → what we tried → results → interpretation
