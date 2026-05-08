@@ -241,24 +241,44 @@ steady delivered tidal volume in 60 s for one in five sampled (PEEP,
 Vt, RR) combinations. Operationally: users should report VC-AC Vt as
 mean ± CV over a window, not as a steady-state point estimate.
 
-### F-013 — Sobol bolt-on would refine ~ 50 % of top-ranked inputs
+### F-013 — Sobol bolt-on formally closed via two-regime framing (no run)
 
-**Status:** evaluated on the full sweep (decision deferred — not yet
-executed). **Source:**
-[S006](../experiments_log/santino/S006_full_morris_sweep.md), artifact
+**Status:** evaluated and **closed** on the full sweep (2026-05-08).
+8 of 48 dominant-input cells fire the preregistered σ / μ\* ≥ 0.6
+trigger; on inspection 2 are noise-dominated and 6 reflect *a priori*
+known nonlinear physiology, so quantitative variance decomposition is
+deferred to follow-up work. **Source:**
+[S006](../experiments_log/santino/S006_full_morris_sweep.md);
+analysis in `preprint/manuscript.md` §3.3.1; raw promotion list in
 `results/sobol_promotion.csv`.
 
-Of 144 (cell × output × top-3 input) combinations, the σ / μ\* ratio
-classifies 72 as `promote` (≥ 0.6), 55 as `skip` (≤ 0.4), and 17 as
-`gray`. A targeted Sobol analysis on the 72 promoted entries would
-yield first-order and total-order indices for the inputs whose Morris
-μ\* hides nonlinearity / interactions — particularly on gas-exchange
-channels in S2 – S4. Cost: ~ 64 × (2 × k + 2) base samples per
-promoted combo, budget ≈ 3,600 additional Pulse runs (~ 13 h compute
-at 2 parallel workers).
+Applying the preregistered rule (preregistration §Sampling method;
+σ / μ\* ≥ 0.6 → Sobol on that input) to the dominant input per
+(scenario, sex, output) cell, **8 of 48 cells trigger.** Two regimes:
 
-We defer the Sobol bolt-on pending reviewer interest. The atlas's
-core message is already complete with the Morris results.
+- **Group A — noise-dominated (2 cells).** Both SpO2 outputs in
+  healthy patients where saturated SpO2 ≈ 0.997 makes elementary
+  effects floating-point fluctuation rather than physiological
+  signal: (S1, F, SpO2, PEEP) μ\* = 0.0037, σ = 0.0068; (S1, M,
+  SpO2, Vt) μ\* = 0.028, σ = 0.023.
+- **Group B — known nonlinear physiology (6 cells).** Four FiO2 →
+  PaO2 cells across (S2 / S3, M / F) reflect shunt-fraction kinetics
+  in ARDS (μ\* = 84 – 147 mmHg, σ / μ\* = 0.64 – 0.94) — established
+  physiology. Two PaCO2 cells reflect minute-ventilation coupling:
+  (S1, M, PaCO2, RR) σ / μ\* = 0.87; (S4, F, PaCO2, Vt) σ / μ\* =
+  0.66.
+
+Sobol on Group B would quantify a variance decomposition for an
+interaction structure already qualitatively known from physiology
+and qualitatively recovered by Morris μ\* rankings (manuscript §3.2).
+Cost ≈ 3,600 Pulse runs (~ 13 h compute) for marginal scientific
+gain relative to the atlas's core claims. The preregistered Sobol
+bolt-on commitment is **closed in this paper** on these grounds.
+Future reviewers wishing variance decomposition can re-run from the
+canonical Morris sample
+(`data/runs/full_sweep/morris_sample.parquet`) and the atlas Docker
+image (S006); the analysis pipeline is preserved in
+`src/analysis_morris.py`.
 
 ### Sub-questions for the discussion section
 

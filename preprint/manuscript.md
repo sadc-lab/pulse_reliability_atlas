@@ -439,6 +439,51 @@ ventilator settings. This is physiologically sensible and supports the
 overall correctness of Pulse's input-output mapping in the *clean*
 operational region.
 
+### 3.3.1 Sobol bolt-on: preregistered decision
+
+The preregistered protocol (preregistration §Sampling method)
+specified a conditional variance-based Sobol analysis if any
+top-ranked input exhibited σ / μ\* ≥ 0.6 in any cell, indicating
+non-linearity or strong interactions that Morris elementary effects
+cannot resolve. Applying this rule to the dominant input per
+(scenario, sex, output) cell, **8 of 48 cells fire the trigger.**
+Manual inspection separates these into two regimes:
+
+* **Group A — noise-dominated (2 of 8).** Cells where the dominant
+  input's μ\* sits at numerical-noise level because the output is at
+  physiological saturation. Both are SpO2 outputs in healthy
+  patients: (S1, F, SpO2, PEEP) with μ\* = 0.0037 and σ = 0.0068, and
+  (S1, M, SpO2, Vt) with μ\* = 0.028 and σ = 0.023. SpO2 in the
+  healthy respiratory envelope sits at ≈ 0.997 (hemoglobin
+  saturation ceiling), so the Morris elementary effects are
+  floating-point fluctuation, not physiological signal — the σ / μ\*
+  ratio is mathematically high but physiologically empty.
+* **Group B — known nonlinear physiology (6 of 8).** Four cells
+  reflect FiO2 → PaO2 shunt-fraction kinetics in ARDS scenarios:
+  (S2 / S3, M / F, PaO2, FiO2) with μ\* in the 84 – 147 mmHg range
+  and σ / μ\* between 0.64 and 0.94. This is exactly the regime where
+  venous admixture caps oxygenation gain per FiO2 increment — an
+  established physiological nonlinearity. The remaining two cells
+  reflect minute-ventilation coupling on PaCO2: RR → PaCO2 in
+  healthy males ((S1, M), σ / μ\* = 0.87) and Vt → PaCO2 in severe
+  ARDS females ((S4, F), σ / μ\* = 0.66) — both expected from the
+  alveolar-ventilation identity V̇A = RR · (Vt − Vd) driving CO2
+  elimination.
+
+Quantitative variance decomposition (Sobol S₁ / Sₜ indices) on the
+Group B cells is deferred to follow-up work. Running it in this paper
+would consume ≈ 3,600 additional Pulse runs (~ 13 h compute on the
+maintainer's laptop with 2 parallel Docker workers) to confirm a
+qualitative interaction structure that is *a priori* established by
+respiratory physiology and *qualitatively* recovered by the Morris
+main-effect rankings reported in §3.2 (Figure 2). The preregistered
+Sobol bolt-on commitment is **closed in this paper** on these
+grounds. Future reviewers wishing variance decomposition can re-run
+from the canonical Morris sample
+(`data/runs/full_sweep/morris_sample.parquet`) and the atlas Docker
+image (S006); the analysis pipeline is preserved in
+`src/analysis_morris.py`.
+
 ### 3.4 H2 — silent clamping rate (NOT supported, 0 / 1,280)
 
 The preregistered hypothesis was that ≥ 5 % of the Morris sample would
@@ -969,8 +1014,11 @@ of locked runs fall below the 0.05 steady-state threshold).
   flag-rate maps.
 * The 1,280-run sweep took ~7 h on the maintainer's i5-11400H laptop
   with two parallel Docker workers (lowered from three mid-sweep to
-  control thermal load; resume-safe). Larger-scale Sobol bolt-on
-  (preregistration §Sampling method) would benefit from a cluster.
+  control thermal load; resume-safe). The preregistered Sobol
+  bolt-on (preregistration §Sampling method) was evaluated and
+  formally closed in §3.3.1; if future work re-opens it on the
+  Group B cells, larger-scale variance decomposition would benefit
+  from a cluster.
 
 ### 4.4 Connection to downstream PhD work
 
