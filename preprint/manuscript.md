@@ -136,15 +136,15 @@ current as of the May 2026 GitLab re-audit, S003 / S016]:
 > quantification of model uncertainty, nor have we conducted a formal
 > sensitivity analysis."
 
-A May 2026 re-audit of `gitlab.kitware.com/physiology/engine` (S016)
-identified one nuance worth stating precisely: the repository carries
-a 2020 tag `STUDY_SENSITIVITY_ANALYSIS_1_0_0` whose ReadMe defines
-its scope as *"sensitivity analysis as a path towards improved lumped
-parameter optimization"* — a one-off Sobol study on **internal
-vascular-circuit resistance multipliers** (model-calibration
-parameters that override the engine's learned values during
-simulation). That study addressed a different parameter class and has
-not been re-run for the 4.3.x release line. No systematic sensitivity
+A May 2026 audit of the Pulse repository (S016) qualifies this. The
+repo carries a 2020 tag `STUDY_SENSITIVITY_ANALYSIS_1_0_0` containing
+a one-off Sobol study on **internal vascular-circuit resistance
+multipliers** for model calibration (per its ReadMe) — a different
+parameter class from user-facing operational inputs, not ported to
+the 4.3.x release line. An external assessment of Pulse on MIMIC-III
+sepsis trajectories using a causal-falsification framework has also
+been published [Cornish et al. 2023], addressing intervention-outcome
+accuracy on a different cohort and dataset. No systematic sensitivity
 analysis on **user-facing operational inputs** (HR, BP, RR, Vt, FiO2,
 PEEP) has been published.
 
@@ -160,23 +160,26 @@ This paper closes that gap with the first open reliability atlas for
 Pulse v4.3.1 across the adult operational envelope relevant to
 critical care. The methodology follows three commitments locked
 before any data was collected (preregistration §Inputs, §Scenarios,
-§Flags): inputs swept from Pulse's *verified* acceptance ranges (E10 /
-E28 / E29 boundary probes), scenarios spanning healthy adult and
-three ARDS severities anchored on the Berlin Definition [ARDS
-Definition Task Force 2012] and PALICC-2 [Emeriaud et al. 2023]
-classifications, and a four-flag classifier that categorizes every
-run rather than discarding flagged ones (preregistration discipline
-following the principles of [Munafò et al. 2017]).
+§Flags):
 
-Three properties make this paper a methods-paper rather than a
+* **Inputs** swept from Pulse's *verified* acceptance ranges
+  (E10 / E28 / E29 boundary probes).
+* **Scenarios** spanning healthy adult and three ARDS severities
+  anchored on the Berlin Definition [ARDS Definition Task Force
+  2012] and PALICC-2 [Emeriaud et al. 2023] classifications.
+* **A four-flag classifier** that categorizes every run rather than
+  discarding flagged ones (preregistration discipline per [Munafò
+  et al. 2017]).
+
+Four properties make this paper a methods-paper rather than a
 findings-paper: (1) the entire pipeline is preregistered with
 amendment history (per [Munafò et al. 2017]); (2) every quoted
 number is reproducible from the canonical Morris sample (seed = 42)
 plus the atlas Docker image, verified at three independent layers
-(S007); the data are released under FAIR principles [Wilkinson et
-al. 2016]; and (3) the four-flag classifier is a generic instrument
-that future Pulse users can apply to their own configurations
-without re-running our sweep.
+(S007); (3) the data are released under FAIR principles [Wilkinson
+et al. 2016]; and (4) the four-flag classifier is a generic
+instrument that future Pulse users can apply to their own
+configurations without re-running our sweep.
 
 The paper is the first publishable output in the maintainer's PhD
 pipeline. Two downstream papers — pediatric translation layer (in
@@ -204,8 +207,8 @@ This atlas adds quantitative coverage to those:
    placed above the zone.
 5–6. HR init acceptance 50–110 / RR init acceptance 8–20 — sampler ranges
    match.
-7. PC-AC over-delivers Vt — atlas restricts to VC-AC.
-8–12. Structural lumped-parameter limits — discussed in §6.
+7. PC-AC over-delivers Vt [Webb 2023; companion verification E12, E13] — atlas restricts to VC-AC.
+8–12. Structural lumped-parameter limits — discussed in §4.3.
 
 The two previously asserted but unverified claims (FiO2 solver-divergence at 1.0 and
 absence of sex-specific physiology) were withdrawn before the
@@ -222,8 +225,9 @@ silently capped at the wrapper layer.
   `not_steady_state`) calibrated against real Pulse logs (S004) — every
   threshold locked before data collection (preregistration §Flags).
 * Morris elementary-effects sensitivity with bootstrap-CI on μ\*
-  (preregistered analysis plan; bootstrap CI is a paper-strengthening
-  add-on not previously committed but does not change any threshold).
+  (preregistered analysis plan; bootstrap CI is a post-hoc
+  methodological enhancement, transparent in the preregistration
+  amendment log, with no impact on hypothesis thresholds).
 * Sex-specific comparison (Wasserstein, Spearman ρ on μ\* vectors) — the
   first such comparison in the Pulse literature.
 * A traffic-light reliability map (green / yellow / red) per cell ×
@@ -1109,6 +1113,16 @@ the following or to an experiment-log entry in this repository.
     distinguish internal-calibration SA (their scope) from
     operational-input SA (this paper's scope). Audit logged in
     S016 (2026-05-07).
+2b. **Cornish R, Taufiq MF, Doucet A, Holmes C (Oxford, 2023).**
+    *Causal Falsification of Digital Twins.* arXiv:2301.07210
+    (November 2023). External statistical-falsification framework
+    applied to Pulse on MIMIC-III sepsis trajectories;
+    identifies specific intervention-outcome inaccuracies. Cited
+    in §1.1 to distinguish prior external assessment
+    (intervention-outcome falsification on a different cohort and
+    dataset) from this paper's contribution (operational-input
+    reliability across the adult ICU envelope). Identified in the
+    May 2026 audit logged in S016.
 3. **Pulse Setup audit.**
    `engine/src/cpp/engine/human_adult/whole_body/controller/SetupPatient.cpp`
    — referenced for adult age gate (lines 41 – 64), BMI bounds (lines
@@ -1182,6 +1196,15 @@ during the literature-review pass logged in
   Pulse Physiology Engine ventilator against the ASL 5000 lung
   simulator.* (2023). PubMed Central:
   [PMC10224749](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10224749/).
+* Cornish R, Taufiq MF, Doucet A, Holmes C. *Causal Falsification
+  of Digital Twins.* arXiv:2301.07210 (November 2023). Oxford
+  statistics group. External assessment of Pulse on MIMIC-III
+  sepsis trajectories using a causal-inference / statistical-
+  falsification framework; identifies intervention-outcome
+  inaccuracies in specific cases. Cited in §1.1 to distinguish
+  prior external assessment (intervention-outcome falsification on
+  a different cohort and dataset) from this paper's contribution
+  (operational-input reliability across the adult ICU envelope).
 
 **Sensitivity-analysis methods**
 
