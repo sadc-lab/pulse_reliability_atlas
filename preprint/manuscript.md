@@ -284,7 +284,20 @@ Four scenarios × two patients = 8 cells:
 * **Adult Male:** age 18, weight 67.3 kg, height 180 cm (Pulse standard).
 * **Adult Female:** age 18, weight 56.2 kg, height 163 cm (Pulse standard).
 
-Ventilator: VC-AC only.
+NHANES P50 anchors confirm both surrogates are representative of
+healthy adults: median HR 70 bpm (M) / 74 bpm (F), SBP 118 mmHg (M)
+/ 113 mmHg (F), DBP 70 mmHg (M) / 69 mmHg (F). Companion
+verification (`Pulse_translation_new` E12, E13) established that
+the female surrogate produces physiologically plausible engine
+output across all four scenarios, independent of the Atlas sweep.
+
+Ventilator: VC-AC only. The mode choice is justified by Webb et al.
+(2023) [PMC10224749] reporting VC-AC tidal-volume errors of
+0.07 – 2.25 % across healthy, restrictive, and obstructive lung
+profiles vs PC-AC's 11 – 25 %. Companion verification (E12, E13)
+further found that PC-AC over-delivery scales inversely with body
+weight (female +58.9 % vs male +24.0 % at PIP = 20 cmH2O),
+reinforcing the preregistration's VC-AC restriction.
 
 ### 2.4 Simulation cadence
 
@@ -747,6 +760,13 @@ The bootstrap CI on Spearman ρ is wide for output Vt (S2 lower bound
 clearly preserved across sex. For other outputs, the lower CI bound
 is ≥ 0.34, supporting "rankings preserved" qualitatively but not
 strongly.
+
+Pre-Atlas engine verification (`Pulse_translation_new` E12, E13)
+established that the female surrogate produces physiologically
+plausible output across all four scenarios independent of this
+sweep, so the observed sex effects above reflect real engine-level
+sex-specific physiology rather than miscalibration of the female
+patient model.
 
 **Combined H4 picture:**
 

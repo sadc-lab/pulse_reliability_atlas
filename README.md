@@ -108,7 +108,7 @@ for the lab-notebook entry.)
 | **H1 — top-3 inputs explain ≥ 50 % of sensitivity** | **PASS, 48 / 48** cell × output combos. Median 0.928, range 0.658 – 0.998. |
 | **H2 — silent clamping ≥ 5 %** | **NOT supported**, 0 / 1,280. Pulse rejects out-of-range inputs *loudly* (verified by explicit clamp probes in S005). |
 | **H3 — divergence outside ARDS 0.91 – 0.945** | **PASS** — 1.6 % overall divergence rate. **All 20 divergent runs are male.** |
-| **H4 — sex-specific reliability** | **PASS** — Wasserstein distance M-vs-F is non-trivial across all 4 scenarios; Spearman ρ on input rankings is 0.75 – 1.00 (rankings preserved, magnitudes differ). |
+| **H4 — sex-specific reliability** | **Partially supported (gas-exchange only)** — 6 of 24 cell × output Wasserstein distances exceed the within-sex sub-sampling null; all 6 are gas-exchange (PaCO2 × 3, SpO2 × 2, PaO2 × 1). Cardiovascular (HR, MAP) and Vt sex effects do not exceed the within-sex baseline at our sample size. Input-importance rankings are similar between sexes (Spearman ρ 0.75 – 1.00 in S2 / S3, wide CIs). |
 
 Two structural Pulse findings, independent of the hypotheses:
 
