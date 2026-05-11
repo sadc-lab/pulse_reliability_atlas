@@ -10,7 +10,7 @@
 is the most-used open-source whole-body human physiology simulator. Its
 developers state on the Pulse FAQ that no formal sensitivity analysis has
 been performed on user-facing operational inputs. Prior external work
-[Cornish et al. 2023] addressed intervention-outcome falsification on
+[@cornish2023] addressed intervention-outcome falsification on
 MIMIC-III sepsis; the operational-input reliability question has remained
 unaddressed.
 
@@ -51,7 +51,7 @@ correction: setting VC-AC inspiration trigger pressure to −2 cmH2O.
 
 ### 1.1 Motivation
 
-The Pulse Physiology Engine [Bray et al. 2019] (Kitware, Apache-2.0)
+The Pulse Physiology Engine [@bray2019] (Kitware, Apache-2.0)
 is the most-used open-source whole-body human physiology simulator.
 It provides a 0-dimensional lumped-parameter model of the
 cardiovascular, respiratory, gas-exchange, and pharmacological
@@ -60,16 +60,16 @@ systems, and is used in three broad communities:
 * **Clinical research** — virtual-patient cohorts for hypothesis
   generation when human data are unavailable, ethically constrained,
   or impractically expensive to collect (e.g. dual-patient ventilator
-  sharing during the COVID-19 pandemic [Webb et al. 2020]).
+  sharing during the COVID-19 pandemic [@webb2020]).
 * **Medical-device development** — early-stage validation of
   ventilators, pumps, and monitors against a virtual patient. ASL 5000
   benchmarking against Pulse's VC-AC mode reports tidal-volume errors
-  of 0.07 – 2.25 % [Webb et al. 2023].
+  of 0.07 – 2.25 % [@webb2023].
 * **Education** — anaesthesia, critical-care, and paramedic training
   curricula increasingly use Pulse for case-based simulation.
 
 Despite this footprint, the engine's developers state explicitly on
-the public Pulse FAQ [Pulse FAQ; verified verbatim 2026-04-19, still
+the public Pulse FAQ [@pulsefaq; verified verbatim 2026-04-19, still
 current as of the May 2026 GitLab re-audit, S003 / S016]:
 
 > "We have not performed a systematic forward propagation or inverse
@@ -81,7 +81,7 @@ repo carries a 2020 tag `STUDY_SENSITIVITY_ANALYSIS_1_0_0` containing
 a one-off Sobol study on **internal vascular-circuit resistance
 multipliers** for model calibration (per its ReadMe) — a different
 parameter class from user-facing operational inputs, not ported to
-the 4.3.x release line. Prior external work [Cornish et al. 2023]
+the 4.3.x release line. Prior external work [@cornish2023]
 addressed intervention-outcome falsification — verifying whether
 Pulse accurately mimics how a real patient's trajectory changes after
 a medical intervention — on MIMIC-III sepsis trajectories, a different
@@ -107,19 +107,19 @@ before any data was collected (preregistration §Inputs, §Scenarios,
 * **Inputs** swept from Pulse's *verified* acceptance ranges
   (E10 / E28 / E29 boundary probes).
 * **Scenarios** spanning healthy adult and three ARDS severities
-  anchored on the Berlin Definition [ARDS Definition Task Force
-  2012] and PALICC-2 [Emeriaud et al. 2023] classifications.
+  anchored on the Berlin Definition [@ards2012] and PALICC-2
+  [@emeriaud2023] classifications.
 * **A four-flag classifier** that categorizes every run rather than
-  discarding flagged ones (preregistration discipline per [Munafò
-  et al. 2017]).
+  discarding flagged ones (preregistration discipline per
+  [@munafo2017]).
 
 Four properties make this paper a methods-paper rather than a
 findings-paper: (1) the entire pipeline is preregistered with
-amendment history (per [Munafò et al. 2017]); (2) every quoted
+amendment history (per [@munafo2017]); (2) every quoted
 number is reproducible from the canonical Morris sample (seed = 42)
 plus the atlas Docker image, verified at three independent layers
-(S007); (3) the data are released under FAIR principles [Wilkinson
-et al. 2016]; and (4) the four-flag classifier is a generic
+(S007); (3) the data are released under FAIR principles
+[@wilkinson2016]; and (4) the four-flag classifier is a generic
 instrument that future Pulse users can apply to their own
 configurations without re-running our sweep.
 
@@ -149,7 +149,7 @@ This atlas adds quantitative coverage to those:
    placed above the zone.
 5–6. HR init acceptance 50–110 / RR init acceptance 8–20 — sampler ranges
    match.
-7. PC-AC over-delivers Vt [Webb 2023; companion verification E12, E13] — atlas restricts to VC-AC.
+7. PC-AC over-delivers Vt [@webb2023; companion verification E12, E13] — atlas restricts to VC-AC.
 8–12. Structural lumped-parameter limits — discussed in §4.3.
 
 The two previously asserted but unverified claims (FiO2 solver-divergence at 1.0 and
@@ -204,7 +204,7 @@ Seven inputs swept, ranges verified in Pulse boundary probes
 | SBP baseline | 90–120 | mmHg | E10 |
 | DBP baseline | 60–80 | mmHg | E10; ratio DBP / SBP ≤ 0.75 enforced |
 | RR baseline | 8–20 | bpm | E28 (9 / 9 Docker runs) |
-| Vt target | 300–800 | mL | ARDSnet 6 mL/kg [Brower et al. 2000] to pre-ARDSnet 10 mL/kg |
+| Vt target | 300–800 | mL | ARDSnet 6 mL/kg [@brower2000] to pre-ARDSnet 10 mL/kg |
 | FiO2 | 0.21–1.0 | fraction | room air → pure O2 (E20 verifies 1.0 safe) |
 | PEEP | 0–20 | cmH2O | clinical range |
 
@@ -240,8 +240,8 @@ output across all four scenarios, independent of the Atlas sweep.
 Ventilator: VC-AC (volume-controlled assist-control) only — the
 ventilator delivers a fixed tidal volume on a set schedule while
 still allowing the patient to trigger additional breaths between
-mandatory cycles. The mode choice is justified by Webb et al.
-(2023) [PMC10224749] reporting VC-AC tidal-volume errors of
+mandatory cycles. The mode choice is justified by @webb2023
+reporting VC-AC tidal-volume errors of
 0.07 – 2.25 % across healthy, restrictive, and obstructive lung
 profiles vs PC-AC's 11 – 25 %. Companion verification (E12, E13)
 further found that PC-AC over-delivery scales inversely with body
@@ -255,15 +255,15 @@ reinforcing the preregistration's VC-AC restriction.
 
 ### 2.5 Morris sampling
 
-The Morris elementary-effects design [Morris 1991], with the radial-
-trajectory + μ\* refinement of [Campolongo, Cariboni, Saltelli 2007],
+The Morris elementary-effects design [@morris1991], with the radial-
+trajectory + μ\* refinement of [@campolongo2007],
 is an efficient one-at-a-time screening method that ranks inputs by
 overall importance (μ\*, the mean of absolute elementary effects)
 and flags non-linearity or input-input interaction (σ, the standard
 deviation of those effects), at a small fraction of the cost of a
 full variance-based analysis. Implementation: SALib's
-`morris.sample(N=20, num_levels=4, seed=42)` [Iwanaga, Usher, Herman
-2022] ⇒ 160 unique input points. The same 160 points drive every
+`morris.sample(N=20, num_levels=4, seed=42)` [@iwanaga2022] ⇒
+160 unique input points. The same 160 points drive every
 cell, so EE rankings are directly comparable across cells. Sample
 persisted at `data/runs/full_sweep/morris_sample.parquet`.
 
