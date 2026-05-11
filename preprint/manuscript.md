@@ -30,7 +30,7 @@ fired the silent-clamping flag. Solver divergence is sex-stratified —
 20 of 1,280 runs (1.6 %) diverged, **all 20 male in the input-extreme
 regime** (sex-stratification is regime-dependent; §3.5.1). Two boundary
 findings: **F-003**, Pulse produces PaO2 > 600 mmHg at FiO2 = 1.0
-(hyperoxia overshoot); **F-004**, VC-AC tidal-volume instability in
+(hyperoxia overshoot); **F-004**, VC-AC (volume-controlled assist-control) tidal-volume instability in
 20.6 % of runs, **causally identified as patient-ventilator
 dyssynchrony at the inspiration trigger and corrected by setting trigger
 pressure to −2 cmH2O** (worst-case Vt CV collapses from 0.351 to 0.016).
@@ -81,10 +81,12 @@ repo carries a 2020 tag `STUDY_SENSITIVITY_ANALYSIS_1_0_0` containing
 a one-off Sobol study on **internal vascular-circuit resistance
 multipliers** for model calibration (per its ReadMe) — a different
 parameter class from user-facing operational inputs, not ported to
-the 4.3.x release line. An external assessment of Pulse on MIMIC-III
-sepsis trajectories using a causal-falsification framework has also
-been published [Cornish et al. 2023], addressing intervention-outcome
-accuracy on a different cohort and dataset. No systematic sensitivity
+the 4.3.x release line. Prior external work [Cornish et al. 2023]
+addressed intervention-outcome falsification — verifying whether
+Pulse accurately mimics how a real patient's trajectory changes after
+a medical intervention — on MIMIC-III sepsis trajectories, a different
+scope from the operational-input reliability question addressed here,
+applied to a different cohort and dataset. No systematic sensitivity
 analysis on **user-facing operational inputs** (HR, BP, RR, Vt, FiO2,
 PEEP) has been published.
 
@@ -235,7 +237,10 @@ verification (`Pulse_translation_new` E12, E13) established that
 the female surrogate produces physiologically plausible engine
 output across all four scenarios, independent of the Atlas sweep.
 
-Ventilator: VC-AC only. The mode choice is justified by Webb et al.
+Ventilator: VC-AC (volume-controlled assist-control) only — the
+ventilator delivers a fixed tidal volume on a set schedule while
+still allowing the patient to trigger additional breaths between
+mandatory cycles. The mode choice is justified by Webb et al.
 (2023) [PMC10224749] reporting VC-AC tidal-volume errors of
 0.07 – 2.25 % across healthy, restrictive, and obstructive lung
 profiles vs PC-AC's 11 – 25 %. Companion verification (E12, E13)
@@ -252,7 +257,11 @@ reinforcing the preregistration's VC-AC restriction.
 
 The Morris elementary-effects design [Morris 1991], with the radial-
 trajectory + μ\* refinement of [Campolongo, Cariboni, Saltelli 2007],
-is used as a one-at-a-time screening method. Implementation: SALib's
+is an efficient one-at-a-time screening method that ranks inputs by
+overall importance (μ\*, the mean of absolute elementary effects)
+and flags non-linearity or input-input interaction (σ, the standard
+deviation of those effects), at a small fraction of the cost of a
+full variance-based analysis. Implementation: SALib's
 `morris.sample(N=20, num_levels=4, seed=42)` [Iwanaga, Usher, Herman
 2022] ⇒ 160 unique input points. The same 160 points drive every
 cell, so EE rankings are directly comparable across cells. Sample
@@ -394,6 +403,21 @@ visual patterns dominate:
 **Bootstrap 95 % CI on μ\*** (1,000 resamples) is reported alongside
 each μ\* point estimate in the table; CI overlap between the top-3 and
 the rest is the formal H1 test.
+
+**External cross-validation against an OAT precursor.** Companion
+one-at-a-time probing prior to the Atlas (Pulse_translation_new E24,
+±10 % perturbations on healthy and ARDS-moderate cells, n = 74 Docker
+runs) reported the FiO2 → PaO2 elasticity collapsing from 1.32 in
+healthy to 0.26 in moderate ARDS — an ~80 % attenuation as shunt
+physiology takes over. The Atlas Morris μ\* for PaO2 ~ FiO2 reproduces
+both the direction and roughly the magnitude of this attenuation:
+μ\* peaks at S2 / S3 (147 mmHg in (S2, F)) and falls to 31 mmHg in
+(S4, M), a ~79 % drop. Elasticity (local %-change/%-change) and μ\*
+(mean absolute elementary effect in output units) are formally
+different metrics, so this is a qualitative consistency check rather
+than a numerical equivalence — but the matched direction and
+order-of-magnitude attenuation across two independent designs is an
+external robustness signal for the Atlas's FiO2 sensitivity ranking.
 
 ### 3.3 H1 — skewed sensitivity (PASS, 48 / 48)
 
@@ -641,11 +665,15 @@ sex per se.
 
 ### 3.6 H4 — sex-specific reliability (partially supported, gas-exchange only)
 
-We report H4 with two complementary statistics: Wasserstein distance
-between M and F clean-run output *distributions* (effect magnitude),
-and Spearman ρ between M and F Morris μ\* *vectors* (effect ranking).
-For both we add a null reference because raw point estimates on this
-sample size overstate precision.
+We report H4 with two complementary statistics. The 1-Wasserstein
+distance quantifies the absolute magnitude of the difference between
+male and female clean-run output *distributions*, expressed in the
+output's natural units (mmHg, bpm, mL). Spearman's ρ (rho) rank
+correlation between M and F Morris μ\* *vectors* asks whether both
+sexes prioritize the same inputs (ρ = 1 ⇒ identical input ordering,
+ρ = −1 ⇒ inverted ordering) — a different question from how big the
+sex-specific output shifts are. For both we add a null reference
+because raw point estimates on this sample size overstate precision.
 
 **Wasserstein distance with within-sex null** (M-vs-F observed; null
 built by repeatedly splitting the *combined* M+F clean runs randomly
