@@ -72,6 +72,35 @@ def test_block_bootstrap_ci_brackets_estimate():
     lo, hi = am._block_bootstrap_mu_star_ci(df, n_bootstrap=500, rng=rng)
     mu_star = float(np.mean(np.abs(ees)))
     assert lo <= mu_star <= hi
+
+
+def test_block_bootstrap_sigma_ci_collapses_with_one_trajectory():
+    """Single-trajectory block bootstrap can't form a sigma CI either."""
+    df = pd.DataFrame({"trajectory": [0, 0, 0], "ee": [1.0, 2.0, 3.0]})
+    rng = np.random.default_rng(0)
+    lo, hi = am._block_bootstrap_sigma_ci(df, n_bootstrap=100, rng=rng)
+    assert np.isnan(lo) and np.isnan(hi)
+
+
+def test_block_bootstrap_sigma_ci_brackets_estimate():
+    """With multiple trajectories, the CI brackets the point sigma."""
+    rng = np.random.default_rng(0)
+    ees = rng.normal(loc=5.0, scale=1.0, size=30)
+    df = pd.DataFrame({"trajectory": np.repeat(np.arange(10), 3), "ee": ees})
+    lo, hi = am._block_bootstrap_sigma_ci(df, n_bootstrap=500, rng=rng)
+    sigma = float(np.std(ees, ddof=1))
+    assert lo <= sigma <= hi
+
+
+def test_block_bootstrap_sigma_ci_constant_ees_zero():
+    """If all EEs are identical, sigma=0 and CI collapses to [0, 0]."""
+    df = pd.DataFrame(
+        {"trajectory": np.repeat(np.arange(5), 4), "ee": np.full(20, 3.14)}
+    )
+    rng = np.random.default_rng(0)
+    lo, hi = am._block_bootstrap_sigma_ci(df, n_bootstrap=200, rng=rng)
+    assert lo == pytest.approx(0.0)
+    assert hi == pytest.approx(0.0)
     # CI should be reasonably tight on N=30 EEs
     assert hi - lo < 2.0
 

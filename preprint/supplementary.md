@@ -106,7 +106,10 @@ Source: `results/wasserstein_male_vs_female.csv`. Within-sex null built
 by repeatedly splitting the combined M+F clean-run pool into halves of
 the original sizes and computing the distance (n_null = 2,000).
 
-Significant rows (p_emp ≤ 0.05) bolded.
+Significant rows under BH-FDR control at q = 0.05 (across all 24
+tests) bolded; p_emp ≤ 0.0104 survives the BH-critical threshold for
+the 5th-ranked test. The naive α = 0.05 cut would additionally flag
+S2 SpO2 (p_emp = 0.022), kept unbolded here for transparency.
 
 | Scenario | Output | M-vs-F  | null p50 | null p95 | p_emp  |
 |----------|--------|---------|----------|----------|--------|
@@ -119,7 +122,7 @@ Significant rows (p_emp ≤ 0.05) bolded.
 | S2       | HR     | 1.911   | 3.596    | 7.718    | 0.958  |
 | S2       | MAP    | 0.879   | 1.029    | 2.114    | 0.652  |
 | S2       | Vt     | 13.767  | 25.053   | 55.351   | 0.840  |
-| S2       | **SpO2** | **0.0125** | 0.0055   | 0.0109   | **0.022** |
+| S2       | SpO2   | 0.0125  | 0.0055   | 0.0109   | 0.022  |
 | S2       | PaO2   | 16.145  | 8.902    | 17.164   | 0.073  |
 | S2       | **PaCO2** | **5.117** | 1.075    | 2.128    | **0.000** |
 | S3       | HR     | 4.772   | 3.862    | 8.607    | 0.333  |

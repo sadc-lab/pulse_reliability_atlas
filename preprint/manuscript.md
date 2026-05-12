@@ -22,28 +22,38 @@ surrogates (Pulse standard male and female), for 1,280 simulations. A
 locked four-flag detector (`clamped` / `diverged` / `implausible` /
 `not_steady_state`) classified every run before analysis.
 
-**Results.** Sensitivity is strongly skewed: 48 of 48 (cell × output)
-combinations have ≥ 50 % of summed μ\* in their top-3 inputs (median
-0.928), and the engine is **predominantly linear** for these dominant
-parameters. Pulse rejects out-of-range inputs *loudly*: 0 of 1,280 runs
-fired the silent-clamping flag. Solver divergence is sex-stratified —
-20 of 1,280 runs (1.6 %) diverged, **all 20 male in the input-extreme
-regime** (sex-stratification is regime-dependent; §3.5.1). Two boundary
-findings: **F-003**, Pulse produces PaO2 > 600 mmHg at FiO2 = 1.0
-(hyperoxia overshoot); **F-004**, VC-AC (volume-controlled assist-control) tidal-volume instability in
-20.6 % of runs, **causally identified as patient-ventilator
-dyssynchrony at the inspiration trigger and corrected by setting trigger
-pressure to −2 cmH2O** (worst-case Vt CV collapses from 0.351 to 0.016).
-H4 (sex-specific reliability) is partially supported: 6 of 24 cell ×
-output Wasserstein distances exceed a within-sex null — all six are
-gas-exchange (PaCO2, SpO2, PaO2). Cardiovascular and Vt sex effects do
-not exceed within-sex sub-sampling; input-importance rankings are largely
+**Results.** The headline operator-actionable result: VC-AC
+(volume-controlled assist-control) tidal-volume instability appears in
+20.6 % of runs (finding **F-004**), and is **causally identified as
+patient-ventilator dyssynchrony at the inspiration trigger and corrected
+by setting trigger pressure to −2 cmH2O** (median Vt CV collapses from
+0.351 to 0.016; worst-case from 1.826 to 0.112). Sensitivity is
+strongly skewed: 48 of 48 (cell × output) combinations have ≥ 50 % of
+summed μ\* in their top-3 inputs (median 0.928), and the engine is
+**predominantly linear** for these dominant parameters — point-estimate
+σ/μ\* < 0.6 in 40 of 48 cells, and under trajectory-level bootstrap
+31 of 48 cells (65 %) are CI-robustly linear (upper bootstrap CI
+< 0.6); the remaining 17 cells have either bootstrap CI straddling
+0.6 (12) or insufficient clean trajectories for a CI (5; FiO2-edge
+cells in S1 and S4_F). Pulse rejects out-of-range inputs *loudly*:
+0 of 1,280 runs fired the silent-clamping flag. Solver divergence is
+sex-stratified — 20 of 1,280 runs (1.6 %) diverged, **all 20 male in
+the input-extreme regime** (sex-stratification is regime-dependent;
+§3.5.1). A second boundary finding (**F-003**): Pulse produces PaO2 >
+600 mmHg at FiO2 = 1.0 (hyperoxia overshoot). H4 (sex-specific
+reliability) is partially supported under Benjamini–Hochberg FDR
+control (q = 0.05): 5 of 24 cell × output Wasserstein distances
+survive the within-sex null — all five are gas-exchange (PaCO2 ×3,
+SpO2 ×1, PaO2 ×1). Cardiovascular and Vt sex effects do not exceed
+within-sex sub-sampling; input-importance rankings are largely
 preserved across sexes (Spearman ρ 0.75 – 1.00 in S2 / S3).
 
 **Conclusion.** The atlas provides a per-cell traffic-light reliability
 map for adult Pulse 4.3.1, identifies sex as a previously uncharacterized
-reliability-sensitivity axis, and yields one operator-actionable
-correction: setting VC-AC inspiration trigger pressure to −2 cmH2O.
+reliability-sensitivity axis, yields one operator-actionable correction
+(setting VC-AC inspiration trigger pressure to −2 cmH2O), and provides
+a per-cell data-quality filter for downstream machine-learning pipelines
+that train on Pulse-generated synthetic cohorts.
 
 ---
 
@@ -62,9 +72,11 @@ systems, and is used in three broad communities:
   or impractically expensive to collect (e.g. dual-patient ventilator
   sharing during the COVID-19 pandemic [@webb2020]).
 * **Medical-device development** — early-stage validation of
-  ventilators, pumps, and monitors against a virtual patient. ASL 5000
-  benchmarking against Pulse's VC-AC mode reports tidal-volume errors
-  of 0.07 – 2.25 % [@webb2023].
+  ventilators, pumps, and monitors against a virtual patient. Pulse's
+  own ventilator-validation tables report ASL 5000-referenced
+  tidal-volume errors of 0.07 – 2.25 % for VC-AC across healthy,
+  restrictive, and obstructive lung profiles [@pulsevent]; the
+  surrounding validation framework is described in [@webb2022vent].
 * **Education** — anaesthesia, critical-care, and paramedic training
   curricula increasingly use Pulse for case-based simulation.
 
@@ -149,7 +161,7 @@ This atlas adds quantitative coverage to those:
    placed above the zone.
 5–6. HR init acceptance 50–110 / RR init acceptance 8–20 — sampler ranges
    match.
-7. PC-AC over-delivers Vt [@webb2023; companion verification E12, E13] — atlas restricts to VC-AC.
+7. PC-AC over-delivers Vt 11.3 – 25.3 % (Pulse documentation tables, [@pulsevent]; framework in [@webb2022vent]; companion verification `Pulse_translation_new` E12, E13) — atlas restricts to VC-AC.
 8–12. Structural lumped-parameter limits — discussed in §4.3.
 
 The two previously asserted but unverified claims (FiO2 solver-divergence at 1.0 and
@@ -192,6 +204,24 @@ silently capped at the wrapper layer.
   2. Recording-relative time origin (S005): wrapper now subtracts the
      ventilator-settle time so emitted `time_s` starts at 0, allowing the
      locked steady-state window [60, 120] s to capture data.
+
+**Pinned image hashes (reproducibility).** Two `pulse-atlas-engine`
+image hashes are relevant for full reproducibility:
+
+* `3b18bdc08660` — produced the original 1,280-run Morris sweep at
+  `data/runs/full_sweep/` (S006, 2026-04-26).
+* `b2e0e807803d` — produced the S015 audit re-execution and includes
+  the S014 SDK sed-patch (`InspirationPatientTrigger*` fall-through
+  guard, 2026-04-28).
+
+S015 Phase 2 verified 40 / 40 reproduction-consistent CSVs under the
+rebuilt `b2e0e807803d` image (38 clean runs bit-exact; 2
+originally-diverged runs reproduce divergence with the same
+`exit_code = 1`). The S014 patch is therefore a verified no-op for the
+original sweep, and the atlas's published numbers apply identically
+under either image hash. Upstream pin: `kitware/pulse:4.3.1`
+(`REL_4_3_2`, the current upstream `stable` head, is build-system-only;
+physiology unchanged per S016 GitLab audit 2026-05-07).
 
 ### 2.2 Inputs
 
@@ -240,13 +270,15 @@ output across all four scenarios, independent of the Atlas sweep.
 Ventilator: VC-AC (volume-controlled assist-control) only — the
 ventilator delivers a fixed tidal volume on a set schedule while
 still allowing the patient to trigger additional breaths between
-mandatory cycles. The mode choice is justified by @webb2023
-reporting VC-AC tidal-volume errors of
-0.07 – 2.25 % across healthy, restrictive, and obstructive lung
-profiles vs PC-AC's 11 – 25 %. Companion verification (E12, E13)
-further found that PC-AC over-delivery scales inversely with body
-weight (female +58.9 % vs male +24.0 % at PIP = 20 cmH2O),
-reinforcing the preregistration's VC-AC restriction.
+mandatory cycles. The mode choice is justified by Pulse's own
+validation tables [@pulsevent] reporting VC-AC tidal-volume errors
+of 0.07 – 2.25 % across healthy, restrictive, and obstructive lung
+profiles vs PC-AC's 11.3 – 25.3 %; the surrounding ASL 5000
+validation framework is described in [@webb2022vent]. Companion
+verification (`Pulse_translation_new` E12, E13) further found
+that PC-AC over-delivery scales inversely with body weight (female
++58.9 % vs male +24.0 % at PIP = 20 cmH2O), reinforcing the
+preregistration's VC-AC restriction.
 
 ### 2.4 Simulation cadence
 
@@ -316,27 +348,49 @@ verified S001 budget. Pulse is bit-exact deterministic for fixed
 inputs (S005 G5). Wall time for the full sweep ≈ 7 h on this hardware.
 
 The atlas's published numbers have eleven independent verification
-points behind them, in three layers:
-
-1. **Pulse determinism (S005 G5):** four reruns × six outputs, zero
-   violations within 1e-6 relative tolerance.
-2. **Pipeline + analysis correctness (S006 V1–V8):** eight sanity
-   checks — CSV → parquet integrity, F-003 PaO2 raw-CSV spot-check,
-   F-004 Vt CV by hand, Morris EE math by hand, bootstrap CI
-   bracket, Wasserstein on synthetic distributions, reliability
-   traffic-light thresholds, H1 calculation by hand. All passed.
-3. **Independent reproducibility layers (S007):** ten configs
-   regenerated byte-exact from `morris_sample.parquet`; seven μ\*
-   values for one cell × one output recomputed in fresh numpy (no
-   shared lines with `analysis_morris.py`) → exact match; five clean
-   runs re-executed in Docker with `overwrite=True` → bit-exact CSVs
-   versus the original sweep.
-
-S007 deliberately rejected a full 1,280-simulation re-execution as a
-verification approach. A re-run on the same machine with the same code
+points (Pulse determinism, pipeline + analysis correctness, and
+independent reproducibility layers) detailed in
+[Supplementary S10](../preprint/supplementary.md#s10);
+all eleven passed with zero violations. S007 deliberately rejected a
+full 1,280-simulation re-execution because re-running the same code
 gives identical CSVs by construction and cannot detect bugs in the
-code being re-run. The independent-layer approach catches strictly
+code being re-run; the independent-layer approach catches strictly
 more error classes at ~ 1 % of the compute cost.
+
+### 2.9 Using the four-flag classifier independently
+
+The detector is a stand-alone instrument; any Pulse user can apply it
+to their own output CSVs without re-running the atlas sweep. Calling
+contract for `src/detector.py`:
+
+```python
+from src.detector import classify  # public; thresholds locked per §2.6
+
+result = classify(
+    csv_path="path/to/pulse_output.csv",   # Pulse 5 s-sampled CSV
+    pulse_log=open("pulse.log").read(),    # stdout + stderr text
+    exit_code=0,                            # container exit code
+)
+
+# result is a DetectorResult with four orthogonal flags:
+print(result.clamped.fired, result.clamped.reason)
+print(result.diverged.fired, result.diverged.reason)
+print(result.implausible.fired, result.implausible.reason)
+print(result.not_steady_state.fired, result.not_steady_state.reason)
+print(result.primary_flag)  # priority order: clamped > diverged > implausible > NSS > clean
+```
+
+Hard physiological bounds (`HARD_BOUNDS`), drift thresholds
+(`DRIFT_MAX_DELTA_60S`), the CV threshold (`CV_THRESHOLD = 0.05`), and
+the steady-state window (`STEADY_STATE_T_LO = 60 s`, `STEADY_STATE_T_HI
+= 120 s`) are module-level constants exposed at the top of
+`src/detector.py` and locked in `preregistration.md` §Flags. To apply
+the classifier to a sweep at a different operational envelope (e.g.
+pediatric ranges or different ventilator modes), override these
+constants in a wrapper module rather than editing `detector.py` in
+place; the preregistration discipline (lock thresholds before data
+collection) should transfer to any downstream sweep that uses this
+instrument.
 
 ---
 
@@ -476,16 +530,40 @@ Manual inspection separates these into two regimes:
   alveolar-ventilation identity V̇A = RR · (Vt − Vd) driving CO2
   elimination.
 
+**CI-aware re-evaluation of the trigger.** The 8 / 48 promotion count
+above is a point estimate. We block-bootstrapped σ at the trajectory
+level (1000 resamples, same RNG protocol as the μ\* CI; results
+columns `sigma_lo`, `sigma_hi` in `results/morris_indices.parquet`),
+and computed the implied CI on the σ / μ\* ratio per cell. The
+distribution under the bootstrap is:
+
+* **0 / 48 cells** are CI-robust nonlinear: no cell has a *lower*
+  bootstrap CI bound on σ / μ\* at or above 0.6.
+* **31 / 48 cells (65 %)** are CI-robust linear: upper bootstrap CI
+  bound on σ / μ\* strictly below 0.6.
+* **12 / 48 cells** have a CI that straddles 0.6 — 8 of these are the
+  point-estimate "promote" cells (Groups A + B above), whose
+  nonlinearity classification is bootstrap-borderline; the other 4 are
+  point-estimate-below-0.6 cells whose upper CI bound exceeds 0.6
+  (one PEEP-on-PaO2/SpO2 in (S4, F), two FiO2-on-SpO2 in (S2 / S3, M),
+  one PaCO2-on-Vt in (S4, F)).
+* **5 / 48 cells** have no estimable σ / μ\* CI: the FiO2-edge cells in
+  S1 (both sexes) and S4_F where the OAT step on FiO2 has zero clean
+  trajectories (§4.3 limitations).
+
 Quantitative variance decomposition (Sobol S₁ / Sₜ indices) on the
-Group B cells is deferred to follow-up work. Running it in this paper
-would consume ≈ 3,600 additional Pulse runs (~ 13 h compute on the
-maintainer's laptop with 2 parallel Docker workers) to confirm a
-qualitative interaction structure that is *a priori* established by
-respiratory physiology and *qualitatively* recovered by the Morris
-main-effect rankings reported in §3.2 (Figure 2). The preregistered
-Sobol bolt-on commitment is **closed in this paper** on these
-grounds. Future reviewers wishing variance decomposition can re-run
-from the canonical Morris sample
+Group B cells is deferred to follow-up work. Two grounds support
+deferral. First, the interaction structure is *a priori* established
+by respiratory physiology (shunt-fraction kinetics on PaO2; alveolar-
+ventilation identity V̇A = RR · (Vt − Vd) on PaCO2) and *qualitatively*
+recovered by the Morris main-effect rankings reported in §3.2.
+Second, the trajectory-level bootstrap evidence above shows that none
+of the 8 point-estimate "promote" cells is CI-robustly nonlinear: a
+Sobol bolt-on on cells whose nonlinearity-trigger status is itself
+bootstrap-borderline would be evidentially weak. The preregistered
+Sobol bolt-on commitment is therefore **closed in this paper.** Future
+reviewers wishing variance decomposition can re-run from the
+canonical Morris sample
 (`data/runs/full_sweep/morris_sample.parquet`) and the atlas Docker
 image (S006); the analysis pipeline is preserved in
 `src/analysis_morris.py`.
@@ -550,7 +628,7 @@ input pattern. Of the 20:
 * **SBP = 90 (locked low boundary)** appears in 16 / 20 runs.
 * **DBP = 67.5 (= 0.75 × 90, the post-clip value)** appears in 16 / 20.
 * **RR = 20 (locked high boundary)** appears in 16 / 20 runs.
-* **FiO2 = 1.0** appears in 12 / 20.
+* **FiO2 = 1.0** appears in 13 / 20.
 * The 16 shared cases correspond to **the same 4 Morris sample
   indices repeated across S1 / S2 / S3 / S4_M** (run_idx 119, 157,
   158, 159 in the canonical sample). The remaining 4 are unique to
@@ -624,11 +702,11 @@ all 7 Morris inputs at midrange (HR = 80, SBP = 105, DBP = 70, RR =
 | Severity range  | F diverged | M diverged |
 |------------------|------------|------------|
 | [0, 0.5]         | 0 / 31     | 0 / 31     |
-| (0.5, 0.85]      | 0 / 20     | 0 / 20     |
-| (0.85, 0.91]     | **14 / 18**| 5 / 18     |
-| (0.91, 0.945]    | 5 / 10     | **9 / 10** |
-| (0.945, 0.95]    | 0 / 2      | 0 / 2      |
-| (0.95, 1.0]      | 0 / 19     | 0 / 19     |
+| (0.5, 0.85]      | 0 / 19     | 0 / 19     |
+| (0.85, 0.91]     | **14 / 19**| 5 / 19     |
+| (0.91, 0.945]    | 5 / 9      | **8 / 9**  |
+| (0.945, 0.95]    | 0 / 2      | 1 / 2      |
+| (0.95, 1.0]      | 0 / 20     | 0 / 20     |
 
 Two refinements of the literature picture:
 
@@ -679,7 +757,7 @@ because raw point estimates on this sample size overstate precision.
 built by repeatedly splitting the *combined* M+F clean runs randomly
 into halves of the original sizes; n_null = 2,000):
 
-| Scenario | Output | M-vs-F | null p50 | null p95 | p_emp | Sig.? |
+| Scenario | Output | M-vs-F | null p50 | null p95 | p_emp | Sig.? (BH-FDR) |
 |----------|--------|--------|----------|----------|-------|-------|
 | S1       | HR     | 5.02   | 3.91     | 8.56     | 0.305 |       |
 | S1       | MAP    | 0.58   | 1.38     | 2.78     | 0.995 |       |
@@ -690,7 +768,7 @@ into halves of the original sizes; n_null = 2,000):
 | S2       | HR     | 1.91   | 3.60     | 7.72     | 0.958 |       |
 | S2       | MAP    | 0.88   | 1.03     | 2.11     | 0.652 |       |
 | S2       | Vt     | 13.8   | 25.1     | 55.4     | 0.840 |       |
-| S2       | **SpO2** | **0.012** | 0.006    | 0.011    | **0.022** | * |
+| S2       | SpO2   | 0.012  | 0.006    | 0.011    | 0.022 |       |
 | S2       | PaO2   | 16.1   | 8.90     | 17.2     | 0.073 |       |
 | S2       | **PaCO2** | **5.12** | 1.07     | 2.13     | **0.000** | * |
 | S3       | HR     | 4.77   | 3.86     | 8.61     | 0.333 |       |
@@ -706,18 +784,27 @@ into halves of the original sizes; n_null = 2,000):
 | S4       | **PaO2** | **4.65** | 1.91     | 3.38     | **0.003** | * |
 | S4       | PaCO2  | 1.05   | 0.61     | 1.13     | 0.083 |       |
 
-\* significant at α = 0.05.
+\* survives Benjamini–Hochberg FDR control at q = 0.05 across all 24
+tests (BH critical value for the 5th-ranked p-value is 5 · 0.05 / 24 ≈
+0.0104; the 5 rows above all have p_emp ≤ 0.009). Naive α = 0.05
+yielded 6 significant rows; the additional row (S2 SpO2, p_emp =
+0.022) does not survive multiple-comparisons control and is reported
+unbolded.
 
-**Honest interpretation:** 6 of 24 (cell × output) Wasserstein
-distances are distinguishable from a within-sex subsampling null.
-**All six are gas-exchange channels (PaCO2 ×3, SpO2 ×2, PaO2 ×1).**
+**Honest interpretation:** 5 of 24 (cell × output) Wasserstein
+distances survive BH-FDR control at q = 0.05 against a within-sex
+subsampling null.
+**All five are gas-exchange channels (PaCO2 ×3, SpO2 ×1, PaO2 ×1).**
 Cardiovascular outputs (HR, MAP) and ventilator output (Vt) show
 M-vs-F distances *within* the within-sex null distribution — i.e.
 the ~ 13 – 36 mL Vt difference and the ~ 1 – 5 bpm HR difference are
 not larger than what the same population produces by random sub-
 sampling. **An earlier draft of this paper presented those Vt and HR
 distances as "the largest sex effects"; the within-sex null
-correction shows that conclusion was overstated.**
+correction shows that conclusion was overstated.** A further early
+draft reported 6 / 24 significant under naive α = 0.05; the
+multiple-comparisons correction is recorded here to surface the small
+shift transparently rather than carry the uncorrected count forward.
 
 The remaining sex-stratified effect concentrates exactly where
 sex-specific physiology should matter most: gas exchange, where
@@ -767,8 +854,8 @@ patient model.
 
 * H4 is **partially supported**, with the strong signal concentrated
   on gas-exchange outputs.
-* **Sex effect is real on PaCO2, SpO2 (in S2 and S4), and PaO2 in S4** —
-  these survive the within-sex null.
+* **Sex effect is real on PaCO2 (S1, S2, S3), SpO2 (S4), and PaO2 (S4)** —
+  these survive the within-sex null under BH-FDR control at q = 0.05.
 * **Sex effect on HR, MAP, Vt is not distinguishable from
   within-sex sub-sampling** at our sample size. Either it does not
   exist, or it is below the detection floor of 49 – 144 clean runs
@@ -825,9 +912,15 @@ Distribution: **12 green, 24 yellow, 12 red** out of 48 cells.
   The *deviation from linear extrapolation at the FiO2 = 1.0 endpoint*
   is the quantitative signature of the hyperoxia overshoot.
 * **F-004 — Patient-ventilator dyssynchrony in VC-AC at extreme inputs.**
-  Across the full sweep, 264 / 1,280 (20.6 %) Morris runs failed the
-  preregistered steady-state criterion on delivered tidal volume
-  (`Vt_cv > 5 %` in the [60, 120] s window). Inspecting the
+  Across the full sweep, 303 / 1,280 (23.7 %) Morris runs satisfy
+  `Vt_cv > 5 %` in the [60, 120] s window. Of those, 264 / 1,280
+  (20.6 %) carry it as their *primary* flag — the remaining 39 also
+  trip the higher-priority `implausible` or `diverged` flag for a
+  separate reason and are categorized there per the detector priority
+  order (§2.6). The 303-run population is the one analysed by the
+  §3.8.1 cross-output drift audit; the 264-run subset is the
+  F-004-only steady-state-failure rate.
+  Inspecting the
   native-resolution ventilator timeseries (sampled at 0.02 s; the same
   Pulse runs that produce the 5 s atlas CSV) shows a stereotyped pattern:
   a mandatory breath at the set respiratory rate delivers Vt close to
@@ -1003,7 +1096,53 @@ setting and is the configuration validated by S014 in this paper
 (median Vt_cv collapses from 0.351 to 0.016, a 96 % reduction; 78.1 %
 of locked runs fall below the 0.05 steady-state threshold).
 
-### 4.3 Limitations
+### 4.3 Implications for machine-learning pipelines using Pulse
+
+The atlas's reliability map is not only an instrument for direct Pulse
+users; it doubles as a **per-cell data-quality filter for synthetic
+training cohorts** generated by Pulse for machine-learning research.
+This is non-trivial because Pulse is increasingly used as a synthetic-
+data generator for digital-twin research, reinforcement learning for
+ventilation, virtual-patient cohorts in medical-AI development, and
+data augmentation for clinical decision-support models. A model trained
+on outputs from this atlas's red cells without filtering will
+internalise simulator artefacts as if they were physiology:
+
+* The 600 + mmHg PaO2 overshoot at FiO2 = 1.0 (F-003, §3.8) becomes
+  "what hyperoxia looks like" to the model.
+* The 20.6 % VC-AC tidal-volume oscillation arising from inspiration-
+  trigger dyssynchrony (F-004, §3.8) becomes "ventilator behaviour" to
+  the model, even though it is corrected by a single configuration
+  flag.
+* The compensatory tachycardia decoupling input HR from output HR in
+  S3 / S4 (§3.4.1) becomes a learned input-output relation that does
+  not exist in real patients with set heart-rate baselines.
+* The all-male divergence cluster (§3.5) becomes a "clinical pattern"
+  if synthetic male / female cohorts are pooled without flag-stratified
+  filtering.
+
+The four-flag detector (§2.6) and the per-cell traffic-light map
+(§3.7) together support a defensible ML-pipeline contract:
+
+1. **Green cells:** safe to ingest into training cohorts without
+   per-run filtering.
+2. **Yellow cells:** ingest only the `clean`-flagged runs; report the
+   clean-rate per cell with the training-set metadata.
+3. **Red cells:** do not ingest into supervised-learning training sets
+   without per-channel and per-input justification. Where red cells
+   must be used (e.g. learning that PaO2 saturates at extreme FiO2),
+   the cell-level reliability rationale should be reproduced in the
+   model card.
+
+Adopting this contract converts Pulse from a "use at your own risk"
+synthetic-data source into a *bounded* synthetic-data source whose
+known failure modes are documented and addressable. The four-flag
+detector is general — it can be applied to any Pulse output CSV
+without re-running the atlas — and the traffic-light map is portable
+to other operational envelopes once a sweep at the new envelope is
+completed.
+
+### 4.4 Limitations
 
 * Atlas restricted to VC-AC adults; pediatric and PC modes out of scope
   (Paper 2 / Paper 1).
@@ -1048,29 +1187,40 @@ of locked runs fall below the 0.05 steady-state threshold).
   linear regimes identified here. Mapping the engine's reliability
   against the empirical distribution of clinical datasets remains a
   necessary limitation of the current theoretical atlas.
+* **No comparable open atlas exists for sibling engines.** The atlas
+  reports Pulse-specific reliability behaviour; it does not establish
+  whether the patterns reported here (sex-stratified divergence,
+  VC-AC dyssynchrony at default trigger settings, FiO2 = 1.0 hyperoxia
+  overshoot) are unique to Pulse or generic to lumped-parameter
+  cardiopulmonary engines such as BioGears or HumMod. No
+  publicly-available comparable Morris-EE / Sobol / clamping atlas
+  exists for either engine at the time of writing, so cross-engine
+  relativisation is a limitation of the comparative literature rather
+  than of this paper. A multi-engine reliability atlas remains an
+  open opportunity for the broader physiology-simulation community.
 
-### 4.4 Connection to downstream PhD work
+### 4.5 Implications for downstream Pulse research
 
-This atlas is the first publishable output in the maintainer's PhD
-pipeline. Two downstream papers, both currently in preparation and
-independent of this preprint's review, will build on it:
+This atlas is positioned as foundational infrastructure for two
+downstream lines of work, both currently in preparation:
 
-* **Paper 1 — pediatric translation layer (in preparation,
-  validation in progress with Sainte-Justine PICU cohort).** Maps
-  pediatric vital signs onto Pulse's adult engine via quantile
-  matching, and uses *this atlas's* μ\* rankings and reliability
-  traffic-light grid as the backdrop for what the translation layer
-  is allowed to do — explicitly, the translation layer must keep its
-  output baselines inside the green / yellow cells of Figure 6.
-* **Paper 2 — native pediatric Pulse fork (planned).** Will modify
-  Pulse's C++ source for paediatric physiology. The patches will be
-  prioritized by this atlas's input-importance ranking: equations
-  driving high-μ\* inputs (heart-rate baseline, FiO2 / PEEP, Vt) are
-  patched first, equations driving low-μ\* inputs are deferred.
+* **Pediatric translation layer (Paper 1, in preparation; validation
+  underway with the Sainte-Justine PICU cohort).** Maps pediatric
+  vital signs onto Pulse's adult engine via quantile matching, and
+  uses the atlas's μ\* rankings and reliability traffic-light grid as
+  the backdrop for what the translation layer is allowed to do —
+  explicitly, the translation layer must keep its output baselines
+  inside the green / yellow cells of Figure 6.
+* **Native pediatric Pulse fork (Paper 2, planned).** Modifies
+  Pulse's C++ source for paediatric physiology. Source-code patch
+  ordering is prioritised by the atlas's input-importance ranking:
+  equations driving high-μ\* inputs (heart-rate baseline, FiO2 / PEEP,
+  Vt) are patched first; equations driving low-μ\* inputs are deferred.
 
 Neither downstream paper is required for this atlas's claims. The
-atlas stands on Pulse's public documentation, the cloned Pulse v4.3.1
-source code, and the experiments logged in this repository.
+atlas stands independently on Pulse's public documentation, the
+publicly-cloned Pulse v4.3.1 source, and the experiments logged in
+this repository.
 
 ---
 
@@ -1133,10 +1283,24 @@ the following or to an experiment-log entry in this repository.
    — referenced for adult age gate (lines 41 – 64), BMI bounds (lines
    179 – 200), blood-volume formula (line 534), HR / SBP / DBP
    acceptance bounds (verified by E10 / E28 / E29).
-4. **Webb et al. 2023.** Comparison of mechanical ventilator behaviour
-   under VC-AC against an ASL 5000 lung simulator. PubMed Central
-   article PMC10224749. Cited for VC-AC tidal-volume error and as the
-   basis for our preregistered ventilator-mode restriction.
+4. **Webb et al. 2022 (ANNSIM).** *Implementation of a dynamic and
+   extensible mechanical ventilator model for real-time physiological
+   simulation.* PubMed Central article PMC10224749. Describes Pulse's
+   ASL 5000 + Dräger Evita validation framework across nine cases
+   (healthy / restrictive / obstructive × PC-AC / VC-AC / CPAP);
+   reports qualitative waveform agreement. (Pre-submission audit
+   2026-05-12: a previous draft cited this paper as "Webb et al.
+   2023" with an invented "PulseExt" title and an incorrect author
+   list; corrected here against the actual PMC10224749 metadata.)
+4a. **Pulse Mechanical Ventilator Methodology page (Kitware, v4.3.1
+    documentation).** <https://pulse.kitware.com/_mechanical_ventilator_methodology.html>.
+    Validation Tables 3 / 5 / 10 / 12 / 17 / 19 report Pulse vs ASL
+    5000 + Dräger Evita tidal-volume errors for VC-AC (0.07 % healthy,
+    1.01 % restrictive, 2.25 % obstructive) and PC-AC (11.3 % healthy,
+    25.3 % restrictive, 15.3 % obstructive). Source of the numerical
+    Vt-accuracy claims used to justify the atlas's VC-AC restriction;
+    the surrounding validation framework is in entry 4 (Webb et al.
+    2022 ANNSIM).
 5. **Bray et al. 2019.** Cardiovascular limitations of the
    lumped-parameter model — referenced for valve idealization,
    dicrotic-notch absence, and viscoelastic limitation.
@@ -1147,17 +1311,6 @@ the following or to an experiment-log entry in this repository.
 7. **SALib (Iwanaga, Usher, Herman 2022).** Socio-Environmental
    Systems Modelling. Morris and Sobol implementations used for
    sampling and analysis.
-8. **Barnes et al. 2020.** *Comparison of three open-source physiology
-   engines on hemorrhage scenarios.* DOI:
-   [10.1097/SIH.0000000000000427](https://doi.org/10.1097/SIH.0000000000000427).
-   Cited as the only independent multi-engine assessment we are aware
-   of (BioGears tested, not Pulse).
-9. **Clipp et al. 2025 (MHSRS).** Updated Pulse hemorrhage validation —
-   cited for context that Pulse has improved since the Barnes 2020
-   tests.
-10. **JOSS issue #4929** (Pulse review, 2022 – 2023). Cited for context
-    on the engine's open peer-review status.
-
 Internal references (`experiments_log/santino/Sxxx_*.md`) are
 additionally available in the repository:
 
@@ -1186,21 +1339,46 @@ during the literature-review pass logged in
 
 **Pulse Physiology Engine**
 
-* Bray AC, Carpenter J, Webb JB, Clipp RB. *Pulse Physiology Engine:
-  An Open-Source Software Platform for Computational Modeling of
-  Human Medical Simulation.* SN Comprehensive Clinical Medicine
-  1:362-377 (2019). DOI:
+* Bray A, Webb JB, Enquobahrie A, Vicory J, Heneghan J, Hubal R,
+  TerMaath S, Asare P, Clipp RB. *Pulse Physiology Engine: An
+  Open-Source Software Platform for Computational Modeling of Human
+  Medical Simulation.* SN Comprehensive Clinical Medicine 1(5):362-377
+  (2019). DOI:
   [10.1007/s42399-019-00053-w](https://doi.org/10.1007/s42399-019-00053-w).
+  *(Author list and issue number corrected 2026-05-12 in
+  pre-submission audit; the previous draft listed a four-author
+  reduction including a non-existent "Carpenter J" — full nine-author
+  list confirmed against the Springer record and the Pulse
+  publications page.)*
 * Webb JB, Bray A, Asare PK, Clipp RB, Mehta YB, Penupolu S, Patel
   AA, Poler SM. *Computational simulation to assess patient safety
   of uncompensated COVID-19 two-patient ventilator sharing using the
   Pulse Physiology Engine.* PLoS One 15(11):e0242532 (2020). DOI:
   [10.1371/journal.pone.0242532](https://doi.org/10.1371/journal.pone.0242532).
   PMID: 33237927.
-* Webb J, Asare P, Bray A, Clipp R. *PulseExt: validation of the
-  Pulse Physiology Engine ventilator against the ASL 5000 lung
-  simulator.* (2023). PubMed Central:
+* Webb JB, Bray A, Scheirich H, VanPelt J, Gerard J, Frembgen S,
+  Clipp RB. *Implementation of a Dynamic and Extensible Mechanical
+  Ventilator Model for Real-Time Physiological Simulation.*
+  Proceedings of the 2022 Annual Modeling and Simulation Conference
+  (ANNSIM). PubMed Central:
   [PMC10224749](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10224749/).
+  *(Bibliographic entry corrected 2026-05-12 in pre-submission audit;
+  the previous draft cited this paper as "Webb et al. 2023, PulseExt:
+  validation of the Pulse Physiology Engine ventilator against the
+  ASL 5000 lung simulator" with author list "Webb J, Asare P, Bray A,
+  Clipp R" — the year, title, and author list were all incorrect.
+  The actual PMC10224749 paper is the 2022 ANNSIM mechanical-ventilator
+  implementation paper with the seven-author list above. The
+  qualitative ASL 5000 validation framework is described in this
+  paper; the quantitative VC-AC / PC-AC tidal-volume error percentages
+  cited elsewhere in this manuscript come from Pulse's own validation
+  tables, see next entry.)*
+* Kitware, Inc. *Mechanical Ventilator Methodology — Pulse Physiology
+  Engine documentation (v4.3.1).*
+  <https://pulse.kitware.com/_mechanical_ventilator_methodology.html>.
+  Validation Tables 3 / 5 / 10 / 12 / 17 / 19. Source of the 0.07 –
+  2.25 % VC-AC and 11.3 – 25.3 % PC-AC tidal-volume error numbers
+  cited in §1.1 and §2.3. Verified 2026-05-12.
 * Cornish R, Taufiq MF, Doucet A, Holmes C. *Causal Falsification
   of Digital Twins.* arXiv:2301.07210 (November 2023). Oxford
   statistics group. External assessment of Pulse on MIMIC-III
@@ -1249,13 +1427,6 @@ during the literature-review pass logged in
   (2000). DOI:
   [10.1056/NEJM200005043421801](https://doi.org/10.1056/NEJM200005043421801).
   PMID: 10793162.
-
-**Other physiology engines (comparative context)**
-
-* Barnes SL, Sing P, Bash B, Sherman R, et al. *Quantitative
-  Comparison of BioGears, HumMod, and Muse Physiology Engines on
-  Hemorrhage Scenarios.* Simulation in Healthcare (2020). DOI:
-  [10.1097/SIH.0000000000000427](https://doi.org/10.1097/SIH.0000000000000427).
 
 **Reproducibility / methods-paper integrity**
 

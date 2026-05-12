@@ -1,7 +1,7 @@
 % Pulse Reliability Atlas — BibTeX references
 % Source of record: preprint/manuscript.md §6.7 (verified entries from the
 % S010 literature-review pass; each entry has a DOI or PMID anchor).
-% Citation keys are author-lastname + year (e.g., @morris1991, @webb2023).
+% Citation keys are author-lastname + year (e.g., @morris1991, @webb2022vent).
 % Used by scripts/build_paper.ps1 via pandoc --citeproc. The §6.7 markdown
 % reference list remains the human-readable bibliography; pandoc's auto-
 % generated bibliography is suppressed at build time via the
@@ -9,13 +9,15 @@
 % reference sections in the output PDF.
 
 @article{bray2019,
-  author    = {Bray, A C and Carpenter, J and Webb, J B and Clipp, R B},
+  author    = {Bray, A and Webb, J B and Enquobahrie, A and Vicory, J and Heneghan, J and Hubal, R and TerMaath, S and Asare, P and Clipp, R B},
   title     = {Pulse Physiology Engine: An Open-Source Software Platform for Computational Modeling of Human Medical Simulation},
   journal   = {SN Comprehensive Clinical Medicine},
   volume    = {1},
+  number    = {5},
   pages     = {362--377},
   year      = {2019},
-  doi       = {10.1007/s42399-019-00053-w}
+  doi       = {10.1007/s42399-019-00053-w},
+  note      = {Author list and issue number corrected 2026-05-12 in pre-submission audit; the previous bib entry listed a non-existent author "Carpenter, J" and four authors total. Confirmed against Springer record and Pulse publications page.}
 }
 
 @article{webb2020,
@@ -30,12 +32,21 @@
   note      = {PMID: 33237927}
 }
 
-@article{webb2023,
-  author    = {Webb, J and Asare, P and Bray, A and Clipp, R},
-  title     = {{PulseExt}: validation of the Pulse Physiology Engine ventilator against the {ASL} 5000 lung simulator},
-  year      = {2023},
+@inproceedings{webb2022vent,
+  author    = {Webb, J B and Bray, A and Scheirich, H and VanPelt, J and Gerard, J and Frembgen, S and Clipp, R B},
+  title     = {Implementation of a Dynamic and Extensible Mechanical Ventilator Model for Real-Time Physiological Simulation},
+  booktitle = {Proceedings of the 2022 Annual Modeling and Simulation Conference (ANNSIM)},
+  year      = {2022},
   url       = {https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10224749/},
-  note      = {PubMed Central: PMC10224749}
+  note      = {PubMed Central: PMC10224749. Entry corrected 2026-05-12 in pre-submission audit; previously listed under an invented title "PulseExt..." with an incorrect author list (the missing-Asare confusion was a copy-from-webb2020 error). Paper reports qualitative waveform agreement between Pulse and the ASL 5000 lung simulator across nine validation cases (healthy / restrictive / obstructive lung profiles x PC-AC / VC-AC / CPAP modes); does NOT report quantitative tidal-volume error percentages. The 0.07-2.25 percent VC-AC and 11.3-25.3 percent PC-AC tidal-volume error numbers cited elsewhere in this manuscript come from the Pulse documentation tables (see @pulsevent), not from this paper.}
+}
+
+@misc{pulsevent,
+  title     = {Mechanical Ventilator Methodology --- Pulse Physiology Engine (v4.3.1 documentation)},
+  author    = {{Kitware, Inc.}},
+  howpublished = {\url{https://pulse.kitware.com/_mechanical_ventilator_methodology.html}},
+  year      = {2026},
+  note      = {Tables 3, 5, 10, 12, 17, 19 of the validation section report Pulse vs ASL 5000 + Drager Evita Infinity V500 tidal-volume errors for VC-AC (0.07 percent healthy / 1.01 percent restrictive / 2.25 percent obstructive) and PC-AC (11.3 percent healthy / 25.3 percent restrictive / 15.3 percent obstructive). Source of the numerical Vt-accuracy claims in this paper; the qualitative validation framework is described in @webb2022vent. Verified 2026-05-12.}
 }
 
 @article{cornish2023,
@@ -134,7 +145,8 @@
   number    = {1},
   pages     = {0021},
   year      = {2017},
-  doi       = {10.1038/s41562-016-0021}
+  doi       = {10.1038/s41562-016-0021},
+  note      = {PMID: 33954258 (S010 verification record)}
 }
 
 @misc{pulsefaq,

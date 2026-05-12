@@ -240,6 +240,47 @@ def _block_bootstrap_mu_star_ci(
     return lo, hi
 
 
+def _block_bootstrap_sigma_ci(
+    ee_df_input: pd.DataFrame,
+    n_bootstrap: int,
+    rng: np.random.Generator,
+    alpha: float = 0.05,
+) -> tuple[float, float]:
+    """Block (trajectory-level) bootstrap CI for sigma (std of EEs).
+
+    Same block-bootstrap structure as ``_block_bootstrap_mu_star_ci`` but
+    computes sigma = std(ees, ddof=1) per resample. Needed for the
+    Sobol-promotion rule which thresholds on sigma / mu_star >= 0.6
+    (preregistration); without CI on sigma, the promotion decision is a
+    point estimate only. The CI lets §3.3.1 report which "promote" cells
+    are robust under trajectory-level uncertainty and which are borderline.
+    """
+    trajs = ee_df_input["trajectory"].to_numpy()
+    ees = ee_df_input["ee"].to_numpy(dtype=float)
+    unique_trajs = np.unique(trajs)
+    if unique_trajs.size < 2:
+        return float("nan"), float("nan")
+
+    by_traj: dict[int, np.ndarray] = {
+        int(t): ees[trajs == t] for t in unique_trajs
+    }
+
+    boot = np.empty(n_bootstrap)
+    for b in range(n_bootstrap):
+        chosen = rng.choice(unique_trajs, size=unique_trajs.size, replace=True)
+        sample_ees = np.concatenate([by_traj[int(t)] for t in chosen])
+        if sample_ees.size < 2:
+            boot[b] = np.nan
+        else:
+            boot[b] = float(np.std(sample_ees, ddof=1))
+    boot = boot[~np.isnan(boot)]
+    if boot.size == 0:
+        return float("nan"), float("nan")
+    lo = float(np.quantile(boot, alpha / 2))
+    hi = float(np.quantile(boot, 1 - alpha / 2))
+    return lo, hi
+
+
 def morris_indices(
     df_master: pd.DataFrame,
     sample: pd.DataFrame,
@@ -247,13 +288,18 @@ def morris_indices(
     n_bootstrap: int = 1000,
     seed: int = 12345,
 ) -> pd.DataFrame:
-    """Compute (μ, μ*, σ, μ* CI) per (cell, output, input).
+    """Compute (μ, μ*, σ, μ* CI, σ CI) per (cell, output, input).
 
     Uses ONLY EE pairs whose both endpoints are clean (preregistration §A.2).
+
+    The μ* bootstrap and σ bootstrap use SEPARATE RNG streams so adding the
+    σ CI to a pre-existing artifact leaves μ* CI columns bit-identical;
+    additive-only drift was verified by S015 regen_compare on 2026-05-12.
     """
     pairs = derive_trajectory_pairs(sample)
 
     rng = np.random.default_rng(seed)
+    sigma_rng = np.random.default_rng(seed + 10_000)
 
     rows: list[dict] = []
     for sk, xk in cells:
@@ -278,6 +324,9 @@ def morris_indices(
             mu_star_lo, mu_star_hi = _block_bootstrap_mu_star_ci(
                 grp[["trajectory", "ee"]], n_bootstrap, rng
             )
+            sigma_lo, sigma_hi = _block_bootstrap_sigma_ci(
+                grp[["trajectory", "ee"]], n_bootstrap, sigma_rng
+            )
             n_total = int(((ee_df["output"] == out_name) & (ee_df["input"] == inp_name)).sum())
             n_unique_trajs = int(grp["trajectory"].nunique())
             rows.append({
@@ -290,6 +339,8 @@ def morris_indices(
                 "sigma": sigma,
                 "mu_star_lo": mu_star_lo,
                 "mu_star_hi": mu_star_hi,
+                "sigma_lo": sigma_lo,
+                "sigma_hi": sigma_hi,
                 "n_clean_pairs": int(ees.size),
                 "n_total_pairs": n_total,
                 "n_trajectories": n_unique_trajs,
@@ -370,4 +421,5 @@ __all__ = [
     "evaluate_h1",
     "morris_indices",
     "sobol_promotion",
+    "_block_bootstrap_sigma_ci",
 ]
