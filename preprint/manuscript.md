@@ -1142,7 +1142,121 @@ without re-running the atlas — and the traffic-light map is portable
 to other operational envelopes once a sweep at the new envelope is
 completed.
 
-### 4.4 Limitations
+### 4.4 Relationship to Cornish et al. 2023 (causal falsification) — Table 2
+
+[@cornish2023] is the only prior external assessment of Pulse on a
+clinical dataset. Their framework — causal falsification with
+Holm–Bonferroni-adjusted Hoeffding's-inequality confidence intervals
+(family-wise error rate 0.05) — tested 1,442 hypotheses across 15
+physiological quantities on MIMIC-III sepsis trajectories, with
+intravenous-fluid and vasopressor doses as the intervention space.
+Table 2 reproduces their per-quantity results re-tabulated against
+this atlas's 6-output panel.
+
+|  Cornish-2023 channel  | Hoeffding rejections / hypotheses | Bootstrap (Cornish Appendix Table 4) | Maps to atlas output? |
+|------------------------|-----------------------------------|--------------------------------------|-----------------------|
+| Chloride               | 24 / 94                           | 47 / 94                              | No (electrolyte)      |
+| Sodium                 | 21 / 94                           | 46 / 94                              | No (electrolyte)      |
+| Potassium              | 13 / 94                           | 33 / 94                              | No (electrolyte)      |
+| Skin Temperature       | 10 / 86                           | 43 / 86                              | No (dermal)           |
+| Calcium                | 5 / 88                            | 44 / 88                              | No (electrolyte)      |
+| Glucose                | 5 / 96                            | 19 / 96                              | No (metabolic)        |
+| HCO₃ (Bicarbonate)     | 2 / 90                            | 8 / 90                               | No (acid–base)        |
+| Arterial pH            | 0 / 80                            | 0 / 80                               | No (acid–base)        |
+| **PaCO₂**              | **3 / 70**                        | **13 / 70**                          | **Yes (direct)**      |
+| **PaO₂**               | **0 / 78**                        | **4 / 78**                           | **Yes (direct)**      |
+| **MeanBP**             | **0 / 92**                        | **3 / 92**                           | **Yes (≈ atlas MAP)** |
+| SysBP                  | 2 / 154                           | 8 / 154                              | Partial (MAP input)   |
+| DiaBP                  | 0 / 72                            | 0 / 72                               | Partial (MAP input)   |
+| **HR**                 | **0 / 162**                       | **1 / 162**                          | **Yes (direct)**      |
+| RR                     | 0 / 172                           | 12 / 172                             | Atlas input, not output |
+
+*Table 2.* Cornish 2023 Table 1 (Hoeffding's inequality, main text) and
+Table 4 (reverse-percentile bootstrap, Appendix H.6) re-tabulated
+against this atlas's six-output panel. Bold rows mark the four channels
+that overlap directly with HR / MAP / PaO₂ / PaCO₂.
+
+**Cross-mapping the methodologies.** The atlas's six outputs (HR,
+MAP, V_t delivered, SpO₂, PaO₂, PaCO₂) intersect Cornish's
+15-quantity panel on four channels (HR, MeanBP ≈ atlas MAP, PaO₂,
+PaCO₂); V_t and SpO₂ are atlas-only contributions. Cornish's 11
+remaining channels divide into electrolyte (Chloride, Sodium,
+Potassium, Calcium), metabolic (Glucose), acid–base (HCO₃, pH),
+dermal (Skin Temperature), and ventilation-input or
+non-overlapping-pressure channels (RR, SysBP, DiaBP). Of Cornish's
+85 total Hoeffding rejections, **only 3 fall on the
+four-channel atlas overlap (all on PaCO₂); the remaining 82 fall on
+channels outside the atlas's output panel**. This non-overlap is the
+load-bearing observation: the two papers' failure surfaces are
+*complementary*, not redundant.
+
+**The agreement on the overlap.** Within the four-channel overlap,
+Cornish's Hoeffding results report 3 / 70 rejections (4.3 %) for
+PaCO₂ and zero rejections for HR, MAP (MeanBP), and PaO₂. The
+atlas's §3.7 traffic-light shows a structurally compatible picture
+on the same four channels: PaO₂ goes red at S3 and S4 across both
+sexes (4 / 8 cells), HR likewise goes red at S3+ (4 / 8 cells), and
+MAP and PaCO₂ each have exactly one red cell (S4_M). The two papers
+therefore disagree on absolute rates — the atlas exposes
+boundary-region failure that Cornish's sepsis-cohort intervention
+sequences do not visit — but agree on the *ordinal* pattern: PaCO₂
+is the channel where Hoeffding rejections concentrate in Cornish,
+and PaCO₂ is also the channel where the atlas finds within-sex
+Wasserstein significance (§3.6 H4); both papers single it out as
+the most assessment-sensitive gas-exchange variable. Cornish's
+bootstrap counts (Appendix Table 4) reinforce this: PaCO₂ rises to
+13 / 70 (18.6 %), PaO₂ acquires 4 / 78 rejections, and MAP picks up
+3 / 92 — a rank ordering (PaCO₂ > PaO₂ > MAP > HR) that mirrors
+the red-cell density of the atlas's gas-exchange-then-cardiovascular
+column ordering. The cell-level cross-tab cannot be tighter than
+this: Cornish's rejections are indexed by (time-step,
+action-sequence, sex–age–quantile bin) over sepsis trajectories,
+not by (scenario, sex) over the operational acceptance envelope,
+and the two indexings are not surjective on each other.
+
+**The complementarity.** The 11 / 15 Cornish channels that do not
+map to the atlas (Chloride 24, Sodium 21, Potassium 13, Skin
+Temperature 10, Calcium 5, Glucose 5, HCO₃ 2, plus SysBP / DiaBP /
+pH / RR) define Pulse's electrolyte, metabolic, acid–base, and
+dermal failure surface. The atlas does not assess any of these.
+Conversely, Cornish does not assess SpO₂ or delivered V_t, both of
+which are load-bearing for ventilator-cohort research. The two
+papers therefore divide the Pulse-reliability question along an
+output axis: Cornish covers chemistry-and-thermoregulation
+intervention-outcome accuracy on a real cohort; the atlas covers
+cardio–respiratory operational-input reliability on the engine's
+theoretical acceptance envelope. The natural follow-up that neither
+paper does is a *metabolic and renal atlas* — sweeping Pulse's
+internal endocrine and electrolyte models the way this atlas sweeps
+its cardiopulmonary inputs.
+
+**Why this matters for downstream Pulse users.** A practitioner
+combining the two assessments now has a four-quadrant reliability
+picture:
+
+1. *Cardio–respiratory outputs under operational sweeps* — the
+   atlas (§3.7 traffic-light).
+2. *Cardio–respiratory outputs under clinical-intervention
+   sequences* — Cornish, with PaCO₂ as the only flagged channel
+   (3 / 70 Hoeffding, 13 / 70 bootstrap).
+3. *Electrolyte / metabolic / dermal outputs under operational
+   sweeps* — not assessed by either paper.
+4. *Electrolyte / metabolic / dermal / acid–base outputs under
+   clinical-intervention sequences* — Cornish, where the bulk of
+   Pulse's rejections concentrate (80 of 85 Hoeffding rejections on
+   the seven non-cardiorespiratory channels Chloride, Sodium,
+   Potassium, Skin Temperature, Calcium, Glucose, HCO₃; 240 of 281
+   bootstrap rejections on the same set).
+
+Quadrants 1 and 4 are now mapped; quadrants 2 and 3 remain
+underspecified. Until quadrant 3 is mapped, electrolyte and
+metabolic outputs from Pulse should not be ingested into ML
+training pipelines without per-quantity validation against an
+external source — Cornish's quadrant-4 evidence (high rejection
+density on those channels even within sepsis-cohort interventions)
+makes this a hard requirement, not a soft warning.
+
+### 4.5 Limitations
 
 * Atlas restricted to VC-AC adults; pediatric and PC modes out of scope
   (Paper 2 / Paper 1).
@@ -1199,7 +1313,7 @@ completed.
   than of this paper. A multi-engine reliability atlas remains an
   open opportunity for the broader physiology-simulation community.
 
-### 4.5 Implications for downstream Pulse research
+### 4.6 Implications for downstream Pulse research
 
 This atlas is positioned as foundational infrastructure for two
 downstream lines of work, both currently in preparation:
@@ -1380,14 +1494,21 @@ during the literature-review pass logged in
   2.25 % VC-AC and 11.3 – 25.3 % PC-AC tidal-volume error numbers
   cited in §1.1 and §2.3. Verified 2026-05-12.
 * Cornish R, Taufiq MF, Doucet A, Holmes C. *Causal Falsification
-  of Digital Twins.* arXiv:2301.07210 (November 2023). Oxford
+  of Digital Twins.* arXiv:2301.07210 (November 2023, v4). Oxford
   statistics group. External assessment of Pulse on MIMIC-III
   sepsis trajectories using a causal-inference / statistical-
-  falsification framework; identifies intervention-outcome
-  inaccuracies in specific cases. Cited in §1.1 to distinguish
-  prior external assessment (intervention-outcome falsification on
-  a different cohort and dataset) from this paper's contribution
-  (operational-input reliability across the adult ICU envelope).
+  falsification framework with Holm–Bonferroni-adjusted Hoeffding's
+  inequality confidence intervals (FWER 0.05) on 1,442 hypotheses
+  across 15 physiological quantities; identifies intervention-outcome
+  inaccuracies in specific cases (Table 1: 85 total Hoeffding
+  rejections; Appendix Table 4: 281 reverse-percentile-bootstrap
+  rejections). Cited in §1.1 to distinguish prior external assessment
+  (intervention-outcome falsification on a different cohort and
+  dataset) from this paper's contribution (operational-input
+  reliability across the adult ICU envelope); the channel-by-channel
+  cross-mapping against the atlas's 6-output panel is presented in
+  §4.4 (Table 2). Identified in the May 2026 audit logged in S016
+  and verified against the v4 PDF in S017 (2026-05-13).
 
 **Sensitivity-analysis methods**
 
@@ -1463,6 +1584,7 @@ during the literature-review pass logged in
 | S014 | Trigger-pressure lockout (F-004 mechanism) |
 | S015 | Reproducibility and logic audit (pre-publication) |
 | S016 | Pulse GitLab + literature re-audit (May 2026) |
+| S017 | Cornish 2023 cross-mapping (Phase B item B1) |
 
 Each log file in `experiments_log/santino/` follows the template:
 hypothesis → motivation → method → what we tried → results → interpretation

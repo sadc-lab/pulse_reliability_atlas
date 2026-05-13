@@ -6,12 +6,13 @@ This file is rebuilt from the YAML frontmatter of every entry in
 `santino/`, `contributor2/`, and `shared/`. To update it, edit the experiment
 and recommit — the pre-commit hook regenerates and stages this file.
 
-Total entries: **16**
+Total entries: **17**
 
 ## All experiments (newest first)
 
 | ID | Date | Author | Status | Title |
 |---|---|---|---|---|
+| `S017` | 2026-05-13 | santino | done | [S017 — Cornish 2023 cross-mapping: re-tabulating the only prior external Pulse assessment against the atlas's 6-output panel](santino/S017_cornish_2023_cross_mapping.md) |
 | `S016` | 2026-05-07 | santino | done | [S016 — Pulse GitLab + literature re-audit (May 2026): version state, V&V infrastructure, and the 2020 sensitivity-analysis study tag](santino/S016_pulse_gitlab_audit_may2026.md) |
 | `S015` | 2026-05-04 | santino | done | [S015 — Reproducibility and Logic Audit (pre-publication double-check)](santino/S015_reproducibility_and_logic_audit.md) |
 | `S014` | 2026-04-28 | santino | done | [S014 — Trigger-pressure lockout: causal test of F-004 mechanism](santino/S014_trigger_pressure_lockout.md) |
@@ -47,6 +48,7 @@ Total entries: **16**
 - `S014` (2026-04-28, done) — [S014 — Trigger-pressure lockout: causal test of F-004 mechanism](santino/S014_trigger_pressure_lockout.md) — _f-004, mechanism-test, vc-ac, trigger-pressure, dyssynchrony, causal-test, reviewer-defense_
 - `S015` (2026-05-04, done) — [S015 — Reproducibility and Logic Audit (pre-publication double-check)](santino/S015_reproducibility_and_logic_audit.md) — _reproducibility, verification, audit, pre-publication, docker, determinism, logic-validation_
 - `S016` (2026-05-07, done) — [S016 — Pulse GitLab + literature re-audit (May 2026): version state, V&V infrastructure, and the 2020 sensitivity-analysis study tag](santino/S016_pulse_gitlab_audit_may2026.md) — _literature, verification, pulse, gitlab, sensitivity-analysis, version-tracking_
+- `S017` (2026-05-13, done) — [S017 — Cornish 2023 cross-mapping: re-tabulating the only prior external Pulse assessment against the atlas's 6-output panel](santino/S017_cornish_2023_cross_mapping.md) — _literature, cross-mapping, cornish, falsification, manuscript-discussion_
 
 ## By tag
 
@@ -77,6 +79,12 @@ Total entries: **16**
 
 ### `continuous-ards`
 - `S009` — [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md)
+
+### `cornish`
+- `S017` — [S017 — Cornish 2023 cross-mapping: re-tabulating the only prior external Pulse assessment against the atlas's 6-output panel](santino/S017_cornish_2023_cross_mapping.md)
+
+### `cross-mapping`
+- `S017` — [S017 — Cornish 2023 cross-mapping: re-tabulating the only prior external Pulse assessment against the atlas's 6-output panel](santino/S017_cornish_2023_cross_mapping.md)
 
 ### `decomposition`
 - `S011` — [S011 — Sex vs mass disentangling (controlled 2×2 design)](santino/S011_sex_vs_mass_disentangle.md)
@@ -119,6 +127,9 @@ Total entries: **16**
 - `S012` — [S012 — Dual steady-state audit (F-003 hyperoxia + F-004 Vt oscillation)](santino/S012_steady_state_window_audit.md)
 - `S014` — [S014 — Trigger-pressure lockout: causal test of F-004 mechanism](santino/S014_trigger_pressure_lockout.md)
 
+### `falsification`
+- `S017` — [S017 — Cornish 2023 cross-mapping: re-tabulating the only prior external Pulse assessment against the atlas's 6-output panel](santino/S017_cornish_2023_cross_mapping.md)
+
 ### `full-1280-runs`
 - `S006` — [S006 — Full 1,280-run Morris sweep + post-sweep analysis](santino/S006_full_morris_sweep.md)
 
@@ -160,12 +171,16 @@ Total entries: **16**
 ### `literature`
 - `S003` — [S003 — Verified Pulse 4.3.1 limitations (primary-source re-check)](santino/S003_pulse_limitations_verified.md)
 - `S016` — [S016 — Pulse GitLab + literature re-audit (May 2026): version state, V&V infrastructure, and the 2020 sensitivity-analysis study tag](santino/S016_pulse_gitlab_audit_may2026.md)
+- `S017` — [S017 — Cornish 2023 cross-mapping: re-tabulating the only prior external Pulse assessment against the atlas's 6-output panel](santino/S017_cornish_2023_cross_mapping.md)
 
 ### `literature-review`
 - `S010` — [S010 — Literature-review pass: every reference verified against DOI / PMID](santino/S010_literature_review.md)
 
 ### `logic-validation`
 - `S015` — [S015 — Reproducibility and Logic Audit (pre-publication double-check)](santino/S015_reproducibility_and_logic_audit.md)
+
+### `manuscript-discussion`
+- `S017` — [S017 — Cornish 2023 cross-mapping: re-tabulating the only prior external Pulse assessment against the atlas's 6-output panel](santino/S017_cornish_2023_cross_mapping.md)
 
 ### `manuscript-polish`
 - `S008` — [S008 — Tier-1 statistical refinement: block bootstrap, within-sex Wasserstein null, divergence mechanism, manuscript polish](santino/S008_tier1_statistical_refinement.md)
