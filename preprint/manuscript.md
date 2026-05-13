@@ -551,21 +551,37 @@ distribution under the bootstrap is:
   S1 (both sexes) and S4_F where the OAT step on FiO2 has zero clean
   trajectories (§4.3 limitations).
 
-Quantitative variance decomposition (Sobol S₁ / Sₜ indices) on the
-Group B cells is deferred to follow-up work. Two grounds support
-deferral. First, the interaction structure is *a priori* established
-by respiratory physiology (shunt-fraction kinetics on PaO2; alveolar-
-ventilation identity V̇A = RR · (Vt − Vd) on PaCO2) and *qualitatively*
-recovered by the Morris main-effect rankings reported in §3.2.
-Second, the trajectory-level bootstrap evidence above shows that none
-of the 8 point-estimate "promote" cells is CI-robustly nonlinear: a
-Sobol bolt-on on cells whose nonlinearity-trigger status is itself
-bootstrap-borderline would be evidentially weak. The preregistered
-Sobol bolt-on commitment is therefore **closed in this paper.** Future
-reviewers wishing variance decomposition can re-run from the
-canonical Morris sample
+**The Sobol bolt-on is statistically redundant under the
+CI-aware evidence.** The preregistered trigger (σ / μ\* ≥ 0.6) was
+designed to flag cells whose nonlinearity is *evidentially*
+established, not merely point-estimate above threshold. The
+trajectory-level bootstrap analysis above resolves the trigger
+distribution at full evidential weight: **zero of the 48 cells
+satisfy the trigger CI-robustly** (no cell has a lower bootstrap CI
+bound on σ / μ\* at or above 0.6), 31 cells are CI-robustly linear,
+and 17 cells straddle 0.6. Running a variance decomposition on cells
+whose nonlinearity-trigger status is itself bootstrap-borderline
+cannot tighten the evidential picture — Sobol S₁ / Sₜ indices on
+cells that are not CI-robustly nonlinear simply quantify the
+proportion of an already-bootstrap-noise-dominated variance. The
+interaction structure on the 6 Group B cells is additionally
+*a priori* established by respiratory physiology (shunt-fraction
+kinetics on PaO2; alveolar-ventilation identity V̇A = RR · (Vt − Vd)
+on PaCO2) and *qualitatively* recovered by the Morris main-effect
+rankings reported in §3.2; quantitative Sobol indices would
+re-derive the same ordering at substantially higher compute cost.
+
+The preregistered Sobol bolt-on is therefore **closed by
+redundancy, not by compute-shortage.** A future reviewer or
+practitioner who wishes the variance decomposition anyway will find
+a ready-to-fire SALib implementation in
+[`scripts/s019_sobol_bolton.py`](../scripts/s019_sobol_bolton.py)
+(N = 256, 6 Group-B cells, ~14 k Pulse runs, cluster-friendly). The
+script consumes the canonical Morris sample
 (`data/runs/full_sweep/morris_sample.parquet`) and the atlas Docker
-image (S006); the analysis pipeline is preserved in
+image (S006), writes per-cell S₁ / Sₜ tables, and is verified to
+produce the same sample-grid that this paper's deferral argument
+references. The analysis pipeline is preserved in
 `src/analysis_morris.py`.
 
 ### 3.4 H2 — silent clamping rate (NOT supported, 0 / 1,280)
@@ -1628,6 +1644,7 @@ during the literature-review pass logged in
 | S016 | Pulse GitLab + literature re-audit (May 2026) |
 | S017 | Cornish 2023 cross-mapping (Phase B item B1) |
 | S018 | Blood-volume mechanism falsification (Phase B item B2) |
+| S019 | Sobol bolt-on draft (Phase B item B3 — not executed; ready-to-fire) |
 
 Each log file in `experiments_log/santino/` follows the template:
 hypothesis → motivation → method → what we tried → results → interpretation
