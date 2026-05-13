@@ -645,18 +645,60 @@ the male standard surrogate.
 
 **Mechanism candidate (Pulse source audit).** Pulse's
 `SetupPatient.cpp` computes blood-volume baseline as
-`computedBloodVolume_mL = 65.6 × weight_kg^1.02`. For the standard
-male (67.3 kg) this yields ≈ 5,060 mL; for the standard female
-(56.2 kg) ≈ 4,200 mL. Several other parameters are sex-conditional:
-ideal-body-weight (Devine formula coefficient 50.0 vs 45.5),
-fat-fraction standard (0.21 vs 0.28), height bounds (151 – 176 cm vs
-163 – 190 cm). The 20 % blood-volume difference is the most plausible
-candidate for the divergence asymmetry: it directly enters the
-cardiovascular circuit's stabilization and shifts the operating-point
-neighborhood between the two sexes. We do not claim this is the
-mechanism — confirming it would require a targeted source-level
-experiment manipulating only blood-volume baseline — but it is the
-falsifiable hypothesis to test in follow-up work.
+`computedBloodVolume_mL = 65.6 × weight_kg^1.02`. Verified against
+the engine's setup log on the atlas sweep: male standard surrogate
+(67.3 kg) → 4,802.63 mL; female standard surrogate (56.2 kg) →
+3,996.09 mL. (Pulse logs both values at setup time on every run.)
+Several other parameters are sex-conditional: ideal-body-weight
+(Devine formula coefficient 50.0 vs 45.5), fat-fraction standard
+(0.21 vs 0.28), height bounds (151 – 176 cm vs 163 – 190 cm). The
+~17 % blood-volume difference is the most plausible candidate for
+the divergence asymmetry: it directly enters the cardiovascular
+circuit's stabilization and shifts the operating-point neighborhood
+between the two sexes.
+
+**Mechanism confirmed (S018, 2026-05-13).** A targeted falsification
+test was run by re-executing the 20 originally-diverged male inputs
+with an explicit `BloodVolumeBaseline` override injected through
+`SEPatient.get_blood_volume_baseline().set_value(mL)`. The atlas
+wrapper was extended to accept an optional `baselines.blood_volume_ml`
+field for this purpose; Pulse logs the resolved BV at setup, so the
+override is verifiable post hoc from `pulse.log`. The protocol used
+two BV points to map a dose-response curve:
+
+| Override BV (mL) | Reduction vs default | Diverged | Implausible | not_steady_state | Clean |
+|------------------|----------------------|----------|-------------|------------------|-------|
+| 4,802.63 (default, original sweep) | 0 %  | 20 / 20 | n/a (no CSV) | n/a    | 0      |
+| 4,400  | 8.4 %  | **2 / 20** | 1 / 20 | 8 / 20 | 10 / 20 |
+| 4,082.24 (Pulse-stated floor on this surrogate) | 15.0 % | **0 / 20** | 1 / 20 | 8 / 20 | 12 / 20 |
+
+The divergence rate is monotonic in BV reduction. The mechanism is
+confirmed: the all-male divergence cluster is mediated by the engine's
+blood-volume baseline. Severe-ARDS / FiO₂ = 1.0 inputs require deeper
+BV reduction to clear (the two cases still divergent at 4,400 mL are
+S4_M with FiO₂ = 1.0); the milder inputs clear at 4,400 mL already.
+A separate engine-level finding (F-S018-A in
+[`S018_blood_volume_falsification.md`](../experiments_log/santino/S018_blood_volume_falsification.md))
+emerged from the same test: **Pulse hard-enforces a per-patient BV
+floor at setup**. For the male standard surrogate (67.3 kg, 180 cm,
+age 18, sex Male), the floor is 4,082.24 mL — setting `BloodVolume-
+Baseline` below this triggers an explicit `[ERROR]` and exit 1
+("Patient blood volume baseline … is too low. Hypovolemia must be
+modeled by adding/using a condition."). The female-computed BV
+(3,996.09 mL) falls 86 mL below this floor, so the male / female BV
+gap *cannot* be closed by a one-way transplant; the strongest BV-only
+reduction Pulse will accept on the male surrogate is 4,082.24 mL
+(15.0 %).
+
+The eight not_steady_state classifications at both BV brackets are
+concentrated in S1_M / S2_M and reflect input-profile incoherence on
+the 16 shared Morris indices (HR = 50 + RR = 20 + SBP = 90 on healthy
+lungs is physiologically inconsistent); the BV reduction lifts the
+divergence flag but exposes the underlying oscillatory regime. The
+all-S4_M unique inputs (run_idx 24 / 82 / 137 / 138) run clean at both
+brackets — these are the four runs where input low-cardiac-output +
+high-respiratory-drive is clinically coherent (septic ARDS pattern),
+and Pulse solves them cleanly once BV is reduced.
 
 Per-cell counts:
 
@@ -1585,6 +1627,7 @@ during the literature-review pass logged in
 | S015 | Reproducibility and logic audit (pre-publication) |
 | S016 | Pulse GitLab + literature re-audit (May 2026) |
 | S017 | Cornish 2023 cross-mapping (Phase B item B1) |
+| S018 | Blood-volume mechanism falsification (Phase B item B2) |
 
 Each log file in `experiments_log/santino/` follows the template:
 hypothesis → motivation → method → what we tried → results → interpretation

@@ -6,12 +6,13 @@ This file is rebuilt from the YAML frontmatter of every entry in
 `santino/`, `contributor2/`, and `shared/`. To update it, edit the experiment
 and recommit — the pre-commit hook regenerates and stages this file.
 
-Total entries: **17**
+Total entries: **18**
 
 ## All experiments (newest first)
 
 | ID | Date | Author | Status | Title |
 |---|---|---|---|---|
+| `S018` | 2026-05-13 | santino | done | [S018 — Blood-volume mechanism falsification test (Phase B item B2): dose-response bracket on the 20 originally-diverged male inputs](santino/S018_blood_volume_falsification.md) |
 | `S017` | 2026-05-13 | santino | done | [S017 — Cornish 2023 cross-mapping: re-tabulating the only prior external Pulse assessment against the atlas's 6-output panel](santino/S017_cornish_2023_cross_mapping.md) |
 | `S016` | 2026-05-07 | santino | done | [S016 — Pulse GitLab + literature re-audit (May 2026): version state, V&V infrastructure, and the 2020 sensitivity-analysis study tag](santino/S016_pulse_gitlab_audit_may2026.md) |
 | `S015` | 2026-05-04 | santino | done | [S015 — Reproducibility and Logic Audit (pre-publication double-check)](santino/S015_reproducibility_and_logic_audit.md) |
@@ -49,6 +50,7 @@ Total entries: **17**
 - `S015` (2026-05-04, done) — [S015 — Reproducibility and Logic Audit (pre-publication double-check)](santino/S015_reproducibility_and_logic_audit.md) — _reproducibility, verification, audit, pre-publication, docker, determinism, logic-validation_
 - `S016` (2026-05-07, done) — [S016 — Pulse GitLab + literature re-audit (May 2026): version state, V&V infrastructure, and the 2020 sensitivity-analysis study tag](santino/S016_pulse_gitlab_audit_may2026.md) — _literature, verification, pulse, gitlab, sensitivity-analysis, version-tracking_
 - `S017` (2026-05-13, done) — [S017 — Cornish 2023 cross-mapping: re-tabulating the only prior external Pulse assessment against the atlas's 6-output panel](santino/S017_cornish_2023_cross_mapping.md) — _literature, cross-mapping, cornish, falsification, manuscript-discussion_
+- `S018` (2026-05-13, done) — [S018 — Blood-volume mechanism falsification test (Phase B item B2): dose-response bracket on the 20 originally-diverged male inputs](santino/S018_blood_volume_falsification.md) — _mechanism-test, falsification, divergence, blood-volume, sex-stratification, phase-b_
 
 ## By tag
 
@@ -60,6 +62,9 @@ Total entries: **17**
 
 ### `audit`
 - `S015` — [S015 — Reproducibility and Logic Audit (pre-publication double-check)](santino/S015_reproducibility_and_logic_audit.md)
+
+### `blood-volume`
+- `S018` — [S018 — Blood-volume mechanism falsification test (Phase B item B2): dose-response bracket on the 20 originally-diverged male inputs](santino/S018_blood_volume_falsification.md)
 
 ### `bootstrap`
 - `S002` — [S002 — Project bootstrap (separate repo, skeleton, licensing)](santino/S002_project_bootstrap.md)
@@ -101,6 +106,7 @@ Total entries: **17**
 
 ### `divergence`
 - `S011` — [S011 — Sex vs mass disentangling (controlled 2×2 design)](santino/S011_sex_vs_mass_disentangle.md)
+- `S018` — [S018 — Blood-volume mechanism falsification test (Phase B item B2): dose-response bracket on the 20 originally-diverged male inputs](santino/S018_blood_volume_falsification.md)
 
 ### `divergence-regime`
 - `S009` — [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md)
@@ -129,6 +135,7 @@ Total entries: **17**
 
 ### `falsification`
 - `S017` — [S017 — Cornish 2023 cross-mapping: re-tabulating the only prior external Pulse assessment against the atlas's 6-output panel](santino/S017_cornish_2023_cross_mapping.md)
+- `S018` — [S018 — Blood-volume mechanism falsification test (Phase B item B2): dose-response bracket on the 20 originally-diverged male inputs](santino/S018_blood_volume_falsification.md)
 
 ### `full-1280-runs`
 - `S006` — [S006 — Full 1,280-run Morris sweep + post-sweep analysis](santino/S006_full_morris_sweep.md)
@@ -193,6 +200,7 @@ Total entries: **17**
 
 ### `mechanism-test`
 - `S014` — [S014 — Trigger-pressure lockout: causal test of F-004 mechanism](santino/S014_trigger_pressure_lockout.md)
+- `S018` — [S018 — Blood-volume mechanism falsification test (Phase B item B2): dose-response bracket on the 20 originally-diverged male inputs](santino/S018_blood_volume_falsification.md)
 
 ### `morris`
 - `S005` — [S005 — 22-run pilot on cell (S1, Male) — preregistration §Pilot gate](santino/S005_pilot_S1_male.md)
@@ -200,6 +208,9 @@ Total entries: **17**
 
 ### `null-distribution`
 - `S008` — [S008 — Tier-1 statistical refinement: block bootstrap, within-sex Wasserstein null, divergence mechanism, manuscript polish](santino/S008_tier1_statistical_refinement.md)
+
+### `phase-b`
+- `S018` — [S018 — Blood-volume mechanism falsification test (Phase B item B2): dose-response bracket on the 20 originally-diverged male inputs](santino/S018_blood_volume_falsification.md)
 
 ### `pilot`
 - `S001` — [S001 — Docker + hardware smoke test (3× parallel Pulse)](santino/S001_docker_smoke_test.md)
@@ -245,6 +256,7 @@ Total entries: **17**
 
 ### `sex-stratification`
 - `S009` — [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md)
+- `S018` — [S018 — Blood-volume mechanism falsification test (Phase B item B2): dose-response bracket on the 20 originally-diverged male inputs](santino/S018_blood_volume_falsification.md)
 
 ### `sex-vs-mass`
 - `S011` — [S011 — Sex vs mass disentangling (controlled 2×2 design)](santino/S011_sex_vs_mass_disentangle.md)

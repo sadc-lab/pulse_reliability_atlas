@@ -19,7 +19,18 @@ Atlas-specific changes vs upstream
    (`preregistration.md` §Inputs). Capping at 0.95 would silently clamp ~17%
    of Morris samples at a layer ABOVE Pulse, polluting the atlas's clamping
    characterization with a wrapper artifact rather than a Pulse engine fact.
-2. Dynamic ventilation events / spontaneous breathing branches retained but
+2. Optional ``baselines.blood_volume_ml`` override. When present, the value
+   is injected via ``SEPatient.get_blood_volume_baseline().set_value(mL)``
+   before engine initialization. Used by S018 (Phase B item B2) to falsify
+   the §3.5 hypothesis that the male divergence cluster is mediated by the
+   ~20% blood-volume difference between Pulse's standard male and female
+   surrogates: re-run the 20 originally-diverged male inputs with the
+   female computed BV (3,996 mL) substituted for the male computed BV
+   (4,803 mL). Pulse logs the resolved BV at setup time
+   ("No patient blood volume baseline set. Using a computed value..." or
+   "Patient blood volume baseline set to ..."), so the override is
+   verifiable post hoc from ``pulse.log``.
+3. Dynamic ventilation events / spontaneous breathing branches retained but
    unused — atlas runs are static VC-AC only.
 
 Output channels (locked, must include all 6 preregistered outputs)
@@ -128,6 +139,15 @@ def initialize_engine(config: dict, data_mgr: SEDataRequestManager) -> PulseEngi
         )
     p.get_systolic_arterial_pressure_baseline().set_value(sbp, PressureUnit.mmHg)
     p.get_diastolic_arterial_pressure_baseline().set_value(dbp, PressureUnit.mmHg)
+
+    bv_override_ml = baselines.get("blood_volume_ml")
+    if bv_override_ml is not None:
+        p.get_blood_volume_baseline().set_value(float(bv_override_ml), VolumeUnit.mL)
+        print(
+            f"  Blood-volume override active: "
+            f"BloodVolumeBaseline = {float(bv_override_ml):.2f} mL "
+            f"(replaces the weight-derived default for this run)."
+        )
 
     condition = config.get("condition", "Healthy")
     if condition == "ARDS":
