@@ -49,6 +49,14 @@
   note      = {Tables 3, 5, 10, 12, 17, 19 of the validation section report Pulse vs ASL 5000 + Drager Evita Infinity V500 tidal-volume errors for VC-AC (0.07 percent healthy / 1.01 percent restrictive / 2.25 percent obstructive) and PC-AC (11.3 percent healthy / 25.3 percent restrictive / 15.3 percent obstructive). Source of the numerical Vt-accuracy claims in this paper; the qualitative validation framework is described in @webb2022vent. Verified 2026-05-12.}
 }
 
+@misc{pulserespmethod,
+  title     = {Respiratory Methodology --- Pulse Physiology Engine (v4.3.1 documentation)},
+  author    = {{Kitware, Inc.}},
+  howpublished = {\url{https://pulse.kitware.com/_respiratory_methodology.html}},
+  year      = {2026},
+  note      = {Source of Pulse's documented ARDS severity-to-impairment-fraction mapping (mild = 0.3, moderate = 0.6, severe = 0.9) and its associated P/F-ratio validation claim (340, 130, 50 mmHg for the three bands). Verified verbatim 2026-05-15 in support of the S 2.3 / Appendix B.3 calibration discrepancy discussion. The page also describes the piecewise-linear severity-to-modifier mapping ("calibrated at key transition points: 0.0, 0.3, 0.6, 0.9, 1.0") and the per-compartment alveolar-modifier scheme used by the ARDS condition. The atlas references this page as the canonical documentation against which the empirical {0.26, 0.60, 0.95} calibration is contrasted.}
+}
+
 @article{cornish2023,
   author    = {Cornish, R and Taufiq, M F and Doucet, A and Holmes, C},
   title     = {Causal Falsification of Digital Twins},

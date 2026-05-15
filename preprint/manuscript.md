@@ -159,7 +159,9 @@ This atlas adds quantitative coverage to those:
 3. Adult-only (age ≥ 18 hard-gated in `SetupPatient.cpp`) — atlas restricted
    to two adult surrogates by design.
 4. ARDS solver instability 0.91–0.945 — S4 (severity = 0.95) intentionally
-   placed above the zone.
+   placed above the zone. See Appendix B.3 for the three-sweep
+   characterisation and the empirical impairment-fraction calibration
+   table.
 5–6. HR init acceptance 50–110 / RR init acceptance 8–20 — sampler ranges
    match.
 7. PC-AC over-delivers Vt 11.3 – 25.3 % (Pulse documentation tables, [@pulsevent]; framework in [@webb2022vent]; companion verification `Pulse_translation_new` E12, E13) — atlas restricts to VC-AC.
@@ -314,6 +316,34 @@ Four scenarios × two patients = 8 cells:
 * **S3** Moderate ARDS, impairment 0.60.
 * **S4** Severe ARDS, impairment 0.95 (above the 0.91–0.945 solver-
   instability zone documented in `Pulse_translation_new` E6/E10).
+
+**Impairment-fraction calibration.** Pulse modulates ARDS via a
+per-lung `Severity` scalar in [0, 1]. The Atlas's scenarios use
+`Severity` = 0.0 (S1, healthy), 0.26 (S2, mild), 0.60 (S3, moderate),
+and 0.95 (S4, severe) rather than Pulse's documented {0.3, 0.6, 0.9}
+defaults [@pulserespmethod; @webb2020]. The documented mapping
+claims those defaults produce P/F ratios of 340 / 130 / 50 mmHg
+respectively, with both the Respiratory Methodology page
+[@pulserespmethod] and the peer-reviewed Pulse-team COVID-19
+multiplex paper [@webb2020] repeating this documented validation
+claim verbatim (i.e. as Pulse's published validation, not as an
+independent measurement). Under
+the ARDSnet-protective ventilation regime that the Atlas sweep is
+built around (VC-AC, Vt = 6 mL/kg, PEEP = 10 cmH2O, FiO2 = 0.4),
+direct measurement of the documented mapping in a 28-run impairment
+sweep (`Pulse_translation_new` E6) produced P/F ratios of
+199 / 150 / 119 mmHg — leaving Pulse's "mild" fraction (0.3) at the
+moderate / mild boundary and its "severe" fraction (0.9) well inside
+the Berlin moderate band. The empirically calibrated mapping
+{0.26, 0.60, 0.95} used here was selected to land at Berlin band
+centers (P/F ≈ 256 / 150 / 96 mmHg) under the same ventilation
+settings. The calibration is therefore *ventilation-setting-dependent*
+rather than a global correction; Pulse's documented mapping may
+reproduce its claimed P/F values under different Vt / PEEP / FiO2
+combinations, but does not at ARDSnet-protective settings. Full
+contrast table, ventilation-setting disclosure, three-source
+convergence for the 0.91 – 0.945 solver-instability zone, and the
+E6 calibration provenance are in Appendix B.3.
 
 * **Adult Male:** age 18, weight 67.3 kg, height 180 cm (Pulse standard).
 * **Adult Female:** age 18, weight 56.2 kg, height 163 cm (Pulse standard).
@@ -1763,6 +1793,15 @@ during the literature-review pass logged in
   Validation Tables 3 / 5 / 10 / 12 / 17 / 19. Source of the 0.07 –
   2.25 % VC-AC and 11.3 – 25.3 % PC-AC tidal-volume error numbers
   cited in §1.1 and §2.3. Verified 2026-05-12.
+* Kitware, Inc. *Respiratory Methodology — Pulse Physiology Engine
+  documentation (v4.3.1).*
+  <https://pulse.kitware.com/_respiratory_methodology.html>.
+  Source of the documented ARDS severity-to-impairment-fraction
+  mapping (mild = 0.3, moderate = 0.6, severe = 0.9) and the
+  associated P/F-ratio claim (340 / 130 / 50 mmHg). Cited in §2.3
+  and Appendix B.3 as the canonical documentation against which the
+  empirically calibrated mapping {0.26, 0.60, 0.95} is contrasted at
+  ARDSnet-protective ventilation. Verified verbatim 2026-05-15.
 * Cornish R, Taufiq MF, Doucet A, Holmes C. *Causal Falsification
   of Digital Twins.* arXiv:2301.07210 (November 2023, v4). Oxford
   statistics group. External assessment of Pulse on MIMIC-III
@@ -1915,22 +1954,119 @@ initialization failure prior to stabilization.
 ### B.3 ARDS severity calibration and solver instability
 
 The Acute Respiratory Distress Syndrome (ARDS) condition in Pulse is
-modulated by an impairment fraction (0.0 to 1.0). To align with the
-Berlin Definition severity bands via PaO2 / FiO2 (P/F) ratios, the
-fractions were empirically calibrated as follows:
+modulated by a per-lung `Severity` scalar in [0, 1]. This appendix
+documents the calibration of that scalar against the Berlin
+Definition [@ards2012] severity bands at ARDSnet-protective
+ventilation [@brower2000], and the solver-instability zone
+encountered above the moderate-band ceiling.
 
-* **Mild ARDS (P/F 200–300):** Impairment fraction = 0.26 (yields
-  P/F ≈ 256).
-* **Moderate ARDS (P/F 100–200):** Impairment fraction = 0.60 (yields
-  P/F ≈ 148).
-* **Severe ARDS (P/F < 100):** Impairment fraction = 0.95 (yields
-  P/F ≈ 75).
+**Pulse's documented mapping (prior claim).** Pulse's official
+Respiratory Methodology documentation [@pulserespmethod] specifies a
+piecewise-linear severity-to-modifier mapping calibrated at the key
+transition points 0.0, 0.3, 0.6, 0.9, and 1.0, with the prose claim
+that 0.3, 0.6, and 0.9 correspond to Berlin mild, moderate, and
+severe ARDS respectively. The same claim — including specific P/F
+ratio values for each band — is repeated verbatim in the
+peer-reviewed [@webb2020] Pulse-team-authored COVID-19 multiplex
+paper:
 
-*Solver instability zone.* High-resolution fractional sweeps
-identified a numerical bifurcation in the respiratory solver.
-Impairment fractions between **0.91 and 0.945 (inclusive)**
-consistently result in fatal solver divergence. The calibrated severe
-fraction (0.95) was selected to safely clear this instability zone.
+| Berlin band               | Documented `Severity` | Documented P/F claim (mmHg) |
+|---------------------------|-----------------------|-----------------------------|
+| Mild  (200 < P/F ≤ 300)   | 0.3                   | 340                          |
+| Moderate (100 < P/F ≤ 200)| 0.6                   | 130                          |
+| Severe (P/F ≤ 100)        | 0.9                   | 50                           |
+
+Pulse's own verification suite uses the same fractions:
+`ARDSExacerbation.json` progresses 0.3 → 0.6 → 0.9;
+`ARDSModerateBothLungs.json` uses 0.6; `ECMOARDSOxygenation.json`
+uses 0.8 (between the documented moderate and severe transition
+points). Two independent prior sources (the Respiratory Methodology
+page and Webb 2020) therefore converge on the same documented
+mapping and the same P/F claim.
+
+**Empirical calibration at ARDSnet-protective ventilation.** The
+documented mapping was tested directly against the standard adult
+male surrogate (age 18, 67.3 kg, 180 cm) in a 28-run impairment-
+fraction sweep (`Pulse_translation_new` experiment E6,
+2026-03; the full log is the canonical record of the calibration).
+The ventilation regime was held constant across all 28 runs:
+
+* Mode: VC-AC (volume-control assist-control).
+* Tidal volume: 403.8 mL = 6 mL/kg on the 67.3 kg male standard
+  (ARDSnet lung-protective ventilation, [@brower2000]).
+* PEEP: 10 cmH2O.
+* FiO2: 0.4.
+* Settle time before measurement: 120 s.
+* Sampling interval: 10 s.
+* Total per-run duration: 5 min.
+
+The sweep was structured in three passes: a coarse 0.1–0.9 sweep
+(step 0.1, 9 runs), a fine 0.20–0.30 sweep around the mild-band
+transition (step 0.01, 11 runs), and a high-end 0.90–0.99 sweep
+across the severe-band candidates (8 runs). Under this regime the
+documented mapping does not reproduce the documented P/F claim:
+
+| `Severity` | Documented P/F (mmHg) | Measured P/F at ARDSnet settings (mmHg) | Berlin classification of measured value |
+|------------|------------------------|------------------------------------------|------------------------------------------|
+| 0.3        | 340  (Mild claim)      | 199                                       | Moderate (at the mild / moderate boundary) |
+| 0.6        | 130  (Moderate claim)  | 150                                       | Moderate (matches band)                   |
+| 0.9        | 50   (Severe claim)    | 119                                       | Moderate (well inside the moderate band) |
+
+Only the 0.6 → moderate mapping holds. The documented mild fraction
+(0.3) lands at the mild / moderate boundary rather than the
+mild-band centre, and the documented severe fraction (0.9) sits
+roughly 50 mmHg above the severe-band ceiling — i.e. still
+moderate by Berlin.
+
+**Corrected mapping used by the Atlas.** From the same E6 sweep, the
+fractions that produce P/F values at the Berlin band centres
+(or, for severe, immediately below the band ceiling) at the same
+ARDSnet-protective ventilation settings are:
+
+| Berlin band               | Atlas `Severity` | Measured P/F (mmHg) | Position in Berlin band            |
+|---------------------------|------------------|---------------------|------------------------------------|
+| Mild  (200 < P/F ≤ 300)   | **0.26**         | 256                 | Centre of mild band                |
+| Moderate (100 < P/F ≤ 200)| **0.60**         | 150                 | Centre of moderate band            |
+| Severe (P/F ≤ 100)        | **0.95**         | 96                  | Just inside the severe band ceiling |
+
+**Ventilation-setting dependence.** This calibration is anchored
+to the ARDSnet-protective ventilation regime above. Pulse's
+documented mapping may reproduce its claimed P/F values under
+different combinations of Vt, PEEP, and FiO2 — we have not tested
+that. The Atlas's reliability sweep is preregistered to vary all
+seven operational inputs around the ARDSnet anchor, so the
+calibration applies precisely to the regime the Atlas characterises.
+Reliability of the documented mapping at other ventilation regimes
+is out of scope.
+
+**Solver instability zone.** Three convergent sweeps within the
+companion `pulse_translation_new` project (same engine version,
+same surrogate, same researcher, but with non-overlapping
+impairment-fraction grids and independent run-by-run execution)
+characterise the same numerical-bifurcation range in the
+respiratory solver:
+
+* **E6** (the 28-run impairment sweep above, 2026-03): fractions 0.92
+  and 0.94 fail to stabilise at ARDSnet settings.
+* **E10** (a 10-run high-resolution boundary probe, 2026-04,
+  testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94,
+  0.945, 0.95): 0.90 PASS, 0.91 – 0.945 all FAIL (8 consecutive),
+  0.95 PASS. Refines the failure range to **0.91 – 0.945 (inclusive)**.
+* **E6 calibration refinement** (a 9-run high-resolution sweep,
+  2026-04, testing 0.93 – 0.97 in 0.005 steps): 0.93 – 0.945 all
+  FAIL (4 runs), 0.95 – 0.97 all PASS (5 runs). Confirms the upper
+  edge of the failure range, giving the calibrated severe fraction
+  (0.95) a 0.005 margin.
+
+All three sweeps are within the same companion project rather than
+independent third-party replications, so the convergence is
+evidence of reproducibility under the same engine version and
+surrogate, not of generalisation across labs. Impairment fractions
+in this zone consistently result in fatal solver divergence at
+ARDSnet-protective ventilation. The Atlas's calibrated severe
+fraction (0.95) was selected to clear the upper edge of the zone
+with a 0.005 margin. Pulse's documentation [@pulserespmethod] does
+not flag this zone.
 
 ### B.4 Source-code audit findings and discrepancies
 
