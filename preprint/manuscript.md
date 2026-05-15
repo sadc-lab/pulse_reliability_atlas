@@ -1,4 +1,4 @@
-# Pulse Reliability Atlas — first sensitivity, clamping, and divergence map for the Pulse Physiology Engine v4.3.1
+# Pulse Reliability Atlas: first sensitivity, clamping, and divergence map for the Pulse Physiology Engine v4.3.1
 
 **Author:** Santino Nanini
 
@@ -14,11 +14,12 @@ been performed on user-facing operational inputs. Prior external work
 MIMIC-III sepsis; the operational-input reliability question has remained
 unaddressed.
 
-**Methods.** We swept seven inputs (HR, SBP, DBP, RR, Vt, FiO2, PEEP) from
-Pulse's verified acceptance ranges via Morris elementary-effects sampling
-across four scenarios (healthy + three ARDS severities spanning PALICC-2
-mild–severe and the 0.91–0.945 solver-instability zone) and two adult
-surrogates (Pulse standard male and female), for 1,280 simulations. A
+**Methods.** We swept seven user-facing inputs (HR, SBP, DBP, RR, Vt,
+FiO2, PEEP) from Pulse's verified acceptance ranges using Morris
+elementary-effects sampling. The sweep spanned four scenarios (healthy
+and three ARDS severities, covering PALICC-2 mild–severe and the
+0.91–0.945 solver-instability zone) across two adult surrogates
+(Pulse standard male and female), yielding 1,280 total simulations. A
 locked four-flag detector (`clamped` / `diverged` / `implausible` /
 `not_steady_state`) classified every run before analysis.
 
@@ -222,6 +223,17 @@ original sweep, and the atlas's published numbers apply identically
 under either image hash. Upstream pin: `kitware/pulse:4.3.1`
 (`REL_4_3_2`, the current upstream `stable` head, is build-system-only;
 physiology unchanged per S016 GitLab audit 2026-05-07).
+
+A source-level audit of the Pulse 4.3.1 C++ repository conducted
+alongside the wrapper work revealed three undocumented deviations
+between the official methodology pages and the compiled engine logic
+— a BMR coefficient, a skin surface-area exponent, and an effective
+baroreceptor constant that all differ from the public documentation.
+The compiled values are physiologically defensible (they align with
+Harris–Benedict and Du Bois), but the documentation gap matters for
+anyone reproducing Pulse from its published equations rather than its
+source. Full audit detail and source-line citations are in
+Appendix B.4.
 
 ### 2.2 Inputs
 
@@ -690,9 +702,9 @@ two BV points to map a dose-response curve:
 
 The divergence rate is monotonic in BV reduction. The mechanism is
 confirmed: the all-male divergence cluster is mediated by the engine's
-blood-volume baseline. Severe-ARDS / FiO₂ = 1.0 inputs require deeper
+blood-volume baseline. Severe-ARDS / FiO2 = 1.0 inputs require deeper
 BV reduction to clear (the two cases still divergent at 4,400 mL are
-S4_M with FiO₂ = 1.0); the milder inputs clear at 4,400 mL already.
+S4_M with FiO2 = 1.0); the milder inputs clear at 4,400 mL already.
 A separate engine-level finding (F-S018-A in
 [`S018_blood_volume_falsification.md`](../experiments_log/santino/S018_blood_volume_falsification.md))
 emerged from the same test: **Pulse hard-enforces a per-patient BV
@@ -857,12 +869,12 @@ Cardiovascular outputs (HR, MAP) and ventilator output (Vt) show
 M-vs-F distances *within* the within-sex null distribution — i.e.
 the ~ 13 – 36 mL Vt difference and the ~ 1 – 5 bpm HR difference are
 not larger than what the same population produces by random sub-
-sampling. **An earlier draft of this paper presented those Vt and HR
-distances as "the largest sex effects"; the within-sex null
-correction shows that conclusion was overstated.** A further early
-draft reported 6 / 24 significant under naive α = 0.05; the
-multiple-comparisons correction is recorded here to surface the small
-shift transparently rather than carry the uncorrected count forward.
+sampling. **Initial uncorrected analyses (α = 0.05) flagged Vt and HR
+as significant sex effects, alongside an additional S2 SpO2 finding
+(6 / 24 rows). Applying the within-sex null correction under BH-FDR
+control at q = 0.05 reveals that these distances do not exceed what
+the population produces by random sub-sampling; the corrected count
+is reported here in place of the uncorrected one.**
 
 The remaining sex-stratified effect concentrates exactly where
 sex-specific physiology should matter most: gas exchange, where
@@ -1030,9 +1042,9 @@ Distribution: **12 green, 24 yellow, 12 red** out of 48 cells.
 
 ### 3.8.1 Steady-state window cross-output audit (S012)
 
-A reviewer-anticipated question is whether F-003 and F-004 contaminate
-the rest of the steady-state window — i.e. whether the same runs that
-show PaO2 drift or Vt oscillation also exhibit drift in the
+To ensure the steady-state window remains valid despite F-003 and
+F-004, we audited cross-output contamination — i.e. whether the same
+runs that show PaO2 drift or Vt oscillation also exhibit drift in the
 cardiovascular and gas-exchange channels we use for Morris analysis.
 A targeted audit ([S012](../experiments_log/santino/S012_steady_state_window_audit.md))
 computes |Δ60s| (drift over the recorded window) for HR / MAP / Vt /
@@ -1173,8 +1185,14 @@ internalise simulator artefacts as if they were physiology:
   the model, even though it is corrected by a single configuration
   flag.
 * The compensatory tachycardia decoupling input HR from output HR in
-  S3 / S4 (§3.4.1) becomes a learned input-output relation that does
-  not exist in real patients with set heart-rate baselines.
+  S3 / S4 (§3.4.1) is a particularly insidious feature-engineering
+  trap: a neural network trained on these outputs will learn an
+  *active physiological reflex* (the baroreceptor / chemoreceptor
+  tachycardic response to hypoxemia) as if it were a baseline
+  steady-state feature of the cohort. Down-stream this becomes a
+  learned input-output relation that does not exist in real patients
+  with set heart-rate baselines, and the model will silently
+  generalise the reflex gain as a population property.
 * The all-male divergence cluster (§3.5) becomes a "clinical pattern"
   if synthetic male / female cohorts are pooled without flag-stratified
   filtering.
@@ -1221,8 +1239,8 @@ this atlas's 6-output panel.
 | Glucose                | 5 / 96                            | 19 / 96                              | No (metabolic)        |
 | HCO₃ (Bicarbonate)     | 2 / 90                            | 8 / 90                               | No (acid–base)        |
 | Arterial pH            | 0 / 80                            | 0 / 80                               | No (acid–base)        |
-| **PaCO₂**              | **3 / 70**                        | **13 / 70**                          | **Yes (direct)**      |
-| **PaO₂**               | **0 / 78**                        | **4 / 78**                           | **Yes (direct)**      |
+| **PaCO2**              | **3 / 70**                        | **13 / 70**                          | **Yes (direct)**      |
+| **PaO2**               | **0 / 78**                        | **4 / 78**                           | **Yes (direct)**      |
 | **MeanBP**             | **0 / 92**                        | **3 / 92**                           | **Yes (≈ atlas MAP)** |
 | SysBP                  | 2 / 154                           | 8 / 154                              | Partial (MAP input)   |
 | DiaBP                  | 0 / 72                            | 0 / 72                               | Partial (MAP input)   |
@@ -1232,39 +1250,39 @@ this atlas's 6-output panel.
 *Table 2.* Cornish 2023 Table 1 (Hoeffding's inequality, main text) and
 Table 4 (reverse-percentile bootstrap, Appendix H.6) re-tabulated
 against this atlas's six-output panel. Bold rows mark the four channels
-that overlap directly with HR / MAP / PaO₂ / PaCO₂.
+that overlap directly with HR / MAP / PaO2 / PaCO2.
 
 **Cross-mapping the methodologies.** The atlas's six outputs (HR,
-MAP, V_t delivered, SpO₂, PaO₂, PaCO₂) intersect Cornish's
-15-quantity panel on four channels (HR, MeanBP ≈ atlas MAP, PaO₂,
-PaCO₂); V_t and SpO₂ are atlas-only contributions. Cornish's 11
+MAP, V_t delivered, SpO2, PaO2, PaCO2) intersect Cornish's
+15-quantity panel on four channels (HR, MeanBP ≈ atlas MAP, PaO2,
+PaCO2); V_t and SpO2 are atlas-only contributions. Cornish's 11
 remaining channels divide into electrolyte (Chloride, Sodium,
 Potassium, Calcium), metabolic (Glucose), acid–base (HCO₃, pH),
 dermal (Skin Temperature), and ventilation-input or
 non-overlapping-pressure channels (RR, SysBP, DiaBP). Of Cornish's
 85 total Hoeffding rejections, **only 3 fall on the
-four-channel atlas overlap (all on PaCO₂); the remaining 82 fall on
+four-channel atlas overlap (all on PaCO2); the remaining 82 fall on
 channels outside the atlas's output panel**. This non-overlap is the
 load-bearing observation: the two papers' failure surfaces are
 *complementary*, not redundant.
 
 **The agreement on the overlap.** Within the four-channel overlap,
 Cornish's Hoeffding results report 3 / 70 rejections (4.3 %) for
-PaCO₂ and zero rejections for HR, MAP (MeanBP), and PaO₂. The
+PaCO2 and zero rejections for HR, MAP (MeanBP), and PaO2. The
 atlas's §3.7 traffic-light shows a structurally compatible picture
-on the same four channels: PaO₂ goes red at S3 and S4 across both
+on the same four channels: PaO2 goes red at S3 and S4 across both
 sexes (4 / 8 cells), HR likewise goes red at S3+ (4 / 8 cells), and
-MAP and PaCO₂ each have exactly one red cell (S4_M). The two papers
+MAP and PaCO2 each have exactly one red cell (S4_M). The two papers
 therefore disagree on absolute rates — the atlas exposes
 boundary-region failure that Cornish's sepsis-cohort intervention
-sequences do not visit — but agree on the *ordinal* pattern: PaCO₂
+sequences do not visit — but agree on the *ordinal* pattern: PaCO2
 is the channel where Hoeffding rejections concentrate in Cornish,
-and PaCO₂ is also the channel where the atlas finds within-sex
+and PaCO2 is also the channel where the atlas finds within-sex
 Wasserstein significance (§3.6 H4); both papers single it out as
 the most assessment-sensitive gas-exchange variable. Cornish's
-bootstrap counts (Appendix Table 4) reinforce this: PaCO₂ rises to
-13 / 70 (18.6 %), PaO₂ acquires 4 / 78 rejections, and MAP picks up
-3 / 92 — a rank ordering (PaCO₂ > PaO₂ > MAP > HR) that mirrors
+bootstrap counts (Appendix Table 4) reinforce this: PaCO2 rises to
+13 / 70 (18.6 %), PaO2 acquires 4 / 78 rejections, and MAP picks up
+3 / 92 — a rank ordering (PaCO2 > PaO2 > MAP > HR) that mirrors
 the red-cell density of the atlas's gas-exchange-then-cardiovascular
 column ordering. The cell-level cross-tab cannot be tighter than
 this: Cornish's rejections are indexed by (time-step,
@@ -1277,7 +1295,7 @@ map to the atlas (Chloride 24, Sodium 21, Potassium 13, Skin
 Temperature 10, Calcium 5, Glucose 5, HCO₃ 2, plus SysBP / DiaBP /
 pH / RR) define Pulse's electrolyte, metabolic, acid–base, and
 dermal failure surface. The atlas does not assess any of these.
-Conversely, Cornish does not assess SpO₂ or delivered V_t, both of
+Conversely, Cornish does not assess SpO2 or delivered V_t, both of
 which are load-bearing for ventilator-cohort research. The two
 papers therefore divide the Pulse-reliability question along an
 output axis: Cornish covers chemistry-and-thermoregulation
@@ -1295,7 +1313,7 @@ picture:
 1. *Cardio–respiratory outputs under operational sweeps* — the
    atlas (§3.7 traffic-light).
 2. *Cardio–respiratory outputs under clinical-intervention
-   sequences* — Cornish, with PaCO₂ as the only flagged channel
+   sequences* — Cornish, with PaCO2 as the only flagged channel
    (3 / 70 Hoeffding, 13 / 70 bootstrap).
 3. *Electrolyte / metabolic / dermal outputs under operational
    sweeps* — not assessed by either paper.
