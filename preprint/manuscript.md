@@ -188,6 +188,40 @@ silently capped at the wrapper layer.
 * A traffic-light reliability map (green / yellow / red) per cell ×
   output, suitable for direct user consumption.
 
+### 1.4 Experiment log nomenclature (S001 – S019)
+
+Throughout this paper we reference experiments by short tags of the
+form **S001, S002, …, S019**. Each tag corresponds to a self-contained
+lab-notebook entry under `experiments_log/santino/` that records the
+*hypothesis, motivation, method, result, and interpretation* of one
+discrete piece of work. The tags are introduced here so that any
+reference in §2 – §4 to e.g. "S005 pilot" or "S014 trigger lockout"
+is interpretable on first encounter. A compact one-line description
+of every entry follows; the full audit trail is in Appendix A and the
+underlying files are in the repository.
+
+| Tag | One-line description |
+|---|---|
+| S001 | Docker + 3-parallel hardware smoke test (CPU/RAM budget). |
+| S002 | Project bootstrap (repo layout, licensing). |
+| S003 | Verified the 12 Pulse 4.3.1 limitations against primary sources. |
+| S004 | Built the atlas Docker image; scenario smoke test; calibrated the detector clamp regex against real Pulse rejection logs. |
+| S005 | 22-run pilot on cell (S1, M); passed all 5 preregistered gates. |
+| S006 | Full 1,280-run Morris sweep (the headline experiment). |
+| S007 | Targeted reproducibility check at three independent layers, all bit-exact. |
+| S008 | Tier-1 statistical refinement (block bootstrap on σ, within-sex Wasserstein null, Spearman CI, divergence-input mechanism). |
+| S009 | Tier-2 robustness (seed stability, continuous-ARDS micro-sweep, pytest suite, GitHub Actions CI). |
+| S010 | Literature-review pass; every reference DOI / PMID-verified. |
+| S011 | Sex-vs-mass disentangling experiment. |
+| S012 | Steady-state window cross-output audit (does F-003 / F-004 contaminate other channels? — answer: no). |
+| S013 | Lexical lockdown (manuscript taxonomy normalization). |
+| S014 | Trigger-pressure lockout (causally identifies F-004 as VC-AC dyssynchrony). |
+| S015 | Reproducibility and logic audit before publication. |
+| S016 | Re-audit of the Pulse GitLab + literature (May 2026). |
+| S017 | Cornish 2023 cross-mapping against the atlas's 6-output panel. |
+| S018 | Blood-volume mechanism falsification (explains the all-male divergence cluster). |
+| S019 | Sobol bolt-on draft script (ready-to-fire; not executed — see §3.3.1 for the closed-by-redundancy argument). |
+
 ---
 
 ## 2. Methods
@@ -376,20 +410,24 @@ to their own output CSVs without re-running the atlas sweep. Calling
 contract for `src/detector.py`:
 
 ```python
-from src.detector import classify  # public; thresholds locked per §2.6
+# Public API; thresholds locked per §2.6.
+from src.detector import classify
 
 result = classify(
-    csv_path="path/to/pulse_output.csv",   # Pulse 5 s-sampled CSV
-    pulse_log=open("pulse.log").read(),    # stdout + stderr text
-    exit_code=0,                            # container exit code
+    csv_path="path/to/pulse_output.csv",  # Pulse 5 s-sampled CSV
+    pulse_log=open("pulse.log").read(),   # stdout + stderr text
+    exit_code=0,                          # container exit code
 )
 
-# result is a DetectorResult with four orthogonal flags:
-print(result.clamped.fired, result.clamped.reason)
-print(result.diverged.fired, result.diverged.reason)
-print(result.implausible.fired, result.implausible.reason)
+# result is a DetectorResult with four orthogonal flags.
+print(result.clamped.fired,         result.clamped.reason)
+print(result.diverged.fired,        result.diverged.reason)
+print(result.implausible.fired,     result.implausible.reason)
 print(result.not_steady_state.fired, result.not_steady_state.reason)
-print(result.primary_flag)  # priority order: clamped > diverged > implausible > NSS > clean
+
+# Priority order:
+#   clamped > diverged > implausible > not_steady_state > clean
+print(result.primary_flag)
 ```
 
 Hard physiological bounds (`HARD_BOUNDS`), drift thresholds
@@ -403,6 +441,90 @@ constants in a wrapper module rather than editing `detector.py` in
 place; the preregistration discipline (lock thresholds before data
 collection) should transfer to any downstream sweep that uses this
 instrument.
+
+### 2.10 Statistical methods overview
+
+Several distinct statistical tools are used in §3 (Results) and §4
+(Discussion). We define each here in plain language so the first
+appearance of a test name in the results section is immediately
+interpretable. Implementation references and bibliographic details
+are in §7.
+
+* **Morris elementary effects (μ\*, σ).** A *screening* sensitivity
+  method: it ranks inputs by their average absolute effect on an output
+  (μ\*) and flags inputs whose effect varies a lot across the input
+  space (σ, suggesting non-linearity or interactions). Cheap compared
+  with full variance-based methods, well suited to "which inputs
+  matter at all?" questions. Detailed in §2.5; see [@morris1991;
+  @campolongo2007].
+
+* **Block bootstrap (trajectory-level resampling).** A non-parametric
+  way to attach a confidence interval (CI) to a statistic computed
+  from data with internal structure. Instead of resampling individual
+  data points (which would break correlations within a Morris
+  trajectory), we resample whole *trajectories* with replacement and
+  recompute the statistic on each resample (1,000 resamples here).
+  The 2.5 / 97.5 percentiles of the resampled statistics give a 95 %
+  CI. Used in §3.3.1 to put a CI on σ / μ\* and decide whether
+  apparent non-linearity is signal or noise.
+
+* **Sobol variance-based decomposition.** A *quantitative* sensitivity
+  method that splits the variance of an output into contributions
+  from each input (first-order index S₁) and from each input's
+  interactions with all others (total-order index S_T). It is more
+  informative than Morris but costs roughly an order of magnitude more
+  simulations. We preregistered a conditional Sobol bolt-on if Morris
+  flagged non-linearity, and discuss in §3.3.1 why the bootstrap
+  evidence renders that bolt-on statistically redundant here.
+
+* **1-Wasserstein distance.** A distance between two probability
+  *distributions* on a one-dimensional output. Intuitively: the
+  minimum "work" needed to transport one histogram onto the other,
+  in the output's natural units (e.g. mmHg, mL, bpm). Larger value
+  = more separation; zero means the two distributions are identical.
+  Used in §3.6 to quantify how different male vs female clean-run
+  output distributions actually are.
+
+* **Within-sex sub-sampling null (permutation-style).** A reference
+  distribution built by randomly splitting the *combined* M + F clean
+  runs into halves the same size as the original M and F groups, then
+  computing the same Wasserstein distance on the split (n = 2,000
+  splits). The empirical p-value p_emp is the fraction of nulls that
+  exceed the observed M-vs-F distance. The logic: if sex actually
+  matters, the observed M-vs-F distance should be larger than what
+  random sub-sampling of the *same* population produces; if it sits
+  inside the null, the apparent sex effect is sample-size noise.
+
+* **Spearman's rank correlation ρ.** Measures whether two paired
+  rankings agree (ρ = 1: identical ordering; ρ = 0: no monotonic
+  relationship; ρ = −1: reversed ordering). Used in §3.6 on the
+  M and F vectors of μ\* values (one entry per input) to ask whether
+  both sexes order the seven inputs the same way. We attach a
+  paired-input bootstrap 95 % CI by resampling the seven inputs with
+  replacement and re-ranking.
+
+* **Benjamini–Hochberg (BH) false-discovery-rate (FDR) control.** A
+  multiple-comparisons correction. When many tests are run (here, 24
+  Wasserstein tests on 6 outputs × 4 scenarios), the naive α = 0.05
+  threshold over-counts significant results. BH-FDR sorts the p-values
+  ascending and accepts the k-th smallest if it is below k · q / N,
+  where N is the number of tests and q is the target false-discovery
+  rate (we use q = 0.05). Result: the *expected* fraction of false
+  positives among the rejected null hypotheses is at most q. Less
+  conservative than Bonferroni; standard in genomics and increasingly
+  in physiology-simulation work.
+
+* **Hoeffding's inequality and Holm–Bonferroni (external; Cornish
+  2023).** Used by [@cornish2023] in their causal-falsification
+  framework. *Hoeffding's inequality* gives a distribution-free
+  confidence interval for the mean of a bounded random variable from a
+  finite sample; the interval is wide but assumption-light. *Holm–
+  Bonferroni* is a step-down family-wise-error-rate (FWER)
+  correction stricter than BH-FDR — it controls the probability of
+  *any* false positive across the test family rather than the expected
+  fraction. We reference these only when discussing Cornish's
+  channel-by-channel results in §4.4; the atlas itself does not use
+  them.
 
 ---
 
@@ -1009,9 +1131,12 @@ Distribution: **12 green, 24 yellow, 12 red** out of 48 cells.
   specifies neither `InspirationPatientTriggerFlow` nor
   `InspirationPatientTriggerPressure`:
 
-  ```
-  if (!HasInspirationPatientTriggerFlow() && !HasInspirationPatientTriggerPressure())
+  ```cpp
+  if (!HasInspirationPatientTriggerFlow() &&
+      !HasInspirationPatientTriggerPressure())
+  {
       SetInspirationPatientTriggerRespiratoryModel(On);
+  }
   ```
 
   With this default, the simulated patient's spontaneous respiratory
@@ -1427,7 +1552,44 @@ this repository.
 
 ---
 
-## 6. References
+## 6. Transparency: use of AI tools
+
+In the interest of full methodological transparency, parts of this
+work were carried out with the assistance of AI tools.
+
+* **Coding assistance.** Portions of the analysis and pipeline code
+  in this repository were drafted, edited, refactored, or debugged
+  with the assistance of **Claude Code** (Anthropic; model
+  `claude-opus-4-7`). Every AI-assisted code change was reviewed,
+  tested, and committed by the human author; all preregistered
+  thresholds, hypotheses, and experimental decisions were authored
+  and locked by the human author before the corresponding analyses
+  were run. AI tooling did not modify preregistration content or
+  finalised numerical results.
+* **Manuscript drafting and editing.** Portions of this manuscript
+  were drafted and edited with the assistance of Claude Code. All
+  scientific claims, statistical interpretations, and citations
+  were authored, verified, and accepted by the human author. Every
+  numerical claim in the paper traces to a primary source or an
+  experiment log entry under `experiments_log/santino/`, and the
+  references were individually verified against their DOI / PMID
+  in S010 and the 2026-05-12 pre-submission audit.
+* **What AI tools were *not* used for.** AI tooling did not run
+  Pulse simulations, did not generate or alter raw output data, did
+  not author the preregistration or hypotheses, and did not select
+  which experiments to run or which results to report. The
+  experimental design and the statistical-test choices are the
+  author's; the AI tools provided drafting, refactoring, and
+  reviewer-style critique support on text and code only.
+
+No AI attribution is included in commits, code comments, or the
+authorship line, consistent with this repository's contribution
+policy. This transparency note is the single canonical disclosure of
+AI tool involvement in the project.
+
+---
+
+## 7. References
 
 Primary sources only — every cited fact in this paper traces to one of
 the following or to an experiment-log entry in this repository.
@@ -1521,7 +1683,7 @@ additionally available in the repository:
 * **S010** — Literature-review pass; every reference below verified
   against its DOI / PMID.
 
-### 6.7 Verified primary references (full bibliographic detail)
+### 7.7 Verified primary references (full bibliographic detail)
 
 Each entry has been individually verified against its DOI or PMID
 during the literature-review pass logged in
