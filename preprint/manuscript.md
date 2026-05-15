@@ -188,10 +188,10 @@ silently capped at the wrapper layer.
 * A traffic-light reliability map (green / yellow / red) per cell ×
   output, suitable for direct user consumption.
 
-### 1.4 Experiment log nomenclature (S001 – S019)
+### 1.4 Experiment log nomenclature (S001 – S020)
 
 Throughout this paper we reference experiments by short tags of the
-form **S001, S002, …, S019**. Each tag corresponds to a self-contained
+form **S001, S002, …, S020**. Each tag corresponds to a self-contained
 lab-notebook entry under `experiments_log/santino/` that records the
 *hypothesis, motivation, method, result, and interpretation* of one
 discrete piece of work. The tags are introduced here so that any
@@ -221,6 +221,7 @@ underlying files are in the repository.
 | S017 | Cornish 2023 cross-mapping against the atlas's 6-output panel. |
 | S018 | Blood-volume mechanism falsification (explains the all-male divergence cluster). |
 | S019 | Sobol bolt-on draft script (ready-to-fire; not executed — see §3.3.1 for the closed-by-redundancy argument). |
+| S020 | Pre-submission novelty audit; verified that every "first" / "novel" claim in the manuscript survives a literature double-check (single citation added: Figueroa-Casas & Montoya 2016 for the F-004 clinical precedent). |
 
 ---
 
@@ -1115,14 +1116,19 @@ Distribution: **12 green, 24 yellow, 12 red** out of 48 cells.
   The *deviation from linear extrapolation at the FiO2 = 1.0 endpoint*
   is the quantitative signature of the hyperoxia overshoot.
 * **F-004 — Patient-ventilator dyssynchrony in VC-AC at extreme inputs.**
-  Across the full sweep, 303 / 1,280 (23.7 %) Morris runs satisfy
-  `Vt_cv > 5 %` in the [60, 120] s window. Of those, 264 / 1,280
-  (20.6 %) carry it as their *primary* flag — the remaining 39 also
-  trip the higher-priority `implausible` or `diverged` flag for a
-  separate reason and are categorized there per the detector priority
-  order (§2.6). The 303-run population is the one analysed by the
-  §3.8.1 cross-output drift audit; the 264-run subset is the
-  F-004-only steady-state-failure rate.
+  Patient-ventilator dyssynchrony in volume-control ventilation at low
+  tidal volume is a well-documented bedside phenomenon
+  [@figueroacasas2016], so the relevant question for the atlas is not
+  *whether* dyssynchrony exists in Pulse but how often the engine's
+  default trigger configuration enters that regime under operational
+  sweeps. Across the full sweep, 303 / 1,280 (23.7 %) Morris runs
+  satisfy `Vt_cv > 5 %` in the [60, 120] s window. Of those,
+  264 / 1,280 (20.6 %) carry it as their *primary* flag — the
+  remaining 39 also trip the higher-priority `implausible` or
+  `diverged` flag for a separate reason and are categorized there per
+  the detector priority order (§2.6). The 303-run population is the
+  one analysed by the §3.8.1 cross-output drift audit; the 264-run
+  subset is the F-004-only steady-state-failure rate.
   Inspecting the
   native-resolution ventilator timeseries (sampled at 0.02 s; the same
   Pulse runs that produce the 5 s atlas CSV) shows a stereotyped pattern:
@@ -1256,8 +1262,8 @@ artifact:
 * **VC-AC dyssynchrony refines rather than indicts Pulse's
   implementation.** The F-004 finding (Vt CV > 5 % in 20.6 % of runs) is
   not a controller pathology: patient-ventilator dyssynchrony at extreme
-  settings is a real intensive-care phenomenon and Pulse models it
-  correctly. The atlas's preregistered steady-state detector simply
+  settings is a real intensive-care phenomenon [@figueroacasas2016] and
+  Pulse models it correctly. The atlas's preregistered steady-state detector simply
   flags the resulting Vt variability as a non-steady-state outcome, by
   design. Two practical consequences follow. First, atlas users who
   require pure mandatory ventilation (e.g. for medical-device validation
@@ -1812,6 +1818,16 @@ during the literature-review pass logged in
   (2000). DOI:
   [10.1056/NEJM200005043421801](https://doi.org/10.1056/NEJM200005043421801).
   PMID: 10793162.
+* Figueroa-Casas JB, Montoya R. *Effect of Tidal Volume Size and Its
+  Delivery Mode on Patient-Ventilator Dyssynchrony.* Annals of the
+  American Thoracic Society 13(12):2207-2214 (2016). DOI:
+  [10.1513/AnnalsATS.201605-362OC](https://doi.org/10.1513/AnnalsATS.201605-362OC).
+  PMID: 27598383. Cited in §3.8 and §4.1 as clinical-literature
+  precedent for the patient-ventilator dyssynchrony phenomenon that
+  F-004 quantifies inside Pulse. Identified and verified via PubMed
+  esummary during the 2026-05-15 novelty audit (S020); the atlas's
+  contribution is the Pulse-engine manifestation and the corrective
+  trigger setting (−2 cmH2O), not the discovery of dyssynchrony.
 
 **Reproducibility / methods-paper integrity**
 
@@ -1851,6 +1867,7 @@ during the literature-review pass logged in
 | S017 | Cornish 2023 cross-mapping (Phase B item B1) |
 | S018 | Blood-volume mechanism falsification (Phase B item B2) |
 | S019 | Sobol bolt-on draft (Phase B item B3 — not executed; ready-to-fire) |
+| S020 | Pre-submission novelty audit (literature double-check on every "first" claim; one citation added) |
 
 Each log file in `experiments_log/santino/` follows the template:
 hypothesis → motivation → method → what we tried → results → interpretation

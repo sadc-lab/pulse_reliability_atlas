@@ -6,12 +6,13 @@ This file is rebuilt from the YAML frontmatter of every entry in
 `santino/`, `contributor2/`, and `shared/`. To update it, edit the experiment
 and recommit — the pre-commit hook regenerates and stages this file.
 
-Total entries: **19**
+Total entries: **20**
 
 ## All experiments (newest first)
 
 | ID | Date | Author | Status | Title |
 |---|---|---|---|---|
+| `S020` | 2026-05-15 | santino | done | [S020 — Pre-submission novelty audit: verifying that every "first" / "novel" claim in the manuscript survives a literature double-check](santino/S020_novelty_audit.md) |
 | `S019` | 2026-05-13 | santino | draft | [S019 — Sobol bolt-on (Phase B item B3): DRAFT, ready-to-fire, not executed](santino/S019_sobol_bolton_draft.md) |
 | `S018` | 2026-05-13 | santino | done | [S018 — Blood-volume mechanism falsification test (Phase B item B2): dose-response bracket on the 20 originally-diverged male inputs](santino/S018_blood_volume_falsification.md) |
 | `S017` | 2026-05-13 | santino | done | [S017 — Cornish 2023 cross-mapping: re-tabulating the only prior external Pulse assessment against the atlas's 6-output panel](santino/S017_cornish_2023_cross_mapping.md) |
@@ -53,6 +54,7 @@ Total entries: **19**
 - `S017` (2026-05-13, done) — [S017 — Cornish 2023 cross-mapping: re-tabulating the only prior external Pulse assessment against the atlas's 6-output panel](santino/S017_cornish_2023_cross_mapping.md) — _literature, cross-mapping, cornish, falsification, manuscript-discussion_
 - `S018` (2026-05-13, done) — [S018 — Blood-volume mechanism falsification test (Phase B item B2): dose-response bracket on the 20 originally-diverged male inputs](santino/S018_blood_volume_falsification.md) — _mechanism-test, falsification, divergence, blood-volume, sex-stratification, phase-b_
 - `S019` (2026-05-13, draft) — [S019 — Sobol bolt-on (Phase B item B3): DRAFT, ready-to-fire, not executed](santino/S019_sobol_bolton_draft.md) — _sobol, variance-decomposition, reviewer-defense, phase-b, draft, not-executed_
+- `S020` (2026-05-15, done) — [S020 — Pre-submission novelty audit: verifying that every "first" / "novel" claim in the manuscript survives a literature double-check](santino/S020_novelty_audit.md) — _literature, novelty-audit, pre-submission, citation-verification, manuscript-discussion_
 
 ## By tag
 
@@ -77,6 +79,9 @@ Total entries: **19**
 
 ### `ci`
 - `S009` — [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md)
+
+### `citation-verification`
+- `S020` — [S020 — Pre-submission novelty audit: verifying that every "first" / "novel" claim in the manuscript survives a literature double-check](santino/S020_novelty_audit.md)
 
 ### `citations`
 - `S010` — [S010 — Literature-review pass: every reference verified against DOI / PMID](santino/S010_literature_review.md)
@@ -184,6 +189,7 @@ Total entries: **19**
 - `S003` — [S003 — Verified Pulse 4.3.1 limitations (primary-source re-check)](santino/S003_pulse_limitations_verified.md)
 - `S016` — [S016 — Pulse GitLab + literature re-audit (May 2026): version state, V&V infrastructure, and the 2020 sensitivity-analysis study tag](santino/S016_pulse_gitlab_audit_may2026.md)
 - `S017` — [S017 — Cornish 2023 cross-mapping: re-tabulating the only prior external Pulse assessment against the atlas's 6-output panel](santino/S017_cornish_2023_cross_mapping.md)
+- `S020` — [S020 — Pre-submission novelty audit: verifying that every "first" / "novel" claim in the manuscript survives a literature double-check](santino/S020_novelty_audit.md)
 
 ### `literature-review`
 - `S010` — [S010 — Literature-review pass: every reference verified against DOI / PMID](santino/S010_literature_review.md)
@@ -193,6 +199,7 @@ Total entries: **19**
 
 ### `manuscript-discussion`
 - `S017` — [S017 — Cornish 2023 cross-mapping: re-tabulating the only prior external Pulse assessment against the atlas's 6-output panel](santino/S017_cornish_2023_cross_mapping.md)
+- `S020` — [S020 — Pre-submission novelty audit: verifying that every "first" / "novel" claim in the manuscript survives a literature double-check](santino/S020_novelty_audit.md)
 
 ### `manuscript-polish`
 - `S008` — [S008 — Tier-1 statistical refinement: block bootstrap, within-sex Wasserstein null, divergence mechanism, manuscript polish](santino/S008_tier1_statistical_refinement.md)
@@ -214,6 +221,9 @@ Total entries: **19**
 ### `not-executed`
 - `S019` — [S019 — Sobol bolt-on (Phase B item B3): DRAFT, ready-to-fire, not executed](santino/S019_sobol_bolton_draft.md)
 
+### `novelty-audit`
+- `S020` — [S020 — Pre-submission novelty audit: verifying that every "first" / "novel" claim in the manuscript survives a literature double-check](santino/S020_novelty_audit.md)
+
 ### `null-distribution`
 - `S008` — [S008 — Tier-1 statistical refinement: block bootstrap, within-sex Wasserstein null, divergence mechanism, manuscript polish](santino/S008_tier1_statistical_refinement.md)
 
@@ -231,6 +241,9 @@ Total entries: **19**
 ### `pre-publication`
 - `S007` — [S007 — Targeted reproducibility check (pre-publication)](santino/S007_reproducibility_targeted_check.md)
 - `S015` — [S015 — Reproducibility and Logic Audit (pre-publication double-check)](santino/S015_reproducibility_and_logic_audit.md)
+
+### `pre-submission`
+- `S020` — [S020 — Pre-submission novelty audit: verifying that every "first" / "novel" claim in the manuscript survives a literature double-check](santino/S020_novelty_audit.md)
 
 ### `pulse`
 - `S003` — [S003 — Verified Pulse 4.3.1 limitations (primary-source re-check)](santino/S003_pulse_limitations_verified.md)
