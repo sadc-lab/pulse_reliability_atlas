@@ -269,6 +269,17 @@ anyone reproducing Pulse from its published equations rather than its
 source. Full audit detail and source-line citations are in
 Appendix B.4.
 
+**Version-pinning rationale.** This atlas is pinned to Pulse 4.3.1.
+The current upstream `stable` head, `REL_4_3_2` (released 2025-08-12),
+differs from 4.3.1 by 7 files (+46 / −17 lines) covering build-system
+changes only; no physiology, validation, patient-setup, or solver
+code changed, verified by source audit in S016 (2026-05-07). Atlas
+numerics therefore apply identically to 4.3.2. While future releases
+will inevitably alter underlying physiology, the atlas's methodology
+— the four-flag classifier, Morris sweep, and traffic-light map — is
+engine-version-agnostic and designed to be re-applied to any future
+Pulse release.
+
 ### 2.2 Inputs
 
 Seven inputs swept, ranges verified in Pulse boundary probes
@@ -448,7 +459,7 @@ Several distinct statistical tools are used in §3 (Results) and §4
 (Discussion). We define each here in plain language so the first
 appearance of a test name in the results section is immediately
 interpretable. Implementation references and bibliographic details
-are in §7.
+are in §8.
 
 * **Morris elementary effects (μ\*, σ).** A *screening* sensitivity
   method: it ranks inputs by their average absolute effect on an output
@@ -1552,7 +1563,22 @@ this repository.
 
 ---
 
-## 6. Transparency: use of AI tools
+## 6. Acknowledgements
+
+This work benefited from government funding managed by the National
+Research Agency under France 2030 via the ENACT AI Cluster
+(ANR-23-IACL-0004).
+
+This work also relies on the financial support provided by the Région
+Grand Est, France, for which we express our gratitude.
+
+We gratefully acknowledge the support of the CHU Sainte-Justine
+Foundation in Montreal and the Artificial Intelligence Applied to
+Pediatric Acute Care Research Group (R-SADC) in Montreal, Canada.
+
+---
+
+## 7. Transparency: use of AI tools
 
 In the interest of full methodological transparency, parts of this
 work were carried out with the assistance of AI tools.
@@ -1589,7 +1615,7 @@ AI tool involvement in the project.
 
 ---
 
-## 7. References
+## 8. References
 
 Primary sources only — every cited fact in this paper traces to one of
 the following or to an experiment-log entry in this repository.
@@ -1683,7 +1709,7 @@ additionally available in the repository:
 * **S010** — Literature-review pass; every reference below verified
   against its DOI / PMID.
 
-### 7.7 Verified primary references (full bibliographic detail)
+### 8.7 Verified primary references (full bibliographic detail)
 
 Each entry has been individually verified against its DOI or PMID
 during the literature-review pass logged in
