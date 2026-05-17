@@ -7,7 +7,8 @@
 ## Abstract
 
 **Background.** The Pulse Physiology Engine (Kitware, Apache-2.0; v4.3.1)
-is the most-used open-source whole-body human physiology simulator. Its
+is among the most-cited open-source whole-body human physiology
+simulators. Its
 developers state on the Pulse FAQ that no formal sensitivity analysis has
 been performed on user-facing operational inputs. Prior external work
 [@cornish2023] addressed intervention-outcome falsification on
@@ -17,8 +18,8 @@ unaddressed.
 **Methods.** We swept seven user-facing inputs (HR, SBP, DBP, RR, Vt,
 FiO2, PEEP) from Pulse's verified acceptance ranges using Morris
 elementary-effects sampling. The sweep spanned four scenarios (healthy
-and three ARDS severities, covering PALICC-2 mild–severe and the
-0.91–0.945 solver-instability zone) across two adult surrogates
+and three ARDS severities, spanning PALICC-2 mild–severe and bracketing
+the 0.91–0.945 solver-instability zone) across two adult surrogates
 (Pulse standard male and female), yielding 1,280 total simulations. A
 locked four-flag detector (`clamped` / `diverged` / `implausible` /
 `not_steady_state`) classified every run before analysis.
@@ -63,8 +64,8 @@ that train on Pulse-generated synthetic cohorts.
 ### 1.1 Motivation
 
 The Pulse Physiology Engine [@bray2019] (Kitware, Apache-2.0)
-is the most-used open-source whole-body human physiology simulator.
-It provides a 0-dimensional lumped-parameter model of the
+is among the most-cited open-source whole-body human physiology
+simulators. It provides a 0-dimensional lumped-parameter model of the
 cardiovascular, respiratory, gas-exchange, and pharmacological
 systems, and is used in three broad communities:
 
@@ -89,12 +90,12 @@ current as of the May 2026 GitLab re-audit, S003 / S016]:
 > quantification of model uncertainty, nor have we conducted a formal
 > sensitivity analysis."
 
-A May 2026 audit of the Pulse repository (S016) qualifies this. The
-repo carries a 2020 tag `STUDY_SENSITIVITY_ANALYSIS_1_0_0` containing
-a one-off Sobol study on **internal vascular-circuit resistance
-multipliers** for model calibration (per its ReadMe) — a different
-parameter class from user-facing operational inputs, not ported to
-the 4.3.x release line. Prior external work [@cornish2023]
+The 2026 GitLab re-audit (S016) qualifies the FAQ claim slightly:
+the repo carries a 2020 tag `STUDY_SENSITIVITY_ANALYSIS_1_0_0` with a
+one-off Sobol study on internal vascular-circuit resistance multipliers
+for model calibration. That study targets a different parameter class
+(internal lumped-parameter resistors, not user-facing operational
+inputs) and was not ported to the 4.3.x release line. Prior external work [@cornish2023]
 addressed intervention-outcome falsification — verifying whether
 Pulse accurately mimics how a real patient's trajectory changes after
 a medical intervention — on MIMIC-III sepsis trajectories, a different
@@ -164,7 +165,7 @@ This atlas adds quantitative coverage to those:
    table.
 5–6. HR init acceptance 50–110 / RR init acceptance 8–20 — sampler ranges
    match.
-7. PC-AC over-delivers Vt 11.3 – 25.3 % (Pulse documentation tables, [@pulsevent]; framework in [@webb2022vent]; companion verification `Pulse_translation_new` E12, E13) — atlas restricts to VC-AC.
+7. PC-AC over-delivers Vt 11.3 – 25.3 % across healthy / restrictive / obstructive lung profiles per Pulse's own validation tables [@pulsevent]; the surrounding validation framework is described in [@webb2022vent]. Companion experiments in `Pulse_translation_new` (entries #12 / #13) corroborate the *direction* — PC-AC over-delivers tidal volume in both sexes — but find a larger magnitude under different ventilator settings (female +58.9 % vs male +24.0 % at PIP = 20 cmH2O; see §2.3). The atlas restricts to VC-AC.
 8–12. Structural lumped-parameter limits — discussed in §4.3.
 
 The two previously asserted but unverified claims (FiO2 solver-divergence at 1.0 and
@@ -321,13 +322,16 @@ Four scenarios × two patients = 8 cells:
 per-lung `Severity` scalar in [0, 1]. The Atlas's scenarios use
 `Severity` = 0.0 (S1, healthy), 0.26 (S2, mild), 0.60 (S3, moderate),
 and 0.95 (S4, severe) rather than Pulse's documented {0.3, 0.6, 0.9}
-defaults [@pulserespmethod; @webb2020]. The documented mapping
-claims those defaults produce P/F ratios of 340 / 130 / 50 mmHg
-respectively, with both the Respiratory Methodology page
-[@pulserespmethod] and the peer-reviewed Pulse-team COVID-19
-multiplex paper [@webb2020] repeating this documented validation
-claim verbatim (i.e. as Pulse's published validation, not as an
-independent measurement). Under
+defaults [@pulserespmethod]. The Pulse-team peer-reviewed COVID-19
+multiplex paper [@webb2020] reports verbatim that these severity
+defaults produce P/F ratios of 340 / 130 / 50 mmHg respectively
+(quoted as Pulse's published validation, not as an independent
+measurement). The companion Respiratory Methodology page
+[@pulserespmethod] documents the severity-to-modifier mapping
+calibrated at 0.3 / 0.6 / 0.9 but does not state these P/F values
+directly; the quantitative validation claim is anchored on
+[@webb2020] alone (citation attribution corrected in pre-submission
+Phase-2 audit, S020 follow-up). Under
 the ARDSnet-protective ventilation regime that the Atlas sweep is
 built around (VC-AC, Vt = 6 mL/kg, PEEP = 10 cmH2O, FiO2 = 0.4),
 direct measurement of the documented mapping in a 28-run impairment
@@ -445,6 +449,62 @@ gives identical CSVs by construction and cannot detect bugs in the
 code being re-run; the independent-layer approach catches strictly
 more error classes at ~ 1 % of the compute cost.
 
+**Phase-4 audit-driven re-execution (2026-05-16 → 2026-05-18).** As a
+pre-submission belt-and-braces check on top of the eleven verification
+points above, two complementary re-executions were performed under the
+current `pulse-atlas-engine` image (hash `b2e0e807803d`, the
+post-S014-patch rebuild — a different image hash than the
+`3b18bdc08660` build that produced the canonical sweep on 2026-04-26):
+
+* **(i) Phase 4a — same-seed full re-execution.** All 1,280 runs of the
+  canonical Morris sweep were re-executed from the locked sample
+  (`data/runs/full_sweep/morris_sample.parquet`; `seed=42`,
+  `trajectories=20`, `levels=4`) against the current image, with output
+  written to a parallel directory tree (`data/runs/full_sweep_repro/`)
+  so the canonical artifact was not touched. Wall time: **23 h 01 m** on
+  the maintainer's i5-11400H laptop at 2 parallel Docker workers — the
+  verified-safe hardware cap (§2.8). SHA-256 comparison of every
+  `output.csv` against canonical gave **1,260 / 1,280 bit-identical
+  clean runs and 20 / 20 originally-diverged runs reproducing
+  divergence with `exit_code = 1`** (i.e. the same 20-run male-extreme
+  cluster that §3.5 attributes to the blood-volume mechanism). **Zero
+  deviations, zero clean-↔-diverged asymmetries, zero missing files.**
+  The S015 audit's 40-run bit-exact result is therefore extended to
+  the full 1,280-run envelope, and the S014 SDK sed-patch is
+  empirically a no-op on the canonical sweep at every cell. Full report
+  in `data/runs/full_sweep_repro/sha_compare.json`.
+
+* **(ii) Phase 4b — new-seed Morris stability on cell (S2, M).** A
+  fresh Morris sample at `seed=44`, `trajectories=20`, `levels=4` (160
+  unique points, matching canonical sample size; different seed from
+  both canonical `seed=42` and the prior S009 stability check at
+  `seed=43, trajectories=10`) was run on the moderate-ARDS male cell.
+  Wall time: 1 h 34 m. **The dominant input by μ\* was preserved for
+  all 6 outputs**, and top-3 input sets matched canonical in 4 / 6
+  outputs (top-3 orders in 3 / 6); disagreements were confined to the
+  position-3 tertiary input where μ\* magnitudes are similar across
+  competing inputs — consistent with the trajectory-bootstrap CI
+  reported in §3.3.1 and the Spearman ρ analysis in §3.6.
+  In full transparency, two sample-dependent quantities surfaced:
+  **(a)** the S2_M divergence count went from 4 / 160 (canonical
+  `seed=42`) to 7 / 160 (`seed=44`), with all 7 new-seed divergences
+  in the same low-HR + low-SBP + high-FiO2 regime that §3.5 / §3.5.1
+  identify as the input-driven mechanism — i.e. the *regime* is
+  preserved while the *count* is sample-dependent, exactly as the
+  manuscript's regime-vs-count nuance predicts; and **(b)** the
+  PaO2 σ / μ\* point estimate on FiO2 moved from 0.667 (canonical, in
+  the §3.3.1 Group-B "promote" set) to 0.547 (new-seed, below the
+  preregistered 0.6 trigger), empirically confirming the §3.3.1
+  closed-by-redundancy argument: the point-estimate trigger is
+  bootstrap-borderline, no cell is CI-robustly nonlinear, and the
+  Sobol bolt-on adds no evidential weight. Per-run timings,
+  `phase4b_morris_S2M_seed44.parquet`, and the top-3 comparison are
+  in `results/`.
+
+Neither phase falsified a manuscript claim. Phase 4a strengthens the
+determinism statement to the full sample size; Phase 4b empirically
+confirms the bootstrap-CI-aware story §3.3.1 already tells.
+
 ### 2.9 Using the four-flag classifier independently
 
 The detector is a stand-alone instrument; any Pulse user can apply it
@@ -473,8 +533,10 @@ print(result.primary_flag)
 ```
 
 Hard physiological bounds (`HARD_BOUNDS`), drift thresholds
-(`DRIFT_MAX_DELTA_60S`), the CV threshold (`CV_THRESHOLD = 0.05`), and
-the steady-state window (`STEADY_STATE_T_LO = 60 s`, `STEADY_STATE_T_HI
+(`DRIFT_MAX_DELTA_60S`), the CV threshold (`CV_THRESHOLD = 0.05`,
+computed as `numpy.std(ddof=0) / |mean|` — population-std divisor on
+the 13-point steady-state window; `src/detector.py:338`), and the
+steady-state window (`STEADY_STATE_T_LO = 60 s`, `STEADY_STATE_T_HI
 = 120 s`) are module-level constants exposed at the top of
 `src/detector.py` and locked in `preregistration.md` §Flags. To apply
 the classifier to a sweep at a different operational envelope (e.g.
@@ -587,6 +649,16 @@ auto-updated when the analysis script re-runs.*
 | S3_F  | 160     | 0       | 0        | 0           | 38               | 122   |
 | S4_M  | 160     | 0       | 8        | 46          | 44               | 67    |
 | S4_F  | 160     | 0       | 0        | 46          | 74               | 60    |
+
+*Table 1.* Per-cell flag counts. The flag columns (`clamped`, `diverged`,
+`implausible`, `not_steady_state`) are **independent presence counts**: a
+single run can fire `implausible` and `not_steady_state` simultaneously and
+is counted in both columns. Only `clean` is mutually exclusive of the four
+flags. Row sums therefore exceed `n_total` (e.g. S1_F sums to 183) when
+runs trigger multiple non-priority flags. The detector's *primary flag*
+follows the priority order `clamped > diverged > implausible >
+not_steady_state > clean` (§2.6) and is recorded as `primary_flag` in the
+master Parquet for partition-style analyses.
 
 * `clamped` is **0 across the entire sweep** (locked ranges respect
   Pulse acceptance — H2 not supported).
@@ -723,9 +795,24 @@ distribution under the bootstrap is:
   point-estimate-below-0.6 cells whose upper CI bound exceeds 0.6
   (one PEEP-on-PaO2/SpO2 in (S4, F), two FiO2-on-SpO2 in (S2 / S3, M),
   one PaCO2-on-Vt in (S4, F)).
-* **5 / 48 cells** have no estimable σ / μ\* CI: the FiO2-edge cells in
-  S1 (both sexes) and S4_F where the OAT step on FiO2 has zero clean
-  trajectories (§4.3 limitations).
+* **5 / 48 cells** have no estimable σ / μ\* CI: three cells in S1_F
+  where the dominant input by μ\* is Vt and the Vt OAT step has only
+  one clean trajectory pair (S1_F × {PaCO2, PaO2, Vt}), and two cells
+  in S4_M where the dominant input is FiO2 and the FiO2 OAT step has
+  only one clean trajectory pair (S4_M × {PaO2, SpO2}). The relevant
+  *which input lacks clean pairs* differs across the two cell groups
+  (Vt in S1_F vs FiO2 in S4_M), and the per-input gap is summarised at
+  cell level in §4.3 / §4.5 limitations.
+
+*Methodological note (σ / μ\* CI formula).* The upper CI bound on σ / μ\*
+reported in the bucketing above is taken as σ_hi / μ̂\*, where σ_hi is
+the upper 97.5-percentile from the trajectory-level block bootstrap on σ
+(1,000 resamples; `_block_bootstrap_sigma_ci` in `src/analysis_morris.py`)
+and μ̂\* is the point estimate (treated as fixed). A fully ratio-aware
+bootstrap (resampling trajectories and recomputing σ_b / μ\*_b jointly
+per draw) yields a slightly different decomposition (30 / 48 CI-robustly
+linear under that formula); the qualitative conclusion — **zero cells
+are CI-robustly nonlinear under either formula** — is unchanged.
 
 **The Sobol bolt-on is statistically redundant under the
 CI-aware evidence.** The preregistered trigger (σ / μ\* ≥ 0.6) was
@@ -735,7 +822,8 @@ trajectory-level bootstrap analysis above resolves the trigger
 distribution at full evidential weight: **zero of the 48 cells
 satisfy the trigger CI-robustly** (no cell has a lower bootstrap CI
 bound on σ / μ\* at or above 0.6), 31 cells are CI-robustly linear,
-and 17 cells straddle 0.6. Running a variance decomposition on cells
+12 cells straddle 0.6, and 5 cells have no estimable σ / μ\* CI
+(the FiO2- and Vt-edge cells described above). Running a variance decomposition on cells
 whose nonlinearity-trigger status is itself bootstrap-borderline
 cannot tighten the evidential picture — Sobol S₁ / Sₜ indices on
 cells that are not CI-robustly nonlinear simply quantify the
@@ -824,7 +912,10 @@ input pattern. Of the 20:
 * The 16 shared cases correspond to **the same 4 Morris sample
   indices repeated across S1 / S2 / S3 / S4_M** (run_idx 119, 157,
   158, 159 in the canonical sample). The remaining 4 are unique to
-  (S4, M) and add a complementary cluster at high HR / low Vt.
+  (S4, M) at run_idx 24 / 82 / 137 / 138 — a mixed cluster of higher
+  HR (one at 110 bpm, three at 90 bpm) and varied Vt (two at 300 mL,
+  one at 633 mL, one at 800 mL) — a partial second regime that the
+  locked Morris sample explores only at the most severe ARDS impairment.
 
 The divergence signature reads as: **low cardiovascular output (low
 HR + low SBP) combined with high respiratory drive (high RR + high
@@ -964,7 +1055,8 @@ The atlas therefore distinguishes **two separate divergence regimes**:
 
 * **Input-driven regime** (S006): male standard surrogate at low HR
   + low SBP + high RR + FiO2 = 1.0. ~ 5× higher than female.
-  Mechanism candidate: 20 % blood-volume difference (§3.5).
+  Mechanism candidate: ~17 % blood-volume difference (§3.5, computed
+  as (4 802.63 − 3 996.09) / 4 802.63 against the male default).
 * **Severity-driven regime** (S009): both sexes, midrange inputs,
   severity in the band `[0.879, 0.945]`. F slightly higher overall;
   F earlier in the band, M later. Mechanism: solver-stability
@@ -1115,7 +1207,7 @@ hard-failure rate threshold).
 | S4_F  | red    | yellow | yellow | yellow | red    | yellow |
 | S4_M  | red    | red    | red    | red    | red    | red    |
 
-Distribution: **12 green, 24 yellow, 12 red** out of 48 cells.
+Distribution: **7 green, 29 yellow, 12 red** out of 48 cells.
 
 * Green cells cluster in **(S2, F) + (S3, F)** — moderate ARDS in the
   female surrogate is, paradoxically, Pulse's most steady operational
@@ -1280,7 +1372,9 @@ artifact:
 * **Cardiovascular outputs (HR, MAP) become red at and below moderate
   ARDS regardless of sex.** The S3_M, S3_F, S4_M, S4_F cells all show
   HR > 30 % away from the S1_M healthy baseline (mean HR 147 – 158 bpm
-  vs baseline 76 bpm). This is physiologically expected (tachycardic
+  vs 76 bpm; the S1_M-clean HR_mean used as the reliability-classification
+  baseline in §3.7, distinct from the pooled S1 output-HR mean of ~74 bpm
+  reported in §3.4.1). This is physiologically expected (tachycardic
   compensation for hypoxemia), but is *not* an artefact: Pulse's
   cardiovascular response to ARDS is large in magnitude, so users
   building closed-loop simulations on this output should account for
@@ -1401,7 +1495,7 @@ intravenous-fluid and vasopressor doses as the intervention space.
 Table 2 reproduces their per-quantity results re-tabulated against
 this atlas's 6-output panel.
 
-|  Cornish-2023 channel  | Hoeffding rejections / hypotheses | Bootstrap (Cornish Appendix Table 4) | Maps to atlas output? |
+|  Cornish-2023 channel  | Hoeffding rejections / hypotheses | Bootstrap (Cornish Appendix Table 5) | Maps to atlas output? |
 |------------------------|-----------------------------------|--------------------------------------|-----------------------|
 | Chloride               | 24 / 94                           | 47 / 94                              | No (electrolyte)      |
 | Sodium                 | 21 / 94                           | 46 / 94                              | No (electrolyte)      |
@@ -1420,8 +1514,11 @@ this atlas's 6-output panel.
 | RR                     | 0 / 172                           | 12 / 172                             | Atlas input, not output |
 
 *Table 2.* Cornish 2023 Table 1 (Hoeffding's inequality, main text) and
-Table 4 (reverse-percentile bootstrap, Appendix H.6) re-tabulated
-against this atlas's six-output panel. Bold rows mark the four channels
+Table 5 (reverse-percentile bootstrap, Appendix H.6) re-tabulated
+against this atlas's six-output panel. (Cornish's *Table 4* in the
+appendix re-tabulates the Hoeffding results from main-text Table 1;
+the bootstrap rejections used here are in their Table 5. Citation
+label corrected 2026-05-17 in pre-submission Phase-2 audit.) Bold rows mark the four channels
 that overlap directly with HR / MAP / PaO2 / PaCO2.
 
 **Cross-mapping the methodologies.** The atlas's six outputs (HR,
@@ -1452,7 +1549,7 @@ is the channel where Hoeffding rejections concentrate in Cornish,
 and PaCO2 is also the channel where the atlas finds within-sex
 Wasserstein significance (§3.6 H4); both papers single it out as
 the most assessment-sensitive gas-exchange variable. Cornish's
-bootstrap counts (Appendix Table 4) reinforce this: PaCO2 rises to
+bootstrap counts (Appendix Table 5) reinforce this: PaCO2 rises to
 13 / 70 (18.6 %), PaO2 acquires 4 / 78 rejections, and MAP picks up
 3 / 92 — a rank ordering (PaCO2 > PaO2 > MAP > HR) that mirrors
 the red-cell density of the atlas's gas-exchange-then-cardiovascular
@@ -1810,8 +1907,9 @@ during the literature-review pass logged in
   inequality confidence intervals (FWER 0.05) on 1,442 hypotheses
   across 15 physiological quantities; identifies intervention-outcome
   inaccuracies in specific cases (Table 1: 85 total Hoeffding
-  rejections; Appendix Table 4: 281 reverse-percentile-bootstrap
-  rejections). Cited in §1.1 to distinguish prior external assessment
+  rejections; Appendix Table 5: 281 reverse-percentile-bootstrap
+  rejections; Appendix Table 4 is a re-tabulation of the Hoeffding
+  counts). Cited in §1.1 to distinguish prior external assessment
   (intervention-outcome falsification on a different cohort and
   dataset) from this paper's contribution (operational-input
   reliability across the adult ICU envelope); the channel-by-channel
@@ -1947,9 +2045,16 @@ initialization failure prior to stabilization.
   initialization is rejected even if individual values fall within
   the allowed absolute ranges.
 * **Fraction of inspired oxygen (FiO2):** Direct probing confirmed
-  that the engine remains fully stable up to FiO2 = 1.0. The partial
-  pressure of oxygen (PaO2) scales linearly by approximately
-  7.8 mmHg per 0.01 increase in FiO2.
+  that the engine remains fully stable up to FiO2 = 1.0. In the focused
+  single-input probe (`Pulse_translation_new` entry #20, 9 runs sweeping
+  FiO2 ∈ {0.95, …, 1.00} on a healthy male surrogate at fixed
+  ventilation), PaO2 scales linearly by approximately 7.8 mmHg per
+  0.01 increase in FiO2. The atlas's multi-input Morris fit on the
+  S1 clean runs over the full FiO2 ∈ [0.21, 1.0] range gives a flatter
+  slope of ~5 mmHg per 0.01 FiO2 (§3.8, F-003): the difference reflects
+  the averaging across a wider FiO2 envelope and across the seven
+  perturbed inputs rather than a per-step single-input perturbation
+  near the FiO2 = 1.0 boundary.
 
 ### B.3 ARDS severity calibration and solver instability
 

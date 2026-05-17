@@ -289,7 +289,68 @@ def cell_flag_summary(df_master: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+# ---------- Benjamini–Hochberg FDR adjustment ---------- #
+
+
+def bh_fdr_adjust(
+    df: pd.DataFrame,
+    p_col: str = "p_value_empirical",
+    q: float = 0.05,
+) -> pd.DataFrame:
+    """Apply Benjamini–Hochberg FDR control to a DataFrame of p-values.
+
+    The standard BH step-up procedure: sort p-values ascending, find the
+    largest rank ``i`` (1-based) such that ``p_(i) <= i * q / N``, and
+    reject (mark as surviving) every hypothesis up to and including rank
+    ``i``. Returns a copy of ``df`` with three added columns:
+
+        bh_rank      — 1-based ascending rank of the p-value (with stable
+                       ordering for ties).
+        bh_critical  — the BH critical value ``rank * q / N`` at this rank.
+        bh_survives  — True iff this hypothesis is rejected under the
+                       BH procedure at the given ``q``.
+
+    NaN p-values are passed through with all BH columns NaN/False; they
+    do not count toward ``N``.
+
+    Used by §3.6 to determine which of the 24 (scenario × output)
+    Wasserstein tests survive at q=0.05; the manuscript reports 5 survivors
+    (all gas-exchange) under this procedure.
+    """
+    out = df.copy()
+    mask = out[p_col].notna()
+    valid = out.loc[mask, [p_col]].copy()
+    n = len(valid)
+    if n == 0:
+        out["bh_rank"] = float("nan")
+        out["bh_critical"] = float("nan")
+        out["bh_survives"] = False
+        return out
+
+    # Stable ascending rank, 1-based
+    valid = valid.sort_values(p_col, kind="mergesort")
+    valid["bh_rank"] = np.arange(1, n + 1)
+    valid["bh_critical"] = valid["bh_rank"] * (q / n)
+    # Find largest rank where p ≤ critical
+    passes = valid[p_col] <= valid["bh_critical"]
+    if not passes.any():
+        max_rank = 0
+    else:
+        max_rank = int(valid.loc[passes, "bh_rank"].max())
+    valid["bh_survives"] = valid["bh_rank"] <= max_rank
+
+    # Restore original df order
+    out["bh_rank"] = float("nan")
+    out["bh_critical"] = float("nan")
+    out["bh_survives"] = False
+    out.loc[valid.index, "bh_rank"] = valid["bh_rank"].astype(float)
+    out.loc[valid.index, "bh_critical"] = valid["bh_critical"]
+    out.loc[valid.index, "bh_survives"] = valid["bh_survives"]
+    return out
+
+
 __all__ = [
+    "bh_fdr_adjust",
     "cell_flag_summary",
     "flag_count_grid",
     "reliability_classification",

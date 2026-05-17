@@ -29,6 +29,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from src.analysis_compare import (  # noqa: E402
+    bh_fdr_adjust,
     cell_flag_summary,
     flag_count_grid,
     reliability_classification,
@@ -95,6 +96,12 @@ def main() -> int:
     # 5. Sex comparison (H4)
     wass = wasserstein_per_output(df, scenarios)
     wass.to_csv(RESULTS_DIR / "wasserstein_male_vs_female.csv", index=False)
+    # Apply Benjamini–Hochberg FDR control across the 24 cell×output tests
+    bh = bh_fdr_adjust(wass, p_col="p_value_empirical", q=0.05)
+    bh.to_csv(RESULTS_DIR / "bh_fdr_survivors.csv", index=False)
+    n_survivors = int(bh["bh_survives"].sum())
+    n_tests = int(bh["p_value_empirical"].notna().sum())
+    print(f"\n[analyze] BH-FDR (q=0.05): {n_survivors}/{n_tests} survivors")
     spearman = spearman_mu_star_male_vs_female(morris_df, scenarios)
     spearman.to_csv(RESULTS_DIR / "spearman_mu_star.csv", index=False)
     print("\n=== H4 — sex comparison (Wasserstein) ===")

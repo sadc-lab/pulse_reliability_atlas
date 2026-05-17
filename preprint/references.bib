@@ -46,7 +46,7 @@
   author    = {{Kitware, Inc.}},
   howpublished = {\url{https://pulse.kitware.com/_mechanical_ventilator_methodology.html}},
   year      = {2026},
-  note      = {Tables 3, 5, 10, 12, 17, 19 of the validation section report Pulse vs ASL 5000 + Drager Evita Infinity V500 tidal-volume errors for VC-AC (0.07 percent healthy / 1.01 percent restrictive / 2.25 percent obstructive) and PC-AC (11.3 percent healthy / 25.3 percent restrictive / 15.3 percent obstructive). Source of the numerical Vt-accuracy claims in this paper; the qualitative validation framework is described in @webb2022vent. Verified 2026-05-12.}
+  note      = {Tables 3, 5, 10, 12, 17, 19 of the validation section report Pulse vs ASL 5000 + Drager Evita Infinity V500 tidal-volume errors for VC-AC (0.0681 percent healthy [rounded to 0.07 percent in this manuscript] / 1.01 percent restrictive / 2.25 percent obstructive) and PC-AC (11.3 percent healthy / 25.3 percent restrictive / 15.3 percent obstructive). Source of the numerical Vt-accuracy claims in this paper; the qualitative validation framework is described in @webb2022vent. Verified 2026-05-12; healthy VC-AC value re-verified against live Table 3 in pre-submission Phase-2 citation audit (2026-05-17), which confirmed the 0.0681 percent figure exactly.}
 }
 
 @misc{pulserespmethod,
@@ -54,7 +54,7 @@
   author    = {{Kitware, Inc.}},
   howpublished = {\url{https://pulse.kitware.com/_respiratory_methodology.html}},
   year      = {2026},
-  note      = {Source of Pulse's documented ARDS severity-to-impairment-fraction mapping (mild = 0.3, moderate = 0.6, severe = 0.9) and its associated P/F-ratio validation claim (340, 130, 50 mmHg for the three bands). Verified verbatim 2026-05-15 in support of the S 2.3 / Appendix B.3 calibration discrepancy discussion. The page also describes the piecewise-linear severity-to-modifier mapping ("calibrated at key transition points: 0.0, 0.3, 0.6, 0.9, 1.0") and the per-compartment alveolar-modifier scheme used by the ARDS condition. The atlas references this page as the canonical documentation against which the empirical {0.26, 0.60, 0.95} calibration is contrasted.}
+  note      = {Source of Pulse's documented ARDS severity-to-impairment-fraction mapping (mild = 0.3, moderate = 0.6, severe = 0.9) and the piecewise-linear severity-to-modifier scheme ("calibrated at key transition points: 0.0, 0.3, 0.6, 0.9, 1.0"). The associated P/F-ratio validation claim (340 / 130 / 50 mmHg for the three bands) is NOT stated on this documentation page; the quantitative P/F validation appears only in the peer-reviewed @webb2020 Pulse-team COVID-19 multiplex paper. Earlier draft attribution to this page was corrected 2026-05-17 in the pre-submission Phase-2 citation audit after live re-verification of the Respiratory Methodology URL. The atlas references this page for the severity-to-modifier mapping only; the empirical {0.26, 0.60, 0.95} calibration is contrasted against the documented mapping in Appendix B.3, with the documented P/F claim sourced to @webb2020.}
 }
 
 @article{cornish2023,

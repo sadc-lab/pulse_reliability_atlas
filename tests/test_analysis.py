@@ -167,3 +167,51 @@ def test_cell_flag_summary_columns():
     assert s1m["n_total"] == 5
     assert s1m["n_diverged"] == 1
     assert s1m["n_clean"] == 4
+
+
+def test_bh_fdr_adjust_reproduces_manuscript_24row_result():
+    """The 24 Wasserstein p-values from §3.6 should yield exactly 5 survivors at q=0.05.
+
+    BH critical for the 5th-ranked p-value: 5 × 0.05 / 24 ≈ 0.01042
+    Sorted p-values: 0.0, 0.0, 0.0015, 0.003, 0.009 → all pass
+                     0.0215 → fails (> 0.0125 critical at rank 6)
+    """
+    # Empirical p-values from data/audit_S015/wasserstein_male_vs_female.csv
+    p_values = [
+        0.305, 0.9945, 0.798, 0.123, 0.598, 0.009,  # S1: HR, MAP, Vt, SpO2, PaO2, PaCO2
+        0.958, 0.6515, 0.84, 0.0215, 0.0725, 0.0,   # S2: HR, MAP, Vt, SpO2, PaO2, PaCO2
+        0.333, 0.5375, 0.129, 0.1185, 0.245, 0.0,   # S3
+        0.9525, 0.46, 0.897, 0.0015, 0.003, 0.0825, # S4
+    ]
+    df = pd.DataFrame({"p_value_empirical": p_values})
+    out = ac.bh_fdr_adjust(df, q=0.05)
+    n_survivors = int(out["bh_survives"].sum())
+    assert n_survivors == 5, f"expected 5 survivors, got {n_survivors}"
+    # Survivors must be the five smallest p-values (≤ 0.009)
+    survivors = out.loc[out["bh_survives"], "p_value_empirical"].sort_values().tolist()
+    assert survivors == [0.0, 0.0, 0.0015, 0.003, 0.009]
+
+
+def test_bh_fdr_adjust_handles_nan_and_empty():
+    df = pd.DataFrame({"p_value_empirical": [0.001, float("nan"), 0.5]})
+    out = ac.bh_fdr_adjust(df, q=0.05)
+    # NaN row: BH columns NaN/False
+    nan_row = out.iloc[1]
+    assert pd.isna(nan_row["bh_rank"])
+    assert not nan_row["bh_survives"]
+    # 2 valid p-values: smallest (0.001) survives at critical 1×0.05/2 = 0.025
+    assert out.iloc[0]["bh_survives"]
+    assert not out.iloc[2]["bh_survives"]
+
+    # Empty
+    empty = pd.DataFrame({"p_value_empirical": []})
+    out2 = ac.bh_fdr_adjust(empty, q=0.05)
+    assert len(out2) == 0
+    assert {"bh_rank", "bh_critical", "bh_survives"}.issubset(out2.columns)
+
+
+def test_bh_fdr_adjust_no_survivors():
+    """If no p-value clears any BH critical, no survivors."""
+    df = pd.DataFrame({"p_value_empirical": [0.5, 0.6, 0.7]})
+    out = ac.bh_fdr_adjust(df, q=0.05)
+    assert int(out["bh_survives"].sum()) == 0

@@ -1,0 +1,7 @@
+scenario,sex,output,canon_top3,new_top3,same_set,same_order
+S2,M,HR,"['hr', 'rr', 'peep']","['hr', 'fio2', 'rr']",False,False
+S2,M,MAP,"['sbp', 'dbp', 'hr']","['sbp', 'dbp', 'hr']",True,True
+S2,M,PaCO2,"['vt', 'rr', 'fio2']","['vt', 'rr', 'fio2']",True,True
+S2,M,PaO2,"['fio2', 'rr', 'peep']","['fio2', 'peep', 'rr']",True,False
+S2,M,SpO2,"['fio2', 'vt', 'peep']","['fio2', 'vt', 'peep']",True,True
+S2,M,Vt,"['vt', 'rr', 'sbp']","['vt', 'rr', 'fio2']",False,False
