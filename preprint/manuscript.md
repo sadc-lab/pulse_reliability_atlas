@@ -120,9 +120,11 @@ before any data was collected (preregistration §Inputs, §Scenarios,
 
 * **Inputs** swept from Pulse's *verified* acceptance ranges
   (E10 / E28 / E29 boundary probes).
-* **Scenarios** spanning healthy adult and three ARDS severities
-  anchored on the Berlin Definition [@ards2012] and PALICC-2
-  [@emeriaud2023] classifications.
+* **Scenarios** spanning healthy adult and three ARDS severities,
+  calibrated on the Berlin Definition's PaO2/FiO2 bands [@ards2012].
+  PALICC-2 [@emeriaud2023] is cited as the parallel pediatric
+  severity framework; note that PALICC-2 itself favours Oxygenation
+  Index (OI) / Oxygen Saturation Index (OSI) over P/F.
 * **A four-flag classifier** that categorizes every run rather than
   discarding flagged ones (preregistration discipline per
   [@munafo2017]).
@@ -1269,16 +1271,22 @@ Distribution: **7 green, 29 yellow, 12 red** out of 48 cells.
 
   Source audit of `SEMechanicalVentilatorVolumeControl::ToSettings`
   (`SEMechanicalVentilatorVolumeControl.cpp` lines 120–128, Pulse 4.3.1)
-  identifies the mechanism. Pulse's VC-AC mode falls through to
-  `InspirationPatientTriggerRespiratoryModel = On` when the action
-  specifies neither `InspirationPatientTriggerFlow` nor
-  `InspirationPatientTriggerPressure`:
+  identifies the mechanism. Pulse's VC-AC mode sets
+  `InspirationPatientTriggerRespiratoryModel` to `eSwitch::Off` at the
+  top of `ToSettings`, then in `AssistedControl` mode flips it back to
+  `eSwitch::On` when the action specifies neither
+  `InspirationPatientTriggerFlow` nor `InspirationPatientTriggerPressure`:
 
   ```cpp
-  if (!HasInspirationPatientTriggerFlow() &&
-      !HasInspirationPatientTriggerPressure())
+  s.SetInspirationPatientTriggerRespiratoryModel(eSwitch::Off);
+  if (GetMode() == eMechanicalVentilator_VolumeControlMode::AssistedControl)
   {
-      SetInspirationPatientTriggerRespiratoryModel(On);
+    if (HasInspirationPatientTriggerFlow())
+      s.GetInspirationPatientTriggerFlow().Set(GetInspirationPatientTriggerFlow());
+    if (HasInspirationPatientTriggerPressure())
+      s.GetInspirationPatientTriggerPressure().Set(GetInspirationPatientTriggerPressure());
+    if(!HasInspirationPatientTriggerFlow() && !HasInspirationPatientTriggerPressure())
+      s.SetInspirationPatientTriggerRespiratoryModel(eSwitch::On);
   }
   ```
 
