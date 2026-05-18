@@ -1,0 +1,408 @@
+{
+  "s018_default_4802_63": {
+    "n_total": 20,
+    "diverged": 20,
+    "note": "default-image runs are the 20 original diverged inputs \u2014 manuscript Table value is reference, no CSV produced."
+  },
+  "s018_bracket_4400": {
+    "n_total": 20,
+    "diverged": 2,
+    "implausible": 1,
+    "not_steady_state": 8,
+    "clean": 10
+  },
+  "s018_floor_4082_24": {
+    "n_total": 20,
+    "diverged": 0,
+    "implausible": 1,
+    "not_steady_state": 8,
+    "clean": 12
+  },
+  "s014_trigger_lockout": {
+    "columns": [
+      "case_id",
+      "scenario",
+      "sex",
+      "Vt_cv_orig",
+      "case_id_lock",
+      "Vt_cv_lock",
+      "delta"
+    ],
+    "head": [
+      {
+        "case_id": "S1_F_0117",
+        "scenario": "S1",
+        "sex": "F",
+        "Vt_cv_orig": 1.8257418583505538,
+        "case_id_lock": "S1_F_0117_lock",
+        "Vt_cv_lock": 0.017750431006641063,
+        "delta": 1.8079914273439128
+      },
+      {
+        "case_id": "S1_F_0118",
+        "scenario": "S1",
+        "sex": "F",
+        "Vt_cv_orig": 1.8257418583505538,
+        "case_id_lock": "S1_F_0118_lock",
+        "Vt_cv_lock": 0.024182390126817867,
+        "delta": 1.801559468223736
+      },
+      {
+        "case_id": "S1_F_0119",
+        "scenario": "S1",
+        "sex": "F",
+        "Vt_cv_orig": 1.080226382154696,
+        "case_id_lock": "S1_F_0119_lock",
+        "Vt_cv_lock": 0.024943580744492645,
+        "delta": 1.0552828014102034
+      }
+    ]
+  },
+  "cont_severity_bins": [
+    {
+      "label": "[0, 0.5]",
+      "F_n": 31,
+      "F_diverged": 0,
+      "M_n": 31,
+      "M_diverged": 0
+    },
+    {
+      "label": "(0.5, 0.85]",
+      "F_n": 20,
+      "F_diverged": 0,
+      "M_n": 20,
+      "M_diverged": 0
+    },
+    {
+      "label": "(0.85, 0.91]",
+      "F_n": 18,
+      "F_diverged": 14,
+      "M_n": 18,
+      "M_diverged": 5
+    },
+    {
+      "label": "(0.91, 0.945]",
+      "F_n": 10,
+      "F_diverged": 5,
+      "M_n": 10,
+      "M_diverged": 9
+    },
+    {
+      "label": "(0.945, 0.95]",
+      "F_n": 2,
+      "F_diverged": 0,
+      "M_n": 2,
+      "M_diverged": 0
+    },
+    {
+      "label": "(0.95, 1.0]",
+      "F_n": 19,
+      "F_diverged": 0,
+      "M_n": 19,
+      "M_diverged": 0
+    }
+  ],
+  "cont_lowest_F_diverged_severity": 0.879,
+  "cont_lowest_M_diverged_severity": 0.899,
+  "cont_highest_F_diverged_severity": 0.927,
+  "cont_highest_M_diverged_severity": 0.945,
+  "cont_F_diverged_total": 19,
+  "cont_M_diverged_total": 14,
+  "reliability_colours": {
+    "counts": {
+      "yellow": 29,
+      "red": 12,
+      "green": 7
+    },
+    "total_rows": 48
+  },
+  "reliability_grid": [
+    {
+      "scenario": "S1",
+      "sex": "F",
+      "HR": "yellow",
+      "MAP": "yellow",
+      "PaCO2": "yellow",
+      "PaO2": "yellow",
+      "SpO2": "yellow",
+      "Vt": "yellow"
+    },
+    {
+      "scenario": "S1",
+      "sex": "M",
+      "HR": "yellow",
+      "MAP": "yellow",
+      "PaCO2": "yellow",
+      "PaO2": "yellow",
+      "SpO2": "yellow",
+      "Vt": "yellow"
+    },
+    {
+      "scenario": "S2",
+      "sex": "F",
+      "HR": "yellow",
+      "MAP": "green",
+      "PaCO2": "green",
+      "PaO2": "yellow",
+      "SpO2": "green",
+      "Vt": "green"
+    },
+    {
+      "scenario": "S2",
+      "sex": "M",
+      "HR": "yellow",
+      "MAP": "yellow",
+      "PaCO2": "yellow",
+      "PaO2": "yellow",
+      "SpO2": "yellow",
+      "Vt": "yellow"
+    },
+    {
+      "scenario": "S3",
+      "sex": "F",
+      "HR": "red",
+      "MAP": "yellow",
+      "PaCO2": "green",
+      "PaO2": "red",
+      "SpO2": "green",
+      "Vt": "green"
+    },
+    {
+      "scenario": "S3",
+      "sex": "M",
+      "HR": "red",
+      "MAP": "yellow",
+      "PaCO2": "yellow",
+      "PaO2": "red",
+      "SpO2": "yellow",
+      "Vt": "yellow"
+    },
+    {
+      "scenario": "S4",
+      "sex": "F",
+      "HR": "red",
+      "MAP": "yellow",
+      "PaCO2": "yellow",
+      "PaO2": "red",
+      "SpO2": "yellow",
+      "Vt": "yellow"
+    },
+    {
+      "scenario": "S4",
+      "sex": "M",
+      "HR": "red",
+      "MAP": "red",
+      "PaCO2": "red",
+      "PaO2": "red",
+      "SpO2": "red",
+      "Vt": "red"
+    }
+  ],
+  "h1_top3": {
+    "n_rows": 48,
+    "min": 0.6580637848255388,
+    "median": 0.9276880248464499,
+    "max": 0.998452909452578,
+    "n_above_05": 48,
+    "columns": [
+      "scenario",
+      "sex",
+      "output",
+      "top3_fraction",
+      "h1_pass"
+    ],
+    "head": [
+      {
+        "scenario": "S1",
+        "sex": "F",
+        "output": "HR",
+        "top3_fraction": 0.9899202450473754,
+        "h1_pass": true
+      },
+      {
+        "scenario": "S1",
+        "sex": "F",
+        "output": "MAP",
+        "top3_fraction": 0.9925878094790682,
+        "h1_pass": true
+      },
+      {
+        "scenario": "S1",
+        "sex": "F",
+        "output": "PaCO2",
+        "top3_fraction": 0.9546813010133836,
+        "h1_pass": true
+      }
+    ]
+  },
+  "sigma_mu_buckets": {
+    "n_cells_total": 48,
+    "counts": {
+      "robust_linear": 31,
+      "straddle": 12,
+      "no_CI": 5
+    },
+    "n_point_trigger_above_06": 8,
+    "n_point_below_06": 40
+  },
+  "sigma_mu_no_CI_cells": [
+    {
+      "scenario": "S1",
+      "sex": "F",
+      "output": "Vt",
+      "input": "vt",
+      "n_clean_pairs": 1
+    },
+    {
+      "scenario": "S1",
+      "sex": "F",
+      "output": "PaO2",
+      "input": "vt",
+      "n_clean_pairs": 1
+    },
+    {
+      "scenario": "S4",
+      "sex": "M",
+      "output": "PaO2",
+      "input": "fio2",
+      "n_clean_pairs": 1
+    },
+    {
+      "scenario": "S1",
+      "sex": "F",
+      "output": "PaCO2",
+      "input": "vt",
+      "n_clean_pairs": 1
+    },
+    {
+      "scenario": "S4",
+      "sex": "M",
+      "output": "SpO2",
+      "input": "fio2",
+      "n_clean_pairs": 1
+    }
+  ],
+  "cornish_table2_internal": {
+    "total_hoeffding": 85,
+    "total_bootstrap": 281,
+    "overlap_hoeffding_3_channels": 3,
+    "overlap_bootstrap_3_channels": 21,
+    "non_overlap_hoeffding": 82,
+    "non_overlap_bootstrap": 260,
+    "non_cardiorespiratory_hoeffding_7chans": 80,
+    "non_cardiorespiratory_bootstrap_7chans": 240,
+    "rows": [
+      {
+        "channel": "Chloride",
+        "hoeffding": 24,
+        "bootstrap": 47,
+        "atlas_overlap": false
+      },
+      {
+        "channel": "Sodium",
+        "hoeffding": 21,
+        "bootstrap": 46,
+        "atlas_overlap": false
+      },
+      {
+        "channel": "Potassium",
+        "hoeffding": 13,
+        "bootstrap": 33,
+        "atlas_overlap": false
+      },
+      {
+        "channel": "Skin Temperature",
+        "hoeffding": 10,
+        "bootstrap": 43,
+        "atlas_overlap": false
+      },
+      {
+        "channel": "Calcium",
+        "hoeffding": 5,
+        "bootstrap": 44,
+        "atlas_overlap": false
+      },
+      {
+        "channel": "Glucose",
+        "hoeffding": 5,
+        "bootstrap": 19,
+        "atlas_overlap": false
+      },
+      {
+        "channel": "HCO3",
+        "hoeffding": 2,
+        "bootstrap": 8,
+        "atlas_overlap": false
+      },
+      {
+        "channel": "pH",
+        "hoeffding": 0,
+        "bootstrap": 0,
+        "atlas_overlap": false
+      },
+      {
+        "channel": "PaCO2",
+        "hoeffding": 3,
+        "bootstrap": 13,
+        "atlas_overlap": true
+      },
+      {
+        "channel": "PaO2",
+        "hoeffding": 0,
+        "bootstrap": 4,
+        "atlas_overlap": true
+      },
+      {
+        "channel": "MeanBP",
+        "hoeffding": 0,
+        "bootstrap": 3,
+        "atlas_overlap": true
+      },
+      {
+        "channel": "SysBP",
+        "hoeffding": 2,
+        "bootstrap": 8,
+        "atlas_overlap": false
+      },
+      {
+        "channel": "DiaBP",
+        "hoeffding": 0,
+        "bootstrap": 0,
+        "atlas_overlap": false
+      },
+      {
+        "channel": "HR",
+        "hoeffding": 0,
+        "bootstrap": 1,
+        "atlas_overlap": true
+      },
+      {
+        "channel": "RR",
+        "hoeffding": 0,
+        "bootstrap": 12,
+        "atlas_overlap": false
+      }
+    ]
+  },
+  "bv_difference_pct": {
+    "male_default_mL": 4802.63,
+    "female_default_mL": 3996.09,
+    "diff_mL": 806.54,
+    "diff_pct_vs_male": 16.7937151102625,
+    "diff_pct_vs_female": 20.183229106451556
+  },
+  "sex_divergence_rate": {
+    "male_diverged_per_male_runs": 0.03125,
+    "female_diverged_per_female_runs": 0.0,
+    "male_rate_pct": 3.125,
+    "x_more_likely": 20.0
+  },
+  "s1_f_0008_lung_compliance_check": {
+    "n_points": 3001,
+    "mean": 0.09000495634788404,
+    "std": 7.035118203059857e-07,
+    "min": 0.090003,
+    "max": 0.090006,
+    "range": 3.0000000000030003e-06
+  }
+}

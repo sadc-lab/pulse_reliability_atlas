@@ -202,7 +202,7 @@ Source: `results/reliability_classification.csv`.
 | S4_F  | red    | yellow | yellow | yellow | red    | yellow |
 | S4_M  | red    | red    | red    | red    | red    | red    |
 
-Distribution: 12 green, 24 yellow, 12 red.
+Distribution: 7 green, 29 yellow, 12 red.
 
 ---
 

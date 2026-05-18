@@ -691,11 +691,12 @@ visual patterns dominate:
   ventilation identity V̇A = RR · (Vt − V_dead). SpO2 is also
   ventilator-driven but at a tiny absolute scale (μ\* ≤ 0.12) because
   the output sits at the hemoglobin saturation ceiling.
-* **The ARDS gradient is visible.** PaO2's FiO2 sensitivity peaks at
-  S2 / S3 (μ\* = 133 – 147 mmHg) and *collapses* in severe ARDS (μ\* =
-  31 in (S4, M)). Pulse correctly captures the regime where shunt
-  physiology pins PaO2 regardless of FiO2 — a textbook ARDS finding,
-  captured by the engine without explicit programming.
+* **The ARDS gradient is visible.** PaO2's FiO2 sensitivity peaks in
+  S2 (μ\* = 133 – 147 mmHg), remains substantial in S3 (μ\* = 84 – 93
+  mmHg), and *collapses* in severe ARDS (μ\* = 31 in (S4, M)). Pulse
+  correctly captures the regime where shunt physiology pins PaO2
+  regardless of FiO2 — a textbook ARDS finding, captured by the engine
+  without explicit programming.
 * **Output Vt tracks input Vt at μ\* ≈ 500 mL** in every cell — by
   far the largest μ\* in the atlas. In VC-AC mode, asking Pulse for a
   500 mL tidal volume produces close to a 500 mL delivered tidal
@@ -1000,15 +1001,16 @@ The same 160 Morris input points were submitted to both M and F cells
 (Pulse-standard adult: M = 67.3 kg / 180 cm; F = 56.2 kg / 163 cm).
 Same physics engine, same condition string, same ventilator settings.
 The only difference is patient mass / height / sex flag — yet the
-divergence rate is **5 % for males and 0 % for females**, holding across
-all four scenarios.
+divergence rate is **2.5 % in S1_M, S2_M, and S3_M (4 / 160 each) and
+5.0 % in S4_M (8 / 160), against 0 % in every female cell**. The
+overall male rate is 20 / 640 = 3.1 %; the female rate is 0 / 640.
 
 This is the first quantitative sex-specific reliability finding for
 Pulse 4.3.1 and is significant for any device-validation pipeline that
-uses Pulse as a virtual patient. Specifying the male standard surrogate
-roughly **5× more likely** to push the engine into a divergence regime
-at any given Morris point inside the locked envelope. The diverged-run
-input combinations are catalogued by `results/diverged_grid.parquet`
+uses Pulse as a virtual patient. **All 20 divergences occur on the
+male surrogate; the female surrogate, run on the identical input grid,
+never diverges within the locked envelope.** The diverged-run input
+combinations are catalogued by `results/diverged_grid.parquet`
 (2-D heatmap of divergence rate per input-pair × cell).
 
 H3 is therefore **partially supported** with a stronger qualifier: a
@@ -1027,20 +1029,21 @@ all 7 Morris inputs at midrange (HR = 80, SBP = 105, DBP = 70, RR =
 | Severity range  | F diverged | M diverged |
 |------------------|------------|------------|
 | [0, 0.5]         | 0 / 31     | 0 / 31     |
-| (0.5, 0.85]      | 0 / 19     | 0 / 19     |
-| (0.85, 0.91]     | **14 / 19**| 5 / 19     |
-| (0.91, 0.945]    | 5 / 9      | **8 / 9**  |
-| (0.945, 0.95]    | 0 / 2      | 1 / 2      |
-| (0.95, 1.0]      | 0 / 20     | 0 / 20     |
+| (0.5, 0.85]      | 0 / 20     | 0 / 20     |
+| (0.85, 0.91]     | **14 / 18**| 5 / 18     |
+| (0.91, 0.945]    | 5 / 10     | **9 / 10** |
+| (0.945, 0.95]    | 0 / 2      | 0 / 2      |
+| (0.95, 1.0]      | 0 / 19     | 0 / 19     |
 
 Two refinements of the literature picture:
 
 1. **The instability band is wider than previously reported.** The
    `Pulse_translation_new` E6 audit reported an instability zone at
    `[0.91, 0.945]`. Our continuous sweep at midrange inputs places
-   the band at `[0.879, 0.945]` — about 35 % wider on the low side.
-   The discrepancy is consistent with input dependence: E6 used
-   ventilator settings tailored to ARDS calibration; the atlas's
+   the band at `[0.879, 0.945]` — the lower edge moves down by 0.031,
+   extending the band on the low side by about 90 % of the original
+   E6 width. The discrepancy is consistent with input dependence: E6
+   used ventilator settings tailored to ARDS calibration; the atlas's
    midrange settings reach instability earlier.
 
 2. **The S006 sex-stratification is regime-dependent.** In the
@@ -1121,16 +1124,17 @@ unbolded.
 distances survive BH-FDR control at q = 0.05 against a within-sex
 subsampling null.
 **All five are gas-exchange channels (PaCO2 ×3, SpO2 ×1, PaO2 ×1).**
-Cardiovascular outputs (HR, MAP) and ventilator output (Vt) show
-M-vs-F distances *within* the within-sex null distribution — i.e.
-the ~ 13 – 36 mL Vt difference and the ~ 1 – 5 bpm HR difference are
-not larger than what the same population produces by random sub-
-sampling. **Initial uncorrected analyses (α = 0.05) flagged Vt and HR
-as significant sex effects, alongside an additional S2 SpO2 finding
-(6 / 24 rows). Applying the within-sex null correction under BH-FDR
-control at q = 0.05 reveals that these distances do not exceed what
-the population produces by random sub-sampling; the corrected count
-is reported here in place of the uncorrected one.**
+**Initial uncorrected analyses (α = 0.05) flagged 6 / 24 rows
+as significant — all gas-exchange (S1 PaCO2, S2 SpO2, S2 PaCO2,
+S3 PaCO2, S4 SpO2, S4 PaO2). Applying Benjamini–Hochberg FDR control
+at q = 0.05 demotes S2 SpO2 (p_emp = 0.022, above the BH critical
+value 5 · 0.05 / 24 ≈ 0.0104 for the 5th-ranked test); the corrected
+count of 5 survivors is reported here in place of the uncorrected
+one. Cardiovascular outputs (HR, MAP) and ventilator output (Vt) do
+not exceed the within-sex null even before multiple-comparisons
+correction — the ~ 13 – 36 mL Vt difference and the ~ 1 – 5 bpm HR
+difference are not larger than what the same population produces by
+random sub-sampling.**
 
 The remaining sex-stratified effect concentrates exactly where
 sex-specific physiology should matter most: gas exchange, where
