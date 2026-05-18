@@ -157,7 +157,22 @@ the prose.*
 
 ## 1. Introduction
 
+*This section frames the gap the atlas closes. Pulse 4.3.1's
+developers state on the public FAQ that no formal sensitivity
+analysis on user-facing operational inputs has been performed; this
+paper produces that map. The introduction catalogues the twelve
+verified engine limitations the atlas builds on, summarises the
+contributions, and introduces the experiment-log tag system
+(S001 – S020) used throughout.*
+
 ### 1.1 Motivation
+
+*Why this paper exists. Pulse is widely used in clinical research,
+medical-device development, and education, yet no public sensitivity /
+clamping / divergence map of its user-facing operational envelope has
+been published — every user re-encounters the same limitations
+independently. This section sources that gap directly from the Pulse
+FAQ and frames the atlas as the first open answer.*
 
 The Pulse Physiology Engine [@bray2019] (Kitware, Apache-2.0)
 is among the most-cited open-source whole-body human physiology
@@ -255,6 +270,13 @@ consolidated in §4.5.
 
 ### 1.2 Verified limitations of Pulse 4.3.1
 
+*The twelve Pulse limitations the atlas is calibrated against, each
+tied to a primary source (FAQ, source-code audit, or our own
+boundary experiments — see S003 / S010 / S016). Two previously
+asserted but unverified claims — FiO2 = 1.0 crashes the solver, and
+Pulse has no sex-specific physiology — were withdrawn before
+preregistration locked.*
+
 Twelve limitations were verified against primary sources before the
 preregistration was locked ([S003](../experiments_log/santino/S003_pulse_limitations_verified.md)).
 This atlas adds quantitative coverage to those:
@@ -287,6 +309,13 @@ silently capped at the wrapper layer.
 
 ### 1.3 Contributions
 
+*The five methodological contributions of the paper, in prose form:
+the atlas itself, the four-flag classifier, Morris EE with bootstrap
+CI, the first sex-specific comparison in the Pulse literature, and
+the cell-level traffic-light reliability map. (See also the
+artifact-focused 'Key contributions' bullet list near the top of the
+paper, which highlights the same work as reusable deliverables.)*
+
 * The first open reliability atlas for Pulse 4.3.1 across two patient
   surrogates and four scenarios.
 * A four-flag classifier (`clamped` / `diverged` / `implausible` /
@@ -302,6 +331,12 @@ silently capped at the wrapper layer.
   output, suitable for direct user consumption.
 
 ### 1.4 Experiment log nomenclature (S001 – S020)
+
+*A one-line description of each of the 20 experiment-log entries
+cited throughout the paper. Skim this table once to make every later
+'S0xx' reference interpretable on first encounter; the full audit
+trail lives in Appendix A and the underlying notebooks in the
+repository.*
 
 Throughout this paper we reference experiments by short tags of the
 form **S001, S002, …, S020**. Each tag corresponds to a self-contained
@@ -340,7 +375,20 @@ underlying files are in the repository.
 
 ## 2. Methods
 
+*This section is the engineering layer of the atlas: which Pulse
+version, which inputs, which scenarios, which patient surrogates,
+which Morris design, which flags. Every threshold, every range, and
+every priority order was locked in the preregistration before the
+1,280-run sweep launched.*
+
 ### 2.1 Engine and atlas wrapper
+
+*The exact Pulse version, Docker image, and atlas wrapper layered on
+top — including the deliberate raising of `FiO2_MAX` from 0.95 to 1.0
+so the upper boundary actually reaches Pulse rather than being silently
+capped at the wrapper layer. Pinned image hashes and the
+version-pinning rationale appear at the end so any future reader can
+reproduce the sweep bit-exactly.*
 
 * Pulse 4.3.1 (Kitware, Apache-2.0).
 * Atlas-local Docker image `pulse-atlas-engine` built from
@@ -396,6 +444,13 @@ Pulse release.
 
 ### 2.2 Inputs
 
+*The seven user-facing operational inputs and the verified acceptance
+ranges they were swept over. MAP is *derived* from SBP and DBP rather
+than swept independently, to avoid redundant sampling and constraint
+violation. The DBP / SBP ≤ 0.75 ratio is enforced at the scenario
+builder, not the sampler, so Morris geometry stays intact for
+elementary-effects computation.*
+
 Seven inputs swept, ranges verified in Pulse boundary probes
 (E10/E28/E29):
 
@@ -419,6 +474,14 @@ requested DBP (Morris coordinate) and the applied DBP (post-clip, sent to
 Pulse) are persisted in the master Parquet.
 
 ### 2.3 Scenarios and patients
+
+*The 4 scenarios × 2 patient surrogates = 8 cells of the atlas.
+Healthy and three ARDS severities, calibrated on the Berlin
+definition's PaO2 / FiO2 bands and bracketing Pulse's 0.91 – 0.945
+solver-instability zone, each run on the Pulse standard male and
+female bodies. Ventilator mode is VC-AC only — the configuration
+Pulse's own validation table reports as most accurate (0.07 – 2.25 %
+Vt error vs PC-AC's 11.3 – 25.3 %).*
 
 Four scenarios × two patients = 8 cells:
 
@@ -484,10 +547,23 @@ preregistration's VC-AC restriction.
 
 ### 2.4 Simulation cadence
 
+*Temporal sampling decisions: 120 s simulation, 5 s CSV sample
+interval, locked steady-state window [60, 120] s — 13 points per
+clean run, enough resolution to compute steady-state mean, variance,
+drift, and flatline diagnostics for the detector without storing
+high-frequency time-series.*
+
 120 s simulation, sample interval 5 s, steady-state window [60, 120] s
 (13 points). Detector enforces 13 points / clean run.
 
 ### 2.5 Morris sampling
+
+*Why Morris elementary effects is the right screening method here: it
+ranks inputs by overall importance (μ\*) and flags non-linearity (σ)
+at a small fraction of the cost of a full variance-based analysis.
+Implementation uses SALib's `morris.sample(N=20, num_levels=4,
+seed=42)` → 160 unique input points, identical across cells so
+elementary-effect rankings are directly comparable.*
 
 The Morris elementary-effects design [@morris1991], with the radial-
 trajectory + μ\* refinement of [@campolongo2007],
@@ -502,6 +578,14 @@ cell, so EE rankings are directly comparable across cells. Sample
 persisted at `data/runs/full_sweep/morris_sample.parquet`.
 
 ### 2.6 Detector
+
+*The four orthogonal flags that classify every run: `clamped` (Pulse
+silently bent the input), `diverged` (NaN / Inf / exit code ≠ 0),
+`implausible` (steady-state mean outside hard physiological bounds),
+and `not_steady_state` (flatline, drift, or excess variance). All
+thresholds were locked in preregistration before data collection,
+with priority order `clamped > diverged > implausible >
+not_steady_state > clean` for primary-flag analyses.*
 
 Four flags locked in preregistration §Flags; thresholds calibrated on real
 Pulse runs without modifying preregistration thresholds (only one
@@ -533,6 +617,12 @@ defense-in-depth contract was verified end-to-end in
 
 ### 2.7 Pilot gate (S005)
 
+*The five preregistered gates the 22-run pilot on cell (S1, M) had to
+pass before the full 1,280-run sweep launched: success rate, detector
+self-consistency, 13-point steady-state window, clamp-regex
+reachability, and Pulse determinism. The pilot also surfaced and
+resolved three pipeline bugs before the compute budget was spent.*
+
 A 22-run pilot on cell (S1, M) with 16 unique Morris points + 4
 reproducibility reruns + 2 deliberate clamp probes verified all five
 preregistered gate criteria: success rate, detector self-consistency,
@@ -543,6 +633,13 @@ origin, case_id collision, G4 unreachability from locked Morris ranges)
 *before* the full sweep launched.
 
 ### 2.8 Hardware and reproducibility
+
+*The laptop hardware envelope (i5-11400H, 8 GB RAM, no GPU), the 2–3
+parallel Docker throughput verified in S001, and the eleven
+independent verification points that make the published numbers
+reproducible bit-exactly. A pre-submission Phase-4 re-execution
+(1,280 / 1,280 runs) extends bit-exact reproduction from the
+S015 40-run audit to the full envelope.*
 
 i5-11400H (6 physical / 12 logical cores), 8 GB RAM, no GPU. Docker
 allocation 3.95 GB / 12 CPU. Two-to-three parallel containers per the
@@ -617,6 +714,13 @@ confirms the bootstrap-CI-aware story §3.3.1 already tells.
 
 ### 2.9 Using the four-flag classifier independently
 
+*The minimal public API for re-using the four-flag classifier on
+someone else's Pulse output, without re-running the atlas sweep.
+Future Pulse users can import `src.detector.classify`; thresholds and
+steady-state-window constants are module-level so they can be
+overridden in a wrapper module rather than by editing the classifier
+itself.*
+
 The detector is a stand-alone instrument; any Pulse user can apply it
 to their own output CSVs without re-running the atlas sweep. Calling
 contract for `src/detector.py`:
@@ -657,6 +761,14 @@ collection) should transfer to any downstream sweep that uses this
 instrument.
 
 ### 2.10 Statistical methods overview
+
+*A plain-language definition of every statistical tool used in §3
+(Results) and §4 (Discussion) — Morris EE, block bootstrap, Sobol
+(preregistered but closed-by-redundancy; see §3.3.1), 1-Wasserstein
+distance, the within-sex sub-sampling null, Spearman ρ, BH-FDR
+control, and Hoeffding / Holm–Bonferroni (external; used by Cornish
+2023, §4.4). First appearance of each test in §3 is therefore
+immediately interpretable.*
 
 Several distinct statistical tools are used in §3 (Results) and §4
 (Discussion). We define each here in plain language so the first
@@ -744,10 +856,22 @@ are in §8.
 
 ## 3. Results
 
+*This section reports the headline numerical outputs of the
+1,280-run sweep: the per-cell flag breakdown, Morris μ\* sensitivity
+rankings, the four hypothesis tests (H1 – H4), and the cell-level
+reliability traffic light. Each subsection corresponds to one
+bounded result rather than to one experimental phase.*
+
 *All numerical results are sourced from `results/` artifacts and
 auto-updated when the analysis script re-runs.*
 
 ### 3.1 Per-cell flag breakdown (Table 1)
+
+*The headline counts: how many runs in each of the 8 cells fired each
+of the four flags, and how many were clean. Flag columns are
+*independent* presence counts (one run can fire several flags), so
+row sums can exceed `n_total`; `primary_flag` resolves runs to a
+single category via the §2.6 priority order.*
 
 | Cell  | n_total | clamped | diverged | implausible | not_steady_state | clean |
 |-------|---------|---------|----------|-------------|------------------|-------|
@@ -770,6 +894,21 @@ follows the priority order `clamped > diverged > implausible >
 not_steady_state > clean` (§2.6) and is recorded as `primary_flag` in the
 master Parquet for partition-style analyses.
 
+*Table 1 — at a glance.*
+**What:** per-cell counts of the four detector flags and `clean`
+across the 8 (scenario, sex) cells (160 runs each).
+**How to read it:** flag columns are *independent* presence counts —
+one run can fire several flags simultaneously, so row sums can exceed
+`n_total` (e.g. S1_F sums to 183); the §2.6 priority order
+`clamped > diverged > implausible > not_steady_state > clean`
+resolves each run to a single `primary_flag` for partition-style
+analyses.
+**Key takeaway:** `clamped` = 0 across the entire sweep (H2 NOT
+supported); `diverged` is all-male (H3 supported, with
+sex-stratification); `implausible` concentrates in S1 (F-003
+hyperoxia overshoot) and S4 (severe hypoxemia); 663 / 1,280 (51.8 %)
+runs are `clean`.
+
 * `clamped` is **0 across the entire sweep** (locked ranges respect
   Pulse acceptance — H2 not supported).
 * `diverged` is **all-male** (H3 supported, with sex stratification).
@@ -782,7 +921,26 @@ master Parquet for partition-style analyses.
   severe-impairment dynamics dominate.
 * The total clean count is **663 / 1,280 (51.8 %)**.
 
+*Figure 1 (`fig01_flag_summary`) — at a glance.*
+**What:** stacked bar chart of run counts per detector flag, faceted
+by the 8 (scenario, sex) cells (160 runs each). Visual counterpart
+to Table 1.
+**How to read it:** each bar is one cell; segment colours give counts
+of `clean` and the four flag classes. Flag categories are
+*independent* presence counts so a single run can appear in several
+segments.
+**Key takeaway:** the gradient from S1 → S4 in `not_steady_state` and
+`implausible` is the primary operational-envelope map the atlas
+claims as its first deliverable; `clamped` is empty everywhere.
+
 ### 3.2 Morris sensitivity (Figures 2 a–f)
+
+*The Morris μ\* heatmaps per output — which inputs dominate which
+outputs in which cells. Four visual patterns emerge: cardiovascular
+outputs are cardio-driven, gas-exchange outputs are ventilator-driven,
+FiO2 sensitivity collapses in severe ARDS as shunt physiology
+dominates, and output Vt tracks input Vt at μ\* ≈ 500 mL across every
+cell.*
 
 Figures 2 a–f show the Morris μ\* heatmap for each of the six outputs.
 Rows are the seven swept inputs; columns are the eight (scenario, sex)
@@ -832,7 +990,26 @@ than a numerical equivalence — but the matched direction and
 order-of-magnitude attenuation across two independent designs is an
 external robustness signal for the Atlas's FiO2 sensitivity ranking.
 
+*Figures 2 a–f (`fig02_morris_mu_star_<output>`) — at a glance.*
+**What:** six heatmaps (HR, MAP, Vt, SpO2, PaO2, PaCO2) of Morris μ\*
+across inputs × cells.
+**How to read it:** rows are the seven swept inputs; columns are the
+8 (scenario, sex) cells (S1_M … S4_F); colour intensity is the
+magnitude of the mean absolute elementary effect, i.e. the input's
+average influence on that output. Bootstrap 95 % CIs on each μ\* are
+recorded in `results/morris_indices.parquet` but elided from the
+heatmaps for legibility.
+**Key takeaway:** in every cell, 1 – 3 inputs dominate each output —
+the diagonal pattern visually supports H1's "skewed sensitivity"
+claim (formal test in §3.3).
+
 ### 3.3 H1 — skewed sensitivity (PASS, 48 / 48)
+
+*The first hypothesis test: in every cell × output combination, do
+the top-3 inputs account for at least 50 % of summed μ\*? Answer —
+yes, 48 / 48, median 0.928. Section 3.3.1 then addresses the
+preregistered Sobol bolt-on and explains why CI-aware bootstrap
+evidence closes it by redundancy.*
 
 Top-3 fraction of summed μ\* per cell × output:
 * All 48 combinations are ≥ 0.5 (the preregistered threshold).
@@ -857,6 +1034,15 @@ baselines; gas-exchange outputs (SpO2, PaO2, PaCO2) are dominated by
 ventilator settings. This is physiologically sensible and supports the
 overall correctness of Pulse's input-output mapping in the *clean*
 operational region.
+
+*Figure 3 (`fig03_h1_top3_fraction`) — at a glance.*
+**What:** heatmap of the top-3 fraction of summed μ\* per cell × output
+(48 combinations).
+**How to read it:** colour palette is RdYlGn with the crossover at
+0.5 (the preregistered H1 threshold); cells above 0.5 (green-side)
+support skewed sensitivity, cells below (red-side) would not.
+**Key takeaway:** all 48 combinations exceed 0.5 (median 0.928, range
+0.658 – 0.998); H1 passes 48 / 48 across the full atlas.
 
 ### 3.3.1 Sobol bolt-on: preregistered decision
 
@@ -961,6 +1147,12 @@ references. The analysis pipeline is preserved in
 
 ### 3.4 H2 — silent clamping rate (NOT supported, 0 / 1,280)
 
+*The second hypothesis test: does Pulse silently clamp out-of-range
+inputs at setup? Answer — no, zero silent clamps across the entire
+sweep. Pulse rejects out-of-envelope inputs *loudly*, with explicit
+`[ERROR]` log lines and exit code 1 (confirmed by the S005
+deliberate clamp probes).*
+
 The preregistered hypothesis was that ≥ 5 % of the Morris sample would
 hit at least one silent clamp. **Zero runs out of 1,280 fired the
 `clamped` regex.** This is the strongest possible H2 null result.
@@ -1008,6 +1200,15 @@ HR." Users running Pulse for ARDS device-validation should treat
 output HR as the engine's reflex response, not a setpoint.
 
 ### 3.5 H3 — solver divergence exists; sex-stratification is regime-dependent (partially supported)
+
+*The third hypothesis test: are solver divergences sex-stratified?
+Answer — partially. In the S006 input-extreme regime, all 20 / 20
+divergences are male and zero female, with the asymmetry
+mechanistically explained by Pulse's `BloodVolumeBaseline` floor on
+the male standard surrogate (S018). In the §3.5.1 continuous-severity
+regime at midrange inputs, divergence is approximately sex-balanced
+inside the [0.879, 0.945] band — so the original sex effect varies
+with *what is varying*, not sex per se.*
 
 20 / 1,280 runs (1.6 %) diverged. **All 20 are in male cells.**
 
@@ -1182,6 +1383,14 @@ sex per se.
 
 ### 3.6 H4 — sex-specific reliability (partially supported, gas-exchange only)
 
+*The fourth hypothesis test: do male and female trajectories differ
+at the cell level? Answer — partially. Under Benjamini–Hochberg FDR
+control (q = 0.05), 5 of 24 cell × output Wasserstein distances
+survive — *all five on gas-exchange channels* (PaCO2 × 3, SpO2 × 1,
+PaO2 × 1). Cardiovascular and Vt distances fall within the within-sex
+sub-sampling null; input-importance rankings are largely preserved
+across sexes (Spearman ρ 0.75 – 1.00 in S2 / S3).*
+
 We report H4 with two complementary statistics. The 1-Wasserstein
 distance quantifies the absolute magnitude of the difference between
 male and female clean-run output *distributions*, expressed in the
@@ -1252,6 +1461,19 @@ alveolar volume scaling and lung-volume-to-body-mass ratios diverge
 by sex. PaCO2 is the strongest signal (significant in 3 of 4
 scenarios, very small p_emp values in S2 and S3).
 
+*Figure 4 (`fig04_h4_wasserstein`) — at a glance.*
+**What:** 1-Wasserstein distance between male and female clean-run
+output distributions, per scenario × output, in each output's native
+units (bpm, mmHg, mL, %).
+**How to read it:** each bar is one (scenario, output) cell; the
+observed M-vs-F distance is compared against a within-sex
+sub-sampling null (n = 2,000 random splits of the combined M+F clean
+runs); cells flagged with `*` exceed the 95th-percentile of the null.
+**Key takeaway:** 5 of 24 cells survive BH-FDR control at q = 0.05 —
+*all five on gas-exchange channels* (PaCO2 × 3, SpO2 × 1, PaO2 × 1).
+Cardiovascular and Vt distances fall within the within-sex baseline
+at this sample size.
+
 **Spearman ρ on μ\* rankings with paired-input bootstrap CI**
 (M vs F, computed where both sexes have clean EE pairs across all
 7 inputs):
@@ -1290,6 +1512,19 @@ sweep, so the observed sex effects above reflect real engine-level
 sex-specific physiology rather than miscalibration of the female
 patient model.
 
+*Figure 5 (`fig05_h4_spearman_mu_star`) — at a glance.*
+**What:** Spearman rank correlation ρ between male and female Morris
+μ\* vectors, per scenario × output, with paired-input bootstrap 95 %
+CI (n = 1,000 input-resamples).
+**How to read it:** ρ = 1 means identical input ranking across sexes;
+ρ = 0 no monotonic relationship; ρ = −1 inverted. Computed only for
+S2 and S3 — S1 and S4_F have no clean FiO2 elementary-effect pairs
+(every FiO2 OAT step has at least one endpoint flagged).
+**Key takeaway:** point estimates 0.75 – 1.00 in S2 / S3 — input-importance
+rankings are qualitatively preserved across sexes. Vt is the
+exception (S2 CI [−0.06, 1.00]), reflecting that the input ranking
+driving Vt is not clearly preserved across sex.
+
 **Combined H4 picture:**
 
 * H4 is **partially supported**, with the strong signal concentrated
@@ -1305,6 +1540,12 @@ patient model.
   the ranking-similarity claim is qualitative, not high-precision.
 
 ### 3.7 Reliability traffic-light (Figure 6)
+
+*The user-facing summary of the entire atlas: per cell × output, one
+of {green, yellow, red}, anchored to preregistered baseline-percentage
+thresholds (10 % / 30 % deviation; 30 % hard-failure rate). The final
+distribution is 7 green, 29 yellow, 12 red out of 48 cells — and
+(S4, M) is red on every output.*
 
 Per cell × output green / yellow / red classification grounded on the
 preregistered tolerances (10 % / 30 % deviation thresholds, 30 %
@@ -1335,7 +1576,26 @@ Distribution: **7 green, 29 yellow, 12 red** out of 48 cells.
   should treat the engine output as a starting point, not a faithful
   steady-state physiology.
 
+*Figure 6 (`fig06_reliability_traffic_light`) — at a glance.*
+**What:** per cell × output classification into {green, yellow, red}.
+The user-facing summary of the entire atlas and the figure most
+likely to be consulted by Pulse practitioners.
+**How to read it:** green = no flags raised in the cell *and*
+clean-run mean within 10 % of the (S1, M) baseline; yellow = any
+flag raised *or* mean 10 – 30 % off baseline; red = mean > 30 % off
+baseline *or* diverged + implausible rate > 30 %.
+**Key takeaway:** 7 green, 29 yellow, 12 red out of 48 cells. Green
+cluster: (S2, F) + (S3, F). Red cluster: HR and PaO2 in S3 / S4.
+(S4, M) is red on every output — the worst single cell in the atlas.
+
 ### 3.8 Two structural findings carried from pilot to full sweep
+
+*Two findings that surfaced in the 22-run pilot and held through the
+1,280-run sweep. **F-003**: Pulse PaO2 exceeds 600 mmHg at FiO2 = 1.0
+on healthy adults — a hyperoxia overshoot. **F-004**: VC-AC
+tidal-volume instability in 20.6 % of runs, causally identified in
+S014 as patient-ventilator dyssynchrony at the inspiration trigger
+and corrected by setting trigger pressure to −2 cmH2O.*
 
 * **F-003** — Pulse PaO2 exceeds 600 mmHg at FiO2 = 1.0 on healthy
   adults. Across the full sweep, **34 of 126 implausibly-flagged runs
@@ -1469,7 +1729,19 @@ two per-arm files in `results/`.
 
 ## 4. Discussion
 
+*This section places the atlas's numerical findings in their
+clinical, machine-learning, and Pulse-development context, compares
+the atlas to the only prior external falsification study (Cornish
+et al. 2023; Table 2), and consolidates the structural limitations of
+the work in §4.5.*
+
 ### 4.1 What the atlas tells Pulse users
+
+*A practitioner-oriented summary of which cells and which outputs are
+trustworthy, marginal, or unreliable — and the specific reasons:
+F-003 hyperoxia overshoot, F-004 trigger dyssynchrony, severe-ARDS
+solver behaviour, and the sex-stratified divergence cluster in the
+input-extreme regime.*
 
 The reliability traffic-light (Figure 6) is the most actionable
 artifact:
@@ -1537,6 +1809,13 @@ that operational extreme.**
 
 ### 4.2 Practical recommendations
 
+*A short list of recommendations for downstream Pulse users — the
+most consequential being: always set `InspirationPatientTriggerPressure`
+(recommended default −2 cmH2O) on VC-AC actions, otherwise Pulse
+enables a respiratory-model-driven patient trigger that produces
+realistic but non-steady tidal volumes at the very ventilator-stress
+points where validation matters most.*
+
 **VC-AC trigger configuration.** When using Pulse 4.3.1's
 `SEMechanicalVentilatorVolumeControl` action in *AssistedControl* mode,
 always set `InspirationPatientTriggerPressure` or
@@ -1553,6 +1832,13 @@ setting and is the configuration validated by S014 in this paper
 of locked runs fall below the 0.05 steady-state threshold).
 
 ### 4.3 Implications for machine-learning pipelines using Pulse
+
+*Why this atlas matters for anyone training models on Pulse synthetic
+cohorts: 51.8 % of runs are clean, but the flagged 48.2 % follow
+non-random patterns that can leak into supervised labels and inflate
+apparent generalisation. The per-cell traffic light gives an immediate
+data-quality filter — green cells ingest as-is, yellow ingest
+clean-only with metadata, red cells require per-channel justification.*
 
 The atlas's reliability map is not only an instrument for direct Pulse
 users; it doubles as a **per-cell data-quality filter for synthetic
@@ -1606,6 +1892,14 @@ completed.
 
 ### 4.4 Relationship to Cornish et al. 2023 (causal falsification) — Table 2
 
+*A side-by-side mapping of the atlas's six-output reliability panel
+against Cornish et al.'s causal-falsification rejection counts on
+MIMIC-III sepsis. The two studies target different scopes
+(intervention-outcome falsification vs operational-input sensitivity)
+and are complementary; the cross-mapping identifies four channels of
+direct overlap (HR, MAP, PaO2, PaCO2) where the two papers' ordinal
+rankings agree even though absolute rates differ.*
+
 [@cornish2023] is the only prior external assessment of Pulse on a
 clinical dataset. Their framework — causal falsification with
 Holm–Bonferroni-adjusted Hoeffding's-inequality confidence intervals
@@ -1640,6 +1934,23 @@ appendix re-tabulates the Hoeffding results from main-text Table 1;
 the bootstrap rejections used here are in their Table 5. Citation
 label corrected 2026-05-17 in pre-submission Phase-2 audit.) Bold rows mark the four channels
 that overlap directly with HR / MAP / PaO2 / PaCO2.
+
+*Table 2 — at a glance.*
+**What:** Cornish et al. (2023) per-channel rejection counts from
+their causal-falsification framework on MIMIC-III sepsis trajectories,
+re-tabulated against this atlas's six-output panel.
+**How to read it:** each row is one Cornish quantity; the first
+numeric column gives Hoeffding-inequality rejections (their main-text
+Table 1), the second column the reverse-percentile bootstrap
+rejections (their Appendix Table 5); the rightmost column maps each
+channel to an atlas output (Yes / Partial / No). Bold rows are the
+four-channel direct overlap.
+**Key takeaway:** 80 of 85 Hoeffding rejections fall on Cornish's 11
+channels *outside* the atlas's six-output panel (electrolyte,
+metabolic, acid-base, dermal). The four-channel overlap (HR, MAP,
+PaO2, PaCO2) is in ordinal agreement — PaCO2 is the most
+assessment-sensitive channel in both papers — even though absolute
+rejection rates differ.
 
 **Cross-mapping the methodologies.** The atlas's six outputs (HR,
 MAP, V_t delivered, SpO2, PaO2, PaCO2) intersect Cornish's
@@ -1723,6 +2034,14 @@ makes this a hard requirement, not a soft warning.
 
 ### 4.5 Limitations
 
+*The structural and methodological limitations of the atlas: adult-only,
+VC-AC only, lumped-parameter physiology, the FiO2-edge gaps that make
+S1 and S4_F Spearman ρ uncomputable, the 120 s simulation window that
+may be insufficient for hyperoxia convergence, and the
+theoretical-vs-empirical coverage gap (the atlas does not yet
+cross-reference real ICU databases). Every limitation is sourced and
+bounded.*
+
 * Atlas restricted to VC-AC adults; pediatric and PC modes out of scope
   (Paper 2 / Paper 1).
 * 120 s simulation may be insufficient for hyperoxia convergence (F-003).
@@ -1779,6 +2098,13 @@ makes this a hard requirement, not a soft warning.
   open opportunity for the broader physiology-simulation community.
 
 ### 4.6 Implications for downstream Pulse research
+
+*The two downstream research lines this atlas opens hooks for: the
+pediatric translation layer (Paper 1, in preparation; validation
+underway with the Sainte-Justine PICU cohort) and the native pediatric
+Pulse fork (Paper 2, planned). Both depend on the atlas's μ\* rankings
+and reliability traffic-light grid as the backdrop for what scope they
+can target.*
 
 This atlas is positioned as foundational infrastructure for two
 downstream lines of work, both currently in preparation:
