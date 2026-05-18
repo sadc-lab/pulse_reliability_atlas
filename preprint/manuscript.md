@@ -59,6 +59,102 @@ that train on Pulse-generated synthetic cohorts.
 
 ---
 
+## Reader's roadmap
+
+*This paper is written for a cross-disciplinary readership — clinicians,
+biomedical engineers, statisticians, machine-learning practitioners, and
+generally curious scientific readers. The sections are organised so that
+each can be entered independently.*
+
+* **§1 — Introduction.** Why an open reliability atlas is needed for
+  Pulse 4.3.1, the twelve verified engine limitations the atlas builds on,
+  and the contribution catalogue. §1.4 explains the experiment-log tag
+  system (S001 – S020) used throughout.
+* **§2 — Methods.** Engine wrapper, the seven swept operational inputs,
+  the four scenarios × two patients design, Morris sampling, the
+  four-flag detector (`clamped` / `diverged` / `implausible` /
+  `not_steady_state`), the pilot gate, and the statistical-methods overview.
+* **§3 — Results.** Per-cell flag breakdown (Table 1), Morris
+  sensitivity rankings (H1), silent-clamping audit (H2), solver-divergence
+  characterisation (H3), sex-specific comparison (H4), and the cell-level
+  traffic-light reliability map (Figure 6).
+* **§4 — Discussion.** Practical user guidance, implications for
+  machine-learning pipelines that train on Pulse synthetic cohorts, a
+  side-by-side mapping against Cornish et al. 2023 causal falsification
+  (Table 2), explicit limitations (§4.5), and downstream research hooks.
+* **Appendices.** Appendix A is the experiment-log index; Appendix B
+  carries the pre-Atlas boundary characterisations (hard input gates,
+  ARDS-severity calibration, source-code audit).
+
+A skimmer wanting the headline can read the abstract, the *Key
+contributions* below, Table 1, Figure 6, and §4.5. A reader interested
+in reproducing or extending the work should additionally read §2.6
+(detector), §2.8 (reproducibility), and Appendix A.
+
+---
+
+## Key contributions
+
+*Six artifacts a downstream Pulse user, ML practitioner, or device
+developer can pick up and apply without re-running the 1,280-simulation
+sweep.*
+
+* **First open reliability atlas for Pulse v4.3.1** — a per-cell
+  traffic-light map across 8 patient × scenario cells × 6 outputs
+  (48 combinations, 1,280 simulations), released Apache-2.0 alongside
+  the engine.
+* **Operator-actionable VC-AC correction (F-004).** Tidal-volume
+  instability in 20.6 % of runs is *causally identified* as
+  patient-ventilator dyssynchrony at the inspiration trigger and
+  *resolved* by setting trigger pressure to −2 cmH2O (median Vt
+  coefficient of variation collapses 0.351 → 0.016; worst-case
+  1.826 → 0.112).
+* **Hyperoxia boundary finding (F-003).** Pulse produces
+  PaO2 > 600 mmHg at FiO2 = 1.0 — a per-cell data-quality flag
+  for downstream filtering.
+* **Sex as a reliability-sensitivity axis** — the first sex-stratified
+  reliability comparison in the Pulse literature. Under
+  Benjamini–Hochberg FDR control (q = 0.05), 5 of 24 cell × output
+  Wasserstein tests survive the within-sex null, *all five in
+  gas-exchange channels*.
+* **All-male solver-divergence cluster.** 20 of 1,280 runs (1.6 %)
+  diverge, *all 20 on the male surrogate*, mechanistically explained
+  by Pulse's `BloodVolumeBaseline` floor on the standard-male body
+  (S018).
+* **A reusable four-flag classifier**
+  (`clamped` / `diverged` / `implausible` / `not_steady_state`) that
+  future Pulse users can apply to their own scenario configurations
+  without re-running this sweep.
+
+---
+
+## Notation and abbreviations
+
+*Sixteen symbols and acronyms used throughout the paper. Defined here
+so cross-disciplinary readers do not need to chase definitions through
+the prose.*
+
+| Symbol / acronym | Meaning |
+|---|---|
+| Morris EE | Morris *elementary effects* — a screening method that perturbs each input one at a time along randomised trajectories, producing per-input importance and non-linearity diagnostics. |
+| μ\* | Mean of absolute elementary effects. Morris importance metric: larger μ\* means the input has a larger average influence on the output. |
+| σ | Standard deviation of elementary effects across a Morris design. Proxy for *non-linearity and interactions*. |
+| σ/μ\* | Linearity ratio. Values < 0.6 indicate a predominantly linear output response to that input over the swept range. |
+| EE | A single elementary effect — one perturbation step in one Morris trajectory. |
+| HR / SBP / DBP / MAP | Heart rate / systolic, diastolic, and mean arterial blood pressure (MAP derived as DBP + (SBP − DBP)/3). |
+| RR / Vt / PEEP | Respiratory rate / tidal volume / positive end-expiratory pressure. |
+| FiO2 | Inspired oxygen fraction (0 – 1). |
+| PaO2 / PaCO2 / SpO2 | Arterial partial pressure of oxygen / arterial partial pressure of CO2 / peripheral oxygen saturation. |
+| VC-AC / PC-AC | Volume-controlled and pressure-controlled assist-control ventilator modes. The atlas restricts to VC-AC. |
+| ARDS | Acute Respiratory Distress Syndrome. |
+| PALICC-2 | Pediatric Acute Lung Injury Consensus Conference, 2nd edition (severity framework). |
+| V/Q | Ventilation–perfusion ratio. |
+| BV | Blood volume (Pulse field `BloodVolumeBaseline`). |
+| BH / FDR | Benjamini–Hochberg false-discovery-rate control at q = 0.05. |
+| CV | Coefficient of variation — standard deviation divided by the mean — used here for steady-state Vt stability. |
+
+---
+
 ## 1. Introduction
 
 ### 1.1 Motivation
@@ -144,6 +240,18 @@ pipeline. Two downstream papers — pediatric translation layer (in
 preparation, validation underway) and native pediatric Pulse fork
 (planned) — both depend on knowing where adult Pulse is trustworthy.
 This atlas is that prerequisite.
+
+*Scope and limitations preview.* The atlas characterises adult
+Pulse v4.3.1 under VC-AC ventilation across 7 operational inputs and
+6 steady-state outputs, on two adult patient surrogates (Pulse standard
+male and female) — the configuration most directly relevant to
+critical-care research and medical-device validation. Pediatric
+translation, alternative ventilator modes (PC-AC, PSV), and within-run
+non-steady-state dynamics are *out of scope* by construction. The full
+inventory of structural and methodological limitations — lumped-parameter
+assumptions, single-trachea upper airway, no V/Q mismatch, no dicrotic
+notch, and the practical implications for downstream pipelines — is
+consolidated in §4.5.
 
 ### 1.2 Verified limitations of Pulse 4.3.1
 
