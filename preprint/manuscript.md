@@ -53,9 +53,12 @@ preserved across sexes (Spearman ρ 0.75 – 1.00 in S2 / S3).
 **Conclusion.** The atlas provides a per-cell traffic-light reliability
 map for adult Pulse 4.3.1, identifies sex as a previously uncharacterized
 reliability-sensitivity axis, yields one operator-actionable correction
-(setting VC-AC inspiration trigger pressure to −2 cmH2O), and provides
-a per-cell data-quality filter for downstream machine-learning pipelines
-that train on Pulse-generated synthetic cohorts.
+(setting VC-AC inspiration trigger pressure to −2 cmH2O), delivers an
+empirical Pulse-severity → P/F calibration table that lands Pulse's
+ARDS defaults at Berlin band centers under ARDSnet-protective
+ventilation, and provides a per-cell data-quality filter for downstream
+machine-learning pipelines that train on Pulse-generated synthetic
+cohorts.
 
 ---
 
@@ -95,7 +98,7 @@ in reproducing or extending the work should additionally read §2.6
 
 ## Key contributions
 
-*Six artifacts a downstream Pulse user, ML practitioner, or device
+*Seven artifacts a downstream Pulse user, ML practitioner, or device
 developer can pick up and apply without re-running the 1,280-simulation
 sweep.*
 
@@ -125,6 +128,12 @@ sweep.*
   (`clamped` / `diverged` / `implausible` / `not_steady_state`) that
   future Pulse users can apply to their own scenario configurations
   without re-running this sweep.
+* **Reusable ARDS-severity → P/F calibration table at ARDSnet ventilation.**
+  Empirical mapping {0.26, 0.60, 0.95} lands Pulse's per-lung severity
+  scalar at Berlin band centers (P/F ≈ 256 / 150 / 96 mmHg) under VC-AC +
+  Vt 6 mL/kg + PEEP 10 + FiO2 0.4; Pulse's documented {0.3, 0.6, 0.9}
+  defaults yield 199 / 150 / 119 mmHg at the same settings (vs. published
+  340 / 130 / 50 mmHg, Webb 2020) — calibration is *ventilation-setting-dependent*.
 
 ---
 
