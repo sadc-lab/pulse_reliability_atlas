@@ -473,6 +473,17 @@ Seven inputs swept, ranges verified in Pulse boundary probes
 | FiO2 | 0.21–1.0 | fraction | room air → pure O2 (E20 verifies 1.0 safe) |
 | PEEP | 0–20 | cmH2O | clinical range |
 
+*Input-ranges table — at a glance.*
+**What:** the 7 user-facing operational inputs swept by Morris, their
+ranges (units), and the verification source for each acceptance window.
+**How to read it:** each row is one Morris-sampled input; the range
+column lists the [min, max] interval; the source column points at the
+boundary probe (E10 / E28 / E29 / E20) or literature reference that
+established the range.
+**Key takeaway:** all 7 ranges sit *inside* Pulse's verified acceptance
+envelope by construction — so no Morris point should ever silently
+clamp, a claim §3.4 (H2) confirms empirically (0 / 1,280 clamp events).
+
 MAP is *derived* from SBP / DBP, never sampled independently
 (preregistration amendment 2026-04-22).
 
@@ -882,16 +893,27 @@ of the four flags, and how many were clean. Flag columns are
 row sums can exceed `n_total`; `primary_flag` resolves runs to a
 single category via the §2.6 priority order.*
 
-| Cell  | n_total | clamped | diverged | implausible | not_steady_state | clean |
-|-------|---------|---------|----------|-------------|------------------|-------|
-| S1_M  | 160     | 0       | 4        | 11          | 107              | 49    |
-| S1_F  | 160     | 0       | 0        | 23          | 118              | 42    |
-| S2_M  | 160     | 0       | 4        | 0           | 69               | 87    |
-| S2_F  | 160     | 0       | 0        | 0           | 68               | 92    |
-| S3_M  | 160     | 0       | 4        | 0           | 12               | 144   |
-| S3_F  | 160     | 0       | 0        | 0           | 38               | 122   |
-| S4_M  | 160     | 0       | 8        | 46          | 44               | 67    |
-| S4_F  | 160     | 0       | 0        | 46          | 74               | 60    |
+```{=latex}
+\begin{center}
+\begin{tabular}{lrrrrrr}
+\toprule
+Cell & n\_total & clamped & diverged & implausible & not\_steady\_state & clean \\
+\midrule
+S1\_M & 160 & 0 & 4 & 11 & 107 & 49 \\
+S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\
+\midrule
+S2\_M & 160 & 0 & 4 & 0  & 69  & 87 \\
+S2\_F & 160 & 0 & 0 & 0  & 68  & 92 \\
+\midrule
+S3\_M & 160 & 0 & 4 & 0  & 12  & 144 \\
+S3\_F & 160 & 0 & 0 & 0  & 38  & 122 \\
+\midrule
+S4\_M & 160 & 0 & 8 & 46 & 44  & 67 \\
+S4\_F & 160 & 0 & 0 & 46 & 74  & 60 \\
+\bottomrule
+\end{tabular}
+\end{center}
+```
 
 *Table 1.* Per-cell flag counts. The flag columns (`clamped`, `diverged`,
 `implausible`, `not_steady_state`) are **independent presence counts**: a
@@ -1037,6 +1059,17 @@ The dominant inputs by output (modal across all 8 cells):
 | SpO2   | fio2, peep, vt         |
 | PaO2   | fio2, peep, rr         |
 | PaCO2  | rr, vt, peep           |
+
+*Top-3-inputs table — at a glance.*
+**What:** the three most influential inputs (by Morris μ\*) for each of
+the 6 atlas outputs, modal across all 8 cells.
+**How to read it:** each row is one output; the three inputs listed are
+those with the largest mean absolute elementary effect in the canonical
+Morris sample, ordered by μ\*.
+**Key takeaway:** cardiovascular outputs (HR, MAP) are *cardio-input
+dominated*; gas-exchange outputs (SpO2, PaO2, PaCO2) are
+*ventilator-driven* — exactly the physiologically expected pattern,
+which supports Pulse's input-output mapping in clean cells.
 
 Cardiovascular outputs (HR, MAP) are dominated by their direct cardio
 baselines; gas-exchange outputs (SpO2, PaO2, PaCO2) are dominated by
@@ -1190,6 +1223,18 @@ Aggregated across all clean Morris runs:
 | S3       | [50, 110]      | 155.7 ± 34.7         |
 | S4       | [50, 110]      | 147.1 ± 31.8         |
 
+*Compensatory-tachycardia table — at a glance.*
+**What:** for each scenario, the input HR range that Morris sampled
+versus the output HR mean ± std that Pulse actually returns at steady
+state.
+**How to read it:** the input range is fixed at [50, 110] bpm across
+all scenarios; the gap between that range and the output mean
+quantifies the engine's compensatory reflex gain.
+**Key takeaway:** in S3 / S4 the output HR sits at 145 – 160 bpm
+despite inputs drawn from [50, 110] — a ~60 bpm sympathetic overshoot
+driven by Pulse's baroreceptor / chemoreceptor reflex, not a numerical
+artefact.
+
 In S1 (healthy), Pulse settles output HR near a physiological norm
 (~74 bpm) regardless of the requested baseline. By S3 / S4, output HR
 is in the 145 – 160 bpm range *despite* the input being drawn from
@@ -1276,6 +1321,18 @@ two BV points to map a dose-response curve:
 | 4,400  | 8.4 %  | **2 / 20** | 1 / 20 | 8 / 20 | 10 / 20 |
 | 4,082.24 (Pulse-stated floor on this surrogate) | 15.0 % | **0 / 20** | 1 / 20 | 8 / 20 | 12 / 20 |
 
+*BV-override dose-response table — at a glance.*
+**What:** outcomes for the 20 originally-diverged male inputs when
+re-executed with an explicit `BloodVolumeBaseline` override at three
+levels (default 4,802.63 mL → 4,400 mL → 4,082.24 mL, the
+Pulse-stated floor on this surrogate).
+**How to read it:** each row is one BV override level; columns count
+the four detector outcomes plus `Clean` across the 20 reruns.
+**Key takeaway:** divergence rate falls *monotonically* with BV
+reduction — 20 / 20 → 2 / 20 → 0 / 20 — mechanistically confirming
+that the all-male divergence cluster is mediated by Pulse's
+blood-volume baseline.
+
 The divergence rate is monotonic in BV reduction. The mechanism is
 confirmed: the all-male divergence cluster is mediated by the engine's
 blood-volume baseline. Severe-ARDS / FiO2 = 1.0 inputs require deeper
@@ -1317,6 +1374,17 @@ Per-cell counts:
 | S3_F  | 0        |
 | S4_F  | 0        |
 
+*Per-cell diverged-counts table — at a glance.*
+**What:** the number of diverged runs in each of the 8 (scenario, sex)
+cells, with the same 160 Morris input points submitted to every cell.
+**How to read it:** scenarios on rows, separated by sex; the diverged
+column is the `diverged` column of Table 1, isolated for direct
+sex comparison.
+**Key takeaway:** male cells diverge at 4 – 8 runs each (3.1 %
+overall); female cells, run on the *identical* input grid, never
+diverge in this regime — the first quantitative sex-specific
+reliability finding for Pulse 4.3.1.
+
 The same 160 Morris input points were submitted to both M and F cells
 (Pulse-standard adult: M = 67.3 kg / 180 cm; F = 56.2 kg / 163 cm).
 Same physics engine, same condition string, same ventilator settings.
@@ -1354,6 +1422,19 @@ all 7 Morris inputs at midrange (HR = 80, SBP = 105, DBP = 70, RR =
 | (0.91, 0.945]    | 5 / 10     | **9 / 10** |
 | (0.945, 0.95]    | 0 / 2      | 0 / 2      |
 | (0.95, 1.0]      | 0 / 19     | 0 / 19     |
+
+*Continuous-severity divergence table — at a glance.*
+**What:** divergence counts per ARDS-severity bin in a 200-run
+continuous-severity micro-sweep at midrange inputs (HR 80, SBP 105,
+DBP 70, RR 14, Vt 550, FiO2 0.6, PEEP 10).
+**How to read it:** each row is one severity bin; F-diverged and
+M-diverged columns show divergences per sex (denominators differ
+because runs distribute non-uniformly across severities).
+**Key takeaway:** divergences concentrate in `[0.879, 0.945]` —
+wider than the previously reported `[0.91, 0.945]` zone — and are
+approximately sex-balanced at midrange inputs. The original S006
+"all-male divergences" claim is therefore *regime-specific*
+(Morris-extreme inputs), not a global sex effect on solver reliability.
 
 Two refinements of the literature picture:
 
@@ -1414,32 +1495,43 @@ because raw point estimates on this sample size overstate precision.
 built by repeatedly splitting the *combined* M+F clean runs randomly
 into halves of the original sizes; n_null = 2,000):
 
-| Scenario | Output | M-vs-F | null p50 | null p95 | p_emp | Sig.? (BH-FDR) |
-|----------|--------|--------|----------|----------|-------|-------|
-| S1       | HR     | 5.02   | 3.91     | 8.56     | 0.305 |       |
-| S1       | MAP    | 0.58   | 1.38     | 2.78     | 0.995 |       |
-| S1       | Vt     | 21.4   | 34.4     | 76.6     | 0.798 |       |
-| S1       | SpO2   | 0.008  | 0.004    | 0.010    | 0.123 |       |
-| S1       | PaO2   | 11.0   | 12.6     | 28.4     | 0.598 |       |
-| S1       | **PaCO2** | **4.69** | 1.65     | 3.56     | **0.009** | * |
-| S2       | HR     | 1.91   | 3.60     | 7.72     | 0.958 |       |
-| S2       | MAP    | 0.88   | 1.03     | 2.11     | 0.652 |       |
-| S2       | Vt     | 13.8   | 25.1     | 55.4     | 0.840 |       |
-| S2       | SpO2   | 0.012  | 0.006    | 0.011    | 0.022 |       |
-| S2       | PaO2   | 16.1   | 8.90     | 17.2     | 0.073 |       |
-| S2       | **PaCO2** | **5.12** | 1.07     | 2.13     | **0.000** | * |
-| S3       | HR     | 4.77   | 3.86     | 8.61     | 0.333 |       |
-| S3       | MAP    | 0.94   | 0.98     | 2.02     | 0.538 |       |
-| S3       | Vt     | 36.3   | 20.8     | 45.9     | 0.129 |       |
-| S3       | SpO2   | 0.014  | 0.009    | 0.017    | 0.119 |       |
-| S3       | PaO2   | 8.82   | 6.57     | 12.8     | 0.245 |       |
-| S3       | **PaCO2** | **2.94** | 0.75     | 1.33     | **0.000** | * |
-| S4       | HR     | 1.38   | 4.73     | 11.2     | 0.953 |       |
-| S4       | MAP    | 1.50   | 1.44     | 2.82     | 0.460 |       |
-| S4       | Vt     | 14.1   | 29.0     | 64.1     | 0.897 |       |
-| S4       | **SpO2** | **0.016** | 0.006    | 0.011    | **0.002** | * |
-| S4       | **PaO2** | **4.65** | 1.91     | 3.38     | **0.003** | * |
-| S4       | PaCO2  | 1.05   | 0.61     | 1.13     | 0.083 |       |
+```{=latex}
+\begin{center}
+\begin{tabular}{llrrrrc}
+\toprule
+Scenario & Output & M-vs-F & null p50 & null p95 & p\_emp & Sig.? (BH-FDR) \\
+\midrule
+S1 & HR    & 5.02  & 3.91  & 8.56  & 0.305 &   \\
+S1 & MAP   & 0.58  & 1.38  & 2.78  & 0.995 &   \\
+S1 & Vt    & 21.4  & 34.4  & 76.6  & 0.798 &   \\
+S1 & SpO2  & 0.008 & 0.004 & 0.010 & 0.123 &   \\
+S1 & PaO2  & 11.0  & 12.6  & 28.4  & 0.598 &   \\
+S1 & \textbf{PaCO2} & \textbf{4.69} & 1.65 & 3.56 & \textbf{0.009} & * \\
+\midrule
+S2 & HR    & 1.91  & 3.60  & 7.72  & 0.958 &   \\
+S2 & MAP   & 0.88  & 1.03  & 2.11  & 0.652 &   \\
+S2 & Vt    & 13.8  & 25.1  & 55.4  & 0.840 &   \\
+S2 & SpO2  & 0.012 & 0.006 & 0.011 & 0.022 &   \\
+S2 & PaO2  & 16.1  & 8.90  & 17.2  & 0.073 &   \\
+S2 & \textbf{PaCO2} & \textbf{5.12} & 1.07 & 2.13 & \textbf{0.000} & * \\
+\midrule
+S3 & HR    & 4.77  & 3.86  & 8.61  & 0.333 &   \\
+S3 & MAP   & 0.94  & 0.98  & 2.02  & 0.538 &   \\
+S3 & Vt    & 36.3  & 20.8  & 45.9  & 0.129 &   \\
+S3 & SpO2  & 0.014 & 0.009 & 0.017 & 0.119 &   \\
+S3 & PaO2  & 8.82  & 6.57  & 12.8  & 0.245 &   \\
+S3 & \textbf{PaCO2} & \textbf{2.94} & 0.75 & 1.33 & \textbf{0.000} & * \\
+\midrule
+S4 & HR    & 1.38  & 4.73  & 11.2  & 0.953 &   \\
+S4 & MAP   & 1.50  & 1.44  & 2.82  & 0.460 &   \\
+S4 & Vt    & 14.1  & 29.0  & 64.1  & 0.897 &   \\
+S4 & \textbf{SpO2} & \textbf{0.016} & 0.006 & 0.011 & \textbf{0.002} & * \\
+S4 & \textbf{PaO2} & \textbf{4.65} & 1.91 & 3.38 & \textbf{0.003} & * \\
+S4 & PaCO2 & 1.05  & 0.61  & 1.13  & 0.083 &   \\
+\bottomrule
+\end{tabular}
+\end{center}
+```
 
 \* survives Benjamini–Hochberg FDR control at q = 0.05 across all 24
 tests (BH critical value for the 5th-ranked p-value is 5 · 0.05 / 24 ≈
@@ -1487,20 +1579,29 @@ at this sample size.
 (M vs F, computed where both sexes have clean EE pairs across all
 7 inputs):
 
-| Scenario | Output | ρ    | 95% CI         |
-|----------|--------|------|----------------|
-| S2       | HR     | 0.96 | [0.70, 1.00]   |
-| S2       | MAP    | 1.00 | [1.00, 1.00]   |
-| S2       | Vt     | 0.75 | [-0.06, 1.00]  |
-| S2       | SpO2   | 0.96 | [0.70, 1.00]   |
-| S2       | PaO2   | 0.93 | [0.41, 1.00]   |
-| S2       | PaCO2  | 0.89 | [0.35, 1.00]   |
-| S3       | HR     | 0.96 | [0.70, 1.00]   |
-| S3       | MAP    | 0.96 | [0.70, 1.00]   |
-| S3       | Vt     | 0.86 | [0.34, 1.00]   |
-| S3       | SpO2   | 0.96 | [0.70, 1.00]   |
-| S3       | PaO2   | 0.93 | [0.41, 1.00]   |
-| S3       | PaCO2  | 0.89 | [0.41, 1.00]   |
+```{=latex}
+\begin{center}
+\begin{tabular}{llcc}
+\toprule
+Scenario & Output & ρ & 95\% CI \\
+\midrule
+S2 & HR    & 0.96 & [0.70, 1.00] \\
+S2 & MAP   & 1.00 & [1.00, 1.00] \\
+S2 & Vt    & 0.75 & [−0.06, 1.00] \\
+S2 & SpO2  & 0.96 & [0.70, 1.00] \\
+S2 & PaO2  & 0.93 & [0.41, 1.00] \\
+S2 & PaCO2 & 0.89 & [0.35, 1.00] \\
+\midrule
+S3 & HR    & 0.96 & [0.70, 1.00] \\
+S3 & MAP   & 0.96 & [0.70, 1.00] \\
+S3 & Vt    & 0.86 & [0.34, 1.00] \\
+S3 & SpO2  & 0.96 & [0.70, 1.00] \\
+S3 & PaO2  & 0.93 & [0.41, 1.00] \\
+S3 & PaCO2 & 0.89 & [0.41, 1.00] \\
+\bottomrule
+\end{tabular}
+\end{center}
+```
 
 S1 and S4_F do not have a computable Spearman ρ because FiO2 has zero
 clean elementary-effect pairs in those cells (every trajectory step
@@ -1570,6 +1671,18 @@ hard-failure rate threshold).
 | S3_M  | red    | yellow | yellow | yellow | red    | yellow |
 | S4_F  | red    | yellow | yellow | yellow | red    | yellow |
 | S4_M  | red    | red    | red    | red    | red    | red    |
+
+*Reliability-traffic-light table — at a glance.*
+**What:** textual rendering of the per cell × output classification
+across 8 cells × 6 outputs = 48 classifications (the visual version
+is Figure 6).
+**How to read it:** each row is one (scenario, sex) cell; each column
+is one of the 6 atlas outputs; the cell value is the preregistered
+classification (green / yellow / red — definitions in the Figure 6
+W/H/T block).
+**Key takeaway:** the (S2_F, S3_F) cluster is the most reliable region;
+(S4, M) is red on every output — the worst single cell in the atlas —
+and HR + PaO2 turn red across both sexes from S3 onwards.
 
 Distribution: **7 green, 29 yellow, 12 red** out of 48 cells.
 
@@ -1918,23 +2031,32 @@ intravenous-fluid and vasopressor doses as the intervention space.
 Table 2 reproduces their per-quantity results re-tabulated against
 this atlas's 6-output panel.
 
-|  Cornish-2023 channel  | Hoeffding rejections / hypotheses | Bootstrap (Cornish Appendix Table 5) | Maps to atlas output? |
-|------------------------|-----------------------------------|--------------------------------------|-----------------------|
-| Chloride               | 24 / 94                           | 47 / 94                              | No (electrolyte)      |
-| Sodium                 | 21 / 94                           | 46 / 94                              | No (electrolyte)      |
-| Potassium              | 13 / 94                           | 33 / 94                              | No (electrolyte)      |
-| Skin Temperature       | 10 / 86                           | 43 / 86                              | No (dermal)           |
-| Calcium                | 5 / 88                            | 44 / 88                              | No (electrolyte)      |
-| Glucose                | 5 / 96                            | 19 / 96                              | No (metabolic)        |
-| HCO₃ (Bicarbonate)     | 2 / 90                            | 8 / 90                               | No (acid–base)        |
-| Arterial pH            | 0 / 80                            | 0 / 80                               | No (acid–base)        |
-| **PaCO2**              | **3 / 70**                        | **13 / 70**                          | **Yes (direct)**      |
-| **PaO2**               | **0 / 78**                        | **4 / 78**                           | **Yes (direct)**      |
-| **MeanBP**             | **0 / 92**                        | **3 / 92**                           | **Yes (≈ atlas MAP)** |
-| SysBP                  | 2 / 154                           | 8 / 154                              | Partial (MAP input)   |
-| DiaBP                  | 0 / 72                            | 0 / 72                               | Partial (MAP input)   |
-| **HR**                 | **0 / 162**                       | **1 / 162**                          | **Yes (direct)**      |
-| RR                     | 0 / 172                           | 12 / 172                             | Atlas input, not output |
+```{=latex}
+\begin{center}
+\begin{tabular}{lllc}
+\toprule
+Cornish-2023 channel & Hoeffding rejections / hypotheses & Bootstrap (Cornish Appendix Table 5) & Maps to atlas output? \\
+\midrule
+Chloride            & 24 / 94 & 47 / 94 & No (electrolyte) \\
+Sodium              & 21 / 94 & 46 / 94 & No (electrolyte) \\
+Potassium           & 13 / 94 & 33 / 94 & No (electrolyte) \\
+Skin Temperature    & 10 / 86 & 43 / 86 & No (dermal) \\
+Calcium             & 5 / 88  & 44 / 88 & No (electrolyte) \\
+Glucose             & 5 / 96  & 19 / 96 & No (metabolic) \\
+HCO₃ (Bicarbonate)  & 2 / 90  & 8 / 90  & No (acid–base) \\
+Arterial pH         & 0 / 80  & 0 / 80  & No (acid–base) \\
+\midrule
+\textbf{PaCO2}      & \textbf{3 / 70}  & \textbf{13 / 70} & \textbf{Yes (direct)} \\
+\textbf{PaO2}       & \textbf{0 / 78}  & \textbf{4 / 78}  & \textbf{Yes (direct)} \\
+\textbf{MeanBP}     & \textbf{0 / 92}  & \textbf{3 / 92}  & \textbf{Yes (≈ atlas MAP)} \\
+SysBP               & 2 / 154 & 8 / 154 & Partial (MAP input) \\
+DiaBP               & 0 / 72  & 0 / 72  & Partial (MAP input) \\
+\textbf{HR}         & \textbf{0 / 162} & \textbf{1 / 162} & \textbf{Yes (direct)} \\
+RR                  & 0 / 172 & 12 / 172 & Atlas input, not output \\
+\bottomrule
+\end{tabular}
+\end{center}
+```
 
 *Table 2.* Cornish 2023 Table 1 (Hoeffding's inequality, main text) and
 Table 5 (reverse-percentile bootstrap, Appendix H.6) re-tabulated
