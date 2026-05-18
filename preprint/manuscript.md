@@ -196,8 +196,9 @@ systems, and is used in three broad communities:
 * **Medical-device development** — early-stage validation of
   ventilators, pumps, and monitors against a virtual patient. Pulse's
   own ventilator-validation tables report ASL 5000-referenced
-  tidal-volume errors of 0.07 – 2.25 % for VC-AC across healthy,
-  restrictive, and obstructive lung profiles [@pulsevent]; the
+  tidal-volume errors of 0.07 – 2.25 % for VC-AC (volume-controlled
+  assist-control) across healthy, restrictive, and obstructive lung
+  profiles [@pulsevent]; the
   surrounding validation framework is described in [@webb2022vent].
 * **Education** — anaesthesia, critical-care, and paramedic training
   curricula increasingly use Pulse for case-based simulation.
@@ -242,9 +243,10 @@ before any data was collected (preregistration §Inputs, §Scenarios,
   (E10 / E28 / E29 boundary probes).
 * **Scenarios** spanning healthy adult and three ARDS severities,
   calibrated on the Berlin Definition's PaO2/FiO2 bands [@ards2012].
-  PALICC-2 [@emeriaud2023] is cited as the parallel pediatric
-  severity framework; note that PALICC-2 itself favours Oxygenation
-  Index (OI) / Oxygen Saturation Index (OSI) over P/F.
+  PALICC-2 (Pediatric Acute Lung Injury Consensus Conference, 2nd
+  ed.) [@emeriaud2023] is cited as the parallel pediatric severity
+  framework; note that PALICC-2 itself favours Oxygenation Index
+  (OI) / Oxygen Saturation Index (OSI) over P/F.
 * **A four-flag classifier** that categorizes every run rather than
   discarding flagged ones (preregistration discipline per
   [@munafo2017]).
@@ -1088,103 +1090,119 @@ support skewed sensitivity, cells below (red-side) would not.
 
 ### 3.3.1 Sobol bolt-on: preregistered decision
 
-The preregistered protocol (preregistration §Sampling method)
-specified a conditional variance-based Sobol analysis if any
-top-ranked input exhibited σ / μ\* ≥ 0.6 in any cell, indicating
-non-linearity or strong interactions that Morris elementary effects
-cannot resolve. Applying this rule to the dominant input per
-(scenario, sex, output) cell, **8 of 48 cells fire the trigger.**
-Manual inspection separates these into two regimes:
+*Why a Sobol bolt-on was preregistered.* Morris elementary effects
+rank inputs by their average influence (μ\*), but they cannot tell us
+*how much* of that influence comes from non-linearity or input–input
+interactions. The σ / μ\* ratio is the standard proxy: large values
+flag cells where the response is non-linear or interaction-driven,
+and where a more expensive variance-based analysis (Sobol) would be
+informative. The preregistered protocol (preregistration §Sampling
+method) committed in advance: if any top-ranked input exhibited σ / μ\*
+≥ 0.6 in any cell, we would run Sobol on it.
 
-* **Group A — noise-dominated (2 of 8).** Cells where the dominant
-  input's μ\* sits at numerical-noise level because the output is at
-  physiological saturation. Both are SpO2 outputs in healthy
-  patients: (S1, F, SpO2, PEEP) with μ\* = 0.0037 and σ = 0.0068, and
-  (S1, M, SpO2, Vt) with μ\* = 0.028 and σ = 0.023. SpO2 in the
-  healthy respiratory envelope sits at ≈ 0.997 (hemoglobin
-  saturation ceiling), so the Morris elementary effects are
-  floating-point fluctuation, not physiological signal — the σ / μ\*
-  ratio is mathematically high but physiologically empty.
-* **Group B — known nonlinear physiology (6 of 8).** Four cells
-  reflect FiO2 → PaO2 shunt-fraction kinetics in ARDS scenarios:
-  (S2 / S3, M / F, PaO2, FiO2) with μ\* in the 84 – 147 mmHg range
-  and σ / μ\* between 0.64 and 0.94. This is exactly the regime where
-  venous admixture caps oxygenation gain per FiO2 increment — an
-  established physiological nonlinearity. The remaining two cells
-  reflect minute-ventilation coupling on PaCO2: RR → PaCO2 in
-  healthy males ((S1, M), σ / μ\* = 0.87) and Vt → PaCO2 in severe
-  ARDS females ((S4, F), σ / μ\* = 0.66) — both expected from the
-  alveolar-ventilation identity V̇A = RR · (Vt − Vd) driving CO2
+Applying this rule to the dominant input per (scenario, sex, output)
+cell, **8 of 48 cells fire the trigger.** Manual inspection separates
+these into two regimes:
+
+* **Group A — noise-dominated (2 of 8 cells).** The dominant input's
+  μ\* sits at numerical-noise level because the output is pinned at
+  physiological saturation. Both are SpO2 in healthy patients: (S1, F,
+  SpO2, PEEP) with μ\* = 0.0037 and σ = 0.0068, and (S1, M, SpO2, Vt)
+  with μ\* = 0.028 and σ = 0.023. SpO2 in the healthy respiratory
+  envelope sits at ≈ 0.997 — the hemoglobin saturation ceiling — so
+  the Morris elementary effects are floating-point fluctuation, not
+  physiological signal. The σ / μ\* ratio is mathematically high but
+  physiologically empty.
+
+* **Group B — known nonlinear physiology (6 of 8 cells).** Four of
+  these are the FiO2 → PaO2 cells in ARDS scenarios: (S2 / S3, M / F,
+  PaO2, FiO2), with μ\* in the 84 – 147 mmHg range and σ / μ\* between
+  0.64 and 0.94. This is the regime where venous admixture caps
+  oxygenation gain per FiO2 increment — an established physiological
+  non-linearity (shunt-fraction kinetics). The remaining two cells
+  reflect minute-ventilation coupling on PaCO2: RR → PaCO2 in healthy
+  males ((S1, M), σ / μ\* = 0.87), and Vt → PaCO2 in severe-ARDS
+  females ((S4, F), σ / μ\* = 0.66). Both are predicted by the
+  alveolar-ventilation identity V̇A = RR · (Vt − Vd) that governs CO2
   elimination.
 
 **CI-aware re-evaluation of the trigger.** The 8 / 48 promotion count
-above is a point estimate. We block-bootstrapped σ at the trajectory
-level (1000 resamples, same RNG protocol as the μ\* CI; results
-columns `sigma_lo`, `sigma_hi` in `results/morris_indices.parquet`),
-and computed the implied CI on the σ / μ\* ratio per cell. The
-distribution under the bootstrap is:
+above is a *point* estimate. To attach a confidence interval to it,
+we resampled trajectories (block bootstrap, 1,000 resamples, same
+RNG seed as the μ\* CI) and recomputed σ / μ\* on each resample.
+Per-cell `sigma_lo` / `sigma_hi` columns are persisted in
+`results/morris_indices.parquet`. Under this bootstrap, the 48 cells
+distribute into four buckets:
 
-* **0 / 48 cells** are CI-robust nonlinear: no cell has a *lower*
-  bootstrap CI bound on σ / μ\* at or above 0.6.
-* **31 / 48 cells (65 %)** are CI-robust linear: upper bootstrap CI
+* **CI-robust *non-linear*: 0 / 48 cells.** No cell's *lower*
+  bootstrap CI bound on σ / μ\* sits at or above 0.6 — i.e. no cell
+  satisfies the trigger when evaluated at full evidential weight.
+* **CI-robust *linear*: 31 / 48 cells (65 %).** Upper bootstrap CI
   bound on σ / μ\* strictly below 0.6.
-* **12 / 48 cells** have a CI that straddles 0.6 — 8 of these are the
-  point-estimate "promote" cells (Groups A + B above), whose
-  nonlinearity classification is bootstrap-borderline; the other 4 are
-  point-estimate-below-0.6 cells whose upper CI bound exceeds 0.6
-  (one PEEP-on-PaO2/SpO2 in (S4, F), two FiO2-on-SpO2 in (S2 / S3, M),
-  one PaCO2-on-Vt in (S4, F)).
-* **5 / 48 cells** have no estimable σ / μ\* CI: three cells in S1_F
-  where the dominant input by μ\* is Vt and the Vt OAT step has only
-  one clean trajectory pair (S1_F × {PaCO2, PaO2, Vt}), and two cells
-  in S4_M where the dominant input is FiO2 and the FiO2 OAT step has
-  only one clean trajectory pair (S4_M × {PaO2, SpO2}). The relevant
-  *which input lacks clean pairs* differs across the two cell groups
-  (Vt in S1_F vs FiO2 in S4_M), and the per-input gap is summarised at
-  cell level in §4.3 / §4.5 limitations.
+* **Straddles 0.6: 12 / 48 cells.** Their non-linearity classification
+  is bootstrap-borderline. Eight are the point-estimate "promote"
+  cells (Groups A + B above). The other four are *point-estimate-below*
+  but *upper-CI-above* 0.6: one PEEP-on-PaO2/SpO2 in (S4, F); two
+  FiO2-on-SpO2 in (S2 / S3, M); one PaCO2-on-Vt in (S4, F).
+* **No estimable CI: 5 / 48 cells.** Three lie in S1_F where the
+  dominant input is Vt — the Vt one-at-a-time (OAT) step has only
+  one clean trajectory pair (S1_F × {PaCO2, PaO2, Vt}). Two lie in
+  S4_M where the dominant input is FiO2 — the FiO2 OAT step has
+  only one clean trajectory pair (S4_M × {PaO2, SpO2}). The
+  *which-input-lacks-pairs* differs between the two groups (Vt in
+  S1_F vs FiO2 in S4_M); per-input gaps are summarised at cell level
+  in §4.3 / §4.5 limitations.
 
-*Methodological note (σ / μ\* CI formula).* The upper CI bound on σ / μ\*
-reported in the bucketing above is taken as σ_hi / μ̂\*, where σ_hi is
-the upper 97.5-percentile from the trajectory-level block bootstrap on σ
-(1,000 resamples; `_block_bootstrap_sigma_ci` in `src/analysis_morris.py`)
-and μ̂\* is the point estimate (treated as fixed). A fully ratio-aware
-bootstrap (resampling trajectories and recomputing σ_b / μ\*_b jointly
-per draw) yields a slightly different decomposition (30 / 48 CI-robustly
-linear under that formula); the qualitative conclusion — **zero cells
-are CI-robustly nonlinear under either formula** — is unchanged.
+*Methodological note (σ / μ\* CI formula).* The upper CI bound
+reported in the bucketing above is σ_hi / μ̂\*, where σ_hi is the
+upper 97.5-percentile of the trajectory-level block bootstrap on σ
+(1,000 resamples; implementation: `_block_bootstrap_sigma_ci` in
+`src/analysis_morris.py`). The μ̂\* in the denominator is the point
+estimate, treated as fixed. A fully ratio-aware bootstrap — one
+that resamples trajectories and recomputes σ_b / μ\*_b *jointly*
+per draw — yields a slightly different decomposition (30 / 48
+CI-robustly linear under that formula). The qualitative conclusion
+is unchanged either way: **zero cells are CI-robustly non-linear
+under either formula.**
 
-**The Sobol bolt-on is statistically redundant under the
-CI-aware evidence.** The preregistered trigger (σ / μ\* ≥ 0.6) was
-designed to flag cells whose nonlinearity is *evidentially*
-established, not merely point-estimate above threshold. The
-trajectory-level bootstrap analysis above resolves the trigger
-distribution at full evidential weight: **zero of the 48 cells
-satisfy the trigger CI-robustly** (no cell has a lower bootstrap CI
-bound on σ / μ\* at or above 0.6), 31 cells are CI-robustly linear,
-12 cells straddle 0.6, and 5 cells have no estimable σ / μ\* CI
-(the FiO2- and Vt-edge cells described above). Running a variance decomposition on cells
-whose nonlinearity-trigger status is itself bootstrap-borderline
-cannot tighten the evidential picture — Sobol S₁ / Sₜ indices on
-cells that are not CI-robustly nonlinear simply quantify the
-proportion of an already-bootstrap-noise-dominated variance. The
-interaction structure on the 6 Group B cells is additionally
-*a priori* established by respiratory physiology (shunt-fraction
-kinetics on PaO2; alveolar-ventilation identity V̇A = RR · (Vt − Vd)
-on PaCO2) and *qualitatively* recovered by the Morris main-effect
-rankings reported in §3.2; quantitative Sobol indices would
-re-derive the same ordering at substantially higher compute cost.
+**The Sobol bolt-on is statistically redundant under the CI-aware
+evidence.** *In one sentence: the trigger that was supposed to
+motivate Sobol does not survive its own confidence interval.* The
+preregistered trigger σ / μ\* ≥ 0.6 was designed to flag cells whose
+non-linearity is *evidentially* established — not cells whose point
+estimate merely happens to land above threshold. The trajectory-level
+bootstrap above resolves the trigger at full evidential weight.
+**Zero of the 48 cells satisfy the trigger CI-robustly:** no cell has
+a *lower* bootstrap CI bound on σ / μ\* at or above 0.6. Of the
+remaining cells, 31 are CI-robustly linear, 12 straddle 0.6, and 5
+have no estimable σ / μ\* CI (the FiO2- and Vt-edge cells described
+above).
 
-The preregistered Sobol bolt-on is therefore **closed by
-redundancy, not by compute-shortage.** A future reviewer or
-practitioner who wishes the variance decomposition anyway will find
-a ready-to-fire SALib implementation in
-[`scripts/s019_sobol_bolton.py`](../scripts/s019_sobol_bolton.py)
-(N = 256, 6 Group-B cells, ~14 k Pulse runs, cluster-friendly). The
+Running a variance decomposition on cells whose non-linearity-trigger
+status is *itself* bootstrap-borderline cannot tighten the evidential
+picture. Sobol S₁ / Sₜ indices on cells that are not CI-robustly
+non-linear would simply quantify the proportion of an
+already-bootstrap-noise-dominated variance.
+
+The interaction structure on the 6 Group B cells is additionally
+*a priori* established by respiratory physiology: shunt-fraction
+kinetics on PaO2, and the alveolar-ventilation identity
+V̇A = RR · (Vt − Vd) on PaCO2. Both are qualitatively recovered by
+the Morris main-effect rankings reported in §3.2. A quantitative
+Sobol decomposition would re-derive the same ordering at
+substantially higher compute cost.
+
+The preregistered Sobol bolt-on is therefore **closed by redundancy,
+not by compute-shortage.** A reviewer or practitioner who wants the
+variance decomposition anyway will find a ready-to-fire SALib
+implementation in
+[`scripts/s019_sobol_bolton.py`](../scripts/s019_sobol_bolton.py) —
+N = 256, 6 Group-B cells, ~14 k Pulse runs, cluster-friendly. The
 script consumes the canonical Morris sample
 (`data/runs/full_sweep/morris_sample.parquet`) and the atlas Docker
 image (S006), writes per-cell S₁ / Sₜ tables, and is verified to
 produce the same sample-grid that this paper's deferral argument
-references. The analysis pipeline is preserved in
+references. The downstream analysis pipeline is preserved in
 `src/analysis_morris.py`.
 
 ### 3.4 H2 — silent clamping rate (NOT supported, 0 / 1,280)
@@ -1270,50 +1288,55 @@ with *what is varying*, not sex per se.*
 spread uniformly across the input space — they cluster on a specific
 input pattern. Of the 20:
 
-* **HR = 50 (the locked low boundary)** appears in 16 / 20 runs.
-* **SBP = 90 (locked low boundary)** appears in 16 / 20 runs.
-* **DBP = 67.5 (= 0.75 × 90, the post-clip value)** appears in 16 / 20.
-* **RR = 20 (locked high boundary)** appears in 16 / 20 runs.
+* **HR = 50** (the locked low boundary) appears in 16 / 20 runs.
+* **SBP = 90** (locked low boundary) appears in 16 / 20 runs.
+* **DBP = 67.5** (= 0.75 × 90, the post-clip value) appears in 16 / 20.
+* **RR = 20** (locked high boundary) appears in 16 / 20 runs.
 * **FiO2 = 1.0** appears in 13 / 20.
 * The 16 shared cases correspond to **the same 4 Morris sample
-  indices repeated across S1 / S2 / S3 / S4_M** (run_idx 119, 157,
-  158, 159 in the canonical sample). The remaining 4 are unique to
-  (S4, M) at run_idx 24 / 82 / 137 / 138 — a mixed cluster of higher
-  HR (one at 110 bpm, three at 90 bpm) and varied Vt (two at 300 mL,
-  one at 633 mL, one at 800 mL) — a partial second regime that the
-  locked Morris sample explores only at the most severe ARDS impairment.
+  indices repeated across S1 / S2 / S3 / S4_M** — `run_idx` 119, 157,
+  158, 159 in the canonical sample.
+* The remaining 4 are unique to (S4, M), at `run_idx` 24 / 82 /
+  137 / 138. They form a mixed cluster: one HR at 110 bpm, three at
+  90 bpm; two Vt at 300 mL, one at 633 mL, one at 800 mL. This is a
+  *partial second regime* — one the locked Morris sample explores
+  only at the most severe ARDS impairment.
 
-The divergence signature reads as: **low cardiovascular output (low
-HR + low SBP) combined with high respiratory drive (high RR + high
-FiO2) on the male standard surrogate** drives Pulse to a numerical
-edge case. The compound input is plausible clinically (a hypotensive,
-tachypneic, fully oxygenated patient — recognizable as a septic / pre-
-arrest configuration) yet inside Pulse's verified acceptance ranges.
-Users should treat this corner of the envelope as fragile when running
-the male standard surrogate.
+The signature reads cleanly: **low cardiovascular output (low HR +
+low SBP) combined with high respiratory drive (high RR + high FiO2)
+on the male standard surrogate** drives Pulse to a numerical edge
+case. The compound input is *clinically plausible* — a hypotensive,
+tachypneic, fully oxygenated patient, recognizable as a septic /
+pre-arrest configuration — and sits inside Pulse's verified
+acceptance ranges. Users should treat this corner of the envelope
+as fragile when running the male surrogate.
 
 **Mechanism candidate (Pulse source audit).** Pulse's
 `SetupPatient.cpp` computes blood-volume baseline as
 `computedBloodVolume_mL = 65.6 × weight_kg^1.02`. Verified against
-the engine's setup log on the atlas sweep: male standard surrogate
-(67.3 kg) → 4,802.63 mL; female standard surrogate (56.2 kg) →
-3,996.09 mL. (Pulse logs both values at setup time on every run.)
+the engine's setup log on the atlas sweep, this gives
+**4,802.63 mL** for the male standard surrogate (67.3 kg) and
+**3,996.09 mL** for the female (56.2 kg) — a ~17 % difference.
+(Pulse logs both values at setup time on every run.)
+
 Several other parameters are sex-conditional: ideal-body-weight
 (Devine formula coefficient 50.0 vs 45.5), fat-fraction standard
-(0.21 vs 0.28), height bounds (151 – 176 cm vs 163 – 190 cm). The
-~17 % blood-volume difference is the most plausible candidate for
-the divergence asymmetry: it directly enters the cardiovascular
-circuit's stabilization and shifts the operating-point neighborhood
-between the two sexes.
+(0.21 vs 0.28), height bounds (151 – 176 cm vs 163 – 190 cm). Among
+these, the BV gap is the most plausible candidate for the divergence
+asymmetry. It enters the cardiovascular circuit's stabilisation
+directly, and shifts the operating-point neighborhood between the
+two sexes.
 
-**Mechanism confirmed (S018, 2026-05-13).** A targeted falsification
-test was run by re-executing the 20 originally-diverged male inputs
-with an explicit `BloodVolumeBaseline` override injected through
+**Mechanism confirmed (S018, 2026-05-13).** *In one sentence:
+forcing the male surrogate's BV down to the female-equivalent range
+eliminates the divergence cluster.* We re-executed the 20
+originally-diverged male inputs, this time injecting an explicit
+`BloodVolumeBaseline` override via
 `SEPatient.get_blood_volume_baseline().set_value(mL)`. The atlas
 wrapper was extended to accept an optional `baselines.blood_volume_ml`
-field for this purpose; Pulse logs the resolved BV at setup, so the
+field for this purpose. Pulse logs the resolved BV at setup, so every
 override is verifiable post hoc from `pulse.log`. The protocol used
-two BV points to map a dose-response curve:
+two override points to map a dose-response curve:
 
 | Override BV (mL) | Reduction vs default | Diverged | Implausible | not_steady_state | Clean |
 |------------------|----------------------|----------|-------------|------------------|-------|
@@ -1333,33 +1356,43 @@ reduction — 20 / 20 → 2 / 20 → 0 / 20 — mechanistically confirming
 that the all-male divergence cluster is mediated by Pulse's
 blood-volume baseline.
 
-The divergence rate is monotonic in BV reduction. The mechanism is
-confirmed: the all-male divergence cluster is mediated by the engine's
-blood-volume baseline. Severe-ARDS / FiO2 = 1.0 inputs require deeper
-BV reduction to clear (the two cases still divergent at 4,400 mL are
-S4_M with FiO2 = 1.0); the milder inputs clear at 4,400 mL already.
-A separate engine-level finding (F-S018-A in
-[`S018_blood_volume_falsification.md`](../experiments_log/santino/S018_blood_volume_falsification.md))
-emerged from the same test: **Pulse hard-enforces a per-patient BV
-floor at setup**. For the male standard surrogate (67.3 kg, 180 cm,
-age 18, sex Male), the floor is 4,082.24 mL — setting `BloodVolume-
-Baseline` below this triggers an explicit `[ERROR]` and exit 1
-("Patient blood volume baseline … is too low. Hypovolemia must be
-modeled by adding/using a condition."). The female-computed BV
-(3,996.09 mL) falls 86 mL below this floor, so the male / female BV
-gap *cannot* be closed by a one-way transplant; the strongest BV-only
-reduction Pulse will accept on the male surrogate is 4,082.24 mL
-(15.0 %).
+The divergence rate falls *monotonically* with BV reduction. The
+mechanism is therefore confirmed: the all-male divergence cluster is
+mediated by the engine's blood-volume baseline.
 
-The eight not_steady_state classifications at both BV brackets are
-concentrated in S1_M / S2_M and reflect input-profile incoherence on
-the 16 shared Morris indices (HR = 50 + RR = 20 + SBP = 90 on healthy
-lungs is physiologically inconsistent); the BV reduction lifts the
-divergence flag but exposes the underlying oscillatory regime. The
-all-S4_M unique inputs (run_idx 24 / 82 / 137 / 138) run clean at both
-brackets — these are the four runs where input low-cardiac-output +
-high-respiratory-drive is clinically coherent (septic ARDS pattern),
-and Pulse solves them cleanly once BV is reduced.
+Severe-ARDS / FiO2 = 1.0 inputs require deeper BV reduction to clear.
+The two cases still divergent at 4,400 mL are both S4_M with
+FiO2 = 1.0; the milder inputs are already clean at 4,400 mL.
+
+**A separate engine-level finding (F-S018-A** in
+[`S018_blood_volume_falsification.md`](../experiments_log/santino/S018_blood_volume_falsification.md)**)
+emerged from the same test: Pulse hard-enforces a per-patient BV
+floor at setup.** For the male standard surrogate (67.3 kg, 180 cm,
+age 18, sex Male), the floor sits at **4,082.24 mL**. Setting
+`BloodVolumeBaseline` below this triggers an explicit `[ERROR]` and
+exit 1: *"Patient blood volume baseline … is too low. Hypovolemia
+must be modeled by adding/using a condition."*
+
+A practical consequence for sex-comparison experiments: the
+female-computed BV (3,996.09 mL) sits 86 mL *below* the male floor.
+The two surrogates therefore cannot be made BV-equivalent by a
+one-way transplant — the strongest BV-only reduction Pulse will
+accept on the male surrogate is 4,082.24 mL (a 15.0 % reduction
+from default).
+
+The eight `not_steady_state` classifications at both BV brackets are
+concentrated in S1_M / S2_M. They reflect input-profile incoherence
+on the 16 shared Morris indices: HR = 50 + RR = 20 + SBP = 90 on
+healthy lungs is physiologically inconsistent. BV reduction lifts
+the *divergence* flag but exposes the *underlying oscillatory
+regime* — the inputs were always going to misbehave, and the BV
+change just makes the misbehaviour visible at a different flag.
+
+The all-S4_M unique inputs (`run_idx` 24 / 82 / 137 / 138) run clean
+at both brackets. These are the four runs where input
+low-cardiac-output + high-respiratory-drive is clinically coherent
+(septic ARDS pattern); once BV is reduced, Pulse solves them without
+complaint.
 
 Per-cell counts:
 
@@ -1385,25 +1418,27 @@ overall); female cells, run on the *identical* input grid, never
 diverge in this regime — the first quantitative sex-specific
 reliability finding for Pulse 4.3.1.
 
-The same 160 Morris input points were submitted to both M and F cells
-(Pulse-standard adult: M = 67.3 kg / 180 cm; F = 56.2 kg / 163 cm).
-Same physics engine, same condition string, same ventilator settings.
-The only difference is patient mass / height / sex flag — yet the
-divergence rate is **2.5 % in S1_M, S2_M, and S3_M (4 / 160 each) and
-5.0 % in S4_M (8 / 160), against 0 % in every female cell**. The
-overall male rate is 20 / 640 = 3.1 %; the female rate is 0 / 640.
+The same 160 Morris input points were submitted to both M and F cells.
+Patient bodies: M = 67.3 kg / 180 cm; F = 56.2 kg / 163 cm. Same
+physics engine, same condition string, same ventilator settings. The
+only difference is patient mass / height / sex flag.
+
+Yet the divergence rate is **2.5 % in S1_M, S2_M, and S3_M** (4 / 160
+each), **5.0 % in S4_M** (8 / 160), and **0 % in every female cell**.
+The overall male rate is 20 / 640 = 3.1 %; the female rate is 0 / 640.
 
 This is the first quantitative sex-specific reliability finding for
-Pulse 4.3.1 and is significant for any device-validation pipeline that
-uses Pulse as a virtual patient. **All 20 divergences occur on the
-male surrogate; the female surrogate, run on the identical input grid,
-never diverges within the locked envelope.** The diverged-run input
-combinations are catalogued by `results/diverged_grid.parquet`
-(2-D heatmap of divergence rate per input-pair × cell).
+Pulse 4.3.1, and is consequential for any device-validation pipeline
+that uses Pulse as a virtual patient. **All 20 divergences occur on
+the male surrogate; the female surrogate, run on the *identical*
+input grid, never diverges within the locked envelope.** The
+diverged-run input combinations are catalogued in
+`results/diverged_grid.parquet` (a 2-D heatmap of divergence rate
+per input-pair × cell).
 
-H3 is therefore **partially supported** with a stronger qualifier: a
-divergence regime exists outside the documented 0.91 – 0.945 ARDS zone
-*and* the regime is sex-conditioned.
+H3 is therefore **partially supported** with a stronger qualifier:
+a divergence regime exists outside the documented 0.91 – 0.945 ARDS
+zone *and* the regime is sex-conditioned.
 
 ### 3.5.1 Continuous-severity divergence regime (Tier-2 follow-up)
 
@@ -1481,19 +1516,26 @@ PaO2 × 1). Cardiovascular and Vt distances fall within the within-sex
 sub-sampling null; input-importance rankings are largely preserved
 across sexes (Spearman ρ 0.75 – 1.00 in S2 / S3).*
 
-We report H4 with two complementary statistics. The 1-Wasserstein
-distance quantifies the absolute magnitude of the difference between
-male and female clean-run output *distributions*, expressed in the
-output's natural units (mmHg, bpm, mL). Spearman's ρ (rho) rank
-correlation between M and F Morris μ\* *vectors* asks whether both
-sexes prioritize the same inputs (ρ = 1 ⇒ identical input ordering,
-ρ = −1 ⇒ inverted ordering) — a different question from how big the
-sex-specific output shifts are. For both we add a null reference
-because raw point estimates on this sample size overstate precision.
+H4 is reported with two complementary statistics, each answering a
+different question.
 
-**Wasserstein distance with within-sex null** (M-vs-F observed; null
-built by repeatedly splitting the *combined* M+F clean runs randomly
-into halves of the original sizes; n_null = 2,000):
+*How different are the output distributions?* The **1-Wasserstein
+distance** quantifies the absolute magnitude of the M-vs-F gap on
+clean-run output distributions, expressed in the output's natural
+units (mmHg, bpm, mL).
+
+*Do both sexes prioritise the same inputs?* **Spearman's ρ (rho)**
+is a rank correlation between the M and F Morris μ\* vectors. ρ = 1
+means identical input ordering; ρ = −1 means inverted; intermediate
+values mean partial agreement.
+
+Both statistics need a null reference: raw point estimates on this
+sample size would overstate precision.
+
+**Wasserstein distance with within-sex null.** The observed value is
+the M-vs-F distance on clean runs. The reference null is built by
+repeatedly splitting the *combined* M+F clean runs randomly into
+halves of the original sizes (n_null = 2,000 splits).
 
 ```{=latex}
 \begin{center}
@@ -1534,33 +1576,38 @@ S4 & PaCO2 & 1.05  & 0.61  & 1.13  & 0.083 &   \\
 ```
 
 \* survives Benjamini–Hochberg FDR control at q = 0.05 across all 24
-tests (BH critical value for the 5th-ranked p-value is 5 · 0.05 / 24 ≈
-0.0104; the 5 rows above all have p_emp ≤ 0.009). Naive α = 0.05
-yielded 6 significant rows; the additional row (S2 SpO2, p_emp =
-0.022) does not survive multiple-comparisons control and is reported
-unbolded.
+tests. The BH critical value for the 5th-ranked p-value is
+`5 · 0.05 / 24 ≈ 0.0104`; the 5 rows marked above all have
+p_emp ≤ 0.009. The naive-α = 0.05 analysis would have flagged 6 rows;
+the demoted row (**S2 SpO2**, p_emp = 0.022) does not survive
+multiple-comparisons control and is therefore reported *unbolded* in
+the table.
 
-**Honest interpretation:** 5 of 24 (cell × output) Wasserstein
+**Honest interpretation.** Five of 24 (cell × output) Wasserstein
 distances survive BH-FDR control at q = 0.05 against a within-sex
-subsampling null.
-**All five are gas-exchange channels (PaCO2 ×3, SpO2 ×1, PaO2 ×1).**
-**Initial uncorrected analyses (α = 0.05) flagged 6 / 24 rows
-as significant — all gas-exchange (S1 PaCO2, S2 SpO2, S2 PaCO2,
-S3 PaCO2, S4 SpO2, S4 PaO2). Applying Benjamini–Hochberg FDR control
-at q = 0.05 demotes S2 SpO2 (p_emp = 0.022, above the BH critical
-value 5 · 0.05 / 24 ≈ 0.0104 for the 5th-ranked test); the corrected
-count of 5 survivors is reported here in place of the uncorrected
-one. Cardiovascular outputs (HR, MAP) and ventilator output (Vt) do
-not exceed the within-sex null even before multiple-comparisons
-correction — the ~ 13 – 36 mL Vt difference and the ~ 1 – 5 bpm HR
-difference are not larger than what the same population produces by
-random sub-sampling.**
+sub-sampling null. **All five are gas-exchange channels:** PaCO2 ×3,
+SpO2 ×1, PaO2 ×1.
 
-The remaining sex-stratified effect concentrates exactly where
-sex-specific physiology should matter most: gas exchange, where
-alveolar volume scaling and lung-volume-to-body-mass ratios diverge
-by sex. PaCO2 is the strongest signal (significant in 3 of 4
-scenarios, very small p_emp values in S2 and S3).
+Before any multiple-comparisons correction (naive α = 0.05), six
+rows are flagged as significant — all on gas-exchange channels:
+S1 PaCO2, S2 SpO2, S2 PaCO2, S3 PaCO2, S4 SpO2, and S4 PaO2.
+
+Applying Benjamini–Hochberg FDR control at q = 0.05 demotes one of
+these: **S2 SpO2** (p_emp = 0.022) sits above the BH critical value
+of `5 · 0.05 / 24 ≈ 0.0104` for the 5th-ranked test. The corrected
+survivor count is therefore **5 / 24**, and that figure — not the
+uncorrected 6 / 24 — is what we report.
+
+The cardiovascular and ventilator outputs (HR, MAP, Vt) do not even
+reach significance *without* correction. The observed M-vs-F gaps —
+~ 1 – 5 bpm on HR and ~ 13 – 36 mL on Vt — are no larger than what
+random sub-sampling of the *same* combined M+F population produces.
+
+The surviving sex-stratified effect concentrates exactly where
+sex-specific physiology *should* matter most: gas exchange. This is
+the regime where alveolar volume scaling and lung-volume-to-body-mass
+ratios diverge by sex. PaCO2 is the strongest signal — significant
+in 3 of 4 scenarios, with very small p_emp values in S2 and S3.
 
 *Figure 4 (`fig04_h4_wasserstein`) — at a glance.*
 **What:** 1-Wasserstein distance between male and female clean-run
@@ -1575,9 +1622,9 @@ runs); cells flagged with `*` exceed the 95th-percentile of the null.
 Cardiovascular and Vt distances fall within the within-sex baseline
 at this sample size.
 
-**Spearman ρ on μ\* rankings with paired-input bootstrap CI**
-(M vs F, computed where both sexes have clean EE pairs across all
-7 inputs):
+**Spearman ρ on μ\* rankings with paired-input bootstrap CI.** ρ is
+computed wherever both sexes have clean elementary-effect pairs
+across all 7 inputs.
 
 ```{=latex}
 \begin{center}
@@ -1603,24 +1650,24 @@ S3 & PaCO2 & 0.89 & [0.41, 1.00] \\
 \end{center}
 ```
 
-S1 and S4_F do not have a computable Spearman ρ because FiO2 has zero
-clean elementary-effect pairs in those cells (every trajectory step
+S1 and S4_F have no computable ρ. FiO2 has zero clean
+elementary-effect pairs in those cells: every Morris trajectory step
 that flips FiO2 between 0.21 and 1.0 has at least one endpoint
-flagged, predominantly by SpO2 ceiling pinning at FiO2 ≈ 1.0). This
-itself is a finding (§4.3 limitations).
+flagged — predominantly by SpO2 ceiling pinning at FiO2 ≈ 1.0. This
+non-computability is itself a finding (§4.3 limitations).
 
-The bootstrap CI on Spearman ρ is wide for output Vt (S2 lower bound
-−0.06) — meaning the input-importance ranking for Vt is not
-clearly preserved across sex. For other outputs, the lower CI bound
-is ≥ 0.34, supporting "rankings preserved" qualitatively but not
-strongly.
+The bootstrap CI on ρ is wide for output Vt (S2 lower bound −0.06),
+meaning the input-importance ranking for Vt is not clearly preserved
+across sex. For the other outputs, the lower CI bound sits at ≥ 0.34
+— qualitative support for "rankings preserved across sex", though
+not high-precision support.
 
-Pre-Atlas engine verification (`Pulse_translation_new` E12, E13)
-established that the female surrogate produces physiologically
-plausible output across all four scenarios independent of this
-sweep, so the observed sex effects above reflect real engine-level
-sex-specific physiology rather than miscalibration of the female
-patient model.
+A complementary engine-level verification is relevant here. Pre-Atlas
+experiments (`Pulse_translation_new` E12, E13) established that the
+female surrogate produces physiologically plausible output across all
+four scenarios, independent of this sweep. The sex effects we observe
+above therefore reflect real engine-level sex-specific physiology,
+not miscalibration of the female patient model.
 
 *Figure 5 (`fig05_h4_spearman_mu_star`) — at a glance.*
 **What:** Spearman rank correlation ρ between male and female Morris
