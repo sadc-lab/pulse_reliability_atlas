@@ -77,7 +77,7 @@ each can be entered independently.*
 * **§1 — Introduction.** Why an open reliability atlas is needed for
   Pulse 4.3.1, the twelve verified engine limitations the atlas builds on,
   and the contribution catalogue. §1.4 explains the experiment-log tag
-  system (S001 – S020) used throughout.
+  system ([S001](#s001) – [S020](#s020)) used throughout.
 * **§2 — Methods.** Engine wrapper, the seven swept operational inputs,
   the four scenarios × two patients design, Morris sampling, the
   four-flag detector (`clamped` / `diverged` / `implausible` /
@@ -128,7 +128,7 @@ sweep.*
 * **All-male solver-divergence cluster.** 20 of 1,280 runs (1.6 %)
   diverge, *all 20 on the male surrogate*, mechanistically explained
   by Pulse's `BloodVolumeBaseline` floor on the male reference surrogate
-  body (S018).
+  body ([S018](#s018)).
 * **A reusable four-flag classifier**
   (`clamped` / `diverged` / `implausible` / `not_steady_state`) that
   future Pulse users can apply to their own scenario configurations
@@ -177,7 +177,7 @@ analysis on user-facing operational inputs has been performed; this
 paper produces that map. The introduction catalogues the twelve
 verified engine limitations the atlas builds on, summarises the
 contributions, and introduces the experiment-log tag system
-(S001 – S020) used throughout.*
+([S001](#s001) – [S020](#s020)) used throughout.*
 
 ### 1.1 Motivation
 
@@ -210,13 +210,13 @@ systems, and is used in three broad communities:
 
 Despite this footprint, the engine's developers state explicitly on
 the public Pulse FAQ [@pulsefaq; verified verbatim 2026-04-19, still
-current as of the May 2026 GitLab re-audit, S003 / S016]:
+current as of the May 2026 GitLab re-audit, [S003](#s003) / [S016](#s016)]:
 
 > "We have not performed a systematic forward propagation or inverse
 > quantification of model uncertainty, nor have we conducted a formal
 > sensitivity analysis."
 
-The 2026 GitLab re-audit (S016) qualifies the FAQ claim slightly:
+The 2026 GitLab re-audit ([S016](#s016)) qualifies the FAQ claim slightly:
 the repo carries a 2020 tag `STUDY_SENSITIVITY_ANALYSIS_1_0_0` with a
 one-off Sobol study on internal vascular-circuit resistance multipliers
 for model calibration. That study targets a different parameter class
@@ -261,7 +261,7 @@ findings-paper: (1) the entire pipeline is preregistered with
 amendment history (per [@munafo2017]); (2) every quoted
 number is reproducible from the canonical Morris sample (seed = 42)
 plus the atlas Docker image, verified at three independent layers
-(S007); (3) the data are released under FAIR principles
+([S007](#s007)); (3) the data are released under FAIR principles
 [@wilkinson2016]; and (4) the four-flag classifier is a generic
 instrument that future Pulse users can apply to their own
 configurations without re-running our sweep.
@@ -288,13 +288,13 @@ consolidated in §4.5.
 
 *The twelve Pulse limitations the atlas is calibrated against, each
 tied to a primary source (FAQ, source-code audit, or our own
-boundary experiments — see S003 / S010 / S016). Two previously
+boundary experiments — see [S003](#s003) / [S010](#s010) / [S016](#s016)). Two previously
 asserted but unverified claims — FiO2 = 1.0 crashes the solver, and
 Pulse has no sex-specific physiology — were withdrawn before
 preregistration locked.*
 
 Twelve limitations were verified against primary sources before the
-preregistration was locked ([S003](../experiments_log/santino/S003_pulse_limitations_verified.md)).
+preregistration was locked ([S003](#s003)).
 This atlas adds quantitative coverage to those:
 
 1. No formal SA / UQ on user-facing operational inputs — addressed by
@@ -302,7 +302,7 @@ This atlas adds quantitative coverage to those:
    Pulse repository (Sobol on internal lumped-parameter circuit
    resistances for model calibration) addressed a different parameter
    class and has not been ported to 4.3.x; the FAQ statement remains
-   current. Audit details in S016.
+   current. Audit details in [S016](#s016).
 2. BP clamping above SBP > 120 / DBP > 80 — verified empirically; locked
    sampler ranges respect this so it does not contaminate H2.
 3. Adult-only (age ≥ 18 hard-gated in `SetupPatient.cpp`) — atlas restricted
@@ -319,7 +319,7 @@ This atlas adds quantitative coverage to those:
 The two previously asserted but unverified claims (FiO2 solver-divergence at 1.0 and
 absence of sex-specific physiology) were withdrawn before the
 preregistration locked. The atlas wrapper deliberately raises FiO2_MAX from
-0.95 to 1.0 ([S004](../experiments_log/santino/S004_scenario_smoke_and_atlas_image.md))
+0.95 to 1.0 ([S004](#s004))
 so the FiO2 = 1.0 boundary actually reaches Pulse rather than being
 silently capped at the wrapper layer.
 
@@ -335,7 +335,7 @@ paper, which highlights the same work as reusable deliverables.)*
 * The first open reliability atlas for Pulse 4.3.1 across two patient
   surrogates and four scenarios.
 * A four-flag classifier (`clamped` / `diverged` / `implausible` /
-  `not_steady_state`) calibrated against real Pulse logs (S004) — every
+  `not_steady_state`) calibrated against real Pulse logs ([S004](#s004)) — every
   threshold locked before data collection (preregistration §Flags).
 * Morris elementary-effects sensitivity with bootstrap-CI on μ\*
   (preregistered analysis plan; bootstrap CI is a post-hoc
@@ -346,7 +346,7 @@ paper, which highlights the same work as reusable deliverables.)*
 * A traffic-light reliability map (green / yellow / red) per cell ×
   output, suitable for direct user consumption.
 
-### 1.4 Experiment log nomenclature (S001 – S020)
+### 1.4 Experiment log nomenclature ([S001](#s001) – [S020](#s020))
 
 *A one-line description of each of the 20 experiment-log entries
 cited throughout the paper. Skim this table once to make every later
@@ -355,11 +355,11 @@ trail lives in Appendix A and the underlying notebooks in the
 repository.*
 
 Throughout this paper we reference experiments by short tags of the
-form **S001, S002, …, S020**. Each tag corresponds to a self-contained
+form **[S001](#s001), [S002](#s002), …, [S020](#s020)**. Each tag corresponds to a self-contained
 lab-notebook entry under `experiments_log/santino/` that records the
 *hypothesis, motivation, method, result, and interpretation* of one
 discrete piece of work. The tags are introduced here so that any
-reference in §2 – §4 to e.g. "S005 pilot" or "S014 trigger lockout"
+reference in §2 – §4 to e.g. "[S005](#s005) pilot" or "[S014](#s014) trigger lockout"
 is interpretable on first encounter. A compact one-line description
 of every entry follows; the full audit trail is in Appendix A and the
 underlying files are in the repository.
@@ -411,10 +411,10 @@ reproduce the sweep bit-exactly.*
   `engine/Dockerfile` (FROM `kitware/pulse:4.3.1`). The wrapper at
   `engine/run_atlas_engine.py` is a fork of
   `Pulse_translation_new/engine/run_validation_engine.py` with two
-  documented changes (see §2.6 and S004):
+  documented changes (see §2.6 and [S004](#s004)):
   1. `FIO2_MAX` raised 0.95 → 1.0 (justified by PhD experiment E20, April
      2026: 9-run probe, no Pulse solver-divergence at FiO2 = 1.0).
-  2. Recording-relative time origin (S005): wrapper now subtracts the
+  2. Recording-relative time origin ([S005](#s005)): wrapper now subtracts the
      ventilator-settle time so emitted `time_s` starts at 0, allowing the
      locked steady-state window [60, 120] s to capture data.
 
@@ -422,19 +422,19 @@ reproduce the sweep bit-exactly.*
 image hashes are relevant for full reproducibility:
 
 * `3b18bdc08660` — produced the original 1,280-run Morris sweep at
-  `data/runs/full_sweep/` (S006, 2026-04-26).
-* `b2e0e807803d` — produced the S015 audit re-execution and includes
-  the S014 SDK sed-patch (`InspirationPatientTrigger*` fall-through
+  `data/runs/full_sweep/` ([S006](#s006), 2026-04-26).
+* `b2e0e807803d` — produced the [S015](#s015) audit re-execution and includes
+  the [S014](#s014) SDK sed-patch (`InspirationPatientTrigger*` fall-through
   guard, 2026-04-28).
 
-S015 Phase 2 verified 40 / 40 reproduction-consistent CSVs under the
+[S015](#s015) Phase 2 verified 40 / 40 reproduction-consistent CSVs under the
 rebuilt `b2e0e807803d` image (38 clean runs bit-exact; 2
 originally-diverged runs reproduce divergence with the same
-`exit_code = 1`). The S014 patch is therefore a verified no-op for the
+`exit_code = 1`). The [S014](#s014) patch is therefore a verified no-op for the
 original sweep, and the atlas's published numbers apply identically
 under either image hash. Upstream pin: `kitware/pulse:4.3.1`
 (`REL_4_3_2`, the current upstream `stable` head, is build-system-only;
-physiology unchanged per S016 GitLab audit 2026-05-07).
+physiology unchanged per [S016](#s016) GitLab audit 2026-05-07).
 
 A source-level audit of the Pulse 4.3.1 C++ repository conducted
 alongside the wrapper work revealed three undocumented deviations
@@ -451,7 +451,7 @@ Appendix B.4.
 The current upstream `stable` head, `REL_4_3_2` (released 2025-08-12),
 differs from 4.3.1 by 7 files (+46 / −17 lines) covering build-system
 changes only; no physiology, validation, patient-setup, or solver
-code changed, verified by source audit in S016 (2026-05-07). Atlas
+code changed, verified by source audit in [S016](#s016) (2026-05-07). Atlas
 numerics therefore apply identically to 4.3.2. While future releases
 will inevitably alter underlying physiology, the atlas's methodology
 — the four-flag classifier, Morris sweep, and traffic-light map — is
@@ -531,7 +531,7 @@ measurement). The companion Respiratory Methodology page
 calibrated at 0.3 / 0.6 / 0.9 but does not state these P/F values
 directly; the quantitative validation claim is anchored on
 [@webb2020] alone (citation attribution corrected in pre-submission
-Phase-2 audit, S020 follow-up). Under
+Phase-2 audit, [S020](#s020) follow-up). Under
 the ARDSnet-protective ventilation regime that the Atlas sweep is
 built around (VC-AC, Vt = 6 mL/kg, PEEP = 10 cmH2O, FiO2 = 0.4),
 direct measurement of the documented mapping in a 28-run impairment
@@ -632,7 +632,7 @@ Four flags locked in preregistration §Flags; thresholds calibrated on real
 Pulse runs without modifying preregistration thresholds (only one
 amendment, 2026-04-22-b, tightened the flatline-bound tolerance from 1 % →
 0.1 % BEFORE any atlas data was collected). Clamp regex empirically
-calibrated against an SBP = 140 boundary probe in S004; the over-broad
+calibrated against an SBP = 140 boundary probe in [S004](#s004); the over-broad
 upstream regex was replaced with four Pulse-specific patterns:
 
 ```python
@@ -654,9 +654,9 @@ the locked Morris sampler ranges (§2.2), Pulse's setup-time rejection
 (captured by the `clamped` flag), and the detector's `implausible`
 hard-bound check on the steady-state mean. This three-layer
 defense-in-depth contract was verified end-to-end in
-[S015](../experiments_log/santino/S015_reproducibility_and_logic_audit.md).
+[S015](#s015).
 
-### 2.7 Pilot gate (S005)
+### 2.7 Pilot gate ([S005](#s005))
 
 *The five preregistered gates the 22-run pilot on cell (S1, M) had to
 pass before the full 1,280-run sweep launched: success rate, detector
@@ -676,22 +676,22 @@ origin, case_id collision, G4 unreachability from locked Morris ranges)
 ### 2.8 Hardware and reproducibility
 
 *The laptop hardware envelope (i5-11400H, 8 GB RAM, no GPU), the 2–3
-parallel Docker throughput verified in S001, and the eleven
+parallel Docker throughput verified in [S001](#s001), and the eleven
 independent verification points that make the published numbers
 reproducible bit-exactly. A pre-submission Phase-4 re-execution
 (1,280 / 1,280 runs) extends bit-exact reproduction from the
-S015 40-run audit to the full envelope.*
+[S015](#s015) 40-run audit to the full envelope.*
 
 i5-11400H (6 physical / 12 logical cores), 8 GB RAM, no GPU. Docker
 allocation 3.95 GB / 12 CPU. Two-to-three parallel containers per the
-verified S001 budget. Pulse is bit-exact deterministic for fixed
-inputs (S005 G5). Wall time for the full sweep ≈ 7 h on this hardware.
+verified [S001](#s001) budget. Pulse is bit-exact deterministic for fixed
+inputs ([S005](#s005) G5). Wall time for the full sweep ≈ 7 h on this hardware.
 
 The atlas's published numbers have eleven independent verification
 points (Pulse determinism, pipeline + analysis correctness, and
 independent reproducibility layers) detailed in
 [Supplementary S10](../preprint/supplementary.md#s10);
-all eleven passed with zero violations. S007 deliberately rejected a
+all eleven passed with zero violations. [S007](#s007) deliberately rejected a
 full 1,280-simulation re-execution because re-running the same code
 gives identical CSVs by construction and cannot detect bugs in the
 code being re-run; the independent-layer approach catches strictly
@@ -701,7 +701,7 @@ more error classes at ~ 1 % of the compute cost.
 pre-submission belt-and-braces check on top of the eleven verification
 points above, two complementary re-executions were performed under the
 current `pulse-atlas-engine` image (hash `b2e0e807803d`, the
-post-S014-patch rebuild — a different image hash than the
+post-[S014](#s014)-patch rebuild — a different image hash than the
 `3b18bdc08660` build that produced the canonical sweep on 2026-04-26):
 
 * **(i) Phase 4a — same-seed full re-execution.** All 1,280 runs of the
@@ -717,15 +717,15 @@ post-S014-patch rebuild — a different image hash than the
   divergence with `exit_code = 1`** (i.e. the same 20-run male-extreme
   cluster that §3.5 attributes to the blood-volume mechanism). **Zero
   deviations, zero clean-↔-diverged asymmetries, zero missing files.**
-  The S015 audit's 40-run bit-exact result is therefore extended to
-  the full 1,280-run envelope, and the S014 SDK sed-patch is
+  The [S015](#s015) audit's 40-run bit-exact result is therefore extended to
+  the full 1,280-run envelope, and the [S014](#s014) SDK sed-patch is
   empirically a no-op on the canonical sweep at every cell. Full report
   in `data/runs/full_sweep_repro/sha_compare.json`.
 
 * **(ii) Phase 4b — new-seed Morris stability on cell (S2, M).** A
   fresh Morris sample at `seed=44`, `trajectories=20`, `levels=4` (160
   unique points, matching canonical sample size; different seed from
-  both canonical `seed=42` and the prior S009 stability check at
+  both canonical `seed=42` and the prior [S009](#s009) stability check at
   `seed=43, trajectories=10`) was run on the moderate-ARDS male cell.
   Wall time: 1 h 34 m. **The dominant input by μ\* was preserved for
   all 6 outputs**, and top-3 input sets matched canonical in 4 / 6
@@ -1219,7 +1219,7 @@ implementation in
 N = 256, 6 Group-B cells, ~14 k Pulse runs, cluster-friendly. The
 script consumes the canonical Morris sample
 (`data/runs/full_sweep/morris_sample.parquet`) and the atlas Docker
-image (S006), writes per-cell S₁ / Sₜ tables, and is verified to
+image ([S006](#s006)), writes per-cell S₁ / Sₜ tables, and is verified to
 produce the same sample-grid that this paper's deferral argument
 references. The downstream analysis pipeline is preserved in
 `src/analysis_morris.py`.
@@ -1229,7 +1229,7 @@ references. The downstream analysis pipeline is preserved in
 *The second hypothesis test: does Pulse silently clamp out-of-range
 inputs at setup? Answer — no, zero silent clamps across the entire
 sweep. Pulse rejects out-of-envelope inputs *loudly*, with explicit
-`[ERROR]` log lines and exit code 1 (confirmed by the S005
+`[ERROR]` log lines and exit code 1 (confirmed by the [S005](#s005)
 deliberate clamp probes).*
 
 The preregistered hypothesis was that ≥ 5 % of the Morris sample would
@@ -1243,7 +1243,7 @@ Two implications:
    sweeping inputs strictly inside these envelopes never trigger
    silent substitution.
 2. Pulse rejects out-of-envelope inputs *loudly* — the deliberate clamp
-   probes in S005 confirmed this: SBP = 140 produces an explicit `[ERROR]`
+   probes in [S005](#s005) confirmed this: SBP = 140 produces an explicit `[ERROR]`
    line and exit code 1, not a silent substitution. Rejection is loud and
    observable; users can detect it from logs alone with no special
    instrumentation.
@@ -1293,10 +1293,10 @@ output HR as the engine's reflex response, not a setpoint.
 ### 3.5 H3 — solver divergence exists; sex-stratification is regime-dependent (partially supported)
 
 *The third hypothesis test: are solver divergences sex-stratified?
-Answer — partially. In the S006 input-extreme regime, all 20 / 20
+Answer — partially. In the [S006](#s006) input-extreme regime, all 20 / 20
 divergences are male and zero female, with the asymmetry
 mechanistically explained by Pulse's `BloodVolumeBaseline` floor on
-the male reference surrogate (S018). In the §3.5.1 continuous-severity
+the male reference surrogate ([S018](#s018)). In the §3.5.1 continuous-severity
 regime at midrange inputs, divergence is approximately sex-balanced
 inside the [0.879, 0.945] band — so the original sex effect varies
 with *what is varying*, not sex per se.*
@@ -1346,7 +1346,7 @@ asymmetry. It enters the cardiovascular circuit's stabilisation
 directly, and shifts the operating-point neighborhood between the
 two sexes.
 
-**Mechanism confirmed (S018, 2026-05-13).** *In one sentence:
+**Mechanism confirmed ([S018](#s018), 2026-05-13).** *In one sentence:
 forcing the male surrogate's BV down to the female-equivalent range
 eliminates the divergence cluster.* We re-executed the 20
 originally-diverged male inputs, this time injecting an explicit
@@ -1383,7 +1383,7 @@ Severe-ARDS / FiO2 = 1.0 inputs require deeper BV reduction to clear.
 The two cases still divergent at 4,400 mL are both S4_M with
 FiO2 = 1.0; the milder inputs are already clean at 4,400 mL.
 
-**A separate engine-level finding (F-S018-A** in
+**A separate engine-level finding (F-[S018](#s018)-A** in
 [`S018_blood_volume_falsification.md`](../experiments_log/santino/S018_blood_volume_falsification.md)**)
 emerged from the same test: Pulse hard-enforces a per-patient BV
 floor at setup.** For the male reference surrogate (67.3 kg, 180 cm,
@@ -1461,9 +1461,9 @@ zone *and* the regime is sex-conditioned.
 
 ### 3.5.1 Continuous-severity divergence regime (Tier-2 follow-up)
 
-The S006 sweep used four fixed ARDS severities. A complementary
+The [S006](#s006) sweep used four fixed ARDS severities. A complementary
 200-run sweep at continuous severity (Tier-2 follow-up,
-[S009](../experiments_log/santino/S009_tier2_seed_stability_continuous_ards.md))
+[S009](#s009))
 maps the divergence regime as a function of ARDS impairment, holding
 all 7 Morris inputs at midrange (HR = 80, SBP = 105, DBP = 70, RR =
 14, Vt = 550, FiO2 = 0.6, PEEP = 10):
@@ -1486,7 +1486,7 @@ M-diverged columns show divergences per sex (denominators differ
 because runs distribute non-uniformly across severities).
 **Key takeaway:** divergences concentrate in `[0.879, 0.945]` —
 wider than the previously reported `[0.91, 0.945]` zone — and are
-approximately sex-balanced at midrange inputs. The original S006
+approximately sex-balanced at midrange inputs. The original [S006](#s006)
 "all-male divergences" claim is therefore *regime-specific*
 (Morris-extreme inputs), not a global sex effect on solver reliability.
 
@@ -1501,21 +1501,21 @@ Two refinements of the literature picture:
    used ventilator settings tailored to ARDS calibration; the atlas's
    midrange settings reach instability earlier.
 
-2. **The S006 sex-stratification is regime-dependent.** In the
+2. **The [S006](#s006) sex-stratification is regime-dependent.** In the
    continuous-severity sweep (midrange inputs), the divergences are
    approximately balanced (F = 19, M = 14), with F diverging at
    *lower* severities (0.879 onwards) and M continuing into
-   `[0.91, 0.945]`. So the original S006 claim "all 20 male
+   `[0.91, 0.945]`. So the original [S006](#s006) claim "all 20 male
    divergences" is a property of the *input-extreme + 4-scenario*
    combination, not a global sex effect on solver reliability.
 
 The atlas therefore distinguishes **two separate divergence regimes**:
 
-* **Input-driven regime** (S006): male reference surrogate at low HR
+* **Input-driven regime** ([S006](#s006)): male reference surrogate at low HR
   + low SBP + high RR + FiO2 = 1.0. ~ 5× higher than female.
   Mechanism candidate: ~17 % blood-volume difference (§3.5, computed
   as (4 802.63 − 3 996.09) / 4 802.63 against the male default).
-* **Severity-driven regime** (S009): both sexes, midrange inputs,
+* **Severity-driven regime** ([S009](#s009)): both sexes, midrange inputs,
   severity in the band `[0.879, 0.945]`. F slightly higher overall;
   F earlier in the band, M later. Mechanism: solver-stability
   gradient at the high-impairment compliance edge.
@@ -1782,7 +1782,7 @@ cluster: (S2, F) + (S3, F). Red cluster: HR and PaO2 in S3 / S4.
 1,280-run sweep. **F-003**: Pulse PaO2 exceeds 600 mmHg at FiO2 = 1.0
 on healthy adults — a hyperoxia overshoot. **F-004**: VC-AC
 tidal-volume instability in 20.6 % of runs, causally identified in
-S014 as patient-ventilator dyssynchrony at the inspiration trigger
+[S014](#s014) as patient-ventilator dyssynchrony at the inspiration trigger
 and corrected by setting trigger pressure to −2 cmH2O.*
 
 * **F-003** — Pulse PaO2 exceeds 600 mmHg at FiO2 = 1.0 on healthy
@@ -1856,7 +1856,7 @@ and corrected by setting trigger pressure to −2 cmH2O.*
   overshoots the mandatory rate, generating the observed mandatory +
   assist alternation.
 
-  **Causal confirmation (S014).** A pre-registered controlled experiment
+  **Causal confirmation ([S014](#s014)).** A pre-registered controlled experiment
   on the top-64 Vt-CV runs reran each with identical inputs but with an
   explicit `InspirationPatientTriggerPressure = −2 cmH2O`. Setting any
   explicit trigger threshold disables the respiratory-model branch (the
@@ -1872,13 +1872,13 @@ and corrected by setting trigger pressure to −2 cmH2O.*
   [`experiments_log/santino/S014_trigger_pressure_lockout.md`](../experiments_log/santino/S014_trigger_pressure_lockout.md);
   raw artefacts in `data/runs/s014_trigger_lockout/`.
 
-### 3.8.1 Steady-state window cross-output audit (S012)
+### 3.8.1 Steady-state window cross-output audit ([S012](#s012))
 
 To ensure the steady-state window remains valid despite F-003 and
 F-004, we audited cross-output contamination — i.e. whether the same
 runs that show PaO2 drift or Vt oscillation also exhibit drift in the
 cardiovascular and gas-exchange channels we use for Morris analysis.
-A targeted audit ([S012](../experiments_log/santino/S012_steady_state_window_audit.md))
+A targeted audit ([S012](#s012))
 computes |Δ60s| (drift over the recorded window) for HR / MAP / Vt /
 PaO2 / PaCO2 in both vulnerable populations and compares against the
 preregistered drift thresholds (`DRIFT_MAX_DELTA_60S` in
@@ -1945,7 +1945,7 @@ artifact:
   implausible. Users should not interpret S4_M outputs as
   ground-truth physiology without careful per-input validation. Note
   that the male-divergence clustering reported here is specific to the
-  S006 input-extreme regime; the complementary continuous-severity
+  [S006](#s006) input-extreme regime; the complementary continuous-severity
   sweep (§3.5.1) at midrange inputs produced balanced female / male
   divergence in the [0.879, 0.945] band, with the sex effect varying
   with what is varying (Morris-extreme inputs vs ARDS severity).
@@ -1978,7 +1978,7 @@ artifact:
   `pulse-pediatric-engine` wrapper allows the respiratory-model trigger;
   this is realistic but produces non-steady tidal volumes at exactly
   the ventilator-stress points where validation matters most. Section
-  4.2 recommends the −2 cmH2O setting validated by S014 as a sensible
+  4.2 recommends the −2 cmH2O setting validated by [S014](#s014) as a sensible
   default for atlas-style sensitivity work. Second, the prevalence of
   dyssynchrony events (20.6 % across the full 7-input sweep) bounds how
   much of Pulse's VC-AC behaviour at the default trigger configuration
@@ -2015,7 +2015,7 @@ delivered tidal volume non-steady at extreme input combinations. For
 sensitivity-analysis-style sweeps where steady-state interpretation is
 required, we recommend `InspirationPatientTriggerPressure = −2 cmH2O`
 as a default; this matches a clinically standard ICU sensitivity
-setting and is the configuration validated by S014 in this paper
+setting and is the configuration validated by [S014](#s014) in this paper
 (median Vt_cv collapses from 0.351 to 0.016, a 96 % reduction; 78.1 %
 of locked runs fall below the 0.05 steady-state threshold).
 
@@ -2244,7 +2244,7 @@ bounded.*
 * 120 s simulation may be insufficient for hyperoxia convergence (F-003).
   We do not extend simulation length post hoc — the locked window IS the
   paper's measurement; longer windows are explicit future work. The
-  S012 cross-output audit (§3.8.1) bounds this limitation to PaO2 and
+  [S012](#s012) cross-output audit (§3.8.1) bounds this limitation to PaO2 and
   Vt at FiO2 ≥ 0.95: HR, MAP, and PaCO2 drift rates stay below 3 % in
   both vulnerable populations, so the [60, 120] s steady-state window
   remains reliable for the cardiovascular and ventilation channels.
@@ -2375,7 +2375,7 @@ work were carried out with the assistance of AI tools.
   numerical claim in the paper traces to a primary source or an
   experiment log entry under `experiments_log/santino/`, and the
   references were individually verified against their DOI / PMID
-  in S010 and the 2026-05-12 pre-submission audit.
+  in [S010](#s010) and the 2026-05-12 pre-submission audit.
 * **What AI tools were *not* used for.** AI tooling did not run
   Pulse simulations, did not generate or alter raw output data, did
   not author the preregistration or hypotheses, and did not select
@@ -2400,7 +2400,7 @@ the following or to an experiment-log entry in this repository.
    Distributed at <https://pulse.kitware.com>. Source verified from
    the locally-cloned engine repository
    (`C:/Users/santi/projets/Pulse_engine_adults_Gitlab/engine/`,
-   2026-04-07; GitLab re-audit 2026-05-07, S016). The current
+   2026-04-07; GitLab re-audit 2026-05-07, [S016](#s016)). The current
    `stable` head is `REL_4_3_2` (2025-08-12), whose full diff vs
    `REL_4_3_1` is 7 files / +46 −17 lines (web-WASM dockcross
    support, .NET binding tweak); no physiology, validation,
@@ -2409,7 +2409,7 @@ the following or to an experiment-log entry in this repository.
 2. **Pulse FAQ.** *Have you done UQ / SA?*
    <https://pulse.kitware.com/_f_a_q.html> — verified verbatim
    2026-04-19, still current at the May 2026 re-audit; paragraph
-   quoted in §1.1 (recorded in S003 / S016).
+   quoted in §1.1 (recorded in [S003](#s003) / [S016](#s016)).
 2a. **Pulse `STUDY_SENSITIVITY_ANALYSIS_1_0_0` tag (Kitware, 2020-07-20).**
     Code at `src/cpp/study/sensitivity_analysis/` and
     `src/python/pulse/study/sensitivity_analysis/` in the Pulse
@@ -2421,7 +2421,7 @@ the following or to an experiment-log entry in this repository.
     2020-08-24; not ported to Pulse 4.3.x. Cited in §1.1 to
     distinguish internal-calibration SA (their scope) from
     operational-input SA (this paper's scope). Audit logged in
-    S016 (2026-05-07).
+    [S016](#s016) (2026-05-07).
 2b. **Cornish R, Taufiq MF, Doucet A, Holmes C (Oxford, 2023).**
     *Causal Falsification of Digital Twins.* arXiv:2301.07210
     (November 2023). External statistical-falsification framework
@@ -2431,7 +2431,7 @@ the following or to an experiment-log entry in this repository.
     (intervention-outcome falsification on a different cohort and
     dataset) from this paper's contribution (operational-input
     reliability across the adult ICU envelope). Identified in the
-    May 2026 audit logged in S016.
+    May 2026 audit logged in [S016](#s016).
 3. **Pulse Setup audit.**
    `engine/src/cpp/engine/human_adult/whole_body/controller/SetupPatient.cpp`
    — referenced for adult age gate (lines 41 – 64), BMI bounds (lines
@@ -2468,21 +2468,21 @@ the following or to an experiment-log entry in this repository.
 Internal references (`experiments_log/santino/Sxxx_*.md`) are
 additionally available in the repository:
 
-* **S001** — Docker + 3-parallel hardware smoke test (CPU / RAM
+* **[S001](#s001)** — Docker + 3-parallel hardware smoke test (CPU / RAM
   budget verification).
-* **S002** — Project bootstrap, repo layout, licensing.
-* **S003** — Verified Pulse 4.3.1 limitations from primary sources.
-* **S004** — Atlas Docker image, scenario smoke test, detector regex
+* **[S002](#s002)** — Project bootstrap, repo layout, licensing.
+* **[S003](#s003)** — Verified Pulse 4.3.1 limitations from primary sources.
+* **[S004](#s004)** — Atlas Docker image, scenario smoke test, detector regex
   empirical recalibration.
-* **S005** — 22-run pilot, all 5 preregistered gates passed.
-* **S006** — Full 1,280-run sweep with 8 sanity checks.
-* **S007** — Targeted reproducibility check at three independent
+* **[S005](#s005)** — 22-run pilot, all 5 preregistered gates passed.
+* **[S006](#s006)** — Full 1,280-run sweep with 8 sanity checks.
+* **[S007](#s007)** — Targeted reproducibility check at three independent
   layers, all bit-exact.
-* **S008** — Tier-1 statistical refinement (block bootstrap, within-
+* **[S008](#s008)** — Tier-1 statistical refinement (block bootstrap, within-
   sex Wasserstein null, divergence-input mechanism, Spearman CI).
-* **S009** — Tier-2 (seed stability, continuous-ARDS sweep, pytest,
+* **[S009](#s009)** — Tier-2 (seed stability, continuous-ARDS sweep, pytest,
   GitHub Actions CI).
-* **S010** — Literature-review pass; every reference below verified
+* **[S010](#s010)** — Literature-review pass; every reference below verified
   against its DOI / PMID.
 
 ### 8.7 Verified primary references (full bibliographic detail)
@@ -2493,7 +2493,7 @@ during the literature-review pass logged in
 
 **Pulse Physiology Engine**
 
-* Bray A, Webb JB, Enquobahrie A, Vicory J, Heneghan J, Hubal R,
+* []{#ref-bray2019} Bray A, Webb JB, Enquobahrie A, Vicory J, Heneghan J, Hubal R,
   TerMaath S, Asare P, Clipp RB. *Pulse Physiology Engine: An
   Open-Source Software Platform for Computational Modeling of Human
   Medical Simulation.* SN Comprehensive Clinical Medicine 1(5):362-377
@@ -2504,13 +2504,13 @@ during the literature-review pass logged in
   reduction including a non-existent "Carpenter J" — full nine-author
   list confirmed against the Springer record and the Pulse
   publications page.)*
-* Webb JB, Bray A, Asare PK, Clipp RB, Mehta YB, Penupolu S, Patel
+* []{#ref-webb2020} Webb JB, Bray A, Asare PK, Clipp RB, Mehta YB, Penupolu S, Patel
   AA, Poler SM. *Computational simulation to assess patient safety
   of uncompensated COVID-19 two-patient ventilator sharing using the
   Pulse Physiology Engine.* PLoS One 15(11):e0242532 (2020). DOI:
   [10.1371/journal.pone.0242532](https://doi.org/10.1371/journal.pone.0242532).
   PMID: 33237927.
-* Webb JB, Bray A, Scheirich H, VanPelt J, Gerard J, Frembgen S,
+* []{#ref-webb2022vent} Webb JB, Bray A, Scheirich H, VanPelt J, Gerard J, Frembgen S,
   Clipp RB. *Implementation of a Dynamic and Extensible Mechanical
   Ventilator Model for Real-Time Physiological Simulation.*
   Proceedings of the 2022 Annual Modeling and Simulation Conference
@@ -2527,13 +2527,13 @@ during the literature-review pass logged in
   paper; the quantitative VC-AC / PC-AC tidal-volume error percentages
   cited elsewhere in this manuscript come from Pulse's own validation
   tables, see next entry.)*
-* Kitware, Inc. *Mechanical Ventilator Methodology — Pulse Physiology
+* []{#ref-pulsevent} Kitware, Inc. *Mechanical Ventilator Methodology — Pulse Physiology
   Engine documentation (v4.3.1).*
   <https://pulse.kitware.com/_mechanical_ventilator_methodology.html>.
   Validation Tables 3 / 5 / 10 / 12 / 17 / 19. Source of the 0.07 –
   2.25 % VC-AC and 11.3 – 25.3 % PC-AC tidal-volume error numbers
   cited in §1.1 and §2.3. Verified 2026-05-12.
-* Kitware, Inc. *Respiratory Methodology — Pulse Physiology Engine
+* []{#ref-pulserespmethod} Kitware, Inc. *Respiratory Methodology — Pulse Physiology Engine
   documentation (v4.3.1).*
   <https://pulse.kitware.com/_respiratory_methodology.html>.
   Source of the documented ARDS severity-to-impairment-fraction
@@ -2542,7 +2542,7 @@ during the literature-review pass logged in
   and Appendix B.3 as the canonical documentation against which the
   empirically calibrated mapping {0.26, 0.60, 0.95} is contrasted at
   ARDSnet-protective ventilation. Verified verbatim 2026-05-15.
-* Cornish R, Taufiq MF, Doucet A, Holmes C. *Causal Falsification
+* []{#ref-cornish2023} Cornish R, Taufiq MF, Doucet A, Holmes C. *Causal Falsification
   of Digital Twins.* arXiv:2301.07210 (November 2023, v4). Oxford
   statistics group. External assessment of Pulse on MIMIC-III
   sepsis trajectories using a causal-inference / statistical-
@@ -2557,40 +2557,40 @@ during the literature-review pass logged in
   dataset) from this paper's contribution (operational-input
   reliability across the adult ICU envelope); the channel-by-channel
   cross-mapping against the atlas's 6-output panel is presented in
-  §4.4 (Table 2). Identified in the May 2026 audit logged in S016
-  and verified against the v4 PDF in S017 (2026-05-13).
+  §4.4 (Table 2). Identified in the May 2026 audit logged in [S016](#s016)
+  and verified against the v4 PDF in [S017](#s017) (2026-05-13).
 
 **Sensitivity-analysis methods**
 
-* Morris MD. *Factorial sampling plans for preliminary computational
+* []{#ref-morris1991} Morris MD. *Factorial sampling plans for preliminary computational
   experiments.* Technometrics 33(2):161-174 (1991). DOI:
   [10.2307/1269043](https://doi.org/10.2307/1269043) /
   [10.1080/00401706.1991.10484804](https://doi.org/10.1080/00401706.1991.10484804).
-* Campolongo F, Cariboni J, Saltelli A. *An effective screening
+* []{#ref-campolongo2007} Campolongo F, Cariboni J, Saltelli A. *An effective screening
   design for sensitivity analysis of large models.* Environmental
   Modelling & Software 22(10):1509-1518 (2007). DOI:
   [10.1016/j.envsoft.2006.10.004](https://doi.org/10.1016/j.envsoft.2006.10.004).
-* Iwanaga T, Usher W, Herman J. *Toward SALib 2.0: Advancing the
+* []{#ref-iwanaga2022} Iwanaga T, Usher W, Herman J. *Toward SALib 2.0: Advancing the
   accessibility and interpretability of global sensitivity analyses.*
   Socio-Environmental Systems Modelling 4:18155 (2022). DOI:
   [10.18174/sesmo.18155](https://doi.org/10.18174/sesmo.18155).
 
 **Acute respiratory distress syndrome (clinical anchors)**
 
-* ARDS Definition Task Force; Ranieri VM, Rubenfeld GD, Thompson BT,
+* []{#ref-ards2012} ARDS Definition Task Force; Ranieri VM, Rubenfeld GD, Thompson BT,
   Ferguson ND, Caldwell E, Fan E, Camporota L, Slutsky AS. *Acute
   respiratory distress syndrome: the Berlin Definition.* JAMA
   307(23):2526-2533 (2012). DOI:
   [10.1001/jama.2012.5669](https://doi.org/10.1001/jama.2012.5669).
   PMID: 22797452.
-* Emeriaud G, López-Fernández YM, Iyer NP, Bembea MM, Agulnik A,
+* []{#ref-emeriaud2023} Emeriaud G, López-Fernández YM, Iyer NP, Bembea MM, Agulnik A,
   Barbaro RP, et al. *Executive Summary of the Second International
   Guidelines for the Diagnosis and Management of Pediatric Acute
   Respiratory Distress Syndrome (PALICC-2).* Pediatric Critical Care
   Medicine 24(2):143-168 (2023). DOI:
   [10.1097/PCC.0000000000003147](https://doi.org/10.1097/PCC.0000000000003147).
   PMID: 36661420.
-* Acute Respiratory Distress Syndrome Network; Brower RG, Matthay
+* []{#ref-brower2000} Acute Respiratory Distress Syndrome Network; Brower RG, Matthay
   MA, Morris A, Schoenfeld D, Thompson BT, Wheeler A. *Ventilation
   with lower tidal volumes as compared with traditional tidal
   volumes for acute lung injury and the acute respiratory distress
@@ -2598,25 +2598,25 @@ during the literature-review pass logged in
   (2000). DOI:
   [10.1056/NEJM200005043421801](https://doi.org/10.1056/NEJM200005043421801).
   PMID: 10793162.
-* Figueroa-Casas JB, Montoya R. *Effect of Tidal Volume Size and Its
+* []{#ref-figueroacasas2016} Figueroa-Casas JB, Montoya R. *Effect of Tidal Volume Size and Its
   Delivery Mode on Patient-Ventilator Dyssynchrony.* Annals of the
   American Thoracic Society 13(12):2207-2214 (2016). DOI:
   [10.1513/AnnalsATS.201605-362OC](https://doi.org/10.1513/AnnalsATS.201605-362OC).
   PMID: 27598383. Cited in §3.8 and §4.1 as clinical-literature
   precedent for the patient-ventilator dyssynchrony phenomenon that
   F-004 quantifies inside Pulse. Identified and verified via PubMed
-  esummary during the 2026-05-15 novelty audit (S020); the atlas's
+  esummary during the 2026-05-15 novelty audit ([S020](#s020)); the atlas's
   contribution is the Pulse-engine manifestation and the corrective
   trigger setting (−2 cmH2O), not the discovery of dyssynchrony.
 
 **Reproducibility / methods-paper integrity**
 
-* Wilkinson MD, Dumontier M, Aalbersberg IJ, et al. *The FAIR
+* []{#ref-wilkinson2016} Wilkinson MD, Dumontier M, Aalbersberg IJ, et al. *The FAIR
   Guiding Principles for scientific data management and stewardship.*
   Scientific Data 3:160018 (2016). DOI:
   [10.1038/sdata.2016.18](https://doi.org/10.1038/sdata.2016.18).
   PMID: 26978244.
-* Munafò MR, Nosek BA, Bishop DVM, Button KS, Chambers CD, du Sert
+* []{#ref-munafo2017} Munafò MR, Nosek BA, Bishop DVM, Button KS, Chambers CD, du Sert
   NP, Simonsohn U, Wagenmakers EJ, Ware JJ, Ioannidis JPA. *A
   manifesto for reproducible science.* Nature Human Behaviour
   1(1):0021 (2017). DOI:
@@ -2628,26 +2628,26 @@ during the literature-review pass logged in
 
 | ID | Title |
 |---|---|
-| S001 | Docker + hardware smoke test |
-| S002 | Project bootstrap |
-| S003 | Verified Pulse 4.3.1 limitations |
-| S004 | Atlas image + scenario smoke + detector recalibration |
-| S005 | 22-run pilot on (S1, M) |
-| S006 | Full Morris sweep (1,280 runs) |
-| S007 | Targeted reproducibility check (3-layer, all bit-exact) |
-| S008 | Tier-1 statistical refinement (block bootstrap, Wasserstein null) |
-| S009 | Tier-2 (seed stability, continuous-ARDS, pytest, GHA CI) |
-| S010 | Literature-review pass (every reference DOI / PMID-verified) |
-| S011 | Sex-vs-mass disentangle |
-| S012 | Steady-state window cross-output audit |
-| S013 | Lexical lockdown (manuscript taxonomy) |
-| S014 | Trigger-pressure lockout (F-004 mechanism) |
-| S015 | Reproducibility and logic audit (pre-publication) |
-| S016 | Pulse GitLab + literature re-audit (May 2026) |
-| S017 | Cornish 2023 cross-mapping (Phase B item B1) |
-| S018 | Blood-volume mechanism falsification (Phase B item B2) |
-| S019 | Sobol bolt-on draft (Phase B item B3 — not executed; ready-to-fire) |
-| S020 | Pre-submission novelty audit (literature double-check on every "first" claim; one citation added) |
+| []{#s001} S001 | Docker + hardware smoke test |
+| []{#s002} S002 | Project bootstrap |
+| []{#s003} S003 | Verified Pulse 4.3.1 limitations |
+| []{#s004} S004 | Atlas image + scenario smoke + detector recalibration |
+| []{#s005} S005 | 22-run pilot on (S1, M) |
+| []{#s006} S006 | Full Morris sweep (1,280 runs) |
+| []{#s007} S007 | Targeted reproducibility check (3-layer, all bit-exact) |
+| []{#s008} S008 | Tier-1 statistical refinement (block bootstrap, Wasserstein null) |
+| []{#s009} S009 | Tier-2 (seed stability, continuous-ARDS, pytest, GHA CI) |
+| []{#s010} S010 | Literature-review pass (every reference DOI / PMID-verified) |
+| []{#s011} S011 | Sex-vs-mass disentangle |
+| []{#s012} S012 | Steady-state window cross-output audit |
+| []{#s013} S013 | Lexical lockdown (manuscript taxonomy) |
+| []{#s014} S014 | Trigger-pressure lockout (F-004 mechanism) |
+| []{#s015} S015 | Reproducibility and logic audit (pre-publication) |
+| []{#s016} S016 | Pulse GitLab + literature re-audit (May 2026) |
+| []{#s017} S017 | Cornish 2023 cross-mapping (Phase B item B1) |
+| []{#s018} S018 | Blood-volume mechanism falsification (Phase B item B2) |
+| []{#s019} S019 | Sobol bolt-on draft (Phase B item B3 — not executed; ready-to-fire) |
+| []{#s020} S020 | Pre-submission novelty audit (literature double-check on every "first" claim; one citation added) |
 
 Each log file in `experiments_log/santino/` follows the template:
 hypothesis → motivation → method → what we tried → results → interpretation
