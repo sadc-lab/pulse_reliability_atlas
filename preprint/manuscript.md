@@ -1,3 +1,8 @@
+---
+header-includes:
+  - \renewcommand{\arraystretch}{1.35}
+---
+
 # Pulse Reliability Atlas: first sensitivity, clamping, and divergence map for the Pulse Physiology Engine v4.3.1
 
 **Author:** Santino Nanini
