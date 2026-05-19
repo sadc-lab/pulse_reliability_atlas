@@ -20,7 +20,7 @@ FiO2, PEEP) from Pulse's verified acceptance ranges using Morris
 elementary-effects sampling. The sweep spanned four scenarios (healthy
 and three ARDS severities, spanning PALICC-2 mild–severe and bracketing
 the 0.91–0.945 solver-instability zone) across two adult surrogates
-(Pulse standard male and female), yielding 1,280 total simulations. A
+(CDC weight-anchored male and female), yielding 1,280 total simulations. A
 locked four-flag detector (`clamped` / `diverged` / `implausible` /
 `not_steady_state`) classified every run before analysis.
 
@@ -122,8 +122,8 @@ sweep.*
   gas-exchange channels*.
 * **All-male solver-divergence cluster.** 20 of 1,280 runs (1.6 %)
   diverge, *all 20 on the male surrogate*, mechanistically explained
-  by Pulse's `BloodVolumeBaseline` floor on the standard-male body
-  (S018).
+  by Pulse's `BloodVolumeBaseline` floor on the male reference surrogate
+  body (S018).
 * **A reusable four-flag classifier**
   (`clamped` / `diverged` / `implausible` / `not_steady_state`) that
   future Pulse users can apply to their own scenario configurations
@@ -269,8 +269,8 @@ This atlas is that prerequisite.
 
 *Scope and limitations preview.* The atlas characterises adult
 Pulse v4.3.1 under VC-AC ventilation across 7 operational inputs and
-6 steady-state outputs, on two adult patient surrogates (Pulse standard
-male and female) — the configuration most directly relevant to
+6 steady-state outputs, on two adult reference surrogates (male and
+female) — the configuration most directly relevant to
 critical-care research and medical-device validation. Pediatric
 translation, alternative ventilator modes (PC-AC, PSV), and within-run
 non-steady-state dynamics are *out of scope* by construction. The full
@@ -500,8 +500,8 @@ Pulse) are persisted in the master Parquet.
 *The 4 scenarios × 2 patient surrogates = 8 cells of the atlas.
 Healthy and three ARDS severities, calibrated on the Berlin
 definition's PaO2 / FiO2 bands and bracketing Pulse's 0.91 – 0.945
-solver-instability zone, each run on the Pulse standard male and
-female bodies. Ventilator mode is VC-AC only — the configuration
+solver-instability zone, each run on the male and female reference
+bodies. Ventilator mode is VC-AC only — the configuration
 Pulse's own validation table reports as most accurate (0.07 – 2.25 %
 Vt error vs PC-AC's 11.3 – 25.3 %).*
 
@@ -544,15 +544,29 @@ contrast table, ventilation-setting disclosure, three-source
 convergence for the 0.91 – 0.945 solver-instability zone, and the
 E6 calibration provenance are in Appendix B.3.
 
-* **Adult Male:** age 18, weight 67.3 kg, height 180 cm (Pulse standard).
-* **Adult Female:** age 18, weight 56.2 kg, height 163 cm (Pulse standard).
+* **Male reference surrogate:** age 18, weight 67.3 kg, height 180 cm (BMI 20.8).
+* **Female reference surrogate:** age 18, weight 56.2 kg, height 163 cm (BMI 21.1).
 
-NHANES P50 anchors confirm both surrogates are representative of
-healthy adults: median HR 70 bpm (M) / 74 bpm (F), SBP 118 mmHg (M)
-/ 113 mmHg (F), DBP 70 mmHg (M) / 69 mmHg (F). Companion
-verification (`Pulse_translation_new` E12, E13) established that
-the female surrogate produces physiologically plausible engine
-output across all four scenarios, independent of the Atlas sweep.
+*Provenance.* Body weights are the CDC 50th-percentile weight-for-age
+values at 18 years (67.29 kg boys, 56.23 kg girls; CDC growth-chart
+tables, <https://www.cdc.gov/growthcharts/>), inherited unchanged from
+the companion `Pulse_translation_new` pediatric-translation pipeline
+where they form the 18-year endpoint of its CDC progression. The
+female height (163 cm) is the CDC P50 stature for 18-year-old girls.
+The male height (180 cm) is a researcher-fixed rounded value chosen
+to yield a healthy baseline BMI of 20.8; this is ≈ 3 cm above the CDC
+P50 and is reported here transparently rather than retro-fitted to a
+citation. The full engine-source comparison — including Pulse's
+own internal `heightStandardMale_cm` / `heightStandardFemale_cm`
+constants — is in Appendix B.5.
+
+NHANES P50 anchors further confirm the surrogates' *vital-sign* profile
+(not their body dimensions) is representative of healthy adults: median
+HR 70 bpm (M) / 74 bpm (F), SBP 118 mmHg (M) / 113 mmHg (F), DBP 70
+mmHg (M) / 69 mmHg (F). Companion verification
+(`Pulse_translation_new` E12, E13) established that the female
+surrogate produces physiologically plausible engine output across all
+four scenarios, independent of the Atlas sweep.
 
 Ventilator: VC-AC (volume-controlled assist-control) only — the
 ventilator delivers a fixed tidal volume on a set schedule while
@@ -1277,7 +1291,7 @@ output HR as the engine's reflex response, not a setpoint.
 Answer — partially. In the S006 input-extreme regime, all 20 / 20
 divergences are male and zero female, with the asymmetry
 mechanistically explained by Pulse's `BloodVolumeBaseline` floor on
-the male standard surrogate (S018). In the §3.5.1 continuous-severity
+the male reference surrogate (S018). In the §3.5.1 continuous-severity
 regime at midrange inputs, divergence is approximately sex-balanced
 inside the [0.879, 0.945] band — so the original sex effect varies
 with *what is varying*, not sex per se.*
@@ -1304,7 +1318,7 @@ input pattern. Of the 20:
 
 The signature reads cleanly: **low cardiovascular output (low HR +
 low SBP) combined with high respiratory drive (high RR + high FiO2)
-on the male standard surrogate** drives Pulse to a numerical edge
+on the male reference surrogate** drives Pulse to a numerical edge
 case. The compound input is *clinically plausible* — a hypotensive,
 tachypneic, fully oxygenated patient, recognizable as a septic /
 pre-arrest configuration — and sits inside Pulse's verified
@@ -1315,7 +1329,7 @@ as fragile when running the male surrogate.
 `SetupPatient.cpp` computes blood-volume baseline as
 `computedBloodVolume_mL = 65.6 × weight_kg^1.02`. Verified against
 the engine's setup log on the atlas sweep, this gives
-**4,802.63 mL** for the male standard surrogate (67.3 kg) and
+**4,802.63 mL** for the male reference surrogate (67.3 kg) and
 **3,996.09 mL** for the female (56.2 kg) — a ~17 % difference.
 (Pulse logs both values at setup time on every run.)
 
@@ -1367,7 +1381,7 @@ FiO2 = 1.0; the milder inputs are already clean at 4,400 mL.
 **A separate engine-level finding (F-S018-A** in
 [`S018_blood_volume_falsification.md`](../experiments_log/santino/S018_blood_volume_falsification.md)**)
 emerged from the same test: Pulse hard-enforces a per-patient BV
-floor at setup.** For the male standard surrogate (67.3 kg, 180 cm,
+floor at setup.** For the male reference surrogate (67.3 kg, 180 cm,
 age 18, sex Male), the floor sits at **4,082.24 mL**. Setting
 `BloodVolumeBaseline` below this triggers an explicit `[ERROR]` and
 exit 1: *"Patient blood volume baseline … is too low. Hypovolemia
@@ -1492,7 +1506,7 @@ Two refinements of the literature picture:
 
 The atlas therefore distinguishes **two separate divergence regimes**:
 
-* **Input-driven regime** (S006): male standard surrogate at low HR
+* **Input-driven regime** (S006): male reference surrogate at low HR
   + low SBP + high RR + FiO2 = 1.0. ~ 5× higher than female.
   Mechanism candidate: ~17 % blood-volume difference (§3.5, computed
   as (4 802.63 − 3 996.09) / 4 802.63 against the male default).
@@ -2714,8 +2728,8 @@ page and Webb 2020) therefore converge on the same documented
 mapping and the same P/F claim.
 
 **Empirical calibration at ARDSnet-protective ventilation.** The
-documented mapping was tested directly against the standard adult
-male surrogate (age 18, 67.3 kg, 180 cm) in a 28-run impairment-
+documented mapping was tested directly against the male reference
+surrogate (age 18, 67.3 kg, 180 cm) in a 28-run impairment-
 fraction sweep (`Pulse_translation_new` experiment E6,
 2026-03; the full log is the canonical record of the calibration).
 The ventilation regime was held constant across all 28 runs:
@@ -2814,3 +2828,53 @@ and the compiled engine logic:
    baroreceptor exponent as 4. The codebase implements an effective
    ν = 48 (`NervousModel.cpp:320`), calculated as `4 × ResponseSlope`
    (where slope = 12).
+
+### B.5 Reference-surrogate body-dimension provenance
+
+The two adult surrogates used throughout the atlas (M: 18 yr / 67.3 kg
+/ 180 cm; F: 18 yr / 56.2 kg / 163 cm) were originally labelled "Pulse
+standard male / female" in early drafts of this work. A 2026-05-19
+source-level audit established that this label is technically a
+misnomer. The actual provenance, by dimension, is as follows:
+
+* **Weights (67.3 kg M, 56.2 kg F).** CDC weight-for-age 50th-percentile
+  values at 18 years (216.5 months) — 67.29 kg for boys, 56.23 kg for
+  girls (CDC growth-chart tables; cross-verified against the CDC
+  z-score files `wtage.csv` from
+  <https://www.cdc.gov/growthcharts/data/zscore/>). These anchors were
+  taken directly from the companion `Pulse_translation_new`
+  pediatric-translation pipeline, where they form the adult (18 yr)
+  endpoint of the CDC progression used for its pediatric strata
+  (1 mo / 6 mo / 18 mo / 5 yr / 10 yr / 18 yr). The audit trail is
+  recorded in that project's experiments log (CDC weight audit step,
+  2026-03).
+
+* **Female height (163 cm).** Matches the CDC P50 stature for
+  18-year-old girls. By coincidence it is also identical to Pulse's
+  own internal `heightStandardFemale_cm = 163.0` constant
+  (`SetupPatient.cpp` L75; cited internally to Centers2016clinical).
+  Both anchors therefore agree on this value.
+
+* **Male height (180 cm).** This is a researcher-fixed rounded value
+  chosen by the maintainer of `Pulse_translation_new` to yield a clean
+  healthy baseline BMI of 20.8 in combination with the 67.3 kg weight.
+  It is **not** the CDC P50 male stature at 18 years (CDC P50 ≈ 177
+  cm) and it does **not** match Pulse's own internal
+  `heightStandardMale_cm = 177.0` constant (`SetupPatient.cpp` L72).
+  The 180 cm value sits inside Pulse's accepted male height envelope
+  (163–190 cm, with overall BMI 16–30 enforced) and is therefore
+  engine-legal: Pulse accepts it without warnings, the setup completes,
+  and weight-derived quantities (`computedBloodVolume_mL`, lean body
+  mass, BMR, skin surface area) are computed normally. It is, however,
+  not anchored to a literature anthropometric source; we disclose this
+  here rather than retro-fitting a citation.
+
+**Consequence for the atlas.** The 3 cm male-height offset has no
+material effect on the operational-envelope sweep we report (Pulse
+does not gate any input on height beyond the 163–190 cm envelope, and
+the BMI of 20.8 is centrally inside the 16–30 valid range). The
+finding has been carried forward by relabelling the surrogates as
+"reference surrogates" throughout the manuscript and the project's
+internal documentation; the original "Pulse standard" wording in the
+preregistration is preserved verbatim and flagged via a dated erratum
+block at the top of that document.

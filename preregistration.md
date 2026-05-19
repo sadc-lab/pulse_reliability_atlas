@@ -6,6 +6,37 @@
 
 ---
 
+> **ERRATUM — 2026-05-19 (terminology only, no design change).**
+>
+> The phrase "Pulse standard" applied to the male and female surrogates
+> in this document (e.g., §Revision log "Pulse standards", §H4 "Pulse
+> standard patients", §Patient surrogates "(Pulse standard male)" /
+> "(Pulse standard female)") is, on later source-level audit, a
+> **misnomer**. The two surrogates used in the atlas — M = 18 yr /
+> 67.3 kg / 180 cm and F = 18 yr / 56.2 kg / 163 cm — are not Pulse's
+> source-code "Standard" patients. Their actual provenance is:
+>
+> - **Weights** (67.3 kg M, 56.2 kg F): CDC 50th-percentile
+>   weight-for-age values at 18 years (216.5 months), inherited from
+>   the companion `Pulse_translation_new` pediatric-translation
+>   pipeline.
+> - **Female height** (163 cm): CDC P50 stature, coincidentally
+>   identical to Pulse's internal `heightStandardFemale_cm = 163.0`
+>   (`SetupPatient.cpp` L75).
+> - **Male height** (180 cm): a researcher-fixed rounded value chosen
+>   to yield a healthy baseline BMI of 20.8. It is **not** Pulse's
+>   internal `heightStandardMale_cm = 177.0` (`SetupPatient.cpp` L72)
+>   and is ≈ 3 cm above the CDC P50.
+>
+> The numeric definitions in this document are correct and unchanged;
+> only the label "Pulse standard" was inaccurate. The final manuscript
+> uses the term **"reference surrogate"** instead, and the full
+> engine-source comparison is in manuscript §2.3 and Appendix B.5. The
+> original wording below is preserved verbatim for preregistration
+> integrity.
+
+---
+
 ## Revision log
 
 **2026-04-22 amendment.** Rescope from PulseProbe hackathon deliverable to standalone methods paper (first publishable output in PhD series). Changes:

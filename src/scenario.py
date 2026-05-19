@@ -6,7 +6,7 @@ For every cell, every Morris row produces one ``config.json`` consumed by
 
 Locked design (`preregistration.md`):
     - 4 scenarios (S1..S4) — healthy + 3 ARDS severities (0.00 / 0.26 / 0.60 / 0.95).
-    - 2 patients (Pulse standards: M = 18y/67.3kg/180cm, F = 18y/56.2kg/163cm).
+    - 2 reference surrogates (CDC weight-anchored): M = 18y/67.3kg/180cm, F = 18y/56.2kg/163cm.
     - VC-AC ventilator only.
     - 120 s simulation, 5 s sample interval ⇒ 13 points in [60, 120].
     - DBP/SBP ≤ 0.75 enforced HERE (not in sampler) so Morris geometry stays
@@ -32,7 +32,10 @@ class Patient:
     height_cm: float
 
 
-# Pulse standard patients — locked by `preregistration.md` §Patient surrogates.
+# Adult reference surrogates — locked by `preregistration.md` §Patient surrogates.
+# Weights: CDC P50 weight-for-age at 18 yr. Female height 163 cm matches CDC P50.
+# Male height 180 cm: researcher-fixed for BMI 20.8 (not Pulse's source-code
+# `heightStandardMale_cm = 177.0`). See manuscript §2.3 + Appendix B.5.
 PATIENTS: dict[str, Patient] = {
     "M": Patient(sex="Male",   age_yr=18, weight_kg=67.3, height_cm=180.0),
     "F": Patient(sex="Female", age_yr=18, weight_kg=56.2, height_cm=163.0),
