@@ -698,6 +698,40 @@ been adjusted post-hoc — the only preregistration amendment
 (2026-04-22-b, flatline tolerance 1 % → 0.1 %) was made *before* the
 sweep launched.
 
+**Drift thresholds for the `not_steady_state` flag.** The
+`DRIFT_MAX_DELTA_60S` constant in `src/detector.py` complements the
+hard bounds above: it sets the maximum tolerated `|Δ| = |slope × 60 s|`
+that a channel may exhibit across the final 60 s of the steady-state
+window before the run is flagged `not_steady_state` for drift. These
+are *clinical-meaningfulness* thresholds — beyond them, a bedside
+clinician would read the trajectory as actively changing rather than
+at homeostasis. They are atlas-internal calibration choices rather
+than biological limits, so the per-channel magnitudes are anchored in
+standard critical-care monitoring practice
+[@marino2013icu Ch.5, Ch.21, Ch.26; @marini2019critical Ch.1] rather
+than in mortality-incompatibility primary literature.
+
+| Output | Drift threshold per 60 s | Clinical-meaningfulness anchor |
+|--------|--------------------------|--------------------------------|
+| HR     | 5 bpm                    | Threshold for a clinically "meaningful" tachy / brady excursion under continuous bedside monitoring [@marini2019critical Ch.1] |
+| MAP    | 5 mmHg                   | Lower edge of what a clinician would call ongoing hemodynamic instability vs settled perfusion [@singer2016; @evans2021sepsis] |
+| Vt     | 50 mL                    | ~ 1 mL/kg PBW on the atlas surrogates — within the noise band of breath-to-breath measurement at ARDSnet Vt [@brower2000] |
+| SpO2   | 2 percentage points      | One bedside-monitor display step; conventional "noteworthy" desaturation threshold over a 60 s window [@severinghaus1979; @marino2013icu Ch.26] |
+| PaO2   | 15 mmHg                  | Roughly one Berlin P/F band (e.g., 80 → 95 mmHg at constant FiO2) per minute — clinically meaningful oxygenation change [@ards2012] |
+| PaCO2  | 5 mmHg                   | Roughly one alveolar-ventilation step under ARDSnet protective ventilation per minute — clinically meaningful CO2 change [@west2020respiratory Ch.4] |
+
+These thresholds are evaluated on an OLS linear regression of the 13
+sample points in the [60, 120] s window (5 s sample interval); only
+`|slope × 60 s|` gates the flag (the R² of the fit is logged as
+diagnostic metadata but does *not* trigger anything). Two further
+`not_steady_state` triggers (the coefficient-of-variation threshold
+`CV_THRESHOLD = 0.05` and the flatline-at-bound criterion
+`std/|mean| < 0.01` **AND** mean within 0.1 % of a hard bound) are
+documented in `src/detector.py` and `preregistration.md` §Flags. SpO2
+is reported by Pulse as a fraction in [0, 1], so the listed drift
+threshold of "2 percentage points" corresponds to `0.02` in the code
+constant.
+
 Atlas-side input validation in `src/scenario.py` is restricted to
 scenario and sex keys; physiological-bound enforcement is delegated to
 the locked Morris sampler ranges (§2.2), Pulse's setup-time rejection
@@ -2051,10 +2085,10 @@ runs that show PaO2 drift or Vt oscillation also exhibit drift in the
 cardiovascular and gas-exchange channels we use for Morris analysis.
 A targeted audit ([S012](#s012))
 computes |Δ60s| (drift over the recorded window) for HR / MAP / Vt /
-PaO2 / PaCO2 in both vulnerable populations and compares against the
-preregistered drift thresholds (`DRIFT_MAX_DELTA_60S` in
-`src/detector.py`: HR=5 bpm, MAP=5 mmHg, Vt=50 mL, PaO2=15 mmHg,
-PaCO2=5 mmHg).
+SpO2 / PaO2 / PaCO2 in both vulnerable populations and compares
+against the preregistered drift thresholds (see §2.6 Drift-threshold
+table for the full `DRIFT_MAX_DELTA_60S` constant and per-channel
+clinical-meaningfulness anchors).
 
 * **F-003 arm — hyperoxia (FiO2 ≥ 0.95, n = 208 runs; 195 with valid CSV).**
   Percentages below are computed against the n = 195 subset (the 13
