@@ -126,12 +126,19 @@ Ranges come from: our own boundary probes (E10, E28, E29), ARDSnet protocol, and
 
 | Output | Lower | Upper | Source |
 |---|---|---|---|
-| HR | 20 | 220 | Physiological extremes; below/above incompatible with life |
-| MAP | 30 | 180 | Shock / hypertensive crisis bounds |
-| Vt delivered | 50 | 1500 | Technical range (below 50 mL = no ventilation; above 1500 mL = equipment impossibility) |
-| SpO2 | 50 | 100 | SpO2 < 50 is immediately lethal; 100 is ceiling |
-| PaO2 | 20 | 600 | 20 mmHg = severe hypoxemia floor; 600 = pure O2 ceiling |
-| PaCO2 | 10 | 120 | 10 = extreme hypocapnia; 120 = severe hypercapnia floor for survival |
+| HR | 20 | 220 | Physiological extremes; below/above incompatible with life [Marino 2013 Ch.5; Marini & Dries 2019 Ch.1] |
+| MAP | 30 | 180 | Shock / hypertensive crisis bounds [Lower: Singer 2016 / Sepsis-3 organ-perfusion threshold; Upper: Mancia 2023 ESH hypertensive emergency] |
+| Vt delivered | 50 | 1500 | Technical range (below 50 mL = below anatomical dead space, no alveolar ventilation [West & Luks 2020 Ch.2]; above 1500 mL = ~4× ARDSnet [Brower 2000] / equipment impossibility [Marino 2013 Ch.26]) |
+| SpO2 | 50 | 100 | SpO2 < 50 ↔ PaO2 ≈ 27 mmHg on the Severinghaus 1979 dissociation curve, below cellular O2 extraction; 100 is hemoglobin saturation ceiling [Severinghaus 1979; Marini & Dries 2019 Ch.1] |
+| PaO2 | 20 | 600 | 20 mmHg = severe hypoxemia floor (SpO2 ≈ 0.30, lethal in minutes) [Severinghaus 1979; Berlin Definition / ARDS Task Force 2012]; 600 mmHg = conservative classifier ceiling below alveolar-gas-equation ~663 mmHg [West & Luks 2020 Ch.5] -- supplementary HARD_BOUNDS_PHYSIOLOGICAL at 700 in atlas §3.8 |
+| PaCO2 | 10 | 120 | 10 = profound hypocapnia (respiratory alkalosis); 120 = CO2 narcosis floor for survival [Marino 2013 Ch.21; West & Luks 2020 Ch.4] |
+
+**Documentation amendment 2026-05-21:** Literature citations for the
+bounds in the table above added in the manuscript bibliography
+(`preprint/references.bib` + manuscript §2.6 table). **No threshold
+value was changed.** Original qualitative justifications retained verbatim
+inside the Source column with citation keys appended; the bounds are
+unchanged from the 2026-04-22 lock.
 
 ### Drift thresholds (per-variable, clinical effect size)
 

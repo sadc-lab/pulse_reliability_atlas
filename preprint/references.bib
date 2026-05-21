@@ -176,3 +176,84 @@
   note      = {Verified verbatim 2026-04-19; still current at the May 2026 GitLab re-audit (S003 / S016)},
   year      = {2026}
 }
+
+@article{severinghaus1979,
+  author    = {Severinghaus, J W},
+  title     = {Simple, accurate equations for human blood {O2} dissociation computations},
+  journal   = {Journal of Applied Physiology: Respiratory, Environmental and Exercise Physiology},
+  volume    = {46},
+  number    = {3},
+  pages     = {599--602},
+  year      = {1979},
+  doi       = {10.1152/jappl.1979.46.3.599},
+  note      = {PMID: 35496 (verified via PubMed esummary, 2026-05-21). Reference equation for the oxyhemoglobin dissociation curve. Anchors the SpO2-PaO2 mapping used in this manuscript: SpO2 = 50 percent corresponds to the canonical P50 at PaO2 $\approx$ 27 mmHg, below the threshold for cellular oxygen extraction. Used in §2.6 to defend the (PaO2 lower, SpO2 lower) implausibility hard bounds.}
+}
+
+@article{singer2016,
+  author    = {Singer, M and Deutschman, C S and Seymour, C W and Shankar-Hari, M and Annane, D and Bauer, M and Bellomo, R and Bernard, G R and Chiche, J D and Coopersmith, C M and Hotchkiss, R S and Levy, M M and Marshall, J C and Martin, G S and Opal, S M and Rubenfeld, G D and van der Poll, T and Vincent, J L and Angus, D C},
+  title     = {The Third International Consensus Definitions for Sepsis and Septic Shock ({Sepsis-3})},
+  journal   = {JAMA},
+  volume    = {315},
+  number    = {8},
+  pages     = {801--810},
+  year      = {2016},
+  doi       = {10.1001/jama.2016.0287},
+  note      = {PMID: 26903338 (verified via PubMed esummary, 2026-05-21). Sepsis-3 defines septic shock as requiring vasopressor support to maintain MAP $\geq$ 65 mmHg in the presence of persistent hypotension; MAP $<$ 30 mmHg is well below autoregulated organ-perfusion threshold. Used in §2.6 to defend the MAP lower implausibility bound.}
+}
+
+@article{evans2021sepsis,
+  author    = {Evans, L and Rhodes, A and Alhazzani, W and Antonelli, M and Coopersmith, C M and French, C and Machado, F R and Mcintyre, L and Ostermann, M and Prescott, H C and others},
+  title     = {Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock 2021},
+  journal   = {Critical Care Medicine},
+  volume    = {49},
+  number    = {11},
+  pages     = {e1063--e1143},
+  year      = {2021},
+  doi       = {10.1097/CCM.0000000000005337},
+  note      = {PMID: 34605781 (verified via PubMed esummary, 2026-05-21). International ICU practice standard for MAP target $\geq$ 65 mmHg during sepsis resuscitation; corroborates the MAP lower bound rationale in §2.6.}
+}
+
+@article{mancia2023esh,
+  author    = {Mancia, G and Kreutz, R and Brunstr{\"o}m, M and Burnier, M and Grassi, G and Januszewicz, A and Muiesan, M L and Tsioufis, K and Agabiti-Rosei, E and Algharably, E A E and others},
+  title     = {2023 {ESH} Guidelines for the management of arterial hypertension},
+  journal   = {Journal of Hypertension},
+  volume    = {41},
+  number    = {12},
+  pages     = {1874--2071},
+  year      = {2023},
+  doi       = {10.1097/HJH.0000000000003480},
+  note      = {PMID: 37345492 (verified via PubMed esummary, 2026-05-21). European Society of Hypertension 2023 guidelines define hypertensive emergency at SBP $>$ 180 mmHg and/or DBP $>$ 120 mmHg with acute target-organ damage; supports the MAP / SBP upper bound articulation in §2.6.}
+}
+
+@book{marino2013icu,
+  author    = {Marino, P L},
+  title     = {Marino's The {ICU} Book},
+  edition   = {4th},
+  publisher = {Lippincott Williams \& Wilkins (Wolters Kluwer Health)},
+  address   = {Philadelphia, PA},
+  year      = {2013},
+  isbn      = {978-1-4511-2118-6},
+  note      = {Reference critical-care textbook. Publication date November 5, 2013 (Harvard Book Store record, verified 2026-05-21). ISBN-13 9781451121186 verified against AbeBooks, Barnes \& Noble, and the publisher's catalog. Used in §2.6: Chapter 5 (Hemodynamic Drug Infusions and the Cardiovascular Critical Patient) anchors the HR (20, 220) bpm and MAP (30, 180) mmHg implausibility thresholds; Chapter 21 (Acid-Base Disorders) anchors the PaCO2 (10, 120) mmHg bounds; Chapter 26 (Principles of Mechanical Ventilation) anchors the Vt (50, 1500) mL operational range.}
+}
+
+@book{west2020respiratory,
+  author    = {West, J B and Luks, A M},
+  title     = {West's Respiratory Physiology: The Essentials},
+  edition   = {11th},
+  publisher = {Wolters Kluwer Health / Lippincott},
+  address   = {Philadelphia, PA},
+  year      = {2020},
+  isbn      = {978-1-9751-3918-6},
+  note      = {Reference respiratory-physiology textbook. Publication date September 29, 2020 (Wolters Kluwer publisher record, verified 2026-05-21). ISBN-13 9781975139186 (print) verified against publisher catalog. Used in §2.6: Chapter 2 (Ventilation) documents anatomical dead space (typically 150 mL in adult-reference body habitus), justifying the Vt = 50 mL lower bound (alveolar ventilation impossible below dead space); Chapter 4 (Blood Gas Transport) anchors the PaCO2 acid-base survival range; Chapter 5 (Gas Exchange) documents the alveolar-gas equation that anchors the PaO2 upper bound and the supplementary HARD_BOUNDS_PHYSIOLOGICAL classifier (§3.8); Chapter 7 (Ventilation-Perfusion Relationships) anchors the shunt physiology recovered by the S021 hyperoxia convergence experiment.}
+}
+
+@book{marini2019critical,
+  author    = {Marini, J J and Dries, D J},
+  title     = {Critical Care Medicine: The Essentials and More},
+  edition   = {5th},
+  publisher = {Wolters Kluwer (Lippincott Williams \& Wilkins)},
+  address   = {Philadelphia, PA},
+  year      = {2019},
+  isbn      = {978-1-4963-0291-5},
+  note      = {Reference critical-care textbook. ISBN-13 9781496302915 verified against Barnes \& Noble, Amazon, and the publisher's catalog (2026-05-21). Used in §2.6: Chapter 1 (Hemodynamic Monitoring and Support) documents the MAP / HR survival-incompatibility thresholds; Chapter 5 (Gas Exchange in the Lung) and Chapter 7 (Mechanical Ventilation) anchor the PaCO2 / Vt bounds. Corroborating reference alongside Marino 2013.}
+}

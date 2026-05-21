@@ -661,6 +661,43 @@ X to Y`); this would have made the `clamped` flag useless across the entire
 sweep. Detector validation on 20 reference runs in `Pulse_translation_new/`
 remains 20 / 20 clean with the new regex set.
 
+**Hard physiological bounds for the `implausible` flag.** The table
+below was committed in `preregistration.md` §Flags before any atlas
+data was collected, and is reproduced here for reader convenience.
+Each `(lower, upper)` pair encodes one of three logical categories:
+(a) a physical / thermodynamic ceiling for which no citation is
+needed because the bound is definitional, (b) an equipment /
+engineering limit, or (c) a clinical *"incompatible with a 60 s
+steady-state in the locked window"* threshold. Only category (c) is
+a judgment call within the cited literature; categories (a) and (b)
+follow directly from physics or hardware specs.
+
+| Output | Lower | Upper | Source (lower / upper) |
+|--------|------:|------:|------------------------|
+| HR (bpm)    |  20 |  220 | Survival-incompatibility thresholds for bradycardia / tachycardia [@marino2013icu Ch.5; @marini2019critical Ch.1] |
+| MAP (mmHg)  |  30 |  180 | Lower: Sepsis-3 organ-perfusion failure threshold (well below 65 mmHg shock target) [@singer2016; @evans2021sepsis]; upper: ESH 2023 hypertensive emergency [@mancia2023esh] |
+| Vt (mL)     |  50 | 1500 | Lower: below anatomical dead space (~150 mL adult) [@west2020respiratory Ch.2] — alveolar ventilation impossible; upper: ~4× ARDSnet protective ventilation (6 mL/kg PBW [@brower2000] ≈ 400 mL for atlas surrogates) and at the edge of adult-ventilator delivery capability [@marino2013icu Ch.26] |
+| SpO2 (%)    |  50 |  100 | Lower: oxyhemoglobin dissociation curve P50 (SpO2 = 50 % ↔ PaO2 ≈ 27 mmHg [@severinghaus1979]) — below cellular oxygen extraction threshold [@marini2019critical Ch.1]; upper: hemoglobin saturation ceiling (definitional) |
+| PaO2 (mmHg) |  20 |  600 | Lower: SpO2 ≈ 0.30 on the Severinghaus 1979 dissociation curve [@severinghaus1979] — incompatible with cellular respiration over a 60 s steady-state window, well inside Berlin severe-ARDS oxygenation territory [@ards2012]; upper: classifier-conservative choice below the alveolar-gas-equation ceiling [@west2020respiratory Ch.5] — supplementary `HARD_BOUNDS_PHYSIOLOGICAL` sensitivity analysis at 700 mmHg reported in §3.8 |
+| PaCO2 (mmHg) | 10 |  120 | Profound respiratory alkalosis (lower) and CO2 narcosis (upper) survival thresholds [@marino2013icu Ch.21; @west2020respiratory Ch.4] |
+
+The bound is therefore a *time-window-conditional* operational
+threshold, not a raw biology threshold: a real patient transiently
+crossing PaO2 = 18 mmHg during cardiac arrest is biologically
+possible, but a Pulse simulation reporting a 60 s steady-state mean
+PaO2 = 18 mmHg at FiO2 = 0.21 on a *resting healthy adult* indicates
+that the engine has produced an output incompatible with the
+simulation's own input setup. The `implausible` flag isolates that
+class of inconsistency. Within category (c), the exact numerical
+choice (e.g., PaO2 lower 20 vs 25 mmHg) is a defensible judgment
+call rather than a unique biological constant; §4.5 acknowledges
+this and §3.8 demonstrates the sensitivity-analysis pattern on the
+single most contestable bound (PaO2 upper, raised from 600 to 700
+mmHg per the alveolar-gas-equation ceiling). No locked threshold has
+been adjusted post-hoc — the only preregistration amendment
+(2026-04-22-b, flatline tolerance 1 % → 0.1 %) was made *before* the
+sweep launched.
+
 Atlas-side input validation in `src/scenario.py` is restricted to
 scenario and sex keys; physiological-bound enforcement is delegated to
 the locked Morris sampler ranges (§2.2), Pulse's setup-time rejection
@@ -2416,6 +2453,25 @@ bounded.*
   formally closed in §3.3.1; if future work re-opens it on the
   Group B cells, larger-scale variance decomposition would benefit
   from a cluster.
+* **Implausibility bounds are clinically anchored but not unique
+  within the clinical-judgment category.** The `HARD_BOUNDS` table
+  (§2.6) categorizes each bound as either physical
+  (e.g., SpO2 ≤ 100 %), equipment (Vt range), or a clinical
+  *"incompatible-with-60-s-steady-state-in-window"* threshold. Within
+  the third category, the exact numerical choice (e.g., PaO2 lower
+  20 vs 25 mmHg, MAP lower 30 vs 35 mmHg) is a defensible judgment
+  call rather than a unique biological constant — different clinical
+  philosophies, anchored in the same Severinghaus / Berlin /
+  Sepsis-3 / ICU-textbook literature [@severinghaus1979; @ards2012;
+  @singer2016; @marino2013icu; @marini2019critical], could land on
+  modestly different numbers. The locked classifier used for all
+  headline numbers in this paper is conservative. The precedent for a
+  sensitivity analysis on a single bound is the
+  `HARD_BOUNDS_PHYSIOLOGICAL` table in §3.8 (PaO2 upper raised from
+  600 to 700 mmHg per the alveolar-gas-equation sea-level ceiling
+  [@west2020respiratory Ch.5]); a downstream researcher with a
+  different clinical philosophy can replicate this pattern on any
+  other bound by reusing `src/detector.py::reclassify_implausible_against`.
 * **Theoretical vs. empirical coverage.** The Morris sweep samples the
   extremes of Pulse's theoretical acceptance envelope based on
   standardized ARDS definitions. It does not quantify the engine's
