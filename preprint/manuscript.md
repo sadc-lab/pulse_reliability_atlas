@@ -641,6 +641,42 @@ thresholds were locked in preregistration before data collection,
 with priority order `clamped > diverged > implausible >
 not_steady_state > clean` for primary-flag analyses.*
 
+**Why this priority order.** The four flags trace the chronology of
+failure modes a Pulse simulation could exhibit, from input handling
+through solver execution to output evaluation against biological and
+dynamic criteria:
+
+1. **`clamped` — input-contract breach.** Pulse has silently
+   substituted at least one setup input. The simulation no longer
+   corresponds to the Morris grid point that was requested, so any
+   downstream flag would refer to a different input than the one
+   being studied. Disqualifying the run at this layer is
+   non-negotiable; this is why `clamped` outranks every other flag.
+2. **`diverged` — mathematical failure.** The solver could not
+   produce a complete, finite output trajectory: non-zero exit code,
+   NaN / Inf in the CSV, missing CSV, or simulation truncated before
+   the recorded window ends. No biological interpretation is
+   possible because there is nothing to interpret.
+3. **`implausible` — biological failure.** The mathematics ran
+   cleanly but the steady-state mean falls outside the hard
+   physiological bounds (`HARD_BOUNDS` table below): the output is
+   mathematically valid but biologically incompatible with a viable
+   60 s steady-state — e.g. SpO2 = 0.40, which on the Severinghaus
+   1979 dissociation curve corresponds to PaO2 ≈ 22 mmHg, below the
+   cellular oxygen-extraction threshold.
+4. **`not_steady_state` — dynamic failure.** The output is
+   mathematically valid and biologically coherent, but the
+   trajectory has not settled in the 60 s window: flatline at a
+   bound, excess variance (CV > 5 %), or drift exceeding the per-channel
+   `DRIFT_MAX_DELTA_60S` thresholds (table below). The result is
+   interpretable as a *transient*, not as steady-state physiology.
+
+The order is therefore the order in which a simulation lifecycle
+could fail (input handling → solver → biology → dynamics), and is
+preregistered in `preregistration.md` §Flags. Each flag's underlying
+thresholds and their clinical anchors are described in the two
+tables below.
+
 Four flags locked in preregistration §Flags; thresholds calibrated on real
 Pulse runs without modifying preregistration thresholds (only one
 amendment, 2026-04-22-b, tightened the flatline-bound tolerance from 1 % →
