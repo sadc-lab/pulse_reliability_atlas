@@ -36,6 +36,9 @@ OUTPUT_COLUMNS: dict[str, str] = {
 
 # Hard physiological bounds — outside ⇒ `implausible`
 # Source: preregistration §Flags / hard physiological bounds table.
+# These bounds are LOCKED before any sweep run and are not revised post-hoc;
+# any revision needs a preregistration amendment with a clear rationale and a
+# corresponding bump to the audit log.
 HARD_BOUNDS: dict[str, tuple[float, float]] = {
     "HR": (20.0, 220.0),
     "MAP": (30.0, 180.0),
@@ -44,6 +47,42 @@ HARD_BOUNDS: dict[str, tuple[float, float]] = {
     "PaO2": (20.0, 600.0),
     "PaCO2": (10.0, 120.0),
 }
+
+# Supplementary physiology-anchored bounds — outside ⇒ implausible *under the
+# alveolar-gas-equation ceiling for hyperoxia*. PaO2 upper bound is raised from
+# 600 to 700 mmHg because the alveolar-gas equation at sea level predicts
+# PAO2 = FiO2 × (P_atm − P_H2O) − PaCO2/RQ = 1.0 × (760 − 47) − 40/0.8 ≈ 663
+# mmHg in a healthy adult on 100 % O2, with arterial PaO2 reaching ~650 mmHg
+# after a typical A-a gradient of 10 mmHg.
+#
+# This is NOT a replacement for `HARD_BOUNDS` — the locked classifier remains
+# the headline atlas classification. `HARD_BOUNDS_PHYSIOLOGICAL` powers a
+# sensitivity-analysis side-table reported alongside the locked classifier in
+# manuscript §3.8 (F-003 supplementary reclassification). See
+# `scripts/f003_physiological_reclassification.py`.
+HARD_BOUNDS_PHYSIOLOGICAL: dict[str, tuple[float, float]] = {
+    **HARD_BOUNDS,
+    "PaO2": (20.0, 700.0),
+}
+
+
+def reclassify_implausible_against(
+    pao2_mean: float | pd.Series,
+    bounds: dict[str, tuple[float, float]] = HARD_BOUNDS_PHYSIOLOGICAL,
+) -> pd.Series | bool:
+    """Re-evaluate the PaO2 implausibility check against an alternative bound set.
+
+    Used by ``scripts/f003_physiological_reclassification.py`` to attach a side
+    column ``implausible_pao2_under_physio_bounds`` to the locked aggregated
+    parquet without modifying the locked classifier.
+
+    Returns a bool (or a boolean Series, if a Series is supplied) — True
+    iff the PaO2 mean falls outside the supplied PaO2 bound interval.
+    """
+    lo, hi = bounds["PaO2"]
+    if isinstance(pao2_mean, pd.Series):
+        return (pao2_mean < lo) | (pao2_mean > hi)
+    return bool(pao2_mean < lo or pao2_mean > hi)
 
 # Max |Δ| over 60 s — slope × 60 s that exceeds this ⇒ `not_steady_state` (drift)
 # Units match the Pulse CSV column (SpO2 is fraction, so 0.02 = 2%).
@@ -408,6 +447,7 @@ __all__ = [
     "FLATLINE_STD_RATIO",
     "FlagResult",
     "HARD_BOUNDS",
+    "HARD_BOUNDS_PHYSIOLOGICAL",
     "OUTPUT_COLUMNS",
     "STEADY_STATE_T_HI",
     "STEADY_STATE_T_LO",
@@ -418,4 +458,5 @@ __all__ = [
     "check_not_steady_state",
     "classify",
     "compute_steady_state_stats",
+    "reclassify_implausible_against",
 ]

@@ -6,12 +6,13 @@ This file is rebuilt from the YAML frontmatter of every entry in
 `santino/`, `contributor2/`, and `shared/`. To update it, edit the experiment
 and recommit — the pre-commit hook regenerates and stages this file.
 
-Total entries: **20**
+Total entries: **21**
 
 ## All experiments (newest first)
 
 | ID | Date | Author | Status | Title |
 |---|---|---|---|---|
+| `S021` | 2026-05-21 | santino | done | [S021 — Hyperoxia convergence: testing the F-003 transient-regime hypothesis](santino/S021_hyperoxia_convergence.md) |
 | `S020` | 2026-05-15 | santino | done | [S020 — Pre-submission novelty audit: verifying that every "first" / "novel" claim in the manuscript survives a literature double-check](santino/S020_novelty_audit.md) |
 | `S019` | 2026-05-13 | santino | draft | [S019 — Sobol bolt-on (Phase B item B3): DRAFT, ready-to-fire, not executed](santino/S019_sobol_bolton_draft.md) |
 | `S018` | 2026-05-13 | santino | done | [S018 — Blood-volume mechanism falsification test (Phase B item B2): dose-response bracket on the 20 originally-diverged male inputs](santino/S018_blood_volume_falsification.md) |
@@ -55,6 +56,7 @@ Total entries: **20**
 - `S018` (2026-05-13, done) — [S018 — Blood-volume mechanism falsification test (Phase B item B2): dose-response bracket on the 20 originally-diverged male inputs](santino/S018_blood_volume_falsification.md) — _mechanism-test, falsification, divergence, blood-volume, sex-stratification, phase-b_
 - `S019` (2026-05-13, draft) — [S019 — Sobol bolt-on (Phase B item B3): DRAFT, ready-to-fire, not executed](santino/S019_sobol_bolton_draft.md) — _sobol, variance-decomposition, reviewer-defense, phase-b, draft, not-executed_
 - `S020` (2026-05-15, done) — [S020 — Pre-submission novelty audit: verifying that every "first" / "novel" claim in the manuscript survives a literature double-check](santino/S020_novelty_audit.md) — _literature, novelty-audit, pre-submission, citation-verification, manuscript-discussion_
+- `S021` (2026-05-21, done) — [S021 — Hyperoxia convergence: testing the F-003 transient-regime hypothesis](santino/S021_hyperoxia_convergence.md) — _f-003, hyperoxia, convergence, mechanism-test, classifier-bound, causal-test, reviewer-defense_
 
 ## By tag
 
@@ -76,6 +78,7 @@ Total entries: **20**
 
 ### `causal-test`
 - `S014` — [S014 — Trigger-pressure lockout: causal test of F-004 mechanism](santino/S014_trigger_pressure_lockout.md)
+- `S021` — [S021 — Hyperoxia convergence: testing the F-003 transient-regime hypothesis](santino/S021_hyperoxia_convergence.md)
 
 ### `ci`
 - `S009` — [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md)
@@ -86,11 +89,17 @@ Total entries: **20**
 ### `citations`
 - `S010` — [S010 — Literature-review pass: every reference verified against DOI / PMID](santino/S010_literature_review.md)
 
+### `classifier-bound`
+- `S021` — [S021 — Hyperoxia convergence: testing the F-003 transient-regime hypothesis](santino/S021_hyperoxia_convergence.md)
+
 ### `confounding`
 - `S011` — [S011 — Sex vs mass disentangling (controlled 2×2 design)](santino/S011_sex_vs_mass_disentangle.md)
 
 ### `continuous-ards`
 - `S009` — [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md)
+
+### `convergence`
+- `S021` — [S021 — Hyperoxia convergence: testing the F-003 transient-regime hypothesis](santino/S021_hyperoxia_convergence.md)
 
 ### `cornish`
 - `S017` — [S017 — Cornish 2023 cross-mapping: re-tabulating the only prior external Pulse assessment against the atlas's 6-output panel](santino/S017_cornish_2023_cross_mapping.md)
@@ -138,6 +147,7 @@ Total entries: **20**
 
 ### `f-003`
 - `S012` — [S012 — Dual steady-state audit (F-003 hyperoxia + F-004 Vt oscillation)](santino/S012_steady_state_window_audit.md)
+- `S021` — [S021 — Hyperoxia convergence: testing the F-003 transient-regime hypothesis](santino/S021_hyperoxia_convergence.md)
 
 ### `f-004`
 - `S012` — [S012 — Dual steady-state audit (F-003 hyperoxia + F-004 Vt oscillation)](santino/S012_steady_state_window_audit.md)
@@ -172,6 +182,9 @@ Total entries: **20**
 
 ### `hardware`
 - `S001` — [S001 — Docker + hardware smoke test (3× parallel Pulse)](santino/S001_docker_smoke_test.md)
+
+### `hyperoxia`
+- `S021` — [S021 — Hyperoxia convergence: testing the F-003 transient-regime hypothesis](santino/S021_hyperoxia_convergence.md)
 
 ### `image-build`
 - `S004` — [S004 — Scenario-init smoke test (4×2 cells) + atlas Docker image + detector recalibration](santino/S004_scenario_smoke_and_atlas_image.md)
@@ -213,6 +226,7 @@ Total entries: **20**
 ### `mechanism-test`
 - `S014` — [S014 — Trigger-pressure lockout: causal test of F-004 mechanism](santino/S014_trigger_pressure_lockout.md)
 - `S018` — [S018 — Blood-volume mechanism falsification test (Phase B item B2): dose-response bracket on the 20 originally-diverged male inputs](santino/S018_blood_volume_falsification.md)
+- `S021` — [S021 — Hyperoxia convergence: testing the F-003 transient-regime hypothesis](santino/S021_hyperoxia_convergence.md)
 
 ### `morris`
 - `S005` — [S005 — 22-run pilot on cell (S1, Male) — preregistration §Pilot gate](santino/S005_pilot_S1_male.md)
@@ -267,6 +281,7 @@ Total entries: **20**
 - `S013` — [S013 — Lexical lockdown (solver-divergence vs implausible-output taxonomy)](santino/S013_lexical_lockdown.md)
 - `S014` — [S014 — Trigger-pressure lockout: causal test of F-004 mechanism](santino/S014_trigger_pressure_lockout.md)
 - `S019` — [S019 — Sobol bolt-on (Phase B item B3): DRAFT, ready-to-fire, not executed](santino/S019_sobol_bolton_draft.md)
+- `S021` — [S021 — Hyperoxia convergence: testing the F-003 transient-regime hypothesis](santino/S021_hyperoxia_convergence.md)
 
 ### `seed-stability`
 - `S009` — [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md)

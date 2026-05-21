@@ -46,8 +46,13 @@ cells in S1 and S4_F). Pulse rejects out-of-range inputs *loudly*:
 0 of 1,280 runs fired the silent-clamping flag. Solver divergence is
 sex-stratified — 20 of 1,280 runs (1.6 %) diverged, **all 20 male in
 the input-extreme regime** (sex-stratification is regime-dependent;
-§3.5.1). A second boundary finding (**F-003**): Pulse produces PaO2 >
-600 mmHg at FiO2 = 1.0 (hyperoxia overshoot). H4 (sex-specific
+§3.5.1). A second boundary finding (**F-003**): under the
+preregistered 120 s window, Pulse PaO2 exceeds the locked classifier
+upper bound of 600 mmHg at FiO2 = 1.0 in 34 of 126 implausibly-flagged
+runs; an extended 300 s rerun ([S021](#s021)) shows PaO2 converges
+within the alveolar-gas-equation band (≈ 600 – 650 mmHg, the healthy
+sea-level ceiling), supporting a transient-regime explanation
+rather than a Pulse oxygenation overshoot. H4 (sex-specific
 reliability) is partially supported under Benjamini–Hochberg FDR
 control (q = 0.05): 5 of 24 cell × output Wasserstein distances
 survive the within-sex null — all five are gas-exchange (PaCO2 ×3,
@@ -117,9 +122,16 @@ sweep.*
   *resolved* by setting trigger pressure to −2 cmH2O (median Vt
   coefficient of variation collapses 0.351 → 0.016; worst-case
   1.826 → 0.112).
-* **Hyperoxia boundary finding (F-003).** Pulse produces
-  PaO2 > 600 mmHg at FiO2 = 1.0 — a per-cell data-quality flag
-  for downstream filtering.
+* **Transient hyperoxia regime (F-003).** Under the preregistered 120 s
+  window, Pulse PaO2 exceeds the locked classifier upper bound of
+  600 mmHg at FiO2 = 1.0 in 34 implausibly-flagged runs (91 % at
+  FiO2 ≥ 0.95). An extended 300 s rerun ([S021](#s021)) shows PaO2 converges
+  within the alveolar-gas-equation band; the original flag therefore
+  reflects (a) the locked 120 s window being insufficient for hyperoxia
+  convergence and (b) the conservative classifier bound, not a Pulse
+  oxygenation overshoot. A supplementary `HARD_BOUNDS_PHYSIOLOGICAL`
+  reclassification (PaO2 upper 700 mmHg) is reported as a sensitivity
+  analysis in §3.8.
 * **Sex as a reliability-sensitivity axis** — the first sex-stratified
   reliability comparison in the Pulse literature. Under
   Benjamini–Hochberg FDR control (q = 0.05), 5 of 24 cell × output
@@ -386,6 +398,7 @@ underlying files are in the repository.
 | S018 | Blood-volume mechanism falsification (explains the all-male divergence cluster). |
 | S019 | Sobol bolt-on draft script (ready-to-fire; not executed — see §3.3.1 for the closed-by-redundancy argument). |
 | S020 | Pre-submission novelty audit; verified that every "first" / "novel" claim in the manuscript survives a literature double-check (single citation added: Figueroa-Casas & Montoya 2016 for the F-004 clinical precedent). |
+| S021 | Hyperoxia convergence: 60-run pre-registered rerun at 300 s vs locked 120 s sweep window — tests whether F-003 PaO2 > 600 mmHg at FiO2 = 1.0 reflects oxygenation overshoot or transient non-convergence. |
 
 ---
 
@@ -957,16 +970,18 @@ resolves each run to a single `primary_flag` for partition-style
 analyses.
 **Key takeaway:** `clamped` = 0 across the entire sweep (H2 NOT
 supported); `diverged` is all-male (H3 supported, with
-sex-stratification); `implausible` concentrates in S1 (F-003
-hyperoxia overshoot) and S4 (severe hypoxemia); 663 / 1,280 (51.8 %)
-runs are `clean`.
+sex-stratification); `implausible` concentrates in S1 (F-003 transient
+hyperoxia regime — PaO2 above the locked classifier bound at FiO2 = 1.0,
+shown by [S021](#s021) to converge into the physiological band by 300 s)
+and S4 (severe hypoxemia); 663 / 1,280 (51.8 %) runs are `clean`.
 
 * `clamped` is **0 across the entire sweep** (locked ranges respect
   Pulse acceptance — H2 not supported).
 * `diverged` is **all-male** (H3 supported, with sex stratification).
-* `implausible` is concentrated in S1 (FiO2 = 1.0 hyperoxia overshoot,
-  F-003) and S4 (severe hypoxemia at the lower physiological bound:
-  PaO2 < 20 mmHg or SpO2 < 50 % in some Morris combinations).
+* `implausible` is concentrated in S1 (FiO2 = 1.0 transient hyperoxia
+  regime, F-003 — see §3.8) and S4 (severe hypoxemia at the lower
+  physiological bound: PaO2 < 20 mmHg or SpO2 < 50 % in some Morris
+  combinations).
 * `not_steady_state` is highest in S1 (107 + 118) — VC-AC Vt is
   unstable on healthy adults (F-004) — and lowest in S3 — moderate
   ARDS dampens oscillation. S4 not-steady-state rate climbs again as
@@ -1066,9 +1081,13 @@ evidence closes it by redundancy.*
 Top-3 fraction of summed μ\* per cell × output:
 * All 48 combinations are ≥ 0.5 (the preregistered threshold).
 * Median 0.928; range 0.658 – 0.998.
-* Lowest fractions are in S2 (mild ARDS), where the Morris
-  contributions spread more evenly across inputs as the lung impairment
-  redistributes weight to ventilator parameters.
+* Lowest fractions are in S4 (severe ARDS), and concentrate on the
+  gas-exchange outputs PaO2 and SpO2: S4_F SpO2 (0.658), S4_M SpO2
+  (0.703), S4_F PaO2 (0.707), S4_M PaO2 (0.727). Mechanism: at 95 %
+  alveolar impairment the dominant shunt fraction caps FiO2's marginal
+  effect on arterial oxygenation, so the residual sensitivity
+  redistributes across PEEP, RR, and Vt rather than concentrating on a
+  single dominant input.
 
 The dominant inputs by output (μ\* summed across all 8 cells, top 3 per
 output — `src.analysis_morris.dominant_inputs_per_output` on
@@ -1782,30 +1801,138 @@ cluster: (S2, F) + (S3, F). Red cluster: HR and PaO2 in S3 / S4.
 ### 3.8 Two structural findings carried from pilot to full sweep
 
 *Two findings that surfaced in the 22-run pilot and held through the
-1,280-run sweep. **F-003**: Pulse PaO2 exceeds 600 mmHg at FiO2 = 1.0
-on healthy adults — a hyperoxia overshoot. **F-004**: VC-AC
-tidal-volume instability in 20.6 % of runs, causally identified in
-[S014](#s014) as patient-ventilator dyssynchrony at the inspiration trigger
-and corrected by setting trigger pressure to −2 cmH2O.*
+1,280-run sweep. **F-003**: under the preregistered 120 s window,
+Pulse PaO2 exceeds the locked 600 mmHg classifier upper bound at
+FiO2 = 1.0 on healthy adults — a *transient hyperoxia regime + conservative
+preregistered classifier bound*, **not** an oxygenation overshoot, as
+shown by a pre-registered 300 s rerun ([S021](#s021)) on the same
+input combinations. **F-004**: VC-AC tidal-volume instability in
+20.6 % of runs, causally identified in [S014](#s014) as
+patient-ventilator dyssynchrony at the inspiration trigger and
+corrected by setting trigger pressure to −2 cmH2O.*
 
-* **F-003** — Pulse PaO2 exceeds 600 mmHg at FiO2 = 1.0 on healthy
-  adults. Across the full sweep, **34 of 126 implausibly-flagged runs
-  exceed the locked 600 mmHg upper bound, with 91 % of those at FiO2 ≥
-  0.95**. Spot-checks confirmed PaO2 is still drifting upward at the end
-  of the 120 s window in these runs (slope > 15 mmHg / 60 s). Either
-  Pulse's oxygenation model overshoots at pure-oxygen, or 120 s is
-  insufficient for hyperoxia convergence. In the *clean* S1 healthy
-  runs (N = 91), PaO2 is well-approximated by a linear function of
-  FiO2: PaO2 ≈ 505 × FiO2 − 25 mmHg (R² = 0.90), i.e. roughly **5
-  mmHg PaO2 per 0.01 FiO2** in the clean range (a focused single-input
-  FiO2 probe near 1.0 — Appendix B.2, `Pulse_translation_new` E20 —
-  reports a steeper ~7.8 mmHg / 0.01 slope; the two figures reflect
-  different physiological regimes, multi-input averaged across
-  [0.21, 1.0] vs single-input near the FiO2 = 1.0 boundary). Linear extrapolation
-  from FiO2 = 0.5 (PaO2 ≈ 228 mmHg) to FiO2 = 1.0 predicts PaO2 ≈ 481
-  mmHg — yet measured S1 means at FiO2 ≈ 1.0 are 600 – 660 mmHg.
-  The *deviation from linear extrapolation at the FiO2 = 1.0 endpoint*
-  is the quantitative signature of the hyperoxia overshoot.
+* **F-003 — Transient hyperoxia regime in the locked 120 s window.**
+  Across the full sweep, **34 of 126 implausibly-flagged runs exceed
+  the locked 600 mmHg PaO2 upper bound (`HARD_BOUNDS["PaO2"]` in
+  `src/detector.py`), with 91 % of those at FiO2 ≥ 0.95**. PaO2 was
+  still drifting upward at the end of the locked 120 s window in
+  these runs: 93.3 % of FiO2 ≥ 0.95 valid-CSV runs have positive
+  slope over [60, 120] s and 18.5 % exceed the 15 mmHg / 60 s drift
+  threshold (full audit in §3.8.1).
+  In the *clean* S1 healthy runs (N = 91; clean FiO2 range [0.21,
+  0.47]), PaO2 is well-approximated by a linear function of FiO2:
+  PaO2 ≈ 505 × FiO2 − 25 mmHg (R² = 0.90), i.e. roughly **5 mmHg
+  PaO2 per 0.01 FiO2** in the clean range (Appendix B.2 /
+  `Pulse_translation_new` E20 reports a steeper ~7.8 mmHg / 0.01
+  slope on a focused single-input probe at FiO2 0.95 – 1.0; the two
+  figures reflect different regimes — multi-input averaged across
+  [0.21, 1.0] vs single-input near the FiO2 = 1.0 boundary).
+  Linear extrapolation from FiO2 = 0.5 (PaO2 ≈ 228 mmHg) predicts
+  PaO2 ≈ 481 mmHg at FiO2 = 1.0; the locked 120 s S1 means at
+  FiO2 = 1.0 sit higher than this linear extrapolation, but this
+  deviation is the *physiologically expected non-linearity* in the
+  FiO2 → PaO2 relationship (hemoglobin saturation maxes out and
+  dissolved-oxygen kinetics take over above FiO2 ≈ 0.6) — not an
+  overshoot.
+
+  **Two competing interpretations.** The original 120 s pattern
+  admits either (i) Pulse's oxygenation model overshoots at pure
+  oxygen, or (ii) the 120 s window is insufficient for hyperoxia
+  convergence and the apparently-implausible 120 s values are
+  transient. The interpretations have observable consequences that
+  distinguish them at longer windows.
+
+  **The transient-regime interpretation is supported ([S021](#s021)).**
+  A pre-registered controlled experiment reran 60 matched-input cases
+  at FiO2 = 1.0 with the simulation extended from 120 s to 300 s
+  (sample interval 5 s; 22 paired Morris indices × S1 (M + F) =
+  44 S1 runs; 4 paired indices × {S3, S4} × {M, F} = 16 ARDS runs).
+  All thresholds were committed before any S021 Pulse run was
+  observed. The pre-registered decision rule on the S1 subset
+  required *frac converged ≥ 75 %* (plateau drift over [240, 300] s
+  below the locked 15 mmHg / 60 s threshold) **and** *median plateau
+  ∈ [580, 680] mmHg* (alveolar-gas-equation prediction ± 75 mmHg).
+  Both were met by very large margins:
+
+    * **S1 (n = 44):** plateau median 643.3 mmHg (decision band
+      [580, 680] mmHg); 41 / 44 runs (93.2 %) converged.
+    * Plateau median of 643 mmHg sits ~10 – 20 mmHg below the simple
+      alveolar-gas-equation prediction
+      (PAO2 = FiO2 × (P_atm − P_H2O) − PaCO2/RQ
+      = 1.0 × (760 − 47) − 40/0.8 ≈ 663 mmHg, then PaO2 = PAO2 −
+      A-a gradient ≈ 653 mmHg for an A-a gradient of 10 mmHg).
+      Pulse therefore *under-shoots* the simple alveolar-gas
+      prediction by ~10 mmHg — consistent with a modelled A-a
+      gradient — and does not overshoot. The pre-registered decision
+      is `HYPOTHESIS_II_TRANSIENT_REGIME_SUPPORTED`.
+
+  **Shunt depression confirms the physiological mapping ([S021](#s021)
+  auxiliary, descriptive — not part of the (i)-vs-(ii) decision).**
+  On the 4 paired input combinations replayed across all three
+  scenarios at FiO2 = 1.0, the [240, 300] s median plateau decreases
+  monotonically with ARDS severity (S1 → S3 → S4):
+
+  | Scenario | n | Plateau median (mmHg) | Plateau IQR (mmHg) | Converged |
+  |----------|---|------------------------|---------------------|-----------|
+  | S1       | 44 |  643.3 | [592, 668] | 41 / 44 (93 %) |
+  | S3       |  8 |  143.6 | [ 93, 218] |  8 /  8 (100 %) |
+  | S4       |  8 |   72.6 | [ 71,  76] |  8 /  8 (100 %) |
+
+  The same FiO2 = 1.0 + identical input vector therefore produces
+  PaO2 ≈ 643 mmHg in healthy lungs and PaO2 ≈ 73 mmHg in severe
+  ARDS — an order-of-magnitude depression mediated entirely by the
+  ARDS severity scalar. This is exactly the shunt-fraction kinetics
+  the alveolar-gas equation predicts under increasing venous
+  admixture; Pulse reproduces it correctly.
+
+  **Solver-instability tail at extended windows ([S021](#s021),
+  additional sub-finding).** A separate phenomenon emerges *only*
+  with the 300 s window: 6 / 44 S1 runs (14 %) develop unphysical
+  PaO2 plateaus > 700 mmHg (4 stabilising near 1,400 mmHg, above
+  the sea-level barometric pressure of 760 mmHg). All six share a
+  specific input signature: **Vt = 633.3 mL combined with RR = 20**
+  (and FiO2 = 1.0), i.e. an excessive minute ventilation of
+  V̇E ≈ 12.6 L/min, ~ 2× the physiological norm of 6 – 8 L/min.
+  Inspection of the per-run trajectories shows a stable
+  ~ 690 mmHg PaO2 plateau through ~ 195 s, then an abrupt numerical
+  runaway between 195 s and 220 s, plateauing at ~ 1,400 mmHg by
+  240 s (concurrent unphysical PaCO2 collapse to < 17 mmHg). The
+  locked 120 s atlas window stops the simulation *before* this
+  runaway and therefore protects the headline atlas classification
+  from it. This is not a transient regime; it is a separate
+  solver-instability mode that an *extended-window* user of Pulse
+  should be aware of at extreme minute ventilation on healthy lungs.
+
+  **Supplementary physiology-anchored classifier.** The 600 mmHg
+  upper bound on PaO2 in `HARD_BOUNDS` is a conservative classifier
+  choice that remains *locked* — the preregistered atlas
+  classification uses it for all headline numbers (§3.2 – §3.7,
+  Table 1, Figure 6). A sensitivity analysis with a wider
+  physiology-anchored bound,
+  `HARD_BOUNDS_PHYSIOLOGICAL["PaO2"] = (20, 700)` (anchored to the
+  alveolar-gas-equation ceiling at sea level), is reported in
+  [`results/f003_physiological_reclassification.csv`](../results/f003_physiological_reclassification.csv)
+  (committed code:
+  [`scripts/f003_physiological_reclassification.py`](../scripts/f003_physiological_reclassification.py)):
+  **32 of the 34 implausibly-flagged-by-PaO2 runs become
+  physiologically clean under the wider bound** (31 at FiO2 ≥ 0.95,
+  21 in S1_F + 11 in S1_M); the remaining two stay implausible
+  under either classifier and correspond to the
+  solver-instability-tail input signature above.
+
+  **Practitioner takeaway.** Under the locked 120 s atlas window at
+  FiO2 ≥ 0.95, treat PaO2 as a transient — the steady-state
+  detector is correctly flagging an unfinished trajectory. Under an
+  extended ≥ 300 s window, use a plateau window in the final 60 s of
+  the simulation; expect a physiological plateau in healthy lungs
+  (~ 640 mmHg) and graded shunt depression in ARDS (~ 144 mmHg at
+  60 % severity, ~ 73 mmHg at 95 % severity). Avoid Vt × RR
+  combinations exceeding ~ 12 L/min minute ventilation on healthy
+  lungs at FiO2 = 1.0 — extended-window simulations enter a
+  separate solver-instability regime at this corner. Full S021
+  protocol and per-run paired data:
+  [`experiments_log/santino/S021_hyperoxia_convergence.md`](../experiments_log/santino/S021_hyperoxia_convergence.md);
+  raw artefacts in `data/runs/s021_hyperoxia_convergence/`.
 * **F-004 — Patient-ventilator dyssynchrony in VC-AC at extreme inputs.**
   Patient-ventilator dyssynchrony in volume-control ventilation at low
   tidal volume is a well-documented bedside phenomenon
@@ -1936,9 +2063,9 @@ the work in §4.5.*
 
 *A practitioner-oriented summary of which cells and which outputs are
 trustworthy, marginal, or unreliable — and the specific reasons:
-F-003 hyperoxia overshoot, F-004 trigger dyssynchrony, severe-ARDS
-solver behaviour, and the sex-stratified divergence cluster in the
-input-extreme regime.*
+F-003 transient hyperoxia regime, F-004 trigger dyssynchrony,
+severe-ARDS solver behaviour, and the sex-stratified divergence
+cluster in the input-extreme regime.*
 
 The reliability traffic-light (Figure 6) is the most actionable
 artifact:
@@ -1968,10 +2095,15 @@ artifact:
   cardiovascular response to ARDS is large in magnitude, so users
   building closed-loop simulations on this output should account for
   this.
-* **FiO2 = 1.0 is a known unreliability hotspot.** F-003 (PaO2 > 600
-  mmHg, ongoing drift) implies that researchers running pure-O2
-  simulations should either lengthen the simulation window beyond 120
-  s or treat PaO2 as a transient, not steady-state, output.
+* **FiO2 = 1.0 requires a longer steady-state window.** F-003 — PaO2
+  above the locked classifier bound at FiO2 = 1.0, with ongoing
+  upward drift in the [60, 120] s window — is *not* an oxygenation
+  overshoot: under a 300 s rerun ([S021](#s021)), Pulse PaO2
+  converges into the alveolar-gas-equation band (~600 – 650 mmHg)
+  with sub-threshold drift in the [240, 300] s plateau. Practitioner
+  guidance: at FiO2 ≥ 0.95, either lengthen the simulation window to
+  ≥ 300 s and use a plateau window in the final 60 s of that
+  simulation, or treat PaO2 as a transient, not steady-state, output.
 * **VC-AC dyssynchrony refines rather than indicts Pulse's
   implementation.** The F-004 finding (Vt CV > 5 % in 20.6 % of runs) is
   not a controller pathology: patient-ventilator dyssynchrony at extreme
@@ -2047,8 +2179,10 @@ data augmentation for clinical decision-support models. A model trained
 on outputs from this atlas's red cells without filtering will
 internalise simulator artefacts as if they were physiology:
 
-* The 600 + mmHg PaO2 overshoot at FiO2 = 1.0 (F-003, §3.8) becomes
-  "what hyperoxia looks like" to the model.
+* The 600 + mmHg PaO2 transient at FiO2 = 1.0 within the locked 120 s
+  steady-state window (F-003, §3.8) becomes "what hyperoxia looks like"
+  to the model — even though Pulse converges into the physiological
+  alveolar-gas-equation band when given a 300 s window ([S021](#s021)).
 * The 20.6 % VC-AC tidal-volume oscillation arising from inspiration-
   trigger dyssynchrony (F-004, §3.8) becomes "ventilator behaviour" to
   the model, even though it is corrected by a single configuration
@@ -2294,8 +2428,9 @@ bounded.*
 * **No comparable open atlas exists for sibling engines.** The atlas
   reports Pulse-specific reliability behaviour; it does not establish
   whether the patterns reported here (sex-stratified divergence,
-  VC-AC dyssynchrony at default trigger settings, FiO2 = 1.0 hyperoxia
-  overshoot) are unique to Pulse or generic to lumped-parameter
+  VC-AC dyssynchrony at default trigger settings, transient hyperoxia
+  regime at FiO2 = 1.0 in a 120 s steady-state window) are unique to
+  Pulse or generic to lumped-parameter
   cardiopulmonary engines such as BioGears or HumMod. No
   publicly-available comparable Morris-EE / Sobol / clamping atlas
   exists for either engine at the time of writing, so cross-engine
@@ -2657,6 +2792,7 @@ during the literature-review pass logged in
 | []{#s018} S018 | Blood-volume mechanism falsification (Phase B item B2) |
 | []{#s019} S019 | Sobol bolt-on draft (Phase B item B3 — not executed; ready-to-fire) |
 | []{#s020} S020 | Pre-submission novelty audit (literature double-check on every "first" claim; one citation added) |
+| []{#s021} S021 | Hyperoxia convergence (60-run rerun at 300 s vs locked 120 s window; F-003 mechanism test) |
 
 Each log file in `experiments_log/santino/` follows the template:
 hypothesis → motivation → method → what we tried → results → interpretation

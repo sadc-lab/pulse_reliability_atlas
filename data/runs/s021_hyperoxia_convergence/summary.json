@@ -1,0 +1,48 @@
+{
+  "n_runs": 60,
+  "S1_frac_converged": 0.9318181818181818,
+  "S1_plateau_median_mmHg": 643.3063280389815,
+  "S1_converged_plateau_median_mmHg": 642.8715636969404,
+  "decision": "HYPOTHESIS_II_TRANSIENT_REGIME_SUPPORTED",
+  "thresholds": {
+    "drift_threshold_mmHg_per_60s": 15.0,
+    "hyp2_frac_converged_min": 0.75,
+    "hyp2_plateau_band_mmHg": [
+      580.0,
+      680.0
+    ],
+    "hyp1_plateau_over_mmHg": 700.0,
+    "hyp1_frac_converged_max": 0.25,
+    "hyp1_converged_plateau_min": 680.0,
+    "plateau_window_s": [
+      240.0,
+      300.0
+    ]
+  },
+  "shunt_depression_aux": [
+    {
+      "scenario": "S1",
+      "n": 44,
+      "plateau_median_mmHg": 643.3063280389815,
+      "plateau_p25_mmHg": 592.2079540324289,
+      "plateau_p75_mmHg": 668.219489342544,
+      "frac_converged": 0.9318181818181818
+    },
+    {
+      "scenario": "S3",
+      "n": 8,
+      "plateau_median_mmHg": 143.5782514475698,
+      "plateau_p25_mmHg": 93.03309603494385,
+      "plateau_p75_mmHg": 218.48964254559152,
+      "frac_converged": 1.0
+    },
+    {
+      "scenario": "S4",
+      "n": 8,
+      "plateau_median_mmHg": 72.56336695696001,
+      "plateau_p25_mmHg": 70.82872862052565,
+      "plateau_p75_mmHg": 75.56120586930557,
+      "frac_converged": 1.0
+    }
+  ]
+}

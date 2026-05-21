@@ -1,0 +1,73 @@
+{
+  "n_total_runs": 1280,
+  "locked_PaO2_bound_hi_mmHg": 600.0,
+  "physiological_PaO2_bound_hi_mmHg": 700.0,
+  "n_runs_PaO2_above_locked_600": 34,
+  "n_runs_PaO2_above_physio_700": 2,
+  "n_reclassified_locked_to_physio_clean": 32,
+  "by_fio2_bin": {
+    "(-0.001, 0.4]": {
+      "pao2_above_locked_bound": 0,
+      "pao2_above_physio_bound": 0,
+      "reclassified_pao2_locked_to_physio_clean": 0
+    },
+    "(0.4, 0.6]": {
+      "pao2_above_locked_bound": 0,
+      "pao2_above_physio_bound": 0,
+      "reclassified_pao2_locked_to_physio_clean": 0
+    },
+    "(0.6, 0.8]": {
+      "pao2_above_locked_bound": 3,
+      "pao2_above_physio_bound": 2,
+      "reclassified_pao2_locked_to_physio_clean": 1
+    },
+    "(0.95, 1.001]": {
+      "pao2_above_locked_bound": 31,
+      "pao2_above_physio_bound": 0,
+      "reclassified_pao2_locked_to_physio_clean": 31
+    }
+  },
+  "by_scenario_sex": {
+    "S1_F": {
+      "pao2_above_locked_bound": 23,
+      "pao2_above_physio_bound": 2,
+      "reclassified_pao2_locked_to_physio_clean": 21
+    },
+    "S1_M": {
+      "pao2_above_locked_bound": 11,
+      "pao2_above_physio_bound": 0,
+      "reclassified_pao2_locked_to_physio_clean": 11
+    },
+    "S2_F": {
+      "pao2_above_locked_bound": 0,
+      "pao2_above_physio_bound": 0,
+      "reclassified_pao2_locked_to_physio_clean": 0
+    },
+    "S2_M": {
+      "pao2_above_locked_bound": 0,
+      "pao2_above_physio_bound": 0,
+      "reclassified_pao2_locked_to_physio_clean": 0
+    },
+    "S3_F": {
+      "pao2_above_locked_bound": 0,
+      "pao2_above_physio_bound": 0,
+      "reclassified_pao2_locked_to_physio_clean": 0
+    },
+    "S3_M": {
+      "pao2_above_locked_bound": 0,
+      "pao2_above_physio_bound": 0,
+      "reclassified_pao2_locked_to_physio_clean": 0
+    },
+    "S4_F": {
+      "pao2_above_locked_bound": 0,
+      "pao2_above_physio_bound": 0,
+      "reclassified_pao2_locked_to_physio_clean": 0
+    },
+    "S4_M": {
+      "pao2_above_locked_bound": 0,
+      "pao2_above_physio_bound": 0,
+      "reclassified_pao2_locked_to_physio_clean": 0
+    }
+  },
+  "alveolar_gas_equation_reference": "PAO2 = FiO2 \u00d7 (P_atm \u2212 P_H2O) \u2212 PaCO2/RQ = 1.0 \u00d7 (760 \u2212 47) \u2212 40/0.8 \u2248 663 mmHg in healthy adult, PaO2 \u2248 650 mmHg after typical A-a gradient of 10 mmHg."
+}
