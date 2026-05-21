@@ -1009,7 +1009,7 @@ visual patterns dominate:
   where shunt-fraction kinetics make oxygenation FiO2-limited. PaCO2
   is dominated by Vt in most cells, consistent with the alveolar-
   ventilation identity V̇A = RR · (Vt − V_dead). SpO2 is also
-  ventilator-driven but at a tiny absolute scale (μ\* ≤ 0.12) because
+  ventilator-driven but at a tiny absolute scale (μ\* ≤ 0.13) because
   the output sits at the hemoglobin saturation ceiling.
 * **The ARDS gradient is visible.** PaO2's FiO2 sensitivity peaks in
   S2 (μ\* = 133 – 147 mmHg), remains substantial in S3 (μ\* = 84 – 93
@@ -1070,23 +1070,26 @@ Top-3 fraction of summed μ\* per cell × output:
   contributions spread more evenly across inputs as the lung impairment
   redistributes weight to ventilator parameters.
 
-The dominant inputs by output (modal across all 8 cells):
+The dominant inputs by output (μ\* summed across all 8 cells, top 3 per
+output — `src.analysis_morris.dominant_inputs_per_output` on
+`results/morris_indices.parquet`):
 
-| Output | Top-3 inputs (by μ\*) |
-|--------|------------------------|
-| HR     | hr, vt, rr            |
-| MAP    | sbp, dbp, hr           |
-| Vt     | vt, peep, fio2         |
-| SpO2   | fio2, peep, vt         |
-| PaO2   | fio2, peep, rr         |
-| PaCO2  | rr, vt, peep           |
+| Output | Top-3 inputs (by summed μ\*) |
+|--------|------------------------------|
+| HR     | hr, fio2, peep              |
+| MAP    | sbp, dbp, hr                |
+| Vt     | vt, rr, fio2                |
+| SpO2   | fio2, vt, peep              |
+| PaO2   | fio2, peep, rr              |
+| PaCO2  | vt, rr, fio2                |
 
 *Top-3-inputs table — at a glance.*
 **What:** the three most influential inputs (by Morris μ\*) for each of
-the 6 atlas outputs, modal across all 8 cells.
+the 6 atlas outputs, ranked by μ\* summed across the 8 (scenario, sex)
+cells.
 **How to read it:** each row is one output; the three inputs listed are
-those with the largest mean absolute elementary effect in the canonical
-Morris sample, ordered by μ\*.
+those with the largest cumulative mean absolute elementary effect in the
+canonical Morris sample, ordered by summed μ\*.
 **Key takeaway:** cardiovascular outputs (HR, MAP) are *cardio-input
 dominated*; gas-exchange outputs (SpO2, PaO2, PaCO2) are
 *ventilator-driven* — exactly the physiologically expected pattern,
@@ -1161,8 +1164,8 @@ distribute into four buckets:
 * **Straddles 0.6: 12 / 48 cells.** Their non-linearity classification
   is bootstrap-borderline. Eight are the point-estimate "promote"
   cells (Groups A + B above). The other four are *point-estimate-below*
-  but *upper-CI-above* 0.6: one PEEP-on-PaO2/SpO2 in (S4, F); two
-  FiO2-on-SpO2 in (S2 / S3, M); one PaCO2-on-Vt in (S4, F).
+  but *upper-CI-above* 0.6: two PEEP-edge cells in (S4, F): PaO2 and
+  SpO2; two FiO2-on-SpO2 cells in (S2_M, S3_M).
 * **No estimable CI: 5 / 48 cells.** Three lie in S1_F where the
   dominant input is Vt — the Vt one-at-a-time (OAT) step has only
   one clean trajectory pair (S1_F × {PaCO2, PaO2, Vt}). Two lie in
@@ -1794,7 +1797,11 @@ and corrected by setting trigger pressure to −2 cmH2O.*
   insufficient for hyperoxia convergence. In the *clean* S1 healthy
   runs (N = 91), PaO2 is well-approximated by a linear function of
   FiO2: PaO2 ≈ 505 × FiO2 − 25 mmHg (R² = 0.90), i.e. roughly **5
-  mmHg PaO2 per 0.01 FiO2** in the clean range. Linear extrapolation
+  mmHg PaO2 per 0.01 FiO2** in the clean range (a focused single-input
+  FiO2 probe near 1.0 — Appendix B.2, `Pulse_translation_new` E20 —
+  reports a steeper ~7.8 mmHg / 0.01 slope; the two figures reflect
+  different physiological regimes, multi-input averaged across
+  [0.21, 1.0] vs single-input near the FiO2 = 1.0 boundary). Linear extrapolation
   from FiO2 = 0.5 (PaO2 ≈ 228 mmHg) to FiO2 = 1.0 predicts PaO2 ≈ 481
   mmHg — yet measured S1 means at FiO2 ≈ 1.0 are 600 – 660 mmHg.
   The *deviation from linear extrapolation at the FiO2 = 1.0 endpoint*
@@ -1885,7 +1892,9 @@ preregistered drift thresholds (`DRIFT_MAX_DELTA_60S` in
 `src/detector.py`: HR=5 bpm, MAP=5 mmHg, Vt=50 mL, PaO2=15 mmHg,
 PaCO2=5 mmHg).
 
-* **F-003 arm — hyperoxia (FiO2 ≥ 0.95, n = 208 runs).** HR exceeds the
+* **F-003 arm — hyperoxia (FiO2 ≥ 0.95, n = 208 runs; 195 with valid CSV).**
+  Percentages below are computed against the n = 195 subset (the 13
+  diverged runs in the arm emitted no CSV). HR exceeds the
   5 bpm threshold in **2.6 %** of runs (median |Δ60s| = 0.20 bpm); MAP
   in **0 %** (median 0.05 mmHg). Vt exceeds 50 mL in **8.7 %** (median
   0.09 mL — the violations sit in the F-004 oscillation tail). PaO2 is

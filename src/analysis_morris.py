@@ -414,10 +414,28 @@ def evaluate_h1(morris_df: pd.DataFrame, top_k: int = 3) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def dominant_inputs_per_output(morris_df: pd.DataFrame, top_k: int = 3) -> pd.DataFrame:
+    """Top-k inputs per output by summed μ* across all (scenario, sex) cells.
+
+    Canonical definition of "modal across all 8 cells" used by manuscript §3.3:
+    each input's μ* is summed across the 8 (scenario, sex) cells, and the
+    inputs are ranked by that cumulative influence per output.
+    """
+    sums = (
+        morris_df.groupby(["output", "input"], as_index=False)["mu_star"]
+        .sum()
+        .rename(columns={"mu_star": "mu_star_sum"})
+    )
+    sums = sums.sort_values(["output", "mu_star_sum"], ascending=[True, False])
+    sums["rank"] = sums.groupby("output").cumcount() + 1
+    return sums[sums["rank"] <= top_k].reset_index(drop=True)
+
+
 __all__ = [
     "TrajectoryPair",
     "compute_ee_for_cell",
     "derive_trajectory_pairs",
+    "dominant_inputs_per_output",
     "evaluate_h1",
     "morris_indices",
     "sobol_promotion",
