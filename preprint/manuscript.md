@@ -50,9 +50,10 @@ the input-extreme regime** (sex-stratification is regime-dependent;
 preregistered 120 s window, Pulse PaO2 exceeds the locked classifier
 upper bound of 600 mmHg at FiO2 = 1.0 in 34 of 126 implausibly-flagged
 runs; an extended 300 s rerun ([S021](#s021)) shows PaO2 converges
-within the alveolar-gas-equation band (≈ 600 – 650 mmHg, the healthy
-sea-level ceiling), supporting a transient-regime explanation
-rather than a Pulse oxygenation overshoot. H4 (sex-specific
+to a plateau (median 643 mmHg in S1) that sits ~ 10 mmHg *below* the
+simple alveolar-gas-equation prediction (≈ 653 mmHg) — consistent
+with Pulse's modelled A-a gradient — supporting a transient-regime
+explanation rather than a Pulse oxygenation overshoot. H4 (sex-specific
 reliability) is partially supported under Benjamini–Hochberg FDR
 control (q = 0.05): 5 of 24 cell × output Wasserstein distances
 survive the within-sex null — all five are gas-exchange (PaCO2 ×3,
@@ -125,11 +126,13 @@ sweep.*
 * **Transient hyperoxia regime (F-003).** Under the preregistered 120 s
   window, Pulse PaO2 exceeds the locked classifier upper bound of
   600 mmHg at FiO2 = 1.0 in 34 implausibly-flagged runs (91 % at
-  FiO2 ≥ 0.95). An extended 300 s rerun ([S021](#s021)) shows PaO2 converges
-  within the alveolar-gas-equation band; the original flag therefore
-  reflects (a) the locked 120 s window being insufficient for hyperoxia
-  convergence and (b) the conservative classifier bound, not a Pulse
-  oxygenation overshoot. A supplementary `HARD_BOUNDS_PHYSIOLOGICAL`
+  FiO2 ≥ 0.95). An extended 300 s rerun ([S021](#s021)) shows PaO2
+  converges to a plateau ~ 10 mmHg *below* the simple
+  alveolar-gas-equation prediction (S1 median 643 mmHg vs ≈ 653 mmHg
+  predicted) — consistent with Pulse's modelled A-a gradient. The
+  original flag therefore reflects (a) the locked 120 s window being
+  insufficient for hyperoxia convergence and (b) the conservative
+  classifier bound, not a Pulse oxygenation overshoot. A supplementary `HARD_BOUNDS_PHYSIOLOGICAL`
   reclassification (PaO2 upper 700 mmHg) is reported as a sensitivity
   analysis in §3.8.
 * **Sex as a reliability-sensitivity axis** — the first sex-stratified
@@ -1154,8 +1157,8 @@ visual patterns dominate:
 * **Output Vt tracks input Vt at μ\* ≈ 500 mL** in every cell — by
   far the largest μ\* in the atlas. In VC-AC mode, asking Pulse for a
   500 mL tidal volume produces close to a 500 mL delivered tidal
-  volume, cell-invariant. The cells where this coupling fails are the
-  F-004 dyssynchrony runs (§3.8).
+  volume, cell-invariant. The cells where this coupling is disrupted
+  are the F-004 dyssynchrony runs (§3.8).
 
 **Bootstrap 95 % CI on μ\*** (1,000 resamples) is reported alongside
 each μ\* point estimate in the table; CI overlap between the top-3 and
