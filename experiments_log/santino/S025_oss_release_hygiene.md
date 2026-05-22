@@ -236,3 +236,89 @@ audience**. The only remaining manuscript / repo-mechanics items are:
    audit needed pre-arXiv. Post-arXiv, the deferred N-tier findings
    (N2–N7) can be picked up in a single follow-up release-polish
    pass if the repository attracts external contributors.
+
+---
+
+## Post-S025 final polish (Commits E + F + G, 2026-05-22)
+
+After the four S025 commits landed (A `a0675ed`, B `d9ec277`,
+C `69b7e34`, D `09776ed`), three remaining pre-submission gaps were
+identified by the maintainer and authorized for immediate fix as a
+three-commit polish on top of the S025 baseline:
+
+* **Commit E (`0926219`).** Add the missing top-level §5 Conclusion
+  section (~250 words), surface the S024 programmatic
+  claims-ledger audit as a third reproducibility layer in §2.8,
+  extend the §1.4 nomenclature table and Appendix A to S024, and
+  cascade-renumber the four back-matter sections (§5 Data avail
+  → §6, §6 Acks → §7, §7 AI tools → §8, §8 References → §9,
+  §8.7 Verified primary refs → §9.7). The new Conclusion paragraph
+  on the sex axis was deliberately phrased in its *regime-specific*
+  form (5 / 24 BH-FDR gas-exchange survivors + male-input-extreme
+  BV divergence cluster) to avoid reintroducing the global
+  "fundamental sex axis" framing the manuscript retracted in the
+  2026-05-22 iterative-debt audit (commits 2abfb58 / cc4bcae).
+
+* **Commit F (`22dee01`).** LaTeX math notation cleanup for all
+  embedded formulas the maintainer flagged as typographically
+  inconsistent in the PDF render: three occurrences of the
+  alveolar-ventilation identity ($\dot{V}_A = \mathrm{RR} \cdot
+  (V_T - V_D)$, in §3.2 / §3.3.1 / §3.8), the alveolar-gas
+  equation in the §3.8 S021 plateau-undershoot discussion
+  ($P_AO_2 = \mathrm{FiO}_2 \cdot \ldots$), and two stray
+  `V_t delivered` mentions in the §4.4 / §4.5 Cornish-cross-tab
+  paragraphs (typography-only — aligns with the manuscript's
+  standard plain-text "Vt" convention). First V̇A occurrence
+  carries a prose glose for cross-disciplinary readers (West
+  Ch. 2 convention naming V̇A, RR, $V_T$, $V_D$).
+
+* **Commit G (this entry's postscript).** Documents Commits E + F
+  in the byte-level Changes Applied format below.
+
+### Changes Applied — Phase 3 polish
+
+| # | Commit | File:line | Category | Before | After | Rationale | Risk |
+|---|---|---|---|---|---|---|---|
+| 22 | E | `preprint/manuscript.md:86` (Reader's roadmap) | content | `system ([S001](#s001) – [S023](#s023)) used throughout.` | `system ([S001](#s001) – [S024](#s024)) used throughout.` | Boundary update; same pattern as commit c456118 (S020 → S023) | None |
+| 23 | E | `preprint/manuscript.md:205` (§1 Intro umbrella) | content | `([S001](#s001) – [S023](#s023)) used throughout.*` | `([S001](#s001) – [S024](#s024)) used throughout.*` | Same boundary | None |
+| 24 | E | `preprint/manuscript.md:374` (§1.4 heading) | content | `### 1.4 Experiment log nomenclature ([S001](#s001) – [S023](#s023))` | `### 1.4 Experiment log nomenclature ([S001](#s001) – [S024](#s024))` | Same boundary | None |
+| 25 | E | `preprint/manuscript.md:376` (§1.4 lead-in) | content | `*A one-line description of each of the 23 experiment-log entries` | `*A one-line description of each of the 24 experiment-log entries` | Count update to match new boundary | None |
+| 26 | E | `preprint/manuscript.md:383` (§1.4 ellipsis text) | content | `form **[S001](#s001), [S002](#s002), …, [S023](#s023)**.` | `form **[S001](#s001), [S002](#s002), …, [S024](#s024)**.` | Same boundary | None |
+| 27 | E | `preprint/manuscript.md:~415` (§1.4 table, new row) | content | (table ended at S023 row) | New row: `S024 \| Pre-submission claims-ledger audit — scripts/audit_claims.py re-derives every Tier-1/Tier-2 quantitative claim ... (190 / 190 PASS at the locked tolerance band).` | Surfaces S024 as a referenceable experiment in §1.4 | None — additive |
+| 28 | E | `preprint/manuscript.md:~2990` (Appendix A, new row) | content | (Appendix A ended at S023 row) | New row: `[]{#s024} S024 \| Pre-submission claims-ledger audit (programmatic verification of all Tier-1 / Tier-2 quantitative claims; 190 / 190 PASS, see §2.8)` | Anchor exists for `[S024](#s024)` references | None — additive |
+| 29 | E | `preprint/manuscript.md:~895` (§2.8) | content | (no S024 paragraph after Phase 4b) | New paragraph "Programmatic manuscript-numbers audit ([S024](#s024), 2026-05-22)" describing audit_claims.py (190/190 PASS, tolerance scheme, CI-ready exit code) and pointing to the S024 lab notebook | Strengthens §2.8's reproducibility argument with a third audit layer (alongside S007 / S015 / Phase 4a-b) | None — additive |
+| 30 | E | `preprint/manuscript.md:~953` (Notation / stat-methods intro) | content | `are in §8.` | `are in §9.` | Single cross-reference to the renumbered References section | None |
+| 31 | E | `preprint/manuscript.md` (§5/§6/§7/§8 headings + §8.7) | content | Section headings `## 5. Data availability` / `## 6. Acknowledgements` / `## 7. Transparency: use of AI tools` / `## 8. References` / `### 8.7 Verified primary references ...` | Headings shifted to `## 6.` / `## 7.` / `## 8.` / `## 9.` / `### 9.7` | Cascade caused by inserting new §5 Conclusion before the back-matter | None — no internal cross-refs broke (only L953 needed updating; verified by pre-edit grep) |
+| 32 | E | `preprint/manuscript.md` (new §5 Conclusion before §6 Data availability) | content | (Conclusion absent; manuscript jumped abruptly from §4.6 to §5 Data availability) | Inserted ~250-word §5 Conclusion with 3 paragraphs: (1) headline contribution + traffic-light role, (2) F-004 + F-003 operator-actionable corrections + regime-dependent sex axis, (3) bounded-synthetic-data closing + PhD-pipeline placement | Adds a standard academic close to the article; phrasing on H3 sex axis is explicitly *regime-dependent* to avoid reintroducing the framing retracted in commits 2abfb58 / cc4bcae | None — content addition, no audited number affected |
+| 33 | F | `preprint/manuscript.md:1173` (§3.2 gas-exchange bullet) | math/typo | `consistent with the alveolar-ventilation identity V̇A = RR · (Vt − V_dead).` | `consistent with the alveolar-ventilation identity $\dot{V}_A = \mathrm{RR} \cdot (V_T - V_D)$ (where $\dot{V}_A$ is alveolar minute ventilation, RR is set respiratory rate, $V_T$ is delivered tidal volume, and $V_D$ is the anatomical dead-space volume; West *Respiratory Physiology* Ch. 2 convention).` | Primary fix for the maintainer-flagged PDF render typo "V VtV_dead"; proper LaTeX math mode + prose glose for cross-disciplinary readers | None — formula is informational, not a quoted value |
+| 34 | F | `preprint/manuscript.md:1319` (§3.3.1 Group-B Sobol promotion) | math/typo | `the alveolar-ventilation identity V̇A = RR · (Vt − Vd) that governs CO2 elimination.` | `the alveolar-ventilation identity $\dot{V}_A = \mathrm{RR} \cdot (V_T - V_D)$ that governs CO₂ elimination.` | Consistency with row 33; CO2 → CO₂ as inline Unicode | None |
+| 35 | F | `preprint/manuscript.md:1383` (§3.8 Sobol-bolt-on-closed-by-redundancy) | math/typo | `V̇A = RR · (Vt − Vd) on PaCO2.` | `$\dot{V}_A = \mathrm{RR} \cdot (V_T - V_D)$ on PaCO2.` | Consistency with row 33 | None |
+| 36 | F | `preprint/manuscript.md:2018` (§3.8 S021 plateau discussion) | math/typo | `(PAO2 = FiO2 × (P_atm − P_H2O) − PaCO2/RQ = 1.0 × (760 − 47) − 40/0.8 ≈ 663 mmHg, then PaO2 = PAO2 − A-a gradient ≈ 653 mmHg for an A-a gradient of 10 mmHg).` | Reformatted as LaTeX math: `$P_AO_2 = \mathrm{FiO}_2 \cdot (P_{\mathrm{atm}} - P_{\mathrm{H_2O}}) - P_aCO_2 / \mathrm{RQ}$ $= 1.0 \cdot (760 - 47) - 40 / 0.8 \approx 663$ mmHg, then $P_aO_2 = P_AO_2 - \text{A--a gradient} \approx 653$ mmHg for an A-a gradient of 10 mmHg). | Same typographic concern as row 33 but in the alveolar-gas equation; West Ch. 5 notation (PA / Pa as roman subscripts, \mathrm{} on multi-letter symbols) | None — values 663 / 653 / 10 unchanged |
+| 37 | F | `preprint/manuscript.md:2454` (§4.4 Cornish cross-mapping) | typo | `MAP, V_t delivered, SpO2, PaO2, PaCO2) intersect Cornish's 15-quantity panel ...; V_t and SpO2 are atlas-only contributions.` | `MAP, Vt delivered, SpO2, PaO2, PaCO2) intersect Cornish's 15-quantity panel ...; Vt and SpO2 are atlas-only contributions.` | Aligns with the manuscript's plain-text Vt convention (Table 1, Table 2, Abstract); LaTeX-style V_t was accidental notation drift in two paragraphs | None |
+| 38 | F | `preprint/manuscript.md:2496` (§4.5 / Cornish complementarity) | typo | `Cornish does not assess SpO2 or delivered V_t, both of` | `Cornish does not assess SpO2 or delivered Vt, both of` | Same as row 37 | None |
+| 39 | G | `experiments_log/santino/S025_oss_release_hygiene.md` (this file, appended postscript section) | docs | (no "Post-S025 final polish" section) | This entire "## Post-S025 final polish (Commits E + F + G, 2026-05-22)" section, including rows 22 – 39 of the Changes Applied table | Paranoid-traceability requirement: every byte-level change has a written trail in the same format as the original S025 table | None — documentation addition |
+
+### Final verification gates (after Commits E + F + G land)
+
+* `uv run ruff check src/ scripts/ tests/ engine/` — PASS.
+* `uv run ruff format --check src/ scripts/ tests/ engine/` — PASS.
+* `uv run python scripts/audit_claims.py` — 190 / 190 PASS, 0 WARN,
+  0 FAIL (unchanged; no audited number moved or shifted).
+* `powershell scripts/build_paper.ps1` — clean `.tex` and `.pdf` at
+  `preprint/build/manuscript.pdf`.
+
+### Manuscript-locked state
+
+After this commit series the manuscript is **locked for arXiv
+submission**. Remaining work is mechanical:
+
+1. arXiv upload (auto-generates the DOI).
+2. Backfill DOI into `CITATION.cff` (row 19) and the README BibTeX
+   block (row 18) — single commit, ~2 minutes work.
+3. Zenodo deposit of the gitignored raw artifacts (S018 `runs/`
+   subtree + the full-sweep per-run CSVs).
+4. Update §6 Data availability to cite the Zenodo DOI — single
+   commit, ~5 minutes work.
+
+No further audit / hygiene pass is needed. The codebase, manuscript,
+and release-mechanics files are at submission-ready state.
