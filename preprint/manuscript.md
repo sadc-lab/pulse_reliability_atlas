@@ -82,7 +82,7 @@ each can be entered independently.*
 * **§1 — Introduction.** Why an open reliability atlas is needed for
   Pulse 4.3.1, the twelve verified engine limitations the atlas builds on,
   and the contribution catalogue. §1.4 explains the experiment-log tag
-  system ([S001](#s001) – [S020](#s020)) used throughout.
+  system ([S001](#s001) – [S023](#s023)) used throughout.
 * **§2 — Methods.** Engine wrapper, the seven swept operational inputs,
   the four scenarios × two patients design, Morris sampling, the
   four-flag detector (`clamped` / `diverged` / `implausible` /
@@ -189,7 +189,7 @@ analysis on user-facing operational inputs has been performed; this
 paper produces that map. The introduction catalogues the twelve
 verified engine limitations the atlas builds on, summarises the
 contributions, and introduces the experiment-log tag system
-([S001](#s001) – [S020](#s020)) used throughout.*
+([S001](#s001) – [S023](#s023)) used throughout.*
 
 ### 1.1 Motivation
 
@@ -358,16 +358,16 @@ paper, which highlights the same work as reusable deliverables.)*
 * A traffic-light reliability map (green / yellow / red) per cell ×
   output, suitable for direct user consumption.
 
-### 1.4 Experiment log nomenclature ([S001](#s001) – [S020](#s020))
+### 1.4 Experiment log nomenclature ([S001](#s001) – [S023](#s023))
 
-*A one-line description of each of the 20 experiment-log entries
+*A one-line description of each of the 23 experiment-log entries
 cited throughout the paper. Skim this table once to make every later
 'S0xx' reference interpretable on first encounter; the full audit
 trail lives in Appendix A and the underlying notebooks in the
 repository.*
 
 Throughout this paper we reference experiments by short tags of the
-form **[S001](#s001), [S002](#s002), …, [S020](#s020)**. Each tag corresponds to a self-contained
+form **[S001](#s001), [S002](#s002), …, [S023](#s023)**. Each tag corresponds to a self-contained
 lab-notebook entry under `experiments_log/santino/` that records the
 *hypothesis, motivation, method, result, and interpretation* of one
 discrete piece of work. The tags are introduced here so that any
@@ -399,6 +399,8 @@ underlying files are in the repository.
 | S019 | Sobol bolt-on draft script (ready-to-fire; not executed — see §3.3.1 for the closed-by-redundancy argument). |
 | S020 | Pre-submission novelty audit; verified that every "first" / "novel" claim in the manuscript survives a literature double-check (single citation added: Figueroa-Casas & Montoya 2016 for the F-004 clinical precedent). |
 | S021 | Hyperoxia convergence: 60-run pre-registered rerun at 300 s vs locked 120 s sweep window — tests whether F-003 PaO2 > 600 mmHg at FiO2 = 1.0 reflects oxygenation overshoot or transient non-convergence. |
+| S022 | No-compute failure-mode attribution audit of the locked `not_steady_state` count (Appendix C). |
+| S023 | Supplementary ML/SHAP cross-check of the Morris μ\* rankings on the clean subset (Supplementary §S11). |
 
 ---
 
