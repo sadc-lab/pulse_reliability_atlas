@@ -1943,7 +1943,7 @@ corrected by setting trigger pressure to −2 cmH2O.*
   `src/detector.py`), with 91 % of those at FiO2 ≥ 0.95**. PaO2 was
   still drifting upward at the end of the locked 120 s window in
   these runs: 93.3 % of FiO2 ≥ 0.95 valid-CSV runs have positive
-  slope over [60, 120] s and 18.5 % exceed the 15 mmHg / 60 s drift
+  slope over [60, 120] s and 19.5 % exceed the 15 mmHg / 60 s drift
   threshold (full audit in §3.8.1).
   In the *clean* S1 healthy runs (N = 91; clean FiO2 range [0.21,
   0.47]), PaO2 is well-approximated by a linear function of FiO2:
@@ -2596,7 +2596,7 @@ bounded.*
   supplementary RandomForest + SHAP ranking on the n = 663 clean
   subset ([S023](#s023)) recovers the Morris μ\* top-3 in 17 / 18
   pooled (output × top-3) cases and in 23 / 48 per-cell cases at full
-  3 / 3 agreement (90 % of per-cell comparisons at ≥ 2 / 3). The
+  3 / 3 agreement (92 % of per-cell comparisons at ≥ 2 / 3). The
   cross-check is reported in supplementary section S11 with the
   honest caveats it requires (clean-subset bias, OAT non-uniform
   design); see [`results/s023/`](../results/s023/) for artefacts.

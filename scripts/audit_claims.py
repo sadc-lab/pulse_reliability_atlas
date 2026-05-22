@@ -815,13 +815,13 @@ drift_exceed_pct = (
 )
 add(
     claim_id="T2.f003.drift_exceed_v38",
-    section="§3.8 L1927",
-    manuscript_text="18.5% exceed 15 mmHg/60s drift threshold (FiO2 >= 0.95)",
+    section="§3.8 L1946",
+    manuscript_text="19.5% exceed 15 mmHg/60s drift threshold (FiO2 >= 0.95)",
     source_file="data/runs/full_sweep/aggregated.parquet",
-    manuscript_value=18.5,
+    manuscript_value=19.5,
     computed_value=drift_exceed_pct,
     tolerance_rule="pct_1dp",
-    notes="Cross-cited as 19.5% in §3.8.1 L2135 -- internal inconsistency",
+    notes="Corrected 2026-05-22 from 18.5% to 19.5% per S024 audit; now matches §3.8.1 L2154",
 )
 add(
     claim_id="T2.f003.drift_exceed_v381",
@@ -1078,12 +1078,12 @@ add(
 pct_ge2 = 100.0 * (s23_cell["overlap_size"] >= 2).mean()
 add(
     claim_id="T2.s023.ge2_pct",
-    section="§4.5 L2580",
-    manuscript_text="90% of per-cell comparisons at >= 2/3 agreement",
+    section="§4.5 L2599",
+    manuscript_text="92% of per-cell comparisons at >= 2/3 agreement",
     source_file="results/s023/topk_overlap_per_cell.csv",
-    manuscript_value=90.0,
+    manuscript_value=92.0,
     computed_value=pct_ge2,
-    tolerance_rule="approx_round",  # text is rounded; flag WARN if drift > 1
+    tolerance_rule="pct_whole",  # corrected 2026-05-22 from 90% to 92% per S024 audit
 )
 
 # -----------------------------------------------------------------------------
