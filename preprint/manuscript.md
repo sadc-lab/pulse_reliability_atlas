@@ -1169,10 +1169,15 @@ visual patterns dominate:
 * **Gas-exchange outputs are ventilator-driven.** PaO2 is dominated by
   FiO2 in S2 / S3 (μ\* peaks at 147 mmHg in (S2, F)) — the regime
   where shunt-fraction kinetics make oxygenation FiO2-limited. PaCO2
-  is dominated by Vt in most cells, consistent with the alveolar-
-  ventilation identity V̇A = RR · (Vt − V_dead). SpO2 is also
-  ventilator-driven but at a tiny absolute scale (μ\* ≤ 0.13) because
-  the output sits at the hemoglobin saturation ceiling.
+  is dominated by Vt in most cells, consistent with the
+  alveolar-ventilation identity
+  $\dot{V}_A = \mathrm{RR} \cdot (V_T - V_D)$
+  (where $\dot{V}_A$ is alveolar minute ventilation, RR is set
+  respiratory rate, $V_T$ is delivered tidal volume, and $V_D$ is
+  the anatomical dead-space volume; West *Respiratory Physiology*
+  Ch. 2 convention). SpO2 is also ventilator-driven but at a tiny
+  absolute scale (μ\* ≤ 0.13) because the output sits at the
+  hemoglobin saturation ceiling.
 * **The ARDS gradient is visible.** PaO2's FiO2 sensitivity peaks in
   S2 (μ\* = 133 – 147 mmHg), remains substantial in S3 (μ\* = 84 – 93
   mmHg), and *collapses* in severe ARDS (μ\* = 31 in (S4, M)). Pulse
@@ -1311,7 +1316,8 @@ these into two regimes:
   reflect minute-ventilation coupling on PaCO2: RR → PaCO2 in healthy
   males ((S1, M), σ / μ\* = 0.87), and Vt → PaCO2 in severe-ARDS
   females ((S4, F), σ / μ\* = 0.66). Both are predicted by the
-  alveolar-ventilation identity V̇A = RR · (Vt − Vd) that governs CO2
+  alveolar-ventilation identity
+  $\dot{V}_A = \mathrm{RR} \cdot (V_T - V_D)$ that governs CO₂
   elimination.
 
 **CI-aware re-evaluation of the trigger.** The 8 / 48 promotion count
@@ -1375,7 +1381,7 @@ already-bootstrap-noise-dominated variance.
 The interaction structure on the 6 Group B cells is additionally
 *a priori* established by respiratory physiology: shunt-fraction
 kinetics on PaO2, and the alveolar-ventilation identity
-V̇A = RR · (Vt − Vd) on PaCO2. Both are qualitatively recovered by
+$\dot{V}_A = \mathrm{RR} \cdot (V_T - V_D)$ on PaCO2. Both are qualitatively recovered by
 the Morris main-effect rankings reported in §3.2. A quantitative
 Sobol decomposition would re-derive the same ordering at
 substantially higher compute cost.
@@ -2009,9 +2015,10 @@ corrected by setting trigger pressure to −2 cmH2O.*
       [580, 680] mmHg); 41 / 44 runs (93.2 %) converged.
     * Plateau median of 643 mmHg sits ~10 – 20 mmHg below the simple
       alveolar-gas-equation prediction
-      (PAO2 = FiO2 × (P_atm − P_H2O) − PaCO2/RQ
-      = 1.0 × (760 − 47) − 40/0.8 ≈ 663 mmHg, then PaO2 = PAO2 −
-      A-a gradient ≈ 653 mmHg for an A-a gradient of 10 mmHg).
+      ($P_AO_2 = \mathrm{FiO}_2 \cdot (P_{\mathrm{atm}} - P_{\mathrm{H_2O}}) - P_aCO_2 / \mathrm{RQ}$
+      $= 1.0 \cdot (760 - 47) - 40 / 0.8 \approx 663$ mmHg, then
+      $P_aO_2 = P_AO_2 - \text{A--a gradient} \approx 653$ mmHg for an
+      A-a gradient of 10 mmHg).
       Pulse therefore *under-shoots* the simple alveolar-gas
       prediction by ~10 mmHg — consistent with a modelled A-a
       gradient — and does not overshoot. The pre-registered decision
@@ -2444,9 +2451,9 @@ assessment-sensitive channel in both papers — even though absolute
 rejection rates differ.
 
 **Cross-mapping the methodologies.** The atlas's six outputs (HR,
-MAP, V_t delivered, SpO2, PaO2, PaCO2) intersect Cornish's
+MAP, Vt delivered, SpO2, PaO2, PaCO2) intersect Cornish's
 15-quantity panel on four channels (HR, MeanBP ≈ atlas MAP, PaO2,
-PaCO2); V_t and SpO2 are atlas-only contributions. Cornish's 11
+PaCO2); Vt and SpO2 are atlas-only contributions. Cornish's 11
 remaining channels divide into electrolyte (Chloride, Sodium,
 Potassium, Calcium), metabolic (Glucose), acid–base (HCO₃, pH),
 dermal (Skin Temperature), and ventilation-input or
@@ -2486,7 +2493,7 @@ map to the atlas (Chloride 24, Sodium 21, Potassium 13, Skin
 Temperature 10, Calcium 5, Glucose 5, HCO₃ 2, plus SysBP / DiaBP /
 pH / RR) define Pulse's electrolyte, metabolic, acid–base, and
 dermal failure surface. The atlas does not assess any of these.
-Conversely, Cornish does not assess SpO2 or delivered V_t, both of
+Conversely, Cornish does not assess SpO2 or delivered Vt, both of
 which are load-bearing for ventilator-cohort research. The two
 papers therefore divide the Pulse-reliability question along an
 output axis: Cornish covers chemistry-and-thermoregulation
