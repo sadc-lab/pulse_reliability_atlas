@@ -138,28 +138,27 @@ def main() -> None:
             n = len(chunk)
             if n == 0:
                 continue
-            cv_hits = chunk["not_steady_state_reason"].str.contains(
-                "CV=", regex=False, na=False
-            ).sum()
-            fl_hits = chunk["not_steady_state_reason"].str.contains(
-                "flatline at extreme", regex=False, na=False
-            ).sum()
-            dr_hits = chunk["not_steady_state_reason"].str.contains(
-                "Δ60s=", regex=True, na=False
-            ).sum()
-            rr_summary[str(bucket)] = dict(n=n, cv=int(cv_hits), flatline=int(fl_hits), drift=int(dr_hits))
+            cv_hits = (
+                chunk["not_steady_state_reason"].str.contains("CV=", regex=False, na=False).sum()
+            )
+            fl_hits = (
+                chunk["not_steady_state_reason"]
+                .str.contains("flatline at extreme", regex=False, na=False)
+                .sum()
+            )
+            dr_hits = (
+                chunk["not_steady_state_reason"].str.contains("Δ60s=", regex=True, na=False).sum()
+            )
+            rr_summary[str(bucket)] = dict(
+                n=n, cv=int(cv_hits), flatline=int(fl_hits), drift=int(dr_hits)
+            )
 
         per_cell_report[cell] = dict(
             n_nss=int(n_nss),
             run_hit_submode={k: int(v) for k, v in run_hit_submode.items()},
-            submode_channel={
-                sm: dict(cnt) for sm, cnt in submode_channel.items()
-            },
+            submode_channel={sm: dict(cnt) for sm, cnt in submode_channel.items()},
             channel_total=dict(channel_total),
-            combo_counter={
-                "+".join(k) if k else "none": int(v)
-                for k, v in combo_counter.items()
-            },
+            combo_counter={"+".join(k) if k else "none": int(v) for k, v in combo_counter.items()},
             rr_bucket_summary=rr_summary,
         )
 
@@ -197,7 +196,9 @@ def main() -> None:
             print(f"    {n:>4d}  {combo}")
         print("  By RR bucket:")
         for bucket, d in rep["rr_bucket_summary"].items():
-            print(f"    RR {bucket:<6s} n={d['n']:>3d}  cv={d['cv']:>3d}  flatline={d['flatline']:>3d}  drift={d['drift']:>3d}")
+            print(
+                f"    RR {bucket:<6s} n={d['n']:>3d}  cv={d['cv']:>3d}  flatline={d['flatline']:>3d}  drift={d['drift']:>3d}"
+            )
 
 
 if __name__ == "__main__":

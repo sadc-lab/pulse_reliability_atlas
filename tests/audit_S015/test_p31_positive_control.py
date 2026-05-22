@@ -37,15 +37,17 @@ def _safe(s: str) -> str:
 def _baseline_csv(tmp: Path) -> Path:
     """13-row CSV in [60, 120] s window, all healthy values."""
     times = np.linspace(60, 120, 13)
-    df = pd.DataFrame({
-        "time_s": times,
-        "HeartRate": np.full(13, 75.0),
-        "MeanArterialPressure": np.full(13, 90.0),
-        "TidalVolume": np.full(13, 500.0),
-        "OxygenSaturation": np.full(13, 0.97),
-        "ArterialOxygenPressure": np.full(13, 95.0),
-        "ArterialCarbonDioxidePressure": np.full(13, 40.0),
-    })
+    df = pd.DataFrame(
+        {
+            "time_s": times,
+            "HeartRate": np.full(13, 75.0),
+            "MeanArterialPressure": np.full(13, 90.0),
+            "TidalVolume": np.full(13, 500.0),
+            "OxygenSaturation": np.full(13, 0.97),
+            "ArterialOxygenPressure": np.full(13, 95.0),
+            "ArterialCarbonDioxidePressure": np.full(13, 40.0),
+        }
+    )
     p = tmp / "baseline.csv"
     df.to_csv(p, index=False)
     return p
@@ -132,13 +134,17 @@ def main() -> int:
     full = classify(csv, pulse_log="", exit_code=0)
     assert full.implausible.fired, "classify() should mark implausible"
     assert not full.diverged.fired, "classify() should not mark diverged"
-    assert full.primary_flag == "implausible", f"primary_flag should be implausible; got {full.primary_flag}"
+    assert full.primary_flag == "implausible", (
+        f"primary_flag should be implausible; got {full.primary_flag}"
+    )
     print(_safe(f"[PASS] T5 classify integration: extreme HR -> primary={full.primary_flag}"))
 
     # --- Test 6: priority ordering — clamped beats implausible ---
     csv = _csv_with_extreme_hr(tmp)
     full = classify(csv, pulse_log=fake_log, exit_code=0)
-    assert full.primary_flag == "clamped", f"clamped should beat implausible; got {full.primary_flag}"
+    assert full.primary_flag == "clamped", (
+        f"clamped should beat implausible; got {full.primary_flag}"
+    )
     print(_safe(f"[PASS] T6 priority: clamped+implausible -> primary={full.primary_flag}"))
 
     # --- Test 7: drift detection ---

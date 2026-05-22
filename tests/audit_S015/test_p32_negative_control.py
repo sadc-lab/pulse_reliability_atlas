@@ -61,6 +61,7 @@ def main() -> int:
             continue
         log_text = log.read_text(errors="replace") if log.exists() else ""
         import json
+
         exit_code = json.loads(meta.read_text())["exit_code"] if meta.exists() else 0
 
         result = classify(csv, pulse_log=log_text, exit_code=exit_code)

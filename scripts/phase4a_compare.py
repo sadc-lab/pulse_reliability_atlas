@@ -38,7 +38,14 @@ def main() -> int:
         return 1
 
     results: list[dict] = []
-    counters = {"BIT_EXACT": 0, "DIFFERS": 0, "BOTH_DIVERGED": 0, "ASYMMETRY": 0, "CANON_MISSING": 0, "REPRO_MISSING": 0}
+    counters = {
+        "BIT_EXACT": 0,
+        "DIFFERS": 0,
+        "BOTH_DIVERGED": 0,
+        "ASYMMETRY": 0,
+        "CANON_MISSING": 0,
+        "REPRO_MISSING": 0,
+    }
 
     for cell_dir in sorted(REPRO_ROOT.iterdir()):
         if not cell_dir.is_dir():

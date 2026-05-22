@@ -69,18 +69,18 @@ from pulse.cdm.scalars import (
 # Channels recorded on every time step. Order matters — `_results_to_dict`
 # pairs Pulse's results array with this list by index.
 OUTPUT_VARIABLES = [
-    ("HeartRate",                     FrequencyUnit.Per_min),
-    ("RespirationRate",               FrequencyUnit.Per_min),
-    ("SystolicArterialPressure",      PressureUnit.mmHg),
-    ("DiastolicArterialPressure",     PressureUnit.mmHg),
-    ("MeanArterialPressure",          PressureUnit.mmHg),
-    ("TidalVolume",                   VolumeUnit.mL),
-    ("LungCompliance",                None),
-    ("InspiratoryExpiratoryRatio",    None),
-    ("OxygenSaturation",              None),
+    ("HeartRate", FrequencyUnit.Per_min),
+    ("RespirationRate", FrequencyUnit.Per_min),
+    ("SystolicArterialPressure", PressureUnit.mmHg),
+    ("DiastolicArterialPressure", PressureUnit.mmHg),
+    ("MeanArterialPressure", PressureUnit.mmHg),
+    ("TidalVolume", VolumeUnit.mL),
+    ("LungCompliance", None),
+    ("InspiratoryExpiratoryRatio", None),
+    ("OxygenSaturation", None),
     ("ArterialCarbonDioxidePressure", PressureUnit.mmHg),
-    ("ArterialOxygenPressure",        PressureUnit.mmHg),
-    ("BloodPH",                       None),
+    ("ArterialOxygenPressure", PressureUnit.mmHg),
+    ("BloodPH", None),
 ]
 
 # Atlas raises FIO2_MAX to 1.0 — see module docstring.
@@ -191,9 +191,7 @@ def _connect_volume_control(pulse: PulseEngine, vent_params: dict) -> None:
         if mode == "VC-AC":
             action.set_mode(eMechanicalVentilator_VolumeControlMode.AssistedControl)
         else:
-            action.set_mode(
-                eMechanicalVentilator_VolumeControlMode.ContinuousMandatoryVentilation
-            )
+            action.set_mode(eMechanicalVentilator_VolumeControlMode.ContinuousMandatoryVentilation)
         action.get_tidal_volume().set_value(vent_params["tidal_volume_ml"], VolumeUnit.mL)
         action.get_respiration_rate().set_value(vent_params["set_rr"], FrequencyUnit.Per_min)
         action.get_positive_end_expired_pressure().set_value(

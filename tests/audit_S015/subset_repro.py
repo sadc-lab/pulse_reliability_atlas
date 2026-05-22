@@ -67,14 +67,16 @@ def _csv_drift_detail(orig: Path, new: Path) -> dict:
             if not nan_ok or not close.all():
                 bad = ~close
                 idx = int(np.where(bad)[0][0]) if bad.any() else -1
-                drift_cols.append({
-                    "column": c,
-                    "n_diff": int((~close).sum()),
-                    "first_row": idx,
-                    "first_orig": float(ma[idx]) if idx >= 0 else None,
-                    "first_new": float(mb[idx]) if idx >= 0 else None,
-                    "max_abs_diff": float(np.nanmax(np.abs(ma - mb))),
-                })
+                drift_cols.append(
+                    {
+                        "column": c,
+                        "n_diff": int((~close).sum()),
+                        "first_row": idx,
+                        "first_orig": float(ma[idx]) if idx >= 0 else None,
+                        "first_new": float(mb[idx]) if idx >= 0 else None,
+                        "max_abs_diff": float(np.nanmax(np.abs(ma - mb))),
+                    }
+                )
         else:
             if not (a[c] == b[c]).all():
                 drift_cols.append({"column": c, "type": "non-numeric mismatch"})
@@ -105,6 +107,7 @@ def main() -> int:
     # Wipe + rebuild audit run root
     if AUDIT_RUNS.exists():
         import shutil
+
         shutil.rmtree(AUDIT_RUNS)
     AUDIT_RUNS.mkdir(parents=True, exist_ok=True)
 
@@ -129,29 +132,39 @@ def main() -> int:
         sha_orig = _file_sha256(orig_csv)
         sha_new = _file_sha256(new_csv)
         if byte_exact:
-            report.append({
-                "case_id": cid,
-                "status": "BIT_EXACT",
-                "sha256": sha_orig,
-            })
+            report.append(
+                {
+                    "case_id": cid,
+                    "status": "BIT_EXACT",
+                    "sha256": sha_orig,
+                }
+            )
         else:
             detail = _csv_drift_detail(orig_csv, new_csv)
-            report.append({
-                "case_id": cid,
-                "status": detail["status"],
-                "sha_orig": sha_orig,
-                "sha_new": sha_new,
-                "detail": detail,
-            })
+            report.append(
+                {
+                    "case_id": cid,
+                    "status": detail["status"],
+                    "sha_orig": sha_orig,
+                    "sha_new": sha_new,
+                    "detail": detail,
+                }
+            )
 
     # Save full report
     rep_path = AUDIT_LOG_DIR / "subset_repro_report.json"
-    rep_path.write_text(json.dumps({
-        "seed": SEED,
-        "n_runs": len(selection),
-        "image": IMAGE,
-        "results": report,
-    }, indent=2, default=str))
+    rep_path.write_text(
+        json.dumps(
+            {
+                "seed": SEED,
+                "n_runs": len(selection),
+                "image": IMAGE,
+                "results": report,
+            },
+            indent=2,
+            default=str,
+        )
+    )
 
     # Summary
     print("\n" + "=" * 70)

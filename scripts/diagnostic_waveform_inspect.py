@@ -8,7 +8,17 @@ For each picked run, we report on the steady-state window (t in [60, 120]):
     - PaO2 mean / std / slope
     - RR setpoint
     - Number of breaths in the window (estimated from Vt zero-crossings)
-    - Aliasing check: nominal breath period (60/RR seconds) vs sample interval (5 s)
+    - Samples-per-breath diagnostic: nominal breath period (60/RR seconds) vs
+      CSV sample interval (5 s). Informational only — NOT an aliasing claim.
+      The initial draft of S022 inferred Nyquist aliasing of the breath cycle
+      from this ratio; S022's correction block (and S014's native-resolution
+      0.02 s waveform inspection) retracted that inference. Pulse's
+      `TidalVolume` channel is breath-integrated and held between cycles, so
+      the 5 s sample captures real per-breath volume, not a phase-aliased
+      flow signal. The Vt CV exceedance is the F-004 patient-ventilator
+      dyssynchrony signal causally confirmed in S014. This diagnostic survives
+      as a per-breath sampling-coverage metric, decoupled from the retracted
+      aliasing interpretation.
 """
 
 from __future__ import annotations
@@ -25,13 +35,14 @@ OUT_DIR = ROOT / "results" / "s022"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 PICKS = {
-    "S1_F_flatcv":  ("S1_F", "S1_F_0002"),
+    "S1_F_flatcv": ("S1_F", "S1_F_0002"),
     "S1_F_cv_only": ("S1_F", "S1_F_0001"),
-    "S1_F_flatonly":("S1_F", "S1_F_0003"),
-    "S1_M_flatcv":  ("S1_M", "S1_M_0016"),
-    "S4_F_drift":   ("S4_F", "S4_F_0005"),
-    "S4_F_cv":      ("S4_F", "S4_F_0018"),
+    "S1_F_flatonly": ("S1_F", "S1_F_0003"),
+    "S1_M_flatcv": ("S1_M", "S1_M_0016"),
+    "S4_F_drift": ("S4_F", "S4_F_0005"),
+    "S4_F_cv": ("S4_F", "S4_F_0018"),
 }
+
 
 def load_run(cell: str, case_id: str) -> tuple[pd.DataFrame, dict]:
     folder = RUN_DIR / cell / case_id
@@ -68,7 +79,7 @@ def report_run(label: str, cell: str, case_id: str) -> dict:
     out["vt_set"] = vent.get("tidal_volume_ml")
     out["fio2_set"] = vent.get("fio2")
     out["peep_set"] = vent.get("peep_cmh2o")
-    out["hr_set"]  = baselines.get("hr")
+    out["hr_set"] = baselines.get("hr")
     out["sbp_set"] = baselines.get("sbp")
     out["dbp_set"] = baselines.get("dbp")
 
@@ -134,36 +145,52 @@ def main() -> None:
     for label, (cell, case_id) in PICKS.items():
         r = report_run(label, cell, case_id)
         all_reports.append(r)
-    (OUT_DIR / "waveform_inspect.json").write_text(json.dumps(all_reports, indent=2), encoding="utf-8")
+    (OUT_DIR / "waveform_inspect.json").write_text(
+        json.dumps(all_reports, indent=2), encoding="utf-8"
+    )
 
     print("=== Waveform-level inspection of representative not_steady_state runs ===\n")
     for r in all_reports:
         print(f"### {r['label']}  (case={r['case_id']})")
-        print(f"  Requested inputs: HR={fmt(r['hr_set'],1)}  SBP={fmt(r['sbp_set'],0)}  DBP={fmt(r['dbp_set'],0)}  "
-              f"RR={fmt(r['rr_set'],1)}  Vt={fmt(r['vt_set'],0)}  FiO2={fmt(r['fio2_set'],2)}  PEEP={fmt(r['peep_set'],1)}")
+        print(
+            f"  Requested inputs: HR={fmt(r['hr_set'], 1)}  SBP={fmt(r['sbp_set'], 0)}  DBP={fmt(r['dbp_set'], 0)}  "
+            f"RR={fmt(r['rr_set'], 1)}  Vt={fmt(r['vt_set'], 0)}  FiO2={fmt(r['fio2_set'], 2)}  PEEP={fmt(r['peep_set'], 1)}"
+        )
         if "samples_per_breath" in r:
-            print(f"  Sample interval = {fmt(r['sample_interval_s'],2)} s  |  RR={fmt(r['rr_set'],1)} -> "
-                  f"breath period = {fmt(r['breath_period_s'],2)} s -> samples/breath = {fmt(r['samples_per_breath'],2)}  "
-                  f"|  Nyquist OK: {r['nyquist_ok']}")
+            print(
+                f"  Sample interval = {fmt(r['sample_interval_s'], 2)} s  |  RR={fmt(r['rr_set'], 1)} -> "
+                f"breath period = {fmt(r['breath_period_s'], 2)} s -> samples/breath = {fmt(r['samples_per_breath'], 2)}  "
+                f"|  Nyquist OK: {r['nyquist_ok']}"
+            )
         ch = r["channels"]
         if "Vt" in ch:
             v = ch["Vt"]
-            print(f"  Vt   mean={fmt(v['mean'],1)}  std={fmt(v['std'],1)}  CV={fmt(v['cv'],3)}  "
-                  f"min={fmt(v['min'],1)}  max={fmt(v['max'],1)}  span={fmt(v['span'],1)}  "
-                  f"breath_zero_xings={v.get('breaths_in_60s','?')}")
+            print(
+                f"  Vt   mean={fmt(v['mean'], 1)}  std={fmt(v['std'], 1)}  CV={fmt(v['cv'], 3)}  "
+                f"min={fmt(v['min'], 1)}  max={fmt(v['max'], 1)}  span={fmt(v['span'], 1)}  "
+                f"breath_zero_xings={v.get('breaths_in_60s', '?')}"
+            )
         if "SpO2" in ch:
             v = ch["SpO2"]
-            print(f"  SpO2 mean={fmt(v['mean'],4)}  std={fmt(v['std'],4)}  "
-                  f"min={fmt(v['min'],4)}  max={fmt(v['max'],4)}  d60s={fmt(v.get('delta_60s', 0),4)}")
+            print(
+                f"  SpO2 mean={fmt(v['mean'], 4)}  std={fmt(v['std'], 4)}  "
+                f"min={fmt(v['min'], 4)}  max={fmt(v['max'], 4)}  d60s={fmt(v.get('delta_60s', 0), 4)}"
+            )
         if "PaO2" in ch:
             v = ch["PaO2"]
-            print(f"  PaO2 mean={fmt(v['mean'],1)}  std={fmt(v['std'],2)}  d60s={fmt(v.get('delta_60s',0),3)}")
+            print(
+                f"  PaO2 mean={fmt(v['mean'], 1)}  std={fmt(v['std'], 2)}  d60s={fmt(v.get('delta_60s', 0), 3)}"
+            )
         if "PaCO2" in ch:
             v = ch["PaCO2"]
-            print(f"  PaCO2 mean={fmt(v['mean'],2)}  std={fmt(v['std'],3)}  d60s={fmt(v.get('delta_60s',0),3)}")
+            print(
+                f"  PaCO2 mean={fmt(v['mean'], 2)}  std={fmt(v['std'], 3)}  d60s={fmt(v.get('delta_60s', 0), 3)}"
+            )
         if "HR" in ch:
             v = ch["HR"]
-            print(f"  HR   mean={fmt(v['mean'],2)}  std={fmt(v['std'],3)}  d60s={fmt(v.get('delta_60s',0),3)}")
+            print(
+                f"  HR   mean={fmt(v['mean'], 2)}  std={fmt(v['std'], 3)}  d60s={fmt(v.get('delta_60s', 0), 3)}"
+            )
         print()
 
 

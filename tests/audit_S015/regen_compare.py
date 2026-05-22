@@ -98,18 +98,26 @@ def _series_equal(a: pd.Series, b: pd.Series) -> tuple[bool, str]:
         ok = nan_a | np.isclose(ma, mb, atol=TOL_ABS, rtol=TOL_REL)
         if not ok.all():
             bad = np.where(~ok)[0]
-            return False, f"{bad.size} value mismatches; first at row {bad[0]}: {ma[bad[0]]} vs {mb[bad[0]]}"
+            return (
+                False,
+                f"{bad.size} value mismatches; first at row {bad[0]}: {ma[bad[0]]} vs {mb[bad[0]]}",
+            )
         return True, ""
     if a.equals(b):
         return True, ""
-    diff_idx = (a != b)
+    diff_idx = a != b
     if diff_idx.any():
         i = int(np.where(diff_idx.to_numpy())[0][0])
-        return False, f"{int(diff_idx.sum())} value mismatches; first at row {i}: {a.iloc[i]!r} vs {b.iloc[i]!r}"
+        return (
+            False,
+            f"{int(diff_idx.sum())} value mismatches; first at row {i}: {a.iloc[i]!r} vs {b.iloc[i]!r}",
+        )
     return True, ""
 
 
-def compare(name: str, committed: pd.DataFrame, regen: pd.DataFrame, sort_by: list[str] | None = None) -> dict:
+def compare(
+    name: str, committed: pd.DataFrame, regen: pd.DataFrame, sort_by: list[str] | None = None
+) -> dict:
     """Compare two DataFrames on overlapping columns."""
     out = {"name": name, "rows_committed": len(committed), "rows_regen": len(regen)}
 
@@ -204,11 +212,18 @@ def main() -> int:
     results.append(r)
 
     # 3. morris_indices (with default seed/n_bootstrap that analyze_sweep.py uses)
-    print("\n[3/8] results/morris_indices.parquet — regenerating (block bootstrap, seed=12345, B=1000) ...")
+    print(
+        "\n[3/8] results/morris_indices.parquet — regenerating (block bootstrap, seed=12345, B=1000) ..."
+    )
     committed = _load(RESULTS / "morris_indices.parquet")
     regen = morris_indices(master, sample, cells, n_bootstrap=1000)
     _save(regen, AUDIT / "morris_indices.parquet")
-    r = compare("results/morris_indices.parquet", committed, regen, sort_by=["scenario", "sex", "output", "input"])
+    r = compare(
+        "results/morris_indices.parquet",
+        committed,
+        regen,
+        sort_by=["scenario", "sex", "output", "input"],
+    )
     report(r)
     results.append(r)
 
@@ -219,7 +234,9 @@ def main() -> int:
     committed = _load(RESULTS / "h1_top3_fraction.csv")
     regen = evaluate_h1(morris_for_downstream)
     _save(regen, AUDIT / "h1_top3_fraction.csv")
-    r = compare("results/h1_top3_fraction.csv", committed, regen, sort_by=["scenario", "sex", "output"])
+    r = compare(
+        "results/h1_top3_fraction.csv", committed, regen, sort_by=["scenario", "sex", "output"]
+    )
     report(r)
     results.append(r)
 
@@ -228,7 +245,12 @@ def main() -> int:
     committed = _load(RESULTS / "sobol_promotion.csv")
     regen = sobol_promotion(morris_for_downstream)
     _save(regen, AUDIT / "sobol_promotion.csv")
-    r = compare("results/sobol_promotion.csv", committed, regen, sort_by=["scenario", "sex", "output", "input"])
+    r = compare(
+        "results/sobol_promotion.csv",
+        committed,
+        regen,
+        sort_by=["scenario", "sex", "output", "input"],
+    )
     report(r)
     results.append(r)
 
@@ -237,7 +259,9 @@ def main() -> int:
     committed = _load(RESULTS / "wasserstein_male_vs_female.csv")
     regen = wasserstein_per_output(master, scenarios)
     _save(regen, AUDIT / "wasserstein_male_vs_female.csv")
-    r = compare("results/wasserstein_male_vs_female.csv", committed, regen, sort_by=["scenario", "output"])
+    r = compare(
+        "results/wasserstein_male_vs_female.csv", committed, regen, sort_by=["scenario", "output"]
+    )
     report(r)
     results.append(r)
 
@@ -269,7 +293,9 @@ def main() -> int:
     committed = _load(RESULTS / "reliability_classification.csv")
     regen = reliability_classification(master)
     _save(regen, AUDIT / "reliability_classification.csv")
-    r = compare("results/reliability_classification.csv", committed, regen, sort_by=["scenario", "sex"])
+    r = compare(
+        "results/reliability_classification.csv", committed, regen, sort_by=["scenario", "sex"]
+    )
     report(r)
     results.append(r)
 

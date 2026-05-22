@@ -126,18 +126,20 @@ ROOT = Path(__file__).resolve().parents[1]
 # The 6 Group-B cells — manuscript §3.3.1.
 # ----------------------------------------------------------------------
 
+
 @dataclass(frozen=True)
 class GroupBCell:
-    scenario: str        # "S1".."S4"
-    sex: str             # "M" or "F"
-    output: str          # "PaO2" or "PaCO2"
+    scenario: str  # "S1".."S4"
+    sex: str  # "M" or "F"
+    output: str  # "PaO2" or "PaCO2"
     dominant_input: str  # "fio2" / "rr" / "vt" — what drove the σ / μ* > 0.6 trigger
 
+
 GROUP_B_CELLS: tuple[GroupBCell, ...] = (
-    GroupBCell("S2", "M", "PaO2",  "fio2"),
-    GroupBCell("S2", "F", "PaO2",  "fio2"),
-    GroupBCell("S3", "M", "PaO2",  "fio2"),
-    GroupBCell("S3", "F", "PaO2",  "fio2"),
+    GroupBCell("S2", "M", "PaO2", "fio2"),
+    GroupBCell("S2", "F", "PaO2", "fio2"),
+    GroupBCell("S3", "M", "PaO2", "fio2"),
+    GroupBCell("S3", "F", "PaO2", "fio2"),
     GroupBCell("S1", "M", "PaCO2", "rr"),
     GroupBCell("S4", "F", "PaCO2", "vt"),
 )
@@ -146,6 +148,7 @@ GROUP_B_CELLS: tuple[GroupBCell, ...] = (
 # ----------------------------------------------------------------------
 # Sample generation
 # ----------------------------------------------------------------------
+
 
 def sample_sobol(
     N: int = 256,
@@ -177,8 +180,7 @@ def sample_sobol(
     expected_rows = N * (2 * NUM_INPUTS + 2 if calc_second_order else NUM_INPUTS + 2)
     if arr.shape != (expected_rows, NUM_INPUTS):
         raise RuntimeError(
-            f"unexpected SALib output shape {arr.shape}; "
-            f"expected ({expected_rows}, {NUM_INPUTS})"
+            f"unexpected SALib output shape {arr.shape}; expected ({expected_rows}, {NUM_INPUTS})"
         )
 
     df = pd.DataFrame(arr, columns=list(INPUT_NAMES))
@@ -189,6 +191,7 @@ def sample_sobol(
 # ----------------------------------------------------------------------
 # Per-cell sweep
 # ----------------------------------------------------------------------
+
 
 def build_cell_jobs(
     cell: GroupBCell,
@@ -265,6 +268,7 @@ def run_cell(
 # Index analysis
 # ----------------------------------------------------------------------
 
+
 def analyse(output_root: Path, cells: list[GroupBCell]) -> pd.DataFrame:
     """Aggregate all cells and compute Sobol S₁ / S_t per (cell, output, input)."""
     from SALib.analyze import sobol as sobol_analyser  # local import
@@ -285,8 +289,12 @@ def analyse(output_root: Path, cells: list[GroupBCell]) -> pd.DataFrame:
         # winsorise. NaNs (from diverged runs) propagate; SALib's variance
         # estimator handles this by dropping incomplete rows in v1.5+.
         for ch_name, ch_col in [
-            ("HR", "HR_mean"), ("MAP", "MAP_mean"), ("Vt", "Vt_mean"),
-            ("SpO2", "SpO2_mean"), ("PaO2", "PaO2_mean"), ("PaCO2", "PaCO2_mean"),
+            ("HR", "HR_mean"),
+            ("MAP", "MAP_mean"),
+            ("Vt", "Vt_mean"),
+            ("SpO2", "SpO2_mean"),
+            ("PaO2", "PaO2_mean"),
+            ("PaCO2", "PaCO2_mean"),
         ]:
             Y = df[ch_col].to_numpy(dtype=float)
             if np.isnan(Y).all():
@@ -299,17 +307,19 @@ def analyse(output_root: Path, cells: list[GroupBCell]) -> pd.DataFrame:
                 print(f"[s019] sobol_analyse failed for {cell.scenario}_{cell.sex}/{ch_name}: {e}")
                 continue
             for i, inp in enumerate(INPUT_NAMES):
-                rows.append({
-                    "scenario": cell.scenario,
-                    "sex": cell.sex,
-                    "output": ch_name,
-                    "input": inp,
-                    "S1":  float(indices["S1"][i]),
-                    "ST":  float(indices["ST"][i]),
-                    "S1_conf": float(indices["S1_conf"][i]),
-                    "ST_conf": float(indices["ST_conf"][i]),
-                    "n_runs": int(np.sum(~np.isnan(Y))),
-                })
+                rows.append(
+                    {
+                        "scenario": cell.scenario,
+                        "sex": cell.sex,
+                        "output": ch_name,
+                        "input": inp,
+                        "S1": float(indices["S1"][i]),
+                        "ST": float(indices["ST"][i]),
+                        "S1_conf": float(indices["S1_conf"][i]),
+                        "ST_conf": float(indices["ST_conf"][i]),
+                        "n_runs": int(np.sum(~np.isnan(Y))),
+                    }
+                )
     return pd.DataFrame(rows)
 
 
@@ -317,29 +327,61 @@ def analyse(output_root: Path, cells: list[GroupBCell]) -> pd.DataFrame:
 # CLI
 # ----------------------------------------------------------------------
 
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(description="S019 — Sobol bolt-on (DRAFT)")
-    p.add_argument("--N", type=int, default=256,
-                   help="SALib N (rows per cell = N × (D+2) with calc_second_order=False). Default 256.")
-    p.add_argument("--calc-second-order", action="store_true",
-                   help="Also compute second-order S2 indices (doubles run count).")
-    p.add_argument("--seed", type=int, default=42,
-                   help="RNG seed for Sobol sampling.")
-    p.add_argument("--image", default="pulse-atlas-engine",
-                   help="Docker image (pulse-atlas-engine:latest by default).")
-    p.add_argument("--workers", type=int, default=2,
-                   help="Parallel Docker workers. Laptop cap is 2 (src.runner.MAX_PARALLEL_LAPTOP).")
+    p.add_argument(
+        "--N",
+        type=int,
+        default=256,
+        help="SALib N (rows per cell = N × (D+2) with calc_second_order=False). Default 256.",
+    )
+    p.add_argument(
+        "--calc-second-order",
+        action="store_true",
+        help="Also compute second-order S2 indices (doubles run count).",
+    )
+    p.add_argument("--seed", type=int, default=42, help="RNG seed for Sobol sampling.")
+    p.add_argument(
+        "--image",
+        default="pulse-atlas-engine",
+        help="Docker image (pulse-atlas-engine:latest by default).",
+    )
+    p.add_argument(
+        "--workers",
+        type=int,
+        default=2,
+        help="Parallel Docker workers. Laptop cap is 2 (src.runner.MAX_PARALLEL_LAPTOP).",
+    )
     p.add_argument("--timeout-s", type=float, default=600.0)
-    p.add_argument("--output-root", type=Path, default=ROOT / "data" / "runs" / "s019_sobol",
-                   help="Root directory for per-cell run trees.")
-    p.add_argument("--cells", nargs="+", default=None,
-                   help="Optional subset of cell tags (e.g. S2_M S3_F). Default: all 6.")
-    p.add_argument("--dry-run", action="store_true",
-                   help="Print the job count per cell but do not launch Docker.")
-    p.add_argument("--analyse-only", action="store_true",
-                   help="Skip sampling/running; aggregate existing output dirs and emit Sobol indices.")
-    p.add_argument("--indices-out", type=Path, default=ROOT / "results" / "sobol_indices.parquet",
-                   help="Output parquet for the S1 / ST table.")
+    p.add_argument(
+        "--output-root",
+        type=Path,
+        default=ROOT / "data" / "runs" / "s019_sobol",
+        help="Root directory for per-cell run trees.",
+    )
+    p.add_argument(
+        "--cells",
+        nargs="+",
+        default=None,
+        help="Optional subset of cell tags (e.g. S2_M S3_F). Default: all 6.",
+    )
+    p.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Print the job count per cell but do not launch Docker.",
+    )
+    p.add_argument(
+        "--analyse-only",
+        action="store_true",
+        help="Skip sampling/running; aggregate existing output dirs and emit Sobol indices.",
+    )
+    p.add_argument(
+        "--indices-out",
+        type=Path,
+        default=ROOT / "results" / "sobol_indices.parquet",
+        help="Output parquet for the S1 / ST table.",
+    )
     args = p.parse_args(argv)
 
     # Resolve cell subset

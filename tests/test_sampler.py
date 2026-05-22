@@ -70,24 +70,23 @@ def test_sample_morris_oat_property():
         rows = group.sort_values("point").reset_index(drop=True)
         for k in range(len(rows) - 1):
             diffs = (
-                (rows.iloc[k + 1][list(s.INPUT_NAMES)]
-                 - rows.iloc[k][list(s.INPUT_NAMES)])
-                .abs()
-                > 1e-9
-            )
+                rows.iloc[k + 1][list(s.INPUT_NAMES)] - rows.iloc[k][list(s.INPUT_NAMES)]
+            ).abs() > 1e-9
             assert diffs.sum() == 1, (
-                f"trajectory {traj_id} step {k}->{k+1}: "
+                f"trajectory {traj_id} step {k}->{k + 1}: "
                 f"expected 1 input flip, got {int(diffs.sum())}"
             )
 
 
 def test_invalid_trajectories_raises():
     import pytest
+
     with pytest.raises(ValueError):
         s.sample_morris(trajectories=0)
 
 
 def test_invalid_levels_raises():
     import pytest
+
     with pytest.raises(ValueError):
         s.sample_morris(levels=1)

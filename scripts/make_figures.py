@@ -84,8 +84,12 @@ def fig_morris_mu_star() -> None:
             continue
         fig, ax = plt.subplots(figsize=(7, 4))
         sns.heatmap(
-            pivot, annot=True, fmt=".2g", cmap="viridis",
-            cbar_kws={"label": "μ*"}, ax=ax,
+            pivot,
+            annot=True,
+            fmt=".2g",
+            cmap="viridis",
+            cbar_kws={"label": "μ*"},
+            ax=ax,
         )
         ax.set_title(f"Morris μ* for output {ch} — clean runs only")
         ax.set_xlabel("Input")
@@ -102,8 +106,13 @@ def fig_h1_evaluation() -> None:
     pivot = h1.pivot(index="cell", columns="output", values="top3_fraction")
     sns.heatmap(
         pivot.reindex(columns=list(STAT_CHANNELS)),
-        annot=True, fmt=".2f", vmin=0, vmax=1, cmap="RdYlGn",
-        cbar_kws={"label": "top-3 μ* / total μ*"}, ax=ax,
+        annot=True,
+        fmt=".2f",
+        vmin=0,
+        vmax=1,
+        cmap="RdYlGn",
+        cbar_kws={"label": "top-3 μ* / total μ*"},
+        ax=ax,
     )
     ax.set_title("H1 — fraction of mu_star explained by top-3 inputs (>=0.5 = pass)")
     _save(fig, "fig03_h1_top3_fraction")
@@ -133,8 +142,14 @@ def fig_h4_spearman() -> None:
         columns=list(STAT_CHANNELS)
     )
     sns.heatmap(
-        pivot, annot=True, fmt=".2f", vmin=-1, vmax=1, cmap="RdBu",
-        cbar_kws={"label": "Spearman ρ"}, ax=ax,
+        pivot,
+        annot=True,
+        fmt=".2f",
+        vmin=-1,
+        vmax=1,
+        cmap="RdBu",
+        cbar_kws={"label": "Spearman ρ"},
+        ax=ax,
     )
     ax.set_title("H4 — Spearman ρ between M and F μ* rankings (1 = same ranking)")
     _save(fig, "fig05_h4_spearman_mu_star")
@@ -153,11 +168,16 @@ def fig_reliability_traffic_light() -> None:
     )
     fig, ax = plt.subplots(figsize=(7, 4))
     sns.heatmap(
-        pivot, annot=df.pivot(index="cell", columns="output", values="light").reindex(
+        pivot,
+        annot=df.pivot(index="cell", columns="output", values="light").reindex(
             columns=list(STAT_CHANNELS)
         ),
-        fmt="", cmap="RdYlGn", vmin=0, vmax=2,
-        cbar=False, ax=ax,
+        fmt="",
+        cmap="RdYlGn",
+        vmin=0,
+        vmax=2,
+        cbar=False,
+        ax=ax,
     )
     ax.set_title("Reliability traffic-light per cell × output")
     _save(fig, "fig06_reliability_traffic_light")

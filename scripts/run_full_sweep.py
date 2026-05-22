@@ -86,9 +86,7 @@ def _build_or_load_sample() -> pd.DataFrame:
         sample = pd.read_parquet(SAMPLE_PATH)
         print(f"[sweep] loaded canonical sample from {SAMPLE_PATH} ({len(sample)} rows)")
         return sample
-    sample = sample_morris(
-        trajectories=SWEEP_TRAJECTORIES, levels=SWEEP_LEVELS, seed=SWEEP_SEED
-    )
+    sample = sample_morris(trajectories=SWEEP_TRAJECTORIES, levels=SWEEP_LEVELS, seed=SWEEP_SEED)
     save_sample(sample, SAMPLE_PATH)
     print(f"[sweep] wrote canonical sample to {SAMPLE_PATH} ({len(sample)} rows)")
     return sample
@@ -159,15 +157,20 @@ def _parse_cells(arg: list[str] | None) -> list[tuple[str, str]]:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Run the full Morris sweep.")
     parser.add_argument(
-        "--resume", action="store_true",
+        "--resume",
+        action="store_true",
         help="skip runs whose run_meta.json already records exit_code=0",
     )
     parser.add_argument(
-        "--cells", nargs="+", default=None,
+        "--cells",
+        nargs="+",
+        default=None,
         help="restrict to a subset of cells, e.g. --cells S1_M S2_F (default: all 8)",
     )
     parser.add_argument(
-        "--timeout-s", type=float, default=600.0,
+        "--timeout-s",
+        type=float,
+        default=600.0,
         help="per-run Docker timeout in seconds (default: 600)",
     )
     args = parser.parse_args(argv)
@@ -185,14 +188,13 @@ def main(argv: list[str] | None = None) -> int:
         cell_start = time.monotonic()
         jobs = _build_jobs_for_cell(sample, sk, xk, resume=args.resume)
         skipped = len(sample) - len(jobs)
-        print(
-            f"\n[sweep] === cell {sk}_{xk} === {len(jobs)} runs "
-            f"({skipped} skipped via --resume)"
-        )
+        print(f"\n[sweep] === cell {sk}_{xk} === {len(jobs)} runs ({skipped} skipped via --resume)")
         if jobs:
             run_many(
-                jobs, runs_root=_cell_dir(sk, xk),
-                timeout_s=args.timeout_s, overwrite=False,
+                jobs,
+                runs_root=_cell_dir(sk, xk),
+                timeout_s=args.timeout_s,
+                overwrite=False,
             )
         agg_path = _aggregate_cell(sk, xk)
         elapsed = time.monotonic() - cell_start

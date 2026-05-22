@@ -93,7 +93,7 @@ from src.scenario import build_config  # noqa: E402
 # ---------- Locked design parameters ---------- #
 
 N_RUNS: int = 64
-TRIGGER_PRESSURE_CMH2O: float = -2.0   # clinical default; magnitude is what Pulse uses
+TRIGGER_PRESSURE_CMH2O: float = -2.0  # clinical default; magnitude is what Pulse uses
 ORIG_AGGREGATED_PATH: Path = REPO_ROOT / "data" / "runs" / "full_sweep" / "aggregated.parquet"
 RUNS_ROOT: Path = REPO_ROOT / "data" / "runs" / "s014_trigger_lockout"
 
@@ -120,11 +120,11 @@ def row_to_sample_row(r: pd.Series) -> pd.Series:
     bit-identical to the original Morris point pre-clipping."""
     return pd.Series(
         {
-            "hr":   r["in_hr"],
-            "sbp":  r["in_sbp"],
-            "dbp":  r["dbp_requested"],
-            "rr":   r["in_rr"],
-            "vt":   r["in_vt"],
+            "hr": r["in_hr"],
+            "sbp": r["in_sbp"],
+            "dbp": r["dbp_requested"],
+            "rr": r["in_rr"],
+            "vt": r["in_vt"],
             "fio2": r["in_fio2"],
             "peep": r["in_peep"],
         }
@@ -144,8 +144,10 @@ def main() -> None:
     orig = pd.read_parquet(ORIG_AGGREGATED_PATH)
     sel = select_top_64(orig)
 
-    print(f"[S014] selected {len(sel)} runs by Vt_cv (range "
-          f"{sel['Vt_cv'].min():.3f} .. {sel['Vt_cv'].max():.3f})")
+    print(
+        f"[S014] selected {len(sel)} runs by Vt_cv (range "
+        f"{sel['Vt_cv'].min():.3f} .. {sel['Vt_cv'].max():.3f})"
+    )
     print("[S014] cell breakdown:")
     print(sel.groupby(["scenario", "sex"]).size().to_string())
 
@@ -169,8 +171,10 @@ def main() -> None:
         jobs.append((cfg, new_case_id))
 
     # Dispatch
-    print(f"[S014] dispatching {len(jobs)} runs (trigger_pressure="
-          f"{TRIGGER_PRESSURE_CMH2O} cmH2O) to Docker...")
+    print(
+        f"[S014] dispatching {len(jobs)} runs (trigger_pressure="
+        f"{TRIGGER_PRESSURE_CMH2O} cmH2O) to Docker..."
+    )
     run_many(jobs, runs_root=RUNS_ROOT, progress=True)
 
     # Aggregate
@@ -213,10 +217,14 @@ def main() -> None:
     print()
     print("=" * 60)
     print(f"  S014 result: {decision}")
-    print(f"  median delta Vt_cv (orig - lock) = {median_delta:+.4f}  "
-          f"(threshold >= {PASS_MEDIAN_DELTA_MIN})")
-    print(f"  frac runs with Vt_cv_lock < 0.05 = {frac_below:.3f}  "
-          f"(threshold >= {PASS_FRAC_BELOW_005_MIN})")
+    print(
+        f"  median delta Vt_cv (orig - lock) = {median_delta:+.4f}  "
+        f"(threshold >= {PASS_MEDIAN_DELTA_MIN})"
+    )
+    print(
+        f"  frac runs with Vt_cv_lock < 0.05 = {frac_below:.3f}  "
+        f"(threshold >= {PASS_FRAC_BELOW_005_MIN})"
+    )
     print("=" * 60)
 
 

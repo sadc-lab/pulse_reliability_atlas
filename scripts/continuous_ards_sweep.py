@@ -110,12 +110,12 @@ def build_continuous_config(severity: float, sex_key: str, case_id: str) -> dict
 def main() -> int:
     RUN_ROOT.mkdir(parents=True, exist_ok=True)
     grid = severity_grid()
-    print(f"[cont-ards] {len(grid)} severities x 2 sexes = {len(grid)*2} runs")
+    print(f"[cont-ards] {len(grid)} severities x 2 sexes = {len(grid) * 2} runs")
 
     jobs = []
     for sex_key in ("M", "F"):
         for i, sev in enumerate(grid):
-            cid = f"CONT_{sex_key}_{i:03d}_sev{int(sev*1000):04d}"
+            cid = f"CONT_{sex_key}_{i:03d}_sev{int(sev * 1000):04d}"
             cfg = build_continuous_config(float(sev), sex_key, cid)
             jobs.append((cfg, cid))
 
@@ -138,7 +138,9 @@ def main() -> int:
     print(f"[cont-ards] aggregated -> {out.relative_to(REPO_ROOT)}")
     print(f"[cont-ards] total rows: {len(df)}")
     print(f"[cont-ards] diverged: {int(df['diverged'].sum())}/{len(df)}")
-    print(f"[cont-ards] by sex: M_div={int(df[(df.sex=='M')&df.diverged].shape[0])}, F_div={int(df[(df.sex=='F')&df.diverged].shape[0])}")
+    print(
+        f"[cont-ards] by sex: M_div={int(df[(df.sex == 'M') & df.diverged].shape[0])}, F_div={int(df[(df.sex == 'F') & df.diverged].shape[0])}"
+    )
     return 0
 
 

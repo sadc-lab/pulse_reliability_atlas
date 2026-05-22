@@ -90,12 +90,18 @@ def _build_docker_command(host_run_dir: Path, image: str) -> list[str]:
     config_in = f"{container_data}/config.json"
     output_in = f"{container_data}/output.csv"
     return [
-        "docker", "run", "--rm",
-        f"--memory={DOCKER_MEMORY}", f"--cpus={DOCKER_CPUS}",
-        "-v", f"{host}:/data",
+        "docker",
+        "run",
+        "--rm",
+        f"--memory={DOCKER_MEMORY}",
+        f"--cpus={DOCKER_CPUS}",
+        "-v",
+        f"{host}:/data",
         image,
-        "--config", config_in,
-        "--output", output_in,
+        "--config",
+        config_in,
+        "--output",
+        output_in,
     ]
 
 
@@ -144,10 +150,14 @@ def run_one(
         exit_code = 124  # conventional "timeout"
         partial = ""
         if e.stdout:
-            partial += e.stdout if isinstance(e.stdout, str) else e.stdout.decode("utf-8", "replace")
+            partial += (
+                e.stdout if isinstance(e.stdout, str) else e.stdout.decode("utf-8", "replace")
+            )
         partial += "\n--- TIMEOUT ---\n"
         if e.stderr:
-            partial += e.stderr if isinstance(e.stderr, str) else e.stderr.decode("utf-8", "replace")
+            partial += (
+                e.stderr if isinstance(e.stderr, str) else e.stderr.decode("utf-8", "replace")
+            )
         log_path.write_text(partial)
     wall_time = time.monotonic() - start
 
@@ -204,10 +214,7 @@ def run_many(
             results.append(res)
             if progress:
                 tag = "OK " if res.exit_code == 0 else f"FAIL({res.exit_code})"
-                print(
-                    f"[runner] {i}/{n} {tag} {res.case_id} "
-                    f"({res.wall_time_s:.1f}s)"
-                )
+                print(f"[runner] {i}/{n} {tag} {res.case_id} ({res.wall_time_s:.1f}s)")
     return results
 
 

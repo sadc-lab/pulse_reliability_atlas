@@ -99,15 +99,12 @@ class Claim:
             self.status = "WARN"
             self.triage_type = "A"
             self.notes = (
-                self.notes
-                + f" | diff={diff:.4g} within WARN band for approx_round"
+                self.notes + f" | diff={diff:.4g} within WARN band for approx_round"
             ).strip(" |")
         else:
             self.status = "FAIL"
             self.triage_type = "A"
-            self.notes = (
-                self.notes + f" | diff={diff:.4g}, tol={tol}"
-            ).strip(" |")
+            self.notes = (self.notes + f" | diff={diff:.4g}, tol={tol}").strip(" |")
 
 
 claims: list[Claim] = []
@@ -131,25 +128,13 @@ rc = pd.read_csv(REPO / "results/reliability_classification.csv")
 nss = pd.read_csv(REPO / "results/s022/nss_decomposition.csv")
 s23_pooled = pd.read_csv(REPO / "results/s023/topk_overlap.csv")
 s23_cell = pd.read_csv(REPO / "results/s023/topk_overlap_per_cell.csv")
-f003 = json.loads(
-    (REPO / "results/f003_physiological_reclassification_summary.json").read_text()
-)
-s14_pair = pd.read_parquet(
-    REPO / "data/runs/s014_trigger_lockout/paired_comparison.parquet"
-)
-s14_sum = json.loads(
-    (REPO / "data/runs/s014_trigger_lockout/summary.json").read_text()
-)
-s21_plat = pd.read_parquet(
-    REPO / "data/runs/s021_hyperoxia_convergence/plateau_stats.parquet"
-)
-s21_sum = json.loads(
-    (REPO / "data/runs/s021_hyperoxia_convergence/summary.json").read_text()
-)
+f003 = json.loads((REPO / "results/f003_physiological_reclassification_summary.json").read_text())
+s14_pair = pd.read_parquet(REPO / "data/runs/s014_trigger_lockout/paired_comparison.parquet")
+s14_sum = json.loads((REPO / "data/runs/s014_trigger_lockout/summary.json").read_text())
+s21_plat = pd.read_parquet(REPO / "data/runs/s021_hyperoxia_convergence/plateau_stats.parquet")
+s21_sum = json.loads((REPO / "data/runs/s021_hyperoxia_convergence/summary.json").read_text())
 s18_b = pd.read_parquet(REPO / "data/runs/s018_blood_volume/s018_classified.parquet")
-s18_f = pd.read_parquet(
-    REPO / "data/runs/s018_blood_volume/s018_floor_classified.parquet"
-)
+s18_f = pd.read_parquet(REPO / "data/runs/s018_blood_volume/s018_floor_classified.parquet")
 
 # -----------------------------------------------------------------------------
 # TIER 1 -- ABSTRACT / KEY CONTRIBUTIONS / HYPOTHESIS VERDICTS / HEADLINE TABLES
@@ -176,6 +161,8 @@ n_primary_nss_vtcv = int(
         else pd.Series([False] * len(agg))
     ).sum()
 )
+
+
 # Use the explicit not_steady_state flag count where Vt_cv > 0.05 AND no
 # higher-priority flag is set.
 def _primary(row):
@@ -419,11 +406,7 @@ add(
 n_impl = int(agg["implausible"].sum())
 n_impl_pao2_over_600 = int(agg[agg["implausible"] & (agg["PaO2_mean"] > 600)].shape[0])
 n_impl_pao2_over_600_high_fio2 = int(
-    agg[
-        agg["implausible"]
-        & (agg["PaO2_mean"] > 600)
-        & (agg["in_fio2"] >= 0.95)
-    ].shape[0]
+    agg[agg["implausible"] & (agg["PaO2_mean"] > 600) & (agg["in_fio2"] >= 0.95)].shape[0]
 )
 add(
     claim_id="T1.21",
@@ -472,12 +455,8 @@ add(
     computed_value=100.0 * float(s21_sum["S1_frac_converged"]),
     tolerance_rule="pct_1dp",
 )
-n_s1_runs_s021 = int(
-    s21_plat[s21_plat["scenario"] == "S1"].shape[0]
-)
-n_s1_converged = int(
-    s21_plat[(s21_plat["scenario"] == "S1") & s21_plat["converged"]].shape[0]
-)
+n_s1_runs_s021 = int(s21_plat[s21_plat["scenario"] == "S1"].shape[0])
+n_s1_converged = int(s21_plat[(s21_plat["scenario"] == "S1") & s21_plat["converged"]].shape[0])
 add(
     claim_id="T1.24b",
     section="§3.8 L1965",
@@ -630,9 +609,7 @@ lowest_claims = [
     ("S4", "M", "PaO2", 0.727),
 ]
 for sc, sx, out, val in lowest_claims:
-    row = h1[
-        (h1["scenario"] == sc) & (h1["sex"] == sx) & (h1["output"] == out)
-    ].iloc[0]
+    row = h1[(h1["scenario"] == sc) & (h1["sex"] == sx) & (h1["output"] == out)].iloc[0]
     add(
         claim_id=f"T2.h1.{sc}_{sx}.{out}",
         section=f"§3.3 L1191-1193 ({sc}_{sx} {out})",
@@ -810,9 +787,7 @@ add(
 )
 # Drift-exceed: same population, both §3.8 and §3.8.1 cite this.
 # §3.8 L1927 says 18.5%, §3.8.1 L2135 says 19.5%. Audit both.
-drift_exceed_pct = (
-    100.0 * (hi_fio2["PaO2_delta_60s"].abs() > 15).sum() / max(1, len(hi_fio2))
-)
+drift_exceed_pct = 100.0 * (hi_fio2["PaO2_delta_60s"].abs() > 15).sum() / max(1, len(hi_fio2))
 add(
     claim_id="T2.f003.drift_exceed_v38",
     section="§3.8 L1946",
@@ -864,8 +839,8 @@ add(
     computed_value=int(f003["n_reclassified_locked_to_physio_clean"]),
     tolerance_rule="exact_int",
 )
-n_reclass_high_fio2 = f003["by_fio2_bin"].get("(0.95, 1.001]", {}).get(
-    "reclassified_pao2_locked_to_physio_clean", -1
+n_reclass_high_fio2 = (
+    f003["by_fio2_bin"].get("(0.95, 1.001]", {}).get("reclassified_pao2_locked_to_physio_clean", -1)
 )
 add(
     claim_id="T2.f003.reclass_high_fio2",
@@ -876,11 +851,11 @@ add(
     computed_value=n_reclass_high_fio2,
     tolerance_rule="exact_int",
 )
-n_reclass_s1_f = f003["by_scenario_sex"].get("S1_F", {}).get(
-    "reclassified_pao2_locked_to_physio_clean", -1
+n_reclass_s1_f = (
+    f003["by_scenario_sex"].get("S1_F", {}).get("reclassified_pao2_locked_to_physio_clean", -1)
 )
-n_reclass_s1_m = f003["by_scenario_sex"].get("S1_M", {}).get(
-    "reclassified_pao2_locked_to_physio_clean", -1
+n_reclass_s1_m = (
+    f003["by_scenario_sex"].get("S1_M", {}).get("reclassified_pao2_locked_to_physio_clean", -1)
 )
 add(
     claim_id="T2.f003.reclass_S1F",
@@ -1092,12 +1067,14 @@ add(
 order = {"FAIL": 0, "WARN": 1, "PASS": 2}
 claims.sort(key=lambda c: (order[c.status], c.claim_id))
 
+
 def _fmt(v):
     if v is None:
         return "-"
     if isinstance(v, (int,)) or (isinstance(v, float) and float(v).is_integer() and abs(v) < 1e9):
         return f"{int(v)}"
     return f"{v:.4g}"
+
 
 # Summary counts.
 n_pass = sum(1 for c in claims if c.status == "PASS")
@@ -1106,22 +1083,27 @@ n_fail = sum(1 for c in claims if c.status == "FAIL")
 n_total = len(claims)
 
 print("# Claims-Ledger Audit (S024)\n")
-print(f"**Total claims audited:** {n_total} "
-      f"({n_pass} PASS, {n_warn} WARN, {n_fail} FAIL)\n")
+print(f"**Total claims audited:** {n_total} ({n_pass} PASS, {n_warn} WARN, {n_fail} FAIL)\n")
 print("**Pulse-engine version:** v4.3.1; **sweep:** S006 (2026-04-26).\n")
-print("**Tolerance rules:** exact_int=0, pct_1dp=0.05, pct_whole=0.5, "
-      "whole_unit=0.5, displayed_2dp=0.005, displayed_3dp=0.0005, "
-      "approx_round=PASS<=1.0 / WARN<=2.0.\n")
-print("**Triage codes:** Type A = transcription/rounding drift; "
-      "Type B = orphaned number; Type C = derivation mismatch.\n")
+print(
+    "**Tolerance rules:** exact_int=0, pct_1dp=0.05, pct_whole=0.5, "
+    "whole_unit=0.5, displayed_2dp=0.005, displayed_3dp=0.0005, "
+    "approx_round=PASS<=1.0 / WARN<=2.0.\n"
+)
+print(
+    "**Triage codes:** Type A = transcription/rounding drift; "
+    "Type B = orphaned number; Type C = derivation mismatch.\n"
+)
 
 print("## Discrepancies (FAIL / WARN)\n")
 disc = [c for c in claims if c.status in ("FAIL", "WARN")]
 if not disc:
     print("_None._\n")
 else:
-    print("| claim_id | status | type | section | text | source_file | "
-          "manuscript | computed | tol | notes |")
+    print(
+        "| claim_id | status | type | section | text | source_file | "
+        "manuscript | computed | tol | notes |"
+    )
     print("|---|---|---|---|---|---|---:|---:|---|---|")
     for c in disc:
         print(

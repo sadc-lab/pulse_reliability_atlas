@@ -37,7 +37,7 @@ class Patient:
 # Male height 180 cm: researcher-fixed for BMI 20.8 (not Pulse's source-code
 # `heightStandardMale_cm = 177.0`). See manuscript §2.3 + Appendix B.5.
 PATIENTS: dict[str, Patient] = {
-    "M": Patient(sex="Male",   age_yr=18, weight_kg=67.3, height_cm=180.0),
+    "M": Patient(sex="Male", age_yr=18, weight_kg=67.3, height_cm=180.0),
     "F": Patient(sex="Female", age_yr=18, weight_kg=56.2, height_cm=163.0),
 }
 
@@ -49,16 +49,16 @@ PATIENTS: dict[str, Patient] = {
 class Scenario:
     """One atlas scenario: healthy or ARDS at a given severity."""
 
-    sid: str               # "S1".."S4"
-    label: str             # human-readable
-    ards_severity: float   # 0.0 ⇒ healthy, otherwise ARDS impairment fraction
+    sid: str  # "S1".."S4"
+    label: str  # human-readable
+    ards_severity: float  # 0.0 ⇒ healthy, otherwise ARDS impairment fraction
 
 
 SCENARIOS: dict[str, Scenario] = {
-    "S1": Scenario("S1", "Healthy",         0.00),
-    "S2": Scenario("S2", "Mild ARDS",       0.26),
-    "S3": Scenario("S3", "Moderate ARDS",   0.60),
-    "S4": Scenario("S4", "Severe ARDS",     0.95),
+    "S1": Scenario("S1", "Healthy", 0.00),
+    "S2": Scenario("S2", "Mild ARDS", 0.26),
+    "S3": Scenario("S3", "Moderate ARDS", 0.60),
+    "S4": Scenario("S4", "Severe ARDS", 0.95),
 }
 
 
@@ -189,7 +189,7 @@ def build_config(
 
     if sc.ards_severity > 0.0:
         config["ards_severity"] = {
-            "left":  sc.ards_severity,
+            "left": sc.ards_severity,
             "right": sc.ards_severity,
         }
 

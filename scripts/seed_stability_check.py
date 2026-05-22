@@ -77,9 +77,7 @@ def main() -> int:
 
     # Compare top-3 rankings
     morris_old = pd.read_parquet(RESULTS / "morris_indices.parquet")
-    morris_old = morris_old[
-        (morris_old.scenario == SCENARIO) & (morris_old.sex == SEX)
-    ]
+    morris_old = morris_old[(morris_old.scenario == SCENARIO) & (morris_old.sex == SEX)]
 
     rows = []
     for ch in morris_new["output"].unique():
@@ -89,15 +87,17 @@ def main() -> int:
         new_top3 = list(new_ch["input"].head(3))
         same_set = set(old_top3) == set(new_top3)
         same_order = old_top3 == new_top3
-        rows.append({
-            "scenario": SCENARIO,
-            "sex": SEX,
-            "output": ch,
-            "old_top3": old_top3,
-            "new_top3": new_top3,
-            "same_set": same_set,
-            "same_order": same_order,
-        })
+        rows.append(
+            {
+                "scenario": SCENARIO,
+                "sex": SEX,
+                "output": ch,
+                "old_top3": old_top3,
+                "new_top3": new_top3,
+                "same_set": same_set,
+                "same_order": same_order,
+            }
+        )
     cmp_df = pd.DataFrame(rows)
     cmp_path = RESULTS / "seed_stability_top3_comparison.csv"
     cmp_df.to_csv(cmp_path, index=False)

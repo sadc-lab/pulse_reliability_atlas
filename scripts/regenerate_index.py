@@ -165,9 +165,7 @@ def render_index(entries: list[dict]) -> str:
         for tag in sorted(tag_map):
             lines.append(f"### `{tag}`")
             for e in sorted(tag_map[tag], key=lambda e: str(e.get("id", ""))):
-                lines.append(
-                    f"- `{e.get('id', '?')}` — [{e['_title']}]({e['_path']})"
-                )
+                lines.append(f"- `{e.get('id', '?')}` — [{e['_title']}]({e['_path']})")
             lines.append("")
 
     return "\n".join(lines) + "\n"

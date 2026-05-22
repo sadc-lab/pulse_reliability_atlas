@@ -65,16 +65,25 @@ def main() -> int:
     # ---- scenario.build_config: out-of-envelope physiological values ----
     print(_safe("\n[B] scenario.build_config with out-of-envelope sample row:"))
 
-    base_row = pd.Series({
-        "hr": 75.0, "sbp": 110.0, "dbp": 70.0, "rr": 14.0,
-        "vt": 500.0, "fio2": 0.5, "peep": 5.0,
-    })
+    base_row = pd.Series(
+        {
+            "hr": 75.0,
+            "sbp": 110.0,
+            "dbp": 70.0,
+            "rr": 14.0,
+            "vt": 500.0,
+            "fio2": 0.5,
+            "peep": 5.0,
+        }
+    )
 
     # Negative HR
     bad = base_row.copy()
     bad["hr"] = -50.0
     s, msg = try_call("hr=-50", build_config, bad, "S1", "M", case_id("S1", "M", 9999))
-    print(_safe(f"  hr=-50              -> {s} (atlas does not validate; relies on Pulse rejection)"))
+    print(
+        _safe(f"  hr=-50              -> {s} (atlas does not validate; relies on Pulse rejection)")
+    )
     findings.append({"test": "build_config hr=-50", "outcome": s, "detail": msg[:120]})
 
     # RR = 900 bpm
@@ -119,27 +128,35 @@ def main() -> int:
     print(_safe("\n[D] clip_dbp_to_pulse_constraint:"))
     dbp_app, was = clip_dbp_to_pulse_constraint(sbp=100.0, dbp_requested=90.0)
     expected_cap = 75.0
-    print(_safe(f"  sbp=100, dbp_req=90 -> dbp_app={dbp_app} (expect {expected_cap}), was_clipped={was}"))
+    print(
+        _safe(
+            f"  sbp=100, dbp_req=90 -> dbp_app={dbp_app} (expect {expected_cap}), was_clipped={was}"
+        )
+    )
     assert dbp_app == expected_cap and was, "clip failed"
     findings.append({"test": "clip_dbp 100/90", "outcome": "OK", "detail": f"clipped to {dbp_app}"})
 
     # ---- detector hard bounds: out-of-bound mean must flag implausible ----
     print(_safe("\n[E] detector.check_implausible on hand-built stats:"))
     times = np.linspace(60, 120, 13)
-    df = pd.DataFrame({
-        "time_s": times,
-        "HeartRate": np.full(13, 1000.0),  # implausible HR
-        "MeanArterialPressure": np.full(13, 90.0),
-        "TidalVolume": np.full(13, 500.0),
-        "OxygenSaturation": np.full(13, 0.97),
-        "ArterialOxygenPressure": np.full(13, 95.0),
-        "ArterialCarbonDioxidePressure": np.full(13, 40.0),
-    })
+    df = pd.DataFrame(
+        {
+            "time_s": times,
+            "HeartRate": np.full(13, 1000.0),  # implausible HR
+            "MeanArterialPressure": np.full(13, 90.0),
+            "TidalVolume": np.full(13, 500.0),
+            "OxygenSaturation": np.full(13, 0.97),
+            "ArterialOxygenPressure": np.full(13, 95.0),
+            "ArterialCarbonDioxidePressure": np.full(13, 40.0),
+        }
+    )
     stats = compute_steady_state_stats(df)
     res = check_implausible(stats)
     assert res.fired and "HR" in res.reason
     print(_safe(f"  HR=1000             -> implausible fired ({_safe(res.reason)})"))
-    findings.append({"test": "detector HR=1000 implausible", "outcome": "FIRED", "detail": res.reason[:120]})
+    findings.append(
+        {"test": "detector HR=1000 implausible", "outcome": "FIRED", "detail": res.reason[:120]}
+    )
 
     # ---- summary table ----
     print(_safe("\n" + "=" * 70))

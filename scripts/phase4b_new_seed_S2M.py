@@ -71,8 +71,9 @@ def _format_hms(seconds: float) -> str:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Phase 4b — new-seed Morris on (S2, M).")
-    parser.add_argument("--resume", action="store_true",
-                        help="skip runs whose run_meta.json already exists")
+    parser.add_argument(
+        "--resume", action="store_true", help="skip runs whose run_meta.json already exists"
+    )
     parser.add_argument("--timeout-s", type=float, default=600.0)
     args = parser.parse_args(argv)
 
@@ -83,7 +84,9 @@ def main(argv: list[str] | None = None) -> int:
     else:
         sample = sample_morris(trajectories=TRAJECTORIES, levels=LEVELS, seed=SEED_NEW)
         save_sample(sample, SAMPLE_PATH)
-        print(f"[phase4b] new sample: traj={TRAJECTORIES} seed={SEED_NEW} levels={LEVELS} -> {len(sample)} points")
+        print(
+            f"[phase4b] new sample: traj={TRAJECTORIES} seed={SEED_NEW} levels={LEVELS} -> {len(sample)} points"
+        )
 
     jobs: list[tuple[dict, str]] = []
     for i, row in sample.iterrows():
@@ -112,7 +115,9 @@ def main(argv: list[str] | None = None) -> int:
     out_parquet = RESULTS / f"phase4b_morris_S2M_seed{SEED_NEW}.parquet"
     out_parquet.parent.mkdir(parents=True, exist_ok=True)
     morris_new.to_parquet(out_parquet, index=False)
-    print(f"[phase4b] Morris indices -> {out_parquet.relative_to(REPO_ROOT)} ({len(morris_new)} rows)")
+    print(
+        f"[phase4b] Morris indices -> {out_parquet.relative_to(REPO_ROOT)} ({len(morris_new)} rows)"
+    )
 
     # Compare top-3 ranking vs canonical
     morris_canon = pd.read_parquet(REPO_ROOT / "data" / "audit_S015" / "morris_indices.parquet")
@@ -124,15 +129,17 @@ def main(argv: list[str] | None = None) -> int:
         new_ch = morris_new[morris_new.output == ch].sort_values("mu_star", ascending=False)
         canon_top3 = list(canon_ch["input"].head(3))
         new_top3 = list(new_ch["input"].head(3))
-        rows.append({
-            "scenario": SCENARIO,
-            "sex": SEX,
-            "output": ch,
-            "canon_top3": canon_top3,
-            "new_top3": new_top3,
-            "same_set": set(canon_top3) == set(new_top3),
-            "same_order": canon_top3 == new_top3,
-        })
+        rows.append(
+            {
+                "scenario": SCENARIO,
+                "sex": SEX,
+                "output": ch,
+                "canon_top3": canon_top3,
+                "new_top3": new_top3,
+                "same_set": set(canon_top3) == set(new_top3),
+                "same_order": canon_top3 == new_top3,
+            }
+        )
     cmp_df = pd.DataFrame(rows)
     cmp_path = RESULTS / f"phase4b_top3_comparison_seed{SEED_NEW}.csv"
     cmp_df.to_csv(cmp_path, index=False)

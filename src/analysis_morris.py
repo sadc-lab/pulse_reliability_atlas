@@ -61,8 +61,8 @@ class TrajectoryPair:
     """
 
     trajectory: int
-    j_lo: int        # row index of starting point
-    j_hi: int        # row index of next point (j_lo + 1)
+    j_lo: int  # row index of starting point
+    j_hi: int  # row index of next point (j_lo + 1)
     flipped_input: str
     delta_normalized: float
 
@@ -144,15 +144,17 @@ def compute_ee_for_cell(
                 ee = np.nan
             else:
                 ee = (float(y_hi) - float(y_lo)) / p.delta_normalized
-            rows.append({
-                "trajectory": p.trajectory,
-                "output": ch,
-                "input": p.flipped_input,
-                "ee": ee,
-                "j_lo_case": cid_lo,
-                "j_hi_case": cid_hi,
-                "both_clean": both_clean,
-            })
+            rows.append(
+                {
+                    "trajectory": p.trajectory,
+                    "output": ch,
+                    "input": p.flipped_input,
+                    "ee": ee,
+                    "j_lo_case": cid_lo,
+                    "j_hi_case": cid_hi,
+                    "both_clean": both_clean,
+                }
+            )
     return pd.DataFrame(rows)
 
 
@@ -220,9 +222,7 @@ def _block_bootstrap_mu_star_ci(
         return float("nan"), float("nan")
 
     # Pre-build trajectory -> EE-array index for speed.
-    by_traj: dict[int, np.ndarray] = {
-        int(t): ees[trajs == t] for t in unique_trajs
-    }
+    by_traj: dict[int, np.ndarray] = {int(t): ees[trajs == t] for t in unique_trajs}
 
     boot = np.empty(n_bootstrap)
     for b in range(n_bootstrap):
@@ -261,9 +261,7 @@ def _block_bootstrap_sigma_ci(
     if unique_trajs.size < 2:
         return float("nan"), float("nan")
 
-    by_traj: dict[int, np.ndarray] = {
-        int(t): ees[trajs == t] for t in unique_trajs
-    }
+    by_traj: dict[int, np.ndarray] = {int(t): ees[trajs == t] for t in unique_trajs}
 
     boot = np.empty(n_bootstrap)
     for b in range(n_bootstrap):
@@ -309,9 +307,7 @@ def morris_indices(
         # Map sample row idx -> case_id (canonical: case_id_format)
         from src.scenario import case_id
 
-        sample_idx_to_case = {
-            int(i): case_id(sk, xk, run_idx=int(i)) for i in sample.index
-        }
+        sample_idx_to_case = {int(i): case_id(sk, xk, run_idx=int(i)) for i in sample.index}
         ee_df = compute_ee_for_cell(cell_df, pairs, sample_idx_to_case)
         if ee_df.empty:
             continue
@@ -329,22 +325,24 @@ def morris_indices(
             )
             n_total = int(((ee_df["output"] == out_name) & (ee_df["input"] == inp_name)).sum())
             n_unique_trajs = int(grp["trajectory"].nunique())
-            rows.append({
-                "scenario": sk,
-                "sex": xk,
-                "output": out_name,
-                "input": inp_name,
-                "mu": mu,
-                "mu_star": mu_star,
-                "sigma": sigma,
-                "mu_star_lo": mu_star_lo,
-                "mu_star_hi": mu_star_hi,
-                "sigma_lo": sigma_lo,
-                "sigma_hi": sigma_hi,
-                "n_clean_pairs": int(ees.size),
-                "n_total_pairs": n_total,
-                "n_trajectories": n_unique_trajs,
-            })
+            rows.append(
+                {
+                    "scenario": sk,
+                    "sex": xk,
+                    "output": out_name,
+                    "input": inp_name,
+                    "mu": mu,
+                    "mu_star": mu_star,
+                    "sigma": sigma,
+                    "mu_star_lo": mu_star_lo,
+                    "mu_star_hi": mu_star_hi,
+                    "sigma_lo": sigma_lo,
+                    "sigma_hi": sigma_hi,
+                    "n_clean_pairs": int(ees.size),
+                    "n_total_pairs": n_total,
+                    "n_trajectories": n_unique_trajs,
+                }
+            )
     return pd.DataFrame(rows)
 
 
@@ -367,27 +365,25 @@ def sobol_promotion(
     for (sk, xk, out_name), grp in morris_df.groupby(["scenario", "sex", "output"]):
         ranked = grp.sort_values("mu_star", ascending=False).head(top_k)
         for _, r in ranked.iterrows():
-            ratio = (
-                r["sigma"] / r["mu_star"]
-                if r["mu_star"] > 0
-                else float("inf")
-            )
+            ratio = r["sigma"] / r["mu_star"] if r["mu_star"] > 0 else float("inf")
             if ratio >= promote_threshold:
                 decision = "promote"
             elif ratio <= skip_threshold:
                 decision = "skip"
             else:
                 decision = "gray"
-            rows.append({
-                "scenario": sk,
-                "sex": xk,
-                "output": out_name,
-                "input": r["input"],
-                "mu_star": r["mu_star"],
-                "sigma": r["sigma"],
-                "sigma_over_mu_star": ratio,
-                "decision": decision,
-            })
+            rows.append(
+                {
+                    "scenario": sk,
+                    "sex": xk,
+                    "output": out_name,
+                    "input": r["input"],
+                    "mu_star": r["mu_star"],
+                    "sigma": r["sigma"],
+                    "sigma_over_mu_star": ratio,
+                    "decision": decision,
+                }
+            )
     return pd.DataFrame(rows)
 
 
@@ -404,13 +400,15 @@ def evaluate_h1(morris_df: pd.DataFrame, top_k: int = 3) -> pd.DataFrame:
         else:
             top = grp.nlargest(top_k, "mu_star")
             frac = float(top["mu_star"].sum() / total)
-        rows.append({
-            "scenario": sk,
-            "sex": xk,
-            "output": out_name,
-            "top3_fraction": frac,
-            "h1_pass": frac >= 0.5,
-        })
+        rows.append(
+            {
+                "scenario": sk,
+                "sex": xk,
+                "output": out_name,
+                "top3_fraction": frac,
+                "h1_pass": frac >= 0.5,
+            }
+        )
     return pd.DataFrame(rows)
 
 

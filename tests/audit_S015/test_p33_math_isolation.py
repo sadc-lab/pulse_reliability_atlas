@@ -67,17 +67,21 @@ def main() -> int:
     print(_safe("[PASS] empty-EE edge case: all NaN"))
 
     # --- Block bootstrap CI: 3 trajectories, 2 EEs each ---
-    df = pd.DataFrame({
-        "trajectory": [0, 0, 1, 1, 2, 2],
-        "ee": [10.0, -6.0, 8.0, -4.0, 12.0, -2.0],
-    })
+    df = pd.DataFrame(
+        {
+            "trajectory": [0, 0, 1, 1, 2, 2],
+            "ee": [10.0, -6.0, 8.0, -4.0, 12.0, -2.0],
+        }
+    )
     rng = np.random.default_rng(123)
     lo, hi = _block_bootstrap_mu_star_ci(df, n_bootstrap=5000, rng=rng, alpha=0.05)
     print(_safe("\nBlock bootstrap (3 traj x 2 EE, B=5000, alpha=0.05):"))
     print(_safe(f"  mu_star point = {expected_mu_star}"))
     print(_safe(f"  CI = [{lo:.4f}, {hi:.4f}]"))
     # CI should bracket the point estimate
-    assert lo <= expected_mu_star <= hi, f"CI [{lo}, {hi}] does not bracket mu_star={expected_mu_star}"
+    assert lo <= expected_mu_star <= hi, (
+        f"CI [{lo}, {hi}] does not bracket mu_star={expected_mu_star}"
+    )
     # Sanity: lo > 0 since all |EE| are positive integers
     assert lo > 0, f"CI lower bound should be > 0; got {lo}"
     print(_safe("[PASS] block bootstrap CI brackets the mu_star point estimate."))

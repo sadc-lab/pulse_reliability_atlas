@@ -10,6 +10,18 @@ Classifies each run on four orthogonal failure modes:
 Thresholds follow `preregistration.md` §Flags (2026-04-22). No run is discarded;
 every run is categorized. Do not silently change thresholds — amend the preregistration
 first if a threshold needs revision.
+
+For threshold provenance and clinical-anchor rationale, see manuscript §2.6
+(HARD_BOUNDS / DRIFT_MAX_DELTA_60S tables, each row tied to its primary source).
+For mechanism interpretation of the flags as they manifest on the 1,280-run
+sweep — F-004 patient-ventilator dyssynchrony driving `not_steady_state` via
+Vt CV, F-003 transient hyperoxia regime driving `implausible` via PaO2 > 600
+at FiO2 = 1.0, and the SpO2-saturation detector edge case identified by S022 —
+see manuscript §3.8 + Appendix C and lab notebooks S013 (lexical lockdown) /
+S014 (F-004 causal test) / S021 (F-003 transient regime) / S022 (NSS sub-mode
+attribution). This module deliberately does not duplicate that prose; it
+implements the locked four-flag contract and points readers to the canonical
+explanations.
 """
 
 from __future__ import annotations
@@ -83,6 +95,7 @@ def reclassify_implausible_against(
     if isinstance(pao2_mean, pd.Series):
         return (pao2_mean < lo) | (pao2_mean > hi)
     return bool(pao2_mean < lo or pao2_mean > hi)
+
 
 # Max |Δ| over 60 s — slope × 60 s that exceeds this ⇒ `not_steady_state` (drift)
 # Units match the Pulse CSV column (SpO2 is fraction, so 0.02 = 2%).
@@ -331,9 +344,7 @@ def check_not_steady_state(stats: dict[str, SteadyStateStats]) -> FlagResult:
 
 def _steady_state_window(df: pd.DataFrame) -> pd.DataFrame:
     """Return rows with time_s ∈ [60, 120] (inclusive)."""
-    mask = (df["time_s"] >= STEADY_STATE_T_LO - 1e-6) & (
-        df["time_s"] <= STEADY_STATE_T_HI + 1e-6
-    )
+    mask = (df["time_s"] >= STEADY_STATE_T_LO - 1e-6) & (df["time_s"] <= STEADY_STATE_T_HI + 1e-6)
     return df.loc[mask].reset_index(drop=True)
 
 

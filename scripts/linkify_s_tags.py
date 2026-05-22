@@ -67,9 +67,7 @@ def find_table_ranges(lines: list[str]) -> list[tuple[int, int]]:
 def linkify_line(line: str) -> str:
     """Apply S0NN linkification to a single line, respecting links and code."""
     # Pass 1: redirect existing [S0NN](anything) -> [S0NN](#s0nn).
-    line = EXISTING_LINK_RE.sub(
-        lambda m: f"{m.group(1)}(#s0{m.group(2)})", line
-    )
+    line = EXISTING_LINK_RE.sub(lambda m: f"{m.group(1)}(#s0{m.group(2)})", line)
 
     # Pass 2: stash every remaining markdown link (text + url) AND every
     # inline code span. After this, no markdown link or code span content
@@ -85,9 +83,7 @@ def linkify_line(line: str) -> str:
     line = INLINE_CODE_RE.sub(stash, line)
 
     # Pass 3: linkify any remaining bare S0NN occurrences.
-    line = S0NN_RE.sub(
-        lambda m: f"[{m.group(0)}](#{m.group(0).lower()})", line
-    )
+    line = S0NN_RE.sub(lambda m: f"[{m.group(0)}](#{m.group(0).lower()})", line)
 
     # Restore the stashed pieces.
     for key, val in placeholders.items():

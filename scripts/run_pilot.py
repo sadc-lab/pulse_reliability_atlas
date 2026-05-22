@@ -65,8 +65,8 @@ RERUNS_PER_INDEX: int = 2
 
 # Disjoint case_id namespaces so reruns and probes never collide with the
 # unique Morris points (which use run_idx ∈ [0, 15]).
-RERUN_RUN_IDX_OFFSET: int = 9000   # rerun cid = 9000 + src_idx*10 + k
-PROBE_RUN_IDX_OFFSET: int = 9900   # probe cid = 9900 + probe_idx
+RERUN_RUN_IDX_OFFSET: int = 9000  # rerun cid = 9000 + src_idx*10 + k
+PROBE_RUN_IDX_OFFSET: int = 9900  # probe cid = 9900 + probe_idx
 
 RUNS_ROOT = REPO_ROOT / "data" / "runs" / "pilot_S1_M"
 SAMPLE_PATH = RUNS_ROOT / "morris_sample.parquet"
@@ -85,9 +85,7 @@ CLAMP_PROBES: tuple[dict[str, float], ...] = (
 
 
 def _rerun_case_id(src_idx: int, k: int) -> str:
-    return case_id(
-        PILOT_SCENARIO, PILOT_SEX, run_idx=RERUN_RUN_IDX_OFFSET + src_idx * 10 + k
-    )
+    return case_id(PILOT_SCENARIO, PILOT_SEX, run_idx=RERUN_RUN_IDX_OFFSET + src_idx * 10 + k)
 
 
 def _probe_case_id(probe_idx: int) -> str:
@@ -96,9 +94,7 @@ def _probe_case_id(probe_idx: int) -> str:
 
 def _build_jobs() -> tuple[list[tuple[dict, str]], pd.DataFrame, list[str], list[str]]:
     """Return (jobs, sample_df, rerun_case_ids, probe_case_ids)."""
-    sample = sample_morris(
-        trajectories=PILOT_TRAJECTORIES, levels=PILOT_LEVELS, seed=PILOT_SEED
-    )
+    sample = sample_morris(trajectories=PILOT_TRAJECTORIES, levels=PILOT_LEVELS, seed=PILOT_SEED)
     SAMPLE_PATH.parent.mkdir(parents=True, exist_ok=True)
     save_sample(sample, SAMPLE_PATH)
 
@@ -124,9 +120,7 @@ def _build_jobs() -> tuple[list[tuple[dict, str]], pd.DataFrame, list[str], list
     probe_ids: list[str] = []
     for p_idx, probe in enumerate(CLAMP_PROBES):
         cid = _probe_case_id(p_idx)
-        cfg = build_config(
-            pd.Series(probe), PILOT_SCENARIO, PILOT_SEX, cid, clip_dbp=False
-        )
+        cfg = build_config(pd.Series(probe), PILOT_SCENARIO, PILOT_SEX, cid, clip_dbp=False)
         jobs.append((cfg, cid))
         probe_ids.append(cid)
 
@@ -142,9 +136,7 @@ def _evaluate_gates(
     gates: dict[str, dict] = {}
 
     # Restrict G1, G2, G3 to the 16 Morris-sampled points (run_idx in [0, 15])
-    morris_cids = {
-        case_id(PILOT_SCENARIO, PILOT_SEX, run_idx=int(i)) for i in range(len(sample))
-    }
+    morris_cids = {case_id(PILOT_SCENARIO, PILOT_SEX, run_idx=int(i)) for i in range(len(sample))}
     morris_df = df[df["case_id"].isin(morris_cids)]
     probe_df = df[df["case_id"].isin(probe_ids)]
 
@@ -185,7 +177,9 @@ def _evaluate_gates(
     # G4 — Clamp probes must fire `clamped`
     if probe_df.empty:
         gates["G4_clamped_fires"] = {
-            "pass": False, "criterion": "clamp probes fired", "note": "no probes recorded",
+            "pass": False,
+            "criterion": "clamp probes fired",
+            "note": "no probes recorded",
         }
     else:
         n_probe_clamped = int(probe_df["clamped"].sum())
@@ -275,9 +269,20 @@ def main() -> int:
     write_parquet(df, parquet)
 
     cols = [
-        "case_id", "in_hr", "in_sbp", "in_dbp", "in_rr", "in_vt", "in_fio2",
-        "in_peep", "exit_code", "diverged", "clamped", "implausible",
-        "not_steady_state", "clean",
+        "case_id",
+        "in_hr",
+        "in_sbp",
+        "in_dbp",
+        "in_rr",
+        "in_vt",
+        "in_fio2",
+        "in_peep",
+        "exit_code",
+        "diverged",
+        "clamped",
+        "implausible",
+        "not_steady_state",
+        "clean",
     ]
     print("\n=== Per-run summary ===")
     print(df[cols].to_string(index=False))

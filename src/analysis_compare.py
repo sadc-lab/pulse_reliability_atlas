@@ -75,16 +75,18 @@ def wasserstein_per_output(
                 p_emp = float(np.mean(null >= w))
                 null_p95 = float(np.quantile(null, 0.95))
                 null_p50 = float(np.quantile(null, 0.50))
-            rows.append({
-                "scenario": sk,
-                "output": ch,
-                "n_male": int(mv.size),
-                "n_female": int(fv.size),
-                "wasserstein": w,
-                "wasserstein_null_p50": null_p50,
-                "wasserstein_null_p95": null_p95,
-                "p_value_empirical": p_emp,
-            })
+            rows.append(
+                {
+                    "scenario": sk,
+                    "output": ch,
+                    "n_male": int(mv.size),
+                    "n_female": int(fv.size),
+                    "wasserstein": w,
+                    "wasserstein_null_p50": null_p50,
+                    "wasserstein_null_p95": null_p95,
+                    "p_value_empirical": p_emp,
+                }
+            )
     return pd.DataFrame(rows)
 
 
@@ -108,18 +110,8 @@ def spearman_mu_star_male_vs_female(
         m = morris_df[(morris_df["scenario"] == sk) & (morris_df["sex"] == "M")]
         f = morris_df[(morris_df["scenario"] == sk) & (morris_df["sex"] == "F")]
         for ch in STAT_CHANNELS:
-            mv = (
-                m[m["output"] == ch]
-                .set_index("input")["mu_star"]
-                .reindex(INPUT_NAMES)
-                .to_numpy()
-            )
-            fv = (
-                f[f["output"] == ch]
-                .set_index("input")["mu_star"]
-                .reindex(INPUT_NAMES)
-                .to_numpy()
-            )
+            mv = m[m["output"] == ch].set_index("input")["mu_star"].reindex(INPUT_NAMES).to_numpy()
+            fv = f[f["output"] == ch].set_index("input")["mu_star"].reindex(INPUT_NAMES).to_numpy()
             if np.isnan(mv).any() or np.isnan(fv).any() or mv.size < 3:
                 rho = float("nan")
                 pval = float("nan")
@@ -144,23 +136,23 @@ def spearman_mu_star_male_vs_female(
                 else:
                     rho_lo = float(np.quantile(boot, 0.025))
                     rho_hi = float(np.quantile(boot, 0.975))
-            rows.append({
-                "scenario": sk,
-                "output": ch,
-                "spearman_rho": rho,
-                "spearman_p": pval,
-                "spearman_rho_lo": rho_lo,
-                "spearman_rho_hi": rho_hi,
-            })
+            rows.append(
+                {
+                    "scenario": sk,
+                    "output": ch,
+                    "spearman_rho": rho,
+                    "spearman_p": pval,
+                    "spearman_rho_lo": rho_lo,
+                    "spearman_rho_hi": rho_hi,
+                }
+            )
     return pd.DataFrame(rows)
 
 
 # ---------- Clamp / divergence / not-steady-state maps ---------- #
 
 
-def flag_count_grid(
-    df_master: pd.DataFrame, flag: str, n_bins: int = 5
-) -> pd.DataFrame:
+def flag_count_grid(df_master: pd.DataFrame, flag: str, n_bins: int = 5) -> pd.DataFrame:
     """Build per-(cell, input-pair) heatmap of `flag` rate.
 
     For every cell and every (input_a, input_b) pair, returns the fraction of
@@ -189,22 +181,22 @@ def flag_count_grid(
                     .agg(["sum", "count"])
                 )
                 for (a_bin, b_bin), row in grid.iterrows():
-                    rows.append({
-                        "scenario": sk,
-                        "sex": xk,
-                        "input_a": a,
-                        "input_b": b,
-                        "a_bin": a_bin,
-                        "b_bin": b_bin,
-                        "flag": flag,
-                        "n_flagged": int(row["sum"]),
-                        "n_total": int(row["count"]),
-                        "rate": (
-                            float(row["sum"]) / float(row["count"])
-                            if row["count"] > 0
-                            else 0.0
-                        ),
-                    })
+                    rows.append(
+                        {
+                            "scenario": sk,
+                            "sex": xk,
+                            "input_a": a,
+                            "input_b": b,
+                            "a_bin": a_bin,
+                            "b_bin": b_bin,
+                            "flag": flag,
+                            "n_flagged": int(row["sum"]),
+                            "n_total": int(row["count"]),
+                            "rate": (
+                                float(row["sum"]) / float(row["count"]) if row["count"] > 0 else 0.0
+                            ),
+                        }
+                    )
     return pd.DataFrame(rows)
 
 
@@ -253,18 +245,20 @@ def reliability_classification(df_master: pd.DataFrame) -> pd.DataFrame:
                     light = "yellow"
                 else:
                     light = "green"
-            rows.append({
-                "scenario": sk,
-                "sex": xk,
-                "output": ch,
-                "mean_clean": mean_clean,
-                "baseline_S1M": baseline,
-                "pct_off_baseline": pct_off,
-                "n_total": n_total,
-                "n_diverged": n_diverged,
-                "n_implausible": n_implausible,
-                "light": light,
-            })
+            rows.append(
+                {
+                    "scenario": sk,
+                    "sex": xk,
+                    "output": ch,
+                    "mean_clean": mean_clean,
+                    "baseline_S1M": baseline,
+                    "pct_off_baseline": pct_off,
+                    "n_total": n_total,
+                    "n_diverged": n_diverged,
+                    "n_implausible": n_implausible,
+                    "light": light,
+                }
+            )
     return pd.DataFrame(rows)
 
 
@@ -276,16 +270,18 @@ def cell_flag_summary(df_master: pd.DataFrame) -> pd.DataFrame:
     n_not_steady_state, n_clean. Suitable as the paper's Table 1."""
     rows: list[dict] = []
     for (sk, xk), grp in df_master.groupby(["scenario", "sex"]):
-        rows.append({
-            "scenario": sk,
-            "sex": xk,
-            "n_total": int(len(grp)),
-            "n_clamped": int(grp["clamped"].sum()),
-            "n_diverged": int(grp["diverged"].sum()),
-            "n_implausible": int(grp["implausible"].sum()),
-            "n_not_steady_state": int(grp["not_steady_state"].sum()),
-            "n_clean": int(grp["clean"].sum()),
-        })
+        rows.append(
+            {
+                "scenario": sk,
+                "sex": xk,
+                "n_total": int(len(grp)),
+                "n_clamped": int(grp["clamped"].sum()),
+                "n_diverged": int(grp["diverged"].sum()),
+                "n_implausible": int(grp["implausible"].sum()),
+                "n_not_steady_state": int(grp["not_steady_state"].sum()),
+                "n_clean": int(grp["clean"].sum()),
+            }
+        )
     return pd.DataFrame(rows)
 
 

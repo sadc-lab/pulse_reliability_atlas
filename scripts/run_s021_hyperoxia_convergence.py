@@ -85,11 +85,11 @@ SAMPLE_INTERVAL_S: int = 5
 
 # Subset design
 TARGET_FIO2: float = 1.0
-S1_USE_ALL_COMMON: bool = True            # all 22 common indices on S1
-SHUNT_N_INDICES_PER_CELL: int = 4         # 4 common indices on S3, S4
+S1_USE_ALL_COMMON: bool = True  # all 22 common indices on S1
+SHUNT_N_INDICES_PER_CELL: int = 4  # 4 common indices on S3, S4
 
 # Pre-registered decision thresholds (committed before any S021 run)
-DRIFT_THRESHOLD_MMHG_PER_60S: float = 15.0        # matches atlas DRIFT_MAX_DELTA_60S["PaO2"]
+DRIFT_THRESHOLD_MMHG_PER_60S: float = 15.0  # matches atlas DRIFT_MAX_DELTA_60S["PaO2"]
 PLATEAU_WINDOW_S: tuple[float, float] = (240.0, 300.0)
 HYP2_FRAC_CONVERGED_MIN: float = 0.75
 HYP2_PLATEAU_BAND_MMHG: tuple[float, float] = (580.0, 680.0)
@@ -140,11 +140,11 @@ def row_to_sample_row(r: pd.Series) -> pd.Series:
     """Map aggregated-parquet row to the (hr, sbp, dbp, ...) form for build_config."""
     return pd.Series(
         {
-            "hr":   r["in_hr"],
-            "sbp":  r["in_sbp"],
-            "dbp":  r["dbp_requested"],
-            "rr":   r["in_rr"],
-            "vt":   r["in_vt"],
+            "hr": r["in_hr"],
+            "sbp": r["in_sbp"],
+            "dbp": r["dbp_requested"],
+            "rr": r["in_rr"],
+            "vt": r["in_vt"],
             "fio2": r["in_fio2"],
             "peep": r["in_peep"],
         }
@@ -162,11 +162,13 @@ def extract_trajectory(run_dir: Path) -> pd.DataFrame:
     df = pd.read_csv(csv_path)
     if "time_s" not in df.columns:
         return pd.DataFrame(columns=["case_id", "time_s", "PaO2_mmHg"])
-    out = pd.DataFrame({
-        "case_id": run_dir.name,
-        "time_s": df["time_s"],
-        "PaO2_mmHg": df.get("ArterialOxygenPressure"),
-    })
+    out = pd.DataFrame(
+        {
+            "case_id": run_dir.name,
+            "time_s": df["time_s"],
+            "PaO2_mmHg": df.get("ArterialOxygenPressure"),
+        }
+    )
     return out
 
 
@@ -247,18 +249,22 @@ def main() -> None:
         trj = extract_trajectory(run_dir)
         trj_frames.append(trj)
         plateau_val, drift = plateau_stats(trj)
-        plateau_rows.append({
-            "case_id_orig": r["case_id"],
-            "case_id_long": case_id,
-            "scenario": r["scenario"],
-            "sex": r["sex"],
-            "run_idx": int(r["case_id"].split("_")[-1]),
-            "fio2": r["in_fio2"],
-            "PaO2_mean_orig_120s": float(r.get("PaO2_mean", float("nan"))),
-            "PaO2_plateau_mmHg": plateau_val,
-            "PaO2_plateau_drift_mmHg_per_60s": drift,
-            "converged": (abs(drift) < DRIFT_THRESHOLD_MMHG_PER_60S) if drift == drift else False,
-        })
+        plateau_rows.append(
+            {
+                "case_id_orig": r["case_id"],
+                "case_id_long": case_id,
+                "scenario": r["scenario"],
+                "sex": r["sex"],
+                "run_idx": int(r["case_id"].split("_")[-1]),
+                "fio2": r["in_fio2"],
+                "PaO2_mean_orig_120s": float(r.get("PaO2_mean", float("nan"))),
+                "PaO2_plateau_mmHg": plateau_val,
+                "PaO2_plateau_drift_mmHg_per_60s": drift,
+                "converged": (abs(drift) < DRIFT_THRESHOLD_MMHG_PER_60S)
+                if drift == drift
+                else False,
+            }
+        )
     plateau = pd.DataFrame(plateau_rows)
     plateau.to_parquet(RUNS_ROOT / "plateau_stats.parquet")
     pd.concat(trj_frames, ignore_index=True).to_parquet(RUNS_ROOT / "trajectories.parquet")
@@ -276,12 +282,9 @@ def main() -> None:
         s1_converged >= HYP2_FRAC_CONVERGED_MIN
         and HYP2_PLATEAU_BAND_MMHG[0] <= s1_plateau_median <= HYP2_PLATEAU_BAND_MMHG[1]
     )
-    hyp1_supported = (
-        s1_plateau_median > HYP1_PLATEAU_OVER_MMHG
-        or (
-            s1_converged < HYP1_FRAC_CONVERGED_MAX
-            and s1_converged_plateau_median > HYP1_CONVERGED_PLATEAU_MIN
-        )
+    hyp1_supported = s1_plateau_median > HYP1_PLATEAU_OVER_MMHG or (
+        s1_converged < HYP1_FRAC_CONVERGED_MAX
+        and s1_converged_plateau_median > HYP1_CONVERGED_PLATEAU_MIN
     )
     if hyp2_supported and not hyp1_supported:
         decision = "HYPOTHESIS_II_TRANSIENT_REGIME_SUPPORTED"
@@ -294,14 +297,22 @@ def main() -> None:
     aux_rows = []
     for sc in ["S1", "S3", "S4"]:
         sub = plateau[plateau["scenario"] == sc]
-        aux_rows.append({
-            "scenario": sc,
-            "n": int(len(sub)),
-            "plateau_median_mmHg": float(sub["PaO2_plateau_mmHg"].median()) if len(sub) else float("nan"),
-            "plateau_p25_mmHg": float(sub["PaO2_plateau_mmHg"].quantile(0.25)) if len(sub) else float("nan"),
-            "plateau_p75_mmHg": float(sub["PaO2_plateau_mmHg"].quantile(0.75)) if len(sub) else float("nan"),
-            "frac_converged": float(sub["converged"].mean()) if len(sub) else float("nan"),
-        })
+        aux_rows.append(
+            {
+                "scenario": sc,
+                "n": int(len(sub)),
+                "plateau_median_mmHg": float(sub["PaO2_plateau_mmHg"].median())
+                if len(sub)
+                else float("nan"),
+                "plateau_p25_mmHg": float(sub["PaO2_plateau_mmHg"].quantile(0.25))
+                if len(sub)
+                else float("nan"),
+                "plateau_p75_mmHg": float(sub["PaO2_plateau_mmHg"].quantile(0.75))
+                if len(sub)
+                else float("nan"),
+                "frac_converged": float(sub["converged"].mean()) if len(sub) else float("nan"),
+            }
+        )
 
     summary = {
         "n_runs": int(len(plateau)),

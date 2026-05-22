@@ -103,8 +103,7 @@ def sample_morris(
     expected_rows = trajectories * (NUM_INPUTS + 1)
     if arr.shape != (expected_rows, NUM_INPUTS):
         raise RuntimeError(
-            f"unexpected SALib output shape {arr.shape}; "
-            f"expected ({expected_rows}, {NUM_INPUTS})"
+            f"unexpected SALib output shape {arr.shape}; expected ({expected_rows}, {NUM_INPUTS})"
         )
 
     df = pd.DataFrame(arr, columns=list(INPUT_NAMES))

@@ -38,11 +38,11 @@ from src.scenario import (  # noqa: E402
 # Mid-range values for each Morris input, taken from the locked ranges
 # (see preregistration §Inputs). DBP=70 satisfies 0.75*SBP=78.75 so no clip.
 MIDRANGE: dict[str, float] = {
-    "hr":   80.0,
-    "sbp":  105.0,
-    "dbp":  70.0,
-    "rr":   14.0,
-    "vt":   550.0,
+    "hr": 80.0,
+    "sbp": 105.0,
+    "dbp": 70.0,
+    "rr": 14.0,
+    "vt": 550.0,
     "fio2": 0.6,
     "peep": 10.0,
 }
@@ -69,9 +69,20 @@ def main() -> int:
     # Summary
     print("\n=== Scenario smoke summary ===")
     cols = [
-        "case_id", "scenario", "sex", "exit_code",
-        "diverged", "clamped", "implausible", "not_steady_state",
-        "HR_mean", "MAP_mean", "Vt_mean", "SpO2_mean", "PaO2_mean", "PaCO2_mean",
+        "case_id",
+        "scenario",
+        "sex",
+        "exit_code",
+        "diverged",
+        "clamped",
+        "implausible",
+        "not_steady_state",
+        "HR_mean",
+        "MAP_mean",
+        "Vt_mean",
+        "SpO2_mean",
+        "PaO2_mean",
+        "PaCO2_mean",
     ]
     df_summary = df[cols].copy()
     print(df_summary.to_string(index=False))

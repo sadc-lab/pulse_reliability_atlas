@@ -39,9 +39,7 @@ from src import detector as d  # noqa: E402
 # external researchers without Paper 1's data can still execute this script
 # without errors -- it simply has nothing to validate against.
 _DEFAULT_TRANSLATION_DIR = ROOT.parent / "Pulse_translation_new" / "data" / "engine_runs"
-TRANSLATION_DIR = Path(
-    os.environ.get("PULSE_TRANSLATION_RUNS_DIR", str(_DEFAULT_TRANSLATION_DIR))
-)
+TRANSLATION_DIR = Path(os.environ.get("PULSE_TRANSLATION_RUNS_DIR", str(_DEFAULT_TRANSLATION_DIR)))
 RESULTS_DIR = ROOT / "results"
 
 

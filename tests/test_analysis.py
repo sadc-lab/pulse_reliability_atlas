@@ -20,7 +20,15 @@ from src import sampler as sm
 def test_evaluate_h1_passes_when_top3_dominates():
     """Synthetic mu_star with top-3 inputs at 100 and rest at 0 → H1 trivially passes."""
     rows = []
-    for inp, val in [("hr", 100), ("sbp", 100), ("dbp", 100), ("rr", 0), ("vt", 0), ("fio2", 0), ("peep", 0)]:
+    for inp, val in [
+        ("hr", 100),
+        ("sbp", 100),
+        ("dbp", 100),
+        ("rr", 0),
+        ("vt", 0),
+        ("fio2", 0),
+        ("peep", 0),
+    ]:
         rows.append({"scenario": "S1", "sex": "M", "output": "HR", "input": inp, "mu_star": val})
     df = pd.DataFrame(rows)
     out = am.evaluate_h1(df)
@@ -44,9 +52,30 @@ def test_sobol_promotion_thresholds():
     """sigma/mu_star >= 0.6 → promote; <= 0.4 → skip; else gray."""
     df = pd.DataFrame(
         [
-            {"scenario": "S1", "sex": "M", "output": "HR", "input": "hr", "mu_star": 10.0, "sigma": 7.0},  # 0.7 -> promote
-            {"scenario": "S1", "sex": "M", "output": "HR", "input": "rr", "mu_star": 10.0, "sigma": 3.0},  # 0.3 -> skip
-            {"scenario": "S1", "sex": "M", "output": "HR", "input": "vt", "mu_star": 10.0, "sigma": 5.0},  # 0.5 -> gray
+            {
+                "scenario": "S1",
+                "sex": "M",
+                "output": "HR",
+                "input": "hr",
+                "mu_star": 10.0,
+                "sigma": 7.0,
+            },  # 0.7 -> promote
+            {
+                "scenario": "S1",
+                "sex": "M",
+                "output": "HR",
+                "input": "rr",
+                "mu_star": 10.0,
+                "sigma": 3.0,
+            },  # 0.3 -> skip
+            {
+                "scenario": "S1",
+                "sex": "M",
+                "output": "HR",
+                "input": "vt",
+                "mu_star": 10.0,
+                "sigma": 5.0,
+            },  # 0.5 -> gray
         ]
     )
     out = am.sobol_promotion(df, top_k=3)
@@ -94,9 +123,7 @@ def test_block_bootstrap_sigma_ci_brackets_estimate():
 
 def test_block_bootstrap_sigma_ci_constant_ees_zero():
     """If all EEs are identical, sigma=0 and CI collapses to [0, 0]."""
-    df = pd.DataFrame(
-        {"trajectory": np.repeat(np.arange(5), 4), "ee": np.full(20, 3.14)}
-    )
+    df = pd.DataFrame({"trajectory": np.repeat(np.arange(5), 4), "ee": np.full(20, 3.14)})
     rng = np.random.default_rng(0)
     lo, hi = am._block_bootstrap_sigma_ci(df, n_bootstrap=200, rng=rng)
     assert lo == pytest.approx(0.0)
@@ -111,13 +138,33 @@ def test_wasserstein_per_output_synthetic():
     n = 50
     rows = []
     for v in rng.normal(0, 1, n):
-        rows.append({"scenario": "S1", "sex": "M", "clean": True, "HR_mean": v,
-                     "MAP_mean": np.nan, "Vt_mean": np.nan, "SpO2_mean": np.nan,
-                     "PaO2_mean": np.nan, "PaCO2_mean": np.nan})
+        rows.append(
+            {
+                "scenario": "S1",
+                "sex": "M",
+                "clean": True,
+                "HR_mean": v,
+                "MAP_mean": np.nan,
+                "Vt_mean": np.nan,
+                "SpO2_mean": np.nan,
+                "PaO2_mean": np.nan,
+                "PaCO2_mean": np.nan,
+            }
+        )
     for v in rng.normal(5, 1, n):  # shifted by 5
-        rows.append({"scenario": "S1", "sex": "F", "clean": True, "HR_mean": v,
-                     "MAP_mean": np.nan, "Vt_mean": np.nan, "SpO2_mean": np.nan,
-                     "PaO2_mean": np.nan, "PaCO2_mean": np.nan})
+        rows.append(
+            {
+                "scenario": "S1",
+                "sex": "F",
+                "clean": True,
+                "HR_mean": v,
+                "MAP_mean": np.nan,
+                "Vt_mean": np.nan,
+                "SpO2_mean": np.nan,
+                "PaO2_mean": np.nan,
+                "PaCO2_mean": np.nan,
+            }
+        )
     df = pd.DataFrame(rows)
     out = ac.wasserstein_per_output(df, scenarios=["S1"], n_null=200)
     hr_row = out[out["output"] == "HR"].iloc[0]
@@ -133,13 +180,33 @@ def test_wasserstein_null_high_p_for_same_distribution():
     n = 50
     rows = []
     for v in rng.normal(0, 1, n):
-        rows.append({"scenario": "S1", "sex": "M", "clean": True, "HR_mean": v,
-                     "MAP_mean": np.nan, "Vt_mean": np.nan, "SpO2_mean": np.nan,
-                     "PaO2_mean": np.nan, "PaCO2_mean": np.nan})
+        rows.append(
+            {
+                "scenario": "S1",
+                "sex": "M",
+                "clean": True,
+                "HR_mean": v,
+                "MAP_mean": np.nan,
+                "Vt_mean": np.nan,
+                "SpO2_mean": np.nan,
+                "PaO2_mean": np.nan,
+                "PaCO2_mean": np.nan,
+            }
+        )
     for v in rng.normal(0, 1, n):  # SAME distribution
-        rows.append({"scenario": "S1", "sex": "F", "clean": True, "HR_mean": v,
-                     "MAP_mean": np.nan, "Vt_mean": np.nan, "SpO2_mean": np.nan,
-                     "PaO2_mean": np.nan, "PaCO2_mean": np.nan})
+        rows.append(
+            {
+                "scenario": "S1",
+                "sex": "F",
+                "clean": True,
+                "HR_mean": v,
+                "MAP_mean": np.nan,
+                "Vt_mean": np.nan,
+                "SpO2_mean": np.nan,
+                "PaO2_mean": np.nan,
+                "PaCO2_mean": np.nan,
+            }
+        )
     df = pd.DataFrame(rows)
     out = ac.wasserstein_per_output(df, scenarios=["S1"], n_null=200)
     hr_row = out[out["output"] == "HR"].iloc[0]
@@ -152,16 +219,29 @@ def test_cell_flag_summary_columns():
     rows = []
     for sk, sx in [("S1", "M"), ("S1", "F")]:
         for i in range(5):
-            rows.append({
-                "scenario": sk, "sex": sx,
-                "clamped": False, "diverged": (i == 0),
-                "implausible": False, "not_steady_state": False,
-                "clean": (i > 0),
-            })
+            rows.append(
+                {
+                    "scenario": sk,
+                    "sex": sx,
+                    "clamped": False,
+                    "diverged": (i == 0),
+                    "implausible": False,
+                    "not_steady_state": False,
+                    "clean": (i > 0),
+                }
+            )
     df = pd.DataFrame(rows)
     out = ac.cell_flag_summary(df)
-    expected_cols = {"scenario", "sex", "n_total", "n_clamped", "n_diverged",
-                     "n_implausible", "n_not_steady_state", "n_clean"}
+    expected_cols = {
+        "scenario",
+        "sex",
+        "n_total",
+        "n_clamped",
+        "n_diverged",
+        "n_implausible",
+        "n_not_steady_state",
+        "n_clean",
+    }
     assert expected_cols.issubset(out.columns)
     s1m = out[(out["scenario"] == "S1") & (out["sex"] == "M")].iloc[0]
     assert s1m["n_total"] == 5
@@ -178,10 +258,30 @@ def test_bh_fdr_adjust_reproduces_manuscript_24row_result():
     """
     # Empirical p-values from data/audit_S015/wasserstein_male_vs_female.csv
     p_values = [
-        0.305, 0.9945, 0.798, 0.123, 0.598, 0.009,  # S1: HR, MAP, Vt, SpO2, PaO2, PaCO2
-        0.958, 0.6515, 0.84, 0.0215, 0.0725, 0.0,   # S2: HR, MAP, Vt, SpO2, PaO2, PaCO2
-        0.333, 0.5375, 0.129, 0.1185, 0.245, 0.0,   # S3
-        0.9525, 0.46, 0.897, 0.0015, 0.003, 0.0825, # S4
+        0.305,
+        0.9945,
+        0.798,
+        0.123,
+        0.598,
+        0.009,  # S1: HR, MAP, Vt, SpO2, PaO2, PaCO2
+        0.958,
+        0.6515,
+        0.84,
+        0.0215,
+        0.0725,
+        0.0,  # S2: HR, MAP, Vt, SpO2, PaO2, PaCO2
+        0.333,
+        0.5375,
+        0.129,
+        0.1185,
+        0.245,
+        0.0,  # S3
+        0.9525,
+        0.46,
+        0.897,
+        0.0015,
+        0.003,
+        0.0825,  # S4
     ]
     df = pd.DataFrame({"p_value_empirical": p_values})
     out = ac.bh_fdr_adjust(df, q=0.05)

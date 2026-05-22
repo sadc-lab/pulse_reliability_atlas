@@ -56,7 +56,7 @@ OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
 SPO2_SAT_THRESHOLD = 0.999  # SpO2 mean at/above this is treated as
-                            # physiological saturation, not numerical pinning
+# physiological saturation, not numerical pinning
 
 FLATLINE_RE = re.compile(r"(\w+) flatline at extreme \(mean=([0-9.eE+\-]+)\)")
 CV_RE = re.compile(r"(\w+) CV=([0-9.eE+\-]+) > ([0-9.eE+\-]+)")

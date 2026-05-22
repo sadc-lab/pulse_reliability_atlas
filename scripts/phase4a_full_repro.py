@@ -74,10 +74,15 @@ def _format_hms(seconds: float) -> str:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Phase 4a — full same-seed re-execution.")
-    parser.add_argument("--resume", action="store_true",
-                        help="skip runs whose run_meta.json already exists")
-    parser.add_argument("--cells", nargs="+", default=None,
-                        help="restrict to subset of cells, e.g. --cells S1_M S2_F")
+    parser.add_argument(
+        "--resume", action="store_true", help="skip runs whose run_meta.json already exists"
+    )
+    parser.add_argument(
+        "--cells",
+        nargs="+",
+        default=None,
+        help="restrict to subset of cells, e.g. --cells S1_M S2_F",
+    )
     parser.add_argument("--timeout-s", type=float, default=600.0)
     args = parser.parse_args(argv)
 
@@ -94,6 +99,7 @@ def main(argv: list[str] | None = None) -> int:
     else:
         cells = []
         from src.scenario import PATIENTS, SCENARIOS
+
         for token in args.cells:
             sk, xk = token.split("_", 1)
             if sk not in SCENARIOS or xk not in PATIENTS:
@@ -119,7 +125,9 @@ def main(argv: list[str] | None = None) -> int:
             cfg = build_config(row, sk, xk, cid)
             jobs.append((cfg, cid))
         skipped = len(sample) - len(jobs)
-        print(f"\n[phase4a] === cell {sk}_{xk} === {len(jobs)} runs ({skipped} skipped via --resume)")
+        print(
+            f"\n[phase4a] === cell {sk}_{xk} === {len(jobs)} runs ({skipped} skipped via --resume)"
+        )
         if jobs:
             run_many(jobs, runs_root=cell_root, timeout_s=args.timeout_s, overwrite=False)
 
@@ -128,7 +136,9 @@ def main(argv: list[str] | None = None) -> int:
         cell_agg = cell_root / "aggregated.parquet"
         write_parquet(df_cell, cell_agg)
         elapsed = time.monotonic() - cell_start
-        print(f"[phase4a] cell {sk}_{xk} done in {_format_hms(elapsed)} -> {cell_agg.relative_to(REPO_ROOT)}")
+        print(
+            f"[phase4a] cell {sk}_{xk} done in {_format_hms(elapsed)} -> {cell_agg.relative_to(REPO_ROOT)}"
+        )
 
     # Master aggregate
     frames = []

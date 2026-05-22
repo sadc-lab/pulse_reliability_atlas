@@ -79,26 +79,25 @@ def build_row(run_dir: Path) -> dict[str, Any]:
         "sex": atlas_meta.get("sex"),
         "condition": cfg.get("condition"),
         "ards_severity": (
-            cfg.get("ards_severity", {}).get("left")
-            if "ards_severity" in cfg else 0.0
+            cfg.get("ards_severity", {}).get("left") if "ards_severity" in cfg else 0.0
         ),
         # Inputs (applied — what was sent to Pulse)
-        "in_hr":   baselines.get("hr"),
-        "in_rr":   baselines.get("rr"),
-        "in_sbp":  baselines.get("sbp"),
-        "in_dbp":  baselines.get("dbp"),
-        "in_vt":   vent.get("tidal_volume_ml"),
+        "in_hr": baselines.get("hr"),
+        "in_rr": baselines.get("rr"),
+        "in_sbp": baselines.get("sbp"),
+        "in_dbp": baselines.get("dbp"),
+        "in_vt": vent.get("tidal_volume_ml"),
         "in_fio2": vent.get("fio2"),
         "in_peep": vent.get("peep_cmh2o"),
         # Atlas metadata (requested vs applied DBP, derived MAP, clip flag)
-        "dbp_requested":   atlas_meta.get("dbp_requested"),
-        "dbp_applied":     atlas_meta.get("dbp_applied"),
+        "dbp_requested": atlas_meta.get("dbp_requested"),
+        "dbp_applied": atlas_meta.get("dbp_applied"),
         "dbp_was_clipped": atlas_meta.get("dbp_was_clipped"),
-        "map_derived":     atlas_meta.get("map_derived"),
+        "map_derived": atlas_meta.get("map_derived"),
         # Run meta
-        "exit_code":   meta.get("exit_code"),
+        "exit_code": meta.get("exit_code"),
         "wall_time_s": meta.get("wall_time_s"),
-        "image":       meta.get("image"),
+        "image": meta.get("image"),
     }
 
     result = classify(

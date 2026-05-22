@@ -70,8 +70,8 @@ def main() -> None:
 
     df["pao2_above_locked_bound"] = df["PaO2_mean"] > pao2_locked_hi
     df["pao2_above_physio_bound"] = df["PaO2_mean"] > pao2_physio_hi
-    df["pao2_in_grey_zone"] = (
-        (df["PaO2_mean"] > pao2_locked_hi) & (df["PaO2_mean"] <= pao2_physio_hi)
+    df["pao2_in_grey_zone"] = (df["PaO2_mean"] > pao2_locked_hi) & (
+        df["PaO2_mean"] <= pao2_physio_hi
     )
 
     # Reclassified = locked says implausible by PaO2-only and physio says clean
@@ -80,8 +80,13 @@ def main() -> None:
     )
 
     keep = [
-        "case_id", "scenario", "sex", "in_fio2",
-        "PaO2_mean", "PaO2_slope_per_s", "PaO2_delta_60s",
+        "case_id",
+        "scenario",
+        "sex",
+        "in_fio2",
+        "PaO2_mean",
+        "PaO2_slope_per_s",
+        "PaO2_delta_60s",
         "implausible_locked",
         "pao2_above_locked_bound",
         "pao2_above_physio_bound",
@@ -106,8 +111,11 @@ def main() -> None:
     )
     by_fio2 = (
         df.groupby("fio2_bin", observed=True)[
-            ["pao2_above_locked_bound", "pao2_above_physio_bound",
-             "reclassified_pao2_locked_to_physio_clean"]
+            [
+                "pao2_above_locked_bound",
+                "pao2_above_physio_bound",
+                "reclassified_pao2_locked_to_physio_clean",
+            ]
         ]
         .sum()
         .to_dict(orient="index")
@@ -117,15 +125,17 @@ def main() -> None:
     # Stratified by (scenario, sex)
     by_cell = (
         df.groupby(["scenario", "sex"], observed=True)[
-            ["pao2_above_locked_bound", "pao2_above_physio_bound",
-             "reclassified_pao2_locked_to_physio_clean"]
+            [
+                "pao2_above_locked_bound",
+                "pao2_above_physio_bound",
+                "reclassified_pao2_locked_to_physio_clean",
+            ]
         ]
         .sum()
         .to_dict(orient="index")
     )
     by_cell_serial = {
-        f"{sc}_{sex}": {kk: int(vv) for kk, vv in v.items()}
-        for (sc, sex), v in by_cell.items()
+        f"{sc}_{sex}": {kk: int(vv) for kk, vv in v.items()} for (sc, sex), v in by_cell.items()
     }
 
     summary = {
@@ -133,7 +143,7 @@ def main() -> None:
         "locked_PaO2_bound_hi_mmHg": pao2_locked_hi,
         "physiological_PaO2_bound_hi_mmHg": pao2_physio_hi,
         "n_runs_PaO2_above_locked_600": n_locked_implausible_pao2,
-        "n_runs_PaO2_above_physio_700":   n_physio_implausible_pao2,
+        "n_runs_PaO2_above_physio_700": n_physio_implausible_pao2,
         "n_reclassified_locked_to_physio_clean": n_reclassified,
         "by_fio2_bin": by_fio2_serial,
         "by_scenario_sex": by_cell_serial,
@@ -147,8 +157,12 @@ def main() -> None:
 
     print()
     print("=" * 70)
-    print(f"  Locked PaO2 bound:  <= {pao2_locked_hi:.0f} mmHg -> {n_locked_implausible_pao2} runs above")
-    print(f"  Physio PaO2 bound:  <= {pao2_physio_hi:.0f} mmHg -> {n_physio_implausible_pao2} runs above")
+    print(
+        f"  Locked PaO2 bound:  <= {pao2_locked_hi:.0f} mmHg -> {n_locked_implausible_pao2} runs above"
+    )
+    print(
+        f"  Physio PaO2 bound:  <= {pao2_physio_hi:.0f} mmHg -> {n_physio_implausible_pao2} runs above"
+    )
     print(f"  Reclassified (locked-implausible -> physio-clean): {n_reclassified}")
     print()
     print("  Reclassified runs by FiO2 bin:")

@@ -145,9 +145,7 @@ def main() -> None:
         m_out["rank"] = m_out.groupby(["scenario", "sex"])["mu_star"].rank(
             ascending=False, method="dense"
         )
-        morris_mean_rank = (
-            m_out.groupby("input")["rank"].mean().sort_values()
-        )
+        morris_mean_rank = m_out.groupby("input")["rank"].mean().sort_values()
         morris_global_ranking = morris_mean_rank.index.tolist()
 
         ov = topk_overlap(shap_top_ranked, morris_global_ranking, k=K)
@@ -175,15 +173,11 @@ def main() -> None:
             cell_rank = cell_mean_abs.sort_values(ascending=False).index.tolist()
 
             m_cell = morris[
-                (morris["scenario"] == sc)
-                & (morris["sex"] == sx)
-                & (morris["output"] == out_name)
+                (morris["scenario"] == sc) & (morris["sex"] == sx) & (morris["output"] == out_name)
             ].copy()
             if m_cell.empty:
                 continue
-            morris_cell_rank = (
-                m_cell.sort_values("mu_star", ascending=False)["input"].tolist()
-            )
+            morris_cell_rank = m_cell.sort_values("mu_star", ascending=False)["input"].tolist()
             cell_ov = topk_overlap(cell_rank, morris_cell_rank, k=K)
             topk_percell_rows.append(
                 {

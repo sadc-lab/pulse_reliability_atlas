@@ -34,10 +34,12 @@ def _clean_csv_df(
     """13 samples at 5 s in the steady-state window, optional tiny noise."""
     t = np.linspace(t_lo, t_hi, n_points)
     rng = np.random.default_rng(0)
+
     def col(mu: float) -> np.ndarray:
         if noise == 0:
             return np.full(n_points, mu)
         return mu + rng.normal(0, noise * abs(mu), n_points)
+
     return pd.DataFrame(
         {
             "time_s": t,
@@ -176,7 +178,7 @@ def test_diverged_on_empty_csv(tmp_path: Path) -> None:
 @pytest.mark.parametrize(
     "kwargs, channel",
     [
-        ({"hr": 15.0}, "HR"),   # below 20
+        ({"hr": 15.0}, "HR"),  # below 20
         ({"hr": 230.0}, "HR"),  # above 220
         ({"map_": 25.0}, "MAP"),
         ({"map_": 200.0}, "MAP"),
@@ -185,9 +187,7 @@ def test_diverged_on_empty_csv(tmp_path: Path) -> None:
         ({"paco2": 150.0}, "PaCO2"),
     ],
 )
-def test_implausible_outside_hard_bounds(
-    tmp_path: Path, kwargs: dict, channel: str
-) -> None:
+def test_implausible_outside_hard_bounds(tmp_path: Path, kwargs: dict, channel: str) -> None:
     df = _clean_csv_df(**kwargs)
     p = tmp_path / "impl.csv"
     df.to_csv(p, index=False)
