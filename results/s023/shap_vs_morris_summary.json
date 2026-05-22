@@ -1,0 +1,43 @@
+{
+  "n_runs_total": 1280,
+  "n_runs_clean": 663,
+  "outputs_modeled": [
+    "HR",
+    "MAP",
+    "Vt",
+    "SpO2",
+    "PaO2",
+    "PaCO2"
+  ],
+  "features_used": [
+    "hr",
+    "rr",
+    "sbp",
+    "dbp",
+    "vt",
+    "fio2",
+    "peep",
+    "sex_F",
+    "sex_M",
+    "scenario_S1",
+    "scenario_S2",
+    "scenario_S3",
+    "scenario_S4"
+  ],
+  "rf_settings": {
+    "model": "RandomForestRegressor(defaults, random_state=42)",
+    "n_estimators": 100,
+    "max_features": "sqrt"
+  },
+  "k": 3,
+  "global_avg_topk_overlap": 2.8333333333333335,
+  "per_cell_avg_topk_overlap": 2.3958333333333335,
+  "per_cell_full_match_count": 23,
+  "per_cell_total_comparisons": 48,
+  "caveats": [
+    "Training data is the clean subset only (selection bias).",
+    "Morris design is OAT, not uniform; SHAP attributions reflect empirical input distribution.",
+    "Per-cell SHAP comes from cell-conditional means of a single global RF, not from per-cell RFs (per-cell n=50-150 is too small for stable RF training).",
+    "Sex/scenario one-hot features are included to absorb confounding; comparison vs Morris is restricted to the 7 operational inputs."
+  ]
+}

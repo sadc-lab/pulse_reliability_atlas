@@ -2551,6 +2551,36 @@ bounded.*
   linear regimes identified here. Mapping the engine's reliability
   against the empirical distribution of clinical datasets remains a
   necessary limitation of the current theoretical atlas.
+* **`not_steady_state` is a composite flag — its 530 / 1,280 share is
+  not a single phenomenon.** A post-hoc trigger-attribution audit
+  ([S022](#s022)) shows that the locked `not_steady_state` count
+  bundles three distinct contributions: (i) **76 runs** flagged because
+  of physiological SpO2 saturation on healthy / well-oxygenated
+  patients (a detector edge case on the flatline rule — SpO2 = 1.0 is
+  the expected steady-state on adequate FiO2, not pinning); (ii)
+  **170 runs** flagged because of F-004 patient-ventilator
+  dyssynchrony (§3.8, documented finding causally confirmed by
+  [S014](#s014)); and (iii) a **185-run residual** dominated by S4
+  severe-ARDS slow convergence and S1 transient hyperoxia drift
+  (the F-003 phenomenon documented in §3.8 / [S012](#s012) /
+  [S021](#s021)). Of these, only (i) is a detector classification
+  edge case; (ii) and (iii) are real Pulse engine behaviours that
+  the locked classifier is correctly identifying. The headline atlas
+  numbers in §3.1 Table 1 stand under the locked classifier; the
+  per-cell sub-mode attribution table is reported in
+  [Appendix C](#appendix-c-not_steady_state-attribution-side-table-s022)
+  for readers who want to score "engine instability" separately from
+  "detector edge case on healthy oxygenation." Under the joint
+  exclusion the clean rate would rise from 51.8 % to 78.7 % — this is
+  presented as a decomposition, not a re-classification.
+* **`not_steady_state` cross-validation by ML/SHAP surrogate.** A
+  supplementary RandomForest + SHAP ranking on the n = 663 clean
+  subset ([S023](#s023)) recovers the Morris μ\* top-3 in 17 / 18
+  pooled (output × top-3) cases and in 23 / 48 per-cell cases at full
+  3 / 3 agreement (90 % of per-cell comparisons at ≥ 2 / 3). The
+  cross-check is reported in supplementary section S11 with the
+  honest caveats it requires (clean-subset bias, OAT non-uniform
+  design); see [`results/s023/`](../results/s023/) for artefacts.
 * **No comparable open atlas exists for sibling engines.** The atlas
   reports Pulse-specific reliability behaviour; it does not establish
   whether the patterns reported here (sex-stratified divergence,
@@ -2919,6 +2949,8 @@ during the literature-review pass logged in
 | []{#s019} S019 | Sobol bolt-on draft (Phase B item B3 — not executed; ready-to-fire) |
 | []{#s020} S020 | Pre-submission novelty audit (literature double-check on every "first" claim; one citation added) |
 | []{#s021} S021 | Hyperoxia convergence (60-run rerun at 300 s vs locked 120 s window; F-003 mechanism test) |
+| []{#s022} S022 | No-compute failure-mode attribution audit of the locked `not_steady_state` count (see Appendix C) |
+| []{#s023} S023 | Supplementary ML/SHAP cross-check of Morris μ\* rankings on the clean subset (see Supplementary §S11) |
 
 Each log file in `experiments_log/santino/` follows the template:
 hypothesis → motivation → method → what we tried → results → interpretation
@@ -3154,3 +3186,109 @@ finding has been carried forward by relabelling the surrogates as
 internal documentation; the original "Pulse standard" wording in the
 preregistration is preserved verbatim and flagged via a dated erratum
 block at the top of that document.
+
+## Appendix C — `not_steady_state` attribution side-table ([S022](#s022))
+
+The locked classifier's `not_steady_state` flag (§2.6) fires when any
+output channel violates one of three sub-mode rules in the
+[60, 120] s steady-state window: flatline at a hard bound, coefficient
+of variation > 5 %, or drift |Δ60s| above the per-channel threshold.
+Across the 1,280-run sweep 530 runs fire `not_steady_state`. A
+post-hoc trigger-attribution audit ([S022](#s022)) decomposes those
+530 by which sub-mode contributed; the locked classifier is unchanged,
+the table below is a presentation transform that gives readers a
+finer-grained read on what the flag is doing per cell.
+
+The two sub-modes audited are:
+
+* **SpO2 "flatline at ceiling" with mean ≥ 0.999.** A *detector edge
+  case*: under the locked flatline rule (std/|mean| < 0.01 *and* mean
+  within 0.001 of a hard bound), a healthy or well-oxygenated patient
+  whose SpO2 saturates physiologically at 1.0 is classified as
+  "pinned at the ceiling." This is correct numerically (std is tiny,
+  mean is at the bound) but not pathological — it is exactly the
+  expected hemoglobin saturation on adequate FiO2. The locked
+  classifier was designed to catch solver-pinning, not physiological
+  saturation; the two coincide numerically.
+* **Vt CV > 5 %.** The F-004 patient-ventilator dyssynchrony signal
+  described in §3.8 and causally tested in [S014](#s014). Pulse's
+  default VC-AC trigger configuration leaves the spontaneous-drive
+  respiratory model on, which inserts assist breaths between mandatory
+  cycles and produces real per-breath Vt variance. S014 confirmed that
+  supplying an explicit `InspirationPatientTriggerPressure` collapses
+  the Vt CV by 96 % (median 0.351 → 0.016) on 64 controlled reruns.
+  The `TidalVolume` CSV channel is breath-integrated and held between
+  cycles (S014, native 0.02 s waveform inspection), so the 5 s atlas
+  sampling is *not* aliasing — it captures real breath-to-breath
+  delivered volume.
+
+Per-cell attribution counts (locked nss preserved; remaining columns
+show the residual nss count after excluding the named sub-mode from
+the trigger criterion):
+
+```{=latex}
+\begin{center}
+\begin{tabular}{lrrrrrr}
+\toprule
+Cell & n\_total & n\_nss & n\_nss excl. & n\_nss excl. & n\_nss excl. & n\_clean excl. \\
+     &          &        & SpO2 sat.    & F-004        & both         & both         \\
+\midrule
+S1\_M & 160 & 107 & 91 & 74 & 29 & 127 \\
+S1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\
+\midrule
+S2\_M & 160 & 69  & 60 & 45 & 23 & 133 \\
+S2\_F & 160 & 68  & 52 & 44 & 7  & 153 \\
+\midrule
+S3\_M & 160 & 12  & 11 & 9  & 8  & 148 \\
+S3\_F & 160 & 38  & 34 & 10 & 3  & 157 \\
+\midrule
+S4\_M & 160 & 44  & 44 & 39 & 39 & 72 \\
+S4\_F & 160 & 74  & 74 & 52 & 52 & 82 \\
+\midrule
+\textbf{Total} & \textbf{1,280} & \textbf{530} & \textbf{454} & \textbf{360} & \textbf{185} & \textbf{1,008} \\
+\bottomrule
+\end{tabular}
+\end{center}
+```
+
+*Appendix C Table.* Per-cell attribution of the locked
+`not_steady_state` count by trigger sub-mode. Source:
+[`results/s022/nss_decomposition.csv`](../results/s022/nss_decomposition.csv).
+Generated by
+[`scripts/nss_decomposition_table.py`](../scripts/nss_decomposition_table.py).
+The locked classifier is unchanged; rows and columns of this table do
+not feed §3.1 Table 1 or any of the headline figures.
+
+**Reading the table.**
+
+* **SpO2 saturation contribution (locked − excl. SpO2 = 76 runs).**
+  Concentrated in S1/S2 (74 / 76 of those runs; 30 in S1_F, 16 in
+  S1_M, 16 in S2_F, 9 in S2_M, plus 5 trickle in S3). Zero in S4 (in
+  severe ARDS, SpO2 no longer saturates and this trigger never fires).
+  This is the only *detector* edge case identified by [S022](#s022);
+  it is not a Pulse limitation, it is a classification limitation of
+  the locked flatline rule on healthy oxygenation. A downstream
+  researcher who wants to score "engine instability" rather than
+  "detector edge case + engine instability" can re-tally clean runs
+  excluding this sub-mode using this table.
+* **F-004 dyssynchrony contribution (locked − excl. F-004 = 170 runs).**
+  Distributed across all cells, with the strongest contribution at
+  high set RR (consistent with the S014 mechanism: more assist-breath
+  insertions per minute). This sub-mode is a *finding*, not a
+  detector edge case — it reflects the documented Pulse-4.3.1
+  patient-ventilator-trigger default behaviour, and the locked
+  classifier is correctly flagging it.
+* **Residual (excl. both = 185 runs).** Dominated by S4 (104 / 185 of
+  the residual), and a smaller S1 contribution (53 / 185). The S4
+  residual is the F-003-class slow-convergence phenomenon
+  ([S012](#s012), [S021](#s021)): severe-ARDS oxygenation has not
+  settled within the locked 120 s window. The S1 residual is the
+  F-003 transient hyperoxia regime (PaO2 drift at FiO2 = 1.0). Both
+  categories are already discussed in §3.8 and are not new findings.
+* **Counterfactual "clean" recount.** Under the joint exclusion
+  (treat SpO2 saturation as physiological *and* re-attribute F-004
+  dyssynchrony to its own documented finding), the clean count would
+  rise from 663 / 1,280 (51.8 %) to 1,008 / 1,280 (78.7 %). This
+  number is *not* a re-classification of the atlas — it is a
+  decomposition of where the 51.8 % clean rate comes from. The
+  headline locked-classifier numbers in §3.1 Table 1 stand.

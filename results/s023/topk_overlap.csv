@@ -1,0 +1,7 @@
+output,shap_top3,morris_top3,overlap_size,overlap_features,jaccard
+HR,hr|fio2|peep,hr|peep|fio2,3,fio2|hr|peep,1.0
+MAP,sbp|dbp|hr,sbp|dbp|hr,3,dbp|hr|sbp,1.0
+Vt,vt|rr|fio2,vt|rr|fio2,3,fio2|rr|vt,1.0
+SpO2,fio2|peep|vt,fio2|peep|vt,3,fio2|peep|vt,1.0
+PaO2,fio2|peep|vt,fio2|peep|rr,2,fio2|peep,0.5
+PaCO2,vt|rr|fio2,vt|rr|fio2,3,fio2|rr|vt,1.0

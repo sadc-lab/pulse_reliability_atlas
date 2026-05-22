@@ -1,0 +1,10 @@
+cell,n_total,n_nss_locked,n_nss_excl_SpO2_saturation,n_nss_excl_F004_dyssynchrony,n_nss_excl_both,n_clean_locked,n_clean_excl_both
+S1_M,160,107,91,74,29,49,127
+S1_F,160,118,88,87,24,42,136
+S2_M,160,69,60,45,23,87,133
+S2_F,160,68,52,44,7,92,153
+S3_M,160,12,11,9,8,144,148
+S3_F,160,38,34,10,3,122,157
+S4_M,160,44,44,39,39,67,72
+S4_F,160,74,74,52,52,60,82
+Total,1280,530,454,360,185,663,1008

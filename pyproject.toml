@@ -29,6 +29,13 @@ dev = [
     # CI runs while local was clean. Bump deliberately; do not let it drift.
     "ruff>=0.15.0,<0.16.0",
 ]
+ml = [
+    # Supplementary ML cross-check: train an RF surrogate on the clean-subset
+    # sweep outputs and compare SHAP rankings against Morris mu*. Not part of
+    # the core atlas pipeline; pinned loosely.
+    "scikit-learn>=1.5.0",
+    "shap>=0.46.0",
+]
 
 [build-system]
 requires = ["hatchling"]

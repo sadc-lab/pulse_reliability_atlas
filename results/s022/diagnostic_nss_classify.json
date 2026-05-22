@@ -1,0 +1,284 @@
+{
+  "top3_cells": [
+    "S1_F",
+    "S1_M",
+    "S4_F"
+  ],
+  "cell_stats": [
+    {
+      "cell": "S1_F",
+      "n": 160,
+      "n_nss": 118,
+      "n_clamped": 0,
+      "n_diverged": 0,
+      "n_implausible": 23,
+      "n_clean": 42,
+      "nss_rate": 0.7375
+    },
+    {
+      "cell": "S1_M",
+      "n": 160,
+      "n_nss": 107,
+      "n_clamped": 0,
+      "n_diverged": 4,
+      "n_implausible": 11,
+      "n_clean": 49,
+      "nss_rate": 0.66875
+    },
+    {
+      "cell": "S4_F",
+      "n": 160,
+      "n_nss": 74,
+      "n_clamped": 0,
+      "n_diverged": 0,
+      "n_implausible": 46,
+      "n_clean": 60,
+      "nss_rate": 0.4625
+    },
+    {
+      "cell": "S2_M",
+      "n": 160,
+      "n_nss": 69,
+      "n_clamped": 0,
+      "n_diverged": 4,
+      "n_implausible": 0,
+      "n_clean": 87,
+      "nss_rate": 0.43125
+    },
+    {
+      "cell": "S2_F",
+      "n": 160,
+      "n_nss": 68,
+      "n_clamped": 0,
+      "n_diverged": 0,
+      "n_implausible": 0,
+      "n_clean": 92,
+      "nss_rate": 0.425
+    },
+    {
+      "cell": "S4_M",
+      "n": 160,
+      "n_nss": 44,
+      "n_clamped": 0,
+      "n_diverged": 8,
+      "n_implausible": 46,
+      "n_clean": 67,
+      "nss_rate": 0.275
+    },
+    {
+      "cell": "S3_F",
+      "n": 160,
+      "n_nss": 38,
+      "n_clamped": 0,
+      "n_diverged": 0,
+      "n_implausible": 0,
+      "n_clean": 122,
+      "nss_rate": 0.2375
+    },
+    {
+      "cell": "S3_M",
+      "n": 160,
+      "n_nss": 12,
+      "n_clamped": 0,
+      "n_diverged": 4,
+      "n_implausible": 0,
+      "n_clean": 144,
+      "nss_rate": 0.075
+    }
+  ],
+  "per_cell": {
+    "S1_F": {
+      "n_nss": 118,
+      "run_hit_submode": {
+        "flatline_high": 84,
+        "flatline_low": 0,
+        "cv_high": 76,
+        "drift_high": 18
+      },
+      "submode_channel": {
+        "flatline_high": {
+          "SpO2": 84
+        },
+        "flatline_low": {},
+        "cv_high": {
+          "Vt": 76,
+          "PaO2": 8,
+          "PaCO2": 8
+        },
+        "drift_high": {
+          "PaO2": 15,
+          "HR": 2,
+          "Vt": 1
+        }
+      },
+      "channel_total": {
+        "Vt": 77,
+        "SpO2": 84,
+        "PaO2": 23,
+        "PaCO2": 8,
+        "HR": 2
+      },
+      "combo_counter": {
+        "cv_high": 32,
+        "cv_high+flatline_high": 38,
+        "flatline_high": 30,
+        "drift_high+flatline_high": 12,
+        "cv_high+drift_high": 2,
+        "cv_high+drift_high+flatline_high": 4
+      },
+      "rr_bucket_summary": {
+        "\u226410": {
+          "n": 12,
+          "cv": 3,
+          "flatline": 10,
+          "drift": 3
+        },
+        "11-14": {
+          "n": 44,
+          "cv": 32,
+          "flatline": 28,
+          "drift": 6
+        },
+        "15-18": {
+          "n": 16,
+          "cv": 9,
+          "flatline": 12,
+          "drift": 2
+        },
+        ">18": {
+          "n": 46,
+          "cv": 32,
+          "flatline": 34,
+          "drift": 7
+        }
+      }
+    },
+    "S1_M": {
+      "n_nss": 107,
+      "run_hit_submode": {
+        "flatline_high": 71,
+        "flatline_low": 0,
+        "cv_high": 64,
+        "drift_high": 28
+      },
+      "submode_channel": {
+        "flatline_high": {
+          "SpO2": 71
+        },
+        "flatline_low": {},
+        "cv_high": {
+          "Vt": 63,
+          "PaCO2": 1
+        },
+        "drift_high": {
+          "PaO2": 28
+        }
+      },
+      "channel_total": {
+        "Vt": 63,
+        "SpO2": 71,
+        "PaO2": 28,
+        "PaCO2": 1
+      },
+      "combo_counter": {
+        "cv_high": 34,
+        "flatline_high": 16,
+        "drift_high": 2,
+        "drift_high+flatline_high": 25,
+        "cv_high+flatline_high": 29,
+        "cv_high+drift_high+flatline_high": 1
+      },
+      "rr_bucket_summary": {
+        "\u226410": {
+          "n": 10,
+          "cv": 1,
+          "flatline": 9,
+          "drift": 6
+        },
+        "11-14": {
+          "n": 40,
+          "cv": 21,
+          "flatline": 28,
+          "drift": 11
+        },
+        "15-18": {
+          "n": 18,
+          "cv": 13,
+          "flatline": 8,
+          "drift": 4
+        },
+        ">18": {
+          "n": 39,
+          "cv": 29,
+          "flatline": 26,
+          "drift": 7
+        }
+      }
+    },
+    "S4_F": {
+      "n_nss": 74,
+      "run_hit_submode": {
+        "flatline_high": 0,
+        "flatline_low": 0,
+        "cv_high": 43,
+        "drift_high": 49
+      },
+      "submode_channel": {
+        "flatline_high": {},
+        "flatline_low": {},
+        "cv_high": {
+          "PaO2": 13,
+          "Vt": 34,
+          "SpO2": 4,
+          "PaCO2": 6,
+          "HR": 1
+        },
+        "drift_high": {
+          "SpO2": 45,
+          "HR": 10,
+          "MAP": 2
+        }
+      },
+      "channel_total": {
+        "PaO2": 13,
+        "SpO2": 49,
+        "Vt": 34,
+        "HR": 11,
+        "PaCO2": 6,
+        "MAP": 2
+      },
+      "combo_counter": {
+        "cv_high+drift_high": 18,
+        "drift_high": 31,
+        "cv_high": 25
+      },
+      "rr_bucket_summary": {
+        "\u226410": {
+          "n": 10,
+          "cv": 0,
+          "flatline": 0,
+          "drift": 10
+        },
+        "11-14": {
+          "n": 14,
+          "cv": 9,
+          "flatline": 0,
+          "drift": 6
+        },
+        "15-18": {
+          "n": 14,
+          "cv": 1,
+          "flatline": 0,
+          "drift": 14
+        },
+        ">18": {
+          "n": 36,
+          "cv": 33,
+          "flatline": 0,
+          "drift": 19
+        }
+      }
+    }
+  },
+  "notes": "flatline_high/low classified by proximity of the reported mean to the upper vs lower HARD_BOUNDS for that channel. A run can hit multiple sub-modes on different channels; counts in run_hit_submode and submode_channel are not mutually exclusive."
+}

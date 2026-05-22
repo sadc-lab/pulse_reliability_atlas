@@ -224,3 +224,123 @@ Distribution: 7 green, 29 yellow, 12 red.
 | S007 3  | Docker re-execution | 5 random clean runs, re-run | 5 / 5 bit-exact |
 
 11 independent verification points; 0 failures across all of them.
+
+---
+
+## S11 — ML/SHAP cross-check of Morris μ\* rankings (S023)
+
+As an independent check on the Morris ranking reported in §3.2 and
+Figures 2 a–f of the main manuscript, we trained one
+`RandomForestRegressor` per output channel (`scikit-learn` 1.8.0,
+default hyperparameters, `random_state = 42`, no input scaling) on the
+clean subset of the sweep (n = 663). The feature matrix combined the
+seven operational inputs (HR, RR, SBP, DBP, Vt, FiO2, PEEP) with
+one-hot encodings of `sex` and `scenario`, for 13 features total.
+The one-hot features were included to absorb between-cell confounding
+that Morris does *not* see — Morris is computed *within* a cell, so
+sex and ARDS scenario are not part of its 7-input ranking. SHAP values
+were computed via `shap.TreeExplainer` (shap 0.51.0) and aggregated to
+per-feature mean absolute SHAP. For comparison with Morris, the SHAP
+ranking was restricted to the seven operational inputs (the sex /
+scenario one-hots are reported separately as a confounding diagnostic
+in [`results/s023/shap_mean_abs.csv`](../results/s023/shap_mean_abs.csv)).
+
+Headline metric: **top-3 overlap**. With seven inputs the Spearman ρ
+on the full 7-element ranking has too few degrees of freedom to give a
+useful signal (two rank swaps drop ρ below 0.7), so we report top-3
+overlap and Jaccard. Source code:
+[`scripts/shap_vs_morris_topk.py`](../scripts/shap_vs_morris_topk.py).
+Full per-cell artefacts:
+[`results/s023/topk_overlap.csv`](../results/s023/topk_overlap.csv) and
+[`results/s023/topk_overlap_per_cell.csv`](../results/s023/topk_overlap_per_cell.csv).
+
+### S11.1 — Pooled SHAP vs Morris μ\* top-3 (per output)
+
+Morris pooled ranking = mean-rank-of-μ\* across the 8 cells per input.
+
+| Output | SHAP top-3       | Morris top-3       | Overlap | Overlap features |
+|--------|------------------|--------------------|--------:|------------------|
+| HR     | hr, fio2, peep   | hr, peep, fio2     | **3 / 3** | fio2, hr, peep |
+| MAP    | sbp, dbp, hr     | sbp, dbp, hr       | **3 / 3** | dbp, hr, sbp   |
+| Vt     | vt, rr, fio2     | vt, rr, fio2       | **3 / 3** | fio2, rr, vt   |
+| SpO2   | fio2, peep, vt   | fio2, peep, vt     | **3 / 3** | fio2, peep, vt |
+| PaO2   | fio2, peep, vt   | fio2, peep, rr     |   2 / 3   | fio2, peep     |
+| PaCO2  | vt, rr, fio2     | vt, rr, fio2       | **3 / 3** | fio2, rr, vt   |
+
+**Pooled top-3 agreement = 17 / 18 features (94 %)**, with 5 / 6
+outputs at full match. The single disagreement (PaO2's third
+influencer) is `vt` (SHAP) vs `rr` (Morris); both enter PaO2 through
+minute ventilation Vt × RR, so the disagreement is a defensible
+reshuffling rather than a contradiction.
+
+### S11.2 — Per-cell overlap (48 comparisons)
+
+Per-cell SHAP rankings were obtained by grouping the global RF's SHAP
+rows by `(scenario, sex)` and computing the cell-conditional mean
+|SHAP|. This is *not* the same as fitting eight per-cell RFs — at
+n = 42–144 clean runs per cell, default-RF training is unstable.
+
+| Statistic                                       | Value  |
+|-------------------------------------------------|--------|
+| Mean top-3 overlap                              | **2.40 / 3** |
+| Cell-output pairs with full 3 / 3 match         | **23 / 48** (48 %) |
+| Pairs with ≥ 2 / 3 match                        | 43 / 48 (90 %) |
+| Pairs with 1 / 3 or 0 / 3 match                 | 5 / 48 (10 %) |
+
+Per-output mean overlap (averaged across cells):
+
+| Output | Mean overlap | n cells |
+|--------|-------------:|--------:|
+| MAP    | 3.00 / 3 | 8 |
+| PaCO2  | 2.62 / 3 | 8 |
+| SpO2   | 2.50 / 3 | 8 |
+| HR     | 2.25 / 3 | 8 |
+| Vt     | 2.12 / 3 | 8 |
+| PaO2   | 2.12 / 3 | 8 |
+
+### S11.3 — Confounder diagnostic (sex / scenario SHAP magnitudes)
+
+For HR, SpO2, and PaO2, ARDS scenario one-hots rank in the global
+top-3 of mean |SHAP| (above several of the operational inputs); for
+PaCO2, the sex one-hots rank #3 / #4 with mean |SHAP| ≈ 0.9 against
+`vt` ≈ 3.9 and `rr` ≈ 2.1 — consistent with the ~ 11 kg body-mass
+difference between the 67.3 kg male and 56.2 kg female reference
+surrogates producing measurable minute-ventilation differences. These
+between-cell effects are *exactly what Morris controls for* by
+computing sensitivity per cell, so their visibility in the SHAP
+ranking is not a flaw in Morris but a confirmation that ARDS scenario
+and body mass are real sources of variance once the per-cell stratum
+is collapsed.
+
+### S11.4 — Honest caveats
+
+1. **Selection bias.** The RF is trained on the 663 clean runs.
+   SHAP attributions reflect the well-behaved sub-region of input
+   space; the 617 flagged runs are not represented.
+2. **Sampling design.** Morris elementary-effect trajectories sample
+   input space non-uniformly (OAT). SHAP attributions on a model
+   fitted to this non-uniform empirical distribution inherit that
+   distribution. We did not re-sample or re-weight.
+3. **Training R² is uninformative.** With 13 features and 663
+   samples, default RF (100 trees, max_features = sqrt) trivially
+   memorises the data (training R² ≥ 0.993 for all six outputs).
+   The top-3 ranking comparison is independent of predictive
+   accuracy. We make no claim that this RF would generalise to
+   unseen Pulse runs.
+4. **Per-cell SHAP is conditional, not per-cell trained.** Per-cell
+   n = 42–144; we used the global RF and grouped SHAP rows by cell
+   rather than fitting eight per-cell RFs. Cell-conditional SHAP
+   rankings are therefore tied together by the global model
+   structure.
+5. **Top-k overlap, not Spearman ρ.** With seven inputs ρ on the
+   full ranking has insufficient statistical resolution; we report
+   top-3 overlap and Jaccard.
+
+**Interpretation.** Top-3 agreement at 17 / 18 pooled and ≥ 2 / 3 in
+90 % of per-cell comparisons supports the Morris ranking as a
+property of the engine rather than an artefact of the OAT trajectory
+design. We present this as a supplementary cross-check, not as a
+replacement for Morris. Full protocol and per-run paired data:
+[`experiments_log/santino/S023_shap_vs_morris_topk.md`](../experiments_log/santino/S023_shap_vs_morris_topk.md);
+raw artefacts in
+[`results/s023/`](../results/s023/).
