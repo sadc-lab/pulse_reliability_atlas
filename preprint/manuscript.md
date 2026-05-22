@@ -83,7 +83,7 @@ each can be entered independently.*
 * **§1 — Introduction.** Why an open reliability atlas is needed for
   Pulse 4.3.1, the twelve verified engine limitations the atlas builds on,
   and the contribution catalogue. §1.4 explains the experiment-log tag
-  system ([S001](#s001) – [S023](#s023)) used throughout.
+  system ([S001](#s001) – [S024](#s024)) used throughout.
 * **§2 — Methods.** Engine wrapper, the seven swept operational inputs,
   the four scenarios × two patients design, Morris sampling, the
   four-flag detector (`clamped` / `diverged` / `implausible` /
@@ -202,7 +202,7 @@ analysis on user-facing operational inputs has been performed; this
 paper produces that map. The introduction catalogues the twelve
 verified engine limitations the atlas builds on, summarises the
 contributions, and introduces the experiment-log tag system
-([S001](#s001) – [S023](#s023)) used throughout.*
+([S001](#s001) – [S024](#s024)) used throughout.*
 
 ### 1.1 Motivation
 
@@ -371,16 +371,16 @@ paper, which highlights the same work as reusable deliverables.)*
 * A traffic-light reliability map (green / yellow / red) per cell ×
   output, suitable for direct user consumption.
 
-### 1.4 Experiment log nomenclature ([S001](#s001) – [S023](#s023))
+### 1.4 Experiment log nomenclature ([S001](#s001) – [S024](#s024))
 
-*A one-line description of each of the 23 experiment-log entries
+*A one-line description of each of the 24 experiment-log entries
 cited throughout the paper. Skim this table once to make every later
 'S0xx' reference interpretable on first encounter; the full audit
 trail lives in Appendix A and the underlying notebooks in the
 repository.*
 
 Throughout this paper we reference experiments by short tags of the
-form **[S001](#s001), [S002](#s002), …, [S023](#s023)**. Each tag corresponds to a self-contained
+form **[S001](#s001), [S002](#s002), …, [S024](#s024)**. Each tag corresponds to a self-contained
 lab-notebook entry under `experiments_log/santino/` that records the
 *hypothesis, motivation, method, result, and interpretation* of one
 discrete piece of work. The tags are introduced here so that any
@@ -414,6 +414,7 @@ underlying files are in the repository.
 | S021 | Hyperoxia convergence: 60-run pre-registered rerun at 300 s vs locked 120 s sweep window — tests whether F-003 PaO2 > 600 mmHg at FiO2 = 1.0 reflects oxygenation overshoot or transient non-convergence. |
 | S022 | No-compute failure-mode attribution audit of the locked `not_steady_state` count (Appendix C). |
 | S023 | Supplementary ML/SHAP cross-check of the Morris μ\* rankings on the clean subset (Supplementary §S11). |
+| S024 | Pre-submission claims-ledger audit — `scripts/audit_claims.py` re-derives every Tier-1/Tier-2 quantitative claim in §3 / §4 / Appendix C from the canonical parquets/CSVs and verifies it against the manuscript text (190 / 190 PASS at the locked tolerance band). |
 
 ---
 
@@ -888,6 +889,30 @@ Neither phase falsified a manuscript claim. Phase 4a strengthens the
 determinism statement to the full sample size; Phase 4b empirically
 confirms the bootstrap-CI-aware story §3.3.1 already tells.
 
+**Programmatic manuscript-numbers audit ([S024](#s024), 2026-05-22).**
+Independently of the bit-exact re-execution above, a third
+verification layer closes the data-integrity loop at the *manuscript*
+level. The read-only Python script
+[`scripts/audit_claims.py`](../scripts/audit_claims.py) registers
+every Tier-1 (Abstract, Key Contributions, hypothesis verdicts,
+Table 1, Figure 6 traffic-light) and Tier-2 (per-cell numbers in §3.3
+/ §3.4.1 / §3.5 / §3.6 / §3.8 / §3.8.1, plus Appendix C and §4.5
+S023) quantitative claim as a `Claim` record (manuscript value,
+source artifact, computed value, tolerance rule), re-derives the
+computed value from the canonical parquets / CSVs / JSON summaries,
+and verifies the manuscript text against each computed value under
+an explicit per-class tolerance band (`exact_int` for integer counts;
+`pct_1dp` / `pct_whole` for percentages at their displayed precision;
+`displayed_1dp` / `displayed_2dp` / `displayed_3dp` for floats at
+their displayed precision; a 1 × 10⁻⁹ IEEE-754 epsilon protects
+against half-precision rounding boundaries). The current report on
+the locked manuscript is **190 / 190 PASS, 0 WARN, 0 FAIL**. The
+script exits non-zero on any FAIL and is therefore CI-ready: future
+manuscript edits that drift a quoted number against its source
+artifact will fail the script's exit code. Full audit method and the
+per-row claim ledger are in
+[`experiments_log/santino/S024_claims_ledger_audit.md`](../experiments_log/santino/S024_claims_ledger_audit.md).
+
 ### 2.9 Using the four-flag classifier independently
 
 *The minimal public API for re-using the four-flag classifier on
@@ -950,7 +975,7 @@ Several distinct statistical tools are used in §3 (Results) and §4
 (Discussion). We define each here in plain language so the first
 appearance of a test name in the results section is immediately
 interpretable. Implementation references and bibliographic details
-are in §8.
+are in §9.
 
 * **Morris elementary effects (μ\*, σ).** A *screening* sensitivity
   method: it ranks inputs by their average absolute effect on an output
@@ -2645,7 +2670,53 @@ this repository.
 
 ---
 
-## 5. Data availability
+## 5. Conclusion
+
+*A short closing summary of the atlas's headline contribution, the
+two operator-actionable findings, the sex-as-reliability-axis result
+(in its regime-specific form), and the downstream-research role this
+paper plays in the maintainer's PhD pipeline.*
+
+This reliability atlas provides the first open, preregistered
+sensitivity and divergence map for the Pulse Physiology Engine
+(v4.3.1) across the adult operational envelope. By sweeping seven
+user-facing inputs across four ARDS severities and two adult
+reference surrogates ([S006](#s006), 1,280 simulations), we
+identified both the engine's stable operational regimes and its
+boundary-failure modes. The resulting per-cell traffic-light map
+(Figure 6) delivers an immediate, actionable data-quality filter for
+clinical researchers, device developers, and machine-learning
+practitioners using Pulse for synthetic cohort generation.
+
+Beyond mapping the envelope, this work yielded two
+operator-actionable corrections — resolving VC-AC tidal-volume
+dyssynchrony (F-004) via an explicit
+`InspirationPatientTriggerPressure = −2 cmH2O` setting
+([S014](#s014); median Vt CV collapses 0.351 → 0.016, worst-case
+1.826 → 0.112) and reframing the apparent FiO2 = 1.0 PaO2 overshoot
+as a transient hyperoxia regime (F-003), with the 300 s plateau
+landing ~ 10 mmHg below the alveolar-gas-equation prediction
+([S021](#s021); median 643 mmHg vs ~ 653 mmHg predicted) —
+consistent with Pulse's modelled A-a gradient rather than an
+oxygenation defect. We also established patient sex as a
+previously uncharacterized, *regime-dependent* reliability-sensitivity
+axis: concentrated on gas-exchange outputs under within-sex BH-FDR
+control (5 of 24 cell × output Wasserstein survivors, §3.6) and on
+the male input-extreme divergence cluster mediated by Pulse's
+blood-volume baseline ([S018](#s018); 20 / 20 → 2 / 20 → 0 / 20 BV
+dose-response across §3.5 / §3.5.1).
+
+Ultimately, this atlas transforms adult Pulse from a
+"use-at-your-own-risk" simulator into a bounded synthetic-data
+source with documented, addressable failure modes. It stands as the
+rigorously validated baseline and foundational infrastructure for
+the maintainer's two downstream papers: a pediatric translation
+layer (Paper 1, in preparation) and a native pediatric Pulse fork
+(Paper 2, planned).
+
+---
+
+## 6. Data availability
 
 * Master aggregated table:
   `data/runs/full_sweep/aggregated.parquet`.
@@ -2658,7 +2729,7 @@ this repository.
 
 ---
 
-## 6. Acknowledgements
+## 7. Acknowledgements
 
 This work benefited from government funding managed by the National
 Research Agency under France 2030 via the ENACT AI Cluster
@@ -2673,7 +2744,7 @@ Pediatric Acute Care Research Group (R-SADC) in Montreal, Canada.
 
 ---
 
-## 7. Transparency: use of AI tools
+## 8. Transparency: use of AI tools
 
 In the interest of full methodological transparency, parts of this
 work were carried out with the assistance of AI tools.
@@ -2710,7 +2781,7 @@ AI tool involvement in the project.
 
 ---
 
-## 8. References
+## 9. References
 
 Primary sources only — every cited fact in this paper traces to one of
 the following or to an experiment-log entry in this repository.
@@ -2805,7 +2876,7 @@ additionally available in the repository:
 * **[S010](#s010)** — Literature-review pass; every reference below verified
   against its DOI / PMID.
 
-### 8.7 Verified primary references (full bibliographic detail)
+### 9.7 Verified primary references (full bibliographic detail)
 
 Each entry has been individually verified against its DOI or PMID
 during the literature-review pass logged in
@@ -2971,6 +3042,7 @@ during the literature-review pass logged in
 | []{#s021} S021 | Hyperoxia convergence (60-run rerun at 300 s vs locked 120 s window; F-003 mechanism test) |
 | []{#s022} S022 | No-compute failure-mode attribution audit of the locked `not_steady_state` count (see Appendix C) |
 | []{#s023} S023 | Supplementary ML/SHAP cross-check of Morris μ\* rankings on the clean subset (see Supplementary §S11) |
+| []{#s024} S024 | Pre-submission claims-ledger audit (programmatic verification of all Tier-1 / Tier-2 quantitative claims; 190 / 190 PASS, see §2.8) |
 
 Each log file in `experiments_log/santino/` follows the template:
 hypothesis → motivation → method → what we tried → results → interpretation
