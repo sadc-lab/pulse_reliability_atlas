@@ -2716,10 +2716,11 @@ Primary sources only — every cited fact in this paper traces to one of
 the following or to an experiment-log entry in this repository.
 
 1. **Pulse Physiology Engine v4.3.1 (Kitware, Apache-2.0).**
-   Distributed at <https://pulse.kitware.com>. Source verified from
-   the locally-cloned engine repository
-   (`C:/Users/santi/projets/Pulse_engine_adults_Gitlab/engine/`,
-   2026-04-07; GitLab re-audit 2026-05-07, [S016](#s016)). The current
+   Distributed at <https://pulse.kitware.com>. Source verified against
+   the upstream Kitware Pulse GitLab repository at
+   <https://gitlab.kitware.com/physiology/engine> (locally cloned for
+   read-only audit on 2026-04-07; GitLab re-audit 2026-05-07,
+   [S016](#s016)). The current
    `stable` head is `REL_4_3_2` (2025-08-12), whose full diff vs
    `REL_4_3_1` is 7 files / +46 −17 lines (web-WASM dockcross
    support, .NET binding tweak); no physiology, validation,

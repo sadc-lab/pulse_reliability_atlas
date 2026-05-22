@@ -207,7 +207,7 @@ These are claims attributed to external sources that we have not re-verified aga
 | P2-06 | §1.2 line 167 — Pulse_translation_new E12 / E13 "+58.9 % female / +24.0 % male PC-AC over-delivery" | Fetch the companion PhD repo's E12 / E13 logs; reconcile against CLAUDE.md memory note of 24–59 % range vs the manuscript's 11.3–25.3 % attribution |
 | P2-07 | §1.1 — ARDS Berlin 2012 / PALICC-2 2023 citations | Verify DOIs 10.1001/jama.2012.5669 / 10.1097/PCC.0000000000003147 resolve and severity bands are correctly cited |
 | P2-08 | §1.1 — Munafò 2017 preregistration / Wilkinson 2016 FAIR | Verify DOIs resolve |
-| P2-09 | §2.1 / §B.4 — Pulse source-code line citations (`SetupPatient.cpp:771` BMR 13.397; `SetupPatient.cpp:752` skin SA 0.425; `NervousModel.cpp:320` baroreceptor 4 × 12 = 48) | Spot-check against the local Pulse clone at `C:/Users/santi/projets/Pulse_engine_adults_Gitlab/engine` |
+| P2-09 | §2.1 / §B.4 — Pulse source-code line citations (`SetupPatient.cpp:771` BMR 13.397; `SetupPatient.cpp:752` skin SA 0.425; `NervousModel.cpp:320` baroreceptor 4 × 12 = 48) | Spot-check against the upstream Kitware Pulse GitLab repository (`https://gitlab.kitware.com/physiology/engine`, locally cloned for read-only audit) |
 | P2-10 | §2.3 / §B.3 — Pulse Respiratory Methodology page mild=0.3 / 340, moderate=0.6 / 130, severe=0.9 / 50 | Fetch `https://pulse.kitware.com/_respiratory_methodology.html`; verify mapping and P/F claim |
 | P2-11 | §2.3 line 351 — NHANES P50 anchors (HR 70 / 74, SBP 118 / 113, DBP 70 / 69) | Locate the NHANES P50 source (NHANES analysis cycle?); verify the four reported medians |
 | P2-12 | §3.8 / §4.1 — Figueroa-Casas 2016 clinical-precedent for VC-AC dyssynchrony | Verify DOI 10.1513/AnnalsATS.201605-362OC; confirm the paper documents the phenomenon at low tidal volume |
@@ -296,7 +296,7 @@ All accessed read-only.
 
 ### H.4 External infrastructure / Appendix B.4 source-line citations
 
-All verified by reading the live local Pulse C++ clone at `C:/Users/santi/projets/Pulse_engine_adults_Gitlab/engine/`.
+All verified by reading the upstream Kitware Pulse C++ source at <https://gitlab.kitware.com/physiology/engine> (locally cloned for read-only audit on 2026-04-07; re-audited 2026-05-07 per S016).
 
 | Manuscript claim | Verification | Result |
 |---|---|---|
