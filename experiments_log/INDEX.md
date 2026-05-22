@@ -6,12 +6,13 @@ This file is rebuilt from the YAML frontmatter of every entry in
 `santino/`, `contributor2/`, and `shared/`. To update it, edit the experiment
 and recommit — the pre-commit hook regenerates and stages this file.
 
-Total entries: **24**
+Total entries: **25**
 
 ## All experiments (newest first)
 
 | ID | Date | Author | Status | Title |
 |---|---|---|---|---|
+| `S025` | 2026-05-22 | santino | done | [S025 — Pre-release OSS code-hygiene audit and fixes](santino/S025_oss_release_hygiene.md) |
 | `S024` | 2026-05-22 | santino | done | [S024 — Pre-submission claims-ledger audit](santino/S024_claims_ledger_audit.md) |
 | `S023` | 2026-05-22 | santino | done | [S023 — Supplementary ML/SHAP cross-check of the Morris μ* rankings](santino/S023_shap_vs_morris_topk.md) |
 | `S022` | 2026-05-22 | santino | done | [S022 — No-compute failure-mode diagnostic for the top-3 unstable cells](santino/S022_nss_failure_mode_diagnostic.md) |
@@ -63,6 +64,7 @@ Total entries: **24**
 - `S022` (2026-05-22, done) — [S022 — No-compute failure-mode diagnostic for the top-3 unstable cells](santino/S022_nss_failure_mode_diagnostic.md) — _diagnostic, no-compute, failure-mode-classification, detector-edge-case, dyssynchrony-attribution, corrected_
 - `S023` (2026-05-22, done) — [S023 — Supplementary ML/SHAP cross-check of the Morris μ* rankings](santino/S023_shap_vs_morris_topk.md) — _supplementary, ml, surrogate, shap, morris, top-k, cross-check_
 - `S024` (2026-05-22, done) — [S024 — Pre-submission claims-ledger audit](santino/S024_claims_ledger_audit.md) — _claims-ledger, pre-submission, manuscript-polish, reviewer-defense, audit, reproducibility_
+- `S025` (2026-05-22, done) — [S025 — Pre-release OSS code-hygiene audit and fixes](santino/S025_oss_release_hygiene.md) — _oss-release, pre-submission, manuscript-polish, reviewer-defense, readme-audit, traceability_
 
 ## By tag
 
@@ -248,6 +250,7 @@ Total entries: **24**
 - `S012` — [S012 — Dual steady-state audit (F-003 hyperoxia + F-004 Vt oscillation)](santino/S012_steady_state_window_audit.md)
 - `S013` — [S013 — Lexical lockdown (solver-divergence vs implausible-output taxonomy)](santino/S013_lexical_lockdown.md)
 - `S024` — [S024 — Pre-submission claims-ledger audit](santino/S024_claims_ledger_audit.md)
+- `S025` — [S025 — Pre-release OSS code-hygiene audit and fixes](santino/S025_oss_release_hygiene.md)
 
 ### `mechanism`
 - `S008` — [S008 — Tier-1 statistical refinement: block bootstrap, within-sex Wasserstein null, divergence mechanism, manuscript polish](santino/S008_tier1_statistical_refinement.md)
@@ -277,6 +280,9 @@ Total entries: **24**
 ### `null-distribution`
 - `S008` — [S008 — Tier-1 statistical refinement: block bootstrap, within-sex Wasserstein null, divergence mechanism, manuscript polish](santino/S008_tier1_statistical_refinement.md)
 
+### `oss-release`
+- `S025` — [S025 — Pre-release OSS code-hygiene audit and fixes](santino/S025_oss_release_hygiene.md)
+
 ### `phase-b`
 - `S018` — [S018 — Blood-volume mechanism falsification test (Phase B item B2): dose-response bracket on the 20 originally-diverged male inputs](santino/S018_blood_volume_falsification.md)
 - `S019` — [S019 — Sobol bolt-on (Phase B item B3): DRAFT, ready-to-fire, not executed](santino/S019_sobol_bolton_draft.md)
@@ -295,6 +301,7 @@ Total entries: **24**
 ### `pre-submission`
 - `S020` — [S020 — Pre-submission novelty audit: verifying that every "first" / "novel" claim in the manuscript survives a literature double-check](santino/S020_novelty_audit.md)
 - `S024` — [S024 — Pre-submission claims-ledger audit](santino/S024_claims_ledger_audit.md)
+- `S025` — [S025 — Pre-release OSS code-hygiene audit and fixes](santino/S025_oss_release_hygiene.md)
 
 ### `pulse`
 - `S003` — [S003 — Verified Pulse 4.3.1 limitations (primary-source re-check)](santino/S003_pulse_limitations_verified.md)
@@ -302,6 +309,9 @@ Total entries: **24**
 
 ### `pytest`
 - `S009` — [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md)
+
+### `readme-audit`
+- `S025` — [S025 — Pre-release OSS code-hygiene audit and fixes](santino/S025_oss_release_hygiene.md)
 
 ### `references`
 - `S010` — [S010 — Literature-review pass: every reference verified against DOI / PMID](santino/S010_literature_review.md)
@@ -321,6 +331,7 @@ Total entries: **24**
 - `S019` — [S019 — Sobol bolt-on (Phase B item B3): DRAFT, ready-to-fire, not executed](santino/S019_sobol_bolton_draft.md)
 - `S021` — [S021 — Hyperoxia convergence: testing the F-003 transient-regime hypothesis](santino/S021_hyperoxia_convergence.md)
 - `S024` — [S024 — Pre-submission claims-ledger audit](santino/S024_claims_ledger_audit.md)
+- `S025` — [S025 — Pre-release OSS code-hygiene audit and fixes](santino/S025_oss_release_hygiene.md)
 
 ### `seed-stability`
 - `S009` — [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md)
@@ -374,6 +385,9 @@ Total entries: **24**
 
 ### `top-k`
 - `S023` — [S023 — Supplementary ML/SHAP cross-check of the Morris μ* rankings](santino/S023_shap_vs_morris_topk.md)
+
+### `traceability`
+- `S025` — [S025 — Pre-release OSS code-hygiene audit and fixes](santino/S025_oss_release_hygiene.md)
 
 ### `trigger-pressure`
 - `S014` — [S014 — Trigger-pressure lockout: causal test of F-004 mechanism](santino/S014_trigger_pressure_lockout.md)

@@ -69,13 +69,20 @@ What the atlas says, in one paragraph:
 > **not silently clamp** at the verified acceptance ranges — it rejects
 > out-of-range inputs *loudly* with explicit error logs. Its solver
 > diverges in **1.6 %** of our runs, and **all 20 divergent runs are in
-> male patient cells** — the first quantitative sex-specific reliability
-> finding for Pulse. Severe ARDS on the male surrogate is the worst
+> male patient cells in the Morris input-extreme regime** — the first
+> quantitative sex-specific reliability finding for Pulse. (At midrange
+> inputs, a complementary continuous-severity sweep shows divergence is
+> approximately sex-balanced — the sex effect is regime-dependent; see
+> manuscript §3.5.1.) Severe ARDS on the male surrogate is the worst
 > reliability cell — every output unreliable. Healthy male and female
-> adults at FiO2 = 1.0 produce **PaO2 above 600 mmHg with ongoing drift**
-> — a probable Pulse hyperoxia overshoot. And Pulse's preferred
-> ventilator mode (VC-AC) fails to deliver a steady tidal volume inside
-> the 60-second window in **20.6 %** of healthy or ARDS configurations.
+> adults at FiO2 = 1.0 produce **PaO2 above 600 mmHg, still drifting at
+> the end of the locked 120 s window** — a *transient hyperoxia regime*
+> (S021): under a 300 s rerun, PaO2 converges to a plateau ~ 10 mmHg
+> below the alveolar-gas-equation prediction (~ 643 mmHg vs ~ 653 mmHg
+> predicted), consistent with Pulse's modelled A-a gradient — not an
+> overshoot. And Pulse's preferred ventilator mode (VC-AC) fails to
+> deliver a steady tidal volume inside the 60-second window in
+> **20.6 %** of healthy or ARDS configurations.
 
 The detailed numbers, figures, and discussion live in
 [`preprint/manuscript.md`](preprint/manuscript.md). The traffic-light grid
@@ -107,20 +114,27 @@ for the lab-notebook entry.)
 |---|---|
 | **H1 — top-3 inputs explain ≥ 50 % of sensitivity** | **PASS, 48 / 48** cell × output combos. Median 0.928, range 0.658 – 0.998. |
 | **H2 — silent clamping ≥ 5 %** | **NOT supported**, 0 / 1,280. Pulse rejects out-of-range inputs *loudly* (verified by explicit clamp probes in S005). |
-| **H3 — divergence outside ARDS 0.91 – 0.945** | **PASS** — 1.6 % overall divergence rate. **All 20 divergent runs are male.** |
-| **H4 — sex-specific reliability** | **Partially supported (gas-exchange only)** — 6 of 24 cell × output Wasserstein distances exceed the within-sex sub-sampling null; all 6 are gas-exchange (PaCO2 × 3, SpO2 × 2, PaO2 × 1). Cardiovascular (HR, MAP) and Vt sex effects do not exceed the within-sex baseline at our sample size. Input-importance rankings are similar between sexes (Spearman ρ 0.75 – 1.00 in S2 / S3, wide CIs). |
+| **H3 — divergence outside ARDS 0.91 – 0.945** | **PASS** — 1.6 % overall divergence rate. **All 20 divergent runs are male in the Morris input-extreme regime** (the complementary continuous-severity sweep at midrange inputs shows divergence approximately sex-balanced inside the [0.879, 0.945] band — see §3.5.1). Mechanism confirmed (S018): mediated by Pulse's `BloodVolumeBaseline` gap (male default 4,802.63 mL vs female 3,996.09 mL); reducing the male BV monotonically eliminates divergence (20 / 20 → 2 / 20 → 0 / 20 across BV = 4,802.63 → 4,400 → 4,082.24 mL). |
+| **H4 — sex-specific reliability** | **Partially supported (gas-exchange only)** — under Benjamini–Hochberg FDR control at q = 0.05, **5 of 24** cell × output Wasserstein distances survive the within-sex null; all 5 are gas-exchange (PaCO2 × 3, SpO2 × 1, PaO2 × 1). The naive-α = 0.05 analysis would flag 6; S2 SpO2 (p_emp = 0.022) is demoted by BH-FDR. Cardiovascular (HR, MAP) and Vt sex effects do not exceed the within-sex baseline at our sample size. Input-importance rankings are similar between sexes (Spearman ρ 0.75 – 1.00 in S2 / S3, wide CIs). |
 
 Two structural Pulse findings, independent of the hypotheses:
 
-- **F-003** — 34 healthy / severe-ARDS runs produce PaO2 > 600 mmHg at
-  FiO2 = 1.0, still drifting at t = 120 s. Hyperoxia overshoot in
-  Pulse's oxygenation model.
+- **F-003** — 34 implausibly-flagged runs produce PaO2 > 600 mmHg at
+  FiO2 = 1.0 (91 % at FiO2 ≥ 0.95), still drifting at t = 120 s.
+  *Transient hyperoxia regime*: under a 300 s rerun (S021), PaO2
+  converges to a plateau ~ 10 mmHg below the alveolar-gas-equation
+  prediction (S1 median 643 mmHg vs ~ 653 mmHg predicted) — consistent
+  with Pulse's modelled A-a gradient. The original flag reflects (a)
+  the locked 120 s window being insufficient for hyperoxia convergence
+  and (b) the conservative classifier bound, *not* an overshoot.
+  See `preprint/manuscript.md` §3.8.
 - **F-004** — 264 / 1,280 (20.6 %) of runs fail VC-AC's tidal-volume
   steady-state test in 60 s. **Mechanism causally identified (S014):**
   patient-ventilator dyssynchrony at the inspiration trigger.
   **Operator fix:** set inspiration trigger pressure to −2 cmH2O
-  (collapses worst-case Vt CV from 0.351 → 0.016, lock-below-0.05
-  fraction = 78.1 %). See `preprint/manuscript.md` §3.8 + §4.2.
+  (collapses *median* Vt CV from 0.351 → 0.016; worst-case from 1.826
+  → 0.112; lock-below-0.05 fraction = 78.1 %). See
+  `preprint/manuscript.md` §3.8 + §4.2.
 
 ---
 
@@ -174,6 +188,11 @@ Two structural Pulse findings, independent of the hypotheses:
 You need: Docker, [uv](https://github.com/astral-sh/uv), a machine with
 ≥ 8 GB RAM and ≥ 3 CPU cores, and ~ 7 hours of compute.
 
+To also reproduce the supplementary S023 SHAP cross-check (manuscript
+§4.5), install Python deps with `uv sync --extra ml` (adds
+`scikit-learn` and `shap` to the environment); the core atlas
+pipeline does not require these.
+
 ```bash
 # 1. Build the atlas Pulse image (Apache-2.0 from kitware/pulse:4.3.1)
 docker build -t pulse-atlas-engine engine/
@@ -194,14 +213,43 @@ Pulse 4.3.1 is bit-exact deterministic for fixed inputs (verified by
 S005, gate G5), so reruns reproduce upstream values to 1e-6 relative
 tolerance for all 6 outputs.
 
-The pilot gate study is its own runnable test:
+### Pinned image hashes (for byte-level reproducibility)
+
+Manuscript §2.8 names two `pulse-atlas-engine` image hashes that bound
+the sweep's exact provenance:
+
+* Initial atlas image — produced the S006 1,280-run sweep
+  (`data/runs/full_sweep/`, 2026-04-26).
+* `b2e0e807803d` — post-S014 SDK sed-patch rebuild; produced the
+  S015 audit re-execution (38 / 40 runs bit-exact, 2 expected
+  pre-patch divergences). Atlas results are reproducible under either
+  hash because Pulse's solver is deterministic.
+
+A fresh `docker build` from this repo will not match these hashes
+byte-for-byte (base layers and pip caches differ over time), but the
+*simulation outputs* match to 1e-6 relative tolerance across rebuilds
+sharing the same `kitware/pulse:4.3.1` upstream base. See manuscript
+§2.8 and S007 (targeted reproducibility check) / S015 (logic audit)
+for the verification protocol.
+
+### Verifying everything is wired up
+
+After the pilot completes (or in lieu of running the full sweep for a
+quick canary check), confirm the pipeline by running:
+
+```bash
+uv run pytest tests/ -v                       # S009/S015 unit tests
+uv run python scripts/audit_claims.py          # S024 -- must print 190/190 PASS
+```
+
+The pilot gate study itself is a runnable smoke test on cell (S1, M):
 
 ```bash
 uv run python scripts/run_pilot.py     # 22 runs, ~5 minutes
 ```
 
-It exercises everything end-to-end on cell (S1, M) with reproducibility
-reruns and deliberate clamp probes — useful as a smoke test on a new
+It exercises everything end-to-end with reproducibility reruns and
+deliberate clamp probes — useful as a wider smoke test on a new
 machine.
 
 ---
@@ -235,16 +283,24 @@ pulse_reliability_atlas/
 │   ├── scenario_smoke_test.py   8-cell mid-range smoke test (S004)
 │   ├── validate_detector_on_existing_runs.py
 │   ├── regenerate_index.py      rebuilds experiments_log/INDEX.md from frontmatter
-├── data/runs/full_sweep/
-│   ├── morris_sample.parquet    canonical 160-point sample (seed=42)
-│   ├── aggregated.parquet       1,280 rows × all outputs + flags + meta
-│   └── <cell>/aggregated.parquet  per-cell mirror
-├── results/                     analysis artifacts (csv + parquet)
+├── data/runs/
+│   ├── full_sweep/              S006 — 1,280-run Morris sweep (headline)
+│   │   ├── morris_sample.parquet   canonical 160-point sample (seed=42)
+│   │   ├── aggregated.parquet      1,280 rows × all outputs + flags + meta
+│   │   └── <cell>/aggregated.parquet  per-cell mirror
+│   ├── full_sweep_repro/        S007 / S015 reproducibility re-runs
+│   ├── s014_trigger_lockout/    S014 — F-004 mechanism causal test
+│   ├── s018_blood_volume/       S018 — BV dose-response (H3 mechanism)
+│   └── s021_hyperoxia_convergence/  S021 — F-003 300 s window rerun
+├── results/
+│   ├── (top-level)              core analysis artifacts (csv + parquet)
+│   ├── s022/                    NSS sub-mode attribution side-table
+│   └── s023/                    SHAP-vs-Morris cross-check (ml extras)
 ├── figures/                     Figures 1–6 (PNG + PDF)
 ├── experiments_log/
 │   ├── INDEX.md                 auto-regenerated table of all experiments
 │   ├── README.md                lab-notebook conventions
-│   └── santino/                 S001 … S006 entries (one .md each)
+│   └── santino/                 S001 … S025 entries (one .md each)
 └── reference/                   verified Pulse run templates and limits
 ```
 
@@ -271,13 +327,14 @@ contribution to the PhD. Hackathon-era framing documents are preserved in
 
 ## How to read the experiments log
 
-`experiments_log/santino/S001` … `S006` are individual lab-notebook
+`experiments_log/santino/S001` … `S025` are individual lab-notebook
 entries. Every entry follows the same template — *hypothesis →
 motivation → method → what we tried (incl. dead ends) → results →
 interpretation → next steps* — so a reviewer can audit any decision
 without prior context.
 
-Quick map:
+Quick map (highlights — full audit trail in
+[`experiments_log/INDEX.md`](experiments_log/INDEX.md)):
 
 - **S001** Docker + hardware smoke test (3-parallel verified safe).
 - **S002** Project bootstrap.
@@ -288,8 +345,34 @@ Quick map:
   cap and the false-positive `clamped` regex).
 - **S005** Pilot gate (22 runs, S1_M, all 5 preregistered criteria pass,
   3 pipeline bugs surfaced + fixed).
-- **S006** Full sweep + analysis + 8-step verification (this is the
-  paper's data-collection event).
+- **S006** Full sweep + analysis + 8-step verification (the paper's
+  data-collection event).
+- **S007** Targeted reproducibility check at three independent layers,
+  all bit-exact (pre-publication).
+- **S008** Tier-1 statistical refinement (block bootstrap on σ,
+  within-sex Wasserstein null, Spearman CI, divergence mechanism).
+- **S009** Tier-2 robustness (seed stability, continuous-ARDS
+  micro-sweep, pytest, GitHub Actions CI).
+- **S010** Literature-review pass; every reference DOI/PMID-verified.
+- **S012** Steady-state window cross-output audit (does F-003 / F-004
+  contaminate other channels? — no, see §3.8.1).
+- **S013** Lexical lockdown (manuscript failure-mode taxonomy
+  normalisation).
+- **S014** Trigger-pressure lockout — causally identifies F-004 as
+  VC-AC patient-ventilator dyssynchrony (median Vt CV 0.351 → 0.016).
+- **S017** Cornish 2023 cross-mapping against the atlas's 6-output
+  panel (Table 2).
+- **S018** Blood-volume mechanism falsification — confirms BV gap
+  mediates the all-male divergence cluster
+  (20 / 20 → 2 / 20 → 0 / 20 across BV brackets).
+- **S021** Hyperoxia convergence — 60-run 300 s rerun reframes F-003
+  from "overshoot" to "transient hyperoxia regime + AGE undershoot."
+- **S022** No-compute failure-mode attribution audit of
+  `not_steady_state` (Appendix C).
+- **S023** Supplementary ML/SHAP cross-check of Morris μ\* rankings
+  (manuscript §4.5; requires `uv sync --extra ml`).
+- **S024** Pre-submission claims-ledger audit (190 / 190 PASS).
+- **S025** Pre-release OSS code-hygiene audit + fixes (this release).
 
 ---
 

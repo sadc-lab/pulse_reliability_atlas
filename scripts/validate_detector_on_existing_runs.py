@@ -19,6 +19,7 @@ counts per flag to stdout.
 
 from __future__ import annotations
 
+import os
 import sys
 from pathlib import Path
 
@@ -30,7 +31,17 @@ sys.path.insert(0, str(ROOT))
 from src import detector as d  # noqa: E402
 
 
-TRANSLATION_DIR = Path(r"C:\Users\santi\projets\Pulse_translation_new\data\engine_runs")
+# Path to the companion Pulse_translation_new repo's engine-runs directory.
+# Default assumes a sibling checkout next to this repo; override with the
+# PULSE_TRANSLATION_RUNS_DIR environment variable if it lives elsewhere.
+# If neither the env var nor the default path resolves to an existing directory
+# the script silently returns an empty run list (see find_runs() below), so
+# external researchers without Paper 1's data can still execute this script
+# without errors -- it simply has nothing to validate against.
+_DEFAULT_TRANSLATION_DIR = ROOT.parent / "Pulse_translation_new" / "data" / "engine_runs"
+TRANSLATION_DIR = Path(
+    os.environ.get("PULSE_TRANSLATION_RUNS_DIR", str(_DEFAULT_TRANSLATION_DIR))
+)
 RESULTS_DIR = ROOT / "results"
 
 
