@@ -137,10 +137,20 @@ sweep.*
   Benjamini–Hochberg FDR control (q = 0.05), 5 of 24 cell × output
   Wasserstein tests survive the within-sex null, *all five in
   gas-exchange channels*.
-* **All-male solver-divergence cluster.** 20 of 1,280 runs (1.6 %)
-  diverge, *all 20 on the male surrogate*, mechanistically explained
-  by Pulse's `BloodVolumeBaseline` floor on the male reference surrogate
-  body ([S018](#s018)).
+* **Sex-stratified solver-divergence cluster in the input-extreme regime.**
+  20 of 1,280 runs (1.6 %) diverge, *all 20 on the male surrogate in the
+  Morris input-extreme regime*; the complementary continuous-severity
+  sweep at midrange inputs (§3.5.1) shows approximately sex-balanced
+  divergence inside the [0.879, 0.945] band — the sex effect is
+  regime-dependent. The [S006](#s006) cluster is mechanistically
+  confirmed ([S018](#s018)) to be mediated by Pulse's
+  `BloodVolumeBaseline` (male default 4,802.63 mL vs female default
+  3,996.09 mL, a ~17 % gap): reducing the male surrogate's BV
+  monotonically eliminates divergence
+  (20 / 20 → 2 / 20 → 0 / 20 across BV = 4,802.63 → 4,400 → 4,082.24 mL).
+  A separate engine-level finding (F-S018-A) is the per-surrogate BV
+  floor at 4,082.24 mL that bounds how far the gap can be closed by a
+  one-way transplant.
 * **A reusable four-flag classifier**
   (`clamped` / `diverged` / `implausible` / `not_steady_state`) that
   future Pulse users can apply to their own scenario configurations
@@ -1426,11 +1436,15 @@ output HR as the engine's reflex response, not a setpoint.
 *The third hypothesis test: are solver divergences sex-stratified?
 Answer — partially. In the [S006](#s006) input-extreme regime, all 20 / 20
 divergences are male and zero female, with the asymmetry
-mechanistically explained by Pulse's `BloodVolumeBaseline` floor on
-the male reference surrogate ([S018](#s018)). In the §3.5.1 continuous-severity
-regime at midrange inputs, divergence is approximately sex-balanced
-inside the [0.879, 0.945] band — so the original sex effect varies
-with *what is varying*, not sex per se.*
+mechanistically confirmed ([S018](#s018)) to be mediated by Pulse's
+`BloodVolumeBaseline` gap on the two surrogates — male default
+4,802.63 mL vs female default 3,996.09 mL, a ~17 % difference — and
+with a separate F-S018-A side-finding that Pulse enforces a
+per-surrogate BV floor (4,082.24 mL on this male body) which bounds
+how far the gap can be closed by a one-way transplant. In the §3.5.1
+continuous-severity regime at midrange inputs, divergence is
+approximately sex-balanced inside the [0.879, 0.945] band — so the
+original sex effect varies with *what is varying*, not sex per se.*
 
 20 / 1,280 runs (1.6 %) diverged. **All 20 are in male cells.**
 
