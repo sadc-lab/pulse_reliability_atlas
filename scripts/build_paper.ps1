@@ -65,6 +65,8 @@ $CommonArgs = @(
     '--bibliography', $BibFile,
     '--metadata', 'suppress-bibliography=true',
     '--metadata', 'link-citations=true',
+    '--resource-path', $RepoRoot,
+    '--resource-path', (Join-Path $RepoRoot 'preprint'),
     '--standalone'
 )
 $PdfFontArgs = @(

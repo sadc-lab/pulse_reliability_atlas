@@ -96,14 +96,19 @@ each can be entered independently.*
   machine-learning pipelines that train on Pulse synthetic cohorts, a
   side-by-side mapping against Cornish et al. 2023 causal falsification
   (Table 2), explicit limitations (§4.5), and downstream research hooks.
+* **§5 — Conclusion.** Short closing summary: headline contribution,
+  operator-actionable F-003 / F-004 corrections in their final
+  framings, the regime-dependent sex axis, and the PhD-pipeline
+  placement.
 * **Appendices.** Appendix A is the experiment-log index; Appendix B
   carries the pre-Atlas boundary characterisations (hard input gates,
   ARDS-severity calibration, source-code audit).
 
 A skimmer wanting the headline can read the abstract, the *Key
-contributions* below, Table 1, Figure 6, and §4.5. A reader interested
-in reproducing or extending the work should additionally read §2.6
-(detector), §2.8 (reproducibility), and Appendix A.
+contributions* below, Table 1, Figure 6, §4.5, and §5 (Conclusion).
+A reader interested in reproducing or extending the work should
+additionally read §2.6 (detector), §2.8 (reproducibility), and
+Appendix A.
 
 ---
 
@@ -1147,6 +1152,8 @@ segments.
 `implausible` is the primary operational-envelope map the atlas
 claims as its first deliverable; `clamped` is empty everywhere.
 
+![Figure 1. Per-cell flag breakdown — stacked bars of run counts per detector flag, faceted by the 8 (scenario, sex) cells (n = 160 per cell). Flag categories are independent presence counts (one run can fire several flags); `clean` is mutually exclusive of the four flag classes. The S1 → S4 gradient in `not_steady_state` and `implausible` is the primary operational-envelope map of the atlas. Source: `results/cell_flag_summary.csv` (S006).](../figures/fig01_flag_summary.png)
+
 ### 3.2 Morris sensitivity (Figures 2 a–f)
 
 *The Morris μ\* heatmaps per output — which inputs dominate which
@@ -1222,6 +1229,18 @@ heatmaps for legibility.
 the diagonal pattern visually supports H1's "skewed sensitivity"
 claim (formal test in §3.3).
 
+![Figure 2a — Morris μ\* heatmap, HR. Rows are the 7 swept inputs, columns are the 8 (scenario, sex) cells; colour intensity is the mean absolute elementary effect. Source: `results/morris_indices.parquet` (S006).](../figures/fig02_morris_mu_star_HR.png)
+
+![Figure 2b — Morris μ\* heatmap, MAP. Same layout as 2a. Source: `results/morris_indices.parquet` (S006).](../figures/fig02_morris_mu_star_MAP.png)
+
+![Figure 2c — Morris μ\* heatmap, Vt delivered. Same layout as 2a. Source: `results/morris_indices.parquet` (S006).](../figures/fig02_morris_mu_star_Vt.png)
+
+![Figure 2d — Morris μ\* heatmap, SpO2. Same layout as 2a. Source: `results/morris_indices.parquet` (S006).](../figures/fig02_morris_mu_star_SpO2.png)
+
+![Figure 2e — Morris μ\* heatmap, PaO2. Same layout as 2a. Source: `results/morris_indices.parquet` (S006).](../figures/fig02_morris_mu_star_PaO2.png)
+
+![Figure 2f — Morris μ\* heatmap, PaCO2. Same layout as 2a. Source: `results/morris_indices.parquet` (S006).](../figures/fig02_morris_mu_star_PaCO2.png)
+
 ### 3.3 H1 — skewed sensitivity (PASS, 48 / 48)
 
 *The first hypothesis test: in every cell × output combination, do
@@ -1280,6 +1299,8 @@ operational region.
 support skewed sensitivity, cells below (red-side) would not.
 **Key takeaway:** all 48 combinations exceed 0.5 (median 0.928, range
 0.658 – 0.998); H1 passes 48 / 48 across the full atlas.
+
+![Figure 3. H1 — top-3 fraction of summed μ\* per cell × output (48 combinations). Heatmap with RdYlGn palette, crossover at 0.5 (the preregistered H1 threshold). Lowest fractions are in S4 (severe ARDS) gas-exchange outputs (S4_F SpO2 0.658; mechanism: shunt-fraction caps FiO2's marginal effect). Source: `results/h1_top3_fraction.csv` (S006).](../figures/fig03_h1_top3_fraction.png)
 
 ### 3.3.1 Sobol bolt-on: preregistered decision
 
@@ -1807,6 +1828,14 @@ the regime where alveolar volume scaling and lung-volume-to-body-mass
 ratios diverge by sex. PaCO2 is the strongest signal — significant
 in 3 of 4 scenarios, with very small p_emp values in S2 and S3.
 
+*Clinical-meaningfulness context.* The observed 4.7 – 5.1 mmHg
+M-vs-F PaCO2 Wasserstein in S1 and S2 is comparable to one
+alveolar-ventilation step under ARDSnet protective ventilation —
+the same magnitude §2.6 anchors as "clinically meaningful CO2
+change" (5 mmHg / 60 s drift threshold). The sex separation is
+therefore *detectable at the bedside* but not survival-defining
+under typical ICU monitoring tolerances.
+
 *Figure 4 (`fig04_h4_wasserstein`) — at a glance.*
 **What:** 1-Wasserstein distance between male and female clean-run
 output distributions, per scenario × output, in each output's native
@@ -1819,6 +1848,8 @@ runs); cells flagged with `*` exceed the 95th-percentile of the null.
 *all five on gas-exchange channels* (PaCO2 × 3, SpO2 × 1, PaO2 × 1).
 Cardiovascular and Vt distances fall within the within-sex baseline
 at this sample size.
+
+![Figure 4. H4 — 1-Wasserstein distance, M vs F clean-run outputs, per scenario × output, in each output's native units. Bars marked `*` exceed the within-sex sub-sampling null (n = 2,000 splits) at the 95th percentile; under BH-FDR control at q = 0.05, **5 of 24** survive — all 5 on gas-exchange channels (PaCO2 × 3, SpO2 × 1, PaO2 × 1). S2 SpO2 (p_emp = 0.022) is the BH-demoted row. Source: `results/wasserstein_male_vs_female.csv` + `results/bh_fdr_survivors.csv` (S006 / S008).](../figures/fig04_h4_wasserstein.png)
 
 **Spearman ρ on μ\* rankings with paired-input bootstrap CI.** ρ is
 computed wherever both sexes have clean elementary-effect pairs
@@ -1879,6 +1910,8 @@ S2 and S3 — S1 and S4_F have no clean FiO2 elementary-effect pairs
 rankings are qualitatively preserved across sexes. Vt is the
 exception (S2 CI [−0.06, 1.00]), reflecting that the input ranking
 driving Vt is not clearly preserved across sex.
+
+![Figure 5. H4 — Spearman ρ on Morris μ\* rankings, M vs F, per scenario × output, with paired-input bootstrap 95 % CI (n = 1,000 input-resamples). Computed only for S2 and S3; S1 and S4_F have no clean FiO2 elementary-effect pairs (§4.5 limitations). Source: `results/spearman_mu_star.csv` (S006 / S008).](../figures/fig05_h4_spearman_mu_star.png)
 
 **Combined H4 picture:**
 
@@ -1954,6 +1987,8 @@ baseline *or* diverged + implausible rate > 30 %.
 **Key takeaway:** 7 green, 29 yellow, 12 red out of 48 cells. Green
 cluster: (S2, F) + (S3, F). Red cluster: HR and PaO2 in S3 / S4.
 (S4, M) is red on every output — the worst single cell in the atlas.
+
+![Figure 6. Reliability traffic light — per cell × output, one of {green, yellow, red}. Green = no flags raised in the cell AND clean-run mean within 10 % of the (S1, M) baseline. Yellow = any flag raised OR mean 10 – 30 % off baseline. Red = mean > 30 % off baseline OR diverged + implausible rate > 30 %. Distribution: 7 green / 29 yellow / 12 red across 48 cells; the user-facing summary of the entire atlas. Source: `results/reliability_classification.csv` (S006).](../figures/fig06_reliability_traffic_light.png)
 
 ### 3.8 Two structural findings carried from pilot to full sweep
 
@@ -2725,14 +2760,55 @@ layer (Paper 1, in preparation) and a native pediatric Pulse fork
 
 ## 6. Data availability
 
-* Master aggregated table:
-  `data/runs/full_sweep/aggregated.parquet`.
-* Morris sample: `data/runs/full_sweep/morris_sample.parquet`.
-* Per-cell aggregates: `data/runs/full_sweep/<scenario>_<sex>/aggregated.parquet`.
-* Analysis artifacts: `results/`.
-* Figures: `figures/`.
-* Code: this repo (Apache-2.0).
-* Zenodo deposit forthcoming (DOI on preprint upload).
+All data, code, and lab notebooks needed to reproduce every number,
+figure, and table in this paper are openly available in the repository
+under Apache License 2.0.
+
+* **Master aggregated table:**
+  `data/runs/full_sweep/aggregated.parquet` (1,280 rows × all outputs
+  + flags + meta; [S006](#s006)).
+* **Canonical Morris sample:**
+  `data/runs/full_sweep/morris_sample.parquet`
+  (seed = 42, 20 trajectories, 4 levels ⇒ 160 unique input points;
+  §2.5).
+* **Per-cell aggregates:**
+  `data/runs/full_sweep/<scenario>_<sex>/aggregated.parquet`.
+* **Mechanism-test artifacts:** `data/runs/s014_trigger_lockout/`
+  (F-004 causal test, [S014](#s014)),
+  `data/runs/s018_blood_volume/` (BV dose-response, [S018](#s018)),
+  `data/runs/s021_hyperoxia_convergence/` (F-003 300 s rerun,
+  [S021](#s021)).
+* **Analysis artifacts:** `results/` (Morris indices, BH-FDR
+  survivors, Spearman ρ, reliability classification, NSS sub-mode
+  decomposition `results/s022/`, SHAP cross-check `results/s023/`).
+* **Figures:** `figures/` (Figures 1 – 6, PNG + PDF;
+  `figures/captions.md` for the figure-generation pipeline metadata).
+* **Code:** this repository (Apache License 2.0). Source layout per
+  §2.9; full reproduction recipe in `README.md`.
+* **Programmatic claims-ledger audit:**
+  [`scripts/audit_claims.py`](../scripts/audit_claims.py) — read-only
+  Python script verifying that every Tier-1 and Tier-2 quantitative
+  claim in §3 / §4 / Appendix C matches the canonical artifacts
+  under explicit per-class tolerance rules; current state 190 / 190
+  PASS ([S024](#s024); see §2.8 for protocol).
+* **Pinned Docker image hashes (byte-level reproducibility):**
+  `pulse-atlas-engine:3b18bdc08660` (canonical sweep, 2026-04-26)
+  and `pulse-atlas-engine:b2e0e807803d` (post-[S014](#s014) rebuild,
+  2026-04-28). Upstream base: `kitware/pulse:4.3.1`. Outputs are
+  bit-exact across rebuilds for fixed inputs ([S005](#s005) G5 /
+  [S007](#s007) / [S015](#s015) / §2.8 Phase 4a).
+* **Atlas-version compatibility:** results on Pulse 4.3.1 apply
+  identically to `REL_4_3_2` (2025-08-12); the upstream diff is
+  build-system-only, no physiology changed ([S016](#s016)).
+* **Lab-notebook provenance:** every commit on the main branch ties
+  to one of the experiment-log entries S001 – S024 + the OSS
+  release-hygiene entries S025 / S026; full audit trail in
+  [`experiments_log/INDEX.md`](../experiments_log/INDEX.md).
+* **Zenodo deposit:** the raw per-run artifacts excluded from git
+  history by `.gitignore` (per-run output.csv / pulse.log /
+  config.json / run_meta.json across the 1,280-run sweep + S014 +
+  S018 + S021; ~ 1.5 GB total) will be uploaded to Zenodo at the
+  time of arXiv submission; DOI added here on upload.
 
 ---
 
@@ -2748,6 +2824,16 @@ Grand Est, France, for which we express our gratitude.
 We gratefully acknowledge the support of the CHU Sainte-Justine
 Foundation in Montreal and the Artificial Intelligence Applied to
 Pediatric Acute Care Research Group (R-SADC) in Montreal, Canada.
+
+**Author contributions.** S.N. designed the study, performed all
+analyses, wrote all of the manuscript, and is solely responsible
+for the scientific claims and statistical interpretations contained
+herein. AI tooling (Claude Code, `claude-opus-4-7`) provided
+drafting / refactoring / reviewer-style critique assistance on text
+and code only, as detailed in §8.
+
+**Competing interests.** The author declares no competing
+interests, financial or otherwise.
 
 ---
 
@@ -2808,7 +2894,7 @@ the following or to an experiment-log entry in this repository.
    <https://pulse.kitware.com/_f_a_q.html> — verified verbatim
    2026-04-19, still current at the May 2026 re-audit; paragraph
    quoted in §1.1 (recorded in [S003](#s003) / [S016](#s016)).
-2a. **Pulse `STUDY_SENSITIVITY_ANALYSIS_1_0_0` tag (Kitware, 2020-07-20).**
+3. **Pulse `STUDY_SENSITIVITY_ANALYSIS_1_0_0` tag (Kitware, 2020-07-20).**
     Code at `src/cpp/study/sensitivity_analysis/` and
     `src/python/pulse/study/sensitivity_analysis/` in the Pulse
     GitLab repository. Sobol S1/ST analysis with an ML surrogate
@@ -2820,7 +2906,7 @@ the following or to an experiment-log entry in this repository.
     distinguish internal-calibration SA (their scope) from
     operational-input SA (this paper's scope). Audit logged in
     [S016](#s016) (2026-05-07).
-2b. **Cornish R, Taufiq MF, Doucet A, Holmes C (Oxford, 2023).**
+4. **Cornish R, Taufiq MF, Doucet A, Holmes C (Oxford, 2023).**
     *Causal Falsification of Digital Twins.* arXiv:2301.07210
     (November 2023). External statistical-falsification framework
     applied to Pulse on MIMIC-III sepsis trajectories;
@@ -2830,12 +2916,12 @@ the following or to an experiment-log entry in this repository.
     dataset) from this paper's contribution (operational-input
     reliability across the adult ICU envelope). Identified in the
     May 2026 audit logged in [S016](#s016).
-3. **Pulse Setup audit.**
+5. **Pulse Setup audit.**
    `engine/src/cpp/engine/human_adult/whole_body/controller/SetupPatient.cpp`
    — referenced for adult age gate (lines 41 – 64), BMI bounds (lines
    179 – 200), blood-volume formula (line 534), HR / SBP / DBP
    acceptance bounds (verified by E10 / E28 / E29).
-4. **Webb et al. 2022 (ANNSIM).** *Implementation of a dynamic and
+6. **Webb et al. 2022 (ANNSIM).** *Implementation of a dynamic and
    extensible mechanical ventilator model for real-time physiological
    simulation.* PubMed Central article PMC10224749. Describes Pulse's
    ASL 5000 + Dräger Evita validation framework across nine cases
@@ -2844,25 +2930,25 @@ the following or to an experiment-log entry in this repository.
    2026-05-12: a previous draft cited this paper as "Webb et al.
    2023" with an invented "PulseExt" title and an incorrect author
    list; corrected here against the actual PMC10224749 metadata.)
-4a. **Pulse Mechanical Ventilator Methodology page (Kitware, v4.3.1
+7. **Pulse Mechanical Ventilator Methodology page (Kitware, v4.3.1
     documentation).** <https://pulse.kitware.com/_mechanical_ventilator_methodology.html>.
     Validation Tables 3 / 5 / 10 / 12 / 17 / 19 report Pulse vs ASL
     5000 + Dräger Evita tidal-volume errors for VC-AC (0.07 % healthy,
     1.01 % restrictive, 2.25 % obstructive) and PC-AC (11.3 % healthy,
     25.3 % restrictive, 15.3 % obstructive). Source of the numerical
     Vt-accuracy claims used to justify the atlas's VC-AC restriction;
-    the surrounding validation framework is in entry 4 (Webb et al.
+    the surrounding validation framework is in entry 6 (Webb et al.
     2022 ANNSIM).
-5. **Bray et al. 2019.** Cardiovascular limitations of the
+8. **Bray et al. 2019.** Cardiovascular limitations of the
    lumped-parameter model — referenced for valve idealization,
    dicrotic-notch absence, and viscoelastic limitation.
-6. **Pediatric Acute Lung Injury Consensus Conference (PALICC-2).**
+9. **Pediatric Acute Lung Injury Consensus Conference (PALICC-2).**
    ARDS severity classification (mild / moderate / severe), used to
    anchor scenarios S2 (0.26), S3 (0.60), S4 (0.95). Berlin Criteria
    correspondence verified through Pulse's own ARDS validation table.
-7. **SALib (Iwanaga, Usher, Herman 2022).** Socio-Environmental
-   Systems Modelling. Morris and Sobol implementations used for
-   sampling and analysis.
+10. **SALib (Iwanaga, Usher, Herman 2022).** Socio-Environmental
+    Systems Modelling. Morris and Sobol implementations used for
+    sampling and analysis.
 Internal references (`experiments_log/santino/Sxxx_*.md`) are
 additionally available in the repository:
 
@@ -3068,7 +3154,9 @@ elementary-effects sweep. They are documented here to define the exact
 adult operational envelope of the Pulse Physiology Engine (v4.3.1) and
 to ensure reproducibility. The complete experimental logs and Docker
 replication scripts for these boundary probes are available in the
-companion repository [Insert Citation/DOI].
+companion repository (`Pulse_translation_new`, the maintainer's
+downstream PhD repository; GitHub URL to be filled at arXiv
+submission once Paper 1 publishes).
 
 ### B.2 Hard input acceptance gates
 

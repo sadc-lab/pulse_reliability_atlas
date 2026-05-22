@@ -6,12 +6,13 @@ This file is rebuilt from the YAML frontmatter of every entry in
 `santino/`, `contributor2/`, and `shared/`. To update it, edit the experiment
 and recommit — the pre-commit hook regenerates and stages this file.
 
-Total entries: **25**
+Total entries: **26**
 
 ## All experiments (newest first)
 
 | ID | Date | Author | Status | Title |
 |---|---|---|---|---|
+| `S026` | 2026-05-22 | santino | done | [S026 — Final pre-arXiv polish](santino/S026_pre_arxiv_polish.md) |
 | `S025` | 2026-05-22 | santino | done | [S025 — Pre-release OSS code-hygiene audit and fixes](santino/S025_oss_release_hygiene.md) |
 | `S024` | 2026-05-22 | santino | done | [S024 — Pre-submission claims-ledger audit](santino/S024_claims_ledger_audit.md) |
 | `S023` | 2026-05-22 | santino | done | [S023 — Supplementary ML/SHAP cross-check of the Morris μ* rankings](santino/S023_shap_vs_morris_topk.md) |
@@ -65,6 +66,7 @@ Total entries: **25**
 - `S023` (2026-05-22, done) — [S023 — Supplementary ML/SHAP cross-check of the Morris μ* rankings](santino/S023_shap_vs_morris_topk.md) — _supplementary, ml, surrogate, shap, morris, top-k, cross-check_
 - `S024` (2026-05-22, done) — [S024 — Pre-submission claims-ledger audit](santino/S024_claims_ledger_audit.md) — _claims-ledger, pre-submission, manuscript-polish, reviewer-defense, audit, reproducibility_
 - `S025` (2026-05-22, done) — [S025 — Pre-release OSS code-hygiene audit and fixes](santino/S025_oss_release_hygiene.md) — _oss-release, pre-submission, manuscript-polish, reviewer-defense, readme-audit, traceability_
+- `S026` (2026-05-22, done) — [S026 — Final pre-arXiv polish](santino/S026_pre_arxiv_polish.md) — _pre-arxiv, manuscript-polish, figures-embed, traceability, release-mechanics_
 
 ## By tag
 
@@ -187,6 +189,9 @@ Total entries: **25**
 - `S017` — [S017 — Cornish 2023 cross-mapping: re-tabulating the only prior external Pulse assessment against the atlas's 6-output panel](santino/S017_cornish_2023_cross_mapping.md)
 - `S018` — [S018 — Blood-volume mechanism falsification test (Phase B item B2): dose-response bracket on the 20 originally-diverged male inputs](santino/S018_blood_volume_falsification.md)
 
+### `figures-embed`
+- `S026` — [S026 — Final pre-arXiv polish](santino/S026_pre_arxiv_polish.md)
+
 ### `full-1280-runs`
 - `S006` — [S006 — Full 1,280-run Morris sweep + post-sweep analysis](santino/S006_full_morris_sweep.md)
 
@@ -251,6 +256,7 @@ Total entries: **25**
 - `S013` — [S013 — Lexical lockdown (solver-divergence vs implausible-output taxonomy)](santino/S013_lexical_lockdown.md)
 - `S024` — [S024 — Pre-submission claims-ledger audit](santino/S024_claims_ledger_audit.md)
 - `S025` — [S025 — Pre-release OSS code-hygiene audit and fixes](santino/S025_oss_release_hygiene.md)
+- `S026` — [S026 — Final pre-arXiv polish](santino/S026_pre_arxiv_polish.md)
 
 ### `mechanism`
 - `S008` — [S008 — Tier-1 statistical refinement: block bootstrap, within-sex Wasserstein null, divergence mechanism, manuscript polish](santino/S008_tier1_statistical_refinement.md)
@@ -291,6 +297,9 @@ Total entries: **25**
 - `S001` — [S001 — Docker + hardware smoke test (3× parallel Pulse)](santino/S001_docker_smoke_test.md)
 - `S005` — [S005 — 22-run pilot on cell (S1, Male) — preregistration §Pilot gate](santino/S005_pilot_S1_male.md)
 
+### `pre-arxiv`
+- `S026` — [S026 — Final pre-arXiv polish](santino/S026_pre_arxiv_polish.md)
+
 ### `pre-pilot`
 - `S004` — [S004 — Scenario-init smoke test (4×2 cells) + atlas Docker image + detector recalibration](santino/S004_scenario_smoke_and_atlas_image.md)
 
@@ -315,6 +324,9 @@ Total entries: **25**
 
 ### `references`
 - `S010` — [S010 — Literature-review pass: every reference verified against DOI / PMID](santino/S010_literature_review.md)
+
+### `release-mechanics`
+- `S026` — [S026 — Final pre-arXiv polish](santino/S026_pre_arxiv_polish.md)
 
 ### `repo-setup`
 - `S002` — [S002 — Project bootstrap (separate repo, skeleton, licensing)](santino/S002_project_bootstrap.md)
@@ -388,6 +400,7 @@ Total entries: **25**
 
 ### `traceability`
 - `S025` — [S025 — Pre-release OSS code-hygiene audit and fixes](santino/S025_oss_release_hygiene.md)
+- `S026` — [S026 — Final pre-arXiv polish](santino/S026_pre_arxiv_polish.md)
 
 ### `trigger-pressure`
 - `S014` — [S014 — Trigger-pressure lockout: causal test of F-004 mechanism](santino/S014_trigger_pressure_lockout.md)
