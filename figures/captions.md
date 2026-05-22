@@ -57,12 +57,13 @@ and female clean-run distributions, in the output's native units
 (bpm, mmHg, mL, %, mmHg, mmHg). Each observed distance is compared
 against a within-sex sub-sampling null (n_null = 2,000 random splits
 of the combined M+F clean runs into halves of the original sizes);
-distances marked with `*` exceed the 95th percentile of the null and
-are interpreted as real sex-specific deviations. Of 24 (cell × output)
-combinations, 6 exceed the null — all six on gas-exchange channels
-(PaCO2 × 3, SpO2 × 2, PaO2 × 1). Cardiovascular and Vt distances fall
-within the within-sex baseline at this sample size and are not
-interpretable as sex effects.
+distances marked with `*` exceed the 95th percentile of the null.
+Under Benjamini–Hochberg FDR control at q = 0.05, **5 of 24** (cell ×
+output) combinations survive the within-sex null — all 5 on
+gas-exchange channels (PaCO2 × 3, SpO2 × 1, PaO2 × 1). The
+naive-α = 0.05 analysis would flag 6; S2 SpO2 (p_emp = 0.022 above
+the 0.0104 BH critical) is the BH-demoted row. Cardiovascular and
+Vt distances do not reach significance even without correction.
 
 ## Figure 5 — H4 Spearman ρ on μ\* rankings
 

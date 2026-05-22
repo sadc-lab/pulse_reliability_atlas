@@ -61,7 +61,7 @@ positives on Morris pilot, 2/2 true positives on clamp probes.
 At FiO2 = 1.0, healthy adult VC-AC runs reached steady-state PaO2 = 634,
 637, 642 mmHg — exceeding the locked physiological upper bound of 600 mmHg
 (based on pure-O2 ceiling). All three runs flagged `implausible`. Whether
-the hyperoxia overshoot is a Pulse modelling artifact or a tolerance
+the apparent FiO2 = 1.0 PaO2 transient is a Pulse modelling artifact or a window-length / classifier-bound interaction (the latter was confirmed by S021; see manuscript §3.8 for the transient-hyperoxia-regime reframe — under a 300 s rerun, the S1 plateau lands ~ 10 mmHg below the alveolar-gas-equation prediction, consistent with Pulse's modelled A-a gradient, not an overshoot)
 mismatch is a paper discussion point. The atlas reports the observation
 faithfully without changing the bound.
 
@@ -224,7 +224,7 @@ implausible flag analysis.
 Of 126 implausibly-flagged runs across the full sweep, 34 have
 PaO2_mean > 600 mmHg and 91 % of those are at FiO2 ≥ 0.95. Spot checks
 of raw CSVs confirm PaO2 is still drifting upward at t = 120 s in these
-runs. The hyperoxia-overshoot finding scales cleanly from pilot (3 / 16)
+runs. The F-003 transient-hyperoxia-regime finding (S021 reframe; previously "hyperoxia overshoot") scales cleanly from pilot (3 / 16)
 to full sweep.
 
 ### F-012 — F-004 confirmed at scale: 20.6 % of runs fail VC-AC steady-state in [60, 120] s
@@ -282,7 +282,7 @@ image (S006); the analysis pipeline is preserved in
 
 ### Sub-questions for the discussion section
 
-- Does the FiO2 = 1.0 hyperoxia overshoot (F-003) cluster only in S1, or
+- Does the FiO2 = 1.0 F-003 transient-hyperoxia regime (PaO2 still drifting at end of locked 120 s window; converges in 300 s per S021) cluster only in S1, or
   does it persist into ARDS scenarios where the lung-impairment fraction
   should attenuate alveolar PO2?
 - Does the VC-AC Vt instability (F-004) correlate with specific PEEP
