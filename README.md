@@ -378,11 +378,29 @@ Quick map (highlights — full audit trail in
 
 ## Citation
 
+Plain text:
+
 ```
 Nanini, S. (2026). Pulse Reliability Atlas: first sensitivity, clamping,
 and divergence map for the Pulse Physiology Engine v4.3.1.
 Preprint forthcoming. Code: https://github.com/santinon/pulse_probe
 ```
+
+BibTeX:
+
+```bibtex
+@misc{nanini2026pulseatlas,
+  author       = {Nanini, Santino},
+  title        = {Pulse Reliability Atlas: first sensitivity, clamping, and divergence map for the Pulse Physiology Engine v4.3.1},
+  year         = {2026},
+  howpublished = {\url{https://github.com/santinon/pulse_probe}},
+  note         = {Preprint forthcoming; arXiv DOI to be added on upload.}
+}
+```
+
+A machine-readable [`CITATION.cff`](CITATION.cff) is also provided —
+GitHub renders a "Cite this repository" button from it, and reference
+managers (Zotero, Mendeley) import it directly.
 
 (arXiv DOI added on preprint upload. Zenodo dataset DOI added when the
 raw run-level data is deposited.)

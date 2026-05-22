@@ -1,0 +1,38 @@
+# Pulse Reliability Atlas — line-ending normalization.
+#
+# Goal: portable LF line endings on all text files in git history,
+# regardless of which OS a contributor commits from. Stops the
+# "LF will be replaced by CRLF" warnings every Python commit emits
+# on Windows checkouts, and prevents accidental CRLF leakage into the
+# released code that external contributors clone.
+
+* text=auto eol=lf
+
+# Source / config — keep LF in the repo, render however the OS prefers
+# on checkout (Git will not auto-convert because eol=lf is explicit).
+*.py text eol=lf
+*.md text eol=lf
+*.toml text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.csv text eol=lf
+*.json text eol=lf
+*.cff text eol=lf
+*.txt text eol=lf
+*.sh text eol=lf
+Dockerfile text eol=lf
+
+# PowerShell scripts are LF too -- pwsh handles either, and LF keeps
+# parity with the rest of the repo on cross-platform clones.
+*.ps1 text eol=lf
+
+# Binary artefacts -- never normalize.
+*.parquet binary
+*.png binary
+*.pdf binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.zip binary
+*.tar.gz binary
+*.whl binary

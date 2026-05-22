@@ -1,0 +1,40 @@
+# Citation File Format (CFF) -- https://citation-file-format.github.io
+# Reference managers (Zotero, Mendeley) and GitHub's "Cite this repository"
+# button auto-extract from this file.
+#
+# The DOI / preferred-citation fields are intentionally blank until arXiv
+# acceptance lands. At that point: backfill `doi:` + the
+# `preferred-citation:` block (preprint metadata) in a single follow-up
+# commit. The schema below is otherwise complete.
+
+cff-version: 1.2.0
+title: "Pulse Reliability Atlas"
+message: "If you use this software or its outputs, please cite it as below."
+type: software
+authors:
+  - family-names: Nanini
+    given-names: Santino
+    email: santino.nanini@learningplanetinstitute.org
+repository-code: "https://github.com/santinon/pulse_probe"
+license: Apache-2.0
+version: "0.1.0"
+date-released: 2026-05-22
+keywords:
+  - pulse-physiology-engine
+  - sensitivity-analysis
+  - morris-elementary-effects
+  - reliability-atlas
+  - ards
+  - virtual-patient
+  - reproducibility
+abstract: >-
+  The first open reliability atlas for the Pulse Physiology Engine
+  (Kitware, v4.3.1, Apache-2.0). Characterises the engine's
+  user-facing operational envelope (HR, BP, RR, Vt, FiO2, PEEP) via a
+  preregistered 1,280-run Morris elementary-effects sweep across two
+  adult reference surrogates and four scenarios (healthy + three
+  ARDS severities). Reports H1-H4 hypothesis verdicts, a four-flag
+  failure-mode classifier, two structural findings (F-003 transient
+  hyperoxia regime, F-004 VC-AC patient-ventilator dyssynchrony with
+  an operator-actionable trigger-pressure fix), and a per-cell
+  reliability traffic light.
