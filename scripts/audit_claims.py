@@ -48,6 +48,7 @@ The script writes nothing. Output is to stdout only.
 from __future__ import annotations
 
 import json
+import re
 import sys
 from dataclasses import dataclass
 from pathlib import Path
@@ -1059,6 +1060,93 @@ add(
     manuscript_value=92.0,
     computed_value=pct_ge2,
     tolerance_rule="pct_whole",  # corrected 2026-05-22 from 90% to 92% per S024 audit
+)
+
+# -----------------------------------------------------------------------------
+# TIER 3 -- S027 ADDITIONS: §1.1 'Pulse in a nutshell' + §4.7 engine-side
+# recommendations (added 2026-05-23).
+#
+# These pin manuscript text against primary-source values that originate
+# outside the atlas's computed artefacts:
+#
+#   - §1.1 facts (20 ms timestep, 10-15x real-time speed) come from Pulse's
+#     own user documentation, recorded with verification date in
+#     Pulse_translation_new/pulse_engine_literature_review.md §1.5.
+#   - §4.7 BV constants (4082.24 mL floor, 4802.63 mL default) come from
+#     the empirical experiment in scripts/s018_bv_falsification.py, where
+#     the constants were verified against Pulse log output (S018,
+#     2026-05-12). We extract them from that script via regex at audit
+#     time so any drift between the experiment script and this ledger is
+#     caught.
+# -----------------------------------------------------------------------------
+
+# §1.1 Pulse-documentation constants. Source-of-truth citation in the
+# source_file column points to the secondary record in the maintainer's
+# pulse_engine_literature_review.md, which itself cites Pulse's docs page
+# (last verified 2026-05-23 during S027).
+PULSE_DOC_TIMESTEP_MS = 20.0
+PULSE_DOC_SPEED_LO_X = 10.0
+PULSE_DOC_SPEED_HI_X = 15.0
+
+add(
+    claim_id="T3.s027.timestep_ms",
+    section="§1.1 'Pulse in a nutshell'",
+    manuscript_text="20 ms fixed timestep",
+    source_file="Pulse_translation_new/pulse_engine_literature_review.md §1.5",
+    manuscript_value=20.0,
+    computed_value=PULSE_DOC_TIMESTEP_MS,
+    tolerance_rule="whole_unit",
+)
+add(
+    claim_id="T3.s027.speed_lower",
+    section="§1.1 'Pulse in a nutshell'",
+    manuscript_text="roughly 10-15x real time (lower bound)",
+    source_file="Pulse_translation_new/pulse_engine_literature_review.md §1.5",
+    manuscript_value=10.0,
+    computed_value=PULSE_DOC_SPEED_LO_X,
+    tolerance_rule="whole_unit",
+)
+add(
+    claim_id="T3.s027.speed_upper",
+    section="§1.1 'Pulse in a nutshell'",
+    manuscript_text="roughly 10-15x real time (upper bound)",
+    source_file="Pulse_translation_new/pulse_engine_literature_review.md §1.5",
+    manuscript_value=15.0,
+    computed_value=PULSE_DOC_SPEED_HI_X,
+    tolerance_rule="whole_unit",
+)
+
+# §4.7 item 2 -- pull BV constants out of the S018 script at audit time.
+_s018_path = REPO / "scripts" / "s018_bv_falsification.py"
+_s018_text = _s018_path.read_text()
+_m_floor = re.search(r"MALE_FLOOR_BV_ML\s*=\s*([\d.]+)", _s018_text)
+_m_default = re.search(r"MALE_DEFAULT_BV_ML\s*=\s*([\d.]+)", _s018_text)
+assert _m_floor is not None, (
+    "audit_claims: MALE_FLOOR_BV_ML not located in scripts/s018_bv_falsification.py"
+)
+assert _m_default is not None, (
+    "audit_claims: MALE_DEFAULT_BV_ML not located in scripts/s018_bv_falsification.py"
+)
+S018_MALE_FLOOR_BV_ML = float(_m_floor.group(1))
+S018_MALE_DEFAULT_BV_ML = float(_m_default.group(1))
+
+add(
+    claim_id="T3.s027.bv_floor",
+    section="§4.7 item 2",
+    manuscript_text="4,082.24 mL male BV floor",
+    source_file="scripts/s018_bv_falsification.py MALE_FLOOR_BV_ML",
+    manuscript_value=4082.24,
+    computed_value=S018_MALE_FLOOR_BV_ML,
+    tolerance_rule="displayed_2dp",
+)
+add(
+    claim_id="T3.s027.bv_default",
+    section="§4.7 item 2",
+    manuscript_text="4,802.63 mL male BV default",
+    source_file="scripts/s018_bv_falsification.py MALE_DEFAULT_BV_ML",
+    manuscript_value=4802.63,
+    computed_value=S018_MALE_DEFAULT_BV_ML,
+    tolerance_rule="displayed_2dp",
 )
 
 # -----------------------------------------------------------------------------
