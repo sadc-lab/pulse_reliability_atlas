@@ -106,7 +106,10 @@ each can be entered independently.*
 * **§4 — Discussion.** Practical user guidance, implications for
   machine-learning pipelines that train on Pulse synthetic cohorts, a
   side-by-side mapping against Cornish et al. 2023 causal falsification
-  (Table 2), explicit limitations (§4.5), and downstream research hooks.
+  (Table 2), explicit limitations (§4.5), downstream research hooks
+  (§4.6), and a short, evidence-anchored list of engine-side
+  infrastructure enhancements offered back to the Pulse maintainers
+  (§4.7).
 * **§5 — Conclusion.** Short closing summary: headline contribution,
   operator-actionable F-003 / F-004 corrections in their final
   framings, the regime-dependent sex axis, and the PhD-pipeline
@@ -2740,6 +2743,108 @@ Neither downstream paper is required for this atlas's claims. The
 atlas stands independently on Pulse's public documentation, the
 publicly-cloned Pulse v4.3.1 source, and the experiments logged in
 this repository.
+
+### 4.7 Engine-side enhancements that would benefit future atlas users
+
+*A short set of infrastructure-level suggestions for the Pulse
+maintainers, derived from operating the engine at scale during the
+1,280-run sweep. These are framed as observations from atlas-user
+experience, not as physiological prescriptions: every item targets
+tooling, documentation, or validation infrastructure, and each traces
+to a specific experiment-log entry. None of the items below recommend
+changes to Pulse's underlying lumped-parameter physiology, which is
+the domain of the Kitware biomedical-engineering team.*
+
+The 1,280-run sweep ([S006](#s006)) and the surrounding
+infrastructure work ([S004](#s004), [S014](#s014), [S017](#s017),
+[S018](#s018), [S021](#s021)) surfaced six places where small
+additions to Pulse's existing tooling, documentation, or validation
+scaffolding would substantially lower the friction for downstream
+users running reliability- or sensitivity-style work. We offer these
+as a contribution back to the Pulse community in the same spirit as
+the atlas itself: every item below is anchored in a concrete
+experiment from this paper, and each is scoped to the tooling /
+documentation / validation layer rather than the physiology layer.
+
+1. **Structured input-rejection events.** Pulse currently surfaces
+   input clamping (e.g. SBP > 120, DBP/SBP ratio out of range, HR / RR
+   outside the initialization band) as `[ERROR]`-prefixed log lines
+   that downstream tools must regex-parse. A small structured-event
+   API — one typed record per rejected field, with the offending
+   value, the enforced bound, and the field name — would let
+   sensitivity-analysis wrappers detect clamping deterministically
+   instead of pattern-matching ~10 stderr substrings. Anchored in
+   the atlas's `src/detector.py` clamp-pattern catalogue and the
+   pilot / full-sweep experience ([S004](#s004), [S005](#s005),
+   [S006](#s006)).
+
+2. **Surface the male-surrogate `BloodVolumeBaseline` floor in user
+   documentation.** Pulse hard-enforces a 4,082.24 mL blood-volume
+   floor at setup on the 67.3 kg / 180 cm male reference body
+   (default 4,802.63 mL), but this constant is not currently exposed
+   in the public patient-setup documentation. We discovered it
+   empirically while investigating the all-male divergence cluster
+   ([S018](#s018)); a one-line note in the patient-baseline reference
+   table would have saved the investigation. Anchored in
+   [S018](#s018) and the verified BV-floor mechanism documented in
+   §3.5 of this paper.
+
+3. **A reference sensitivity-analysis recipe for user-facing
+   operational inputs.** Pulse's repository already carries a 2020
+   `STUDY_SENSITIVITY_ANALYSIS_1_0_0` tag that performs Sobol
+   sensitivity on internal vascular-circuit resistance multipliers
+   for calibration; this is a different parameter class from the
+   user-facing operational inputs (HR, BP, RR, Vt, FiO2, PEEP) that
+   sensitivity-conscious downstream users typically need to sweep. A
+   companion recipe — Morris or Sobol over operational inputs,
+   shipped alongside the existing study — would give the Pulse
+   community a maintained reference implementation. The atlas's
+   `src/sampler.py` and `src/runner.py` are an externally-developed
+   prototype; a maintainer-blessed version would be more durable.
+   Anchored in [S006](#s006) and the GitLab re-audit
+   ([S016](#s016)).
+
+4. **A setup-time warning for the ARDS impairment-fraction
+   instability zone (~0.91–0.945).** This instability zone is
+   documented in our preregistration limitations table (entry #4)
+   and corroborated by three independent sources, but Pulse does not
+   currently emit a setup-time warning when an ARDS action lands in
+   the zone. A single console notice — "impairment fraction in
+   reported instability band, results may not be reliable" — would
+   prevent downstream users from collecting unusable data without
+   blocking legitimate edge-case research. Anchored in the
+   `Pulse_translation_new` E6 / E10 boundary probes and the atlas's
+   continuous-severity sweep (§3.5.1).
+
+5. **Per-channel steady-state convergence diagnostic in CSV
+   output.** Our F-003 finding (PaO2 still rising at the end of the
+   locked 120 s window at FiO2 = 1.0, with full convergence at
+   ~300 s — [S021](#s021)) suggests that an optional per-output
+   "drift over final 60 s" column appended to result CSVs would let
+   users detect non-steady-state runs without writing their own
+   post-processing. The atlas's `src/detector.py` already implements
+   exactly this calculation; promoting the same diagnostic upstream
+   would generalise it. Anchored in F-003, [S012](#s012), and
+   [S021](#s021).
+
+6. **Field-attributed setup-error messages.** Current setup-time BP
+   and pulse-pressure-ratio rejection messages (verified in the
+   atlas's clamp-detection corpus, [S005](#s005)) require some
+   domain knowledge to map back to the offending input field. A
+   one-token prefix indicating which input was rejected
+   (`[ERROR][SystolicArterialPressure]` rather than the unprefixed
+   text) would let downstream users and CI pipelines route the
+   message without reading it. Anchored in [S005](#s005).
+
+These suggestions are deliberately infrastructure-level: none of
+them touches Pulse's underlying physiology, ODE topology, or
+lumped-parameter assumptions, all of which lie outside the scope of
+what an external operational-reliability study can credibly
+prescribe. We share them in the spirit of an open contribution to a
+shared community tool — the atlas itself is offered to the Pulse
+community in exactly the same spirit, and the present paper would
+have been substantially easier to produce had each of items 1–6
+already been in place.
 
 ---
 
