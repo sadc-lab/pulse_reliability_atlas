@@ -80,21 +80,21 @@ caught equally.*
   expected_occurrences: 7
   notes: 'Total occurrences of the literal pattern 1{,}280 across the paper as of Step 3: abstract sentence 2 standalone (1), abstract sentence 5 "20/1{,}280" denominator (1), §2.1 prose "1{,}280 simulations spanning" (1), §2.1 prose "0 / 1{,}280" (1), §2.1 prose "20 / 1{,}280" (1), §2.1 prose "663 of 1{,}280" (1), §2.1 Table 1 caption "1{,}280 total" (1) = 7. Bumped from 2 (Step 1) to 7 (Step 3). When Methods §4.3 sweep design cites the total, this will be incremented again.'
 
-- paper_section: 'Abstract'
-  paper_context: 'F-004 primary-flag rate (Vt CV > 0.05 under not_steady_state)'
+- paper_section: 'Abstract + §2.3 VC-AC'
+  paper_context: 'VC-AC trigger-dyssynchrony primary-flag rate (Vt CV > 0.05 under not_steady_state)'
   monograph_claim_id: 'T1.02a'
   expected_value: 20.6
-  format_in_paper: '20.6\%'
-  expected_occurrences: 1
-  notes: 'Appears once in the abstract sentence 3 "in 20.6\% of runs". Will recur in Results §2.3 (Headline Finding 1).'
+  format_in_paper: '20.6~\%'
+  expected_occurrences: 2
+  notes: 'Appears twice as of Step 4: abstract sentence 3 "in 20.6~\% of runs" (1), §2.3 opening sentence "20.6~\% of runs" (1). Format standardised in Step 4 to use ~ (LaTeX non-breaking space) between number and unit; the abstract was retroactively updated for consistency.'
 
-- paper_section: 'Abstract'
-  paper_context: 'S021 hyperoxia 300s plateau median (S1)'
+- paper_section: 'Abstract + §2.4 hyperoxia'
+  paper_context: 'Hyperoxia 300s plateau median (S1)'
   monograph_claim_id: 'T1.23'
   expected_value: 643
-  format_in_paper: 'median 643~mmHg'
-  expected_occurrences: 1
-  notes: 'Appears once in the abstract sentence 4. The "~" between number and unit is a LaTeX non-breaking space; re.escape() handles it. Will recur in Results §2.4 (Headline Finding 2).'
+  format_in_paper: '643~mmHg'
+  expected_occurrences: 2
+  notes: 'Appears twice as of Step 4: abstract sentence 4 "median 643~mmHg" (1), §2.4 prose "the converged S1 plateau median was 643~mmHg" (1). Both use ~ non-breaking space; format standardised to "643~mmHg" in Step 4.'
 
 - paper_section: 'Abstract'
   paper_context: 'Divergence count (all male, input-extreme regime)'
@@ -279,3 +279,103 @@ caught equally.*
   format_in_paper: 'S4\_M SpO$_2$ at 0.703'
   expected_occurrences: 1
   notes: 'Appears once in §2.2 prose immediately after the S4_F SpO2 identification.'
+
+## Step 4 — Results §2.3 VC-AC trigger correction
+
+- paper_section: '§2.3 + §2.4 caption + abstract'
+  paper_context: 'Median Vt CV original (S014 paired comparison)'
+  monograph_claim_id: 'T1.03'
+  expected_value: 0.351
+  format_in_paper: '0.351'
+  expected_occurrences: 2
+  notes: 'Appears twice: §2.3 prose ("collapses the median Vt CV from 0.351 to 0.016") and Figure 3 caption ("Median CV collapses from 0.351 to 0.016"). Both are downstream of T1.03 (S014 paired_comparison.parquet).'
+
+- paper_section: '§2.3 + §2.4 caption'
+  paper_context: 'Median Vt CV after -2 cmH2O trigger lock'
+  monograph_claim_id: 'T1.04'
+  expected_value: 0.016
+  format_in_paper: '0.016'
+  expected_occurrences: 2
+  notes: 'Appears twice: §2.3 prose and Figure 3 caption (same context as T1.03).'
+
+- paper_section: '§2.3 VC-AC (prose)'
+  paper_context: 'Worst-case Vt CV original'
+  monograph_claim_id: 'T1.05'
+  expected_value: 1.826
+  format_in_paper: '1.826'
+  expected_occurrences: 1
+  notes: 'Appears once in §2.3 prose: "reduces the worst-case Vt CV from 1.826 to 0.112".'
+
+- paper_section: '§2.3 VC-AC (prose)'
+  paper_context: 'Worst-case Vt CV after lock'
+  monograph_claim_id: 'T1.06'
+  expected_value: 0.112
+  format_in_paper: '0.112'
+  expected_occurrences: 1
+  notes: 'Appears once in §2.3 prose adjacent to T1.05.'
+
+- paper_section: '§2.3 VC-AC (prose)'
+  paper_context: 'S014 paired-rerun sample size'
+  monograph_claim_id: 'T1.06b.s14_n_runs'
+  expected_value: 64
+  format_in_paper: '64 of the affected configurations'
+  expected_occurrences: 1
+  notes: 'Appears once in §2.3 prose: "We re-ran 64 of the affected configurations". New ledger claim T1.06b.s14_n_runs added in Step 4 (was implicit in monograph L2226 but not previously audited).'
+
+- paper_section: '§2.3 + §2.4 caption'
+  paper_context: 'Fraction of locked-trigger reruns below 0.05 Vt CV threshold'
+  monograph_claim_id: 'T1.06c.s14_frac_below'
+  expected_value: 78.1
+  format_in_paper: '78.1~\%'
+  expected_occurrences: 2
+  notes: 'Appears twice: §2.3 prose ("78.1~\% of locked-trigger reruns drop below the 0.05 steady-state threshold") and Figure 3 caption ("78.1~\% of locked reruns drop below the threshold"). New ledger claim T1.06c added in Step 4.'
+
+- paper_section: 'Abstract + §2.3 subsection title + §2.3 prose ×2 + §2.4 caption'
+  paper_context: 'Inspiration-trigger pressure for VC-AC lockout fix'
+  monograph_claim_id: 'T1.06d.s14_trigger_pressure'
+  expected_value: -2
+  format_in_paper: '$-2$~cmH$_2$O'
+  expected_occurrences: 5
+  notes: 'Appears 5 times in paper.tex: abstract sentence 3 (1), §2.3 subsection title "VC-AC tidal-volume dyssynchrony and the $-2$~cmH$_2$O fix" (1; this was missed in the initial Step 4 count and revealed by the audit), §2.3 prose ×2 (1 + 1), Figure 3 caption (1). New ledger claim T1.06d (regex-extracted from scripts/run_s014_trigger_lockout.py TRIGGER_PRESSURE_CMH2O constant).'
+
+## Step 4 — Results §2.4 Transient hyperoxia regime
+
+- paper_section: '§2.4 hyperoxia (prose)'
+  paper_context: 'Total implausible-flagged runs across full sweep'
+  monograph_claim_id: 'T1.21b'
+  expected_value: 126
+  format_in_paper: '126 \texttt{implausible}-flagged runs'
+  expected_occurrences: 1
+  notes: 'Appears once in §2.4 prose: "exceeds the detector''s locked upper bound of 600~mmHg on 34 of the 126 \texttt{implausible}-flagged runs".'
+
+- paper_section: '§2.4 hyperoxia (prose)'
+  paper_context: 'PaO2 > 600 implausible count (F-003 hyperoxia subset)'
+  monograph_claim_id: 'T1.21'
+  expected_value: 34
+  format_in_paper: '34 of the 126'
+  expected_occurrences: 1
+  notes: 'Appears once in §2.4 prose adjacent to T1.21b.'
+
+- paper_section: '§2.4 hyperoxia (prose)'
+  paper_context: 'Fraction of PaO2>600 runs at FiO2 >= 0.95'
+  monograph_claim_id: 'T1.22'
+  expected_value: 91
+  format_in_paper: '91~\% of these excursions'
+  expected_occurrences: 1
+  notes: 'Appears once in §2.4 prose: "91~\% of these excursions occur at FiO$_2 \geq 0.95$".'
+
+- paper_section: '§2.4 hyperoxia (prose)'
+  paper_context: 'S021 S1 converged reruns'
+  monograph_claim_id: 'T1.24b'
+  expected_value: 41
+  format_in_paper: '41 of 44 reruns'
+  expected_occurrences: 1
+  notes: 'Appears once in §2.4 prose: "41 of 44 reruns (93.2~\%) converged to a stable plateau". Anchored on T1.24b (n=41); T1.24c (n=44 total) is co-validated by literal presence.'
+
+- paper_section: '§2.4 hyperoxia (prose)'
+  paper_context: 'S021 S1 frac_converged (93.2%)'
+  monograph_claim_id: 'T1.24'
+  expected_value: 93.2
+  format_in_paper: '93.2~\%'
+  expected_occurrences: 1
+  notes: 'Appears once in §2.4 prose immediately after the 41-of-44 count.'

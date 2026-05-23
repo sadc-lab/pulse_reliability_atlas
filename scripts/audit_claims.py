@@ -491,6 +491,48 @@ add(
     tolerance_rule="displayed_3dp",
 )
 
+# S028 Step 4 additions: S014 sample size + frac-below-threshold + trigger
+# pressure constant. These were already present in the monograph prose
+# (L2226, L2387) but had not been added to the audit ledger until the
+# npj submission §2.3 prose cited them. Adding now to bring the audit
+# coverage in line with what the monograph asserts.
+add(
+    claim_id="T1.06b.s14_n_runs",
+    section="§3.8 L2226 (monograph); §2.3 (npj paper)",
+    manuscript_text="64 paired reruns in S014 trigger-lockout sample",
+    source_file="data/runs/s014_trigger_lockout/summary.json",
+    manuscript_value=64,
+    computed_value=int(s14_sum["n_runs"]),
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T1.06c.s14_frac_below",
+    section="§3.8 L2226 / L2387 (monograph); §2.3 (npj paper)",
+    manuscript_text="78.1% of locked-trigger reruns below Vt_cv 0.05 threshold",
+    source_file="data/runs/s014_trigger_lockout/summary.json",
+    manuscript_value=78.1,
+    computed_value=100.0 * float(s14_sum["frac_Vt_cv_lock_below_0.05"]),
+    tolerance_rule="pct_1dp",
+)
+# Trigger-pressure constant: pull from scripts/run_s014_trigger_lockout.py
+# at audit time via regex to keep the experiment script and ledger in
+# lock-step (same pattern as S027 BV-constant verification).
+_s14_script = (REPO / "scripts" / "run_s014_trigger_lockout.py").read_text()
+_m_trig = re.search(r"TRIGGER_PRESSURE_CMH2O\s*:\s*float\s*=\s*(-?[\d.]+)", _s14_script)
+assert _m_trig is not None, (
+    "audit_claims: TRIGGER_PRESSURE_CMH2O not located in scripts/run_s014_trigger_lockout.py"
+)
+S14_TRIGGER_PRESSURE_CMH2O = float(_m_trig.group(1))
+add(
+    claim_id="T1.06d.s14_trigger_pressure",
+    section="§2.3, §2.4 caption (npj paper); abstract; experiment script",
+    manuscript_text="-2 cmH2O inspiration-trigger pressure for VC-AC lockout fix",
+    source_file="scripts/run_s014_trigger_lockout.py TRIGGER_PRESSURE_CMH2O",
+    manuscript_value=-2.0,
+    computed_value=S14_TRIGGER_PRESSURE_CMH2O,
+    tolerance_rule="displayed_1dp",
+)
+
 # 5-6. H1: PASS 48/48 + median 0.928 + range 0.658-0.998.
 add(
     claim_id="T1.07",
