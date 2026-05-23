@@ -1,11 +1,22 @@
 ---
+title: "Pulse Reliability Atlas: first sensitivity, clamping, and divergence map for the Pulse Physiology Engine v4.3.1"
+author: "Santino Nanini^1,2,3,4^"
+date: "2026-05-23"
 header-includes:
   - \renewcommand{\arraystretch}{1.35}
 ---
 
-# Pulse Reliability Atlas: first sensitivity, clamping, and divergence map for the Pulse Physiology Engine v4.3.1
+**Affiliations.**
 
-**Author:** Santino Nanini
+^1^ University of Lorraine, INSERM UMR_S 1256, Nutrition, Genetics, and Environmental Risk Exposure, Faculty of Medicine of Nancy, France.
+
+^2^ Research Center of Sainte-Justine University Hospital, Montreal, Quebec, Canada.
+
+^3^ Clinical Decision Support System Artificial Intelligence Health Cluster in Acute Child Care, PE-DIATRICS, CHU Ste-Justine Centre Hospitalier Universitaire Mère-Enfant, Montréal, Canada.
+
+^4^ Pediatric Intensive Care Unit, Department of Pediatrics CHU Sainte-Justine, Université de Montréal, Montreal, QC, Canada.
+
+**Correspondence.** santino.nanini@learningplanetinstitute.org
 
 ---
 
