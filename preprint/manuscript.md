@@ -233,7 +233,27 @@ The Pulse Physiology Engine [@bray2019] (Kitware, Apache-2.0)
 is among the most-cited open-source whole-body human physiology
 simulators. It provides a 0-dimensional lumped-parameter model of the
 cardiovascular, respiratory, gas-exchange, and pharmacological
-systems, and is used in three broad communities:
+systems.
+
+*Pulse in a nutshell.* The engine represents the body as a network of
+coupled electrical-circuit analogues — vascular resistances as
+resistors, vessel and chamber compliances as capacitors, heart and
+respiratory muscles as time-varying pressure sources — solved as a
+system of ordinary differential equations at a 20 ms fixed timestep
+[@bray2019]. The cardiovascular, respiratory (a 5-compartment lung
+model: carina, left and right anatomic dead space, left and right
+alveoli), gas-exchange, endocrine, renal, and drug sub-models share
+state at each step, producing a self-consistent whole-body trajectory
+in roughly 10–15× real time on commodity hardware. The codebase is
+C++ with bindings for Python, Java, C#, and Unity, and runs on
+Windows, Linux, macOS, Android, iOS, and ARM. Pulse forked from the
+DoD-funded BioGears engine in 2017 and is described by its
+maintainers as a "low-fidelity clinical approach" intended for
+training simulation rather than patient-specific prediction
+[@pulsenervous] — a self-description that motivates rather than
+contradicts the present reliability mapping.
+
+Pulse is used in three broad communities:
 
 * **Clinical research** — virtual-patient cohorts for hypothesis
   generation when human data are unavailable, ethically constrained,
@@ -3037,6 +3057,14 @@ during the literature-review pass logged in
   and Appendix B.3 as the canonical documentation against which the
   empirically calibrated mapping {0.26, 0.60, 0.95} is contrasted at
   ARDSnet-protective ventilation. Verified verbatim 2026-05-15.
+* []{#ref-pulsenervous} Kitware, Inc. *Nervous System Methodology — Pulse Physiology
+  Engine documentation (v4.3.1).*
+  <https://pulse.kitware.com/_nervous_methodology.html>.
+  Source of Pulse's self-description as a *"low-fidelity clinical
+  approach"* intended for training simulation rather than
+  patient-specific prediction; cited in §1.1 as the maintainer-stated
+  design philosophy that frames the present reliability mapping.
+  Verified verbatim 2026-05-23 (S027).
 * []{#ref-cornish2023} Cornish R, Taufiq MF, Doucet A, Holmes C. *Causal Falsification
   of Digital Twins.* arXiv:2301.07210 (November 2023, v4). Oxford
   statistics group. External assessment of Pulse on MIMIC-III
