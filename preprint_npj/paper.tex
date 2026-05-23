@@ -71,17 +71,22 @@
 %% rendered with LaTeX escapes (\`e, \'e). Street and postcode      %%
 %% omitted in \orgaddress because the monograph does not record     %%
 %% them; \city / \state / \country are sufficient per sn-jnl.       %%
+%%                                                                  %%
+%% Corresponding-author primary affiliation: marker on \affil*[4]   %%
+%% (CHU Sainte-Justine / Universite de Montreal PICU) per           %%
+%% maintainer directive in S028 Step 2 (2026-05-23). Affiliations   %%
+%% 1-4 retain their monograph ordering; only the * marker moved.    %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \author*[1,2,3,4]{\fnm{Santino} \sur{Nanini}}\email{santino.nanini@learningplanetinstitute.org}
 
-\affil*[1]{\orgdiv{INSERM UMR\_S 1256, Nutrition, Genetics, and Environmental Risk Exposure}, \orgname{University of Lorraine, Faculty of Medicine of Nancy}, \orgaddress{\country{France}}}
+\affil[1]{\orgdiv{INSERM UMR\_S 1256, Nutrition, Genetics, and Environmental Risk Exposure}, \orgname{University of Lorraine, Faculty of Medicine of Nancy}, \orgaddress{\country{France}}}
 
 \affil[2]{\orgdiv{Research Center}, \orgname{Sainte-Justine University Hospital}, \orgaddress{\city{Montreal}, \state{Quebec}, \country{Canada}}}
 
 \affil[3]{\orgdiv{Clinical Decision Support System Artificial Intelligence Health Cluster in Acute Child Care (PE-DIATRICS)}, \orgname{CHU Sainte-Justine Centre Hospitalier Universitaire M\`ere-Enfant}, \orgaddress{\city{Montr\'eal}, \country{Canada}}}
 
-\affil[4]{\orgdiv{Pediatric Intensive Care Unit, Department of Pediatrics}, \orgname{CHU Sainte-Justine, Universit\'e de Montr\'eal}, \orgaddress{\city{Montreal}, \state{QC}, \country{Canada}}}
+\affil*[4]{\orgdiv{Pediatric Intensive Care Unit, Department of Pediatrics}, \orgname{CHU Sainte-Justine, Universit\'e de Montr\'eal}, \orgaddress{\city{Montreal}, \state{QC}, \country{Canada}}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% ABSTRACT                                                         %%
@@ -91,7 +96,7 @@
 %% with its monograph claim_id and expected_occurrences count.      %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\abstract{Pulse is the most-cited open-source whole-body physiology simulator, widely used for synthetic clinical cohorts and digital-twin research, yet no formal sensitivity analysis on operational inputs has been published. We present the first reliability atlas across the adult critical-care envelope: Morris elementary-effects sampling of seven inputs across four ARDS severities and two patient surrogates (1{,}280 simulations). Tidal-volume instability in 20.6\% of runs is identified as patient-ventilator dyssynchrony and corrected by setting the VC-AC inspiration trigger to $-2$~cmH$_2$O. A transient hyperoxia regime at FiO$_2$~=~1.0 means 120-second simulations underestimate plateau PaO$_2$; 300-second runs converge into the alveolar-gas-equation band (median 643~mmHg). Solver divergence concentrated entirely on the male surrogate (20/1{,}280 runs); reducing the male blood-volume baseline toward its 4{,}082.24~mL floor monotonically eliminated divergence. The resulting per-cell traffic-light map provides a reusable data-quality filter for downstream users; all data and code are released open-source under Apache-2.0.}
+\abstract{Pulse is the most-cited open-source whole-body physiology simulator, used for synthetic patient cohorts and computational physiology research, yet no formal sensitivity analysis on operational inputs has been published. We present the first reliability atlas across the adult critical-care envelope: Morris elementary-effects sampling of seven inputs across four ARDS severities and two patient surrogates (1{,}280 simulations). Tidal-volume instability in 20.6\% of runs is identified as patient-ventilator dyssynchrony and corrected by setting the VC-AC inspiration trigger to $-2$~cmH$_2$O. A transient hyperoxia regime at FiO$_2$~=~1.0 means 120-second simulations underestimate plateau PaO$_2$; 300-second runs converge into the alveolar-gas-equation band (median 643~mmHg). Solver divergence concentrated entirely on the male surrogate (20/1{,}280 runs); reducing the male blood-volume baseline toward its 4{,}082.24~mL floor monotonically eliminated divergence. The resulting per-cell traffic-light map provides a reusable data-quality filter for downstream users; all data and code are released open-source under Apache-2.0.}
 
 \keywords{Pulse Physiology Engine, sensitivity analysis, digital twin, synthetic patient data, ICU simulation, Morris elementary effects, reproducibility, ARDS}
 
@@ -106,14 +111,11 @@
 
 \section{Introduction}\label{sec:intro}
 
-% [Step 2 draft. Three paragraphs:
-%  (i) clinical-relevance hook + Pulse-in-ML context;
-%  (ii) the SA/UQ gap + positioning relative to Cornish et al. 2023;
-%  (iii) what this paper does + cross-audience framing, with a
-%       one-sentence conceptual definition of Morris elementary-effects
-%       screening and a one-sentence conceptual definition of the
-%       four-flag steady-state classifier (per S028 refinement #4 on
-%       Methods-at-the-end readability).]
+The Pulse Physiology Engine (Kitware, Apache-2.0) is among the most actively maintained open-source whole-body human physiology simulators~\cite{bray2019}, providing real-time-capable, lumped-parameter modeling of the cardiovascular, respiratory, gas-exchange, and pharmacological systems. Pulse has been applied to ventilator-protocol safety analysis during the COVID-19 pandemic~\cite{webb2020}, to mechanical-ventilator implementation and validation against the ASL 5000 reference~\cite{webb2022vent}, and to external statistical assessment as a digital-twin candidate for retrospective clinical cohorts~\cite{cornish2023}. Across these settings, Pulse generates synthetic patient trajectories that downstream researchers use for hypothesis testing, device validation, and computational physiology studies. Yet despite this footprint, no public sensitivity, divergence, or input-clamping map of Pulse's user-facing operational envelope has been published. Each downstream user re-encounters the same engine limitations independently, and each validation pipeline re-derives its own working envelope by trial and error.
+
+The Pulse maintainers state on the project's public FAQ that ``we have not performed a systematic forward propagation or inverse quantification of model uncertainty, nor have we conducted a formal sensitivity analysis''~\cite{pulsefaq}. The upstream code repository carries a single sensitivity-analysis study, tagged \texttt{STUDY\_SENSITIVITY\_ANALYSIS\_1\_0\_0} (2020), but that study targets internal vascular-circuit resistance multipliers for model calibration --- a different parameter class from the user-facing operational inputs (heart rate, blood pressure, respiratory rate, tidal volume, FiO$_2$, PEEP) that downstream applications must specify. The only prior external assessment of Pulse, by Cornish et al.~\cite{cornish2023}, applied a causal-falsification framework to MIMIC-III sepsis trajectories and identified intervention-outcome inaccuracies on specific clinical channels (with their Hoeffding-inequality rejections concentrating on electrolyte, metabolic, and acid--base outputs, none of which overlap the present atlas's six-output panel). The complementary operational-input reliability question --- how Pulse responds across its acceptance envelope when its primary user-facing controls are varied --- has remained unaddressed.
+
+We close this gap with the first open reliability atlas across Pulse's adult critical-care operational envelope. We sweep seven user-facing inputs (heart rate, systolic and diastolic blood pressure, respiratory rate, tidal volume, FiO$_2$, PEEP) across four ARDS severity scenarios (healthy baseline through severe ARDS) and two adult reference patient surrogates using Morris elementary-effects screening --- a one-input-at-a-time perturbation design that estimates each input's average influence on each output along randomized trajectories, and that flags non-linearity and interaction effects~\cite{morris1991,campolongo2007}. Every simulation is classified by a four-flag steady-state detector that records whether Pulse silently clamped an out-of-range input, the solver diverged, the steady-state output landed outside hard physiological bounds, or the trajectory failed to settle within the simulation window --- categorizing failures rather than discarding them, so that the resulting atlas remains complete across the full input grid. The atlas surfaces three operator-actionable findings (a VC-AC tidal-volume dyssynchrony correction at the inspiration trigger, a steady-state-window correction for hyperoxia simulation, and a previously uncharacterized sex-stratified solver-divergence cluster with an identified blood-volume mechanism) and a per-cell traffic-light reliability map that downstream Pulse users can apply as a data-quality filter on synthetic patient cohorts. The pipeline is preregistered, fully reproducible from a single Docker image with a fixed seed, and released open-source under Apache-2.0.
 
 \section{Results}\label{sec:results}
 

@@ -84,6 +84,43 @@ the *Sync discipline* section below.
 
 ---
 
+## Zero Hallucination citation policy (S028 Step 2 onward)
+
+Every factual claim in `paper.tex` (and in any new content added to the
+monograph during sync work) must be backed by a real, existing article
+in `paper.bib` / `references.bib`. The bibliographic detail must be
+100% accurate. **Most importantly**, the actual *content* of the cited
+article must directly justify the claim being made — a paper that
+shares a keyword or is "vaguely related" does NOT qualify.
+
+**Practical consequences for the npj submission:**
+
+- Pulse's own validation publications (`bray2019`, `webb2020`,
+  `webb2022vent`) are *first-party*; they document what the Pulse team
+  did, not third-party adoption. Do not extrapolate them to claims
+  about "widespread use" by the broader community.
+- Verified third-party Pulse-assessment work in the bibliography is
+  currently a single paper (`cornish2023`, Oxford). Be careful with
+  "widely used", "increasingly used", or "popular" language unless the
+  literature directly supports it.
+- The phrase "clinical-AI training" applied to Pulse has **no verified
+  citation** in our bibliography as of 2026-05-23 (S028 Step 2). Do
+  not write it without first adding a verified citation that
+  demonstrates a specific third-party team training a clinical AI on
+  Pulse-generated data.
+- Buzzwords ("digital twin", "synthetic data revolution") are allowed
+  in `keywords` for searchability but should only appear in the body
+  prose if they are anchored to a specific cited paper whose content
+  supports the framing.
+- When in doubt, drop the claim or rewrite it in a more conservative
+  form that IS defensible. The monograph (`preprint/manuscript.md`) is
+  the audited source of truth; if it is silent on a claim, the npj
+  submission should be too.
+
+This policy is recorded as a permanent project memory under
+`feedback_zero_hallucination_citations` and applies to all subsequent
+S028 drafting steps.
+
 ## Three-layer sync discipline
 
 A change to a numerical claim, a methods description, or a finding
