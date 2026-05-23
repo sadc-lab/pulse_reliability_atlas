@@ -72,13 +72,13 @@ caught equally.*
 
 ## Step 1 — Abstract (5 numerical claims)
 
-- paper_section: 'Abstract'
+- paper_section: 'Abstract + §2.1 Overview + Table 1 caption'
   paper_context: 'Total Morris simulations across the sweep'
   monograph_claim_id: 'T1.01'
   expected_value: 1280
   format_in_paper: '1{,}280'
-  expected_occurrences: 2
-  notes: 'Appears twice in the abstract: standalone in sentence 2 "(1{,}280 simulations)" and as the denominator of "20/1{,}280 runs" in sentence 5. Both occurrences contribute to this count. When subsequent sections (Results §2.1 overview, Methods §4.3 sweep design) cite the total, this expected_occurrences will be incremented.'
+  expected_occurrences: 7
+  notes: 'Total occurrences of the literal pattern 1{,}280 across the paper as of Step 3: abstract sentence 2 standalone (1), abstract sentence 5 "20/1{,}280" denominator (1), §2.1 prose "1{,}280 simulations spanning" (1), §2.1 prose "0 / 1{,}280" (1), §2.1 prose "20 / 1{,}280" (1), §2.1 prose "663 of 1{,}280" (1), §2.1 Table 1 caption "1{,}280 total" (1) = 7. Bumped from 2 (Step 1) to 7 (Step 3). When Methods §4.3 sweep design cites the total, this will be incremented again.'
 
 - paper_section: 'Abstract'
   paper_context: 'F-004 primary-flag rate (Vt CV > 0.05 under not_steady_state)'
@@ -111,3 +111,171 @@ caught equally.*
   format_in_paper: '4{,}082.24~mL'
   expected_occurrences: 1
   notes: 'Appears once in sentence 5 as the BV-mechanism punchline. Will recur in Results §2.5 (Headline Finding 3) and Methods §4.2 (patient surrogates).'
+
+## Step 3 — Results §2.1 Overview (prose claims)
+
+- paper_section: '§2.1 Overview (prose)'
+  paper_context: 'Silent clamping count across full sweep (H2 NOT supported)'
+  monograph_claim_id: 'T1.11'
+  expected_value: 0
+  format_in_paper: '(0 / 1{,}280 across every cell)'
+  expected_occurrences: 1
+  notes: 'Appears once in §2.1 prose. Surrounding parenthetical context "(... across every cell)" is included in the format to avoid substring-overlap with "20 / 1{,}280" (the divergence count in the next sentence): the bare "0 / 1{,}280" pattern would match both because "20 / 1{,}280" contains the literal substring "0 / 1{,}280". Lesson recorded for future map entries with short numeric patterns: use surrounding context to disambiguate.'
+
+- paper_section: '§2.1 Overview (prose)'
+  paper_context: 'Solver divergence count (spaced form used in Results)'
+  monograph_claim_id: 'T1.12'
+  expected_value: 20
+  format_in_paper: '20 / 1{,}280'
+  expected_occurrences: 1
+  notes: 'Appears once in §2.1 prose as "20 / 1{,}280 runs (1.6~\%)". Different format from the abstract''s compact "20/1{,}280" (which has its own separate map row).'
+
+- paper_section: '§2.1 Overview (prose)'
+  paper_context: 'Divergence rate (percentage form)'
+  monograph_claim_id: 'T1.13'
+  expected_value: 1.6
+  format_in_paper: '1.6~\%'
+  expected_occurrences: 1
+  notes: 'Appears once in §2.1 prose immediately after "20 / 1{,}280 runs".'
+
+- paper_section: '§2.1 Overview (prose)'
+  paper_context: 'Total clean simulations across full sweep'
+  monograph_claim_id: 'T1.28'
+  expected_value: 663
+  format_in_paper: '663 of 1{,}280'
+  expected_occurrences: 1
+  notes: 'Appears once in §2.1 prose as "663 of 1{,}280 simulations (51.8~\%) are flag-clean".'
+
+- paper_section: '§2.1 Overview (prose)'
+  paper_context: 'Clean rate (percentage form)'
+  monograph_claim_id: 'T1.29'
+  expected_value: 51.8
+  format_in_paper: '51.8~\%'
+  expected_occurrences: 1
+  notes: 'Appears once in §2.1 prose immediately after "663 of 1{,}280 simulations".'
+
+## Step 3 — Results §2.1 Table 1 (8 per-cell row literals)
+
+- paper_section: '§2.1 Table 1 row (S1, M)'
+  paper_context: 'Per-cell flag counts for S1_M (healthy, male)'
+  monograph_claim_id: 'T1.T1-S1_M.n_total'
+  expected_value: 160
+  format_in_paper: 'S1\_M & 160 & 0 & 4 & 11 & 107 & 49'
+  expected_occurrences: 1
+  notes: 'Full Table 1 row for the S1_M cell as a single literal-string check. If any cell value drifts (n_total / clamped / diverged / implausible / not_steady_state / clean), the literal match fails and the audit FAILs. Anchored on n_total=160 for value-cross-check; the other five column values are co-validated by literal presence.'
+
+- paper_section: '§2.1 Table 1 row (S1, F)'
+  paper_context: 'Per-cell flag counts for S1_F (healthy, female)'
+  monograph_claim_id: 'T1.T1-S1_F.n_total'
+  expected_value: 160
+  format_in_paper: 'S1\_F & 160 & 0 & 0 & 23 & 118 & 42'
+  expected_occurrences: 1
+  notes: 'Full Table 1 row for the S1_F cell as a single literal-string check.'
+
+- paper_section: '§2.1 Table 1 row (S2, M)'
+  paper_context: 'Per-cell flag counts for S2_M (mild ARDS, male)'
+  monograph_claim_id: 'T1.T1-S2_M.n_total'
+  expected_value: 160
+  format_in_paper: 'S2\_M & 160 & 0 & 4 & 0  & 69  & 87'
+  expected_occurrences: 1
+  notes: 'Full Table 1 row for the S2_M cell. Note the double spaces in the source (cosmetic column-alignment in the LaTeX source), preserved verbatim from the monograph.'
+
+- paper_section: '§2.1 Table 1 row (S2, F)'
+  paper_context: 'Per-cell flag counts for S2_F (mild ARDS, female)'
+  monograph_claim_id: 'T1.T1-S2_F.n_total'
+  expected_value: 160
+  format_in_paper: 'S2\_F & 160 & 0 & 0 & 0  & 68  & 92'
+  expected_occurrences: 1
+  notes: 'Full Table 1 row for the S2_F cell.'
+
+- paper_section: '§2.1 Table 1 row (S3, M)'
+  paper_context: 'Per-cell flag counts for S3_M (moderate ARDS, male)'
+  monograph_claim_id: 'T1.T1-S3_M.n_total'
+  expected_value: 160
+  format_in_paper: 'S3\_M & 160 & 0 & 4 & 0  & 12  & 144'
+  expected_occurrences: 1
+  notes: 'Full Table 1 row for the S3_M cell.'
+
+- paper_section: '§2.1 Table 1 row (S3, F)'
+  paper_context: 'Per-cell flag counts for S3_F (moderate ARDS, female)'
+  monograph_claim_id: 'T1.T1-S3_F.n_total'
+  expected_value: 160
+  format_in_paper: 'S3\_F & 160 & 0 & 0 & 0  & 38  & 122'
+  expected_occurrences: 1
+  notes: 'Full Table 1 row for the S3_F cell.'
+
+- paper_section: '§2.1 Table 1 row (S4, M)'
+  paper_context: 'Per-cell flag counts for S4_M (severe ARDS, male)'
+  monograph_claim_id: 'T1.T1-S4_M.n_total'
+  expected_value: 160
+  format_in_paper: 'S4\_M & 160 & 0 & 8 & 46 & 44  & 67'
+  expected_occurrences: 1
+  notes: 'Full Table 1 row for the S4_M cell. Note: 8 divergences (twice any other male cell) reflects the severe-ARDS regime where the male BV mechanism amplifies (§2.5).'
+
+- paper_section: '§2.1 Table 1 row (S4, F)'
+  paper_context: 'Per-cell flag counts for S4_F (severe ARDS, female)'
+  monograph_claim_id: 'T1.T1-S4_F.n_total'
+  expected_value: 160
+  format_in_paper: 'S4\_F & 160 & 0 & 0 & 46 & 74  & 60'
+  expected_occurrences: 1
+  notes: 'Full Table 1 row for the S4_F cell. Note: 0 divergences (consistent with the all-male divergence cluster, §2.5).'
+
+## Step 3 — Results §2.1 Figure 1 traffic-light caption
+
+- paper_section: '§2.1 Figure 1 caption'
+  paper_context: 'Reliability traffic-light aggregate breakdown'
+  monograph_claim_id: 'T1.25'
+  expected_value: 7
+  format_in_paper: '7 green / 29 yellow / 12 red'
+  expected_occurrences: 1
+  notes: 'Single literal-string check covering all three traffic-light counts (T1.25=7 green, T1.26=29 yellow, T1.27=12 red). Anchored on T1.25 for value-cross-check; 29 and 12 are co-validated by literal presence.'
+
+## Step 3 — Results §2.2 Morris rankings (prose + Figure 2 caption)
+
+- paper_section: '§2.2 Morris (prose + Figure 2 caption)'
+  paper_context: 'H1 verdict — top-3 fraction >= 0.5 on all 48 cell x output combinations'
+  monograph_claim_id: 'T1.07'
+  expected_value: 48
+  format_in_paper: '48 of 48'
+  expected_occurrences: 2
+  notes: 'Appears twice: once in §2.2 prose ("the data support this on 48 of 48 cell $\times$ output combinations"), once in Figure 2 caption ("48 of 48 cell $\times$ output combinations").'
+
+- paper_section: '§2.2 Morris (prose)'
+  paper_context: 'H1 median top-3 fraction (prose form)'
+  monograph_claim_id: 'T1.08'
+  expected_value: 0.928
+  format_in_paper: 'median top-3 fraction of 0.928'
+  expected_occurrences: 1
+  notes: 'Appears once in §2.2 prose as "with a median top-3 fraction of 0.928".'
+
+- paper_section: '§2.2 Figure 2 caption'
+  paper_context: 'H1 median top-3 fraction (figure caption form)'
+  monograph_claim_id: 'T1.08'
+  expected_value: 0.928
+  format_in_paper: 'median 0.928'
+  expected_occurrences: 1
+  notes: 'Appears once in Figure 2 caption as ", median 0.928".'
+
+- paper_section: '§2.2 Morris (prose)'
+  paper_context: 'H1 top-3 fraction range across cells'
+  monograph_claim_id: 'T1.09'
+  expected_value: 0.658
+  format_in_paper: '0.658--0.998'
+  expected_occurrences: 1
+  notes: 'Appears once in §2.2 prose as "(range 0.658--0.998)". The endash (--) is LaTeX source; anchored on T1.09 (min=0.658); T1.10 (max=0.998) is co-validated by literal presence.'
+
+- paper_section: '§2.2 Morris (prose)'
+  paper_context: 'H1 lowest top-3 fraction (S4_F SpO2)'
+  monograph_claim_id: 'T2.h1.S4_F.SpO2'
+  expected_value: 0.658
+  format_in_paper: 'S4\_F SpO$_2$ at 0.658'
+  expected_occurrences: 1
+  notes: 'Appears once in §2.2 prose identifying the lowest-top3 cell. The "$_2$" math-mode subscript is the LaTeX source as written.'
+
+- paper_section: '§2.2 Morris (prose)'
+  paper_context: 'H1 second-lowest top-3 fraction (S4_M SpO2)'
+  monograph_claim_id: 'T2.h1.S4_M.SpO2'
+  expected_value: 0.703
+  format_in_paper: 'S4\_M SpO$_2$ at 0.703'
+  expected_occurrences: 1
+  notes: 'Appears once in §2.2 prose immediately after the S4_F SpO2 identification.'

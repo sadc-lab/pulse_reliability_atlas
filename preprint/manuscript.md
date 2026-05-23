@@ -16,7 +16,7 @@ header-includes:
 
 ^4^ Pediatric Intensive Care Unit, Department of Pediatrics CHU Sainte-Justine, Université de Montréal, Montreal, QC, Canada.
 
-**Correspondence.** santino.nanini@learningplanetinstitute.org
+**Correspondence.** santino.nanini@umontreal.ca
 
 ---
 

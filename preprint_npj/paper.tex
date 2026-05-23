@@ -30,6 +30,7 @@
 \usepackage{algorithmicx}%
 \usepackage{algpseudocode}%
 \usepackage{listings}%
+\usepackage{subcaption}% added Step 3: 2x3 sub-figure layout for Morris mu* heatmaps (Figure 2)
 
 \raggedbottom
 
@@ -78,7 +79,7 @@
 %% 1-4 retain their monograph ordering; only the * marker moved.    %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\author*[1,2,3,4]{\fnm{Santino} \sur{Nanini}}\email{santino.nanini@learningplanetinstitute.org}
+\author*[1,2,3,4]{\fnm{Santino} \sur{Nanini}}\email{santino.nanini@umontreal.ca}
 
 \affil[1]{\orgdiv{INSERM UMR\_S 1256, Nutrition, Genetics, and Environmental Risk Exposure}, \orgname{University of Lorraine, Faculty of Medicine of Nancy}, \orgaddress{\country{France}}}
 
@@ -121,20 +122,58 @@ We close this gap with the first open reliability atlas across Pulse's adult cri
 
 \subsection{Overview of the reliability atlas}\label{sec:results-overview}
 
-% [Step 3 draft. Open with a reader-friendly 2-3 sentence precis of
-%  the four flags (clamped / diverged / implausible / not_steady_state)
-%  before walking the reliability traffic-light map (Figure 1) and the
-%  per-cell flag breakdown (Table 1). Closes with the headline
-%  clean-rate (51.8% locked classifier, 78.7% with the VC-AC trigger
-%  correction applied).]
+The atlas comprises 1{,}280 simulations spanning eight (scenario $\times$ sex) cells of 160 runs each. Each simulation is classified by a four-flag steady-state detector: \texttt{clamped} flags whether Pulse silently bent any setup input out of its acceptance band; \texttt{diverged} flags solver failure or non-finite output; \texttt{implausible} flags steady-state means that fall outside hard physiological bounds (e.g.\ PaO$_2$ above 600~mmHg or SpO$_2$ below 50~\%); and \texttt{not\_steady\_state} flags runs whose final 60-second window fails preregistered drift or variance thresholds. The four flags are independent presence counts (a single run can fire several), and Table~\ref{tab:flag_summary} reports the per-cell breakdown.
+
+Three features of Table~\ref{tab:flag_summary} are immediately load-bearing. First, silent clamping never occurs (0 / 1{,}280 across every cell), confirming that Pulse rejects out-of-range inputs loudly rather than silently bending them. Second, solver divergence is sex-stratified: 20 / 1{,}280 runs (1.6~\%) diverged, and all 20 fell on the male surrogate (the mechanism is the subject of \S\ref{sec:results-sex}). Third, \texttt{not\_steady\_state} concentrates on healthy adults (S1, where input tidal-volume swings outpace Pulse's VC-AC controller) and on severe ARDS (S4, where the locked simulation window is insufficient for slow convergence under near-shunt physiology) --- both regimes are characterised in \S\ref{sec:results-vcac} and \S\ref{sec:results-hyperoxia}. Across the full sweep, 663 of 1{,}280 simulations (51.8~\%) are flag-clean under the locked classifier; the per-cell reliability traffic-light map (Figure~\ref{fig:traffic_light}) summarises the resulting reliability picture at a glance.
+
+\begin{table}[h]
+\centering
+\caption{Per-cell flag breakdown across the 8 (scenario $\times$ sex) cells (160 simulations per cell, 1{,}280 total). Flag columns are independent presence counts: a single run can fire several flags simultaneously, so row sums exceed \texttt{n\_total} when runs trigger multiple non-priority flags. Only the \texttt{clean} column is mutually exclusive of the four flag classes. The detector's priority order (\texttt{clamped > diverged > implausible > not\_steady\_state > clean}) is used to resolve runs to a single primary flag for partition-style analyses.}
+\label{tab:flag_summary}
+\begin{tabular}{lrrrrrr}
+\toprule
+Cell & n\_total & clamped & diverged & implausible & not\_steady\_state & clean \\
+\midrule
+S1\_M & 160 & 0 & 4 & 11 & 107 & 49 \\
+S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\
+\midrule
+S2\_M & 160 & 0 & 4 & 0  & 69  & 87 \\
+S2\_F & 160 & 0 & 0 & 0  & 68  & 92 \\
+\midrule
+S3\_M & 160 & 0 & 4 & 0  & 12  & 144 \\
+S3\_F & 160 & 0 & 0 & 0  & 38  & 122 \\
+\midrule
+S4\_M & 160 & 0 & 8 & 46 & 44  & 67 \\
+S4\_F & 160 & 0 & 0 & 46 & 74  & 60 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/fig01_traffic_light.pdf}
+\caption{Per-cell reliability traffic-light map across the 8 (scenario $\times$ sex) cells and the 6 steady-state outputs (HR, MAP, Vt delivered, SpO$_2$, PaO$_2$, PaCO$_2$). Cells are coloured \textit{green} when the output is within $30~\%$ of the healthy-male reference and divergence-free, \textit{yellow} when one criterion fails, and \textit{red} when both fail. The aggregate breakdown is 7 green / 29 yellow / 12 red across the 48 cell $\times$ output combinations.}
+\label{fig:traffic_light}
+\end{figure}
 
 \subsection{Primary input-sensitivity rankings}\label{sec:results-morris}
 
-% [Step 3 draft. Morris mu* per-output rankings (Figure 2). Verdict:
-%  Hypothesis 1 supported on all 48 of 48 cell-output combinations;
-%  top-3 inputs explain a median 92.8% of summed mu*. Cross-output
-%  pattern: FiO2 and PEEP dominate gas-exchange outputs;
-%  HR and BP dominate cardiovascular outputs.]
+Figure~\ref{fig:morris} shows the Morris $\mu^{*}$ (mean of absolute elementary effects, the input-importance metric) for each of the six outputs across the eight cells and the seven swept inputs. The preregistered first hypothesis was that, in every cell, the top-three inputs account for at least 50~\% of summed $\mu^{*}$ on each output --- a ``skewed sensitivity'' criterion that determines whether a small subset of inputs explains most of the output variability. The data support this on 48 of 48 cell $\times$ output combinations, with a median top-3 fraction of 0.928 (range 0.658--0.998) under a 1{,}000-resample bootstrap confidence interval.
+
+Four cross-output patterns emerge directly from Figure~\ref{fig:morris} (full per-cell tables in Supplement~S3). Cardiovascular outputs are cardio-input dominated: output HR is driven by input HR in every cell, and output MAP is driven by SBP in every cell, with no measurable cross-talk from ventilator settings. Gas-exchange outputs are ventilator-driven: PaO$_2$ is dominated by FiO$_2$ in S1--S3 (mild and moderate ARDS) and collapses to a near-flat dependence in S4 (severe ARDS), correctly reproducing the textbook ARDS regime in which shunt physiology pins arterial oxygenation independent of inspired oxygen; PaCO$_2$ is dominated by tidal volume in most cells, consistent with the alveolar-ventilation identity $\dot{V}_A = \mathrm{RR} \cdot (V_T - V_D)$. Output Vt tracks input Vt at far higher $\mu^{*}$ magnitudes than any other input--output pair, reflecting the near-deterministic coupling of VC-AC ventilation outside the dyssynchrony regime described in \S\ref{sec:results-vcac}. SpO$_2$ shows the smallest $\mu^{*}$ magnitudes overall because the output sits at the hemoglobin-saturation ceiling across most of the swept range. The lowest top-3 fractions all fall in severe-ARDS gas-exchange cells (S4\_F SpO$_2$ at 0.658, S4\_M SpO$_2$ at 0.703), where the saturation ceiling distributes sensitivity more uniformly across the inputs --- the only cells in the atlas where the skewed-sensitivity property weakens.
+
+\begin{figure}[h]
+\centering
+\begin{subfigure}[b]{0.32\textwidth}\includegraphics[width=\textwidth]{figures/fig02_morris_HR.pdf}\caption{HR}\label{fig:morris-hr}\end{subfigure}\hfill
+\begin{subfigure}[b]{0.32\textwidth}\includegraphics[width=\textwidth]{figures/fig02_morris_MAP.pdf}\caption{MAP}\label{fig:morris-map}\end{subfigure}\hfill
+\begin{subfigure}[b]{0.32\textwidth}\includegraphics[width=\textwidth]{figures/fig02_morris_Vt.pdf}\caption{Vt delivered}\label{fig:morris-vt}\end{subfigure}
+\\[0.5em]
+\begin{subfigure}[b]{0.32\textwidth}\includegraphics[width=\textwidth]{figures/fig02_morris_SpO2.pdf}\caption{SpO$_2$}\label{fig:morris-spo2}\end{subfigure}\hfill
+\begin{subfigure}[b]{0.32\textwidth}\includegraphics[width=\textwidth]{figures/fig02_morris_PaO2.pdf}\caption{PaO$_2$}\label{fig:morris-pao2}\end{subfigure}\hfill
+\begin{subfigure}[b]{0.32\textwidth}\includegraphics[width=\textwidth]{figures/fig02_morris_PaCO2.pdf}\caption{PaCO$_2$}\label{fig:morris-paco2}\end{subfigure}
+\caption{Morris $\mu^{*}$ heatmaps for the six steady-state outputs. Rows of each panel are the seven swept inputs (HR, SBP, DBP, RR, Vt, FiO$_2$, PEEP); columns are the eight (scenario $\times$ sex) cells. Colour intensity is the magnitude of the input's mean absolute elementary effect on that output. The visual diagonal pattern in each panel supports Hypothesis 1's ``skewed sensitivity'' claim (top-3 inputs explain $\geq 50~\%$ of summed $\mu^{*}$ on 48 of 48 cell $\times$ output combinations, median 0.928).}
+\label{fig:morris}
+\end{figure}
 
 \subsection{VC-AC tidal-volume dyssynchrony and the $-2$~cmH$_2$O fix}\label{sec:results-vcac}
 
