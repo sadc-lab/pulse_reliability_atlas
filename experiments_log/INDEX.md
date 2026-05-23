@@ -6,12 +6,13 @@ This file is rebuilt from the YAML frontmatter of every entry in
 `santino/`, `contributor2/`, and `shared/`. To update it, edit the experiment
 and recommit — the pre-commit hook regenerates and stages this file.
 
-Total entries: **26**
+Total entries: **27**
 
 ## All experiments (newest first)
 
 | ID | Date | Author | Status | Title |
 |---|---|---|---|---|
+| `S027` | 2026-05-23 | santino | done | [S027 — §1.1 Pulse-in-a-nutshell explainer + §4.7 engine-side recommendations](santino/S027_pulse_intro_and_engine_recommendations.md) |
 | `S026` | 2026-05-22 | santino | done | [S026 — Final pre-arXiv polish](santino/S026_pre_arxiv_polish.md) |
 | `S025` | 2026-05-22 | santino | done | [S025 — Pre-release OSS code-hygiene audit and fixes](santino/S025_oss_release_hygiene.md) |
 | `S024` | 2026-05-22 | santino | done | [S024 — Pre-submission claims-ledger audit](santino/S024_claims_ledger_audit.md) |
@@ -67,6 +68,7 @@ Total entries: **26**
 - `S024` (2026-05-22, done) — [S024 — Pre-submission claims-ledger audit](santino/S024_claims_ledger_audit.md) — _claims-ledger, pre-submission, manuscript-polish, reviewer-defense, audit, reproducibility_
 - `S025` (2026-05-22, done) — [S025 — Pre-release OSS code-hygiene audit and fixes](santino/S025_oss_release_hygiene.md) — _oss-release, pre-submission, manuscript-polish, reviewer-defense, readme-audit, traceability_
 - `S026` (2026-05-22, done) — [S026 — Final pre-arXiv polish](santino/S026_pre_arxiv_polish.md) — _pre-arxiv, manuscript-polish, figures-embed, traceability, release-mechanics_
+- `S027` (2026-05-23, done) — [S027 — §1.1 Pulse-in-a-nutshell explainer + §4.7 engine-side recommendations](santino/S027_pulse_intro_and_engine_recommendations.md) — _manuscript-additions, pulse-explainer, engine-recommendations, traceability, post-arxiv-polish_
 
 ## By tag
 
@@ -174,6 +176,9 @@ Total entries: **26**
 ### `dyssynchrony-attribution`
 - `S022` — [S022 — No-compute failure-mode diagnostic for the top-3 unstable cells](santino/S022_nss_failure_mode_diagnostic.md)
 
+### `engine-recommendations`
+- `S027` — [S027 — §1.1 Pulse-in-a-nutshell explainer + §4.7 engine-side recommendations](santino/S027_pulse_intro_and_engine_recommendations.md)
+
 ### `f-003`
 - `S012` — [S012 — Dual steady-state audit (F-003 hyperoxia + F-004 Vt oscillation)](santino/S012_steady_state_window_audit.md)
 - `S021` — [S021 — Hyperoxia convergence: testing the F-003 transient-regime hypothesis](santino/S021_hyperoxia_convergence.md)
@@ -245,6 +250,9 @@ Total entries: **26**
 ### `logic-validation`
 - `S015` — [S015 — Reproducibility and Logic Audit (pre-publication double-check)](santino/S015_reproducibility_and_logic_audit.md)
 
+### `manuscript-additions`
+- `S027` — [S027 — §1.1 Pulse-in-a-nutshell explainer + §4.7 engine-side recommendations](santino/S027_pulse_intro_and_engine_recommendations.md)
+
 ### `manuscript-discussion`
 - `S017` — [S017 — Cornish 2023 cross-mapping: re-tabulating the only prior external Pulse assessment against the atlas's 6-output panel](santino/S017_cornish_2023_cross_mapping.md)
 - `S020` — [S020 — Pre-submission novelty audit: verifying that every "first" / "novel" claim in the manuscript survives a literature double-check](santino/S020_novelty_audit.md)
@@ -297,6 +305,9 @@ Total entries: **26**
 - `S001` — [S001 — Docker + hardware smoke test (3× parallel Pulse)](santino/S001_docker_smoke_test.md)
 - `S005` — [S005 — 22-run pilot on cell (S1, Male) — preregistration §Pilot gate](santino/S005_pilot_S1_male.md)
 
+### `post-arxiv-polish`
+- `S027` — [S027 — §1.1 Pulse-in-a-nutshell explainer + §4.7 engine-side recommendations](santino/S027_pulse_intro_and_engine_recommendations.md)
+
 ### `pre-arxiv`
 - `S026` — [S026 — Final pre-arXiv polish](santino/S026_pre_arxiv_polish.md)
 
@@ -315,6 +326,9 @@ Total entries: **26**
 ### `pulse`
 - `S003` — [S003 — Verified Pulse 4.3.1 limitations (primary-source re-check)](santino/S003_pulse_limitations_verified.md)
 - `S016` — [S016 — Pulse GitLab + literature re-audit (May 2026): version state, V&V infrastructure, and the 2020 sensitivity-analysis study tag](santino/S016_pulse_gitlab_audit_may2026.md)
+
+### `pulse-explainer`
+- `S027` — [S027 — §1.1 Pulse-in-a-nutshell explainer + §4.7 engine-side recommendations](santino/S027_pulse_intro_and_engine_recommendations.md)
 
 ### `pytest`
 - `S009` — [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md)
@@ -401,6 +415,7 @@ Total entries: **26**
 ### `traceability`
 - `S025` — [S025 — Pre-release OSS code-hygiene audit and fixes](santino/S025_oss_release_hygiene.md)
 - `S026` — [S026 — Final pre-arXiv polish](santino/S026_pre_arxiv_polish.md)
+- `S027` — [S027 — §1.1 Pulse-in-a-nutshell explainer + §4.7 engine-side recommendations](santino/S027_pulse_intro_and_engine_recommendations.md)
 
 ### `trigger-pressure`
 - `S014` — [S014 — Trigger-pressure lockout: causal test of F-004 mechanism](santino/S014_trigger_pressure_lockout.md)
