@@ -63,17 +63,51 @@ without the flag continues to produce the same output as before.
 
 # Mapped claims
 
-*This file currently has no rows. Rows are added incrementally as
-`paper.tex` is drafted, starting with Step 1 (Abstract + skeleton).*
+*Rows added incrementally as `paper.tex` sections are drafted. Each row
+binds one quantitative claim in `paper.tex` to its origin
+`claim_id` in the monograph ledger (`scripts/audit_claims.py`). The
+`expected_occurrences` integer is checked via `re.findall(...)` (not
+`re.search(...)`) so silent deletions and accidental duplications are
+caught equally.*
 
-```yaml
-# Example row format (commented out so the parser sees an empty map):
-#
-# - paper_section: "Abstract"
-#   paper_context: "Total Morris simulations"
-#   monograph_claim_id: "T1.01"
-#   expected_value: 1280
-#   format_in_paper: "1{,}280"
-#   expected_occurrences: 3
-#   notes: "Appears in abstract, §2.1 overview, and Methods §4.3 sweep design."
-```
+## Step 1 — Abstract (5 numerical claims)
+
+- paper_section: 'Abstract'
+  paper_context: 'Total Morris simulations across the sweep'
+  monograph_claim_id: 'T1.01'
+  expected_value: 1280
+  format_in_paper: '1{,}280'
+  expected_occurrences: 2
+  notes: 'Appears twice in the abstract: standalone in sentence 2 "(1{,}280 simulations)" and as the denominator of "20/1{,}280 runs" in sentence 5. Both occurrences contribute to this count. When subsequent sections (Results §2.1 overview, Methods §4.3 sweep design) cite the total, this expected_occurrences will be incremented.'
+
+- paper_section: 'Abstract'
+  paper_context: 'F-004 primary-flag rate (Vt CV > 0.05 under not_steady_state)'
+  monograph_claim_id: 'T1.02a'
+  expected_value: 20.6
+  format_in_paper: '20.6\%'
+  expected_occurrences: 1
+  notes: 'Appears once in the abstract sentence 3 "in 20.6\% of runs". Will recur in Results §2.3 (Headline Finding 1).'
+
+- paper_section: 'Abstract'
+  paper_context: 'S021 hyperoxia 300s plateau median (S1)'
+  monograph_claim_id: 'T1.23'
+  expected_value: 643
+  format_in_paper: 'median 643~mmHg'
+  expected_occurrences: 1
+  notes: 'Appears once in the abstract sentence 4. The "~" between number and unit is a LaTeX non-breaking space; re.escape() handles it. Will recur in Results §2.4 (Headline Finding 2).'
+
+- paper_section: 'Abstract'
+  paper_context: 'Divergence count (all male, input-extreme regime)'
+  monograph_claim_id: 'T1.12'
+  expected_value: 20
+  format_in_paper: '20/1{,}280'
+  expected_occurrences: 1
+  notes: 'Appears once in sentence 5 as the compact "20/1{,}280 runs" form. The denominator 1{,}280 is separately accounted for by the T1.01 row (expected_occurrences=2).'
+
+- paper_section: 'Abstract'
+  paper_context: 'Male BloodVolumeBaseline floor on standard surrogate'
+  monograph_claim_id: 'T3.s027.bv_floor'
+  expected_value: 4082.24
+  format_in_paper: '4{,}082.24~mL'
+  expected_occurrences: 1
+  notes: 'Appears once in sentence 5 as the BV-mechanism punchline. Will recur in Results §2.5 (Headline Finding 3) and Methods §4.2 (patient surrogates).'

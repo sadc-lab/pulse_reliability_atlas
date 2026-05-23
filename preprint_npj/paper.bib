@@ -1,12 +1,21 @@
-% Pulse Reliability Atlas — BibTeX references
-% Source of record: preprint/manuscript.md §6.7 (verified entries from the
-% S010 literature-review pass; each entry has a DOI or PMID anchor).
-% Citation keys are author-lastname + year (e.g., @morris1991, @webb2022vent).
-% Used by scripts/build_paper.ps1 via pandoc --citeproc. The §6.7 markdown
-% reference list remains the human-readable bibliography; pandoc's auto-
-% generated bibliography is suppressed at build time via the
-% `suppress-bibliography: true` metadata flag so we do not get two
-% reference sections in the output PDF.
+@comment{
+  Pulse Reliability Atlas -- BibTeX references for the npj Digital
+  Medicine submission package (preprint_npj/paper.tex).
+
+  Source of record: this file is a working copy of
+  preprint/references.bib, kept in lock-step with the monograph's
+  bibliography but maintained separately because the npj submission
+  uses native bibtex (which requires @comment{} syntax) whereas the
+  monograph uses pandoc --citeproc (which accepts % comments).
+
+  Citation keys are author-lastname + year (e.g. morris1991,
+  webb2022vent). Each entry has a DOI or PMID anchor verified during
+  the S010 literature-review pass.
+
+  Pruning of unused entries is deferred to Step 8 of the S028
+  splitting work per the approved blueprint; the file currently
+  carries every entry from preprint/references.bib byte-for-byte.
+}
 
 @article{bray2019,
   author    = {Bray, A and Webb, J B and Enquobahrie, A and Vicory, J and Heneghan, J and Hubal, R and TerMaath, S and Asare, P and Clipp, R B},

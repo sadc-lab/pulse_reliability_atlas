@@ -1,0 +1,262 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                  %%
+%%  Pulse Reliability Atlas -- npj Digital Medicine submission      %%
+%%                                                                  %%
+%%  Maintainer: Santino Nanini                                      %%
+%%  Build:      see preprint_npj/build_npj.ps1                      %%
+%%  Sync:       paired with ../preprint/manuscript.md via           %%
+%%              preprint_npj/paper_to_monograph_map.md and          %%
+%%              scripts/audit_claims.py --check-paper-sync          %%
+%%  Status:     Step 1 skeleton (abstract + section stubs only).    %%
+%%              Subsequent steps draft sections incrementally       %%
+%%              per the S028 splitting blueprint.                   %%
+%%                                                                  %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[pdflatex,sn-nature]{sn-jnl}% Style for submissions to Nature Portfolio journals
+
+%%%% Standard packages (verbatim from upstream Springer Nature sample)
+\usepackage{graphicx}%
+\usepackage{multirow}%
+\usepackage{amsmath,amssymb,amsfonts}%
+\usepackage{amsthm}%
+\usepackage{mathrsfs}%
+\usepackage[title]{appendix}%
+\usepackage{xcolor}%
+\usepackage{textcomp}%
+\usepackage{manyfoot}%
+\usepackage{booktabs}%
+\usepackage{algorithm}%
+\usepackage{algorithmicx}%
+\usepackage{algpseudocode}%
+\usepackage{listings}%
+
+\raggedbottom
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% TITLE                                                            %%
+%% The active title below is Candidate B (synthetic-cohort framing, %%
+%% selected for npj Digital Medicine audience -- digital-health and %%
+%% clinical-AI readership). Candidates A and C are preserved as     %%
+%% commented alternatives so the maintainer can swap with a         %%
+%% one-line edit if reviewer feedback or supervisor input prefers   %%
+%% an alternative framing.                                          %%
+%%                                                                  %%
+%% Candidate A (digital-twin framing, ambitious but uses contested  %%
+%% terminology):                                                    %%
+%% \title[Reliability atlas: Pulse Physiology Engine]{Mapping the   %%
+%%   reliability of an open-source physiological digital twin for   %%
+%%   adult critical-care simulation: sensitivity, silent clamping,  %%
+%%   and sex-stratified solver divergence in the Pulse Physiology   %%
+%%   Engine}                                                        %%
+%%                                                                  %%
+%% Candidate C (cleanest, methods-paper friendly, less audience     %%
+%% hook):                                                           %%
+%% \title[Reliability atlas: Pulse Physiology Engine]{A reliability %%
+%%   atlas for the Pulse Physiology Engine: operational             %%
+%%   sensitivity, silent clamping, and sex-stratified solver        %%
+%%   divergence across the adult critical-care envelope}            %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title[Reliability atlas: Pulse Physiology Engine]{An open reliability atlas for synthetic patient cohorts: sensitivity, divergence, and sex-stratified failure modes in the Pulse Physiology Engine v4.3.1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% AUTHOR + AFFILIATIONS                                            %%
+%% Replicated byte-for-relevant-byte from ../preprint/manuscript.md %%
+%% lines 3-19 (after the YAML frontmatter and the Affiliations      %%
+%% block). Single corresponding author across four affiliations.    %%
+%% Underscore-S in 'UMR_S' escaped as 'UMR\_S'. French accents      %%
+%% rendered with LaTeX escapes (\`e, \'e). Street and postcode      %%
+%% omitted in \orgaddress because the monograph does not record     %%
+%% them; \city / \state / \country are sufficient per sn-jnl.       %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\author*[1,2,3,4]{\fnm{Santino} \sur{Nanini}}\email{santino.nanini@learningplanetinstitute.org}
+
+\affil*[1]{\orgdiv{INSERM UMR\_S 1256, Nutrition, Genetics, and Environmental Risk Exposure}, \orgname{University of Lorraine, Faculty of Medicine of Nancy}, \orgaddress{\country{France}}}
+
+\affil[2]{\orgdiv{Research Center}, \orgname{Sainte-Justine University Hospital}, \orgaddress{\city{Montreal}, \state{Quebec}, \country{Canada}}}
+
+\affil[3]{\orgdiv{Clinical Decision Support System Artificial Intelligence Health Cluster in Acute Child Care (PE-DIATRICS)}, \orgname{CHU Sainte-Justine Centre Hospitalier Universitaire M\`ere-Enfant}, \orgaddress{\city{Montr\'eal}, \country{Canada}}}
+
+\affil[4]{\orgdiv{Pediatric Intensive Care Unit, Department of Pediatrics}, \orgname{CHU Sainte-Justine, Universit\'e de Montr\'eal}, \orgaddress{\city{Montreal}, \state{QC}, \country{Canada}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ABSTRACT                                                         %%
+%% 145 words (target 150, -5 slack). 6 sentences per S028           %%
+%% refinement #3. Three headline findings, one number each. Every   %%
+%% numerical claim is registered in paper_to_monograph_map.md       %%
+%% with its monograph claim_id and expected_occurrences count.      %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\abstract{Pulse is the most-cited open-source whole-body physiology simulator, widely used for synthetic clinical cohorts and digital-twin research, yet no formal sensitivity analysis on operational inputs has been published. We present the first reliability atlas across the adult critical-care envelope: Morris elementary-effects sampling of seven inputs across four ARDS severities and two patient surrogates (1{,}280 simulations). Tidal-volume instability in 20.6\% of runs is identified as patient-ventilator dyssynchrony and corrected by setting the VC-AC inspiration trigger to $-2$~cmH$_2$O. A transient hyperoxia regime at FiO$_2$~=~1.0 means 120-second simulations underestimate plateau PaO$_2$; 300-second runs converge into the alveolar-gas-equation band (median 643~mmHg). Solver divergence concentrated entirely on the male surrogate (20/1{,}280 runs); reducing the male blood-volume baseline toward its 4{,}082.24~mL floor monotonically eliminated divergence. The resulting per-cell traffic-light map provides a reusable data-quality filter for downstream users; all data and code are released open-source under Apache-2.0.}
+
+\keywords{Pulse Physiology Engine, sensitivity analysis, digital twin, synthetic patient data, ICU simulation, Morris elementary effects, reproducibility, ARDS}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SECTION SKELETONS                                                %%
+%% Each subsection is a stub. Subsequent S028 Steps draft them      %%
+%% incrementally per the blueprint. Stubs are LaTeX comments so     %%
+%% the rendered PDF shows headings without placeholder prose.       %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introduction}\label{sec:intro}
+
+% [Step 2 draft. Three paragraphs:
+%  (i) clinical-relevance hook + Pulse-in-ML context;
+%  (ii) the SA/UQ gap + positioning relative to Cornish et al. 2023;
+%  (iii) what this paper does + cross-audience framing, with a
+%       one-sentence conceptual definition of Morris elementary-effects
+%       screening and a one-sentence conceptual definition of the
+%       four-flag steady-state classifier (per S028 refinement #4 on
+%       Methods-at-the-end readability).]
+
+\section{Results}\label{sec:results}
+
+\subsection{Overview of the reliability atlas}\label{sec:results-overview}
+
+% [Step 3 draft. Open with a reader-friendly 2-3 sentence precis of
+%  the four flags (clamped / diverged / implausible / not_steady_state)
+%  before walking the reliability traffic-light map (Figure 1) and the
+%  per-cell flag breakdown (Table 1). Closes with the headline
+%  clean-rate (51.8% locked classifier, 78.7% with the VC-AC trigger
+%  correction applied).]
+
+\subsection{Primary input-sensitivity rankings}\label{sec:results-morris}
+
+% [Step 3 draft. Morris mu* per-output rankings (Figure 2). Verdict:
+%  Hypothesis 1 supported on all 48 of 48 cell-output combinations;
+%  top-3 inputs explain a median 92.8% of summed mu*. Cross-output
+%  pattern: FiO2 and PEEP dominate gas-exchange outputs;
+%  HR and BP dominate cardiovascular outputs.]
+
+\subsection{VC-AC tidal-volume dyssynchrony and the $-2$~cmH$_2$O fix}\label{sec:results-vcac}
+
+% [Step 4 draft. Headline Finding 1. Figure 3a (Vt CV before/after the
+%  trigger-pressure correction). Frames the finding as both a measurement
+%  (median Vt CV collapses 0.351 -> 0.016 after the fix; 78.1% of locked
+%  runs fall below the steady-state threshold) and an actionable
+%  intervention (a single configuration flag corrects it). Notes the
+%  clinical precedent (Figueroa-Casas & Montoya 2016) so reviewers see
+%  it as physiology, not engine pathology.]
+
+\subsection{Transient hyperoxia regime at FiO$_2$~=~1.0}\label{sec:results-hyperoxia}
+
+% [Step 4 draft. Headline Finding 2. Figure 3b (PaO2 time-course at
+%  120s vs 300s windows). Frames as a window-length consideration, not
+%  an engine defect: under 300s simulation, PaO2 converges into the
+%  alveolar-gas-equation band (median 643 mmHg vs approximately
+%  653 mmHg predicted). Practitioner takeaway: for hyperoxia studies,
+%  simulate >= 300s.]
+
+\subsection{Sex-stratified solver divergence and blood-volume mechanism}\label{sec:results-sex}
+
+% [Step 5 draft. Headline Finding 3. Figure 4 two-panel: (a) 20/20
+%  divergences concentrated on the male surrogate in the input-extreme
+%  regime, (b) BV-rescue dose-response. Three subordinate paragraphs:
+%  (i) the phenomenon (1.6% divergence, all 20 male, under within-sex
+%  null); (ii) the mechanism (male default BV 4802.63 mL vs female
+%  3996.09 mL; reducing male BV monotonically eliminates divergence:
+%  20/20 -> 2/20 -> 0/20 across 4802.63 -> 4400 -> 4082.24 mL);
+%  (iii) the per-surrogate BV floor (4082.24 mL bounds one-way
+%  transplantation). Frame for npj audience: first sex-specific
+%  structural finding in Pulse literature; implication for
+%  sex-balanced synthetic-cohort generation.]
+
+\subsection{Secondary observations}\label{sec:results-secondary}
+
+% [Step 5 draft. Option (b) narrative block per the S028 blueprint:
+%  three compact paragraphs (3-5 sentences each):
+%  - ARDS impairment-fraction instability zone (0.91-0.945) reproduces
+%    across three independent sources; quantified in the continuous-
+%    severity sweep. Supplement cross-ref.
+%  - Regime-dependent sex axis. The all-male divergence cluster is
+%    specific to the Morris input-extreme regime; the complementary
+%    continuous-severity sweep at midrange inputs shows approximately
+%    sex-balanced divergence in the same impairment band.
+%    Supplement cross-ref.
+%  - Complementarity with Cornish et al. 2023. Four-channel overlap
+%    (HR, MAP, PaO2, PaCO2) is in ordinal agreement; 80 of 85 of
+%    Cornish's rejections fall on channels we do not assess.
+%    Supplement cross-ref.]
+
+\section{Discussion}\label{sec:discussion}
+
+% [Step 6 draft. Five paragraphs:
+%  (i) what the atlas tells Pulse users (operator perspective);
+%  (ii) ML / synthetic-data implications (the npj audience hook);
+%  (iii) clinical-research implications (per-cell trust);
+%  (iv) limitations summary (full list in Supplement);
+%  (v) engine-side recommendations forward-look (six items
+%      condensed to one sentence each; full list in Supplement S11).]
+
+\section{Methods}\label{sec:methods}
+
+\subsection{Pulse engine and configuration}\label{sec:methods-pulse}
+
+% [Step 7 draft. ~100 words. Pulse version, 'in a nutshell'
+%  explainer condensed to 4-5 sentences (electrical-circuit analogue,
+%  20 ms ODE timestep, 5-compartment lung [carina + L/R anatomic dead
+%  space + L/R alveoli], multi-domain sub-models, VC-AC ventilator
+%  restriction).]
+
+\subsection{Patient surrogates}\label{sec:methods-patients}
+
+% [Step 7 draft. ~100 words. Male and female reference bodies with
+%  CDC-anchored body dimensions; Pulse setup-time constraints
+%  (BV floor, BP gates, HR/RR init bands) respected by the sampler.]
+
+\subsection{Sweep design}\label{sec:methods-sweep}
+
+% [Step 7 draft. ~250 words. Seven swept operational inputs with their
+%  verified acceptance ranges; four ARDS scenarios with Berlin
+%  Definition / PALICC-2 anchoring; Morris elementary-effects with
+%  20 trajectories x 8 levels = 1,280 runs per sex. Sobol bolt-on
+%  preregistered and formally closed by redundancy.]
+
+\subsection{Steady-state classifier}\label{sec:methods-detector}
+
+% [Step 7 draft. ~250 words. Four flag definitions, priority order,
+%  locked thresholds. Full HARD_BOUNDS table in Supplement S3.]
+
+\subsection{Statistical analyses}\label{sec:methods-stats}
+
+% [Step 7 draft. ~200 words. Morris mu* with bootstrap CI;
+%  Hypothesis-testing layer (Wasserstein within-sex null, BH-FDR
+%  q = 0.05); Spearman rho on mu* vectors for sex comparison.
+%  Preregistration discipline noted.]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% MANDATORY CLOSING SECTIONS                                       %%
+%% Per npj Digital Medicine policy: Data availability, Code         %%
+%% availability, Acknowledgements, Author contributions, Competing  %%
+%% interests. Stubs filled at Step 8.                               %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bmhead{Data availability}
+
+\noindent The raw simulation outputs, derived parquet artefacts, and reliability traffic-light figures will be deposited at Zenodo upon completion of supervisor review; pre-deposit access is available from the corresponding author. The companion technical monograph (approximately 92 pages) carrying the full audit traceability is being prepared for arXiv deposit. DOIs: \textbf{[DOI\_PENDING -- Zenodo data deposit]} and \textbf{[DOI\_PENDING -- arXiv technical monograph]}.
+
+\bmhead{Code availability}
+
+\noindent The atlas codebase (Morris sampler, Pulse Docker wrapper, four-flag steady-state classifier, statistical-analysis pipeline, and reproducibility scripts) is released under the Apache-2.0 license at \url{https://github.com/santinon/pulse_probe}.
+
+\bmhead{Acknowledgements}
+
+\noindent [Step 8 draft. Brief acknowledgement of the Kitware Pulse maintainers for the open engine and documentation; PhD supervisors; funding sources; collaborator contributions.]
+
+\bmhead{Author contributions}
+
+\noindent [Step 8 draft. Sole-author contributions statement; copy from monograph section 7.]
+
+\bmhead{Competing interests}
+
+\noindent The author declares no competing interests.
+
+\bibliography{paper}
+
+\end{document}

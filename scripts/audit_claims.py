@@ -47,6 +47,7 @@ The script writes nothing. Output is to stdout only.
 
 from __future__ import annotations
 
+import argparse
 import json
 import re
 import sys
@@ -57,6 +58,31 @@ from typing import Optional
 import pandas as pd
 
 REPO = Path(__file__).resolve().parents[1]
+
+# -----------------------------------------------------------------------------
+# CLI flags.
+# --check-paper-sync (S028 opt-in) additionally verifies that
+# preprint_npj/paper.tex stays in sync with the monograph ledger via the
+# crosswalk at preprint_npj/paper_to_monograph_map.md. Default behaviour
+# is unchanged: legacy 195-claim audit only.
+# -----------------------------------------------------------------------------
+_PARSER = argparse.ArgumentParser(
+    description=(
+        "Claims-ledger audit for the Pulse Reliability Atlas monograph. "
+        "Pass --check-paper-sync to additionally verify the npj submission "
+        "paper.tex against the crosswalk map (see preprint_npj/README.md)."
+    )
+)
+_PARSER.add_argument(
+    "--check-paper-sync",
+    action="store_true",
+    help=(
+        "Also verify preprint_npj/paper.tex stays in sync with the monograph "
+        "ledger via preprint_npj/paper_to_monograph_map.md. Opt-in flag; "
+        "default behaviour is the legacy monograph-only audit."
+    ),
+)
+_ARGS = _PARSER.parse_args()
 
 # Tolerance rule -> absolute tolerance.
 TOLERANCE = {
@@ -115,6 +141,223 @@ def add(**kw) -> None:
     c = Claim(**kw)
     c.evaluate()
     claims.append(c)
+
+
+# -----------------------------------------------------------------------------
+# S028 paper-sync helpers (read-only; used only under --check-paper-sync).
+#
+# Design notes:
+#   - The parser is intentionally minimal: it handles the small YAML-like
+#     dialect used by preprint_npj/paper_to_monograph_map.md (entries
+#     starting with "- " at column 0, keys indented by 2 spaces). We do NOT
+#     import a full YAML library to keep audit_claims.py dependency-light
+#     (matches the existing convention of stdlib + pandas only).
+#   - All file I/O is read-only. The functions never write to disk.
+#   - All failure paths print a clear WARN line and degrade gracefully so
+#     that running --check-paper-sync against an absent or partial
+#     paper_npj directory never crashes the audit.
+# -----------------------------------------------------------------------------
+
+
+def _strip_yaml_value(raw: str) -> str:
+    """Strip surrounding whitespace and optional matched quotes."""
+    v = raw.strip()
+    if len(v) >= 2 and v[0] == v[-1] and v[0] in ('"', "'"):
+        v = v[1:-1]
+    return v
+
+
+def _parse_map_entries(map_text: str) -> list[dict]:
+    """Parse the minimal YAML-like dialect of paper_to_monograph_map.md.
+
+    Skips fenced code blocks (``` ... ```). An entry starts with "- " at
+    column 0 followed by indented "key: value" continuations. Anything
+    else (blank lines, top-level # comments, narrative text) is ignored.
+    Returns a list of dict entries; an empty list means no rows have been
+    declared yet (legitimate during early-drafting steps of S028).
+    """
+    entries: list[dict] = []
+    current: Optional[dict] = None
+    in_code_block = False
+    for line in map_text.splitlines():
+        stripped = line.strip()
+        if stripped.startswith("```"):
+            in_code_block = not in_code_block
+            continue
+        if in_code_block:
+            continue
+        if not stripped or stripped.startswith("#"):
+            continue
+        if line.startswith("- "):
+            if current is not None:
+                entries.append(current)
+            current = {}
+            rest = line[2:].strip()
+            if ":" in rest:
+                key, _, val = rest.partition(":")
+                current[key.strip()] = _strip_yaml_value(val)
+        elif line.startswith("  ") and current is not None and ":" in stripped:
+            key, _, val = stripped.partition(":")
+            current[key.strip()] = _strip_yaml_value(val)
+    if current is not None:
+        entries.append(current)
+    return entries
+
+
+def check_paper_sync(ledger_claims: list[Claim]) -> tuple[int, int, int]:
+    """Verify preprint_npj/paper.tex stays in sync with the monograph
+    ledger via the crosswalk at preprint_npj/paper_to_monograph_map.md.
+
+    For each map entry, count `re.findall(re.escape(format_in_paper), ...)`
+    in paper.tex and compare against the entry's `expected_occurrences`.
+    Also cross-check that `monograph_claim_id` exists in the ledger and
+    that `expected_value` agrees with the ledger's recorded
+    manuscript_value within the same tolerance as the ledger entry.
+
+    Outcomes:
+      - PASS                    : count == expected_occurrences AND
+                                  monograph value matches map expected_value.
+      - FAIL (missing)          : count == 0 AND expected_occurrences >= 1.
+      - FAIL (count drift)      : count != expected_occurrences.
+      - FAIL (value drift)      : map expected_value disagrees with the
+                                  monograph ledger value behind claim_id.
+      - FAIL (unknown claim_id) : claim_id not in the ledger.
+
+    Graceful degradation: if paper.tex or the map file is missing, emit a
+    WARN and return (0, 1, 0). The audit's exit status is unaffected by
+    these WARN cases.
+
+    Returns: (n_pass, n_warn, n_fail) for the sync check only.
+    """
+    print("\n## Paper-monograph sync check (S028 --check-paper-sync)\n")
+    paper_path = REPO / "preprint_npj" / "paper.tex"
+    map_path = REPO / "preprint_npj" / "paper_to_monograph_map.md"
+
+    if not paper_path.exists():
+        print(
+            f"_WARN: {paper_path.relative_to(REPO)} not found; sync check "
+            "skipped (the npj submission paper does not exist yet)._\n"
+        )
+        return (0, 1, 0)
+    if not map_path.exists():
+        print(
+            f"_WARN: {map_path.relative_to(REPO)} not found; sync check "
+            "skipped (the crosswalk has not been initialised yet)._\n"
+        )
+        return (0, 1, 0)
+
+    entries = _parse_map_entries(map_path.read_text(encoding="utf-8"))
+    if not entries:
+        print(
+            "_No mapped claims declared yet in "
+            "preprint_npj/paper_to_monograph_map.md. This is the expected "
+            "state during early S028 drafting; rows are added incrementally "
+            "as paper.tex sections are written._\n"
+        )
+        return (0, 0, 0)
+
+    paper_tex = paper_path.read_text(encoding="utf-8")
+    ledger_by_id = {c.claim_id: c for c in ledger_claims}
+
+    rows: list[dict] = []
+    n_pass = n_warn = n_fail = 0
+    for entry in entries:
+        claim_id = entry.get("monograph_claim_id", "?")
+        fmt = entry.get("format_in_paper", "")
+        section = entry.get("paper_section", "?")
+        try:
+            expected_occ = int(entry.get("expected_occurrences", "0"))
+        except (TypeError, ValueError):
+            expected_occ = -1  # signals a parse failure
+        try:
+            map_expected = float(entry.get("expected_value", "nan"))
+        except (TypeError, ValueError):
+            map_expected = float("nan")
+
+        # Occurrence-count check on paper.tex (literal-string regex).
+        count = (
+            len(re.findall(re.escape(fmt), paper_tex)) if fmt else 0
+        )
+
+        status = "PASS"
+        notes: list[str] = []
+
+        # Layer A: claim_id existence + monograph-value agreement.
+        ledger_entry = ledger_by_id.get(claim_id)
+        if ledger_entry is None:
+            status = "FAIL"
+            notes.append(f"claim_id `{claim_id}` not in monograph ledger")
+        elif ledger_entry.status != "PASS":
+            status = "FAIL"
+            notes.append(
+                f"monograph ledger entry `{claim_id}` is "
+                f"{ledger_entry.status}, not PASS"
+            )
+        elif ledger_entry.manuscript_value is not None and not (
+            map_expected != map_expected  # NaN check
+        ):
+            tol = TOLERANCE.get(ledger_entry.tolerance_rule, 0.0) + FLOAT_EPS
+            if abs(map_expected - ledger_entry.manuscript_value) > tol:
+                status = "FAIL"
+                notes.append(
+                    f"value drift: map expected_value={map_expected} "
+                    f"disagrees with monograph value="
+                    f"{ledger_entry.manuscript_value} "
+                    f"(tolerance {ledger_entry.tolerance_rule})"
+                )
+
+        # Layer B: occurrence-count check on paper.tex.
+        if status == "PASS":
+            if expected_occ < 0:
+                status = "FAIL"
+                notes.append("expected_occurrences could not be parsed as int")
+            elif count == 0 and expected_occ >= 1:
+                status = "FAIL"
+                notes.append(
+                    f"missing: format_in_paper `{fmt}` not found in paper.tex "
+                    f"(expected {expected_occ})"
+                )
+            elif count != expected_occ:
+                status = "FAIL"
+                notes.append(
+                    f"count drift: found {count}, expected {expected_occ}"
+                )
+
+        rows.append(
+            {
+                "claim_id": claim_id,
+                "section": section,
+                "fmt": fmt,
+                "expected_occ": expected_occ,
+                "found_occ": count,
+                "status": status,
+                "notes": "; ".join(notes) if notes else "-",
+            }
+        )
+        if status == "PASS":
+            n_pass += 1
+        elif status == "WARN":
+            n_warn += 1
+        else:
+            n_fail += 1
+
+    print(
+        f"**Sync check:** {len(rows)} mapped entries "
+        f"({n_pass} PASS, {n_warn} WARN, {n_fail} FAIL).\n"
+    )
+    print(
+        "| claim_id | section | format_in_paper | expected | found | status | notes |"
+    )
+    print("|---|---|---|---:|---:|---|---|")
+    for r in rows:
+        print(
+            f"| {r['claim_id']} | {r['section']} | `{r['fmt']}` | "
+            f"{r['expected_occ']} | {r['found_occ']} | {r['status']} | "
+            f"{r['notes']} |"
+        )
+    print()
+
+    return (n_pass, n_warn, n_fail)
 
 
 # -----------------------------------------------------------------------------
@@ -1211,5 +1454,14 @@ for c in claims:
         f"{_fmt(c.manuscript_value)} | {_fmt(c.computed_value)} |"
     )
 
-# Exit non-zero only if FAIL count > 0 (allows piping to CI later).
-sys.exit(1 if n_fail > 0 else 0)
+# -----------------------------------------------------------------------------
+# Optional S028 paper-sync check (opt-in via --check-paper-sync).
+# Adds a second markdown table after the legacy ledger output. Sync FAILs
+# contribute to the script's exit code; WARNs do not.
+# -----------------------------------------------------------------------------
+n_sync_pass = n_sync_warn = n_sync_fail = 0
+if _ARGS.check_paper_sync:
+    n_sync_pass, n_sync_warn, n_sync_fail = check_paper_sync(claims)
+
+# Exit non-zero if any FAIL anywhere (allows piping to CI later).
+sys.exit(1 if (n_fail + n_sync_fail) > 0 else 0)
