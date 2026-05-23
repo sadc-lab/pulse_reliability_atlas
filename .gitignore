@@ -63,3 +63,16 @@ preprint/*.log
 preprint/*.out
 preprint/*.bbl
 preprint/*.blg
+
+# npj submission build artefacts
+preprint_npj/build/
+preprint_npj/*.aux
+preprint_npj/*.log
+preprint_npj/*.out
+preprint_npj/*.bbl
+preprint_npj/*.blg
+preprint_npj/*.fls
+preprint_npj/*.fdb_latexmk
+preprint_npj/*.synctex.gz
+# upstream template ZIP (large, redownloadable from Springer CMS)
+preprint_npj/template/sn-template.zip

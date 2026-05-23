@@ -1,0 +1,267 @@
+% Pulse Reliability Atlas — BibTeX references
+% Source of record: preprint/manuscript.md §6.7 (verified entries from the
+% S010 literature-review pass; each entry has a DOI or PMID anchor).
+% Citation keys are author-lastname + year (e.g., @morris1991, @webb2022vent).
+% Used by scripts/build_paper.ps1 via pandoc --citeproc. The §6.7 markdown
+% reference list remains the human-readable bibliography; pandoc's auto-
+% generated bibliography is suppressed at build time via the
+% `suppress-bibliography: true` metadata flag so we do not get two
+% reference sections in the output PDF.
+
+@article{bray2019,
+  author    = {Bray, A and Webb, J B and Enquobahrie, A and Vicory, J and Heneghan, J and Hubal, R and TerMaath, S and Asare, P and Clipp, R B},
+  title     = {Pulse Physiology Engine: An Open-Source Software Platform for Computational Modeling of Human Medical Simulation},
+  journal   = {SN Comprehensive Clinical Medicine},
+  volume    = {1},
+  number    = {5},
+  pages     = {362--377},
+  year      = {2019},
+  doi       = {10.1007/s42399-019-00053-w},
+  note      = {Author list and issue number corrected 2026-05-12 in pre-submission audit; the previous bib entry listed a non-existent author "Carpenter, J" and four authors total. Confirmed against Springer record and Pulse publications page.}
+}
+
+@article{webb2020,
+  author    = {Webb, J B and Bray, A and Asare, P K and Clipp, R B and Mehta, Y B and Penupolu, S and Patel, A A and Poler, S M},
+  title     = {Computational simulation to assess patient safety of uncompensated {COVID-19} two-patient ventilator sharing using the Pulse Physiology Engine},
+  journal   = {PLoS One},
+  volume    = {15},
+  number    = {11},
+  pages     = {e0242532},
+  year      = {2020},
+  doi       = {10.1371/journal.pone.0242532},
+  note      = {PMID: 33237927}
+}
+
+@inproceedings{webb2022vent,
+  author    = {Webb, J B and Bray, A and Scheirich, H and VanPelt, J and Gerard, J and Frembgen, S and Clipp, R B},
+  title     = {Implementation of a Dynamic and Extensible Mechanical Ventilator Model for Real-Time Physiological Simulation},
+  booktitle = {Proceedings of the 2022 Annual Modeling and Simulation Conference (ANNSIM)},
+  year      = {2022},
+  url       = {https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10224749/},
+  note      = {PubMed Central: PMC10224749. Entry corrected 2026-05-12 in pre-submission audit; previously listed under an invented title "PulseExt..." with an incorrect author list (the missing-Asare confusion was a copy-from-webb2020 error). Paper reports qualitative waveform agreement between Pulse and the ASL 5000 lung simulator across nine validation cases (healthy / restrictive / obstructive lung profiles x PC-AC / VC-AC / CPAP modes); does NOT report quantitative tidal-volume error percentages. The 0.07-2.25 percent VC-AC and 11.3-25.3 percent PC-AC tidal-volume error numbers cited elsewhere in this manuscript come from the Pulse documentation tables (see @pulsevent), not from this paper.}
+}
+
+@misc{pulsevent,
+  title     = {Mechanical Ventilator Methodology --- Pulse Physiology Engine (v4.3.1 documentation)},
+  author    = {{Kitware, Inc.}},
+  howpublished = {\url{https://pulse.kitware.com/_mechanical_ventilator_methodology.html}},
+  year      = {2026},
+  note      = {Tables 3, 5, 10, 12, 17, 19 of the validation section report Pulse vs ASL 5000 + Drager Evita Infinity V500 tidal-volume errors for VC-AC (0.0681 percent healthy [rounded to 0.07 percent in this manuscript] / 1.01 percent restrictive / 2.25 percent obstructive) and PC-AC (11.3 percent healthy / 25.3 percent restrictive / 15.3 percent obstructive). Source of the numerical Vt-accuracy claims in this paper; the qualitative validation framework is described in @webb2022vent. Verified 2026-05-12; healthy VC-AC value re-verified against live Table 3 in pre-submission Phase-2 citation audit (2026-05-17), which confirmed the 0.0681 percent figure exactly.}
+}
+
+@misc{pulserespmethod,
+  title     = {Respiratory Methodology --- Pulse Physiology Engine (v4.3.1 documentation)},
+  author    = {{Kitware, Inc.}},
+  howpublished = {\url{https://pulse.kitware.com/_respiratory_methodology.html}},
+  year      = {2026},
+  note      = {Source of Pulse's documented ARDS severity-to-impairment-fraction mapping (mild = 0.3, moderate = 0.6, severe = 0.9) and the piecewise-linear severity-to-modifier scheme ("calibrated at key transition points: 0.0, 0.3, 0.6, 0.9, 1.0"). The associated P/F-ratio validation claim (340 / 130 / 50 mmHg for the three bands) is NOT stated on this documentation page; the quantitative P/F validation appears only in the peer-reviewed @webb2020 Pulse-team COVID-19 multiplex paper. Earlier draft attribution to this page was corrected 2026-05-17 in the pre-submission Phase-2 citation audit after live re-verification of the Respiratory Methodology URL. The atlas references this page for the severity-to-modifier mapping only; the empirical {0.26, 0.60, 0.95} calibration is contrasted against the documented mapping in Appendix B.3, with the documented P/F claim sourced to @webb2020.}
+}
+
+@misc{pulsenervous,
+  title     = {Nervous System Methodology --- Pulse Physiology Engine (v4.3.1 documentation)},
+  author    = {{Kitware, Inc.}},
+  howpublished = {\url{https://pulse.kitware.com/_nervous_methodology.html}},
+  year      = {2026},
+  note      = {Source of Pulse's self-description as a "low-fidelity clinical approach" intended for training simulation rather than patient-specific clinical prediction. The phrase appears in the context of the nervous-system documentation but, per the maintainer's literature review (Pulse_translation_new/pulse_engine_literature_review.md section 1.4), applies to the engine's general design philosophy. Cited in section 1.1 of this manuscript to frame the present reliability mapping as a contribution that motivates rather than contradicts Pulse's stated scope. Verified verbatim 2026-05-23 in S027.}
+}
+
+@article{cornish2023,
+  author    = {Cornish, R and Taufiq, M F and Doucet, A and Holmes, C},
+  title     = {Causal Falsification of Digital Twins},
+  journal   = {arXiv preprint},
+  volume    = {arXiv:2301.07210},
+  year      = {2023},
+  url       = {https://arxiv.org/abs/2301.07210}
+}
+
+@article{morris1991,
+  author    = {Morris, M D},
+  title     = {Factorial sampling plans for preliminary computational experiments},
+  journal   = {Technometrics},
+  volume    = {33},
+  number    = {2},
+  pages     = {161--174},
+  year      = {1991},
+  doi       = {10.2307/1269043}
+}
+
+@article{campolongo2007,
+  author    = {Campolongo, F and Cariboni, J and Saltelli, A},
+  title     = {An effective screening design for sensitivity analysis of large models},
+  journal   = {Environmental Modelling \& Software},
+  volume    = {22},
+  number    = {10},
+  pages     = {1509--1518},
+  year      = {2007},
+  doi       = {10.1016/j.envsoft.2006.10.004}
+}
+
+@article{iwanaga2022,
+  author    = {Iwanaga, T and Usher, W and Herman, J},
+  title     = {Toward {SALib} 2.0: Advancing the accessibility and interpretability of global sensitivity analyses},
+  journal   = {Socio-Environmental Systems Modelling},
+  volume    = {4},
+  pages     = {18155},
+  year      = {2022},
+  doi       = {10.18174/sesmo.18155}
+}
+
+@article{ards2012,
+  author    = {{ARDS Definition Task Force} and Ranieri, V M and Rubenfeld, G D and Thompson, B T and Ferguson, N D and Caldwell, E and Fan, E and Camporota, L and Slutsky, A S},
+  title     = {Acute respiratory distress syndrome: the {Berlin} Definition},
+  journal   = {JAMA},
+  volume    = {307},
+  number    = {23},
+  pages     = {2526--2533},
+  year      = {2012},
+  doi       = {10.1001/jama.2012.5669},
+  note      = {PMID: 22797452}
+}
+
+@article{emeriaud2023,
+  author    = {Emeriaud, G and L{\'o}pez-Fern{\'a}ndez, Y M and Iyer, N P and Bembea, M M and Agulnik, A and Barbaro, R P and others},
+  title     = {Executive Summary of the Second International Guidelines for the Diagnosis and Management of Pediatric Acute Respiratory Distress Syndrome ({PALICC-2})},
+  journal   = {Pediatric Critical Care Medicine},
+  volume    = {24},
+  number    = {2},
+  pages     = {143--168},
+  year      = {2023},
+  doi       = {10.1097/PCC.0000000000003147},
+  note      = {PMID: 36661420}
+}
+
+@article{figueroacasas2016,
+  author    = {Figueroa-Casas, J B and Montoya, R},
+  title     = {Effect of Tidal Volume Size and Its Delivery Mode on Patient-Ventilator Dyssynchrony},
+  journal   = {Annals of the American Thoracic Society},
+  volume    = {13},
+  number    = {12},
+  pages     = {2207--2214},
+  year      = {2016},
+  doi       = {10.1513/AnnalsATS.201605-362OC},
+  note      = {PMID: 27598383 (verified via PubMed esummary, S020 novelty audit, 2026-05-15). Clinical-literature precedent for the F-004 phenomenon: lower tidal volume in volume-control ventilation increases patient-ventilator dyssynchrony in real ICU patients with or at risk for ARDS. Cited in S 3.8 and S 4.1 to anchor the atlas's F-004 finding (Vt CV > 5 percent in 20.6 percent of VC-AC runs) in the prior clinical-phenomenon literature; the atlas's contribution is the Pulse-engine manifestation and the corrective trigger setting (-2 cmH2O), not the discovery of dyssynchrony.}
+}
+
+@article{brower2000,
+  author    = {{Acute Respiratory Distress Syndrome Network} and Brower, R G and Matthay, M A and Morris, A and Schoenfeld, D and Thompson, B T and Wheeler, A},
+  title     = {Ventilation with lower tidal volumes as compared with traditional tidal volumes for acute lung injury and the acute respiratory distress syndrome},
+  journal   = {New England Journal of Medicine},
+  volume    = {342},
+  number    = {18},
+  pages     = {1301--1308},
+  year      = {2000},
+  doi       = {10.1056/NEJM200005043421801},
+  note      = {PMID: 10793162}
+}
+
+@article{wilkinson2016,
+  author    = {Wilkinson, M D and Dumontier, M and Aalbersberg, I J and others},
+  title     = {The {FAIR} Guiding Principles for scientific data management and stewardship},
+  journal   = {Scientific Data},
+  volume    = {3},
+  pages     = {160018},
+  year      = {2016},
+  doi       = {10.1038/sdata.2016.18},
+  note      = {PMID: 26978244}
+}
+
+@article{munafo2017,
+  author    = {Munaf{\`o}, M R and Nosek, B A and Bishop, D V M and Button, K S and Chambers, C D and du Sert, N P and Simonsohn, U and Wagenmakers, E J and Ware, J J and Ioannidis, J P A},
+  title     = {A manifesto for reproducible science},
+  journal   = {Nature Human Behaviour},
+  volume    = {1},
+  number    = {1},
+  pages     = {0021},
+  year      = {2017},
+  doi       = {10.1038/s41562-016-0021},
+  note      = {PMID: 33954258 (S010 verification record)}
+}
+
+@misc{pulsefaq,
+  title     = {Pulse {FAQ}: Have you done {UQ} / {SA}?},
+  author    = {{Kitware, Inc.}},
+  howpublished = {\url{https://pulse.kitware.com/_f_a_q.html}},
+  note      = {Verified verbatim 2026-04-19; still current at the May 2026 GitLab re-audit (S003 / S016)},
+  year      = {2026}
+}
+
+@article{severinghaus1979,
+  author    = {Severinghaus, J W},
+  title     = {Simple, accurate equations for human blood {O2} dissociation computations},
+  journal   = {Journal of Applied Physiology: Respiratory, Environmental and Exercise Physiology},
+  volume    = {46},
+  number    = {3},
+  pages     = {599--602},
+  year      = {1979},
+  doi       = {10.1152/jappl.1979.46.3.599},
+  note      = {PMID: 35496 (verified via PubMed esummary, 2026-05-21). Reference equation for the oxyhemoglobin dissociation curve. Anchors the SpO2-PaO2 mapping used in this manuscript: SpO2 = 50 percent corresponds to the canonical P50 at PaO2 $\approx$ 27 mmHg, below the threshold for cellular oxygen extraction. Used in §2.6 to defend the (PaO2 lower, SpO2 lower) implausibility hard bounds.}
+}
+
+@article{singer2016,
+  author    = {Singer, M and Deutschman, C S and Seymour, C W and Shankar-Hari, M and Annane, D and Bauer, M and Bellomo, R and Bernard, G R and Chiche, J D and Coopersmith, C M and Hotchkiss, R S and Levy, M M and Marshall, J C and Martin, G S and Opal, S M and Rubenfeld, G D and van der Poll, T and Vincent, J L and Angus, D C},
+  title     = {The Third International Consensus Definitions for Sepsis and Septic Shock ({Sepsis-3})},
+  journal   = {JAMA},
+  volume    = {315},
+  number    = {8},
+  pages     = {801--810},
+  year      = {2016},
+  doi       = {10.1001/jama.2016.0287},
+  note      = {PMID: 26903338 (verified via PubMed esummary, 2026-05-21). Sepsis-3 defines septic shock as requiring vasopressor support to maintain MAP $\geq$ 65 mmHg in the presence of persistent hypotension; MAP $<$ 30 mmHg is well below autoregulated organ-perfusion threshold. Used in §2.6 to defend the MAP lower implausibility bound.}
+}
+
+@article{evans2021sepsis,
+  author    = {Evans, L and Rhodes, A and Alhazzani, W and Antonelli, M and Coopersmith, C M and French, C and Machado, F R and Mcintyre, L and Ostermann, M and Prescott, H C and others},
+  title     = {Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock 2021},
+  journal   = {Critical Care Medicine},
+  volume    = {49},
+  number    = {11},
+  pages     = {e1063--e1143},
+  year      = {2021},
+  doi       = {10.1097/CCM.0000000000005337},
+  note      = {PMID: 34605781 (verified via PubMed esummary, 2026-05-21). International ICU practice standard for MAP target $\geq$ 65 mmHg during sepsis resuscitation; corroborates the MAP lower bound rationale in §2.6.}
+}
+
+@article{mancia2023esh,
+  author    = {Mancia, G and Kreutz, R and Brunstr{\"o}m, M and Burnier, M and Grassi, G and Januszewicz, A and Muiesan, M L and Tsioufis, K and Agabiti-Rosei, E and Algharably, E A E and others},
+  title     = {2023 {ESH} Guidelines for the management of arterial hypertension},
+  journal   = {Journal of Hypertension},
+  volume    = {41},
+  number    = {12},
+  pages     = {1874--2071},
+  year      = {2023},
+  doi       = {10.1097/HJH.0000000000003480},
+  note      = {PMID: 37345492 (verified via PubMed esummary, 2026-05-21). European Society of Hypertension 2023 guidelines define hypertensive emergency at SBP $>$ 180 mmHg and/or DBP $>$ 120 mmHg with acute target-organ damage; supports the MAP / SBP upper bound articulation in §2.6.}
+}
+
+@book{marino2013icu,
+  author    = {Marino, P L},
+  title     = {Marino's The {ICU} Book},
+  edition   = {4th},
+  publisher = {Lippincott Williams \& Wilkins (Wolters Kluwer Health)},
+  address   = {Philadelphia, PA},
+  year      = {2013},
+  isbn      = {978-1-4511-2118-6},
+  note      = {Reference critical-care textbook. Publication date November 5, 2013 (Harvard Book Store record, verified 2026-05-21). ISBN-13 9781451121186 verified against AbeBooks, Barnes \& Noble, and the publisher's catalog. Used in §2.6: Chapter 5 (Hemodynamic Drug Infusions and the Cardiovascular Critical Patient) anchors the HR (20, 220) bpm and MAP (30, 180) mmHg implausibility thresholds; Chapter 21 (Acid-Base Disorders) anchors the PaCO2 (10, 120) mmHg bounds; Chapter 26 (Principles of Mechanical Ventilation) anchors the Vt (50, 1500) mL operational range.}
+}
+
+@book{west2020respiratory,
+  author    = {West, J B and Luks, A M},
+  title     = {West's Respiratory Physiology: The Essentials},
+  edition   = {11th},
+  publisher = {Wolters Kluwer Health / Lippincott},
+  address   = {Philadelphia, PA},
+  year      = {2020},
+  isbn      = {978-1-9751-3918-6},
+  note      = {Reference respiratory-physiology textbook. Publication date September 29, 2020 (Wolters Kluwer publisher record, verified 2026-05-21). ISBN-13 9781975139186 (print) verified against publisher catalog. Used in §2.6: Chapter 2 (Ventilation) documents anatomical dead space (typically 150 mL in adult-reference body habitus), justifying the Vt = 50 mL lower bound (alveolar ventilation impossible below dead space); Chapter 4 (Blood Gas Transport) anchors the PaCO2 acid-base survival range; Chapter 5 (Gas Exchange) documents the alveolar-gas equation that anchors the PaO2 upper bound and the supplementary HARD_BOUNDS_PHYSIOLOGICAL classifier (§3.8); Chapter 7 (Ventilation-Perfusion Relationships) anchors the shunt physiology recovered by the S021 hyperoxia convergence experiment.}
+}
+
+@book{marini2019critical,
+  author    = {Marini, J J and Dries, D J},
+  title     = {Critical Care Medicine: The Essentials and More},
+  edition   = {5th},
+  publisher = {Wolters Kluwer (Lippincott Williams \& Wilkins)},
+  address   = {Philadelphia, PA},
+  year      = {2019},
+  isbn      = {978-1-4963-0291-5},
+  note      = {Reference critical-care textbook. ISBN-13 9781496302915 verified against Barnes \& Noble, Amazon, and the publisher's catalog (2026-05-21). Used in §2.6: Chapter 1 (Hemodynamic Monitoring and Support) documents the MAP / HR survival-incompatibility thresholds; Chapter 5 (Gas Exchange in the Lung) and Chapter 7 (Mechanical Ventilation) anchor the PaCO2 / Vt bounds. Corroborating reference alongside Marino 2013.}
+}
