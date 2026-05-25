@@ -386,6 +386,96 @@ RR                  & 0 / 172 & 12 / 172 & Atlas input, not output \\
 
 The four-channel overlap rank ordering on Cornish's bootstrap counts (PaCO$_2$ at 18.6~\%, PaO$_2$ at 5.1~\%, MeanBP at 3.3~\%, HR at 0.6~\%) mirrors the red-cell density of the atlas's traffic-light map (Figure~1 of the main manuscript) on the same four channels: PaO$_2$ goes red at S3 and S4 across both sexes (4 of 8 cells), HR likewise goes red at S3+ (4 of 8 cells), and MAP and PaCO$_2$ each have exactly one red cell (S4\_M). The two studies therefore disagree on absolute rates --- the present atlas exposes boundary-region failure that Cornish's sepsis-cohort intervention sequences do not visit --- but agree on the ordinal pattern that PaCO$_2$ is the most assessment-sensitive gas-exchange channel. Cornish's bootstrap rejection counts cannot be cell-level cross-tabulated against the atlas's per-cell traffic light because Cornish's rejections are indexed by (time-step, action-sequence, sex--age--quantile bin) over sepsis trajectories, not by (scenario, sex) over the operational acceptance envelope, and the two indexings are not surjective on each other.
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% S8 -- VC-AC trigger-lockout full protocol (Phase 9.C)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{VC-AC trigger-lockout full protocol}\label{sec:s8}
+
+Section~2.3 of the main manuscript reports that setting Pulse's \texttt{InspirationPatientTriggerPressure} to $-2$~cmH$_2$O on the \texttt{SEMechanicalVentilatorVolumeControl} action collapses the median delivered-tidal-volume coefficient of variation from 0.351 to 0.016 across 64 paired reruns, with 78.1~\% of locked-trigger reruns dropping below the 0.05 steady-state threshold. This supplement section describes the experimental protocol that established the corrective intervention and shows the per-breath waveform evidence that the dyssynchrony signal is real (not a sampling artefact) and that the intervention removes it.
+
+\subsection{Protocol design}\label{sec:s8-protocol}
+
+The 64 paired reruns sampled all eight (scenario, sex) cells, with most coverage concentrated on the healthy-S1 and mild-ARDS-S2 cells where the dyssynchrony signal is densest (Table~1 of the main manuscript). For each rerun, the locked configuration was reproduced exactly from the original sweep, with one and only one modification: the \texttt{InspirationPatientTriggerPressure} field on the VC-AC action was set to $-2$~cmH$_2$O (the trigger-pressure constant declared in \texttt{scripts/run\_s014\_trigger\_lockout.py} and regex-extracted into ledger anchor \texttt{T1.06d.s14\_trigger\_pressure}). All other settings --- Morris input vector, simulation duration, scenario, patient surrogate --- remained identical. The intervention is therefore a clean one-parameter manipulation; any change in the steady-state Vt distribution is causally attributable to the trigger-pressure setting.
+
+\subsection{Native 50 Hz waveform evidence (Figure~\ref{fig:s8-vt})}\label{sec:s8-waveform}
+
+Pulse's standard CSV output exposes the delivered tidal volume as a breath-integrated time series sampled at 5-second intervals in the atlas-aggregated parquet. For waveform-level inspection of the trigger dyssynchrony, the native Pulse output (\texttt{output\_pulse\_native.csv} per run) provides the same signal at a 0.02-second sampling interval (50~Hz). At adult respiratory rates of approximately 0.25~Hz (one breath every four seconds), 50~Hz sampling is a 200-fold oversample of the breath-rate signal, well above the Nyquist criterion of approximately $2 \times 0.25 = 0.5$~Hz. The per-breath delivered tidal volume shown in Figure~\ref{fig:s8-vt} is therefore the directly observable breath-by-breath dynamic of the ventilator coupling, not an aliasing artefact.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/fig_s4_vt_waveform.pdf}
+\caption{Per-breath delivered tidal volume at Pulse's native 50~Hz sampling rate, for the worst-case S014 paired configuration (S1\_F\_0117). \textbf{(a)} Default VC-AC trigger configuration: per-breath Vt oscillates erratically across the [60, 120]~s steady-state window (Vt CV = 1.826), the patient-ventilator dyssynchrony signal that the locked steady-state classifier flags as \texttt{not\_steady\_state}. \textbf{(b)} Locked trigger configuration ($-2$~cmH$_2$O): per-breath Vt is metronomic across the same window (Vt CV = 0.018), confirming that the intervention disables the spontaneous-drive coupling without disrupting volume delivery. Pulse's standard CSV output does not natively expose airway Pressure ($P_{\text{aw}}$) or Respiratory Flow ($\dot{Q}$) as top-level columns, so the per-breath delivered tidal-volume waveform shown here is the directly observable proxy of the trigger-coupling dynamics; the 50~Hz native sampling rate is Nyquist-safe for the $\sim$0.25~Hz breath-rate signal.}
+\label{fig:s8-vt}
+\end{figure}
+
+\subsection{Mechanism and downstream consequence}\label{sec:s8-mech}
+
+The default \texttt{SEMechanicalVentilatorVolumeControl} action in \texttt{AssistedControl} mode enables Pulse's respiratory-model-driven patient trigger when no explicit \texttt{InspirationPatientTriggerPressure} or \texttt{InspirationPatientTriggerFlow} is supplied (\texttt{SEMechanicalVentilatorVolumeControl.cpp} lines 120--128 in the upstream Pulse source). The spontaneous-drive trigger interacts with the mandatory VC-AC cycles to produce real per-breath tidal-volume variance that is clinically meaningful as a model of patient-ventilator asynchrony~\cite{figueroacasas2016} but that breaks the steady-state-mean assumption the locked atlas classifier relies on. Setting the trigger pressure explicitly to $-2$~cmH$_2$O (or any clinically standard ICU sensitivity value) disables the spontaneous-trigger coupling, restoring metronomic breath delivery and dropping the Vt CV by a factor of approximately twenty in the median paired comparison. The practical recommendation for downstream Pulse users running atlas-style sensitivity sweeps under VC-AC ventilation is to set the trigger pressure explicitly on every action.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% S9 -- Hyperoxia 300-second convergence full protocol (Phase 9.C)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Hyperoxia 300-second convergence full protocol}\label{sec:s9}
+
+Section~2.4 of the main manuscript reports that the locked 120-second simulation window is insufficient for arterial-oxygen-partial-pressure (PaO$_2$) convergence at FiO$_2$ = 1.0 in the healthy S1 cohort: 41 of 44 S1 reruns (93.2~\%) converged to a stable plateau under a 300-second extended simulation, with a converged-subset median PaO$_2$ of 643~mmHg, sitting approximately 10~mmHg below the simple alveolar-gas-equation prediction at sea level of $\approx$~653~mmHg~\cite{west2020respiratory}. This supplement section provides the kinetic anchor for that claim and visualises the convergence trajectories.
+
+\subsection{Late-phase convergence trajectories (Figure~\ref{fig:s9-pao2})}\label{sec:s9-trajectories}
+
+Each S021 rerun reloads Pulse's saved engine state from the end of the original locked 120-second simulation and continues for an additional 300 seconds, sampled into the atlas-aggregated CSV at 5-second intervals. The figure x-axis is the elapsed time since the rerun start ($t' = 0$ corresponds to the end of the original 120-second window, the saved-state reload point); the figure therefore visualises the \emph{late-phase convergence} of PaO$_2$ toward its true plateau, not a fresh wash-in from atmospheric-air baseline. Each thin trace is one of the 41 converged S1 reruns; the thick line is the median trajectory across that subset.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/fig_s3_hyperoxia_convergence.pdf}
+\caption{Late-phase PaO$_2$ convergence in the S021 extended-simulation reruns at FiO$_2$ = 1.0 in the healthy S1 cohort (41 of 44 converged under the preregistered drift criterion). The figure x-axis ($t'$) is the elapsed time since the rerun start; the rerun continues from the saved Pulse state at the end of the original 120-second window, so $t' = 0$ corresponds to $t = 120$~s of the original simulation timeline rather than to atmospheric-air baseline. Thin blue traces are individual converged trajectories; the thick blue line is the cohort median. The dotted purple horizontal at 600~mmHg is the locked classifier upper bound; the dash-dotted brown horizontal at $\approx$~653~mmHg is the alveolar-gas-equation sea-level prediction. The median trajectory rises from approximately 574~mmHg at the rerun reload point to approximately 643~mmHg at $t' = 300$~s; 95~\% of that late-plateau gain is reached at $t' = 215$~s (audit anchor \texttt{T1.06u.s021\_time\_to\_95pct\_plateau}), quantifying why the locked 120-second window underestimates plateau PaO$_2$ at FiO$_2$ = 1.0.}
+\label{fig:s9-pao2}
+\end{figure}
+
+\subsection{Practical guidance}\label{sec:s9-guidance}
+
+The kinetic anchor (215 seconds of extended simulation to reach 95~\% of the late plateau, starting from the saved state at the end of the original 120-second window) gives an objective threshold for downstream Pulse users running hyperoxia simulations: simulating for at least 300 seconds and computing the steady-state mean over the final 60 seconds of that window puts the PaO$_2$ estimate within approximately 5~\% of the asymptote on the healthy cohort. The 120-second window of the locked atlas classifier was appropriate for the cardiovascular and ventilation channels (HR, MAP, Vt, PaCO$_2$ all settle in well under 120 seconds at FiO$_2$ = 1.0) but is the wrong window for PaO$_2$ at the inspired-oxygen boundary; the locked atlas classifier reports the relevant runs as \texttt{implausible} (PaO$_2$ above the 600~mmHg bound) under exactly the conditions where the slow late-phase relaxation has not yet completed.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% S10 -- Sex-stratified BV mechanism: absolute + mL/kg (Phase 9.C)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Sex-stratified blood-volume mechanism: absolute and weight-normalized framings}\label{sec:s10}
+
+Section~2.5 of the main manuscript reports that all 20 of 1{,}280 input-extreme-regime divergences fall on the male reference surrogate, that Pulse's allometric blood-volume formula yields 4{,}802.63~mL for the 67.3~kg male body versus 3{,}996.09~mL for the 56.2~kg female body (a 17~\% absolute-mL sex gap), and that reducing the male surrogate's \texttt{BloodVolumeBaseline} toward its 4{,}082.24~mL setup-time floor monotonically eliminates the divergence cluster (20 / 20 $\rightarrow$ 2 / 20 $\rightarrow$ 0 / 20 across 4{,}802.63 / 4{,}400 / 4{,}082.24~mL). This supplement section disentangles the absolute-volume framing from the weight-normalized framing, because the two answer different methodological questions and a reviewer-relevant confounder lives between them.
+
+\subsection{Absolute volumes (the framing used in the main manuscript)}\label{sec:s10-abs}
+
+The Pulse allometric formula~\cite{bray2019} is $\text{BV} = 65.6 \cdot \text{weight}_{\text{kg}}^{1.02}$~mL. On the two reference surrogates this yields:
+
+\begin{itemize}
+\item Male (67.3~kg): $\text{BV} = 65.6 \cdot 67.3^{1.02} = 4{,}802.63$~mL.
+\item Female (56.2~kg): $\text{BV} = 65.6 \cdot 56.2^{1.02} = 3{,}996.09$~mL.
+\item Absolute-mL difference: $4{,}802.63 - 3{,}996.09 = 806.54$~mL, or 16.8~\% of the male default.
+\end{itemize}
+
+The Pulse setup-time floor for the male body sits at 4{,}082.24~mL, 720.39~mL below the male default and 86.15~mL above the female default. The male body cannot be made BV-equivalent to the female body by a one-way \texttt{BloodVolumeBaseline} transplant: the female default sits below the male floor.
+
+\subsection{Weight-normalized volumes (the confounder-controlled framing)}\label{sec:s10-norm}
+
+Comparing absolute blood volumes across patients of different mass conflates intrinsic sex differences with baseline morphological differences. Dividing each absolute BV by the corresponding reference body weight yields the weight-normalized blood-volume index (mL/kg), which controls for the morphological component:
+
+\begin{itemize}
+\item Male: $4{,}802.63 / 67.3 = 71.4$~mL/kg.
+\item Female: $3{,}996.09 / 56.2 = 71.1$~mL/kg.
+\item Weight-normalized difference: $0.3$~mL/kg, or $\approx 0.4$~\% of the male value.
+\end{itemize}
+
+The 17~\% absolute-mL sex gap is therefore almost entirely driven by the body-mass difference (67.3 vs 56.2~kg, also a 17~\% gap) rather than by an intrinsic per-kg sex difference in Pulse's allometric BV calculation. This makes methodological sense: the underlying formula $\text{BV} = 65.6 \cdot \text{weight}_{\text{kg}}^{1.02}$ scales blood volume nearly linearly with weight (the 1.02 exponent is close to 1.0), so weight-normalized BV is approximately constant across body masses.
+
+\subsection{Reviewer-relevant disambiguation}\label{sec:s10-disambig}
+
+The atlas's sex-stratified-divergence finding is best stated in absolute-volume terms because the underlying mechanism --- Pulse's setup-time \texttt{BloodVolumeBaseline} floor and the cardiovascular-circuit operating point at that floor --- is parameterised on absolute mL, not on mL/kg. The monotonic divergence-rate reduction from 20 / 20 to 0 / 20 across the 4{,}802.63 $\rightarrow$ 4{,}400 $\rightarrow$ 4{,}082.24~mL dose-response is an absolute-volume effect; it is not what would be predicted from a per-kg physiological sex difference (because there is essentially none).
+
+The same reasoning establishes that the male-vs-female divergence asymmetry in the input-extreme regime is not a claim about per-kg blood-volume physiology in real patients --- it is a claim about how Pulse's internal solver responds to absolute-BV values near its setup-time floor on the male reference body. Pooling male and female Pulse-generated synthetic cohorts in machine-learning pipelines without flag-stratified filtering still introduces a hidden sex covariate at the male surrogate's divergence boundary (Section~2.5 of the main manuscript), but downstream users adapting the result to clinical inference should not extrapolate to a per-kg sex-physiology claim that the data does not support.
+
+
 \bibliography{paper}
 
 \end{document}

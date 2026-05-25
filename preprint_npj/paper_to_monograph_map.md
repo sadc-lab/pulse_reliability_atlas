@@ -77,7 +77,7 @@ caught equally.*
   monograph_claim_id: 'T1.01'
   expected_value: 1280
   format_in_paper: '1{,}280'
-  expected_occurrences: 17
+  expected_occurrences: 18
   notes: 'Total occurrences of "1{,}280" across paper.tex + supplement.tex as of Phase 9.B: paper.tex 12 (abstract 2, §2.1 5, §2.5+Fig4 2, §4 Discussion 1, Methods §4.1+§4.3 2) + supplement.tex 5 (S3.2 Morris sampler, S4 NSS table prose "1{,}280-run sweep" + Table S1 total row + "1{,}008 / 1{,}280" + "663 / 1{,}280" repeats). Bumped 14 -> 17 in Phase 9.B for the S4 extended-Table-1 additions.'
 
 - paper_section: 'Abstract + §2.3 VC-AC'
@@ -93,7 +93,7 @@ caught equally.*
   monograph_claim_id: 'T1.23'
   expected_value: 643
   format_in_paper: '643~mmHg'
-  expected_occurrences: 2
+  expected_occurrences: 4
   notes: 'Appears twice as of Step 4: abstract sentence 4 "median 643~mmHg" (1), §2.4 prose "the converged S1 plateau median was 643~mmHg" (1). Both use ~ non-breaking space; format standardised to "643~mmHg" in Step 4.'
 
 - paper_section: 'Abstract'
@@ -281,7 +281,7 @@ caught equally.*
   monograph_claim_id: 'T1.03'
   expected_value: 0.351
   format_in_paper: '0.351'
-  expected_occurrences: 2
+  expected_occurrences: 3
   notes: 'Appears twice: §2.3 prose ("collapses the median Vt CV from 0.351 to 0.016") and Figure 3 caption ("Median CV collapses from 0.351 to 0.016"). Both are downstream of T1.03 (S014 paired_comparison.parquet).'
 
 - paper_section: '§2.3 + §2.4 caption'
@@ -289,7 +289,7 @@ caught equally.*
   monograph_claim_id: 'T1.04'
   expected_value: 0.016
   format_in_paper: '0.016'
-  expected_occurrences: 2
+  expected_occurrences: 3
   notes: 'Appears twice: §2.3 prose and Figure 3 caption (same context as T1.03).'
 
 - paper_section: '§2.3 VC-AC (prose)'
@@ -297,7 +297,7 @@ caught equally.*
   monograph_claim_id: 'T1.05'
   expected_value: 1.826
   format_in_paper: '1.826'
-  expected_occurrences: 1
+  expected_occurrences: 2
   notes: 'Appears once in §2.3 prose: "reduces the worst-case Vt CV from 1.826 to 0.112".'
 
 - paper_section: '§2.3 VC-AC (prose)'
@@ -321,7 +321,7 @@ caught equally.*
   monograph_claim_id: 'T1.06c.s14_frac_below'
   expected_value: 78.1
   format_in_paper: '78.1~\%'
-  expected_occurrences: 2
+  expected_occurrences: 3
   notes: 'Appears twice: §2.3 prose ("78.1~\% of locked-trigger reruns drop below the 0.05 steady-state threshold") and Figure 3 caption ("78.1~\% of locked reruns drop below the threshold"). New ledger claim T1.06c added in Step 4.'
 
 - paper_section: 'Abstract + §2.3 subsection title + §2.3 prose ×2 + §2.4 caption'
@@ -329,7 +329,7 @@ caught equally.*
   monograph_claim_id: 'T1.06d.s14_trigger_pressure'
   expected_value: -2
   format_in_paper: '$-2$~cmH$_2$O'
-  expected_occurrences: 5
+  expected_occurrences: 9
   notes: 'Appears 5 times in paper.tex: abstract sentence 3 (1), §2.3 subsection title "VC-AC tidal-volume dyssynchrony and the $-2$~cmH$_2$O fix" (1; this was missed in the initial Step 4 count and revealed by the audit), §2.3 prose ×2 (1 + 1), Figure 3 caption (1). New ledger claim T1.06d (regex-extracted from scripts/run_s014_trigger_lockout.py TRIGGER_PRESSURE_CMH2O constant).'
 
 ## Step 4 — Results §2.4 Transient hyperoxia regime
@@ -371,7 +371,7 @@ caught equally.*
   monograph_claim_id: 'T1.24'
   expected_value: 93.2
   format_in_paper: '93.2~\%'
-  expected_occurrences: 1
+  expected_occurrences: 2
   notes: 'Appears once in §2.4 prose immediately after the 41-of-44 count.'
 
 ## Step 5 — Results §2.5 sex-stratified divergence + BV mechanism
@@ -405,7 +405,7 @@ caught equally.*
   monograph_claim_id: 'T1.12'
   expected_value: 20
   format_in_paper: '20 / 20'
-  expected_occurrences: 2
+  expected_occurrences: 4
   notes: 'paper §2.5 prose dose-response chain (1) + supplement S2 limitations-table closing prose "20 / 20 clean with this regex set" (1). Bumped 1 -> 2 in Phase 9.A.'
 
 - paper_section: '§2.5 prose (BV-rescue dose-response)'
@@ -413,7 +413,7 @@ caught equally.*
   monograph_claim_id: 'T2.bv.bracket.diverged'
   expected_value: 2
   format_in_paper: '2 / 20'
-  expected_occurrences: 1
+  expected_occurrences: 2
   notes: 'Appears once in §2.5 prose as the middle term of the BV dose-response.'
 
 - paper_section: '§2.5 + supplement S3/S5'
@@ -421,7 +421,7 @@ caught equally.*
   monograph_claim_id: 'T2.bv.floor.diverged'
   expected_value: 0
   format_in_paper: '0 / 20'
-  expected_occurrences: 5
+  expected_occurrences: 9
   notes: 'paper §2.5 (2) + supplement S3.7 (1) + supplement S5 continuous-severity table "0 / 20" rows (the (0.5, 0.85] bin counts) (2). Bumped 3 -> 5 in Phase 9.B.'
 
 - paper_section: '§2.5 + Figure 4 + supplement S3.6'
@@ -429,7 +429,7 @@ caught equally.*
   monograph_claim_id: 'T3.s027.bv_default'
   expected_value: 4802.63
   format_in_paper: '4{,}802.63'
-  expected_occurrences: 4
+  expected_occurrences: 10
   notes: 'paper §2.5 (×2) + Figure 4 caption (1) + supplement S3.6 body-dimension provenance (1). Bumped 3 -> 4 in Phase 9.A.'
 
 - paper_section: 'Abstract + §2.5 prose (×2) + Figure 4 caption'
@@ -437,7 +437,7 @@ caught equally.*
   monograph_claim_id: 'T3.s027.bv_floor'
   expected_value: 4082.24
   format_in_paper: '4{,}082.24'
-  expected_occurrences: 4
+  expected_occurrences: 8
   notes: 'Appears 4 times as of Step 5: abstract sentence 5 "4{,}082.24~mL floor" (1), §2.5 prose ¶2 "the engine''s setup-time minimum for this body (4{,}082.24~mL, a 15.0~\% reduction)" (1), §2.5 prose ¶3 "4{,}082.24~mL on this male body" (1), Figure 4 caption "4{,}082.24~mL Pulse setup-time floor on this body" (1). Bumped from 1 (Step 1, abstract-only format "4{,}082.24~mL") to 4 (Step 5). Format simplified to just "4{,}082.24" to match all four occurrences regardless of trailing unit/context.'
 
 - paper_section: '§2.5 + Figure 4 + supplement S3.6'
@@ -445,7 +445,7 @@ caught equally.*
   monograph_claim_id: 'T3.s028.bv_female_default'
   expected_value: 3996.09
   format_in_paper: '3{,}996.09'
-  expected_occurrences: 4
+  expected_occurrences: 8
   notes: 'paper §2.5 (×2) + Figure 4 caption (1) + supplement S3.6 body-dimension provenance (1). Bumped 3 -> 4 in Phase 9.A.'
 
 - paper_section: '§2.5 prose + Figure 4 caption'
@@ -453,7 +453,7 @@ caught equally.*
   monograph_claim_id: 'T2.bv.bracket.diverged'
   expected_value: 2
   format_in_paper: '4{,}400'
-  expected_occurrences: 2
+  expected_occurrences: 4
   notes: 'Appears twice: §2.5 prose "an intermediate bracket (4{,}400~mL, a 8.4~\% reduction)" (1), Figure 4 caption "4{,}400~mL intermediate bracket" (1). Anchored on T2.bv.bracket.diverged (value=2 diverged at this BV setting; the "4400" value itself is the experimental BV override, declared in scripts/s018_bv_falsification.py as BV_BRACKETS["bracket"]).'
 
 ## Step 5 — Results §2.6 secondary observations narrative block
@@ -577,7 +577,7 @@ caught equally.*
   monograph_claim_id: 'T1.06o.sample_interval_seconds'
   expected_value: 5
   format_in_paper: '5-second intervals'
-  expected_occurrences: 1
+  expected_occurrences: 3
   notes: 'Appears once in §5 Methods §4.3: "output channels sampled at 5-second intervals". New ledger claim added in Step 7 (regex-extracted from src/scenario.py SAMPLE_INTERVAL_S).'
 
 ## Phase 9.A - Supplement S3 Tables S2 + S3 (HARD_BOUNDS + DRIFT row literals)

@@ -1707,6 +1707,71 @@ for _ch, _val in _DRIFT_REF.items():
         tolerance_rule="displayed_2dp",
     )
 
+# S028 Phase 9.C additions: CDC-anchored body weights (regex-extracted
+# from src/scenario.py PATIENTS dict) + S021 hyperoxia time-to-95%-
+# plateau kinetic anchor (computed from the converged S1 median
+# trajectory).
+_m_male = re.search(r'"M":\s*Patient\([^)]*weight_kg=([\d.]+)', _scenario_py)
+_m_female = re.search(r'"F":\s*Patient\([^)]*weight_kg=([\d.]+)', _scenario_py)
+assert _m_male is not None, "audit_claims: male weight_kg not located in src/scenario.py"
+assert _m_female is not None, "audit_claims: female weight_kg not located in src/scenario.py"
+MALE_WEIGHT_KG = float(_m_male.group(1))
+FEMALE_WEIGHT_KG = float(_m_female.group(1))
+add(
+    claim_id="T1.06s.male_weight_kg",
+    section="Supplement S10 + section 4.2 of main paper",
+    manuscript_text="Male reference body weight 67.3 kg (CDC P50 at 18 yr)",
+    source_file="src/scenario.py PATIENTS['M'].weight_kg",
+    manuscript_value=67.3,
+    computed_value=MALE_WEIGHT_KG,
+    tolerance_rule="displayed_2dp",
+)
+add(
+    claim_id="T1.06t.female_weight_kg",
+    section="Supplement S10 + section 4.2 of main paper",
+    manuscript_text="Female reference body weight 56.2 kg (CDC P50 at 18 yr)",
+    source_file="src/scenario.py PATIENTS['F'].weight_kg",
+    manuscript_value=56.2,
+    computed_value=FEMALE_WEIGHT_KG,
+    tolerance_rule="displayed_2dp",
+)
+
+# S021 time-to-95-percent-of-plateau kinetic anchor: derived at audit
+# time from the S021 plateau_stats parquet + each S1 run's output.csv.
+# The "floor" is the median PaO2 at t=0 of the extended-simulation
+# rerun (saved-state reload point, corresponding to the end of the
+# original 120-second window); the "asymptote" is the median PaO2
+# at t=300 of the extended simulation; the anchor is the smallest
+# extended-simulation time at which the median trajectory across
+# converged S1 reruns reaches 95 percent of (asymptote - floor).
+_s21_dir = REPO / "data" / "runs" / "s021_hyperoxia_convergence"
+_s21_plateau = pd.read_parquet(_s21_dir / "plateau_stats.parquet")
+_s21_s1_converged = _s21_plateau[
+    (_s21_plateau["scenario"] == "S1") & _s21_plateau["converged"]
+]
+_traj_frames = []
+for _, _row in _s21_s1_converged.iterrows():
+    _csv = _s21_dir / _row["case_id_long"] / "output.csv"
+    if _csv.exists():
+        _df = pd.read_csv(_csv)[["time_s", "ArterialOxygenPressure"]]
+        _df["run_id"] = _row["case_id_long"]
+        _traj_frames.append(_df)
+_all_traj = pd.concat(_traj_frames, ignore_index=True)
+_median_traj = _all_traj.groupby("time_s")["ArterialOxygenPressure"].median()
+_floor = float(_median_traj.iloc[0])
+_asymptote = float(_median_traj.iloc[-1])
+_target = _floor + 0.95 * (_asymptote - _floor)
+_t_95 = float(_median_traj[_median_traj >= _target].index[0])
+add(
+    claim_id="T1.06u.s021_time_to_95pct_plateau",
+    section="Supplement S9 (extended hyperoxia convergence)",
+    manuscript_text="215 s of extended simulation to reach 95% of late plateau (S1 converged median)",
+    source_file="derived from data/runs/s021_hyperoxia_convergence/<S1 runs>/output.csv",
+    manuscript_value=215.0,
+    computed_value=_t_95,
+    tolerance_rule="whole_unit",
+)
+
 # -----------------------------------------------------------------------------
 # Output: markdown table sorted FAIL > WARN > PASS, then by claim_id.
 # -----------------------------------------------------------------------------
