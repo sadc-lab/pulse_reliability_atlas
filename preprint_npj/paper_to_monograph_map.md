@@ -77,7 +77,7 @@ caught equally.*
   monograph_claim_id: 'T1.01'
   expected_value: 1280
   format_in_paper: '1{,}280'
-  expected_occurrences: 18
+  expected_occurrences: 23
   notes: 'Total occurrences of "1{,}280" across paper.tex + supplement.tex as of Phase 9.B: paper.tex 12 (abstract 2, §2.1 5, §2.5+Fig4 2, §4 Discussion 1, Methods §4.1+§4.3 2) + supplement.tex 5 (S3.2 Morris sampler, S4 NSS table prose "1{,}280-run sweep" + Table S1 total row + "1{,}008 / 1{,}280" + "663 / 1{,}280" repeats). Bumped 14 -> 17 in Phase 9.B for the S4 extended-Table-1 additions.'
 
 - paper_section: 'Abstract + §2.3 VC-AC'
@@ -429,7 +429,7 @@ caught equally.*
   monograph_claim_id: 'T3.s027.bv_default'
   expected_value: 4802.63
   format_in_paper: '4{,}802.63'
-  expected_occurrences: 10
+  expected_occurrences: 11
   notes: 'paper §2.5 (×2) + Figure 4 caption (1) + supplement S3.6 body-dimension provenance (1). Bumped 3 -> 4 in Phase 9.A.'
 
 - paper_section: 'Abstract + §2.5 prose (×2) + Figure 4 caption'
@@ -437,7 +437,7 @@ caught equally.*
   monograph_claim_id: 'T3.s027.bv_floor'
   expected_value: 4082.24
   format_in_paper: '4{,}082.24'
-  expected_occurrences: 8
+  expected_occurrences: 9
   notes: 'Appears 4 times as of Step 5: abstract sentence 5 "4{,}082.24~mL floor" (1), §2.5 prose ¶2 "the engine''s setup-time minimum for this body (4{,}082.24~mL, a 15.0~\% reduction)" (1), §2.5 prose ¶3 "4{,}082.24~mL on this male body" (1), Figure 4 caption "4{,}082.24~mL Pulse setup-time floor on this body" (1). Bumped from 1 (Step 1, abstract-only format "4{,}082.24~mL") to 4 (Step 5). Format simplified to just "4{,}082.24" to match all four occurrences regardless of trailing unit/context.'
 
 - paper_section: '§2.5 + Figure 4 + supplement S3.6'

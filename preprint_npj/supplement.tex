@@ -476,6 +476,152 @@ The atlas's sex-stratified-divergence finding is best stated in absolute-volume 
 The same reasoning establishes that the male-vs-female divergence asymmetry in the input-extreme regime is not a claim about per-kg blood-volume physiology in real patients --- it is a claim about how Pulse's internal solver responds to absolute-BV values near its setup-time floor on the male reference body. Pooling male and female Pulse-generated synthetic cohorts in machine-learning pipelines without flag-stratified filtering still introduces a hidden sex covariate at the male surrogate's divergence boundary (Section~2.5 of the main manuscript), but downstream users adapting the result to clinical inference should not extrapolate to a per-kg sex-physiology claim that the data does not support.
 
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% S11 -- Engine-side infrastructure recommendations (Phase 9.D)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Engine-side infrastructure recommendations}\label{sec:s11}
+
+Section~4 of the main manuscript closes with a forward-looking note on engine-side infrastructure suggestions for the Pulse maintainers. This supplement section itemises those suggestions as a short numbered list, derived from operating the engine at scale during the 1{,}280-run sweep and the surrounding follow-up experiments. The list is framed as observations from atlas-user experience, not as physiological prescriptions: every item targets tooling, documentation, or validation infrastructure, and each is anchored in a specific experiment from this work. None of the items below recommends changes to Pulse's underlying lumped-parameter physiology, which is the domain of the Kitware biomedical-engineering team.
+
+\begin{enumerate}
+\item \textbf{Structured input-rejection events.} Pulse currently surfaces input clamping (e.g.\ SBP $>$ 120, DBP/SBP ratio out of range, HR or RR outside the initialisation band) as \texttt{[ERROR]}-prefixed log lines that downstream tools must regex-parse. A small structured-event API --- one typed record per rejected field, with the offending value, the enforced bound, and the field name --- would let sensitivity-analysis wrappers detect clamping deterministically instead of pattern-matching the four-pattern regex set documented in Supplement~\S\,S3.6.
+
+\item \textbf{Surface the male-surrogate \texttt{BloodVolumeBaseline} floor in user documentation.} Pulse hard-enforces a 4{,}082.24~mL blood-volume floor at setup on the 67.3~kg / 180~cm male reference body (default 4{,}802.63~mL), but this constant is not currently exposed in the public patient-setup documentation. We discovered it empirically while investigating the all-male divergence cluster (Section~2.5 of the main manuscript); a one-line note in the patient-baseline reference table would have saved the investigation.
+
+\item \textbf{A reference sensitivity-analysis recipe for user-facing operational inputs.} Pulse's repository carries a 2020 \texttt{STUDY\_SENSITIVITY\_ANALYSIS\_1\_0\_0} tag that performs Sobol sensitivity on internal vascular-circuit resistance multipliers for calibration; this is a different parameter class from the user-facing operational inputs (HR, BP, RR, Vt, FiO$_2$, PEEP) that sensitivity-conscious downstream users typically need to sweep. A companion recipe --- Morris or Sobol over operational inputs, shipped alongside the existing study --- would give the Pulse community a maintained reference implementation. The atlas's sampler and runner modules are an externally-developed prototype; a maintainer-blessed version would be more durable.
+
+\item \textbf{A setup-time warning for the ARDS impairment-fraction instability zone ($\sim$0.91--0.945).} This instability zone is documented in our preregistration limitations table (Supplement~\S\,S2 row 4) and corroborated by three independent boundary probes (Supplement~\S\,S5.1), but Pulse does not currently emit a setup-time warning when an ARDS action lands in the zone. A single console notice --- ``impairment fraction in reported instability band, results may not be reliable'' --- would prevent downstream users from collecting unusable data without blocking legitimate edge-case research.
+
+\item \textbf{Per-channel steady-state convergence diagnostic in CSV output.} The transient hyperoxia regime characterised in Section~2.4 of the main manuscript (PaO$_2$ still rising at the end of the locked 120-second window at FiO$_2$ = 1.0, with full convergence at $\sim$300~s) suggests that an optional per-output ``drift over final 60~s'' column appended to result CSVs would let users detect non-steady-state runs without writing their own post-processing. The atlas's steady-state classifier already implements exactly this calculation (Supplement~\S\,S3.5); promoting the same diagnostic upstream would generalise it.
+
+\item \textbf{Field-attributed setup-error messages.} Current setup-time blood-pressure and pulse-pressure-ratio rejection messages require some domain knowledge to map back to the offending input field. A one-token prefix indicating which input was rejected (\texttt{[ERROR][SystolicArterialPressure]} rather than the unprefixed text) would let downstream users and continuous-integration pipelines route the message without reading it.
+\end{enumerate}
+
+These suggestions are deliberately infrastructure-level: none of them touches Pulse's underlying physiology, ordinary-differential-equation topology, or lumped-parameter assumptions, all of which lie outside the scope of what an external operational-reliability study can credibly prescribe. We share them in the spirit of an open contribution to a shared community tool --- the atlas itself is offered to the Pulse community in exactly the same spirit, and the present paper would have been substantially easier to produce had each of items 1--6 already been in place.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% S12 -- Reproducibility recipe (Phase 9.D)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Reproducibility recipe}\label{sec:s12}
+
+The atlas is designed for bit-exact reproduction by an independent investigator. This section documents the minimal end-to-end sequence required to regenerate the canonical 1{,}280-run sweep, the audit ledger, and every quantitative claim in the main manuscript and this supplement. All code, data, and the audit-ledger script are released under the Apache-2.0 license at \url{https://github.com/santinon/pulse_probe}.
+
+\subsection{Environment and engine pinning}\label{sec:s12-env}
+
+The atlas pins Pulse v4.3.1 inside a single Docker image (\texttt{pulse-pediatric-engine:latest}); the image tag is fixed for the entire 1{,}280-run sweep so that every simulation runs against bit-identical engine binaries. The host environment is Python 3.12+ managed via \texttt{uv} for deterministic dependency resolution. The canonical hardware envelope is a laptop-class machine (Intel i5-11400H, 6 physical / 12 logical cores, 8~GB RAM, Intel UHD integrated graphics, no discrete GPU); the parallel-Docker throughput at this envelope is two to three concurrent containers (verified empirically; the canonical sweep was executed with two parallel workers to control thermal load on the laptop chassis).
+
+\subsection{Docker invocation template}\label{sec:s12-docker}
+
+\begin{lstlisting}[
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  breakatwhitespace=true,
+  columns=flexible,
+  frame=single,
+  framesep=3pt,
+  xleftmargin=8pt,
+  xrightmargin=8pt
+]
+MSYS_NO_PATHCONV=1 docker run --rm --memory=1g --cpus=3 \
+  -v "$(pwd -W)/RUNDIR:/data" \
+  pulse-pediatric-engine:latest \
+  --config //data/config.json \
+  --output //data/output.csv
+\end{lstlisting}
+
+The \texttt{MSYS\_NO\_PATHCONV=1} prefix and the double-slash \texttt{//data/...} path forms are required on Git Bash under Windows; on Linux or macOS hosts the prefix is unnecessary and single-slash paths work. The \texttt{--memory=1g} and \texttt{--cpus=3} caps are safety thresholds that prevent any single Pulse container from saturating the host machine; removing them does not change the simulation output (Pulse is single-threaded per run), only the host's ability to run other workloads concurrently.
+
+\subsection{Sweep, analysis, and audit commands}\label{sec:s12-cmds}
+
+The minimal command sequence to regenerate the canonical sweep + audit ledger from a fresh clone:
+
+\begin{lstlisting}[
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  breakatwhitespace=true,
+  columns=flexible,
+  frame=single,
+  framesep=3pt,
+  xleftmargin=8pt,
+  xrightmargin=8pt
+]
+# 1. Resolve Python dependencies (uv-managed lockfile).
+uv sync
+
+# 2. Run the full 1,280-run Morris sweep
+#    (trajectories=20, levels=4, seed=42; ~7 hours on the
+#    canonical laptop with 2 parallel Docker workers).
+uv run python scripts/run_full_sweep.py
+
+# 3. Compute Morris mu-star indices + bootstrap CIs
+#    (1,000 trajectory-level resamples).
+uv run python scripts/analyze_sweep.py
+
+# 4. Re-derive every quantitative claim in the manuscript
+#    + supplement from the canonical artefacts; expect
+#    231/231 PASS exit code 0.
+uv run python scripts/audit_claims.py
+
+# 5. Optional: verify paper.tex + supplement.tex remain
+#    in sync with the audit ledger via the paper-to-
+#    monograph crosswalk map; expect 73/73 PASS exit 0.
+uv run python scripts/audit_claims.py --check-paper-sync
+\end{lstlisting}
+
+\subsection{Three-layer bit-exact verification}\label{sec:s12-verify}
+
+Bit-exact reproduction of the canonical sweep output is verified at three independent layers, each of which can be re-executed from a fresh clone without re-running the full sweep:
+
+\begin{enumerate}
+\item \textbf{Canonical Morris sample.} The 1{,}280-row Morris sample is regenerated deterministically from the SALib sampler with \texttt{trajectories = 20, levels = 4, seed = 42}; the regenerated sample matches the committed \texttt{data/runs/full\_sweep/morris\_sample.parquet} byte-for-byte.
+\item \textbf{Per-cell aggregate parquets.} The 8 per-cell aggregated parquets (\texttt{data/runs/full\_sweep/<scenario>\_<sex>/aggregated.parquet}) reproduce identically when the full sweep is re-executed against the pinned Docker image on a different machine.
+\item \textbf{Derived statistical artefacts.} The Morris $\mu^{*}$ indices, bootstrap confidence intervals, Wasserstein distances, Spearman correlations, and BH-FDR survivors all regenerate bit-equivalently from the canonical aggregated parquets; this is what the audit ledger (\texttt{scripts/audit\_claims.py}) re-derives at every run.
+\end{enumerate}
+
+The audit ledger is the primary reproducibility instrument: a green ledger run (231/231 PASS) confirms that every quantitative claim in the main manuscript and supplement is consistent with the canonical artefacts. A failed claim is a structured triage item (Type A transcription drift, Type B orphaned number, Type C derivation mismatch) with a precise file:line pointer for forensic tracing.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% S13 -- NSS attribution + SHAP cross-verification (Phase 9.D)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{not\_steady\_state attribution and SHAP cross-verification}\label{sec:s13}
+
+The locked \texttt{not\_steady\_state} flag fires on 530 of 1{,}280 runs across the full sweep; Supplement~\S\,S4 decomposes that 530 into the three contributing sub-modes (SpO$_2$-saturation pinning, VC-AC tidal-volume dyssynchrony, and a residual dominated by severe-ARDS slow convergence and FiO$_2$ = 1.0 transient hyperoxia). This section adds a complementary cross-verification: an independent machine-learning analysis recovers the same input-importance rankings that the preregistered Morris elementary-effects design establishes, by a different statistical route and on a different subset of the data.
+
+\subsection{Methodology: epistemological scope}\label{sec:s13-scope}
+
+The Morris elementary-effects design is interventional: each trajectory perturbs one input at a time along a fixed grid, so the resulting $\mu^{*}$ ranking is a causal-mechanistic statement about how Pulse responds to deliberate perturbations of each input. By contrast, a SHAP analysis~\cite{morris1991, campolongo2007} on a tree-based surrogate model trained on the observational distribution of Morris outputs is a fundamentally different statistical object: it summarises how a black-box predictor associates input features with output predictions, on the data distribution as actually observed. The two methods answer different questions, and the load-bearing analysis in this work is the interventional Morris design --- the SHAP analysis is included only as a secondary cross-verification.
+
+\subsection{Cross-verification result on the clean subset}\label{sec:s13-result}
+
+A supplementary RandomForest regressor + SHAP feature-importance ranking was computed on the $n = 663$ clean-subset rows (the runs with no \texttt{clamped}, \texttt{diverged}, \texttt{implausible}, or \texttt{not\_steady\_state} flag), separately per output and per (scenario, sex) cell. The SHAP-top-3 input ranking was then compared against the Morris-$\mu^{*}$-top-3 ranking on the same cells. Three summary statistics characterise the agreement:
+
+\begin{itemize}
+\item \textbf{17 of 18 pooled (output $\times$ top-3) cases agree} at the full 3-of-3 ranking level (ledger anchor \texttt{T2.s023.pooled}).
+\item \textbf{23 of 48 per-cell (scenario $\times$ sex $\times$ output) cases agree at the full 3-of-3 level} (ledger anchor \texttt{T2.s023.fullmatch}).
+\item \textbf{92~\% of per-cell comparisons agree at $\geq$ 2-of-3 level} (ledger anchor \texttt{T2.s023.ge2\_pct}).
+\end{itemize}
+
+\subsection{Interpretation}\label{sec:s13-interp}
+
+The strong pooled-level agreement (17 of 18) is the load-bearing cross-verification: a SHAP analysis on the clean-subset data distribution recovers the same dominant inputs that the interventional Morris design identifies, on six independent outputs. The lower per-cell full-match rate (23 of 48) is expected, because per-cell sample sizes (49--144 clean runs per cell) are smaller and the SHAP ranking depends on the observed input-output distribution within that cell, which is heavily influenced by which Morris trajectories happened to land on clean runs. The 92~\% $\geq$ 2-of-3 agreement at the per-cell level is the appropriate level of comparison: a top-3 ranking is preserved if SHAP recovers two of the three inputs the Morris design ranks first.
+
+The SHAP cross-verification works because the underlying physiology is real, not the other way round. Morris establishes the mechanistic input-importance ranking through a preregistered one-at-a-time perturbation design; SHAP independently recovers the same ranking by a different (data-driven, observational, tree-based) route. The agreement is evidence that the Morris-derived rankings are not artefacts of the elementary-effects design --- they correspond to input dependencies that any reasonable statistical method would identify on the same data.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% S14 -- Companion technical monograph (Phase 9.D)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Pointer to the companion technical monograph}\label{sec:s14}
+
+This Supplementary Information document covers the methodological depth and quantitative breakdowns most directly load-bearing for peer review of the main manuscript. A separate companion technical monograph (approximately 92 pages, prepared for arXiv deposit) carries the exhaustive technical record: the full preregistration document with its amendment history, the complete experiment-log entries for every analytical decision in this work (27 lab-notebook entries spanning project bootstrap through pre-submission audits), the full bibliography with per-reference DOI / PMID verification trail, the per-experiment forensic chains that established the verified Pulse 4.3.1 limitations table (Supplement~\S\,S2), and the full source-code map of the Pulse 4.3.1 audit on which the methodological framing of this work depends.
+
+The companion monograph is the source of truth for any quantitative claim, methodological decision, or experimental cross-reference whose detail exceeds what is reproduced in the present paper or this supplement. It will be deposited at \textbf{[DOI\_PENDING --- arXiv technical monograph]} alongside the Zenodo data deposit referenced in the Data Availability section of the main manuscript. Readers requiring greater technical depth than the present documents provide --- for example, the per-experiment statistical-test selection rationale, the calibration trace for the empirical \{0.26, 0.60, 0.95\} ARDS-severity mapping, or the bit-exact reproduction protocol at the engine-binary level --- should consult the monograph directly.
+
+
 \bibliography{paper}
 
 \end{document}
