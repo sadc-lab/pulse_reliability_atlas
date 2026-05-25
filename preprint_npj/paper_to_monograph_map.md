@@ -72,13 +72,13 @@ caught equally.*
 
 ## Step 1 — Abstract (5 numerical claims)
 
-- paper_section: 'Abstract + §2.1 + §2.5 + Figure 4 caption'
+- paper_section: 'Abstract + §2.1 + §2.5 + Figure 4 caption + §4 Discussion'
   paper_context: 'Total Morris simulations across the sweep'
   monograph_claim_id: 'T1.01'
   expected_value: 1280
   format_in_paper: '1{,}280'
-  expected_occurrences: 9
-  notes: 'Total occurrences of the literal pattern 1{,}280 across the paper as of Step 5: abstract (2), §2.1 (4 + Table 1 caption 1 = 5), §2.5 prose "1{,}280-run sweep" (1), Figure 4 caption "1{,}280-run sweep" (1). Bumped from 7 (Step 3) to 9 (Step 5).'
+  expected_occurrences: 10
+  notes: 'Total occurrences of the literal pattern 1{,}280 across the paper as of Step 6: abstract (2), §2.1 (5), §2.5 prose + Figure 4 caption (2), §4 Discussion ¶1 "1{,}280-run sweep" (1) = 10. Bumped from 9 (Step 5) to 10 (Step 6).'
 
 - paper_section: 'Abstract + §2.3 VC-AC'
   paper_context: 'VC-AC trigger-dyssynchrony primary-flag rate (Vt CV > 0.05 under not_steady_state)'
