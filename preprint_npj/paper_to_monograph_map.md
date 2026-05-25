@@ -72,13 +72,13 @@ caught equally.*
 
 ## Step 1 — Abstract (5 numerical claims)
 
-- paper_section: 'Abstract + §2.1 Overview + Table 1 caption'
+- paper_section: 'Abstract + §2.1 + §2.5 + Figure 4 caption'
   paper_context: 'Total Morris simulations across the sweep'
   monograph_claim_id: 'T1.01'
   expected_value: 1280
   format_in_paper: '1{,}280'
-  expected_occurrences: 7
-  notes: 'Total occurrences of the literal pattern 1{,}280 across the paper as of Step 3: abstract sentence 2 standalone (1), abstract sentence 5 "20/1{,}280" denominator (1), §2.1 prose "1{,}280 simulations spanning" (1), §2.1 prose "0 / 1{,}280" (1), §2.1 prose "20 / 1{,}280" (1), §2.1 prose "663 of 1{,}280" (1), §2.1 Table 1 caption "1{,}280 total" (1) = 7. Bumped from 2 (Step 1) to 7 (Step 3). When Methods §4.3 sweep design cites the total, this will be incremented again.'
+  expected_occurrences: 9
+  notes: 'Total occurrences of the literal pattern 1{,}280 across the paper as of Step 5: abstract (2), §2.1 (4 + Table 1 caption 1 = 5), §2.5 prose "1{,}280-run sweep" (1), Figure 4 caption "1{,}280-run sweep" (1). Bumped from 7 (Step 3) to 9 (Step 5).'
 
 - paper_section: 'Abstract + §2.3 VC-AC'
   paper_context: 'VC-AC trigger-dyssynchrony primary-flag rate (Vt CV > 0.05 under not_steady_state)'
@@ -104,13 +104,7 @@ caught equally.*
   expected_occurrences: 1
   notes: 'Appears once in sentence 5 as the compact "20/1{,}280 runs" form. The denominator 1{,}280 is separately accounted for by the T1.01 row (expected_occurrences=2).'
 
-- paper_section: 'Abstract'
-  paper_context: 'Male BloodVolumeBaseline floor on standard surrogate'
-  monograph_claim_id: 'T3.s027.bv_floor'
-  expected_value: 4082.24
-  format_in_paper: '4{,}082.24~mL'
-  expected_occurrences: 1
-  notes: 'Appears once in sentence 5 as the BV-mechanism punchline. Will recur in Results §2.5 (Headline Finding 3) and Methods §4.2 (patient surrogates).'
+## (Step 1 row for T3.s027.bv_floor was superseded in Step 5 by a more permissive 4{,}082.24 pattern covering all occurrences; see the Step 5 row below.)
 
 ## Step 3 — Results §2.1 Overview (prose claims)
 
@@ -130,13 +124,13 @@ caught equally.*
   expected_occurrences: 1
   notes: 'Appears once in §2.1 prose as "20 / 1{,}280 runs (1.6~\%)". Different format from the abstract''s compact "20/1{,}280" (which has its own separate map row).'
 
-- paper_section: '§2.1 Overview (prose)'
+- paper_section: '§2.1 + §2.5 (prose)'
   paper_context: 'Divergence rate (percentage form)'
   monograph_claim_id: 'T1.13'
   expected_value: 1.6
   format_in_paper: '1.6~\%'
-  expected_occurrences: 1
-  notes: 'Appears once in §2.1 prose immediately after "20 / 1{,}280 runs".'
+  expected_occurrences: 2
+  notes: 'Appears twice as of Step 5: §2.1 prose "20 / 1{,}280 runs (1.6~\%)" (1), §2.5 prose "20 runs (1.6~\%) failed to complete with finite output" (1). Bumped from 1 (Step 3) to 2 (Step 5).'
 
 - paper_section: '§2.1 Overview (prose)'
   paper_context: 'Total clean simulations across full sweep'
@@ -379,3 +373,135 @@ caught equally.*
   format_in_paper: '93.2~\%'
   expected_occurrences: 1
   notes: 'Appears once in §2.4 prose immediately after the 41-of-44 count.'
+
+## Step 5 — Results §2.5 sex-stratified divergence + BV mechanism
+
+- paper_section: '§2.5 prose + Figure 4 caption'
+  paper_context: 'All 20 divergence events on male surrogate (anchor for the sex-stratification claim)'
+  monograph_claim_id: 'T1.12'
+  expected_value: 20
+  format_in_paper: '20 divergence events'
+  expected_occurrences: 2
+  notes: 'Appears twice: §2.5 prose "The 20 divergence events are not spread uniformly" (1) and Figure 4 caption "All 20 divergence events fall on the male surrogate" (1).'
+
+- paper_section: '§2.5 prose'
+  paper_context: 'Female surrogate divergence count (zero across 4 cells x 160 runs)'
+  monograph_claim_id: 'T1.14b'
+  expected_value: 0
+  format_in_paper: '640 female-surrogate'
+  expected_occurrences: 1
+  notes: 'Appears once in §2.5 prose: "zero divergences across the 640 female-surrogate runs". Anchored on T1.14b (the value 0 for female divergence count); the 640 denominator is co-validated.'
+
+- paper_section: '§2.5 + S018 follow-up prose (×2)'
+  paper_context: 'S018 rerun sample size for BV-rescue dose-response'
+  monograph_claim_id: 'T1.12'
+  expected_value: 20
+  format_in_paper: '20 originally-diverged'
+  expected_occurrences: 2
+  notes: 'Appears twice in §2.5 prose: ¶2 "We re-executed the 20 originally-diverged male inputs with an explicit BloodVolumeBaseline override" (1) and Figure 4 caption "20 originally-diverged male inputs" (1).'
+
+- paper_section: '§2.5 prose (BV-rescue dose-response)'
+  paper_context: 'Default BV dose-response starting point: 20 diverged out of 20'
+  monograph_claim_id: 'T1.12'
+  expected_value: 20
+  format_in_paper: '20 / 20'
+  expected_occurrences: 1
+  notes: 'Appears once in §2.5 prose as the leading term of the dose-response chain "20 / 20 $\rightarrow$ 2 / 20 $\rightarrow$ 0 / 20".'
+
+- paper_section: '§2.5 prose (BV-rescue dose-response)'
+  paper_context: 'Bracket BV (4400 mL) dose-response: 2 diverged out of 20'
+  monograph_claim_id: 'T2.bv.bracket.diverged'
+  expected_value: 2
+  format_in_paper: '2 / 20'
+  expected_occurrences: 1
+  notes: 'Appears once in §2.5 prose as the middle term of the BV dose-response.'
+
+- paper_section: '§2.5 prose (BV-rescue dose-response)'
+  paper_context: 'Floor BV (4082.24 mL) dose-response: 0 diverged out of 20'
+  monograph_claim_id: 'T2.bv.floor.diverged'
+  expected_value: 0
+  format_in_paper: '0 / 20'
+  expected_occurrences: 2
+  notes: 'Appears twice in §2.5: prose endpoint of dose-response chain "20 / 20 $\rightarrow$ 2 / 20 $\rightarrow$ 0 / 20" (1) and one additional ratio in the same paragraph (1).'
+
+- paper_section: '§2.5 prose + Figure 4 caption (×2 each)'
+  paper_context: 'Male reference body BloodVolumeBaseline default'
+  monograph_claim_id: 'T3.s027.bv_default'
+  expected_value: 4802.63
+  format_in_paper: '4{,}802.63'
+  expected_occurrences: 3
+  notes: 'Appears 3 times: §2.5 prose ¶2 "yielding 4{,}802.63~mL for the 67.3~kg male reference body" (1), §2.5 prose ¶2 "the default (4{,}802.63~mL)" (1), Figure 4 caption "4{,}802.63~mL default" (1). First map rows for this claim_id (was in ledger via T3.s027 but not yet in paper crosswalk).'
+
+- paper_section: 'Abstract + §2.5 prose (×2) + Figure 4 caption'
+  paper_context: 'Male reference body BloodVolumeBaseline floor (Pulse setup-time minimum)'
+  monograph_claim_id: 'T3.s027.bv_floor'
+  expected_value: 4082.24
+  format_in_paper: '4{,}082.24'
+  expected_occurrences: 4
+  notes: 'Appears 4 times as of Step 5: abstract sentence 5 "4{,}082.24~mL floor" (1), §2.5 prose ¶2 "the engine''s setup-time minimum for this body (4{,}082.24~mL, a 15.0~\% reduction)" (1), §2.5 prose ¶3 "4{,}082.24~mL on this male body" (1), Figure 4 caption "4{,}082.24~mL Pulse setup-time floor on this body" (1). Bumped from 1 (Step 1, abstract-only format "4{,}082.24~mL") to 4 (Step 5). Format simplified to just "4{,}082.24" to match all four occurrences regardless of trailing unit/context.'
+
+- paper_section: '§2.5 prose (×2) + Figure 4 caption'
+  paper_context: 'Female reference body BloodVolumeBaseline default (Pulse allometric for 56.2 kg)'
+  monograph_claim_id: 'T3.s028.bv_female_default'
+  expected_value: 3996.09
+  format_in_paper: '3{,}996.09'
+  expected_occurrences: 3
+  notes: 'Appears 3 times: §2.5 prose ¶2 "3{,}996.09~mL for the 56.2~kg female body" (1), §2.5 prose ¶3 "the female-computed BV (3{,}996.09~mL)" (1), Figure 4 caption "3{,}996.09~mL for the female reference body" (1). First mapping for the new ledger claim T3.s028.bv_female_default added in Step 5.'
+
+- paper_section: '§2.5 prose + Figure 4 caption'
+  paper_context: 'Intermediate BV bracket in S018 dose-response (4400 mL = 8.4% reduction from male default)'
+  monograph_claim_id: 'T2.bv.bracket.diverged'
+  expected_value: 2
+  format_in_paper: '4{,}400'
+  expected_occurrences: 2
+  notes: 'Appears twice: §2.5 prose "an intermediate bracket (4{,}400~mL, a 8.4~\% reduction)" (1), Figure 4 caption "4{,}400~mL intermediate bracket" (1). Anchored on T2.bv.bracket.diverged (value=2 diverged at this BV setting; the "4400" value itself is the experimental BV override, declared in scripts/s018_bv_falsification.py as BV_BRACKETS["bracket"]).'
+
+## Step 5 — Results §2.6 secondary observations narrative block
+
+- paper_section: '§2.6 secondary observations (compensatory tachycardia)'
+  paper_context: 'Clean-runs HR mean in S1 (healthy adult baseline)'
+  monograph_claim_id: 'T2.hr.S1.mean'
+  expected_value: 73.8
+  format_in_paper: '73.8~bpm'
+  expected_occurrences: 1
+  notes: 'Appears once in §2.6 ¶2: "output HR settles near a physiological norm (73.8~bpm mean, $\sigma = 20.4$~bpm across clean runs)".'
+
+- paper_section: '§2.6 secondary observations (compensatory tachycardia)'
+  paper_context: 'Clean-runs HR std in S1 (healthy adult baseline)'
+  monograph_claim_id: 'T2.hr.S1.std'
+  expected_value: 20.4
+  format_in_paper: '\sigma = 20.4$~bpm'
+  expected_occurrences: 1
+  notes: 'Appears once in §2.6 ¶2 as "$\sigma = 20.4$~bpm". The pattern includes the closing $ of math mode (between 20.4 and ~bpm) because that is where LaTeX renders the bpm unit as text-mode immediately after the math expression.'
+
+- paper_section: '§2.6 secondary observations (compensatory tachycardia)'
+  paper_context: 'Clean-runs HR mean in S3 (moderate ARDS)'
+  monograph_claim_id: 'T2.hr.S3.mean'
+  expected_value: 155.7
+  format_in_paper: '155.7~bpm'
+  expected_occurrences: 1
+  notes: 'Appears once in §2.6 ¶2: "output HR rises to 155.7~bpm and 147.1~bpm respectively".'
+
+- paper_section: '§2.6 secondary observations (compensatory tachycardia)'
+  paper_context: 'Clean-runs HR mean in S4 (severe ARDS)'
+  monograph_claim_id: 'T2.hr.S4.mean'
+  expected_value: 147.1
+  format_in_paper: '147.1~bpm'
+  expected_occurrences: 1
+  notes: 'Appears once in §2.6 ¶2 adjacent to the S3 mean.'
+
+- paper_section: '§2.6 secondary observations (Cornish complementarity)'
+  paper_context: 'Cornish 2023 non-overlap Hoeffding rejections (channels outside atlas)'
+  monograph_claim_id: 'T3.s028.cornish_non_overlap_hoeffding'
+  expected_value: 80
+  format_in_paper: '80 of 85'
+  expected_occurrences: 1
+  notes: 'Appears once in §2.6 ¶3: "80 of 85 fall on channels the present atlas does not assess". New ledger claim added in Step 5.'
+
+- paper_section: '§2.6 secondary observations (Cornish complementarity)'
+  paper_context: 'Cornish 2023 total Hoeffding rejections across 15 quantities'
+  monograph_claim_id: 'T3.s028.cornish_total_hoeffding'
+  expected_value: 85
+  format_in_paper: '85 total Hoeffding-inequality rejections'
+  expected_occurrences: 1
+  notes: 'Appears once in §2.6 ¶3: "reported 85 total Hoeffding-inequality rejections across 15 physiological quantities".'

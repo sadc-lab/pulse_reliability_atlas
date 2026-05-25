@@ -1434,6 +1434,51 @@ add(
     tolerance_rule="displayed_2dp",
 )
 
+# S028 Step 5 additions: 3,996.09 mL female BV default + Cornish 80/85
+# Hoeffding rejections on non-overlap channels. The female default BV
+# is the Pulse allometric formula output for the 56.2 kg female reference
+# body (BV = 65.6 * weight_kg^1.02 = 65.6 * 56.2^1.02 = 3,996.09 mL),
+# cited in monograph §3.5 L1572 and §3.5 L1630. The Cornish 80/85 figure
+# is from the §4.4 cross-mapping table (computed as: 85 total Hoeffding
+# rejections in Cornish Table 1, minus 3 on the four-channel atlas
+# overlap (all PaCO2), minus 2 on SysBP partial-overlap = 80 on
+# channels we do not assess). Both values are static external constants
+# in this paper's context (literature numbers, not derived from atlas
+# data), so the audit verifies that the manuscript wording matches the
+# constant declared here -- the same pattern as the Pulse-documentation
+# constants in S027.
+PULSE_FEMALE_BV_DEFAULT_ML = 3996.09  # Pulse allometric (65.6 * 56.2^1.02); verified vs setup log on S006
+CORNISH_NON_OVERLAP_HOEFFDING = 80    # Cornish 2023 Table 1: 85 total - 3 PaCO2 overlap - 2 SysBP partial = 80
+CORNISH_TOTAL_HOEFFDING = 85          # Cornish 2023 Table 1 total Hoeffding rejections across 15 quantities
+
+add(
+    claim_id="T3.s028.bv_female_default",
+    section="§3.5 L1572, L1630 (monograph); §2.5 (npj paper)",
+    manuscript_text="3,996.09 mL female BV default (Pulse allometric for 56.2 kg)",
+    source_file="Pulse SetupPatient.cpp allometric formula; verified vs setup log",
+    manuscript_value=3996.09,
+    computed_value=PULSE_FEMALE_BV_DEFAULT_ML,
+    tolerance_rule="displayed_2dp",
+)
+add(
+    claim_id="T3.s028.cornish_non_overlap_hoeffding",
+    section="§4.4 (monograph); §2.6 (npj paper)",
+    manuscript_text="80 of 85 Cornish Hoeffding rejections on channels outside atlas overlap",
+    source_file="Cornish et al. 2023 (arXiv:2301.07210) Table 1, verified in S017",
+    manuscript_value=80,
+    computed_value=CORNISH_NON_OVERLAP_HOEFFDING,
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T3.s028.cornish_total_hoeffding",
+    section="§4.4 (monograph); §2.6 (npj paper)",
+    manuscript_text="85 total Cornish Hoeffding rejections across 15 physiological quantities",
+    source_file="Cornish et al. 2023 (arXiv:2301.07210) Table 1, verified in S017",
+    manuscript_value=85,
+    computed_value=CORNISH_TOTAL_HOEFFDING,
+    tolerance_rule="exact_int",
+)
+
 # -----------------------------------------------------------------------------
 # Output: markdown table sorted FAIL > WARN > PASS, then by claim_id.
 # -----------------------------------------------------------------------------

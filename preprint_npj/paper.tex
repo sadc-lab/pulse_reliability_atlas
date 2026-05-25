@@ -200,34 +200,28 @@ The practical consequence is again direct: hyperoxia studies on Pulse should be 
 
 \subsection{Sex-stratified solver divergence and blood-volume mechanism}\label{sec:results-sex}
 
-% [Step 5 draft. Headline Finding 3. Figure 4 two-panel: (a) 20/20
-%  divergences concentrated on the male surrogate in the input-extreme
-%  regime, (b) BV-rescue dose-response. Three subordinate paragraphs:
-%  (i) the phenomenon (1.6% divergence, all 20 male, under within-sex
-%  null); (ii) the mechanism (male default BV 4802.63 mL vs female
-%  3996.09 mL; reducing male BV monotonically eliminates divergence:
-%  20/20 -> 2/20 -> 0/20 across 4802.63 -> 4400 -> 4082.24 mL);
-%  (iii) the per-surrogate BV floor (4082.24 mL bounds one-way
-%  transplantation). Frame for npj audience: first sex-specific
-%  structural finding in Pulse literature; implication for
-%  sex-balanced synthetic-cohort generation.]
+Across the full 1{,}280-run sweep, solver divergence is rare but strikingly sex-stratified. 20 runs (1.6~\%) failed to complete with finite output, and \emph{all 20 fell on the male surrogate}: 4 in each of S1\_M, S2\_M, S3\_M and 8 in S4\_M, with zero divergences across the 640 female-surrogate runs (Figure~\ref{fig:sex_bv}a). The 20 divergence events are not spread uniformly through the input space; 16 of them concentrate on a specific compound input pattern --- low cardiovascular output (HR = 50, SBP = 90) combined with high respiratory drive (RR = 20, FiO$_2 = 1.0$) --- a clinically recognisable hypotensive--tachypneic--fully-oxygenated configuration. Identical Morris input grids submitted to the female surrogate (matched on age, condition string, and ventilator settings; differing only in patient mass, height, and sex flag) never trigger the same numerical edge case.
+
+A preregistered follow-up experiment isolated the mechanism. Pulse's \texttt{SetupPatient.cpp} computes blood-volume baseline by the allometric relation $\text{BV} = 65.6 \cdot \text{weight}_{\text{kg}}^{1.02}$, yielding 4{,}802.63~mL for the 67.3~kg male reference body and 3{,}996.09~mL for the 56.2~kg female body --- a 17~\% sex gap that propagates into the cardiovascular circuit's operating point. We re-executed the 20 originally-diverged male inputs with an explicit \texttt{BloodVolumeBaseline} override at three levels: the default (4{,}802.63~mL), an intermediate bracket (4{,}400~mL, a 8.4~\% reduction), and the engine's setup-time minimum for this body (4{,}082.24~mL, a 15.0~\% reduction). The divergence count fell monotonically: 20 / 20 $\rightarrow$ 2 / 20 $\rightarrow$ 0 / 20 (Figure~\ref{fig:sex_bv}b). Reducing male BV toward the female-equivalent range eliminates the divergence cluster.
+
+A separate engine-level observation emerged from the same experiment: Pulse enforces a hard per-patient floor on \texttt{BloodVolumeBaseline} at setup time --- 4{,}082.24~mL on this male body. Setting BV below the floor triggers an explicit \texttt{[ERROR]} and exit. The practical consequence for sex-comparison studies is that the female-computed BV (3{,}996.09~mL) sits 86~mL below the male floor, so the two surrogates cannot be made BV-equivalent by a one-way transplant; a true sex-balanced synthetic cohort requires more than just patient-attribute matching. For downstream Pulse users training models on synthetic patient cohorts, the operational implication is concrete: pooling male and female runs from the input-extreme regime without flag-stratified filtering will introduce a hidden sex covariate at the male surrogate's divergence boundary --- a structural artefact of Pulse's allometric BV baseline rather than a clinical phenomenon.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/fig04_sex_bv_mechanism.pdf}
+\caption{Sex-stratified solver divergence and its blood-volume mechanism. \textbf{(a)} Divergence counts per (scenario $\times$ sex) cell across the 1{,}280-run sweep. All 20 divergence events fall on the male surrogate; the female surrogate runs an identical Morris input grid without a single divergence. \textbf{(b)} Blood-volume rescue dose-response on the 20 originally-diverged male inputs. The $x$-axis is the imposed \texttt{BloodVolumeBaseline} override (4{,}802.63~mL default, 4{,}400~mL intermediate bracket, 4{,}082.24~mL Pulse setup-time floor on this body); the $y$-axis is the divergence count out of 20. Pulse's allometric formula computes 3{,}996.09~mL for the female reference body, indicated by the dashed vertical line --- 86~mL below the male floor, so a one-way BV transplant cannot make the two surrogates BV-equivalent. The monotonic decrease (20 $\rightarrow$ 2 $\rightarrow$ 0) confirms blood-volume baseline as the load-bearing mechanism behind the all-male divergence cluster.}
+\label{fig:sex_bv}
+\end{figure}
 
 \subsection{Secondary observations}\label{sec:results-secondary}
 
-% [Step 5 draft. Option (b) narrative block per the S028 blueprint:
-%  three compact paragraphs (3-5 sentences each):
-%  - ARDS impairment-fraction instability zone (0.91-0.945) reproduces
-%    across three independent sources; quantified in the continuous-
-%    severity sweep. Supplement cross-ref.
-%  - Regime-dependent sex axis. The all-male divergence cluster is
-%    specific to the Morris input-extreme regime; the complementary
-%    continuous-severity sweep at midrange inputs shows approximately
-%    sex-balanced divergence in the same impairment band.
-%    Supplement cross-ref.
-%  - Complementarity with Cornish et al. 2023. Four-channel overlap
-%    (HR, MAP, PaO2, PaCO2) is in ordinal agreement; 80 of 85 of
-%    Cornish's rejections fall on channels we do not assess.
-%    Supplement cross-ref.]
+Three additional findings sit at the boundary of the headline scope but matter for downstream interpretation. Each is summarised here in compact form and fully expanded in the Supplementary Information.
+
+\textbf{Documented ARDS impairment-fraction instability zone.} The locked sweep places severe ARDS (S4) at impairment-fraction 0.95, intentionally above Pulse's documented 0.91--0.945 solver-instability band. A complementary continuous-severity sweep (60 runs sampling the impairment fraction at 0.005 increments) confirms divergence concentrates inside this band rather than at its edges, and that the same band is sex-balanced under midrange inputs (in contrast to the input-extreme regime of \S\ref{sec:results-sex}). Practical guidance for downstream Pulse users: avoid the 0.91--0.945 impairment-fraction range when stable steady-state outputs are required (Supplement~\S\,S5).
+
+\textbf{Compensatory tachycardia decouples input HR from output HR under hypoxemia.} In S1 (healthy), output HR settles near a physiological norm (73.8~bpm mean, $\sigma = 20.4$~bpm across clean runs) regardless of the input HR baseline. By S3 and S4, output HR rises to 155.7~bpm and 147.1~bpm respectively, despite inputs drawn from the same [50, 110]~bpm range --- a substantial sympathetic overshoot driven by Pulse's modelled baroreceptor and chemoreceptor reflexes responding to severe hypoxemia. The compensation is strong enough to override the explicit input baseline, which has direct consequences for machine-learning pipelines: models trained on Pulse synthetic cohorts will internalise this reflex as a steady-state feature rather than an active physiological response (Supplement~\S\,S6).
+
+\textbf{Complementarity with prior external falsification work on MIMIC-III.} Cornish et al.~\cite{cornish2023} applied a causal-falsification framework to Pulse on MIMIC-III sepsis trajectories and reported 85 total Hoeffding-inequality rejections across 15 physiological quantities. Of these, 80 of 85 fall on channels the present atlas does not assess (electrolyte, metabolic, acid--base, dermal); only 3 of 85 fall on the four-channel overlap (HR, MAP, PaO$_2$, PaCO$_2$), all on PaCO$_2$. The two papers' failure surfaces are therefore complementary rather than redundant: Cornish covers chemistry-and-thermoregulation outputs under clinical-intervention sequences on a real cohort; the present atlas covers cardio-respiratory outputs across the theoretical operational acceptance envelope. The natural follow-up that neither paper does is a metabolic-and-renal atlas sweeping Pulse's endocrine and electrolyte sub-models the way this paper sweeps the cardiopulmonary inputs (Supplement~\S\,S7).
 
 \section{Discussion}\label{sec:discussion}
 
