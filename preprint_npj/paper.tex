@@ -178,14 +178,14 @@ Four cross-output patterns emerge directly from Figure~\ref{fig:morris} (full pe
 \begin{subfigure}[b]{0.32\textwidth}\includegraphics[width=\textwidth]{figures/fig02_morris_MAP.pdf}\caption{MAP}\label{fig:morris-map}\end{subfigure}\hfill
 \begin{subfigure}[b]{0.32\textwidth}\includegraphics[width=\textwidth]{figures/fig02_morris_Vt.pdf}\caption{Vt delivered}\label{fig:morris-vt}\end{subfigure}
 \\[0.5em]
-\begin{subfigure}[b]{0.32\textwidth}\includegraphics[width=\textwidth]{figures/fig02_morris_SpO2.pdf}\caption{SpO$_2$}\label{fig:morris-spo2}\end{subfigure}\hfill
-\begin{subfigure}[b]{0.32\textwidth}\includegraphics[width=\textwidth]{figures/fig02_morris_PaO2.pdf}\caption{PaO$_2$}\label{fig:morris-pao2}\end{subfigure}\hfill
-\begin{subfigure}[b]{0.32\textwidth}\includegraphics[width=\textwidth]{figures/fig02_morris_PaCO2.pdf}\caption{PaCO$_2$}\label{fig:morris-paco2}\end{subfigure}
+\begin{subfigure}[b]{0.32\textwidth}\includegraphics[width=\textwidth]{figures/fig02_morris_SpO2.pdf}\caption{\texorpdfstring{SpO$_2$}{SpO2}}\label{fig:morris-spo2}\end{subfigure}\hfill
+\begin{subfigure}[b]{0.32\textwidth}\includegraphics[width=\textwidth]{figures/fig02_morris_PaO2.pdf}\caption{\texorpdfstring{PaO$_2$}{PaO2}}\label{fig:morris-pao2}\end{subfigure}\hfill
+\begin{subfigure}[b]{0.32\textwidth}\includegraphics[width=\textwidth]{figures/fig02_morris_PaCO2.pdf}\caption{\texorpdfstring{PaCO$_2$}{PaCO2}}\label{fig:morris-paco2}\end{subfigure}
 \caption{Morris $\mu^{*}$ heatmaps for the six steady-state outputs. Rows of each panel are the seven swept inputs (HR, SBP, DBP, RR, Vt, FiO$_2$, PEEP); columns are the eight (scenario $\times$ sex) cells. Colour intensity is the magnitude of the input's mean absolute elementary effect on that output. The visual diagonal pattern in each panel supports Hypothesis 1's ``skewed sensitivity'' claim (top-3 inputs explain $\geq 50~\%$ of summed $\mu^{*}$ on 48 of 48 cell $\times$ output combinations, median 0.928).}
 \label{fig:morris}
 \end{figure}
 
-\subsection{VC-AC tidal-volume dyssynchrony and the $-2$~cmH$_2$O fix}\label{sec:results-vcac}
+\subsection{\texorpdfstring{VC-AC tidal-volume dyssynchrony and the $-2$~cmH$_2$O fix}{VC-AC tidal-volume dyssynchrony and the -2 cmH2O fix}}\label{sec:results-vcac}
 
 The largest contributor to the \texttt{not\_steady\_state} flag count across the full sweep is tidal-volume oscillation under volume-controlled assist-control ventilation. Within the locked 120-second simulation window, the delivered tidal-volume coefficient of variation (Vt CV, the standard deviation of breath-by-breath delivered Vt divided by its mean over the final 60-second steady-state window) exceeds the 0.05 detector threshold on 20.6~\% of runs (Figure~\ref{fig:corrections}a, x-axis distribution). The pattern is concentrated on healthy adults (visible as the elevated S1 \texttt{not\_steady\_state} counts in Table~\ref{tab:flag_summary}) and fades as ARDS severity increases, consistent with a patient-ventilator-trigger interaction that activates when respiratory drive is high and lung compliance is normal --- a clinically documented form of patient-ventilator asynchrony~\cite{figueroacasas2016} rather than a Pulse-specific solver artefact.
 
@@ -193,7 +193,7 @@ We preregistered a follow-up experiment that isolated the mechanism. We re-ran 6
 
 The practical consequence for downstream Pulse users is direct: any VC-AC sensitivity study or virtual-cohort generation that requires deterministic tidal-volume delivery should set \texttt{InspirationPatientTriggerPressure} explicitly to $-2$~cmH$_2$O (or another clinically standard value) on every action. Without this setting, Pulse's default VC-AC behaviour produces realistic patient-ventilator asynchrony at exactly the ventilator-stress points where validation matters most --- physiologically faithful, but not steady-state interpretable under the conventional final-60-second window.
 
-\subsection{Transient hyperoxia regime at FiO$_2$~=~1.0}\label{sec:results-hyperoxia}
+\subsection{\texorpdfstring{Transient hyperoxia regime at FiO$_2$~=~1.0}{Transient hyperoxia regime at FiO2 = 1.0}}\label{sec:results-hyperoxia}
 
 A second cluster of preregistered detector flags concentrates on the highest inspired-oxygen settings. Within the locked 120-second simulation window, Pulse's steady-state mean PaO$_2$ exceeds the detector's locked upper bound of 600~mmHg on 34 of the 126 \texttt{implausible}-flagged runs, and 91~\% of these excursions occur at FiO$_2 \geq 0.95$. Two competing hypotheses fit this pattern: either Pulse is over-delivering oxygenation at the FiO$_2 = 1.0$ boundary (an engine defect), or the locked 120-second window is shorter than Pulse's PaO$_2$ relaxation time when shunt physiology is minimal and the alveolar partial pressure is climbing toward its theoretical ceiling (a window-length artefact rather than an engine defect).
 

@@ -72,13 +72,13 @@ caught equally.*
 
 ## Step 1 — Abstract (5 numerical claims)
 
-- paper_section: 'paper.tex full + supplement.tex S3'
+- paper_section: 'paper.tex full + supplement.tex S3/S4/S5'
   paper_context: 'Total Morris simulations across the sweep'
   monograph_claim_id: 'T1.01'
   expected_value: 1280
   format_in_paper: '1{,}280'
-  expected_occurrences: 14
-  notes: 'Total occurrences of "1{,}280" across paper.tex + supplement.tex as of Phase 9.A: paper.tex 12 (abstract 2, §2.1 5, §2.5+Fig4 2, §4 Discussion 1, Methods §4.1+§4.3 2) + supplement.tex 2 (S3.2 Morris sampler "yielding ... 1{,}280 evaluations across the full sweep" and the supplement opening paragraph cross-ref). Bumped from 12 (Step 7) to 14 (Phase 9.A) reflecting the audit-corpus extension to include supplement.tex.'
+  expected_occurrences: 17
+  notes: 'Total occurrences of "1{,}280" across paper.tex + supplement.tex as of Phase 9.B: paper.tex 12 (abstract 2, §2.1 5, §2.5+Fig4 2, §4 Discussion 1, Methods §4.1+§4.3 2) + supplement.tex 5 (S3.2 Morris sampler, S4 NSS table prose "1{,}280-run sweep" + Table S1 total row + "1{,}008 / 1{,}280" + "663 / 1{,}280" repeats). Bumped 14 -> 17 in Phase 9.B for the S4 extended-Table-1 additions.'
 
 - paper_section: 'Abstract + §2.3 VC-AC'
   paper_context: 'VC-AC trigger-dyssynchrony primary-flag rate (Vt CV > 0.05 under not_steady_state)'
@@ -140,13 +140,13 @@ caught equally.*
   expected_occurrences: 1
   notes: 'Appears once in §2.1 prose as "663 of 1{,}280 simulations (51.8~\%) are flag-clean".'
 
-- paper_section: '§2.1 Overview (prose)'
+- paper_section: '§2.1 + supplement S4 attribution prose'
   paper_context: 'Clean rate (percentage form)'
   monograph_claim_id: 'T1.29'
   expected_value: 51.8
   format_in_paper: '51.8~\%'
-  expected_occurrences: 1
-  notes: 'Appears once in §2.1 prose immediately after "663 of 1{,}280 simulations".'
+  expected_occurrences: 2
+  notes: 'paper §2.1 prose (1) + supplement S4 attribution prose "raises the implied clean count from 663 / 1{,}280 (51.8~\%)" (1). Bumped 1 -> 2 in Phase 9.B.'
 
 ## Step 3 — Results §2.1 Table 1 (8 per-cell row literals)
 
@@ -416,13 +416,13 @@ caught equally.*
   expected_occurrences: 1
   notes: 'Appears once in §2.5 prose as the middle term of the BV dose-response.'
 
-- paper_section: '§2.5 + supplement S3.7'
+- paper_section: '§2.5 + supplement S3/S5'
   paper_context: 'Floor BV (4082.24 mL) dose-response: 0 diverged out of 20'
   monograph_claim_id: 'T2.bv.floor.diverged'
   expected_value: 0
   format_in_paper: '0 / 20'
-  expected_occurrences: 3
-  notes: 'paper §2.5 prose dose-response chain (2) + supplement S3.7 clamp-regex validation context (1). Bumped 2 -> 3 in Phase 9.A.'
+  expected_occurrences: 5
+  notes: 'paper §2.5 (2) + supplement S3.7 (1) + supplement S5 continuous-severity table "0 / 20" rows (the (0.5, 0.85] bin counts) (2). Bumped 3 -> 5 in Phase 9.B.'
 
 - paper_section: '§2.5 + Figure 4 + supplement S3.6'
   paper_context: 'Male reference body BloodVolumeBaseline default'
@@ -490,13 +490,13 @@ caught equally.*
   expected_occurrences: 1
   notes: 'Appears once in §2.6 ¶2 adjacent to the S3 mean.'
 
-- paper_section: '§2.6 secondary observations (Cornish complementarity)'
+- paper_section: '§2.6 + supplement S7 prose'
   paper_context: 'Cornish 2023 non-overlap Hoeffding rejections (channels outside atlas)'
   monograph_claim_id: 'T3.s028.cornish_non_overlap_hoeffding'
   expected_value: 80
   format_in_paper: '80 of 85'
-  expected_occurrences: 1
-  notes: 'Appears once in §2.6 ¶3: "80 of 85 fall on channels the present atlas does not assess". New ledger claim added in Step 5.'
+  expected_occurrences: 2
+  notes: 'paper §2.6 ¶3 (1) + supplement S7 prose direct quote (1). Bumped 1 -> 2 in Phase 9.B.'
 
 - paper_section: '§2.6 secondary observations (Cornish complementarity)'
   paper_context: 'Cornish 2023 total Hoeffding rejections across 15 quantities'
@@ -532,13 +532,13 @@ caught equally.*
   expected_occurrences: 2
   notes: 'paper §5 Methods §4.3 (1) + supplement S3.2 (1). Bumped 1 -> 2 in Phase 9.A.'
 
-- paper_section: '§2.2 + §5 Methods §4.5 (×2)'
+- paper_section: '§2.2 + §5 Methods + supplement S6'
   paper_context: 'Bootstrap resamples for Morris mu* CI'
   monograph_claim_id: 'T1.06h.bootstrap_n'
   expected_value: 1000
   format_in_paper: '1{,}000'
-  expected_occurrences: 3
-  notes: 'Appears 3 times: §2.2 prose "under a 1{,}000-resample bootstrap" (1), §5 Methods §4.5 "from 1{,}000 trajectory-level resamples" (1), §5 Methods §4.5 "confidence intervals from 1{,}000 input-resamples" (1). New ledger claim added in Step 7 (regex-extracted from scripts/analyze_sweep.py n_bootstrap).'
+  expected_occurrences: 7
+  notes: 'paper §2.2 (1) + paper §5 Methods §4.5 (2) + supplement S6 prose "from 1{,}000 input-resamples" + Table S2 caption + Figure S2 caption (4). Bumped 3 -> 7 in Phase 9.B for the S6 Spearman additions.'
 
 - paper_section: '§5 Methods §4.3 (scenario definitions)'
   paper_context: 'S2 mild ARDS impairment fraction'

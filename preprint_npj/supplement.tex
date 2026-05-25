@@ -67,7 +67,9 @@
 
 \maketitle
 
-\noindent This document is the Supplementary Information accompanying the main paper. It carries the methodological depth, full data tables, and extended-experiment protocols that the main paper cross-references but that would distort the main paper's readability if reproduced in-line. Numbering follows the Nature Portfolio convention (sections \S\,S1, figures S1, tables S1, etc.). Every quantitative claim in this supplement traces to the same audit ledger (\texttt{scripts/audit\_claims.py}) that anchors the main paper.
+\noindent This document is the Supplementary Information accompanying the main manuscript. It carries the methodological depth, full data tables, and extended-experiment protocols that the main manuscript cross-references but that would distort the main manuscript's readability if reproduced in-line. Numbering follows the Nature Portfolio convention (sections \S\,S1, figures S1, tables S1, etc.). Every quantitative claim in this supplement traces to the same audit ledger (\texttt{scripts/audit\_claims.py}) that anchors the main manuscript. When the supplement refers back to the main manuscript, both the section number and the explicit phrase ``of the main manuscript'' are given to prevent confusion between S-numbered supplement items and main-manuscript items.
+
+\tableofcontents
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% S1 -- Pulse engine context (Phase 9.A)
@@ -79,7 +81,7 @@ The Pulse Physiology Engine~\cite{bray2019} is among the most actively maintaine
 
 Pulse was forked in 2017 from the U.S.\ Department of Defense--funded BioGears engine by the original BioGears core developers (Clipp, Bray, Webb) and is now maintained by Kitware, Inc.\ under the Apache-2.0 license. Both projects still exist independently but have diverged substantially since 2017; Pulse v4.3.1 includes respiratory calibration for ventilated patients, mechanoreceptor feedback, lung-recruitment modelling, and improved hemorrhage response that are not present in BioGears.
 
-The Pulse documentation explicitly characterises the engine as a ``low-fidelity clinical approach'' intended for training simulation rather than patient-specific clinical prediction. This self-description frames the present atlas's contribution: a quantitative operational-envelope reliability map that lets downstream users decide where Pulse's low-fidelity clinical approach is in fact reliable for their use case and where it is not. The current upstream stable head is \texttt{REL\_4\_3\_2} (released 2025-08-12), whose full diff against \texttt{REL\_4\_3\_1} is build-system-only (7 files / +46 / -17 lines: web-WASM dockcross support and a .NET binding tweak); no physiology, validation, patient-setup, or solver code changed. Results in this atlas on v4.3.1 therefore apply identically to v4.3.2.
+The Pulse documentation explicitly characterises the engine as a ``low-fidelity clinical approach'' intended for training simulation rather than patient-specific clinical prediction. This self-description frames the present atlas's contribution (Section~1 of the main manuscript): a quantitative operational-envelope reliability map that lets downstream users decide where Pulse's low-fidelity clinical approach is in fact reliable for their use case and where it is not. The current upstream stable head is \texttt{REL\_4\_3\_2} (released 2025-08-12), whose full diff against \texttt{REL\_4\_3\_1} is build-system-only (7 files / +46 / -17 lines: web-WASM dockcross support and a .NET binding tweak); no physiology, validation, patient-setup, or solver code changed. Results in this atlas on v4.3.1 therefore apply identically to v4.3.2.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% S2 -- Verified Pulse 4.3.1 limitations (Phase 9.A)
@@ -123,7 +125,7 @@ The atlas is calibrated against the following twelve Pulse limitations, each ver
 \end{tabular}
 \end{table}
 
-Two previously asserted but unverified claims were withdrawn before preregistration locked: (i)~the claim that Pulse crashes at FiO$_2$ = 1.0 (disproved empirically; Pulse accepts FiO$_2$ = 1.0 and produces a stable trajectory, with the transient hyperoxia regime characterised separately in main-paper \S2.4 and Supplement~\S\,S9); and (ii)~the claim that Pulse has no sex-specific physiology beyond patient weight and height (disproved by the sex-stratified divergence + blood-volume mechanism characterised in main-paper \S2.5 and Supplement~\S\,S10).
+Two previously asserted but unverified claims were withdrawn before preregistration locked: (i)~the claim that Pulse crashes at FiO$_2$ = 1.0 (disproved empirically; Pulse accepts FiO$_2$ = 1.0 and produces a stable trajectory, with the transient hyperoxia regime characterised separately in Section~2.4 of the main manuscript and in Supplement~\S\,S9); and (ii)~the claim that Pulse has no sex-specific physiology beyond patient weight and height (disproved by the sex-stratified divergence and blood-volume mechanism characterised in Section~2.5 of the main manuscript and in Supplement~\S\,S10).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% S3 -- Full Methods detail (Phase 9.A)
@@ -131,7 +133,7 @@ Two previously asserted but unverified claims were withdrawn before preregistrat
 
 \section{Full Methods detail}\label{sec:s3}
 
-This section expands the condensed Methods section of the main paper (\S\,4) with the engine-wrapper architecture, the deterministic Docker recipe, the complete physiological-bounds and drift-threshold tables that anchor the four-flag steady-state classifier, the input-rejection regex set used to detect Pulse's setup-time clamping, and the body-dimension provenance for the two adult reference surrogates.
+This section expands the condensed Methods section of the main manuscript (Section~4 of the main manuscript) with the engine-wrapper architecture, the deterministic Docker recipe, the complete physiological-bounds and drift-threshold tables that anchor the four-flag steady-state classifier, the input-rejection regex set used to detect Pulse's setup-time clamping, and the body-dimension provenance for the two adult reference surrogates.
 
 \subsection{Engine wrapper, Docker pinning, and reproducibility}\label{sec:s3-engine}
 
@@ -167,7 +169,7 @@ PaCO$_2$ (mmHg) & 10 & 120 & \texttt{T1.06p.paco2\_low}, \texttt{T1.06p.paco2\_h
 \end{tabular}
 \end{table}
 
-Each bound falls into one of three logical categories: (a) a physical or thermodynamic ceiling (the SpO$_2$ upper bound at hemoglobin saturation is definitional), (b) an equipment or engineering limit (Vt above 1{,}500~mL is at the edge of adult-ventilator delivery capability), or (c) a clinical-meaningfulness threshold below which a 60-second steady-state mean would be incompatible with a viable patient (e.g., PaO$_2 < 20$~mmHg corresponds to peripheral hemoglobin saturation in the 0.3 range on the standard oxyhemoglobin dissociation curve, below the cellular oxygen-extraction threshold). Within category (c), the exact numerical choice is a defensible judgment call rather than a unique biological constant; the alternative \texttt{HARD\_BOUNDS\_PHYSIOLOGICAL} dictionary in \texttt{src/detector.py} raises the PaO$_2$ upper bound from 600 to 700~mmHg per the alveolar-gas-equation sea-level ceiling~\cite{west2020respiratory} and powers a sensitivity-analysis side-table referenced from the main paper's hyperoxia analysis (\S\,2.4).
+Each bound falls into one of three logical categories: (a) a physical or thermodynamic ceiling (the SpO$_2$ upper bound at hemoglobin saturation is definitional), (b) an equipment or engineering limit (Vt above 1{,}500~mL is at the edge of adult-ventilator delivery capability), or (c) a clinical-meaningfulness threshold below which a 60-second steady-state mean would be incompatible with a viable patient (e.g., PaO$_2 < 20$~mmHg corresponds to peripheral hemoglobin saturation in the 0.3 range on the standard oxyhemoglobin dissociation curve, below the cellular oxygen-extraction threshold). Within category (c), the exact numerical choice is a defensible judgment call rather than a unique biological constant; the alternative \texttt{HARD\_BOUNDS\_PHYSIOLOGICAL} dictionary in \texttt{src/detector.py} raises the PaO$_2$ upper bound from 600 to 700~mmHg per the alveolar-gas-equation sea-level ceiling~\cite{west2020respiratory} and powers a sensitivity-analysis side-table referenced from Section~2.4 of the main manuscript.
 
 \subsection{Drift thresholds for the not\_steady\_state flag}\label{sec:s3-drift}
 
@@ -208,7 +210,181 @@ r"is outside the valid range"
 
 \subsection{Body-dimension provenance for the two adult reference surrogates}\label{sec:s3-bodies}
 
-The two adult surrogates are: a male body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both weights are the U.S.\ Centers for Disease Control and Prevention (CDC) growth-chart 50th-percentile values for 18-year-olds of each sex. The female height matches both the CDC 50th-percentile value and Pulse's own \texttt{heightStandardFemale\_cm = 163.0} reference constant in \texttt{SetupPatient.cpp}; the male height is a clinically standard adult value chosen so the male case fixes the body mass index at 20.8 (it is not Pulse's source-code \texttt{heightStandardMale\_cm = 177.0} reference, which would have yielded an above-CDC-P50 BMI). Pulse computes the resulting blood-volume baseline via the allometric relation $\text{BV} = 65.6 \cdot \text{weight}_{\text{kg}}^{1.02}$, yielding 4{,}802.63~mL for the male body and 3{,}996.09~mL for the female body --- the 17~\% sex gap whose mechanism on the input-extreme divergence cluster is characterised in main-paper \S\,2.5.
+The two adult surrogates are: a male body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both weights are the U.S.\ Centers for Disease Control and Prevention (CDC) growth-chart 50th-percentile values for 18-year-olds of each sex. The female height matches both the CDC 50th-percentile value and Pulse's own \texttt{heightStandardFemale\_cm = 163.0} reference constant in \texttt{SetupPatient.cpp}; the male height is a clinically standard adult value chosen so the male case fixes the body mass index at 20.8 (it is not Pulse's source-code \texttt{heightStandardMale\_cm = 177.0} reference, which would have yielded an above-CDC-P50 BMI). Pulse computes the resulting blood-volume baseline via the allometric relation $\text{BV} = 65.6 \cdot \text{weight}_{\text{kg}}^{1.02}$, yielding 4{,}802.63~mL for the male body and 3{,}996.09~mL for the female body --- the 17~\% sex gap whose mechanism on the input-extreme divergence cluster is characterised in Section~2.5 of the main manuscript.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% S4 -- Extended Table 1: not_steady_state attribution (Phase 9.B)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Extended Table 1: not\_steady\_state attribution}\label{sec:s4}
+
+Table~1 of the main manuscript reports per-cell counts under the locked four-flag classifier. The \texttt{not\_steady\_state} count in each cell is a composite of three trigger sub-modes: flatline at a hard bound, coefficient of variation above 0.05, or drift above the per-channel threshold (Supplement~\S\,S3.5). A post-hoc trigger-attribution audit decomposes the 530 \texttt{not\_steady\_state} runs into the contributing sub-modes (Table~\ref{tab:s4-nss}). The locked classifier is unchanged; this table is a presentation transform that gives readers a finer-grained read on what the \texttt{not\_steady\_state} flag is doing per cell.
+
+\begin{table}[h]
+\centering
+\caption{Per-cell attribution of the locked \texttt{not\_steady\_state} count by trigger sub-mode. Two sub-modes are audited explicitly: SpO$_2$ ``flatline at ceiling'' with mean $\geq$ 0.999 (a detector edge case in which a healthy or well-oxygenated patient's physiological hemoglobin saturation at 1.0 numerically satisfies the locked flatline rule), and Vt CV $>$ 0.05 (the patient-ventilator-trigger dyssynchrony signal characterised in Section~2.3 of the main manuscript). The two ``excl.\'' columns count residual \texttt{not\_steady\_state} runs after removing each sub-mode from the trigger criterion; the ``excl.\ both'' column removes both simultaneously. Source: \texttt{results/s022/nss\_decomposition.csv}; ledger anchors \texttt{T2.nssC.*}.}
+\label{tab:s4-nss}
+\begin{tabular}{lrrrrrr}
+\toprule
+Cell & n\_total & n\_nss & excl.\ SpO$_2$ sat. & excl.\ Vt CV & excl.\ both & n\_clean (excl.\ both) \\
+\midrule
+S1\_M & 160 & 107 & 91 & 74 & 29 & 127 \\
+S1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\
+\midrule
+S2\_M & 160 & 69  & 60 & 45 & 23 & 133 \\
+S2\_F & 160 & 68  & 52 & 44 & 7  & 153 \\
+\midrule
+S3\_M & 160 & 12  & 11 & 9  & 8  & 148 \\
+S3\_F & 160 & 38  & 34 & 10 & 3  & 157 \\
+\midrule
+S4\_M & 160 & 44  & 44 & 39 & 39 & 72 \\
+S4\_F & 160 & 74  & 74 & 52 & 52 & 82 \\
+\midrule
+\textbf{Total} & \textbf{1{,}280} & \textbf{530} & \textbf{454} & \textbf{360} & \textbf{185} & \textbf{1{,}008} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Two reading guides. First, the SpO$_2$-saturation contribution (locked \texttt{n\_nss} minus the ``excl.\ SpO$_2$ sat.'' column = 76 runs across the eight cells) is mathematically valid but biologically benign: a healthy patient on adequate FiO$_2$ saturates physiologically at SpO$_2$ = 1.0, which the locked flatline rule (\texttt{std/|mean| $<$ 0.01} and mean within 0.001 of a hard bound) catches as ``pinned at the ceiling''. The rule was designed to detect solver-pinning, not physiological saturation; the two coincide numerically. Second, the Vt CV $>$ 0.05 contribution (530 minus 360 = 170 runs) is the dyssynchrony signal that Section~2.3 of the main manuscript identifies and corrects by setting the inspiration trigger pressure explicitly. Excluding both sub-modes simultaneously raises the implied clean count from 663 / 1{,}280 (51.8~\%) to 1{,}008 / 1{,}280 (78.7~\%) --- but this is reported as a decomposition for interpretive transparency, not as a re-classification: the locked classifier remains the headline reliability call throughout the main manuscript.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% S5 -- ARDS instability zone full characterisation (Phase 9.B)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{ARDS impairment-fraction instability zone}\label{sec:s5}
+
+Section~2.6 of the main manuscript refers to a documented 0.91--0.945 ARDS-impairment-fraction band in which Pulse's respiratory solver becomes unstable. This supplement section provides the full characterisation: how the band was identified, how the present atlas's continuous-severity micro-sweep refines its edges, and how the divergence rate within the band stratifies by sex under midrange Morris inputs.
+
+\subsection{Provenance of the documented band}\label{sec:s5-prov}
+
+Three convergent boundary probes within the companion technical work (same Pulse v4.3.1 engine, same male reference surrogate, non-overlapping impairment-fraction grids, run-by-run independent execution) characterise the same numerical-bifurcation range in the respiratory solver. A 28-run impairment sweep at ARDSnet-protective ventilation found fractions 0.92 and 0.94 failing to stabilise. A 10-run high-resolution boundary probe at 0.90 / 0.91 / 0.915 / 0.92 / 0.925 / 0.93 / 0.935 / 0.94 / 0.945 / 0.95 narrowed the failure range to 0.91--0.945 inclusive (eight consecutive failures, with 0.90 and 0.95 passing on either side). A complementary 9-run calibration refinement at 0.93--0.97 in 0.005 steps (four failures across 0.93--0.945, five passes across 0.95--0.97) confirmed the upper edge. The three probes are within the same companion project rather than independent third-party replications; the convergence is evidence of reproducibility under the same engine version and surrogate, not of generalisation across labs. Pulse's own documentation does not flag this zone.
+
+\subsection{Continuous-severity micro-sweep at midrange inputs}\label{sec:s5-cont}
+
+A 200-run continuous-severity sweep (100 male, 100 female) varying only the ARDS impairment fraction while holding all seven Morris inputs at their midrange values (HR = 80, SBP = 105, DBP = 70, RR = 14, Vt = 550, FiO$_2$ = 0.6, PEEP = 10) extends the picture in two ways: it refines the empirical band edges, and it surfaces a sex-stratification pattern that differs from the input-extreme regime characterised in Section~2.5 of the main manuscript.
+
+\begin{table}[h]
+\centering
+\caption{Continuous-severity divergence counts per impairment-fraction bin, sex-stratified. The sweep distributes runs non-uniformly across severities; the per-bin sample sizes (\texttt{n}) reflect that distribution. Divergence concentrates in [0.879, 0.945] --- slightly wider on the low edge than the documented 0.91--0.945 band --- and the per-bin sex pattern crosses over: female divergence dominates the (0.85, 0.91] bin while male divergence dominates the (0.91, 0.945] bin. Bold cells mark the sex with the larger divergence count in each non-zero bin.}
+\label{tab:s5-cont}
+\begin{tabular}{lrrr}
+\toprule
+Impairment-fraction bin & \texttt{n} per sex & Female diverged & Male diverged \\
+\midrule
+$[0, 0.5]$         & 31 & 0 / 31 & 0 / 31 \\
+$(0.5, 0.85]$      & 20 & 0 / 20 & 0 / 20 \\
+$(0.85, 0.91]$     & 18 & \textbf{14 / 18} & 5 / 18 \\
+$(0.91, 0.945]$    & 10 & 5 / 10  & \textbf{9 / 10}  \\
+$(0.945, 0.95]$    & 2  & 0 / 2   & 0 / 2  \\
+$(0.95, 1.0]$      & 19 & 0 / 19  & 0 / 19 \\
+\midrule
+\textbf{Total}     & \textbf{100} & \textbf{19} & \textbf{14} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Figure~\ref{fig:s5-dumbbell} visualises Table~\ref{tab:s5-cont} as a sex-stratified dumbbell with Wilson 95~\% confidence intervals on the per-bin divergence proportion. Two reading guides apply. First, in the (0.945, 0.95] bin, both sexes show zero divergences out of only two runs each; the Wilson 95~\% CI for $0 / 2$ is approximately $[0, 0.66]$, which is honestly shown rather than suppressed because hiding an underpowered stratum at the edge of the instability band would misrepresent the data. Second, the band edges identified by this continuous sweep --- nontrivial divergence beginning at impairment 0.879 (the low edge of the (0.85, 0.91] bin where the empirical signal first appears) and ending at 0.945 --- are slightly wider than the documented 0.91--0.945 band, consistent with input-dependence of the instability: the continuous sweep's midrange ventilator settings reach instability earlier than the ARDSnet-tailored settings that produced the original boundary probes.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/fig_s1_continuous_severity.pdf}
+\caption{Sex-stratified divergence rate across the continuous-severity micro-sweep ($n = 200$ runs at midrange Morris inputs). Each impairment-fraction bin is a single x-axis position with male (blue) and female (orange) dots connected by a grey vertical line (dumbbell) emphasising the within-bin sex divergence delta; error bars are Wilson 95~\% binomial confidence intervals on the per-bin divergence proportion. The (0.945, 0.95] bin has only $n = 2$ per sex; its very wide Wilson 95~\% CI ([0, 0.66] for $0 / 2$) is honestly shown rather than suppressed. The pink shaded region marks the previously documented 0.91--0.945 instability zone; the continuous sweep extends the empirical band to [0.879, 0.945] on the low edge. Female divergence dominates the lower band; male divergence dominates the upper band --- the input-extreme all-male divergence pattern from Section~2.5 of the main manuscript does not generalise to midrange inputs.}
+\label{fig:s5-dumbbell}
+\end{figure}
+
+\subsection{Two divergence regimes}\label{sec:s5-regimes}
+
+Together with Section~2.5 of the main manuscript, the data distinguish two operationally separate divergence regimes. The input-driven regime (the main-manuscript headline) concentrates on the male reference surrogate at low HR, low SBP, high RR, and FiO$_2$ = 1.0 --- the hypotensive--tachypneic--fully-oxygenated input pattern --- and produces an approximately fivefold higher divergence rate on the male body than on the female. The severity-driven regime (this continuous-severity sweep) affects both sexes at midrange inputs once impairment fraction enters [0.879, 0.945], with female divergence concentrated in the lower part of the band and male divergence in the upper. Both regimes are real solver-stability findings; the sex effect on H3 (Section~2.5 of the main manuscript) is therefore best stated as ``regime-dependent'' rather than ``all-male'', and the practical guidance to downstream users is to avoid the 0.879--0.945 impairment-fraction band when stable steady-state outputs are required.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% S6 -- Sex-stratified reliability: Spearman rho on mu* (Phase 9.B)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{\texorpdfstring{Sex-stratified reliability: Spearman $\rho$ on $\mu^{*}$ rankings}{Sex-stratified reliability: Spearman rho on mu* rankings}}\label{sec:s6}
+
+Section~2.6 of the main manuscript reports that the cross-sex Spearman rank correlation $\rho$ on Morris $\mu^{*}$ input-importance vectors is computable only for the moderate-ARDS scenarios S2 and S3 (the gas-exchange and severe-ARDS cells S1 and S4\_F have no clean FiO$_2$ elementary-effect pairs because every Morris OAT step that flips FiO$_2$ between 0.21 and 1.0 has at least one endpoint flagged by SpO$_2$-saturation pinning, transient-hyperoxia drift, or implausibility). This supplement section provides the full $\rho$ table with paired-input bootstrap 95~\% confidence intervals from 1{,}000 input-resamples.
+
+\begin{table}[h]
+\centering
+\caption{Spearman rank correlation $\rho$ between the male and female Morris $\mu^{*}$ input-importance vectors (one entry per swept input, seven entries per (scenario, output) cell), with paired-input bootstrap 95~\% confidence intervals from 1{,}000 input-resamples. Computed only for S2 and S3; cells in S1 and S4\_F have no computable $\rho$ because FiO$_2$ has zero clean elementary-effect pairs there (see Section~2.6 of the main manuscript). Ledger anchors \texttt{T2.sp.S2.*} and \texttt{T2.sp.S3.*}.}
+\label{tab:s6-rho}
+\begin{tabular}{llcc}
+\toprule
+Scenario & Output & $\rho$ & 95\% CI (paired-input bootstrap, $n = 1{,}000$) \\
+\midrule
+S2 & HR    & 0.96 & $[0.70, 1.00]$ \\
+S2 & MAP   & 1.00 & $[1.00, 1.00]$ \\
+S2 & Vt    & 0.75 & $[-0.06, 1.00]$ \\
+S2 & SpO$_2$  & 0.96 & $[0.70, 1.00]$ \\
+S2 & PaO$_2$  & 0.93 & $[0.41, 1.00]$ \\
+S2 & PaCO$_2$ & 0.89 & $[0.35, 1.00]$ \\
+\midrule
+S3 & HR    & 0.96 & $[0.70, 1.00]$ \\
+S3 & MAP   & 0.96 & $[0.70, 1.00]$ \\
+S3 & Vt    & 0.86 & $[0.34, 1.00]$ \\
+S3 & SpO$_2$  & 0.96 & $[0.70, 1.00]$ \\
+S3 & PaO$_2$  & 0.93 & $[0.41, 1.00]$ \\
+S3 & PaCO$_2$ & 0.89 & $[0.41, 1.00]$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Point estimates fall in the 0.75--1.00 range across the 12 (scenario, output) cells, qualitatively supporting the claim that input-importance rankings are preserved across sex in the moderate-ARDS regime. The Vt output is the conspicuous exception: the S2 lower CI bound at $-0.06$ means the cross-sex agreement on what drives delivered tidal volume is not statistically distinguishable from chance under this bootstrap design. Figure~\ref{fig:s6-rho} reproduces the Spearman $\rho$ point estimates and CIs visually.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/fig_s2_spearman.pdf}
+\caption{Spearman rank correlation $\rho$ between male and female Morris $\mu^{*}$ vectors per (scenario, output), with paired-input bootstrap 95~\% confidence intervals ($n = 1{,}000$ input-resamples). Reproduced verbatim from the companion technical monograph (Figure~5 of the monograph). Computed only for S2 and S3; S1 and S4\_F are blank because FiO$_2$ has zero clean elementary-effect pairs in those cells.}
+\label{fig:s6-rho}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% S7 -- Cornish Table 2 expanded (Phase 9.B)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Cornish et al.\ 2023 per-channel cross-mapping}\label{sec:s7}
+
+Section~2.6 of the main manuscript summarises the complementarity between the present atlas and the Cornish et al.\ causal-falsification study~\cite{cornish2023} as ``80 of 85 Hoeffding rejections fall on channels the present atlas does not assess''. Table~\ref{tab:s7-cornish} provides the full 15-channel per-quantity cross-mapping, grouped by physiological system to make the data clinically scannable. Within each group, ``Hoeffding'' counts come from Cornish's main-text Table~1 (their family-wise-error-rate-controlled rejections under Holm--Bonferroni adjustment), ``Bootstrap'' counts come from their Appendix Table~5 (reverse-percentile bootstrap rejections at the same significance level), and the rightmost column maps each channel to an atlas output. Bold rows mark the four channels (HR, MeanBP $\approx$ atlas MAP, PaO$_2$, PaCO$_2$) of direct overlap.
+
+\begin{table}[h]
+\centering
+\caption{Cornish et al.\ 2023 per-quantity rejection counts (Cornish Table~1 + Appendix Table~5) re-tabulated against the present atlas's six-output panel and grouped by physiological system. Bold rows are the four-channel direct overlap. Of Cornish's 85 total Hoeffding rejections, 80 fall on the 11 channels outside the atlas's six-output panel (electrolyte, metabolic, acid--base, dermal, plus the partial-overlap pressure / ventilation channels); only 3 of 85 fall on the four-channel overlap (all 3 on PaCO$_2$). The two studies' failure surfaces are therefore complementary rather than redundant.}
+\label{tab:s7-cornish}
+\begin{tabular}{lrrl}
+\toprule
+Cornish 2023 channel & Hoeffding & Bootstrap & Maps to atlas output? \\
+\midrule
+\multicolumn{4}{l}{\textit{Electrolytes}} \\
+Chloride            & 24 / 94 & 47 / 94 & No (electrolyte) \\
+Sodium              & 21 / 94 & 46 / 94 & No (electrolyte) \\
+Potassium           & 13 / 94 & 33 / 94 & No (electrolyte) \\
+Calcium             & 5 / 88  & 44 / 88 & No (electrolyte) \\
+\midrule
+\multicolumn{4}{l}{\textit{Metabolic and acid--base}} \\
+Glucose             & 5 / 96  & 19 / 96 & No (metabolic) \\
+HCO$_3$ (Bicarbonate) & 2 / 90 & 8 / 90  & No (acid--base) \\
+Arterial pH         & 0 / 80  & 0 / 80  & No (acid--base) \\
+\midrule
+\multicolumn{4}{l}{\textit{Dermal}} \\
+Skin Temperature    & 10 / 86 & 43 / 86 & No (dermal) \\
+\midrule
+\multicolumn{4}{l}{\textit{Cardiovascular}} \\
+\textbf{HR}         & \textbf{0 / 162} & \textbf{1 / 162}  & \textbf{Yes (direct)} \\
+\textbf{MeanBP}     & \textbf{0 / 92}  & \textbf{3 / 92}   & \textbf{Yes ($\approx$ atlas MAP)} \\
+SysBP               & 2 / 154 & 8 / 154 & Partial (MAP input) \\
+DiaBP               & 0 / 72  & 0 / 72  & Partial (MAP input) \\
+\midrule
+\multicolumn{4}{l}{\textit{Respiratory and gas exchange}} \\
+\textbf{PaCO$_2$}   & \textbf{3 / 70}  & \textbf{13 / 70}  & \textbf{Yes (direct)} \\
+\textbf{PaO$_2$}    & \textbf{0 / 78}  & \textbf{4 / 78}   & \textbf{Yes (direct)} \\
+RR                  & 0 / 172 & 12 / 172 & Atlas input, not output \\
+\midrule
+\textbf{Total} & \textbf{85} & \textbf{281} & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The four-channel overlap rank ordering on Cornish's bootstrap counts (PaCO$_2$ at 18.6~\%, PaO$_2$ at 5.1~\%, MeanBP at 3.3~\%, HR at 0.6~\%) mirrors the red-cell density of the atlas's traffic-light map (Figure~1 of the main manuscript) on the same four channels: PaO$_2$ goes red at S3 and S4 across both sexes (4 of 8 cells), HR likewise goes red at S3+ (4 of 8 cells), and MAP and PaCO$_2$ each have exactly one red cell (S4\_M). The two studies therefore disagree on absolute rates --- the present atlas exposes boundary-region failure that Cornish's sepsis-cohort intervention sequences do not visit --- but agree on the ordinal pattern that PaCO$_2$ is the most assessment-sensitive gas-exchange channel. Cornish's bootstrap rejection counts cannot be cell-level cross-tabulated against the atlas's per-cell traffic light because Cornish's rejections are indexed by (time-step, action-sequence, sex--age--quantile bin) over sepsis trajectories, not by (scenario, sex) over the operational acceptance envelope, and the two indexings are not surjective on each other.
 
 \bibliography{paper}
 
