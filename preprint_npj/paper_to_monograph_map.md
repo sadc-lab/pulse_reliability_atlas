@@ -72,13 +72,13 @@ caught equally.*
 
 ## Step 1 — Abstract (5 numerical claims)
 
-- paper_section: 'Abstract + §2.1 + §2.5 + Figure 4 caption + §4 Discussion'
+- paper_section: 'Abstract + §2.1 + §2.5 + Figure 4 caption + §4 Discussion + §5 Methods'
   paper_context: 'Total Morris simulations across the sweep'
   monograph_claim_id: 'T1.01'
   expected_value: 1280
   format_in_paper: '1{,}280'
-  expected_occurrences: 10
-  notes: 'Total occurrences of the literal pattern 1{,}280 across the paper as of Step 6: abstract (2), §2.1 (5), §2.5 prose + Figure 4 caption (2), §4 Discussion ¶1 "1{,}280-run sweep" (1) = 10. Bumped from 9 (Step 5) to 10 (Step 6).'
+  expected_occurrences: 12
+  notes: 'Total occurrences of the literal pattern 1{,}280 across the paper as of Step 7: abstract (2), §2.1 (5), §2.5 prose + Figure 4 caption (2), §4 Discussion ¶1 (1), §5 Methods §4.1 "pinned for the entire 1{,}280-run sweep" (1), §5 Methods §4.3 "1{,}280 runs across the full sweep" (1) = 12. Bumped from 10 (Step 6) to 12 (Step 7).'
 
 - paper_section: 'Abstract + §2.3 VC-AC'
   paper_context: 'VC-AC trigger-dyssynchrony primary-flag rate (Vt CV > 0.05 under not_steady_state)'
@@ -505,3 +505,77 @@ caught equally.*
   format_in_paper: '85 total Hoeffding-inequality rejections'
   expected_occurrences: 1
   notes: 'Appears once in §2.6 ¶3: "reported 85 total Hoeffding-inequality rejections across 15 physiological quantities".'
+
+## Step 7 — Methods reproducibility constants
+
+- paper_section: '§5 Methods §4.3 (sweep design)'
+  paper_context: 'Morris design: number of trajectories per cell'
+  monograph_claim_id: 'T1.06e.morris_trajectories'
+  expected_value: 20
+  format_in_paper: '20 trajectories'
+  expected_occurrences: 1
+  notes: 'Appears once in §5 Methods §4.3: "used 20 trajectories at 4 grid levels per input". New ledger claim added in Step 7 (regex-extracted from scripts/run_full_sweep.py SWEEP_TRAJECTORIES).'
+
+- paper_section: '§5 Methods §4.3 (sweep design)'
+  paper_context: 'Morris design: number of grid levels per input'
+  monograph_claim_id: 'T1.06f.morris_levels'
+  expected_value: 4
+  format_in_paper: '4 grid levels'
+  expected_occurrences: 1
+  notes: 'Appears once in §5 Methods §4.3 adjacent to the trajectories count.'
+
+- paper_section: '§5 Methods §4.3 (sweep design)'
+  paper_context: 'Random seed for the canonical Morris sample'
+  monograph_claim_id: 'T1.06g.morris_seed'
+  expected_value: 42
+  format_in_paper: 'seed 42'
+  expected_occurrences: 1
+  notes: 'Appears once in §5 Methods §4.3: "generated via SALib with random seed 42". New ledger claim added in Step 7 (regex-extracted from scripts/run_full_sweep.py SWEEP_SEED).'
+
+- paper_section: '§2.2 + §5 Methods §4.5 (×2)'
+  paper_context: 'Bootstrap resamples for Morris mu* CI'
+  monograph_claim_id: 'T1.06h.bootstrap_n'
+  expected_value: 1000
+  format_in_paper: '1{,}000'
+  expected_occurrences: 3
+  notes: 'Appears 3 times: §2.2 prose "under a 1{,}000-resample bootstrap" (1), §5 Methods §4.5 "from 1{,}000 trajectory-level resamples" (1), §5 Methods §4.5 "confidence intervals from 1{,}000 input-resamples" (1). New ledger claim added in Step 7 (regex-extracted from scripts/analyze_sweep.py n_bootstrap).'
+
+- paper_section: '§5 Methods §4.3 (scenario definitions)'
+  paper_context: 'S2 mild ARDS impairment fraction'
+  monograph_claim_id: 'T1.06i.ards_S2_severity'
+  expected_value: 0.26
+  format_in_paper: 'impairment = 0.26'
+  expected_occurrences: 1
+  notes: 'Appears once in §5 Methods §4.3: "S2, mild, impairment = 0.26". New ledger claim added in Step 7 (regex-extracted from src/scenario.py SCENARIOS).'
+
+- paper_section: '§5 Methods §4.3 (scenario definitions)'
+  paper_context: 'S3 moderate ARDS impairment fraction'
+  monograph_claim_id: 'T1.06j.ards_S3_severity'
+  expected_value: 0.60
+  format_in_paper: 'impairment = 0.60'
+  expected_occurrences: 1
+  notes: 'Appears once in §5 Methods §4.3.'
+
+- paper_section: '§5 Methods §4.3 (scenario definitions)'
+  paper_context: 'S4 severe ARDS impairment fraction'
+  monograph_claim_id: 'T1.06k.ards_S4_severity'
+  expected_value: 0.95
+  format_in_paper: 'impairment = 0.95'
+  expected_occurrences: 1
+  notes: 'Appears once in §5 Methods §4.3.'
+
+- paper_section: '§5 Methods §4.3 (simulation duration)'
+  paper_context: 'Each run simulation length in seconds'
+  monograph_claim_id: 'T1.06n.sim_duration_seconds'
+  expected_value: 120
+  format_in_paper: '120 seconds of simulated time'
+  expected_occurrences: 1
+  notes: 'Appears once in §5 Methods §4.3: "Each run executed for 120 seconds of simulated time". New ledger claim added in Step 7 (regex-extracted from src/scenario.py DURATION_HOURS). Note: the related "120-second" hyphenated form appears multiple times elsewhere (§2.3, §2.4, §2.6, Figure 3 caption) but those occurrences refer to the window descriptor rather than the duration constant; no separate map row needed because both forms trace to the same SIM_DURATION_SECONDS constant.'
+
+- paper_section: '§5 Methods §4.3 (output sampling)'
+  paper_context: 'CSV output sample interval in seconds'
+  monograph_claim_id: 'T1.06o.sample_interval_seconds'
+  expected_value: 5
+  format_in_paper: '5-second intervals'
+  expected_occurrences: 1
+  notes: 'Appears once in §5 Methods §4.3: "output channels sampled at 5-second intervals". New ledger claim added in Step 7 (regex-extracted from src/scenario.py SAMPLE_INTERVAL_S).'

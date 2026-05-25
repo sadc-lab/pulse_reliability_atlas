@@ -1479,6 +1479,135 @@ add(
     tolerance_rule="exact_int",
 )
 
+# S028 Step 7 additions: Methods-section reproducibility constants.
+# Each value is regex-extracted from its canonical source module so
+# any drift between the source code and the ledger triggers an
+# explicit AssertionError (same lock-step pattern as the S014 trigger
+# pressure and S027 BV constants).
+_run_full_sweep = (REPO / "scripts" / "run_full_sweep.py").read_text(encoding="utf-8")
+_m_traj = re.search(r"SWEEP_TRAJECTORIES\s*=\s*(\d+)", _run_full_sweep)
+_m_lvls = re.search(r"SWEEP_LEVELS\s*=\s*(\d+)", _run_full_sweep)
+_m_seed = re.search(r"SWEEP_SEED\s*=\s*(\d+)", _run_full_sweep)
+assert _m_traj is not None, "audit_claims: SWEEP_TRAJECTORIES not located in scripts/run_full_sweep.py"
+assert _m_lvls is not None, "audit_claims: SWEEP_LEVELS not located in scripts/run_full_sweep.py"
+assert _m_seed is not None, "audit_claims: SWEEP_SEED not located in scripts/run_full_sweep.py"
+SWEEP_TRAJECTORIES = int(_m_traj.group(1))
+SWEEP_LEVELS = int(_m_lvls.group(1))
+SWEEP_SEED = int(_m_seed.group(1))
+
+add(
+    claim_id="T1.06e.morris_trajectories",
+    section="§4.3 (npj paper)",
+    manuscript_text="20 Morris trajectories per cell",
+    source_file="scripts/run_full_sweep.py SWEEP_TRAJECTORIES",
+    manuscript_value=20,
+    computed_value=SWEEP_TRAJECTORIES,
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T1.06f.morris_levels",
+    section="§4.3 (npj paper)",
+    manuscript_text="4 Morris grid levels per input",
+    source_file="scripts/run_full_sweep.py SWEEP_LEVELS",
+    manuscript_value=4,
+    computed_value=SWEEP_LEVELS,
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T1.06g.morris_seed",
+    section="§4.3 (npj paper)",
+    manuscript_text="random seed 42 for the Morris sample",
+    source_file="scripts/run_full_sweep.py SWEEP_SEED",
+    manuscript_value=42,
+    computed_value=SWEEP_SEED,
+    tolerance_rule="exact_int",
+)
+
+# Bootstrap-resamples constant for Morris mu* CI -- declared in
+# scripts/analyze_sweep.py n_bootstrap=1000.
+_analyze_sweep = (REPO / "scripts" / "analyze_sweep.py").read_text(encoding="utf-8")
+_m_boot = re.search(r"n_bootstrap\s*=\s*(\d+)", _analyze_sweep)
+assert _m_boot is not None, "audit_claims: n_bootstrap not located in scripts/analyze_sweep.py"
+ANALYZE_N_BOOTSTRAP = int(_m_boot.group(1))
+add(
+    claim_id="T1.06h.bootstrap_n",
+    section="§2.2, §4.5 (npj paper)",
+    manuscript_text="1000 bootstrap resamples for mu* CI",
+    source_file="scripts/analyze_sweep.py n_bootstrap",
+    manuscript_value=1000,
+    computed_value=ANALYZE_N_BOOTSTRAP,
+    tolerance_rule="exact_int",
+)
+
+# ARDS-severity impairment fractions declared in src/scenario.py
+# SCENARIOS dict (S1=0.0 healthy, S2=0.26 mild, S3=0.60 moderate,
+# S4=0.95 severe).
+_scenario_py = (REPO / "src" / "scenario.py").read_text(encoding="utf-8")
+_m_s2 = re.search(r'"S2":\s*Scenario\("S2",\s*"Mild ARDS",\s*([\d.]+)\)', _scenario_py)
+_m_s3 = re.search(r'"S3":\s*Scenario\("S3",\s*"Moderate ARDS",\s*([\d.]+)\)', _scenario_py)
+_m_s4 = re.search(r'"S4":\s*Scenario\("S4",\s*"Severe ARDS",\s*([\d.]+)\)', _scenario_py)
+assert _m_s2 is not None, "audit_claims: S2 ARDS severity not located in src/scenario.py"
+assert _m_s3 is not None, "audit_claims: S3 ARDS severity not located in src/scenario.py"
+assert _m_s4 is not None, "audit_claims: S4 ARDS severity not located in src/scenario.py"
+ARDS_S2 = float(_m_s2.group(1))
+ARDS_S3 = float(_m_s3.group(1))
+ARDS_S4 = float(_m_s4.group(1))
+add(
+    claim_id="T1.06i.ards_S2_severity",
+    section="§4.3 (npj paper)",
+    manuscript_text="S2 mild ARDS impairment fraction = 0.26",
+    source_file="src/scenario.py SCENARIOS['S2']",
+    manuscript_value=0.26,
+    computed_value=ARDS_S2,
+    tolerance_rule="displayed_2dp",
+)
+add(
+    claim_id="T1.06j.ards_S3_severity",
+    section="§4.3 (npj paper)",
+    manuscript_text="S3 moderate ARDS impairment fraction = 0.60",
+    source_file="src/scenario.py SCENARIOS['S3']",
+    manuscript_value=0.60,
+    computed_value=ARDS_S3,
+    tolerance_rule="displayed_2dp",
+)
+add(
+    claim_id="T1.06k.ards_S4_severity",
+    section="§4.3 (npj paper)",
+    manuscript_text="S4 severe ARDS impairment fraction = 0.95",
+    source_file="src/scenario.py SCENARIOS['S4']",
+    manuscript_value=0.95,
+    computed_value=ARDS_S4,
+    tolerance_rule="displayed_2dp",
+)
+
+# Simulation length + sample-interval constants declared in
+# src/scenario.py (DURATION_HOURS = 120.0 / 3600.0 = 120 s;
+# SAMPLE_INTERVAL_S = 5).
+_m_dur = re.search(r"DURATION_HOURS:\s*float\s*=\s*([\d.]+)\s*/\s*([\d.]+)", _scenario_py)
+_m_int = re.search(r"SAMPLE_INTERVAL_S:\s*int\s*=\s*(\d+)", _scenario_py)
+assert _m_dur is not None, "audit_claims: DURATION_HOURS not located in src/scenario.py"
+assert _m_int is not None, "audit_claims: SAMPLE_INTERVAL_S not located in src/scenario.py"
+SIM_DURATION_SECONDS = float(_m_dur.group(1)) / float(_m_dur.group(2)) * 3600
+SAMPLE_INTERVAL_SECONDS = int(_m_int.group(1))
+add(
+    claim_id="T1.06n.sim_duration_seconds",
+    section="§4.3 (npj paper)",
+    manuscript_text="120-second simulation length (DURATION_HOURS * 3600)",
+    source_file="src/scenario.py DURATION_HOURS",
+    manuscript_value=120,
+    computed_value=SIM_DURATION_SECONDS,
+    tolerance_rule="whole_unit",
+)
+add(
+    claim_id="T1.06o.sample_interval_seconds",
+    section="§4.3 (npj paper)",
+    manuscript_text="5-second CSV sample interval",
+    source_file="src/scenario.py SAMPLE_INTERVAL_S",
+    manuscript_value=5,
+    computed_value=SAMPLE_INTERVAL_SECONDS,
+    tolerance_rule="exact_int",
+)
+
 # -----------------------------------------------------------------------------
 # Output: markdown table sorted FAIL > WARN > PASS, then by claim_id.
 # -----------------------------------------------------------------------------
