@@ -1,0 +1,215 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                  %%
+%%  Pulse Reliability Atlas -- npj Digital Medicine submission      %%
+%%  Supplementary Information                                       %%
+%%                                                                  %%
+%%  Maintainer: Santino Nanini                                      %%
+%%  Build:      see preprint_npj/build_npj.ps1 (-SupplementOnly)    %%
+%%  Sync:       paired with ../preprint/manuscript.md via           %%
+%%              preprint_npj/paper_to_monograph_map.md and          %%
+%%              scripts/audit_claims.py --check-paper-sync          %%
+%%  Status:     Phase 9.A draft (S1 Pulse context, S2 limitations   %%
+%%              table, S3 full Methods detail). Phases 9.B-9.D      %%
+%%              fill S4-S14 in subsequent commits.                  %%
+%%                                                                  %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[pdflatex,sn-nature]{sn-jnl}% Style for submissions to Nature Portfolio journals
+
+%%%% Standard packages (mirror paper.tex)
+\usepackage{graphicx}%
+\usepackage{multirow}%
+\usepackage{amsmath,amssymb,amsfonts}%
+\usepackage{amsthm}%
+\usepackage{mathrsfs}%
+\usepackage[title]{appendix}%
+\usepackage{xcolor}%
+\usepackage{textcomp}%
+\usepackage{manyfoot}%
+\usepackage{booktabs}%
+\usepackage{algorithm}%
+\usepackage{algorithmicx}%
+\usepackage{algpseudocode}%
+\usepackage{listings}%
+\usepackage{subcaption}%
+\usepackage{longtable}%
+\raggedbottom
+
+% Renumber supplement sections / figures / tables with an "S" prefix per
+% Nature Portfolio convention.
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+
+\begin{document}
+
+\title[Supplementary Information]{Supplementary Information for: An open reliability atlas for synthetic patient cohorts: sensitivity, divergence, and sex-stratified failure modes in the Pulse Physiology Engine v4.3.1}
+
+\author*[1,2,3,4]{\fnm{Santino} \sur{Nanini}}\email{santino.nanini@umontreal.ca}
+
+\author[5]{\fnm{Philippe} \sur{Jouvet}}
+
+\author[5]{\fnm{Cyril} \sur{Schweitzer}}
+
+\author[5]{\fnm{Arnaud} \sur{Wiedemann}}
+
+\author[5]{\fnm{Michael} \sur{Sauthier}}
+
+\affil[1]{\orgdiv{INSERM UMR\_S 1256, Nutrition, Genetics, and Environmental Risk Exposure}, \orgname{University of Lorraine, Faculty of Medicine of Nancy}, \orgaddress{\country{France}}}
+
+\affil[2]{\orgdiv{Research Center}, \orgname{Sainte-Justine University Hospital}, \orgaddress{\city{Montreal}, \state{Quebec}, \country{Canada}}}
+
+\affil[3]{\orgdiv{Clinical Decision Support System Artificial Intelligence Health Cluster in Acute Child Care (PE-DIATRICS)}, \orgname{CHU Sainte-Justine Centre Hospitalier Universitaire M\`ere-Enfant}, \orgaddress{\city{Montr\'eal}, \country{Canada}}}
+
+\affil*[4]{\orgdiv{Pediatric Intensive Care Unit, Department of Pediatrics}, \orgname{CHU Sainte-Justine, Universit\'e de Montr\'eal}, \orgaddress{\city{Montreal}, \state{QC}, \country{Canada}}}
+
+\affil[5]{\orgdiv{[AFFILIATION PLACEHOLDER]}, \orgname{[AFFILIATION PLACEHOLDER]}, \orgaddress{\country{[AFFILIATION PLACEHOLDER]}}}
+
+\maketitle
+
+\noindent This document is the Supplementary Information accompanying the main paper. It carries the methodological depth, full data tables, and extended-experiment protocols that the main paper cross-references but that would distort the main paper's readability if reproduced in-line. Numbering follows the Nature Portfolio convention (sections \S\,S1, figures S1, tables S1, etc.). Every quantitative claim in this supplement traces to the same audit ledger (\texttt{scripts/audit\_claims.py}) that anchors the main paper.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% S1 -- Pulse engine context (Phase 9.A)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Pulse engine in context}\label{sec:s1}
+
+The Pulse Physiology Engine~\cite{bray2019} is among the most actively maintained open-source whole-body human physiology simulators. It represents the body as a network of coupled electrical-circuit analogues --- vascular resistances as resistors, vessel and chamber compliances as capacitors, heart and respiratory muscles as time-varying pressure sources --- solved as a system of ordinary differential equations at a 20~ms fixed timestep. The cardiovascular, respiratory (a 5-compartment lung model: carina, left and right anatomic dead space, left and right alveoli), gas-exchange, endocrine, renal, and drug sub-models share state at each step, producing a self-consistent whole-body trajectory in roughly 10--15$\times$ real time on commodity hardware. The codebase is C++ with bindings for Python, Java, C\#, and Unity, and runs on Windows, Linux, macOS, Android, iOS, and ARM.
+
+Pulse was forked in 2017 from the U.S.\ Department of Defense--funded BioGears engine by the original BioGears core developers (Clipp, Bray, Webb) and is now maintained by Kitware, Inc.\ under the Apache-2.0 license. Both projects still exist independently but have diverged substantially since 2017; Pulse v4.3.1 includes respiratory calibration for ventilated patients, mechanoreceptor feedback, lung-recruitment modelling, and improved hemorrhage response that are not present in BioGears.
+
+The Pulse documentation explicitly characterises the engine as a ``low-fidelity clinical approach'' intended for training simulation rather than patient-specific clinical prediction. This self-description frames the present atlas's contribution: a quantitative operational-envelope reliability map that lets downstream users decide where Pulse's low-fidelity clinical approach is in fact reliable for their use case and where it is not. The current upstream stable head is \texttt{REL\_4\_3\_2} (released 2025-08-12), whose full diff against \texttt{REL\_4\_3\_1} is build-system-only (7 files / +46 / -17 lines: web-WASM dockcross support and a .NET binding tweak); no physiology, validation, patient-setup, or solver code changed. Results in this atlas on v4.3.1 therefore apply identically to v4.3.2.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% S2 -- Verified Pulse 4.3.1 limitations (Phase 9.A)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Verified Pulse 4.3.1 limitations}\label{sec:s2}
+
+The atlas is calibrated against the following twelve Pulse limitations, each verified against a primary source (Pulse FAQ, the upstream code repository, or an experiment-log entry in the companion technical monograph) before any data was collected. Table~\ref{tab:limits} reproduces this verified-limitations table in full.
+
+\begin{table}[h]
+\centering
+\caption{Verified Pulse v4.3.1 limitations the atlas is calibrated against. Each row was verified against a primary source before the sweep launched; two previously asserted but unverified claims (FiO$_2$ = 1.0 solver crash, absence of any sex-specific physiology) were withdrawn before preregistration locked. Companion-monograph cross-references in the rightmost column point to the experiment-log entry that established each limitation.}
+\label{tab:limits}
+\small
+\begin{tabular}{rp{8.5cm}p{3.5cm}}
+\toprule
+\# & Limitation & Primary source \\
+\midrule
+1 & No formal SA / UQ on user-facing operational inputs --- addressed by this paper. The 2020 \texttt{STUDY\_SENSITIVITY\_ANALYSIS\_1\_0\_0} repository tag performs Sobol analysis on internal vascular-circuit resistance multipliers for calibration, a different parameter class, and has not been ported to the 4.3.x release line. & Pulse FAQ~\cite{pulsefaq} + upstream repo audit (monograph S016) \\
+\midrule
+2 & Blood-pressure gate: SBP $>$ 120 or DBP $>$ 80 mmHg rejected at setup with explicit \texttt{[ERROR]} log and exit; pulse-pressure ratio DBP/SBP $\leq 0.75$ also enforced. & Pulse source audit + monograph S005 deliberate-clamp probes \\
+\midrule
+3 & Adult-only restriction: age $\geq 18$ years hard-gated in \texttt{SetupPatient.cpp}. & Source audit (monograph S003) \\
+\midrule
+4 & ARDS solver instability in the impairment-fraction band 0.91--0.945. The locked S4 scenario at 0.95 is intentionally above this band; a continuous-severity micro-sweep confirms the band (Supplement~\S\,S5). & Three independent sources (monograph Appendix B.3) \\
+\midrule
+5--6 & Heart-rate initialisation accepted only in the range 50--110~bpm; respiratory-rate initialisation accepted only in the range 8--20~bpm. Sampler ranges match. & Boundary probes in the companion translation work (monograph S003) \\
+\midrule
+7 & PC-AC over-delivers tidal volume by 11.3--25.3~\% across healthy, restrictive, and obstructive lung profiles per Pulse's own validation tables. The atlas restricts to VC-AC accordingly. & Pulse documentation; ventilator model paper~\cite{webb2022vent} \\
+\midrule
+8 & Upper airway is modelled as a single trachea resistance; there is no anatomically separate nose / pharynx compartment. & Source audit (monograph S003) \\
+\midrule
+9 & No regional ventilation--perfusion mismatch is modelled (the lung is 5-compartment lumped-parameter; intra-compartment $\dot V$/$\dot Q$ is uniform). & Structural design (monograph S003) \\
+\midrule
+10 & Reported vital capacity is approximately 7~\% above literature values per Pulse's own validation table. & Pulse documentation \\
+\midrule
+11 & Lumped-parameter limits: no inertance, linear resistance only, idealised valves. & Bray et al.\ 2019~\cite{bray2019} \\
+\midrule
+12 & No dicrotic notch, no retrograde flow; ECG P-wave and T-wave merge at high heart rate. & Pulse documentation~\cite{bray2019} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Two previously asserted but unverified claims were withdrawn before preregistration locked: (i)~the claim that Pulse crashes at FiO$_2$ = 1.0 (disproved empirically; Pulse accepts FiO$_2$ = 1.0 and produces a stable trajectory, with the transient hyperoxia regime characterised separately in main-paper \S2.4 and Supplement~\S\,S9); and (ii)~the claim that Pulse has no sex-specific physiology beyond patient weight and height (disproved by the sex-stratified divergence + blood-volume mechanism characterised in main-paper \S2.5 and Supplement~\S\,S10).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% S3 -- Full Methods detail (Phase 9.A)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Full Methods detail}\label{sec:s3}
+
+This section expands the condensed Methods section of the main paper (\S\,4) with the engine-wrapper architecture, the deterministic Docker recipe, the complete physiological-bounds and drift-threshold tables that anchor the four-flag steady-state classifier, the input-rejection regex set used to detect Pulse's setup-time clamping, and the body-dimension provenance for the two adult reference surrogates.
+
+\subsection{Engine wrapper, Docker pinning, and reproducibility}\label{sec:s3-engine}
+
+The atlas wrapper is a thin Python orchestration layer around Pulse's command-line interface. For each Morris input vector, the wrapper writes a JSON configuration file (patient surrogate, ARDS scenario condition, ventilator action set, and the seven operational inputs at their Morris values), spawns a Pulse Docker container against the pinned \texttt{pulse-pediatric-engine} image, captures the resulting steady-state CSV plus the engine setup log, and emits a per-run aggregated row into the canonical parquet. The wrapper is deterministic given the same input vector and the same Docker image; bit-exact reproduction of the canonical 1{,}280-run sweep was verified at three independent layers (the canonical Morris sample regenerated from the SALib seed, the per-cell aggregate parquets, and the derived statistical artefacts). The full Docker invocation template, including the safety caps on memory and CPU and the path-conversion handling required on Git Bash under Windows, is documented in the companion code repository.
+
+\subsection{Morris sampler implementation}\label{sec:s3-morris}
+
+The Morris elementary-effects sample is generated by SALib's \texttt{sample\_morris}~\cite{iwanaga2022} with 20 trajectories, 4 grid levels per input, and random seed 42 (the canonical sweep constants \texttt{SWEEP\_TRAJECTORIES}, \texttt{SWEEP\_LEVELS}, \texttt{SWEEP\_SEED} in \texttt{scripts/run\_full\_sweep.py}; see audit-ledger entries \texttt{T1.06e}, \texttt{T1.06f}, \texttt{T1.06g}). Each trajectory contributes $(\text{num\_inputs} + 1) = 8$ model evaluations along a one-at-a-time perturbation path through the 7-dimensional input space, yielding 160 model evaluations per (scenario, sex) cell and 1{,}280 evaluations across the full sweep. The seven input ranges (heart rate 50--110~bpm, systolic blood pressure 90--120~mmHg, diastolic blood pressure 50--80~mmHg with the post-clip pulse-pressure ratio DBP/SBP $\leq 0.75$ enforced, respiratory rate 8--20~bpm, tidal volume 300--800~mL, inspired oxygen fraction 0.21--1.0, and positive end-expiratory pressure 5--15~cmH$_2$O) match Pulse's verified setup-time acceptance bands so that the sampler never proposes inputs outside Pulse's accepted envelope.
+
+\subsection{Four-flag classifier: priority order and rationale}\label{sec:s3-detector-order}
+
+The detector's flag priority order \texttt{clamped > diverged > implausible > not\_steady\_state > clean} traces the chronology of failure modes a Pulse simulation can exhibit, from input handling through solver execution to output evaluation against biological and dynamic criteria. \texttt{clamped} is the input-contract breach: Pulse has silently substituted at least one setup input, so the simulation no longer corresponds to the Morris grid point that was requested and no downstream flag would refer to the input being studied --- disqualifying the run at this layer is non-negotiable. \texttt{diverged} is the mathematical failure: a non-zero exit code, NaN or infinite values in the CSV, a missing CSV, or a truncated simulation --- no biological interpretation is possible. \texttt{implausible} is the biological failure: the mathematics ran cleanly but the steady-state mean falls outside the hard physiological bounds in Table~\ref{tab:hard-bounds} --- mathematically valid output, biologically incompatible with a viable 60-second steady-state. \texttt{not\_steady\_state} is the dynamic failure: the output is mathematically valid and biologically coherent but the trajectory has not settled in the 60-second window (flatline at a bound, coefficient of variation above 0.05, or drift exceeding the per-channel thresholds in Table~\ref{tab:drift}) --- the result is interpretable as a transient, not as steady-state physiology.
+
+\subsection{Hard physiological bounds for the implausible flag}\label{sec:s3-hard-bounds}
+
+Table~\ref{tab:hard-bounds} reproduces the complete \texttt{HARD\_BOUNDS} dictionary from \texttt{src/detector.py}. Each \texttt{(lower, upper)} pair was locked in preregistration before any data was collected and is not revised post-hoc; the audit-ledger entries listed in the last column regex-extract each constant from the source file at audit time so any drift between the code and the ledger is caught immediately.
+
+\begin{table}[h]
+\centering
+\caption{Hard physiological bounds locked at preregistration for the \texttt{implausible} flag. SpO$_2$ is reported by Pulse as a fraction in [0, 1], hence the 0.50 / 1.00 entries (corresponding to 50~\% / 100~\% saturation). Each row is regex-extracted from \texttt{src/detector.py HARD\_BOUNDS} at audit time via the corresponding \texttt{T1.06p.*} ledger entry.}
+\label{tab:hard-bounds}
+\begin{tabular}{lrrl}
+\toprule
+Output & Lower & Upper & Ledger anchor \\
+\midrule
+HR (bpm) & 20 & 220 & \texttt{T1.06p.hr\_low}, \texttt{T1.06p.hr\_high} \\
+MAP (mmHg) & 30 & 180 & \texttt{T1.06p.map\_low}, \texttt{T1.06p.map\_high} \\
+Vt (mL) & 50 & 1500 & \texttt{T1.06p.vt\_low}, \texttt{T1.06p.vt\_high} \\
+SpO$_2$ (fraction) & 0.50 & 1.00 & \texttt{T1.06p.spo2\_low}, \texttt{T1.06p.spo2\_high} \\
+PaO$_2$ (mmHg) & 20 & 600 & \texttt{T1.06p.pao2\_low}, \texttt{T1.06p.pao2\_high} \\
+PaCO$_2$ (mmHg) & 10 & 120 & \texttt{T1.06p.paco2\_low}, \texttt{T1.06p.paco2\_high} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Each bound falls into one of three logical categories: (a) a physical or thermodynamic ceiling (the SpO$_2$ upper bound at hemoglobin saturation is definitional), (b) an equipment or engineering limit (Vt above 1{,}500~mL is at the edge of adult-ventilator delivery capability), or (c) a clinical-meaningfulness threshold below which a 60-second steady-state mean would be incompatible with a viable patient (e.g., PaO$_2 < 20$~mmHg corresponds to peripheral hemoglobin saturation in the 0.3 range on the standard oxyhemoglobin dissociation curve, below the cellular oxygen-extraction threshold). Within category (c), the exact numerical choice is a defensible judgment call rather than a unique biological constant; the alternative \texttt{HARD\_BOUNDS\_PHYSIOLOGICAL} dictionary in \texttt{src/detector.py} raises the PaO$_2$ upper bound from 600 to 700~mmHg per the alveolar-gas-equation sea-level ceiling~\cite{west2020respiratory} and powers a sensitivity-analysis side-table referenced from the main paper's hyperoxia analysis (\S\,2.4).
+
+\subsection{Drift thresholds for the not\_steady\_state flag}\label{sec:s3-drift}
+
+The companion \texttt{DRIFT\_MAX\_DELTA\_60S} dictionary (Table~\ref{tab:drift}) sets the per-channel maximum tolerated $|\Delta| = |\text{slope} \times 60~\text{s}|$ that an output may exhibit across the final 60 seconds of the steady-state window before the run is flagged \texttt{not\_steady\_state} for drift. Drift is estimated by ordinary least-squares regression on the 13 sample points in the [60, 120]~s window (5-second sample interval); the $R^2$ of the fit is logged as diagnostic metadata but does not gate the flag. These thresholds are clinical-meaningfulness anchors --- beyond them, a bedside clinician would read the trajectory as actively changing rather than at homeostasis. Like the hard bounds, each value is regex-extracted from \texttt{src/detector.py} at audit time.
+
+\begin{table}[h]
+\centering
+\caption{Maximum tolerated drift per 60-second window for the \texttt{not\_steady\_state} flag. SpO$_2$ is a fraction in [0, 1], hence 0.02 corresponds to 2 percentage points. Each row is regex-extracted from \texttt{src/detector.py DRIFT\_MAX\_DELTA\_60S} via the corresponding \texttt{T1.06q.*} ledger entry.}
+\label{tab:drift}
+\begin{tabular}{lrl}
+\toprule
+Output & Drift threshold per 60 s & Ledger anchor \\
+\midrule
+HR (bpm) & 5 & \texttt{T1.06q.hr\_drift} \\
+MAP (mmHg) & 5 & \texttt{T1.06q.map\_drift} \\
+Vt (mL) & 50 & \texttt{T1.06q.vt\_drift} \\
+SpO$_2$ (fraction) & 0.02 & \texttt{T1.06q.spo2\_drift} \\
+PaO$_2$ (mmHg) & 15 & \texttt{T1.06q.pao2\_drift} \\
+PaCO$_2$ (mmHg) & 5 & \texttt{T1.06q.paco2\_drift} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Two further \texttt{not\_steady\_state} triggers complement the drift check. The coefficient-of-variation threshold \texttt{CV\_THRESHOLD = 0.05} fires when the standard deviation of any output across the steady-state window exceeds 5~\% of its mean. The flatline-at-bound criterion fires when \texttt{std / |mean| < 0.01} AND the mean is within 0.1~\% of a hard bound, distinguishing numerical pinning at a bound from physiological saturation at that bound. Both constants are recorded in the companion code repository and are locked under the same preregistration discipline as the bounds and drift thresholds.
+
+\subsection{Clamp regex set}\label{sec:s3-clamp}
+
+The \texttt{clamped} flag fires when Pulse's setup-rejection log matches any of the following four regular-expression patterns. Each pattern targets one observed Pulse rejection message and was empirically calibrated against deliberate-clamp probes in the pilot study before the full sweep launched, replacing an earlier overly-broad regex set that produced 100~\% false-positive clamping by matching Pulse's normal solver convergence messages:
+
+\begin{lstlisting}[basicstyle=\ttfamily\small, breaklines=true]
+r"baseline of [\d\.]+ \S+ is too (?:high|low)"
+r"maximum [\w\s]+ baseline allowed is"
+r"must be modeled by adding/using a condition"
+r"is outside the valid range"
+\end{lstlisting}
+
+\noindent Detector validation on twenty reference runs in the companion translation repository was 20 / 20 clean with this regex set; this is the four-pattern surface that survives the false-positive elimination from the original regex.
+
+\subsection{Body-dimension provenance for the two adult reference surrogates}\label{sec:s3-bodies}
+
+The two adult surrogates are: a male body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both weights are the U.S.\ Centers for Disease Control and Prevention (CDC) growth-chart 50th-percentile values for 18-year-olds of each sex. The female height matches both the CDC 50th-percentile value and Pulse's own \texttt{heightStandardFemale\_cm = 163.0} reference constant in \texttt{SetupPatient.cpp}; the male height is a clinically standard adult value chosen so the male case fixes the body mass index at 20.8 (it is not Pulse's source-code \texttt{heightStandardMale\_cm = 177.0} reference, which would have yielded an above-CDC-P50 BMI). Pulse computes the resulting blood-volume baseline via the allometric relation $\text{BV} = 65.6 \cdot \text{weight}_{\text{kg}}^{1.02}$, yielding 4{,}802.63~mL for the male body and 3{,}996.09~mL for the female body --- the 17~\% sex gap whose mechanism on the input-extreme divergence cluster is characterised in main-paper \S\,2.5.
+
+\bibliography{paper}
+
+\end{document}

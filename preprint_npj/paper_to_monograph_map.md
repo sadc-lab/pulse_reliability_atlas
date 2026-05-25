@@ -72,13 +72,13 @@ caught equally.*
 
 ## Step 1 — Abstract (5 numerical claims)
 
-- paper_section: 'Abstract + §2.1 + §2.5 + Figure 4 caption + §4 Discussion + §5 Methods'
+- paper_section: 'paper.tex full + supplement.tex S3'
   paper_context: 'Total Morris simulations across the sweep'
   monograph_claim_id: 'T1.01'
   expected_value: 1280
   format_in_paper: '1{,}280'
-  expected_occurrences: 12
-  notes: 'Total occurrences of the literal pattern 1{,}280 across the paper as of Step 7: abstract (2), §2.1 (5), §2.5 prose + Figure 4 caption (2), §4 Discussion ¶1 (1), §5 Methods §4.1 "pinned for the entire 1{,}280-run sweep" (1), §5 Methods §4.3 "1{,}280 runs across the full sweep" (1) = 12. Bumped from 10 (Step 6) to 12 (Step 7).'
+  expected_occurrences: 14
+  notes: 'Total occurrences of "1{,}280" across paper.tex + supplement.tex as of Phase 9.A: paper.tex 12 (abstract 2, §2.1 5, §2.5+Fig4 2, §4 Discussion 1, Methods §4.1+§4.3 2) + supplement.tex 2 (S3.2 Morris sampler "yielding ... 1{,}280 evaluations across the full sweep" and the supplement opening paragraph cross-ref). Bumped from 12 (Step 7) to 14 (Phase 9.A) reflecting the audit-corpus extension to include supplement.tex.'
 
 - paper_section: 'Abstract + §2.3 VC-AC'
   paper_context: 'VC-AC trigger-dyssynchrony primary-flag rate (Vt CV > 0.05 under not_steady_state)'
@@ -400,13 +400,13 @@ caught equally.*
   expected_occurrences: 2
   notes: 'Appears twice in §2.5 prose: ¶2 "We re-executed the 20 originally-diverged male inputs with an explicit BloodVolumeBaseline override" (1) and Figure 4 caption "20 originally-diverged male inputs" (1).'
 
-- paper_section: '§2.5 prose (BV-rescue dose-response)'
+- paper_section: '§2.5 prose + supplement S2 limitations table footer'
   paper_context: 'Default BV dose-response starting point: 20 diverged out of 20'
   monograph_claim_id: 'T1.12'
   expected_value: 20
   format_in_paper: '20 / 20'
-  expected_occurrences: 1
-  notes: 'Appears once in §2.5 prose as the leading term of the dose-response chain "20 / 20 $\rightarrow$ 2 / 20 $\rightarrow$ 0 / 20".'
+  expected_occurrences: 2
+  notes: 'paper §2.5 prose dose-response chain (1) + supplement S2 limitations-table closing prose "20 / 20 clean with this regex set" (1). Bumped 1 -> 2 in Phase 9.A.'
 
 - paper_section: '§2.5 prose (BV-rescue dose-response)'
   paper_context: 'Bracket BV (4400 mL) dose-response: 2 diverged out of 20'
@@ -416,21 +416,21 @@ caught equally.*
   expected_occurrences: 1
   notes: 'Appears once in §2.5 prose as the middle term of the BV dose-response.'
 
-- paper_section: '§2.5 prose (BV-rescue dose-response)'
+- paper_section: '§2.5 + supplement S3.7'
   paper_context: 'Floor BV (4082.24 mL) dose-response: 0 diverged out of 20'
   monograph_claim_id: 'T2.bv.floor.diverged'
   expected_value: 0
   format_in_paper: '0 / 20'
-  expected_occurrences: 2
-  notes: 'Appears twice in §2.5: prose endpoint of dose-response chain "20 / 20 $\rightarrow$ 2 / 20 $\rightarrow$ 0 / 20" (1) and one additional ratio in the same paragraph (1).'
+  expected_occurrences: 3
+  notes: 'paper §2.5 prose dose-response chain (2) + supplement S3.7 clamp-regex validation context (1). Bumped 2 -> 3 in Phase 9.A.'
 
-- paper_section: '§2.5 prose + Figure 4 caption (×2 each)'
+- paper_section: '§2.5 + Figure 4 + supplement S3.6'
   paper_context: 'Male reference body BloodVolumeBaseline default'
   monograph_claim_id: 'T3.s027.bv_default'
   expected_value: 4802.63
   format_in_paper: '4{,}802.63'
-  expected_occurrences: 3
-  notes: 'Appears 3 times: §2.5 prose ¶2 "yielding 4{,}802.63~mL for the 67.3~kg male reference body" (1), §2.5 prose ¶2 "the default (4{,}802.63~mL)" (1), Figure 4 caption "4{,}802.63~mL default" (1). First map rows for this claim_id (was in ledger via T3.s027 but not yet in paper crosswalk).'
+  expected_occurrences: 4
+  notes: 'paper §2.5 (×2) + Figure 4 caption (1) + supplement S3.6 body-dimension provenance (1). Bumped 3 -> 4 in Phase 9.A.'
 
 - paper_section: 'Abstract + §2.5 prose (×2) + Figure 4 caption'
   paper_context: 'Male reference body BloodVolumeBaseline floor (Pulse setup-time minimum)'
@@ -440,13 +440,13 @@ caught equally.*
   expected_occurrences: 4
   notes: 'Appears 4 times as of Step 5: abstract sentence 5 "4{,}082.24~mL floor" (1), §2.5 prose ¶2 "the engine''s setup-time minimum for this body (4{,}082.24~mL, a 15.0~\% reduction)" (1), §2.5 prose ¶3 "4{,}082.24~mL on this male body" (1), Figure 4 caption "4{,}082.24~mL Pulse setup-time floor on this body" (1). Bumped from 1 (Step 1, abstract-only format "4{,}082.24~mL") to 4 (Step 5). Format simplified to just "4{,}082.24" to match all four occurrences regardless of trailing unit/context.'
 
-- paper_section: '§2.5 prose (×2) + Figure 4 caption'
+- paper_section: '§2.5 + Figure 4 + supplement S3.6'
   paper_context: 'Female reference body BloodVolumeBaseline default (Pulse allometric for 56.2 kg)'
   monograph_claim_id: 'T3.s028.bv_female_default'
   expected_value: 3996.09
   format_in_paper: '3{,}996.09'
-  expected_occurrences: 3
-  notes: 'Appears 3 times: §2.5 prose ¶2 "3{,}996.09~mL for the 56.2~kg female body" (1), §2.5 prose ¶3 "the female-computed BV (3{,}996.09~mL)" (1), Figure 4 caption "3{,}996.09~mL for the female reference body" (1). First mapping for the new ledger claim T3.s028.bv_female_default added in Step 5.'
+  expected_occurrences: 4
+  notes: 'paper §2.5 (×2) + Figure 4 caption (1) + supplement S3.6 body-dimension provenance (1). Bumped 3 -> 4 in Phase 9.A.'
 
 - paper_section: '§2.5 prose + Figure 4 caption'
   paper_context: 'Intermediate BV bracket in S018 dose-response (4400 mL = 8.4% reduction from male default)'
@@ -508,29 +508,29 @@ caught equally.*
 
 ## Step 7 — Methods reproducibility constants
 
-- paper_section: '§5 Methods §4.3 (sweep design)'
+- paper_section: '§5 Methods §4.3 + supplement S3.2'
   paper_context: 'Morris design: number of trajectories per cell'
   monograph_claim_id: 'T1.06e.morris_trajectories'
   expected_value: 20
   format_in_paper: '20 trajectories'
-  expected_occurrences: 1
-  notes: 'Appears once in §5 Methods §4.3: "used 20 trajectories at 4 grid levels per input". New ledger claim added in Step 7 (regex-extracted from scripts/run_full_sweep.py SWEEP_TRAJECTORIES).'
+  expected_occurrences: 2
+  notes: 'paper §5 Methods §4.3 (1) + supplement S3.2 Morris sampler description (1). Bumped 1 -> 2 in Phase 9.A.'
 
-- paper_section: '§5 Methods §4.3 (sweep design)'
+- paper_section: '§5 Methods §4.3 + supplement S3.2'
   paper_context: 'Morris design: number of grid levels per input'
   monograph_claim_id: 'T1.06f.morris_levels'
   expected_value: 4
   format_in_paper: '4 grid levels'
-  expected_occurrences: 1
-  notes: 'Appears once in §5 Methods §4.3 adjacent to the trajectories count.'
+  expected_occurrences: 2
+  notes: 'paper §5 Methods §4.3 (1) + supplement S3.2 (1). Bumped 1 -> 2 in Phase 9.A.'
 
-- paper_section: '§5 Methods §4.3 (sweep design)'
+- paper_section: '§5 Methods §4.3 + supplement S3.2'
   paper_context: 'Random seed for the canonical Morris sample'
   monograph_claim_id: 'T1.06g.morris_seed'
   expected_value: 42
   format_in_paper: 'seed 42'
-  expected_occurrences: 1
-  notes: 'Appears once in §5 Methods §4.3: "generated via SALib with random seed 42". New ledger claim added in Step 7 (regex-extracted from scripts/run_full_sweep.py SWEEP_SEED).'
+  expected_occurrences: 2
+  notes: 'paper §5 Methods §4.3 (1) + supplement S3.2 (1). Bumped 1 -> 2 in Phase 9.A.'
 
 - paper_section: '§2.2 + §5 Methods §4.5 (×2)'
   paper_context: 'Bootstrap resamples for Morris mu* CI'
@@ -579,3 +579,101 @@ caught equally.*
   format_in_paper: '5-second intervals'
   expected_occurrences: 1
   notes: 'Appears once in §5 Methods §4.3: "output channels sampled at 5-second intervals". New ledger claim added in Step 7 (regex-extracted from src/scenario.py SAMPLE_INTERVAL_S).'
+
+## Phase 9.A - Supplement S3 Tables S2 + S3 (HARD_BOUNDS + DRIFT row literals)
+
+- paper_section: 'Supplement S3 Table S2 HARD_BOUNDS HR row'
+  paper_context: 'HR hard physiological bounds (lower 20, upper 220 bpm)'
+  monograph_claim_id: 'T1.06p.hr_low'
+  expected_value: 20
+  format_in_paper: 'HR (bpm) & 20 & 220'
+  expected_occurrences: 1
+  notes: 'Full S2 row literal anchored on the lower bound; upper bound co-validated by literal presence. Bounds regex-extracted from src/detector.py HARD_BOUNDS["HR"] at audit time.'
+
+- paper_section: 'Supplement S3 Table S2 HARD_BOUNDS MAP row'
+  paper_context: 'MAP hard physiological bounds (lower 30, upper 180 mmHg)'
+  monograph_claim_id: 'T1.06p.map_low'
+  expected_value: 30
+  format_in_paper: 'MAP (mmHg) & 30 & 180'
+  expected_occurrences: 1
+  notes: 'Full S2 row literal anchored on lower bound.'
+
+- paper_section: 'Supplement S3 Table S2 HARD_BOUNDS Vt row'
+  paper_context: 'Vt hard physiological bounds (lower 50, upper 1500 mL)'
+  monograph_claim_id: 'T1.06p.vt_low'
+  expected_value: 50
+  format_in_paper: 'Vt (mL) & 50 & 1500'
+  expected_occurrences: 1
+  notes: 'Full S2 row literal anchored on lower bound.'
+
+- paper_section: 'Supplement S3 Table S2 HARD_BOUNDS SpO2 row'
+  paper_context: 'SpO2 hard physiological bounds (lower 0.50, upper 1.00 fraction)'
+  monograph_claim_id: 'T1.06p.spo2_low'
+  expected_value: 0.50
+  format_in_paper: 'SpO$_2$ (fraction) & 0.50 & 1.00'
+  expected_occurrences: 1
+  notes: 'Full S2 row literal anchored on lower bound. SpO2 reported by Pulse as fraction in [0, 1], hence 0.50 / 1.00.'
+
+- paper_section: 'Supplement S3 Table S2 HARD_BOUNDS PaO2 row'
+  paper_context: 'PaO2 hard physiological bounds (lower 20, upper 600 mmHg)'
+  monograph_claim_id: 'T1.06p.pao2_low'
+  expected_value: 20
+  format_in_paper: 'PaO$_2$ (mmHg) & 20 & 600'
+  expected_occurrences: 1
+  notes: 'Full S2 row literal anchored on lower bound. Upper bound 600 is the locked classifier value; HARD_BOUNDS_PHYSIOLOGICAL raises it to 700.'
+
+- paper_section: 'Supplement S3 Table S2 HARD_BOUNDS PaCO2 row'
+  paper_context: 'PaCO2 hard physiological bounds (lower 10, upper 120 mmHg)'
+  monograph_claim_id: 'T1.06p.paco2_low'
+  expected_value: 10
+  format_in_paper: 'PaCO$_2$ (mmHg) & 10 & 120'
+  expected_occurrences: 1
+  notes: 'Full S2 row literal anchored on lower bound.'
+
+- paper_section: 'Supplement S3 Table S3 DRIFT HR row'
+  paper_context: 'HR drift threshold per 60 s = 5 bpm'
+  monograph_claim_id: 'T1.06q.hr_drift'
+  expected_value: 5
+  format_in_paper: 'HR (bpm) & 5 &'
+  expected_occurrences: 1
+  notes: 'Full S3 row literal (drift table). Pattern includes trailing ampersand to disambiguate from the HARD_BOUNDS HR row "HR (bpm) & 20 & 220".'
+
+- paper_section: 'Supplement S3 Table S3 DRIFT MAP row'
+  paper_context: 'MAP drift threshold per 60 s = 5 mmHg'
+  monograph_claim_id: 'T1.06q.map_drift'
+  expected_value: 5
+  format_in_paper: 'MAP (mmHg) & 5 &'
+  expected_occurrences: 1
+  notes: 'Full S3 row literal; trailing & disambiguates from HARD_BOUNDS row.'
+
+- paper_section: 'Supplement S3 Table S3 DRIFT Vt row'
+  paper_context: 'Vt drift threshold per 60 s = 50 mL'
+  monograph_claim_id: 'T1.06q.vt_drift'
+  expected_value: 50
+  format_in_paper: 'Vt (mL) & 50 & \texttt{T1.06q.vt\_drift}'
+  expected_occurrences: 1
+  notes: 'Vt drift threshold (50) and Vt hard lower bound (50) are coincidentally identical, so the shorter pattern "Vt (mL) & 50 &" matched both rows. Disambiguated by including the trailing ledger-anchor column (\texttt{T1.06q.vt\_drift}) so the pattern uniquely matches the DRIFT row.'
+
+- paper_section: 'Supplement S3 Table S3 DRIFT SpO2 row'
+  paper_context: 'SpO2 drift threshold per 60 s = 0.02 fraction (2 percentage points)'
+  monograph_claim_id: 'T1.06q.spo2_drift'
+  expected_value: 0.02
+  format_in_paper: 'SpO$_2$ (fraction) & 0.02 &'
+  expected_occurrences: 1
+  notes: 'Full S3 row literal; trailing & disambiguates from HARD_BOUNDS row.'
+
+- paper_section: 'Supplement S3 Table S3 DRIFT PaO2 row'
+  paper_context: 'PaO2 drift threshold per 60 s = 15 mmHg'
+  monograph_claim_id: 'T1.06q.pao2_drift'
+  expected_value: 15
+  format_in_paper: 'PaO$_2$ (mmHg) & 15 &'
+  expected_occurrences: 1
+  notes: 'Full S3 row literal; trailing & disambiguates from HARD_BOUNDS row.'
+
+- paper_section: 'Supplement S3 Table S3 DRIFT PaCO2 row'
+  paper_context: 'PaCO2 drift threshold per 60 s = 5 mmHg'
+  monograph_claim_id: 'T1.06q.paco2_drift'
+  expected_value: 5
+  format_in_paper: 'PaCO$_2$ (mmHg) & 5 &'
+  expected_occurrences: 1
+  notes: 'Full S3 row literal; trailing & disambiguates from HARD_BOUNDS row.'

@@ -256,7 +256,16 @@ def check_paper_sync(ledger_claims: list[Claim]) -> tuple[int, int, int]:
         )
         return (0, 0, 0)
 
+    # S028 Phase 9.A: extend the sync corpus to include supplement.tex when
+    # it exists. The single shared paper_to_monograph_map.md spans both
+    # documents per the approved chunking strategy; expected_occurrences in
+    # any row is the TOTAL count across paper + supplement.
     paper_tex = paper_path.read_text(encoding="utf-8")
+    supp_path = REPO / "preprint_npj" / "supplement.tex"
+    if supp_path.exists():
+        sync_corpus = paper_tex + "\n" + supp_path.read_text(encoding="utf-8")
+    else:
+        sync_corpus = paper_tex
     ledger_by_id = {c.claim_id: c for c in ledger_claims}
 
     rows: list[dict] = []
@@ -274,9 +283,11 @@ def check_paper_sync(ledger_claims: list[Claim]) -> tuple[int, int, int]:
         except (TypeError, ValueError):
             map_expected = float("nan")
 
-        # Occurrence-count check on paper.tex (literal-string regex).
+        # Occurrence-count check on the combined paper + supplement corpus
+        # (literal-string regex). expected_occurrences is the total across
+        # both documents per the Step 9 single-shared-map convention.
         count = (
-            len(re.findall(re.escape(fmt), paper_tex)) if fmt else 0
+            len(re.findall(re.escape(fmt), sync_corpus)) if fmt else 0
         )
 
         status = "PASS"
@@ -1607,6 +1618,94 @@ add(
     computed_value=SAMPLE_INTERVAL_SECONDS,
     tolerance_rule="exact_int",
 )
+
+# S028 Phase 9.A additions: HARD_BOUNDS + DRIFT_MAX_DELTA_60S detector
+# constants from src/detector.py, regex-extracted at audit time. These
+# constants are cited verbatim in Supplement S3 (Tables S2 + S3) and
+# must remain in lock-step with the source code or the supplement's
+# steady-state classifier description silently desynchronises from the
+# actual implementation. Same regex-extraction discipline as the
+# Morris / scenario / BV constants in Step 7 and Step 5.
+_detector_py = (REPO / "src" / "detector.py").read_text(encoding="utf-8")
+
+# HARD_BOUNDS dict body: extract the 6 (lower, upper) pairs.
+_m_hb_block = re.search(
+    r"HARD_BOUNDS:\s*dict\[str,\s*tuple\[float,\s*float\]\]\s*=\s*\{([^}]+)\}",
+    _detector_py,
+    re.DOTALL,
+)
+assert _m_hb_block is not None, "audit_claims: HARD_BOUNDS block not located in src/detector.py"
+_hb_text = _m_hb_block.group(1)
+_HARD_BOUNDS_FROM_SRC: dict[str, tuple[float, float]] = {}
+for _m in re.finditer(r'"(\w+)":\s*\(([\d.]+),\s*([\d.]+)\)', _hb_text):
+    _HARD_BOUNDS_FROM_SRC[_m.group(1)] = (float(_m.group(2)), float(_m.group(3)))
+assert len(_HARD_BOUNDS_FROM_SRC) == 6, (
+    f"audit_claims: expected 6 HARD_BOUNDS entries, got {len(_HARD_BOUNDS_FROM_SRC)}"
+)
+# Reference values declared verbatim in Supplement S3 Table S2 (locked at
+# preregistration; SpO2 is reported as a fraction by Pulse).
+_HARD_BOUNDS_REF: dict[str, tuple[float, float]] = {
+    "HR":    (20.0, 220.0),
+    "MAP":   (30.0, 180.0),
+    "Vt":    (50.0, 1500.0),
+    "SpO2":  (0.50, 1.00),
+    "PaO2":  (20.0, 600.0),
+    "PaCO2": (10.0, 120.0),
+}
+for _ch, (_lo, _hi) in _HARD_BOUNDS_REF.items():
+    _src_lo, _src_hi = _HARD_BOUNDS_FROM_SRC[_ch]
+    add(
+        claim_id=f"T1.06p.{_ch.lower()}_low",
+        section=f"Supplement S3 Table S2 ({_ch} lower bound)",
+        manuscript_text=f"{_ch} hard lower bound = {_lo}",
+        source_file=f"src/detector.py HARD_BOUNDS['{_ch}'][0]",
+        manuscript_value=_lo,
+        computed_value=_src_lo,
+        tolerance_rule="displayed_2dp",
+    )
+    add(
+        claim_id=f"T1.06p.{_ch.lower()}_high",
+        section=f"Supplement S3 Table S2 ({_ch} upper bound)",
+        manuscript_text=f"{_ch} hard upper bound = {_hi}",
+        source_file=f"src/detector.py HARD_BOUNDS['{_ch}'][1]",
+        manuscript_value=_hi,
+        computed_value=_src_hi,
+        tolerance_rule="displayed_2dp",
+    )
+
+# DRIFT_MAX_DELTA_60S dict body: extract the 6 per-channel thresholds.
+_m_drift_block = re.search(
+    r"DRIFT_MAX_DELTA_60S:\s*dict\[str,\s*float\]\s*=\s*\{([^}]+)\}",
+    _detector_py,
+    re.DOTALL,
+)
+assert _m_drift_block is not None, "audit_claims: DRIFT_MAX_DELTA_60S block not located in src/detector.py"
+_drift_text = _m_drift_block.group(1)
+_DRIFT_FROM_SRC: dict[str, float] = {}
+for _m in re.finditer(r'"(\w+)":\s*([\d.]+)', _drift_text):
+    _DRIFT_FROM_SRC[_m.group(1)] = float(_m.group(2))
+assert len(_DRIFT_FROM_SRC) == 6, (
+    f"audit_claims: expected 6 DRIFT_MAX_DELTA_60S entries, got {len(_DRIFT_FROM_SRC)}"
+)
+_DRIFT_REF: dict[str, float] = {
+    "HR":    5.0,
+    "MAP":   5.0,
+    "Vt":    50.0,
+    "SpO2":  0.02,
+    "PaO2":  15.0,
+    "PaCO2": 5.0,
+}
+for _ch, _val in _DRIFT_REF.items():
+    _src_val = _DRIFT_FROM_SRC[_ch]
+    add(
+        claim_id=f"T1.06q.{_ch.lower()}_drift",
+        section=f"Supplement S3 Table S3 ({_ch} drift threshold)",
+        manuscript_text=f"{_ch} max drift per 60 s = {_val}",
+        source_file=f"src/detector.py DRIFT_MAX_DELTA_60S['{_ch}']",
+        manuscript_value=_val,
+        computed_value=_src_val,
+        tolerance_rule="displayed_2dp",
+    )
 
 # -----------------------------------------------------------------------------
 # Output: markdown table sorted FAIL > WARN > PASS, then by claim_id.
