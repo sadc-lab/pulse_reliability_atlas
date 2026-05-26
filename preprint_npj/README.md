@@ -155,6 +155,28 @@ Graceful degradation: if `paper.tex` or the map file is missing,
 the audit emits a `WARN` and continues with the legacy 195-claim
 ledger unaffected.
 
+### Monograph PDF rebuild discipline (S028 Step 10 retroactive)
+
+Every commit that touches `preprint/manuscript.md` (the monograph
+source markdown) MUST also rebuild the monograph PDF via
+`scripts/build_paper.ps1` in the same review session. The build
+artefacts (`preprint/build/manuscript.{tex,pdf}`) are gitignored,
+so a stale local PDF is invisible to `git status` / `git diff` and
+can silently lag behind the markdown source. The S028 Step 3 email
+correction (2026-05-23) was an example of this lag: the markdown
+source was correct from that commit forward, but the rendered PDF
+on disk remained stale until the Step 10 retroactive sync caught
+it. The rule: `preprint/manuscript.md` edited ⇒
+`scripts/build_paper.ps1` re-run in the same review session, even
+though the resulting PDF is not committed.
+
+The equivalent rule for the npj submission package: every commit
+that touches `preprint_npj/paper.tex` or
+`preprint_npj/supplement.tex` MUST rebuild via
+`preprint_npj/build_npj.ps1`. The `--check-paper-sync` audit
+catches drift in quantitative claims; this rule catches drift in
+the rendered output.
+
 ### Layer 3 — atomic dual-commit convention
 
 Every commit that changes scientific content in either document

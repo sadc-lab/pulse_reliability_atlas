@@ -1,7 +1,7 @@
 ---
 title: "Pulse Reliability Atlas: first sensitivity, clamping, and divergence map for the Pulse Physiology Engine v4.3.1"
-author: "Santino Nanini^1,2,3,4^"
-date: "2026-05-23"
+author: "Santino Nanini^1,2,3,4,\\*^, Philippe Jouvet^5^, Cyril Schweitzer^5^, Arnaud Wiedemann^5^, Michael Sauthier^5^"
+date: "2026-05-26"
 header-includes:
   - \renewcommand{\arraystretch}{1.35}
 ---
@@ -15,6 +15,10 @@ header-includes:
 ^3^ Clinical Decision Support System Artificial Intelligence Health Cluster in Acute Child Care, PE-DIATRICS, CHU Ste-Justine Centre Hospitalier Universitaire Mère-Enfant, Montréal, Canada.
 
 ^4^ Pediatric Intensive Care Unit, Department of Pediatrics CHU Sainte-Justine, Université de Montréal, Montreal, QC, Canada.
+
+^5^ [AFFILIATION PLACEHOLDER]
+
+^\*^ Corresponding author.
 
 **Correspondence.** santino.nanini@umontreal.ca
 
@@ -334,6 +338,12 @@ The paper is the first publishable output in the maintainer's PhD
 pipeline. Two downstream papers — pediatric translation layer (in
 preparation, validation underway) and native pediatric Pulse fork
 (planned) — both depend on knowing where adult Pulse is trustworthy.
+Characterising the adult engine's operational envelope is therefore
+a *methodological prerequisite* for the downstream pediatric
+translation work: pediatric physiological dynamics differ
+fundamentally from adult dynamics, and any pediatric adaptation of
+Pulse must first establish where the adult engine itself is
+trustworthy.
 This atlas is that prerequisite.
 
 *Scope and limitations preview.* The atlas characterises adult
@@ -1572,6 +1582,31 @@ the engine's setup log on the atlas sweep, this gives
 **3,996.09 mL** for the female (56.2 kg) — a ~17 % difference.
 (Pulse logs both values at setup time on every run.)
 
+**Methodological disambiguation: absolute vs weight-normalized BV.**
+The ~17 % absolute-mL sex gap is almost entirely driven by the
+body-mass difference between the two reference surrogates (67.3 vs
+56.2 kg, also a ~17 % difference). When normalized by body weight,
+the per-kg blood-volume indices are essentially identical:
+4,802.63 / 67.3 = **71.4 mL/kg** for the male body and
+3,996.09 / 56.2 = **71.1 mL/kg** for the female (a ~0.4 % per-kg
+gap). The allometric formula `BV = 65.6 × weight_kg^1.02` scales
+blood volume nearly linearly with weight (the 1.02 exponent is close
+to 1.0), so weight-normalized BV is approximately constant across
+body masses by construction. The atlas's sex-stratified divergence
+finding is therefore correctly stated in absolute-mL terms because
+Pulse's internal `BloodVolumeBaseline` floor (4,082.24 mL on this
+male body = 60.7 mL/kg) is parameterized on absolute volumes, not on
+per-kg physiology; the BV-mechanism characterisation in this section
+is about how Pulse's solver responds to absolute-BV values near its
+setup-time floor on the male reference body, not a claim about
+per-kg blood-volume physiology in real patients. Pooling male and
+female Pulse-generated synthetic cohorts in machine-learning
+pipelines without flag-stratified filtering still introduces a
+hidden sex covariate at the male surrogate's divergence boundary,
+but downstream users adapting the result to clinical inference
+should not extrapolate to a per-kg sex-physiology claim that the
+data does not support.
+
 Several other parameters are sex-conditional: ideal-body-weight
 (Devine formula coefficient 50.0 vs 45.5), fat-fraction standard
 (0.21 vs 0.28), height bounds (151 – 176 cm vs 163 – 190 cm). Among
@@ -2732,7 +2767,11 @@ downstream lines of work, both currently in preparation:
   uses the atlas's μ\* rankings and reliability traffic-light grid as
   the backdrop for what the translation layer is allowed to do —
   explicitly, the translation layer must keep its output baselines
-  inside the green / yellow cells of Figure 6.
+  inside the green / yellow cells of Figure 6. The present
+  adult-envelope characterisation is the *methodological prerequisite*
+  for this translation work: pediatric physiological dynamics differ
+  fundamentally from adult dynamics and cannot be safely adapted from
+  an unmapped substrate.
 * **Native pediatric Pulse fork (Paper 2, planned).** Modifies
   Pulse's C++ source for paediatric physiology. Source-code patch
   ordering is prioritised by the atlas's input-importance ranking:
@@ -2961,14 +3000,18 @@ We gratefully acknowledge the support of the CHU Sainte-Justine
 Foundation in Montreal and the Artificial Intelligence Applied to
 Pediatric Acute Care Research Group (R-SADC) in Montreal, Canada.
 
-**Author contributions.** S.N. designed the study, performed all
-analyses, wrote all of the manuscript, and is solely responsible
-for the scientific claims and statistical interpretations contained
-herein. AI tooling (Claude Code, `claude-opus-4-7`) provided
-drafting / refactoring / reviewer-style critique assistance on text
-and code only, as detailed in §8.
+**Author contributions.** S.N. conceptualised the study, designed
+the Morris sweep and the four-flag steady-state classifier,
+performed all computational runs and statistical analyses, and
+wrote the manuscript. P.J., C.S., A.W., and M.S. provided scientific
+supervision, contributed to the interpretation of the findings in
+their clinical context, and reviewed the manuscript. All authors
+approved the final version. AI tooling (Claude Code,
+`claude-opus-4-7`) provided drafting / refactoring /
+reviewer-style critique assistance on text and code only, as
+detailed in §8.
 
-**Competing interests.** The author declares no competing
+**Competing interests.** The authors declare no competing
 interests, financial or otherwise.
 
 ---
@@ -2982,15 +3025,15 @@ work were carried out with the assistance of AI tools.
   in this repository were drafted, edited, refactored, or debugged
   with the assistance of **Claude Code** (Anthropic; model
   `claude-opus-4-7`). Every AI-assisted code change was reviewed,
-  tested, and committed by the human author; all preregistered
+  tested, and committed by S.N.; all preregistered
   thresholds, hypotheses, and experimental decisions were authored
-  and locked by the human author before the corresponding analyses
+  and locked by S.N. before the corresponding analyses
   were run. AI tooling did not modify preregistration content or
   finalised numerical results.
 * **Manuscript drafting and editing.** Portions of this manuscript
   were drafted and edited with the assistance of Claude Code. All
   scientific claims, statistical interpretations, and citations
-  were authored, verified, and accepted by the human author. Every
+  were authored, verified, and accepted by S.N. Every
   numerical claim in the paper traces to a primary source or an
   experiment log entry under `experiments_log/santino/`, and the
   references were individually verified against their DOI / PMID

@@ -173,7 +173,8 @@ Every commit in the S028 series, in chronological order, with the file footprint
 | 12 | `ba3ff4c` | Phase 9.B | supplement.tex + figs + paper hyperref | Supplement S4 (extended Table 1) + S5 (ARDS instability zone + Figure S1) + S6 (Spearman + Figure S2) + S7 (Cornish 15-channel) + TOC + paper.tex hyperref polish + 5 map row bumps |
 | 13 | `1210d1b` | Phase 9.C | supplement.tex + figs + ledger | Supplement S8 (VC-AC + Figure S4 50 Hz waveform) + S9 (hyperoxia + Figure S3) + S10 (BV mechanism abs + mL/kg) + 3 new audit-ledger kinetic anchors + 16 map-row bumps |
 | 14 | `8a6ebec` | Phase 9.D | supplement.tex + map | Supplement S11 (engine recommendations) + S12 (reproducibility recipe with Docker code blocks) + S13 (NSS + SHAP cross-verification) + S14 (monograph pointer) + 3 final map bumps. SUPPLEMENT COMPLETE (14 / 14 sections, 27 pages) |
-| 15 | TBD (this commit) | Step 10 | paper.tex + build script + S028 entry | xr-hyper live cross-references (7 wired) + build-order flip (supplement first) + this S028 lab-notebook entry + index regeneration |
+| 15 | `5935d95` | Step 10 | paper.tex + build script + S028 entry | xr-hyper live cross-references (7 wired) + build-order flip (supplement first) + this S028 lab-notebook entry + index regeneration |
+| 16 | (this commit) | Step 10 retroactive | monograph.md + README + S028 entry | Sync repair: three drifts caught by post-Step-10 audit propagated to monograph (multi-author 5-author block + pediatric "methodological prerequisite" framing in §1 and §4.6 + mL/kg BV-confounder disambiguation in §3.5); README updated with mandatory `build_paper.ps1` rebuild rule; this row added to the traceability table self-referentially |
 
 ## Limitations
 
