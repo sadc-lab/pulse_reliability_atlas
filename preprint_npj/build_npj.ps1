@@ -93,17 +93,23 @@ function Build-LatexDocument {
 }
 
 # --- Drive build of the requested targets.
-if (-not $SupplementOnly) {
-    if (-not (Test-Path $PaperTex)) { throw "Main manuscript not found: $PaperTex" }
-    Build-LatexDocument $PaperTex
-}
-
+#
+# Build order: SUPPLEMENT FIRST, then paper. This is mandatory for the
+# xr-hyper cross-document references (Step 10 of S028) so that paper.tex
+# can read supplement.aux to resolve dynamic supplement section / figure
+# / table numbers. If supplement.tex is absent, the paper still builds
+# (xr-hyper warns but does not fail).
 if (-not $MainOnly) {
     if (Test-Path $SuppTex) {
         Build-LatexDocument $SuppTex
     } else {
-        Write-Host "supplement.tex not present yet -- skipping (will be added at Step 9)." -ForegroundColor DarkGray
+        Write-Host "supplement.tex not present yet -- skipping (build paper-only)." -ForegroundColor DarkGray
     }
+}
+
+if (-not $SupplementOnly) {
+    if (-not (Test-Path $PaperTex)) { throw "Main manuscript not found: $PaperTex" }
+    Build-LatexDocument $PaperTex
 }
 
 Write-Host ""

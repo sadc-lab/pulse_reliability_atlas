@@ -6,12 +6,13 @@ This file is rebuilt from the YAML frontmatter of every entry in
 `santino/`, `contributor2/`, and `shared/`. To update it, edit the experiment
 and recommit — the pre-commit hook regenerates and stages this file.
 
-Total entries: **27**
+Total entries: **28**
 
 ## All experiments (newest first)
 
 | ID | Date | Author | Status | Title |
 |---|---|---|---|---|
+| `S028` | 2026-05-26 | santino | done | [S028 — npj Digital Medicine submission: extract `paper.tex` (~12 pp) + `supplement.tex` (~22 pp) from the 92-page audited monograph, under a strict Zero-Hallucination + audit-ledger lock-step discipline](santino/S028_npj_submission_extraction.md) |
 | `S027` | 2026-05-23 | santino | done | [S027 — §1.1 Pulse-in-a-nutshell explainer + §4.7 engine-side recommendations](santino/S027_pulse_intro_and_engine_recommendations.md) |
 | `S026` | 2026-05-22 | santino | done | [S026 — Final pre-arXiv polish](santino/S026_pre_arxiv_polish.md) |
 | `S025` | 2026-05-22 | santino | done | [S025 — Pre-release OSS code-hygiene audit and fixes](santino/S025_oss_release_hygiene.md) |
@@ -69,6 +70,7 @@ Total entries: **27**
 - `S025` (2026-05-22, done) — [S025 — Pre-release OSS code-hygiene audit and fixes](santino/S025_oss_release_hygiene.md) — _oss-release, pre-submission, manuscript-polish, reviewer-defense, readme-audit, traceability_
 - `S026` (2026-05-22, done) — [S026 — Final pre-arXiv polish](santino/S026_pre_arxiv_polish.md) — _pre-arxiv, manuscript-polish, figures-embed, traceability, release-mechanics_
 - `S027` (2026-05-23, done) — [S027 — §1.1 Pulse-in-a-nutshell explainer + §4.7 engine-side recommendations](santino/S027_pulse_intro_and_engine_recommendations.md) — _manuscript-additions, pulse-explainer, engine-recommendations, traceability, post-arxiv-polish_
+- `S028` (2026-05-26, done) — [S028 — npj Digital Medicine submission: extract `paper.tex` (~12 pp) + `supplement.tex` (~22 pp) from the 92-page audited monograph, under a strict Zero-Hallucination + audit-ledger lock-step discipline](santino/S028_npj_submission_extraction.md) — _npj-submission, manuscript-splitting, latex, audit-ledger, zero-hallucination, human-ai-workflow, regex-extraction, incremental-build, xr-hyper_
 
 ## By tag
 
@@ -81,6 +83,9 @@ Total entries: **27**
 ### `audit`
 - `S015` — [S015 — Reproducibility and Logic Audit (pre-publication double-check)](santino/S015_reproducibility_and_logic_audit.md)
 - `S024` — [S024 — Pre-submission claims-ledger audit](santino/S024_claims_ledger_audit.md)
+
+### `audit-ledger`
+- `S028` — [S028 — npj Digital Medicine submission: extract `paper.tex` (~12 pp) + `supplement.tex` (~22 pp) from the 92-page audited monograph, under a strict Zero-Hallucination + audit-ledger lock-step discipline](santino/S028_npj_submission_extraction.md)
 
 ### `blood-volume`
 - `S018` — [S018 — Blood-volume mechanism falsification test (Phase B item B2): dose-response bracket on the 20 originally-diverged male inputs](santino/S018_blood_volume_falsification.md)
@@ -223,14 +228,23 @@ Total entries: **27**
 ### `hardware`
 - `S001` — [S001 — Docker + hardware smoke test (3× parallel Pulse)](santino/S001_docker_smoke_test.md)
 
+### `human-ai-workflow`
+- `S028` — [S028 — npj Digital Medicine submission: extract `paper.tex` (~12 pp) + `supplement.tex` (~22 pp) from the 92-page audited monograph, under a strict Zero-Hallucination + audit-ledger lock-step discipline](santino/S028_npj_submission_extraction.md)
+
 ### `hyperoxia`
 - `S021` — [S021 — Hyperoxia convergence: testing the F-003 transient-regime hypothesis](santino/S021_hyperoxia_convergence.md)
 
 ### `image-build`
 - `S004` — [S004 — Scenario-init smoke test (4×2 cells) + atlas Docker image + detector recalibration](santino/S004_scenario_smoke_and_atlas_image.md)
 
+### `incremental-build`
+- `S028` — [S028 — npj Digital Medicine submission: extract `paper.tex` (~12 pp) + `supplement.tex` (~22 pp) from the 92-page audited monograph, under a strict Zero-Hallucination + audit-ledger lock-step discipline](santino/S028_npj_submission_extraction.md)
+
 ### `infrastructure`
 - `S002` — [S002 — Project bootstrap (separate repo, skeleton, licensing)](santino/S002_project_bootstrap.md)
+
+### `latex`
+- `S028` — [S028 — npj Digital Medicine submission: extract `paper.tex` (~12 pp) + `supplement.tex` (~22 pp) from the 92-page audited monograph, under a strict Zero-Hallucination + audit-ledger lock-step discipline](santino/S028_npj_submission_extraction.md)
 
 ### `lexical-precision`
 - `S013` — [S013 — Lexical lockdown (solver-divergence vs implausible-output taxonomy)](santino/S013_lexical_lockdown.md)
@@ -266,6 +280,9 @@ Total entries: **27**
 - `S025` — [S025 — Pre-release OSS code-hygiene audit and fixes](santino/S025_oss_release_hygiene.md)
 - `S026` — [S026 — Final pre-arXiv polish](santino/S026_pre_arxiv_polish.md)
 
+### `manuscript-splitting`
+- `S028` — [S028 — npj Digital Medicine submission: extract `paper.tex` (~12 pp) + `supplement.tex` (~22 pp) from the 92-page audited monograph, under a strict Zero-Hallucination + audit-ledger lock-step discipline](santino/S028_npj_submission_extraction.md)
+
 ### `mechanism`
 - `S008` — [S008 — Tier-1 statistical refinement: block bootstrap, within-sex Wasserstein null, divergence mechanism, manuscript polish](santino/S008_tier1_statistical_refinement.md)
 
@@ -290,6 +307,9 @@ Total entries: **27**
 
 ### `novelty-audit`
 - `S020` — [S020 — Pre-submission novelty audit: verifying that every "first" / "novel" claim in the manuscript survives a literature double-check](santino/S020_novelty_audit.md)
+
+### `npj-submission`
+- `S028` — [S028 — npj Digital Medicine submission: extract `paper.tex` (~12 pp) + `supplement.tex` (~22 pp) from the 92-page audited monograph, under a strict Zero-Hallucination + audit-ledger lock-step discipline](santino/S028_npj_submission_extraction.md)
 
 ### `null-distribution`
 - `S008` — [S008 — Tier-1 statistical refinement: block bootstrap, within-sex Wasserstein null, divergence mechanism, manuscript polish](santino/S008_tier1_statistical_refinement.md)
@@ -338,6 +358,9 @@ Total entries: **27**
 
 ### `references`
 - `S010` — [S010 — Literature-review pass: every reference verified against DOI / PMID](santino/S010_literature_review.md)
+
+### `regex-extraction`
+- `S028` — [S028 — npj Digital Medicine submission: extract `paper.tex` (~12 pp) + `supplement.tex` (~22 pp) from the 92-page audited monograph, under a strict Zero-Hallucination + audit-ledger lock-step discipline](santino/S028_npj_submission_extraction.md)
 
 ### `release-mechanics`
 - `S026` — [S026 — Final pre-arXiv polish](santino/S026_pre_arxiv_polish.md)
@@ -434,4 +457,10 @@ Total entries: **27**
 
 ### `version-tracking`
 - `S016` — [S016 — Pulse GitLab + literature re-audit (May 2026): version state, V&V infrastructure, and the 2020 sensitivity-analysis study tag](santino/S016_pulse_gitlab_audit_may2026.md)
+
+### `xr-hyper`
+- `S028` — [S028 — npj Digital Medicine submission: extract `paper.tex` (~12 pp) + `supplement.tex` (~22 pp) from the 92-page audited monograph, under a strict Zero-Hallucination + audit-ledger lock-step discipline](santino/S028_npj_submission_extraction.md)
+
+### `zero-hallucination`
+- `S028` — [S028 — npj Digital Medicine submission: extract `paper.tex` (~12 pp) + `supplement.tex` (~22 pp) from the 92-page audited monograph, under a strict Zero-Hallucination + audit-ledger lock-step discipline](santino/S028_npj_submission_extraction.md)
 
