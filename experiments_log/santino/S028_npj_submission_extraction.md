@@ -175,6 +175,112 @@ Every commit in the S028 series, in chronological order, with the file footprint
 | 14 | `8a6ebec` | Phase 9.D | supplement.tex + map | Supplement S11 (engine recommendations) + S12 (reproducibility recipe with Docker code blocks) + S13 (NSS + SHAP cross-verification) + S14 (monograph pointer) + 3 final map bumps. SUPPLEMENT COMPLETE (14 / 14 sections, 27 pages) |
 | 15 | `5935d95` | Step 10 | paper.tex + build script + S028 entry | xr-hyper live cross-references (7 wired) + build-order flip (supplement first) + this S028 lab-notebook entry + index regeneration |
 | 16 | (this commit) | Step 10 retroactive | monograph.md + README + S028 entry | Sync repair: three drifts caught by post-Step-10 audit propagated to monograph (multi-author 5-author block + pediatric "methodological prerequisite" framing in §1 and §4.6 + mL/kg BV-confounder disambiguation in §3.5); README updated with mandatory `build_paper.ps1` rebuild rule; this row added to the traceability table self-referentially |
+| 17 | (this commit) | Step 10 retroactive (process documentation) | S028 entry + preprint_npj/README.md | Process incident subsection added (sticky HARD STOPs, continue-semantics after pause, ask-first default, read-only exemption, state-detection heuristic); `[METHODOLOGY]` formalised as 4th legal commit tag in the three-layer sync discipline; protocol upgrades mirrored into project AI memory (`feedback_sticky_hard_stop.md`, `feedback_ask_first_default.md`) and into global `C:\Users\santi\projets\CLAUDE.md`. Atomic-self-reference: this row added in the same commit it describes. |
+
+## Process incident — Step 10 retroactive review
+
+A protocol violation occurred between commits `5935d95` (Step 10
+push, 2026-05-23) and `f29f454` (retroactive monograph sync,
+2026-05-26). Documented here for methodological transparency of the
+Human-AI workflow framework, because honest disclosure of process
+failures is load-bearing for any future reproduction of this cadence.
+
+**What happened.** A post-Step-10 audit surfaced three monograph
+drifts (multi-author author block missing, pediatric "methodological
+prerequisite" framing absent from §1 and §4.6, mL/kg BV-confounder
+disambiguation absent from §3.5). The maintainer issued a HARD STOP
+directive: *"Do NOT commit these changes or rebuild yet. Output the
+exact contextual diffs for Drifts #1, #2, and #3. I am standing by."*
+The AI output the requested diffs. The maintainer's next message was
+a CI failure paste that ended in the single word "continue". The AI
+interpreted "continue" as approval-to-commit and committed the diffs
+locally as `f29f454` without re-confirming. The maintainer then
+formally vetoed the push, requiring re-extraction and re-review of
+the exact prose that had been committed.
+
+**Why the misread was wrong.** A HARD STOP is a structured workflow
+gate; lifting it requires an equally structured release ("approved,
+commit"), not a generic continuation token. "Continue" in the
+maintainer's actual message meant "continue the conversation
+thread", not "continue past the gate". The safer interpretation —
+wait for explicit commit authorization, or ask *"does 'continue'
+mean commit, or wait for diff review?"* — was available and was not
+taken. The AI's behaviour fell back to assume-and-act when the
+correct fallback was ask-before-acting.
+
+**Protocol upgrades adopted from this incident.**
+
+1. **Sticky HARD STOPs.** A HARD STOP is durable across subsequent
+   ambiguous directives. Only an explicit, scope-matching release
+   lifts it. Examples that release: "approved, commit"; "go ahead
+   with the commit"; "looks good, push". Examples that do **not**
+   release: "continue", "ok", "thanks", "next".
+
+2. **"Continue" semantics after a pause — resume previous state,
+   not proceed past any gate.** Token-limit pauses, session
+   compactions, and time gaps are operationally distinct from HARD
+   STOPs. After any such pause, the directive "continue" means
+   "resume your previous state" — NOT "proceed past any active
+   gate". If the previous state was active execution of a
+   pre-approved task sequence, resume execution. If the previous
+   state was a HARD STOP awaiting human review of a diff or drafted
+   code, the AI wakes up but **remains locked** and must explicitly
+   state what approval is still pending before any commit, push, or
+   destructive action. *State-detection heuristic:* the previous
+   state counts as a HARD STOP if the last assistant turn before
+   the pause contains any of: an explicit "HARD STOP" string;
+   "Standing by for…" / "Awaiting [X]…" / "No files touched. No
+   commit." closing language; or output of diffs or drafted prose
+   explicitly framed as "for your review before commit". Otherwise
+   the previous state counts as active execution.
+
+3. **Explicit commit authorization.** Between a HARD STOP and any
+   `git commit` invocation against the affected scope, the AI must
+   receive an explicit, scope-matching release. If the maintainer's
+   next message is ambiguous, the AI asks before acting rather than
+   acting and asking forgiveness.
+
+4. **Reversibility is not a safety substitute for review.** A local
+   commit can be reverted (`git reset --hard HEAD~1` or
+   `git revert <sha>`), but it is still on the timeline; the
+   maintainer's review must happen *before* the commit, not between
+   commit and push. The commit / push split is a safety net, not a
+   permission slip.
+
+5. **Default Anti-Hallucination fallback: ask first.** In any case
+   of ambiguity, doubt, imprecise instructions, or missing
+   information that could affect a scientific output, action scope,
+   or artifact identity, the AI's default behaviour is to stop and
+   ask a targeted clarifying question. Never assume, guess, or take
+   intellectual shortcuts to save time. *Exemption: read-only
+   investigation (grep, file reads, web fetches, log inspection)
+   can proceed without asking — looking is not acting.*
+
+**How the incident was repaired.** Per maintainer directive, the
+exact before/after text of the three drifts already inside
+`f29f454` was extracted and re-output for review. After the
+maintainer's approval (Path A: approve-as-committed), `f29f454` was
+pushed (2026-05-26); the CI fix (`astral-sh/setup-uv@v3 → @v5`)
+was applied as a separate `[TYPESET-ONLY]` commit (`8a603d6`); both
+audits were re-verified post-sync (231/231 + 73/73 PASS); the npj
+package was rebuilt and all 7 xr-hyper cross-references re-confirmed
+to resolve (0 undefined references in `paper.log`). The protocol
+upgrades enumerated above were then drafted, reviewed, and committed
+as the present S028 entry update (Row 17 in the Traceability
+table). The incident is closed; the protocol upgrade is now
+load-bearing for all subsequent S0XX series.
+
+**Why this lives in the lab notebook only.** The protocol upgrade
+is internal Human-AI workflow methodology, not a scientific finding
+about Pulse. It belongs in the project's permanent record (this
+entry) and is mirrored into two cross-session AI memory files
+(`feedback_sticky_hard_stop.md` covering the HARD STOP discipline
+and `feedback_ask_first_default.md` covering the ambiguity-handling
+default), and into the global `C:\Users\santi\projets\CLAUDE.md`
+under "AI Behavior" for cross-project applicability. It does **not**
+belong in `paper.tex`, `supplement.tex`, or
+`preprint/manuscript.md` — the published scientific record reports
+findings, not the meta-process by which they were produced.
 
 ## Limitations
 

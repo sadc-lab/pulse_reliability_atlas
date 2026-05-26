@@ -180,7 +180,7 @@ the rendered output.
 ### Layer 3 — atomic dual-commit convention
 
 Every commit that changes scientific content in either document
-follows one of three tagged patterns in the commit message:
+follows one of four tagged patterns in the commit message:
 
 * `S0XX [SCIENTIFIC]: <summary>` — a load-bearing scientific change
   that **must** touch both `preprint/manuscript.md` and
@@ -199,6 +199,18 @@ follows one of three tagged patterns in the commit message:
   monograph (`preprint/manuscript.md`) that the map says is **not**
   mirrored in `paper.tex`. Audit verifies `paper.tex` is
   byte-untouched.
+* `S0XX [METHODOLOGY]: <summary>` — change confined to the
+  project's methodological artefacts (lab-notebook entries under
+  `experiments_log/`, workflow documentation, repository
+  conventions, cross-references to project AI memory) that touches
+  **no** scientific claim, no audit-ledger entry, no `paper.tex` /
+  `supplement.tex` / `manuscript.md` prose, and no
+  published-artefact source file. Audit verifies all map-tracked
+  values are unchanged and the published-paper documents are
+  byte-untouched. Introduced 2026-05-26 in the S028 process-incident
+  documentation commit; see
+  `experiments_log/santino/S028_npj_submission_extraction.md`
+  "Process incident — Step 10 retroactive review" for rationale.
 
 Commits that violate the convention (e.g., scientific change in one
 document without the corresponding update in the other) are caught
