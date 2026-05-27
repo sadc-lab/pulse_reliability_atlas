@@ -3001,6 +3001,11 @@ We gratefully acknowledge the support of the CHU Sainte-Justine
 Foundation in Montreal and the Artificial Intelligence Applied to
 Pediatric Acute Care Research Group (R-SADC) in Montreal, Canada.
 
+We thank the Kitware Pulse engineering team for the open-source
+release of the Pulse Physiology Engine and its accompanying
+documentation, without which this work would not have been
+possible.
+
 **Author contributions.** S.N. conceptualised the study, designed
 the Morris sweep and the four-flag steady-state classifier,
 performed all computational runs and statistical analyses, and
