@@ -137,7 +137,7 @@ This section expands the condensed Methods section of the main manuscript (Secti
 
 \subsection{Engine wrapper, Docker pinning, and reproducibility}\label{sec:s3-engine}
 
-The atlas wrapper is a thin Python orchestration layer around Pulse's command-line interface. For each Morris input vector, the wrapper writes a JSON configuration file (patient surrogate, ARDS scenario condition, ventilator action set, and the seven operational inputs at their Morris values), spawns a Pulse Docker container against the pinned \texttt{pulse-pediatric-engine} image, captures the resulting steady-state CSV plus the engine setup log, and emits a per-run aggregated row into the canonical parquet. The wrapper is deterministic given the same input vector and the same Docker image; bit-exact reproduction of the canonical 1{,}280-run sweep was verified at three independent layers (the canonical Morris sample regenerated from the SALib seed, the per-cell aggregate parquets, and the derived statistical artefacts). The full Docker invocation template, including the safety caps on memory and CPU and the path-conversion handling required on Git Bash under Windows, is documented in the companion code repository.
+The atlas wrapper is a thin Python orchestration layer around Pulse's command-line interface. For each Morris input vector, the wrapper writes a JSON configuration file (patient surrogate, ARDS scenario condition, ventilator action set, and the seven operational inputs at their Morris values), spawns a Pulse Docker container against the pinned \texttt{pulse-atlas-engine} image, captures the resulting steady-state CSV plus the engine setup log, and emits a per-run aggregated row into the canonical parquet. The wrapper is deterministic given the same input vector and the same Docker image; bit-exact reproduction of the canonical 1{,}280-run sweep was verified at three independent layers (the canonical Morris sample regenerated from the SALib seed, the per-cell aggregate parquets, and the derived statistical artefacts). The full Docker invocation template, including the safety caps on memory and CPU and the path-conversion handling required on Git Bash under Windows, is documented in the companion code repository.
 
 \subsection{Morris sampler implementation}\label{sec:s3-morris}
 
@@ -302,15 +302,15 @@ Together with Section~2.5 of the main manuscript, the data distinguish two opera
 
 \section{\texorpdfstring{Sex-stratified reliability: Spearman $\rho$ on $\mu^{*}$ rankings}{Sex-stratified reliability: Spearman rho on mu* rankings}}\label{sec:s6}
 
-Section~2.6 of the main manuscript reports that the cross-sex Spearman rank correlation $\rho$ on Morris $\mu^{*}$ input-importance vectors is computable only for the moderate-ARDS scenarios S2 and S3 (the gas-exchange and severe-ARDS cells S1 and S4\_F have no clean FiO$_2$ elementary-effect pairs because every Morris OAT step that flips FiO$_2$ between 0.21 and 1.0 has at least one endpoint flagged by SpO$_2$-saturation pinning, transient-hyperoxia drift, or implausibility). This supplement section provides the full $\rho$ table with paired-input bootstrap 95~\% confidence intervals from 1{,}000 input-resamples.
+Section~2.6 of the main manuscript reports that the cross-sex Spearman rank correlation $\rho$ on Morris $\mu^{*}$ input-importance vectors is computable only for the moderate-ARDS scenarios S2 and S3 (the gas-exchange and severe-ARDS cells S1 and S4\_F have no clean FiO$_2$ elementary-effect pairs because every Morris OAT step that flips FiO$_2$ between 0.21 and 1.0 has at least one endpoint flagged by SpO$_2$-saturation pinning, transient-hyperoxia drift, or implausibility). This supplement section provides the full $\rho$ table with paired-input bootstrap 95~\% confidence intervals from 2{,}000 input-resamples.
 
 \begin{table}[h]
 \centering
-\caption{Spearman rank correlation $\rho$ between the male and female Morris $\mu^{*}$ input-importance vectors (one entry per swept input, seven entries per (scenario, output) cell), with paired-input bootstrap 95~\% confidence intervals from 1{,}000 input-resamples. Computed only for S2 and S3; cells in S1 and S4\_F have no computable $\rho$ because FiO$_2$ has zero clean elementary-effect pairs there (see Section~2.6 of the main manuscript). Ledger anchors \texttt{T2.sp.S2.*} and \texttt{T2.sp.S3.*}.}
+\caption{Spearman rank correlation $\rho$ between the male and female Morris $\mu^{*}$ input-importance vectors (one entry per swept input, seven entries per (scenario, output) cell), with paired-input bootstrap 95~\% confidence intervals from 2{,}000 input-resamples. Computed only for S2 and S3; cells in S1 and S4\_F have no computable $\rho$ because FiO$_2$ has zero clean elementary-effect pairs there (see Section~2.6 of the main manuscript). Ledger anchors \texttt{T2.sp.S2.*} and \texttt{T2.sp.S3.*}.}
 \label{tab:s6-rho}
 \begin{tabular}{llcc}
 \toprule
-Scenario & Output & $\rho$ & 95\% CI (paired-input bootstrap, $n = 1{,}000$) \\
+Scenario & Output & $\rho$ & 95\% CI (paired-input bootstrap, $n = 2{,}000$) \\
 \midrule
 S2 & HR    & 0.96 & $[0.70, 1.00]$ \\
 S2 & MAP   & 1.00 & $[1.00, 1.00]$ \\
@@ -334,7 +334,7 @@ Point estimates fall in the 0.75--1.00 range across the 12 (scenario, output) ce
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.85\textwidth]{figures/fig_s2_spearman.pdf}
-\caption{Spearman rank correlation $\rho$ between male and female Morris $\mu^{*}$ vectors per (scenario, output), with paired-input bootstrap 95~\% confidence intervals ($n = 1{,}000$ input-resamples). Reproduced verbatim from the companion technical monograph (Figure~5 of the monograph). Computed only for S2 and S3; S1 and S4\_F are blank because FiO$_2$ has zero clean elementary-effect pairs in those cells.}
+\caption{Spearman rank correlation $\rho$ between male and female Morris $\mu^{*}$ vectors per (scenario, output), with paired-input bootstrap 95~\% confidence intervals ($n = 2{,}000$ input-resamples). Reproduced verbatim from the companion technical monograph (Figure~5 of the monograph). Computed only for S2 and S3; S1 and S4\_F are blank because FiO$_2$ has zero clean elementary-effect pairs in those cells.}
 \label{fig:s6-rho}
 \end{figure}
 
@@ -513,7 +513,7 @@ The atlas is designed for bit-exact reproduction by an independent investigator.
 
 \subsection{Environment and engine pinning}\label{sec:s12-env}
 
-The atlas pins Pulse v4.3.1 inside a single Docker image (\texttt{pulse-pediatric-engine:latest}); the image tag is fixed for the entire 1{,}280-run sweep so that every simulation runs against bit-identical engine binaries. The host environment is Python 3.12+ managed via \texttt{uv} for deterministic dependency resolution. The canonical hardware envelope is a laptop-class machine (Intel i5-11400H, 6 physical / 12 logical cores, 8~GB RAM, Intel UHD integrated graphics, no discrete GPU); the parallel-Docker throughput at this envelope is two to three concurrent containers (verified empirically; the canonical sweep was executed with two parallel workers to control thermal load on the laptop chassis).
+The atlas pins Pulse v4.3.1 inside a single Docker image (\texttt{pulse-atlas-engine:latest}); the image tag is fixed for the entire 1{,}280-run sweep so that every simulation runs against bit-identical engine binaries. The host environment is Python 3.12+ managed via \texttt{uv} for deterministic dependency resolution. The canonical hardware envelope is a laptop-class machine (Intel i5-11400H, 6 physical / 12 logical cores, 8~GB RAM, Intel UHD integrated graphics, no discrete GPU); the parallel-Docker throughput at this envelope is two to three concurrent containers (verified empirically; the canonical sweep was executed with two parallel workers to control thermal load on the laptop chassis).
 
 \subsection{Docker invocation template}\label{sec:s12-docker}
 
@@ -529,7 +529,7 @@ The atlas pins Pulse v4.3.1 inside a single Docker image (\texttt{pulse-pediatri
 ]
 MSYS_NO_PATHCONV=1 docker run --rm --memory=1g --cpus=3 \
   -v "$(pwd -W)/RUNDIR:/data" \
-  pulse-pediatric-engine:latest \
+  pulse-atlas-engine:latest \
   --config //data/config.json \
   --output //data/output.csv
 \end{lstlisting}

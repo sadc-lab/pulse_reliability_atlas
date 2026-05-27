@@ -532,13 +532,13 @@ caught equally.*
   expected_occurrences: 2
   notes: 'paper §5 Methods §4.3 (1) + supplement S3.2 (1). Bumped 1 -> 2 in Phase 9.A.'
 
-- paper_section: '§2.2 + §5 Methods + supplement S6'
-  paper_context: 'Bootstrap resamples for Morris mu* CI'
+- paper_section: '§2.2 + §5 Methods'
+  paper_context: 'Bootstrap resamples for Morris mu* CI (1,000)'
   monograph_claim_id: 'T1.06h.bootstrap_n'
   expected_value: 1000
   format_in_paper: '1{,}000'
-  expected_occurrences: 7
-  notes: 'paper §2.2 (1) + paper §5 Methods §4.5 (2) + supplement S6 prose "from 1{,}000 input-resamples" + Table S2 caption + Figure S2 caption (4). Bumped 3 -> 7 in Phase 9.B for the S6 Spearman additions.'
+  expected_occurrences: 2
+  notes: 'paper §2.2 Primary input-sensitivity rankings (1) + paper §5 Methods Statistical analyses Morris bootstrap (1). Bumped 3 -> 7 in Phase 9.B for the S6 Spearman additions; reverted to 2 in Pass 10 D16 (2026-05-27): the 5 Spearman bootstrap occurrences (1 paper + 4 supplement) corrected from 1,000 to 2,000 to match the actual function default in src/analysis_compare.py L96 (used by scripts/analyze_sweep.py L105 without override). The Spearman bootstrap N (2,000) and the Wasserstein permutation N (2,000) are NOT yet tracked in this crosswalk; both are deferred to the [METHODOLOGY] ledger-expansion commit that bundles SPEARMAN_N_BOOTSTRAP + HARD_BOUNDS source-code anchors at end-of-audit-session.'
 
 - paper_section: '§5 Methods §4.3 (scenario definitions)'
   paper_context: 'S2 mild ARDS impairment fraction'
