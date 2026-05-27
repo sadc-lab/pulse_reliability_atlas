@@ -1550,6 +1550,88 @@ add(
     tolerance_rule="exact_int",
 )
 
+# Spearman bootstrap N -- declared in src/analysis_compare.py
+# spearman_mu_star_male_vs_female() n_bootstrap default (currently 2000).
+# The function is called without an explicit override by
+# scripts/analyze_sweep.py L105, so the default value is what was
+# used to compute the published Spearman rho confidence intervals.
+# Added in [METHODOLOGY] ledger expansion 2026-05-27 (Pass 10 D16 follow-up).
+_analysis_compare_src = (REPO / "src" / "analysis_compare.py").read_text(encoding="utf-8")
+_spearman_idx = _analysis_compare_src.find("def spearman_mu_star_male_vs_female")
+assert _spearman_idx != -1, "audit_claims: spearman_mu_star_male_vs_female function not located"
+_spearman_section = _analysis_compare_src[_spearman_idx : _spearman_idx + 600]
+_m_spearman_n = re.search(r"n_bootstrap:\s*int\s*=\s*(\d+)", _spearman_section)
+assert _m_spearman_n is not None, "audit_claims: spearman n_bootstrap default not located"
+SPEARMAN_N_BOOTSTRAP = int(_m_spearman_n.group(1))
+add(
+    claim_id="T2.analysis.spearman_n_bootstrap",
+    section="§5 Methods Statistical analyses + supplement S6 (npj paper)",
+    manuscript_text="2000 input-resamples for Spearman rho paired-input bootstrap CI",
+    source_file="src/analysis_compare.py spearman_mu_star_male_vs_female n_bootstrap default",
+    manuscript_value=2000,
+    computed_value=SPEARMAN_N_BOOTSTRAP,
+    tolerance_rule="exact_int",
+)
+
+# Wasserstein within-sex permutation null N -- declared in
+# src/analysis_compare.py wasserstein_per_output() n_null default (currently 2000).
+# Added in [METHODOLOGY] ledger expansion 2026-05-27 (Pass 10 D16 follow-up).
+_wasserstein_idx = _analysis_compare_src.find("def wasserstein_per_output")
+assert _wasserstein_idx != -1, "audit_claims: wasserstein_per_output function not located"
+_wasserstein_section = _analysis_compare_src[_wasserstein_idx : _wasserstein_idx + 600]
+_m_wasserstein_n = re.search(r"n_null:\s*int\s*=\s*(\d+)", _wasserstein_section)
+assert _m_wasserstein_n is not None, "audit_claims: wasserstein n_null default not located"
+WASSERSTEIN_N_NULL = int(_m_wasserstein_n.group(1))
+add(
+    claim_id="T2.analysis.wasserstein_n_null",
+    section="§5 Methods Statistical analyses (npj paper)",
+    manuscript_text="2000 random within-sex splits for Wasserstein null reference",
+    source_file="src/analysis_compare.py wasserstein_per_output n_null default",
+    manuscript_value=2000,
+    computed_value=WASSERSTEIN_N_NULL,
+    tolerance_rule="exact_int",
+)
+
+# Supplement S15 compensatory tachycardia per-scenario output-HR values --
+# regex-extracted from manuscript.md Section 3.4.1 compensatory-tachycardia
+# table. Added in [METHODOLOGY] ledger expansion 2026-05-28 to close the
+# Pass 7 D9 Concern 2(i) deferment: supplement S15 was added in commit
+# b381944 with these numbers but they were NOT immediately tracked in the
+# ledger per the maintainer's "skip ledger extension this commit" decision.
+_manuscript_md_src = (REPO / "preprint" / "manuscript.md").read_text(encoding="utf-8")
+for _scenario, _expected_mean, _expected_std in [
+    ("S1", 73.8, 20.4),
+    ("S2", 87.3, 24.3),
+    ("S3", 155.7, 34.7),
+    ("S4", 147.1, 31.8),
+]:
+    _pattern = rf"\| {_scenario}\s+\| \[50, 110\]\s+\| ([\d.]+) ± ([\d.]+)\s*\|"
+    _m_hr_row = re.search(_pattern, _manuscript_md_src)
+    assert _m_hr_row is not None, (
+        f"audit_claims: {_scenario} output HR row not located in manuscript Section 3.4.1 "
+        f"(pattern: {_pattern})"
+    )
+    _hr_mean = float(_m_hr_row.group(1))
+    _hr_std = float(_m_hr_row.group(2))
+    add(
+        claim_id=f"T2.s15.{_scenario.lower()}_output_hr_mean",
+        section="Section 3.4.1 (monograph); supplement Section S15 (npj package)",
+        manuscript_text=f"{_scenario} output HR mean across clean Morris runs",
+        source_file="manuscript.md Section 3.4.1 compensatory-tachycardia table",
+        manuscript_value=_expected_mean,
+        computed_value=_hr_mean,
+        tolerance_rule="displayed_2dp",
+    )
+    add(
+        claim_id=f"T2.s15.{_scenario.lower()}_output_hr_std",
+        section="Section 3.4.1 (monograph); supplement Section S15 (npj package)",
+        manuscript_text=f"{_scenario} output HR std across clean Morris runs",
+        source_file="manuscript.md Section 3.4.1 compensatory-tachycardia table",
+        manuscript_value=_expected_std,
+        computed_value=_hr_std,
+        tolerance_rule="displayed_2dp",
+    )
+
 # ARDS-severity impairment fractions declared in src/scenario.py
 # SCENARIOS dict (S1=0.0 healthy, S2=0.26 mild, S3=0.60 moderate,
 # S4=0.95 severe).

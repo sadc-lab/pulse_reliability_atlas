@@ -538,7 +538,71 @@ caught equally.*
   expected_value: 1000
   format_in_paper: '1{,}000'
   expected_occurrences: 2
-  notes: 'paper §2.2 Primary input-sensitivity rankings (1) + paper §5 Methods Statistical analyses Morris bootstrap (1). Bumped 3 -> 7 in Phase 9.B for the S6 Spearman additions; reverted to 2 in Pass 10 D16 (2026-05-27): the 5 Spearman bootstrap occurrences (1 paper + 4 supplement) corrected from 1,000 to 2,000 to match the actual function default in src/analysis_compare.py L96 (used by scripts/analyze_sweep.py L105 without override). The Spearman bootstrap N (2,000) and the Wasserstein permutation N (2,000) are NOT yet tracked in this crosswalk; both are deferred to the [METHODOLOGY] ledger-expansion commit that bundles SPEARMAN_N_BOOTSTRAP + HARD_BOUNDS source-code anchors at end-of-audit-session.'
+  notes: 'paper §2.2 Primary input-sensitivity rankings (1) + paper §5 Methods Statistical analyses Morris bootstrap (1). Bumped 3 -> 7 in Phase 9.B for the S6 Spearman additions; reverted to 2 in Pass 10 D16 (2026-05-27): the 5 Spearman bootstrap occurrences (1 paper + 4 supplement) corrected from 1,000 to 2,000 to match the actual function default in src/analysis_compare.py L96 (used by scripts/analyze_sweep.py L105 without override). The Spearman + Wasserstein 2,000 occurrences are now tracked under the row below.'
+
+- paper_section: '§5 Methods + supplement S6'
+  paper_context: 'Bootstrap / permutation N = 2,000 (Spearman rho input-resamples + Wasserstein within-sex permutation null)'
+  monograph_claim_id: 'T2.analysis.spearman_n_bootstrap'
+  expected_value: 2000
+  format_in_paper: '2{,}000'
+  expected_occurrences: 6
+  notes: 'paper §5 Methods Statistical analyses (2: "2{,}000 input-resamples" Spearman + "2{,}000 random within-sex splits" Wasserstein) + supplement S6 (4: intro prose, Table S2 caption, Table S2 column header "$n = 2{,}000$", Figure S2 caption "$n = 2{,}000$ input-resamples"). Five of the six are Spearman bootstrap; one (paper Wasserstein splits) uses the same literal 2,000 by coincidence (both function defaults are 2000 in src/analysis_compare.py: spearman_mu_star_male_vs_female n_bootstrap=2000 at L96 + wasserstein_per_output n_null=2000 at L32). Added in [METHODOLOGY] ledger expansion 2026-05-28 to close the audit gap surfaced by Pass 10 D16. The Wasserstein ledger anchor (T2.analysis.wasserstein_n_null) is separately defined in scripts/audit_claims.py; both anchors share the same numerical value but track distinct statistical methodologies.'
+
+- paper_section: '§5 Methods Steady-state classifier (representative bounds)'
+  paper_context: 'HR representative hard-bound range cited in paper L266'
+  monograph_claim_id: 'T1.06p.hr_low'
+  expected_value: 20
+  format_in_paper: 'HR [20, 220]~bpm'
+  expected_occurrences: 1
+  notes: 'paper L266 cites "representative bounds: HR [20, 220]~bpm" as the HR pair from the locked HARD_BOUNDS dict in src/detector.py L55 (HR: (20.0, 220.0)). Pass 10 D14 corrected the original wrong [30, 200] to the source-truth [20, 220]. Added in [METHODOLOGY] ledger expansion 2026-05-28 to track this paper-specific representative-bounds prose; supplement S3 Table S2 uses a different format ("HR (bpm) & 20 & 220") tracked by separate T1.06p anchors.'
+
+- paper_section: '§5 Methods Steady-state classifier (representative bounds)'
+  paper_context: 'PaO2 representative hard-bound range cited in paper L266'
+  monograph_claim_id: 'T1.06p.pao2_low'
+  expected_value: 20
+  format_in_paper: 'PaO$_2$ [20, 600]~mmHg'
+  expected_occurrences: 1
+  notes: 'paper L266 cites "PaO$_2$ [20, 600]~mmHg" as the PaO2 pair from the locked HARD_BOUNDS dict. Added in [METHODOLOGY] ledger expansion 2026-05-28; supplement S3 Table S2 uses different format tracked separately.'
+
+- paper_section: '§5 Methods Steady-state classifier (representative bounds)'
+  paper_context: 'SpO2 representative hard-bound range cited in paper L266'
+  monograph_claim_id: 'T1.06p.spo2_low'
+  expected_value: 0.5
+  format_in_paper: 'SpO$_2$ [50, 100]~\%'
+  expected_occurrences: 1
+  notes: 'paper L266 cites "SpO$_2$ [50, 100]~\%" as the SpO2 pair from the locked HARD_BOUNDS dict in src/detector.py L58 (SpO2: (0.50, 1.00)). Note: Pulse reports SpO2 as fraction 0-1 in source code; paper uses percent display convention (50-100%). Added in [METHODOLOGY] ledger expansion 2026-05-28.'
+
+- paper_section: 'supplement S15 (Compensatory tachycardia)'
+  paper_context: 'S1 output HR mean +/- std from monograph Section 3.4.1'
+  monograph_claim_id: 'T2.s15.s1_output_hr_mean'
+  expected_value: 73.8
+  format_in_paper: '73.8 \pm 20.4'
+  expected_occurrences: 1
+  notes: 'supplement Section S15 Table S15 row for S1 healthy scenario: $73.8 \pm 20.4$. Added in [METHODOLOGY] ledger expansion 2026-05-28 (closing the Pass 7 D9 Concern 2(i) deferment).'
+
+- paper_section: 'supplement S15 (Compensatory tachycardia)'
+  paper_context: 'S2 output HR mean +/- std from monograph Section 3.4.1'
+  monograph_claim_id: 'T2.s15.s2_output_hr_mean'
+  expected_value: 87.3
+  format_in_paper: '87.3 \pm 24.3'
+  expected_occurrences: 1
+  notes: 'supplement Section S15 Table S15 row for S2 mild ARDS: $87.3 \pm 24.3$. Added in [METHODOLOGY] ledger expansion 2026-05-28.'
+
+- paper_section: 'supplement S15 (Compensatory tachycardia)'
+  paper_context: 'S3 output HR mean +/- std from monograph Section 3.4.1'
+  monograph_claim_id: 'T2.s15.s3_output_hr_mean'
+  expected_value: 155.7
+  format_in_paper: '155.7 \pm 34.7'
+  expected_occurrences: 1
+  notes: 'supplement Section S15 Table S15 row for S3 moderate ARDS: $155.7 \pm 34.7$. Added in [METHODOLOGY] ledger expansion 2026-05-28.'
+
+- paper_section: 'supplement S15 (Compensatory tachycardia)'
+  paper_context: 'S4 output HR mean +/- std from monograph Section 3.4.1'
+  monograph_claim_id: 'T2.s15.s4_output_hr_mean'
+  expected_value: 147.1
+  format_in_paper: '147.1 \pm 31.8'
+  expected_occurrences: 1
+  notes: 'supplement Section S15 Table S15 row for S4 severe ARDS: $147.1 \pm 31.8$. Added in [METHODOLOGY] ledger expansion 2026-05-28.'
 
 - paper_section: '§5 Methods §4.3 (scenario definitions)'
   paper_context: 'S2 mild ARDS impairment fraction'
