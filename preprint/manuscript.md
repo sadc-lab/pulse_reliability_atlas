@@ -295,7 +295,7 @@ Pulse accurately mimics how a real patient's trajectory changes after
 a medical intervention — on MIMIC-III sepsis trajectories, a different
 scope from the operational-input reliability question addressed here,
 applied to a different cohort and dataset. No systematic sensitivity
-analysis on **user-facing operational inputs** (HR, BP, RR, Vt, FiO2,
+analysis on **user-facing operational inputs** (HR, SBP, DBP, RR, Vt, FiO2,
 PEEP) has been published.
 
 The corollary is operational: every Pulse user driving the engine
@@ -2833,7 +2833,7 @@ documentation / validation layer rather than the physiology layer.
    `STUDY_SENSITIVITY_ANALYSIS_1_0_0` tag that performs Sobol
    sensitivity on internal vascular-circuit resistance multipliers
    for calibration; this is a different parameter class from the
-   user-facing operational inputs (HR, BP, RR, Vt, FiO2, PEEP) that
+   user-facing operational inputs (HR, SBP, DBP, RR, Vt, FiO2, PEEP) that
    sensitivity-conscious downstream users typically need to sweep. A
    companion recipe — Morris or Sobol over operational inputs,
    shipped alongside the existing study — would give the Pulse
