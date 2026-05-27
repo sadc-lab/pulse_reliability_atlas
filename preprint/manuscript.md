@@ -1566,9 +1566,9 @@ input pattern. Of the 20:
   only at the most severe ARDS impairment.
 
 The signature reads cleanly: **low cardiovascular output (low HR +
-low SBP) combined with high respiratory drive (high RR + high FiO2)
-on the male reference surrogate** drives Pulse to a numerical edge
-case. The compound input is *clinically plausible* — a hypotensive,
+low SBP) combined with high respiratory rate (high RR) on the male
+reference surrogate** drives Pulse to a numerical edge case; the
+high-oxygen boundary (FiO2 = 1.0) co-occurs in 13 of the 20 cases. The compound input is *clinically plausible* — a hypotensive,
 tachypneic, fully oxygenated patient, recognizable as a septic /
 pre-arrest configuration — and sits inside Pulse's verified
 acceptance ranges. Users should treat this corner of the envelope
@@ -2563,8 +2563,9 @@ Potassium, Calcium), metabolic (Glucose), acid–base (HCO₃, pH),
 dermal (Skin Temperature), and ventilation-input or
 non-overlapping-pressure channels (RR, SysBP, DiaBP). Of Cornish's
 85 total Hoeffding rejections, **only 3 fall on the
-four-channel atlas overlap (all on PaCO2); the remaining 82 fall on
-channels outside the atlas's output panel**. This non-overlap is the
+four-channel atlas overlap (all on PaCO2); the remaining 82 fall outside
+the four-channel direct overlap (80 on channels the atlas does not
+assess at all + 2 on partial-input channels SysBP/DiaBP/RR)**. This non-overlap is the
 load-bearing observation: the two papers' failure surfaces are
 *complementary*, not redundant.
 
