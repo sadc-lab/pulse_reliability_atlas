@@ -6,12 +6,13 @@ This file is rebuilt from the YAML frontmatter of every entry in
 `santino/`, `contributor2/`, and `shared/`. To update it, edit the experiment
 and recommit — the pre-commit hook regenerates and stages this file.
 
-Total entries: **28**
+Total entries: **29**
 
 ## All experiments (newest first)
 
 | ID | Date | Author | Status | Title |
 |---|---|---|---|---|
+| `S029` | 2026-05-28 | santino | done | [S029 — Cornish 2023 hypothesis-count forensics: reconciling the 1,442-vs-1,522 main-text-vs-appendix discrepancy](santino/S029_cornish_forensics.md) |
 | `S028` | 2026-05-26 | santino | done | [S028 — npj Digital Medicine submission: extract `paper.tex` (~12 pp) + `supplement.tex` (~22 pp) from the 92-page audited monograph, under a strict Zero-Hallucination + audit-ledger lock-step discipline](santino/S028_npj_submission_extraction.md) |
 | `S027` | 2026-05-23 | santino | done | [S027 — §1.1 Pulse-in-a-nutshell explainer + §4.7 engine-side recommendations](santino/S027_pulse_intro_and_engine_recommendations.md) |
 | `S026` | 2026-05-22 | santino | done | [S026 — Final pre-arXiv polish](santino/S026_pre_arxiv_polish.md) |
@@ -71,6 +72,7 @@ Total entries: **28**
 - `S026` (2026-05-22, done) — [S026 — Final pre-arXiv polish](santino/S026_pre_arxiv_polish.md) — _pre-arxiv, manuscript-polish, figures-embed, traceability, release-mechanics_
 - `S027` (2026-05-23, done) — [S027 — §1.1 Pulse-in-a-nutshell explainer + §4.7 engine-side recommendations](santino/S027_pulse_intro_and_engine_recommendations.md) — _manuscript-additions, pulse-explainer, engine-recommendations, traceability, post-arxiv-polish_
 - `S028` (2026-05-26, done) — [S028 — npj Digital Medicine submission: extract `paper.tex` (~12 pp) + `supplement.tex` (~22 pp) from the 92-page audited monograph, under a strict Zero-Hallucination + audit-ledger lock-step discipline](santino/S028_npj_submission_extraction.md) — _npj-submission, manuscript-splitting, latex, audit-ledger, zero-hallucination, human-ai-workflow, regex-extraction, incremental-build, xr-hyper_
+- `S029` (2026-05-28, done) — [S029 — Cornish 2023 hypothesis-count forensics: reconciling the 1,442-vs-1,522 main-text-vs-appendix discrepancy](santino/S029_cornish_forensics.md) — _cornish, falsification, forensics, value-recomputation, manuscript-discussion, audit_
 
 ## By tag
 
@@ -83,6 +85,7 @@ Total entries: **28**
 ### `audit`
 - `S015` — [S015 — Reproducibility and Logic Audit (pre-publication double-check)](santino/S015_reproducibility_and_logic_audit.md)
 - `S024` — [S024 — Pre-submission claims-ledger audit](santino/S024_claims_ledger_audit.md)
+- `S029` — [S029 — Cornish 2023 hypothesis-count forensics: reconciling the 1,442-vs-1,522 main-text-vs-appendix discrepancy](santino/S029_cornish_forensics.md)
 
 ### `audit-ledger`
 - `S028` — [S028 — npj Digital Medicine submission: extract `paper.tex` (~12 pp) + `supplement.tex` (~22 pp) from the 92-page audited monograph, under a strict Zero-Hallucination + audit-ledger lock-step discipline](santino/S028_npj_submission_extraction.md)
@@ -124,6 +127,7 @@ Total entries: **28**
 
 ### `cornish`
 - `S017` — [S017 — Cornish 2023 cross-mapping: re-tabulating the only prior external Pulse assessment against the atlas's 6-output panel](santino/S017_cornish_2023_cross_mapping.md)
+- `S029` — [S029 — Cornish 2023 hypothesis-count forensics: reconciling the 1,442-vs-1,522 main-text-vs-appendix discrepancy](santino/S029_cornish_forensics.md)
 
 ### `corrected`
 - `S022` — [S022 — No-compute failure-mode diagnostic for the top-3 unstable cells](santino/S022_nss_failure_mode_diagnostic.md)
@@ -198,9 +202,13 @@ Total entries: **28**
 ### `falsification`
 - `S017` — [S017 — Cornish 2023 cross-mapping: re-tabulating the only prior external Pulse assessment against the atlas's 6-output panel](santino/S017_cornish_2023_cross_mapping.md)
 - `S018` — [S018 — Blood-volume mechanism falsification test (Phase B item B2): dose-response bracket on the 20 originally-diverged male inputs](santino/S018_blood_volume_falsification.md)
+- `S029` — [S029 — Cornish 2023 hypothesis-count forensics: reconciling the 1,442-vs-1,522 main-text-vs-appendix discrepancy](santino/S029_cornish_forensics.md)
 
 ### `figures-embed`
 - `S026` — [S026 — Final pre-arXiv polish](santino/S026_pre_arxiv_polish.md)
+
+### `forensics`
+- `S029` — [S029 — Cornish 2023 hypothesis-count forensics: reconciling the 1,442-vs-1,522 main-text-vs-appendix discrepancy](santino/S029_cornish_forensics.md)
 
 ### `full-1280-runs`
 - `S006` — [S006 — Full 1,280-run Morris sweep + post-sweep analysis](santino/S006_full_morris_sweep.md)
@@ -270,6 +278,7 @@ Total entries: **28**
 ### `manuscript-discussion`
 - `S017` — [S017 — Cornish 2023 cross-mapping: re-tabulating the only prior external Pulse assessment against the atlas's 6-output panel](santino/S017_cornish_2023_cross_mapping.md)
 - `S020` — [S020 — Pre-submission novelty audit: verifying that every "first" / "novel" claim in the manuscript survives a literature double-check](santino/S020_novelty_audit.md)
+- `S029` — [S029 — Cornish 2023 hypothesis-count forensics: reconciling the 1,442-vs-1,522 main-text-vs-appendix discrepancy](santino/S029_cornish_forensics.md)
 
 ### `manuscript-polish`
 - `S008` — [S008 — Tier-1 statistical refinement: block bootstrap, within-sex Wasserstein null, divergence mechanism, manuscript polish](santino/S008_tier1_statistical_refinement.md)
@@ -442,6 +451,9 @@ Total entries: **28**
 
 ### `trigger-pressure`
 - `S014` — [S014 — Trigger-pressure lockout: causal test of F-004 mechanism](santino/S014_trigger_pressure_lockout.md)
+
+### `value-recomputation`
+- `S029` — [S029 — Cornish 2023 hypothesis-count forensics: reconciling the 1,442-vs-1,522 main-text-vs-appendix discrepancy](santino/S029_cornish_forensics.md)
 
 ### `variance-decomposition`
 - `S019` — [S019 — Sobol bolt-on (Phase B item B3): DRAFT, ready-to-fire, not executed](santino/S019_sobol_bolton_draft.md)
