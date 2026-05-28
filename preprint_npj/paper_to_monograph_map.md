@@ -93,8 +93,8 @@ caught equally.*
   monograph_claim_id: 'T1.23'
   expected_value: 643
   format_in_paper: '643~mmHg'
-  expected_occurrences: 4
-  notes: 'Appears twice as of Step 4: abstract sentence 4 "median 643~mmHg" (1), §2.4 prose "the converged S1 plateau median was 643~mmHg" (1). Both use ~ non-breaking space; format standardised to "643~mmHg" in Step 4.'
+  expected_occurrences: 3
+  notes: 'Appears 3 times: paper.tex abstract sentence 4 "median 643~mmHg" (1) + paper.tex §2.4 prose "the converged S1 plateau median was 643~mmHg" (1) + supplement §S9 prose "converged-subset median PaO2 of 643~mmHg" (1). The supplement Figure-S3 caption trajectory endpoint was changed 643 -> 639 in Supplement Pass C (SP-C.D2: figure median recomputed over the 38 physiological-converged runs, excluding the 3 numerical runaways), dropping the expected count from 4 to 3. All use ~ non-breaking space.'
 
 - paper_section: 'Abstract'
   paper_context: 'Divergence count (all male, input-extreme regime)'

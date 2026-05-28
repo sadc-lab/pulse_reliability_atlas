@@ -1824,15 +1824,19 @@ add(
 # rerun (saved-state reload point, corresponding to the end of the
 # original 120-second window); the "asymptote" is the median PaO2
 # at t=300 of the extended simulation; the anchor is the smallest
-# extended-simulation time at which the median trajectory across
-# converged S1 reruns reaches 95 percent of (asymptote - floor).
+# extended-simulation time at which the median trajectory across the
+# physiological-converged S1 reruns (drift-converged AND plateau
+# <= 700 mmHg, i.e. excluding the three numerically-unstable runaway
+# runs) reaches 95 percent of (asymptote - floor).
 _s21_dir = REPO / "data" / "runs" / "s021_hyperoxia_convergence"
 _s21_plateau = pd.read_parquet(_s21_dir / "plateau_stats.parquet")
-_s21_s1_converged = _s21_plateau[
-    (_s21_plateau["scenario"] == "S1") & _s21_plateau["converged"]
+_s21_s1_physio = _s21_plateau[
+    (_s21_plateau["scenario"] == "S1")
+    & _s21_plateau["converged"]
+    & (_s21_plateau["PaO2_plateau_mmHg"] <= 700)
 ]
 _traj_frames = []
-for _, _row in _s21_s1_converged.iterrows():
+for _, _row in _s21_s1_physio.iterrows():
     _csv = _s21_dir / _row["case_id_long"] / "output.csv"
     if _csv.exists():
         _df = pd.read_csv(_csv)[["time_s", "ArterialOxygenPressure"]]
@@ -1847,9 +1851,9 @@ _t_95 = float(_median_traj[_median_traj >= _target].index[0])
 add(
     claim_id="T1.06u.s021_time_to_95pct_plateau",
     section="Supplement S9 (extended hyperoxia convergence)",
-    manuscript_text="215 s of extended simulation to reach 95% of late plateau (S1 converged median)",
+    manuscript_text="180 s of extended simulation to reach 95% of late plateau (38 physiological-converged S1 runs)",
     source_file="derived from data/runs/s021_hyperoxia_convergence/<S1 runs>/output.csv",
-    manuscript_value=215.0,
+    manuscript_value=180.0,
     computed_value=_t_95,
     tolerance_rule="whole_unit",
 )
