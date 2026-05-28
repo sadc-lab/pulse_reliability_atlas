@@ -2496,8 +2496,11 @@ rankings agree even though absolute rates differ.*
 [@cornish2023] is the only prior external assessment of Pulse on a
 clinical dataset. Their framework — causal falsification with
 Holm–Bonferroni-adjusted Hoeffding's-inequality confidence intervals
-(family-wise error rate 0.05) — tested 1,442 hypotheses across 15
-physiological quantities on MIMIC-III sepsis trajectories, with
+(family-wise error rate 0.05) — tested 1,522 hypotheses across 15
+physiological quantities on MIMIC-III sepsis trajectories (Cornish's
+main-text figure of 1,442 across 14 quantities omits the Arterial-pH
+channel — 80 hypotheses, 0 rejections — that appears in their
+Appendix Table 4; we report the full 15-channel total), with
 intravenous-fluid and vasopressor doses as the intervention space.
 Table 2 reproduces their per-quantity results re-tabulated against
 this atlas's 6-output panel.
@@ -3224,7 +3227,7 @@ during the literature-review pass logged in
   statistics group. External assessment of Pulse on MIMIC-III
   sepsis trajectories using a causal-inference / statistical-
   falsification framework with Holm–Bonferroni-adjusted Hoeffding's
-  inequality confidence intervals (FWER 0.05) on 1,442 hypotheses
+  inequality confidence intervals (FWER 0.05) on 1,522 hypotheses
   across 15 physiological quantities; identifies intervention-outcome
   inaccuracies in specific cases (Table 1: 85 total Hoeffding
   rejections; Appendix Table 5: 281 reverse-percentile-bootstrap
