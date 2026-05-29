@@ -19,15 +19,15 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up Python 3.12
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@v8.1.0
         with:
           version: "latest"
 
@@ -46,12 +46,46 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
-      - uses: astral-sh/setup-uv@v5
+      - uses: astral-sh/setup-uv@v8.1.0
         with:
           version: "latest"
       - run: uv sync --extra dev
       - run: uv run ruff check src/ scripts/ tests/ engine/
+
+  claims-audit:
+    name: claims-ledger audit (monograph + paper-sync)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v8.1.0
+        with:
+          version: "latest"
+
+      - name: Install project + dev deps
+        run: uv sync --extra dev
+
+      # Both invocations exit non-zero on ANY FAIL, so a quantitative-claim
+      # drift in preprint/manuscript.md or preprint_npj/paper.tex blocks the
+      # merge. The legacy run audits the monograph ledger; --check-paper-sync
+      # additionally verifies paper.tex + supplement.tex against the crosswalk.
+      # Note: the single T1.06u kinetic anchor self-skips here because it reads
+      # git-ignored per-run output.csv trajectories absent on a clean checkout
+      # (see scripts/audit_claims.py); all other anchors run as the gate.
+      - name: Monograph claims-ledger audit (fail on any FAIL)
+        run: uv run python scripts/audit_claims.py
+
+      - name: Paper-monograph crosswalk sync audit (fail on any FAIL)
+        run: uv run python scripts/audit_claims.py --check-paper-sync

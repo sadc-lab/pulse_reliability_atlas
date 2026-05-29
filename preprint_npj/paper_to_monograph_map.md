@@ -490,13 +490,21 @@ caught equally.*
   expected_occurrences: 1
   notes: 'Appears once in §2.6 ¶2 adjacent to the S3 mean.'
 
-- paper_section: '§2.6 + supplement S7 prose'
-  paper_context: 'Cornish 2023 non-overlap Hoeffding rejections (channels outside atlas)'
+- paper_section: 'supplement S7 prose (L347)'
+  paper_context: 'Cornish 2023 non-overlap Hoeffding rejections (channels outside atlas) -- supplement quote'
   monograph_claim_id: 'T3.s028.cornish_non_overlap_hoeffding'
   expected_value: 80
   format_in_paper: '80 of 85'
-  expected_occurrences: 2
-  notes: 'paper §2.6 ¶3 (1) + supplement S7 prose direct quote (1). Bumped 1 -> 2 in Phase 9.B.'
+  expected_occurrences: 1
+  notes: 'supplement S7 prose direct quote "80 of 85 Hoeffding rejections fall on channels..." (1). Dropped 2 -> 1 in the [SCIENTIFIC] final-fixes pass: paper §2.6 ¶3 was reworded from "80 of 85 fall on channels" to the self-consistent "82 of 85 fall outside ... 80 on channels ... plus 2 ... only 3 of 85 on the overlap" decomposition (D.8 sweep finding A1: 80 + 3 did not sum to 85). The paper-side value 80 is now tracked by the "80 on channels the present atlas does not assess" row below.'
+
+- paper_section: '§2.6 secondary observations (Cornish complementarity)'
+  paper_context: 'Cornish 2023 non-overlap Hoeffding rejections -- paper-side wording after A1 rewrite'
+  monograph_claim_id: 'T3.s028.cornish_non_overlap_hoeffding'
+  expected_value: 80
+  format_in_paper: '80 on channels the present atlas does not assess'
+  expected_occurrences: 1
+  notes: 'paper §2.6 ¶3 after the A1 rewrite: "80 on channels the present atlas does not assess (electrolyte, metabolic, acid--base, dermal)". Same ledger value (80) as the supplement "80 of 85" row above; tracked under a distinct literal because the two documents now phrase it differently.'
 
 - paper_section: '§2.6 secondary observations (Cornish complementarity)'
   paper_context: 'Cornish 2023 total Hoeffding rejections across 15 quantities'
@@ -505,6 +513,30 @@ caught equally.*
   format_in_paper: '85 total Hoeffding-inequality rejections'
   expected_occurrences: 1
   notes: 'Appears once in §2.6 ¶3: "reported 85 total Hoeffding-inequality rejections across 15 physiological quantities".'
+
+- paper_section: '§2.6 secondary observations (Cornish complementarity)'
+  paper_context: 'Cornish 2023 rejections OUTSIDE the four-channel overlap (80 not-assessed + 2 SysBP partial)'
+  monograph_claim_id: 'T3.s028.cornish_outside_overlap'
+  expected_value: 82
+  format_in_paper: '82 of 85'
+  expected_occurrences: 1
+  notes: 'Added in the [SCIENTIFIC] final-fixes pass (D.8 sweep finding A1). Appears once in paper §2.6 ¶3: "82 of 85 fall outside the four-channel overlap". The supplement S7 caption (L351) states the same decomposition as "82 fall outside" (no "of 85" literal), so this row is paper-only. Ledger anchor 82 = 80 not-assessed + 2 SysBP-partial, asserted to sum with 3 (overlap) to 85.'
+
+- paper_section: '§2.6 + supplement S7 caption'
+  paper_context: 'Cornish 2023 rejections ON the four-channel overlap (all PaCO2)'
+  monograph_claim_id: 'T3.s028.cornish_overlap_hoeffding'
+  expected_value: 3
+  format_in_paper: '3 of 85'
+  expected_occurrences: 2
+  notes: 'Added in the [SCIENTIFIC] final-fixes pass (D.8 sweep finding A1). paper §2.6 ¶3 "only 3 of 85 fall on the four-channel overlap" (1) + supplement S7 caption L351 "only 3 of 85 fall on the four-channel overlap" (1). This number was present in both documents before but untracked; now guarded.'
+
+- paper_section: '§2.4 Figure 3b caption (npj paper)'
+  paper_context: 'Worst-case S1 hyperoxia numerical-runaway plateau, off the [0,760] visible range'
+  monograph_claim_id: 'T1.24d.s021_s1_max_runaway_plateau'
+  expected_value: 1408
+  format_in_paper: '1{,}408'
+  expected_occurrences: 1
+  notes: 'Added in the [SCIENTIFIC] final-fixes pass (D.8 sweep finding A2). Appears once in the Figure 3 caption: "plateau off-scale (up to $\\approx$1{,}408~mmHg ...)". Verified against data/runs/s021_hyperoxia_convergence/plateau_stats.parquet (max S1 PaO2_plateau_mmHg = 1408.49); approx_round tolerance because the caption uses an explicit "~".'
 
 ## Step 7 — Methods reproducibility constants
 

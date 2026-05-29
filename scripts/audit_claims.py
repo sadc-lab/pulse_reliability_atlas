@@ -813,6 +813,24 @@ add(
     computed_value=n_s1_runs_s021,
     tolerance_rule="exact_int",
 )
+# Worst-case S1 hyperoxia numerical-runaway plateau (off the [0, 760] mmHg
+# visible range of npj Figure 3b). Guarded after the D.8 paper sweep flagged
+# the "~1,408 mmHg" caption value as an orphan: it appears only in paper.tex
+# Fig 3 caption with no monograph/ledger anchor. Computed as the max S1
+# plateau across the S021 extended-simulation reruns. approx_round tolerance
+# because the caption renders it with an explicit "~".
+s021_s1_max_plateau = float(
+    s21_plat[s21_plat["scenario"] == "S1"]["PaO2_plateau_mmHg"].max()
+)
+add(
+    claim_id="T1.24d.s021_s1_max_runaway_plateau",
+    section="Fig 3b caption (npj paper); §3.8 S021 runaway (monograph)",
+    manuscript_text="worst-case S1 hyperoxia runaway plateau ~1,408 mmHg (off-scale; 6 S1 reruns > 700 mmHg)",
+    source_file="data/runs/s021_hyperoxia_convergence/plateau_stats.parquet (max S1 PaO2_plateau_mmHg)",
+    manuscript_value=1408.0,
+    computed_value=s021_s1_max_plateau,
+    tolerance_rule="approx_round",
+)
 
 # 22. Table 1 cell counts -- 8 cells x 5 numeric columns + n_total.
 table1_expected = {
@@ -1502,6 +1520,20 @@ add(
 PULSE_FEMALE_BV_DEFAULT_ML = 3996.09  # Pulse allometric (65.6 * 56.2^1.02); verified vs setup log on S006
 CORNISH_NON_OVERLAP_HOEFFDING = 80    # Cornish 2023 Table 1: 85 total - 3 PaCO2 overlap - 2 SysBP partial = 80
 CORNISH_TOTAL_HOEFFDING = 85          # Cornish 2023 Table 1 total Hoeffding rejections across 15 quantities
+CORNISH_OVERLAP_HOEFFDING = 3         # Cornish 2023 Table 1: PaCO2 row 3/70 -- all 3 four-channel-overlap rejections
+CORNISH_PARTIAL_OVERLAP_HOEFFDING = 2  # Cornish 2023 Table 1: SysBP row 2/154 -- partial MAP-input overlap
+# 82 = the rejections that fall OUTSIDE the four-channel direct overlap
+# (80 on channels the atlas does not assess + 2 on the SysBP partial-overlap).
+# Derived so the decomposition is self-checking rather than a free literal.
+CORNISH_OUTSIDE_OVERLAP_HOEFFDING = (
+    CORNISH_NON_OVERLAP_HOEFFDING + CORNISH_PARTIAL_OVERLAP_HOEFFDING
+)
+assert (
+    CORNISH_NON_OVERLAP_HOEFFDING
+    + CORNISH_PARTIAL_OVERLAP_HOEFFDING
+    + CORNISH_OVERLAP_HOEFFDING
+    == CORNISH_TOTAL_HOEFFDING
+), "audit_claims: Cornish Hoeffding decomposition (80 + 2 + 3) must sum to 85"
 
 add(
     claim_id="T3.s028.bv_female_default",
@@ -1528,6 +1560,24 @@ add(
     source_file="Cornish et al. 2023 (arXiv:2301.07210) Table 1, verified in S017",
     manuscript_value=85,
     computed_value=CORNISH_TOTAL_HOEFFDING,
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T3.s028.cornish_outside_overlap",
+    section="§4.4 + S7 Table caption (monograph/supplement); §2.6 (npj paper)",
+    manuscript_text="82 of 85 Cornish Hoeffding rejections fall outside the 4-channel overlap (80 not-assessed + 2 SysBP partial)",
+    source_file="Cornish et al. 2023 (arXiv:2301.07210) Table 1, verified in S017",
+    manuscript_value=82,
+    computed_value=CORNISH_OUTSIDE_OVERLAP_HOEFFDING,
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T3.s028.cornish_overlap_hoeffding",
+    section="§4.4 + S7 Table caption (monograph/supplement); §2.6 (npj paper)",
+    manuscript_text="3 of 85 Cornish Hoeffding rejections on the 4-channel overlap (all on PaCO2)",
+    source_file="Cornish et al. 2023 (arXiv:2301.07210) Table 1, PaCO2 row 3/70",
+    manuscript_value=3,
+    computed_value=CORNISH_OVERLAP_HOEFFDING,
     tolerance_rule="exact_int",
 )
 
@@ -1883,21 +1933,35 @@ for _, _row in _s21_s1_physio.iterrows():
         _df = pd.read_csv(_csv)[["time_s", "ArterialOxygenPressure"]]
         _df["run_id"] = _row["case_id_long"]
         _traj_frames.append(_df)
-_all_traj = pd.concat(_traj_frames, ignore_index=True)
-_median_traj = _all_traj.groupby("time_s")["ArterialOxygenPressure"].median()
-_floor = float(_median_traj.iloc[0])
-_asymptote = float(_median_traj.iloc[-1])
-_target = _floor + 0.95 * (_asymptote - _floor)
-_t_95 = float(_median_traj[_median_traj >= _target].index[0])
-add(
-    claim_id="T1.06u.s021_time_to_95pct_plateau",
-    section="Supplement S9 (extended hyperoxia convergence)",
-    manuscript_text="180 s of extended simulation to reach 95% of late plateau (38 physiological-converged S1 runs)",
-    source_file="derived from data/runs/s021_hyperoxia_convergence/<S1 runs>/output.csv",
-    manuscript_value=180.0,
-    computed_value=_t_95,
-    tolerance_rule="whole_unit",
-)
+if _traj_frames:
+    _all_traj = pd.concat(_traj_frames, ignore_index=True)
+    _median_traj = _all_traj.groupby("time_s")["ArterialOxygenPressure"].median()
+    _floor = float(_median_traj.iloc[0])
+    _asymptote = float(_median_traj.iloc[-1])
+    _target = _floor + 0.95 * (_asymptote - _floor)
+    _t_95 = float(_median_traj[_median_traj >= _target].index[0])
+    add(
+        claim_id="T1.06u.s021_time_to_95pct_plateau",
+        section="Supplement S9 (extended hyperoxia convergence)",
+        manuscript_text="180 s of extended simulation to reach 95% of late plateau (38 physiological-converged S1 runs)",
+        source_file="derived from data/runs/s021_hyperoxia_convergence/<S1 runs>/output.csv",
+        manuscript_value=180.0,
+        computed_value=_t_95,
+        tolerance_rule="whole_unit",
+    )
+else:
+    # The per-run output.csv trajectories this anchor recomputes from are
+    # git-ignored raw artifacts (.gitignore: data/runs/**/output.csv), so they
+    # are absent on a clean checkout such as CI. Skip this single anchor with a
+    # NOTE rather than crashing on pd.concat([]); the parquet/CSV-backed anchors
+    # still run as the CI gate. Run locally with the full data/runs tree present
+    # to audit T1.06u.
+    print(
+        "_NOTE: T1.06u (S021 time-to-95%-plateau) skipped -- raw per-run "
+        "output.csv trajectories not present in this checkout (expected in CI; "
+        "run locally with the full data/runs tree to audit this anchor)._",
+        file=sys.stderr,
+    )
 
 # -----------------------------------------------------------------------------
 # Output: markdown table sorted FAIL > WARN > PASS, then by claim_id.

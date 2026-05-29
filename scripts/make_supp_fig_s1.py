@@ -127,7 +127,7 @@ print(f"continuous_ards: {len(_df)} runs; "
       f"M diverged = {int(_df[_df['sex'] == 'M']['diverged'].sum())}")
 print(f"empirical instability band (min/max diverged severity) = [{_band_lo:.3f}, {_band_hi:.3f}]")
 
-fig, ax = plt.subplots(1, 1, figsize=(9.5, 5.0))
+fig, ax = plt.subplots(1, 1, figsize=(11.0, 5.4))
 
 # Wilson 95% binomial CI on each proportion.
 xs = [b["mid"] for b in BINS]
@@ -163,19 +163,28 @@ ax.errorbar(
 # Reference shading for the documented 0.91-0.945 instability zone (from
 # the literature; the atlas extends the empirical band to [0.879, 0.945]).
 ax.axvspan(0.91, 0.945, color="#C44E52", alpha=0.10, zorder=0,
-           label="Documented 0.91--0.945 instability zone")
+           label="Documented 0.91–0.945 instability zone")
 
-# Per-bin sample-size annotations under the x-axis.
-for x, b in zip(xs, BINS):
+# Per-bin sample-size annotations under the x-axis. The four high-severity
+# bins (mid 0.88-0.975) cluster tightly, so the labels are staggered across
+# two rows (alternating by bin index) to keep adjacent "n=" tags from
+# overlapping each other.
+for i, (x, b) in enumerate(zip(xs, BINS)):
+    y_ann = -0.055 if i % 2 == 0 else -0.105
     ax.annotate(
-        f"n={b['n']}", xy=(x, -0.06), xycoords=("data", "axes fraction"),
+        f"n={b['n']}", xy=(x, y_ann), xycoords=("data", "axes fraction"),
         ha="center", va="top", fontsize=8, color="#666666",
     )
 
 ax.set_xlim(0.15, 1.05)
 ax.set_ylim(-0.05, 1.05)
-ax.set_xlabel("ARDS impairment-fraction bin (continuous-severity micro-sweep)")
-ax.set_ylabel("Divergence rate (Wilson 95\\% CI)")
+# labelpad clears the staggered two-row "n=" annotation block above so the
+# axis title is not crowded against the abscissa.
+ax.set_xlabel(
+    "ARDS impairment-fraction bin (continuous-severity micro-sweep)",
+    labelpad=46,
+)
+ax.set_ylabel("Divergence rate (Wilson 95% CI)")
 ax.set_title(
     "Continuous-severity divergence regime: sex-stratified, midrange Morris inputs",
     fontsize=10,
