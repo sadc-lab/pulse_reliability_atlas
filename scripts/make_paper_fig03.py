@@ -14,7 +14,7 @@ Panel B: S021 hyperoxia 300-second convergence. Each of the 60 reruns
          is one dot; x-axis is the original 120-second mean PaO2, y-axis
          is the 300-second plateau PaO2. Diagonal y = x marks "no
          change". The horizontal at 600 mmHg marks the detector's
-         locked upper bound; the horizontal at ~653 mmHg marks the
+         locked upper bound; the horizontal at ~663 mmHg marks the
          alveolar-gas-equation prediction. The S1 scatter sitting just
          below the AGE prediction confirms a transient hyperoxia regime
          rather than an oxygenation overshoot.
@@ -68,7 +68,7 @@ both = pd.concat([s21["PaO2_mean_orig_120s"], s21["PaO2_plateau_mmHg"]])
 lo, hi = max(0, both.min() - 30), both.max() + 30
 axB.plot([lo, hi], [lo, hi], "k--", linewidth=0.8, alpha=0.4, label="$y = x$ (no change)")
 axB.axhline(600, color="#8172B2", linestyle=":", linewidth=1.0, alpha=0.8, label="600 mmHg classifier bound")
-axB.axhline(653, color="#937860", linestyle="-.", linewidth=1.0, alpha=0.8, label=r"$\approx$ 653 mmHg AGE prediction")
+axB.axhline(663, color="#937860", linestyle="-.", linewidth=1.0, alpha=0.8, label=r"$\approx$ 663 mmHg AGE prediction")
 axB.set_xlim(lo, hi)
 axB.set_ylim(lo, hi)
 axB.set_xlabel(r"Original 120-second mean PaO$_2$ (mmHg)")
