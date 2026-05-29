@@ -49,7 +49,7 @@ locked four-flag detector (`clamped` / `diverged` / `implausible` /
 20.6 % of runs (finding **F-004**), and is **causally identified as
 patient-ventilator dyssynchrony at the inspiration trigger and corrected
 by setting trigger pressure to −2 cmH2O** (median Vt CV collapses from
-0.351 to 0.016; worst-case from 1.826 to 0.112). Sensitivity is
+0.351 to 0.016; worst-case from 1.826 to 0.018). Sensitivity is
 strongly skewed: 48 of 48 (cell × output) combinations have ≥ 50 % of
 summed μ\* in their top-3 inputs (median 0.928), and the engine is
 **predominantly linear** for these dominant parameters — point-estimate
@@ -145,7 +145,7 @@ sweep.*
   patient-ventilator dyssynchrony at the inspiration trigger and
   *resolved* by setting trigger pressure to −2 cmH2O (median Vt
   coefficient of variation collapses 0.351 → 0.016; worst-case
-  1.826 → 0.112).
+  1.826 → 0.018).
 * **Transient hyperoxia regime (F-003).** Under the preregistered 120 s
   window, Pulse PaO2 exceeds the locked classifier upper bound of
   600 mmHg at FiO2 = 1.0 in 34 implausibly-flagged runs (91 % at
@@ -2259,7 +2259,7 @@ corrected by setting trigger pressure to −2 cmH2O.*
   Vt_cv_lockout) = +0.326** (pre-registered threshold ≥ 0.04, exceeded
   8×); **proportion of locked runs with Vt_cv < 0.05 = 78.1 %**
   (pre-registered threshold ≥ 75 %). Median Vt_cv collapses from 0.351
-  to 0.016 (96 % reduction); worst-case from 1.826 to 0.112. Both
+  to 0.016 (96 % reduction); worst-case from 1.826 to 0.018. Both
   pre-registered thresholds were met, confirming that the dyssynchrony
   — not solver instability, not Nyquist aliasing of the breath cycle,
   and not auto-PEEP — drives the original 20.6 % flag rate. Full
@@ -2915,7 +2915,7 @@ operator-actionable corrections — resolving VC-AC tidal-volume
 dyssynchrony (F-004) via an explicit
 `InspirationPatientTriggerPressure = −2 cmH2O` setting
 ([S014](#s014); median Vt CV collapses 0.351 → 0.016, worst-case
-1.826 → 0.112) and reframing the apparent FiO2 = 1.0 PaO2 overshoot
+1.826 → 0.018) and reframing the apparent FiO2 = 1.0 PaO2 overshoot
 as a transient hyperoxia regime (F-003), with the 300 s plateau
 landing ~ 20 mmHg below the alveolar-gas-equation prediction
 ([S021](#s021); median 643 mmHg vs ~ 663 mmHg predicted) —

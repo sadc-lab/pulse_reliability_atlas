@@ -756,6 +756,34 @@ add(
     computed_value=1.0 * (760.0 - 47.0) - 40.0 / 0.8,
     tolerance_rule="whole_unit",
 )
+# Worst-case S014 trigger-lockout Vt CV pair (default 1.826 -> locked 0.018),
+# guarded after the forensic finding that the monograph had mis-paired the
+# worst-case DEFAULT run (S1_F_0117, 1.826) with a different run's worst
+# LOCKED CV (S1_F_0008, 0.112). The true S1_F_0117 transition is 1.826 ->
+# 0.018; both endpoints are now anchored to paired_comparison.parquet so the
+# worst-case caption number cannot silently drift across documents again.
+_s14_pc = pd.read_parquet(
+    REPO / "data" / "runs" / "s014_trigger_lockout" / "paired_comparison.parquet"
+)
+_s14_worst = _s14_pc.loc[_s14_pc["Vt_cv_orig"].idxmax()]
+add(
+    claim_id="T1.s014.worstcase_default_vtcv",
+    section="Section 2.3 + Fig 3a (npj); worst-case (monograph); Supplement Fig S8",
+    manuscript_text="worst-case S014 default Vt CV = 1.826 (run S1_F_0117, largest before/after delta)",
+    source_file="data/runs/s014_trigger_lockout/paired_comparison.parquet (max Vt_cv_orig row)",
+    manuscript_value=1.826,
+    computed_value=float(_s14_worst["Vt_cv_orig"]),
+    tolerance_rule="displayed_3dp",
+)
+add(
+    claim_id="T1.s014.worstcase_locked_vtcv",
+    section="Section 2.3 + Fig 3a (npj); worst-case (monograph); Supplement Fig S8",
+    manuscript_text="worst-case S014 paired-config locked Vt CV = 0.018 (same run S1_F_0117)",
+    source_file="data/runs/s014_trigger_lockout/paired_comparison.parquet (Vt_cv_lock of max-Vt_cv_orig row)",
+    manuscript_value=0.018,
+    computed_value=float(_s14_worst["Vt_cv_lock"]),
+    tolerance_rule="displayed_3dp",
+)
 add(
     claim_id="T1.24",
     section="§3.8 L1965 + L1962",

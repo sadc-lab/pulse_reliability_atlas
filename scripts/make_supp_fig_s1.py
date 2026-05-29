@@ -9,6 +9,14 @@ a vertical line (dumbbell), emphasising the within-bin sex divergence
 delta. Error bars are Wilson 95% binomial confidence intervals on the
 divergence proportion.
 
+Per-bin counts and the empirical instability-band edges are derived
+DYNAMICALLY from the raw run directories under
+data/runs/continuous_ards/ (see ``load_divergence`` / ``build_bins``)
+rather than hardcoded, so the figure cannot silently go stale if the
+underlying sweep is regenerated. Divergence is determined run-by-run
+using the locked atlas definition: non-zero exit code, missing CSV, or
+any non-finite value in the numeric output columns.
+
 The matplotlib aesthetic is copied verbatim from the main-paper figure
 scripts (figsize, palette, dpi=200, grid alpha, font sizes) per the
 S028 visual-consistency guardrail.
@@ -18,12 +26,30 @@ Output: preprint_npj/figures/fig_s1_continuous_severity.pdf + .png
 
 from __future__ import annotations
 
+import glob
+import json
 import math
+import os
 from pathlib import Path
 
 import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 
 REPO = Path(__file__).resolve().parents[1]
+CONT_DIR = REPO / "data" / "runs" / "continuous_ards"
+OUT = REPO / "preprint_npj" / "figures" / "fig_s1_continuous_severity.pdf"
+
+# Bin DEFINITIONS (half-open impairment-fraction intervals) are fixed; the
+# per-bin sample sizes and divergence COUNTS are derived from raw data below.
+BIN_EDGES = [
+    ("[0, 0.5]",       0.25,   0.0,   0.5),
+    ("(0.5, 0.85]",    0.675,  0.5,   0.85),
+    ("(0.85, 0.91]",   0.880,  0.85,  0.91),
+    ("(0.91, 0.945]",  0.9275, 0.91,  0.945),
+    ("(0.945, 0.95]",  0.9475, 0.945, 0.95),
+    ("(0.95, 1.0]",    0.975,  0.95,  1.0),
+]
 
 
 def wilson_ci(successes: int, n: int, z: float = 1.96) -> tuple[float, float]:
@@ -40,20 +66,66 @@ def wilson_ci(successes: int, n: int, z: float = 1.96) -> tuple[float, float]:
     centre = (p + z * z / (2 * n)) / denom
     half = (z / denom) * math.sqrt(p * (1 - p) / n + z * z / (4 * n * n))
     return (max(0.0, centre - half), min(1.0, centre + half))
-OUT = REPO / "preprint_npj" / "figures" / "fig_s1_continuous_severity.pdf"
 
-# Per-bin divergence counts from the monograph continuous-severity
-# micro-sweep table (S3.5.1, 200-run sweep at midrange Morris inputs:
-# HR=80, SBP=105, DBP=70, RR=14, Vt=550, FiO2=0.6, PEEP=10). Bins are
-# the impairment-fraction half-open intervals.
-BINS = [
-    {"label": "[0, 0.5]",       "mid": 0.25,    "n": 31, "m_div": 0, "f_div": 0},
-    {"label": "(0.5, 0.85]",    "mid": 0.675,   "n": 20, "m_div": 0, "f_div": 0},
-    {"label": "(0.85, 0.91]",   "mid": 0.880,   "n": 18, "m_div": 5,  "f_div": 14},
-    {"label": "(0.91, 0.945]",  "mid": 0.9275,  "n": 10, "m_div": 9,  "f_div": 5},
-    {"label": "(0.945, 0.95]",  "mid": 0.9475,  "n": 2,  "m_div": 0,  "f_div": 0},
-    {"label": "(0.95, 1.0]",    "mid": 0.975,   "n": 19, "m_div": 0,  "f_div": 0},
-]
+
+def load_divergence() -> pd.DataFrame:
+    """Parse every continuous_ards run: (sex, impairment fraction, diverged).
+
+    Severity is encoded in the directory name as ``...sevXXXX`` (XXXX / 1000).
+    Divergence follows the locked atlas definition: exit code != 0, missing
+    output.csv, or any non-finite numeric value in output.csv.
+    """
+    rows: list[tuple[str, float, bool]] = []
+    for d in sorted(glob.glob(str(CONT_DIR / "CONT_*"))):
+        parts = os.path.basename(d).split("_")
+        sex = parts[1]
+        sev = int(parts[3].replace("sev", "")) / 1000.0
+        meta = json.loads((Path(d) / "run_meta.json").read_text())
+        diverged = meta.get("exit_code", 1) != 0
+        csv = Path(d) / "output.csv"
+        if not diverged:
+            if not csv.exists():
+                diverged = True
+            else:
+                out = pd.read_csv(csv)
+                num = out.select_dtypes(include=[np.number])
+                diverged = (len(out) == 0) or (not np.isfinite(num.to_numpy()).all())
+        rows.append((sex, sev, bool(diverged)))
+    return pd.DataFrame(rows, columns=["sex", "sev", "diverged"])
+
+
+def build_bins(df: pd.DataFrame) -> list[dict]:
+    """Aggregate the per-run divergence frame into the fixed bins.
+
+    The male and female sweeps share the same severity grid, so the per-sex
+    sample size is identical within each bin; this is asserted so a future
+    data change that breaks the assumption fails loudly rather than silently.
+    """
+    bins: list[dict] = []
+    for label, mid, lo, hi in BIN_EDGES:
+        mask = (df["sev"] >= lo) & (df["sev"] <= hi) if lo == 0.0 else (df["sev"] > lo) & (df["sev"] <= hi)
+        f = df[mask & (df["sex"] == "F")]
+        m = df[mask & (df["sex"] == "M")]
+        assert len(f) == len(m), f"bin {label}: nF={len(f)} != nM={len(m)} (severity grid mismatch)"
+        bins.append({
+            "label": label,
+            "mid": mid,
+            "n": len(f),
+            "m_div": int(m["diverged"].sum()),
+            "f_div": int(f["diverged"].sum()),
+        })
+    return bins
+
+
+_df = load_divergence()
+BINS = build_bins(_df)
+_dv = _df[_df["diverged"]]
+_band_lo = float(_dv["sev"].min()) if len(_dv) else float("nan")
+_band_hi = float(_dv["sev"].max()) if len(_dv) else float("nan")
+print(f"continuous_ards: {len(_df)} runs; "
+      f"F diverged = {int(_df[_df['sex'] == 'F']['diverged'].sum())}, "
+      f"M diverged = {int(_df[_df['sex'] == 'M']['diverged'].sum())}")
+print(f"empirical instability band (min/max diverged severity) = [{_band_lo:.3f}, {_band_hi:.3f}]")
 
 fig, ax = plt.subplots(1, 1, figsize=(9.5, 5.0))
 
