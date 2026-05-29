@@ -743,6 +743,19 @@ add(
     computed_value=float(s21_sum["S1_plateau_median_mmHg"]),
     tolerance_rule="whole_unit",
 )
+# Alveolar-gas-equation sea-level prediction (663 mmHg), guarded as a value
+# anchor so the 663-vs-643/A-a-20 framing cannot silently drift again. The
+# bare equation gives the ALVEOLAR PAO2; the ~20 mmHg gap to the measured
+# arterial 643 mmHg is Pulse's modelled A-a gradient (Pass C SP-C.D1 / D1-a).
+add(
+    claim_id="T1.23b.alveolar_gas_prediction",
+    section="Abstract + §2.4 + Fig 3 (npj paper); §3.8 S021 derivation (monograph)",
+    manuscript_text="alveolar PAO2 = 1.0*(760-47) - 40/0.8 ~= 663 mmHg (sea-level; A-a gradient ~20 vs measured arterial 643)",
+    source_file="alveolar gas equation, sea-level constants (West 2020 respiratory physiology)",
+    manuscript_value=663.0,
+    computed_value=1.0 * (760.0 - 47.0) - 40.0 / 0.8,
+    tolerance_rule="whole_unit",
+)
 add(
     claim_id="T1.24",
     section="§3.8 L1965 + L1962",
@@ -1474,7 +1487,7 @@ add(
 add(
     claim_id="T3.s028.cornish_non_overlap_hoeffding",
     section="§4.4 (monograph); §2.6 (npj paper)",
-    manuscript_text="80 of 85 Cornish Hoeffding rejections on channels outside atlas overlap",
+    manuscript_text="80 of 85 Cornish Hoeffding rejections on the 8 channels the atlas does not assess (82 of 85 fall outside the 4-channel overlap: 80 not-assessed + 2 SysBP partial)",
     source_file="Cornish et al. 2023 (arXiv:2301.07210) Table 1, verified in S017",
     manuscript_value=80,
     computed_value=CORNISH_NON_OVERLAP_HOEFFDING,

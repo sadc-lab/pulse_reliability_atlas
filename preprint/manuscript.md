@@ -1508,14 +1508,14 @@ state.
 all scenarios; the gap between that range and the output mean
 quantifies the engine's compensatory reflex gain.
 **Key takeaway:** in S3 / S4 the output HR sits at 145 – 160 bpm
-despite inputs drawn from [50, 110] — a ~60 bpm sympathetic overshoot
+despite inputs drawn from [50, 110] — a ~70 bpm sympathetic overshoot above the input-range midpoint
 driven by Pulse's baroreceptor / chemoreceptor reflex, not a numerical
 artefact.
 
 In S1 (healthy), Pulse settles output HR near a physiological norm
 (~74 bpm) regardless of the requested baseline. By S3 / S4, output HR
 is in the 145 – 160 bpm range *despite* the input being drawn from
-[50, 110] — a 60 bpm sympathetic overshoot. This is the engine's
+[50, 110] — a ~70 bpm sympathetic overshoot above the input-range midpoint. This is the engine's
 documented baroreceptor / chemoreceptor reflex asserting itself: the
 patient is hypoxemic, the reflex commands tachycardia, and the
 compensation is *strong enough to dominate the explicit input HR
@@ -1990,7 +1990,7 @@ driving Vt is not clearly preserved across sex.
   these survive the within-sex null under BH-FDR control at q = 0.05.
 * **Sex effect on HR, MAP, Vt is not distinguishable from
   within-sex sub-sampling** at our sample size. Either it does not
-  exist, or it is below the detection floor of 49 – 144 clean runs
+  exist, or it is below the detection floor of 42 – 144 clean runs
   per cell.
 * **Input-importance rankings are similar by sex** (Spearman ρ
   point estimates 0.75 – 1.00 in S2 / S3) but the CIs are wide —
@@ -2153,7 +2153,7 @@ corrected by setting trigger pressure to −2 cmH2O.*
   the sea-level barometric pressure of 760 mmHg). All six share a
   specific input signature: **Vt = 633.3 mL combined with RR = 20**
   (and FiO2 = 1.0), i.e. an excessive minute ventilation of
-  V̇E ≈ 12.6 L/min, ~ 2× the physiological norm of 6 – 8 L/min.
+  V̇E ≈ 12.7 L/min, ~ 2× the physiological norm of 6 – 8 L/min.
   Inspection of the per-run trajectories shows a stable
   ~ 690 mmHg PaO2 plateau through ~ 195 s, then an abrupt numerical
   runaway between 195 s and 220 s, plateauing at ~ 1,400 mmHg by
@@ -2549,9 +2549,11 @@ Table 1), the second column the reverse-percentile bootstrap
 rejections (their Appendix Table 5); the rightmost column maps each
 channel to an atlas output (Yes / Partial / No). Bold rows are the
 four-channel direct overlap.
-**Key takeaway:** 80 of 85 Hoeffding rejections fall on Cornish's 11
-channels *outside* the atlas's six-output panel (electrolyte,
-metabolic, acid-base, dermal). The four-channel overlap (HR, MAP,
+**Key takeaway:** 82 of 85 Hoeffding rejections fall *outside* the
+atlas's four-channel overlap: 80 on the eight channels the atlas does
+not assess (electrolyte, metabolic, acid-base, dermal) plus 2 on
+partial-overlap pressure channels. Only 3 (all PaCO2) fall on the
+overlap. The four-channel overlap (HR, MAP,
 PaO2, PaCO2) is in ordinal agreement — PaCO2 is the most
 assessment-sensitive channel in both papers — even though absolute
 rejection rates differ.

@@ -31,6 +31,14 @@
   note      = {PubMed Central: PMC10224749. Entry corrected 2026-05-12 in pre-submission audit; previously listed under an invented title "PulseExt..." with an incorrect author list (the missing-Asare confusion was a copy-from-webb2020 error). Paper reports qualitative waveform agreement between Pulse and the ASL 5000 lung simulator across nine validation cases (healthy / restrictive / obstructive lung profiles x PC-AC / VC-AC / CPAP modes); does NOT report quantitative tidal-volume error percentages. The 0.07-2.25 percent VC-AC and 11.3-25.3 percent PC-AC tidal-volume error numbers cited elsewhere in this manuscript come from the Pulse documentation tables (see @pulsevent), not from this paper.}
 }
 
+@misc{pulsevent,
+  title     = {Mechanical Ventilator Methodology --- Pulse Physiology Engine (v4.3.1 documentation)},
+  author    = {{Kitware, Inc.}},
+  howpublished = {\url{https://pulse.kitware.com/_mechanical_ventilator_methodology.html}},
+  year      = {2026},
+  note      = {Tables 3, 5, 10, 12, 17, 19 of the validation section report Pulse vs ASL 5000 + Drager Evita Infinity V500 tidal-volume errors for VC-AC (0.0681 percent healthy [rounded to 0.07 percent in this manuscript] / 1.01 percent restrictive / 2.25 percent obstructive) and PC-AC (11.3 percent healthy / 25.3 percent restrictive / 15.3 percent obstructive). Source of the numerical Vt-accuracy claims in this paper; the qualitative validation framework is described in @webb2022vent. Verified 2026-05-12; healthy VC-AC value re-verified against live Table 3 in pre-submission Phase-2 citation audit (2026-05-17), which confirmed the 0.0681 percent figure exactly.}
+}
+
 @article{cornish2023,
   author    = {Cornish, R and Taufiq, M F and Doucet, A and Holmes, C},
   title     = {Causal Falsification of Digital Twins},
