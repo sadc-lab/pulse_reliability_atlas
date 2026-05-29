@@ -1933,7 +1933,18 @@ for _, _row in _s21_s1_physio.iterrows():
         _df = pd.read_csv(_csv)[["time_s", "ArterialOxygenPressure"]]
         _df["run_id"] = _row["case_id_long"]
         _traj_frames.append(_df)
-if _traj_frames:
+# Strict count guard scoped to T1.06u ONLY. The other 246 anchors are protected
+# by the eager pd.read_parquet/read_csv/json.loads/.read_text() calls at module
+# top, which raise on a missing artefact. Here the only acceptable soft path is
+# the CI / clean-checkout case where data/runs/**/output.csv is gitignored and
+# UNIFORMLY absent. A partial set (some present, some missing) or an empty
+# expected set (no S1 physio rows in plateau_stats -- upstream data corruption)
+# must NOT silently skip: either case could produce a misleading T1.06u value or
+# mask a corrupt data tree. Hence the explicit n_expected vs n_found bounds.
+_n_expected = int(len(_s21_s1_physio))
+_n_found = int(len(_traj_frames))
+if _n_expected > 0 and _n_found == _n_expected:
+    # Full local data: every expected output.csv is on disk -> recompute & audit.
     _all_traj = pd.concat(_traj_frames, ignore_index=True)
     _median_traj = _all_traj.groupby("time_s")["ArterialOxygenPressure"].median()
     _floor = float(_median_traj.iloc[0])
@@ -1949,18 +1960,29 @@ if _traj_frames:
         computed_value=_t_95,
         tolerance_rule="whole_unit",
     )
-else:
-    # The per-run output.csv trajectories this anchor recomputes from are
-    # git-ignored raw artifacts (.gitignore: data/runs/**/output.csv), so they
-    # are absent on a clean checkout such as CI. Skip this single anchor with a
-    # NOTE rather than crashing on pd.concat([]); the parquet/CSV-backed anchors
-    # still run as the CI gate. Run locally with the full data/runs tree present
-    # to audit T1.06u.
+elif _n_expected > 0 and _n_found == 0:
+    # Benign CI case: plateau_stats lists N>0 S1 physio runs but every per-run
+    # output.csv is gitignored and absent on a clean checkout. Skip T1.06u
+    # with a NOTE; the parquet/CSV-backed anchors still run as the gate.
     print(
         "_NOTE: T1.06u (S021 time-to-95%-plateau) skipped -- raw per-run "
         "output.csv trajectories not present in this checkout (expected in CI; "
         "run locally with the full data/runs tree to audit this anchor)._",
         file=sys.stderr,
+    )
+else:
+    # Neither full-data nor benign-CI. Either the plateau parquet has no S1
+    # physiological-converged rows (upstream data corruption) or the output.csv
+    # set is partial (corrupt working tree). Refuse to silently compute T1.06u
+    # from the wrong cohort -- crash so the operator notices.
+    raise RuntimeError(
+        f"audit_claims T1.06u: refusing to silently skip -- expected "
+        f"{_n_expected} S021 S1 physiological-converged trajectories, found "
+        f"{_n_found} matching output.csv files at "
+        f"{_s21_dir}/<case>/output.csv. The only acceptable bounds are 'full "
+        f"set present' (run locally with the data/runs tree) or 'zero present' "
+        f"(gitignored on a clean CI checkout). A partial or empty-expected set "
+        f"indicates a corrupt data tree and must be investigated, not skipped."
     )
 
 # -----------------------------------------------------------------------------
