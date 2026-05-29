@@ -143,5 +143,87 @@
   address   = {Philadelphia, PA},
   year      = {2020},
   isbn      = {978-1-9751-3918-6},
-  note      = {Reference respiratory-physiology textbook. Cited in section 2.4 of the npj paper for the alveolar-gas equation (Chapter 5: Gas Exchange) underlying the approximately 653 mmHg PaO2 sea-level prediction at FiO2 = 1.0 against which Pulse's converged 300-second plateau (median 643 mmHg) is benchmarked. Restored in Step 8.5 retroactive ghost-concept sweep after the strict alpha-prune mechanically removed the citation but the underlying equation remained in the prose.}
+  note      = {Reference respiratory-physiology textbook. Cited in section 2.4 of the npj paper for the alveolar-gas equation (Chapter 5: Gas Exchange) underlying the approximately 663 mmHg PaO2 sea-level prediction at FiO2 = 1.0 against which Pulse's converged 300-second plateau (median 643 mmHg) is benchmarked. Also cited in Supplement S3.4 (per-bound HARD-BOUNDS rationale): Chapter 2 (Ventilation) for the adult anatomical dead space approximately 150 mL anchoring the Vt = 50 mL lower bound; Chapter 4 (Blood Gas Transport) for the PaCO2 acid-base survival range anchoring the PaCO2 (10, 120) bound; Chapter 5 (Gas Exchange) for the alveolar-gas-equation ceiling anchoring both the PaO2 upper bound and the HARD-BOUNDS-PHYSIOLOGICAL alternative. Restored in Step 8.5 retroactive ghost-concept sweep after the strict alpha-prune mechanically removed the citation but the underlying equation remained in the prose.}
+}
+
+@article{brower2000,
+  author    = {{Acute Respiratory Distress Syndrome Network} and Brower, R G and Matthay, M A and Morris, A and Schoenfeld, D and Thompson, B T and Wheeler, A},
+  title     = {Ventilation with lower tidal volumes as compared with traditional tidal volumes for acute lung injury and the acute respiratory distress syndrome},
+  journal   = {New England Journal of Medicine},
+  volume    = {342},
+  number    = {18},
+  pages     = {1301--1308},
+  year      = {2000},
+  doi       = {10.1056/NEJM200005043421801},
+  note      = {Landmark 861-patient RCT establishing 6 mL/kg PBW protective tidal-volume ventilation as the ARDSnet standard. Cited in Methods Section 4.4 and Supplement S3.4 to anchor the Vt upper bound of 1,500 mL (approximately 4x ARDSnet protective ventilation on the atlas surrogates). Mirrors preprint/references.bib entry; web-verified 2026-05-30 via NEJM.}
+}
+
+@article{severinghaus1979,
+  author    = {Severinghaus, J W},
+  title     = {Simple, accurate equations for human blood {O2} dissociation computations},
+  journal   = {Journal of Applied Physiology: Respiratory, Environmental and Exercise Physiology},
+  volume    = {46},
+  number    = {3},
+  pages     = {599--602},
+  year      = {1979},
+  doi       = {10.1152/jappl.1979.46.3.599},
+  note      = {PMID 35496. Canonical reference equation for the oxyhemoglobin dissociation curve; P50 = 26.6 mmHg. Anchors the SpO2 lower bound (0.50 corresponds to PaO2 approximately 27 mmHg) and the PaO2 lower bound (20 mmHg corresponds to SpO2 approximately 0.30) in Supplement S3.4. Web-verified 2026-05-30.}
+}
+
+@article{singer2016,
+  author    = {Singer, M and Deutschman, C S and Seymour, C W and Shankar-Hari, M and Annane, D and Bauer, M and Bellomo, R and Bernard, G R and Chiche, J D and Coopersmith, C M and Hotchkiss, R S and Levy, M M and Marshall, J C and Martin, G S and Opal, S M and Rubenfeld, G D and van der Poll, T and Vincent, J L and Angus, D C},
+  title     = {The Third International Consensus Definitions for Sepsis and Septic Shock ({Sepsis-3})},
+  journal   = {JAMA},
+  volume    = {315},
+  number    = {8},
+  pages     = {801--810},
+  year      = {2016},
+  doi       = {10.1001/jama.2016.0287},
+  note      = {PMID 26903338. Sepsis-3 defines septic shock with vasopressor-dependent MAP target greater than or equal to 65 mmHg; MAP less than 30 mmHg is well below autoregulated organ-perfusion threshold. Anchors MAP lower bound (30 mmHg) in Supplement S3.4. Mirrors preprint/references.bib entry.}
+}
+
+@article{evans2021sepsis,
+  author    = {Evans, L and Rhodes, A and Alhazzani, W and Antonelli, M and Coopersmith, C M and French, C and Machado, F R and Mcintyre, L and Ostermann, M and Prescott, H C and others},
+  title     = {Surviving Sepsis Campaign: International Guidelines for Management of Sepsis and Septic Shock 2021},
+  journal   = {Critical Care Medicine},
+  volume    = {49},
+  number    = {11},
+  pages     = {e1063--e1143},
+  year      = {2021},
+  doi       = {10.1097/CCM.0000000000005337},
+  note      = {PMID 34605781. International ICU practice MAP target greater than or equal to 65 mmHg in sepsis resuscitation. Corroborates the MAP lower bound rationale in Supplement S3.4. Web-verified 2026-05-30.}
+}
+
+@article{mancia2023esh,
+  author    = {Mancia, G and Kreutz, R and Brunstr{\"o}m, M and Burnier, M and Grassi, G and Januszewicz, A and Muiesan, M L and Tsioufis, K and Agabiti-Rosei, E and Algharably, E A E and others},
+  title     = {2023 {ESH} Guidelines for the management of arterial hypertension},
+  journal   = {Journal of Hypertension},
+  volume    = {41},
+  number    = {12},
+  pages     = {1874--2071},
+  year      = {2023},
+  doi       = {10.1097/HJH.0000000000003480},
+  note      = {PMID 37345492. ESH 2023 defines hypertensive emergency at SBP greater than 180 mmHg and/or DBP greater than 120 mmHg with acute target-organ damage. Anchors MAP / SBP upper bound (180 mmHg) in Supplement S3.4.}
+}
+
+@book{marino2013icu,
+  author    = {Marino, P L},
+  title     = {Marino's The {ICU} Book},
+  edition   = {4th},
+  publisher = {Lippincott Williams \& Wilkins (Wolters Kluwer Health)},
+  address   = {Philadelphia, PA},
+  year      = {2013},
+  isbn      = {978-1-4511-2118-6},
+  note      = {Standard ICU reference. Chapter 5 (Hemodynamic Drug Infusions and the Cardiovascular Critical Patient) anchors the HR (20, 220) bpm and MAP (30, 180) mmHg implausibility thresholds; Chapter 21 (Acid-Base Disorders) anchors the PaCO2 (10, 120) mmHg bounds; Chapter 26 (Principles of Mechanical Ventilation) anchors the Vt (50, 1500) mL operational range. Mirrors preprint/references.bib entry.}
+}
+
+@book{marini2019critical,
+  author    = {Marini, J J and Dries, D J},
+  title     = {Critical Care Medicine: The Essentials and More},
+  edition   = {5th},
+  publisher = {Wolters Kluwer (Lippincott Williams \& Wilkins)},
+  address   = {Philadelphia, PA},
+  year      = {2019},
+  isbn      = {978-1-4963-0291-5},
+  note      = {Corroborating ICU reference. Chapter 1 (Hemodynamic Monitoring and Support) documents the HR / MAP / SpO2 cellular-extraction thresholds anchored in Supplement S3.4. Mirrors preprint/references.bib entry.}
 }

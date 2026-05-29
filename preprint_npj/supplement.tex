@@ -151,7 +151,7 @@ The detector's flag priority order \texttt{clamped > diverged > implausible > no
 
 Table~\ref{tab:hard-bounds} reproduces the complete \texttt{HARD\_BOUNDS} dictionary from \texttt{src/detector.py}. Each \texttt{(lower, upper)} pair was locked in preregistration before any data was collected and is not revised post-hoc; the audit-ledger entries listed in the last column regex-extract each constant from the source file at audit time so any drift between the code and the ledger is caught immediately.
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \caption{Hard physiological bounds locked at preregistration for the \texttt{implausible} flag. SpO$_2$ is reported by Pulse as a fraction in [0, 1], hence the 0.50 / 1.00 entries (corresponding to 50~\% / 100~\% saturation). Each row is regex-extracted from \texttt{src/detector.py HARD\_BOUNDS} at audit time via the corresponding \texttt{T1.06p.*} ledger entry.}
 \label{tab:hard-bounds}
@@ -169,7 +169,34 @@ PaCO$_2$ (mmHg) & 10 & 120 & \texttt{T1.06p.paco2\_low}, \texttt{T1.06p.paco2\_h
 \end{tabular}
 \end{table}
 
-Each bound falls into one of three logical categories: (a) a physical or thermodynamic ceiling (the SpO$_2$ upper bound at hemoglobin saturation is definitional), (b) an equipment or engineering limit (Vt above 1{,}500~mL is at the edge of adult-ventilator delivery capability), or (c) a clinical-meaningfulness threshold below which a 60-second steady-state mean would be incompatible with a viable patient (e.g., PaO$_2 < 20$~mmHg corresponds to peripheral hemoglobin saturation in the 0.3 range on the standard oxyhemoglobin dissociation curve, below the cellular oxygen-extraction threshold). Within category (c), the exact numerical choice is a defensible judgment call rather than a unique biological constant; the alternative \texttt{HARD\_BOUNDS\_PHYSIOLOGICAL} dictionary in \texttt{src/detector.py} raises the PaO$_2$ upper bound from 600 to 700~mmHg per the alveolar-gas-equation sea-level ceiling~\cite{west2020respiratory} and powers a sensitivity-analysis side-table referenced from Section~2.4 of the main manuscript.
+Each bound falls into one of three logical categories: (a) a physical or thermodynamic ceiling (the SpO$_2$ upper bound at hemoglobin saturation is definitional), (b) an equipment or engineering limit (Vt above 1{,}500~mL is at the edge of adult-ventilator delivery capability), or (c) a clinical-meaningfulness threshold below which a 60-second steady-state mean would be incompatible with a viable patient. The per-bound primary-literature anchor for each row of Table~\ref{tab:hard-bounds} is documented in Table~\ref{tab:hard-bounds-rationale}; the citation set mirrors the per-bound rationale audited in the companion technical monograph (§2.6).
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Per-bound primary-literature rationale for the \texttt{HARD\_BOUNDS} table. Each row identifies the clinical guidelines or physiological reference that anchor the lower and upper extremes for the corresponding output; chapter references point to the specific section of each textbook anchor.}
+\label{tab:hard-bounds-rationale}
+\begin{tabular}{lp{0.78\textwidth}}
+\toprule
+Output & Primary-literature rationale (lower / upper) \\
+\midrule
+HR [20, 220]~bpm &
+Survival-incompatibility thresholds for extreme bradycardia and tachycardia in the ICU-practice envelope~\cite[Ch.~5]{marino2013icu}, \cite[Ch.~1]{marini2019critical}; the upper extreme aligns with the age-extrapolated maximum heart rate. \\
+MAP [30, 180]~mmHg &
+Lower: well below the Sepsis-3 organ-perfusion failure threshold and the Surviving Sepsis Campaign MAP target of $\geq 65$~mmHg~\cite{singer2016, evans2021sepsis}. Upper: ESH 2023 hypertensive emergency definition (SBP $>$ 180~mmHg with acute target-organ damage)~\cite{mancia2023esh}. \\
+Vt [50, 1{,}500]~mL &
+Lower: below adult anatomical dead space ($\sim$~150~mL), implying zero alveolar ventilation~\cite[Ch.~2]{west2020respiratory}. Upper: $\sim 4\times$ the ARDS Network lung-protective tidal volume (6~mL/kg PBW $\approx$ 400~mL on the atlas surrogates)~\cite{brower2000}, at the edge of adult-ventilator delivery capability~\cite[Ch.~26]{marino2013icu}. \\
+SpO$_2$ [50, 100]~\% &
+Lower: oxyhemoglobin dissociation curve P50 places SpO$_2$ = 50~\% at PaO$_2 \approx 27$~mmHg~\cite{severinghaus1979}, below the threshold for sustained cellular oxygen extraction~\cite[Ch.~1]{marini2019critical}. Upper: hemoglobin saturation ceiling (definitional). \\
+PaO$_2$ [20, 600]~mmHg &
+Lower: PaO$_2$ = 20~mmHg corresponds to SpO$_2 \approx 0.30$ on the Severinghaus dissociation curve~\cite{severinghaus1979}, incompatible with cellular respiration sustained over a 60-second steady-state window and well inside the Berlin severe-ARDS oxygenation territory~\cite{ards2012}. Upper: deliberately conservative below the alveolar-gas-equation sea-level ceiling of $\approx$~663~mmHg on FiO$_2$ = 1.0~\cite[Ch.~5]{west2020respiratory}; the supplementary \texttt{HARD\_BOUNDS\_PHYSIOLOGICAL} dictionary in \texttt{src/detector.py} raises the PaO$_2$ upper bound to 700~mmHg and powers the F-003 sensitivity-analysis reclassification reported in Section~2.4 of the main manuscript. \\
+PaCO$_2$ [10, 120]~mmHg &
+Lower: profound respiratory alkalosis from sustained maximal hyperventilation; upper: CO$_2$ narcosis threshold incompatible with conscious steady-state \cite[Ch.~21]{marino2013icu}, \cite[Ch.~4]{west2020respiratory}. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Within category (c), the exact numerical choice (e.g., PaO$_2$ lower 20 vs 25~mmHg) is a defensible judgment call within the cited literature rather than a unique biological constant. Section~3.8 of the companion technical monograph demonstrates the sensitivity-analysis pattern on the single most contestable bound (PaO$_2$ upper, raised from 600 to 700~mmHg per the alveolar-gas-equation ceiling), with reclassification results reported in Section~2.4 of the main manuscript. No locked threshold has been adjusted post-hoc; the only preregistration amendment (2026-04-22-b, flatline tolerance 1~\% $\rightarrow$ 0.1~\%) was made before the sweep launched.
 
 \subsection{Drift thresholds for the not\_steady\_state flag}\label{sec:s3-drift}
 
