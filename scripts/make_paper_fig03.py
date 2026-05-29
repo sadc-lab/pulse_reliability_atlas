@@ -15,9 +15,13 @@ Panel B: S021 hyperoxia 300-second convergence. Each of the 60 reruns
          is the 300-second plateau PaO2. Diagonal y = x marks "no
          change". The horizontal at 600 mmHg marks the detector's
          locked upper bound; the horizontal at ~663 mmHg marks the
-         alveolar-gas-equation prediction. The S1 scatter sitting just
-         below the AGE prediction confirms a transient hyperoxia regime
-         rather than an oxygenation overshoot.
+         alveolar-gas-equation prediction. Both axes are clamped to the
+         physiological range [0, 760] mmHg to highlight the convergence
+         structure; the 6 S1 numerical-runaway points (plateau up to
+         ~1,408 mmHg) fall off-scale and are flagged by an in-plot
+         annotation. The bulk of the S1 scatter sitting just below the
+         AGE prediction confirms a transient hyperoxia regime rather
+         than an oxygenation overshoot.
 
 Output: preprint_npj/figures/fig03_actionable_corrections.pdf
 
@@ -64,13 +68,26 @@ for sc in ("S1", "S3", "S4"):
         s=28, alpha=0.75, edgecolor="black", linewidth=0.4,
         color=palette[sc], label=f"{sc} ($n = {len(sub)}$)",
     )
-both = pd.concat([s21["PaO2_mean_orig_120s"], s21["PaO2_plateau_mmHg"]])
-lo, hi = max(0, both.min() - 30), both.max() + 30
+# Clamp panel-B axes to the physiological range to highlight the
+# convergence structure; the S021 numerical-runaway points (plateau up
+# to ~1,408 mmHg) fall off-scale above this cap and are flagged by the
+# annotation below (Supplement S9).
+PANEL_B_AXIS_HI = 760.0  # sea-level barometric pressure
+lo, hi = 0.0, PANEL_B_AXIS_HI
+offscale = s21[
+    (s21["scenario"].isin(("S1", "S3", "S4"))) & (s21["PaO2_plateau_mmHg"] > PANEL_B_AXIS_HI)
+]["PaO2_plateau_mmHg"]
 axB.plot([lo, hi], [lo, hi], "k--", linewidth=0.8, alpha=0.4, label="$y = x$ (no change)")
 axB.axhline(600, color="#8172B2", linestyle=":", linewidth=1.0, alpha=0.8, label="600 mmHg classifier bound")
 axB.axhline(663, color="#937860", linestyle="-.", linewidth=1.0, alpha=0.8, label=r"$\approx$ 663 mmHg AGE prediction")
 axB.set_xlim(lo, hi)
 axB.set_ylim(lo, hi)
+axB.annotate(
+    f"{len(offscale)} S1 runaway points off-scale\n"
+    f"(plateau {offscale.min():.0f}-{offscale.max():.0f} mmHg; numerical runaway)",
+    xy=(0.97, 0.97), xycoords="axes fraction", ha="right", va="top",
+    fontsize=8, color="#555555", style="italic",
+)
 axB.set_xlabel(r"Original 120-second mean PaO$_2$ (mmHg)")
 axB.set_ylabel(r"300-second plateau PaO$_2$ (mmHg)")
 axB.set_title(r"(b) Hyperoxia 300 s convergence ($n = 60$ reruns)", fontsize=10)

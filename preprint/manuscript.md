@@ -65,8 +65,8 @@ the input-extreme regime** (sex-stratification is regime-dependent;
 preregistered 120 s window, Pulse PaO2 exceeds the locked classifier
 upper bound of 600 mmHg at FiO2 = 1.0 in 34 of 126 implausibly-flagged
 runs; an extended 300 s rerun ([S021](#s021)) shows PaO2 converges
-to a plateau (median 643 mmHg in S1) that sits ~ 10 mmHg *below* the
-simple alveolar-gas-equation prediction (≈ 653 mmHg) — consistent
+to a plateau (median 643 mmHg in S1) that sits ~ 20 mmHg *below* the
+simple alveolar-gas-equation prediction (≈ 663 mmHg) — consistent
 with Pulse's modelled A-a gradient — supporting a transient-regime
 explanation rather than a Pulse oxygenation overshoot. H4 (sex-specific
 reliability) is partially supported under Benjamini–Hochberg FDR
@@ -150,8 +150,8 @@ sweep.*
   window, Pulse PaO2 exceeds the locked classifier upper bound of
   600 mmHg at FiO2 = 1.0 in 34 implausibly-flagged runs (91 % at
   FiO2 ≥ 0.95). An extended 300 s rerun ([S021](#s021)) shows PaO2
-  converges to a plateau ~ 10 mmHg *below* the simple
-  alveolar-gas-equation prediction (S1 median 643 mmHg vs ≈ 653 mmHg
+  converges to a plateau ~ 20 mmHg *below* the simple
+  alveolar-gas-equation prediction (S1 median 643 mmHg vs ≈ 663 mmHg
   predicted) — consistent with Pulse's modelled A-a gradient. The
   original flag therefore reflects (a) the locked 120 s window being
   insufficient for hyperoxia convergence and (b) the conservative
@@ -2117,16 +2117,15 @@ corrected by setting trigger pressure to −2 cmH2O.*
 
     * **S1 (n = 44):** plateau median 643.3 mmHg (decision band
       [580, 680] mmHg); 41 / 44 runs (93.2 %) converged.
-    * Plateau median of 643 mmHg sits ~10 – 20 mmHg below the simple
-      alveolar-gas-equation prediction
-      ($P_AO_2 = \mathrm{FiO}_2 \cdot (P_{\mathrm{atm}} - P_{\mathrm{H_2O}}) - P_aCO_2 / \mathrm{RQ}$
-      $= 1.0 \cdot (760 - 47) - 40 / 0.8 \approx 663$ mmHg, then
-      $P_aO_2 = P_AO_2 - \text{A--a gradient} \approx 653$ mmHg for an
-      A-a gradient of 10 mmHg).
-      Pulse therefore *under-shoots* the simple alveolar-gas
-      prediction by ~10 mmHg — consistent with a modelled A-a
-      gradient — and does not overshoot. The pre-registered decision
-      is `HYPOTHESIS_II_TRANSIENT_REGIME_SUPPORTED`.
+    * Plateau median of 643 mmHg sits ~20 mmHg below the simple
+      alveolar-gas-equation prediction: alveolar
+      $P_AO_2 = \mathrm{FiO}_2 \cdot (P_{\mathrm{atm}} - P_{\mathrm{H_2O}}) - P_aCO_2 / \mathrm{RQ}$
+      $= 1.0 \cdot (760 - 47) - 40 / 0.8 \approx 663$ mmHg; the measured
+      arterial $P_aO_2$ of 643 mmHg therefore implies an A-a gradient
+      of ~20 mmHg, consistent with Pulse's modelled alveolar-arterial
+      difference rather than an oxygenation defect. Pulse *under-shoots*
+      the alveolar prediction and does not overshoot. The pre-registered
+      decision is `HYPOTHESIS_II_TRANSIENT_REGIME_SUPPORTED`.
 
   **Shunt depression confirms the physiological mapping ([S021](#s021)
   auxiliary, descriptive — not part of the (i)-vs-(ii) decision).**
@@ -2916,8 +2915,8 @@ dyssynchrony (F-004) via an explicit
 ([S014](#s014); median Vt CV collapses 0.351 → 0.016, worst-case
 1.826 → 0.112) and reframing the apparent FiO2 = 1.0 PaO2 overshoot
 as a transient hyperoxia regime (F-003), with the 300 s plateau
-landing ~ 10 mmHg below the alveolar-gas-equation prediction
-([S021](#s021); median 643 mmHg vs ~ 653 mmHg predicted) —
+landing ~ 20 mmHg below the alveolar-gas-equation prediction
+([S021](#s021); median 643 mmHg vs ~ 663 mmHg predicted) —
 consistent with Pulse's modelled A-a gradient rather than an
 oxygenation defect. We also established patient sex as a
 previously uncharacterized, *regime-dependent* reliability-sensitivity
