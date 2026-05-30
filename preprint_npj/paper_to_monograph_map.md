@@ -797,3 +797,53 @@ caught equally.*
   format_in_paper: 'PaCO$_2$ (mmHg) & 5 &'
   expected_occurrences: 1
   notes: 'Full S3 row literal; trailing & disambiguates from HARD_BOUNDS row.'
+
+## 2026-05-30 - Supplement S3.5 tab:drift-rationale per-channel literals
+
+- paper_section: 'Supplement S3.5 tab:drift-rationale HR row'
+  paper_context: 'HR drift threshold + clinical-meaningfulness anchor in Supplement S3.5 tab:drift-rationale'
+  monograph_claim_id: 'T1.06q.hr_drift'
+  expected_value: 5
+  format_in_paper: 'HR (5 bpm / 60~s)'
+  expected_occurrences: 1
+  notes: 'Added 2026-05-30 in the drift-rationale expansion. Supplement S3.5 tab:drift-rationale row for HR, anchored to standard ICU bedside monitoring practice (marini2019critical Ch.1). The "5 bpm" magnitude itself is an atlas-internal calibration choice, not endorsed as a specific threshold by the cited reference. Supplement S3 Table S3 drift row uses a different format ("HR (bpm) & 5 &") tracked separately.'
+
+- paper_section: 'Supplement S3.5 tab:drift-rationale MAP row'
+  paper_context: 'MAP drift threshold + clinical-meaningfulness anchor in Supplement S3.5 tab:drift-rationale'
+  monograph_claim_id: 'T1.06q.map_drift'
+  expected_value: 5
+  format_in_paper: 'MAP (5 mmHg / 60~s)'
+  expected_occurrences: 1
+  notes: 'Added 2026-05-30 in the drift-rationale expansion. Supplement S3.5 tab:drift-rationale row for MAP, anchored to Sepsis-3 + Surviving Sepsis Campaign hemodynamic instability framing (singer2016, evans2021sepsis). The "5 mmHg" magnitude itself is an atlas-internal calibration choice, not endorsed as a specific threshold by the cited references. Supplement S3 Table S3 drift row uses a different format ("MAP (mmHg) & 5 &") tracked separately.'
+
+- paper_section: 'Supplement S3.5 tab:drift-rationale Vt row'
+  paper_context: 'Vt drift threshold + clinical-meaningfulness anchor in Supplement S3.5 tab:drift-rationale'
+  monograph_claim_id: 'T1.06q.vt_drift'
+  expected_value: 50
+  format_in_paper: 'Vt (50 mL / 60~s)'
+  expected_occurrences: 1
+  notes: 'Added 2026-05-30 in the drift-rationale expansion. Supplement S3.5 tab:drift-rationale row for Vt, anchored to ARDS Network protective ventilation 6 mL/kg PBW (brower2000); 50 mL is approximately 1 mL/kg PBW on the atlas surrogates, within the noise band of breath-to-breath measurement at ARDSnet Vt. Supplement S3 Table S3 drift row uses a different format tracked separately.'
+
+- paper_section: 'Supplement S3.5 tab:drift-rationale SpO2 row'
+  paper_context: 'SpO2 drift threshold + clinical-meaningfulness anchor in Supplement S3.5 tab:drift-rationale'
+  monograph_claim_id: 'T1.06q.spo2_drift'
+  expected_value: 0.02
+  format_in_paper: 'SpO$_2$ (2 percentage points / 60~s)'
+  expected_occurrences: 1
+  notes: 'Added 2026-05-30 in the drift-rationale expansion. Supplement S3.5 tab:drift-rationale row for SpO2, anchored to Severinghaus 1979 dissociation curve + Marino 2013 Ch.26 (Mechanical Ventilation) for the conventional noteworthy desaturation framing. The "2 percentage points" magnitude is an atlas-internal calibration choice, not endorsed as a specific drift threshold by the cited references. Supplement S3 Table S3 drift row uses a different format ("SpO$_2$ (fraction) & 0.02 &") tracked separately.'
+
+- paper_section: 'Supplement S3.5 tab:drift-rationale PaO2 row'
+  paper_context: 'PaO2 drift threshold + clinical-meaningfulness anchor in Supplement S3.5 tab:drift-rationale (with corrected Berlin P/F band framing)'
+  monograph_claim_id: 'T1.06q.pao2_drift'
+  expected_value: 15
+  format_in_paper: 'PaO$_2$ (15 mmHg / 60~s)'
+  expected_occurrences: 1
+  notes: 'Added 2026-05-30 in the drift-rationale expansion. Supplement S3.5 tab:drift-rationale row for PaO2, anchored to Berlin ARDS Definition (ards2012). The rationale was rewritten in this same pass from the mathematically loose "Roughly one Berlin P/F band" (monograph L821) to the corrected "A 15-71 % fraction of one Berlin P/F band depending on FiO2" framing applied in both this supplement and the monograph drift table. The "15 mmHg" magnitude is an atlas-internal calibration choice. Supplement S3 Table S3 drift row uses a different format ("PaO$_2$ (mmHg) & 15 &") tracked separately.'
+
+- paper_section: 'Supplement S3.5 tab:drift-rationale PaCO2 row'
+  paper_context: 'PaCO2 drift threshold + clinical-meaningfulness anchor in Supplement S3.5 tab:drift-rationale'
+  monograph_claim_id: 'T1.06q.paco2_drift'
+  expected_value: 5
+  format_in_paper: 'PaCO$_2$ (5 mmHg / 60~s)'
+  expected_occurrences: 1
+  notes: 'Added 2026-05-30 in the drift-rationale expansion. Supplement S3.5 tab:drift-rationale row for PaCO2, anchored to West 2020 Ch.4 (Blood Gas Transport) for the alveolar-ventilation framing. The "5 mmHg" magnitude is an atlas-internal calibration choice, not endorsed as a specific drift threshold by the cited reference. Supplement S3 Table S3 drift row uses a different format ("PaCO$_2$ (mmHg) & 5 &") tracked separately.'

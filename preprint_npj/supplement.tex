@@ -200,9 +200,9 @@ Within category (c), the exact numerical choice (e.g., PaO$_2$ lower 20 vs 25~mm
 
 \subsection{Drift thresholds for the not\_steady\_state flag}\label{sec:s3-drift}
 
-The companion \texttt{DRIFT\_MAX\_DELTA\_60S} dictionary (Table~\ref{tab:drift}) sets the per-channel maximum tolerated $|\Delta| = |\text{slope} \times 60~\text{s}|$ that an output may exhibit across the final 60 seconds of the steady-state window before the run is flagged \texttt{not\_steady\_state} for drift. Drift is estimated by ordinary least-squares regression on the 13 sample points in the [60, 120]~s window (5-second sample interval); the $R^2$ of the fit is logged as diagnostic metadata but does not gate the flag. These thresholds are clinical-meaningfulness anchors --- beyond them, a bedside clinician would read the trajectory as actively changing rather than at homeostasis. Like the hard bounds, each value is regex-extracted from \texttt{src/detector.py} at audit time.
+The companion \texttt{DRIFT\_MAX\_DELTA\_60S} dictionary (Table~\ref{tab:drift}) sets the per-channel maximum tolerated $|\Delta| = |\text{slope} \times 60~\text{s}|$ that an output may exhibit across the final 60 seconds of the steady-state window before the run is flagged \texttt{not\_steady\_state} for drift. Drift is estimated by ordinary least-squares regression on the 13 sample points in the [60, 120]~s window (5-second sample interval); the $R^2$ of the fit is logged as diagnostic metadata but does not gate the flag. These thresholds are clinical-meaningfulness anchors --- beyond them, a bedside clinician would read the trajectory as actively changing rather than at homeostasis. Unlike the hard bounds in Table~\ref{tab:hard-bounds}, they are atlas-internal calibration choices rather than biological survival limits; the per-channel magnitudes are anchored in standard critical-care monitoring practice (Table~\ref{tab:drift-rationale}) rather than in mortality-incompatibility primary literature, and the citations in Table~\ref{tab:drift-rationale} identify the relevant clinical-monitoring framing rather than primary-literature endorsements of the specific drift magnitudes. Like the hard bounds, each value is regex-extracted from \texttt{src/detector.py} at audit time.
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \caption{Maximum tolerated drift per 60-second window for the \texttt{not\_steady\_state} flag. SpO$_2$ is a fraction in [0, 1], hence 0.02 corresponds to 2 percentage points. Each row is regex-extracted from \texttt{src/detector.py DRIFT\_MAX\_DELTA\_60S} via the corresponding \texttt{T1.06q.*} ledger entry.}
 \label{tab:drift}
@@ -216,6 +216,31 @@ Vt (mL) & 50 & \texttt{T1.06q.vt\_drift} \\
 SpO$_2$ (fraction) & 0.02 & \texttt{T1.06q.spo2\_drift} \\
 PaO$_2$ (mmHg) & 15 & \texttt{T1.06q.pao2\_drift} \\
 PaCO$_2$ (mmHg) & 5 & \texttt{T1.06q.paco2\_drift} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Per-channel clinical-meaningfulness rationale for the \texttt{DRIFT\_MAX\_DELTA\_60S} table. Each row identifies the standard critical-care monitoring context that anchors the drift magnitude for the corresponding channel; the citation set mirrors the per-channel rationale audited in the companion technical monograph (drift-threshold subsection). As emphasised in the prose above, these citations identify the relevant clinical-monitoring framing rather than primary-literature endorsements of the specific drift magnitudes --- the magnitudes themselves are atlas-internal calibration choices.}
+\label{tab:drift-rationale}
+\begin{tabular}{lp{0.74\textwidth}}
+\toprule
+Channel \& drift threshold & Clinical-meaningfulness anchor \\
+\midrule
+HR (5 bpm / 60~s) &
+Threshold for a clinically meaningful tachy / brady excursion under continuous bedside monitoring~\cite[Ch.~1]{marini2019critical}. \\
+MAP (5 mmHg / 60~s) &
+Lower edge of what a clinician would call ongoing hemodynamic instability rather than settled perfusion~\cite{singer2016, evans2021sepsis}. \\
+Vt (50 mL / 60~s) &
+Approximately 1~mL/kg PBW on the atlas surrogates --- within the noise band of breath-to-breath Vt measurement at ARDS Network protective ventilation (6~mL/kg PBW $\approx$ 400~mL)~\cite{brower2000}. \\
+SpO$_2$ (2 percentage points / 60~s) &
+One bedside-monitor display step; conventional noteworthy desaturation threshold over a 60-second window~\cite{severinghaus1979}, \cite[Ch.~26]{marino2013icu}. \\
+PaO$_2$ (15 mmHg / 60~s) &
+A 15--71~\% fraction of one Berlin P/F band depending on FiO$_2$ --- sub-band at the high-FiO$_2$ end of the sweep but approaching one band at room air; clinically meaningful oxygenation change over a 60-second window~\cite{ards2012}. \\
+PaCO$_2$ (5 mmHg / 60~s) &
+Approximately one alveolar-ventilation step under ARDS Network protective ventilation per minute --- clinically meaningful CO$_2$ change~\cite[Ch.~4]{west2020respiratory}. \\
 \bottomrule
 \end{tabular}
 \end{table}

@@ -818,7 +818,7 @@ than in mortality-incompatibility primary literature.
 | MAP    | 5 mmHg                   | Lower edge of what a clinician would call ongoing hemodynamic instability vs settled perfusion [@singer2016; @evans2021sepsis] |
 | Vt     | 50 mL                    | ~ 1 mL/kg PBW on the atlas surrogates — within the noise band of breath-to-breath measurement at ARDSnet Vt [@brower2000] |
 | SpO2   | 2 percentage points      | One bedside-monitor display step; conventional "noteworthy" desaturation threshold over a 60 s window [@severinghaus1979; @marino2013icu Ch.26] |
-| PaO2   | 15 mmHg                  | Roughly one Berlin P/F band (e.g., 80 → 95 mmHg at constant FiO2) per minute — clinically meaningful oxygenation change [@ards2012] |
+| PaO2   | 15 mmHg                  | A 15–71 % fraction of one Berlin P/F band depending on FiO2 — sub-band at the high-FiO2 end of the sweep but approaching one band at room air; clinically meaningful oxygenation change over a 60-second window [@ards2012] |
 | PaCO2  | 5 mmHg                   | Roughly one alveolar-ventilation step under ARDSnet protective ventilation per minute — clinically meaningful CO2 change [@west2020respiratory Ch.4] |
 
 These thresholds are evaluated on an OLS linear regression of the 13
