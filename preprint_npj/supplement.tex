@@ -41,11 +41,22 @@
 \renewcommand{\thefigure}{S\arabic{figure}}
 \renewcommand{\thetable}{S\arabic{table}}
 
+% Widen the TOC / list-of-figures / list-of-tables numbering box so that the
+% S-prefixed two-digit numbers (S10-S15) do not overlap the following title.
+% \numberline is the macro that typesets the number in every TOC entry, so
+% redefining it here covers section / subsection / figure / table list entries
+% uniformly without conflicting with the sn-jnl class's own TOC layout.
+\makeatletter
+\renewcommand\numberline[1]{\hb@xt@ 3em{#1\hfil}}
+\makeatother
+
 \begin{document}
 
 \title[Supplementary Information]{Supplementary Information for: An open reliability atlas for synthetic patient cohorts: sensitivity, divergence, and sex-stratified failure modes in the Pulse Physiology Engine v4.3.1}
 
 \author*[1,2,3,4]{\fnm{Santino} \sur{Nanini}}\email{santino.nanini@umontreal.ca}
+
+\author[5]{\fnm{Yassir} \sur{Mamouni}}
 
 \author[5]{\fnm{Philippe} \sur{Jouvet}}
 
@@ -133,11 +144,11 @@ Two previously asserted but unverified claims were withdrawn before preregistrat
 
 \section{Full Methods detail}\label{sec:s3}
 
-This section expands the condensed Methods section of the main manuscript (Section~4 of the main manuscript) with the engine-wrapper architecture, the deterministic Docker recipe, the complete physiological-bounds and drift-threshold tables that anchor the four-flag steady-state classifier, the input-rejection regex set used to detect Pulse's setup-time clamping, and the body-dimension provenance for the two adult reference surrogates.
+This section expands the condensed Methods section of the main manuscript (Section~4 of the main manuscript) with the engine-wrapper architecture, the deterministic Docker recipe, the complete physiological-bounds and drift-threshold tables that anchor the four-flag steady-state classifier, the input-rejection regex set used to detect Pulse's setup-time clamping, and the body-dimension provenance for the two adult reference patient bodies.
 
 \subsection{Engine wrapper, Docker pinning, and reproducibility}\label{sec:s3-engine}
 
-The atlas wrapper is a thin Python orchestration layer around Pulse's command-line interface. For each Morris input vector, the wrapper writes a JSON configuration file (patient surrogate, ARDS scenario condition, ventilator action set, and the seven operational inputs at their Morris values), spawns a Pulse Docker container against the pinned \texttt{pulse-atlas-engine} image, captures the resulting steady-state CSV plus the engine setup log, and emits a per-run aggregated row into the canonical parquet. The wrapper is deterministic given the same input vector and the same Docker image; bit-exact reproduction of the canonical 1{,}280-run sweep was verified at three independent layers (the canonical Morris sample regenerated from the SALib seed, the per-cell aggregate parquets, and the derived statistical artefacts). The full Docker invocation template, including the safety caps on memory and CPU and the path-conversion handling required on Git Bash under Windows, is documented in the companion code repository.
+The atlas wrapper is a thin Python orchestration layer around Pulse's command-line interface. For each Morris input vector, the wrapper writes a JSON configuration file (patient reference body, ARDS scenario condition, ventilator action set, and the seven operational inputs at their Morris values), spawns a Pulse Docker container against the pinned \texttt{pulse-atlas-engine} image, captures the resulting steady-state CSV plus the engine setup log, and emits a per-run aggregated row into the canonical parquet. The wrapper is deterministic given the same input vector and the same Docker image; bit-exact reproduction of the canonical 1{,}280-run sweep was verified at three independent layers (the canonical Morris sample regenerated from the SALib seed, the per-cell aggregate parquets, and the derived statistical artefacts). The full Docker invocation template, including the safety caps on memory and CPU and the path-conversion handling required on Git Bash under Windows, is documented in the companion code repository.
 
 \subsection{Morris sampler implementation}\label{sec:s3-morris}
 
@@ -185,7 +196,7 @@ Survival-incompatibility thresholds for extreme bradycardia and tachycardia in t
 MAP [30, 180]~mmHg &
 Lower: well below the Sepsis-3 organ-perfusion failure threshold and the Surviving Sepsis Campaign MAP target of $\geq 65$~mmHg~\cite{singer2016, evans2021sepsis}. Upper: ESH 2023 hypertensive emergency definition (SBP $>$ 180~mmHg with acute target-organ damage)~\cite{mancia2023esh}. \\
 Vt [50, 1{,}500]~mL &
-Lower: below adult anatomical dead space ($\sim$~150~mL), implying zero alveolar ventilation~\cite[Ch.~2]{west2020respiratory}. Upper: $\sim 4\times$ the ARDS Network lung-protective tidal volume (6~mL/kg PBW $\approx$ 400~mL on the atlas surrogates)~\cite{brower2000}, at the edge of adult-ventilator delivery capability~\cite[Ch.~26]{marino2013icu}. \\
+Lower: below adult anatomical dead space ($\sim$~150~mL), implying zero alveolar ventilation~\cite[Ch.~2]{west2020respiratory}. Upper: $\sim 4\times$ the ARDS Network lung-protective tidal volume (6~mL/kg PBW $\approx$ 400~mL on the atlas reference bodies)~\cite{brower2000}, at the edge of adult-ventilator delivery capability~\cite[Ch.~26]{marino2013icu}. \\
 SpO$_2$ [50, 100]~\% &
 Lower: oxyhemoglobin dissociation curve P50 places SpO$_2$ = 50~\% at PaO$_2 \approx 27$~mmHg~\cite{severinghaus1979}, below the threshold for sustained cellular oxygen extraction~\cite[Ch.~1]{marini2019critical}. Upper: hemoglobin saturation ceiling (definitional). \\
 PaO$_2$ [20, 600]~mmHg &
@@ -234,7 +245,7 @@ Threshold for a clinically meaningful tachy / brady excursion under continuous b
 MAP (5 mmHg / 60~s) &
 Lower edge of what a clinician would call ongoing hemodynamic instability rather than settled perfusion~\cite{singer2016, evans2021sepsis}. \\
 Vt (50 mL / 60~s) &
-Approximately 1~mL/kg PBW on the atlas surrogates --- within the noise band of breath-to-breath Vt measurement at ARDS Network protective ventilation (6~mL/kg PBW $\approx$ 400~mL)~\cite{brower2000}. \\
+Approximately 1~mL/kg PBW on the atlas reference bodies --- within the noise band of breath-to-breath Vt measurement at ARDS Network protective ventilation (6~mL/kg PBW $\approx$ 400~mL)~\cite{brower2000}. \\
 SpO$_2$ (2 percentage points / 60~s) &
 One bedside-monitor display step; conventional noteworthy desaturation threshold over a 60-second window~\cite{severinghaus1979}, \cite[Ch.~26]{marino2013icu}. \\
 PaO$_2$ (15 mmHg / 60~s) &
@@ -260,9 +271,9 @@ r"is outside the valid range"
 
 \noindent Detector validation on twenty reference runs in the companion translation repository was 20 / 20 clean with this regex set; this is the four-pattern surface that survives the false-positive elimination from the original regex.
 
-\subsection{Body-dimension provenance for the two adult reference surrogates}\label{sec:s3-bodies}
+\subsection{Body-dimension provenance for the two adult reference patient bodies}\label{sec:s3-bodies}
 
-The two adult surrogates are: a male body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both weights are the U.S.\ Centers for Disease Control and Prevention (CDC) growth-chart 50th-percentile values for 18-year-olds of each sex. The female height matches both the CDC 50th-percentile value and Pulse's own \texttt{heightStandardFemale\_cm = 163.0} reference constant in \texttt{SetupPatient.cpp}; the male height is a clinically standard adult value chosen so the male case fixes the body mass index at 20.8 (it is not Pulse's source-code \texttt{heightStandardMale\_cm = 177.0} reference, which would have yielded a near-CDC-P50 BMI). Pulse computes the resulting blood-volume baseline via the allometric relation $\text{BV} = 65.6 \cdot \text{weight}_{\text{kg}}^{1.02}$, yielding 4{,}802.63~mL for the male body and 3{,}996.09~mL for the female body --- the 17~\% sex gap whose mechanism on the input-extreme divergence cluster is characterised in Section~2.5 of the main manuscript.
+The two adult reference bodies are: a male body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both weights are the U.S.\ Centers for Disease Control and Prevention (CDC) growth-chart 50th-percentile values for 18-year-olds of each sex. The female height matches both the CDC 50th-percentile value and Pulse's own \texttt{heightStandardFemale\_cm = 163.0} reference constant in \texttt{SetupPatient.cpp}; the male height is a clinically standard adult value chosen so the male case fixes the body mass index at 20.8 (it is not Pulse's source-code \texttt{heightStandardMale\_cm = 177.0} reference, which would have yielded a near-CDC-P50 BMI). Pulse computes the resulting blood-volume baseline via the allometric relation $\text{BV} = 65.6 \cdot \text{weight}_{\text{kg}}^{1.02}$, yielding 4{,}802.63~mL for the male body and 3{,}996.09~mL for the female body --- the 17~\% sex gap whose mechanism on the input-extreme divergence cluster is characterised in Section~2.5 of the main manuscript.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% S4 -- Extended Table 1: not_steady_state attribution (Phase 9.B)
@@ -309,7 +320,7 @@ Section~2.6 of the main manuscript refers to a documented 0.91--0.945 ARDS-impai
 
 \subsection{Provenance of the documented band}\label{sec:s5-prov}
 
-Three convergent boundary probes within the companion technical work (same Pulse v4.3.1 engine, same male reference surrogate, non-overlapping impairment-fraction grids, run-by-run independent execution) characterise the same numerical-bifurcation range in the respiratory solver. A 28-run impairment sweep at ARDSnet-protective ventilation found fractions 0.92 and 0.94 failing to stabilise. A 10-run high-resolution boundary probe at 0.90 / 0.91 / 0.915 / 0.92 / 0.925 / 0.93 / 0.935 / 0.94 / 0.945 / 0.95 narrowed the failure range to 0.91--0.945 inclusive (eight consecutive failures, with 0.90 and 0.95 passing on either side). A complementary 9-run calibration refinement at 0.93--0.97 in 0.005 steps (four failures across 0.93--0.945, five passes across 0.95--0.97) confirmed the upper edge. The three probes are within the same companion project rather than independent third-party replications; the convergence is evidence of reproducibility under the same engine version and surrogate, not of generalisation across labs. Pulse's own documentation does not flag this zone.
+Three convergent boundary probes within the companion technical work (same Pulse v4.3.1 engine, same male reference reference body, non-overlapping impairment-fraction grids, run-by-run independent execution) characterise the same numerical-bifurcation range in the respiratory solver. A 28-run impairment sweep at ARDSnet-protective ventilation found fractions 0.92 and 0.94 failing to stabilise. A 10-run high-resolution boundary probe at 0.90 / 0.91 / 0.915 / 0.92 / 0.925 / 0.93 / 0.935 / 0.94 / 0.945 / 0.95 narrowed the failure range to 0.91--0.945 inclusive (eight consecutive failures, with 0.90 and 0.95 passing on either side). A complementary 9-run calibration refinement at 0.93--0.97 in 0.005 steps (four failures across 0.93--0.945, five passes across 0.95--0.97) confirmed the upper edge. The three probes are within the same companion project rather than independent third-party replications; the convergence is evidence of reproducibility under the same engine version and reference body, not of generalisation across labs. Pulse's own documentation does not flag this zone.
 
 \subsection{Continuous-severity micro-sweep at midrange inputs}\label{sec:s5-cont}
 
@@ -346,7 +357,7 @@ Figure~\ref{fig:s5-dumbbell} visualises Table~\ref{tab:s5-cont} as a sex-stratif
 
 \subsection{Two divergence regimes}\label{sec:s5-regimes}
 
-Together with Section~2.5 of the main manuscript, the data distinguish two operationally separate divergence regimes. The input-driven regime (the main-manuscript headline) concentrates on the male reference surrogate at low HR, low SBP, high RR, and FiO$_2$ = 1.0 --- the hypotensive--tachypneic--fully-oxygenated input pattern --- and produces an approximately fivefold higher divergence rate on the male body than on the female. The severity-driven regime (this continuous-severity sweep) affects both sexes at midrange inputs once impairment fraction enters [0.879, 0.945], with female divergence concentrated in the lower part of the band and male divergence in the upper. Both regimes are real solver-stability findings; the sex effect on H3 (Section~2.5 of the main manuscript) is therefore best stated as ``regime-dependent'' rather than ``all-male'', and the practical guidance to downstream users is to avoid the 0.879--0.945 impairment-fraction band when stable steady-state outputs are required.
+Together with Section~2.5 of the main manuscript, the data distinguish two operationally separate divergence regimes. The input-driven regime (the main-manuscript headline) concentrates on the male reference reference body at low HR, low SBP, high RR, and FiO$_2$ = 1.0 --- the hypotensive--tachypneic--fully-oxygenated input pattern --- and produces an approximately fivefold higher divergence rate on the male body than on the female. The severity-driven regime (this continuous-severity sweep) affects both sexes at midrange inputs once impairment fraction enters [0.879, 0.945], with female divergence concentrated in the lower part of the band and male divergence in the upper. Both regimes are real solver-stability findings; the sex effect on H3 (Section~2.5 of the main manuscript) is therefore best stated as ``regime-dependent'' rather than ``all-male'', and the practical guidance to downstream users is to avoid the 0.879--0.945 impairment-fraction band when stable steady-state outputs are required.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% S6 -- Sex-stratified reliability: Spearman rho on mu* (Phase 9.B)
@@ -449,7 +460,7 @@ Section~2.3 of the main manuscript reports that setting Pulse's \texttt{Inspirat
 
 \subsection{Protocol design}\label{sec:s8-protocol}
 
-The 64 paired reruns sampled all eight (scenario, sex) cells, with most coverage concentrated on the healthy-S1 and mild-ARDS-S2 cells where the dyssynchrony signal is densest (Table~1 of the main manuscript). For each rerun, the locked configuration was reproduced exactly from the original sweep, with one and only one modification: the \texttt{InspirationPatientTriggerPressure} field on the VC-AC action was set to $-2$~cmH$_2$O (the trigger-pressure constant declared in \texttt{scripts/run\_s014\_trigger\_lockout.py} and regex-extracted into ledger anchor \texttt{T1.06d.s14\_trigger\_pressure}). All other settings --- Morris input vector, simulation duration, scenario, patient surrogate --- remained identical. The intervention is therefore a clean one-parameter manipulation; any change in the steady-state Vt distribution is causally attributable to the trigger-pressure setting.
+The 64 paired reruns sampled all eight (scenario, sex) cells, with most coverage concentrated on the healthy-S1 and mild-ARDS-S2 cells where the dyssynchrony signal is densest (Table~1 of the main manuscript). For each rerun, the locked configuration was reproduced exactly from the original sweep, with one and only one modification: the \texttt{InspirationPatientTriggerPressure} field on the VC-AC action was set to $-2$~cmH$_2$O (the trigger-pressure constant declared in \texttt{scripts/run\_s014\_trigger\_lockout.py} and regex-extracted into ledger anchor \texttt{T1.06d.s14\_trigger\_pressure}). All other settings --- Morris input vector, simulation duration, scenario, patient reference body --- remained identical. The intervention is therefore a clean one-parameter manipulation; any change in the steady-state Vt distribution is causally attributable to the trigger-pressure setting.
 
 \subsection{Native 50 Hz waveform evidence (Figure~\ref{fig:s8-vt})}\label{sec:s8-waveform}
 
@@ -497,11 +508,11 @@ A separate solver-instability mode emerges only at extended windows on healthy l
 
 \section{Sex-stratified blood-volume mechanism: absolute and weight-normalized framings}\label{sec:s10}
 
-Section~2.5 of the main manuscript reports that all 20 of 1{,}280 input-extreme-regime divergences fall on the male reference surrogate, that Pulse's allometric blood-volume formula yields 4{,}802.63~mL for the 67.3~kg male body versus 3{,}996.09~mL for the 56.2~kg female body (a 17~\% absolute-mL sex gap), and that reducing the male surrogate's \texttt{BloodVolumeBaseline} toward its 4{,}082.24~mL setup-time floor monotonically eliminates the divergence cluster (20 / 20 $\rightarrow$ 2 / 20 $\rightarrow$ 0 / 20 across 4{,}802.63 / 4{,}400 / 4{,}082.24~mL). This supplement section disentangles the absolute-volume framing from the weight-normalized framing, because the two answer different methodological questions and a reviewer-relevant confounder lives between them.
+Section~2.5 of the main manuscript reports that all 20 of 1{,}280 input-extreme-regime divergences fall on the male reference reference body, that Pulse's allometric blood-volume formula yields 4{,}802.63~mL for the 67.3~kg male body versus 3{,}996.09~mL for the 56.2~kg female body (a 17~\% absolute-mL sex gap), and that reducing the male reference body's \texttt{BloodVolumeBaseline} toward its 4{,}082.24~mL setup-time floor monotonically eliminates the divergence cluster (20 / 20 $\rightarrow$ 2 / 20 $\rightarrow$ 0 / 20 across 4{,}802.63 / 4{,}400 / 4{,}082.24~mL). This supplement section disentangles the absolute-volume framing from the weight-normalized framing, because the two answer different methodological questions and a reviewer-relevant confounder lives between them.
 
 \subsection{Absolute volumes (the framing used in the main manuscript)}\label{sec:s10-abs}
 
-The Pulse allometric formula~\cite{bray2019} is $\text{BV} = 65.6 \cdot \text{weight}_{\text{kg}}^{1.02}$~mL. On the two reference surrogates this yields:
+The Pulse allometric formula~\cite{bray2019} is $\text{BV} = 65.6 \cdot \text{weight}_{\text{kg}}^{1.02}$~mL. On the two reference patient bodies this yields:
 
 \begin{itemize}
 \item Male (67.3~kg): $\text{BV} = 65.6 \cdot 67.3^{1.02} = 4{,}802.63$~mL.
@@ -527,7 +538,7 @@ The 17~\% absolute-mL sex gap is therefore almost entirely driven by the body-ma
 
 The atlas's sex-stratified-divergence finding is best stated in absolute-volume terms because the underlying mechanism --- Pulse's setup-time \texttt{BloodVolumeBaseline} floor and the cardiovascular-circuit operating point at that floor --- is parameterised on absolute mL, not on mL/kg. The monotonic divergence-rate reduction from 20 / 20 to 0 / 20 across the 4{,}802.63 $\rightarrow$ 4{,}400 $\rightarrow$ 4{,}082.24~mL dose-response is an absolute-volume effect; it is not what would be predicted from a per-kg physiological sex difference (because there is essentially none).
 
-The same reasoning establishes that the male-vs-female divergence asymmetry in the input-extreme regime is not a claim about per-kg blood-volume physiology in real patients --- it is a claim about how Pulse's internal solver responds to absolute-BV values near its setup-time floor on the male reference body. Pooling male and female Pulse-generated synthetic cohorts in machine-learning pipelines without flag-stratified filtering still introduces a hidden sex covariate at the male surrogate's divergence boundary (Section~2.5 of the main manuscript), but downstream users adapting the result to clinical inference should not extrapolate to a per-kg sex-physiology claim that the data does not support.
+The same reasoning establishes that the male-vs-female divergence asymmetry in the input-extreme regime is not a claim about per-kg blood-volume physiology in real patients --- it is a claim about how Pulse's internal solver responds to absolute-BV values near its setup-time floor on the male reference body. Pooling male and female Pulse-generated synthetic cohorts in machine-learning pipelines without flag-stratified filtering still introduces a hidden sex covariate at the male reference body's divergence boundary (Section~2.5 of the main manuscript), but downstream users adapting the result to clinical inference should not extrapolate to a per-kg sex-physiology claim that the data does not support.
 
 
 
@@ -542,7 +553,7 @@ Section~4 of the main manuscript closes with a forward-looking note on engine-si
 \begin{enumerate}
 \item \textbf{Structured input-rejection events.} Pulse currently surfaces input clamping (e.g.\ SBP $>$ 120, DBP/SBP ratio out of range, HR or RR outside the initialisation band) as \texttt{[ERROR]}-prefixed log lines that downstream tools must regex-parse. A small structured-event API --- one typed record per rejected field, with the offending value, the enforced bound, and the field name --- would let sensitivity-analysis wrappers detect clamping deterministically instead of pattern-matching the four-pattern regex set documented in Supplement~\S\,S3.6.
 
-\item \textbf{Surface the male-surrogate \texttt{BloodVolumeBaseline} floor in user documentation.} Pulse hard-enforces a 4{,}082.24~mL blood-volume floor at setup on the 67.3~kg / 180~cm male reference body (default 4{,}802.63~mL), but this constant is not currently exposed in the public patient-setup documentation. We discovered it empirically while investigating the all-male divergence cluster (Section~2.5 of the main manuscript); a one-line note in the patient-baseline reference table would have saved the investigation.
+\item \textbf{Surface the male reference body \texttt{BloodVolumeBaseline} floor in user documentation.} Pulse hard-enforces a 4{,}082.24~mL blood-volume floor at setup on the 67.3~kg / 180~cm male reference body (default 4{,}802.63~mL), but this constant is not currently exposed in the public patient-setup documentation. We discovered it empirically while investigating the all-male divergence cluster (Section~2.5 of the main manuscript); a one-line note in the patient-baseline reference table would have saved the investigation.
 
 \item \textbf{A reference sensitivity-analysis recipe for user-facing operational inputs.} Pulse's repository carries a 2020 \texttt{STUDY\_SENSITIVITY\_ANALYSIS\_1\_0\_0} tag that performs Sobol sensitivity on internal vascular-circuit resistance multipliers for calibration; this is a different parameter class from the user-facing operational inputs (HR, SBP, DBP, RR, Vt, FiO$_2$, PEEP) that sensitivity-conscious downstream users typically need to sweep. A companion recipe --- Morris or Sobol over operational inputs, shipped alongside the existing study --- would give the Pulse community a maintained reference implementation. The atlas's sampler and runner modules are an externally-developed prototype; a maintainer-blessed version would be more durable.
 
@@ -647,7 +658,7 @@ The locked \texttt{not\_steady\_state} flag fires on 530 of 1{,}280 runs across 
 
 \subsection{Methodology: epistemological scope}\label{sec:s13-scope}
 
-The Morris elementary-effects design is interventional: each trajectory perturbs one input at a time along a fixed grid, so the resulting $\mu^{*}$ ranking is a causal-mechanistic statement about how Pulse responds to deliberate perturbations of each input. By contrast, a SHAP analysis~\cite{morris1991, campolongo2007} on a tree-based surrogate model trained on the observational distribution of Morris outputs is a fundamentally different statistical object: it summarises how a black-box predictor associates input features with output predictions, on the data distribution as actually observed. The two methods answer different questions, and the load-bearing analysis in this work is the interventional Morris design --- the SHAP analysis is included only as a secondary cross-verification.
+The Morris elementary-effects design is interventional: each trajectory perturbs one input at a time along a fixed grid, so the resulting $\mu^{*}$ ranking is a causal-mechanistic statement about how Pulse responds to deliberate perturbations of each input. By contrast, a SHAP analysis~\cite{morris1991, campolongo2007} on a tree-based reference body model trained on the observational distribution of Morris outputs is a fundamentally different statistical object: it summarises how a black-box predictor associates input features with output predictions, on the data distribution as actually observed. The two methods answer different questions, and the load-bearing analysis in this work is the interventional Morris design --- the SHAP analysis is included only as a secondary cross-verification.
 
 \subsection{Cross-verification result on the clean subset}\label{sec:s13-result}
 

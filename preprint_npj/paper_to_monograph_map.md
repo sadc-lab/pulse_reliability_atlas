@@ -388,9 +388,9 @@ caught equally.*
   paper_context: 'Female surrogate divergence count (zero across 4 cells x 160 runs)'
   monograph_claim_id: 'T1.14b'
   expected_value: 0
-  format_in_paper: '640 female-surrogate'
+  format_in_paper: '640 runs on the female reference body'
   expected_occurrences: 1
-  notes: 'Appears once in §2.5 prose: "zero divergences across the 640 female-surrogate runs". Anchored on T1.14b (the value 0 for female divergence count); the 640 denominator is co-validated.'
+  notes: 'Appears once in §2.5 prose: "zero divergences across the 640 runs on the female reference body". Anchored on T1.14b (the value 0 for female divergence count); the 640 denominator is co-validated. Format updated 2026-05-30 in the surrogate -> reference body terminology change: from "640 female-surrogate" to "640 runs on the female reference body" (the natural English phrasing for the new terminology, avoiding the awkward hyphenated form "female-reference body").'
 
 - paper_section: '§2.5 + S018 follow-up prose (×2)'
   paper_context: 'S018 rerun sample size for BV-rescue dose-response'
