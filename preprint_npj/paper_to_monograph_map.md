@@ -540,13 +540,13 @@ caught equally.*
 
 ## Step 7 — Methods reproducibility constants
 
-- paper_section: '§5 Methods §4.3 + supplement S3.2'
+- paper_section: '§2 Results Terms box + §5 Methods §4.3 + supplement S3.2'
   paper_context: 'Morris design: number of trajectories per cell'
   monograph_claim_id: 'T1.06e.morris_trajectories'
   expected_value: 20
   format_in_paper: '20 trajectories'
-  expected_occurrences: 2
-  notes: 'paper §5 Methods §4.3 (1) + supplement S3.2 Morris sampler description (1). Bumped 1 -> 2 in Phase 9.A.'
+  expected_occurrences: 3
+  notes: 'paper §5 Methods §4.3 (1) + supplement S3.2 Morris sampler description (1) + paper §2 Results "Terms used in this paper" box, Trajectory row (1). Bumped 1 -> 2 in Phase 9.A. Bumped 2 -> 3 in Phase G3 (2026-05-31): the new Terms box in §2 Results defines "Trajectory" with the literal "20 trajectories per cell yield 160 simulations" formulation, so the canonical formatted string appears once more. The box is the canonical scannable-terminology anchor placed at top of §2 Results immediately before §2.1 Overview.'
 
 - paper_section: '§5 Methods §4.3 + supplement S3.2'
   paper_context: 'Morris design: number of grid levels per input'

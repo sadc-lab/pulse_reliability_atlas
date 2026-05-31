@@ -293,7 +293,7 @@ Table~1 of the main manuscript reports per-cell counts under the locked four-fla
 
 \begin{table}[h]
 \centering
-\caption{Per-cell attribution of the locked \texttt{not\_steady\_state} count by trigger sub-mode. Two sub-modes are audited explicitly: SpO$_2$ ``flatline at ceiling'' with mean $\geq$ 0.999 (a detector edge case in which a healthy or well-oxygenated patient's physiological hemoglobin saturation at 1.0 numerically satisfies the locked flatline rule), and Vt CV $>$ 0.05 (the patient-ventilator-trigger dyssynchrony signal characterised in Section~2.3 of the main manuscript). The two ``excl.\'' columns count residual \texttt{not\_steady\_state} runs after removing each sub-mode from the trigger criterion; the ``excl.\ both'' column removes both simultaneously. Source: \texttt{results/s022/nss\_decomposition.csv}; ledger anchors \texttt{T2.nssC.*}.}
+\caption{Per-cell attribution of the locked \texttt{not\_steady\_state} count by trigger sub-mode. Two sub-modes are audited explicitly: SpO$_2$ ``flatline at ceiling'' with mean $\geq$ 0.999 (a detector edge case in which a healthy or well-oxygenated patient's physiological hemoglobin saturation at 1.0 numerically satisfies the locked flatline rule), and Vt CV $>$ 0.05 (the patient-ventilator-trigger dyssynchrony signal characterised in Section~2.3 of the main manuscript). The two ``excl.\'' columns count residual \texttt{not\_steady\_state} runs after removing each sub-mode from the trigger criterion; the ``excl.\ both'' column removes both simultaneously. Source: \texttt{results/s022/nss\_decomposition.csv}; ledger anchors \texttt{T2.nssC.*}. Cell-label key (see main paper Table~1 for full definitions): S1 healthy baseline, S2 mild ARDS, S3 moderate, S4 severe; \_M and \_F denote the male and female reference body.}
 \label{tab:s4-nss}
 \begin{tabular}{lrrrrrr}
 \toprule
@@ -336,7 +336,7 @@ A 200-run continuous-severity sweep (100 male, 100 female) varying only the ARDS
 
 \begin{table}[h]
 \centering
-\caption{Continuous-severity divergence counts per impairment-fraction bin, sex-stratified. The sweep distributes runs non-uniformly across severities; the per-bin sample sizes (\texttt{n}) reflect that distribution. Divergence concentrates in [0.879, 0.945] --- slightly wider on the low edge than the documented 0.91--0.945 band --- and the per-bin sex pattern crosses over: female divergence dominates the (0.85, 0.91] bin while male divergence dominates the (0.91, 0.945] bin. Bold cells mark the sex with the larger divergence count in each non-zero bin.}
+\caption{Continuous-severity divergence counts per impairment-fraction bin, sex-stratified. The sweep distributes runs non-uniformly across severities; the per-bin sample sizes (\texttt{n}) reflect that distribution. Divergence concentrates in [0.879, 0.945] --- slightly wider on the low edge than the documented 0.91--0.945 band --- and the per-bin sex pattern crosses over: female divergence dominates the (0.85, 0.91] bin while male divergence dominates the (0.91, 0.945] bin. Bold cells mark the sex with the larger divergence count in each non-zero bin. Scenario key (see main paper Table~1 for full definitions): S1 healthy baseline, S2 mild ARDS, S3 moderate, S4 severe; the sex columns enumerate the male and female reference bodies.}
 \label{tab:s5-cont}
 \begin{tabular}{lrrr}
 \toprule
@@ -405,7 +405,7 @@ Point estimates fall in the 0.75--1.00 range across the 12 (scenario, output) ce
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.85\textwidth]{figures/fig_s2_spearman.pdf}
-\caption{Spearman rank correlation $\rho$ between male and female Morris $\mu^{*}$ vectors per (scenario, output), with paired-input bootstrap 95~\% confidence intervals ($n = 2{,}000$ input-resamples). Reproduced verbatim from the companion technical monograph (Figure~5 of the monograph). Computed only for S2 and S3; S1 and S4\_F are blank because FiO$_2$ has zero clean elementary-effect pairs in those cells.}
+\caption{Spearman rank correlation $\rho$ between male and female Morris $\mu^{*}$ vectors per (scenario, output), with paired-input bootstrap 95~\% confidence intervals ($n = 2{,}000$ input-resamples). Reproduced verbatim from the companion technical monograph (Figure~5 of the monograph). Computed only for S2 and S3; S1 and S4\_F are blank because FiO$_2$ has zero clean elementary-effect pairs in those cells. Cell-label key (see main paper Table~1 for full definitions): S1 healthy baseline, S2 mild ARDS, S3 moderate, S4 severe; \_M and \_F denote the male and female reference body.}
 \label{fig:s6-rho}
 \end{figure}
 
@@ -584,7 +584,7 @@ The atlas is designed for bit-exact reproduction by an independent investigator.
 
 \subsection{Environment and engine pinning}\label{sec:s12-env}
 
-The atlas pins Pulse v4.3.1 inside a single Docker image (\texttt{pulse-atlas-engine:latest}); the image tag is fixed for the entire 1{,}280-run sweep so that every simulation runs against bit-identical engine binaries. The host environment is Python 3.12+ managed via \texttt{uv} for deterministic dependency resolution. The canonical hardware envelope is a laptop-class machine (Intel i5-11400H, 6 physical / 12 logical cores, 8~GB RAM, Intel UHD integrated graphics, no discrete GPU); the parallel-Docker throughput at this envelope is two to three concurrent containers (verified empirically; the canonical sweep was executed with two parallel workers to control thermal load on the laptop chassis).
+The atlas pins Pulse v4.3.1 inside a single Docker image (\texttt{pulse-atlas-engine:latest}); the image tag is fixed for the entire 1{,}280-run sweep so that every simulation runs against bit-identical engine binaries. The host environment is Python 3.12+ managed via \texttt{uv} for deterministic dependency resolution. The canonical hardware envelope is a laptop-class machine (MSI laptop; Intel i5-11400H, 6 physical / 12 logical cores; 8~GB RAM; Intel UHD Graphics integrated, plus an NVIDIA GeForce RTX 3050 Laptop GPU (4~GB); Windows 11 Home, version 25H2). Pulse is a CPU-only physiology simulator and neither graphics device is used by the atlas; the discrete GPU is reported here only for completeness so a reader matching the build does not infer CUDA dependence. The parallel-Docker throughput at this envelope is two to three concurrent containers (verified empirically; the canonical sweep was executed with two parallel workers to control thermal load on the laptop chassis).
 
 \subsection{Docker invocation template}\label{sec:s12-docker}
 
