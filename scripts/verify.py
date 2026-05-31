@@ -31,6 +31,7 @@ PY = sys.executable
 # Figure / data-artefact generators that are data-derived and live in the repo.
 FIGURE_SCRIPTS = [
     "scripts/make_figures.py",          # monograph figure set -> figures/
+    "scripts/make_paper_fig02.py",      # npj Figure 2 (Morris mu* heatmaps, 6 panels)
     "scripts/make_paper_fig03.py",      # npj Figure 3 (actionable corrections)
     "scripts/make_paper_fig04.py",      # npj Figure 4 (sex / blood-volume)
     "scripts/make_supp_fig_s1.py",      # npj Figure S1 (continuous severity)
@@ -44,7 +45,6 @@ FIGURE_SCRIPTS = [
 # warning rather than a silent pass, so the reproducibility gap stays visible.
 MISSING_GENERATORS = [
     "preprint_npj/figures/fig01_traffic_light.pdf",
-    "preprint_npj/figures/fig02_morris_{HR,MAP,Vt,SpO2,PaO2,PaCO2}.pdf",
     "preprint_npj/figures/fig_s2_spearman.pdf",
 ]
 

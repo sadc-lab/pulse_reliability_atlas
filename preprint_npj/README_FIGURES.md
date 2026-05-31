@@ -2,23 +2,26 @@
 
 ## Status
 
-Three figures shipped in `preprint_npj/figures/` have **no generator script
-anywhere in this repository**. They were produced ad hoc during S028 npj
-typesetting and committed as PDFs only. This file documents (a) the canonical
-data each derives from, (b) the closest in-repo generator (which produces
-equivalent content but in monograph styling), and (c) the manual recipe for
-recreating or restyling them when the underlying data changes.
+Originally three figures shipped in `preprint_npj/figures/` had **no generator
+script anywhere in this repository**. They were produced ad hoc during S028
+npj typesetting and committed as PDFs only. This file documents (a) the
+canonical data each derives from, (b) the closest in-repo generator, and (c)
+the manual recipe for recreating or restyling them when the underlying data
+changes.
 
-`scripts/verify.py` lists these three in its `MISSING_GENERATORS` block, so
-the reproducibility gap is visible at every `verify` run rather than silent.
-This README is the canonical reference for what to do about it.
+**Update 2026-05-30:** `fig02_morris_{HR,MAP,Vt,SpO2,PaO2,PaCO2}.pdf` now has
+a dedicated generator at `scripts/make_paper_fig02.py` (registered in
+`scripts/verify.py FIGURE_SCRIPTS`); the npj-required transposed orientation
+(rows = 7 inputs, columns = 8 cells) is produced directly from the canonical
+`results/morris_indices.parquet`. The remaining gap is `fig01_traffic_light`
+and `fig_s2_spearman`, still listed in `MISSING_GENERATORS`.
 
 ## The three orphan figures
 
 | npj PDF | Used in | Data source (tracked, audited) | Closest in-repo generator |
 |---|---|---|---|
 | `fig01_traffic_light.pdf` | `paper.tex` Figure 1 | `results/reliability_classification.csv` (48 rows; `light` column = green/yellow/red) | `scripts/make_figures.py` → `fig_reliability_traffic_light()` (writes `figures/fig06_reliability_traffic_light.{pdf,png}`) |
-| `fig02_morris_{HR,MAP,Vt,SpO2,PaO2,PaCO2}.pdf` (six panels) | `paper.tex` Figure 2 (six `subfigure`s) | `results/morris_indices.parquet` (μ* per scenario × sex × input × output) | `scripts/make_figures.py` → `fig_morris_mu_star()` (writes per-channel `figures/fig02_morris_mu_star_{ch}.{pdf,png}`) |
+| `fig02_morris_{HR,MAP,Vt,SpO2,PaO2,PaCO2}.pdf` (six panels) | `paper.tex` Figure 2 (six `subfigure`s) | `results/morris_indices.parquet` (μ* per scenario × sex × input × output) | **Dedicated generator (closed 2026-05-30):** `scripts/make_paper_fig02.py` writes the panels directly to `preprint_npj/figures/fig02_morris_{ch}.{pdf,png}` in the npj-required transposed orientation. The monograph equivalent `scripts/make_figures.py` → `fig_morris_mu_star()` keeps writing the non-transposed monograph version under `figures/fig02_morris_mu_star_{ch}`. |
 | `fig_s2_spearman.pdf` | `supplement.tex` Figure S2 | `results/spearman_mu_star.csv` (ρ per scenario × output, M-vs-F μ* vectors) | `scripts/make_figures.py` → `fig_h4_spearman()` (writes `figures/fig05_h4_spearman_mu_star.{pdf,png}`) |
 
 Every data source is git-tracked and `scripts/audit_claims.py` already
