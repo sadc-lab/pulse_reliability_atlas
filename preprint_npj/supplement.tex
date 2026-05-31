@@ -104,7 +104,7 @@ The atlas is calibrated against the following twelve Pulse limitations, each ver
 
 \begin{table}[h]
 \centering
-\caption{Verified Pulse v4.3.1 limitations the atlas is calibrated against. Each row was verified against a primary source before the sweep launched; two previously asserted but unverified claims (FiO$_2$ = 1.0 solver crash, absence of any sex-specific physiology) were withdrawn before preregistration locked. Companion-monograph cross-references in the rightmost column point to the experiment-log entry that established each limitation.}
+\caption{Verified Pulse v4.3.1 limitations the atlas is calibrated against. Each row was verified against a primary source before the sweep launched; two earlier internal-probing assertions from the companion technical work (FiO$_2$ = 1.0 solver crash, absence of any sex-specific physiology) were tested empirically and could not be confirmed before preregistration locked. Companion-monograph cross-references in the rightmost column point to the experiment-log entry that established each limitation.}
 \label{tab:limits}
 \small
 \begin{tabular}{rp{8.5cm}p{3.5cm}}
@@ -136,7 +136,7 @@ The atlas is calibrated against the following twelve Pulse limitations, each ver
 \end{tabular}
 \end{table}
 
-Two previously asserted but unverified claims were withdrawn before preregistration locked: (i)~the claim that Pulse crashes at FiO$_2$ = 1.0 (disproved empirically; Pulse accepts FiO$_2$ = 1.0 and produces a stable trajectory, with the transient hyperoxia regime characterised separately in Section~2.4 of the main manuscript and in Supplement~\S\,S9); and (ii)~the claim that Pulse has no sex-specific physiology beyond patient weight and height (disproved by the sex-stratified divergence and blood-volume mechanism characterised in Section~2.5 of the main manuscript and in Supplement~\S\,S10).
+Two earlier assertions from our own internal probing in the companion technical work were tested empirically before preregistration locked and could not be confirmed: (i)~the claim that Pulse crashes at FiO$_2$ = 1.0 (empirical Docker probing showed Pulse accepts FiO$_2$ = 1.0 and produces a stable trajectory; the transient hyperoxia regime is characterised separately in Section~2.4 of the main manuscript and in Supplement~\S\,S9); and (ii)~the claim that Pulse has no sex-specific physiology beyond patient weight and height (the sex-stratified divergence and blood-volume mechanism characterised in Section~2.5 of the main manuscript and in Supplement~\S\,S10 demonstrates that Pulse does encode sex-specific physiology through its allometric blood-volume baseline).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% S3 -- Full Methods detail (Phase 9.A)
@@ -734,6 +734,38 @@ In S1 (healthy lungs), Pulse settles output HR near a physiological norm of appr
 
 The operational consequence for Morris elementary effects on input HR in the ARDS scenarios is that the measured $\mu^{*}$ on output HR captures the coupling between compensation gain and input setting, not the steady-state effect of a resting heart rate. The H1 result that cardiovascular outputs are HR-dominated remains robust; the interpretation, however, is that ``the compensation responds proportionally to the input baseline'' rather than ``the input HR is the steady-state HR.'' Users running Pulse for ARDS device-validation should treat output HR as the engine's reflex response to the active scenario, not as a setpoint imposed by the input.
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% S16 -- Summary of supplementary findings and discoveries (Phase H)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Summary of supplementary findings and discoveries}\label{sec:s16}
+
+The 1{,}280-run atlas yields several findings whose full statement lives in this supplement rather than in the main paper. This section consolidates them into a single scannable index so that a skim reader, or an automated indexing agent, can locate each finding in one place. The focus is on findings without a dedicated subsection in the main paper's Section~2 Results; brief reminders of the headline findings are included only where the supplement carries materially novel detail beyond the paper.
+
+\begin{table}[h]
+\centering
+\caption{Index of supplementary findings and discoveries. Each row points to the supplement section that carries the full provenance, method, and result. Findings already headlined by a main-paper subsection are listed with both their supplement anchor and their main-paper anchor.}
+\label{tab:s16-index}
+\begin{tabular}{lp{0.62\textwidth}}
+\toprule
+Anchor & Finding / discovery \\
+\midrule
+\S\ref{sec:s2} & \textbf{Twelve verified Pulse 4.3.1 limitations} that the atlas is calibrated against. Two earlier internal-probing assertions from the companion technical work (FiO$_2$ = 1.0 solver crash; absence of any sex-specific physiology) were tested empirically and could not be confirmed before preregistration locked. \\
+\S\ref{sec:s3-sobol} & \textbf{Sobol bolt-on closure under CI-aware re-evaluation.} The preregistered Sobol promotion trigger ($\sigma / \mu^{*} \geq 0.6$) is satisfied by 0 of 48 cells under the trajectory-level bootstrap when the lower bootstrap bound is required to clear 0.6; the bolt-on is closed by evidential redundancy, not compute shortage. \\
+\S\ref{sec:s4} & \textbf{\texttt{not\_steady\_state} attribution decomposition.} Per-cell breakdown of the locked \texttt{not\_steady\_state} count into three trigger sub-modes (SpO$_2$ flatline at ceiling; Vt CV $>$ 0.05; drift) without modifying the locked classifier. \\
+\S\ref{sec:s5} & \textbf{ARDS impairment-fraction instability band --- atlas-specific extension.} A 200-run continuous-severity sweep at midrange Morris inputs extends the empirical band to $[0.879, 0.945]$ on the low edge and resolves two divergence regimes (input-driven, severity-driven). Supports Section~2.6 of the main paper. \\
+\S\ref{sec:s6} & \textbf{Cross-sex Spearman $\rho$ table.} Per-(scenario, output) cross-sex agreement on Morris $\mu^{*}$ input-importance rankings, with paired-input bootstrap 95~\% confidence intervals. Supports Section~2.5 of the main paper. \\
+\S\ref{sec:s7} & \textbf{Cornish et al.\ 2023 per-channel cross-mapping.} Each of Cornish's 15 channels mapped against the atlas's six steady-state outputs, supporting the complementarity claim in Section~2.6 of the main paper. \\
+\S\ref{sec:s10} & \textbf{Sex-stratified blood-volume mechanism: absolute and weight-normalised framings.} Re-examines the 20-event male-only divergence cluster from Section~2.5 of the main paper under both an absolute-BV and a weight-normalised-BV lens, with implications for sex-balanced synthetic cohort design. \\
+\S\ref{sec:s11} & \textbf{Six engine-side infrastructure recommendations} addressed to the Pulse maintainers: setup-warning for the ARDS instability zone; per-channel steady-state convergence diagnostic in CSV output; field-attributed setup-error messages; documentation of the male BV floor; reference SA recipe for operational inputs; companion Morris / Sobol implementation. \\
+\S\ref{sec:s13} & \textbf{\texttt{not\_steady\_state} attribution SHAP cross-verification.} An out-of-sample SHAP attribution audit of the per-cell \texttt{not\_steady\_state} trigger decomposition, cross-verifying the \S\ref{sec:s4} sub-mode decomposition under a non-parametric model. \\
+\S\ref{sec:s15} & \textbf{Compensatory tachycardia quantitative table.} Output HR mean $\pm$ standard deviation per scenario, quantifying the sympathetic overshoot above the input HR range under hypoxemia. Supports Section~2.6 of the main paper. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Findings already carried by a main-paper headline subsection (VC-AC trigger-lockout, transient hyperoxia regime at FiO$_2$ = 1.0, sex-stratified solver divergence with blood-volume mechanism) are summarised in Section~2 of the main paper, with extended detail in supplement sections \S\ref{sec:s8} (VC-AC full protocol), \S\ref{sec:s9} (hyperoxia 300-second convergence full protocol), and \S\ref{sec:s10} (sex-stratified BV mechanism). The reproducibility recipe (\S\ref{sec:s12}) and the bit-exact verification protocol (\S\ref{sec:s12-verify}) are not findings per se but support reproduction and audit; readers should consult those sections directly.
 
 \bibliography{paper}
 
