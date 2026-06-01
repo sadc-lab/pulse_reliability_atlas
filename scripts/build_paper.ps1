@@ -3,10 +3,11 @@
 # Outputs:
 #   preprint/build/manuscript.tex
 #   preprint/build/manuscript.pdf
+#   preprint/build/manuscript.docx   (Word twin -- same pandoc source + flags)
 #
 # Usage:
-#   .\scripts\build_paper.ps1            # build both .tex and .pdf
-#   .\scripts\build_paper.ps1 -TexOnly   # skip PDF compilation
+#   .\scripts\build_paper.ps1            # build .tex + .pdf + .docx
+#   .\scripts\build_paper.ps1 -TexOnly   # skip PDF and .docx compilation
 #
 # Requires:
 #   - pandoc 3.x  (winget install --id JohnMacFarlane.Pandoc)
@@ -35,6 +36,7 @@ $BibFile    = Join-Path $RepoRoot 'preprint\references.bib'
 $BuildDir   = Join-Path $RepoRoot 'preprint\build'
 $TexOut     = Join-Path $BuildDir 'manuscript.tex'
 $PdfOut     = Join-Path $BuildDir 'manuscript.pdf'
+$DocxOut    = Join-Path $BuildDir 'manuscript.docx'
 
 if (-not (Test-Path $Manuscript)) { throw "Manuscript not found: $Manuscript" }
 if (-not (Test-Path $BibFile))    { throw "Bibliography not found: $BibFile" }
@@ -90,6 +92,15 @@ if (-not $TexOnly) {
     & $PandocPath $Manuscript @CommonArgs @PdfFontArgs '--pdf-engine=xelatex' '-o' $PdfOut
     if ($LASTEXITCODE -ne 0) { throw "pandoc .pdf build failed (exit $LASTEXITCODE)" }
     Write-Host "OK -> $PdfOut" -ForegroundColor Green
+
+    # --- .docx output (Word twin). Same reader + citeproc + bibliography as the
+    #     PDF, so the content matches; no font overrides (those are a
+    #     PDF-engine concern). Figures are already referenced as .png in
+    #     manuscript.md, so they embed cleanly with no extra handling.
+    Write-Host "Building $DocxOut..." -ForegroundColor Cyan
+    & $PandocPath $Manuscript @CommonArgs '-o' $DocxOut
+    if ($LASTEXITCODE -ne 0) { throw "pandoc .docx build failed (exit $LASTEXITCODE)" }
+    Write-Host "OK -> $DocxOut" -ForegroundColor Green
 }
 
 Write-Host "`nBuild complete." -ForegroundColor Green
