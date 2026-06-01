@@ -1,5 +1,10 @@
 # Pulse Reliability Atlas
 
+> **Note:** This repository (`pulse_probe`) hosts the code and data for the
+> paper: *"An open reliability atlas for synthetic patient cohorts:
+> sensitivity, divergence, and sex-stratified failure modes in the Pulse
+> Physiology Engine v4.3.1."*
+
 **The first open reliability atlas for the Pulse Physiology Engine
 (v4.3.1).** This repository tells you — clinician, engineer, researcher,
 educator — *where Pulse can be trusted*, *where it silently bends inputs
@@ -9,6 +14,31 @@ actually drive each output*.
 The full result is [`preprint/manuscript.md`](preprint/manuscript.md). The
 short answer: see [Section "Plain-language summary"](#plain-language-summary)
 below.
+
+---
+
+## For peer reviewers
+
+This repository is the data-and-code companion to the *npj Digital Medicine*
+submission. The three fastest entry points for verifying the work:
+
+- **Preregistration** (commitments locked before any data was collected):
+  [`preregistration.md`](preregistration.md).
+- **Audit ledger** (every quantitative claim in the manuscript is
+  machine-checked against the data):
+  `uv run python scripts/audit_claims.py` — prints `190/190 PASS`.
+- **One-command reproduction** (Docker, fixed seed, ~7 h on a laptop):
+
+  ```bash
+  docker build -t pulse-atlas-engine engine/
+  uv run python scripts/run_full_sweep.py --resume
+  uv run python scripts/analyze_sweep.py
+  uv run python scripts/make_figures.py
+  ```
+
+  A 5-minute smoke test (`uv run python scripts/run_pilot.py`, 22 runs)
+  exercises the whole pipeline end-to-end. Full detail in
+  [Reproducing the atlas](#reproducing-the-atlas) below.
 
 ---
 
@@ -77,8 +107,8 @@ What the atlas says, in one paragraph:
 > reliability cell — every output unreliable. Healthy male and female
 > adults at FiO2 = 1.0 produce **PaO2 above 600 mmHg, still drifting at
 > the end of the locked 120 s window** — a *transient hyperoxia regime*
-> (S021): under a 300 s rerun, PaO2 converges to a plateau ~ 10 mmHg
-> below the alveolar-gas-equation prediction (~ 643 mmHg vs ~ 653 mmHg
+> (S021): under a 300 s rerun, PaO2 converges to a plateau ~ 20 mmHg
+> below the alveolar-gas-equation prediction (~ 643 mmHg vs ~ 663 mmHg
 > predicted), consistent with Pulse's modelled A-a gradient — not an
 > overshoot. And Pulse's preferred ventilator mode (VC-AC) fails to
 > deliver a steady tidal volume inside the 60-second window in
@@ -122,8 +152,8 @@ Two structural Pulse findings, independent of the hypotheses:
 - **F-003** — 34 implausibly-flagged runs produce PaO2 > 600 mmHg at
   FiO2 = 1.0 (91 % at FiO2 ≥ 0.95), still drifting at t = 120 s.
   *Transient hyperoxia regime*: under a 300 s rerun (S021), PaO2
-  converges to a plateau ~ 10 mmHg below the alveolar-gas-equation
-  prediction (S1 median 643 mmHg vs ~ 653 mmHg predicted) — consistent
+  converges to a plateau ~ 20 mmHg below the alveolar-gas-equation
+  prediction (S1 median 643 mmHg vs ~ 663 mmHg predicted) — consistent
   with Pulse's modelled A-a gradient. The original flag reflects (a)
   the locked 120 s window being insufficient for hyperoxia convergence
   and (b) the conservative classifier bound, *not* an overshoot.
@@ -415,7 +445,7 @@ Apache 2.0, matching the upstream Pulse engine licence. See [LICENSE](LICENSE).
 
 ## Contact
 
-Santino Nanini · santino.nanini@learningplanetinstitute.org
+Santino Nanini · santino.nanini@umontreal.ca
 
 PhD work conducted under the maintainer's PhD programme; this repo is
 self-contained and runs without any other internal dependencies.

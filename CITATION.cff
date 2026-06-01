@@ -14,7 +14,7 @@ type: software
 authors:
   - family-names: Nanini
     given-names: Santino
-    email: santino.nanini@learningplanetinstitute.org
+    email: santino.nanini@umontreal.ca
 repository-code: "https://github.com/santinon/pulse_probe"
 license: Apache-2.0
 version: "0.1.0"
