@@ -15,7 +15,7 @@ authors:
   - family-names: Nanini
     given-names: Santino
     email: santino.nanini@umontreal.ca
-repository-code: "https://github.com/santinon/pulse_probe"
+repository-code: "https://github.com/santinon/pulse_reliability_atlas"
 license: Apache-2.0
 version: "0.1.0"
 date-released: 2026-05-22

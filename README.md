@@ -1,6 +1,6 @@
 # Pulse Reliability Atlas
 
-> **Note:** This repository (`pulse_probe`) hosts the code and data for the
+> **Note:** This repository (`pulse_reliability_atlas`) hosts the code and data for the
 > paper: *"An open reliability atlas for synthetic patient cohorts:
 > sensitivity, divergence, and sex-stratified failure modes in the Pulse
 > Physiology Engine v4.3.1."*
@@ -413,7 +413,7 @@ Plain text:
 ```
 Nanini, S. (2026). Pulse Reliability Atlas: first sensitivity, clamping,
 and divergence map for the Pulse Physiology Engine v4.3.1.
-Preprint forthcoming. Code: https://github.com/santinon/pulse_probe
+Preprint forthcoming. Code: https://github.com/santinon/pulse_reliability_atlas
 ```
 
 BibTeX:
@@ -423,7 +423,7 @@ BibTeX:
   author       = {Nanini, Santino},
   title        = {Pulse Reliability Atlas: first sensitivity, clamping, and divergence map for the Pulse Physiology Engine v4.3.1},
   year         = {2026},
-  howpublished = {\url{https://github.com/santinon/pulse_probe}},
+  howpublished = {\url{https://github.com/santinon/pulse_reliability_atlas}},
   note         = {Preprint forthcoming; arXiv DOI to be added on upload.}
 }
 ```
