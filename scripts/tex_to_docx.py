@@ -28,6 +28,18 @@ Resolved with ``--citeproc`` against the paper ``.bib`` using the numbered
 Nature CSL (``nature.csl``, vendored next to the .tex sources) so the .docx
 in-text markers and reference list match the numbered PDF.
 
+Cross-references
+----------------
+pandoc cannot resolve ``xr-hyper`` *external*-document references (e.g. the
+paper's ``\ref{sec:s16}`` into the supplement) -- it prints the raw label --
+and it miscounts figures built from ``subcaption`` sub-panels (each sub-panel
+advances its figure counter, so later ``\ref{fig:..}`` resolve to the wrong
+number). Both are fixed here by pre-resolving *every* ``\ref`` / ``\pageref``
+to the literal number recorded by LaTeX in the ``.aux`` files (the same numbers
+the PDF shows) before handing the source to pandoc. The build's ``paper.aux``
+and ``supplement.aux`` must therefore exist (they do: ``build_npj.ps1`` runs
+pdflatex before this helper).
+
 Usage
 -----
     python scripts/tex_to_docx.py \
@@ -104,6 +116,117 @@ def _strip_org_macros(affil_arg: str) -> str:
     text = re.sub(r"\s+", " ", text)
     text = re.sub(r"\s*,\s*", ", ", text).strip().strip(",").strip()
     return text
+
+
+def parse_aux_labels(build_dir: Path) -> dict[str, tuple[str, str]]:
+    r"""Scan every ``*.aux`` in ``build_dir`` for hyperref ``\newlabel`` entries.
+
+    Returns ``{label: (ref_string, page_string)}``. The hyperref 5-field form is
+    ``\newlabel{LABEL}{{REF}{PAGE}{TITLE}{ANCHOR}{}}``; ``REF`` is what ``\ref``
+    prints and ``PAGE`` is what ``\pageref`` prints. Loading *all* aux files
+    (paper + supplement) means cross-document references resolve too. Cleveref
+    helper entries (``LABEL@cref``) are skipped.
+    """
+    labels: dict[str, tuple[str, str]] = {}
+    marker = "\\newlabel{"
+    for aux in sorted(build_dir.glob("*.aux")):
+        try:
+            text = aux.read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            continue
+        i = 0
+        while True:
+            k = text.find(marker, i)
+            if k < 0:
+                break
+            brace = k + len(marker) - 1  # points at the '{' of {LABEL}
+            try:
+                label, after = _braced(text, brace)
+                j = after
+                while j < len(text) and text[j] in " \t":
+                    j += 1
+                if j >= len(text) or text[j] != "{":
+                    i = after
+                    continue
+                data, after2 = _braced(text, j)  # data = "{REF}{PAGE}{..}.."
+                ref = page = ""
+                if data.startswith("{"):
+                    ref, d1 = _braced(data, 0)
+                    while d1 < len(data) and data[d1] in " \t":
+                        d1 += 1
+                    if d1 < len(data) and data[d1] == "{":
+                        page, _ = _braced(data, d1)
+                if "@" not in label:
+                    labels[label] = (ref.strip(), page.strip())
+                i = after2
+            except ValueError:
+                i = k + len(marker)
+    return labels
+
+
+def resolve_refs(tex: str, labels: dict[str, tuple[str, str]]) -> str:
+    r"""Replace ``\ref``/``\pageref``/``\autoref``/``\eqref``/``\cref``/``\Cref``
+    with the literal number from the ``.aux`` so the .docx cross-references match
+    the PDF exactly. Labels absent from every aux are left untouched for pandoc.
+    Also strips the ``\externaldocument`` directive (its refs are now resolved).
+    """
+    def num(label: str) -> str | None:
+        hit = labels.get(label.strip())
+        return hit[0] if hit else None
+
+    def page(label: str) -> str | None:
+        hit = labels.get(label.strip())
+        return hit[1] if hit else None
+
+    def repl_num(m: "re.Match[str]") -> str:
+        n = num(m.group(1))
+        return n if n is not None else m.group(0)
+
+    def repl_eq(m: "re.Match[str]") -> str:
+        n = num(m.group(1))
+        return f"({n})" if n is not None else m.group(0)
+
+    def repl_page(m: "re.Match[str]") -> str:
+        p = page(m.group(1))
+        return p if p is not None else m.group(0)
+
+    tex = re.sub(r"\\pageref\s*\{([^{}]+)\}", repl_page, tex)
+    tex = re.sub(r"\\eqref\s*\{([^{}]+)\}", repl_eq, tex)
+    tex = re.sub(r"\\(?:ref|autoref|cref|Cref)\s*\{([^{}]+)\}", repl_num, tex)
+    tex = re.sub(
+        r"\\externaldocument\s*(?:\[[^\]]*\])?\s*\{[^}]*\}", "", tex
+    )
+    return tex
+
+
+def flatten_subfigures(tex: str) -> str:
+    r"""Collapse ``subcaption`` sub-panels so pandoc emits ONE figure per
+    ``figure`` environment (otherwise each sub-panel advances pandoc's figure
+    counter and the auto-numbered captions drift out of step with the PDF).
+
+    Each ``\begin{subfigure}..\includegraphics{img}..\caption{LBL}..\end{subfigure}``
+    becomes ``\includegraphics{img} (LBL)`` -- the panel image followed by its
+    short label in parentheses -- with the wrapping environment removed. The
+    surrounding single ``figure`` + master ``\caption`` is preserved, so the
+    block renders as one numbered figure whose panels are still labelled.
+    """
+    def repl(m: "re.Match[str]") -> str:
+        body = m.group(1)
+        img = re.search(r"\\includegraphics\s*(?:\[[^\]]*\])?\s*\{[^}]*\}", body)
+        cap = re.search(r"\\caption\s*\{([^{}]*)\}", body)
+        if not img:
+            return ""
+        panel = img.group(0)
+        if cap and cap.group(1).strip():
+            panel += " (" + cap.group(1).strip() + ")"
+        return panel
+
+    return re.sub(
+        r"\\begin\{subfigure\}(.*?)\\end\{subfigure\}",
+        repl,
+        tex,
+        flags=re.DOTALL,
+    )
 
 
 def transform_frontmatter(tex: str) -> str:
@@ -187,6 +310,19 @@ def main() -> int:
 
     original = tex_path.read_text(encoding="utf-8")
     munged = transform_frontmatter(original)
+    # Collapse subcaption sub-panels to one figure each, then resolve every
+    # cross-reference to the literal .aux number (fixes pandoc's inability to
+    # resolve xr-hyper external refs and its sub-panel figure miscounting).
+    munged = flatten_subfigures(munged)
+    labels = parse_aux_labels(out_path.parent)
+    if labels:
+        munged = resolve_refs(munged, labels)
+    else:
+        print(
+            "  WARNING: no .aux labels found in build dir; cross-references "
+            "will fall back to pandoc (may be unresolved/miscounted).",
+            file=sys.stderr,
+        )
 
     # Throwaway preprocessed source -> build dir (gitignored).
     src_tex = out_path.parent / (tex_path.stem + ".docxsrc.tex")
