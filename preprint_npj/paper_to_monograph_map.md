@@ -424,12 +424,36 @@ caught equally.*
   expected_occurrences: 9
   notes: 'paper §2.5 (2) + supplement S3.7 (1) + supplement S5 continuous-severity table "0 / 20" rows (the (0.5, 0.85] bin counts) (2). Bumped 3 -> 5 in Phase 9.B.'
 
-- paper_section: '§2.5 + Figure 4 + supplement S3.6'
+- paper_section: 'paper.tex prose, rounded mL (Tier 3 id8/54): §2.5 (x2) + Figure 4 caption'
+  paper_context: 'Male reference body BloodVolumeBaseline default, rounded to whole mL in the paper'
+  monograph_claim_id: 'T3.s027.bv_default'
+  expected_value: 4802.63
+  format_in_paper: '4{,}803~mL'
+  expected_occurrences: 3
+  notes: 'Tier 3 split (Sauthier id8/54): paper prose rounds 4,802.63 -> 4,803 mL (3x); expected_value stays the exact 4802.63 for the value-check; supplement keeps the exact 4{,}802.63 form (8x, the paired row).'
+
+- paper_section: 'paper.tex prose, rounded mL (Tier 3 id8/54): Abstract + §2.5 (x2) + Figure 4 caption'
+  paper_context: 'Male reference body BloodVolumeBaseline floor, rounded to whole mL in the paper'
+  monograph_claim_id: 'T3.s027.bv_floor'
+  expected_value: 4082.24
+  format_in_paper: '4{,}082~mL'
+  expected_occurrences: 4
+  notes: 'Tier 3 split (Sauthier id8/54): paper prose rounds 4,082.24 -> 4,082 mL (4x); expected_value stays the exact 4082.24; supplement keeps the exact 4{,}082.24 form (5x, the paired row).'
+
+- paper_section: 'paper.tex prose, rounded mL (Tier 3 id8/54): §2.5 (x2) + Figure 4 caption'
+  paper_context: 'Female reference body BloodVolumeBaseline default, rounded to whole mL in the paper'
+  monograph_claim_id: 'T3.s028.bv_female_default'
+  expected_value: 3996.09
+  format_in_paper: '3{,}996~mL'
+  expected_occurrences: 3
+  notes: 'Tier 3 split (Sauthier id8/54): paper prose rounds 3,996.09 -> 3,996 mL (3x); expected_value stays the exact 3996.09; supplement keeps the exact 3{,}996.09 form (5x, the paired row).'
+
+- paper_section: '§2.5 + Figure 4 + supplement S3.6 (exact-precision occurrences; paper prose moved to the rounded-mL row above)'
   paper_context: 'Male reference body BloodVolumeBaseline default'
   monograph_claim_id: 'T3.s027.bv_default'
   expected_value: 4802.63
   format_in_paper: '4{,}802.63'
-  expected_occurrences: 11
+  expected_occurrences: 8
   notes: 'paper §2.5 (×2) + Figure 4 caption (1) + supplement S3.6 body-dimension provenance (1). Bumped 3 -> 4 in Phase 9.A.'
 
 - paper_section: 'Abstract + §2.5 prose (×2) + Figure 4 caption'
@@ -437,7 +461,7 @@ caught equally.*
   monograph_claim_id: 'T3.s027.bv_floor'
   expected_value: 4082.24
   format_in_paper: '4{,}082.24'
-  expected_occurrences: 9
+  expected_occurrences: 5
   notes: 'Appears 4 times as of Step 5: abstract sentence 5 "4{,}082.24~mL floor" (1), §2.5 prose ¶2 "the engine''s setup-time minimum for this body (4{,}082.24~mL, a 15.0~\% reduction)" (1), §2.5 prose ¶3 "4{,}082.24~mL on this male body" (1), Figure 4 caption "4{,}082.24~mL Pulse setup-time floor on this body" (1). Bumped from 1 (Step 1, abstract-only format "4{,}082.24~mL") to 4 (Step 5). Format simplified to just "4{,}082.24" to match all four occurrences regardless of trailing unit/context.'
 
 - paper_section: '§2.5 + Figure 4 + supplement S3.6'
@@ -445,7 +469,7 @@ caught equally.*
   monograph_claim_id: 'T3.s028.bv_female_default'
   expected_value: 3996.09
   format_in_paper: '3{,}996.09'
-  expected_occurrences: 8
+  expected_occurrences: 5
   notes: 'paper §2.5 (×2) + Figure 4 caption (1) + supplement S3.6 body-dimension provenance (1). Bumped 3 -> 4 in Phase 9.A.'
 
 - paper_section: '§2.5 prose + Figure 4 caption'
