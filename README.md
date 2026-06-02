@@ -1,9 +1,8 @@
 # Pulse Reliability Atlas
 
 > **Note:** This repository (`pulse_reliability_atlas`) hosts the code and data for the
-> paper: *"An open reliability atlas for synthetic patient cohorts:
-> sensitivity, divergence, and sex-stratified failure modes in the Pulse
-> Physiology Engine v4.3.1."*
+> paper: *"An open reliability atlas for the Pulse Physiology Engine:
+> sensitivity, divergence, and sex-stratified failure modes."*
 
 **The first open reliability atlas for the Pulse Physiology Engine
 (v4.3.1).** This repository tells you — clinician, engineer, researcher,

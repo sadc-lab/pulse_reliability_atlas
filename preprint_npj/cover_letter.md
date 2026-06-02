@@ -11,13 +11,12 @@ The Editors
 
 Dear Editors,
 
-We are pleased to submit our original research article, **"An open reliability
-atlas for synthetic patient cohorts: sensitivity, divergence, and
-sex-stratified failure modes in the Pulse Physiology Engine v4.3.1,"** for
+We are pleased to submit our original research article, **"An open reliability atlas for the Pulse Physiology Engine: sensitivity,
+divergence, and sex-stratified failure modes,"** for
 consideration as an Article in *npj Digital Medicine*.
 
-The Pulse Physiology Engine (Kitware, Apache-2.0) is among the most-cited
-open-source whole-body physiology simulators, and its synthetic patient
+The Pulse Physiology Engine (Kitware, Apache-2.0) is a prominent
+open-source whole-body physiology simulator, and its synthetic patient
 trajectories increasingly feed device-validation studies, computational
 physiology research, and machine-learning pipelines. Yet the engine's own
 maintainers state on their public FAQ that they "have not [...] conducted a

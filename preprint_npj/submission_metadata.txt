@@ -7,41 +7,36 @@ plain Unicode for portal copy-paste). Draft, uncommitted — verify before paste
 ------------------------------------------------------------------------------
 TITLE
 ------------------------------------------------------------------------------
-An open reliability atlas for synthetic patient cohorts: sensitivity,
-divergence, and sex-stratified failure modes in the Pulse Physiology Engine
-v4.3.1
+An open reliability atlas for the Pulse Physiology Engine: sensitivity,
+divergence, and sex-stratified failure modes
 
 (Running title / short title: Reliability atlas: Pulse Physiology Engine)
 
 ------------------------------------------------------------------------------
-ABSTRACT  (≈145 words)
+ABSTRACT  (150 words)
 ------------------------------------------------------------------------------
-Pulse is among the most-cited open-source whole-body physiology simulators,
-used for synthetic patient cohorts and computational physiology research. Yet
-no formal sensitivity analysis of its operational inputs has been published. We
-present the first reliability atlas across the adult critical-care envelope:
-Morris elementary-effects sampling of seven inputs across four Acute
-Respiratory Distress Syndrome (ARDS) severities and two patient reference
-bodies (1,280 simulations). Tidal-volume instability in 20.6 % of runs is
-identified as patient-ventilator dyssynchrony and corrected by setting the
-volume-controlled assist-control (VC-AC) inspiration trigger to −2 cmH2O. A
-transient hyperoxia regime at FiO2 = 1.0 means 120-second simulations
-underestimate plateau PaO2; 300-second runs converge to a plateau (median
-643 mmHg) sitting ~20 mmHg below the alveolar-gas-equation prediction of
-≈663 mmHg, consistent with Pulse's modelled A-a gradient. Solver divergence
-concentrated entirely on the male reference body (20/1,280 runs); reducing the
-male blood-volume baseline toward its 4,082.24 mL floor monotonically
-eliminated divergence. The resulting per-cell traffic-light map provides a
-reusable data-quality filter for downstream users—including machine-learning
-and clinical-AI pipelines that rely on such synthetic patient cohorts; all data
-and code are released open-source under Apache-2.0.
+Pulse is an open-source physiology simulator, yet no formal sensitivity
+analysis of its operational inputs has been published. We present the first
+reliability atlas across Pulse's adult critical-care envelope: Morris
+elementary-effects sampling of seven inputs across four Acute Respiratory
+Distress Syndrome (ARDS) severities and two reference bodies (1,280
+simulations). A four-flag classifier (clamping, divergence, implausible output,
+non-steady-state) surfaces three failure modes. Tidal-volume instability in
+20.6 % of runs is realistic patient–ventilator dyssynchrony; locking the VC-AC
+inspiration trigger to −2 cmH2O makes Vt deterministic for cohort generation.
+At FiO2 = 1.0 a transient hyperoxia regime makes 120-second runs underestimate
+plateau PaO2, which 300-second runs resolve near the alveolar-gas ceiling
+(median 643 mmHg), consistent with Pulse's modelled A-a gradient. Solver
+divergence fell entirely on the male body (20/1,280 runs); reducing its
+blood-volume baseline to the 4,082 mL floor eliminated it. The per-cell
+traffic-light map is a data-quality filter for Pulse cohorts, released
+open-source under Apache-2.0.
 
 ------------------------------------------------------------------------------
 KEYWORDS
 ------------------------------------------------------------------------------
-Pulse Physiology Engine; sensitivity analysis; digital twin; synthetic patient
-data; ICU simulation; Morris elementary effects; reproducibility; ARDS; machine
-learning training data; operational envelope; computational physiology
+digital twin; synthetic patient data; Morris elementary effects; ARDS;
+machine learning training data; operational envelope; reproducibility
 
 ------------------------------------------------------------------------------
 CORRESPONDING AUTHOR
