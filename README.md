@@ -410,8 +410,8 @@ Quick map (highlights — full audit trail in
 Plain text:
 
 ```
-Nanini, S. (2026). Pulse Reliability Atlas: first sensitivity, clamping,
-and divergence map for the Pulse Physiology Engine v4.3.1.
+Nanini, S., et al. (2026). An open reliability atlas for the Pulse
+Physiology Engine: sensitivity, divergence, and sex-stratified failure modes.
 Preprint forthcoming. Code: https://github.com/santinon/pulse_reliability_atlas
 ```
 
@@ -419,8 +419,8 @@ BibTeX:
 
 ```bibtex
 @misc{nanini2026pulseatlas,
-  author       = {Nanini, Santino},
-  title        = {Pulse Reliability Atlas: first sensitivity, clamping, and divergence map for the Pulse Physiology Engine v4.3.1},
+  author       = {Nanini, Santino and others},
+  title        = {An open reliability atlas for the Pulse Physiology Engine: sensitivity, divergence, and sex-stratified failure modes},
   year         = {2026},
   howpublished = {\url{https://github.com/santinon/pulse_reliability_atlas}},
   note         = {Preprint forthcoming; arXiv DOI to be added on upload.}

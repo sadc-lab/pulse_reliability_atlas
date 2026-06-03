@@ -2380,8 +2380,7 @@ artifact:
   `pulse-pediatric-engine` wrapper allows the respiratory-model trigger;
   this is realistic but produces non-steady tidal volumes at exactly
   the ventilator-stress points where validation matters most. Section
-  4.2 recommends the −2 cmH2O setting validated by [S014](#s014) as a sensible
-  default for atlas-style sensitivity work. Second, the prevalence of
+  4.2 details the −2 cmH2O setting validated by [S014](#s014) as a data-generation lever for deterministic sweeps (with the clinical caveat in §4.2). Second, the prevalence of
   dyssynchrony events (20.6 % across the full 7-input sweep) bounds how
   much of Pulse's VC-AC behaviour at the default trigger configuration
   is steady-state interpretable. Sensitivity indices computed on the
@@ -2399,12 +2398,14 @@ that operational extreme.**
 
 ### 4.2 Practical recommendations
 
-*A short list of recommendations for downstream Pulse users — the
-most consequential being: always set `InspirationPatientTriggerPressure`
-(recommended default −2 cmH2O) on VC-AC actions, otherwise Pulse
-enables a respiratory-model-driven patient trigger that produces
-realistic but non-steady tidal volumes at the very ventilator-stress
-points where validation matters most.*
+*A short list of recommendations for downstream Pulse users. The most
+consequential: for deterministic, steady-state-interpretable tidal
+volume, set `InspirationPatientTriggerPressure` explicitly on VC-AC
+actions (−2 cmH2O) — a data-generation lever, not a clinical
+recommendation (see the caveat below); otherwise Pulse enables a
+respiratory-model-driven patient trigger that produces realistic but
+non-steady tidal volumes at the very ventilator-stress points where
+validation matters most.*
 
 **VC-AC trigger configuration.** When using Pulse 4.3.1's
 `SEMechanicalVentilatorVolumeControl` action in *AssistedControl* mode,
@@ -2413,13 +2414,7 @@ always set `InspirationPatientTriggerPressure` or
 causes Pulse to enable a respiratory-model-driven patient trigger
 (`SEMechanicalVentilatorVolumeControl.cpp` lines 120–128), which
 produces realistic patient-ventilator dyssynchrony but renders
-delivered tidal volume non-steady at extreme input combinations. For
-sensitivity-analysis-style sweeps where steady-state interpretation is
-required, we recommend `InspirationPatientTriggerPressure = −2 cmH2O`
-as a default; this matches a clinically standard ICU sensitivity
-setting and is the configuration validated by [S014](#s014) in this paper
-(median Vt_cv collapses from 0.351 to 0.016, a 96 % reduction; 78.1 %
-of locked runs fall below the 0.05 steady-state threshold).
+delivered tidal volume non-steady at extreme input combinations. For sensitivity-analysis-style sweeps that require deterministic, steady-state-interpretable tidal volume, setting `InspirationPatientTriggerPressure = −2 cmH2O` collapses that variability (validated by [S014](#s014): median Vt_cv 0.351 to 0.016, a 96 % reduction; 78.1 % of locked runs below the 0.05 steady-state threshold). This is best read as a data-generation / exploration lever, not a clinical recommendation: locking the trigger to a fixed threshold leaves simulated inspiratory efforts below −2 cmH2O unrewarded, corresponding in a real patient to a shift from patient-responsive assist-control toward controlled ventilation — clinically undesirable, and visible only with specialised monitoring such as esophageal pressure or diaphragm electrical activity. The −2 cmH2O lock is therefore an instrument for controlled software exploration and deterministic synthetic-data generation, not guidance for clinically realistic ventilation.
 
 ### 4.3 Implications for machine-learning pipelines using Pulse
 
