@@ -329,8 +329,8 @@ caught equally.*
   monograph_claim_id: 'T1.06d.s14_trigger_pressure'
   expected_value: -2
   format_in_paper: '$-2$~cmH$_2$O'
-  expected_occurrences: 10
-  notes: 'Appears 5 times in paper.tex: abstract sentence 3 (1), §2.3 subsection title "VC-AC tidal-volume dyssynchrony and the $-2$~cmH$_2$O fix" (1; this was missed in the initial Step 4 count and revealed by the audit), §2.3 prose ×2 (1 + 1), Figure 3 caption (1). New ledger claim T1.06d (regex-extracted from scripts/run_s014_trigger_lockout.py TRIGGER_PRESSURE_CMH2O constant).'
+  expected_occurrences: 12
+  notes: 'Appears 7 times in paper.tex (Tier 1 added the VC-AC clinical-caveat paragraph, +2 in §2.3 prose): abstract sentence 3 (1), §2.3 subsection title "VC-AC tidal-volume dyssynchrony and the $-2$~cmH$_2$O fix" (1; this was missed in the initial Step 4 count and revealed by the audit), §2.3 prose ×4 (1 + 3), Figure 3 caption (1). New ledger claim T1.06d (regex-extracted from scripts/run_s014_trigger_lockout.py TRIGGER_PRESSURE_CMH2O constant).'
 
 ## Step 4 — Results §2.4 Transient hyperoxia regime
 
