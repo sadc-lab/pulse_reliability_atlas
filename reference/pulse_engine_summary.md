@@ -10,7 +10,7 @@ Open-source, C++ whole-body physiology simulator (Kitware, Apache-2.0). Forked f
 
 Primary citation: **Bray et al. (2019)**, "Pulse Physiology Engine: an Open-Source Software Platform for Computational Modeling of Human Medical Simulation," *SN Comprehensive Clinical Medicine*, [DOI:10.1007/s42399-019-00053-w](https://doi.org/10.1007/s42399-019-00053-w).
 
-**Self-described fidelity:** the [Pulse documentation](https://pulse.kitware.com/_nervous_methodology.html) calls it a *"low fidelity clinical approach... not necessarily for high fidelity predictive purposes."* Designed for real-time training, not patient-specific prediction.
+**Self-described fidelity:** the [Pulse documentation](https://pulse.kitware.com/_system_methodology.html) calls it a *"low fidelity clinical approach... not necessarily for high fidelity predictive purposes."* Designed for real-time training, not patient-specific prediction.
 
 **Speed:** ~5–15× real time depending on hardware.
 **Timestep:** 20 ms.

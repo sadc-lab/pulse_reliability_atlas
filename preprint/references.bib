@@ -31,10 +31,10 @@
   note      = {PMID: 33237927}
 }
 
-@inproceedings{webb2022vent,
+@misc{webb2022vent,
   author    = {Webb, J B and Bray, A and Scheirich, H and VanPelt, J and Gerard, J and Frembgen, S and Clipp, R B},
   title     = {Implementation of a Dynamic and Extensible Mechanical Ventilator Model for Real-Time Physiological Simulation},
-  booktitle = {Proceedings of the 2022 Annual Modeling and Simulation Conference (ANNSIM)},
+  howpublished = {Proceedings of the 2022 Annual Modeling and Simulation Conference (ANNSIM)},
   year      = {2022},
   url       = {https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10224749/},
   note      = {PubMed Central: PMC10224749. Reports qualitative waveform agreement between Pulse and the ASL 5000 lung simulator across nine validation cases; the quantitative tidal-volume error numbers cited in this manuscript come from the Pulse documentation tables (see @pulsevent), not from this paper.}
@@ -56,12 +56,12 @@
   note      = {Source of Pulse's documented ARDS severity-to-impairment-fraction mapping (mild = 0.3, moderate = 0.6, severe = 0.9) and the piecewise-linear severity-to-modifier scheme calibrated at key transition points (0.0, 0.3, 0.6, 0.9, 1.0). The associated P/F-ratio validation claim (340 / 130 / 50 mmHg for the three bands) is not stated on this documentation page; the quantitative P/F validation appears in the peer-reviewed @webb2020 Pulse-team COVID-19 paper.}
 }
 
-@misc{pulsenervous,
-  title     = {Nervous System Methodology --- Pulse Physiology Engine (v4.3.1 documentation)},
+@misc{pulsesystem,
+  title     = {System Methodology --- Pulse Physiology Engine (v4.3.1 documentation)},
   author    = {{Kitware, Inc.}},
-  howpublished = {\url{https://pulse.kitware.com/_nervous_methodology.html}},
+  howpublished = {\url{https://pulse.kitware.com/_system_methodology.html}},
   year      = {2026},
-  note      = {Source of Pulse's self-description as a "low-fidelity clinical approach" intended for training simulation rather than patient-specific clinical prediction. The phrase appears in the nervous-system documentation but applies to the engine's general design philosophy.}
+  note      = {Source of Pulse's self-description, under "Assumptions and Limitations", that "the engine uses a low fidelity clinical approach and is not necessarily for high fidelity predictive purposes." Citation re-pointed 2026-06-05 from the Nervous System Methodology page (which does not carry this phrase) to the System Methodology page, where it appears verbatim.}
 }
 
 @article{cornish2023,
@@ -254,13 +254,13 @@
   note      = {Reference respiratory-physiology textbook. Chapter 2 (Ventilation) covers adult anatomical dead space; Chapter 4 (Blood Gas Transport) covers acid-base ranges; Chapter 5 (Gas Exchange) covers the alveolar-gas equation underlying the approximately 663 mmHg PaO2 sea-level prediction at FiO2 = 1.0; Chapter 7 (Ventilation-Perfusion Relationships) covers shunt physiology.}
 }
 
-@book{marini2019critical,
+@book{marini2018critical,
   author    = {Marini, J J and Dries, D J},
   title     = {Critical Care Medicine: The Essentials and More},
   edition   = {5th},
   publisher = {Wolters Kluwer (Lippincott Williams \& Wilkins)},
   address   = {Philadelphia, PA},
-  year      = {2019},
+  year      = {2018},
   isbn      = {978-1-4963-0291-5},
   note      = {Corroborating ICU reference. Chapter 1 (Hemodynamic Monitoring and Support) covers HR / MAP / SpO2 cellular-extraction thresholds; Chapters 5 and 7 cover PaCO2 and tidal volume.}
 }

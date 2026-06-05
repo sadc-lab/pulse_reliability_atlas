@@ -200,13 +200,13 @@ Each bound falls into one of three logical categories: (a) a physical or thermod
 Output & Primary-literature rationale (lower / upper) \\
 \midrule
 HR [20, 220]~bpm &
-Survival-incompatibility thresholds for extreme bradycardia and tachycardia in the ICU-practice envelope~\cite[Ch.~5]{marino2013icu}, \cite[Ch.~1]{marini2019critical}; the upper extreme aligns with the age-extrapolated maximum heart rate. \\
+Survival-incompatibility thresholds for extreme bradycardia and tachycardia in the ICU-practice envelope~\cite[Ch.~5]{marino2013icu}, \cite[Ch.~1]{marini2018critical}; the upper extreme aligns with the age-extrapolated maximum heart rate. \\
 MAP [30, 180]~mmHg &
 Lower: well below the Sepsis-3 organ-perfusion failure threshold and the Surviving Sepsis Campaign MAP target of $\geq 65$~mmHg~\cite{singer2016, evans2021sepsis}. Upper: ESH 2023 hypertensive emergency definition (SBP $>$ 180~mmHg with acute target-organ damage)~\cite{mancia2023esh}. \\
 Vt [50, 1{,}500]~mL &
 Lower: below adult anatomical dead space ($\sim$~150~mL), implying zero alveolar ventilation~\cite[Ch.~2]{west2020respiratory}. Upper: $\sim 4\times$ the ARDS Network lung-protective tidal volume (6~mL/kg PBW $\approx$ 400~mL on the atlas reference bodies)~\cite{brower2000}, at the edge of adult-ventilator delivery capability~\cite[Ch.~26]{marino2013icu}. \\
 SpO$_2$ [50, 100]~\% &
-Lower: oxyhemoglobin dissociation curve P50 places SpO$_2$ = 50~\% at PaO$_2 \approx 27$~mmHg~\cite{severinghaus1979}, below the threshold for sustained cellular oxygen extraction~\cite[Ch.~1]{marini2019critical}. Upper: hemoglobin saturation ceiling (definitional). \\
+Lower: oxyhemoglobin dissociation curve P50 places SpO$_2$ = 50~\% at PaO$_2 \approx 27$~mmHg~\cite{severinghaus1979}, below the threshold for sustained cellular oxygen extraction~\cite[Ch.~1]{marini2018critical}. Upper: hemoglobin saturation ceiling (definitional). \\
 PaO$_2$ [20, 600]~mmHg &
 Lower: PaO$_2$ = 20~mmHg corresponds to SpO$_2 \approx 0.30$ on the Severinghaus dissociation curve~\cite{severinghaus1979}, incompatible with cellular respiration sustained over a 60-second steady-state window and well inside the Berlin severe-ARDS oxygenation territory~\cite{ards2012}. Upper: deliberately conservative below the alveolar-gas-equation sea-level ceiling of $\approx$~663~mmHg on FiO$_2$ = 1.0~\cite[Ch.~5]{west2020respiratory}; the supplementary \texttt{HARD\_BOUNDS\_PHYSIOLOGICAL} dictionary in \texttt{src/detector.py} raises the PaO$_2$ upper bound to 700~mmHg and powers the F-003 sensitivity-analysis reclassification reported in Section~2.4 of the main manuscript. \\
 PaCO$_2$ [10, 120]~mmHg &
@@ -249,7 +249,7 @@ PaCO$_2$ (mmHg) & 5 & \texttt{T1.06q.paco2\_drift} \\
 Channel \& drift threshold & Clinical-meaningfulness anchor \\
 \midrule
 HR (5 bpm / 60~s) &
-Threshold for a clinically meaningful tachy / brady excursion under continuous bedside monitoring~\cite[Ch.~1]{marini2019critical}. \\
+Threshold for a clinically meaningful tachy / brady excursion under continuous bedside monitoring~\cite[Ch.~1]{marini2018critical}. \\
 MAP (5 mmHg / 60~s) &
 Lower edge of what a clinician would call ongoing hemodynamic instability rather than settled perfusion~\cite{singer2016, evans2021sepsis}. \\
 Vt (50 mL / 60~s) &

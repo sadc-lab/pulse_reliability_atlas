@@ -255,9 +255,9 @@ in roughly 10–15× real time on commodity hardware. The codebase is
 C++ with bindings for Python, Java, C#, and Unity, and runs on
 Windows, Linux, macOS, Android, iOS, and ARM. Pulse forked from the
 DoD-funded BioGears engine in 2017 and is described by its
-maintainers as a "low-fidelity clinical approach" intended for
+maintainers as a "low fidelity clinical approach" intended for
 training simulation rather than patient-specific prediction
-[@pulsenervous] — a self-description that motivates rather than
+[@pulsesystem] — a self-description that motivates rather than
 contradicts the present reliability mapping.
 
 Pulse is used in three broad communities:
@@ -775,10 +775,10 @@ follow directly from physics or hardware specs.
 
 | Output | Lower | Upper | Source (lower / upper) |
 |--------|------:|------:|------------------------|
-| HR (bpm)    |  20 |  220 | Survival-incompatibility thresholds for bradycardia / tachycardia [@marino2013icu Ch.5; @marini2019critical Ch.1] |
+| HR (bpm)    |  20 |  220 | Survival-incompatibility thresholds for bradycardia / tachycardia [@marino2013icu Ch.5; @marini2018critical Ch.1] |
 | MAP (mmHg)  |  30 |  180 | Lower: Sepsis-3 organ-perfusion failure threshold (well below 65 mmHg shock target) [@singer2016; @evans2021sepsis]; upper: ESH 2023 hypertensive emergency [@mancia2023esh] |
 | Vt (mL)     |  50 | 1500 | Lower: below anatomical dead space (~150 mL adult) [@west2020respiratory Ch.2] — alveolar ventilation impossible; upper: ~4× ARDSnet protective ventilation (6 mL/kg PBW [@brower2000] ≈ 400 mL for atlas surrogates) and at the edge of adult-ventilator delivery capability [@marino2013icu Ch.26] |
-| SpO2 (%)    |  50 |  100 | Lower: oxyhemoglobin dissociation curve P50 (SpO2 = 50 % ↔ PaO2 ≈ 27 mmHg [@severinghaus1979]) — below cellular oxygen extraction threshold [@marini2019critical Ch.1]; upper: hemoglobin saturation ceiling (definitional) |
+| SpO2 (%)    |  50 |  100 | Lower: oxyhemoglobin dissociation curve P50 (SpO2 = 50 % ↔ PaO2 ≈ 27 mmHg [@severinghaus1979]) — below cellular oxygen extraction threshold [@marini2018critical Ch.1]; upper: hemoglobin saturation ceiling (definitional) |
 | PaO2 (mmHg) |  20 |  600 | Lower: SpO2 ≈ 0.30 on the Severinghaus 1979 dissociation curve [@severinghaus1979] — incompatible with cellular respiration over a 60 s steady-state window, well inside Berlin severe-ARDS oxygenation territory [@ards2012]; upper: classifier-conservative choice below the alveolar-gas-equation ceiling [@west2020respiratory Ch.5] — supplementary `HARD_BOUNDS_PHYSIOLOGICAL` sensitivity analysis at 700 mmHg reported in §3.8 |
 | PaCO2 (mmHg) | 10 |  120 | Profound respiratory alkalosis (lower) and CO2 narcosis (upper) survival thresholds [@marino2013icu Ch.21; @west2020respiratory Ch.4] |
 
@@ -809,12 +809,12 @@ clinician would read the trajectory as actively changing rather than
 at homeostasis. They are atlas-internal calibration choices rather
 than biological limits, so the per-channel magnitudes are anchored in
 standard critical-care monitoring practice
-[@marino2013icu Ch.5, Ch.21, Ch.26; @marini2019critical Ch.1] rather
+[@marino2013icu Ch.5, Ch.21, Ch.26; @marini2018critical Ch.1] rather
 than in mortality-incompatibility primary literature.
 
 | Output | Drift threshold per 60 s | Clinical-meaningfulness anchor |
 |--------|--------------------------|--------------------------------|
-| HR     | 5 bpm                    | Threshold for a clinically "meaningful" tachy / brady excursion under continuous bedside monitoring [@marini2019critical Ch.1] |
+| HR     | 5 bpm                    | Threshold for a clinically "meaningful" tachy / brady excursion under continuous bedside monitoring [@marini2018critical Ch.1] |
 | MAP    | 5 mmHg                   | Lower edge of what a clinician would call ongoing hemodynamic instability vs settled perfusion [@singer2016; @evans2021sepsis] |
 | Vt     | 50 mL                    | ~ 1 mL/kg PBW on the atlas surrogates — within the noise band of breath-to-breath measurement at ARDSnet Vt [@brower2000] |
 | SpO2   | 2 percentage points      | One bedside-monitor display step; conventional "noteworthy" desaturation threshold over a 60 s window [@severinghaus1979; @marino2013icu Ch.26] |
@@ -2688,7 +2688,7 @@ bounded.*
   call rather than a unique biological constant — different clinical
   philosophies, anchored in the same Severinghaus / Berlin /
   Sepsis-3 / ICU-textbook literature [@severinghaus1979; @ards2012;
-  @singer2016; @marino2013icu; @marini2019critical], could land on
+  @singer2016; @marino2013icu; @marini2018critical], could land on
   modestly different numbers. The locked classifier used for all
   headline numbers in this paper is conservative. The precedent for a
   sensitivity analysis on a single bound is the
@@ -3127,9 +3127,12 @@ the following or to an experiment-log entry in this repository.
    lumped-parameter model — referenced for valve idealization,
    dicrotic-notch absence, and viscoelastic limitation.
 9. **Pediatric Acute Lung Injury Consensus Conference (PALICC-2).**
-   ARDS severity classification (mild / moderate / severe), used to
-   anchor scenarios S2 (0.26), S3 (0.60), S4 (0.95). Berlin Criteria
-   correspondence verified through Pulse's own ARDS validation table.
+   Cited as the parallel pediatric ARDS-severity framework (PALICC-2
+   itself favours the Oxygenation Index / Oxygen Saturation Index over
+   P/F). The atlas's adult scenarios S2 (0.26), S3 (0.60), S4 (0.95)
+   are anchored on the Berlin Definition P/F bands, calibrated
+   empirically at ARDSnet-protective ventilation (Appendix B.3) — not
+   on PALICC-2.
 10. **SALib (Iwanaga, Usher, Herman 2022).** Socio-Environmental
     Systems Modelling. Morris and Sobol implementations used for
     sampling and analysis.
@@ -3205,19 +3208,25 @@ during the literature-review pass logged in
   documentation (v4.3.1).*
   <https://pulse.kitware.com/_respiratory_methodology.html>.
   Source of the documented ARDS severity-to-impairment-fraction
-  mapping (mild = 0.3, moderate = 0.6, severe = 0.9) and the
-  associated P/F-ratio claim (340 / 130 / 50 mmHg). Cited in §2.3
+  mapping (mild = 0.3, moderate = 0.6, severe = 0.9). This page does
+  not itself state the per-band P/F-ratio values (340 / 130 / 50 mmHg);
+  those come from the peer-reviewed Webb 2020 Pulse-team COVID-19
+  paper (Webb 2020 entry above), to which §2.3 and Appendix B.3
+  correctly attribute them. Cited in §2.3
   and Appendix B.3 as the canonical documentation against which the
   empirically calibrated mapping {0.26, 0.60, 0.95} is contrasted at
   ARDSnet-protective ventilation. Verified verbatim 2026-05-15.
-* []{#ref-pulsenervous} Kitware, Inc. *Nervous System Methodology — Pulse Physiology
+* []{#ref-pulsesystem} Kitware, Inc. *System Methodology — Pulse Physiology
   Engine documentation (v4.3.1).*
-  <https://pulse.kitware.com/_nervous_methodology.html>.
-  Source of Pulse's self-description as a *"low-fidelity clinical
-  approach"* intended for training simulation rather than
-  patient-specific prediction; cited in §1.1 as the maintainer-stated
-  design philosophy that frames the present reliability mapping.
-  Verified verbatim 2026-05-23 (S027).
+  <https://pulse.kitware.com/_system_methodology.html>.
+  Source of Pulse's self-description, under "Assumptions and
+  Limitations", that *"the engine uses a low fidelity clinical
+  approach and is not necessarily for high fidelity predictive
+  purposes"*; cited in §1.1 as the maintainer-stated design philosophy
+  that frames the present reliability mapping. Citation re-pointed
+  2026-06-05 from the Nervous System Methodology page (which does not
+  carry this phrase) to the System Methodology page, where it appears
+  verbatim.
 * []{#ref-cornish2023} Cornish R, Taufiq MF, Doucet A, Holmes C. *Causal Falsification
   of Digital Twins.* arXiv:2301.07210 (November 2023, v4). Oxford
   statistics group. External assessment of Pulse on MIMIC-III
@@ -3297,6 +3306,49 @@ during the literature-review pass logged in
   manifesto for reproducible science.* Nature Human Behaviour
   1(1):0021 (2017). DOI:
   [10.1038/s41562-016-0021](https://doi.org/10.1038/s41562-016-0021).
+
+**Critical-care and respiratory-physiology references (physiological-bound anchors)**
+
+* []{#ref-severinghaus1979} Severinghaus JW. *Simple, accurate equations for human blood O2
+  dissociation computations.* Journal of Applied Physiology:
+  Respiratory, Environmental and Exercise Physiology 46(3):599-602
+  (1979). DOI:
+  [10.1152/jappl.1979.46.3.599](https://doi.org/10.1152/jappl.1979.46.3.599).
+  PMID: 35496. Oxyhemoglobin dissociation curve (P50); anchors the
+  SpO2 and PaO2 hard bounds.
+* []{#ref-singer2016} Singer M, Deutschman CS, Seymour CW, Shankar-Hari M, Annane D,
+  Bauer M, et al. *The Third International Consensus Definitions for
+  Sepsis and Septic Shock (Sepsis-3).* JAMA 315(8):801-810 (2016).
+  DOI: [10.1001/jama.2016.0287](https://doi.org/10.1001/jama.2016.0287).
+  PMID: 26903338. Vasopressor-dependent MAP ≥ 65 mmHg; anchors the
+  MAP lower bound.
+* []{#ref-evans2021sepsis} Evans L, Rhodes A, Alhazzani W, Antonelli M, Coopersmith CM,
+  French C, et al. *Surviving Sepsis Campaign: International Guidelines
+  for Management of Sepsis and Septic Shock 2021.* Critical Care
+  Medicine 49(11):e1063-e1143 (2021). DOI:
+  [10.1097/CCM.0000000000005337](https://doi.org/10.1097/CCM.0000000000005337).
+  PMID: 34605781. International MAP ≥ 65 mmHg resuscitation target.
+* []{#ref-mancia2023esh} Mancia G, Kreutz R, Brunström M, Burnier M, Grassi G,
+  Januszewicz A, et al. *2023 ESH Guidelines for the management of
+  arterial hypertension.* Journal of Hypertension 41(12):1874-2071
+  (2023). DOI:
+  [10.1097/HJH.0000000000003480](https://doi.org/10.1097/HJH.0000000000003480).
+  PMID: 37345492. Hypertensive-emergency definition (SBP > 180 /
+  DBP > 120 mmHg); anchors the MAP upper bound.
+* []{#ref-west2020respiratory} West JB, Luks AM. *West's Respiratory Physiology: The
+  Essentials.* 11th ed. Philadelphia, PA: Wolters Kluwer Health /
+  Lippincott (2020). ISBN: 978-1-9751-3918-6. Alveolar-gas-equation
+  PaO2 ceiling (≈ 663 mmHg at FiO2 = 1.0), anatomical dead space,
+  acid-base ranges.
+* []{#ref-marino2013icu} Marino PL. *Marino's The ICU Book.* 4th ed. Philadelphia, PA:
+  Lippincott Williams & Wilkins / Wolters Kluwer (2013). ISBN:
+  978-1-4511-2118-6. ICU-practice HR / MAP / Vt / PaCO2 extremes.
+* []{#ref-marini2018critical} Marini JJ, Dries DJ. *Critical Care Medicine: The Essentials
+  and More.* 5th ed. Philadelphia, PA: Wolters Kluwer (Lippincott
+  Williams & Wilkins) (2018). ISBN: 978-1-4963-0291-5. HR / SpO2
+  cellular-extraction thresholds. (5th edition; LWW publisher date
+  confirmed as 2018 in the 2026-06-05 re-audit — bib key updated to
+  marini2018critical accordingly.)
 
 ---
 
