@@ -25,7 +25,7 @@ submission. The three fastest entry points for verifying the work:
   [`preregistration.md`](preregistration.md).
 - **Audit ledger** (every quantitative claim in the manuscript is
   machine-checked against the data):
-  `uv run python scripts/audit_claims.py` — prints `190/190 PASS`.
+  `uv run python scripts/audit_claims.py` — prints `247/247 PASS`.
 - **One-command reproduction** (Docker, fixed seed, ~7 h on a laptop):
 
   ```bash
@@ -162,7 +162,7 @@ Two structural Pulse findings, independent of the hypotheses:
   patient-ventilator dyssynchrony at the inspiration trigger.
   **Operator fix:** set inspiration trigger pressure to −2 cmH2O
   (collapses *median* Vt CV from 0.351 → 0.016; worst-case from 1.826
-  → 0.112; lock-below-0.05 fraction = 78.1 %). See
+  → 0.018; lock-below-0.05 fraction = 78.1 %). See
   `preprint/manuscript.md` §3.8 + §4.2.
 
 ---
@@ -268,7 +268,7 @@ quick canary check), confirm the pipeline by running:
 
 ```bash
 uv run pytest tests/ -v                       # S009/S015 unit tests
-uv run python scripts/audit_claims.py          # S024 -- must print 190/190 PASS
+uv run python scripts/audit_claims.py          # S024 -- must print 247/247 PASS
 ```
 
 The pilot gate study itself is a runnable smoke test on cell (S1, M):
@@ -400,7 +400,7 @@ Quick map (highlights — full audit trail in
   `not_steady_state` (Appendix C).
 - **S023** Supplementary ML/SHAP cross-check of Morris μ\* rankings
   (manuscript §4.5; requires `uv sync --extra ml`).
-- **S024** Pre-submission claims-ledger audit (190 / 190 PASS).
+- **S024** Pre-submission claims-ledger audit (247 / 247 PASS).
 - **S025** Pre-release OSS code-hygiene audit + fixes (this release).
 
 ---

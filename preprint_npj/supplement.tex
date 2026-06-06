@@ -637,7 +637,7 @@ uv run python scripts/analyze_sweep.py
 
 # 4. Re-derive every quantitative claim in the manuscript
 #    + supplement from the canonical artefacts; expect
-#    241/241 PASS exit code 0.
+#    247/247 PASS exit code 0.
 uv run python scripts/audit_claims.py
 
 # 5. Optional: verify paper.tex + supplement.tex remain
@@ -656,7 +656,7 @@ Bit-exact reproduction of the canonical sweep output is verified at three indepe
 \item \textbf{Derived statistical artefacts.} The Morris $\mu^{*}$ indices, bootstrap confidence intervals, Wasserstein distances, Spearman correlations, and BH-FDR survivors all regenerate bit-equivalently from the canonical aggregated parquets; this is what the audit ledger (\texttt{scripts/audit\_claims.py}) re-derives at every run.
 \end{enumerate}
 
-The audit ledger is the primary reproducibility instrument: a green ledger run (241/241 PASS) confirms that every quantitative claim in the main manuscript and supplement is consistent with the canonical artefacts. A failed claim is a structured triage item (Type A transcription drift, Type B orphaned number, Type C derivation mismatch) with a precise file:line pointer for forensic tracing.
+The audit ledger is the primary reproducibility instrument: a green ledger run (247/247 PASS) confirms that every quantitative claim in the main manuscript and supplement is consistent with the canonical artefacts. A failed claim is a structured triage item (Type A transcription drift, Type B orphaned number, Type C derivation mismatch) with a precise file:line pointer for forensic tracing.
 
 \subsection{Reproducibility scope and limits}\label{sec:s12-scope}
 
@@ -666,13 +666,13 @@ The three-layer bit-identity verification above was performed within the canonic
 %% S13 -- NSS attribution + SHAP cross-verification (Phase 9.D)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{not\_steady\_state attribution and SHAP cross-verification}\label{sec:s13}
+\section{SHAP cross-verification of the Morris sensitivity rankings}\label{sec:s13}
 
 The locked \texttt{not\_steady\_state} flag fires on 530 of 1{,}280 runs across the full sweep; Supplement~\S\,S4 decomposes that 530 into the three contributing sub-modes (SpO$_2$-saturation pinning, VC-AC tidal-volume dyssynchrony, and a residual dominated by severe-ARDS slow convergence and FiO$_2$ = 1.0 transient hyperoxia). This section adds a complementary cross-verification: an independent machine-learning analysis recovers the same input-importance rankings that the preregistered Morris elementary-effects design establishes, by a different statistical route and on a different subset of the data.
 
 \subsection{Methodology: epistemological scope}\label{sec:s13-scope}
 
-The Morris elementary-effects design is interventional: each trajectory perturbs one input at a time along a fixed grid, so the resulting $\mu^{*}$ ranking is a causal-mechanistic statement about how Pulse responds to deliberate perturbations of each input. By contrast, a SHAP analysis~\cite{morris1991, campolongo2007} on a tree-based reference body model trained on the observational distribution of Morris outputs is a fundamentally different statistical object: it summarises how a black-box predictor associates input features with output predictions, on the data distribution as actually observed. The two methods answer different questions, and the load-bearing analysis in this work is the interventional Morris design --- the SHAP analysis is included only as a secondary cross-verification.
+The Morris elementary-effects design is interventional: each trajectory perturbs one input at a time along a fixed grid, so the resulting $\mu^{*}$ ranking is a causal-mechanistic statement about how Pulse responds to deliberate perturbations of each input. By contrast, a SHAP analysis~\cite{lundberg2017} on a tree-based reference body model trained on the observational distribution of Morris outputs is a fundamentally different statistical object: it summarises how a black-box predictor associates input features with output predictions, on the data distribution as actually observed. The two methods answer different questions, and the load-bearing analysis in this work is the interventional Morris design --- the SHAP analysis is included only as a secondary cross-verification.
 
 \subsection{Cross-verification result on the clean subset}\label{sec:s13-result}
 
@@ -681,7 +681,7 @@ A supplementary RandomForest regressor + SHAP feature-importance ranking was com
 \begin{itemize}
 \item \textbf{17 of 18 pooled (output $\times$ top-3) cases agree} at the full 3-of-3 ranking level (ledger anchor \texttt{T2.s023.pooled}).
 \item \textbf{23 of 48 per-cell (scenario $\times$ sex $\times$ output) cases agree at the full 3-of-3 level} (ledger anchor \texttt{T2.s023.fullmatch}).
-\item \textbf{92~\% of per-cell comparisons agree at $\geq$ 2-of-3 level} (ledger anchor \texttt{T2.s023.ge2\_pct}).
+\item \textbf{90~\% of per-cell comparisons agree at $\geq$ 2-of-3 level} (43 of 48; ledger anchor \texttt{T2.s023.ge2\_pct}).
 \end{itemize}
 
 \subsection{Interpretation}\label{sec:s13-interp}
@@ -765,7 +765,7 @@ Anchor & Finding / discovery \\
 \S\ref{sec:s7} & \textbf{Cornish et al.\ 2023 per-channel cross-mapping.} Each of Cornish's 15 channels mapped against the atlas's six steady-state outputs, supporting the complementarity claim in Section~2.6 of the main paper. \\
 \S\ref{sec:s10} & \textbf{Sex-stratified blood-volume mechanism: absolute and weight-normalised framings.} Re-examines the 20-event male-only divergence cluster from Section~2.5 of the main paper under both an absolute-BV and a weight-normalised-BV lens, with implications for sex-balanced synthetic cohort design. \\
 \S\ref{sec:s11} & \textbf{Six engine-side infrastructure recommendations} addressed to the Pulse maintainers: setup-warning for the ARDS instability zone; per-channel steady-state convergence diagnostic in CSV output; field-attributed setup-error messages; documentation of the male BV floor; reference SA recipe for operational inputs; companion Morris / Sobol implementation. \\
-\S\ref{sec:s13} & \textbf{\texttt{not\_steady\_state} attribution SHAP cross-verification.} An out-of-sample SHAP attribution audit of the per-cell \texttt{not\_steady\_state} trigger decomposition, cross-verifying the \S\ref{sec:s4} sub-mode decomposition under a non-parametric model. \\
+\S\ref{sec:s13} & \textbf{SHAP cross-verification of the Morris sensitivity rankings.} An independent RandomForest~+~SHAP analysis on the clean subset recovers the Morris $\mu^{*}$ top-3 input rankings (17 of 18 pooled cases), confirming the rankings are an engine property rather than an artefact of the elementary-effects design. \\
 \S\ref{sec:s15} & \textbf{Compensatory tachycardia quantitative table.} Output HR mean $\pm$ standard deviation per scenario, quantifying the sympathetic overshoot above the input HR range under hypoxemia. Supports Section~2.6 of the main paper. \\
 \bottomrule
 \end{tabular}

@@ -298,15 +298,15 @@ caught equally.*
   expected_value: 1.826
   format_in_paper: '1.826'
   expected_occurrences: 2
-  notes: 'Appears once in §2.3 prose: "reduces the worst-case Vt CV from 1.826 to 0.112".'
+  notes: 'Appears in §2.3 prose ("reduces the worst-case Vt CV from 1.826 to 0.018") and the Supplement Fig S8 caption.'
 
 - paper_section: '§2.3 VC-AC (prose)'
-  paper_context: 'Worst-case Vt CV after lock'
-  monograph_claim_id: 'T1.06'
-  expected_value: 0.112
-  format_in_paper: '0.112'
-  expected_occurrences: 1
-  notes: 'Appears once in §2.3 prose adjacent to T1.05.'
+  paper_context: 'Worst-case Vt CV after lock (paired same-run S1_F_0117)'
+  monograph_claim_id: 'T1.s014.worstcase_locked_vtcv'
+  expected_value: 0.018
+  format_in_paper: '0.018'
+  expected_occurrences: 2
+  notes: 'Paired same-run worst-case (S1_F_0117): 1.826 -> 0.018. Appears in §2.3 prose and the Supplement Fig S8 caption.'
 
 - paper_section: '§2.3 VC-AC (prose)'
   paper_context: 'S014 paired-rerun sample size'

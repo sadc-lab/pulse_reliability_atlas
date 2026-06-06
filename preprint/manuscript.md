@@ -88,6 +88,153 @@ cohorts.
 
 ---
 
+## Key Findings at a Glance
+
+*A condensed, number-complete digest of everything the atlas established — the
+single place to recover any headline or secondary result without reading the
+full text (written to seed later thesis chapters). Each bullet is
+self-contained; experiment-log tags (S0xx) point to provenance. The
+seven reusable artifacts are listed separately under "Key contributions"
+below; this section is the exhaustive findings digest.*
+
+**Scope and scale.**
+
+* First open, **preregistered** reliability atlas for the **Pulse Physiology
+  Engine v4.3.1** (Kitware, Apache-2.0), VC-AC ventilation, adult
+  critical-care envelope. Results apply identically to the build-only v4.3.2
+  release.
+* **1,280 simulations** = 8 cells (4 ARDS severities S1/S2/S3/S4 × 2 reference
+  bodies M/F) × 160 runs. Seven swept operational inputs (HR, SBP, DBP, RR,
+  Vt, FiO2, PEEP); six steady-state outputs (HR, MAP, Vt, SpO2, PaO2, PaCO2);
+  four-flag detector (`clamped` / `diverged` / `implausible` /
+  `not_steady_state`).
+* **Overall data quality:** 663 / 1,280 runs (**51.8 %**) are flag-clean under
+  the locked classifier. Per-cell traffic-light map: **7 green / 29 yellow /
+  12 red** of the 48 cell × output combinations (Figure 6).
+
+**Primary finding 1 — VC-AC tidal-volume dyssynchrony and the −2 cmH2O lever (F-004).**
+
+* Delivered-Vt coefficient of variation (CV) exceeds the 0.05 steady-state
+  threshold in **20.6 %** of runs; concentrated on healthy lungs (S1), fading
+  with ARDS severity.
+* **Causally identified** as patient–ventilator dyssynchrony at the
+  inspiration trigger — a clinically real asynchrony, not a solver artefact.
+* Locking `InspirationPatientTriggerPressure` to **−2 cmH2O** ([S014](#s014))
+  collapses **median Vt CV 0.351 → 0.016** and **worst-case 1.826 → 0.018**;
+  **78.1 %** of locked reruns drop below 0.05. Use as a deterministic-cohort
+  lever, *not* a clinical recommendation (it suppresses Pulse's realistic
+  effort-dependent asynchrony).
+
+**Primary finding 2 — transient hyperoxia regime at FiO2 = 1.0 (F-003).**
+
+* Under the locked 120 s window, steady-state PaO2 exceeds the 600 mmHg
+  classifier bound in **34 of 126** implausible-flagged runs; **91 %** at
+  FiO2 ≥ 0.95.
+* Extended **300 s** reruns ([S021](#s021)) resolve it: S1 plateau
+  **median 643 mmHg**, ~20 mmHg *below* the alveolar-gas-equation sea-level
+  ceiling (≈663 mmHg) — consistent with Pulse's modelled A-a gradient, i.e. a
+  window-length artefact, not an oxygenation overshoot. 41/44 S1 reruns
+  converged; 6 develop an off-scale numerical runaway (up to ≈1,408 mmHg).
+* **Practical rule:** simulate hyperoxia ≥ 300 s before extracting a PaO2
+  plateau; avoid Vt × RR > ~12 L/min on healthy lungs at FiO2 = 1.0.
+
+**Primary finding 3 — sex-stratified solver divergence and its blood-volume mechanism.**
+
+* **20 of 1,280 runs (1.6 %) diverged; all 20 on the male body** (per-cell
+  4 / 4 / 4 / 8 across S1–S4_M; zero of the 640 female runs).
+* **Two regimes** (independently re-derived and live-Docker-confirmed):
+    * *Input-driven:* the compound hypotensive–tachypneic pattern
+      **HR = 50 & SBP = 90 & RR = 20** accounts for **16 / 20** divergences
+      (and every male run matching it diverges). **FiO2 = 1.0 co-occurs in
+      13 / 20** (enriched ~4× vs base rate) but is **not necessary** — the
+      compound diverges at FiO2 = 0.737 as well.
+    * *Severity-driven* ([S009](#s009)): at midrange inputs **both sexes
+      diverge across the [0.879, 0.945]** ARDS-impairment band (union; female
+      0.879–0.927, male 0.899–0.945).
+* **Mechanism** ([S018](#s018)): Pulse's allometric `BloodVolumeBaseline`
+  (male default **4,802.63 mL** vs female **3,996.09 mL**, ~17 % gap).
+  Reducing male BV monotonically eliminates divergence:
+  **20/20 → 2/20 → 0/20** at BV 4,802.63 → 4,400 → 4,082.24 mL.
+* Engine-level side-finding (**F-S018-A**): a hard per-patient BV floor at
+  **4,082.24 mL** on the male body, 86 mL above the female default — the two
+  bodies cannot be made BV-equivalent by a one-way transplant.
+
+**Sensitivity structure (H1) — skewed and predominantly linear.**
+
+* Top-3 inputs explain ≥ 50 % of summed μ\* on **48 / 48** cell × output
+  combinations (median **0.928**, range 0.658–0.998; bootstrap-CI evaluated).
+  Lowest fractions in severe-ARDS gas-exchange (S4_F SpO2 0.658, S4_M 0.703).
+* Cardiovascular outputs are cardio-input-driven (output HR ← input HR,
+  MAP ← SBP in every cell, no ventilator cross-talk); gas-exchange outputs are
+  ventilator-driven (PaO2 ← FiO2 in mild/moderate ARDS, collapsing to a flat
+  dependence in severe ARDS = shunt physiology; PaCO2 ← Vt via the
+  alveolar-ventilation identity).
+* **Predominantly linear:** point-estimate σ/μ\* < 0.6 in 40 / 48 cells;
+  under trajectory bootstrap **31 / 48 CI-robustly linear**. Preregistered
+  Sobol bolt-on **closed by evidential redundancy** ([S019](#s019)): 0 / 48
+  cells meet the σ/μ\* ≥ 0.6 CI trigger (31 CI-robust linear, 12 straddle 0.6,
+  5 no estimable CI); ready-to-fire SALib implementation preserved.
+
+**Silent clamping (H2) — does not happen.**
+
+* **0 of 1,280** runs fired the `clamped` flag: Pulse rejects out-of-range
+  setup inputs *loudly* (`[ERROR]` + exit), never silently bending them. The
+  BP gate (SBP > 120 / DBP > 80; DBP/SBP ≤ 0.75) and HR/RR/age bands are
+  enforced at setup.
+
+**Sex as a reliability axis (H4).**
+
+* Under Benjamini–Hochberg FDR control (q = 0.05), **5 of 24** cell × output
+  Wasserstein distances survive the within-sex permutation null — **all five
+  gas-exchange** (PaCO2 ×3, SpO2 ×1, PaO2 ×1). Cardiovascular and Vt sex
+  effects do not exceed within-sex sub-sampling.
+* Input-importance rankings are largely sex-preserved: **Spearman ρ
+  0.75–1.00** in S2 / S3.
+* Net: the sex effect is **regime-dependent** — strong at the male
+  input-extreme divergence boundary, modest in clean gas-exchange
+  distributions.
+
+**Secondary findings.**
+
+* **ARDS-impairment instability band — first public characterisation.** Three
+  converging boundary probes first flagged 0.91–0.945; the 200-run
+  continuous-severity sweep extends the empirical divergence band to
+  **[0.879, 0.945]**. The locked sweep places S4 at 0.95, deliberately above
+  it. Avoid [0.879, 0.945] when stable steady-state outputs are required.
+* **Compensatory tachycardia decouples input HR from output HR under
+  hypoxemia.** Output HR settles at **73.8 ± 20.4 bpm** in S1 but rises to
+  **155.7 (S3)** and **147.1 (S4)** bpm despite the same [50, 110] input
+  range — Pulse's baroreflex/chemoreflex overriding the requested baseline.
+  ML pipelines will internalise this as a steady-state feature, not an active
+  response.
+* **ML/SHAP cross-check of the Morris ranking** ([S023](#s023)): a
+  RandomForest + SHAP surrogate on the 663 clean runs recovers the Morris
+  top-3 in **17 / 18** pooled cases (mean per-cell overlap 2.40 / 3; 90 % of
+  48 comparisons ≥ 2/3) — the ranking is an engine property, not an OAT-design
+  artefact. Supplementary only (training R² uninformative; clean-subset
+  selection bias).
+* **ARDS-severity → P/F calibration table** (ventilation-setting-dependent):
+  impairment {0.26, 0.60, 0.95} lands P/F ≈ **256 / 150 / 96 mmHg** (Berlin
+  band centres) under VC-AC + Vt 6 mL/kg + PEEP 10 + FiO2 0.4; Pulse's
+  documented {0.3, 0.6, 0.9} defaults give 199 / 150 / 119 mmHg at the same
+  settings.
+* **Complementarity with Cornish et al. 2023** ([S017](#s017)): their
+  causal-falsification on MIMIC-III reported **85 Hoeffding rejections** across
+  15 channels; **82 / 85 fall outside** this atlas's four-channel
+  cardio-respiratory overlap (only 3 / 85 overlap, all PaCO2). The two failure
+  surfaces are complementary, not redundant.
+
+**Reproducibility and release.**
+
+* Bit-exact reproduction verified at three layers (canonical sample, per-cell
+  aggregate parquets, derived statistics); fixed seed 42; single pinned Docker
+  image; preregistered before data collection.
+* Full pipeline + audit ledger (re-derives every quantitative claim from the
+  canonical artefacts, [S024](#s024)) released Apache-2.0. Six engine-side
+  infrastructure recommendations offered to the Pulse maintainers (§4.7).
+
+---
+
 ## Reader's roadmap
 
 *This paper is written for a cross-disciplinary readership — clinicians,
@@ -463,7 +610,7 @@ underlying files are in the repository.
 | S021 | Hyperoxia convergence: 60-run pre-registered rerun at 300 s vs locked 120 s sweep window — tests whether F-003 PaO2 > 600 mmHg at FiO2 = 1.0 reflects oxygenation overshoot or transient non-convergence. |
 | S022 | No-compute failure-mode attribution audit of the locked `not_steady_state` count (Appendix C). |
 | S023 | Supplementary ML/SHAP cross-check of the Morris μ\* rankings on the clean subset (Supplementary §S11). |
-| S024 | Pre-submission claims-ledger audit — `scripts/audit_claims.py` re-derives every Tier-1/Tier-2 quantitative claim in §3 / §4 / Appendix C from the canonical parquets/CSVs and verifies it against the manuscript text (190 / 190 PASS at the locked tolerance band). |
+| S024 | Pre-submission claims-ledger audit — `scripts/audit_claims.py` re-derives every Tier-1/Tier-2 quantitative claim in §3 / §4 / Appendix C from the canonical parquets/CSVs and verifies it against the manuscript text (247 / 247 PASS at the locked tolerance band). |
 
 ---
 
@@ -955,7 +1102,7 @@ an explicit per-class tolerance band (`exact_int` for integer counts;
 `displayed_1dp` / `displayed_2dp` / `displayed_3dp` for floats at
 their displayed precision; a 1 × 10⁻⁹ IEEE-754 epsilon protects
 against half-precision rounding boundaries). The current report on
-the locked manuscript is **190 / 190 PASS, 0 WARN, 0 FAIL**. The
+the locked manuscript is **247 / 247 PASS, 0 WARN, 0 FAIL**. The
 script exits non-zero on any FAIL and is therefore CI-ready: future
 manuscript edits that drift a quoted number against its source
 artifact will fail the script's exit code. Full audit method and the
@@ -3379,7 +3526,7 @@ during the literature-review pass logged in
 | []{#s021} S021 | Hyperoxia convergence (60-run rerun at 300 s vs locked 120 s window; F-003 mechanism test) |
 | []{#s022} S022 | No-compute failure-mode attribution audit of the locked `not_steady_state` count (see Appendix C) |
 | []{#s023} S023 | Supplementary ML/SHAP cross-check of Morris μ\* rankings on the clean subset (see Supplementary §S11) |
-| []{#s024} S024 | Pre-submission claims-ledger audit (programmatic verification of all Tier-1 / Tier-2 quantitative claims; 190 / 190 PASS, see §2.8) |
+| []{#s024} S024 | Pre-submission claims-ledger audit (programmatic verification of all Tier-1 / Tier-2 quantitative claims; 247 / 247 PASS, see §2.8) |
 
 Each log file in `experiments_log/santino/` follows the template:
 hypothesis → motivation → method → what we tried → results → interpretation
