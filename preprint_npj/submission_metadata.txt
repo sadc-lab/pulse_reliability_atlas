@@ -48,9 +48,9 @@ one canonical address before submission.)
 ------------------------------------------------------------------------------
 AUTHOR LIST (as in paper.tex)
 ------------------------------------------------------------------------------
-Santino Nanini (corresponding); Yassir Mamouni; Philippe Jouvet;
-Cyril Schweitzer; Arnaud Wiedemann; Michael Sauthier
+Santino Nanini (corresponding); Arnaud Wiedemann; Michael Sauthier;
+Yassir Mamouni; Cyril Schweitzer; Philippe Jouvet
 
-NB: affiliation 5 (Mamouni, Jouvet, Schweitzer, Wiedemann, Sauthier) is still
+NB: affiliation 5 (Wiedemann, Sauthier, Mamouni, Schweitzer, Jouvet) is still
 [AFFILIATION PLACEHOLDER] in paper.tex — fill before submission.
 ==============================================================================

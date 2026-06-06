@@ -1,6 +1,6 @@
 ---
 title: "Pulse Reliability Atlas: first sensitivity, clamping, and divergence map for the Pulse Physiology Engine v4.3.1"
-author: "Santino Nanini^1,2,3,4,\\*^, Philippe Jouvet^5^, Cyril Schweitzer^5^, Arnaud Wiedemann^5^, Michael Sauthier^5^"
+author: "Santino Nanini^1,2,3,4,\\*^, Arnaud Wiedemann^5^, Michael Sauthier^5^, Yassir Mamouni^5^, Cyril Schweitzer^5^, Philippe Jouvet^5^"
 date: "2026-05-26"
 header-includes:
   - \renewcommand{\arraystretch}{1.35}
@@ -3155,11 +3155,11 @@ possible.
 **Author contributions.** S.N. conceptualised the study, designed
 the Morris sweep and the four-flag steady-state classifier,
 performed all computational runs and statistical analyses, and
-wrote the manuscript. P.J., C.S., A.W., and M.S. provided scientific
+wrote the manuscript. M.S. provided detailed clinical review of the manuscript and contributed the clinical interpretation of the VC-AC inspiration-trigger caveat. Y.M. contributed to the cross-platform reproducibility validation of the simulation environment, and to the review and editing of the manuscript. A.W., C.S., and P.J. provided scientific
 supervision, contributed to the interpretation of the findings in
 their clinical context, and reviewed the manuscript. All authors
 approved the final version. AI tooling (Claude Code,
-`claude-opus-4-7`) provided drafting / refactoring /
+`claude-opus-4-7` for the original drafting/refactoring, and `claude-opus-4-8`, released 28 May 2026 and coinciding with the supervisor-review phase, for the subsequent supervisor-review revisions) provided drafting / refactoring /
 reviewer-style critique assistance on text and code only, as
 detailed in §8.
 
