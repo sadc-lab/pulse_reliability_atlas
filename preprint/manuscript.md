@@ -4,6 +4,7 @@ author: "Santino Nanini^1,2,3,4,\\*^, Arnaud Wiedemann^5^, Michael Sauthier^5^, 
 date: "2026-05-26"
 header-includes:
   - \renewcommand{\arraystretch}{1.35}
+  - \makeatletter\renewcommand{\@maketitle}{\newpage\null\vskip 2em\begin{center}\let\footnote\thanks{\LARGE\@title\par}\vskip 1.5em{\large\begin{minipage}{0.92\textwidth}\centering\@author\end{minipage}\par}\vskip 1em{\large\@date}\end{center}\par\vskip 1em}\makeatother
 ---
 
 **Affiliations.**
