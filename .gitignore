@@ -79,12 +79,9 @@ preprint_npj/template/sn-template.zip
 
 # Sensitive internal review material — NEVER publish (repo will be made public).
 # Supervisor/co-author annotated feedback + internal authorship/review to-do
-# notes. Also enforced by an active guard in .githooks/pre-commit.
+# notes. Scoped to these SPECIFIC files only — deliberately NOT wildcards, so
+# nothing legitimate is ever ignored by accident. To protect a new sensitive
+# file, add its exact name here AND to the guard list in .githooks/pre-commit.
 Paper_retour_PJ.pdf
 paper_feedback_michaelSauthier.docx
 TODO_PJ_feedback.md
-# future reviewer feedback + internal review to-dos (same policy)
-*_retour_*.pdf
-*_feedback_*.docx
-*_feedback_*.pdf
-TODO_*_feedback.md
