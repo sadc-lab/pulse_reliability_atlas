@@ -14,6 +14,27 @@
 
 set -e
 
+# ---- 0. Block sensitive internal review material ---------------------------
+#
+# Supervisor / co-author annotated feedback documents and internal authorship /
+# review to-do notes must NEVER enter the (soon-public) git history. .gitignore
+# already excludes them from `git add .`, but this guard also catches an
+# explicit `git add -f` and aborts the commit.
+SENSITIVE=$(git diff --cached --name-only | grep -Ei '(_retour_.*\.pdf|_feedback_.*\.(docx|pdf)|TODO_.*_feedback\.md)$' || true)
+if [ -n "$SENSITIVE" ]; then
+    echo ""
+    echo "pre-commit: refusing to commit sensitive internal review material:"
+    echo "$SENSITIVE" | sed 's/^/    /'
+    echo ""
+    echo "  These files (supervisor/reviewer feedback, internal authorship/review"
+    echo "  notes) must not enter the public git history. Unstage them:"
+    echo "    git restore --staged <file>"
+    echo "  If a specific file is genuinely safe to publish, remove its pattern"
+    echo "  from .githooks/pre-commit AND from .gitignore first."
+    echo ""
+    exit 1
+fi
+
 # ---- 1. Regenerate experiments_log/INDEX.md ---------------------------------
 
 # Pick whichever Python is available (Git Bash on Windows usually has `python`;
