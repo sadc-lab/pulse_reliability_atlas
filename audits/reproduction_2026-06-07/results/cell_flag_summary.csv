@@ -1,0 +1,9 @@
+scenario,sex,n_total,n_clamped,n_diverged,n_implausible,n_not_steady_state,n_clean
+S1,F,160,0,0,23,118,42
+S1,M,160,0,4,11,107,49
+S2,F,160,0,0,0,68,92
+S2,M,160,0,4,0,69,87
+S3,F,160,0,0,0,38,122
+S3,M,160,0,4,0,12,144
+S4,F,160,0,0,46,74,60
+S4,M,160,0,8,46,44,67
