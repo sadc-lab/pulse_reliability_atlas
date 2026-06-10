@@ -19,8 +19,11 @@ set -e
 # Supervisor / co-author annotated feedback documents and internal authorship /
 # review to-do notes must NEVER enter the (soon-public) git history. .gitignore
 # already excludes them from `git add .`, but this guard also catches an
-# explicit `git add -f` and aborts the commit.
-SENSITIVE=$(git diff --cached --name-only | grep -Exi '(Paper_retour_PJ\.pdf|paper_feedback_michaelSauthier\.docx|TODO_PJ_feedback\.md)' || true)
+# explicit `git add -f` and aborts the commit. `--diff-filter=d` excludes staged
+# deletions, so REMOVING a sensitive file from tracking (the desired action when a
+# previously-tracked note is reclassified as private) is allowed, while ADDING or
+# modifying one is still blocked.
+SENSITIVE=$(git diff --cached --name-only --diff-filter=d | grep -Exi '(Paper_retour_PJ\.pdf|paper_feedback_michaelSauthier\.docx|TODO_PJ_feedback\.md|TODO_yassir_track\.md|TODO_publication_roadmap\.md)' || true)
 if [ -n "$SENSITIVE" ]; then
     echo ""
     echo "pre-commit: refusing to commit sensitive internal review material:"
