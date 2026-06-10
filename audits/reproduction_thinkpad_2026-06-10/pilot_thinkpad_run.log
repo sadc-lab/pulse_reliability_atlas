@@ -1,0 +1,73 @@
+   Building pulse-reliability-atlas @ file:///home/<user>/pulse_reliability_atlas
+      Built pulse-reliability-atlas @ file:///home/<user>/pulse_reliability_atlas
+Uninstalled 1 package in 3ms
+Installed 1 package in 2ms
+[pilot] cell=(S1,M)  trajectories=2 levels=4 seed=42
+[pilot] 22 runs (16 unique morris + 4 reruns + 2 clamp probes)
+[runner] launching 22 job(s) on 2 workers, image=pulse-atlas-engine
+[runner] 1/22 OK  S1_M_0001 (64.3s)
+[runner] 2/22 OK  S1_M_0000 (64.8s)
+[runner] 3/22 OK  S1_M_0003 (59.2s)
+[runner] 4/22 OK  S1_M_0002 (61.6s)
+[runner] 5/22 OK  S1_M_0005 (60.5s)
+[runner] 6/22 OK  S1_M_0004 (64.2s)
+[runner] 7/22 OK  S1_M_0006 (75.4s)
+[runner] 8/22 OK  S1_M_0007 (85.7s)
+[runner] 9/22 OK  S1_M_0008 (70.1s)
+[runner] 10/22 OK  S1_M_0009 (77.3s)
+[runner] 11/22 OK  S1_M_0010 (82.1s)
+[runner] 12/22 OK  S1_M_0011 (83.5s)
+[runner] 13/22 OK  S1_M_0012 (85.9s)
+[runner] 14/22 OK  S1_M_0013 (98.2s)
+[runner] 15/22 OK  S1_M_0014 (84.1s)
+[runner] 16/22 OK  S1_M_0015 (79.5s)
+[runner] 17/22 OK  S1_M_9001 (74.4s)
+[runner] 18/22 OK  S1_M_9002 (75.0s)
+[runner] 19/22 OK  S1_M_9081 (71.9s)
+[runner] 20/22 FAIL(1) S1_M_9900 (1.9s)
+[runner] 21/22 FAIL(1) S1_M_9901 (1.9s)
+[runner] 22/22 OK  S1_M_9082 (68.7s)
+
+=== Per-run summary ===
+  case_id  in_hr  in_sbp    in_dbp  in_rr      in_vt  in_fio2   in_peep  exit_code  diverged  clamped  implausible  not_steady_state  clean
+S1_M_0000  110.0   100.0 75.000000   20.0 300.000000 0.473333  0.000000          0     False    False        False             False   True
+S1_M_0001  110.0   100.0 75.000000   20.0 300.000000 0.473333 13.333333          0     False    False        False             False   True
+S1_M_0002  110.0   100.0 75.000000   20.0 633.333333 0.473333 13.333333          0     False    False        False              True  False
+S1_M_0003  110.0   120.0 80.000000   20.0 633.333333 0.473333 13.333333          0     False    False        False              True  False
+S1_M_0004   70.0   120.0 80.000000   20.0 633.333333 0.473333 13.333333          0     False    False        False              True  False
+S1_M_0005   70.0   120.0 80.000000   12.0 633.333333 0.473333 13.333333          0     False    False        False              True  False
+S1_M_0006   70.0   120.0 80.000000   12.0 633.333333 1.000000 13.333333          0     False    False         True              True  False
+S1_M_0007   70.0   120.0 66.666667   12.0 633.333333 1.000000 13.333333          0     False    False         True              True  False
+S1_M_0008  110.0   120.0 73.333333   20.0 300.000000 0.473333 20.000000          0     False    False        False             False   True
+S1_M_0009   70.0   120.0 73.333333   20.0 300.000000 0.473333 20.000000          0     False    False        False             False   True
+S1_M_0010   70.0   120.0 73.333333   20.0 300.000000 0.473333  6.666667          0     False    False        False             False   True
+S1_M_0011   70.0   120.0 73.333333   12.0 300.000000 0.473333  6.666667          0     False    False        False              True  False
+S1_M_0012   70.0   120.0 73.333333   12.0 300.000000 1.000000  6.666667          0     False    False        False              True  False
+S1_M_0013   70.0   120.0 60.000000   12.0 300.000000 1.000000  6.666667          0     False    False        False              True  False
+S1_M_0014   70.0   100.0 60.000000   12.0 300.000000 1.000000  6.666667          0     False    False        False              True  False
+S1_M_0015   70.0   100.0 60.000000   12.0 633.333333 1.000000  6.666667          0     False    False         True              True  False
+S1_M_9001  110.0   100.0 75.000000   20.0 300.000000 0.473333  0.000000          0     False    False        False             False   True
+S1_M_9002  110.0   100.0 75.000000   20.0 300.000000 0.473333  0.000000          0     False    False        False             False   True
+S1_M_9081  110.0   120.0 73.333333   20.0 300.000000 0.473333 20.000000          0     False    False        False             False   True
+S1_M_9082  110.0   120.0 73.333333   20.0 300.000000 0.473333 20.000000          0     False    False        False             False   True
+S1_M_9900   80.0   140.0 75.000000   14.0 550.000000 0.600000 10.000000          1      True     True        False             False  False
+S1_M_9901   80.0   110.0 85.000000   14.0 550.000000 0.600000 10.000000          1      True     True        False             False  False
+
+=== Pilot gate evaluation ===
+  [PASS] G1_success_rate: Morris diverged <= 50%
+           n_morris = 16
+           n_diverged = 0
+  [PASS] G2_detector_self_consistent: no run is both clamped AND implausible
+           n_double_flagged = 0
+           case_ids = []
+  [PASS] G3_steady_state_13_rows: 13 rows in [60,120] for every channel of every clean Morris run
+           n_clean = 5
+           violators = []
+  [PASS] G4_clamped_fires: every clamp probe fires the `clamped` regex
+           n_probes = 2
+           n_clamped = 2
+  [PASS] G5_reproducibility: reruns within 1e-6 relative for all 6 outputs
+           n_violations = 0
+           violations = []
+
+[pilot] ALL GATES PASS — full sweep cleared.
