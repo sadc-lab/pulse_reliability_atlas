@@ -77,8 +77,8 @@ caught equally.*
   monograph_claim_id: 'T1.01'
   expected_value: 1280
   format_in_paper: '1{,}280'
-  expected_occurrences: 24
-  notes: 'Total occurrences of "1{,}280" across paper.tex + supplement.tex as of Phase 9.B: paper.tex 12 (abstract 2, §2.1 5, §2.5+Fig4 2, §4 Discussion 1, Methods §4.1+§4.3 2) + supplement.tex 5 (S3.2 Morris sampler, S4 NSS table prose "1{,}280-run sweep" + Table S1 total row + "1{,}008 / 1{,}280" + "663 / 1{,}280" repeats). Bumped 14 -> 17 in Phase 9.B for the S4 extended-Table-1 additions. Bumped 23 -> 24 in Phase H (2026-05-31): the new Supplement §S16 "Summary of supplementary findings and discoveries" intro paragraph uses "The 1{,}280-run atlas" as its opening descriptor, so the canonical formatted string appears once more.'
+  expected_occurrences: 28
+  notes: 'Total occurrences of "1{,}280" across paper.tex + supplement.tex as of Phase 9.B: paper.tex 12 (abstract 2, §2.1 5, §2.5+Fig4 2, §4 Discussion 1, Methods §4.1+§4.3 2) + supplement.tex 5 (S3.2 Morris sampler, S4 NSS table prose "1{,}280-run sweep" + Table S1 total row + "1{,}008 / 1{,}280" + "663 / 1{,}280" repeats). Bumped 14 -> 17 in Phase 9.B for the S4 extended-Table-1 additions. Bumped 23 -> 24 in Phase H (2026-05-31): the new Supplement §S16 "Summary of supplementary findings and discoveries" intro paragraph uses "The 1{,}280-run atlas" as its opening descriptor, so the canonical formatted string appears once more. Bumped 24 -> 28 in the cross-platform reproduction round (2026-06-11): the new Supplement §S12 "Independent reproduction on separate hardware" subsection plus the Code-availability sentence add four "1{,}280" substring occurrences --- paper.tex "full 1{,}280-run sweep" (1), supplement.tex "full 1{,}280-run Morris sweep" (1), and "matched on 1{,}280/1{,}280 runs" (2).'
 
 - paper_section: 'Abstract + §2.3 VC-AC'
   paper_context: 'VC-AC trigger-dyssynchrony primary-flag rate (Vt CV > 0.05 under not_steady_state)'
