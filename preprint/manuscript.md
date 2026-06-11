@@ -1,6 +1,6 @@
 ---
 title: "Pulse Reliability Atlas: first sensitivity, clamping, and divergence map for the Pulse Physiology Engine v4.3.1"
-author: "Santino Nanini^1,2,3,4,\\*^, Arnaud Wiedemann^5^, Michael Sauthier^5^, Yassir Mamouni^5^, Cyril Schweitzer^5^, Philippe Jouvet^5^"
+author: "Santino Nanini^1,2,3,4,\\*^, Arnaud Wiedemann^5^, Yassir Mamouni^5^, Cyril Schweitzer^5^, Philippe Jouvet^5^, Michael Sauthier^5^"
 date: "2026-05-26"
 header-includes:
   - \renewcommand{\arraystretch}{1.35}
