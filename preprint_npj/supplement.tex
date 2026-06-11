@@ -324,7 +324,31 @@ Two reading guides. First, the SpO$_2$-saturation contribution (locked \texttt{n
 
 \section{ARDS impairment-fraction instability zone}\label{sec:s5}
 
-Section~2.6 of the main manuscript refers to a documented 0.91--0.945 ARDS-impairment-fraction band in which Pulse's respiratory solver becomes unstable. This supplement section provides the full characterisation: how the band was identified, how the present atlas's continuous-severity micro-sweep refines its edges, and how the divergence rate within the band stratifies by sex under midrange Morris inputs.
+Section~2.6 of the main manuscript refers to a documented 0.91--0.945 ARDS-impairment-fraction band in which Pulse's respiratory solver becomes unstable. This supplement section provides the full characterisation: how Pulse translates the single impairment-fraction scalar into respiratory-mechanics and gas-exchange changes, how the band was identified, how the present atlas's continuous-severity micro-sweep refines its edges, and how the divergence rate within the band stratifies by sex under midrange Morris inputs.
+
+\subsection{Severity-to-physiology mapping in the Pulse respiratory model}\label{sec:s5-mapping}
+
+Pulse represents ARDS as a single \texttt{Severity} scalar in $[0, 1]$ per lung compartment (the \texttt{AcuteRespiratoryDistressSyndrome} condition); the atlas sets it bilaterally and symmetrically to the scenario impairment fraction (left lung = right lung). That one scalar is fed independently into four hard-coded piecewise-linear interpolation curves in the respiratory-model source (\texttt{RespiratoryModel.cpp}: \texttt{UpdateResistances}, \texttt{UpdateAlveolarCompliances}, \texttt{UpdateDiffusion}, and \texttt{UpdatePulmonaryShunt}), each calibrated against the adult standard patient; there is no independent handle on resistance, compliance, or diffusion. Table~\ref{tab:s5-mapping} reports the resulting multipliers at the three ARDS scenario severities, linearly interpolated from the source calibration nodes.
+
+\begin{table}[h]
+\centering
+\caption{How Pulse v4.3.1 maps the single ARDS \texttt{Severity} scalar to respiratory-mechanics and gas-exchange multipliers at the three ARDS scenario severities (S2 = 0.26 mild, S3 = 0.60 moderate, S4 = 0.95 severe). Each multiplier scales the corresponding adult baseline value; one \texttt{Severity} value drives all four. Columns are linear interpolations of the hard-coded source calibration nodes; the S3 = 0.60 column coincides with exact nodes. Resistance increases with severity, while compliance, diffusion surface area, and shunt-path resistance decrease (a lower shunt-path resistance raises venous admixture). The shunt damage term is non-monotonic across severity and is combined in the engine with an alveolar-recruitment term, so its effective value is not the tabulated damage multiplier alone (see text). Source: \texttt{RespiratoryModel.cpp} (\texttt{UpdateResistances}, \texttt{UpdateAlveolarCompliances}, \texttt{UpdateDiffusion}, \texttt{UpdatePulmonaryShunt}).}
+\label{tab:s5-mapping}
+\begin{tabular}{llrrr}
+\toprule
+Respiratory property & Effect of severity & S2 (0.26) & S3 (0.60) & S4 (0.95) \\
+\midrule
+Alveolar (distal) resistance      & increases & $8.8\times$  & $15\times$   & $22.5\times$  \\
+Alveolar compliance               & decreases & $0.70\times$ & $0.55\times$ & $0.45\times$  \\
+Alveolar diffusion surface area   & decreases & $0.57\times$ & $0.20\times$ & $0.075\times$ \\
+Pulmonary-shunt path resistance   & decreases & $\approx 0.22\times$ & $0.20\times$ & $\approx 0.125\times$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The four curves act in concert: at S4 (impairment 0.95) Pulse multiplies distal alveolar resistance by $\approx 22\times$, cuts alveolar compliance to $\approx 45\,\%$ of baseline, collapses the alveolar diffusion surface area to $\approx 7.5\,\%$ of baseline, and opens the intrapulmonary shunt. The diffusion-surface collapse together with the widened shunt is the proximate driver of the severe arterial hypoxemia behind the input-HR / output-HR decoupling reported in main-manuscript Section~2.6. The shunt row is the least direct of the four: its damage term is non-monotonic across severity and is combined by a \texttt{MIN} operation with an alveolar-recruitment term (a function of actual alveolar volume, which PEEP raises) and a left/right calibration factor, so the effective shunt resistance is not simply the tabulated damage multiplier. Severity additionally feeds the respiratory driver pressure, lung volumes, and the inspiratory:expiratory ratio through smaller restrictive terms. The four curves are themselves smooth; the 0.91--0.945 solver-instability band characterised below is an emergent numerical property of the combined stiff respiratory state, not a discontinuity in any single curve.
+
+\textbf{Forward-looking limitation (pediatric and neonatal).} Both the baseline resistance, compliance, and diffusion-surface values \emph{and} the severity-to-effect curves above are tuned to the adult standard patient, and the single-scalar design forbids retuning the three properties independently. Carrying these settings to pediatric mechanics --- where compliance per kilogram, airway resistance, and absolute gas-exchange surface differ substantially --- would mis-scale the absolute consequences, which is one reason Pulse hard-gates age $\geq 18$ at patient setup. Separately, a whole-tree search of the Pulse v4.3.1 engine source returns no surfactant compartment, parameter, or action; neonatal respiratory distress syndrome --- fundamentally a surface-tension / surfactant-deficiency disease, including its response to surfactant instillation --- is therefore not representable in the current lumped-parameter alveolar-compliance model. These are pointers for native pediatric-engine work rather than limitations of the present adult atlas.
 
 \subsection{Provenance of the documented band}\label{sec:s5-prov}
 
