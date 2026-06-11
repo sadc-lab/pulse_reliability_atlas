@@ -552,7 +552,7 @@ The Pulse allometric formula~\cite{bray2019} is $\text{BV} = 65.6 \cdot \text{we
 \item Absolute-mL difference: $4{,}802.63 - 3{,}996.09 = 806.54$~mL, or 16.8~\% of the male default.
 \end{itemize}
 
-The Pulse setup-time floor for the male body sits at 4{,}082.24~mL, 720.39~mL below the male default and 86.15~mL above the female default. The male body cannot be made BV-equivalent to the female body by a one-way \texttt{BloodVolumeBaseline} transplant: the female default sits below the male floor.
+The Pulse setup-time floor for the male body sits at 4{,}082.24~mL --- the engine's Stage-1-hypovolemia bound, computed as the allometric blood volume $\times$ 0.85 in \texttt{SetupPatient.cpp} (a clinical limit, not a numerical stability threshold) --- 720.39~mL below the male default and 86.15~mL above the female default. The male body cannot be made BV-equivalent to the female body by a one-way \texttt{BloodVolumeBaseline} transplant: the female default sits below the male floor.
 
 \subsection{Weight-normalized volumes (the confounder-controlled framing)}\label{sec:s10-norm}
 
