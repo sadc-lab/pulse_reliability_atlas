@@ -1,4 +1,4 @@
-# Cross-architecture reproduction of the S1_M pilot — Lenovo ThinkPad (AMD Ryzen 5 / x86_64)
+# Independent x86_64 (cross-vendor AMD/Intel, cross-OS) reproduction of the S1_M pilot — Lenovo ThinkPad (AMD Ryzen 5 / x86_64)
 
 **Date:** 2026-06-10
 **Operator:** Yassir Mamouni
@@ -6,12 +6,15 @@
 
 ## Purpose
 
-Supplement §S12 of the npj submission, which notes that cross-architecture
-reproduction was *not empirically tested*. This re-executes the canonical
-22-run S1_M pilot (`scripts/run_pilot.py`) from scratch on an independent
-x86_64 system with an **AMD** CPU — a different vendor from the original
-reference environment (Intel) — and compares the result against the committed
-canonical aggregate.
+This adds an independent reproduction datapoint for the npj submission. It
+re-executes the canonical 22-run S1_M pilot (`scripts/run_pilot.py`) from
+scratch on an independent x86_64 system with an **AMD** CPU — a different vendor
+from the Intel reference environment — under a different host OS (Ubuntu/WSL2 vs
+Windows), and compares the result against the committed canonical aggregate.
+
+Scope note: this is a *same-architecture-family* (x86_64) reproduction across
+CPU vendor and host OS. It does **not** test cross-architecture portability
+(e.g. x86_64 -> ARM64), which Supplement §S12 explicitly leaves as future work.
 
 ## Environment (captured on this machine)
 
