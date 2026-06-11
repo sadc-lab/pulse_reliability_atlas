@@ -83,15 +83,15 @@
 
 \author*[1,2,3,4]{\fnm{Santino} \sur{Nanini}}\email{santino.nanini@umontreal.ca}
 
-\author[5]{\fnm{Arnaud} \sur{Wiedemann}}
+\author[1,3]{\fnm{Arnaud} \sur{Wiedemann}}
 
-\author[5]{\fnm{Yassir} \sur{Mamouni}}
+\author[2]{\fnm{Yassir} \sur{Mamouni}}
 
-\author[5]{\fnm{Cyril} \sur{Schweitzer}}
+\author[1]{\fnm{Cyril} \sur{Schweitzer}}
 
-\author[5]{\fnm{Philippe} \sur{Jouvet}}
+\author[2,3,4]{\fnm{Philippe} \sur{Jouvet}}
 
-\author[5]{\fnm{Michael} \sur{Sauthier}}
+\author[2,3,4]{\fnm{Michael} \sur{Sauthier}}
 
 \affil[1]{\orgdiv{INSERM UMR\_S 1256, Nutrition, Genetics, and Environmental Risk Exposure}, \orgname{University of Lorraine, Faculty of Medicine of Nancy}, \orgaddress{\country{France}}}
 
@@ -100,8 +100,6 @@
 \affil[3]{\orgdiv{Clinical Decision Support System Artificial Intelligence Health Cluster in Acute Child Care (PE-DIATRICS)}, \orgname{CHU Sainte-Justine Centre Hospitalier Universitaire M\`ere-Enfant}, \orgaddress{\city{Montr\'eal}, \country{Canada}}}
 
 \affil*[4]{\orgdiv{Pediatric Intensive Care Unit, Department of Pediatrics}, \orgname{CHU Sainte-Justine, Universit\'e de Montr\'eal}, \orgaddress{\city{Montreal}, \state{QC}, \country{Canada}}}
-
-\affil[5]{\orgdiv{[AFFILIATION PLACEHOLDER]}, \orgname{[AFFILIATION PLACEHOLDER]}, \orgaddress{\country{[AFFILIATION PLACEHOLDER]}}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% ABSTRACT                                                         %%
@@ -113,7 +111,7 @@
 
 \abstract{Pulse is a widely used open-source adult physiology simulator, yet no formal sensitivity analysis of its operational inputs has been published. We present the first reliability atlas across Pulse's critical-care envelope: Morris elementary-effects sampling of seven inputs across four severity levels (healthy through severe ARDS) in two bodies (1{,}280 simulations). A four-flag classifier (clamping, divergence, implausible, non-steady-state) surfaces several failure modes, three operator-actionable. Tidal-volume instability in 20.6~\% of runs reflects patient--ventilator dyssynchrony; locking the VC-AC inspiration trigger to $-2$~cmH$_2$O makes Vt deterministic for cohort generation. At FiO$_2$~=~1.0 a transient hyperoxia regime makes 120-second runs underestimate plateau PaO$_2$, which 300-second runs resolve near the alveolar-gas ceiling (median 643~mmHg). Solver divergence fell entirely on the male body (20/1{,}280); reducing its blood-volume baseline to the 4{,}082~mL floor eliminated it. These results map where Pulse is trustworthy and provide an open-source data-quality filter (Apache-2.0) for cohorts.}
 
-\keywords{digital twin, synthetic patient data, Morris elementary effects, ARDS, machine learning training data, operational envelope, reproducibility}
+\keywords{Pulse Physiology Engine, digital twin, synthetic patient data, Morris elementary effects, ARDS, machine learning training data, operational envelope, reproducibility}
 
 \maketitle
 

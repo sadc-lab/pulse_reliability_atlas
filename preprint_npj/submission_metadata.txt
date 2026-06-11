@@ -35,8 +35,9 @@ open-source under Apache-2.0.
 ------------------------------------------------------------------------------
 KEYWORDS
 ------------------------------------------------------------------------------
-digital twin; synthetic patient data; Morris elementary effects; ARDS;
-machine learning training data; operational envelope; reproducibility
+Pulse Physiology Engine; digital twin; synthetic patient data; Morris
+elementary effects; ARDS; machine learning training data; operational
+envelope; reproducibility
 
 ------------------------------------------------------------------------------
 CORRESPONDING AUTHOR
@@ -51,6 +52,7 @@ AUTHOR LIST (as in paper.tex)
 Santino Nanini (corresponding); Arnaud Wiedemann; Yassir Mamouni;
 Cyril Schweitzer; Philippe Jouvet; Michael Sauthier
 
-NB: affiliation 5 (Wiedemann, Mamouni, Schweitzer, Jouvet, Sauthier) is still
-[AFFILIATION PLACEHOLDER] in paper.tex — fill before submission.
+NB: affiliations resolved 2026-06-11 — Wiedemann [1,3]; Mamouni [2];
+Schweitzer [1]; Jouvet [2,3,4]; Sauthier [2,3,4]. Placeholder affil [5]
+removed; all authors now map to existing affils [1]-[4].
 ==============================================================================
