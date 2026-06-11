@@ -3698,6 +3698,49 @@ fraction (0.95) was selected to clear the upper edge of the zone
 with a 0.005 margin. Pulse's documentation [@pulserespmethod] does
 not flag this zone.
 
+**No surfactant model — multi-criteria audit (2026-06-11).** A direct
+re-verification confirms Pulse models no pulmonary surfactant under any
+name. A case-insensitive search of the complete engine tree — 3,304
+files / 23 MB, *including git-ignored and hidden files*, at tag
+`REL_4_3_2` (commit `e8a3649`) — returns zero occurrences of
+`surfactant`. Because such a model could hide behind other vocabulary,
+the search was widened to the terms it would necessarily surface under;
+every one returns zero: `surface tension`, `surface-tension`, `Laplace`,
+`derecruitment`, `alveolar stability`, `opening`/`closing pressure`.
+Terms that *do* appear — `recruit` (86), `collapse` (154),
+`atelectasis` (2), `hysteresis` (3) — were each inspected and trace to
+mechanical lung collapse (pneumothorax/hemothorax) or to phenomenological
+compliance behaviour, not to a surface-tension submodel. The null result
+holds beyond the source: the Kitware Pulse Discourse forum returns no
+topic mentioning surfactant or alveolar surface tension, and the public
+Respiratory Methodology and Mechanical-Ventilator-Recruitment pages
+contain no such term. The audit ran on the `REL_4_3_2` checkout but
+applies identically to the atlas's 4.3.1 pin: `git diff REL_4_3_1
+REL_4_3_2` touches no respiratory or CDM source file (total delta seven
+build-system files, +46/−17).
+
+What Pulse reproduces instead are the *macroscopic* phenomena surfactant
+governs, implemented phenomenologically rather than mechanistically.
+(i) Pressure–volume hysteresis: the model "mimics the expected
+hysteresis of the P–V curve" of the healthy lung, validated in Pulse's
+own documentation [@pulserespmethod] against textbook physiology — but
+as an emergent property of the dynamic compliance/driver-pressure cycle,
+with no dedicated hysteresis routine. (ii) Alveolar recruitment: an
+empirical mapping from acinar volume (the recruited fraction below FRC)
+to a pulmonary-shunt scaling factor, calibrated to PEEP-response data
+[@pulserespmethod], in `RespiratoryModel::UpdatePulmonaryShunt()`
+(`RespiratoryModel.cpp:4388`, piecewise-linear interpolation at `:4503`),
+combined by a `MIN` with the ARDS damage term — not governed by
+surfactant-dependent alveolar stability. (iii) Alveolar compliance: a
+lumped circuit element scaled by per-disease multipliers in
+`RespiratoryModel::UpdateAlveolarCompliances()`
+(`RespiratoryModel.cpp:3774`), with no surface-tension dependence. The
+consequence is a missing-physics (not a calibration) gap: neonatal
+respiratory distress syndrome — fundamentally a surfactant-deficiency
+disease, including its response to surfactant instillation — is not
+representable, one substantive reason the native pediatric-engine work
+treats surfactant as a module to add rather than to retune.
+
 ### B.4 Source-code audit findings and discrepancies
 
 A source-level audit of the Pulse 4.3.1 C++ repository identified

@@ -76,15 +76,41 @@ in any single table.
 
 ---
 
-## 4. No surfactant model — confirmed
+## 4. No surfactant model — confirmed (multi-criteria audit, 2026-06-11)
 
-`grep -i surfactant` over the **entire** Pulse engine tree (not just `src/cpp`) →
-**zero occurrences** (verified 2026-06-11). Pulse has no surfactant compartment,
-parameter, or action. Neonatal RDS (hyaline membrane disease) is fundamentally a
-surface-tension / surfactant-deficiency disease; its core pathophysiology and the
-surfactant-instillation treatment response are **not representable** in Pulse's
-lumped-parameter alveolar-compliance model. This is a **missing-physics** gap, not a
-calibration gap.
+**Audit method.** Case-insensitive search of the **complete** engine tree — 3,304
+files / 23 MB, *including git-ignored and hidden files* — at tag `REL_4_3_2`
+(commit `e8a3649`). Not just `src/cpp`: code, `data/`, `docs/` (Methodology,
+Validation, `Sources.bib`), everything.
+
+**Direct term.** `surfactant` → **0 / 3,304 files**.
+
+**Disguised-model check (all zero):** `surface tension`, `surface-tension`,
+`Laplace`, `derecruitment`, `alveolar stability`, `opening`/`closing pressure`.
+
+**Non-zero terms, each inspected (not surfactant):** `recruit` (86), `collapse`
+(154), `atelectasis` (2), `hysteresis` (3), `inflection` (3), `alveolar compliance`
+(3) — trace to mechanical collapse (pneumothorax/hemothorax), the empirical
+recruitment→shunt map, or phenomenological compliance. (This is why "alveolar
+collapse" was *dropped* from the published zero-list: Pulse does model collapse,
+just not via surfactant.)
+
+**External.** Discourse forum `surfactant` → 0 topics; `surface tension` → 0
+relevant. Public docs → no mention.
+
+**Version traceability (4.3.1 ↔ 4.3.2).** Ran on `REL_4_3_2`; applies to 4.3.1:
+`git diff REL_4_3_1 REL_4_3_2` touches **no** respiratory/CDM source (delta = 7
+build-system files, +46/−17). Re-run this diff on the next Pulse release before
+re-asserting.
+
+**What Pulse models instead (phenomenological, not surfactant):** P–V hysteresis
+(emergent, no routine); recruitment = acinar-volume→shunt map, PEEP-calibrated,
+`UpdatePulmonaryShunt()` (`RespiratoryModel.cpp:4388`, interp `:4503`); compliance =
+lumped element w/ disease multipliers, `UpdateAlveolarCompliances()` (`:3774`).
+
+**Verdict.** Neonatal RDS (hyaline membrane disease) — surfactant-deficiency
+disease, incl. instillation response — **not representable**. **Missing-physics**
+gap, not calibration. Surfactant = module to *add* (Paper 2), not retune.
 
 ---
 
