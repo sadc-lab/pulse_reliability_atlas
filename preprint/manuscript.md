@@ -3128,8 +3128,8 @@ under Apache License 2.0.
 * **Zenodo deposit:** the raw per-run artifacts excluded from git
   history by `.gitignore` (per-run output.csv / pulse.log /
   config.json / run_meta.json across the 1,280-run sweep + S014 +
-  S018 + S021; ~ 1.5 GB total) will be uploaded to Zenodo at the
-  time of arXiv submission; DOI added here on upload.
+  S018 + S021; ~ 1.5 GB total) will be uploaded to a public Zenodo
+  archive upon acceptance; DOI added here on deposit.
 
 ---
 
