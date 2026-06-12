@@ -13,24 +13,23 @@ divergence, and sex-stratified failure modes
 (Running title / short title: Reliability atlas: Pulse Physiology Engine)
 
 ------------------------------------------------------------------------------
-ABSTRACT  (149 words)
+ABSTRACT  (148 words)
 ------------------------------------------------------------------------------
-Pulse is one of the most widely used open-source physiology simulators, yet no formal sensitivity
-analysis of its operational inputs has been published. We present the first
-reliability atlas across Pulse's adult critical-care envelope: Morris
-elementary-effects sampling of seven inputs across four ARDS
-severities and two reference bodies (1,280
-simulations). A four-flag classifier (clamping, divergence, implausible,
-non-steady-state) surfaces three failure modes. Tidal-volume instability in
+Pulse is a widely used open-source adult physiology simulator, yet no formal
+sensitivity analysis of its operational inputs has been published. We present
+the first reliability atlas across Pulse's critical-care envelope: Morris
+elementary-effects sampling of seven inputs across four severity levels
+(healthy through severe ARDS) in two bodies (1,280 simulations). A four-flag
+classifier (clamping, divergence, implausible, non-steady-state) surfaces
+several failure modes, three operator-actionable. Tidal-volume instability in
 20.6 % of runs reflects patient–ventilator dyssynchrony; locking the VC-AC
 inspiration trigger to −2 cmH2O makes Vt deterministic for cohort generation.
 At FiO2 = 1.0 a transient hyperoxia regime makes 120-second runs underestimate
 plateau PaO2, which 300-second runs resolve near the alveolar-gas ceiling
-(median 643 mmHg), consistent with Pulse's modelled A-a gradient. Solver
-divergence fell entirely on the male body (20/1,280); reducing its
-blood-volume baseline to the 4,082 mL floor eliminated it. The per-cell
-traffic-light map is a data-quality filter for Pulse cohorts, released
-open-source under Apache-2.0.
+(median 643 mmHg). Solver divergence fell entirely on the male body
+(20/1,280); reducing its blood-volume baseline to the 4,082 mL floor
+eliminated it. These results map where Pulse is trustworthy and provide an
+open-source data-quality filter (Apache-2.0) for cohorts.
 
 ------------------------------------------------------------------------------
 KEYWORDS
