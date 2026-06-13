@@ -2,7 +2,7 @@
 
 Outputs of an independent re-run of the full 1,280-run Morris sweep
 (`scripts/run_full_sweep.py` → `analyze_sweep.py` → `make_figures.py`) on a
-WSL2/Linux machine, branch `feat/contribution-ym`.
+WSL2/Linux machine (AMD Ryzen 5 PRO 4650U), branch `feat/contribution-ym`.
 
 **These are kept separate on purpose.** The canonical paper artifacts under
 `results/` and `data/runs/full_sweep/` remain the originals the npj submission
