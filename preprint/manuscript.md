@@ -26,8 +26,8 @@ header-includes:
 ## Abstract
 
 **Background.** The Pulse Physiology Engine (Kitware, Apache-2.0; v4.3.1)
-is among the most-cited open-source whole-body human physiology
-simulators. Its
+is an actively maintained open-source whole-body human physiology
+simulator. Its
 developers state on the Pulse FAQ that no formal sensitivity analysis has
 been performed on user-facing operational inputs. Prior external work
 [@cornish2023] addressed intervention-outcome falsification on
@@ -375,7 +375,7 @@ contributions, and introduces the experiment-log tag system
 
 ### 1.1 Motivation
 
-*Why this paper exists. Pulse is widely used in clinical research,
+*Why this paper exists. Pulse is used in clinical research,
 medical-device development, and education, yet no public sensitivity /
 clamping / divergence map of its user-facing operational envelope has
 been published — every user re-encounters the same limitations
@@ -383,8 +383,8 @@ independently. This section sources that gap directly from the Pulse
 FAQ and frames the atlas as the first open answer.*
 
 The Pulse Physiology Engine [@bray2019] (Kitware, Apache-2.0)
-is among the most-cited open-source whole-body human physiology
-simulators. It provides a 0-dimensional lumped-parameter model of the
+is an actively maintained open-source whole-body human physiology
+simulator. It provides a 0-dimensional lumped-parameter model of the
 cardiovascular, respiratory, gas-exchange, and pharmacological
 systems.
 
@@ -2195,15 +2195,15 @@ Distribution: **7 green, 29 yellow, 12 red** out of 48 cells.
 **What:** per cell × output classification into {green, yellow, red}.
 The user-facing summary of the entire atlas and the figure most
 likely to be consulted by Pulse practitioners.
-**How to read it:** green = no flags raised in the cell *and*
+**How to read it:** green = no diverged or implausible flags in the cell *and*
 clean-run mean within 10 % of the (S1, M) baseline; yellow = any
-flag raised *or* mean 10 – 30 % off baseline; red = mean > 30 % off
+diverged or implausible flag *or* mean 10 – 30 % off baseline; red = mean > 30 % off
 baseline *or* diverged + implausible rate > 30 %.
 **Key takeaway:** 7 green, 29 yellow, 12 red out of 48 cells. Green
 cluster: (S2, F) + (S3, F). Red cluster: HR and PaO2 in S3 / S4.
 (S4, M) is red on every output — the worst single cell in the atlas.
 
-![Figure 6. Reliability traffic light — per cell × output, one of {green, yellow, red}. Green = no flags raised in the cell AND clean-run mean within 10 % of the (S1, M) baseline. Yellow = any flag raised OR mean 10 – 30 % off baseline. Red = mean > 30 % off baseline OR diverged + implausible rate > 30 %. Distribution: 7 green / 29 yellow / 12 red across 48 cells; the user-facing summary of the entire atlas. Source: `results/reliability_classification.csv` (S006).](../figures/fig06_reliability_traffic_light.png)
+![Figure 6. Reliability traffic light — per cell × output, one of {green, yellow, red}. Green = no diverged or implausible flags in the cell AND clean-run mean within 10 % of the (S1, M) baseline. Yellow = any diverged or implausible flag OR mean 10 – 30 % off baseline. Red = mean > 30 % off baseline OR diverged + implausible rate > 30 %. Distribution: 7 green / 29 yellow / 12 red across 48 cells; the user-facing summary of the entire atlas. Source: `results/reliability_classification.csv` (S006).](../figures/fig06_reliability_traffic_light.png)
 
 ### 3.8 Two structural findings carried from pilot to full sweep
 
@@ -2878,7 +2878,7 @@ bounded.*
   supplementary RandomForest + SHAP ranking on the n = 663 clean
   subset ([S023](#s023)) recovers the Morris μ\* top-3 in 17 / 18
   pooled (output × top-3) cases and in 23 / 48 per-cell cases at full
-  3 / 3 agreement (92 % of per-cell comparisons at ≥ 2 / 3). The
+  3 / 3 agreement (90 % of per-cell comparisons at ≥ 2 / 3). The
   cross-check is reported in supplementary section S11 with the
   honest caveats it requires (clean-subset bias, OAT non-uniform
   design); see [`results/s023/`](../results/s023/) for artefacts.
@@ -2958,7 +2958,7 @@ documentation / validation layer rather than the physiology layer.
    API — one typed record per rejected field, with the offending
    value, the enforced bound, and the field name — would let
    sensitivity-analysis wrappers detect clamping deterministically
-   instead of pattern-matching ~10 stderr substrings. Anchored in
+   instead of pattern-matching the four-pattern regex set. Anchored in
    the atlas's `src/detector.py` clamp-pattern catalogue and the
    pilot / full-sweep experience ([S004](#s004), [S005](#s005),
    [S006](#s006)).
@@ -3110,7 +3110,7 @@ under Apache License 2.0.
   [`scripts/audit_claims.py`](../scripts/audit_claims.py) — read-only
   Python script verifying that every Tier-1 and Tier-2 quantitative
   claim in §3 / §4 / Appendix C matches the canonical artifacts
-  under explicit per-class tolerance rules; current state 190 / 190
+  under explicit per-class tolerance rules; current state 247 / 247
   PASS ([S024](#s024); see §2.8 for protocol).
 * **Pinned Docker image hashes (byte-level reproducibility):**
   `pulse-atlas-engine:3b18bdc08660` (canonical sweep, 2026-04-26)
@@ -3154,11 +3154,11 @@ possible.
 **Author contributions.** S.N. conceptualised the study, designed
 the Morris sweep and the four-flag steady-state classifier,
 performed all computational runs and statistical analyses, and
-wrote the manuscript. M.S. provided detailed clinical review of the manuscript and contributed the clinical interpretation of the VC-AC inspiration-trigger caveat. Y.M. contributed to the cross-platform reproducibility validation of the simulation environment, and to the review and editing of the manuscript. A.W., C.S., and P.J. provided scientific
+wrote the manuscript. M.S. provided detailed clinical review of the manuscript and contributed the clinical interpretation of the VC-AC inspiration-trigger caveat. Y.M. contributed to the cross-platform reproducibility validation of the simulation environment, and to the review and editing of the manuscript. A.W., C.S., and P.J. provided clinical
 supervision, contributed to the interpretation of the findings in
 their clinical context, and reviewed the manuscript. All authors
 approved the final version. AI tooling (Claude Code,
-`claude-opus-4-7` for the original drafting/refactoring, and `claude-opus-4-8`, released 28 May 2026 and coinciding with the supervisor-review phase, for the subsequent supervisor-review revisions) provided drafting / refactoring /
+`claude-opus-4-7` for the original drafting/refactoring, and `claude-opus-4-8`, released 28 May 2026 and coinciding with the supervisor-review phase, for the subsequent supervisor-review revisions, cross-checked against Gemini Pro 3.1) provided drafting / refactoring /
 reviewer-style critique assistance on text and code only, as
 detailed in §8.
 
@@ -3170,19 +3170,28 @@ interests, financial or otherwise.
 ## 8. Transparency: use of AI tools
 
 In the interest of full methodological transparency, parts of this
-work were carried out with the assistance of AI tools.
+work were carried out with the assistance of AI tools, used within a
+cross-checking loop between two large language models under direct
+supervision by S.N.: Claude Opus 4.7/4.8 (Anthropic), used locally
+through the Claude Code agent, and Gemini Pro 3.1 (Google;
+extended-thinking mode), used through a separate web session. Prompt
+engineering instructed each model to critique and cross-correct the
+other's outputs at every iteration, mitigating hallucination by
+verifying claims against the audit ledger and the source code.
 
 * **Coding assistance.** Portions of the analysis and pipeline code
   in this repository were drafted, edited, refactored, or debugged
-  with the assistance of **Claude Code** (Anthropic; model
-  `claude-opus-4-7`). Every AI-assisted code change was reviewed,
+  within the dual-model cross-checking loop described above
+  (**Claude Code** with `claude-opus-4-7` / `claude-opus-4-8`, and
+  **Gemini Pro 3.1**). Every AI-assisted code change was reviewed,
   tested, and committed by S.N.; all preregistered
   thresholds, hypotheses, and experimental decisions were authored
   and locked by S.N. before the corresponding analyses
   were run. AI tooling did not modify preregistration content or
   finalised numerical results.
 * **Manuscript drafting and editing.** Portions of this manuscript
-  were drafted and edited with the assistance of Claude Code. All
+  were drafted and edited within the same dual-model cross-checking
+  loop (Claude Code and Gemini Pro 3.1). All
   scientific claims, statistical interpretations, and citations
   were authored, verified, and accepted by S.N. Every
   numerical claim in the paper traces to a primary source or an

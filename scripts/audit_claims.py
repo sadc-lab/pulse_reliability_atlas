@@ -486,16 +486,21 @@ add(
 add(
     claim_id="T1.05",
     section="Abstract L37, KeyContrib L124",
-    manuscript_text="worst-case Vt CV 1.826 -> 0.112",
+    manuscript_text="worst-case Vt CV 1.826 (default max; same-run pairing -> 0.018)",
     source_file="data/runs/s014_trigger_lockout/paired_comparison.parquet",
     manuscript_value=1.826,
     computed_value=float(s14_pair["Vt_cv_orig"].max()),
     tolerance_rule="displayed_3dp",
 )
 add(
+    # Relabeled 2026-06-14: 0.112 is the max locked Vt CV across all S014 reruns
+    # (run S1_F_0008), NOT the headline worst-case. The manuscript's worst-case
+    # post-lockout value is the same-run pairing 0.018 (S1_F_0117), verified by
+    # T1.s014.worstcase_locked_vtcv. This entry stays as an artifact diagnostic;
+    # 0.112 is no longer quoted anywhere in the manuscript.
     claim_id="T1.06",
-    section="Abstract L37, KeyContrib L124",
-    manuscript_text="worst-case Vt CV post-lockout 0.112",
+    section="S014 diagnostic (max locked Vt CV; not quoted in manuscript)",
+    manuscript_text="max locked Vt CV across S014 reruns = 0.112 (diagnostic; headline worst-case same-run pairing is 0.018, see T1.s014.worstcase_locked_vtcv)",
     source_file="data/runs/s014_trigger_lockout/paired_comparison.parquet",
     manuscript_value=0.112,
     computed_value=float(s14_pair["Vt_cv_lock"].max()),

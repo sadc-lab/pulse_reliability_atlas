@@ -77,6 +77,11 @@ preprint_npj/*.synctex.gz
 # upstream template ZIP (large, redownloadable from Springer CMS)
 preprint_npj/template/sn-template.zip
 
+# Internal QA working doc — paranoid paper/supplement↔monograph fact-check
+# (2026-06-12). Working artifact, not part of the publication; kept out of the
+# soon-public history. Delete or fold into the audit ledger when resolved.
+audit/factcheck_paper_supplement_vs_monograph.md
+
 # Sensitive internal review material — NEVER publish (repo will be made public).
 # Supervisor/co-author annotated feedback + internal authorship/review to-do
 # notes. Scoped to these SPECIFIC files only — deliberately NOT wildcards, so
