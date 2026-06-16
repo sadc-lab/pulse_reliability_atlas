@@ -152,8 +152,8 @@ below; this section is the exhaustive findings digest.*
       0.879–0.927, male 0.899–0.945).
 * **Mechanism** ([S018](#s018)): Pulse's allometric `BloodVolumeBaseline`
   (male default **4,802.63 mL** vs female **3,996.09 mL**, ~17 % gap).
-  Reducing male BV monotonically eliminates divergence:
-  **20/20 → 2/20 → 0/20** at BV 4,802.63 → 4,400 → 4,082.24 mL.
+  Reducing male BV eliminates divergence:
+  **20/20 → 0/20** at both the 4,400 and 4,082.24 mL reductions (default 4,802.63 mL).
 * Engine-level side-finding (**F-S018-A**): a hard per-patient BV floor at
   **4,082.24 mL** on the male body, 86 mL above the female default — the two
   bodies cannot be made BV-equivalent by a one-way transplant.
@@ -318,8 +318,8 @@ sweep.*
   confirmed ([S018](#s018)) to be mediated by Pulse's
   `BloodVolumeBaseline` (male default 4,802.63 mL vs female default
   3,996.09 mL, a ~17 % gap): reducing the male surrogate's BV
-  monotonically eliminates divergence
-  (20 / 20 → 2 / 20 → 0 / 20 across BV = 4,802.63 → 4,400 → 4,082.24 mL).
+  eliminates divergence
+  (20 / 20 → 0 / 20 at both the 4,400 and 4,082.24 mL reductions; default 4,802.63 mL).
   A separate engine-level finding (F-S018-A) is the per-surrogate BV
   floor at 4,082.24 mL that bounds how far the gap can be closed by a
   one-way transplant.
@@ -1775,7 +1775,7 @@ two override points to map a dose-response curve:
 | Override BV (mL) | Reduction vs default | Diverged | Implausible | not_steady_state | Clean |
 |------------------|----------------------|----------|-------------|------------------|-------|
 | 4,802.63 (default, original sweep) | 0 %  | 20 / 20 | n/a (no CSV) | n/a    | 0      |
-| 4,400  | 8.4 %  | **2 / 20** | 1 / 20 | 8 / 20 | 10 / 20 |
+| 4,400  | 8.4 %  | **0 / 20** | 1 / 20 | 8 / 20 | 12 / 20 |
 | 4,082.24 (Pulse-stated floor on this surrogate) | 15.0 % | **0 / 20** | 1 / 20 | 8 / 20 | 12 / 20 |
 
 *BV-override dose-response table — at a glance.*
@@ -1785,18 +1785,21 @@ levels (default 4,802.63 mL → 4,400 mL → 4,082.24 mL, the
 Pulse-stated floor on this surrogate).
 **How to read it:** each row is one BV override level; columns count
 the four detector outcomes plus `Clean` across the 20 reruns.
-**Key takeaway:** divergence rate falls *monotonically* with BV
-reduction — 20 / 20 → 2 / 20 → 0 / 20 — mechanistically confirming
+**Key takeaway:** divergence is eliminated by BV
+reduction — 20 / 20 → 0 / 20 at both brackets — mechanistically confirming
 that the all-male divergence cluster is mediated by Pulse's
 blood-volume baseline.
 
-The divergence rate falls *monotonically* with BV reduction. The
+The divergence cluster is eliminated by any BV reduction tested. The
 mechanism is therefore confirmed: the all-male divergence cluster is
 mediated by the engine's blood-volume baseline.
 
-Severe-ARDS / FiO2 = 1.0 inputs require deeper BV reduction to clear.
-The two cases still divergent at 4,400 mL are both S4_M with
-FiO2 = 1.0; the milder inputs are already clean at 4,400 mL.
+All 20 inputs are already cleared at the 4,400 mL bracket (8.4 %
+reduction); none requires deeper reduction. (An earlier internal
+classification recorded two S4_M / FiO2 = 1.0 cases as still divergent at
+4,400 mL, but that was a classification-time race on the two slowest runs
+— both completed normally and re-classify as clean; see the S018 log,
+F-S018-B.)
 
 **A separate engine-level finding (F-[S018](#s018)-A** in
 [`S018_blood_volume_falsification.md`](../experiments_log/santino/S018_blood_volume_falsification.md)**)
@@ -3066,7 +3069,7 @@ previously uncharacterized, *regime-dependent* reliability-sensitivity
 axis: concentrated on gas-exchange outputs under within-sex BH-FDR
 control (5 of 24 cell × output Wasserstein survivors, §3.6) and on
 the male input-extreme divergence cluster mediated by Pulse's
-blood-volume baseline ([S018](#s018); 20 / 20 → 2 / 20 → 0 / 20 BV
+blood-volume baseline ([S018](#s018); 20 / 20 → 0 / 20 BV
 dose-response across §3.5 / §3.5.1).
 
 Ultimately, this atlas transforms adult Pulse from a

@@ -409,12 +409,12 @@ caught equally.*
   notes: 'paper §2.5 prose dose-response chain (1) + supplement S2 limitations-table closing prose "20 / 20 clean with this regex set" (1). Bumped 1 -> 2 in Phase 9.A.'
 
 - paper_section: '§2.5 prose (BV-rescue dose-response)'
-  paper_context: 'Bracket BV (4400 mL) dose-response: 2 diverged out of 20'
+  paper_context: 'Bracket BV (4400 mL) dose-response: 0 diverged out of 20 (corrected 2026-06-16; the prior "2" was a classification-time race artifact on the two slowest runs, now re-classified clean)'
   monograph_claim_id: 'T2.bv.bracket.diverged'
-  expected_value: 2
-  format_in_paper: '2 / 20'
-  expected_occurrences: 2
-  notes: 'Appears once in §2.5 prose as the middle term of the BV dose-response.'
+  expected_value: 0
+  format_in_paper: '0 / 20'
+  expected_occurrences: 9
+  notes: 'Bracket now clears to 0 / 20 (same as floor). The corrected §2.5 prose reads "20 / 20 ... to 0 / 20 at both reductions"; "0 / 20" total across paper+supplement = 9 (string shared with T2.bv.floor.diverged, which expects the same count).'
 
 - paper_section: '§2.5 + supplement S3/S5'
   paper_context: 'Floor BV (4082.24 mL) dose-response: 0 diverged out of 20'
@@ -453,8 +453,8 @@ caught equally.*
   monograph_claim_id: 'T3.s027.bv_default'
   expected_value: 4802.63
   format_in_paper: '4{,}802.63'
-  expected_occurrences: 8
-  notes: 'paper §2.5 (×2) + Figure 4 caption (1) + supplement S3.6 body-dimension provenance (1). Bumped 3 -> 4 in Phase 9.A.'
+  expected_occurrences: 6
+  notes: 'Figure 4 caption + supplement S3.6 body-dimension provenance + supplement S10 prose. Count 8 -> 6 on 2026-06-16: the S018 dose-response rewording (20->0->0) removed two "4,802.63" mentions from supplement S10.'
 
 - paper_section: 'Abstract + §2.5 prose (×2) + Figure 4 caption'
   paper_context: 'Male reference body BloodVolumeBaseline floor (Pulse setup-time minimum)'
@@ -475,10 +475,10 @@ caught equally.*
 - paper_section: '§2.5 prose + Figure 4 caption'
   paper_context: 'Intermediate BV bracket in S018 dose-response (4400 mL = 8.4% reduction from male default)'
   monograph_claim_id: 'T2.bv.bracket.diverged'
-  expected_value: 2
+  expected_value: 0
   format_in_paper: '4{,}400'
   expected_occurrences: 4
-  notes: 'Appears twice: §2.5 prose "an intermediate bracket (4{,}400~mL, a 8.4~\% reduction)" (1), Figure 4 caption "4{,}400~mL intermediate bracket" (1). Anchored on T2.bv.bracket.diverged (value=2 diverged at this BV setting; the "4400" value itself is the experimental BV override, declared in scripts/s018_bv_falsification.py as BV_BRACKETS["bracket"]).'
+  notes: 'Appears twice: §2.5 prose "an intermediate bracket (4{,}400~mL, a 8.4~\% reduction)" (1), Figure 4 caption "4{,}400~mL intermediate bracket" (1). Anchored on T2.bv.bracket.diverged (value corrected 2026-06-16 to 0 diverged at this BV setting; the "4400" value itself is the experimental BV override, declared in scripts/s018_bv_falsification.py as BV_BRACKETS["bracket"]).'
 
 ## Step 5 — Results §2.6 secondary observations narrative block
 

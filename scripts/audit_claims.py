@@ -1011,9 +1011,9 @@ bracket = s18_b[s18_b["bv_label"] == "bracket"]
 add(
     claim_id="T2.bv.bracket.diverged",
     section="§3.5 L1492",
-    manuscript_text="BV=4400 mL: diverged = 2 / 20",
+    manuscript_text="BV=4400 mL: diverged = 0 / 20",
     source_file="data/runs/s018_blood_volume/s018_classified.parquet",
-    manuscript_value=2,
+    manuscript_value=0,
     computed_value=int(bracket["diverged"].sum()),
     tolerance_rule="exact_int",
 )
@@ -1038,9 +1038,9 @@ add(
 add(
     claim_id="T2.bv.bracket.clean",
     section="§3.5 L1492",
-    manuscript_text="BV=4400 mL: clean = 10 / 20",
+    manuscript_text="BV=4400 mL: clean = 12 / 20",
     source_file="data/runs/s018_blood_volume/s018_classified.parquet",
-    manuscript_value=10,
+    manuscript_value=12,
     computed_value=int(bracket["clean"].sum()),
     tolerance_rule="exact_int",
 )

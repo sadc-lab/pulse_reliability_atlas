@@ -127,43 +127,47 @@ The floor for the female surrogate at 56.2 kg is separately
 discoverable (we did not need to discover it for S018 since the
 test is on the male model).
 
-### F-S018-B — Mechanism confirmed: blood-volume reduction monotonically eliminates the male divergence cluster
+### F-S018-B — Mechanism confirmed: blood-volume reduction eliminates the male divergence cluster
 
-The dose-response is unambiguous:
+> **CORRECTION (2026-06-16).** This finding originally reported **2 / 20** diverged
+> at the 4,400 mL bracket and built a "per-input threshold structure" on it. That
+> was wrong. The two "divergences" (S4_M_0158, S4_M_0159 — the two slowest runs,
+> ~325 s each) were a **classification-time race**: the classifier ran before those
+> two finished writing `run_meta.json`, and `aggregator.build_row` defaults a
+> missing `run_meta` to `exit_code = 1` → diverged. Both runs in fact completed
+> normally (exit 0) and re-classify as **clean**. Confirmed three independent ways:
+> the committed `s018_run_index.parquet` records all 20 bracket runs at exit 0; a
+> controlled Tier-2 re-run (`scripts/verify_s018_tier2.py`, 80 runs, N = 2, 0 flaky)
+> gives bracket 0 / 20 and default 20 / 20; and re-aggregating the now-complete run
+> dirs gives the corrected table below. Corrected bracket = **0 / 20**; dose-response
+> **20 → 0 → 0**. Independently traced and confirmed by Y. Mamouni. The two
+> interpretive paragraphs that rested on the spurious "2" (per-input threshold;
+> per-case difference between brackets) are retracted and corrected below.
+
+The corrected dose-response:
 
 | BV (mL)         | Reduction vs male default | Diverged | Implausible | not_steady_state | Clean |
 |-----------------|---------------------------|----------|-------------|------------------|-------|
 | 4,802.63        | 0 % (default)             | 20 / 20  | n/a         | n/a              | 0     |
-| 4,400.00        | 8.4 %                     | **2 / 20** | 1 / 20      | 8 / 20           | 10    |
+| 4,400.00        | 8.4 %                     | **0 / 20** | 1 / 20      | 8 / 20           | 12    |
 | 4,082.24        | 15.0 % (Pulse floor)      | **0 / 20** | 1 / 20      | 8 / 20           | 12    |
 
-Divergence rate is monotonic in BV reduction. The §3.5 falsifiable
-hypothesis is **confirmed**: the male divergence cluster is mediated
-by the engine's blood-volume baseline, and reducing it toward (but
-not below) the female value eliminates the regime.
+The §3.5 falsifiable hypothesis is **confirmed**: the male divergence cluster is
+mediated by the engine's blood-volume baseline, and **even an 8.4 % reduction
+(to 4,400 mL)** toward the female value already eliminates the entire regime.
 
-**Per-input threshold structure.** The two cases that still diverge
-at BV = 4,400 mL (S4_M_0158 and S4_M_0159) both have FiO₂ = 1.0,
-severe ARDS (0.95), and the shared low-cardiovascular-output Morris
-input pattern (HR = 50, RR = 20, SBP = 90, DBP = 67.5). Both clear at
-BV = 4,082.24 mL. The divergence threshold therefore depends not just
-on BV but on the interaction between BV and the rest of the input
-profile: severe-ARDS / FiO₂-1.0 inputs need deeper BV reduction
-(below 4,400 mL) to clear, whereas the milder inputs clear at the
-intermediate bracket already. The mechanism is BV-dominated but not
-BV-only — interaction with ARDS severity and FiO₂ extremes appears
-to be modulating the per-input threshold.
+**No per-input threshold [corrected 2026-06-16].** All 20 inputs clear at the
+4,400 mL bracket; there is no BV × ARDS × FiO₂ per-input threshold. The original
+claim that two severe-ARDS / FiO₂ = 1.0 cases (S4_M_0158 / 0159) "need deeper BV
+reduction" was the classification-race artifact described in the correction note
+above — those two runs do not diverge at 4,400 mL.
 
-**Per-case consistency between brackets.** Of the 20 original
-diverged inputs, 18 produce the same flag combination at both
-BV = 4,082 and BV = 4,400 (e.g. S4_M_0024 is clean at both;
-S1_M_0119 is not_steady_state at both; S1_M_0159 is implausible at
-both — the PaO₂ > 600 mmHg hyperoxia overshoot is independent of BV).
-The 2 cases that differ are S4_M_0158 and S4_M_0159 (diverged at
-bracket, clean at floor). This per-case consistency strengthens the
-mechanism inference: the BV manipulation isn't randomly shuffling
-flag states; it's specifically lifting the divergence flag on
-inputs where the solver was previously failing.
+**Per-case consistency between brackets.** All 20 originally-diverged inputs now
+produce the same flag combination at both BV = 4,082 and BV = 4,400 mL
+(S4_M_0024 clean at both; S1_M_0119 not_steady_state at both; S1_M_0159
+implausible at both — the PaO₂ > 600 mmHg hyperoxia overshoot is independent of
+BV; S4_M_0158 / 0159 clean at both). The BV manipulation lifts the divergence
+flag uniformly on the inputs that were failing at the default BV.
 
 ### F-S018-C — The "not_steady_state" residue reflects input-profile incoherence, not a BV side-effect
 
@@ -235,12 +239,14 @@ underlying input profile is incoherent.
 
 * The §3.5 "falsifiable hypothesis to test in follow-up work"
   sentence is replaced with a mechanism verdict: **mechanism
-  confirmed — BV reduction is monotonic on the divergence rate
-  (20 → 2 → 0 across BV = 4,803 → 4,400 → 4,082 mL)**.
+  confirmed — BV reduction eliminates the divergence cluster
+  (20 → 0 → 0 across BV = 4,803 → 4,400 → 4,082 mL; even the 8.4 %
+  reduction to 4,400 mL already clears all 20)**.
 * New compact result paragraph after the existing §3.5 mechanism
-  candidate paragraph reports the S018 numbers and the per-input
-  threshold structure (FiO₂ = 1.0 + severe ARDS pushes the
-  per-input divergence threshold below 4,400 mL).
+  candidate paragraph reports the S018 numbers. (The per-input
+  threshold structure originally written here was based on two
+  classification-race artifacts and is retracted — see the F-S018-B
+  correction note.)
 * Caveat paragraph reports F-S018-C (the not_steady_state residue
   reflects input-profile incoherence on the 16 shared Morris
   inputs, not a BV side-effect; the underlying input combination
@@ -267,8 +273,8 @@ underlying input profile is incoherent.
   weight-coupled parameters (cardiac-output baseline, etc.) could
   co-move with the BV override.
 * The "intermediate bracket" at 4,400 mL is a halfway-house point,
-  not a preregistered value; the dose-response monotonicity
-  inference depends on a clean signal between three BV levels
+  not a preregistered value; the dose-response inference depends on
+  a clean signal between three BV levels
   (default / intermediate / floor).
 
 ## Related artifacts

@@ -1,0 +1,10 @@
+{
+  "case_id": "S4_M_0159_BV_bracket",
+  "run_dir": "C:\\Users\\santi\\projets\\pulse_reliability_atlas\\data\\runs\\s018_blood_volume\\runs\\S4_M_0159_BV_bracket",
+  "config_path": "C:\\Users\\santi\\projets\\pulse_reliability_atlas\\data\\runs\\s018_blood_volume\\runs\\S4_M_0159_BV_bracket\\config.json",
+  "csv_path": "C:\\Users\\santi\\projets\\pulse_reliability_atlas\\data\\runs\\s018_blood_volume\\runs\\S4_M_0159_BV_bracket\\output.csv",
+  "log_path": "C:\\Users\\santi\\projets\\pulse_reliability_atlas\\data\\runs\\s018_blood_volume\\runs\\S4_M_0159_BV_bracket\\pulse.log",
+  "exit_code": 0,
+  "wall_time_s": 324.875,
+  "image": "pulse-atlas-engine:bv-override"
+}

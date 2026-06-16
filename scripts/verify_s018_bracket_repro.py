@@ -6,12 +6,15 @@ The frozen s018_classified.parquet + manuscript + S018 log record 2/20
 divergences at the BV=4,400 mL bracket (runs S4_M_0158, S4_M_0159,
 `exit_code=1`). But those 2 run dirs on disk were re-executed minutes after
 the parquet was frozen and now show `exit_code=0` + clean CSV, so raw
-re-derivation gives 0/20. Were the 2 original failures:
+re-derivation gives 0/20. This script tested whether the 2 original failures
+reproduce.
 
-  (A) transient infrastructure failures (Docker/OOM at the 1 GB cap on the
-      heaviest S4-severe + FiO2=1.0 runs) -> not reproducible, real answer 0/20; or
-  (B) a reproducible build-dependent failure -> the final bv-override image
-      fails these configs deterministically.
+RESOLVED (2026-06-16): they do NOT reproduce (10/10 clean here; corroborated by
+the controlled Tier-2 in verify_s018_tier2.py). The cause was neither OOM nor an
+image-build issue but a CLASSIFICATION-TIME RACE: the classifier ran before the
+2 slowest runs finished writing run_meta.json, and aggregator.build_row defaults
+a missing run_meta to exit_code=1 -> diverged. The two hypotheses this script was
+originally written to weigh (transient infra vs build-dependent) are superseded.
 
 METHOD
 ------
@@ -93,9 +96,9 @@ def main() -> None:
     print(f"\nOVERALL: {total_div}/{total} reps diverged.")
     if total_div == 0:
         print("VERDICT -> all reps PASS with the final bv-override image. The original "
-              "exit_code=1 failures are NOT reproducible in isolation -> consistent with "
-              "(A) transient infra (likely OOM/contention at the 1 GB cap). The true "
-              "bracket dose-response point is 0/20, not 2/20.")
+              "exit_code=1 failures are NOT reproducible -> they were a classification-time "
+              "race (missing run_meta defaulted to exit 1 by aggregator.build_row), not a "
+              "real Pulse divergence. The true bracket dose-response point is 0/20, not 2/20.")
     elif total_div == total:
         print("VERDICT -> all reps FAIL deterministically -> consistent with (B) a "
               "reproducible build/config failure; the post-freeze re-runs that succeeded "
