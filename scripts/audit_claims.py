@@ -136,6 +136,14 @@ class Claim:
 
 claims: list[Claim] = []
 
+# Anchors that COULD be registered but were not evaluated this run because a
+# required artefact is absent (only the documented benign-skip path is allowed;
+# see the T1.06u guard below). Each entry is (claim_id, reason). The summary
+# reports the target total as len(claims) + len(skipped), so the headline ratio
+# stays honest in every environment: full local data tree -> 247/247, public
+# clone (raw S021 trajectories gitignored) -> 246/247 with 1 SKIPPED.
+skipped: list[tuple[str, str]] = []
+
 
 def add(**kw) -> None:
     c = Claim(**kw)
@@ -1968,7 +1976,16 @@ if _n_expected > 0 and _n_found == _n_expected:
 elif _n_expected > 0 and _n_found == 0:
     # Benign CI case: plateau_stats lists N>0 S1 physio runs but every per-run
     # output.csv is gitignored and absent on a clean checkout. Skip T1.06u
-    # with a NOTE; the parquet/CSV-backed anchors still run as the gate.
+    # with a NOTE; the parquet/CSV-backed anchors still run as the gate. The
+    # skip is recorded in `skipped` so the summary reports 246/247 (1 SKIPPED)
+    # rather than a bare 246/246 that would hide the existence of the anchor.
+    skipped.append(
+        (
+            "T1.06u.s021_time_to_95pct_plateau",
+            "raw S021 per-run output.csv trajectories gitignored / absent on "
+            "this checkout; run with the full data/runs tree to evaluate it",
+        )
+    )
     print(
         "_NOTE: T1.06u (S021 time-to-95%-plateau) skipped -- raw per-run "
         "output.csv trajectories not present in this checkout (expected in CI; "
@@ -2009,10 +2026,27 @@ def _fmt(v):
 n_pass = sum(1 for c in claims if c.status == "PASS")
 n_warn = sum(1 for c in claims if c.status == "WARN")
 n_fail = sum(1 for c in claims if c.status == "FAIL")
-n_total = len(claims)
+n_run = len(claims)
+n_skipped = len(skipped)
+# Target total = anchors evaluated this run + anchors deliberately skipped for a
+# missing-artefact reason. Computed dynamically so the ratio cannot go stale if
+# anchors are added or removed later. Full local data tree -> 247/247; public
+# clone with the gitignored raw S021 trajectories absent -> 246/247, 1 SKIPPED.
+n_expected = n_run + n_skipped
 
 print("# Claims-Ledger Audit (S024)\n")
-print(f"**Total claims audited:** {n_total} ({n_pass} PASS, {n_warn} WARN, {n_fail} FAIL)\n")
+if n_skipped:
+    _skip_detail = "; ".join(f"{cid}: {reason}" for cid, reason in skipped)
+    print(
+        f"**Anchors verified:** {n_run} / {n_expected} -- "
+        f"{n_pass} PASS, {n_warn} WARN, {n_fail} FAIL, {n_skipped} SKIPPED "
+        f"({_skip_detail}).\n"
+    )
+else:
+    print(
+        f"**Anchors verified:** {n_run} / {n_expected} -- "
+        f"{n_pass} PASS, {n_warn} WARN, {n_fail} FAIL, 0 SKIPPED.\n"
+    )
 print("**Pulse-engine version:** v4.3.1; **sweep:** S006 (2026-04-26).\n")
 print(
     "**Tolerance rules:** exact_int=0, pct_1dp=0.05, pct_whole=0.5, "

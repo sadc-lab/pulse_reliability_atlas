@@ -115,7 +115,7 @@ def run_audits() -> bool:
     ]:
         res = subprocess.run([PY, *args], cwd=str(REPO), capture_output=True, text=True)
         for line in res.stdout.splitlines():
-            if "Total claims audited" in line or "Sync check" in line:
+            if "Anchors verified" in line or "Sync check" in line:
                 print(f"  [{label}] {line.strip().replace('*', '')}")
         if res.returncode != 0:
             both_ok = False
