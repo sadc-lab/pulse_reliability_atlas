@@ -417,7 +417,7 @@ Plain text:
 ```
 Nanini, S., et al. (2026). An open reliability atlas for the Pulse
 Physiology Engine: sensitivity, divergence, and sex-stratified failure modes.
-Preprint forthcoming. Code: https://github.com/santinon/pulse_reliability_atlas
+Preprint forthcoming on arXiv. Code: https://github.com/santinon/pulse_reliability_atlas
 ```
 
 BibTeX:
@@ -428,7 +428,7 @@ BibTeX:
   title        = {An open reliability atlas for the Pulse Physiology Engine: sensitivity, divergence, and sex-stratified failure modes},
   year         = {2026},
   howpublished = {\url{https://github.com/santinon/pulse_reliability_atlas}},
-  note         = {Preprint forthcoming; arXiv DOI to be added on upload.}
+  note         = {Preprint forthcoming on arXiv; arXiv identifier and Zenodo DOI added on deposit.}
 }
 ```
 
@@ -436,8 +436,7 @@ A machine-readable [`CITATION.cff`](CITATION.cff) is also provided —
 GitHub renders a "Cite this repository" button from it, and reference
 managers (Zotero, Mendeley) import it directly.
 
-(arXiv DOI added on preprint upload. Zenodo dataset DOI added when the
-raw run-level data is deposited.)
+(arXiv preprint identifier added on upload. Zenodo DOI — covering code, data, and the companion monograph — added when the repository archive is deposited.)
 
 ---
 

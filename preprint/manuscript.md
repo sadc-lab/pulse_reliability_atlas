@@ -1040,9 +1040,9 @@ post-[S014](#s014)-patch rebuild — a different image hash than the
   (`data/runs/full_sweep/morris_sample.parquet`; `seed=42`,
   `trajectories=20`, `levels=4`) against the current image, with output
   written to a parallel directory tree (`data/runs/full_sweep_repro/`)
-  so the canonical artifact was not touched. Wall time: **23 h 01 m** on
-  the maintainer's i5-11400H laptop at 2 parallel Docker workers — the
-  verified-safe hardware cap (§2.8). SHA-256 comparison of every
+  so the canonical artifact was not touched. The re-execution ran on the
+  maintainer's i5-11400H laptop at 2 parallel Docker workers (the
+  verified-safe hardware cap, §2.8). SHA-256 comparison of every
   `output.csv` against canonical gave **1,260 / 1,280 bit-identical
   clean runs and 20 / 20 originally-diverged runs reproducing
   divergence with `exit_code = 1`** (i.e. the same 20-run male-extreme
@@ -3565,8 +3565,8 @@ adult operational envelope of the Pulse Physiology Engine (v4.3.1) and
 to ensure reproducibility. The complete experimental logs and Docker
 replication scripts for these boundary probes are available in the
 companion repository (`Pulse_translation_new`, the maintainer's
-downstream PhD repository; GitHub URL to be filled at arXiv
-submission once Paper 1 publishes).
+downstream PhD repository; GitHub URL to be filled in once Paper 1 is
+published).
 
 ### B.2 Hard input acceptance gates
 

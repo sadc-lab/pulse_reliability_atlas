@@ -34,7 +34,7 @@ readership:
    with an identified mechanism.** All 20 of the 1,280 divergent runs fell on
    the *male* reference body. We trace the effect to Pulse's allometric
    blood-volume baseline: reducing the male baseline toward its setup-time
-   floor (4,082.24 mL) monotonically eliminated divergence (20 → 2 → 0). This
+   floor (4,082.24 mL) eliminated divergence at both bracket reductions (20/20 → 0/20). This
    is a structural artefact, not a clinical phenomenon — and it means that
    pooling male and female synthetic cohorts at input extremes silently injects
    a hidden sex covariate into any downstream model.

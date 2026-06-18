@@ -2,10 +2,11 @@
 # Reference managers (Zotero, Mendeley) and GitHub's "Cite this repository"
 # button auto-extract from this file.
 #
-# The DOI / preferred-citation fields are intentionally blank until arXiv
-# acceptance lands. At that point: backfill `doi:` + the
-# `preferred-citation:` block (preprint metadata) in a single follow-up
-# commit. The schema below is otherwise complete.
+# The `doi:` and `preferred-citation:` fields are intentionally blank until
+# deposit. At that point: set `doi:` to the Zenodo archive DOI (code + data +
+# monograph) and add a `preferred-citation:` block for the arXiv preprint
+# (paper + supplement), in a single follow-up commit. The schema below is
+# otherwise complete.
 
 cff-version: 1.2.0
 title: "Pulse Reliability Atlas"
@@ -15,6 +16,7 @@ authors:
   - family-names: Nanini
     given-names: Santino
     email: santino.nanini@umontreal.ca
+    orcid: "https://orcid.org/0009-0000-5645-4691"
 repository-code: "https://github.com/santinon/pulse_reliability_atlas"
 license: Apache-2.0
 version: "0.1.0"
