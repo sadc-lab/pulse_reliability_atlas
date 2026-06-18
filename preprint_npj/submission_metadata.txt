@@ -13,15 +13,15 @@ divergence, and sex-stratified failure modes
 (Running title / short title: Reliability atlas: Pulse Physiology Engine)
 
 ------------------------------------------------------------------------------
-ABSTRACT  (148 words)
+ABSTRACT  (145 words)
 ------------------------------------------------------------------------------
-Pulse is a widely used open-source adult physiology simulator, yet no formal
+Pulse is an actively maintained open-source adult physiology simulator, yet no formal
 sensitivity analysis of its operational inputs has been published. We present
 the first reliability atlas across Pulse's critical-care envelope: Morris
 elementary-effects sampling of seven inputs across four severity levels
 (healthy through severe ARDS) in two bodies (1,280 simulations). A four-flag
 classifier (clamping, divergence, implausible, non-steady-state) surfaces
-several failure modes, three operator-actionable. Tidal-volume instability in
+several failure modes, two operator-actionable plus a sex-specific reliability axis. Tidal-volume instability in
 20.6 % of runs reflects patient–ventilator dyssynchrony; locking the VC-AC
 inspiration trigger to −2 cmH2O makes Vt deterministic for cohort generation.
 At FiO2 = 1.0 a transient hyperoxia regime makes 120-second runs underestimate
