@@ -1,6 +1,6 @@
 # PulseProbe Lab Notebook
 
-Shared experiments log for Santino and a second contributor. This is the source of truth for *why* we did something, *how* we did it, and *what happened*. Git history is the source of truth for *who* did what and *when*.
+Lab notebook for this project. This is the source of truth for *why* we did something, *how* we did it, and *what happened*. Git history is the source of truth for *who* did what and *when*.
 
 ---
 
@@ -8,19 +8,17 @@ Shared experiments log for Santino and a second contributor. This is the source 
 
 ### 1. Folders = ownership (no merge conflicts)
 
-- `santino/` — Santino writes here, nobody else.
-- `contributor2/` — the second contributor writes here, nobody else.
-- `shared/` — joint experiments only; list both authors in frontmatter.
+- `santino/` — individual experiment entries.
+- `shared/` — joint experiments; list all authors in frontmatter.
 
 Because each person writes only in their own folder, individual experiment files cannot conflict at the git level. The only file both people touch — `INDEX.md` — is auto-generated (see below), not hand-edited.
 
 ### 2. ID prefixes
 
-- `S###` — Santino (solo).
-- `M###` — second contributor (solo).
+- `S###` — solo entry.
 - `E###` — **E**nsemble (joint / shared).
 
-Zero-padded to 3 digits: `S001`, `S012`, `M007`, `E002`. Increment from the highest existing ID **in your own folder** (or in `shared/` for E-entries).
+Zero-padded to 3 digits: `S001`, `S012`, `E002`. Increment from the highest existing ID **in the relevant folder** (or in `shared/` for E-entries).
 
 ### 3. One file per experiment
 
@@ -56,16 +54,16 @@ Reference code, data, and figures by path:
 
 ### 7. Commits are single-author
 
-Per `CLAUDE.md`: no `Co-authored-by:` trailers, not for Claude, not between Santino and the second contributor. Each commit has exactly one author, and that author is the person who ran the experiment described. Git blame is the attribution.
+Per `CLAUDE.md`: no `Co-authored-by:` trailers, not for Claude, and not between human contributors. Each commit has exactly one author, and that author is the person who ran the experiment described. Git blame is the attribution.
 
 ---
 
 ## Shared (`E###`) entries
 
-For experiments where you and the second contributor both contributed substantively (e.g., one designed the stats test, the other implemented it).
+For experiments where multiple contributors worked substantively (e.g., one designed the stats test, the other implemented it).
 
 - Put the file in `shared/`.
-- Frontmatter `author:` lists both, comma-separated: `author: santino, contributor2`.
+- Frontmatter `author:` lists all, comma-separated: `author: santino`.
 - Talk before editing — Slack/WhatsApp beats a merge conflict.
 - If you find yourselves conflict-resolving a shared file more than once, **split it** into two solo entries that cross-reference each other via the `related` frontmatter field.
 
@@ -103,7 +101,7 @@ git commit -m "Regenerate experiments index"
 ```yaml
 ---
 id: S001                          # required. S / M / E + 3 digits
-author: santino                   # required. santino | contributor2 | santino, contributor2
+author: santino                   # required. e.g. santino
 date: 2026-04-21                  # required. ISO date of the experiment
 status: done                      # required. planned | in-progress | done | abandoned | superseded
 tags: [docker, hardware, pilot]   # optional. free-form, lowercase, hyphenated

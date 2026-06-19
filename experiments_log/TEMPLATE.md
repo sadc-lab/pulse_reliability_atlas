@@ -31,7 +31,7 @@ Setup, parameters, seeds, scripts, commit SHA if relevant. Enough detail that yo
 
 ## What we tried (including dead ends)
 
-Chronological, including the things that did not work. Dead ends are data — they save future-you (or the second contributor / Santino) from repeating the same mistake.
+Chronological, including the things that did not work. Dead ends are data — they save future-you from repeating the same mistake.
 
 ## Results
 

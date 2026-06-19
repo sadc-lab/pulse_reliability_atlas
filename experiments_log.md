@@ -7,11 +7,10 @@ See [`experiments_log/README.md`](experiments_log/README.md) for conventions and
 
 ## Why the change
 
-With two people writing (Santino and a second contributor), a single flat file would produce
-constant merge conflicts. The new structure is:
+As the lab notebook grew, a single flat file would produce constant merge
+conflicts. The structure is:
 
 - `experiments_log/santino/` — one file per experiment, prefix `S###`.
-- `experiments_log/contributor2/` — one file per experiment, prefix `M###`.
 - `experiments_log/shared/`  — joint experiments, prefix `E###` (ensemble).
 
 Each person writes only in their own folder → zero conflicts on individual entries.
