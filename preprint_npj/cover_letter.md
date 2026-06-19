@@ -11,8 +11,8 @@ The Editors
 
 Dear Editors,
 
-We are pleased to submit our original research article, **"An open reliability atlas for the Pulse Physiology Engine: sensitivity,
-divergence, and sex-stratified failure modes,"** for
+We are pleased to submit our original research article, **"An Open Reliability Atlas for the Pulse Physiology Engine: Sensitivity,
+Divergence, and Sex-stratified Failure Modes,"** for
 consideration as an Article in *npj Digital Medicine*.
 
 The Pulse Physiology Engine (Kitware, Apache-2.0) is a prominent
@@ -67,9 +67,7 @@ released open-source under Apache-2.0 for full reproducibility.
 
 This manuscript is original, has not been published previously, and is not
 under consideration for publication elsewhere. All named authors have
-contributed to and approved the submission. [Competing-interests and
-author-contribution statements to be confirmed by the maintainer before
-submission.] All data and code are openly available; the data-availability
+contributed to and approved the submission. The authors declare no competing interests, and author contributions are specified in the manuscript (CRediT taxonomy). All data and code are openly available; the data-availability
 statement will cite the repository and the archived dataset DOI.
 
 We believe the reliability atlas offers foundational infrastructure that will

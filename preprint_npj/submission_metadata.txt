@@ -7,8 +7,8 @@ plain Unicode for portal copy-paste). Draft, uncommitted — verify before paste
 ------------------------------------------------------------------------------
 TITLE
 ------------------------------------------------------------------------------
-An open reliability atlas for the Pulse Physiology Engine: sensitivity,
-divergence, and sex-stratified failure modes
+An Open Reliability Atlas for the Pulse Physiology Engine: Sensitivity,
+Divergence, and Sex-stratified Failure Modes
 
 (Running title / short title: Reliability atlas: Pulse Physiology Engine)
 
@@ -62,4 +62,14 @@ Yassir Mamouni      0009-0000-4308-6287
 Cyril Schweitzer    0000-0003-0895-774X
 Philippe Jouvet     0000-0001-5684-3398
 Michael Sauthier    0000-0001-7269-4767
+
+------------------------------------------------------------------------------
+CRediT AUTHOR CONTRIBUTIONS
+------------------------------------------------------------------------------
+Santino Nanini    - Conceptualization; Methodology; Software; Formal analysis; Investigation; Data curation; Visualization; Writing - original draft
+Arnaud Wiedemann  - Supervision; Writing - review & editing
+Yassir Mamouni    - Software; Validation; Writing - review & editing
+Cyril Schweitzer  - Supervision; Funding acquisition; Writing - review & editing
+Philippe Jouvet   - Supervision; Funding acquisition; Writing - review & editing
+Michael Sauthier  - Supervision; Methodology; Writing - review & editing
 ==============================================================================

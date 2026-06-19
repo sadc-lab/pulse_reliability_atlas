@@ -3162,13 +3162,17 @@ release of the Pulse Physiology Engine and its accompanying
 documentation, without which this work would not have been
 possible.
 
+We also thank Jama Hussein for productive and inspiring discussions
+at the Mila — Quebec AI Institute.
+
 **Author contributions.** S.N. conceptualised the study, designed
 the Morris sweep and the four-flag steady-state classifier,
 performed all computational runs and statistical analyses, and
 wrote the manuscript. M.S. provided detailed clinical review of the manuscript and contributed the clinical interpretation of the VC-AC inspiration-trigger caveat. Y.M. contributed to the cross-platform reproducibility validation of the simulation environment, and to the review and editing of the manuscript. A.W., C.S., and P.J. provided clinical
 supervision, contributed to the interpretation of the findings in
-their clinical context, and reviewed the manuscript. All authors
-approved the final version. AI tooling (Claude Code,
+their clinical context, and reviewed the manuscript. C.S.
+additionally secured the ENACT funding that supported this work.
+All authors approved the final version. AI tooling (Claude Code,
 `claude-opus-4-7` for the original drafting/refactoring, and `claude-opus-4-8`, released 28 May 2026 and coinciding with the supervisor-review phase, for the subsequent supervisor-review revisions, cross-checked against Gemini Pro 3.1) provided drafting / refactoring /
 reviewer-style critique assistance on text and code only, as
 detailed in §8.
