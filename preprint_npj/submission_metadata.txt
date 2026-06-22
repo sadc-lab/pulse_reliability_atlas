@@ -70,6 +70,6 @@ Santino Nanini    - Conceptualization; Methodology; Software; Formal analysis; I
 Arnaud Wiedemann  - Supervision; Writing - review & editing
 Yassir Mamouni    - Software; Validation; Writing - review & editing
 Cyril Schweitzer  - Supervision; Funding acquisition; Writing - review & editing
-Philippe Jouvet   - Supervision; Funding acquisition; Writing - review & editing
-Michael Sauthier  - Supervision; Methodology; Writing - review & editing
+Philippe Jouvet   - Conceptualization; Supervision; Funding acquisition; Writing - review & editing
+Michael Sauthier  - Conceptualization; Supervision; Methodology; Funding acquisition; Writing - review & editing
 ==============================================================================
