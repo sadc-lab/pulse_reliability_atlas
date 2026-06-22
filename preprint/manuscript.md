@@ -3169,7 +3169,7 @@ at the Mila — Quebec AI Institute.
 direction was shaped through clinical discussions with M.S. and
 P.J. — designed the Morris sweep and the four-flag steady-state
 classifier, performed all computational runs and statistical
-analyses, and wrote the manuscript. M.S. provided detailed clinical review of the manuscript and contributed the clinical interpretation of the VC-AC inspiration-trigger caveat. Y.M. contributed to the cross-platform reproducibility validation of the simulation environment, and to the review and editing of the manuscript. A.W., C.S., and P.J. provided clinical
+analyses, and wrote the manuscript. M.S. provided detailed clinical review of the manuscript and contributed the clinical interpretation of the VC-AC inspiration-trigger caveat. Y.M. contributed to the cross-platform reproducibility validation of the simulation environment, and to the review and editing of the manuscript. A.W., C.S., M.S., and P.J. provided clinical
 supervision, contributed to the interpretation of the findings in
 their clinical context, and reviewed the manuscript. C.S., M.S.,
 and P.J. additionally secured the funding that supported this work.
