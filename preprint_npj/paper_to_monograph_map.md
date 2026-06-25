@@ -77,8 +77,8 @@ caught equally.*
   monograph_claim_id: 'T1.01'
   expected_value: 1280
   format_in_paper: '1{,}280'
-  expected_occurrences: 28
-  notes: 'Total occurrences of "1{,}280" across paper.tex + supplement.tex as of Phase 9.B: paper.tex 12 (abstract 2, §2.1 5, §2.5+Fig4 2, §4 Discussion 1, Methods §4.1+§4.3 2) + supplement.tex 5 (S3.2 Morris sampler, S4 NSS table prose "1{,}280-run sweep" + Table S1 total row + "1{,}008 / 1{,}280" + "663 / 1{,}280" repeats). Bumped 14 -> 17 in Phase 9.B for the S4 extended-Table-1 additions. Bumped 23 -> 24 in Phase H (2026-05-31): the new Supplement §S16 "Summary of supplementary findings and discoveries" intro paragraph uses "The 1{,}280-run atlas" as its opening descriptor, so the canonical formatted string appears once more. Bumped 24 -> 28 in the cross-platform reproduction round (2026-06-11): the new Supplement §S12 "Independent reproduction on separate hardware" subsection plus the Code-availability sentence add four "1{,}280" substring occurrences --- paper.tex "full 1{,}280-run sweep" (1), supplement.tex "full 1{,}280-run Morris sweep" (1), and "matched on 1{,}280/1{,}280 runs" (2).'
+  expected_occurrences: 30
+  notes: 'Total occurrences of "1{,}280" across paper.tex + supplement.tex as of Phase 9.B: paper.tex 12 (abstract 2, §2.1 5, §2.5+Fig4 2, §4 Discussion 1, Methods §4.1+§4.3 2) + supplement.tex 5 (S3.2 Morris sampler, S4 NSS table prose "1{,}280-run sweep" + Table S1 total row + "1{,}008 / 1{,}280" + "663 / 1{,}280" repeats). Bumped 14 -> 17 in Phase 9.B for the S4 extended-Table-1 additions. Bumped 23 -> 24 in Phase H (2026-05-31): the new Supplement §S16 "Summary of supplementary findings and discoveries" intro paragraph uses "The 1{,}280-run atlas" as its opening descriptor, so the canonical formatted string appears once more. Bumped 24 -> 28 in the cross-platform reproduction round (2026-06-11): the new Supplement §S12 "Independent reproduction on separate hardware" subsection plus the Code-availability sentence add four "1{,}280" substring occurrences --- paper.tex "full 1{,}280-run sweep" (1), supplement.tex "full 1{,}280-run Morris sweep" (1), and "matched on 1{,}280/1{,}280 runs" (2). Bumped 28 -> 30 (2026-06-24): the new study-design Figure 1 adds two "1{,}280" occurrences --- figure caption ("8 x 160 = 1,280 simulations in total") + figure body ("8 x 160 = 1,280 simulations").'
 
 - paper_section: 'Abstract + §2.3 VC-AC'
   paper_context: 'VC-AC trigger-dyssynchrony primary-flag rate (Vt CV > 0.05 under not_steady_state)'
@@ -569,8 +569,8 @@ caught equally.*
   monograph_claim_id: 'T1.06e.morris_trajectories'
   expected_value: 20
   format_in_paper: '20 trajectories'
-  expected_occurrences: 3
-  notes: 'paper §5 Methods §4.3 (1) + supplement S3.2 Morris sampler description (1) + paper §2 Results "Terms used in this paper" box, Trajectory row (1). Bumped 1 -> 2 in Phase 9.A. Bumped 2 -> 3 in Phase G3 (2026-05-31): the new Terms box in §2 Results defines "Trajectory" with the literal "20 trajectories per cell yield 160 simulations" formulation, so the canonical formatted string appears once more. The box is the canonical scannable-terminology anchor placed at top of §2 Results immediately before §2.1 Overview.'
+  expected_occurrences: 5
+  notes: 'paper §5 Methods §4.3 (1) + supplement S3.2 Morris sampler description (1) + paper §2 Results "Terms used in this paper" box, Trajectory row (1). Bumped 1 -> 2 in Phase 9.A. Bumped 2 -> 3 in Phase G3 (2026-05-31): the new Terms box in §2 Results defines "Trajectory" with the literal "20 trajectories per cell yield 160 simulations" formulation, so the canonical formatted string appears once more. The box is the canonical scannable-terminology anchor placed at top of §2 Results immediately before §2.1 Overview. Bumped 3 -> 4 (2026-06-24): the new study-design Figure 1 caption ("20 trajectories of 7+1 = 8 simulations each") adds one more occurrence. Bumped 4 -> 5 (2026-06-24, pedagogy round): the new N=20 justification sentence in §5 Methods §4.3 ("typically 10--20 trajectories") adds one substring occurrence of the canonical "20 trajectories" string.'
 
 - paper_section: '§5 Methods §4.3 + supplement S3.2'
   paper_context: 'Morris design: number of grid levels per input'

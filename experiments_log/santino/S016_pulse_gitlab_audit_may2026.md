@@ -158,3 +158,7 @@ This sharpened framing does not weaken the paper. It strengthens it: an opponent
 - Webb et al. 2020 (multiplex): DOI [10.1371/journal.pone.0242532](https://doi.org/10.1371/journal.pone.0242532), PMID 33237927 — corresponds to `STUDY_MULTIPLEX_VENTILATION_1_0_0`.
 - Webb et al. 2023 (ventilator): [PMC10224749](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10224749/).
 - `STUDY_SENSITIVITY_ANALYSIS_1_0_0` tag: 2020-07-20, code at `src/cpp/study/sensitivity_analysis/` and `src/python/pulse/study/sensitivity_analysis/` — no associated peer-reviewed publication identified in this audit.
+
+---
+
+**Note (amendement daté, 2026-06-23).** La terminologie « internal vascular-circuit resistance multipliers » employée ci-dessus (notamment au niveau de l'analyse de `analysis.py`) est **historiquement inexacte** sur trois points, vérifiés depuis directement dans la source (ReadMe + `main.cpp` + `analysis.py`) : l'étude 2020 balaie en réalité (i) le circuit **cardiovasculaire ET respiratoire** (pas seulement « vascular »), (ii) des **résistances ET des compliances** (`*ToGround` = compliances en mL/mmHg, p. ex. `Fat1ToGround`), (iii) via des **overrides de valeurs absolues**, pas des multiplicateurs. Formulation correcte retenue dans les documents vivants : « internal lumped-parameter circuit values (cardiovascular and respiratory resistances and compliances) ». Voir `reference/pulse_engine_summary.md` et `reference/pulse_limitations_verified.md`. Le texte original ci-dessus est conservé tel quel (archive datée) ; cet amendement le corrige sans le réécrire.

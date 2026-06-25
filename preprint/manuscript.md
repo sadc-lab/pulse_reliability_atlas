@@ -9,7 +9,7 @@ header-includes:
 
 **Affiliations.**
 
-^1^ University of Lorraine, INSERM UMR_S 1256, Nutrition, Genetics, and Environmental Risk Exposure, Faculty of Medicine of Nancy, France.
+^1^ Université de Lorraine, INSERM UMR_S 1256, Nutrition-Génétique et Exposition aux Risques Environnementaux, Faculté de Médecine de Nancy, France.
 
 ^2^ Research Center of Sainte-Justine University Hospital, Montreal, Quebec, Canada.
 
@@ -77,8 +77,10 @@ preserved across sexes (Spearman ρ 0.75 – 1.00 in S2 / S3).
 
 **Conclusion.** The atlas provides a per-cell traffic-light reliability
 map for adult Pulse 4.3.1, identifies sex as a previously uncharacterized
-reliability-sensitivity axis, yields one operator-actionable correction
-(setting VC-AC inspiration trigger pressure to −2 cmH2O), delivers an
+reliability-sensitivity axis, yields two operator-actionable corrections
+(setting the VC-AC inspiration trigger pressure to −2 cmH2O for
+tidal-volume determinism, and extending the steady-state window to
+300 s for FiO2 = 1.0 hyperoxia), delivers an
 empirical Pulse-severity → P/F calibration table that lands Pulse's
 ARDS defaults at Berlin band centers under ARDSnet-protective
 ventilation, and provides a per-cell data-quality filter for downstream
@@ -432,9 +434,9 @@ current as of the May 2026 GitLab re-audit, [S003](#s003) / [S016](#s016)]:
 
 The 2026 GitLab re-audit ([S016](#s016)) qualifies the FAQ claim slightly:
 the repo carries a 2020 tag `STUDY_SENSITIVITY_ANALYSIS_1_0_0` with a
-one-off Sobol study on internal vascular-circuit resistance multipliers
-for model calibration. That study targets a different parameter class
-(internal lumped-parameter resistors, not user-facing operational
+one-off Sobol study on internal lumped-parameter circuit values
+(cardiovascular and respiratory resistances and compliances) for model calibration. That study targets a different parameter class
+(internal circuit values, not user-facing operational
 inputs) and was not ported to the 4.3.x release line. Prior external work [@cornish2023]
 addressed intervention-outcome falsification — verifying whether
 Pulse accurately mimics how a real patient's trajectory changes after
@@ -519,8 +521,8 @@ This atlas adds quantitative coverage to those:
 
 1. No formal SA / UQ on user-facing operational inputs — addressed by
    this paper. The 2020 `STUDY_SENSITIVITY_ANALYSIS_1_0_0` tag in the
-   Pulse repository (Sobol on internal lumped-parameter circuit
-   resistances for model calibration) addressed a different parameter
+   Pulse repository (Sobol on internal lumped-parameter circuit values:
+   cardiovascular and respiratory resistances and compliances, for model calibration) addressed a different parameter
    class and has not been ported to 4.3.x; the FAQ statement remains
    current. Audit details in [S016](#s016).
 2. BP clamping above SBP > 120 / DBP > 80 — verified empirically; locked
@@ -830,8 +832,8 @@ Implementation uses SALib's `morris.sample(N=20, num_levels=4,
 seed=42)` → 160 unique input points, identical across cells so
 elementary-effect rankings are directly comparable.*
 
-The Morris elementary-effects design [@morris1991], with the radial-
-trajectory + μ\* refinement of [@campolongo2007],
+The Morris elementary-effects design [@morris1991], with the
+μ\* refinement of [@campolongo2007],
 is an efficient one-at-a-time screening method that ranks inputs by
 overall importance (μ\*, the mean of absolute elementary effects)
 and flags non-linearity or input-input interaction (σ, the standard
@@ -839,7 +841,11 @@ deviation of those effects), at a small fraction of the cost of a
 full variance-based analysis. Implementation: SALib's
 `morris.sample(N=20, num_levels=4, seed=42)` [@iwanaga2022] ⇒
 160 unique input points. The same 160 points drive every
-cell, so EE rankings are directly comparable across cells. Sample
+cell, so EE rankings are directly comparable across cells. The
+trajectory count N = 20 sits at the upper end of the range
+conventionally used for Morris screening (typically 10–20): large
+enough to stabilise the μ\* ranking, small enough to keep the full
+sweep laptop-feasible. Sample
 persisted at `data/runs/full_sweep/morris_sample.parquet`.
 
 ### 2.6 Detector
@@ -2720,7 +2726,7 @@ non-overlapping-pressure channels (RR, SysBP, DiaBP). Of Cornish's
 four-channel atlas overlap (all on PaCO2); the remaining 82 fall outside
 the four-channel direct overlap (80 on channels the atlas does not
 assess at all + 2 on partial-input channels SysBP/DiaBP/RR)**. This non-overlap is the
-load-bearing observation: the two papers' failure surfaces are
+central observation: the two papers' failure surfaces are
 *complementary*, not redundant.
 
 **The agreement on the overlap.** Within the four-channel overlap,
@@ -2753,7 +2759,7 @@ Temperature 10, Calcium 5, Glucose 5, HCO₃ 2, plus SysBP / DiaBP /
 pH / RR) define Pulse's electrolyte, metabolic, acid–base, and
 dermal failure surface. The atlas does not assess any of these.
 Conversely, Cornish does not assess SpO2 or delivered Vt, both of
-which are load-bearing for ventilator-cohort research. The two
+which are central to ventilator-cohort research. The two
 papers therefore divide the Pulse-reliability question along an
 output axis: Cornish covers chemistry-and-thermoregulation
 intervention-outcome accuracy on a real cohort; the atlas covers
@@ -2986,8 +2992,8 @@ documentation / validation layer rather than the physiology layer.
 3. **A reference sensitivity-analysis recipe for user-facing
    operational inputs.** Pulse's repository already carries a 2020
    `STUDY_SENSITIVITY_ANALYSIS_1_0_0` tag that performs Sobol
-   sensitivity on internal vascular-circuit resistance multipliers
-   for calibration; this is a different parameter class from the
+   sensitivity on internal lumped-parameter circuit values
+   (cardiovascular and respiratory resistances and compliances) for calibration; this is a different parameter class from the
    user-facing operational inputs (HR, SBP, DBP, RR, Vt, FiO2, PEEP) that
    sensitivity-conscious downstream users typically need to sweep. A
    companion recipe — Morris or Sobol over operational inputs,
@@ -3253,8 +3259,8 @@ the following or to an experiment-log entry in this repository.
     Code at `src/cpp/study/sensitivity_analysis/` and
     `src/python/pulse/study/sensitivity_analysis/` in the Pulse
     GitLab repository. Sobol S1/ST analysis with an ML surrogate
-    over internal lumped-parameter vascular-circuit resistance
-    multipliers (model-calibration parameters); ReadMe scope
+    over internal lumped-parameter circuit values (cardiovascular and
+    respiratory resistances and compliances; model-calibration parameters); ReadMe scope
     statement: *"sensitivity analysis as a path towards improved
     lumped parameter optimization."* Last functional commit
     2020-08-24; not ported to Pulse 4.3.x. Cited in §1.1 to

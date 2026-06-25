@@ -78,7 +78,7 @@ Medicine*.
 On behalf of all authors,
 
 **Santino Nanini** (corresponding author)
-INSERM UMR_S 1256, University of Lorraine; Research Center, Sainte-Justine
+INSERM UMR_S 1256, Université de Lorraine; Research Center, Sainte-Justine
 University Hospital; PE-DIATRICS Cluster, CHU Sainte-Justine; Pediatric
 Intensive Care Unit, CHU Sainte-Justine / Université de Montréal
 santino.nanini@umontreal.ca

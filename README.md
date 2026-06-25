@@ -65,7 +65,7 @@ on the [Pulse FAQ](https://pulse.kitware.com/_f_a_q.html) (verified verbatim
 
 A 2020 study tag (`STUDY_SENSITIVITY_ANALYSIS_1_0_0`) in the Pulse repo did
 apply Sobol indices to a different parameter class — **internal
-lumped-parameter circuit resistances** used for model calibration — but no
+lumped-parameter circuit values (cardiovascular and respiratory resistances and compliances)** used for model calibration — but no
 sensitivity analysis on **user-facing operational inputs** (HR, BP, RR, Vt,
 FiO2, PEEP) has been published, and that 2020 study has not been ported to
 the 4.3.x release line (audit logged in
