@@ -842,9 +842,8 @@ full variance-based analysis. Implementation: SALib's
 `morris.sample(N=20, num_levels=4, seed=42)` [@iwanaga2022] ⇒
 160 unique input points. The same 160 points drive every
 cell, so EE rankings are directly comparable across cells. The
-trajectory count N = 20 sits at the upper end of the range
-conventionally used for Morris screening (typically 10–20): large
-enough to stabilise the μ\* ranking, small enough to keep the full
+trajectory count N = 20 was fixed in preregistration: large
+enough to give stable μ\* rankings, small enough to keep the full
 sweep laptop-feasible. Sample
 persisted at `data/runs/full_sweep/morris_sample.parquet`.
 
