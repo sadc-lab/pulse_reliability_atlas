@@ -709,7 +709,7 @@ The Morris elementary-effects design is interventional: each trajectory perturbs
 
 \subsection{Cross-verification result on the clean subset}\label{sec:s13-result}
 
-A supplementary RandomForest regressor + SHAP feature-importance ranking was computed on the $n = 663$ clean-subset rows (the runs with no \texttt{clamped}, \texttt{diverged}, \texttt{implausible}, or \texttt{not\_steady\_state} flag), separately per output and per (scenario, sex) cell. The SHAP-top-3 input ranking was then compared against the Morris-$\mu^{*}$-top-3 ranking on the same cells. Three summary statistics characterise the agreement:
+A supplementary RandomForest regressor + SHAP feature-importance ranking was computed on the $n = 663$ clean-subset rows (the runs with no \texttt{clamped}, \texttt{diverged}, \texttt{implausible}, or \texttt{not\_steady\_state} flag): one RandomForest per output, trained on the pooled clean subset with \texttt{sex} and \texttt{scenario} as additional features. Per-(scenario, sex) cell rankings were then obtained by partitioning this global model's SHAP values by cell and re-ranking---not by fitting separate per-cell models, whose per-cell $n$ (42--144 clean runs) is too small for stable training. The SHAP-top-3 input ranking was then compared against the Morris-$\mu^{*}$-top-3 ranking on the same cells. Three summary statistics characterise the agreement:
 
 \begin{itemize}
 \item \textbf{17 of 18 pooled (output $\times$ top-3) cases agree} at the full 3-of-3 ranking level (ledger anchor \texttt{T2.s023.pooled}).

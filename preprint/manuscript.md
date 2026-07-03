@@ -1427,7 +1427,7 @@ average influence on that output. Bootstrap 95 % CIs on each μ\* are
 recorded in `results/morris_indices.parquet` but elided from the
 heatmaps for legibility.
 **Key takeaway:** in every cell, 1 – 3 inputs dominate each output —
-the diagonal pattern visually supports H1's "skewed sensitivity"
+this concentration into a few dominant input rows visually supports H1's "skewed sensitivity"
 claim (formal test in §3.3).
 
 ![Figure 2a — Morris μ\* heatmap, HR. Rows are the 7 swept inputs, columns are the 8 (scenario, sex) cells; colour intensity is the mean absolute elementary effect. Source: `results/morris_indices.parquet` (S006).](../figures/fig02_morris_mu_star_HR.png)
