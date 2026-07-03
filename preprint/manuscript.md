@@ -163,7 +163,7 @@ below; this section is the exhaustive findings digest.*
 **Sensitivity structure (H1) — skewed and predominantly linear.**
 
 * Top-3 inputs explain ≥ 50 % of summed μ\* on **48 / 48** cell × output
-  combinations (median **0.928**, range 0.658–0.998; bootstrap-CI evaluated).
+  combinations (median **0.928**, range 0.658–0.998; point-estimate top-3 fraction).
   Lowest fractions in severe-ARDS gas-exchange (S4_F SpO2 0.658, S4_M 0.703).
 * Cardiovascular outputs are cardio-input-driven (output HR ← input HR,
   MAP ← SBP in every cell, no ventilator cross-talk); gas-exchange outputs are
@@ -1457,8 +1457,11 @@ Top-3 fraction of summed μ\* per cell × output:
   gas-exchange outputs PaO2 and SpO2: S4_F SpO2 (0.658), S4_M SpO2
   (0.703), S4_F PaO2 (0.707), S4_M PaO2 (0.727). Mechanism: at 95 %
   alveolar impairment the dominant shunt fraction caps FiO2's marginal
-  effect on arterial oxygenation, so the residual sensitivity
-  redistributes across PEEP, RR, and Vt rather than concentrating on a
+  effect on arterial oxygenation (and SpO2 additionally sits near the
+  oxyhemoglobin-saturation plateau), so the residual sensitivity
+  redistributes across PEEP and the cardiovascular inputs (HR, SBP, DBP
+  — arterial O2 becomes sensitive to mixed-venous content, and thus to
+  cardiac output, under high shunt) rather than concentrating on a
   single dominant input.
 
 The dominant inputs by output (μ\* summed across all 8 cells, top 3 per
@@ -2130,7 +2133,7 @@ not miscalibration of the female patient model.
 *Figure 5 (`fig05_h4_spearman_mu_star`) — at a glance.*
 **What:** Spearman rank correlation ρ between male and female Morris
 μ\* vectors, per scenario × output, with paired-input bootstrap 95 %
-CI (n = 1,000 input-resamples).
+CI (n = 2,000 input-resamples).
 **How to read it:** ρ = 1 means identical input ranking across sexes;
 ρ = 0 no monotonic relationship; ρ = −1 inverted. Computed only for
 S2 and S3 — S1 and S4_F have no clean FiO2 elementary-effect pairs
@@ -2140,7 +2143,7 @@ rankings are qualitatively preserved across sexes. Vt is the
 exception (S2 CI [−0.06, 1.00]), reflecting that the input ranking
 driving Vt is not clearly preserved across sex.
 
-![Figure 5. H4 — Spearman ρ on Morris μ\* rankings, M vs F, per scenario × output, with paired-input bootstrap 95 % CI (n = 1,000 input-resamples). Computed only for S2 and S3; S1 and S4_F have no clean FiO2 elementary-effect pairs (§4.5 limitations). Source: `results/spearman_mu_star.csv` (S006 / S008).](../figures/fig05_h4_spearman_mu_star.png)
+![Figure 5. H4 — Spearman ρ on Morris μ\* rankings, M vs F, per scenario × output, with paired-input bootstrap 95 % CI (n = 2,000 input-resamples). Computed only for S2 and S3; S1 and S4_F have no clean FiO2 elementary-effect pairs (§4.5 limitations). Source: `results/spearman_mu_star.csv` (S006 / S008).](../figures/fig05_h4_spearman_mu_star.png)
 
 **Combined H4 picture:**
 
@@ -2217,7 +2220,7 @@ baseline *or* diverged + implausible rate > 30 %.
 cluster: (S2, F) + (S3, F). Red cluster: HR and PaO2 in S3 / S4.
 (S4, M) is red on every output — the worst single cell in the atlas.
 
-![Figure 6. Reliability traffic light — per cell × output, one of {green, yellow, red}. Green = no diverged or implausible flags in the cell AND clean-run mean within 10 % of the (S1, M) baseline. Yellow = any diverged or implausible flag OR mean 10 – 30 % off baseline. Red = mean > 30 % off baseline OR diverged + implausible rate > 30 %. Distribution: 7 green / 29 yellow / 12 red across 48 cells; the user-facing summary of the entire atlas. Source: `results/reliability_classification.csv` (S006).](../figures/fig06_reliability_traffic_light.png)
+![Figure 6. Reliability traffic light — per cell × output, one of {green, yellow, red}. Green = no diverged or implausible flags in the cell AND clean-run mean within 10 % of the (S1, M) baseline. Yellow = any diverged or implausible flag OR mean 10 – 30 % off baseline. Red = mean > 30 % off baseline OR diverged + implausible rate > 30 %. Distribution: 7 green / 29 yellow / 12 red across 48 cells — i.e. 7/48 (15 %), 29/48 (60 %), 12/48 (25 %) respectively, shares of the map distinct from the 10 %/30 % baseline-deviation thresholds that define the colours; the user-facing summary of the entire atlas. Source: `results/reliability_classification.csv` (S006).](../figures/fig06_reliability_traffic_light.png)
 
 ### 3.8 Two structural findings carried from pilot to full sweep
 

@@ -588,13 +588,13 @@ caught equally.*
   expected_occurrences: 2
   notes: 'paper §5 Methods §4.3 (1) + supplement S3.2 (1). Bumped 1 -> 2 in Phase 9.A.'
 
-- paper_section: '§2.2 + §5 Methods + Supplement S3.Sobol'
+- paper_section: '§5 Methods + Supplement S3.Sobol'
   paper_context: 'Bootstrap resamples for Morris mu* CI (1,000)'
   monograph_claim_id: 'T1.06h.bootstrap_n'
   expected_value: 1000
   format_in_paper: '1{,}000'
-  expected_occurrences: 3
-  notes: 'paper §2.2 Primary input-sensitivity rankings (1) + paper §5 Methods Statistical analyses Morris bootstrap (1) + supplement §S3-sobol Sobol bolt-on CI-aware re-evaluation (1). Bumped 3 -> 7 in Phase 9.B for the S6 Spearman additions; reverted to 2 in Pass 10 D16 (2026-05-27): the 5 Spearman bootstrap occurrences (1 paper + 4 supplement) corrected from 1,000 to 2,000 to match the actual function default in src/analysis_compare.py L96. Bumped 2 -> 3 in Phase G (2026-05-31): the Supplement §S3-sobol new subsection reports the CI-aware Sobol-trigger bootstrap with the same n=1,000 trajectory-level resamples as the mu* CI (identical RNG seed), so the literal 1{,}000 appears once more. The Spearman + Wasserstein 2,000 occurrences are tracked under the row below.'
+  expected_occurrences: 2
+  notes: 'paper §5 Methods Statistical analyses Morris bootstrap (1) + supplement §S3-sobol Sobol bolt-on CI-aware re-evaluation (1). Bumped 3 -> 7 in Phase 9.B for the S6 Spearman additions; reverted to 2 in Pass 10 D16 (2026-05-27): the 5 Spearman bootstrap occurrences (1 paper + 4 supplement) corrected from 1,000 to 2,000 to match the actual function default in src/analysis_compare.py L96. Bumped 2 -> 3 in Phase G (2026-05-31): the Supplement §S3-sobol new subsection reports the CI-aware Sobol-trigger bootstrap with the same n=1,000 trajectory-level resamples as the mu* CI (identical RNG seed). Reverted 3 -> 2 on 2026-07-02: the §2.2 occurrence was removed when the H1 top-3 fraction wording was corrected from a 1,000-resample bootstrap confidence interval claim to a point-estimate framing (the top-3 fraction is a point estimate; the bootstrap CI attaches to mu*, not to H1). The Spearman + Wasserstein 2,000 occurrences are tracked under the row below.'
 
 - paper_section: '§5 Methods + supplement S6'
   paper_context: 'Bootstrap / permutation N = 2,000 (Spearman rho input-resamples + Wasserstein within-sex permutation null)'
