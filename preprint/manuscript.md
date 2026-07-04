@@ -1728,7 +1728,7 @@ input pattern. Of the 20:
 The signature reads cleanly: **low cardiovascular output (low HR +
 low SBP) combined with high respiratory rate (high RR) on the male
 reference surrogate** drives Pulse to a numerical edge case; the
-high-oxygen boundary (FiO2 = 1.0) co-occurs in 13 of the 20 cases. The compound input is *clinically plausible* — a hypotensive,
+high-oxygen boundary (FiO2 = 1.0) co-occurs in 13 of the 20 cases (not all 20 — the other 7 sit near FiO2 ≈ 0.74, so it is enriched but not necessary). The compound input is *clinically plausible* — a hypotensive,
 tachypneic, fully oxygenated patient, recognizable as a septic /
 pre-arrest configuration — and sits inside Pulse's verified
 acceptance ranges. Users should treat this corner of the envelope
