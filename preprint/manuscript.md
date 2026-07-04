@@ -131,12 +131,12 @@ below; this section is the exhaustive findings digest.*
 * Under the locked 120 s window, steady-state PaO2 exceeds the 600 mmHg
   classifier bound in **34 of 126** implausible-flagged runs; **91 %** at
   FiO2 ≥ 0.95.
-* Extended **300 s** reruns ([S021](#s021)) resolve it: S1 plateau
+* Extended reruns ([S021](#s021); 300 s beyond the locked 120 s window = 420 s total) resolve it: S1 plateau
   **median 643 mmHg**, ~20 mmHg *below* the alveolar-gas-equation sea-level
   ceiling (≈663 mmHg) — consistent with Pulse's modelled A-a gradient, i.e. a
   window-length artefact, not an oxygenation overshoot. 41/44 S1 reruns
   converged; 6 develop an off-scale numerical runaway (up to ≈1,408 mmHg).
-* **Practical rule:** simulate hyperoxia ≥ 300 s before extracting a PaO2
+* **Practical rule:** simulate hyperoxia for ≥ 300 s of total simulated time before extracting a PaO2
   plateau; avoid Vt × RR > ~12 L/min on healthy lungs at FiO2 = 1.0.
 
 **Primary finding 3 — sex-stratified solver divergence and its blood-volume mechanism.**

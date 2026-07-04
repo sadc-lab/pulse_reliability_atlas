@@ -746,7 +746,7 @@ add(
     tolerance_rule="pct_whole",
 )
 
-# 19-21. F-003 S021 plateau median 643 mmHg + ~10 mmHg below AGE + 93.2% converged.
+# 19-21. F-003 S021 plateau median 643 mmHg + ~20 mmHg below AGE + 93.2% converged.
 add(
     claim_id="T1.23",
     section="Abstract L52 (post-audit edit), KeyContrib L130, §3.8 L1965",
