@@ -80,7 +80,7 @@ map for adult Pulse 4.3.1, identifies sex as a previously uncharacterized
 reliability-sensitivity axis, yields two operator-actionable corrections
 (setting the VC-AC inspiration trigger pressure to −2 cmH2O for
 tidal-volume determinism, and extending the steady-state window to
-300 s for FiO2 = 1.0 hyperoxia), delivers an
+300 s of total simulated time for FiO2 = 1.0 hyperoxia), delivers an
 empirical Pulse-severity → P/F calibration table that lands Pulse's
 ARDS defaults at Berlin band centers under ARDSnet-protective
 ventilation, and provides a per-cell data-quality filter for downstream
@@ -2268,7 +2268,7 @@ corrected by setting trigger pressure to −2 cmH2O.*
 
   **The transient-regime interpretation is supported ([S021](#s021)).**
   A pre-registered controlled experiment reran 60 matched-input cases
-  at FiO2 = 1.0 with the simulation extended from 120 s to 300 s
+  at FiO2 = 1.0 with the simulation extended by a further 300 s beyond the 120 s window, to 420 s of total simulated time
   (sample interval 5 s; 22 paired Morris indices × S1 (M + F) =
   44 S1 runs; 4 paired indices × {S3, S4} × {M, F} = 16 ARDS runs).
   All thresholds were committed before any S021 Pulse run was
@@ -2347,7 +2347,7 @@ corrected by setting trigger pressure to −2 cmH2O.*
   **Practitioner takeaway.** Under the locked 120 s atlas window at
   FiO2 ≥ 0.95, treat PaO2 as a transient — the steady-state
   detector is correctly flagging an unfinished trajectory. Under an
-  extended ≥ 300 s window, use a plateau window in the final 60 s of
+  extended window of ≥ 300 s total simulated time, use a plateau window in the final 60 s of
   the simulation; expect a physiological plateau in healthy lungs
   (~ 640 mmHg) and graded shunt depression in ARDS (~ 144 mmHg at
   60 % severity, ~ 73 mmHg at 95 % severity). Avoid Vt × RR
@@ -2526,7 +2526,7 @@ artifact:
   converges into the alveolar-gas-equation band (~600 – 650 mmHg)
   with sub-threshold drift in the [240, 300] s plateau. Practitioner
   guidance: at FiO2 ≥ 0.95, either lengthen the simulation window to
-  ≥ 300 s and use a plateau window in the final 60 s of that
+  ≥ 300 s of total simulated time and use a plateau window in the final 60 s of that
   simulation, or treat PaO2 as a transient, not steady-state, output.
 * **VC-AC dyssynchrony refines rather than indicts Pulse's
   implementation.** The F-004 finding (Vt CV > 5 % in 20.6 % of runs) is
