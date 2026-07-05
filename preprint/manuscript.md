@@ -1762,7 +1762,7 @@ setup-time floor on the male reference body, not a claim about
 per-kg blood-volume physiology in real patients. Pooling male and
 female Pulse-generated synthetic cohorts in machine-learning
 pipelines without flag-stratified filtering still introduces a
-hidden sex covariate at the male surrogate's divergence boundary,
+spurious sex covariate at the male surrogate's divergence boundary,
 but downstream users adapting the result to clinical inference
 should not extrapolate to a per-kg sex-physiology claim that the
 data does not support.

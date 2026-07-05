@@ -37,7 +37,7 @@ readership:
    floor (4,082.24 mL) eliminated divergence at both bracket reductions (20/20 → 0/20). This
    is a structural artefact, not a clinical phenomenon — and it means that
    pooling male and female synthetic cohorts at input extremes silently injects
-   a hidden sex covariate into any downstream model.
+   a spurious sex covariate into any downstream model.
 
 2. **The first public characterisation of an ARDS impairment-fraction
    solver-instability band ([0.879, 0.945]).** Published Pulse validation work
