@@ -77,8 +77,8 @@ caught equally.*
   monograph_claim_id: 'T1.01'
   expected_value: 1280
   format_in_paper: '1{,}280'
-  expected_occurrences: 30
-  notes: 'Total occurrences of "1{,}280" across paper.tex + supplement.tex as of Phase 9.B: paper.tex 12 (abstract 2, §2.1 5, §2.5+Fig4 2, §4 Discussion 1, Methods §4.1+§4.3 2) + supplement.tex 5 (S3.2 Morris sampler, S4 NSS table prose "1{,}280-run sweep" + Table S1 total row + "1{,}008 / 1{,}280" + "663 / 1{,}280" repeats). Bumped 14 -> 17 in Phase 9.B for the S4 extended-Table-1 additions. Bumped 23 -> 24 in Phase H (2026-05-31): the new Supplement §S16 "Summary of supplementary findings and discoveries" intro paragraph uses "The 1{,}280-run atlas" as its opening descriptor, so the canonical formatted string appears once more. Bumped 24 -> 28 in the cross-platform reproduction round (2026-06-11): the new Supplement §S12 "Independent reproduction on separate hardware" subsection plus the Code-availability sentence add four "1{,}280" substring occurrences --- paper.tex "full 1{,}280-run sweep" (1), supplement.tex "full 1{,}280-run Morris sweep" (1), and "matched on 1{,}280/1{,}280 runs" (2). Bumped 28 -> 30 (2026-06-24): the new study-design Figure 1 adds two "1{,}280" occurrences --- figure caption ("8 x 160 = 1,280 simulations in total") + figure body ("8 x 160 = 1,280 simulations").'
+  expected_occurrences: 31
+  notes: 'Total occurrences of "1{,}280" across paper.tex + supplement.tex as of Phase 9.B: paper.tex 12 (abstract 2, §2.1 5, §2.5+Fig4 2, §4 Discussion 1, Methods §4.1+§4.3 2) + supplement.tex 5 (S3.2 Morris sampler, S4 NSS table prose "1{,}280-run sweep" + Table S1 total row + "1{,}008 / 1{,}280" + "663 / 1{,}280" repeats). Bumped 14 -> 17 in Phase 9.B for the S4 extended-Table-1 additions. Bumped 23 -> 24 in Phase H (2026-05-31): the new Supplement §S16 "Summary of supplementary findings and discoveries" intro paragraph uses "The 1{,}280-run atlas" as its opening descriptor, so the canonical formatted string appears once more. Bumped 24 -> 28 in the cross-platform reproduction round (2026-06-11): the new Supplement §S12 "Independent reproduction on separate hardware" subsection plus the Code-availability sentence add four "1{,}280" substring occurrences --- paper.tex "full 1{,}280-run sweep" (1), supplement.tex "full 1{,}280-run Morris sweep" (1), and "matched on 1{,}280/1{,}280 runs" (2). Bumped 28 -> 30 (2026-06-24): the new study-design Figure 1 adds two "1{,}280" occurrences --- figure caption ("8 x 160 = 1,280 simulations in total") + figure body ("8 x 160 = 1,280 simulations"). Bumped 30 -> 31 (2026-07-05): the §4 Discussion ML-pipeline paragraph now surfaces the silent-clamping null as "0 of 1{,}280 runs", adding one occurrence.'
 
 - paper_section: 'Abstract + §2.3 VC-AC'
   paper_context: 'VC-AC trigger-dyssynchrony primary-flag rate (Vt CV > 0.05 under not_steady_state)'
@@ -231,8 +231,8 @@ caught equally.*
   monograph_claim_id: 'T1.07'
   expected_value: 48
   format_in_paper: '48 of 48'
-  expected_occurrences: 2
-  notes: 'Appears twice: once in §2.2 prose ("the data support this on 48 of 48 cell $\times$ output combinations"), once in Figure 2 caption ("48 of 48 cell $\times$ output combinations").'
+  expected_occurrences: 3
+  notes: 'Appears three times: once in §2.2 prose ("the data support this on 48 of 48 cell $\times$ output combinations"), once in Figure 2 caption ("48 of 48 cell $\times$ output combinations"), and (bumped 2 -> 3, 2026-07-05) once in the §4 Discussion, where the H1 skewed-sensitivity result is surfaced at the FAQ-gap sentence.'
 
 - paper_section: '§2.2 Morris (prose)'
   paper_context: 'H1 median top-3 fraction (prose form)'
