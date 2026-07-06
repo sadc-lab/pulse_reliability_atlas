@@ -1,6 +1,6 @@
 ---
 title: "Pulse Reliability Atlas: first sensitivity, clamping, and divergence map for the Pulse Physiology Engine v4.3.1"
-author: "Santino Nanini^1,2,3,4,\\*^, Arnaud Wiedemann^1,3^, Yassir Mamouni^2^, Cyril Schweitzer^1^, Philippe Jouvet^2,3,4^, Michael Sauthier^2,3,4^"
+author: "Santino Nanini^1,2,3,4,5,\\*^, Arnaud Wiedemann^2,3,4,6^, Yassir Mamouni^3^, Cyril Schweitzer^4,5^, Philippe Jouvet^1,2,3^, Michael Sauthier^1,2,3^"
 date: "2026-05-26"
 header-includes:
   - \renewcommand{\arraystretch}{1.35}
@@ -9,13 +9,17 @@ header-includes:
 
 **Affiliations.**
 
-^1^ Université de Lorraine, INSERM UMR_S 1256, Nutrition-Génétique et Exposition aux Risques Environnementaux, Faculté de Médecine de Nancy, France.
+^1^ Pediatric Intensive Care Unit, Department of Pediatrics, CHU Sainte-Justine, Université de Montréal, Montreal, QC, Canada.
 
-^2^ Research Center of Sainte-Justine University Hospital, Montreal, Quebec, Canada.
+^2^ Clinical Decision Support System Artificial Intelligence Health Cluster in Acute Child Care, PE-DIATRICS, CHU Ste-Justine Centre Hospitalier Universitaire Mère-Enfant, Montréal, Canada.
 
-^3^ Clinical Decision Support System Artificial Intelligence Health Cluster in Acute Child Care, PE-DIATRICS, CHU Ste-Justine Centre Hospitalier Universitaire Mère-Enfant, Montréal, Canada.
+^3^ Research Center of Sainte-Justine University Hospital, Montreal, Quebec, Canada.
 
-^4^ Pediatric Intensive Care Unit, Department of Pediatrics CHU Sainte-Justine, Université de Montréal, Montreal, QC, Canada.
+^4^ Pediatric Intensive Care Unit, Department of Pediatrics, Children Hospital, CHRU Nancy, Nancy, France.
+
+^5^ UR 3450 DevAH, Université de Lorraine, Nancy, France.
+
+^6^ Université de Lorraine, INSERM UMR_S 1256, Nutrition-Génétique et Exposition aux Risques Environnementaux, Faculté de Médecine de Nancy, France.
 
 ^\*^ Corresponding author.
 

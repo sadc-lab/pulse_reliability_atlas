@@ -68,7 +68,7 @@ list-all-authors).
 | Aspect | Monograph (`../preprint/manuscript.md`) | npj submission (`paper.tex`) |
 |---|---|---|
 | Audience | PhD committee, Pulse community, deep technical readers | npj Digital Medicine reviewers, clinical and ML audience |
-| Length | ~92 pages (markdown → PDF via pandoc) | ~12 pages main + ~22 pages supplement |
+| Length | ~100 pages (markdown → PDF via pandoc) | ~12 pages main + ~22 pages supplement |
 | Word count (main text) | unconstrained | ~4,200 target (npj DM concise recommendation) |
 | Structure | Comprehensive: Intro → Methods → Results (8 subsections) → Discussion (7 subsections) → Conclusion → Appendices A/B/C | npj IMRaD: Abstract → Intro → Results → Discussion → Methods → closing sections |
 | Internal codes (`S006`, `S018`, `F-003`, `H1`) | used throughout as cross-references to the lab notebook | **expunged** from main paper (descriptive names instead); allowed in supplement as lab-notebook cross-references |

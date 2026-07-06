@@ -54,25 +54,29 @@
 
 \title[Supplementary Information]{Supplementary Information for: An Open Reliability Atlas for the Pulse Physiology Engine: Sensitivity, Divergence, and Sex-stratified Failure Modes}
 
-\author*[1,2,3,4]{\fnm{Santino} \sur{Nanini}}\email{santino.nanini@umontreal.ca}
+\author*[1,2,3,4,5]{\fnm{Santino} \sur{Nanini}}\email{santino.nanini@umontreal.ca}
 
-\author[1,3]{\fnm{Arnaud} \sur{Wiedemann}}
+\author[2,3,4,6]{\fnm{Arnaud} \sur{Wiedemann}}
 
-\author[2]{\fnm{Yassir} \sur{Mamouni}}
+\author[3]{\fnm{Yassir} \sur{Mamouni}}
 
-\author[1]{\fnm{Cyril} \sur{Schweitzer}}
+\author[4,5]{\fnm{Cyril} \sur{Schweitzer}}
 
-\author[2,3,4]{\fnm{Philippe} \sur{Jouvet}}
+\author[1,2,3]{\fnm{Philippe} \sur{Jouvet}}
 
-\author[2,3,4]{\fnm{Michael} \sur{Sauthier}}
+\author[1,2,3]{\fnm{Michael} \sur{Sauthier}}
 
-\affil[1]{\orgdiv{INSERM UMR\_S 1256, Nutrition-G\'en\'etique et Exposition aux Risques Environnementaux}, \orgname{Universit\'e de Lorraine, Facult\'e de M\'edecine de Nancy}, \orgaddress{\country{France}}}
+\affil*[1]{\orgdiv{Pediatric Intensive Care Unit, Department of Pediatrics}, \orgname{CHU Sainte-Justine, Universit\'e de Montr\'eal}, \orgaddress{\city{Montreal}, \state{QC}, \country{Canada}}}
 
-\affil[2]{\orgdiv{Research Center}, \orgname{Sainte-Justine University Hospital}, \orgaddress{\city{Montreal}, \state{Quebec}, \country{Canada}}}
+\affil[2]{\orgdiv{Clinical Decision Support System Artificial Intelligence Health Cluster in Acute Child Care (PE-DIATRICS)}, \orgname{CHU Sainte-Justine Centre Hospitalier Universitaire M\`ere-Enfant}, \orgaddress{\city{Montr\'eal}, \country{Canada}}}
 
-\affil[3]{\orgdiv{Clinical Decision Support System Artificial Intelligence Health Cluster in Acute Child Care (PE-DIATRICS)}, \orgname{CHU Sainte-Justine Centre Hospitalier Universitaire M\`ere-Enfant}, \orgaddress{\city{Montr\'eal}, \country{Canada}}}
+\affil[3]{\orgdiv{Research Center}, \orgname{Sainte-Justine University Hospital}, \orgaddress{\city{Montreal}, \state{Quebec}, \country{Canada}}}
 
-\affil*[4]{\orgdiv{Pediatric Intensive Care Unit, Department of Pediatrics}, \orgname{CHU Sainte-Justine, Universit\'e de Montr\'eal}, \orgaddress{\city{Montreal}, \state{QC}, \country{Canada}}}
+\affil[4]{\orgdiv{Pediatric Intensive Care Unit, Department of Pediatrics}, \orgname{Children Hospital, CHRU Nancy}, \orgaddress{\city{Nancy}, \country{France}}}
+
+\affil[5]{\orgdiv{UR 3450 DevAH}, \orgname{Universit\'e de Lorraine}, \orgaddress{\city{Nancy}, \country{France}}}
+
+\affil[6]{\orgdiv{INSERM UMR\_S 1256, Nutrition-G\'en\'etique et Exposition aux Risques Environnementaux}, \orgname{Universit\'e de Lorraine, Facult\'e de M\'edecine de Nancy}, \orgaddress{\country{France}}}
 
 \maketitle
 
@@ -729,7 +733,7 @@ The SHAP cross-verification works because the underlying physiology is real, not
 
 \section{Pointer to the companion technical monograph}\label{sec:s14}
 
-This Supplementary Information document covers the methodological depth and quantitative breakdowns most directly relevant for peer review of the main manuscript. A separate companion technical monograph (approximately 92 pages, archived with the code and data in the Zenodo deposit) carries the exhaustive technical record: the full preregistration document with its amendment history, the complete experiment-log entries for every analytical decision in this work (the complete lab-notebook entries spanning project bootstrap through pre-submission audits), the full bibliography with per-reference DOI / PMID verification trail, the per-experiment forensic chains that established the verified Pulse 4.3.1 limitations table (Supplement~\S\,S2), and the full source-code map of the Pulse 4.3.1 audit on which the methodological framing of this work depends.
+This Supplementary Information document covers the methodological depth and quantitative breakdowns most directly relevant for peer review of the main manuscript. A separate companion technical monograph (approximately 100 pages, archived with the code and data in the Zenodo deposit) carries the exhaustive technical record: the full preregistration document with its amendment history, the complete experiment-log entries for every analytical decision in this work (the complete lab-notebook entries spanning project bootstrap through pre-submission audits), the full bibliography with per-reference DOI / PMID verification trail, the per-experiment forensic chains that established the verified Pulse 4.3.1 limitations table (Supplement~\S\,S2), and the full source-code map of the Pulse 4.3.1 audit on which the methodological framing of this work depends.
 
 The companion monograph is the source of truth for any quantitative claim, methodological decision, or experimental cross-reference whose detail exceeds what is reproduced in the present paper or this supplement. It is archived together with the code and data in the Zenodo deposit referenced in the Data Availability section of the main manuscript, with the DOI added upon deposit; in the interim, the complete experiment-log entries it consolidates are openly available under \texttt{experiments\_log/} in the code repository. Readers requiring greater technical depth than the present documents provide --- for example, the per-experiment statistical-test selection rationale, the calibration trace for the empirical \{0.26, 0.60, 0.95\} ARDS-severity mapping, or the bit-exact reproduction protocol at the engine-binary level --- should consult the monograph directly.
 

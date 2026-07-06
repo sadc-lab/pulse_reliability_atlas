@@ -49,9 +49,12 @@ AUTHOR LIST (as in paper.tex)
 Santino Nanini (corresponding); Arnaud Wiedemann; Yassir Mamouni;
 Cyril Schweitzer; Philippe Jouvet; Michael Sauthier
 
-NB: affiliations resolved 2026-06-11 — Wiedemann [1,3]; Mamouni [2];
-Schweitzer [1]; Jouvet [2,3,4]; Sauthier [2,3,4]. Placeholder affil [5]
-removed; all authors now map to existing affils [1]-[4].
+NB: affiliations updated 2026-07-06 (6-affiliation scheme) — Nanini [1,2,3,4,5];
+Wiedemann [2,3,4,6]; Mamouni [3]; Schweitzer [4,5]; Jouvet [1,2,3]; Sauthier [1,2,3].
+Affils: [1] PICU, CHU Sainte-Justine, U. Montreal; [2] CDSS PE-DIATRICS, CHU Sainte-Justine;
+[3] Research Center, Sainte-Justine University Hospital; [4] Pediatric ICU, Children Hospital,
+CHRU Nancy; [5] UR 3450 DevAH, Universite de Lorraine, Nancy; [6] INSERM UMR_S 1256, NGERE,
+Universite de Lorraine. NGERE = Wiedemann only.
 
 ------------------------------------------------------------------------------
 ORCID iDs

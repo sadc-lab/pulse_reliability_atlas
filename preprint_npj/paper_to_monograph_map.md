@@ -8,7 +8,7 @@ mapped value still appears in `paper.tex` with the expected occurrence
 count and is consistent with the monograph value behind the same
 `claim_id`.
 
-**Why this exists.** The atlas's monograph (~92 pages) is audited at
+**Why this exists.** The atlas's monograph (~100 pages) is audited at
 195/195 PASS via `scripts/audit_claims.py`. The npj-submission paper
 (`paper.tex`) re-states a subset of those numbers in condensed form. Any
 silent drift between the two documents would corrode the monograph's
@@ -329,8 +329,8 @@ caught equally.*
   monograph_claim_id: 'T1.06d.s14_trigger_pressure'
   expected_value: -2
   format_in_paper: '$-2$~cmH$_2$O'
-  expected_occurrences: 12
-  notes: 'Appears 7 times in paper.tex (Tier 1 added the VC-AC clinical-caveat paragraph, +2 in §2.3 prose): abstract sentence 3 (1), §2.3 subsection title "VC-AC tidal-volume dyssynchrony and the $-2$~cmH$_2$O fix" (1; this was missed in the initial Step 4 count and revealed by the audit), §2.3 prose ×4 (1 + 3), Figure 3 caption (1). New ledger claim T1.06d (regex-extracted from scripts/run_s014_trigger_lockout.py TRIGGER_PRESSURE_CMH2O constant).'
+  expected_occurrences: 13
+  notes: '2026-07-06: bumped 12 -> 13 (paper.tex 8 + supplement.tex 5 = 13); +1 from the Figure 3a clinical-caveat sentence added in the §2.4 pedagogical retouch, so the Figure 3 caption now carries 2 occurrences (was 1). Historical breakdown (paper.tex 7): abstract sentence 3 (1), §2.3 subsection title "VC-AC tidal-volume dyssynchrony and the $-2$~cmH$_2$O fix" (1; this was missed in the initial Step 4 count and revealed by the audit), §2.3 prose ×4 (1 + 3), Figure 3 caption (was 1, now 2). New ledger claim T1.06d (regex-extracted from scripts/run_s014_trigger_lockout.py TRIGGER_PRESSURE_CMH2O constant).'
 
 ## Step 4 — Results §2.4 Transient hyperoxia regime
 
