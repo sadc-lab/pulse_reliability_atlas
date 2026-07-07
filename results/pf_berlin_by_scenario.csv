@@ -1,0 +1,17 @@
+scenario,severity_label,impairment,fio2_stratum,n,pf_median,pf_q25,pf_q75,berlin_band_of_median
+S1,healthy,0.0,all,61,431.0,387.8,481.4,not-ARDS
+S1,healthy,0.0,low_0.21_0.40,34,390.0,359.5,424.5,not-ARDS
+S1,healthy,0.0,mid_0.40_0.70,27,481.4,458.5,515.3,not-ARDS
+S1,healthy,0.0,high_0.70_1.00,0,,,,n/a
+S2,mild,0.26,all,114,303.5,264.4,336.6,not-ARDS
+S2,mild,0.26,low_0.21_0.40,50,308.8,282.1,345.0,not-ARDS
+S2,mild,0.26,mid_0.40_0.70,45,282.4,214.8,311.7,mild
+S2,mild,0.26,high_0.70_1.00,19,286.7,271.8,359.0,mild
+S3,moderate,0.6,all,192,183.8,138.9,231.2,moderate
+S3,moderate,0.6,low_0.21_0.40,64,227.6,190.6,240.2,mild
+S3,moderate,0.6,mid_0.40_0.70,47,162.6,136.6,184.2,moderate
+S3,moderate,0.6,high_0.70_1.00,81,159.8,111.6,220.9,moderate
+S4,severe,0.95,all,91,74.6,68.6,82.7,severe
+S4,severe,0.95,low_0.21_0.40,0,,,,n/a
+S4,severe,0.95,mid_0.40_0.70,3,98.6,98.5,99.2,severe
+S4,severe,0.95,high_0.70_1.00,88,73.8,68.4,81.9,severe

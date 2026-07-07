@@ -633,24 +633,24 @@ caught equally.*
   monograph_claim_id: 'T1.06p.map_low'
   expected_value: 30
   format_in_paper: 'MAP [30, 180]~mmHg'
-  expected_occurrences: 1
-  notes: 'Added 2026-05-30 in the strict-crosswalk-coverage pass following the bounds-rationale expansion. Anchors the MAP row of the new supplement S3.4 tab:hard-bounds-rationale, whose rationale cites Sepsis-3 organ-perfusion failure threshold + Surviving Sepsis Campaign MAP target $\geq$ 65 mmHg (lower) and ESH 2023 hypertensive emergency at SBP $>$ 180 mmHg (upper). Paper L266 representative-bounds prose does not include MAP, so this literal appears only once in the npj corpus. Supplement S3 Table S2 uses a different format ("MAP (mmHg) & 30 & 180") tracked by a separate T1.06p anchor.'
+  expected_occurrences: 2
+  notes: 'Added 2026-05-30 in the strict-crosswalk-coverage pass following the bounds-rationale expansion. Anchors the MAP row of the new supplement S3.4 tab:hard-bounds-rationale, whose rationale cites Sepsis-3 organ-perfusion failure threshold + Surviving Sepsis Campaign MAP target $\geq$ 65 mmHg (lower) and ESH 2023 hypertensive emergency at SBP $>$ 180 mmHg (upper). Paper §4.4 now lists MAP among the six locked hard bounds (2026-07-06 in-text expansion of the former 3-bound representative subset), so this literal appears twice in the npj corpus (paper §4.4 + supplement S3.4 rationale). Supplement S3 Table S2 uses a different format ("MAP (mmHg) & 30 & 180") tracked by a separate T1.06p anchor.'
 
 - paper_section: 'Supplement S3.4 per-bound rationale table'
   paper_context: 'Vt per-bound rationale row in supplement S3.4 tab:hard-bounds-rationale'
   monograph_claim_id: 'T1.06p.vt_low'
   expected_value: 50
   format_in_paper: 'Vt [50, 1{,}500]~mL'
-  expected_occurrences: 1
-  notes: 'Added 2026-05-30 in the strict-crosswalk-coverage pass following the bounds-rationale expansion. Anchors the Vt row of the new supplement S3.4 tab:hard-bounds-rationale, whose rationale cites adult anatomical dead space $\sim$ 150 mL (lower, West 2020 Ch.2) and $\sim$ 4x ARDSnet lung-protective ventilation 6 mL/kg PBW (upper, Brower 2000). Paper L266 representative-bounds prose does not include Vt, so this literal appears only once in the npj corpus. Supplement S3 Table S2 uses a different format ("Vt (mL) & 50 & 1500") tracked by a separate T1.06p anchor.'
+  expected_occurrences: 2
+  notes: 'Added 2026-05-30 in the strict-crosswalk-coverage pass following the bounds-rationale expansion. Anchors the Vt row of the new supplement S3.4 tab:hard-bounds-rationale, whose rationale cites adult anatomical dead space $\sim$ 150 mL (lower, West 2020 Ch.2) and $\sim$ 4x ARDSnet lung-protective ventilation 6 mL/kg PBW (upper, Brower 2000). Paper §4.4 now lists Vt among the six locked hard bounds (2026-07-06 in-text expansion of the former 3-bound representative subset), so this literal appears twice in the npj corpus (paper §4.4 + supplement S3.4 rationale). Supplement S3 Table S2 uses a different format ("Vt (mL) & 50 & 1500") tracked by a separate T1.06p anchor.'
 
 - paper_section: 'Supplement S3.4 per-bound rationale table'
   paper_context: 'PaCO2 per-bound rationale row in supplement S3.4 tab:hard-bounds-rationale'
   monograph_claim_id: 'T1.06p.paco2_low'
   expected_value: 10
   format_in_paper: 'PaCO$_2$ [10, 120]~mmHg'
-  expected_occurrences: 1
-  notes: 'Added 2026-05-30 in the strict-crosswalk-coverage pass following the bounds-rationale expansion. Anchors the PaCO2 row of the new supplement S3.4 tab:hard-bounds-rationale, whose rationale cites profound respiratory alkalosis from sustained maximal hyperventilation (lower) and CO2 narcosis threshold incompatible with conscious steady-state (upper), via Marino 2013 Ch.21 + West 2020 Ch.4. Paper L266 representative-bounds prose does not include PaCO2, so this literal appears only once in the npj corpus. Supplement S3 Table S2 uses a different format ("PaCO$_2$ (mmHg) & 10 & 120") tracked by a separate T1.06p anchor.'
+  expected_occurrences: 2
+  notes: 'Added 2026-05-30 in the strict-crosswalk-coverage pass following the bounds-rationale expansion. Anchors the PaCO2 row of the new supplement S3.4 tab:hard-bounds-rationale, whose rationale cites profound respiratory alkalosis from sustained maximal hyperventilation (lower) and CO2 narcosis threshold incompatible with conscious steady-state (upper), via Marino 2013 Ch.21 + West 2020 Ch.4. Paper §4.4 now lists PaCO2 among the six locked hard bounds (2026-07-06 in-text expansion of the former 3-bound representative subset), so this literal appears twice in the npj corpus (paper §4.4 + supplement S3.4 rationale). Supplement S3 Table S2 uses a different format ("PaCO$_2$ (mmHg) & 10 & 120") tracked by a separate T1.06p anchor.'
 
 - paper_section: 'supplement S15 (Compensatory tachycardia)'
   paper_context: 'S1 output HR mean +/- std from monograph Section 3.4.1'

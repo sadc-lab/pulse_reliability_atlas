@@ -328,6 +328,43 @@ Two reading guides. First, the SpO$_2$-saturation contribution (locked \texttt{n
 
 Section~2.6 of the main manuscript refers to a documented 0.91--0.945 ARDS-impairment-fraction band in which Pulse's respiratory solver becomes unstable. This supplement section provides the full characterisation: how Pulse translates the single impairment-fraction scalar into respiratory-mechanics and gas-exchange changes, how the band was identified, how the present atlas's continuous-severity micro-sweep refines its edges, and how the divergence rate within the band stratifies by sex under midrange Morris inputs.
 
+\subsection{Berlin-band calibration of the scenario impairment fractions}\label{sec:s5-berlin}
+
+Pulse encodes ARDS as an abstract per-lung \texttt{Severity} scalar rather than by the clinical PaO$_2$/FiO$_2$ (P/F) definition, so the four scenario impairment fractions were assigned by \emph{forward calibration}: Pulse was run across severity at a fixed reference ventilation setting and the impairment fractions were chosen so that the resulting arterial P/F falls at the centres of the Berlin Definition~\cite{ards2012} severity bands (mild 200--300, moderate 100--200, severe $\leq 100$~mmHg, at PEEP $\geq 5$~cmH$_2$O). This calibration was performed in the companion translation project's ARDS-calibration experiment (E6; full log in the companion technical monograph, Appendix~B.3) on the adult male reference body under VC-AC, tidal volume 6~mL/kg (403.8~mL), PEEP 10~cmH$_2$O, FiO$_2$ 0.4. Table~\ref{tab:s5-berlin-calib} reports the result: impairment 0.26, 0.60, and 0.95 land at 256, 150, and 96~mmHg --- the mild, moderate, and severe band centres respectively.
+
+\begin{table}[h]
+\centering
+\caption{Reference-ventilation Berlin-band calibration of the scenario impairment fractions (companion technical monograph, Appendix~B.3, based on the \texttt{Pulse\_translation\_new} ARDS-calibration experiment E6). Arterial P/F of the adult male reference body under VC-AC, Vt 6~mL/kg, PEEP 10~cmH$_2$O, FiO$_2$ 0.4. Pulse's own documented \{0.3, 0.6, 0.9\} defaults yield 199 / 150 / 119~mmHg at the same settings.}
+\label{tab:s5-berlin-calib}
+\begin{tabular}{lrl}
+\toprule
+Impairment fraction & P/F (mmHg) & Berlin band \\
+\midrule
+0.26 (S2 mild)     & 256 & mild (band centre) \\
+0.60 (S3 moderate) & 150 & moderate (band centre) \\
+0.95 (S4 severe)   & 96  & severe \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Because the P/F ratio is itself ventilation-dependent --- a recognised limitation of the Berlin definition, since raising FiO$_2$ in the presence of intrapulmonary shunt lowers P/F --- the Berlin band a scenario occupies is not fixed across the sweep, whose operational inputs (FiO$_2$ 0.21--1.0, PEEP 0--20~cmH$_2$O, Vt 300--800~mL) vary the ventilation setting run-to-run. Table~\ref{tab:s5-berlin-sweep} characterises this on the atlas's own clean runs that meet the Berlin PEEP $\geq 5$ inclusion criterion. At the mid-FiO$_2$ stratum nearest the FiO$_2$~=~0.4 calibration point the scenarios recover their reference bands (S2 mild, S3 moderate, S4 severe); the sweep-wide medians drift because low-FiO$_2$ runs raise P/F --- pulling S2 to the mild/not-ARDS boundary --- and high-FiO$_2$ runs depress it --- pulling S4 below its 96~mmHg reference to a median of 75. The two tables are therefore consistent: they measure the same engine at controlled versus varied ventilation, not two conflicting calibrations.
+
+\begin{table}[h]
+\centering
+\caption{Sweep-wide arterial P/F distribution per scenario on the atlas's clean runs with PEEP $\geq 5$~cmH$_2$O, stratified by FiO$_2$ (low 0.21--0.40, mid 0.40--0.70, high 0.70--1.00). This is \emph{not} the reference calibration of Table~\ref{tab:s5-berlin-calib} (which fixes FiO$_2$ = 0.4); it shows how the Berlin-band assignment shifts with FiO$_2$ across the dynamic sweep. Empty cells: S1 has no clean high-FiO$_2$ runs (transient hyperoxia flags PaO$_2 > 600$ as \texttt{implausible}); S4 has no clean low-FiO$_2$ runs. Reproducible via \texttt{scripts/pf\_berlin\_analysis.py} $\rightarrow$ \texttt{results/pf\_berlin\_by\_scenario.csv}.}
+\label{tab:s5-berlin-sweep}
+\begin{tabular}{lrrll}
+\toprule
+Scenario & $n$ & Median P/F [IQR] & Band (median) & P/F by FiO$_2$ (low / mid / high) \\
+\midrule
+S1 (0.00) & 61  & 431 [388--481] & not-ARDS & 390 / 481 / --- \\
+S2 (0.26) & 114 & 304 [264--337] & mild/not-ARDS boundary & 309 / 282 / 287 \\
+S3 (0.60) & 192 & 184 [139--231] & moderate & 228 / 163 / 160 \\
+S4 (0.95) & 91  & 75 [69--83]    & severe   & --- / 99 / 74 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \subsection{Severity-to-physiology mapping in the Pulse respiratory model}\label{sec:s5-mapping}
 
 Pulse represents ARDS as a single \texttt{Severity} scalar in $[0, 1]$ per lung compartment (the \texttt{AcuteRespiratoryDistressSyndrome} condition); the atlas sets it bilaterally and symmetrically to the scenario impairment fraction (left lung = right lung). That one scalar is fed independently into four hard-coded piecewise-linear interpolation curves in the respiratory-model source (\texttt{RespiratoryModel.cpp}: \texttt{UpdateResistances}, \texttt{UpdateAlveolarCompliances}, \texttt{UpdateDiffusion}, and \texttt{UpdatePulmonaryShunt}), each calibrated against the adult standard patient; there is no independent handle on resistance, compliance, or diffusion. Table~\ref{tab:s5-mapping} reports the resulting multipliers at the three ARDS scenario severities, linearly interpolated from the source calibration nodes.
