@@ -3181,9 +3181,7 @@ at the Mila — Quebec AI Institute.
 direction was shaped through clinical discussions with M.S. and
 P.J. — designed the Morris sweep and the four-flag steady-state
 classifier, performed all computational runs and statistical
-analyses, and wrote the manuscript. M.S. provided detailed clinical review of the manuscript and contributed the clinical interpretation of the VC-AC inspiration-trigger caveat. Y.M. contributed to the cross-platform reproducibility validation of the simulation environment, and to the review and editing of the manuscript. A.W., C.S., M.S., and P.J. provided clinical
-supervision, contributed to the interpretation of the findings in
-their clinical context, and reviewed the manuscript. C.S., M.S.,
+analyses, and wrote the manuscript. M.S. provided detailed clinical review of the manuscript and contributed the clinical interpretation of the VC-AC inspiration-trigger caveat. Y.M. contributed to the cross-platform reproducibility validation of the simulation environment, and to the review and editing of the manuscript. A.W. contributed to the study's conceptualization and to the iterative scientific refinement of the analysis and its framing (notably the ARDS severity-to-Berlin calibration and the reliability-classification transparency) through sustained methodological discussion, in addition to clinical supervision and manuscript review. C.S., M.S., and P.J. provided clinical supervision, contributed to the interpretation of the findings in their clinical context, and reviewed the manuscript. C.S., M.S.,
 and P.J. additionally secured the funding that supported this work.
 All authors approved the final version. AI tooling (Claude Code,
 `claude-opus-4-7` for the original drafting/refactoring, and `claude-opus-4-8`, released 28 May 2026 and coinciding with the supervisor-review phase, for the subsequent supervisor-review revisions, cross-checked against Gemini Pro 3.1) provided drafting / refactoring /

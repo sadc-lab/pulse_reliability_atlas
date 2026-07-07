@@ -70,7 +70,7 @@ Michael Sauthier    0000-0001-7269-4767
 CRediT AUTHOR CONTRIBUTIONS
 ------------------------------------------------------------------------------
 Santino Nanini    - Conceptualization; Methodology; Software; Formal analysis; Investigation; Data curation; Visualization; Writing - original draft
-Arnaud Wiedemann  - Supervision; Writing - review & editing
+Arnaud Wiedemann  - Conceptualization; Supervision; Writing - review & editing
 Yassir Mamouni    - Software; Validation; Writing - review & editing
 Cyril Schweitzer  - Supervision; Funding acquisition; Writing - review & editing
 Philippe Jouvet   - Conceptualization; Supervision; Funding acquisition; Writing - review & editing
