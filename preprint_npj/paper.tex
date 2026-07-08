@@ -117,7 +117,7 @@
 %% with its monograph claim_id and expected_occurrences count.      %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\abstract{Pulse is an actively maintained open-source adult physiology simulator, yet no formal sensitivity analysis of its operational inputs has been published. We present the first reliability atlas across Pulse's critical-care envelope: Morris elementary-effects sampling of seven inputs, four ARDS severities, two bodies (1{,}280 simulations). Sensitivity is skewed: three inputs dominate each output (median 93~\% of total sensitivity). A four-flag classifier (clamping, divergence, implausible, non-steady-state) surfaces failure modes: two operator-actionable, a third sex-dependent. Tidal-volume instability (20.6~\% of runs) reflects patient--ventilator dyssynchrony; locking the VC-AC inspiration trigger to $-2$~cmH$_2$O makes Vt deterministic. At FiO$_2$~=~1.0 transient hyperoxia makes 120-second runs underestimate plateau PaO$_2$, resolved by 300-second runs near the alveolar-gas ceiling (643~mmHg). Solver divergence fell entirely on the male body (20/1{,}280); reducing its blood-volume baseline to the 4{,}082~mL floor eliminated it. The atlas maps where Pulse is trustworthy and ships an Apache-2.0 filter for synthetic machine-learning training cohorts.}
+\abstract{Pulse is an actively maintained open-source adult physiology simulator, yet no formal sensitivity analysis of its operational inputs has been published. We present the first reliability atlas across Pulse's critical-care envelope: Morris elementary-effects sampling of seven inputs, four severity scenarios, two bodies (1{,}280 simulations). Sensitivity is skewed: three inputs dominate each output (median 93~\% of total sensitivity). A four-flag classifier (clamping, divergence, implausible, non-steady-state) surfaces failure modes: two operator-actionable, a third sex-dependent. Tidal-volume instability (20.6~\% of runs) reflects patient--ventilator dyssynchrony; locking the VC-AC inspiration trigger to $-2$~cmH$_2$O makes Vt deterministic. At FiO$_2$~=~1.0 transient hyperoxia makes 120-second runs underestimate plateau PaO$_2$, resolved by 300-second runs near the alveolar-gas ceiling (643~mmHg). Solver divergence fell entirely on the male body (20/1{,}280); reducing its blood-volume baseline to the 4{,}082~mL floor eliminated it. The atlas maps where Pulse is trustworthy and ships an Apache-2.0 filter for synthetic machine-learning training cohorts.}
 
 \keywords{Pulse Physiology Engine, digital twin, synthetic patient data, Morris elementary effects, ARDS, machine learning training data, operational envelope, reproducibility}
 
@@ -150,7 +150,7 @@ The atlas is organised around three questions that decide whether a Pulse-genera
 \toprule
 Term & Definition \\
 \midrule
-\textbf{Scenario} & One of the four ARDS impairment-fraction settings that fix lung pathology severity: \textbf{S1} healthy baseline (impairment 0.00), \textbf{S2} mild (0.26), \textbf{S3} moderate (0.60), \textbf{S4} severe (0.95). Berlin-definition severity bands, mapped to impairment fractions by a reference-ventilation calibration (Supplement~\S\ref{sec:s5}; Methods \S\ref{sec:methods-sweep}). \\
+\textbf{Scenario} & One of the four impairment-fraction settings spanning a healthy baseline and three ARDS severities: \textbf{S1} healthy baseline (impairment 0.00), \textbf{S2} mild (0.26), \textbf{S3} moderate (0.60), \textbf{S4} severe (0.95). Berlin-definition severity bands, mapped to impairment fractions by a reference-ventilation calibration (Supplement~\S\ref{sec:s5}; Methods \S\ref{sec:methods-sweep}). \\
 \addlinespace
 \textbf{Cell} & A single (scenario, sex) slice of the atlas: one of the four scenarios paired with one of the two reference patient bodies (\textbf{M} male, \textbf{F} female), giving $4 \times 2 = 8$ cells per output. Each cell contains 160 simulations (runs). \\
 \addlinespace
@@ -179,7 +179,7 @@ The atlas comprises 1{,}280 simulations spanning eight cells of 160 runs each, w
   lbl/.style={font=\scriptsize\itshape, midway, right=1.5mm}
 ]
 \node[box] (inputs) {\textbf{7 operational inputs}\\[1pt] {\footnotesize HR, SBP, DBP, RR, Vt, FiO$_2$, PEEP}};
-\node[box, below=11mm of inputs] (cells) {\textbf{8 cells = 4 ARDS severities $\times$ 2 sexes}\\[1pt] {\footnotesize severity (impairment fraction): S1 healthy 0.00, S2 mild 0.26, S3 moderate 0.60, S4 severe 0.95}\\[1pt] {\footnotesize $\times$ 2 sexes (male, female)\quad$\Rightarrow$\quad$8 \times 160 = 1{,}280$ simulations}};
+\node[box, below=11mm of inputs] (cells) {\textbf{8 cells = 4 severity scenarios $\times$ 2 sexes}\\[1pt] {\footnotesize severity (impairment fraction): S1 healthy 0.00, S2 mild 0.26, S3 moderate 0.60, S4 severe 0.95}\\[1pt] {\footnotesize $\times$ 2 sexes (male, female)\quad$\Rightarrow$\quad$8 \times 160 = 1{,}280$ simulations}};
 \node[box, below=11mm of cells] (detector) {\textbf{Four-flag steady-state detector}\\[1pt] {\footnotesize clamped, diverged, implausible, not-steady-state}};
 \node[box, below=11mm of detector] (outputs) {\textbf{6 steady-state outputs}\\[1pt] {\footnotesize HR, MAP, Vt delivered, SpO$_2$, PaO$_2$, PaCO$_2$}};
 \node[box, below=11mm of outputs] (atlas) {\textbf{Per-cell traffic-light reliability atlas}};
@@ -188,7 +188,7 @@ The atlas comprises 1{,}280 simulations spanning eight cells of 160 runs each, w
 \draw[arr] (detector) -- node[lbl]{steady-state means} (outputs);
 \draw[arr] (outputs) -- (atlas);
 \end{tikzpicture}
-\caption{Study design. Seven user-facing operational inputs are screened with a Morris elementary-effects design (20 trajectories, each visiting $7{+}1 = 8$ input points --- a random start point plus one perturbation step for each of the 7 inputs --- i.e.\ 8 simulations per trajectory and 160 runs per cell). The sweep is stratified into eight cells --- four ARDS severity scenarios (impairment fractions 0.00 / 0.26 / 0.60 / 0.95) crossed with two adult reference bodies (male and female) --- for $8 \times 160 = 1{,}280$ simulations in total. A four-flag steady-state detector classifies every run before analysis, and the six steady-state outputs are reduced to the per-cell traffic-light reliability atlas (Figure~\ref{fig:traffic_light}).}
+\caption{Study design. Seven user-facing operational inputs are screened with a Morris elementary-effects design (20 trajectories, each visiting $7{+}1 = 8$ input points --- a random start point plus one perturbation step for each of the 7 inputs --- i.e.\ 8 simulations per trajectory and 160 runs per cell). The sweep is stratified into eight cells --- four severity scenarios --- a healthy baseline plus three ARDS severities (impairment fractions 0.00 / 0.26 / 0.60 / 0.95) --- crossed with two adult reference bodies (male and female) --- for $8 \times 160 = 1{,}280$ simulations in total. A four-flag steady-state detector classifies every run before analysis, and the six steady-state outputs are reduced to the per-cell traffic-light reliability atlas (Figure~\ref{fig:traffic_light}).}
 \label{fig:design}
 \end{figure}
 
