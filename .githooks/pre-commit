@@ -23,7 +23,7 @@ set -e
 # deletions, so REMOVING a sensitive file from tracking (the desired action when a
 # previously-tracked note is reclassified as private) is allowed, while ADDING or
 # modifying one is still blocked.
-SENSITIVE=$(git diff --cached --name-only --diff-filter=d | grep -Exi '(Paper_retour_PJ\.pdf|paper_feedback_michaelSauthier\.docx|TODO_PJ_feedback\.md|TODO_yassir_track\.md|TODO_publication_roadmap\.md)' || true)
+SENSITIVE=$(git diff --cached --name-only --diff-filter=d | grep -Exi '(Paper_retour_PJ\.pdf|paper_feedback_michaelSauthier\.docx|TODO_PJ_feedback\.md|TODO_yassir_track\.md|TODO_publication_roadmap\.md|internal_morris_rebuttal\.md)' || true)
 if [ -n "$SENSITIVE" ]; then
     echo ""
     echo "pre-commit: refusing to commit sensitive internal review material:"
