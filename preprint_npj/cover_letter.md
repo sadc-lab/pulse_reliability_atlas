@@ -1,10 +1,8 @@
 # Cover letter — npj Digital Medicine
 
-*Draft, uncommitted. Pending maintainer review before submission.*
-
 ---
 
-1 June 2026
+[date of submission]
 
 The Editors
 *npj Digital Medicine*
