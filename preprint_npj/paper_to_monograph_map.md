@@ -259,20 +259,20 @@ caught equally.*
   notes: 'Appears once in §2.2 prose as "(range 0.658--0.998)". The endash (--) is LaTeX source; anchored on T1.09 (min=0.658); T1.10 (max=0.998) is co-validated by literal presence.'
 
 - paper_section: '§2.2 Morris (prose)'
-  paper_context: 'H1 lowest top-3 fraction (S4_F SpO2)'
+  paper_context: 'H1 lowest top-3 fraction (S4_F SpO2 = lower endpoint of the S4 gas-exchange range)'
   monograph_claim_id: 'T2.h1.S4_F.SpO2'
   expected_value: 0.658
-  format_in_paper: 'S4\_F SpO$_2$ at 0.658'
+  format_in_paper: 'from 0.658 to 0.727'
   expected_occurrences: 1
-  notes: 'Appears once in §2.2 prose identifying the lowest-top3 cell. The "$_2$" math-mode subscript is the LaTeX source as written.'
+  notes: 'Appears once in §2.2 prose as "(SpO$_2$ and PaO$_2$ in S4, from 0.658 to 0.727)"; 0.658 is the lower endpoint = S4_F SpO2 top-3 fraction. Reworded 2026-07-18 from the earlier "S4\_F SpO$_2$ at 0.658" when the sentence was corrected to a shunt-driven range over the four S4 gas-exchange cells (the earlier "only cells where the property weakens" / saturation-ceiling framing was an overstatement, now aligned with the monograph).'
 
 - paper_section: '§2.2 Morris (prose)'
-  paper_context: 'H1 second-lowest top-3 fraction (S4_M SpO2)'
-  monograph_claim_id: 'T2.h1.S4_M.SpO2'
-  expected_value: 0.703
-  format_in_paper: 'S4\_M SpO$_2$ at 0.703'
+  paper_context: 'H1 highest of the S4 gas-exchange top-3 fractions (S4_M PaO2 = upper endpoint of the S4 gas-exchange range)'
+  monograph_claim_id: 'T2.h1.S4_M.PaO2'
+  expected_value: 0.727
+  format_in_paper: 'from 0.658 to 0.727'
   expected_occurrences: 1
-  notes: 'Appears once in §2.2 prose immediately after the S4_F SpO2 identification.'
+  notes: 'Appears once in §2.2 prose as "(SpO$_2$ and PaO$_2$ in S4, from 0.658 to 0.727)"; 0.727 is the upper endpoint = S4_M PaO2 top-3 fraction. Repointed 2026-07-18 from the earlier "S4\_M SpO$_2$ at 0.703" (S4_M SpO2) when the sentence was corrected to a shunt-driven range over the four S4 gas-exchange cells; 0.703 (S4_M SpO2) and 0.707 (S4_F PaO2) are no longer cited verbatim in the paper but remain validated as monograph claims T2.h1.S4_M.SpO2 / T2.h1.S4_F.PaO2 in the anchor ledger.'
 
 ## Step 4 — Results §2.3 VC-AC trigger correction
 
