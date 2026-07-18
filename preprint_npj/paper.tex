@@ -206,7 +206,7 @@ Flag & Fires when & What it means \\
 \addlinespace
 \texttt{implausible} & a steady-state output mean lands outside the locked hard physiological bounds (e.g.\ PaO$_2$ above 600~mmHg) & the run completed, but a value is non-physiological under the preregistered bounds, so it cannot be trusted as-is \\
 \addlinespace
-\texttt{not\_steady\_state} & over the final 60~s window an output flatlines at an extreme, varies too much (CV $>$ 0.05 for Vt), or drifts past its locked per-channel limit & the run is physiological but never settled to a stable steady state, so its 60~s mean is not a reliable summary \\
+\texttt{not\_steady\_state} & over the final 60~s window an output flatlines at an extreme, varies too much (coefficient of variation $>$ 0.05 on any output, most often tidal volume), or drifts past its locked per-channel limit & the run is physiological but never settled to a stable steady state, so its 60~s mean is not a reliable summary \\
 \bottomrule
 \end{tabular}
 \end{table}
