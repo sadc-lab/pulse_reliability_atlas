@@ -329,8 +329,8 @@ caught equally.*
   monograph_claim_id: 'T1.06d.s14_trigger_pressure'
   expected_value: -2
   format_in_paper: '$-2$~cmH$_2$O'
-  expected_occurrences: 13
-  notes: '2026-07-06: bumped 12 -> 13 (paper.tex 8 + supplement.tex 5 = 13); +1 from the Figure 3a clinical-caveat sentence added in the §2.4 pedagogical retouch, so the Figure 3 caption now carries 2 occurrences (was 1). Historical breakdown (paper.tex 7): abstract sentence 3 (1), §2.3 subsection title "VC-AC tidal-volume dyssynchrony and the $-2$~cmH$_2$O fix" (1; this was missed in the initial Step 4 count and revealed by the audit), §2.3 prose ×4 (1 + 3), Figure 3 caption (was 1, now 2). New ledger claim T1.06d (regex-extracted from scripts/run_s014_trigger_lockout.py TRIGGER_PRESSURE_CMH2O constant).'
+  expected_occurrences: 12
+  notes: '2026-07-20: bumped 13 -> 12 --- the Figure 4 (fig:corrections) caption reformulation replaced a repeated "$-2$~cmH$_2$O trigger lock" with "it" (concision only; the -2 cmH2O value is still stated once earlier in the same caption), so that caption now carries 1 occurrence, not 2, giving paper.tex 7 + supplement.tex 5 = 12. Prior 2026-07-06: bumped 12 -> 13 (was paper.tex 8 + supplement.tex 5 = 13); +1 from the Figure 3a clinical-caveat sentence added in the §2.4 pedagogical retouch, so the Figure 3 caption now carries 2 occurrences (was 1). Historical breakdown (paper.tex 7): abstract sentence 3 (1), §2.3 subsection title "VC-AC tidal-volume dyssynchrony and the $-2$~cmH$_2$O fix" (1; this was missed in the initial Step 4 count and revealed by the audit), §2.3 prose ×4 (1 + 3), Figure 3 caption (was 1, now 2). New ledger claim T1.06d (regex-extracted from scripts/run_s014_trigger_lockout.py TRIGGER_PRESSURE_CMH2O constant).'
 
 ## Step 4 — Results §2.4 Transient hyperoxia regime
 
