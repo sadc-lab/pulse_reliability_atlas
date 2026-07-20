@@ -149,7 +149,7 @@ def make_panel(df: pd.DataFrame, channel: str) -> None:
     # to compact LaTeX scientific (never matplotlib's 'E+0X' style).
     annot_strs = pivot.map(smart_fmt)
 
-    fig, ax = plt.subplots(figsize=(5.2, 3.0))
+    fig, ax = plt.subplots(figsize=(5.2, 2.8))
     sns.heatmap(
         pivot,
         annot=annot_strs,
