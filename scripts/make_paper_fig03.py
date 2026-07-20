@@ -48,18 +48,18 @@ fig, (axA, axB) = plt.subplots(1, 2, figsize=(11.0, 5.0))
 # ---- Panel A: S014 trigger-lockout effect on Vt CV
 axA.scatter(s14["Vt_cv_orig"], s14["Vt_cv_lock"], s=28, alpha=0.75, edgecolor="black", linewidth=0.4, color="#4C72B0")
 lim = max(s14["Vt_cv_orig"].max(), s14["Vt_cv_lock"].max()) * 1.05
-axA.plot([0, lim], [0, lim], "k--", linewidth=0.8, alpha=0.4, label="$y = x$ (no effect)")
+axA.plot([0, lim], [0, lim], color="#888888", linestyle="--", linewidth=1.0, label="$y = x$ (no effect)")
 axA.axhline(0.05, color="#C44E52", linestyle=":", linewidth=1.0, alpha=0.8, label="$0.05$ steady-state threshold")
 axA.set_xlim(0, lim)
 axA.set_ylim(0, lim)
-axA.set_xlabel(r"Original Vt CV (default trigger)")
-axA.set_ylabel(r"Vt CV after $-2$ cmH$_2$O trigger")
+axA.set_xlabel(r"Default-trigger Vt CV (before)")
+axA.set_ylabel(r"$-2$ cmH$_2$O locked-trigger Vt CV (after)")
 axA.set_title(r"(a) Trigger-lockout effect on VC-AC Vt stability ($n = 64$ paired)", fontsize=10)
 axA.legend(loc="upper left", fontsize=8, frameon=True)
 axA.grid(True, alpha=0.25, linewidth=0.5)
 
 # ---- Panel B: S021 hyperoxia 300s convergence
-palette = {"S1": "#4C72B0", "S3": "#DD8452", "S4": "#C44E52"}
+palette = {"S1": "#4C72B0", "S3": "#DD8452", "S4": "#6E1E1E"}
 for sc in ("S1", "S3", "S4"):
     sub = s21[s21["scenario"] == sc]
     axB.scatter(
@@ -77,9 +77,9 @@ lo, hi = 0.0, PANEL_B_AXIS_HI
 offscale = s21[
     (s21["scenario"].isin(("S1", "S3", "S4"))) & (s21["PaO2_plateau_mmHg"] > PANEL_B_AXIS_HI)
 ]["PaO2_plateau_mmHg"]
-axB.plot([lo, hi], [lo, hi], "k--", linewidth=0.8, alpha=0.4, label="$y = x$ (no change)")
-axB.axhline(600, color="#8172B2", linestyle=":", linewidth=1.0, alpha=0.8, label="600 mmHg classifier bound")
-axB.axhline(663, color="#937860", linestyle="-.", linewidth=1.0, alpha=0.8, label=r"$\approx$ 663 mmHg AGE prediction")
+axB.plot([lo, hi], [lo, hi], color="#888888", linestyle="--", linewidth=1.0, label="$y = x$ (no change)")
+axB.axhline(600, color="#6A4C93", linestyle=":", linewidth=1.3, label="600 mmHg classifier bound")
+axB.axhline(663, color="#1a1a1a", linestyle="-.", linewidth=1.6, label=r"$\approx$ 663 mmHg AGE prediction")
 axB.set_xlim(lo, hi)
 axB.set_ylim(lo, hi)
 axB.annotate(
@@ -88,8 +88,8 @@ axB.annotate(
     xy=(0.97, 0.97), xycoords="axes fraction", ha="right", va="top",
     fontsize=8, color="#555555", style="italic",
 )
-axB.set_xlabel(r"Original 120-second mean PaO$_2$ (mmHg)")
-axB.set_ylabel(r"300-second plateau PaO$_2$ (mmHg)")
+axB.set_xlabel(r"Original 120-s mean PaO$_2$ (mmHg, before)")
+axB.set_ylabel(r"Extended 300-s plateau PaO$_2$ (mmHg, after)")
 axB.set_title(r"(b) Hyperoxia 300 s convergence ($n = 60$ reruns)", fontsize=10)
 axB.legend(loc="lower right", fontsize=8, frameon=True)
 axB.grid(True, alpha=0.25, linewidth=0.5)
