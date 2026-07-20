@@ -167,7 +167,10 @@ def make_panel(df: pd.DataFrame, channel: str) -> None:
     # 0.48\textwidth.
     ax.set_xlabel(r"Cell (scenario $\times$ sex)", fontsize=10)
     ax.set_ylabel("Input", fontsize=10)
-    ax.tick_params(axis="both", labelsize=10)
+    ax.tick_params(axis="x", labelsize=10)
+    # Smaller y-tick font so the stacked input labels (notably FiO2 and PEEP,
+    # which otherwise collide because of the FiO2 subscript) stay legible.
+    ax.tick_params(axis="y", labelsize=8)
     fig.tight_layout()
 
     pdf_path = OUT_DIR / f"fig02_morris_{channel}.pdf"
