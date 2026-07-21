@@ -217,7 +217,7 @@ Lower: profound respiratory alkalosis from sustained maximal hyperventilation; u
 \end{tabular}
 \end{table}
 
-Within category (c), the exact numerical choice (e.g., PaO$_2$ lower 20 vs 25~mmHg) is a defensible judgment call within the cited literature rather than a unique biological constant. Section~3.8 of the companion technical monograph demonstrates the sensitivity-analysis pattern on the single most contestable bound (PaO$_2$ upper, raised from 600 to 700~mmHg per the alveolar-gas-equation ceiling), with reclassification results reported in Section~2.4 of the main manuscript. No locked threshold has been adjusted post-hoc; the only preregistration amendment (2026-04-22-b, flatline tolerance 1~\% $\rightarrow$ 0.1~\%) was made before the sweep launched.
+Within category (c), the exact numerical choice (e.g., PaO$_2$ lower 20 vs 25~mmHg) is a defensible judgment call within the cited literature rather than a unique biological constant. Section~3.8 of the companion technical monograph demonstrates the sensitivity-analysis pattern on the single most contestable bound (PaO$_2$ upper, raised from 600 to 700~mmHg per the alveolar-gas-equation ceiling), with reclassification results reported in Section~2.4 of the main manuscript. Under this wider physiology-anchored bound, 32 of the 34 runs flagged \texttt{implausible} by the locked 600~mmHg PaO$_2$ ceiling become physiologically clean (31 at FiO$_2 \geq 0.95$; 21 on the female and 11 on the male reference body); the remaining two are healthy-female runs at maximal minute ventilation (Vt 800~mL $\times$ RR 20 = 16~L/min) whose PaO$_2$ suffers a genuine numerical runaway within the window --- stable near the alveolar ceiling ($\approx$480~mmHg) for the first 60~s, then climbing to a physically impossible plateau above the 760~mmHg sea-level barometric pressure --- so they correctly stay implausible under either bound (the same high-minute-ventilation solver instability seen at extended windows, Section~\ref{sec:s9-guidance}). No locked threshold has been adjusted post-hoc; the only preregistration amendment (2026-04-22-b, flatline tolerance 1~\% $\rightarrow$ 0.1~\%) was made before the sweep launched.
 
 \subsection{Drift thresholds for the not\_steady\_state flag}\label{sec:s3-drift}
 
@@ -581,6 +581,27 @@ The kinetic anchor (180 seconds of extended simulation to reach 95~\% of the lat
 
 A separate solver-instability mode emerges only at extended windows on healthy lungs at FiO$_2$ = 1.0: in the S021 cohort, 6 of 44 healthy-S1 reruns (14~\%) developed unphysical PaO$_2$ plateaus above 700~mmHg (four stabilising near 1{,}400~mmHg, above the sea-level barometric pressure of 760~mmHg), all sharing the specific input signature Vt~=~633.3~mL combined with RR~=~20 ($\dot{V}_E \approx 12.7$~L/min, roughly twice the physiological norm of 6--8~L/min). Three of these six stay below the drift threshold and are therefore counted among the 41 drift-converged runs, while the other three are the only three non-converged S1 reruns; the 44 S1 reruns thus partition into 38 physiological-converged, 3 runaway-converged, and 3 runaway-non-converged, and all six runaways are excluded from the physiological median trajectory of Figure~\ref{fig:s9-pao2}. The locked 120-second atlas window terminates these simulations before the runaway emerges; downstream users running extended-window hyperoxia simulations should accordingly avoid Vt $\times$ RR combinations exceeding $\sim$12~L/min minute ventilation on healthy lungs at FiO$_2$ = 1.0.
 
+\subsection{ARDS shunt depression and clean-regime oxygenation}\label{sec:s9-shunt}
+
+The extended-simulation experiment also replayed four paired Morris input vectors on both reference bodies across the moderate (S3) and severe (S4) scenarios at FiO$_2$ = 1.0, alongside the full 44-run healthy (S1) hyperoxia set, isolating the effect of the ARDS severity scalar on the converged oxygenation plateau. The plateau (per-run mean over the final 60~s of the 300~s extension) falls monotonically with severity (Table~\ref{tab:s9-shunt}): an order-of-magnitude drop from the healthy S1 median to 144~mmHg at moderate and 73~mmHg at severe ARDS, driven entirely by the severity scalar. This reproduces the shunt-fraction kinetics the alveolar-gas equation predicts under increasing venous admixture, and confirms that the elevated S1 plateau is a healthy-lung property rather than a generic FiO$_2$ = 1.0 artefact.
+
+\begin{table}[h]
+\centering
+\caption{Converged PaO$_2$ plateau by ARDS scenario in the S021 extended-simulation reruns at FiO$_2$ = 1.0. S1 is the full 44-run healthy hyperoxia set; S3 and S4 are the four paired Morris input vectors replayed on both reference bodies (8 runs each). Plateau = per-run mean over the final 60~s of the 300~s extension; median and interquartile range (IQR) are across the runs in each scenario. Convergence is judged by the preregistered drift criterion. The monotonic decrease from S1 to S4 is the shunt-mediated oxygenation depression. Scenario key: S1 healthy baseline, S3 moderate ARDS, S4 severe ARDS.}
+\label{tab:s9-shunt}
+\begin{tabular}{lrrr}
+\toprule
+Scenario & $n$ & Plateau median (mmHg) & Plateau IQR (mmHg) \\
+\midrule
+S1 (healthy)        & 44 & 643.3 & [592, 668] \\
+S3 (moderate ARDS)  &  8 & 143.6 & [93, 218]  \\
+S4 (severe ARDS)    &  8 &  72.6 & [71, 76]   \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Within the \emph{clean} operating regime the same oxygenation channel is well behaved and strongly FiO$_2$-driven. Across the 91 flag-clean S1 runs, FiO$_2$ alone explains 90~\% of the variance in steady-state PaO$_2$ (ordinary-least-squares $R^2 = 0.90$), with mean PaO$_2$ rising from $81 \pm 11$~mmHg at FiO$_2$ = 0.21 to $214 \pm 30$~mmHg at FiO$_2$ = 0.47 --- a slope of approximately 5~mmHg PaO$_2$ per 0.01 FiO$_2$ (fitted line $\mathrm{PaO}_2 \approx 505\,\mathrm{FiO}_2 - 25$~mmHg). Because clean S1 runs survive at only the two lower Morris FiO$_2$ levels (the two higher levels are flagged \texttt{implausible} or \texttt{not\_steady\_state}), this establishes the dose slope and the FiO$_2$ dominance seen in the Morris screen, not the curvature of the relation: a naive linear extrapolation would predict $\approx$480~mmHg at FiO$_2$ = 1.0, well below the healthy-lung plateau actually reached (Table~\ref{tab:s9-shunt}), precisely because hemoglobin saturation and dissolved-oxygen kinetics make the true FiO$_2 \to$ PaO$_2$ relation non-linear above FiO$_2 \approx$ 0.6.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% S10 -- Sex-stratified BV mechanism: absolute + mL/kg (Phase 9.C)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -822,6 +843,21 @@ The operational consequence for Morris elementary effects on input HR in the ARD
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Steady-state window cross-output drift audit (S012)
+%% NOTE: inserted before the summary; the summary section below keeps its
+%% historical label sec:s16 but now renders as S17 (all \ref auto-update).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Output stability across the 120-second measurement window}\label{sec:s16-window}
+
+Two channels are unsettled at the edges of the operational envelope: PaO$_2$ drifts at FiO$_2$ = 1.0 (Section~\ref{sec:s9}) and delivered tidal volume oscillates under the default VC-AC trigger (Section~\ref{sec:s8}). A natural concern is whether these localised instabilities contaminate the other steady-state channels the Morris screen relies on. We audited this directly: for every run in each vulnerable population we computed the drift $|\Delta_{60\mathrm{s}}|$ of each output over the final-60~s window --- estimated by the same preregistered ordinary-least-squares slope $\times$ 60~s that the \texttt{not\_steady\_state} detector uses (Section~\ref{sec:s3-drift}) --- and compared it against the locked per-channel drift thresholds.
+
+In the hyperoxia arm (FiO$_2 \geq 0.95$; 195 runs with valid output), drift stays within threshold on the cardiovascular channels: heart rate exceeds its 5~bpm threshold on only 2.6~\% of runs (median 0.20~bpm) and MAP on 0~\% (median 0.05~mmHg). Only oxygenation and tidal-volume delivery are affected: PaO$_2$ exceeds its 15~mmHg threshold on 19.5~\% of runs (median 4.3~mmHg, 95th percentile 40.2~mmHg) and delivered Vt on 8.7~\%. In the tidal-volume-oscillation arm (delivered-Vt CV $>$ 0.05; 303 runs) the oscillation likewise does not propagate: heart rate drifts beyond threshold on 2.3~\% of runs, MAP on 0.7~\%, PaO$_2$ on 7.3~\%, and PaCO$_2$ on 2.0~\% --- Pulse buffers the breath-to-breath volume swing upstream of the cardiovascular and gas-exchange loops.
+
+The audit bounds the two disclosed instabilities to exactly the channels that disclose them: the [60, 120]~s steady-state window is valid for HR, MAP, and PaCO$_2$ across the full sweep, and is inadequate only for PaO$_2$ and delivered Vt at the FiO$_2$ = 1.0 and high-oscillation extremes --- precisely the conditions Sections~\ref{sec:s9} and~\ref{sec:s8} already characterise. The two edge-of-envelope findings are thus a bounded, explicitly scoped window-length limitation, not a hidden invalidator of the rest of the atlas.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% S16 -- Summary of supplementary findings and discoveries (Phase H)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -847,6 +883,7 @@ Anchor & Finding / discovery \\
 \S\ref{sec:s11} & \textbf{Six engine-side infrastructure recommendations} addressed to the Pulse maintainers: setup-warning for the ARDS instability zone; per-channel steady-state convergence diagnostic in CSV output; field-attributed setup-error messages; documentation of the male BV floor; reference SA recipe for operational inputs; companion Morris / Sobol implementation. \\
 \S\ref{sec:s13} & \textbf{SHAP cross-verification of the Morris sensitivity rankings.} An independent RandomForest~+~SHAP analysis on the clean subset recovers the Morris $\mu^{*}$ top-3 input rankings (17 of 18 pooled cases), confirming the rankings are an engine property rather than an artefact of the elementary-effects design. \\
 \S\ref{sec:s15} & \textbf{Compensatory tachycardia quantitative table.} Output HR mean $\pm$ standard deviation per scenario, quantifying the sympathetic overshoot above the input HR range under hypoxemia. Supports Section~2.6 of the main paper. \\
+\S\ref{sec:s16-window} & \textbf{Steady-state window cross-output drift audit.} Confirms the [60, 120]~s window is valid for HR, MAP, and PaCO$_2$ across the full sweep; only PaO$_2$ and delivered Vt are window-sensitive, at the FiO$_2$ = 1.0 and high-oscillation extremes. \\
 \bottomrule
 \end{tabular}
 \end{table}
