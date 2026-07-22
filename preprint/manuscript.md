@@ -780,11 +780,11 @@ convergence for the 0.91 – 0.945 solver-instability zone, and the
 E6 calibration provenance are in Appendix B.3.
 
 * **Male reference surrogate:** age 18, weight 67.3 kg, height 180 cm (BMI 20.8).
-* **Female reference surrogate:** age 18, weight 56.2 kg, height 163 cm (BMI 21.1).
+* **Female reference surrogate:** age 18, weight 56.2 kg, height 163 cm (BMI 21.2).
 
 *Provenance.* Body weights are the CDC 50th-percentile weight-for-age
 values at 18 years (67.29 kg boys, 56.23 kg girls; CDC growth-chart
-tables, <https://www.cdc.gov/growthcharts/>), inherited unchanged from
+tables [@kuczmarski2002cdc], <https://www.cdc.gov/growthcharts/>), inherited unchanged from
 the companion `Pulse_translation_new` pediatric-translation pipeline
 where they form the 18-year endpoint of its CDC progression. The
 female height (163 cm) is the CDC P50 stature for 18-year-old girls.
@@ -3493,6 +3493,7 @@ during the literature-review pass logged in
   [10.1152/jappl.1979.46.3.599](https://doi.org/10.1152/jappl.1979.46.3.599).
   PMID: 35496. Oxyhemoglobin dissociation curve (P50); anchors the
   SpO2 and PaO2 hard bounds.
+* []{#ref-kuczmarski2002cdc} Kuczmarski RJ, Ogden CL, Guo SS, Grummer-Strawn LM, Flegal KM, Mei Z, Wei R, Curtin LR, Roche AF, Johnson CL. *2000 CDC Growth Charts for the United States: Methods and Development.* Vital and Health Statistics, Series 11, No. 246:1-190 (2002). PMID: 12043359. National Center for Health Statistics; source of the sex-specific 50th-percentile weight- and stature-for-age reference values for the atlas reference bodies.
 * []{#ref-singer2016} Singer M, Deutschman CS, Seymour CW, Shankar-Hari M, Annane D,
   Bauer M, et al. *The Third International Consensus Definitions for
   Sepsis and Septic Shock (Sepsis-3).* JAMA 315(8):801-810 (2016).
