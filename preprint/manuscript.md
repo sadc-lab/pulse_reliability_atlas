@@ -784,10 +784,10 @@ E6 calibration provenance are in Appendix B.3.
 
 *Provenance.* Body weights are the CDC 50th-percentile weight-for-age
 values at 18 years (67.29 kg boys, 56.23 kg girls; CDC growth-chart
-tables [@kuczmarski2002cdc], <https://www.cdc.gov/growthcharts/>), inherited unchanged from
+tables, @kuczmarski2002cdc, <https://www.cdc.gov/growthcharts/>), inherited unchanged from
 the companion `Pulse_translation_new` pediatric-translation pipeline
 where they form the 18-year endpoint of its CDC progression. The
-female height (163 cm) is the CDC P50 stature for 18-year-old girls.
+female height (163 cm) is the CDC P50 stature for 18-year-old girls [@kuczmarski2002cdc].
 The male height (180 cm) is a researcher-fixed rounded value chosen
 to yield a healthy baseline BMI of 20.8; this is ≈ 3 cm above the CDC
 P50 and is reported here transparently rather than retro-fitted to a
