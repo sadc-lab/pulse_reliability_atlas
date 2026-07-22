@@ -2693,12 +2693,9 @@ RR                  & 0 / 172 & 12 / 172 & Atlas input, not output \\
 \end{center}
 ```
 
-*Table 2.* Cornish 2023 Table 1 (Hoeffding's inequality, main text) and
-Table 5 (reverse-percentile bootstrap, Appendix H.6) re-tabulated
-against this atlas's six-output panel. (Cornish's *Table 4* in the
-appendix re-tabulates the Hoeffding results from main-text Table 1;
-the bootstrap rejections used here are in their Table 5. Citation
-label corrected 2026-05-17 in pre-submission Phase-2 audit.) Bold rows mark the four channels
+*Table 2.* Cornish 2023 Table 4 (Hoeffding's inequality; the complete per-quantity
+table listing all 15 assessed quantities) and Table 5 (reverse-percentile
+bootstrap) re-tabulated against this atlas's six-output panel. Bold rows mark the four channels
 that overlap directly with HR / MAP / PaO2 / PaCO2.
 
 *Table 2 — at a glance.*
@@ -3415,10 +3412,9 @@ during the literature-review pass logged in
   falsification framework with Holm–Bonferroni-adjusted Hoeffding's
   inequality confidence intervals (FWER 0.05) on 1,522 hypotheses
   across 15 physiological quantities; identifies intervention-outcome
-  inaccuracies in specific cases (Table 1: 85 total Hoeffding
+  inaccuracies in specific cases (Appendix Table 4: 85 total Hoeffding
   rejections; Appendix Table 5: 281 reverse-percentile-bootstrap
-  rejections; Appendix Table 4 is a re-tabulation of the Hoeffding
-  counts). Cited in §1.1 to distinguish prior external assessment
+  rejections). Cited in §1.1 to distinguish prior external assessment
   (intervention-outcome falsification on a different cohort and
   dataset) from this paper's contribution (operational-input
   reliability across the adult ICU envelope); the channel-by-channel
