@@ -3,6 +3,9 @@
 **Audit date:** 2026-05-21
 **Auditor:** Santino Nanini (with Claude Opus 4.7 assistance)
 **Manuscript:** `preprint/manuscript.md`
+
+> **Note on line references (added 2026-07-22).** The "line" column locates each claim in `preprint/manuscript.md` **as it stood on the audit date (2026-05-21)**. The manuscript has since grown by roughly 1,000 lines through ongoing revision, so these numbers no longer match current positions (e.g., the reference-body block listed at 552–553 now sits near 782–783). They are preserved as the original audit snapshot rather than re-indexed; nothing reads them programmatically.
+
 **Scope:** Abstract + §1.3 Contributions + Key Contributions + §3 Results (all subsections, all tables, all figure captions) + auxiliary scope §2.3 + Appendix B.3 (pulled in to verify cross-section claims A21 / KC7a / KC7b at root level).
 
 **Method.** Every numeric and definitional claim in the in-scope sections was enumerated verbatim (Pass 1) and tagged with its owning experiment-log entry (Pass 2). Each row was then re-derived from the canonical artifact: parquet / CSV (Pass 3) or source-code constant (Pass 4). EXT rows were verified against `Pulse_translation_new/experiments_log.md` or the local Pulse C++ clone at `C:/Users/santi/projets/Pulse_engine_adults_Gitlab/engine`. Duplicates were verified independently to catch transcription drift between Abstract / Key contributions / §1.3 / §3.
