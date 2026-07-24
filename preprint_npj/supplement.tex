@@ -738,8 +738,8 @@ uv run python scripts/analyze_sweep.py
 
 # 4. Re-derive every quantitative claim in the manuscript
 #    + supplement from the canonical artefacts; expect
-#    261/261 PASS (exit 0) with the authors' full data tree,
-#    or 260/261 on a public clone (T1.06u auto-skipped).
+#    267/267 PASS (exit 0) with the authors' full data tree,
+#    or 266/267 on a public clone (T1.06u auto-skipped).
 uv run python scripts/audit_claims.py
 
 # 5. Optional: verify paper.tex + supplement.tex remain
@@ -758,7 +758,7 @@ Bit-exact reproduction of the canonical sweep output is verified at three indepe
 \item \textbf{Derived statistical artefacts.} The Morris $\mu^{*}$ indices, bootstrap confidence intervals, Wasserstein distances, Spearman correlations, and BH-FDR survivors all regenerate bit-equivalently from the canonical aggregated parquets; this is what the audit ledger (\texttt{scripts/audit\_claims.py}) re-derives at every run.
 \end{enumerate}
 
-The audit ledger is the primary reproducibility instrument: a green ledger run confirms that every quantitative claim in the main manuscript and supplement is consistent with the canonical artefacts. The ledger reports a target of 261 anchors; on the authors' full data tree all 261 are evaluated (261/261 PASS), whereas on a public clone one anchor (T1.06u, the S021 time-to-95\%-plateau, which requires the heavy raw per-run trajectories that are gitignored) is automatically skipped, giving 260/261 PASS with one explicitly-reported SKIPPED. A failed claim is a structured triage item (Type A transcription drift, Type B orphaned number, Type C derivation mismatch) with a precise file:line pointer for forensic tracing.
+The audit ledger is the primary reproducibility instrument: a green ledger run confirms that every quantitative claim in the main manuscript and supplement is consistent with the canonical artefacts. The ledger reports a target of 267 anchors; on the authors' full data tree all 267 are evaluated (267/267 PASS), whereas on a public clone one anchor (T1.06u, the S021 time-to-95\%-plateau, which requires the heavy raw per-run trajectories that are gitignored) is automatically skipped, giving 266/267 PASS with one explicitly-reported SKIPPED. A failed claim is a structured triage item (Type A transcription drift, Type B orphaned number, Type C derivation mismatch) with a precise file:line pointer for forensic tracing.
 
 \subsection{Independent reproduction on separate hardware}\label{sec:s12-independent}
 
@@ -863,7 +863,7 @@ The operational consequence for Morris elementary effects on input HR in the ARD
 
 Two channels are unsettled at the edges of the operational envelope: PaO$_2$ drifts at FiO$_2$ = 1.0 (Section~\ref{sec:s9}) and delivered tidal volume oscillates under the default VC-AC trigger (Section~\ref{sec:s8}). A natural concern is whether these localised instabilities contaminate the other steady-state channels the Morris screen relies on. We audited this directly: for every run in each vulnerable population we computed the drift $|\Delta_{60\mathrm{s}}|$ of each output over the final-60~s window --- estimated by the same preregistered ordinary-least-squares slope $\times$ 60~s that the \texttt{not\_steady\_state} detector uses (Section~\ref{sec:s3-drift}) --- and compared it against the locked per-channel drift thresholds.
 
-In the hyperoxia arm (FiO$_2 \geq 0.95$; 195 runs with valid output), drift stays within threshold on the cardiovascular channels: heart rate exceeds its 5~bpm threshold on only 2.6~\% of runs (median 0.20~bpm) and MAP on 0~\% (median 0.05~mmHg). Only oxygenation and tidal-volume delivery are affected: PaO$_2$ exceeds its 15~mmHg threshold on 19.5~\% of runs (median 4.3~mmHg, 95th percentile 40.2~mmHg) and delivered Vt on 8.7~\%. In the tidal-volume-oscillation arm (delivered-Vt CV $>$ 0.05; 303 runs) the oscillation likewise does not propagate: heart rate drifts beyond threshold on 2.3~\% of runs, MAP on 0.7~\%, PaO$_2$ on 7.3~\%, and PaCO$_2$ on 2.0~\% --- Pulse buffers the breath-to-breath volume swing upstream of the cardiovascular and gas-exchange loops.
+In the hyperoxia arm (FiO$_2 \geq 0.95$; 195 runs with valid output), drift stays within threshold on the cardiovascular and carbon-dioxide channels: heart rate exceeds its 5~bpm threshold on only 2.6~\% of runs (median 0.20~bpm), MAP on 0~\% (median 0.05~mmHg), and PaCO$_2$ on 3.6~\% (median 0.58~mmHg). Only oxygenation and tidal-volume delivery are materially affected: PaO$_2$ exceeds its 15~mmHg threshold on 19.5~\% of runs (median 4.3~mmHg, 95th percentile 40.2~mmHg) and delivered Vt on 8.7~\%. In the tidal-volume-oscillation arm (delivered-Vt CV $>$ 0.05; 303 runs) the oscillation likewise does not propagate: heart rate drifts beyond threshold on 2.3~\% of runs, MAP on 0.7~\%, PaO$_2$ on 7.3~\%, and PaCO$_2$ on 2.0~\% --- Pulse buffers the breath-to-breath volume swing upstream of the cardiovascular and gas-exchange loops.
 
 The audit bounds the two disclosed instabilities to exactly the channels that disclose them: the [60, 120]~s steady-state window is valid for HR, MAP, and PaCO$_2$ across the full sweep, and is inadequate only for PaO$_2$ and delivered Vt at the FiO$_2$ = 1.0 and high-oscillation extremes --- precisely the conditions Sections~\ref{sec:s9} and~\ref{sec:s8} already characterise. The two edge-of-envelope findings are thus a bounded, explicitly scoped window-length limitation, not a hidden invalidator of the rest of the atlas. The full per-arm channel breakdown, the dual-vulnerability intersection, and the underlying S012 experiment log are given in the companion technical monograph.
 

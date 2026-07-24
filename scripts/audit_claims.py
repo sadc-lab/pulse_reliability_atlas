@@ -140,8 +140,8 @@ claims: list[Claim] = []
 # required artefact is absent (only the documented benign-skip path is allowed;
 # see the T1.06u guard below). Each entry is (claim_id, reason). The summary
 # reports the target total as len(claims) + len(skipped), so the headline ratio
-# stays honest in every environment: full local data tree -> 261/261, public
-# clone (raw S021 trajectories gitignored) -> 260/261 with 1 SKIPPED.
+# stays honest in every environment: full local data tree -> 267/267, public
+# clone (raw S021 trajectories gitignored) -> 266/267 with 1 SKIPPED.
 skipped: list[tuple[str, str]] = []
 
 
@@ -1946,7 +1946,7 @@ for _, _row in _s21_s1_physio.iterrows():
         _df = pd.read_csv(_csv)[["time_s", "ArterialOxygenPressure"]]
         _df["run_id"] = _row["case_id_long"]
         _traj_frames.append(_df)
-# Strict count guard scoped to T1.06u ONLY. The other 260 anchors are protected
+# Strict count guard scoped to T1.06u ONLY. The other 266 anchors are protected
 # by the eager pd.read_parquet/read_csv/json.loads/.read_text() calls at module
 # top, which raise on a missing artefact. Here the only acceptable soft path is
 # the CI / clean-checkout case where data/runs/**/output.csv is gitignored and
@@ -1977,8 +1977,8 @@ elif _n_expected > 0 and _n_found == 0:
     # Benign CI case: plateau_stats lists N>0 S1 physio runs but every per-run
     # output.csv is gitignored and absent on a clean checkout. Skip T1.06u
     # with a NOTE; the parquet/CSV-backed anchors still run as the gate. The
-    # skip is recorded in `skipped` so the summary reports 260/261 (1 SKIPPED)
-    # rather than a bare 260/260 that would hide the existence of the anchor.
+    # skip is recorded in `skipped` so the summary reports 266/267 (1 SKIPPED)
+    # rather than a bare 266/266 that would hide the existence of the anchor.
     skipped.append(
         (
             "T1.06u.s021_time_to_95pct_plateau",
@@ -2276,6 +2276,54 @@ add(
     tolerance_rule="exact_int",
 )
 
+# -----------------------------------------------------------------------------
+# T5.window -- Per-arm cross-output drift exceedance (Supplement S16 window
+# audit, monograph S012, main paper §4.4). The PaO2 rate and the two arm sizes
+# are already anchored above (T2.f003.*); these six anchors cover the HR, MAP
+# and PaCO2 rates in each arm, which the main paper now states per arm instead
+# of as a single (and, for PaCO2, incorrect) upper bound across both.
+# The drift thresholds are read from src/detector.py rather than hardcoded.
+# -----------------------------------------------------------------------------
+_win_src = (REPO / "src" / "detector.py").read_text(encoding="utf-8")
+_m_win = re.search(
+    r"DRIFT_MAX_DELTA_60S:\s*dict\[str,\s*float\]\s*=\s*\{(.*?)\}", _win_src, re.S
+)
+assert _m_win is not None, "audit_claims: DRIFT_MAX_DELTA_60S not located"
+_WIN_TH = {
+    k: float(v) for k, v in re.findall(r'"(\w+)":\s*([\d.]+)', _m_win.group(1))
+}
+assert len(_WIN_TH) == 6, f"audit_claims: expected 6 drift thresholds, got {len(_WIN_TH)}"
+
+_win_valid = agg[agg["HR_delta_60s"].notna()]
+_win_arms = {
+    "hyperox": _win_valid[_win_valid["in_fio2"] >= 0.95],
+    "vtosc": _win_valid[_win_valid["Vt_cv"] > 0.05],
+}
+
+
+def _win_pct(arm: str, ch: str) -> float:
+    sub = _win_arms[arm]
+    return 100.0 * (sub[f"{ch}_delta_60s"].abs() > _WIN_TH[ch]).mean()
+
+
+for _arm, _armlabel, _expected in (
+    ("hyperox", "hyperoxia arm (FiO2 >= 0.95, n = 195)", {"HR": 2.6, "MAP": 0.0, "PaCO2": 3.6}),
+    ("vtosc", "Vt-oscillation arm (Vt CV > 0.05, n = 303)", {"HR": 2.3, "MAP": 0.7, "PaCO2": 2.0}),
+):
+    for _ch, _val in _expected.items():
+        add(
+            claim_id=f"T5.window.{_arm}_{_ch.lower()}_pct",
+            section="Paper §4.4 / Supplement S16 / monograph S012",
+            manuscript_text=(
+                f"{_val} percent of runs exceed the locked {_ch} drift threshold "
+                f"in the {_armlabel}"
+            ),
+            source_file="data/runs/full_sweep/aggregated.parquet",
+            manuscript_value=_val,
+            computed_value=_win_pct(_arm, _ch),
+            tolerance_rule="displayed_1dp",
+        )
+
 # Summary counts.
 n_pass = sum(1 for c in claims if c.status == "PASS")
 n_warn = sum(1 for c in claims if c.status == "WARN")
@@ -2284,8 +2332,8 @@ n_run = len(claims)
 n_skipped = len(skipped)
 # Target total = anchors evaluated this run + anchors deliberately skipped for a
 # missing-artefact reason. Computed dynamically so the ratio cannot go stale if
-# anchors are added or removed later. Full local data tree -> 261/261; public
-# clone with the gitignored raw S021 trajectories absent -> 260/261, 1 SKIPPED.
+# anchors are added or removed later. Full local data tree -> 267/267; public
+# clone with the gitignored raw S021 trajectories absent -> 266/267, 1 SKIPPED.
 n_expected = n_run + n_skipped
 
 print("# Claims-Ledger Audit (S024)\n")
