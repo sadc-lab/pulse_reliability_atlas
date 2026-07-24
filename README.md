@@ -29,7 +29,8 @@ submission. The three fastest entry points for verifying the work:
   this prints `246/247 PASS ... 1 SKIPPED` (the T1.06u anchor is
   auto-skipped because it needs the gitignored raw S021 trajectories;
   with the authors' full `data/runs/` tree it prints `247/247 PASS`).
-- **One-command reproduction** (Docker, fixed seed, ~7 h on a laptop):
+- **One-command reproduction** (Docker, fixed seed, ~9-23 h on a laptop
+  depending on hardware and worker count):
 
   ```bash
   docker build -t pulse-atlas-engine engine/
@@ -218,7 +219,11 @@ Two structural Pulse findings, independent of the hypotheses:
 ## Reproducing the atlas
 
 You need: Docker, [uv](https://github.com/astral-sh/uv), a machine with
-≥ 8 GB RAM and ≥ 3 CPU cores, and ~ 7 hours of compute.
+≥ 8 GB RAM and ≥ 3 CPU cores, and roughly 9-23 hours of compute:
+~ 9 h on the reference laptop with 3 parallel Docker workers, ~ 14 h
+with 2, and 23 h as actually measured on a slower laptop. The full
+1,280-run sweep represents ~ 27-46 h of aggregate Pulse container time
+depending on host speed (Supplement §S12).
 
 To also reproduce the supplementary S023 SHAP cross-check (manuscript
 §4.5), install Python deps with `uv sync --extra ml` (adds
