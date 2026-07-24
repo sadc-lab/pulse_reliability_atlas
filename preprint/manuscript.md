@@ -234,7 +234,7 @@ below; this section is the exhaustive findings digest.*
 * Bit-exact reproduction verified at three layers (canonical sample, per-cell
   aggregate parquets, derived statistics); fixed seed 42; single pinned Docker
   image; preregistered before data collection.
-* Full pipeline + audit ledger (re-derives every quantitative claim from the
+* Full pipeline + audit ledger (re-derives the computed quantitative claims from the
   canonical artefacts, [S024](#s024)) released Apache-2.0. Six engine-side
   infrastructure recommendations offered to the Pulse maintainers (§4.7).
 
