@@ -140,8 +140,8 @@ claims: list[Claim] = []
 # required artefact is absent (only the documented benign-skip path is allowed;
 # see the T1.06u guard below). Each entry is (claim_id, reason). The summary
 # reports the target total as len(claims) + len(skipped), so the headline ratio
-# stays honest in every environment: full local data tree -> 247/247, public
-# clone (raw S021 trajectories gitignored) -> 246/247 with 1 SKIPPED.
+# stays honest in every environment: full local data tree -> 261/261, public
+# clone (raw S021 trajectories gitignored) -> 260/261 with 1 SKIPPED.
 skipped: list[tuple[str, str]] = []
 
 
@@ -1946,7 +1946,7 @@ for _, _row in _s21_s1_physio.iterrows():
         _df = pd.read_csv(_csv)[["time_s", "ArterialOxygenPressure"]]
         _df["run_id"] = _row["case_id_long"]
         _traj_frames.append(_df)
-# Strict count guard scoped to T1.06u ONLY. The other 246 anchors are protected
+# Strict count guard scoped to T1.06u ONLY. The other 260 anchors are protected
 # by the eager pd.read_parquet/read_csv/json.loads/.read_text() calls at module
 # top, which raise on a missing artefact. Here the only acceptable soft path is
 # the CI / clean-checkout case where data/runs/**/output.csv is gitignored and
@@ -1977,8 +1977,8 @@ elif _n_expected > 0 and _n_found == 0:
     # Benign CI case: plateau_stats lists N>0 S1 physio runs but every per-run
     # output.csv is gitignored and absent on a clean checkout. Skip T1.06u
     # with a NOTE; the parquet/CSV-backed anchors still run as the gate. The
-    # skip is recorded in `skipped` so the summary reports 246/247 (1 SKIPPED)
-    # rather than a bare 246/246 that would hide the existence of the anchor.
+    # skip is recorded in `skipped` so the summary reports 260/261 (1 SKIPPED)
+    # rather than a bare 260/260 that would hide the existence of the anchor.
     skipped.append(
         (
             "T1.06u.s021_time_to_95pct_plateau",
@@ -2022,6 +2022,260 @@ def _fmt(v):
     return f"{v:.4g}"
 
 
+# -----------------------------------------------------------------------------
+# T5.clip -- Cost of the pulse-pressure clip on diastolic elementary effects
+# (Supplement S3.3, sec:s3-clip-cost). Re-derives every computed figure in that
+# subsection from the canonical Morris sample + master aggregate. The clip ratio
+# and the input bounds are READ FROM SOURCE rather than hardcoded here, so these
+# anchors also fail if src/scenario.py or src/sampler.py drifts.
+# -----------------------------------------------------------------------------
+_clip_scen_src = (REPO / "src" / "scenario.py").read_text(encoding="utf-8")
+_clip_samp_src = (REPO / "src" / "sampler.py").read_text(encoding="utf-8")
+_m_ratio = re.search(r"PULSE_DBP_SBP_MAX_RATIO:\s*float\s*=\s*([\d.]+)", _clip_scen_src)
+assert _m_ratio is not None, "audit_claims: PULSE_DBP_SBP_MAX_RATIO not located"
+_CLIP_RATIO = float(_m_ratio.group(1))
+_clip_specs = {
+    m[0]: (float(m[1]), float(m[2]))
+    for m in re.findall(r"InputSpec\(\"(\w+)\",\s*([\d.]+),\s*([\d.]+)", _clip_samp_src)
+}
+assert len(_clip_specs) == 7, f"audit_claims: expected 7 InputSpec rows, got {len(_clip_specs)}"
+_CLIP_NAMES = list(_clip_specs)
+
+_clip_smp = (
+    pd.read_parquet(REPO / "data/runs/full_sweep/morris_sample.parquet")
+    .sort_values(["trajectory", "point"])
+    .reset_index(drop=True)
+)
+_clip_smp["idx"] = range(len(_clip_smp))
+_clip_smp["dbp_app"] = [min(r.dbp, _CLIP_RATIO * r.sbp) for r in _clip_smp.itertuples()]
+
+
+def _clip_nrm(name: str, v: float) -> float:
+    lo, hi = _clip_specs[name]
+    return (v - lo) / (hi - lo)
+
+
+_clip_pairs = []
+for _t, _g in _clip_smp.groupby("trajectory"):
+    _i = _g.sort_values("point")["idx"].tolist()
+    for _k in range(len(_i) - 1):
+        _a, _b = _clip_smp.loc[_i[_k]], _clip_smp.loc[_i[_k + 1]]
+        _d = {n: _clip_nrm(n, _b[n]) - _clip_nrm(n, _a[n]) for n in _CLIP_NAMES}
+        _f = max(_d, key=lambda n: abs(_d[n]))
+        _clip_pairs.append(
+            {
+                "a": _i[_k],
+                "b": _i[_k + 1],
+                "f": _f,
+                "delta": _d[_f],
+                "dreq": _clip_nrm("dbp", _b.dbp) - _clip_nrm("dbp", _a.dbp),
+                "dapp": _clip_nrm("dbp", _b.dbp_app) - _clip_nrm("dbp", _a.dbp_app),
+            }
+        )
+
+_clip_n_points = int((_clip_smp["dbp_app"] < _clip_smp["dbp"] - 1e-12).sum())
+_clip_dbp_steps = [p for p in _clip_pairs if p["f"] == "dbp"]
+_clip_short = [p for p in _clip_dbp_steps if abs(p["dreq"] - p["dapp"]) > 1e-9]
+_clip_ratios = sorted(abs(p["dapp"] / p["dreq"]) for p in _clip_short)
+_clip_oat = [p for p in _clip_pairs if p["f"] != "dbp" and abs(p["dapp"]) > 1e-9]
+_clip_intact = len(_clip_pairs) - len(_clip_short) - len(_clip_oat)
+
+add(
+    claim_id="T5.clip.points",
+    section="Supplement S3.3 / monograph 2.2",
+    manuscript_text="35 of 160 sampled points carry a requested DBP above the ratio and are clipped",
+    source_file="data/runs/full_sweep/morris_sample.parquet",
+    manuscript_value=35,
+    computed_value=_clip_n_points,
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T5.clip.dbp_shortened",
+    section="Supplement S3.3 / monograph 2.2",
+    manuscript_text="9 of the 20 diastolic Morris steps are shortened by the clip",
+    source_file="data/runs/full_sweep/morris_sample.parquet",
+    manuscript_value=9,
+    computed_value=len(_clip_short),
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T5.clip.min_ratio_pct",
+    section="Supplement S3.3 / monograph 2.2",
+    manuscript_text="the shortest applied DBP step is 6.25 percent of nominal",
+    source_file="data/runs/full_sweep/morris_sample.parquet",
+    manuscript_value=6.25,
+    computed_value=100.0 * _clip_ratios[0],
+    tolerance_rule="displayed_2dp",
+)
+add(
+    claim_id="T5.clip.oat_violations",
+    section="Supplement S3.3 / monograph 2.2",
+    manuscript_text="8 of the 140 steps flip SBP and move the applied DBP as well",
+    source_file="data/runs/full_sweep/morris_sample.parquet",
+    manuscript_value=8,
+    computed_value=len(_clip_oat),
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T5.clip.intact_steps",
+    section="Supplement S3.3 / monograph 2.2",
+    manuscript_text="123 of 140 sampled steps are untouched by the clip",
+    source_file="data/runs/full_sweep/morris_sample.parquet",
+    manuscript_value=123,
+    computed_value=_clip_intact,
+    tolerance_rule="exact_int",
+)
+
+_clip_flags = ["clamped", "diverged", "implausible", "not_steady_state"]
+_clip_agg = agg.copy()
+_clip_agg["idx"] = _clip_agg["case_id"].str.rsplit("_", n=1).str[1].astype(int)
+_clip_agg["clean"] = ~_clip_agg[_clip_flags].any(axis=1)
+_cd = _cds = _cs = _css = 0
+for _key, _cell in _clip_agg.groupby(["scenario", "sex"]):
+    _ok = set(_cell[_cell["clean"]]["idx"])
+    for _p in _clip_pairs:
+        if _p["a"] in _ok and _p["b"] in _ok:
+            if _p["f"] == "dbp":
+                _cd += 1
+                if abs(_p["dreq"] - _p["dapp"]) > 1e-9:
+                    _cds += 1
+            elif _p["f"] == "sbp":
+                _cs += 1
+                if abs(_p["dapp"]) > 1e-9:
+                    _css += 1
+
+add(
+    claim_id="T5.clip.clean_dbp_total",
+    section="Supplement S3.3 / monograph 2.2",
+    manuscript_text="78 clean diastolic elementary-effect pairs across the eight cells",
+    source_file="data/runs/full_sweep/aggregated.parquet",
+    manuscript_value=78,
+    computed_value=_cd,
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T5.clip.clean_dbp_shortened",
+    section="Supplement S3.3 / monograph 2.2",
+    manuscript_text="41 of 78 clean diastolic elementary-effect pairs are shortened",
+    source_file="data/runs/full_sweep/aggregated.parquet",
+    manuscript_value=41,
+    computed_value=_cds,
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T5.clip.clean_sbp_total",
+    section="Supplement S3.3 / monograph 2.2",
+    manuscript_text="68 clean systolic elementary-effect pairs across the eight cells",
+    source_file="data/runs/full_sweep/aggregated.parquet",
+    manuscript_value=68,
+    computed_value=_cs,
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T5.clip.clean_sbp_affected",
+    section="Supplement S3.3 / monograph 2.2",
+    manuscript_text="19 of 68 clean systolic elementary-effect pairs are affected",
+    source_file="data/runs/full_sweep/aggregated.parquet",
+    manuscript_value=19,
+    computed_value=_css,
+    tolerance_rule="exact_int",
+)
+
+# mu* under the nominal versus the applied-step denominator.
+_CLIP_OUT = {
+    "HR_mean": "HR",
+    "MAP_mean": "MAP",
+    "Vt_mean": "Vt",
+    "SpO2_mean": "SpO2",
+    "PaO2_mean": "PaO2",
+    "PaCO2_mean": "PaCO2",
+}
+_clip_rows = []
+for _key, _cell in _clip_agg.groupby(["scenario", "sex"]):
+    _m = _cell.set_index("idx")
+    _ok = set(_cell[_cell["clean"]]["idx"])
+    for _p in _clip_pairs:
+        if _p["a"] not in _ok or _p["b"] not in _ok:
+            continue
+        _deff = _p["dapp"] if _p["f"] == "dbp" else _p["delta"]
+        for _oc, _on in _CLIP_OUT.items():
+            _dy = _m.loc[_p["b"], _oc] - _m.loc[_p["a"], _oc]
+            _clip_rows.append(
+                (
+                    _key[0],
+                    _key[1],
+                    _on,
+                    _p["f"],
+                    _dy / _p["delta"],
+                    (_dy / _deff) if abs(_deff) > 1e-9 else float("nan"),
+                )
+            )
+_clip_ee = pd.DataFrame(_clip_rows, columns=["sc", "sx", "out", "inp", "nom", "app"])
+_clip_mu = (
+    _clip_ee.groupby(["sc", "sx", "out", "inp"])
+    .agg(nom=("nom", lambda x: x.abs().mean()), app=("app", lambda x: x.abs().mean()))
+    .reset_index()
+)
+_clip_dbp_mu = _clip_mu[_clip_mu["inp"] == "dbp"].dropna()
+_clip_factor = float((_clip_dbp_mu["app"] / _clip_dbp_mu["nom"]).median())
+_clip_enter = 0
+_clip_h1_nom, _clip_h1_app = [], []
+for _k, _g in _clip_mu.dropna().groupby(["sc", "sx", "out"]):
+    if "dbp" in set(_g.nlargest(3, "app")["inp"]) and "dbp" not in set(
+        _g.nlargest(3, "nom")["inp"]
+    ):
+        _clip_enter += 1
+    _clip_h1_nom.append(_g.nlargest(3, "nom")["nom"].sum() / _g["nom"].sum())
+    _clip_h1_app.append(_g.nlargest(3, "app")["app"].sum() / _g["app"].sum())
+
+add(
+    claim_id="T5.clip.mustar_factor",
+    section="Supplement S3.3 / monograph 2.2",
+    manuscript_text="mu*(DBP) rises by a median factor of 2.4 under the applied-step denominator",
+    source_file="data/runs/full_sweep/aggregated.parquet",
+    manuscript_value=2.4,
+    computed_value=_clip_factor,
+    tolerance_rule="displayed_1dp",
+)
+add(
+    claim_id="T5.clip.dbp_enters_top3",
+    section="Supplement S3.3 / monograph 2.2",
+    manuscript_text="DBP enters the top three in 9 of the 48 cell-output combinations",
+    source_file="data/runs/full_sweep/aggregated.parquet",
+    manuscript_value=9,
+    computed_value=_clip_enter,
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T5.clip.h1_applied_median",
+    section="Supplement S3.3 / monograph 2.2",
+    manuscript_text="median top-3 fraction 0.910 under the applied-step estimator",
+    source_file="data/runs/full_sweep/aggregated.parquet",
+    manuscript_value=0.910,
+    computed_value=float(pd.Series(_clip_h1_app).median()),
+    tolerance_rule="displayed_3dp",
+)
+add(
+    claim_id="T5.clip.h1_applied_min",
+    section="Supplement S3.3 / monograph 2.2",
+    manuscript_text="minimum top-3 fraction 0.696 under the applied-step estimator",
+    source_file="data/runs/full_sweep/aggregated.parquet",
+    manuscript_value=0.696,
+    computed_value=float(pd.Series(_clip_h1_app).min()),
+    tolerance_rule="displayed_3dp",
+)
+add(
+    claim_id="T5.clip.h1_holds_both",
+    section="Supplement S3.3 / monograph 2.2",
+    manuscript_text="H1 holds in 48 of 48 cell-output combinations under either estimator",
+    source_file="data/runs/full_sweep/aggregated.parquet",
+    manuscript_value=48,
+    computed_value=int(
+        sum(1 for a, b in zip(_clip_h1_nom, _clip_h1_app) if a >= 0.5 and b >= 0.5)
+    ),
+    tolerance_rule="exact_int",
+)
+
 # Summary counts.
 n_pass = sum(1 for c in claims if c.status == "PASS")
 n_warn = sum(1 for c in claims if c.status == "WARN")
@@ -2030,8 +2284,8 @@ n_run = len(claims)
 n_skipped = len(skipped)
 # Target total = anchors evaluated this run + anchors deliberately skipped for a
 # missing-artefact reason. Computed dynamically so the ratio cannot go stale if
-# anchors are added or removed later. Full local data tree -> 247/247; public
-# clone with the gitignored raw S021 trajectories absent -> 246/247, 1 SKIPPED.
+# anchors are added or removed later. Full local data tree -> 261/261; public
+# clone with the gitignored raw S021 trajectories absent -> 260/261, 1 SKIPPED.
 n_expected = n_run + n_skipped
 
 print("# Claims-Ledger Audit (S024)\n")

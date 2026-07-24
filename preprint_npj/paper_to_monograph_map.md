@@ -231,8 +231,8 @@ caught equally.*
   monograph_claim_id: 'T1.07'
   expected_value: 48
   format_in_paper: '48 of 48'
-  expected_occurrences: 3
-  notes: 'Appears three times: once in §2.2 prose ("the data support this on 48 of 48 cell $\times$ output combinations"), once in Figure 2 caption ("48 of 48 cell $\times$ output combinations"), and (bumped 2 -> 3, 2026-07-05) once in the §4 Discussion, where the H1 skewed-sensitivity result is surfaced at the FAQ-gap sentence.'
+  expected_occurrences: 4
+  notes: 'Appears three times: once in §2.2 prose ("the data support this on 48 of 48 cell $\times$ output combinations"), once in Figure 2 caption ("48 of 48 cell $\times$ output combinations"), and (bumped 2 -> 3, 2026-07-05) once in the §4 Discussion, where the H1 skewed-sensitivity result is surfaced at the FAQ-gap sentence. Bumped 3 -> 4 (2026-07-24): the new Supplement §S3.3 subsection on the pulse-pressure-clip cost states that H1 "holds in 48 of 48 cell--output combinations under either estimator", adding a fourth occurrence.'
 
 - paper_section: '§2.2 Morris (prose)'
   paper_context: 'H1 median top-3 fraction (prose form)'

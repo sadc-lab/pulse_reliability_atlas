@@ -615,7 +615,7 @@ underlying files are in the repository.
 | S021 | Hyperoxia convergence: 60-run pre-registered rerun at 300 s vs locked 120 s sweep window — tests whether F-003 PaO2 > 600 mmHg at FiO2 = 1.0 reflects oxygenation overshoot or transient non-convergence. |
 | S022 | No-compute failure-mode attribution audit of the locked `not_steady_state` count (Appendix C). |
 | S023 | Supplementary ML/SHAP cross-check of the Morris μ\* rankings on the clean subset (Supplementary §S11). |
-| S024 | Pre-submission claims-ledger audit — `scripts/audit_claims.py` re-derives every Tier-1/Tier-2 quantitative claim in §3 / §4 / Appendix C from the canonical parquets/CSVs and verifies it against the manuscript text (247 / 247 PASS at the locked tolerance band on the authors' full data tree; 246 / 247 on a public clone, where the one anchor needing the gitignored raw S021 trajectories is auto-skipped). |
+| S024 | Pre-submission claims-ledger audit — `scripts/audit_claims.py` re-derives every Tier-1/Tier-2 quantitative claim in §3 / §4 / Appendix C from the canonical parquets/CSVs and verifies it against the manuscript text (261 / 261 PASS at the locked tolerance band on the authors' full data tree; 260 / 261 on a public clone, where the one anchor needing the gitignored raw S021 trajectories is auto-skipped). |
 
 ---
 
@@ -729,6 +729,54 @@ The DBP / SBP ≤ 0.75 ratio is enforced *at the scenario builder*
 Morris geometry stays intact for elementary-effects computation. Both the
 requested DBP (Morris coordinate) and the applied DBP (post-clip, sent to
 Pulse) are persisted in the master Parquet.
+
+**Cost of that clip on diastolic elementary effects (quantified 2026-07-24).**
+Keeping the ratio out of the sampler protects the Morris geometry, but it is
+not free, and the price had never been measured. For the steps the clip
+touches, the engine receives a smaller diastolic change than the Morris
+coordinate records, while the elementary-effect estimator still divides by the
+full nominal step.
+
+Of the 160 sampled points, 35 carry a requested DBP above the 0.75 ratio. Two
+consequences follow; both are fixed by the sample alone and are therefore
+identical in all 8 cells.
+
+* **Shortened steps.** 9 of the 20 diastolic steps are shortened. The nominal
+  Morris step in DBP is 2/3 of the 20 mmHg range = 13.33 mmHg; five of the nine
+  fall to 6.25 % of that (0.83 mmHg), one to 56.25 %, and three to 62.5 %. None
+  is reduced to zero. The 6.25 % is exact rather than empirical: a single
+  clipped endpoint at SBP = 90 caps DBP at 67.5 mmHg, so a requested step of
+  13.3333 mmHg executes as 0.8333 mmHg, and 0.8333 / 13.3333 = 0.0625.
+* **One-at-a-time violations.** In 8 of the 140 steps the flipped input is SBP.
+  Moving SBP moves the 0.75 x SBP cap and therefore the applied DBP as well, so
+  two inputs change at once and the one-at-a-time premise behind the elementary
+  effect fails for those steps.
+
+The remaining 123 / 140 steps (87.9 %) are untouched. After flag filtering,
+41 / 78 clean diastolic pairs are shortened and 19 / 68 clean systolic pairs
+are affected.
+
+**Measured impact.** Recomputing the same elementary effects against the
+applied step instead of the nominal one leaves the headline findings standing:
+H1 holds on 48 / 48 cell x output combinations under either estimator (median
+top-3 fraction 0.928 nominal vs 0.910 applied; minimum 0.658 vs 0.696), and
+output MAP stays SBP-dominated in all 8 cells. What moves is DBP itself: its
+mu* rises by a median factor of 2.4 (maximum 15.4), and it enters the top three
+in 9 of the 48 combinations from which the reported ranking excludes it. **The
+reported mu* for DBP is therefore a lower bound, not a point estimate.**
+
+We did not substitute the applied-step estimator for the preregistered one.
+Dividing by steps as small as 6.25 % of nominal amplifies output noise, so that
+estimator measures the size of the distortion rather than correcting it; and
+imposing the ratio at sampling time instead would forfeit the very geometry the
+design exists to protect. The control for this analysis is that the
+nominal-denominator recomputation reproduces `results/morris_indices.parquet`
+exactly — 318 / 318 rows, relative deviation 0, identical clean-pair counts —
+so the comparison is against the published pipeline rather than against a
+re-implementation of it. Every figure above is re-derived from the canonical
+artefacts by `scripts/audit_claims.py` (anchors `T5.clip.*`) and is reported to
+readers in Supplement §S3.3.
+
 
 ### 2.3 Scenarios and patients
 
@@ -1110,12 +1158,12 @@ an explicit per-class tolerance band (`exact_int` for integer counts;
 `displayed_1dp` / `displayed_2dp` / `displayed_3dp` for floats at
 their displayed precision; a 1 × 10⁻⁹ IEEE-754 epsilon protects
 against half-precision rounding boundaries). The current report on
-the locked manuscript is **247 / 247 PASS, 0 WARN, 0 FAIL** on the
+the locked manuscript is **261 / 261 PASS, 0 WARN, 0 FAIL** on the
 authors' full data tree. On a public clone, one anchor — T1.06u, the
 S021 time-to-95%-plateau, which requires the heavy raw per-run
 trajectories that are gitignored — is automatically skipped, so the
-script reports **246 / 247 PASS** with one explicitly-flagged SKIPPED
-(the headline target of 247 is computed dynamically as anchors-run
+script reports **260 / 261 PASS** with one explicitly-flagged SKIPPED
+(the headline target of 261 is computed dynamically as anchors-run
 plus anchors-skipped, so it cannot go stale). The
 script exits non-zero on any FAIL and is therefore CI-ready: future
 manuscript edits that drift a quoted number against its source
@@ -3128,8 +3176,8 @@ under Apache License 2.0.
   [`scripts/audit_claims.py`](../scripts/audit_claims.py) — read-only
   Python script verifying that every Tier-1 and Tier-2 quantitative
   claim in §3 / §4 / Appendix C matches the canonical artifacts
-  under explicit per-class tolerance rules; current state 247 / 247
-  PASS on the authors' full data tree (246 / 247 on a public clone,
+  under explicit per-class tolerance rules; current state 261 / 261
+  PASS on the authors' full data tree (260 / 261 on a public clone,
   where the one anchor needing the gitignored raw S021 trajectories
   is auto-skipped) ([S024](#s024); see §2.8 for protocol).
 * **Pinned Docker image hashes (byte-level reproducibility):**
@@ -3557,7 +3605,7 @@ during the literature-review pass logged in
 | []{#s021} S021 | Hyperoxia convergence (60-run rerun at 300 s vs locked 120 s window; F-003 mechanism test) |
 | []{#s022} S022 | No-compute failure-mode attribution audit of the locked `not_steady_state` count (see Appendix C) |
 | []{#s023} S023 | Supplementary ML/SHAP cross-check of Morris μ\* rankings on the clean subset (see Supplementary §S11) |
-| []{#s024} S024 | Pre-submission claims-ledger audit (programmatic verification of all Tier-1 / Tier-2 quantitative claims; 247 / 247 PASS on the authors' full data tree, 246 / 247 on a public clone with one auto-skipped anchor, see §2.8) |
+| []{#s024} S024 | Pre-submission claims-ledger audit (programmatic verification of all Tier-1 / Tier-2 quantitative claims; 261 / 261 PASS on the authors' full data tree, 260 / 261 on a public clone with one auto-skipped anchor, see §2.8) |
 
 Each log file in `experiments_log/santino/` follows the template:
 hypothesis → motivation → method → what we tried → results → interpretation

@@ -26,9 +26,9 @@ submission. The three fastest entry points for verifying the work:
 - **Audit ledger** (every quantitative claim in the manuscript is
   machine-checked against the data):
   `uv run python scripts/audit_claims.py` — on a fresh public clone
-  this prints `246/247 PASS ... 1 SKIPPED` (the T1.06u anchor is
+  this prints `260/261 PASS ... 1 SKIPPED` (the T1.06u anchor is
   auto-skipped because it needs the gitignored raw S021 trajectories;
-  with the authors' full `data/runs/` tree it prints `247/247 PASS`).
+  with the authors' full `data/runs/` tree it prints `261/261 PASS`).
 - **One-command reproduction** (Docker, fixed seed, ~9-23 h on a laptop
   depending on hardware and worker count):
 
@@ -276,7 +276,7 @@ quick canary check), confirm the pipeline by running:
 
 ```bash
 uv run pytest tests/ -v                       # S009/S015 unit tests
-uv run python scripts/audit_claims.py          # S024 -- fresh clone prints 246/247 PASS (1 SKIPPED: T1.06u, gitignored raw S021 data); 247/247 with full local data
+uv run python scripts/audit_claims.py          # S024 -- fresh clone prints 260/261 PASS (1 SKIPPED: T1.06u, gitignored raw S021 data); 261/261 with full local data
 ```
 
 The pilot gate study itself is a runnable smoke test on cell (S1, M):
@@ -408,9 +408,9 @@ Quick map (highlights — full audit trail in
   `not_steady_state` (Appendix C).
 - **S023** Supplementary ML/SHAP cross-check of Morris μ\* rankings
   (manuscript §4.5; requires `uv sync --extra ml`).
-- **S024** Pre-submission claims-ledger audit (246 / 247 PASS on a
+- **S024** Pre-submission claims-ledger audit (260 / 261 PASS on a
   public clone — 1 anchor auto-skipped, needs gitignored raw S021 data;
-  247 / 247 with the authors' full data tree).
+  261 / 261 with the authors' full data tree).
 - **S025** Pre-release OSS code-hygiene audit + fixes (this release).
 
 ---
