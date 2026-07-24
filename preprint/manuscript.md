@@ -2118,7 +2118,7 @@ S3 & PaCO2 & 0.89 & [0.41, 1.00] \\
 S1 and S4_F have no computable ρ. FiO2 has zero clean
 elementary-effect pairs in those cells: every Morris trajectory step
 that flips FiO2 between 0.21 and 1.0 has at least one endpoint
-flagged — predominantly by SpO2 ceiling pinning at FiO2 ≈ 1.0. This
+flagged — predominantly by SpO2 ceiling pinning at high FiO2. This
 non-computability is itself a finding (§4.3 limitations).
 
 The bootstrap CI on ρ is wide for output Vt (S2 lower bound −0.06),
