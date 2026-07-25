@@ -57,6 +57,14 @@ from typing import Optional
 
 import pandas as pd
 
+# Windows consoles default to cp1252, which cannot encode characters that
+# occur verbatim in the documents this script audits -- the arrow in the
+# monograph's "0.351 -> 0.016" being the first to bite. An audit report must
+# print its patterns exactly as they appear in the source, so force UTF-8
+# rather than substituting or crashing. No-op where stdout is already UTF-8.
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+
 REPO = Path(__file__).resolve().parents[1]
 
 # -----------------------------------------------------------------------------
@@ -80,6 +88,17 @@ _PARSER.add_argument(
         "Also verify preprint_npj/paper.tex stays in sync with the monograph "
         "ledger via preprint_npj/paper_to_monograph_map.md. Opt-in flag; "
         "default behaviour is the legacy monograph-only audit."
+    ),
+)
+_PARSER.add_argument(
+    "--check-monograph",
+    action="store_true",
+    help=(
+        "Also verify that the monograph-only numerical claims declared in "
+        "preprint/monograph_anchor_map.md still occur in "
+        "preprint/manuscript.md at least min_occurrences times. Opt-in flag; "
+        "presence guard only -- it detects drift, it does not verify "
+        "correctness (see the map's header)."
     ),
 )
 _ARGS = _PARSER.parse_args()
@@ -373,6 +392,144 @@ def check_paper_sync(ledger_claims: list[Claim]) -> tuple[int, int, int]:
             f"| {r['claim_id']} | {r['section']} | `{r['fmt']}` | "
             f"{r['expected_occ']} | {r['found_occ']} | {r['status']} | "
             f"{r['notes']} |"
+        )
+    print()
+
+    return (n_pass, n_warn, n_fail)
+
+
+# -----------------------------------------------------------------------------
+# Monograph anchor check (opt-in via --check-monograph).
+#
+# Locks numerical claims that live ONLY in preprint/manuscript.md -- values
+# derived from the atlas's own sweep data that have no ledger anchor and no
+# row in the paper crosswalk. See preprint/monograph_anchor_map.md for the
+# schema, the verification discipline, and the substring hazards.
+#
+# Two deliberate divergences from check_paper_sync(), both documented in the
+# map's header:
+#
+#   1. Whitespace-normalised matching. manuscript.md is hard-wrapped at ~70
+#      columns, so any multi-word pattern would straddle a newline and break
+#      the moment an unrelated edit reflows the paragraph. Both corpus and
+#      pattern are collapsed to single spaces before comparison.
+#   2. min_occurrences is a FLOOR, not an equality. The paper crosswalk's
+#      exact counts needed 20 documented bumps across 38 commits for 97 rows;
+#      the monograph is edited far more freely. A floor catches deletion and
+#      alteration while staying silent when a value is correctly cited once
+#      more.
+#
+# What this does NOT do: verify correctness. A presence check cannot tell a
+# right number from a wrong one. Every pattern in the map was re-derived by
+# hand from its artefact before being locked; the guard's value begins after
+# that verification, never before it.
+# -----------------------------------------------------------------------------
+
+_WS_RUN = re.compile(r"\s+")
+
+
+def _normalise_ws(text: str) -> str:
+    """Collapse every whitespace run to a single space.
+
+    Applied to both the monograph corpus and each search pattern so that
+    hard-wrapped prose matches patterns written on one line.
+    """
+    return _WS_RUN.sub(" ", text)
+
+
+def check_monograph() -> tuple[int, int, int]:
+    """Verify that every anchor in preprint/monograph_anchor_map.md still
+    occurs in preprint/manuscript.md at least min_occurrences times.
+
+    Outcomes:
+      - PASS               : found >= min_occurrences.
+      - FAIL (missing)     : found == 0.
+      - FAIL (below floor) : 0 < found < min_occurrences.
+      - WARN               : map or manuscript absent, or a row fails to parse.
+
+    Graceful degradation matches check_paper_sync: a missing file WARNs and
+    never crashes the audit. Returns (n_pass, n_warn, n_fail).
+    """
+    print("\n## Monograph anchor check (--check-monograph)\n")
+    mono_path = REPO / "preprint" / "manuscript.md"
+    map_path = REPO / "preprint" / "monograph_anchor_map.md"
+
+    if not mono_path.exists():
+        print(
+            f"_WARN: {mono_path.relative_to(REPO)} not found; monograph "
+            "anchor check skipped._\n"
+        )
+        return (0, 1, 0)
+    if not map_path.exists():
+        print(
+            f"_WARN: {map_path.relative_to(REPO)} not found; monograph "
+            "anchor check skipped (the map has not been initialised yet)._\n"
+        )
+        return (0, 1, 0)
+
+    entries = [e for e in _parse_map_entries(map_path.read_text(encoding="utf-8"))
+               if "anchor_id" in e]
+    if not entries:
+        print(
+            "_No anchors declared yet in preprint/monograph_anchor_map.md._\n"
+        )
+        return (0, 0, 0)
+
+    corpus = _normalise_ws(mono_path.read_text(encoding="utf-8"))
+
+    rows: list[dict] = []
+    n_pass = n_warn = n_fail = 0
+    for entry in entries:
+        anchor_id = entry.get("anchor_id", "?")
+        section = entry.get("monograph_section", "?")
+        pattern = entry.get("pattern", "")
+        try:
+            floor = int(entry.get("min_occurrences", "0"))
+        except (TypeError, ValueError):
+            floor = -1  # signals a parse failure
+
+        if not pattern or floor < 0:
+            status, notes, found = "WARN", "row failed to parse", 0
+        else:
+            found = len(re.findall(re.escape(_normalise_ws(pattern)), corpus))
+            if found == 0:
+                status, notes = "FAIL", "missing: pattern no longer occurs"
+            elif found < floor:
+                status, notes = (
+                    "FAIL",
+                    f"below floor: found {found}, expected at least {floor}",
+                )
+            else:
+                status, notes = "PASS", "-"
+
+        rows.append(
+            {
+                "anchor_id": anchor_id,
+                "section": section,
+                "pattern": pattern,
+                "floor": floor,
+                "found": found,
+                "status": status,
+                "notes": notes,
+            }
+        )
+        if status == "PASS":
+            n_pass += 1
+        elif status == "WARN":
+            n_warn += 1
+        else:
+            n_fail += 1
+
+    print(
+        f"**Monograph anchors:** {len(rows)} declared "
+        f"({n_pass} PASS, {n_warn} WARN, {n_fail} FAIL).\n"
+    )
+    print("| anchor_id | section | pattern | min | found | status | notes |")
+    print("|---|---|---|---:|---:|---|---|")
+    for r in rows:
+        print(
+            f"| {r['anchor_id']} | {r['section']} | `{r['pattern']}` | "
+            f"{r['floor']} | {r['found']} | {r['status']} | {r['notes']} |"
         )
     print()
 
@@ -2397,5 +2554,11 @@ n_sync_pass = n_sync_warn = n_sync_fail = 0
 if _ARGS.check_paper_sync:
     n_sync_pass, n_sync_warn, n_sync_fail = check_paper_sync(claims)
 
+# Optional monograph anchor check (opt-in via --check-monograph). Same
+# contract as the sync check: FAILs contribute to the exit code, WARNs do not.
+n_mono_pass = n_mono_warn = n_mono_fail = 0
+if _ARGS.check_monograph:
+    n_mono_pass, n_mono_warn, n_mono_fail = check_monograph()
+
 # Exit non-zero if any FAIL anywhere (allows piping to CI later).
-sys.exit(1 if (n_fail + n_sync_fail) > 0 else 0)
+sys.exit(1 if (n_fail + n_sync_fail + n_mono_fail) > 0 else 0)

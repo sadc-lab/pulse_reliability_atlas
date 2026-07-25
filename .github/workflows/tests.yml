@@ -89,3 +89,11 @@ jobs:
 
       - name: Paper-monograph crosswalk sync audit (fail on any FAIL)
         run: uv run python scripts/audit_claims.py --check-paper-sync
+
+      # Third layer: monograph-only numerical claims that have no ledger
+      # anchor and no crosswalk row (preprint/monograph_anchor_map.md). This
+      # is a presence guard -- it detects a verified value silently drifting,
+      # it does not verify correctness. It needs no data artifacts, so it runs
+      # identically on a clean checkout and on the authors' full tree.
+      - name: Monograph anchor-map audit (fail on any FAIL)
+        run: uv run python scripts/audit_claims.py --check-monograph

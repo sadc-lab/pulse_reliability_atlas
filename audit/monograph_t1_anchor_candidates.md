@@ -225,12 +225,42 @@ unadjusted, n = 10) and **no mechanism claimed** — S011, the controlled 2×2
 sex×mass design, ran at midrange inputs and FiO2 = 0.6, so sex and the
 11.1 kg mass difference are not separated in this regime.
 
-## Next session — resume here
+## Shipped — this file is now a historical record
 
-1. Write `monograph_anchor_map.md` and the `--check-monograph` option, on the
-   presence-check model agreed in the plan, using the 14 verified targets
-   above. All values are now re-derived; nothing is left to verify first.
-2. Record in each anchor comment which literals are rounded displays
-   (633.3 for 633.333…, 92 for 91.67, 2.40 for 2.3958, 14 for 13.64), so the
-   presence check matches the displayed form deliberately rather than by
-   accident.
+The 14 targets became **26 anchors** in `preprint/monograph_anchor_map.md`,
+enforced by `scripts/audit_claims.py --check-monograph`. Some targets needed
+more than one anchor because the monograph states the same quantity in two
+forms (the S014 median pair appears four times with an arrow and three times
+with a prose "to"; the floor-vs-female gap is written once from each side).
+
+**Two design points that came out of the build, both documented in the map's
+header.**
+
+1. *Whitespace normalisation.* Both corpus and pattern are collapsed to
+   single spaces before matching. `manuscript.md` is hard-wrapped at ~70
+   columns, and one of the anchors (`M.T04.cluster_hr`) already straddles a
+   newline in the source: raw matching finds it 0 times, normalised matching
+   finds it once. Without this, every multi-word pattern would break the first
+   time an unrelated edit reflowed its paragraph.
+2. *`min_occurrences` is a floor, not an equality.* The paper crosswalk's
+   exact counts needed 20 documented bumps across 38 commits for 97 rows. A
+   floor still catches deletion and alteration, but stays silent when a value
+   is correctly cited one more time.
+
+**Substring hazards found while measuring the patterns**, and the reason no
+anchor may be a bare short number: `8.7 %` also matches inside `78.7 %`
+(twice, in the clean-rate decomposition) and `2.5 %` inside `62.5 %` (the
+DBP-clip step ratio). Both anchors carry sentence context instead.
+
+**The guard was tested in both directions**, not merely observed to pass: a
+controlled single-character edit (`0.351` → `0.352` at one of the four arrow
+loci) produced `FAIL — below floor: found 3, expected at least 4` and exit
+code 1; the edit was then reverted and the tree confirmed clean.
+
+**Wired into all three places that must run it**: the pre-commit hook, the
+GitHub Actions claims-audit job, and the README's verification block, which
+now documents the three audit layers and states plainly that this one detects
+drift rather than verifying correctness.
+
+Final state: **267 ledger anchors · 97 crosswalk entries · 26 monograph
+anchors**, all PASS, one invocation, exit 0.

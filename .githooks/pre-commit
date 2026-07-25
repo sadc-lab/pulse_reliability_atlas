@@ -62,10 +62,11 @@ fi
 # Verifies every quantitative claim in preprint/manuscript.md (monograph) and
 # preprint_npj/paper.tex + supplement.tex (npj submission) still matches the
 # frozen data artifacts, and blocks the commit on any FAIL so numeric drift is
-# caught locally rather than after push. A single --check-paper-sync run gates
-# BOTH layers: its exit status is non-zero if the monograph ledger OR the
-# paper crosswalk has any FAIL. Prefer `uv run python` (matches CI); fall back
-# to the hook's $PY; skip with a note if neither is available (CI still gates).
+# caught locally rather than after push. A single run with both opt-in flags
+# gates ALL THREE layers: its exit status is non-zero if the monograph ledger,
+# the paper crosswalk, or the monograph anchor map has any FAIL. Prefer
+# `uv run python` (matches CI); fall back to the hook's $PY; skip with a note
+# if neither is available (CI still gates).
 if command -v uv >/dev/null 2>&1; then
     AUDIT_CMD="uv run python"
 elif [ -n "$PY" ]; then
@@ -76,17 +77,18 @@ else
 fi
 
 if [ -n "$AUDIT_CMD" ]; then
-    if ! $AUDIT_CMD scripts/audit_claims.py --check-paper-sync >/dev/null; then
+    if ! $AUDIT_CMD scripts/audit_claims.py --check-paper-sync --check-monograph >/dev/null; then
         echo ""
         echo "pre-commit: claims-ledger audit FAILED — commit aborted."
         echo ""
         echo "  A quantitative claim in the monograph or paper.tex no longer"
-        echo "  matches the frozen data artifacts (or the crosswalk drifted)."
-        echo "  Inspect the discrepancy table:"
-        echo "    uv run python scripts/audit_claims.py --check-paper-sync"
-        echo "  Fix the drifted number (or update preprint_npj/paper_to_monograph_map.md),"
-        echo "  re-stage, and re-commit. This is the same gate as the GitHub Actions"
-        echo "  claims-audit job; CI will fail on push if a FAIL remains."
+        echo "  matches the frozen data artifacts, or the paper crosswalk or"
+        echo "  the monograph anchor map drifted. Inspect the tables:"
+        echo "    uv run python scripts/audit_claims.py --check-paper-sync --check-monograph"
+        echo "  Fix the drifted number, or update preprint_npj/paper_to_monograph_map.md"
+        echo "  or preprint/monograph_anchor_map.md, then re-stage and re-commit."
+        echo "  This is the same gate as the GitHub Actions claims-audit job;"
+        echo "  CI will fail on push if a FAIL remains."
         echo ""
         exit 1
     fi
