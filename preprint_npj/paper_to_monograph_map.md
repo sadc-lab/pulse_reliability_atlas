@@ -559,8 +559,8 @@ caught equally.*
   monograph_claim_id: 'T1.24d.s021_s1_max_runaway_plateau'
   expected_value: 1408
   format_in_paper: '1{,}408'
-  expected_occurrences: 1
-  notes: 'Added in the [SCIENTIFIC] final-fixes pass (D.8 sweep finding A2). Appears once in the Figure 3 caption: "plateau off-scale (up to $\\approx$1{,}408~mmHg ...)". Verified against data/runs/s021_hyperoxia_convergence/plateau_stats.parquet (max S1 PaO2_plateau_mmHg = 1408.49); approx_round tolerance because the caption uses an explicit "~".'
+  expected_occurrences: 2
+  notes: 'Added in the [SCIENTIFIC] final-fixes pass (D.8 sweep finding A2). Appears once in the Figure 3 caption: "plateau off-scale (up to $\\approx$1{,}408~mmHg ...)". Verified against data/runs/s021_hyperoxia_convergence/plateau_stats.parquet (max S1 PaO2_plateau_mmHg = 1408.49); approx_round tolerance because the caption uses an explicit "~". Count raised 1 -> 2 on 2026-07-25: Supplement S9 now also cites the maximum as the upper end of the 1,169-1,408 mmHg female runaway range, in the corrected hyperoxia-signature paragraph. The sync corpus is paper.tex + supplement.tex, so both occurrences count; both state the same re-derived value (max S1 PaO2_plateau_mmHg = 1408.49).'
 
 ## Step 7 — Methods reproducibility constants
 

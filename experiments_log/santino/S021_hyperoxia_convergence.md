@@ -237,8 +237,25 @@ Mean wall time 130 s / run; 2 parallel workers.
    6 / 44 S1 runs (14 %) develop unphysical plateaus > 700 mmHg
    under the extended window (4 stabilising near 1,400 mmHg, above
    the sea-level barometric pressure of 760 mmHg). All six share
-   the input signature **Vt = 633.3 mL × RR = 20** at FiO2 = 1.0
-   (V̇E ≈ 12.6 L/min, ~ 2× physiological norm). Per-run trajectories
+   the input signature **Vt = 633.3 mL** at FiO2 = 1.0; five of the six
+   also carry RR = 20 (V̇E ≈ 12.7 L/min, ~ 2× physiological norm).
+
+   > **Correction, 2026-07-25.** This item originally read “all six
+   > share the input signature Vt = 633.3 mL × RR = 20”. That is true of
+   > five of the six: S1_F_0150 carries RR = 16 at PEEP = 0
+   > (V̇E ≈ 10.1 L/min). Re-derivation from `plateau_stats.parquet`
+   > joined to the sweep inputs also shows three runs at V̇E ≈ 12.7 L/min
+   > (S1_M_0130/0131/0132) that do *not* run away, so minute
+   > ventilation is neither necessary nor sufficient and the
+   > “avoid > ~ 12 L/min” guidance derived from it is withdrawn from the
+   > paper, the supplement and the monograph. The variable that does
+   > separate the cohort is the reference body: across the five
+   > input-identical male/female pairs at Vt = 633.3 mL with RR ≥ 16,
+   > the female body ran away 5/5 and the male 1/5 (male plateau
+   > 779 mmHg vs 1,169 – 1,408 mmHg female). No mechanism is claimed —
+   > sex and the 11.1 kg mass difference are not separated in this
+   > cohort. The other figures in this item re-derive exactly (6 / 44,
+   > 14 %, > 700 mmHg, four near 1,400 mmHg, 760 mmHg). Per-run trajectories
    show a stable ~ 690 mmHg PaO2 through ~ 195 s, then an abrupt
    numerical runaway between 195 s and 220 s, plateauing near
    1,400 mmHg by 240 s, with concurrent unphysical PaCO2 collapse

@@ -147,20 +147,26 @@ freezing an approximation defeats the purpose of the guard.
 
 | # | Target | Status |
 |---|---|---|
-| 2 | SHAP-vs-Morris top-3 overlap (90 %, 17/18, 2.40/3) | to verify — S023 |
-| 3 | 86 mL, male floor vs female default | to verify — S018 |
-| 4 | divergence-cluster composition (110/90 bpm, 633/800 mL) | **AMBIGUOUS — see below** |
-| 5 | 71.1 mL/kg female, ~0.4 % per-kg gap | to verify — S018 |
-| 6 | 60.7 mL/kg at the enforced floor | to verify — S018 |
-| 7 | 8.4 % / 4,400 mL S018 bracket level | to verify — S018 |
+| 2 | SHAP-vs-Morris top-3 overlap (17/18, 2.40/3, **92 %**) | **DEFECT FOUND, FIXED** — was 90 % / 43 of 48; truth 91.67 % / 44 of 48 (see below) |
+| 3 | 86 mL, male floor vs female default | **VERIFIED** — 4,082.24 − 3,996.09 = 86.15 |
+| 4 | divergence-cluster composition (110/90 bpm, 633.3/800 mL) | **VERIFIED, ambiguity closed** (see below) |
+| 5 | 71.1 mL/kg female, ~0.4 % per-kg gap | **VERIFIED** — 71.1048; gap 0.360 % |
+| 6 | 60.7 mL/kg at the enforced floor | **VERIFIED** — 60.657 |
+| 7 | 8.4 % / 4,400 mL S018 bracket level | **VERIFIED** — 8.3835 % (floor bracket 15.0 % also exact) |
 | 8 | 2.5 % (4/160) divergence in S1_M, S2_M, S3_M | **VERIFIED EXACT** |
-| 12 | 14 % (6/44) runaway population | to verify — S021 |
-| 13 | Vt 633.3 mL x RR 20 runaway signature | to verify — S021 |
-| 16 | 96 % Vt-CV reduction under trigger lockout | to verify — S014 |
+| 12 | 14 % (6/44) runaway population | **VERIFIED** — 13.64 %; max plateau 1,408.49 mmHg; 4 near 1,400 |
+| 13 | Vt 633.3 mL x RR 20 runaway signature | **DEFECT FOUND, FIXED** — true of 5 of 6, not 6 (see below) |
+| 16 | 96 % Vt-CV reduction under trigger lockout | **VERIFIED** — 0.350867 → 0.015631 = 95.545 % |
 | 17 | drift medians 0.05 / 0.58 / 0.09 | **VERIFIED** (0.0495 / 0.575 / 0.0869) |
 | 18 | 8.7 % Vt exceedance, hyperoxia arm | **VERIFIED EXACT** |
 | 19 | 7.3 % PaO2 exceedance, Vt-oscillation arm | **VERIFIED EXACT** |
-| 20 | 18.6 % (13/70) Cornish rejection rate | to verify — S017 |
+| 20 | 18.6 % (13/70) Cornish rejection rate | **VERIFIED** — 18.571 % (PaO2 5.1 %, MeanBP 3.3 %, HR 0.6 % also exact) |
+
+**Outcome of the pre-lock verification pass (2026-07-25): 12 of 14 exact,
+2 defects, both propagating beyond the monograph into the npj submission.**
+This is the justification for the rule stated in the section above — an
+anchor lends a value the appearance of having been verified, so verifying
+first is a precondition, not a formality.
 
 ## Why each target must be re-derived before it is locked
 
@@ -170,25 +176,61 @@ unlocked: it converts an error into a permanent one carrying false
 confidence. None of these 14 has ever been re-derived — that is precisely
 why they are unanchored. Verification is a precondition, not a formality.
 
-## The target-4 ambiguity, unresolved
+## The target-4 ambiguity, closed
 
-Re-derivation confirms the diverged population holds HR in {50, 90, 110} bpm
-and Vt in {300, **633.3**, 800} mL. Two problems before it can be locked:
+The doubt recorded here was unfounded: the sentence names its own four runs
+(`run_idx` 24 / 82 / 137 / 138). Re-derived from
+`data/runs/full_sweep/aggregated.parquet`, those four hold HR = 110, 90, 90,
+90 ("one at 110 bpm, three at 90 bpm") and Vt = 633.3, 800, 300, 300 ("two at
+300 mL, one at 633.3 mL, one at 800 mL"). The description is exact. The five
+bullets covering the 16 shared runs are exact too (HR = 50, SBP = 90,
+DBP = 67.5, RR = 20 each at 16 / 20; FiO2 = 1.0 at 13 / 20; Morris indices
+119 / 157 / 158 / 159).
 
-1. The monograph writes "one at **633** mL"; the value is **633.3 mL**. The
-   same quantity is written 633.3 elsewhere (target 13). One of the two is a
-   rounding the guard would have to accommodate, or the text should be
-   harmonised.
-2. The sentence describes a **subset of four runs** ("one HR at 110 bpm, three
-   at 90 bpm; two Vt at 300 mL, one at 633 mL, one at 800 mL") out of the 20
-   diverged. Which four has not been established. Locking the numbers without
-   confirming the subset would freeze a possibly-wrong description.
+Only the typography needed fixing: the monograph wrote "633 mL" here and
+"633.3 mL" elsewhere. Harmonised on **633.3 mL**. The value is 633.333…,
+the third level of the Morris 4-level grid on [300, 800] with Δ = 2/3
+(300 + ⅔ × 500), so "633.3" is a 1-decimal display of a repeating decimal —
+the anchor comment must record that, or the guard recreates the trap it
+exists to close.
+
+## The two defects, and how they were fixed
+
+**Target 2 — SHAP ≥ 2/3 agreement rate.** `topk_overlap_per_cell.csv` holds
+44 rows at ≥ 2/3 and 4 below, out of 48: 91.67 %, displayed 92 %. The
+documents said 90 % / 43 of 48. Not data drift — the CSV was committed once
+(`7447ac0`) and never regenerated, so the error was a hand-tabulation slip in
+the S023 log that the supplement and monograph inherited. The S024 audit had
+already caught it on 2026-05-22 and corrected anchor `T2.s023.ge2_pct` to 92,
+but the correction never left the ledger: an anchor's `manuscript_text` is
+free prose that nothing enforces, and 92 was never registered in the
+crosswalk. Fixed in supplement (×2), monograph (×2) and the S023 log (×4,
+plus the "5 / 48 (10 %)" row → 4 / 48 (8 %)), with a dated correction note in
+the log.
+
+**Target 13 — hyperoxia runaway signature.** "All six share Vt = 633.3 mL
+combined with RR = 20" is true of five of the six; S1_F_0150 carries RR = 16
+at PEEP = 0 (V̇E ≈ 10.1 L/min). Three further runs at V̇E ≈ 12.7 L/min do not
+run away, so minute ventilation is neither necessary nor sufficient — and the
+"avoid Vt × RR > ~12 L/min" guidance derived from it both missed a case and
+over-fired. Guidance withdrawn from paper, supplement and monograph and
+replaced by run-by-run PaO2 screening. What all six do share is
+Vt = 633.3 mL at FiO2 = 1.0 (6 of 20 at that level; 0 of 24 elsewhere,
+including 0 of 8 at Vt = 800 mL). The separating variable is the reference
+body: across the five input-identical male/female pairs at Vt = 633.3 mL with
+RR ≥ 16, the female body ran away 5 / 5 and the male 1 / 5, male plateau
+779 mmHg against 1,169 – 1,408 mmHg female. Reported as an enumeration, with
+no p-value (the engine is deterministic; the test would be post-hoc,
+unadjusted, n = 10) and **no mechanism claimed** — S011, the controlled 2×2
+sex×mass design, ran at midrange inputs and FiO2 = 0.6, so sex and the
+11.1 kg mass difference are not separated in this regime.
 
 ## Next session — resume here
 
-1. Re-derive targets 2, 3, 5, 6, 7, 12, 13, 16, 20 against their artefacts
-   (S018 blood volume, S021 hyperoxia, S014 trigger lockout, S023 SHAP,
-   S017 Cornish).
-2. Resolve target 4: identify the four-run subset and settle 633 vs 633.3.
-3. Only then write `monograph_anchor_map.md` and the `--check-monograph`
-   option, on the presence-check model agreed in the plan.
+1. Write `monograph_anchor_map.md` and the `--check-monograph` option, on the
+   presence-check model agreed in the plan, using the 14 verified targets
+   above. All values are now re-derived; nothing is left to verify first.
+2. Record in each anchor comment which literals are rounded displays
+   (633.3 for 633.333…, 92 for 91.67, 2.40 for 2.3958, 14 for 13.64), so the
+   presence check matches the displayed form deliberately rather than by
+   accident.

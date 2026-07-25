@@ -141,7 +141,9 @@ below; this section is the exhaustive findings digest.*
   window-length artefact, not an oxygenation overshoot. 41/44 S1 reruns
   converged; 6 develop an off-scale numerical runaway (up to ≈1,408 mmHg).
 * **Practical rule:** simulate hyperoxia for ≥ 300 s of total simulated time before extracting a PaO2
-  plateau; avoid Vt × RR > ~12 L/min on healthy lungs at FiO2 = 1.0.
+  plateau; on healthy lungs at FiO2 = 1.0, screen each PaO2 trajectory
+  individually — no input-side ventilation setting predicts the
+  numerical runaway.
 
 **Primary finding 3 — sex-stratified solver divergence and its blood-volume mechanism.**
 
@@ -2436,10 +2438,34 @@ corrected by setting trigger pressure to −2 cmH2O.*
   additional sub-finding).** A separate phenomenon emerges *only*
   with the 300 s window: 6 / 44 S1 runs (14 %) develop unphysical
   PaO2 plateaus > 700 mmHg (4 stabilising near 1,400 mmHg, above
-  the sea-level barometric pressure of 760 mmHg). All six share a
-  specific input signature: **Vt = 633.3 mL combined with RR = 20**
-  (and FiO2 = 1.0), i.e. an excessive minute ventilation of
-  V̇E ≈ 12.7 L/min, ~ 2× the physiological norm of 6 – 8 L/min.
+  the sea-level barometric pressure of 760 mmHg). All six sit at the
+  single tidal-volume level **Vt = 633.3 mL** at FiO2 = 1.0 — 6 of the
+  20 S1 reruns at that level, none of the 24 at the other three, and
+  0 of 8 at the highest level Vt = 800 mL.
+
+  **Minute ventilation does not separate them.** Five of the six carry
+  RR = 20 (V̇E ≈ 12.7 L/min, ~ 2× the physiological norm of 6 – 8 L/min),
+  but three further runs at that same V̇E do not run away; the sixth
+  carries RR = 16 at PEEP = 0 (V̇E ≈ 10.1 L/min). No input-side
+  ventilation threshold in this cohort separates affected from
+  unaffected runs — the previously published “avoid > ~ 12 L/min”
+  guidance both missed a case and over-fired, and has been withdrawn.
+
+  **What does separate them is the reference body.** The 10 runs at
+  Vt = 633.3 mL with RR ≥ 16 form five male/female pairs, verified
+  input-identical on all seven Morris inputs. The female body ran away
+  in **5 of 5**, the male in **1 of 5**, and the single male case
+  plateaus at 779 mmHg against 1,169 – 1,408 mmHg across the five
+  female cases. This is the opposite direction to the all-male
+  input-extreme divergence cluster of §3.5, and a third instance of the
+  regime-dependence that section establishes. It is consistent with the
+  systematically higher PaO2 the female body reaches at identical
+  inputs (mean 686 vs 663 mmHg in the locked 120 s window across the
+  four RR = 20 pairs) and with the +21.3 mmHg sex effect on S1 PaO2
+  measured by the controlled 2×2 sex×mass design ([S011](#s011)).
+  **No mechanism is claimed:** S011 was run at midrange inputs and
+  FiO2 = 0.6, so this cohort cannot separate sex from the 11.1 kg
+  body-mass difference in this regime.
   Inspection of the per-run trajectories shows a stable
   ~ 690 mmHg PaO2 plateau through ~ 195 s, then an abrupt numerical
   runaway between 195 s and 220 s, plateauing at ~ 1,400 mmHg by
@@ -2448,7 +2474,8 @@ corrected by setting trigger pressure to −2 cmH2O.*
   runaway and therefore protects the headline atlas classification
   from it. This is not a transient regime; it is a separate
   solver-instability mode that an *extended-window* user of Pulse
-  should be aware of at extreme minute ventilation on healthy lungs.
+  should screen for run by run on the PaO2 trajectory, since no
+  input-side ventilation setting predicts it.
 
   **Supplementary physiology-anchored classifier.** The 600 mmHg
   upper bound on PaO2 in `HARD_BOUNDS` is a conservative classifier
@@ -2473,10 +2500,11 @@ corrected by setting trigger pressure to −2 cmH2O.*
   extended window of ≥ 300 s total simulated time, use a plateau window in the final 60 s of
   the simulation; expect a physiological plateau in healthy lungs
   (~ 640 mmHg) and graded shunt depression in ARDS (~ 144 mmHg at
-  60 % severity, ~ 73 mmHg at 95 % severity). Avoid Vt × RR
-  combinations exceeding ~ 12 L/min minute ventilation on healthy
-  lungs at FiO2 = 1.0 — extended-window simulations enter a
-  separate solver-instability regime at this corner. Full S021
+  60 % severity, ~ 73 mmHg at 95 % severity). On healthy lungs at
+  FiO2 = 1.0, screen each run's PaO2 trajectory individually:
+  extended-window simulations can enter a separate
+  solver-instability regime there, and no input-side ventilation
+  setting predicts which runs enter it (§3.8). Full S021
   protocol and per-run paired data:
   [`experiments_log/santino/S021_hyperoxia_convergence.md`](../experiments_log/santino/S021_hyperoxia_convergence.md);
   raw artefacts in `data/runs/s021_hyperoxia_convergence/`.
