@@ -3008,7 +3008,7 @@ bounded.*
   the locked classifier is correctly identifying. The headline atlas
   numbers in §3.1 Table 1 stand under the locked classifier; the
   per-cell sub-mode attribution table is reported in
-  [Appendix C](#appendix-c-not_steady_state-attribution-side-table-s022)
+  [Appendix C](#appendix-c)
   for readers who want to score "engine instability" separately from
   "detector edge case on healthy oxygenation." Under the joint
   exclusion the clean rate would rise from 51.8 % to 78.7 % — this is
@@ -3971,7 +3971,7 @@ internal documentation; the original "Pulse standard" wording in the
 preregistration is preserved verbatim and flagged via a dated erratum
 block at the top of that document.
 
-## Appendix C — `not_steady_state` attribution side-table ([S022](#s022))
+## []{#appendix-c} Appendix C — `not_steady_state` attribution side-table ([S022](#s022))
 
 The locked classifier's `not_steady_state` flag (§2.6) fires when any
 output channel violates one of three sub-mode rules in the
