@@ -1844,7 +1844,7 @@ input pattern. Of the 20:
   158, 159 in the canonical sample.
 * The remaining 4 are unique to (S4, M), at `run_idx` 24 / 82 /
   137 / 138. They form a mixed cluster: one HR at 110 bpm, three at
-  90 bpm; two Vt at 300 mL, one at 633 mL, one at 800 mL. This is a
+  90 bpm; two Vt at 300 mL, one at 633.3 mL, one at 800 mL. This is a
   *partial second regime* — one the locked Morris sample explores
   only at the most severe ARDS impairment.
 
