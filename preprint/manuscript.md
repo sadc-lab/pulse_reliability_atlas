@@ -344,9 +344,11 @@ sweep.*
 
 ## Notation and abbreviations
 
-*Sixteen symbols and acronyms used throughout the paper. Defined here
-so cross-disciplinary readers do not need to chase definitions through
-the prose.*
+*Thirty entries: the symbols and acronyms used throughout, the
+document's own structural vocabulary, and the identifier families
+(experiment codes, findings, hypotheses, audit anchors). Defined here so
+that a reader — or a reading agent — entering at any point does not
+need to chase definitions through the prose.*
 
 | Symbol / acronym | Meaning |
 |---|---|
@@ -365,7 +367,23 @@ the prose.*
 | V/Q | Ventilation–perfusion ratio. |
 | BV | Blood volume (Pulse field `BloodVolumeBaseline`). |
 | BH / FDR | Benjamini–Hochberg false-discovery-rate control at q = 0.05. |
-| CV | Coefficient of variation — standard deviation divided by the mean — used here for steady-state Vt stability. |
+| CV | Coefficient of variation — standard deviation divided by the mean. A single locked threshold of 0.05 is applied to **every** tracked output as one of the three steady-state criteria; tidal volume is simply where it fires most often (§2.6). |
+| **Structural terms** | |
+| Cell | One (scenario, sex) slice of the atlas — one severity scenario combined with one reference body. 4 scenarios × 2 bodies = 8 cells, each holding 160 runs. |
+| Clean pair | A Morris elementary-effect step whose two endpoint runs both carry no flag. Only clean pairs enter the μ\* estimate. |
+| `primary_flag` | When a run fires several flags, the single highest-priority one, resolved by the order `clamped > diverged > implausible > not_steady_state` (§2.6). |
+| Traffic light | The per-cell reliability map (§3.7): each cell scored green / amber / red from its flag rates and its deviation from the healthy baseline. |
+| Tier-1 / Tier-2 | Claim classes in the audit ledger. Tier-1 are headline claims of the main results; Tier-2 are follow-up and supplementary claims. |
+| Sobol bolt-on | The preregistered option to escalate from Morris screening to a full Sobol variance decomposition if non-linearity warranted it. Evaluated and closed in §3.3.1. |
+| Runaway | A run whose PaO2 keeps climbing past the plausibility ceiling instead of settling — the numerically unstable tail of the hyperoxia regime (§3.8). |
+| Allometric | Scaling a physiological quantity by body size. Pulse sets blood volume allometrically as BV = 65.6 · weight^1.02 (§3.6). |
+| **Identifier families** | |
+| S001 – S026 | Atlas lab-notebook entries, one per experiment, in `experiments_log/santino/`. Indexed in Appendix A. |
+| F-003 / F-004 | The two named boundary findings the atlas carried from pilot to full sweep: F-003 the transient hyperoxia regime at FiO2 = 1.0 (§3.8), F-004 the VC-AC tidal-volume dyssynchrony (§3.8). No other F-numbers are in use. |
+| H1 – H4 | The four preregistered hypotheses, quoted verbatim in §2.0 and evaluated in §§3.3 – 3.6. |
+| T1.\* / T2.\* / T3.\* / T5.\* | Anchor identifiers in the audit ledger (`scripts/audit_claims.py`). Each re-derives one manuscript number from the canonical data. |
+| §S1 – §S16 | Sections of the *npj* submission's Supplementary Information, a separate document from this monograph. |
+| `Pulse_translation_new` | The companion pediatric-translation project. Its own experiments are labelled E1 – E10; experiments of that project without an E-number are cited here by name. |
 
 ---
 
@@ -465,7 +483,8 @@ before any data was collected (preregistration §Inputs, §Scenarios,
 §Flags):
 
 * **Inputs** swept from Pulse's *verified* acceptance ranges
-  (E10 / E28 / E29 boundary probes).
+  (the companion E10 boundary probe and its HR / RR initialisation
+  probes).
 * **Scenarios** spanning healthy adult and three ARDS severities,
   calibrated on the Berlin Definition's PaO2/FiO2 bands [@ards2012].
   PALICC-2 (Pediatric Acute Lung Injury Consensus Conference, 2nd
@@ -688,7 +707,7 @@ reproduce the sweep bit-exactly.*
   `engine/run_atlas_engine.py` is a fork of
   `Pulse_translation_new/engine/run_validation_engine.py` with two
   documented changes (see §2.6 and [S004](#s004)):
-  1. `FIO2_MAX` raised 0.95 → 1.0 (justified by PhD experiment E20, April
+  1. `FIO2_MAX` raised 0.95 → 1.0 (justified by the companion FiO2 = 1.0 crash probe, April
      2026: 9-run probe, no Pulse solver-divergence at FiO2 = 1.0).
   2. Recording-relative time origin ([S005](#s005)): wrapper now subtracts the
      ventilator-settle time so emitted `time_s` starts at 0, allowing the
@@ -744,16 +763,16 @@ builder, not the sampler, so Morris geometry stays intact for
 elementary-effects computation.*
 
 Seven inputs swept, ranges verified in Pulse boundary probes
-(E10/E28/E29):
+(companion E10 boundary probe plus its HR / RR initialisation probes):
 
 | Input | Range | Units | Source |
 |---|---|---|---|
-| HR baseline | 50–110 | bpm | E29 (11 / 11 Docker runs) |
+| HR baseline | 50–110 | bpm | companion HR initialisation boundary probe (11 / 11 Docker runs) |
 | SBP baseline | 90–120 | mmHg | E10 |
 | DBP baseline | 60–80 | mmHg | E10; ratio DBP / SBP ≤ 0.75 enforced |
-| RR baseline | 8–20 | bpm | E28 (9 / 9 Docker runs) |
+| RR baseline | 8–20 | bpm | companion RR initialisation boundary probe (9 / 9 Docker runs) |
 | Vt target | 300–800 | mL | ARDSnet 6 mL/kg [@brower2000] to pre-ARDSnet 10 mL/kg |
-| FiO2 | 0.21–1.0 | fraction | room air → pure O2 (E20 verifies 1.0 safe) |
+| FiO2 | 0.21–1.0 | fraction | room air → pure O2 (companion FiO2 = 1.0 crash probe verifies 1.0 safe) |
 | PEEP | 0–20 | cmH2O | clinical range |
 
 *Input-ranges table — at a glance.*
@@ -761,7 +780,8 @@ Seven inputs swept, ranges verified in Pulse boundary probes
 ranges (units), and the verification source for each acceptance window.
 **How to read it:** each row is one Morris-sampled input; the range
 column lists the [min, max] interval; the source column points at the
-boundary probe (E10 / E28 / E29 / E20) or literature reference that
+boundary probe (companion E10, or its HR / RR initialisation and
+FiO2 = 1.0 probes) or literature reference that
 established the range.
 **Key takeaway:** all 7 ranges sit *inside* Pulse's verified acceptance
 envelope by construction — so no Morris point should ever silently
@@ -859,7 +879,8 @@ Phase-2 audit, [S020](#s020) follow-up). Under
 the ARDSnet-protective ventilation regime that the Atlas sweep is
 built around (VC-AC, Vt = 6 mL/kg, PEEP = 10 cmH2O, FiO2 = 0.4),
 direct measurement of the documented mapping in a 28-run impairment
-sweep (`Pulse_translation_new` E6) produced P/F ratios of
+sweep (`Pulse_translation_new`, original ARDS severity calibration)
+produced P/F ratios of
 199 / 150 / 119 mmHg — leaving Pulse's "mild" fraction (0.3) at the
 moderate / mild boundary and its "severe" fraction (0.9) well inside
 the Berlin moderate band. The empirically calibrated mapping
@@ -871,7 +892,7 @@ reproduce its claimed P/F values under different Vt / PEEP / FiO2
 combinations, but does not at ARDSnet-protective settings. Full
 contrast table, ventilation-setting disclosure, three-source
 convergence for the 0.91 – 0.945 solver-instability zone, and the
-E6 calibration provenance are in Appendix B.3.
+ARDS calibration provenance are in Appendix B.3.
 
 * **Male reference surrogate:** age 18, weight 67.3 kg, height 180 cm (BMI 20.8).
 * **Female reference surrogate:** age 18, weight 56.2 kg, height 163 cm (BMI 21.2).
@@ -893,7 +914,8 @@ NHANES P50 anchors further confirm the surrogates' *vital-sign* profile
 (not their body dimensions) is representative of healthy adults: median
 HR 70 bpm (M) / 74 bpm (F), SBP 118 mmHg (M) / 113 mmHg (F), DBP 70
 mmHg (M) / 69 mmHg (F). Companion verification
-(`Pulse_translation_new` E12, E13) established that the female
+(`Pulse_translation_new` female-surrogate engine tests and the
+male/female side-by-side verification) established that the female
 surrogate produces physiologically plausible engine output across all
 four scenarios, independent of the Atlas sweep.
 
@@ -905,7 +927,8 @@ validation tables [@pulsevent] reporting VC-AC tidal-volume errors
 of 0.07 – 2.25 % across healthy, restrictive, and obstructive lung
 profiles vs PC-AC's 11.3 – 25.3 %; the surrounding ASL 5000
 validation framework is described in [@webb2022vent]. Companion
-verification (`Pulse_translation_new` E12, E13) further found
+verification (`Pulse_translation_new` female-surrogate engine tests
+and male/female side-by-side verification) further found
 that PC-AC over-delivery scales inversely with body weight (female
 +58.9 % vs male +24.0 % at PIP = 20 cmH2O), reinforcing the
 preregistration's VC-AC restriction.
@@ -1501,7 +1524,7 @@ each μ\* point estimate in the table; CI overlap between the top-3 and
 the rest is the formal H1 test.
 
 **External cross-validation against an OAT precursor.** Companion
-one-at-a-time probing prior to the Atlas (Pulse_translation_new E24,
+one-at-a-time probing prior to the Atlas (`Pulse_translation_new` E4,
 ±10 % perturbations on healthy and ARDS-moderate cells, n = 74 Docker
 runs) reported the FiO2 → PaO2 elasticity collapsing from 1.32 in
 healthy to 0.26 in moderate ARDS — an ~80 % attenuation as shunt
@@ -2222,7 +2245,8 @@ across sex. For the other outputs, the lower CI bound sits at ≥ 0.34
 not high-precision support.
 
 A complementary engine-level verification is relevant here. Pre-Atlas
-experiments (`Pulse_translation_new` E12, E13) established that the
+experiments (`Pulse_translation_new` female-surrogate engine tests
+and male/female side-by-side verification) established that the
 female surrogate produces physiologically plausible output across all
 four scenarios, independent of this sweep. The sex effects we observe
 above therefore reflect real engine-level sex-specific physiology,
@@ -2345,7 +2369,8 @@ corrected by setting trigger pressure to −2 cmH2O.*
   0.47]), PaO2 is well-approximated by a linear function of FiO2:
   PaO2 ≈ 505 × FiO2 − 25 mmHg (R² = 0.90), i.e. roughly **5 mmHg
   PaO2 per 0.01 FiO2** in the clean range (Appendix B.2 /
-  `Pulse_translation_new` E20 reports a steeper ~7.8 mmHg / 0.01
+  the companion `Pulse_translation_new` FiO2 = 1.0 crash probe reports
+  a steeper ~7.8 mmHg / 0.01
   slope on a focused single-input probe at FiO2 0.95 – 1.0; the two
   figures reflect different regimes — multi-input averaged across
   [0.21, 1.0] vs single-input near the FiO2 = 1.0 boundary).
@@ -3378,7 +3403,8 @@ the following or to an experiment-log entry in this repository.
    `engine/src/cpp/engine/human_adult/whole_body/controller/SetupPatient.cpp`
    — referenced for adult age gate (lines 41 – 64), BMI bounds (lines
    179 – 200), blood-volume formula (line 534), HR / SBP / DBP
-   acceptance bounds (verified by E10 / E28 / E29).
+   acceptance bounds (verified by the companion E10 boundary probe and
+   its HR / RR initialisation probes).
 6. **Webb et al. 2022 (ANNSIM).** *Implementation of a dynamic and
    extensible mechanical ventilator model for real-time physiological
    simulation.* PubMed Central article PMC10224749. Describes Pulse's
@@ -3628,6 +3654,12 @@ during the literature-review pass logged in
 
 ## Appendix A — Experiment log index
 
+*Every `S0xx` code used in this monograph is a lab-notebook entry in
+`experiments_log/santino/`, numbered in the order the experiments were
+run. The list below is complete. Codes of the form `E1` – `E10` belong
+instead to the companion `Pulse_translation_new` project and are not
+indexed here.*
+
 | ID | Title |
 |---|---|
 | []{#s001} S001 | Docker + hardware smoke test |
@@ -3654,6 +3686,8 @@ during the literature-review pass logged in
 | []{#s022} S022 | No-compute failure-mode attribution audit of the locked `not_steady_state` count (see Appendix C) |
 | []{#s023} S023 | Supplementary ML/SHAP cross-check of Morris μ\* rankings on the clean subset (see Supplementary §S11) |
 | []{#s024} S024 | Pre-submission claims-ledger audit (programmatic verification of all Tier-1 / Tier-2 quantitative claims; 267 / 267 PASS on the authors' full data tree, 266 / 267 on a public clone with one auto-skipped anchor, see §2.8) |
+| []{#s025} S025 | Pre-release OSS code-hygiene audit and fixes |
+| []{#s026} S026 | Final pre-arXiv polish |
 
 Each log file in `experiments_log/santino/` follows the template:
 hypothesis → motivation → method → what we tried → results → interpretation
@@ -3743,8 +3777,9 @@ mapping and the same P/F claim.
 **Empirical calibration at ARDSnet-protective ventilation.** The
 documented mapping was tested directly against the male reference
 surrogate (age 18, 67.3 kg, 180 cm) in a 28-run impairment-
-fraction sweep (`Pulse_translation_new` experiment E6,
-2026-03; the full log is the canonical record of the calibration).
+fraction sweep (`Pulse_translation_new`, the original ARDS severity
+calibration, 2026-03; the full log is the canonical record of the
+calibration — the later `E6` experiment is its April refinement).
 The ventilation regime was held constant across all 28 runs:
 
 * Mode: VC-AC (volume-control assist-control).
@@ -3774,7 +3809,7 @@ mild-band centre, and the documented severe fraction (0.9) sits
 roughly 50 mmHg above the severe-band ceiling — i.e. still
 moderate by Berlin.
 
-**Corrected mapping used by the Atlas.** From the same E6 sweep, the
+**Corrected mapping used by the Atlas.** From that same 28-run sweep, the
 fractions that produce P/F values at the Berlin band centres
 (or, for severe, immediately below the band ceiling) at the same
 ARDSnet-protective ventilation settings are:
@@ -3802,7 +3837,8 @@ impairment-fraction grids and independent run-by-run execution)
 characterise the same numerical-bifurcation range in the
 respiratory solver:
 
-* **E6** (the 28-run impairment sweep above, 2026-03): fractions 0.92
+* **The original ARDS severity calibration** (the 28-run impairment
+  sweep above, 2026-03): fractions 0.92
   and 0.94 fail to stabilise at ARDSnet settings.
 * **E10** (a 10-run high-resolution boundary probe, 2026-04,
   testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94,
