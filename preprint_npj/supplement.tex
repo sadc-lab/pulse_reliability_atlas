@@ -793,12 +793,12 @@ A supplementary RandomForest regressor + SHAP feature-importance ranking was com
 \begin{itemize}
 \item \textbf{17 of 18 pooled (output $\times$ top-3) cases agree} at the full 3-of-3 ranking level (ledger anchor \texttt{T2.s023.pooled}).
 \item \textbf{23 of 48 per-cell (scenario $\times$ sex $\times$ output) cases agree at the full 3-of-3 level} (ledger anchor \texttt{T2.s023.fullmatch}).
-\item \textbf{90~\% of per-cell comparisons agree at $\geq$ 2-of-3 level} (43 of 48; ledger anchor \texttt{T2.s023.ge2\_pct}).
+\item \textbf{92~\% of per-cell comparisons agree at $\geq$ 2-of-3 level} (44 of 48; ledger anchor \texttt{T2.s023.ge2\_pct}).
 \end{itemize}
 
 \subsection{Interpretation}\label{sec:s13-interp}
 
-The strong pooled-level agreement (17 of 18) is the central cross-verification: a SHAP analysis on the clean-subset data distribution recovers the same dominant inputs that the interventional Morris design identifies, on six independent outputs. The lower per-cell full-match rate (23 of 48) is expected, because per-cell sample sizes (42--144 clean runs per cell) are smaller and the SHAP ranking depends on the observed input-output distribution within that cell, which is heavily influenced by which Morris trajectories happened to land on clean runs. The 90~\% $\geq$ 2-of-3 agreement at the per-cell level is the appropriate level of comparison: a top-3 ranking is preserved if SHAP recovers two of the three inputs the Morris design ranks first.
+The strong pooled-level agreement (17 of 18) is the central cross-verification: a SHAP analysis on the clean-subset data distribution recovers the same dominant inputs that the interventional Morris design identifies, on six independent outputs. The lower per-cell full-match rate (23 of 48) is expected, because per-cell sample sizes (42--144 clean runs per cell) are smaller and the SHAP ranking depends on the observed input-output distribution within that cell, which is heavily influenced by which Morris trajectories happened to land on clean runs. The 92~\% $\geq$ 2-of-3 agreement at the per-cell level is the appropriate level of comparison: a top-3 ranking is preserved if SHAP recovers two of the three inputs the Morris design ranks first.
 
 The SHAP cross-verification works because the underlying physiology is real, not the other way round. Morris establishes the mechanistic input-importance ranking through a preregistered one-at-a-time perturbation design; SHAP independently recovers the same ranking by a different (data-driven, observational, tree-based) route. The agreement is evidence that the Morris-derived rankings are not artefacts of the elementary-effects design --- they correspond to input dependencies that any reasonable statistical method would identify on the same data.
 

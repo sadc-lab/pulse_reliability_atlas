@@ -214,7 +214,7 @@ below; this section is the exhaustive findings digest.*
   response.
 * **ML/SHAP cross-check of the Morris ranking** ([S023](#s023)): a
   RandomForest + SHAP surrogate on the 663 clean runs recovers the Morris
-  top-3 in **17 / 18** pooled cases (mean per-cell overlap 2.40 / 3; 90 % of
+  top-3 in **17 / 18** pooled cases (mean per-cell overlap 2.40 / 3; 92 % of
   48 comparisons ≥ 2/3) — the ranking is an engine property, not an OAT-design
   artefact. Supplementary only (training R² uninformative; clean-subset
   selection bias).
@@ -3017,7 +3017,7 @@ bounded.*
   supplementary RandomForest + SHAP ranking on the n = 663 clean
   subset ([S023](#s023)) recovers the Morris μ\* top-3 in 17 / 18
   pooled (output × top-3) cases and in 23 / 48 per-cell cases at full
-  3 / 3 agreement (90 % of per-cell comparisons at ≥ 2 / 3). The
+  3 / 3 agreement (92 % of per-cell comparisons at ≥ 2 / 3). The
   cross-check is reported in supplementary section S11 with the
   honest caveats it requires (clean-subset bias, OAT non-uniform
   design); see [`results/s023/`](../results/s023/) for artefacts.

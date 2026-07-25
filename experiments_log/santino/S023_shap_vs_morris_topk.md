@@ -119,8 +119,19 @@ outputs.
 |---|---|
 | Mean top-3 overlap | **2.40 / 3** |
 | Cell-output pairs with full 3/3 match | **23 / 48** (48 %) |
-| Pairs with ≥ 2/3 match | 43 / 48 (90 %) |
-| Pairs with 1/3 or 0/3 match | 5 / 48 (10 %) |
+| Pairs with ≥ 2/3 match | **44 / 48** (92 %) |
+| Pairs with 1/3 or 0/3 match | **4 / 48** (8 %) |
+
+> **Correction, 2026-07-25.** The two rows above originally read
+> `43 / 48 (90 %)` and `5 / 48 (10 %)`. That was a hand-tabulation error at
+> write time, not data drift: `results/s023/topk_overlap_per_cell.csv` was
+> committed once (`7447ac0`) and never regenerated, and has always held
+> **44** pairs at ≥ 2/3 and **4** below. The S024 ledger audit caught it on
+> 2026-05-22 and corrected the anchor `T2.s023.ge2_pct` to 92 %, but the
+> correction was never propagated to this log, to the monograph, or to
+> Supplement §S13; all three are corrected together with this note. No other
+> S023 figure is affected — 17 / 18 pooled, 23 / 48 full-match and 2.40 / 3
+> mean overlap each re-derive exactly from the artefact.
 
 Per-output mean overlap (averaged across cells):
 
@@ -165,7 +176,7 @@ reference surrogates. This is an observation, not a causal claim.
 ## Interpretation
 
 The ML/SHAP cross-check **substantially agrees** with the Morris ranking:
-17/18 pooled top-3 features overlap, and 90 % of per-cell comparisons
+17/18 pooled top-3 features overlap, and 92 % of per-cell comparisons
 recover at least 2/3 of the Morris top-3. Where they disagree (PaO2's
 third influencer; Vt's third influencer across cells) the disagreement
 involves mechanistically substitutable inputs (RR ↔ Vt via minute
@@ -180,7 +191,7 @@ different objects:
   the *RF surrogate's* prediction over the empirical input distribution
   — sensitivity of the surrogate.
 
-Agreement at the ≥ 2/3 level on 90 % of comparisons means: (a) the RF
+Agreement at the ≥ 2/3 level on 92 % of comparisons means: (a) the RF
 captures the same dominant input → output relationships that Morris
 sees, and (b) the Morris ranking is not a methodology artefact of OAT
 trajectory design.
@@ -237,7 +248,7 @@ to control for, made visible by an alternative method.
 > at full 3/3 agreement; PaO2 differs only on the third influencer, where
 > SHAP picks Vt and Morris picks RR — mechanistically substitutable
 > through minute ventilation). At the per-cell level (48 cell × output
-> comparisons), mean top-3 overlap is 2.40/3 and 90 % of comparisons
+> comparisons), mean top-3 overlap is 2.40/3 and 92 % of comparisons
 > recover at least two of the three Morris top influencers. This
 > cross-check supports the Morris-derived ranking as a property of the
 > engine rather than an artefact of the OAT trajectory design, with two
