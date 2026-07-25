@@ -3999,7 +3999,7 @@ internal documentation; the original "Pulse standard" wording in the
 preregistration is preserved verbatim and flagged via a dated erratum
 block at the top of that document.
 
-## []{#appendix-c} Appendix C — `not_steady_state` attribution side-table ([S022](#s022))
+## Appendix C — `not_steady_state` attribution side-table ([S022](#s022)) {#appendix-c}
 
 The locked classifier's `not_steady_state` flag (§2.6) fires when any
 output channel violates one of three sub-mode rules in the
