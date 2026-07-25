@@ -7,9 +7,7 @@
 %%  Sync:       paired with ../preprint/manuscript.md via           %%
 %%              preprint_npj/paper_to_monograph_map.md and          %%
 %%              scripts/audit_claims.py --check-paper-sync          %%
-%%  Status:     Step 1 skeleton (abstract + section stubs only).    %%
-%%              Subsequent steps draft sections incrementally       %%
-%%              per the S028 splitting blueprint.                   %%
+%%  Status:     Complete manuscript.                                %%
 %%                                                                  %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -30,8 +28,8 @@
 \usepackage{algorithmicx}%
 \usepackage{algpseudocode}%
 \usepackage{listings}%
-\usepackage{subcaption}% added Step 3: 2x3 sub-figure layout for Morris mu* heatmaps (Figure 2)
-\usepackage{xr-hyper}% Step 10: cross-document references to supplement.tex
+\usepackage{subcaption}% 2x3 sub-figure layout for Morris mu* heatmaps (Figure 2)
+\usepackage{xr-hyper}% cross-document references to supplement.tex
 \externaldocument{supplement}% reads supplement.aux to resolve \ref{sec:s*}, \ref{fig:s*}, \ref{tab:s*}
 
 \usepackage{tikz}% Study-design flowchart (Figure 1)
@@ -124,10 +122,7 @@
 \maketitle
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% SECTION SKELETONS                                                %%
-%% Each subsection is a stub. Subsequent S028 Steps draft them      %%
-%% incrementally per the blueprint. Stubs are LaTeX comments so     %%
-%% the rendered PDF shows headings without placeholder prose.       %%
+%% BODY -- Results, Discussion, Methods.                            %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Introduction}\label{sec:intro}
@@ -356,7 +351,7 @@ The Morris sample was generated with the SALib implementation~\cite{iwanaga2022}
 %% MANDATORY CLOSING SECTIONS                                       %%
 %% Per npj Digital Medicine policy: Data availability, Code         %%
 %% availability, Acknowledgements, Author contributions, Competing  %%
-%% interests. Stubs filled at Step 8.                               %%
+%% interests.                                                       %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \hypertarget{tgt:data-avail}{}\bmhead{Data availability}
