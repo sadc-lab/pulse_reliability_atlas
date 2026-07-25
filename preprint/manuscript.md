@@ -627,6 +627,52 @@ which Morris design, which flags. Every threshold, every range, and
 every priority order was locked in the preregistration before the
 1,280-run sweep launched.*
 
+### 2.0 Preregistered hypotheses
+
+*The four hypotheses the atlas was built to test, reproduced verbatim
+from `preregistration.md` §Primary hypotheses. They are stated here,
+before the machinery, so that the rest of §2 reads as the apparatus
+built to answer them; each is evaluated in §3.3 (H1), §3.4 (H2),
+§3.5 (H3) and §3.6 (H4).*
+
+> - **H1.** A small subset of inputs dominates each output's variance
+>   (skewed sensitivity). Specifically: for each of HR, MAP, Vt-delivered,
+>   SpO2, PaO2, PaCO2, the top-3 inputs (Morris μ\*-ranked) account for
+>   ≥50% of summed μ\*.
+> - **H2.** Silent clamping occurs for a measurable fraction of inputs
+>   sampled from plausible adult-ICU ranges. Specifically: ≥5% of the
+>   Morris sample hits at least one silent clamp.
+> - **H3.** At least one solver-divergence zone exists outside the
+>   previously characterized ARDS zone (0.91–0.945) within the 7-input
+>   adult envelope.
+> - **H4.** Male and female Pulse standard patients differ in reliability
+>   behavior (clamping, divergence, or Morris μ\* ranking) on at least one
+>   output. Direction of difference is not prespecified — this is the
+>   **first** sex-specific comparison for Pulse.
+
+**Erratum on the wording of H4 (terminology only, no design change).**
+The phrase "Pulse standard patients" in H4 is quoted exactly as it was
+registered, but it is a misnomer, and the preregistration carries its own
+erratum saying so (`preregistration.md`, erratum of 2026-05-19, lines
+9–34). The two bodies used here — male 18 yr / 67.3 kg / 180 cm and
+female 18 yr / 56.2 kg / 163 cm — are **not** Pulse's source-code
+"Standard" patients: the weights are CDC 50th-percentile
+weight-for-age values at 18 years, the female height is the CDC P50
+stature (coincidentally equal to Pulse's `heightStandardFemale_cm =
+163.0`), and the male height is a researcher-fixed value chosen for a
+BMI of 20.8, about 3 cm above the CDC P50 and **not** Pulse's
+`heightStandardMale_cm = 177.0`. This manuscript therefore uses the term
+**reference surrogate** throughout; the full provenance is in §2.3 and
+Appendix B.5. The preregistered text is left unaltered above because a
+preregistration is a dated record, not a living document: the correction
+belongs beside it, not inside it.
+
+The numeric criteria are unchanged by the erratum. Outcomes, stated in
+full in the sections named above: H1 **PASS** (48 / 48), H2 **not
+supported** (0 / 1,280), H3 **partially supported** (divergence exists;
+the sex-stratification is regime-dependent), H4 **partially supported**
+(gas-exchange channels only).
+
 ### 2.1 Engine and atlas wrapper
 
 *The exact Pulse version, Docker image, and atlas wrapper layered on

@@ -101,3 +101,6 @@ for_endorsement/
 
 # Pre-submission inquiry draft (prep aid, not part of the submission package yet)
 preprint_npj/pre_submission_inquiry.txt
+
+# Internal working audit — not for publication until its findings are resolved
+audit/monograph_comprehensibility_audit.md
