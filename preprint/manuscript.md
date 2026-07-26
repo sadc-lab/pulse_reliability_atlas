@@ -221,8 +221,9 @@ below; this section is the exhaustive findings digest.*
   artefact. Supplementary only (training R² uninformative; clean-subset
   selection bias).
 * **ARDS-severity → P/F calibration table** (ventilation-setting-dependent):
-  impairment {0.26, 0.60, 0.95} lands P/F ≈ **256 / 150 / 96 mmHg** (Berlin
-  band centres) under VC-AC + Vt 6 mL/kg + PEEP 10 + FiO2 0.4; Pulse's
+  impairment {0.26, 0.60, 0.95} lands P/F ≈ **256 / 150 / 96 mmHg** (near the
+  Berlin mild and moderate band centres; just inside the severe band's
+  upper boundary, which is open-ended below and has no centre) under VC-AC + Vt 6 mL/kg + PEEP 10 + FiO2 0.4; Pulse's
   documented {0.3, 0.6, 0.9} defaults give 199 / 150 / 119 mmHg at the same
   settings.
 * **Complementarity with Cornish et al. 2023** ([S017](#s017)): their
@@ -337,7 +338,8 @@ sweep.*
   without re-running this sweep.
 * **Reusable ARDS-severity → P/F calibration table at ARDSnet ventilation.**
   Empirical mapping {0.26, 0.60, 0.95} lands Pulse's per-lung severity
-  scalar at Berlin band centers (P/F ≈ 256 / 150 / 96 mmHg) under VC-AC +
+  scalar near the Berlin mild and moderate band centres, and just inside
+  the severe band's upper boundary (P/F ≈ 256 / 150 / 96 mmHg), under VC-AC +
   Vt 6 mL/kg + PEEP 10 + FiO2 0.4; Pulse's documented {0.3, 0.6, 0.9}
   defaults yield 199 / 150 / 119 mmHg at the same settings (vs. published
   340 / 130 / 50 mmHg, Webb 2020) — calibration is *ventilation-setting-dependent*.
@@ -886,8 +888,9 @@ produced P/F ratios of
 199 / 150 / 119 mmHg — leaving Pulse's "mild" fraction (0.3) at the
 moderate / mild boundary and its "severe" fraction (0.9) well inside
 the Berlin moderate band. The empirically calibrated mapping
-{0.26, 0.60, 0.95} used here was selected to land at Berlin band
-centers (P/F ≈ 256 / 150 / 96 mmHg) under the same ventilation
+{0.26, 0.60, 0.95} used here was selected to land near the Berlin mild
+and moderate band centres and just inside the severe band's upper
+boundary (P/F ≈ 256 / 150 / 96 mmHg) under the same ventilation
 settings. The calibration is therefore *ventilation-setting-dependent*
 rather than a global correction; Pulse's documented mapping may
 reproduce its claimed P/F values under different Vt / PEEP / FiO2
