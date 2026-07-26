@@ -60,7 +60,7 @@ import pandas as pd
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
-from src.runner import run_many  # noqa: E402
+from src.runner import MAX_PARALLEL_LAPTOP, run_many  # noqa: E402
 from src.scenario import PATIENTS, derive_map  # noqa: E402
 
 RUNS = REPO / "data" / "runs" / "s030_ards_berlin_recalibration"
@@ -74,6 +74,27 @@ VT_ML = {"M": 403.8, "F": 337.2}  # 6 mL/kg on each reference body
 DURATION_H = 300.0 / 3600.0   # 300 s, longer than E6's ~108 s (see docstring)
 SAMPLE_S = 5                  # atlas-canonical sampling
 
+# --- the two arms --------------------------------------------------------
+# The companion's runs commanded set_rr = 16 but the patient actually breathed
+# at 21.65-37.17 (median 27.25), because VC-AC falls back to
+# InspirationPatientTriggerRespiratoryModel when no explicit trigger is given.
+# Minute ventilation is therefore an OUTPUT, not a setting, and the P/F values
+# inherit its variability -- fatal for a boundary claim with 0.7 mmHg of margin.
+#
+#   arm "free"   -- no explicit trigger: faithful to the companion protocol,
+#                   and to how Pulse is used by default.
+#   arm "locked" -- InspirationPatientTriggerPressure = -2 cmH2O, the S014
+#                   intervention, which disables the respiratory-model trigger
+#                   and gives genuinely controlled ventilation.
+#
+# The locked arm is a SENSITIVITY ANALYSIS, not a replacement: it measures the
+# ARDS model's own response, isolated from patient-ventilator interaction. If
+# the two arms place a fraction in different Berlin bands, the published
+# calibration boundary depends on an uncontrolled interaction rather than on
+# the ARDS model alone -- which is the result worth reporting.
+TRIGGER_LOCK_CMH2O = -2.0     # magnitude is what Pulse uses; matches S014
+ARMS = ("free", "locked")
+
 # --- the grid ------------------------------------------------------------
 ANCHORS = [0.26, 0.30, 0.60, 0.90, 0.92, 0.95]
 CROSS_300 = [0.220, 0.225, 0.230, 0.235]          # no-ARDS <-> mild
@@ -83,7 +104,10 @@ MALE_GRID = sorted(set(ANCHORS + CROSS_300 + CROSS_200 + CROSS_100))
 FEMALE_GRID = [0.26, 0.60, 0.95]
 
 
-def build_config(severity: float, sex_key: str, case_id: str) -> dict[str, Any]:
+def build_config(severity: float, sex_key: str, case_id: str,
+                 arm: str) -> dict[str, Any]:
+    if arm not in ARMS:
+        raise ValueError(f"unknown arm {arm!r}")
     pat = PATIENTS[sex_key]
     cfg: dict[str, Any] = {
         "case_id": case_id,
@@ -103,10 +127,13 @@ def build_config(severity: float, sex_key: str, case_id: str) -> dict[str, Any]:
             "set_rr": VENT["set_rr"],
             "peep_cmh2o": VENT["peep_cmh2o"],
             "fio2": VENT["fio2"],
+            **({"inspiration_patient_trigger_pressure_cmh2o": TRIGGER_LOCK_CMH2O}
+               if arm == "locked" else {}),
         },
         "ards_severity": {"left": float(severity), "right": float(severity)},
         "atlas_meta": {
             "scenario": "S030",
+            "arm": arm,
             "sex": sex_key,
             "ards_severity_continuous": float(severity),
             "dbp_requested": BASE["dbp"],
@@ -121,21 +148,31 @@ def build_config(severity: float, sex_key: str, case_id: str) -> dict[str, Any]:
 def main() -> int:
     RUNS.mkdir(parents=True, exist_ok=True)
     jobs = []
-    for sev in MALE_GRID:
-        cid = f"s030_M_{sev:.3f}".replace(".", "p")
-        jobs.append((build_config(sev, "M", cid), cid))
-    for sev in FEMALE_GRID:
-        cid = f"s030_F_{sev:.3f}".replace(".", "p")
-        jobs.append((build_config(sev, "F", cid), cid))
+    for arm in ARMS:
+        tag = "fr" if arm == "free" else "lk"
+        for sev in MALE_GRID:
+            cid = f"s030_{tag}_M_{sev:.3f}".replace(".", "p")
+            jobs.append((build_config(sev, "M", cid, arm), cid))
+        for sev in FEMALE_GRID:
+            cid = f"s030_{tag}_F_{sev:.3f}".replace(".", "p")
+            jobs.append((build_config(sev, "F", cid, arm), cid))
 
-    print(f"S030: {len(jobs)} runs "
+    print(f"S030: {len(jobs)} runs = {len(ARMS)} arms x "
           f"({len(MALE_GRID)} male + {len(FEMALE_GRID)} female), "
-          f"{DURATION_H * 3600:.0f} s each, 3 parallel")
-    for cfg, cid in jobs:
-        print(f"  {cid:22s} severity={cfg['ards_severity']['left']:.3f} "
-              f"Vt={cfg['ventilator']['tidal_volume_ml']}")
+          f"{DURATION_H * 3600:.0f} s each, {MAX_PARALLEL_LAPTOP} parallel")
+    # Pre-flight guard: the locked arm is worthless if the image ignores the
+    # key, and it would fail silently as identical to the free arm.  Assert the
+    # key is actually present in exactly the configs that should carry it.
+    n_locked = sum(1 for cfg, _ in jobs
+                   if "inspiration_patient_trigger_pressure_cmh2o"
+                   in cfg["ventilator"])
+    expected = len(MALE_GRID) + len(FEMALE_GRID)
+    assert n_locked == expected, f"trigger key on {n_locked} configs, expected {expected}"
+    print(f"  pre-flight: trigger-lock key present on {n_locked} configs "
+          f"(-{abs(TRIGGER_LOCK_CMH2O)} cmH2O), absent on the other "
+          f"{len(jobs) - n_locked}")
 
-    results = run_many(jobs, runs_root=RUNS, max_workers=3, timeout_s=900.0)
+    results = run_many(jobs, runs_root=RUNS, max_workers=MAX_PARALLEL_LAPTOP, timeout_s=900.0)
 
     rows = []
     for r in results:

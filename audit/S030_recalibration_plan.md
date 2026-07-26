@@ -1,7 +1,19 @@
 # S030 — in-repo replication of the ARDS severity → Berlin calibration
 
-**Status as of 2026-07-26: PLANNED, script written, NOT YET RUN.**
-Script: `scripts/run_s030_ards_berlin_recalibration.py` (committed, never executed).
+**Status: LAUNCHED 2026-07-26, running in the background.**
+Script: `scripts/run_s030_ards_berlin_recalibration.py`.
+Launched with `nohup uv run python scripts/run_s030_ards_berlin_recalibration.py`,
+log at `data/runs/s030_run.log` (stdout is buffered; follow progress by counting
+subdirectories of `data/runs/s030_ards_berlin_recalibration/` instead).
+
+**40 runs = 2 arms x (17 male + 3 female), 300 s each, 2 workers -> ~100 min.**
+`max_workers` is 2, not 3: `src/runner.py` hard-caps it at
+`MAX_PARALLEL_LAPTOP = 2` and raises rather than silently over-subscribing.
+
+**IF THE SESSION DIED MID-RUN:** count the subdirectories. If fewer than 40,
+re-launch the same command -- the runner skips nothing, so delete the run
+directory first or accept overwrite semantics (check `run_many(overwrite=)`).
+Nothing downstream has been written yet, so a restart costs only compute.
 
 ---
 
