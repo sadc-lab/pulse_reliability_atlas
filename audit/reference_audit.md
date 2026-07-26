@@ -158,8 +158,56 @@ read-only. Whether it is direction-compatible with Pulse's own tables is a
 separate question, and it is the hinge of the monograph's "corroborate the
 direction" sentence.
 
-**No source document was modified.** Per the stop protocol, this is recorded
-for joint evaluation before anything is touched.
+**RESOLVED 2026-07-26.** The companion referent was retrieved under explicit
+read-only authorisation from `Pulse_translation_new/experiments_log.md`
+(L866–870), and it settles the question:
+
+| Configuration | Female | Male |
+|---|---|---|
+| VC-AC commanded | 399.7 mL (1.60 % err) | 479.6 mL (1.81 % err) |
+| PC-AC at PIP = 20 cmH2O | 635.3 mL (**+58.9 % vs VC-AC**) | 594.5 mL (**+24.0 % vs VC-AC**) |
+
+Arithmetic confirms the referent: (635.3 − 399.7)/399.7 = 58.94 % and
+(594.5 − 479.6)/479.6 = 23.96 %. **The companion's baseline is VC-AC inside
+Pulse, not a physical reference.**
+
+So the two results measure different pairs and **are not in conflict**:
+
+- Pulse's validation tables compare **Pulse's PC-AC against physical hardware**
+  (ASL 5000 / Dräger) → Pulse delivers *less*.
+- The companion compares **PC-AC against VC-AC within Pulse** at a fixed
+  driving pressure → PC-AC delivers *more*.
+
+Both statements are true simultaneously. What was wrong is (a) the direction
+attributed to Pulse's tables, and (b) the monograph's claim that the companion
+experiments "corroborate the direction" — they cannot corroborate a
+Pulse-vs-hardware direction, because they never measure it.
+
+A genuine concordance does exist, on the other mode: the companion's VC-AC
+commanded-volume errors (1.60 % female, 1.81 % male) sit inside Pulse's own
+VC-AC validation band (0.07–2.25 %).
+
+**Correction applied at four loci** (commit below), on the direction-neutral
+formulation agreed in advance:
+
+1. `supplement.tex` §S2 row 7 — "over-delivers … by 11.3–25.3 %" →
+   "deviates from the physical reference by 11.3–25.3 % … against 0.07–2.25 %
+   for VC-AC". The VC-AC contrast is added because it is the actual reason the
+   atlas restricts to VC-AC.
+2. `manuscript.md` §2.2 item 7 — same neutral wording, plus the paired columns
+   spelled out (935 vs 1,047; 409 vs 528; 490 vs 571), plus the corrected
+   description of what the companion measured, plus an explicit statement that
+   the two results are not in conflict.
+3. `CLAUDE.md` limitation 7 — rewritten to keep the two referents apart, with
+   both sets of primary numbers and an explicit "not concordant and not in
+   conflict".
+4. `manuscript.md` §B — a surviving row-index citation, "`Pulse_translation_new`
+   entry #20", replaced by the named probe. This is a **missed instance of the
+   numbering purge in commit 7b2049e**, which targeted the `E20` form and did
+   not catch the `entry #20` variant. The `#12 / #13` pair in locus 2 was the
+   same defect and is fixed by the same edit. One `entry #4` reference remains
+   and is legitimate — it points at our own preregistration table, not at the
+   companion.
 
 ---
 

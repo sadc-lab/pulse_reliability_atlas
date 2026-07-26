@@ -560,7 +560,7 @@ This atlas adds quantitative coverage to those:
    table.
 5–6. HR init acceptance 50–110 / RR init acceptance 8–20 — sampler ranges
    match.
-7. PC-AC over-delivers Vt 11.3 – 25.3 % across healthy / restrictive / obstructive lung profiles per Pulse's own validation tables [@pulsevent]; the surrounding validation framework is described in [@webb2022vent]. Companion experiments in `Pulse_translation_new` (entries #12 / #13) corroborate the *direction* — PC-AC over-delivers tidal volume in both sexes — but find a larger magnitude under different ventilator settings (female +58.9 % vs male +24.0 % at PIP = 20 cmH2O; see §2.3). The atlas restricts to VC-AC.
+7. PC-AC delivered Vt deviates from the physical reference by 11.3 – 25.3 % across healthy / restrictive / obstructive lung profiles, against 0.07 – 2.25 % for VC-AC, per Pulse's own validation tables [@pulsevent]; the surrounding validation framework is described in [@webb2022vent]. Those tables print **unsigned** percentage errors, but their paired columns show Pulse delivering *less* than the physical reference in all three PC-AC profiles (935 vs 1,047 mL; 409 vs 528 mL; 490 vs 571 mL) — consistent with [@webb2022vent], which reports that the physical ventilator produces the higher tidal volumes. Companion experiments in `Pulse_translation_new` (the female-surrogate engine tests and the male/female side-by-side verification) measure a **different comparison**: PC-AC against *VC-AC within Pulse* at PIP = 20 cmH2O, where PC-AC delivers more (female +58.9 %, male +24.0 %; see §2.3). The two are not in conflict — one compares Pulse against physical hardware, the other compares two Pulse modes against each other. The atlas restricts to VC-AC.
 8–12. Structural lumped-parameter limits — discussed in §4.3.
 
 The two previously asserted but unverified claims (FiO2 solver-divergence at 1.0 and
@@ -3759,7 +3759,8 @@ initialization failure prior to stabilization.
   the allowed absolute ranges.
 * **Fraction of inspired oxygen (FiO2):** Direct probing confirmed
   that the engine remains fully stable up to FiO2 = 1.0. In the focused
-  single-input probe (`Pulse_translation_new` entry #20, 9 runs sweeping
+  single-input probe (the companion `Pulse_translation_new` FiO2 = 1.0
+  crash probe, 9 runs sweeping
   FiO2 ∈ {0.95, …, 1.00} on a healthy male surrogate at fixed
   ventilation), PaO2 scales linearly by approximately 7.8 mmHg per
   0.01 increase in FiO2. The atlas's multi-input Morris fit on the
