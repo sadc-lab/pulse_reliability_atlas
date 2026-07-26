@@ -85,9 +85,11 @@ reliability-sensitivity axis, yields two operator-actionable corrections
 (setting the VC-AC inspiration trigger pressure to −2 cmH2O for
 tidal-volume determinism, and extending the steady-state window to
 300 s of total simulated time for FiO2 = 1.0 hyperoxia), delivers an
-empirical Pulse-severity → P/F calibration table that lands Pulse's
-ARDS defaults at Berlin band centers under ARDSnet-protective
-ventilation, and provides a per-cell data-quality filter for downstream
+empirical Pulse-severity → P/F calibration table — Pulse's documented
+severity defaults all land in the Berlin *moderate* band under
+ARDSnet-protective ventilation, and the table supplies corrected
+fractions that reach the intended mild, moderate and severe bands —
+and provides a per-cell data-quality filter for downstream
 machine-learning pipelines that train on Pulse-generated synthetic
 cohorts.
 
