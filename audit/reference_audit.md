@@ -300,3 +300,196 @@ Per the autonomy pact: if a source cannot be reached, mark it `UNVERIFIABLE`
 and never substitute a proxy. A secondary source that *quotes* the primary is
 not a verification of the primary. The author has offered to supply PDFs
 directly — that is the preferred route before any `UNVERIFIABLE` is recorded.
+
+---
+
+## Tier 1 — the last five, audited 2026-07-26
+
+Sources supplied by the author from Universite de Montreal access, except
+`nadler1962`, which the author could not obtain and which was located instead in
+a public USPTO PTAB filing (Terumo v. Haemonetics, PGR2025-00077, Exhibit 1016).
+That exhibit is a scan of the article itself: internal PDF title
+`PII: 0039-6060(62)90166-6` — the publisher item identifier of the Surgery paper
+— and 9 pages, matching pp. 224–232 exactly, every page stamped "Petitioner
+Terumo Exhibit 1016". It is the primary source, not a secondary quotation.
+
+### `atls2018` — ATLS Student Course Manual, 10th ed. — **MATCH**
+
+**Our claim** (paper §2.5): the 15.0 % blood-volume reduction "is comparable to
+the upper bound of a Class I hemorrhage in the ATLS trauma classification (a
+loss of up to 15 % of blood volume)".
+
+**Verbatim, Table 3-1 "Signs and symptoms of hemorrhage by class":**
+
+> Approximate blood loss — CLASS I **<15%** · CLASS II (MILD) 15–30% ·
+> CLASS III (MODERATE) 31–40% · CLASS IV (SEVERE) >40%
+
+Section heading, same page: "Class I Hemorrhage: **<15% Blood Volume Loss**".
+
+**Verdict MATCH.** ATLS writes "<15 %" where we write "up to 15 %"; equivalent
+in ordinary usage. Our 15.0 % sits exactly on the Class I/II boundary, and the
+sentence says "comparable to the **upper bound** of a Class I hemorrhage", which
+handles that correctly rather than claiming our value *is* Class I. Nothing to
+change.
+
+### `nadler1962` — Nadler, Hidalgo & Bloch, *Surgery* 1962;51(2):224–232 — **MATCH**
+
+**Our claim** (paper §2.5): the two reference bodies "share essentially the same
+blood volume per kilogram (~71 mL/kg), **within standard clinical estimates**";
+and Pulse's formula "does not reproduce the **modest male–female difference in
+volume per kilogram reported clinically**".
+
+**Verbatim, p. 226:**
+
+> The normal circulating blood volume has been reported to range from **64 to
+> 79.3 ml. per kilogram** of body weight with an **average of 75 ml. per
+> kilogram**. **Women have smaller volumes than men with an average of 66 ml.
+> per kilogram.** The sex difference has been explained on the basis of the
+> relatively smaller ratio of metabolically active tissue to fat tissue in women.
+
+**Verbatim, the prediction equations:**
+
+> For men, PBV = 0.3669 H3 + 0.03219 W + 0.6041
+> For women, PBV = 0.3561 H3 + 0.03308 W + 0.1833
+
+**Both limbs verified.**
+
+1. *Within standard clinical estimates.* Pulse gives 4,802.63 mL / 67.3 kg =
+   **71.36** mL/kg and 3,996.09 mL / 56.2 kg = **71.10** mL/kg. Both sit
+   comfortably inside Nadler's reported **64–79.3** mL/kg. Supported, precisely.
+2. *A clinically reported sex difference Pulse does not reproduce.* Nadler
+   states it in words (75 general vs 66 for women) and encodes it in two
+   separate equations. Applied to our exact bodies those equations give
+   **72.96** mL/kg male and **63.78** mL/kg female — a **12.6 %** gap — against
+   Pulse's sex-independent ~71 for both. Supported.
+
+⚠️ One word to weigh, not an error: we call the difference "modest". The
+magnitude is 75 → 66 mL/kg in Nadler's cited literature (−12 %) and 72.96 →
+63.78 on our bodies (−12.6 %). Defensible, but the author may prefer a neutral
+word now that the figure is known.
+
+### `evans2021sepsis` — Surviving Sepsis Campaign 2021 — **MINOR MISMATCH + one weak support**
+
+Verified against the *Intensive Care Medicine* co-publication (47(11):1181–1247,
+DOI 10.1007/s00134-021-06506-y), identical text to the *Crit Care Med* version
+cited in `paper.bib`.
+
+**Verbatim, Recommendation 9, p. 1185:**
+
+> 9. For adults with septic shock on vasopressors, we recommend an initial
+> target mean arterial pressure (MAP) of **65 mm Hg over higher MAP targets**
+>
+> *Strong recommendation, moderate-quality evidence*
+
+**Rationale, same page:**
+
+> MAPs below a threshold, usually understood to be approximately 60 mm Hg, are
+> associated with decreased organ perfusion, which tracks linearly with MAP.
+> **Previous SSC guidelines recommended targeting a MAP of greater than
+> 65 mm Hg** for initial resuscitation.
+
+**(a) MINOR MISMATCH.** Supplement §S3 writes "the Surviving Sepsis Campaign MAP
+target of >= 65 mmHg". The 2021 guideline targets **65**, explicitly *over
+higher targets*; the "greater than 65" formulation is the one the guideline
+attributes to its own **previous** edition. Our ">=" therefore reproduces the
+superseded wording. Impact on the argument: none — the sentence only needs
+30 mmHg to be far below any acceptable MAP — but the quotation is not what the
+2021 source says.
+
+**(b) SUPPORT WEAK.** Supplement §S3 Table `tab:drift-rationale` cites this
+reference for the MAP **drift** threshold (5 mmHg / 60 s): "Lower edge of what a
+clinician would call ongoing hemodynamic instability rather than settled
+perfusion". Neither SSC 2021 nor Sepsis-3 defines any drift or rate-of-change
+criterion; both define absolute targets. The nearest supporting statement is
+"decreased organ perfusion ... tracks linearly with MAP", which makes a small
+absolute change meaningful but does not establish 5 mmHg / 60 s. The citation is
+not wrong about the clinical frame, but it does not carry the specific
+threshold. For joint decision.
+
+### `mancia2023esh` — 2023 ESH Guidelines — **MISMATCH (two parts)**
+
+**Verbatim, §16.2.1, p. 1975:**
+
+> Hypertension emergencies are conditions in which **severe hypertension
+> (grade 3)** is associated with **acute symptomatic HMOD**. [...] The rate of
+> the increase in BP may be at least as important as the absolute BP level in
+> determining the clinical severity of the situation.
+
+**Table 1, p. 1886 — read from a rendered page image, not from text extraction**
+(`pdftotext` shifted the systolic column down one row and dropped the ">="
+glyphs; the rendered page is the ground truth):
+
+| Category | Systolic | | Diastolic |
+|---|---|---|---|
+| Grade 2 hypertension | 160–179 | and/or | 100–109 |
+| **Grade 3 hypertension** | **>= 180** | and/or | **>= 110** |
+
+**(a) `paper.bib` `internal_note` is factually wrong.** It records the ESH
+definition as "SBP greater than 180 mmHg **and/or DBP greater than 120 mmHg**".
+ESH grade 3 diastolic is **>= 110**. No ESH grade uses 120 mmHg. The field does
+not render in the PDF, but it is wrong and would mislead anyone re-checking.
+
+**(b) Supplement §S3 writes "SBP > 180"**, ESH writes **>= 180**. Off by the
+boundary value.
+
+**(c) Note, not an error.** ESH defines the emergency by *grade* plus acute
+symptomatic HMOD, and adds that a relatively modest BP rise can suffice. Our
+one-line restatement as a numeric threshold is a simplification. Our use — a
+ceiling for a post-hoc plausibility bound — is unaffected. Also worth recording
+for the adult-scope requirement: Table 1's footnote states the same
+classification applies to adolescents >= 16 years, i.e. it is the adult table
+extended downward — appropriate for our 18-year-old bodies.
+
+### `kuczmarski2002cdc` — CDC 2000 Growth Charts — **MISMATCH on the age**
+
+Document identity confirmed: *Vital Health Stat* 11(246), May 2002,
+ISBN 0-8406-0575-7. Note the cover erratum "Table 24 percentile column headings
+aligned correctly 6/30/2010" — this report has itself had a column-alignment
+defect, so every value below was taken only after checking that the **M column
+equals the 50th-percentile column** on the same row, which is the defining
+property of the LMS method and proves the columns are not shifted.
+
+**Our claim** (Methods; Supplement §S4): male 67.3 kg and female 56.2 kg are the
+CDC growth-chart **50th-percentile values for 18-year-olds**; female height
+163 cm matches the CDC 50th percentile.
+
+**Ground truth, Table 22 (weight, 2–20 years) and Table 23 (stature):**
+
+| age interval | boys M = P50 (kg) | girls M = P50 (kg) |
+|---|---|---|
+| 214–214.99 months (17.83 y) | **67.28992603** | **56.22969564** |
+| 215–215.99 months | 67.46863255 | 56.31922030 |
+| **216–216.99 months (18.0 y)** | **67.64281378** | **56.40963105** |
+
+**Both of our weights are the P50 at 214–214.99 months, i.e. 17 years
+10 months — not at 18 years.** The match is exact to the rounding
+(67.29 → 67.3; 56.23 → 56.2) and it is the *same* age point for both sexes, so
+this is a systematic lookup offset, not a coincidence. The true CDC P50 at
+18.0 years is **67.64 kg** and **56.41 kg**.
+
+Discrepancy: 0.35 kg male (0.5 %) and 0.21 kg female (0.4 %) — physiologically
+trivial, but the sentence "50th-percentile values for 18-year-olds" is
+inaccurate as written.
+
+**Height is fine.** Girls' stature P50 at 216–216.99 months = **163.156 cm**,
+rounding to the 163 cm we use, and independently matching Pulse's own
+`heightStandardFemale_cm = 163.0`. Boys' stature P50 at the same age is
+176.28 cm, which confirms the boys/girls block attribution.
+
+⚠️ **Do not fix this by changing the bodies.** 67.3 kg and 56.2 kg are baked
+into 1,280 completed runs and into the published blood-volume literals
+(4,802.63 mL and 3,996.09 mL, both re-derived from these exact weights). Only
+the *description* of their provenance is in question. For joint decision.
+
+### Summary
+
+| key | verdict |
+|---|---|
+| `atls2018` | MATCH |
+| `nadler1962` | MATCH (one word, "modest", to weigh) |
+| `evans2021sepsis` | MINOR MISMATCH (">= 65" is the superseded wording) + WEAK SUPPORT on the drift-threshold row |
+| `mancia2023esh` | MISMATCH (bib note says DBP > 120, ESH says >= 110; "> 180" should be ">= 180") |
+| `kuczmarski2002cdc` | MISMATCH (values are the P50 at 17.83 y, not 18 y) |
+
+Per the stop protocol: recorded, **nothing modified**. Tier 1 is now 12/12
+audited.
