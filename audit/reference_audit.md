@@ -69,6 +69,100 @@ verbatim in their Appendix Tables 4 and 5.**
 
 ---
 
+### `pulsefaq` — Pulse Physiology Engine, public FAQ
+
+**Depth: `targeted`** — page fetched 2026-07-26, the uncertainty-quantification
+question read at source.
+
+| # | Our claim | Verbatim source | Status |
+|---|---|---|---|
+| 1 | Direct quotation, paper §1: *"we have not performed a systematic forward propagation or inverse quantification of model uncertainty, nor have we conducted a formal sensitivity analysis"* | Under the heading *"What kind of uncertainty quantification do you do perform in your physiology model?"*: **"We have not performed a systematic forward propagation or inverse quantification of model uncertainty, nor have we conducted a formal sensitivity analysis."** | **MATCH** |
+| 2 | Paper §5 and supplement §S2 restate it as "no formal sensitivity or uncertainty quantification has been performed on user-facing operational inputs" | Same sentence. The qualifier "on user-facing operational inputs" is **ours**, added to distinguish the 2020 `STUDY_SENSITIVITY_ANALYSIS_1_0_0` Sobol study on internal circuit values; the supplement states that distinction explicitly in the same row | **MATCH** |
+
+Word-for-word identical; only the leading capital is lowered for mid-sentence
+insertion, which is standard quotation practice. A verbatim quotation is the
+highest-risk citation class in the manuscript, and it is clean.
+
+---
+
+### `webb2022vent` — Webb et al., ANNSIM 2022 (PMC10224749)
+
+**Depth: `targeted`** — PMC full text consulted 2026-07-26.
+
+| # | Our claim | Verbatim source | Status |
+|---|---|---|---|
+| 1 | Paper §1: Pulse has been applied to "the validation of its own mechanical-ventilator model against a physical reference simulator" | Nine validation use cases comparing Pulse against "physical ventilator values and waveforms", ASL 5000 lung simulator driven by a Dräger ventilator | **MATCH** |
+| 2 | Supplement §S2: "that paper reports qualitative ASL-5000 waveform agreement, not these quantitative percentages" | *"The waveforms created by the virtual ventilator match well with the displayed physical ventilator monitor values"*; no tidal-volume percentage errors are reported anywhere in the paper | **MATCH** |
+
+---
+
+### `pulsevent` — Pulse *Mechanical Ventilator Methodology*, v4.3.1 documentation
+
+**Depth: `targeted`** — page downloaded 2026-07-26 and parsed from the **raw
+HTML**, not from a summary. The six tidal-volume validation rows were read
+cell by cell, because an initial model-mediated reading of the page returned
+paired values that did not reconcile with the printed percentages.
+
+**The six magnitudes and their table numbers are exact.** Verbatim rows:
+
+| Mode | Profile | Expected | Engine (Pulse) | Printed % |
+|---|---|---|---|---|
+| VC-AC | healthy (Table 3) | 900 | Mean of 900.613 | 0.0681 % |
+| VC-AC | restrictive (Table 10) | 550 | Mean of 555.570 | 1.01 % |
+| VC-AC | obstructive (Table 17) | 493 | Mean of 504.243 | 2.25 % |
+| PC-AC | healthy (Table 5) | 1047 | Mean of 935.217 | 11.3 % |
+| PC-AC | restrictive (Table 12) | 528 | Mean of 409.439 | 25.3 % |
+| PC-AC | obstructive (Table 19) | 571 | Mean of 490.087 | 15.3 % |
+
+| # | Our claim | Verbatim source | Status |
+|---|---|---|---|
+| 1 | VC-AC tidal-volume errors of 0.07 – 2.25 % across healthy / restrictive / obstructive (monograph §2.3) | 0.0681 / 1.01 / 2.25 % — and the claim is stated as *"errors"*, direction-neutral | **MATCH** |
+| 2 | PC-AC 11.3 – 25.3 % (the range spans all three profiles: 11.3, 25.3, 15.3) | 11.3 / 25.3 / 15.3 % | **MATCH** |
+| 3 | Table numbers 3, 5, 10, 12, 17, 19 (bib `internal_note`) | Confirmed, all six | **MATCH** |
+| 4 | **"PC-AC *over-delivers* tidal volume by 11.3 – 25.3 % … per Pulse's own validation tables"** (supplement §S2 row 7; monograph §2.2 item 7) | In all three PC-AC rows the Engine value is **below** the Expected value: 935.217 < 1047, 409.439 < 528, 490.087 < 571. Pulse delivers **less** than the physical reference, not more | **MISMATCH — direction** |
+
+**On finding 4.** The magnitude range is correct and the source is the right
+one; what the source does not support is the direction. The `Percent Error`
+column is unsigned, so the direction must be read from the paired
+Expected/Engine columns, and they point the other way.
+
+Independently corroborated by `webb2022vent`, which describes the same
+validation setup: *"the data shows that an extended inspiration time by the
+physical ventilator translates to **higher TVs** than come from our ideal,
+deterministic circuit model."* The physical ventilator produces the higher
+tidal volumes; Pulse produces the lower ones.
+
+**Blast radius, established read-only (nothing modified):**
+
+- `preprint_npj/supplement.tex:124` — §S2 limitations table, row 7. Attributes
+  the direction to `\cite{pulsevent}`. **Affected.**
+- `preprint/manuscript.md:563` — same claim, and additionally asserts that the
+  companion experiments *"corroborate the direction"*. **Affected.**
+- `CLAUDE.md:56` — the project's verified-limitations table: "PC-AC
+  over-delivers Vt 24–59% | Pulse\_translation\_new + Webb 2023 11–25%
+  concordant". The magnitude ranges differ by referent; the word "concordant"
+  additionally implies a shared direction. **Affected.**
+- `preprint/manuscript.md:928–930` — **NOT affected.** It states
+  "VC-AC tidal-volume errors of 0.07 – 2.25 % … vs PC-AC's 11.3 – 25.3 %",
+  which is direction-neutral and correct as written.
+- `preprint_npj/paper.tex` — **NOT affected.** Its single "over-delivering"
+  occurrence is in §2.4 and concerns oxygenation at FiO$_2$ = 1.0, unrelated.
+
+**Not settled here, and outside what `pulsevent` can settle:**
+`preprint/manuscript.md:934` reports the companion project's own finding that
+"PC-AC over-delivery scales inversely with body weight (female +58.9 % vs male
++24.0 % at PIP = 20 cmH2O)". That is a different experiment against a
+different referent — plausibly delivered Vt against a target rather than
+against the ASL 5000 — and it lives in `Pulse_translation_new`, which is
+read-only. Whether it is direction-compatible with Pulse's own tables is a
+separate question, and it is the hinge of the monograph's "corroborate the
+direction" sentence.
+
+**No source document was modified.** Per the stop protocol, this is recorded
+for joint evaluation before anything is touched.
+
+---
+
 ## Not yet audited
 
 30 remaining entries. Order of attack: references carrying a **number** we
