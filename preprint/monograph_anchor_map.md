@@ -310,5 +310,6 @@ FAILs contribute to the script's exit code; WARNs do not.
   claim: 'PaCO2 bootstrap rejection count in Cornish 2023'
   pattern: '13 / 70'
   min_occurrences: 3
-  derivation: 'Cornish 2023 Appendix Table 4, PaCO2 row (S029 forensics). Not re-derivable from atlas data; locked against transcription drift only.'
-  verified_on: '2026-07-25'
+  derivation: 'Cornish 2023 Appendix Table 4, PaCO2 row: "Arterial CO2 Pressure (paCO2)  3  70"; Table 5 (bootstrap): "... 13  70". Not re-derivable from atlas data; locked against transcription drift only.'
+  verified_on: '2026-07-26'
+  notes: 'Verified at source on 2026-07-26 -- arXiv:2301.07210v4 retrieved and text-extracted, both appendix tables transcribed in full, all 9 Cornish-attributed claims MATCH (audit/reference_audit.md). This was the one anchor whose correctness rested on a human reading of an external PDF rather than on atlas data; that reading is now confirmed verbatim.'

@@ -128,6 +128,26 @@ arithmetic confirmation (1,442 + 80 = 1,522). A future verifier wanting
 full closure should re-open Cornish v4 and confirm the Arterial-pH row in
 Appendix Table 4 (80 hypotheses, 0 rejections) verbatim.
 
+## Closure note, 2026-07-26 — the open verbatim check is now done
+
+The paragraph above asked a future verifier to *"re-open Cornish v4 and confirm
+the Arterial-pH row in Appendix Table 4 (80 hypotheses, 0 rejections)
+verbatim."* Done. `arXiv:2301.07210v4` was retrieved and text-extracted
+(`pdftotext -layout`), and Appendix Tables 4 and 5 were transcribed in full.
+
+- Table 4 carries `Arterial pH (Arterial pH)  0  80` — confirmed verbatim.
+- Table 4's hypothesis column sums to **1,522** across **15** quantities;
+  its rejection column sums to **85**. Table 5's rejection column sums to
+  **281**. All three totals match what this log and the monograph state.
+- The main text does read *"we chose 14 different"* … *"1,442 total
+  hypotheses"*, so the 1,442 + 80 = 1,522 reconciliation recorded here is
+  confirmed at source rather than inferred.
+- All four overlap channels match verbatim: PaCO2 3/70 and 13/70, PaO2 0/78
+  and 4/78, MeanBP 0/92 and 3/92, HR 0/162 and 1/162.
+
+The maintainer's reading was correct in every particular. Full per-claim record:
+[`audit/reference_audit.md`](../../audit/reference_audit.md).
+
 ## Next steps
 
 None — question closed. The 1,522 figure is locked in manuscript §4.4 and
