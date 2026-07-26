@@ -141,14 +141,39 @@ STEADY_STATE_T_HI: float = 120.0
 #                                        which is normal solver convergence (52 hits/run)
 #   - "requires a value"               → not Pulse phrasing
 #
+# Widened 2026-07-26 (S030b) after a false negative found by direct probing.
+# Pulse builds these strings in SetupPatient.cpp, one branch per bound.  Nine of
+# the ten write the unit between the value and "is":
+#
+#   L297  "... baseline of " << heartRate_bpm << " bpm is too high. Maximum ..."
+#   L495  "... baseline of " << systolic_mmHg << " mmHg is too low. ..."
+#   L580  "... baseline of " << respirationRate_bpm << " bpm is too high. ..."
+#
+# The heart-rate *lower* bound is the sole exception -- it omits the unit:
+#
+#   L311  "... baseline of " << heartRate_bpm << " is too low. Minimum ..."
+#
+# The old pattern required a token between the number and "is", so HR < 50 was
+# rejected by Pulse (exit 1, no CSV) yet never flagged `clamped`.  Two changes
+# close it: the unit token is now optional, and "minimum ... baseline allowed
+# is" mirrors the "maximum" pattern that had no twin -- two independent nets, so
+# a future formatting drift in one branch cannot reopen the same hole.
+#
+# Retroactively safe: replaying both pattern sets over all 3,348 pulse.log files
+# on disk flips exactly one run -- the s030b HR-49 probe written to expose this.
+# The published 1,280-run sweep is untouched (its inputs never leave HR [50, 110]
+# or RR [8, 20]), and no run that produced a CSV becomes `clamped`.
+#
 # Patterns kept (verified to fire only on genuine init clamping / rejection):
 CLAMP_PATTERNS: list[str] = [
     # Pulse's setup-time rejection format. Examples observed:
     #   "Patient systolic pressure baseline of 140 mmHg is too high"
+    #   "Patient heart rate baseline of 49 is too low"   <- no unit, see above
     #   "Maximum systolic pressure baseline allowed is 120 mmHg"
     #   "must be modeled by adding/using a condition"
-    r"baseline of [\d\.]+ \S+ is too (?:high|low)",
+    r"baseline of [\d\.]+ (?:\S+ )?is too (?:high|low)",
     r"maximum [\w\s]+ baseline allowed is",
+    r"minimum [\w\s]+ baseline allowed is",
     r"must be modeled by adding/using a condition",
     # The Pulse Setup pipeline emits this when an input is silently substituted.
     r"is outside the valid range",

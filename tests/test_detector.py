@@ -122,6 +122,48 @@ def test_clamped_does_not_false_positive(log_text: str, clean_csv: Path) -> None
     assert not result.clamped.fired, f"false positive on {log_text!r}"
 
 
+@pytest.mark.parametrize(
+    "log_text",
+    [
+        # Verbatim from the S030b boundary probes (2026-07-26), copied out of
+        # data/runs/s030b_severe_and_bounds/*/pulse.log.  All four are genuine
+        # setup rejections: exit code 1, no CSV written.
+        #
+        # The first is the regression case.  Pulse omits the unit on this one
+        # branch alone (SetupPatient.cpp L311), so the pre-2026-07-26 pattern
+        # set missed it entirely -- HR 49 was rejected by the engine and never
+        # flagged `clamped`.  Keep this string byte-for-byte.
+        "[ERROR] [0(s)] Patient heart rate baseline of 49 is too low. "
+        "Minimum heart rate baseline allowed is 50 bpm.",
+        "[ERROR] [0(s)] Patient heart rate baseline of 111 bpm is too high. "
+        "Maximum heart rate baseline allowed is 110 bpm.",
+        "[ERROR] [0(s)] Patient respiration rate baseline of 7 bpm is too low. "
+        "Non-healthy values must be modeled by adding/using a condition. "
+        "Minimum respiration rate baseline allowed is 8 bpm.",
+        "[ERROR] [0(s)] Patient respiration rate baseline of 21 bpm is too high. "
+        "Non-healthy values must be modeled by adding/using a condition. "
+        "Maximum respiration rate baseline allowed is 20 bpm.",
+    ],
+)
+def test_clamped_detects_hr_rr_bound_rejections(log_text: str, clean_csv: Path) -> None:
+    """Every HR/RR setup rejection must fire `clamped`, unit present or not."""
+    result = d.classify(clean_csv, pulse_log=log_text)
+    assert result.clamped.fired, f"missed rejection: {log_text!r}"
+
+
+def test_clamped_ignores_benign_substance_directory_error(clean_csv: Path) -> None:
+    """This `[ERROR]` opens every Pulse run, successful ones included.
+
+    It is emitted before the engine resolves its data directory and says
+    nothing about the patient setup, so treating any `[ERROR]` line as a
+    rejection would flag all 1,280 sweep runs.
+    """
+    result = d.classify(
+        clean_csv, pulse_log="[ERROR] [0(s)] Unable to find substance directory : ./"
+    )
+    assert not result.clamped.fired
+
+
 # ---------- diverged ---------- #
 
 
