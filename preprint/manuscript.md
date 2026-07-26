@@ -3840,7 +3840,7 @@ documented mapping does not reproduce the documented P/F claim:
 Only the 0.6 → moderate mapping holds. The documented mild fraction
 (0.3) lands at the mild / moderate boundary rather than the
 mild-band centre, and the documented severe fraction (0.9) sits
-roughly 50 mmHg above the severe-band ceiling — i.e. still
+19 mmHg above the severe-band ceiling — i.e. still
 moderate by Berlin.
 
 **Corrected mapping used by the Atlas.** From that same 28-run sweep, the
