@@ -244,3 +244,59 @@ commit message.
 
 The `pmid` fields added to `paper.bib` in commit `7a46040` are the working
 instrument for this audit: each is a direct handle to the primary record.
+
+---
+
+## Access probe on the 5 remaining Tier 1 references (2026-07-26)
+
+**Nothing below is verified yet.** This section records only whether the
+primary source is reachable, so the next session does not re-probe the same
+dead ends. No claim status changes on the strength of an access probe.
+
+| key | route tried | result |
+|---|---|---|
+| `evans2021sepsis` | Europe PMC `EXT_ID:34605781` | not open access · no PMCID · `inEPMC` false · no PDF |
+| `evans2021sepsis` | Springer ICM co-publication `10.1007/s00134-021-06506-y` | 303 redirect to `idp.springer.com` auth portal |
+| `kuczmarski2002cdc` | Europe PMC `EXT_ID:12043359` | not open access · no PMCID · no full-text URL listed |
+| `kuczmarski2002cdc` | `cdc.gov/nchs/data/series/sr_11/sr11_246.pdf` | **HTTP 403** |
+| `mancia2023esh` | Europe PMC `EXT_ID:37345492` | not open access (subscription) |
+| `nadler1962` | — | not probed; *Surgery* 1962;51(2) predates digitisation, expect no full text |
+| `atls2018` | — | printed course manual, 10th ed.; no online full text exists |
+
+### What each reference actually has to support
+
+Recorded now so the verification is against the *exact* wording, not a memory
+of it.
+
+- **`evans2021sepsis`** — two loci, both in Supplement §S3.
+  (a) MAP lower bound: ``the Sepsis-3 organ-perfusion failure threshold and the
+  Surviving Sepsis Campaign MAP target of $\geq 65$~mmHg''.
+  (b) ``Lower edge of what a clinician would call ongoing hemodynamic
+  instability rather than settled perfusion'' (co-cited with `singer2016`).
+- **`mancia2023esh`** — Supplement §S3 MAP upper bound: ``ESH 2023 hypertensive
+  emergency definition (SBP $>$ 180~mmHg with acute target-organ damage)''.
+  ⚠️ `paper.bib`'s own `internal_note` says ``SBP greater than 180 mmHg
+  **and/or DBP greater than 120 mmHg**''. The supplement states only the SBP
+  limb. Check whether the omission is a simplification or a misstatement.
+- **`nadler1962`** — paper §2.5: the two reference bodies share ``essentially
+  the same blood volume per kilogram ($\approx$71~mL\,kg$^{-1}$), **within
+  standard clinical estimates**'', and Pulse's formula ``does not reproduce the
+  **modest male--female difference in volume per kilogram reported
+  clinically**''. Two distinct things to verify: the per-kg range, and that
+  Nadler does encode a sex difference.
+- **`kuczmarski2002cdc`** — Methods + Supplement §S4: male 67.3~kg and female
+  56.2~kg are CDC growth-chart **50th-percentile weights at 18 years**; female
+  height 163~cm matches the **CDC 50th percentile**. ⚠️ Likely obstacle: this
+  report is the *methods* document; the smoothed percentile values live in the
+  separate NCHS data files, so the report may not contain the numbers at all.
+  If so, the citation may need to point at the data file instead.
+- **`atls2018`** — paper §2.5: the 15.0~\% blood-volume reduction ``is
+  comparable to the upper bound of a Class~I hemorrhage in the ATLS trauma
+  classification (a loss of up to 15~\% of blood volume)''.
+
+### Standing policy
+
+Per the autonomy pact: if a source cannot be reached, mark it `UNVERIFIABLE`
+and never substitute a proxy. A secondary source that *quotes* the primary is
+not a verification of the primary. The author has offered to supply PDFs
+directly — that is the preferred route before any `UNVERIFIABLE` is recorded.
