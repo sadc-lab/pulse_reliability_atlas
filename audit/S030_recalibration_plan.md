@@ -185,3 +185,168 @@ structurel, pas stochastique, et il est expliqué.
 
 **Reste : 16 runs** — grille de robustesse sévère (0,96–0,99 × 2 bras) et
 bornes d'acceptation HR/RR.
+
+---
+
+# S030b — RÉSULTATS (2026-07-26, 16 runs terminés, 16/16)
+
+Script : `scripts/run_s030b_severe_and_bounds.py` · analyse :
+`scripts/analyze_s030b.py` → `results/s030b_analysis.csv`.
+Les fenêtres de S030 ont été **re-calculées avec le même code** pour que les
+deux expériences soient comparables ; elles reproduisent exactement les
+valeurs déjà consignées plus haut.
+
+## Bloc 2 — bornes d'acceptation HR / RR : 8 / 8
+
+| sonde | attendu | exit | CSV | observé |
+|---|---|---|---|---|
+| HR 49 | rejet | 1 | non | **REJETÉ** |
+| HR 50 | accept | 0 | oui | **ACCEPTÉ** |
+| HR 110 | accept | 0 | oui | **ACCEPTÉ** |
+| HR 111 | rejet | 1 | non | **REJETÉ** |
+| RR 7 | rejet | 1 | non | **REJETÉ** |
+| RR 8 | accept | 0 | oui | **ACCEPTÉ** |
+| RR 20 | accept | 0 | oui | **ACCEPTÉ** |
+| RR 21 | rejet | 1 | non | **REJETÉ** |
+
+Le rejet est **bruyant** (exit 1 + `[ERROR]`), jamais silencieux — même
+régime que la porte BP (H2). Pulse **nomme lui-même la borne** :
+
+- « Patient heart rate baseline of 49 is too low. Minimum heart rate baseline
+  allowed is 50 bpm. »
+- « Patient heart rate baseline of 111 bpm is too high. Maximum heart rate
+  baseline allowed is 110 bpm. »
+- « Patient respiration rate baseline of 7 bpm is too low. Non-healthy values
+  must be modeled by adding/using a condition. Minimum respiration rate
+  baseline allowed is 8 bpm. »
+- « Patient respiration rate baseline of 21 bpm is too high. […] Maximum
+  respiration rate baseline allowed is 20 bpm. »
+
+Les bornes 50–110 bpm et 8–20 bpm cessent d'être héritées du projet
+compagnon : elles sont **re-dérivées en première main**, avec les mots du
+moteur.
+
+`[ERROR] Unable to find substance directory : ./` apparaît dans **tous** les
+runs, y compris ceux qui réussissent : avertissement de démarrage bénin, à ne
+pas confondre avec un rejet.
+
+### ⚠️ DÉFAUT TROUVÉ DANS `src/detector.py` — le rejet HR-trop-bas échappe à `clamped`
+
+Testé empiriquement (`check_clamped` sur les vrais logs) :
+
+| sonde | `clamped` |
+|---|---|
+| HR 49 | **False** ← trou |
+| HR 111 | True |
+| RR 7 | True |
+| RR 21 | True |
+
+**Cause, lue dans la source C++** — `SetupPatient.cpp` du clone local
+(`engine/src/cpp/engine/human_adult/whole_body/controller/`) : sur les
+**10** messages de rejet de baseline, **un seul omet l'unité**, celui-là :
+
+```cpp
+L297  "… baseline of " << heartRate_bpm << " bpm is too high. Maximum …"
+L311  "… baseline of " << heartRate_bpm << " is too low. Minimum …"   // <-- pas d'unité
+L495-514  systolic / diastolic : " mmHg is too low/high"
+L552-558  blood volume        : " mL is too low/high"
+L580-586  respiration rate    : " bpm is too high/low"
+```
+
+Notre motif `baseline of [\d\.]+ \S+ is too (?:high|low)` exige un jeton entre
+le nombre et « is » ; il couvre 9 messages sur 10 et manque exactement
+celui-là. Le second motif ne rattrape pas : il dit `maximum`, or ce message
+dit « Minimum ». Et les messages HR ne contiennent pas la clause
+« must be modeled by adding/using a condition ».
+
+**Portée sur les résultats publiés : nulle.** Vérifié sur les 1 280 runs
+(`audits/reproduction_2026-06-07/aggregated.parquet`) : `in_hr` min = 50,000 /
+max = 110,000 et `in_rr` min = 8 / max = 20. Aucun run n'a jamais demandé
+HR < 50 ; le motif n'avait donc jamais à se déclencher. De plus le run reste
+attrapé : `check_diverged` retourne True (exit 1, pas de CSV). La
+mésclassification déplacerait un run de `clamped` vers `diverged`, elle ne le
+laisserait pas passer.
+
+C'est donc un **trou latent**, pas une erreur dans un chiffre publié.
+
+## Bloc 1 — la bande sévère devient-elle robuste ?
+
+P/F à FiO2 = 0,40, trois fenêtres. Aucun échec moteur (cohérent : 0,96–0,99
+est au-dessus de la zone [0,879 – 0,945]).
+
+| bras | cran | [60,120] | [108,168] | [240,300] | verdict |
+|---|---|---|---|---|---|
+| libre | 0,96 | 77,4 sév | 85,9 sév | **104,8 mod** | dépend de la fenêtre |
+| libre | 0,97 | 70,1 | 77,0 | 94,3 | **sévère partout** |
+| libre | 0,98 | 63,9 | 69,3 | 83,1 | sévère partout |
+| libre | 0,99 | 58,4 | 62,6 | 72,9 | sévère partout |
+| verrouillé | 0,96 | 64,2 | 69,6 | 84,6 | **sévère partout** |
+| verrouillé | 0,97 | 59,6 | 64,4 | 77,1 | sévère partout |
+| verrouillé | 0,98 | 54,8 | 59,0 | 69,5 | sévère partout |
+| verrouillé | 0,99 | 50,1 | 53,5 | 61,7 | sévère partout |
+
+**Réponse à la question posée.** Sous trigger libre, « sévère » ne survit aux
+trois fenêtres qu'à partir de **0,97** ; à 0,95 et 0,96 l'étiquette dépend de
+la fenêtre. Sous trigger verrouillé, « sévère » tient dès **0,95**.
+L'étiquette de Berlin au cran extrême est donc gouvernée par l'interaction
+patient-machine autant que par le modèle ARDS.
+
+Chaîne causale, fenêtre [240,300] — monotone et cohérente :
+
+| bras | cran | RR | Vt | PaCO2 | PaO2 | P/F | SpO2 |
+|---|---|---|---|---|---|---|---|
+| libre | 0,96 | 31,5 | 417,9 | 43,6 | 41,9 | 104,8 | 0,812 |
+| libre | 0,99 | 34,3 | 416,6 | 43,7 | 29,2 | 72,9 | 0,620 |
+| verrouillé | 0,96 | 21,2 | 406,5 | 50,0 | 33,9 | 84,6 | 0,678 |
+| verrouillé | 0,99 | 21,3 | 407,0 | 52,5 | 24,7 | 61,7 | 0,460 |
+
+L'hyperpnée compensatrice du bras libre (RR 31–34 vs 21–24) achète ~6 mmHg de
+PaCO2 et ~8 mmHg de PaO2 : c'est tout l'écart entre les deux bras.
+
+**Deux irrégularités notées, non lissées :**
+
+1. Bras verrouillé, RR mesurée 21,2 / 22,3 / 23,6 puis **21,3** à 0,99 — la
+   monotonie casse au dernier cran (PaCO2 remonte à 52,5 en miroir).
+   **CORRECTION 2026-07-26 :** j'avais d'abord écrit « probable artefact
+   d'alignement de phase en bord de fenêtre ». C'est **faux**, et vérifié
+   comme tel : sur [120, 300] s au cran 0,99 verrouillé la RR est
+   rigoureusement constante à 21,3 (écart-type 0,00, min = max), alors que le
+   cran 0,98 varie entre 22,7 et 24,6. Ce n'est donc ni du bruit ni un effet
+   de fenêtre. **Je ne sais pas expliquer cette baisse.** Consigné comme
+   inexpliqué ; aucune conclusion n'en dépend, et rien n'en est tiré dans le
+   manuscrit.
+
+2. Verrouillé 0,99 → SpO2 = 0,460, soit **46 %**, sous la borne basse
+   `implausible` de l'atlas (50 %). Ce cran déclencherait notre propre drapeau.
+   **Ce n'est pas une défaillance du moteur.** Quatre relations vérifiées sur
+   ce run : équation des gaz alvéolaires (tient à 0,1 mmHg entre les bras),
+   gradient A-a inchangé entre bras (188,7 vs 188,8), courbe de dissociation
+   (Severinghaus donne 44,5 % à PaO2 = 24,7 ; observé 46,0 %), et
+   Henderson-Hasselbalch (pH prédit 7,304 pour HCO3 25,2 en acidose
+   respiratoire aiguë ; observé **7,306**). La SpO2 franchit **notre** standard
+   de plausibilité clinique, pas une limite numérique du solveur. Ces quatre
+   contrôles établissent la cohérence interne de la chaîne d'échange gazeux et
+   acide-base **sur ce run** — ils ne constituent pas un audit du solveur et ne
+   prouvent pas une robustesse globale ; l'anomalie de RR ci-dessus reste
+   d'ailleurs sans explication.
+
+## Ce que le papier affirme, et si ça tient
+
+Methods (`paper.tex` L338) : « these impairment fractions place Pulse's
+arterial PaO2/FiO2 **near the centres** of the Berlin mild and moderate bands
+and **just inside the upper boundary** of the severe band ».
+
+Re-dérivé ici, protocole et fenêtre du compagnon : 256,5 (centre mild = 250) ·
+150,5 (centre moderate = 150) · 96,6 (juste sous 100). **La formulation est
+exacte, y compris sa prudence.** Rien à corriger.
+
+Ce qui n'est pas dit : la marge à 0,95 est de 3,4 mmHg, la trajectoire n'a pas
+convergé à 300 s, et l'étiquette bascule en « moderate » si l'on mesure
+au-delà de la fenêtre de l'atlas sous trigger libre. L'atlas ne mesure jamais
+au-delà de 120 s, donc ce régime lui est extérieur — mais un relecteur qui
+rallongerait le run trouverait « moderate » et croirait à une erreur.
+
+## Guard rail
+
+Aucun fichier de manuscrit n'a été touché. Décisions de rédaction à prendre
+conjointement.
