@@ -536,3 +536,23 @@ preregistration names 216.5 months. Whether to declare that explicitly --- as
 was done for the "3 cm" referent confusion --- is undecided. Consistency argues
 for declaring it; brevity argues for leaving the corrected provenance to speak
 for itself.
+
+### Addendum — decomposition of the Nadler sex gap (2026-07-26)
+
+The word "modest" was removed from paper.tex and replaced by the two computed
+values (73.0 and 63.8 mL/kg). A percentage was deliberately NOT used: the gap is
+12.58 % on a male denominator but 14.39 % on a female one, so a bare percentage
+would have been ambiguous.
+
+One further caution, recorded so it does not migrate into the text later. The
+9.18 mL/kg gap between the two bodies under Nadler is not wholly a sex effect.
+Applying the MALE equation to the FEMALE body gives 71.21 mL/kg, so:
+
+    72.96 (M body, M eq)
+  - 71.21 (F body, M eq)  ->  1.75 mL/kg from body size
+  - 63.78 (F body, F eq)  ->  7.43 mL/kg from the sex-specific coefficients
+    total                      9.18 mL/kg
+
+The sentence now in the paper states the two values and does not attribute the
+whole gap to sex, so it is unaffected. But "a difference of about 9 mL/kg due to
+sex" would overstate it by roughly 1.8 mL/kg.
