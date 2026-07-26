@@ -125,3 +125,63 @@ Companion results to reproduce: HR — 45/48/49 fail, 50–110 pass, 111/115 fai
 Nothing in this experiment edits any manuscript. Per the autonomy pact
 (`CLAUDE.md`), findings are recorded and brought back for a joint decision
 before any text changes.
+
+---
+
+# RÉSULTATS (2026-07-26, 40 runs terminés)
+
+## 1. La réplication est exacte — l'écart de 9,7 % était un artefact de fenêtre
+
+Le protocole compagnon dit « settle_s: 60, duration_h: 0.03 ». Ce n'est **pas**
+un run de 108 s mesuré à partir de t = 60 : c'est 60 s de stabilisation **puis**
+un run de 108 s, dont les 60 dernières secondes sont la mesure. En temps absolu
+leur fenêtre est **[108, 168]**, pas [60, 120].
+
+| cran | compagnon | notre [60,120] | notre [108,168] |
+|---|---|---|---|
+| 0,26 | 256,0 | 255,2 (−0,3 %) | **256,5 (+0,2 %)** |
+| 0,30 | 199,3 | 199,1 (−0,1 %) | **199,8 (+0,3 %)** |
+| 0,60 | 150,1 | 149,8 (−0,2 %) | **150,5 (+0,2 %)** |
+| 0,90 | 118,7 | 116,4 (−2,0 %) | **121,0 (+1,9 %)** |
+| 0,95 | 96,1 | 86,8 (−9,6 %) | **96,6 (+0,5 %)** |
+
+**Aucun désaccord entre les deux projets.** Seulement une frontière qui bouge
+avec le protocole.
+
+## 2. Zone d'instabilité confirmée indépendamment
+
+10 échecs = les 5 crans 0,910 / 0,920 / 0,930 / 0,940 / 0,945, **dans les deux
+bras**. 0,900 et 0,950 passent partout. La zone [0,91 – 0,945] est re-dérivée
+ici, plus héritée.
+
+## 3. Le P/F ne converge pas à 120 s — le cran 0,30 bascule
+
+Tranches de 60 s : 199,1 → 199,9 → 200,2 → 200,4 (libre) ; 198,8 → 200,4
+(verrouillé). La bande *mild* ouvre au-dessus de 200 : **modéré à 120 s, léger
+à 300 s**.
+
+## 4. La bande sévère dépend de l'interaction patient-machine
+
+Cran 0,950 : libre 86,8 → 112,8 (**sévère puis MODÉRÉ**) ; verrouillé 69,1 →
+91,8 (**sévère partout**).
+
+Chaîne causale fermée, fenêtre [240,300] :
+
+| | RR | V̇E | PaCO2 | PaO2 | P/F | SpO2 |
+|---|---|---|---|---|---|---|
+| libre | 30,5 | 12,77 L/min | 43,6 | 45,1 | 112,8 | 0,841 |
+| verrouillé | 20,0 | 8,13 L/min | 50,9 | 36,7 | 91,8 | 0,720 |
+
+## 5. Le verrou a agi
+
+RR mesurée : libre 22,4–37,2 · verrouillé 20,0–25,1.
+
+## Runs annulés, et pourquoi
+
+L'étude de variance au cran 0,95 (3 répétitions × 2 bras) est **annulée** :
+S007 établit que Pulse est déterministe et bit-exact pour des entrées fixées,
+donc des configs identiques rendent des sorties identiques. L'écart était
+structurel, pas stochastique, et il est expliqué.
+
+**Reste : 16 runs** — grille de robustesse sévère (0,96–0,99 × 2 bras) et
+bornes d'acceptation HR/RR.
