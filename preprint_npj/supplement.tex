@@ -212,7 +212,7 @@ Output & Primary-literature rationale (lower / upper) \\
 HR [20, 220]~bpm &
 Survival-incompatibility thresholds for extreme bradycardia and tachycardia in the ICU-practice envelope~\cite[Ch.~5]{marino2013icu}, \cite[Ch.~1]{marini2018critical}; the upper extreme aligns with the age-extrapolated maximum heart rate. \\
 MAP [30, 180]~mmHg &
-Lower: well below the Sepsis-3 organ-perfusion failure threshold and the Surviving Sepsis Campaign MAP target of $\geq 65$~mmHg~\cite{singer2016, evans2021sepsis}. Upper: ESH 2023 hypertensive emergency definition (SBP $>$ 180~mmHg with acute target-organ damage)~\cite{mancia2023esh}. \\
+Lower: well below both the 70~mmHg at which the Sepsis-3 SOFA cardiovascular score first registers organ dysfunction~\cite{singer2016} and the Surviving Sepsis Campaign initial MAP target of 65~mmHg~\cite{evans2021sepsis}. Upper: ESH 2023 hypertensive emergency, i.e.\ grade~3 hypertension (SBP $\geq$ 180 and/or DBP $\geq$ 110~mmHg) with acute symptomatic organ damage~\cite{mancia2023esh}. \\
 Vt [50, 1{,}500]~mL &
 Lower: below adult anatomical dead space ($\sim$~150~mL), implying zero alveolar ventilation~\cite[Ch.~2]{west2020respiratory}. Upper: $\sim 4\times$ the ARDS Network lung-protective tidal volume (6~mL/kg PBW $\approx$ 400~mL on the atlas reference bodies)~\cite{brower2000}, at the edge of adult-ventilator delivery capability~\cite[Ch.~26]{marino2013icu}. \\
 SpO$_2$ [50, 100]~\% &
@@ -261,7 +261,7 @@ Channel \& drift threshold & Clinical-meaningfulness anchor \\
 HR (5 bpm / 60~s) &
 Threshold for a clinically meaningful tachy / brady excursion under continuous bedside monitoring~\cite[Ch.~1]{marini2018critical}. \\
 MAP (5 mmHg / 60~s) &
-Lower edge of what a clinician would call ongoing hemodynamic instability rather than settled perfusion~\cite{singer2016, evans2021sepsis}. \\
+The clinically decisive MAP band is narrow: the Sepsis-3 SOFA cardiovascular score registers organ dysfunction below 70~mmHg~\cite{singer2016}, the Surviving Sepsis Campaign targets 65~mmHg on resuscitation, and organ perfusion declines below approximately 60~mmHg, tracking linearly with MAP~\cite{evans2021sepsis}. These landmarks lie 5~mmHg apart, so a drift of that size is clinically consequential rather than nominal. \\
 Vt (50 mL / 60~s) &
 Approximately 1~mL/kg PBW on the atlas reference bodies --- within the noise band of breath-to-breath Vt measurement at ARDS Network protective ventilation (6~mL/kg PBW $\approx$ 400~mL)~\cite{brower2000}. \\
 SpO$_2$ (2 percentage points / 60~s) &
@@ -297,7 +297,7 @@ We verified that this male-baseline choice does not drive the classification. Re
 
 \subsection{Body-dimension provenance for the two adult reference patient bodies}\label{sec:s3-bodies}
 
-The two adult reference bodies are: a male body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both weights are the U.S.\ Centers for Disease Control and Prevention (CDC) growth-chart 50th-percentile values for 18-year-olds of each sex~\cite{kuczmarski2002cdc}. The female height matches both the CDC 50th-percentile value~\cite{kuczmarski2002cdc} and Pulse's own \texttt{heightStandardFemale\_cm = 163.0} reference constant in \texttt{SetupPatient.cpp}; the male height is a clinically standard adult value chosen so the male case fixes the body mass index at 20.8 (it is not Pulse's source-code \texttt{heightStandardMale\_cm = 177.0} reference, which would have yielded a near-CDC-P50 BMI). Pulse computes the resulting blood-volume baseline via the allometric relation $\text{BV} = 65.6 \cdot \text{weight}_{\text{kg}}^{1.02}$, yielding 4{,}802.63~mL for the male body and 3{,}996.09~mL for the female body --- the 17~\% sex gap whose mechanism on the input-extreme divergence cluster is characterised in Section~2.5 of the main manuscript.
+The two adult reference bodies are: a male body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both weights are U.S.\ Centers for Disease Control and Prevention (CDC) growth-chart 50th-percentile values at 214 months (17~y 10~m) for each sex~\cite{kuczmarski2002cdc}; the corresponding CDC values at exactly 18.0 years are 67.6 and 56.4~kg, within 0.5~\% of those used. The female height matches both the CDC 50th-percentile value~\cite{kuczmarski2002cdc} and Pulse's own \texttt{heightStandardFemale\_cm = 163.0} reference constant in \texttt{SetupPatient.cpp}; the male height is a clinically standard adult value chosen so the male case fixes the body mass index at 20.8 (it is not Pulse's source-code \texttt{heightStandardMale\_cm = 177.0} reference, which would have yielded a near-CDC-P50 BMI). Pulse computes the resulting blood-volume baseline via the allometric relation $\text{BV} = 65.6 \cdot \text{weight}_{\text{kg}}^{1.02}$, yielding 4{,}802.63~mL for the male body and 3{,}996.09~mL for the female body --- the 17~\% sex gap whose mechanism on the input-extreme divergence cluster is characterised in Section~2.5 of the main manuscript.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% S4 -- Extended Table 1: not_steady_state attribution

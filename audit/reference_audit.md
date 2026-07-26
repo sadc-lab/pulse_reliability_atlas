@@ -493,3 +493,46 @@ the *description* of their provenance is in question. For joint decision.
 
 Per the stop protocol: recorded, **nothing modified**. Tier 1 is now 12/12
 audited.
+
+---
+
+## Addendum 2026-07-26 — the CDC offset is exactly two rows, and the preregistration names the intended age
+
+Found while sweeping for residual loci, after the corrections above were
+applied.
+
+`preregistration.md:19-22` (erratum of 2026-05-19) states the provenance:
+
+> **Weights** (67.3 kg M, 56.2 kg F): CDC 50th-percentile weight-for-age
+> values at 18 years **(216.5 months)**, inherited from the companion
+> `Pulse_translation_new` pediatric-translation pipeline.
+
+216.5 months is the CDC data-file `Agemos` midpoint of the interval that
+Table 22 labels "216-216.99 months" — that is, the *correct* 18-year row, whose
+M values are 67.64 and 56.41 kg. The weights actually in use, 67.3 and 56.2 kg,
+are the row two earlier: "214-214.99 months", `Agemos` 214.5, M = 67.28992603
+and 56.22969564.
+
+**The offset is exactly two rows / two months**, identical for both sexes. That
+is the signature of an off-by-N lookup in the source spreadsheet, inherited
+from the pediatric pipeline, not a design choice.
+
+### This is NOT a protocol deviation — do not describe it as one
+
+What the preregistration committed to was the two bodies: 67.3 kg / 180 cm and
+56.2 kg / 163 cm. Those are exactly what was run, in all 1,280 simulations.
+Nothing about the experiment departed from what was registered.
+
+What is wrong is only the *sentence explaining where the two weights came
+from*, in the preregistration erratum and in every document that inherited it.
+A provenance misstatement, not a design change. Any correction should say so
+plainly, so a reader does not mistake it for an unregistered protocol change.
+
+### Open question for the author
+
+The corrections applied above state what the weights *are* (the 214-month P50,
+within 0.5 % of the 18.0-year value). They do not yet mention that the
+preregistration names 216.5 months. Whether to declare that explicitly --- as
+was done for the "3 cm" referent confusion --- is undecided. Consistency argues
+for declaring it; brevity argues for leaving the corrected provenance to speak
+for itself.

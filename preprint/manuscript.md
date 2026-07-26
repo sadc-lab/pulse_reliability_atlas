@@ -682,11 +682,17 @@ erratum saying so (`preregistration.md`, erratum of 2026-05-19, lines
 9–34). The two bodies used here — male 18 yr / 67.3 kg / 180 cm and
 female 18 yr / 56.2 kg / 163 cm — are **not** Pulse's source-code
 "Standard" patients: the weights are CDC 50th-percentile
-weight-for-age values at 18 years, the female height is the CDC P50
-stature (coincidentally equal to Pulse's `heightStandardFemale_cm =
-163.0`), and the male height is a researcher-fixed value chosen for a
-BMI of 20.8, about 3 cm above the CDC P50 and **not** Pulse's
-`heightStandardMale_cm = 177.0`. This manuscript therefore uses the term
+weight-for-age values at 214 months (17 y 10 m), the female height is
+the CDC P50 stature (coincidentally equal to Pulse's
+`heightStandardFemale_cm = 163.0`), and the male height is a
+researcher-fixed value chosen for a BMI of 20.8 — it is **not** Pulse's
+`heightStandardMale_cm = 177.0`, but exactly 3 cm above it, and ≈ 3.8 cm
+above the CDC P50 stature of 176.2 cm. (The preregistration attributes
+that 3 cm gap to the CDC P50. Re-checked against the primary source, the
+attribution is wrong: 3.00 cm is the distance to Pulse's own constant,
+not to the CDC P50, which sits 3.8 cm below. Corrected beside the dated
+record rather than inside it, on the same principle as this erratum.)
+This manuscript therefore uses the term
 **reference surrogate** throughout; the full provenance is in §2.3 and
 Appendix B.5. The preregistered text is left unaltered above because a
 preregistration is a dated record, not a living document: the correction
@@ -905,15 +911,18 @@ ARDS calibration provenance are in Appendix B.3.
 * **Female reference surrogate:** age 18, weight 56.2 kg, height 163 cm (BMI 21.2).
 
 *Provenance.* Body weights are the CDC 50th-percentile weight-for-age
-values at 18 years (67.29 kg boys, 56.23 kg girls; CDC growth-chart
-tables, @kuczmarski2002cdc, <https://www.cdc.gov/growthcharts/>), inherited unchanged from
+values at 214 months, i.e. 17 y 10 m (67.29 kg boys, 56.23 kg girls; CDC
+growth-chart Table 22, @kuczmarski2002cdc,
+<https://www.cdc.gov/growthcharts/>); the CDC values at exactly 18.0 years
+are 67.64 kg and 56.41 kg, within 0.5 % of those used. They were inherited unchanged from
 the companion `Pulse_translation_new` pediatric-translation pipeline
 where they form the 18-year endpoint of its CDC progression. The
 female height (163 cm) is the CDC P50 stature for 18-year-old girls [@kuczmarski2002cdc].
 The male height (180 cm) is a researcher-fixed rounded value chosen
-to yield a healthy baseline BMI of 20.8; this is ≈ 3 cm above the CDC
-P50 and is reported here transparently rather than retro-fitted to a
-citation. The full engine-source comparison — including Pulse's
+to yield a healthy baseline BMI of 20.8; this is ≈ 3.8 cm above the CDC
+P50 stature of 176.2 cm (and exactly 3 cm above Pulse's own
+`heightStandardMale_cm = 177.0`), and is reported here transparently
+rather than retro-fitted to a citation. The full engine-source comparison — including Pulse's
 own internal `heightStandardMale_cm` / `heightStandardFemale_cm`
 constants — is in Appendix B.5.
 
@@ -1055,7 +1064,7 @@ follow directly from physics or hardware specs.
 | Output | Lower | Upper | Source (lower / upper) |
 |--------|------:|------:|------------------------|
 | HR (bpm)    |  20 |  220 | Survival-incompatibility thresholds for bradycardia / tachycardia [@marino2013icu Ch.5; @marini2018critical Ch.1] |
-| MAP (mmHg)  |  30 |  180 | Lower: Sepsis-3 organ-perfusion failure threshold (well below 65 mmHg shock target) [@singer2016; @evans2021sepsis]; upper: ESH 2023 hypertensive emergency [@mancia2023esh] |
+| MAP (mmHg)  |  30 |  180 | Lower: well below both the 70 mmHg at which the Sepsis-3 SOFA cardiovascular score first registers organ dysfunction [@singer2016] and the Surviving Sepsis Campaign initial MAP target of 65 mmHg [@evans2021sepsis]; upper: ESH 2023 hypertensive emergency, i.e. grade 3 hypertension (SBP ≥ 180 and/or DBP ≥ 110 mmHg) with acute symptomatic organ damage [@mancia2023esh] |
 | Vt (mL)     |  50 | 1500 | Lower: below anatomical dead space (~150 mL adult) [@west2020respiratory Ch.2] — alveolar ventilation impossible; upper: ~4× ARDSnet protective ventilation (6 mL/kg PBW [@brower2000] ≈ 400 mL for atlas surrogates) and at the edge of adult-ventilator delivery capability [@marino2013icu Ch.26] |
 | SpO2 (%)    |  50 |  100 | Lower: oxyhemoglobin dissociation curve P50 (SpO2 = 50 % ↔ PaO2 ≈ 27 mmHg [@severinghaus1979]) — below cellular oxygen extraction threshold [@marini2018critical Ch.1]; upper: hemoglobin saturation ceiling (definitional) |
 | PaO2 (mmHg) |  20 |  600 | Lower: SpO2 ≈ 0.30 on the Severinghaus 1979 dissociation curve [@severinghaus1979] — incompatible with cellular respiration over a 60 s steady-state window, well inside Berlin severe-ARDS oxygenation territory [@ards2012]; upper: classifier-conservative choice below the alveolar-gas-equation ceiling [@west2020respiratory Ch.5] — supplementary `HARD_BOUNDS_PHYSIOLOGICAL` sensitivity analysis at 700 mmHg reported in §3.8 |
@@ -1094,7 +1103,7 @@ than in mortality-incompatibility primary literature.
 | Output | Drift threshold per 60 s | Clinical-meaningfulness anchor |
 |--------|--------------------------|--------------------------------|
 | HR     | 5 bpm                    | Threshold for a clinically "meaningful" tachy / brady excursion under continuous bedside monitoring [@marini2018critical Ch.1] |
-| MAP    | 5 mmHg                   | Lower edge of what a clinician would call ongoing hemodynamic instability vs settled perfusion [@singer2016; @evans2021sepsis] |
+| MAP    | 5 mmHg                   | The clinically decisive MAP band is narrow: the Sepsis-3 SOFA cardiovascular score registers organ dysfunction below 70 mmHg [@singer2016], the Surviving Sepsis Campaign targets 65 mmHg on resuscitation, and organ perfusion declines below approximately 60 mmHg, tracking linearly with MAP [@evans2021sepsis]. These landmarks lie 5 mmHg apart, so a drift of that size is clinically consequential rather than nominal |
 | Vt     | 50 mL                    | ~ 1 mL/kg PBW on the atlas surrogates — within the noise band of breath-to-breath measurement at ARDSnet Vt [@brower2000] |
 | SpO2   | 2 percentage points      | One bedside-monitor display step; conventional "noteworthy" desaturation threshold over a 60 s window [@severinghaus1979; @marino2013icu Ch.26] |
 | PaO2   | 15 mmHg                  | A 15–71 % fraction of one Berlin P/F band depending on FiO2 — sub-band at the high-FiO2 end of the sweep but approaching one band at room air; clinically meaningful oxygenation change over a 60-second window [@ards2012] |
