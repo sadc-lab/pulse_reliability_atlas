@@ -567,3 +567,120 @@ Applying the MALE equation to the FEMALE body gives 71.21 mL/kg, so:
 The sentence now in the paper states the two values and does not attribute the
 whole gap to sex, so it is unaffected. But "a difference of about 9 mL/kg due to
 sex" would overstate it by roughly 1.8 mL/kg.
+
+---
+
+## Tier 2 — `bray2019`, audited 2026-07-26 — **MISATTRIBUTION (six claims), true sources located**
+
+Source read: the article PDF supplied by the author (Springer redirects to an
+auth portal; Europe PMC returns `hitCount 0` for the DOI). Identity confirmed:
+*SN Comprehensive Clinical Medicine* (2019) **1:362–377**, DOI
+10.1007/s42399-019-00053-w, author list matching `paper.bib`. Extraction
+completeness checked: 15 running heads for a 16-page article. Searched by
+multiple synonyms for each claim, not by a single string.
+
+**Depth:** full text.
+
+### What Bray 2019 does support — MATCH
+
+| Our claim | Verbatim |
+|---|---|
+| 20 ms fixed timestep | "The numerical models currently execute with a **time step of 20 ms** to ensure all physiology features of interest are captured, while maintaining real-time execution for the simulation." |
+| real-time capable, lumped-parameter, open-source | Abstract, verbatim |
+| Apache 2.0 | "adherence to an Apache 2.0 license" |
+| C++ implementation, Java/C# secondary frameworks | "the Pulse Physiology engine is implemented in C++ … Secondary frameworks are implemented in both Java and C#" |
+| data model language coverage | "supports a wide range of languages, including C++, Java, Python, C#, and JSON" |
+| ARM single-board execution | Table 6, benchmark across ARM Cortex-A boards |
+
+### What Bray 2019 does NOT contain — six claims we cite it for
+
+Verified absent. **The claims themselves are correct; the attribution is not.**
+True sources located in the Pulse engine tree and recorded here.
+
+| # | Our claim | Our locus | **True source** |
+|---|---|---|---|
+| 1 | `BV = 65.6 · weight_kg^1.02` mL | `supplement.tex:627` | `SetupPatient.cpp:534`, carrying Pulse's own `/// \cite Morgan2006Clinical` |
+| 2 | 5-compartment lung (carina, L/R anatomic dead space, L/R alveoli) | `paper.tex:328`, `supplement.tex:91` | `docs/Methodology/RespiratoryMethodology.md:115–122` |
+| 3 | No inertance | `supplement.tex:132` (limitation 11) | `docs/Methodology/RespiratoryMethodology.md:1117–1119`, `:1150` |
+| 4 | No dicrotic notch, no retrograde flow, idealised valves | `supplement.tex:134` (limitation 12) | `docs/Methodology/CardiovascularMethodology.md:614` |
+| 5 | "roughly 10–15× real time" | `supplement.tex:91` | **not Bray** — ledger anchors `T3.s027.speed_lower/upper` attribute it to our own S027 measurement |
+| 6 | Unity binding; Windows/Linux/macOS/Android/iOS | `supplement.tex:91` | **still open** — Unity, iOS, Android, macOS, Windows, Linux all absent from Bray 2019 |
+
+### Verbatim for the four located in Pulse's own documentation
+
+**(1) Blood volume — `src/cpp/engine/human_adult/whole_body/controller/SetupPatient.cpp:531–536`**
+
+```cpp
+//Blood Volume ---------------------------------------------------------------
+/// \cite Morgan2006Clinical
+double bloodVolume_mL;
+double computedBloodVolume_mL = 65.6 * pow(weight_kg, 1.02);
+double bloodVolumeMin_mL = computedBloodVolume_mL * 0.85; //Stage 1 Hypovolemia
+double bloodVolumeMax_mL = computedBloodVolume_mL * 1.15;
+```
+
+Pulse's own primary source, from `engine/docs/Sources.bib:3467`:
+
+> `@Book{Morgan2006Clinical}` — *Clinical Anesthesiology*, G. Edward Morgan Jr.,
+> Maged S. Mikhail, Michael J. Murray; Lange Medical Books/McGraw-Hill, 2006, 4th ed.
+
+**Bonus cross-validation.** The `* 0.85` on line 535 is the mechanism behind the
+4,082.24 mL male blood-volume floor we report from S027: 4,802.63 × 0.85 =
+4,082.24 exactly. Pulse labels it "Stage 1 Hypovolemia". Our empirical finding
+and the engine source agree to the cent.
+
+**(2) Five compartments — `docs/Methodology/RespiratoryMethodology.md:115–122`**
+
+> "The current version of the %Respiratory Model represents the two lungs and
+> associated airways as **five major functional units, or compartments, that are
+> designated as the carina, right and left anatomic dead space, and right and
+> left alveoli**. In the model, the carina compartment represents the anatomical
+> region from the airway at the trachea. The right and left anatomic dead space
+> compartments represent the bronchi and their branching bronchioles … The right
+> and left alveoli compartments correspond to the collection of alveoli where gas
+> exchange occurs."
+
+Word-for-word our sentence. The attribution is the only thing wrong.
+
+**(3) Inertance — `docs/Methodology/RespiratoryMethodology.md:1117–1119`, `:1150`**
+
+> "One extension of the linear model is the addition of inertance in the lumped
+> parameter model. **Inertance is not included in the model** on the assumption
+> that inertia does not play a significant role under conventional tidal
+> breathing …"
+> "Airway inertance is assumed to be negligible at normal respiratory frequencies."
+
+**(4) Dicrotic notch + retrograde flow + valves — `docs/Methodology/CardiovascularMethodology.md:614`**
+
+> "This is the dicrotic notch, which occurs from slight flow reversal from the
+> aorta back into the left ventricle before the valves close @cite
+> korakianitis2005notch . **This is not currently being modeled in the engine**,
+> but improvements in the circuit model, including the addition of inertance and
+> **diodes that allow retrograde flow**, will likely enable the engine waveform
+> to capture more detail."
+
+One sentence supports all three limbs of our limitation-12 row. Note our
+supplement already *labels* this row "Pulse documentation" while citing
+`bray2019` — the text knew, the citation did not.
+
+### Still open
+
+- **ECG P-wave / T-wave merge at high heart rate** (second limb of limitation 12) —
+  not yet located; not in the cardiovascular passage above.
+- **Claim 6** (Unity binding, OS platform list) — no source found in Bray 2019.
+  Must be traced to the Pulse website / repository README or dropped.
+- **Claim 5** — confirm that "10–15×" is ours (S027) and re-attribute accordingly;
+  citing Bray for our own measurement is the wrong direction of credit.
+
+### Status and required decision
+
+`bray2019` itself is a **MATCH** for what it does support. The six above are a
+**MISATTRIBUTION**, not a factual error: nothing needs retracting, four need a
+citation swap to the Pulse Methodology documentation, one to our own S027, one
+still needs a source or must go.
+
+Per the autonomy pact, no manuscript was modified. This needs a joint decision on
+one point: the Pulse Methodology docs are not currently a bib entry. Adding
+`pulsedocs` (or per-file entries) to `paper.bib` is a bibliography change, and
+whether to cite Pulse's own source (`Morgan2006Clinical`) *in addition* for the
+blood-volume formula is a judgement call worth making explicitly.
