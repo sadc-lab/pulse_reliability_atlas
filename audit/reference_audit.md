@@ -467,9 +467,20 @@ CDC growth-chart **50th-percentile values for 18-year-olds**; female height
 this is a systematic lookup offset, not a coincidence. The true CDC P50 at
 18.0 years is **67.64 kg** and **56.41 kg**.
 
-Discrepancy: 0.35 kg male (0.5 %) and 0.21 kg female (0.4 %) — physiologically
-trivial, but the sentence "50th-percentile values for 18-year-olds" is
-inaccurate as written.
+Discrepancy **against the weights actually used** (67.3 / 56.2 kg, which is the
+basis the manuscripts state): 0.34 kg male (0.51 %) and 0.21 kg female
+(0.37 %). Against the *unrounded* 214-month CDC values (67.28992603 /
+56.22969564) the gaps are 0.35 and 0.18 kg, i.e. 0.52 % and 0.32 %.
+
+⚠️ Corrected 2026-07-26: this line previously read "0.35 kg male (0.5 %) and
+0.21 kg female (0.4 %)", which silently mixed the two bases — 0.35 is measured
+against the unrounded CDC value, 0.21 against the rounded weight in use. Under
+**either** basis the male gap exceeds 0.5 % (0.51 % or 0.52 %), which is why
+the "within 0.5 %" wording carried by paper.tex, supplement.tex and
+manuscript.md was replaced by the two absolute differences.
+
+Physiologically trivial either way, but the sentence "50th-percentile values
+for 18-year-olds" is inaccurate as written.
 
 **Height is fine.** Girls' stature P50 at 216–216.99 months = **163.156 cm**,
 rounding to the 163 cm we use, and independently matching Pulse's own

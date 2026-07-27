@@ -2131,7 +2131,7 @@ FEMALE_WEIGHT_KG = float(_m_female.group(1))
 add(
     claim_id="T1.06s.male_weight_kg",
     section="Supplement S10 + section 4.2 of main paper",
-    manuscript_text="Male reference body weight 67.3 kg (CDC P50 at 18 yr)",
+    manuscript_text="Male reference body weight 67.3 kg (CDC P50 at 214 months)",
     source_file="src/scenario.py PATIENTS['M'].weight_kg",
     manuscript_value=67.3,
     computed_value=MALE_WEIGHT_KG,
@@ -2140,11 +2140,81 @@ add(
 add(
     claim_id="T1.06t.female_weight_kg",
     section="Supplement S10 + section 4.2 of main paper",
-    manuscript_text="Female reference body weight 56.2 kg (CDC P50 at 18 yr)",
+    manuscript_text="Female reference body weight 56.2 kg (CDC P50 at 214 months)",
     source_file="src/scenario.py PATIENTS['F'].weight_kg",
     manuscript_value=56.2,
     computed_value=FEMALE_WEIGHT_KG,
     tolerance_rule="displayed_2dp",
+)
+
+# --- Detector clamp-pattern anchors (added 2026-07-26) -------------------
+# Two counts are guarded, and they are deliberately NOT the same number.
+#
+#   published : size of the pattern set that classified the 1,280-run sweep.
+#               A frozen historical constant.  It must never be made to
+#               track src/detector.py: patching the detector does not
+#               retroactively change what produced the published results,
+#               and the paper's Methods must keep describing what ran.
+#   current   : len(CLAMP_PATTERNS) in src/detector.py today, which the
+#               supplement prints verbatim for users adopting the detector.
+#
+# The two were equal until 2026-07-26.  Verified before freezing the 4:
+# `git show e068544:src/detector.py` (the sweep commit) and `708efb1^`
+# carry a byte-identical four-pattern block, so no detector change occurred
+# between the sweep and the patch.
+CLAMP_PATTERNS_PUBLISHED = 4
+
+_m_clamp_block = re.search(
+    r"CLAMP_PATTERNS:\s*list\[str\]\s*=\s*\[(.*?)\n\]",
+    _detector_py,
+    re.DOTALL,
+)
+assert _m_clamp_block is not None, (
+    "audit_claims: CLAMP_PATTERNS block not located in src/detector.py"
+)
+CLAMP_PATTERNS_FROM_SRC: list[str] = re.findall(
+    r'^\s*r"(.*)",\s*$', _m_clamp_block.group(1), re.MULTILINE
+)
+assert CLAMP_PATTERNS_FROM_SRC, (
+    'audit_claims: no r"..." entries parsed out of CLAMP_PATTERNS'
+)
+
+add(
+    claim_id="T1.detector.n_patterns_published",
+    section="Section 4.4 of main paper (four-flag detector)",
+    manuscript_text="clamped fires on any of 4 documented input-rejection patterns",
+    source_file="frozen historical constant (sweep commit e068544)",
+    manuscript_value=4,
+    computed_value=CLAMP_PATTERNS_PUBLISHED,
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T1.detector.n_patterns_current",
+    section="Supplement S3.8 (clamp regex set)",
+    manuscript_text="the five-pattern set now in src/detector.py",
+    source_file="src/detector.py CLAMP_PATTERNS",
+    manuscript_value=5,
+    computed_value=len(CLAMP_PATTERNS_FROM_SRC),
+    tolerance_rule="exact_int",
+)
+
+# Strongest of the three: every regex printed in the supplement's listing
+# must be character-identical to its counterpart in src/detector.py.  This
+# is the guard that actually prevents redistributing a stale pattern --
+# the concrete harm the 2026-07-26 false negative exposed.  A drifted
+# character changes the count of verbatim hits and fails here.
+_supplement_src = (REPO / "preprint_npj" / "supplement.tex").read_text(encoding="utf-8")
+_clamp_verbatim_hits = sum(
+    1 for _p in CLAMP_PATTERNS_FROM_SRC if f'r"{_p}"' in _supplement_src
+)
+add(
+    claim_id="T1.detector.patterns_verbatim_in_supplement",
+    section="Supplement S3.8 (clamp regex set)",
+    manuscript_text="each printed regex is character-identical to src/detector.py",
+    source_file="src/detector.py CLAMP_PATTERNS vs preprint_npj/supplement.tex",
+    manuscript_value=len(CLAMP_PATTERNS_FROM_SRC),
+    computed_value=_clamp_verbatim_hits,
+    tolerance_rule="exact_int",
 )
 
 # S021 time-to-95-percent-of-plateau kinetic anchor: derived at audit

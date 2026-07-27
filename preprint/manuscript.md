@@ -914,7 +914,7 @@ ARDS calibration provenance are in Appendix B.3.
 values at 214 months, i.e. 17 y 10 m (67.29 kg boys, 56.23 kg girls; CDC
 growth-chart Table 22, @kuczmarski2002cdc,
 <https://www.cdc.gov/growthcharts/>); the CDC values at exactly 18.0 years
-are 67.64 kg and 56.41 kg, within 0.5 % of those used. They were inherited unchanged from
+are 67.64 kg and 56.41 kg — 0.34 and 0.21 kg above those used. They were inherited unchanged from
 the companion `Pulse_translation_new` pediatric-translation pipeline
 where they form the 18-year endpoint of its CDC progression. The
 female height (163 cm) is the CDC P50 stature for 18-year-old girls [@kuczmarski2002cdc].
@@ -1049,6 +1049,30 @@ matching Pulse's normal solver convergence text (`Resetting the target for
 X to Y`); this would have made the `clamped` flag useless across the entire
 sweep. Detector validation on 20 reference runs in `Pulse_translation_new/`
 remains 20 / 20 clean with the new regex set.
+
+**Patch of 2026-07-26, applied after the sweep.** The four patterns above
+are the set that classified all 1,280 published runs, and are left as
+written for the historical record. Two changes were made afterwards, giving
+the five-pattern set now in `src/detector.py`:
+
+```python
+r"baseline of [\d\.]+ (?:\S+ )?is too (?:high|low)"  # unit token now optional
+r"maximum [\w\s]+ baseline allowed is"
+r"minimum [\w\s]+ baseline allowed is"               # added, mirrors "maximum"
+r"must be modeled by adding/using a condition"
+r"is outside the valid range"
+```
+
+Pulse's `SetupPatient.cpp` builds ten baseline-rejection strings, nine of
+which write the unit between the value and `is`; the heart-rate lower bound
+(L311) is the sole exception. The original first pattern required that
+token, so a heart rate below 50 bpm was rejected by Pulse at setup yet never
+raised `clamped`. Replaying both pattern sets over all 3,348 Pulse logs on
+disk flips exactly one run — the S030b probe written to expose the gap — and
+no run in the published sweep, whose requested heart rates never leave
+[50, 110] bpm. The published classification is therefore unchanged. The gap
+never lost a run in any case: a setup rejection exits non-zero with no CSV,
+so `diverged` fires instead.
 
 **Hard physiological bounds for the `implausible` flag.** The table
 below was committed in `preregistration.md` §Flags before any atlas
@@ -3976,10 +4000,12 @@ source-level audit established that this label is technically a
 misnomer. The actual provenance, by dimension, is as follows:
 
 * **Weights (67.3 kg M, 56.2 kg F).** CDC weight-for-age 50th-percentile
-  values at 18 years (216.5 months) — 67.29 kg for boys, 56.23 kg for
+  values at 214 months, i.e. 17 y 10 m — 67.29 kg for boys, 56.23 kg for
   girls (CDC growth-chart tables; cross-verified against the CDC
   z-score files `wtage.csv` from
-  <https://www.cdc.gov/growthcharts/data/zscore/>). These anchors were
+  <https://www.cdc.gov/growthcharts/data/zscore/>); the CDC values at
+  exactly 18.0 years are 67.64 kg and 56.41 kg — 0.34 and 0.21 kg above
+  those used. These anchors were
   taken directly from the companion `Pulse_translation_new`
   pediatric-translation pipeline, where they form the adult (18 yr)
   endpoint of the CDC progression used for its pediatric strata
