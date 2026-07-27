@@ -684,3 +684,89 @@ one point: the Pulse Methodology docs are not currently a bib entry. Adding
 `pulsedocs` (or per-file entries) to `paper.bib` is a bibliography change, and
 whether to cite Pulse's own source (`Morgan2006Clinical`) *in addition* for the
 blood-volume formula is a judgement call worth making explicitly.
+
+### Resolution of the six claims — decided and verified 2026-07-26
+
+Author arbitration obtained on all points. The resolution below is verified, not
+assumed; the manuscripts are still untouched pending the reattribution commit.
+
+**Decision: cite the ONLINE rendered documentation, not the local clone.** The
+`pulse.kitware.com` pages are the Doxygen render of the `docs/*.md` files. All four
+passages were re-fetched from the live site on 2026-07-26 and compared against the
+local tree: **character-identical**, modulo Doxygen turning `@cite key` into a
+bracketed number. A reviewer can therefore check every quote without cloning the
+repository, and this matches the convention already used by `pulsevent` and
+`pulsefaq` in `paper.bib`.
+
+| Claim | Page verified live 2026-07-26 |
+|---|---|
+| `BV = 65.6 · W^1.02`, floor `× 0.85`, ceiling `× 1.15` | `_patient_methodology.html` |
+| 5-compartment lung | `_respiratory_methodology.html` |
+| No inertance | `_respiratory_methodology.html` |
+| No dicrotic notch / retrograde flow / valves; ECG P-T merge | `_cardiovascular_methodology.html` |
+
+**Upgrade on claim 1.** The formula is not only in `SetupPatient.cpp`; it is a
+documented table row in `docs/Methodology/PatientMethodology.md:56`, rendered at
+`_patient_methodology.html`:
+
+> `| Blood Volume Baseline | Optional | Bv[mL] = 65.6W[kg]^{1.02} | Bv * 0.85 | Bv * 1.15 | Above Stage 1 Hypovolemia. @cite Morgan2006Clinical |`
+
+This is strictly better than citing a source line: the **0.85 floor is documented
+engine behaviour**, not an implementation detail inferred from code. It independently
+corroborates the 4,082.24 mL male floor measured in S027.
+
+**Claim 4 — ECG P/T merge, source found.** `CardiovascularMethodology.md:287`
+(figure caption), verbatim: *"Due to the high heart rate, the engine output is
+summing together the P and T waves. In the image from PhysioNet, the output is not
+summed together as dramatically, due to the slight physiological compression of the
+waveform that the current ECG system and heart model do not support."* Mechanism at
+`:175`: *"The waveform is not a calculated value; the current ECG system does not
+model the electrical activity of the heart."*
+**This is NOT our observation.** The atlas measures no ECG waveform — its six outputs
+are steady-state means of HR, MAP, Vt, SpO2, PaO2, PaCO2. Attributing this to our
+own experiments was considered and **rejected as fabrication**, notwithstanding that
+the claim is true.
+
+**Claim 6 — Unity / platform list, partially sourced, partially DROPPED.**
+`docs/Markdown/About.md:13`: *"easy cross-platform deployment on all standard
+operating systems (Windows, Mac, Linux, and ARM) and multiple languages (C++, C#,
+Java, Unity)"*. Python is not there — it comes from `bray2019` (data-model languages).
+**Android and iOS are absent from About.md.** They appear only in the changelog
+(`Versioning.md:147`, iOS build support, **Pulse v4.2.0, October 2023**;
+`:332-333`, Android ARMv7a/ARMv8a). A changelog records an addition; it does not
+attest continued support, and the authoritative current-state page omits both.
+Decision: **drop Android and iOS**, keep the rest with split attribution.
+
+**Claim 5 — "10-15x real time" is ours.** Re-attributed to S027
+(`T3.s027.speed_lower` / `speed_upper`); no bibliographic citation on that clause.
+
+**Morgan2006Clinical — UNVERIFIABLE, stays OUT of the bibliography.**
+Time-boxed search closed 2026-07-26. Findings: (a) the coefficients `65.6` / `1.02`
+appear **nowhere** in the indexed literature — not in Nadler 1962, not in any
+allometric blood-volume paper; (b) Morgan & Mikhail's *Clinical Anesthesiology* is
+real and is the cited source of the QxMD / Medscape "Estimated Blood Volume"
+calculator, which is built on **per-kilogram values by age and sex**, not a power
+law; (c) the calculator page redirects to an authentication wall, so the table itself
+could not be read.
+Reading: Pulse most likely **fitted** a power law to Morgan's per-kg values — at
+70 kg the formula returns ~71 mL/kg, squarely the textbook adult figure. That is an
+inference, not a verified fact.
+Consequence: we do not write "Morgan's allometric formula". We write the chain of
+possession, which is verifiable end to end — the engine computes the formula and
+*itself* attributes the underlying estimates to Morgan. `Morgan2006Clinical` is not
+added to `paper.bib` or `references.bib`, because the rule is that we never cite a
+document we have not opened.
+
+**Bibliography mechanics.** One entry, `@misc{pulsedocs}` (`@misc` proven safe with
+`sn-nature.bst`; `pulsevent` and `pulsefaq` already use it), titled *"Pulse Physiology
+Engine: source code and documentation"* — broad enough to cover the methodology
+pages, `About.md`, and the source tree. To be added to **both** `preprint_npj/paper.bib`
+**and** `preprint/references.bib`. `note` pins release `REL_4_3_1` (tagged
+2025-01-24) and the consultation date. Version safety verified directly:
+`git diff REL_4_3_1 REL_4_3_2` touches 7 files, **none under `docs/`**.
+
+Pending edits, held under HARD STOP until the single reattribution commit:
+`supplement.tex:91` (split attribution, drop Android/iOS), `:132` and `:134`
+(cite key on both, label on 132 only), `:627`/BV loci, the `pulsedocs` entry in the
+two bib files, and the `bray2019` `number = {5}` metadata discrepancy.
+
