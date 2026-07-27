@@ -1121,8 +1121,8 @@ that turns out to be doubtful.
 The author supplied a PDF of West's *Respiratory Physiology: The Essentials*. Its
 filename says 2011; the copyright page says **Ninth Edition, copyright 2012**, sole
 author John B. West, no Luks. We cite the **11th edition, 2020, West & Luks**. It
-therefore **cannot verify `west2020respiratory`**, and the file additionally carries a
-warez-site watermark on page 3. Three findings all the same, two good and one serious.
+therefore **cannot verify `west2020respiratory`**. Three findings all the same, two
+good and one serious.
 
 **1. The chapter structure is stable, and this is now primary-source evidence.** The
 9th-edition table of contents is **identical in chapter titles** to the 11th-edition
@@ -1161,7 +1161,7 @@ edition-specific. **Nothing modified. For joint decision.**
 #### Follow-up the same day — the 10th edition (2016) settles it as far as it can be settled
 
 The author then supplied the **10th edition, copyright 2016 Wolters Kluwer, West &
-Luks** (again from a shadow-library copy; again not the cited 11th). This is the
+Luks** (again not the cited 11th edition). This is the
 decisive edition to check, because its own preface states that **Luks joined as
 coauthor for this edition** and that *"another innovation of this new edition are
 clinical vignettes for each of the first nine chapters"*. If a clinical notion such
