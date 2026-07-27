@@ -1116,6 +1116,51 @@ open source that says the same thing does not prove the textbook says it; it wou
 replace one unverified citation with another. Use it only to *re-source* a threshold
 that turns out to be doubtful.
 
+### 2026-07-27 — West read in primary text, but in the WRONG EDITION (9th, 2012)
+
+The author supplied a PDF of West's *Respiratory Physiology: The Essentials*. Its
+filename says 2011; the copyright page says **Ninth Edition, copyright 2012**, sole
+author John B. West, no Luks. We cite the **11th edition, 2020, West & Luks**. It
+therefore **cannot verify `west2020respiratory`**, and the file additionally carries a
+warez-site watermark on page 3. Three findings all the same, two good and one serious.
+
+**1. The chapter structure is stable, and this is now primary-source evidence.** The
+9th-edition table of contents is **identical in chapter titles** to the 11th-edition
+list that had until now rested only on two concordant search-engine summaries:
+1 Structure and Function · **2 Ventilation** · 3 Diffusion · **4 Blood Flow and
+Metabolism** · **5 Ventilation-Perfusion Relationships** · 6 Gas Transport by the
+Blood · 7 Mechanics of Breathing · 8 Control of Ventilation · 9 Respiratory System
+Under Stress · 10 Tests of Pulmonary Function. This independently confirms that
+Ch. 4 is **not** a CO2 chapter, i.e. the removal of `[Ch.~4]{west2020respiratory}`
+was correct.
+
+**2. Both surviving West pointers are confirmed in running text.** Anatomical dead
+space: *"The normal value is about 150 ml"*, under the heading `Anatomic Dead Space`
+on book p. 19, inside Chapter 2 (which the TOC starts at p. 12). Alveolar-gas
+equation: *"A simplified form of the alveolar gas equation is P_AO2 = P_IO2 -
+P_ACO2/R + F"*, book p. 59, inside Chapter 5 (TOC: pp. 56-76), and applied again on
+p. 74. `[Ch.~2]` and `[Ch.~5]` are therefore **correct in the 9th edition** and, given
+the identical structure, near-certainly correct in the 11th.
+
+**3. 🔴 CO2 narcosis does not appear in West at all.** Searched for `CO2 narcosis`
+and `carbon dioxide narcosis`: **zero hits in the entire book**. The only occurrences
+of `narcosis` are **inert gas narcosis** (nitrogen narcosis in diving), Chapter 9,
+an unrelated phenomenon. Supplement §S3 cites `west2020respiratory` --- alongside
+`marino2013icu`, itself unverifiable --- for the PaCO2 upper bound of 120 mmHg as a
+"CO2 narcosis threshold incompatible with conscious steady-state". The chapter
+pointer was already stripped; what this shows is that **the reference itself may not
+support the claim**, which is a different and more serious problem than a wrong
+chapter number.
+
+⚠️ Caveat stated honestly: this is the 9th edition. The 11th was revised by Luks, a
+clinician, and could in principle have added the term. But *The Essentials* is a
+physiology primer whose clinical companion is a separate volume (*Pulmonary
+Pathophysiology: The Essentials*), so its absence here is more likely structural than
+edition-specific. **Nothing modified. For joint decision.** Options: re-source the
+bound to a reference that does state a hypercapnia/consciousness threshold; keep West
+only for the alveolar-ventilation physics and drop the narcosis framing; or verify the
+11th edition through legitimate institutional access before deciding.
+
 ### CORRECTION 2 — the `bray2019` metadata flag was a FALSE POSITIVE
 
 This register previously flagged `number = {5}` as a possible discrepancy because the

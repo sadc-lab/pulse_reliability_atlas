@@ -3719,7 +3719,8 @@ during the literature-review pass logged in
   for Management of Sepsis and Septic Shock 2021.* Critical Care
   Medicine 49(11):e1063-e1143 (2021). DOI:
   [10.1097/CCM.0000000000005337](https://doi.org/10.1097/CCM.0000000000005337).
-  PMID: 34605781. International MAP ≥ 65 mmHg resuscitation target.
+  PMID: 34605781. International initial resuscitation target MAP of
+  65 mmHg, recommended over higher targets.
 * []{#ref-mancia2023esh} Mancia G, Kreutz R, Brunström M, Burnier M, Grassi G,
   Januszewicz A, et al. *2023 ESH Guidelines for the management of
   arterial hypertension.* Journal of Hypertension 41(12):1874-2071
