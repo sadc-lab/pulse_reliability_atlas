@@ -246,14 +246,14 @@ Four cross-output patterns emerge directly from Figure~\ref{fig:morris} (full pe
 
 \begin{figure}[!htbp]
 \centering
-\begin{subfigure}[b]{0.50\textwidth}\includegraphics[width=\textwidth]{figures/fig02_morris_HR.pdf}\caption{HR}\label{fig:morris-hr}\end{subfigure}\hfill
-\begin{subfigure}[b]{0.50\textwidth}\includegraphics[width=\textwidth]{figures/fig02_morris_MAP.pdf}\caption{MAP}\label{fig:morris-map}\end{subfigure}
+\begin{subfigure}[b]{0.475\textwidth}\includegraphics[width=\textwidth]{figures/fig02_morris_HR.pdf}\caption{HR}\label{fig:morris-hr}\end{subfigure}\hfill
+\begin{subfigure}[b]{0.475\textwidth}\includegraphics[width=\textwidth]{figures/fig02_morris_MAP.pdf}\caption{MAP}\label{fig:morris-map}\end{subfigure}
 \\[-0.6em]
-\begin{subfigure}[b]{0.50\textwidth}\includegraphics[width=\textwidth]{figures/fig02_morris_Vt.pdf}\caption{Vt delivered}\label{fig:morris-vt}\end{subfigure}\hfill
-\begin{subfigure}[b]{0.50\textwidth}\includegraphics[width=\textwidth]{figures/fig02_morris_SpO2.pdf}\caption{\texorpdfstring{SpO$_2$}{SpO2}}\label{fig:morris-spo2}\end{subfigure}
+\begin{subfigure}[b]{0.475\textwidth}\includegraphics[width=\textwidth]{figures/fig02_morris_Vt.pdf}\caption{Vt delivered}\label{fig:morris-vt}\end{subfigure}\hfill
+\begin{subfigure}[b]{0.475\textwidth}\includegraphics[width=\textwidth]{figures/fig02_morris_SpO2.pdf}\caption{\texorpdfstring{SpO$_2$}{SpO2}}\label{fig:morris-spo2}\end{subfigure}
 \\[-0.6em]
-\begin{subfigure}[b]{0.50\textwidth}\includegraphics[width=\textwidth]{figures/fig02_morris_PaO2.pdf}\caption{\texorpdfstring{PaO$_2$}{PaO2}}\label{fig:morris-pao2}\end{subfigure}\hfill
-\begin{subfigure}[b]{0.50\textwidth}\includegraphics[width=\textwidth]{figures/fig02_morris_PaCO2.pdf}\caption{\texorpdfstring{PaCO$_2$}{PaCO2}}\label{fig:morris-paco2}\end{subfigure}
+\begin{subfigure}[b]{0.475\textwidth}\includegraphics[width=\textwidth]{figures/fig02_morris_PaO2.pdf}\caption{\texorpdfstring{PaO$_2$}{PaO2}}\label{fig:morris-pao2}\end{subfigure}\hfill
+\begin{subfigure}[b]{0.475\textwidth}\includegraphics[width=\textwidth]{figures/fig02_morris_PaCO2.pdf}\caption{\texorpdfstring{PaCO$_2$}{PaCO2}}\label{fig:morris-paco2}\end{subfigure}
 \caption{Morris $\mu^{*}$ heatmaps for the six steady-state outputs. Rows of each panel are the seven swept inputs (HR, SBP, DBP, RR, Vt, FiO$_2$, PEEP); columns are the eight (scenario $\times$ sex) cells. Colour intensity is the magnitude of the input's mean absolute elementary effect on that output ($\mu^{*}$). White cells mark input$\times$cell combinations with no estimable $\mu^{*}$ (not $\mu^{*} = 0$): this occurs only for FiO$_2$ in S1\_M, S1\_F and S4\_F, where every FiO$_2$ elementary-effect pair has at least one flagged endpoint---the high-FiO$_2$ runs in the healthy cells (SpO$_2$-saturation pinning, with transient hyperoxia at FiO$_2$ = 1.0) and the low-FiO$_2$ runs in severe-ARDS S4\_F (severe hypoxemia)---leaving no clean elementary-effect pair. Cell annotations use plain decimal at standard precision down to $10^{-3}$ (e.g., $55$, $0.27$, $0.005$); below that the compact mathtext form $10^{e}$ is used for pure powers of ten and $m{\cdot}10^{e}$ otherwise (e.g., $9{\cdot}10^{-4}$). This keeps every cell within four digits and is only visually relevant for SpO$_{2}$, the only output whose $\mu^{*}$ range reaches that low. In each panel, $\mu^{*}$ concentrates in a few dominant input rows rather than spreading across all seven, visually supporting Hypothesis 1's ``skewed sensitivity'' claim (top-3 inputs explain $\geq 50~\%$ of summed $\mu^{*}$ on 48 of 48 cell $\times$ output combinations, median 0.928). Cell-label key (Table~\ref{tab:terms}): S1 / S2 / S3 / S4 = healthy / mild / moderate / severe ARDS; \_M / \_F = male / female reference body.}
 \label{fig:morris}
 \end{figure}
