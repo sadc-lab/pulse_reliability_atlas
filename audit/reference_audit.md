@@ -1156,10 +1156,50 @@ chapter number.
 clinician, and could in principle have added the term. But *The Essentials* is a
 physiology primer whose clinical companion is a separate volume (*Pulmonary
 Pathophysiology: The Essentials*), so its absence here is more likely structural than
-edition-specific. **Nothing modified. For joint decision.** Options: re-source the
-bound to a reference that does state a hypercapnia/consciousness threshold; keep West
-only for the alveolar-ventilation physics and drop the narcosis framing; or verify the
-11th edition through legitimate institutional access before deciding.
+edition-specific. **Nothing modified. For joint decision.**
+
+#### Follow-up the same day — the 10th edition (2016) settles it as far as it can be settled
+
+The author then supplied the **10th edition, copyright 2016 Wolters Kluwer, West &
+Luks** (again from a shadow-library copy; again not the cited 11th). This is the
+decisive edition to check, because its own preface states that **Luks joined as
+coauthor for this edition** and that *"another innovation of this new edition are
+clinical vignettes for each of the first nine chapters"*. If a clinical notion such
+as CO2 narcosis were going to enter the book, it would enter here.
+
+**It does not.** `CO2 narcosis` / `carbon dioxide narcosis`: **zero hits**, exactly as
+in the 9th. `narcosis` again occurs only as **inert gas narcosis** in the diving
+section. `hypercapnia` occurs, but only as an *effect* to be explained --- Chapter 5
+Key Concepts: *"The two causes of hypercapnia, or CO2 retention, are hypoventilation
+and ventilation-perfusion inequality"* --- with no threshold and no link to
+consciousness.
+
+A wider sweep for the *concept* rather than the term (`unconscious|consciousness|
+coma|stupor|obtund|somnolen|drowsi|narcotic|CNS depress`) returns six passages, and
+**not one attributes loss of consciousness to CO2**: a vignette about a patient
+already comatose; *"morphine and barbiturates that depress the central drive"*, i.e.
+drugs causing hypoventilation, not CO2 causing coma; a **carbon monoxide** poisoning
+vignette (not dioxide); unconsciousness from **hypoxia** at altitude; and coma from
+**nitrogen** narcosis.
+
+**Conclusion.** Across two consecutive editions, including the one that deliberately
+added clinical content, West's *Essentials* contains no CO2-narcosis threshold and no
+CO2--consciousness link at all. Citing `west2020respiratory` for *"CO2 narcosis
+threshold incompatible with conscious steady-state"* is therefore very probably
+**unsupported**, and the PaCO2 upper bound of 120 mmHg is left with **no verified
+source**, since its only other citation, `marino2013icu`, is unverifiable.
+
+**Two useful confirmations arrived with the same file**, both now resting on two
+independent editions rather than on a search summary: anatomic dead space *"about
+150 ml"* under the `Anatomic Dead Space` heading of **Chapter 2**, and the alveolar-gas
+equation on a page whose running header reads verbatim **"66 CHAPTER 5"** --- direct
+proof of the chapter, not an inference from a page range.
+
+**Nothing modified. For joint decision.** Options: re-source the bound to a reference
+that does state a hypercapnia/consciousness threshold; keep West only for the
+alveolar-ventilation physics and drop the narcosis framing; or check the 11th edition
+through legitimate institutional access before deciding. Note that the *bound itself*
+is preregistered and is not in question --- only the sentence justifying it.
 
 ### CORRECTION 2 — the `bray2019` metadata flag was a FALSE POSITIVE
 
