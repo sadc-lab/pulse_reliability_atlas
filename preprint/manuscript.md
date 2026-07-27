@@ -977,7 +977,7 @@ overall importance (μ\*, the mean of absolute elementary effects)
 and flags non-linearity or input-input interaction (σ, the standard
 deviation of those effects), at a small fraction of the cost of a
 full variance-based analysis. Implementation: SALib's
-`morris.sample(N=20, num_levels=4, seed=42)` [@iwanaga2022] ⇒
+`morris.sample(N=20, num_levels=4, seed=42)` [@iwanaga2022; @herman2017salib] ⇒
 160 unique input points. The same 160 points drive every
 cell, so EE rankings are directly comparable across cells. The
 trajectory count N = 20 was fixed in preregistration: large
@@ -3650,6 +3650,15 @@ during the literature-review pass logged in
   accessibility and interpretability of global sensitivity analyses.*
   Socio-Environmental Systems Modelling 4:18155 (2022). DOI:
   [10.18174/sesmo.18155](https://doi.org/10.18174/sesmo.18155).
+* []{#ref-herman2017salib} Herman J, Usher W. *SALib: An open-source Python
+  library for Sensitivity Analysis.* Journal of Open Source Software 2(9):97
+  (2017). DOI: [10.21105/joss.00097](https://doi.org/10.21105/joss.00097).
+  SALib's documentation asks for both this paper and Iwanaga et al. 2022.
+* []{#ref-lundberg2020tree} Lundberg SM, Erion G, Chen H, DeGrave A, Prutkin JM,
+  Nair B, et al. *From local explanations to global understanding with
+  explainable AI for trees.* Nature Machine Intelligence 2(1):56-67 (2020).
+  DOI: [10.1038/s42256-019-0138-9](https://doi.org/10.1038/s42256-019-0138-9).
+  TreeExplainer, the estimator used by the SHAP cross-verification.
 
 **Acute respiratory distress syndrome (clinical anchors)**
 

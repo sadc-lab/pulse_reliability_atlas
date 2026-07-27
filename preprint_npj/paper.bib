@@ -316,6 +316,30 @@
   internal_note = {International ICU practice: initial sepsis-resuscitation MAP target of 65 mmHg, recommended over higher targets (Recommendation 9, p. 1185). Corrected 2026-07-27; this field previously read "greater than or equal to 65 mmHg", which is the formulation SSC 2021 attributes to its own PREVIOUS edition and which the 2021 recommendation argues against. Do not restore it.}
 }
 
+@article{herman2017salib,
+  author    = {Herman, J and Usher, W},
+  title     = {{SALib}: An open-source {Python} library for Sensitivity Analysis},
+  journal   = {Journal of Open Source Software},
+  volume    = {2},
+  number    = {9},
+  pages     = {97},
+  year      = {2017},
+  doi       = {10.21105/joss.00097},
+  internal_note = {Added 2026-07-27. SALib's own documentation (salib.readthedocs.io/en/latest/citations.html) states verbatim "please cite it using the following:" and then lists TWO papers -- Iwanaga et al. 2022 AND this one. Citing only Iwanaga was incomplete. Verified against the JOSS PDF itself: "SALib: An open-source Python library for Sensitivity Analysis, Jon Herman (UC Davis) and Will Usher (Oxford), DOI 10.21105/joss.00097".}
+}
+
+@article{lundberg2020tree,
+  author    = {Lundberg, S M and Erion, G and Chen, H and DeGrave, A and Prutkin, J M and Nair, B and Katz, R and Himmelfarb, J and Bansal, N and Lee, S-I},
+  title     = {From local explanations to global understanding with explainable {AI} for trees},
+  journal   = {Nature Machine Intelligence},
+  volume    = {2},
+  number    = {1},
+  pages     = {56--67},
+  year      = {2020},
+  doi       = {10.1038/s42256-019-0138-9},
+  internal_note = {Added 2026-07-27 because the atlas uses shap.TreeExplainer on a RandomForestRegressor, and Lundberg & Lee 2017 contains no tree-specific estimator: primary-text search of that paper finds Kernel SHAP and Deep SHAP only, with decision trees appearing solely as experimental subjects. The shap project's own README directs users to THIS paper for TreeExplainer. Metadata confirmed via Crossref (10 authors, Nat Mach Intell 2(1):56-67, 17 Jan 2020). CAVEAT ON DEPTH: the exactness result was read verbatim in the arXiv precursor 1802.03888 ("we derive an algorithm for tree ensembles that reduces the complexity of computing exact SHAP values from O(TL2^M) to O(TLD^2)"), not in the Nature Machine Intelligence article, which is paywalled. The two describe the same TreeExplainer algorithm, but this citation is VERIFIED (metadata + algorithm via precursor), not MATCH (full text).}
+}
+
 @article{nin2017,
   author    = {Nin, N and Muriel, A and Pe{\~n}uelas, O and Brochard, L and Lorente, J A and Ferguson, N D and Raymondos, K and R{\'\i}os, F and Violi, D A and Thille, A W and Gonz{\'a}lez, M and Villagomez, A J and Correger, E and Du, B and Amin, P and Maggiore, S M and Esteban, A and others},
   title     = {Severe hypercapnia and outcome of mechanically ventilated patients with moderate or severe acute respiratory distress syndrome},
