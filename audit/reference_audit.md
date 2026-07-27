@@ -1076,7 +1076,41 @@ session for nothing. Never bank "awaiting authorisation" on a read again.
 |---|---|---|---|
 | `west2020respiratory` | West & Luks, LWW, **Oct 13 2020**, 232 pp, ISBN 9781975139186 | 2020, 11th, Wolters Kluwer/Lippincott | **MATCH** (nit: OpenLibrary and shop.lww.com give the 11th-edition title as *West's Respiratory Physiology*, without ": The Essentials"; the LWW ebook platform keeps the longer form — genuinely ambiguous, not corrected) |
 | `marino2013icu` | Marino, LWW, **2013**, 1080 pp, LCCN 2013038977, OCLC 859374985, LC class `RC86.7 .M369 2014` | 2013, 4th, LWW | **MATCH** |
-| `marini2018critical` | Marini & Dries, LWW, **Nov 03 2018**, 832 pp, ISBN 9781496302915 | 2018, 5th, Wolters Kluwer | **MATCH** |
+| `marini2018critical` | Marini & Dries, LWW, **Nov 03 2018**, 832 pp, ISBN 9781496302915 | 2018, 5th, Wolters Kluwer | **MATCH on edition/ISBN; year OPEN, see below** |
+
+### Definitive identification of the three supplied copies (2026-07-27)
+
+Six files were supplied for three works. Two were unusable and are recorded so
+they are not mistaken for the books: one Marino file is a **1-page HTML error
+page** ("503 Service Temporarily Unavailable") and one Marini file is **0 bytes**.
+Every remaining file was identified from its own copyright page, never from its
+filename -- which was wrong in two cases out of four.
+
+| File label | Actually is | Cited edition | Usable for our citation? |
+|---|---|---|---|
+| West "2011" | **9th edition**, © 2012, ISBN 978-1-60913-640-6, LCCN 2011019298, sole author J. B. West | 11th, 2020, West & Luks | **No** -- wrong edition |
+| West "2016" | **10th edition**, © 2016 Wolters Kluwer, West & Luks, 249 pp | 11th, 2020, West & Luks | **No** -- wrong edition |
+| Marino "2013" | **4th edition**, "Preface to Fourth Edition", © 2014 Wolters Kluwer Health/LWW, **ISBN-13 9781451121186**, 1075 pp | 4th, 2013, ISBN 978-1-4511-2118-6 | **Yes** -- ISBN matches exactly |
+| Marini "2018" | **Fifth edition**, **ISBN 978-1-4963-0291-5**, © **2019** Wolters Kluwer (copyright page read as a rendered image; that page carries no extractable text) | 5th, 2018, ISBN 978-1-4963-0291-5 | **Yes** -- ISBN matches exactly |
+
+**Two year discrepancies, both benign but both worth recording.**
+
+*Marino.* Our bib says 2013; the copyright page says © 2014. OpenLibrary gives
+publish_date 2013 and the Library of Congress call number reads `RC86.7 .M369
+2014`. This is the ordinary imprint-year / copyright-year gap and 2013 is
+defensible.
+
+*Marini.* Our bib says 2018; the copyright page says **© 2019 Wolters Kluwer**
+and prints "2019" at its head, while OpenLibrary and the retailers give a
+publication date of **3 November 2018**. A book released late in one year
+routinely carries the following year's copyright. Either year is citable, but
+they are not interchangeable and the choice should be deliberate: **2019**
+follows the copyright page, **2018** follows the publication date. **Left as
+2018, unchanged, pending a decision.**
+
+The PDF page counts (1075 Marino, 1148 Marini) exceed the printed page counts
+(1080 and 832) because these files are assembled per-chapter documents with
+front matter; this is not a version discrepancy.
 
 **Chapter-level verification:**
 
