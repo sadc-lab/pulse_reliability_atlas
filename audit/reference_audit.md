@@ -927,6 +927,35 @@ or measure it ourselves and cite that. Recommendation: cite `pulsefaq` with Puls
 own figure -- it is the primary source, already in both bibliographies, and the
 claim then costs nothing to defend.
 
+**RESOLVED 2026-07-27.** Author arbitrated for the recommendation. Applied: the
+clause now reads "at about 5--10x real time, depending on machine specifications"
+citing `pulsefaq` in `supplement.tex:91` and `manuscript.md`. The FAQ sentence was
+re-verified **online** at `_f_a_q.html` and against `docs/Markdown/FAQ.md:31` on
+2026-07-27 -- identical, and the enclosing FAQ question is literally "How fast does
+the physiology engine run?", so the metric matches our claim exactly. Rendering
+confirmed in both PDFs; `10--15` now occurs **zero** times in either document.
+
+Two consequences handled in the same change, neither optional:
+
+- **The ledger anchors were carrying the wrong value and the wrong provenance.**
+  `PULSE_DOC_SPEED_LO_X` / `HI_X` were 10.0 / 15.0 with `source_file` pointing at the
+  companion literature review, under a comment asserting that review "itself cites
+  Pulse's docs page" -- a hop that does not hold. Now 5.0 / 10.0, bound to the FAQ
+  URL with the verbatim sentence. `T3.s027.timestep_ms` was repointed in the same
+  pass from the same secondary record to Bray et al. 2019, which states "a time step
+  of 20 ms" verbatim (value was already correct; only the provenance was wrong).
+- **The `@pulsefaq` orphan had to be closed.** Citing `pulsefaq` in the monograph
+  while it had no entry in the manual provenance appendix would have compounded the
+  defect, so `ref-pulsefaq` was added. Note this appendix is a provenance list, not
+  the rendered bibliography -- pandoc/citeproc generates the real one from
+  `references.bib`, where `pulsefaq` was always present. The gap was therefore a
+  completeness defect in the appendix, not a broken citation.
+
+Verified after the change: audit **272/272 - 97/97 - 26/26, exit 0**; three PDFs and
+three DOCX rebuilt; supplement reference numbering re-checked entry by entry
+([2] respiratory, [3] FAQ, [4] About, [7] cardiovascular, [21] patient) and the
+monograph's author-date label confirmed (`Kitware, Inc. 2026c` = Pulse FAQ).
+
 ### CORRECTION 2 — the `bray2019` metadata flag was a FALSE POSITIVE
 
 This register previously flagged `number = {5}` as a possible discrepancy because the

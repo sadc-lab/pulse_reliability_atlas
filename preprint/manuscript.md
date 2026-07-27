@@ -427,8 +427,8 @@ system of ordinary differential equations at a 20 ms fixed timestep
 model: carina, left and right anatomic dead space, left and right
 alveoli) [@pulserespmethod], gas-exchange, endocrine, renal, and drug
 sub-models share state at each step, producing a self-consistent
-whole-body trajectory in roughly 10–15× real time on commodity
-hardware. The codebase is C++ with bindings for Java, C#, and Unity
+whole-body trajectory at about 5–10× real time, depending on machine
+specifications [@pulsefaq]. The codebase is C++ with bindings for Java, C#, and Unity
 [@pulseabout] and an interface for Python [@bray2019], and deploys on
 Windows, Mac, Linux, and ARM [@pulseabout]. Pulse forked from the
 DoD-funded BioGears engine in 2017 and is described by its
@@ -3600,6 +3600,14 @@ during the literature-review pass logged in
   appear only in the changelog (iOS build support, v4.2.0, October
   2023) — and are therefore no longer claimed. Previously
   mis-attributed to Bray 2019. Verified verbatim 2026-07-26.
+* []{#ref-pulsefaq} Kitware, Inc. *Pulse FAQ.*
+  <https://pulse.kitware.com/_f_a_q.html>. Accessed April 2026; re-verified
+  2026-07-27. Source of Pulse's own statement that it has performed no formal
+  sensitivity analysis or uncertainty quantification, and — from 2026-07-27 — of
+  the engine's documented execution speed, verbatim: *"The engine currently runs
+  at about 5 to 10 times real time, depending on your machine's
+  specifications."* This entry was cited in the body but missing from this list
+  before 2026-07-27.
 * []{#ref-pulsesystem} Kitware, Inc. *System Methodology — Pulse Physiology
   Engine documentation (v4.3.1).*
   <https://pulse.kitware.com/_system_methodology.html>.

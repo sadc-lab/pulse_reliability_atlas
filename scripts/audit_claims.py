@@ -1606,18 +1606,25 @@ add(
 # -----------------------------------------------------------------------------
 
 # §1.1 Pulse-documentation constants. Source-of-truth citation in the
-# source_file column points to the secondary record in the maintainer's
-# pulse_engine_literature_review.md, which itself cites Pulse's docs page
-# (last verified 2026-05-23 during S027).
+# PROVENANCE CORRECTED 2026-07-27. These three anchors previously pointed their
+# source_file at the maintainer's pulse_engine_literature_review.md §1.5 summary
+# table -- a SECONDARY record -- on the assumption, stated in the old comment
+# here, that the table in turn cited Pulse's own docs page. That hop was broken:
+# the §1.5 table gives no URL for the speed line, and Pulse's FAQ documents
+# "about 5 to 10 times real time", not 10-15x. The overstated figure had
+# propagated from that table into supplement.tex §S1 and manuscript.md §1.1
+# (along with the Unity binding and the Android/iOS platform list, corrected
+# separately). Both anchors are now bound to primary sources, re-read verbatim.
 PULSE_DOC_TIMESTEP_MS = 20.0
-PULSE_DOC_SPEED_LO_X = 10.0
-PULSE_DOC_SPEED_HI_X = 15.0
+PULSE_DOC_SPEED_LO_X = 5.0
+PULSE_DOC_SPEED_HI_X = 10.0
 
 add(
     claim_id="T3.s027.timestep_ms",
     section="§1.1 'Pulse in a nutshell'",
     manuscript_text="20 ms fixed timestep",
-    source_file="Pulse_translation_new/pulse_engine_literature_review.md §1.5",
+    source_file="Bray et al. 2019, SN Compr Clin Med 1(5):362-377 -- verbatim "
+    '"a time step of 20 ms", verified 2026-07-26',
     manuscript_value=20.0,
     computed_value=PULSE_DOC_TIMESTEP_MS,
     tolerance_rule="whole_unit",
@@ -1625,18 +1632,22 @@ add(
 add(
     claim_id="T3.s027.speed_lower",
     section="§1.1 'Pulse in a nutshell'",
-    manuscript_text="roughly 10-15x real time (lower bound)",
-    source_file="Pulse_translation_new/pulse_engine_literature_review.md §1.5",
-    manuscript_value=10.0,
+    manuscript_text="about 5-10x real time (lower bound)",
+    source_file="Pulse FAQ https://pulse.kitware.com/_f_a_q.html -- verbatim "
+    '"about 5 to 10 times real time", verified online and against '
+    "docs/Markdown/FAQ.md:31 on 2026-07-27",
+    manuscript_value=5.0,
     computed_value=PULSE_DOC_SPEED_LO_X,
     tolerance_rule="whole_unit",
 )
 add(
     claim_id="T3.s027.speed_upper",
     section="§1.1 'Pulse in a nutshell'",
-    manuscript_text="roughly 10-15x real time (upper bound)",
-    source_file="Pulse_translation_new/pulse_engine_literature_review.md §1.5",
-    manuscript_value=15.0,
+    manuscript_text="about 5-10x real time (upper bound)",
+    source_file="Pulse FAQ https://pulse.kitware.com/_f_a_q.html -- verbatim "
+    '"about 5 to 10 times real time", verified online and against '
+    "docs/Markdown/FAQ.md:31 on 2026-07-27",
+    manuscript_value=10.0,
     computed_value=PULSE_DOC_SPEED_HI_X,
     tolerance_rule="whole_unit",
 )
