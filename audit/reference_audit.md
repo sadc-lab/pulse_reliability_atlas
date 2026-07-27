@@ -836,7 +836,7 @@ Why our novelty claim nevertheless survives, precisely:
 | RR **fixed at 20**, I:E **fixed**, resistance **fixed at 5**, PIP derived, FiO2 solved for SpO2 > 90 % | 7 operational inputs swept (HR, SBP, DBP, RR, Vt, FiO2, PEEP) |
 | sweeps **patient pathophysiology** (compliance, diffusion impairment) + PEEP | sweeps the **user-facing operational envelope** |
 | two identical 70 kg patients | male/female reference bodies compared |
-| no sensitivity ranking, no clamping detection, no divergence mapping | Morris mu*/sigma, four-flag classifier, per-cell reliability map |
+| ranks 9 parameters by outcome correlation (ANOVA, eta^2, Table 1) over the *difference* between the two patients, against one composite safety score; no clamping detection, no divergence mapping | Morris mu*/sigma per input per output, four-flag classifier, per-cell reliability map |
 | a specific clinical question (ventilator sharing) | engine characterisation |
 
 So the second half of our sentence ("no public map ... input envelope") **holds**. The
@@ -958,11 +958,51 @@ monograph's author-date label confirmed (`Kitware, Inc. 2026c` = Pulse FAQ).
 
 ---
 
-## READY TO APPLY — awaiting explicit go: the `paper.tex:130` rewrite
+## APPLIED 2026-07-27 — the `paper.tex:130` rewrite, in a CORRECTED form
 
-Author gave a green light in principle on 2026-07-27 and asked to see the exact text
-first. **Nothing applied.** Paste-ready replacement for the second half of
-`paper.tex:130`:
+### ⛔ The text banked below was FALSE and was NOT the text applied
+
+The banked version ended `it reports no ranking of input influence`. Re-verification
+against the **PLoS full-text XML** (downloaded and grepped locally, because a WebFetch
+summary answered `sensitivity: NOT PRESENT` and fabricated a quotation) shows that
+**Webb publishes exactly such a ranking**: Table 1, one-way ANOVA, `Outcome
+Correlation (eta^2)`, nine rows, of which **two are his own swept inputs** —
+`dCstat = 0.46` (highest of the nine) and `dDIF = 0.02`. Shipping the banked sentence
+would have replaced an imprecise claim with a demonstrably false one, against a
+Kitware first-party paper.
+
+A second error in the same sentence: `two identical 70 kg bodies`. Webb writes
+**`Two equal-sized 70 kg patients are modeled`** and the two patients deliberately
+*differ* in compliance and DIF — `287 unique COVID-19 patients` (= 41 compliances x
+7 DIF) are created and paired, and the Discussion says `conceivable **mismatched**
+patient lung compliance and oxygenation`. "Identical" inverted his design.
+
+Third: **12,642 is not reconstructible** from the published grid (41 x 7 x 3 = 861;
+41 does not even divide 12,642 — the count is over patient *pairs*). It must
+therefore be quoted as **Webb's own count**, never described as a product a reader
+could recompute.
+
+**Text actually applied** (author chose the long option, 2026-07-27):
+
+> Webb et al.'s ventilator-sharing study~\cite{webb2020} does sweep inputs ---
+> 12{,}642 unique patient and ventilator combinations spanning respiratory
+> compliance, diffusion impairment and PEEP --- and does rank parameters by outcome
+> correlation. That ranking, however, is over the \emph{mismatch} between two
+> equal-sized 70~kg bodies sharing one ventilator, scored against a single composite
+> safety outcome, under pressure-mode ventilation with respiratory rate, I:E ratio
+> and respiratory resistance held fixed; it resolves neither each input's influence
+> on each physiological output, nor input clamping, nor solver divergence.
+
+Every clause re-checked line-by-line in the XML: RR `Fixed at 20`, I:E `Fixed at
+1:2`, total respiratory resistance `Fixed at 5`, PEEP `10 to 20 in increments of 5`,
+compliance `10 to 50 in increments of 1`, DIF `0.3 to 0.9 in increment of 0.1`,
+`Mechanical ventilator (one per simulation)`, green/yellow/red composite scoring on
+tidal volume and SpO2, and `pressure mode ventilation` as Webb's own phrase. On
+divergence, Webb states a rule (`If a steady state cannot be achieved, those model
+parameters are rejected`) but reports no map of it — hence "resolves", not "mentions".
+Audit after application: **272/272 - 97/97 - 26/26, exit 0.**
+
+### Superseded banked text (kept for traceability — DO NOT USE)
 
 > Yet despite this footprint, no public map of how the engine responds across its
 > user-facing \emph{input} envelope --- which inputs dominate which outputs, where
@@ -1022,12 +1062,54 @@ West is the canonical source for this equation.
 *justification column* of a bounds table whose bounds are themselves preregistered.
 The textbooks support a preregistered choice; they do not carry a result.
 
-**Planned verification (authorised? NOT YET -- ask before running):** bibliographic
-metadata (edition, publisher, year, ISBN) via Crossref/WorldCat, and the existence
-and title of each cited chapter via publisher tables of contents. If `marino2013icu`
-Ch. 21 is not a respiratory chapter, the citation is wrong and must be repointed.
-Outcome will be recorded as `VERIFIED (metadata + chapter-level)`, **never** as
-`MATCH (full text)` -- the verbatim sentence inside a chapter cannot be reached.
+**Method note, recorded 2026-07-27:** the line that previously stood here read
+"Planned verification (authorised? NOT YET -- ask before running)". That was a
+**defect**. `CLAUDE.md`'s autonomy pact already exempts read-only investigation
+("looking is not acting"); waiting for a go on a table-of-contents lookup cost a
+session for nothing. Never bank "awaiting authorisation" on a read again.
+
+### RESULT 2026-07-27 — metadata VERIFIED, chapter pointers largely WRONG
+
+**Metadata (OpenLibrary by ISBN, machine-readable) — all three MATCH:**
+
+| Key | Resolved record | Our bib | Verdict |
+|---|---|---|---|
+| `west2020respiratory` | West & Luks, LWW, **Oct 13 2020**, 232 pp, ISBN 9781975139186 | 2020, 11th, Wolters Kluwer/Lippincott | **MATCH** (nit: OpenLibrary and shop.lww.com give the 11th-edition title as *West's Respiratory Physiology*, without ": The Essentials"; the LWW ebook platform keeps the longer form — genuinely ambiguous, not corrected) |
+| `marino2013icu` | Marino, LWW, **2013**, 1080 pp, LCCN 2013038977, OCLC 859374985, LC class `RC86.7 .M369 2014` | 2013, 4th, LWW | **MATCH** |
+| `marini2018critical` | Marini & Dries, LWW, **Nov 03 2018**, 832 pp, ISBN 9781496302915 | 2018, 5th, Wolters Kluwer | **MATCH** |
+
+**Chapter-level verification:**
+
+| Citation | Chapter actually is | Verdict |
+|---|---|---|
+| `[Ch.~2]{west2020respiratory}` — anatomical dead space | Ch 2 "Ventilation" | **OK** |
+| `[Ch.~5]{west2020respiratory}` — alveolar-gas equation | Ch 5 "Ventilation-Perfusion Relationships---How Matching of Gas and Blood Determines Gas Exchange" | **OK** |
+| `[Ch.~4]{west2020respiratory}` — CO2 narcosis | Ch 4 = "**Blood Flow and Metabolism**"; CO2 is Ch 6, ventilatory control Ch 8 | **WRONG** |
+| `[Ch.~5]{marino2013icu}` — HR survival thresholds | Ch 5 = "**Alimentary Prophylaxis**" (Section II, Preventive Practices) | **WRONG** |
+| `[Ch.~21]{marino2013icu}` — CO2 narcosis | Ch 21 = "Oximetry and Capnometry"; hypercapnia is Ch 20 | **WRONG** (off by one) |
+| `[Ch.~26]{marino2013icu}` — Vt delivery capability | Ch 26 = "Conventional Modes of Ventilation" | **UNVERIFIABLE** (topically plausible, not confirmable) |
+| `[Ch.~1]{marini2018critical}` — HR + O2 extraction | Ch 1 "Hemodynamics" (Section I) | **UNVERIFIABLE** (title plausible, content unreachable) |
+
+**Evidence grade, stated honestly.** The Marino **3rd**-edition TOC is primary
+(Library of Congress `catdir/toc/ecip0618/2006025971.html`, fetched in full): its
+Ch 5 = "Venous Thromboembolism", Ch 21 = "Oxygen Inhalation Therapy" — neither
+supports our claims either. The **4th**-edition and West 11th-edition chapter lists
+come from **search-engine summaries of publisher pages**, which contradicted each
+other once before converging; the 4th-edition list is corroborated by a coherent
+`+2` offset from the LC-verified 3rd edition. `lwwhealthlibrary.com`,
+`catdir.loc.gov` (direct), and the Villanova catalogue all returned 403 or an
+anti-bot page. **No Library of Congress TOC exists for LCCN 2013038977** (four
+catdir path patterns tried, all 404). Internet Archive holds **only older editions**
+(Marino 1991/1997/1998; West 1995/2000/2005/2016; Marini 1989/1997/2006/2010) —
+**none of the three cited editions**. Full text is therefore genuinely out of reach.
+
+**Loci affected — the count is larger than first reported.** 11 chapter-pointed
+citations in `supplement.tex` (L213, 217, 219, 221, 223, **262, 268, 272**) and
+10 more in the monograph `manuscript.md` (L1091--1096, **1125, 1130, 1133, 1135**,
+3049). Plus three `internal_note` fields in `paper.bib` (L264, L340, L351) whose
+chapter *titles* exist in no edition ("Hemodynamic Drug Infusions and the
+Cardiovascular Critical Patient"; "Chapter 21 (Acid-Base Disorders)" — that is a
+*section* name covering Ch 28--30 in the 3rd edition). `references.bib` is clean.
 
 **Cross-consensus with open sources is a safety net, not a substitute.** Finding an
 open source that says the same thing does not prove the textbook says it; it would
