@@ -1088,12 +1088,12 @@ follow directly from physics or hardware specs.
 
 | Output | Lower | Upper | Source (lower / upper) |
 |--------|------:|------:|------------------------|
-| HR (bpm)    |  20 |  220 | Survival-incompatibility thresholds for bradycardia / tachycardia [@marino2013icu; @marini2018critical] |
+| HR (bpm)    |  20 |  220 | Deliberately permissive at both extremes. Upper: sinus rates exceeding (220 − age)/min reduce cardiac output and myocardial perfusion [@marini2018critical Ch.1], which gives 202 bpm on the 18-year-old reference bodies, so the 220 bpm intercept sits above it; lower: pathological bradycardia depresses cardiac output and O2 delivery [@marini2018critical Ch.1], but no numeric floor is asserted there, so 20 bpm is a conservative outer bound |
 | MAP (mmHg)  |  30 |  180 | Lower: well below both the 70 mmHg at which the Sepsis-3 SOFA cardiovascular score first registers organ dysfunction [@singer2016] and the Surviving Sepsis Campaign initial MAP target of 65 mmHg [@evans2021sepsis]; upper: ESH 2023 hypertensive emergency, i.e. grade 3 hypertension (SBP ≥ 180 and/or DBP ≥ 110 mmHg) with acute symptomatic organ damage [@mancia2023esh] |
-| Vt (mL)     |  50 | 1500 | Lower: below anatomical dead space (~150 mL adult) [@west2020respiratory Ch.2] — alveolar ventilation impossible; upper: ~4× ARDSnet protective ventilation (6 mL/kg PBW [@brower2000] ≈ 400 mL for atlas surrogates) and at the edge of adult-ventilator delivery capability [@marino2013icu] |
-| SpO2 (%)    |  50 |  100 | Lower: oxyhemoglobin dissociation curve P50 (SpO2 = 50 % ↔ PaO2 ≈ 27 mmHg [@severinghaus1979]) — below cellular oxygen extraction threshold [@marini2018critical]; upper: hemoglobin saturation ceiling (definitional) |
+| Vt (mL)     |  50 | 1500 | Lower: below anatomical dead space (~150 mL adult) [@west2020respiratory Ch.2] — alveolar ventilation impossible; upper: ~4× ARDSnet protective ventilation (6 mL/kg PBW [@brower2000] ≈ 400 mL for atlas surrogates) and above the 10–15 mL/kg tidal volumes that were standard practice before lung-protective ventilation [@marino2013icu Ch.25] |
+| SpO2 (%)    |  50 |  100 | Lower: oxyhemoglobin dissociation curve P50 (SpO2 = 50 % ↔ PaO2 ≈ 27 mmHg [@severinghaus1979]); upper: hemoglobin saturation ceiling (definitional) |
 | PaO2 (mmHg) |  20 |  600 | Lower: SpO2 ≈ 0.30 on the Severinghaus 1979 dissociation curve [@severinghaus1979] — incompatible with cellular respiration over a 60 s steady-state window, well inside Berlin severe-ARDS oxygenation territory [@ards2012]; upper: classifier-conservative choice below the alveolar-gas-equation ceiling [@west2020respiratory Ch.5] — supplementary `HARD_BOUNDS_PHYSIOLOGICAL` sensitivity analysis at 700 mmHg reported in §3.8 |
-| PaCO2 (mmHg) | 10 |  120 | Profound respiratory alkalosis (lower) and CO2 narcosis (upper) survival thresholds [@marino2013icu; @west2020respiratory] |
+| PaCO2 (mmHg) | 10 |  120 | Lower: profound respiratory alkalosis from sustained maximal hyperventilation; upper: deliberately permissive rather than clinical — in a 1,899-patient ARDS cohort from 927 ICUs in 40 countries, the cutoffs categorising maximum PaCO2 in the first 48 h of ventilation placed approximately the 95th percentile at 70 mmHg [@nin2017], so a 120 mmHg ceiling leaves severe but clinically observed hypercapnia unflagged and marks only values well beyond the reported range |
 
 The bound is therefore a *time-window-conditional* operational
 threshold, not a raw biology threshold: a real patient transiently
@@ -1121,16 +1121,16 @@ are *clinical-meaningfulness* thresholds — beyond them, a bedside
 clinician would read the trajectory as actively changing rather than
 at homeostasis. They are atlas-internal calibration choices rather
 than biological limits, so the per-channel magnitudes are anchored in
-standard critical-care monitoring practice
-[@marino2013icu; @marini2018critical] rather
-than in mortality-incompatibility primary literature.
+standard critical-care monitoring practice rather
+than in mortality-incompatibility primary literature; where no
+source states a numeric drift magnitude, the row says so.
 
 | Output | Drift threshold per 60 s | Clinical-meaningfulness anchor |
 |--------|--------------------------|--------------------------------|
-| HR     | 5 bpm                    | Threshold for a clinically "meaningful" tachy / brady excursion under continuous bedside monitoring [@marini2018critical] |
+| HR     | 5 bpm                    | A preregistered convention, not a sourced threshold: the smallest heart-rate excursion treated as an active trajectory rather than monitor noise. No numeric drift criterion for heart rate was found in the cited critical-care sources |
 | MAP    | 5 mmHg                   | The clinically decisive MAP band is narrow: the Sepsis-3 SOFA cardiovascular score registers organ dysfunction below 70 mmHg [@singer2016], the Surviving Sepsis Campaign targets 65 mmHg on resuscitation, and organ perfusion declines below approximately 60 mmHg, tracking linearly with MAP [@evans2021sepsis]. These landmarks lie 5 mmHg apart, so a drift of that size is clinically consequential rather than nominal |
 | Vt     | 50 mL                    | ~ 1 mL/kg PBW on the atlas surrogates — within the noise band of breath-to-breath measurement at ARDSnet Vt [@brower2000] |
-| SpO2   | 2 percentage points      | One bedside-monitor display step; conventional "noteworthy" desaturation threshold over a 60 s window [@severinghaus1979; @marino2013icu] |
+| SpO2   | 2 percentage points      | A preregistered convention, not a sourced threshold: the smallest saturation change treated as a genuine desaturation rather than monitor noise. No numeric desaturation-drift criterion was found in the cited critical-care sources |
 | PaO2   | 15 mmHg                  | A 15–71 % fraction of one Berlin P/F band depending on FiO2 — sub-band at the high-FiO2 end of the sweep but approaching one band at room air; clinically meaningful oxygenation change over a 60-second window [@ards2012] |
 | PaCO2  | 5 mmHg                   | Roughly one alveolar-ventilation step under ARDSnet protective ventilation per minute — clinically meaningful CO2 change [@west2020respiratory] |
 
@@ -3726,8 +3726,16 @@ during the literature-review pass logged in
   arterial hypertension.* Journal of Hypertension 41(12):1874-2071
   (2023). DOI:
   [10.1097/HJH.0000000000003480](https://doi.org/10.1097/HJH.0000000000003480).
-  PMID: 37345492. Hypertensive-emergency definition (SBP > 180 /
-  DBP > 120 mmHg); anchors the MAP upper bound.
+  PMID: 37345492. Hypertensive-emergency definition: grade 3 hypertension
+  (SBP ≥ 180 and/or DBP ≥ 110 mmHg, Table 1 p. 1886) with acute
+  symptomatic organ damage; anchors the MAP upper bound.
+* []{#ref-nin2017} Nin N, Muriel A, Peñuelas O, Brochard L, Lorente JA,
+  Ferguson ND, et al. *Severe hypercapnia and outcome of mechanically
+  ventilated patients with moderate or severe acute respiratory distress
+  syndrome.* Intensive Care Medicine 43(2):200-208 (2017). DOI:
+  [10.1007/s00134-016-4611-1](https://doi.org/10.1007/s00134-016-4611-1).
+  PMID: 28108768. Maximum-PaCO2 distribution in 1,899 ARDS patients from
+  927 ICUs in 40 countries; anchors the PaCO2 upper bound.
 * []{#ref-west2020respiratory} West JB, Luks AM. *West's Respiratory Physiology: The
   Essentials.* 11th ed. Philadelphia, PA: Wolters Kluwer Health /
   Lippincott (2020). ISBN: 978-1-9751-3918-6. Alveolar-gas-equation

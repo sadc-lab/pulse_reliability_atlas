@@ -198,7 +198,7 @@ PaCO$_2$ (mmHg) & 10 & 120 & \texttt{T1.06p.paco2\_low}, \texttt{T1.06p.paco2\_h
 \end{tabular}
 \end{table}
 
-Each bound falls into one of three logical categories: (a) a physical or thermodynamic ceiling (the SpO$_2$ upper bound at hemoglobin saturation is definitional), (b) an equipment or engineering limit (Vt above 1{,}500~mL is at the edge of adult-ventilator delivery capability), or (c) a clinical-meaningfulness threshold below which a 60-second steady-state mean would be incompatible with a viable patient. The per-bound primary-literature anchor for each row of Table~\ref{tab:hard-bounds} is documented in Table~\ref{tab:hard-bounds-rationale}; the citation set mirrors the per-bound rationale audited in the companion technical monograph (§2.6).
+Each bound falls into one of three logical categories: (a) a physical or thermodynamic ceiling (the SpO$_2$ upper bound at hemoglobin saturation is definitional), (b) an equipment or engineering limit (the Vt upper bound), or (c) a clinical-meaningfulness threshold below which a 60-second steady-state mean would be incompatible with a viable patient. The per-bound primary-literature anchor for each row of Table~\ref{tab:hard-bounds} is documented in Table~\ref{tab:hard-bounds-rationale}; the citation set mirrors the per-bound rationale audited in the companion technical monograph (§2.6).
 
 \begin{table}[htbp]
 \centering
@@ -210,17 +210,17 @@ Each bound falls into one of three logical categories: (a) a physical or thermod
 Output & Primary-literature rationale (lower / upper) \\
 \midrule
 HR [20, 220]~bpm &
-Survival-incompatibility thresholds for extreme bradycardia and tachycardia in the ICU-practice envelope~\cite{marino2013icu}, \cite{marini2018critical}; the upper extreme aligns with the age-extrapolated maximum heart rate. \\
+Deliberately permissive at both extremes. Upper: sinus rates exceeding $(220 - \mathrm{age})$ per minute reduce cardiac output and myocardial perfusion~\cite[Ch.~1]{marini2018critical}, which gives 202~bpm on the 18-year-old reference bodies; 220~bpm is the intercept of that rule and therefore sits above it. Lower: pathological bradycardia depresses cardiac output and oxygen delivery~\cite[Ch.~1]{marini2018critical}, but no numeric floor is asserted there, so 20~bpm is a conservative outer bound. \\
 MAP [30, 180]~mmHg &
 Lower: well below both the 70~mmHg at which the Sepsis-3 SOFA cardiovascular score first registers organ dysfunction~\cite{singer2016} and the Surviving Sepsis Campaign initial MAP target of 65~mmHg~\cite{evans2021sepsis}. Upper: ESH 2023 hypertensive emergency, i.e.\ grade~3 hypertension (SBP $\geq$ 180 and/or DBP $\geq$ 110~mmHg) with acute symptomatic organ damage~\cite{mancia2023esh}. \\
 Vt [50, 1{,}500]~mL &
-Lower: below adult anatomical dead space ($\sim$~150~mL), implying zero alveolar ventilation~\cite[Ch.~2]{west2020respiratory}. Upper: $\sim 4\times$ the ARDS Network lung-protective tidal volume (6~mL/kg PBW $\approx$ 400~mL on the atlas reference bodies)~\cite{brower2000}, at the edge of adult-ventilator delivery capability~\cite{marino2013icu}. \\
+Lower: below adult anatomical dead space ($\sim$~150~mL), implying zero alveolar ventilation~\cite[Ch.~2]{west2020respiratory}. Upper: $\sim 4\times$ the ARDS Network lung-protective tidal volume (6~mL/kg PBW $\approx$ 400~mL on the atlas reference bodies)~\cite{brower2000}, and above the 10--15~mL/kg tidal volumes that were standard practice before lung-protective ventilation~\cite[Ch.~25]{marino2013icu}. \\
 SpO$_2$ [50, 100]~\% &
-Lower: oxyhemoglobin dissociation curve P50 places SpO$_2$ = 50~\% at PaO$_2 \approx 27$~mmHg~\cite{severinghaus1979}, below the threshold for sustained cellular oxygen extraction~\cite{marini2018critical}. Upper: hemoglobin saturation ceiling (definitional). \\
+Lower: oxyhemoglobin dissociation curve P50 places SpO$_2$ = 50~\% at PaO$_2 \approx 27$~mmHg~\cite{severinghaus1979}. Upper: hemoglobin saturation ceiling (definitional). \\
 PaO$_2$ [20, 600]~mmHg &
 Lower: PaO$_2$ = 20~mmHg corresponds to SpO$_2 \approx 0.30$ on the Severinghaus dissociation curve~\cite{severinghaus1979}, incompatible with cellular respiration sustained over a 60-second steady-state window and well inside the Berlin severe-ARDS oxygenation territory~\cite{ards2012}. Upper: deliberately conservative below the alveolar-gas-equation sea-level ceiling of $\approx$~663~mmHg on FiO$_2$ = 1.0~\cite[Ch.~5]{west2020respiratory}; the supplementary \texttt{HARD\_BOUNDS\_PHYSIOLOGICAL} dictionary in \texttt{src/detector.py} raises the PaO$_2$ upper bound to 700~mmHg and powers the F-003 sensitivity-analysis reclassification reported in Section~2.4 of the main manuscript. \\
 PaCO$_2$ [10, 120]~mmHg &
-Lower: profound respiratory alkalosis from sustained maximal hyperventilation; upper: CO$_2$ narcosis threshold incompatible with conscious steady-state \cite{marino2013icu}, \cite{west2020respiratory}. \\
+Lower: profound respiratory alkalosis from sustained maximal hyperventilation. Upper: deliberately permissive rather than clinical. In a 1{,}899-patient ARDS cohort drawn from 927 ICUs in 40 countries, the cutoffs used to categorise the maximum PaCO$_2$ recorded in the first 48~h of ventilation placed approximately the 95th percentile at 70~mmHg~\cite{nin2017}; a 120~mmHg ceiling therefore leaves severe but clinically observed hypercapnia unflagged and marks only values well beyond the reported range. \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -259,13 +259,13 @@ PaCO$_2$ (mmHg) & 5 & \texttt{T1.06q.paco2\_drift} \\
 Channel \& drift threshold & Clinical-meaningfulness anchor \\
 \midrule
 HR (5 bpm / 60~s) &
-Threshold for a clinically meaningful tachy / brady excursion under continuous bedside monitoring~\cite{marini2018critical}. \\
+A preregistered convention, not a sourced threshold: the smallest heart-rate excursion treated as an active trajectory rather than monitor noise. No numeric drift criterion for heart rate was found in the cited critical-care sources. \\
 MAP (5 mmHg / 60~s) &
 The clinically decisive MAP band is narrow: the Sepsis-3 SOFA cardiovascular score registers organ dysfunction below 70~mmHg~\cite{singer2016}, the Surviving Sepsis Campaign targets 65~mmHg on resuscitation, and organ perfusion declines below approximately 60~mmHg, tracking linearly with MAP~\cite{evans2021sepsis}. These landmarks lie 5~mmHg apart, so a drift of that size is clinically consequential rather than nominal. \\
 Vt (50 mL / 60~s) &
 Approximately 1~mL/kg PBW on the atlas reference bodies --- within the noise band of breath-to-breath Vt measurement at ARDS Network protective ventilation (6~mL/kg PBW $\approx$ 400~mL)~\cite{brower2000}. \\
 SpO$_2$ (2 percentage points / 60~s) &
-One bedside-monitor display step; conventional noteworthy desaturation threshold over a 60-second window~\cite{severinghaus1979}, \cite{marino2013icu}. \\
+A preregistered convention, not a sourced threshold: two percentage points is the smallest saturation change treated as a genuine desaturation rather than monitor noise. No numeric desaturation-drift criterion was found in the cited critical-care sources. \\
 PaO$_2$ (15 mmHg / 60~s) &
 A 15--71~\% fraction of one Berlin P/F band depending on FiO$_2$ --- sub-band at the high-FiO$_2$ end of the sweep but approaching one band at room air; clinically meaningful oxygenation change over a 60-second window~\cite{ards2012}. \\
 PaCO$_2$ (5 mmHg / 60~s) &
