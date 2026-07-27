@@ -770,3 +770,101 @@ Pending edits, held under HARD STOP until the single reattribution commit:
 (cite key on both, label on 132 only), `:627`/BV loci, the `pulsedocs` entry in the
 two bib files, and the `bray2019` `number = {5}` metadata discrepancy.
 
+---
+
+## Tier 2 — seven references audited 2026-07-26
+
+Metadata (title / authors / journal / volume / issue / pages / DOI) checked against
+`preprint_npj/paper.bib` for each. All seven **MATCH** on metadata.
+
+| Key | Our claim | Locus | Verdict | Depth |
+|---|---|---|---|---|
+| `katsoulakis2024digitaltwins` | digital twins for health "proliferating across healthcare"; in-silico trials, device design, synthetic patients | `paper.tex:130` | **MATCH** | full text (PMC10960047) |
+| `webb2020` | Pulse "applied to ventilator-safety what-if analysis" | `paper.tex:130` | **MATCH** (but see OVERCLAIM below) | full text |
+| `figueroacasas2016` | asynchrony "well documented clinically in volume-control ventilation" | `paper.tex:263`, `supplement.tex:572` | **MATCH** | full text |
+| `thille2006` | trigger lock produces "a form of patient--ventilator dyssynchrony" | `paper.tex:267` | **MATCH, under-claimed** | full text |
+| `blanch2015` | that dyssynchrony is "clinically undesirable" | `paper.tex:267` | **MATCH, correctly hedged** | full text |
+| `akoumianaki2014` | esophageal pressure as specialised confirmation | `paper.tex:267` | **MATCH** | abstract (title-level claim) |
+| `sinderby1999` | diaphragm electrical activity as specialised confirmation | `paper.tex:267` | **MATCH** | full text |
+
+Notes worth keeping:
+
+- **`thille2006` supports us more strongly than we claim.** Verbatim: *"Ineffective
+  triggering was associated with a less sensitive inspiratory trigger."* Our
+  intervention makes the trigger less sensitive (a fixed -2 cmH2O threshold replacing
+  the modelled patient trigger), so the clinical literature predicts exactly the cost
+  we describe. Our wording is conservative; no change required, but this is available
+  if a reviewer challenges the mechanism.
+- **`blanch2015` is correctly hedged on our side.** Its own Conclusions state:
+  *"Further investigations would be necessary to establish a causal relationship
+  between asynchrony and outcome."* We wrote "clinically undesirable", not "causes
+  mortality", and Blanch's *"Diagnosing and correcting asynchronies should be a
+  priority"* supports exactly that. Do **not** strengthen this wording later.
+- **`figueroacasas2016`** verbatim: *"Lower tidal volumes during volume control
+  ventilation resulted in more patient-ventilator dyssynchrony in most patients with
+  or at risk for ARDS."* The driver differs from ours (Vt size vs. set rate on a
+  normal-compliance lung); `paper.tex:263` already states the specific conditions are
+  our own in-silico finding, so the distinction is already made in the text.
+- **`akoumianaki2014`** verified at abstract depth only (AJRCCM paywall). The claim is
+  title-level and the abstract confirms *"respiratory muscle effort assessment"*, so
+  abstract depth is adequate. Full author list confirmed: 19 named authors + PLUG
+  Working Group (ESICM); our bib's first three are correct.
+
+### OVERCLAIM — `webb2020` vs. our novelty sentence — needs a joint decision
+
+`webb2020` itself is a clean MATCH for "ventilator-safety what-if analysis". The
+problem is the **next sentence**, `paper.tex:130`:
+
+> "Yet despite this footprint, prior work has probed Pulse's *outputs* --- validating
+> them against reference data, or, in one external study, falsifying
+> intervention--outcome behaviour on a real cohort --- while no public map of how the
+> engine responds across its user-facing *input* envelope (sensitivity, silent
+> clamping, solver divergence) has been published."
+
+Webb 2020 did **not** only probe outputs. Verbatim, p. 7: *"All possible combinations
+of patient parameters for the final model required evaluation of 12,642 unique
+patient and ventilator combinations defined by the following parameter space"* --
+PEEP 10-20 step 5, static compliance 10-50 step 1, diffusion-impairment severity
+0.3-0.9 step 0.1, two patients per simulation. That is a factorial **input** sweep,
+and it is nine times larger in run count than our 1,280.
+
+Why our novelty claim nevertheless survives, precisely:
+
+| Webb 2020 | This atlas |
+|---|---|
+| pressure-mode ventilation | VC-AC |
+| RR **fixed at 20**, I:E **fixed**, resistance **fixed at 5**, PIP derived, FiO2 solved for SpO2 > 90 % | 7 operational inputs swept (HR, SBP, DBP, RR, Vt, FiO2, PEEP) |
+| sweeps **patient pathophysiology** (compliance, diffusion impairment) + PEEP | sweeps the **user-facing operational envelope** |
+| two identical 70 kg patients | male/female reference bodies compared |
+| no sensitivity ranking, no clamping detection, no divergence mapping | Morris mu*/sigma, four-flag classifier, per-cell reliability map |
+| a specific clinical question (ventilator sharing) | engine characterisation |
+
+So the second half of our sentence ("no public map ... input envelope") **holds**. The
+first half ("prior work has probed Pulse's *outputs*") is **imprecise as a blanket
+statement**, because it silently includes `webb2020`, which swept inputs.
+
+Risk: this is the most attackable sentence in the paper for a reviewer who knows
+Webb 2020 -- and Webb is a Kitware first-party paper, so an npj reviewer plausibly
+does. Opportunity: naming Webb's 12,642-run sweep and stating what it did *not*
+characterise makes our contribution sharper and pre-empts the objection.
+
+**Per the autonomy pact, nothing was modified.** This is a change to a scientific
+claim (the novelty framing) and requires an explicit decision. It is **outside** the
+scope of the authorised reattribution commit, which covers only the six Bray claims,
+the `pulsedocs` entry, and the `bray2019` `number` metadata.
+
+### `sinnige2026active` — register row
+
+Claim at `paper.tex:322`: ACTiVE *"improved overall ventilation quality yet showed no
+difference in ventilator-free days or mortality relative to protocolized conventional
+ventilation."* Verified against the JAMA record on **2026-07-24** (Discussion
+close-out, commit `d13fdcb`), where the wording was tightened from "several" to
+"overall ventilation quality" and an orphan citation removed. **MATCH.** Not
+re-verified on 2026-07-26; depth as recorded on 2026-07-24.
+
+### Tier 2 remaining
+
+Three book references -- `west2020respiratory`, `marino2013icu`, `marini2018critical`
+-- have no online full text. To be handled separately.
+
+
