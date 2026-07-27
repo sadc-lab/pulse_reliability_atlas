@@ -3344,7 +3344,7 @@ classifier, performed all computational runs and statistical
 analyses, and wrote the manuscript. M.S. provided detailed clinical review of the manuscript and contributed the clinical interpretation of the VC-AC inspiration-trigger caveat. Y.M. contributed to the cross-platform reproducibility validation of the simulation environment, and to the review and editing of the manuscript. A.W. contributed to the study's conceptualization and to the iterative scientific refinement of the analysis and its framing (notably the ARDS severity-to-Berlin calibration and the reliability-classification transparency) through sustained methodological discussion, in addition to clinical supervision and manuscript review. C.S., M.S., and P.J. provided clinical supervision, contributed to the interpretation of the findings in their clinical context, and reviewed the manuscript. C.S., M.S.,
 and P.J. additionally secured the funding that supported this work.
 All authors approved the final version. AI tooling (Claude Code,
-`claude-opus-4-7` for the original drafting/refactoring, and `claude-opus-4-8`, released 28 May 2026 and coinciding with the supervisor-review phase, for the subsequent supervisor-review revisions, cross-checked against Gemini Pro 3.1) provided drafting / refactoring /
+`claude-opus-4-7` for the original drafting/refactoring, `claude-opus-4-8`, released 28 May 2026 and coinciding with the supervisor-review phase, for the subsequent supervisor-review revisions, and `claude-opus-5` from 24 July 2026 for the in-repository calibration replication and the primary-source reference audit, cross-checked against Gemini Pro 3.1) provided drafting / refactoring /
 reviewer-style critique assistance on text and code only, as
 detailed in §8.
 
@@ -3358,8 +3358,10 @@ interests, financial or otherwise.
 In the interest of full methodological transparency, parts of this
 work were carried out with the assistance of AI tools, used within a
 cross-checking loop between two large language models under direct
-supervision by S.N.: Claude Opus 4.7/4.8 (Anthropic), used locally
-through the Claude Code agent, and Gemini Pro 3.1 (Google;
+supervision by S.N.: Claude Opus 4.7/4.8, and from 24 July 2026
+Claude Opus 5 (Anthropic), used locally
+through the Claude Code agent at the `xhigh` thinking-effort default,
+and Gemini Pro 3.1 (Google;
 extended-thinking mode), used through a separate web session. Prompt
 engineering instructed each model to critique and cross-correct the
 other's outputs at every iteration, mitigating hallucination by
@@ -3368,7 +3370,8 @@ verifying claims against the audit ledger and the source code.
 * **Coding assistance.** Portions of the analysis and pipeline code
   in this repository were drafted, edited, refactored, or debugged
   within the dual-model cross-checking loop described above
-  (**Claude Code** with `claude-opus-4-7` / `claude-opus-4-8`, and
+  (**Claude Code** with `claude-opus-4-7` / `claude-opus-4-8` /
+  `claude-opus-5`, and
   **Gemini Pro 3.1**). Every AI-assisted code change was reviewed,
   tested, and committed by S.N.; all preregistered
   thresholds, hypotheses, and experimental decisions were authored
