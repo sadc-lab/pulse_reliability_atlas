@@ -39,6 +39,38 @@
   internal_note = {Tables 3, 5, 10, 12, 17, 19 of the validation section report Pulse vs ASL 5000 + Drager Evita Infinity V500 tidal-volume errors for VC-AC (0.0681 percent healthy / 1.01 percent restrictive / 2.25 percent obstructive) and PC-AC (11.3 percent healthy / 25.3 percent restrictive / 15.3 percent obstructive). Source of the numerical Vt-accuracy claims in this paper; the qualitative validation framework is described in @webb2022vent.}
 }
 
+@misc{pulserespmethod,
+  title     = {Respiratory Methodology --- Pulse Physiology Engine (v4.3.1 documentation)},
+  author    = {{Kitware, Inc.}},
+  howpublished = {\url{https://pulse.kitware.com/_respiratory_methodology.html}},
+  year      = {2026},
+  internal_note = {Source of the 5-compartment lung description (carina, right and left anatomic dead space, right and left alveoli) and of the no-inertance limitation, both verbatim: "five major functional units, or compartments, that are designated as the carina, right and left anatomic dead space, and right and left alveoli" and "Inertance is not included in the model on the assumption that inertia does not play a significant role under conventional tidal breathing". Verified against the live page and against the REL_4_3_1 source tree on 2026-07-26; docs/ is byte-identical in REL_4_3_2. Both claims were previously mis-attributed to @bray2019, which contains neither statement.}
+}
+
+@misc{pulsecardiomethod,
+  title     = {Cardiovascular Methodology --- Pulse Physiology Engine (v4.3.1 documentation)},
+  author    = {{Kitware, Inc.}},
+  howpublished = {\url{https://pulse.kitware.com/_cardiovascular_methodology.html}},
+  year      = {2026},
+  internal_note = {Source of the no-dicrotic-notch / no-retrograde-flow / idealised-valve limitation ("This is the dicrotic notch ... This is not currently being modeled in the engine, but improvements in the circuit model, including the addition of inertance and diodes that allow retrograde flow, will likely enable the engine waveform to capture more detail") and of the ECG P-wave / T-wave merge at high heart rate ("Due to the high heart rate, the engine output is summing together the P and T waves"). The engine ECG is a replayed waveform, not a computed one. Verified verbatim on 2026-07-26; previously mis-attributed to @bray2019.}
+}
+
+@misc{pulsepatientmethod,
+  title     = {Patient Methodology --- Pulse Physiology Engine (v4.3.1 documentation)},
+  author    = {{Kitware, Inc.}},
+  howpublished = {\url{https://pulse.kitware.com/_patient_methodology.html}},
+  year      = {2026},
+  internal_note = {Blood Volume Baseline table row, verbatim: Bv[mL] = 65.6 W[kg]^1.02, minimum Bv*0.85, maximum Bv*1.15, annotated "Above Stage 1 Hypovolemia". The documented 0.85 multiplier is the mechanism behind the 4,082.24 mL male setup-time floor measured in S027. Pulse itself credits Morgan et al., Clinical Anesthesiology, for the underlying blood-volume estimates; that textbook could not be consulted (the coefficients 65.6 / 1.02 appear nowhere in the indexed literature and the Morgan-derived calculators are per-kilogram, not allometric), so it is deliberately NOT cited. Verified 2026-07-26; previously mis-attributed to @bray2019.}
+}
+
+@misc{pulseabout,
+  title     = {About Pulse --- Pulse Physiology Engine},
+  author    = {{Kitware, Inc.}},
+  howpublished = {\url{https://pulse.kitware.com/_about_pulse.html}},
+  year      = {2026},
+  internal_note = {Verbatim: "easy cross-platform deployment on all standard operating systems (Windows, Mac, Linux, and ARM) and multiple languages (C++, C#, Java, Unity)". Android and iOS are NOT listed here; they appear only in the changelog (iOS build support, v4.2.0 October 2023; Android ARMv7a/v8a), which records an addition rather than continued support, so neither is claimed. The Unity/Android/iOS list on the site index refers to the Unity asset's own platform reach, not the engine's. Verified 2026-07-26; previously mis-attributed to @bray2019.}
+}
+
 @article{cornish2023,
   author    = {Cornish, R and Taufiq, M F and Doucet, A and Holmes, C},
   title     = {Causal Falsification of Digital Twins},

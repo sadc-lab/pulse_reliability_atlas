@@ -54,7 +54,31 @@
   author    = {{Kitware, Inc.}},
   howpublished = {\url{https://pulse.kitware.com/_respiratory_methodology.html}},
   year      = {2026},
-  note      = {Source of Pulse's documented ARDS severity-to-impairment-fraction mapping (mild = 0.3, moderate = 0.6, severe = 0.9) and the piecewise-linear severity-to-modifier scheme calibrated at key transition points (0.0, 0.3, 0.6, 0.9, 1.0). The associated P/F-ratio validation claim (340 / 130 / 50 mmHg for the three bands) is not stated on this documentation page; the quantitative P/F validation appears in the peer-reviewed @webb2020 Pulse-team COVID-19 paper.}
+  note      = {Source of Pulse's documented ARDS severity-to-impairment-fraction mapping (mild = 0.3, moderate = 0.6, severe = 0.9) and the piecewise-linear severity-to-modifier scheme calibrated at key transition points (0.0, 0.3, 0.6, 0.9, 1.0). The associated P/F-ratio validation claim (340 / 130 / 50 mmHg for the three bands) is not stated on this documentation page; the quantitative P/F validation appears in the peer-reviewed @webb2020 Pulse-team COVID-19 paper. Also the source, from 2026-07-26, of the 5-compartment lung description (carina, right and left anatomic dead space, right and left alveoli) and of the no-inertance limitation, both verified verbatim; those two claims had been mis-attributed to @bray2019, which contains neither.}
+}
+
+@misc{pulsecardiomethod,
+  title     = {Cardiovascular Methodology --- Pulse Physiology Engine (v4.3.1 documentation)},
+  author    = {{Kitware, Inc.}},
+  howpublished = {\url{https://pulse.kitware.com/_cardiovascular_methodology.html}},
+  year      = {2026},
+  note      = {Source of the no-dicrotic-notch / no-retrograde-flow / idealised-valve limitation and of the ECG P-wave / T-wave merge at high heart rate. The engine ECG is a replayed waveform, not a computed one. Verified verbatim on 2026-07-26; both claims were previously mis-attributed to @bray2019, which contains neither.}
+}
+
+@misc{pulsepatientmethod,
+  title     = {Patient Methodology --- Pulse Physiology Engine (v4.3.1 documentation)},
+  author    = {{Kitware, Inc.}},
+  howpublished = {\url{https://pulse.kitware.com/_patient_methodology.html}},
+  year      = {2026},
+  note      = {Blood Volume Baseline table row: Bv[mL] = 65.6 W[kg]^1.02, minimum Bv*0.85, maximum Bv*1.15, annotated "Above Stage 1 Hypovolemia". The documented 0.85 multiplier is the mechanism behind the 4,082.24 mL male setup-time floor measured in S027. Pulse credits Morgan et al., Clinical Anesthesiology, for the underlying estimates; that textbook could not be consulted and is deliberately not cited. Verified 2026-07-26; previously mis-attributed to @bray2019.}
+}
+
+@misc{pulseabout,
+  title     = {About Pulse --- Pulse Physiology Engine},
+  author    = {{Kitware, Inc.}},
+  howpublished = {\url{https://pulse.kitware.com/_about_pulse.html}},
+  year      = {2026},
+  note      = {Verbatim: "easy cross-platform deployment on all standard operating systems (Windows, Mac, Linux, and ARM) and multiple languages (C++, C#, Java, Unity)". Android and iOS are not listed and are therefore not claimed. Verified 2026-07-26; previously mis-attributed to @bray2019.}
 }
 
 @misc{pulsesystem,

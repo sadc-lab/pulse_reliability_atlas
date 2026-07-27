@@ -867,4 +867,102 @@ re-verified on 2026-07-26; depth as recorded on 2026-07-24.
 Three book references -- `west2020respiratory`, `marino2013icu`, `marini2018critical`
 -- have no online full text. To be handled separately.
 
+---
+
+## Reattribution applied 2026-07-26/27 — plus three corrections to this register
+
+### Bibliography design — decision changed on evidence
+
+The single-`pulsedocs`-entry plan was **abandoned before implementation**. Reason:
+`preprint/references.bib` already carried `pulsevent`, `pulserespmethod` and
+`pulsesystem`, and `preprint_npj/paper.bib` already carried `pulsevent` and
+`pulsefaq` -- i.e. **both files already use one entry per cited documentation page**.
+A single repo-wide entry would have broken that convention in both files and
+duplicated `pulserespmethod`, which already points at the page sourcing our
+respiratory claims. Author arbitration: follow the existing per-page convention.
+
+Applied: `pulserespmethod`, `pulsecardiomethod`, `pulsepatientmethod`, `pulseabout`
+added to `paper.bib` (4 new); `pulsecardiomethod`, `pulsepatientmethod`, `pulseabout`
+added to `references.bib` (3 new, `pulserespmethod` reused and its note extended);
+`ref-pulseabout` added to the monograph's manual reference list.
+Every URL was fetched and the quoted sentence verified verbatim before being cited.
+`_about_pulse.html` was found by navigating the site index after `about.html` 404'd.
+
+### CORRECTION 1 — I mis-recorded claim 5. The 10--15x figure is NOT our measurement.
+
+The earlier entry in this register stated that the ledger anchors
+`T3.s027.speed_lower/upper` attribute "roughly 10--15x real time" to our own S027
+work. **That is wrong.** Read from the source:
+
+```
+claim_id="T3.s027.speed_lower"
+source_file="Pulse_translation_new/pulse_engine_literature_review.md §1.5"
+computed_value=PULSE_DOC_SPEED_LO_X      # PULSE_DOC_..., not a measurement of ours
+```
+
+The true origin is the companion project's literature-review summary table, §1.5,
+which reads: *"Speed: 10-15x real time on standard hardware / Languages: C++, with
+bindings for Python, Java, C#, Unity / Platforms: Windows, Linux, macOS, Android,
+iOS, ARM"*. **Our entire supplement sentence was copied from that table** -- the
+speed figure, the Unity binding and the Android/iOS list all come from there, and
+were then cited to `bray2019`.
+
+**And the number itself is wrong.** Pulse's own FAQ (`docs/Markdown/FAQ.md:31`,
+rendered at `_f_a_q.html`, which we already cite as `pulsefaq`) states:
+
+> "The engine currently runs at about **5 to 10 times real time**, depending on your
+> machine's specifications."
+
+So the companion table overstates Pulse's own documented figure, and our supplement
+and monograph inherited the overstatement.
+
+**Action taken: NONE on the text.** Changing 10--15x to 5--10x is a magnitude change
+to a published claim, which exceeds the authorised reattribution scope (that scope
+covered re-attribution, not re-valuation). The clause was restored **verbatim** to
+its pre-edit state in both `supplement.tex:91` and `manuscript.md:430`, still reading
+"roughly 10--15x real time on commodity hardware" with no citation of its own.
+**Decision required.** Options: correct to Pulse's documented 5--10x citing
+`pulsefaq`; or drop the speed clause entirely (it is decorative, not load-bearing);
+or measure it ourselves and cite that. Recommendation: cite `pulsefaq` with Pulse's
+own figure -- it is the primary source, already in both bibliographies, and the
+claim then costs nothing to defend.
+
+### CORRECTION 2 — the `bray2019` metadata flag was a FALSE POSITIVE
+
+This register previously flagged `number = {5}` as a possible discrepancy because the
+article PDF header prints only `1:362-377`. Crossref (`api.crossref.org`, the
+authority for issue assignment) returns: container-title *SN Comprehensive Clinical
+Medicine*, **volume 1, issue 5**, pages 362-377, 2019. **Our bib entry is correct**;
+the PDF header simply omits the issue. Nothing to fix. The monograph's manual entry
+(`manuscript.md:3539`) already reads `1(5):362-377` and is likewise correct.
+Author list also confirmed against Crossref, 9 authors, order matching.
+
+### CORRECTION 3 — pre-existing orphan citation found in the monograph
+
+`@pulsefaq` is cited in `manuscript.md` but has **no** `[]{#ref-pulsefaq}` entry in
+the manual reference list (the list has `ref-pulsevent`, `ref-pulserespmethod`,
+`ref-pulsesystem`, and now `ref-pulseabout`). Pre-existing, unrelated to this work,
+and deliberately **not** fixed here so as not to widen a bounded commit. To be
+handled with the deferred reference-metadata pass.
+
+### Observation for the deferred hyperlink pass
+
+In the rendered PDFs the Kitware URLs extract as `https://pulse.kitware.com/ f a q.html`
+(underscores appearing as spaces, and letter-spacing in the monograph). This affects
+the pre-existing `pulsevent` and `pulsefaq` entries identically, so it is a rendering
+or extraction artefact, not something introduced here -- but the hyperlink pass should
+confirm the links are live in the actual PDF.
+
+### Verification of the applied change
+
+Audit **272/272 anchors, 97/97 paper crosswalk, 26/26 monograph anchors, exit 0.**
+`paper.pdf`, `supplement.pdf`, `manuscript.pdf` and the three DOCX twins rebuilt.
+Verified **in the rendered PDFs**, not in the source: zero unresolved `[?]` citations;
+all four new references present in the reference lists; limitation rows 11 and 12 now
+read "Pulse documentation [2]" and "Pulse documentation [7]"; the blood-volume formula
+carries [21] = Patient methodology; the paper's 5-compartment sentence carries
+[22] = Respiratory methodology; the platform sentence reads "Java, C#, and Unity [3]
+and an interface for Python [1] ... Windows, Mac, Linux, and ARM"; and Android/iOS
+occur nowhere except inside the new bibliographic note that explains their exclusion.
+
 

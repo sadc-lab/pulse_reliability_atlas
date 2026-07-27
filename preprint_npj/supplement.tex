@@ -88,7 +88,7 @@
 
 \section{Pulse engine in context}\label{sec:s1}
 
-The Pulse Physiology Engine~\cite{bray2019} is among the most actively maintained open-source whole-body human physiology simulators. It represents the body as a network of coupled electrical-circuit analogues --- vascular resistances as resistors, vessel and chamber compliances as capacitors, heart and respiratory muscles as time-varying pressure sources --- solved as a system of ordinary differential equations at a 20~ms fixed timestep. The cardiovascular, respiratory (a 5-compartment lung model: carina, left and right anatomic dead space, left and right alveoli), gas-exchange, endocrine, renal, and drug sub-models share state at each step, producing a self-consistent whole-body trajectory in roughly 10--15$\times$ real time on commodity hardware. The codebase is C++ with bindings for Python, Java, C\#, and Unity, and runs on Windows, Linux, macOS, Android, iOS, and ARM.
+The Pulse Physiology Engine~\cite{bray2019} is among the most actively maintained open-source whole-body human physiology simulators. It represents the body as a network of coupled electrical-circuit analogues --- vascular resistances as resistors, vessel and chamber compliances as capacitors, heart and respiratory muscles as time-varying pressure sources --- solved as a system of ordinary differential equations at a 20~ms fixed timestep. The cardiovascular, respiratory (a 5-compartment lung model: carina, left and right anatomic dead space, left and right alveoli)~\cite{pulserespmethod}, gas-exchange, endocrine, renal, and drug sub-models share state at each step, producing a self-consistent whole-body trajectory in roughly 10--15$\times$ real time on commodity hardware. The codebase is C++ with bindings for Java, C\#, and Unity~\cite{pulseabout} and an interface for Python~\cite{bray2019}, and deploys on Windows, Mac, Linux, and ARM~\cite{pulseabout}.
 
 Pulse was forked in 2017 from the U.S.\ Department of Defense--funded BioGears engine by the original BioGears core developers (Clipp, Bray, Webb) and is now maintained by Kitware, Inc.\ under the Apache-2.0 license. Both projects still exist independently but have diverged substantially since 2017; Pulse v4.3.1 includes respiratory calibration for ventilated patients, mechanoreceptor feedback, lung-recruitment modelling, and improved hemorrhage response that are not present in BioGears.
 
@@ -129,9 +129,9 @@ The atlas is calibrated against the following twelve Pulse limitations, each ver
 \midrule
 10 & Reported vital capacity is approximately 7~\% above literature values per Pulse's own validation table. & Pulse documentation \\
 \midrule
-11 & Lumped-parameter limits: no inertance, linear resistance only, idealised valves. & Bray et al.\ 2019~\cite{bray2019} \\
+11 & Lumped-parameter limits: no inertance, linear resistance only, idealised valves. & Pulse documentation~\cite{pulserespmethod} \\
 \midrule
-12 & No dicrotic notch, no retrograde flow; ECG P-wave and T-wave merge at high heart rate. & Pulse documentation~\cite{bray2019} \\
+12 & No dicrotic notch, no retrograde flow; ECG P-wave and T-wave merge at high heart rate. & Pulse documentation~\cite{pulsecardiomethod} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -627,7 +627,7 @@ Section~2.5 of the main manuscript reports that all 20 of 1{,}280 input-extreme-
 
 \subsection{Absolute volumes (the framing used in the main manuscript)}\label{sec:s10-abs}
 
-The Pulse allometric formula~\cite{bray2019} is $\text{BV} = 65.6 \cdot \text{weight}_{\text{kg}}^{1.02}$~mL. On the two reference patient bodies this yields:
+The Pulse allometric formula~\cite{pulsepatientmethod} is $\text{BV} = 65.6 \cdot \text{weight}_{\text{kg}}^{1.02}$~mL. On the two reference patient bodies this yields:
 
 \begin{itemize}
 \item Male (67.3~kg): $\text{BV} = 65.6 \cdot 67.3^{1.02} = 4{,}802.63$~mL.

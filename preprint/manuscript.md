@@ -425,11 +425,12 @@ respiratory muscles as time-varying pressure sources — solved as a
 system of ordinary differential equations at a 20 ms fixed timestep
 [@bray2019]. The cardiovascular, respiratory (a 5-compartment lung
 model: carina, left and right anatomic dead space, left and right
-alveoli), gas-exchange, endocrine, renal, and drug sub-models share
-state at each step, producing a self-consistent whole-body trajectory
-in roughly 10–15× real time on commodity hardware. The codebase is
-C++ with bindings for Python, Java, C#, and Unity, and runs on
-Windows, Linux, macOS, Android, iOS, and ARM. Pulse forked from the
+alveoli) [@pulserespmethod], gas-exchange, endocrine, renal, and drug
+sub-models share state at each step, producing a self-consistent
+whole-body trajectory in roughly 10–15× real time on commodity
+hardware. The codebase is C++ with bindings for Java, C#, and Unity
+[@pulseabout] and an interface for Python [@bray2019], and deploys on
+Windows, Mac, Linux, and ARM [@pulseabout]. Pulse forked from the
 DoD-funded BioGears engine in 2017 and is described by its
 maintainers as a "low fidelity clinical approach" intended for
 training simulation rather than patient-specific prediction
@@ -3585,6 +3586,20 @@ during the literature-review pass logged in
   and Appendix B.3 as the canonical documentation against which the
   empirically calibrated mapping {0.26, 0.60, 0.95} is contrasted at
   ARDSnet-protective ventilation. Verified verbatim 2026-05-15.
+  Also, from 2026-07-26, the source of the 5-compartment lung
+  description (carina, right and left anatomic dead space, right and
+  left alveoli) and of the no-inertance limitation, both verified
+  verbatim; those two claims had been mis-attributed to Bray 2019,
+  which contains neither.
+* []{#ref-pulseabout} Kitware, Inc. *About Pulse — Pulse Physiology Engine.*
+  <https://pulse.kitware.com/_about_pulse.html>.
+  Source of the language-binding and platform list, verbatim: *"easy
+  cross-platform deployment on all standard operating systems
+  (Windows, Mac, Linux, and ARM) and multiple languages (C++, C#,
+  Java, Unity)."* Android and iOS are not listed on this page — they
+  appear only in the changelog (iOS build support, v4.2.0, October
+  2023) — and are therefore no longer claimed. Previously
+  mis-attributed to Bray 2019. Verified verbatim 2026-07-26.
 * []{#ref-pulsesystem} Kitware, Inc. *System Methodology — Pulse Physiology
   Engine documentation (v4.3.1).*
   <https://pulse.kitware.com/_system_methodology.html>.
