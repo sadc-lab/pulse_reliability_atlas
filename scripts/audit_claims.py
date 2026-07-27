@@ -1714,6 +1714,74 @@ add(
     computed_value=PULSE_FEMALE_BV_DEFAULT_ML,
     tolerance_rule="displayed_2dp",
 )
+
+# --- Nadler 1962 per-kg blood volume on the two reference bodies ----------
+# paper.tex §2.5 states that Pulse's sex-independent allometric formula "does
+# not reproduce the male--female difference reported clinically: applied to
+# these same two bodies, Nadler's sex-specific equations give 73.0 and
+# 63.8 mL/kg". Those two literals are COMPUTED, not quoted from any source, so
+# they are anchored here rather than trusted.
+#
+# The body constants are read out of src/scenario.py instead of being repeated,
+# so that editing a reference body makes this audit fail instead of silently
+# invalidating the sentence in the paper.
+#
+# The regression coefficients are Nadler's own, read verbatim from the primary
+# source (Surgery 1962;51(2):224-232; the height-cubed / body-mass formulas
+# appear on p. 227 and are restated on pp. 229 and 231), with PBV in litres,
+# H in metres and W in kilograms:
+#
+#     men    PBV = 0.3669 H^3 + 0.03219 W + 0.6041
+#     women  PBV = 0.3561 H^3 + 0.03308 W + 0.1833
+#
+# Retrieved 2026-07-26 from the article scan filed as Exhibit 1016 in USPTO
+# PTAB proceeding PGR2025-00077 (Terumo v. Haemonetics); that exhibit's own PDF
+# title is the article's publisher item identifier, PII 0039-6060(62)90166-6,
+# and its 9 pages match pp. 224-232 exactly.
+_scenario_src = (REPO / "src" / "scenario.py").read_text(encoding="utf-8")
+
+NADLER_MALE_COEFFS = (0.3669, 0.03219, 0.6041)
+NADLER_FEMALE_COEFFS = (0.3561, 0.03308, 0.1833)
+
+
+def _reference_body(sex_key: str) -> tuple[float, float]:
+    """Weight (kg) and height (cm) of a reference body, read from the source."""
+    m = re.search(
+        rf'"{sex_key}":\s*Patient\([^)]*?weight_kg=([\d.]+),\s*height_cm=([\d.]+)',
+        _scenario_src,
+    )
+    assert m is not None, (
+        f"audit_claims: reference body {sex_key!r} not located in src/scenario.py"
+    )
+    return float(m.group(1)), float(m.group(2))
+
+
+def _nadler_ml_per_kg(sex_key: str) -> float:
+    weight_kg, height_cm = _reference_body(sex_key)
+    a, b, c = NADLER_MALE_COEFFS if sex_key == "M" else NADLER_FEMALE_COEFFS
+    litres = a * (height_cm / 100.0) ** 3 + b * weight_kg + c
+    return litres * 1000.0 / weight_kg
+
+
+add(
+    claim_id="T1.nadler.male_ml_per_kg",
+    section="§2.5 (npj paper)",
+    manuscript_text="73.0 mL/kg -- Nadler 1962 male equation on the male reference body",
+    source_file="src/scenario.py PATIENTS['M'] + Nadler 1962 male regression",
+    manuscript_value=73.0,
+    computed_value=_nadler_ml_per_kg("M"),
+    tolerance_rule="displayed_1dp",
+)
+add(
+    claim_id="T1.nadler.female_ml_per_kg",
+    section="§2.5 (npj paper)",
+    manuscript_text="63.8 mL/kg -- Nadler 1962 female equation on the female reference body",
+    source_file="src/scenario.py PATIENTS['F'] + Nadler 1962 female regression",
+    manuscript_value=63.8,
+    computed_value=_nadler_ml_per_kg("F"),
+    tolerance_rule="displayed_1dp",
+)
+
 add(
     claim_id="T3.s028.cornish_non_overlap_hoeffding",
     section="§4.4 (monograph); §2.6 (npj paper)",
