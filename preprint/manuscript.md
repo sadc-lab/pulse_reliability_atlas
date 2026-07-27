@@ -1078,13 +1078,13 @@ so `diverged` fires instead.
 **Hard physiological bounds for the `implausible` flag.** The table
 below was committed in `preregistration.md` §Flags before any atlas
 data was collected, and is reproduced here for reader convenience.
-Each `(lower, upper)` pair encodes one of three logical categories:
-(a) a physical / thermodynamic ceiling for which no citation is
-needed because the bound is definitional, (b) an equipment /
-engineering limit, or (c) a clinical *"incompatible with a 60 s
-steady-state in the locked window"* threshold. Only category (c) is
-a judgment call within the cited literature; categories (a) and (b)
-follow directly from physics or hardware specs.
+Each `(lower, upper)` pair encodes one of two logical categories:
+(a) a physical / definitional ceiling for which no citation is
+needed, or (b) a clinical *"incompatible with a 60 s steady-state
+in the locked window"* threshold. Only the SpO2 upper bound falls
+in category (a); every other bound is category (b), a judgment call
+within the cited literature. No bound rests on an equipment
+specification.
 
 | Output | Lower | Upper | Source (lower / upper) |
 |--------|------:|------:|------------------------|
@@ -1102,7 +1102,7 @@ possible, but a Pulse simulation reporting a 60 s steady-state mean
 PaO2 = 18 mmHg at FiO2 = 0.21 on a *resting healthy adult* indicates
 that the engine has produced an output incompatible with the
 simulation's own input setup. The `implausible` flag isolates that
-class of inconsistency. Within category (c), the exact numerical
+class of inconsistency. Within category (b), the exact numerical
 choice (e.g., PaO2 lower 20 vs 25 mmHg) is a defensible judgment
 call rather than a unique biological constant; §4.5 acknowledges
 this and §3.8 demonstrates the sensitivity-analysis pattern on the
@@ -3033,9 +3033,9 @@ bounded.*
 * **Implausibility bounds are clinically anchored but not unique
   within the clinical-judgment category.** The `HARD_BOUNDS` table
   (§2.6) categorizes each bound as either physical
-  (e.g., SpO2 ≤ 100 %), equipment (Vt range), or a clinical
+  (e.g., SpO2 ≤ 100 %) or a clinical
   *"incompatible-with-60-s-steady-state-in-window"* threshold. Within
-  the third category, the exact numerical choice (e.g., PaO2 lower
+  the second category, the exact numerical choice (e.g., PaO2 lower
   20 vs 25 mmHg, MAP lower 30 vs 35 mmHg) is a defensible judgment
   call rather than a unique biological constant — different clinical
   philosophies, anchored in the same Severinghaus / Berlin /
