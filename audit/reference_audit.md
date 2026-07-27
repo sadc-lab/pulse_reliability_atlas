@@ -956,6 +956,84 @@ three DOCX rebuilt; supplement reference numbering re-checked entry by entry
 ([2] respiratory, [3] FAQ, [4] About, [7] cardiovascular, [21] patient) and the
 monograph's author-date label confirmed (`Kitware, Inc. 2026c` = Pulse FAQ).
 
+---
+
+## READY TO APPLY — awaiting explicit go: the `paper.tex:130` rewrite
+
+Author gave a green light in principle on 2026-07-27 and asked to see the exact text
+first. **Nothing applied.** Paste-ready replacement for the second half of
+`paper.tex:130`:
+
+> Yet despite this footprint, no public map of how the engine responds across its
+> user-facing \emph{input} envelope --- which inputs dominate which outputs, where
+> inputs are silently clamped, and where the solver diverges --- has been published.
+> Most of this work probes Pulse's \emph{outputs}: validating them against reference
+> data, or, in one external study, falsifying intervention--outcome behaviour on a
+> real cohort. Webb et al.'s ventilator-sharing study~\cite{webb2020} does sweep
+> inputs --- 12{,}642 combinations of respiratory compliance, diffusion impairment
+> and PEEP --- but under pressure-mode ventilation, with respiratory rate, I:E ratio
+> and respiratory resistance held fixed, on two identical 70~kg bodies, and in
+> service of a single clinical safety question: it reports no ranking of input
+> influence, and characterises neither input clamping nor solver divergence.
+
+Every assertion verified in Webb's PDF: 12,642 verbatim p. 7; compliance 10--50
+step 1, DIF 0.3--0.9 step 0.1, PEEP 10--20 step 5; "pressure mode ventilation does
+not enforce delivery of a set volume"; RR fixed 20, I:E fixed 1:2, total respiratory
+resistance fixed 5; "Two equal-sized 70 kg patients are modeled".
+
+**Two deliberate restraints, do not undo them later:** we do NOT write "no
+sensitivity analysis" (Webb uses the phrase "rapid sensitivity evaluation" himself);
+we write "reports no ranking of input influence", which is exact and checkable. And
+we use no superlative such as "the largest published sweep" -- unverifiable.
+
+Cost: about +55 words to the Introduction. After applying, re-run the audit: the
+crosswalk anchor `T1.01` counts occurrences of "1{,}280" and is unaffected, but any
+new numeric literal (12{,}642, 70~kg) may need a crosswalk entry -- check the exit
+code rather than assuming.
+
+## Tier 2 — the three textbooks: claims extracted 2026-07-27, verification NOT yet run
+
+Method note first: **the earlier locus-mapping grep was defective.** It matched only
+`\cite{key}` and missed `\cite[Ch.~5]{key}`, which is how all three textbooks are
+cited. The defect surfaced only because `marino2013icu` rendered as [9] in the
+supplement bibliography while the grep claimed it was uncited. **The eight Tier 2
+references were re-checked with a corrected pattern and are unaffected** -- the loci
+already audited are the only ones. Total distinct keys cited across paper + supplement: 35.
+
+| Ref | Locus | Claim |
+|---|---|---|
+| `west2020respiratory` | `paper.tex:275`, `supplement.tex:580` | alveolar-gas-equation ceiling ~663 mmHg at sea level |
+| `west2020respiratory` | `paper.tex:167` | same ceiling, justifying the deliberately conservative 600 mmHg PaO2 bound |
+| `west2020respiratory` Ch. 4 | `supplement.tex:223` | CO2-narcosis threshold incompatible with a conscious steady state |
+| `west2020respiratory` | `paper.tex:342` | cited generally among the sources of the detector's physiological bounds |
+| `marino2013icu` Ch. 5 | `supplement.tex:213` | survival-incompatibility thresholds for extreme bradycardia / tachycardia in ICU practice |
+| `marino2013icu` Ch. 21 | `supplement.tex:223` | CO2-narcosis threshold (with West Ch. 4) |
+| `marini2018critical` Ch. 1 | `supplement.tex:213` | same heart-rate thresholds |
+| `marini2018critical` Ch. 1 | `supplement.tex:219` | threshold for sustained cellular oxygen extraction (with Severinghaus P50) |
+| `marini2018critical` | `paper.tex:167` | sustained SpO2 < 50 % incompatible with a stable simulated steady state |
+
+**The largest block self-verifies and needs nothing.** The three West alveolar-gas
+loci do not depend on reading the book: the paper prints its own inputs and the
+arithmetic checks exactly. FiO2 1.0 x (760 - 47) = 713; 40 / 0.8 = 50;
+713 - 50 = **663 mmHg**. The stated gap also checks: 663 - 643 = **20 mmHg**.
+West is the canonical source for this equation.
+
+**The clinical-threshold claims are low risk by construction.** They sit in the
+*justification column* of a bounds table whose bounds are themselves preregistered.
+The textbooks support a preregistered choice; they do not carry a result.
+
+**Planned verification (authorised? NOT YET -- ask before running):** bibliographic
+metadata (edition, publisher, year, ISBN) via Crossref/WorldCat, and the existence
+and title of each cited chapter via publisher tables of contents. If `marino2013icu`
+Ch. 21 is not a respiratory chapter, the citation is wrong and must be repointed.
+Outcome will be recorded as `VERIFIED (metadata + chapter-level)`, **never** as
+`MATCH (full text)` -- the verbatim sentence inside a chapter cannot be reached.
+
+**Cross-consensus with open sources is a safety net, not a substitute.** Finding an
+open source that says the same thing does not prove the textbook says it; it would
+replace one unverified citation with another. Use it only to *re-source* a threshold
+that turns out to be doubtful.
+
 ### CORRECTION 2 — the `bray2019` metadata flag was a FALSE POSITIVE
 
 This register previously flagged `number = {5}` as a possible discrepancy because the
