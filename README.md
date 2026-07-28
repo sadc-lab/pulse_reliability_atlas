@@ -1,8 +1,7 @@
 # Pulse Reliability Atlas
 
 > **Note:** This repository (`pulse_reliability_atlas`) hosts the code and data for the
-> paper: *"An Open Reliability Atlas for the Pulse Physiology Engine:
-> Sensitivity, Divergence, and Sex-stratified Failure Modes."*
+> paper: *"An Open Reliability Atlas of Sensitivity and Failure Modes in the Pulse Physiology Engine."*
 
 **The first open reliability atlas for the Pulse Physiology Engine
 (v4.3.1).** This repository tells you — clinician, engineer, researcher,
@@ -439,7 +438,7 @@ BibTeX:
 ```bibtex
 @misc{nanini2026pulseatlas,
   author       = {Nanini, Santino and others},
-  title        = {An Open Reliability Atlas for the Pulse Physiology Engine: Sensitivity, Divergence, and Sex-stratified Failure Modes},
+  title        = {An Open Reliability Atlas of Sensitivity and Failure Modes in the Pulse Physiology Engine},
   year         = {2026},
   howpublished = {\url{https://github.com/santinon/pulse_reliability_atlas}},
   note         = {Preprint forthcoming on arXiv; arXiv identifier and Zenodo DOI added on deposit.}
