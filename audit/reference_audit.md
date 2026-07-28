@@ -1273,4 +1273,109 @@ carries [21] = Patient methodology; the paper's 5-compartment sentence carries
 and an interface for Python [1] ... Windows, Mac, Linux, and ARM"; and Android/iOS
 occur nowhere except inside the new bibliographic note that explains their exclusion.
 
+---
+
+## Phase 3 completed 2026-07-28 — every assertion-bearing `note` / `internal_note` field re-read at source
+
+The first pass (commit `f38e0c3`, 2026-07-27) fixed the textbook chapter maps that
+had survived in `references.bib`. This pass finishes the sweep: **every remaining
+bibliography field that asserts a fact** — not merely a PMID or an access date — was
+checked against its primary source, in **both** `.bib` files.
+
+**The direction of the twin defect reversed.** On 2026-07-27 a correction landed in
+`paper.bib` and was forgotten in `references.bib`. This time `paper.bib` carried the
+stale state: its three textbook notes still declared the editions unreachable ("the
+4th-edition text is unreachable", "no full text is reachable", "verified at
+table-of-contents level only, never against the full text") — statements the copies
+supplied later the same day had already superseded in `references.bib`. Both files
+now carry the same state.
+
+### What was verified, and how
+
+| Field | Assertion | How verified 2026-07-28 | Verdict |
+|---|---|---|---|
+| `pulsepatientmethod` (both) | BV = 65.6 W^1.02, min BV×0.85, max BV×1.15, "Above Stage 1 Hypovolemia", Morgan credit | Local clone, `docs/Methodology/PatientMethodology.md` **L56**, read cell by cell | **MATCH**, verbatim, including the `@cite Morgan2006Clinical` tag |
+| `pulserespmethod` (paper) | 5-compartment lung; no-inertance limitation | Same clone, **L116–118** and **L1117–1120** | **MATCH**; the inertance sentence continues "as opposed to high-frequency ventilation" — our quote stops before that clause, which changes nothing |
+| `pulserespmethod` (references) | ARDS severity map 0.3 / 0.6 / 0.9; piecewise-linear modifiers at 0.0/0.3/0.6/0.9/1.0; P/F values *not* on this page | **L1176** verbatim: "These severities are mapped to corresponding modifiers through piecewise linear functions, calibrated at key transition points: 0.0 (no change), 0.3 (mild), 0.6 (moderate), 0.9 (severe), and 1.0 (maximum)"; table caption **L1189**; the value 340 occurs nowhere on the page | **MATCH**, all three limbs |
+| `pulsecardiomethod` (both) | dicrotic notch / retrograde flow; P- and T-wave merge | **L614** and **L287** | **MATCH** |
+| `pulseabout` (both) | cross-platform sentence; Android/iOS not claimed | `docs/Markdown/About.md` **L13** | **MATCH** |
+| `pulsesystem` (references) | "low fidelity clinical approach" | `docs/Methodology/SystemMethodology.md` **L261–263**, under "Assumptions and Limitations" | **MATCH** |
+| `pulserespmethod` (paper) | "docs/ is byte-identical in REL_4_3_2" | `git diff REL_4_3_1..REL_4_3_2 -- docs/` returns **nothing**; the whole-tag diff is 7 files — `.gitignore`, `CMakeLists.txt`, `cmake/external/External_Eigen3.cmake`, `dockcross.cmake`, `xcompile.bat`, `xcompile.cmake`, and a 4-line change to the C# binding `src/csharp/pulse/engine/PulseEngine.cs`. **Not one file under `src/cpp`**, i.e. no physiology source | **MATCH** — and an independent re-confirmation of the 4.3.1 pin |
+| `brower2000` (both) | "landmark 861-patient RCT", 6 mL/kg PBW | Primary abstract, PMID 10793162 | **MATCH**, with a nuance now recorded: "The trial was stopped after the enrollment of 861 patients" — 861 is enrolment at early stopping, not a planned sample size |
+| `singer2016` (both) | septic shock, MAP ≥ 65 mmHg | Primary abstract, PMID 26903338: "a vasopressor requirement to maintain a mean arterial pressure of 65 mm Hg or greater **and serum lactate level greater than 2 mmol/L** … in the absence of hypovolemia" | **MATCH on the MAP limb**; the lactate limb was absent from both notes and has been added, so the criterion is never quoted as MAP-only |
+| `atls2018` (paper) | "Class I as a loss of up to 15 %" | Table 3-1 and its section heading, re-read | **MATCH in substance**; ATLS's own wording is "**<15 %**", now recorded verbatim so "up to 15 %" is never re-quoted as ATLS's phrasing |
+| `nadler1962` (paper) | standard per-kilogram range | Verbatim p. 226 and both prediction equations copied into the note from the primary scan | **MATCH** |
+| `kuczmarski2002cdc` (both) | provenance of the two body weights | Tables 22 / 23; the 214-month finding written into the note itself | **MATCH on the values, MISMATCH on the age label** — pre-existing open question, unchanged |
+| `severinghaus1979` (both) | P50 anchor | **The abstract prints the equations themselves** (PMID 35496); Eq. (1) evaluated numerically | **MATCH on 27 mmHg**, plus two findings below |
+| `webb2022vent`, `pulsevent`, `nin2017`, `evans2021sepsis`, `mancia2023esh`, `herman2017salib`, `lundberg2020tree`, `lundberg2017`, `figueroacasas2016`, `thille2006`, `blanch2015`, `akoumianaki2014`, `sinderby1999`, `katsoulakis2024digitaltwins`, `sinnige2026active` | — | Audited 2026-07-24/26/27; re-read here for drift, none found | **unchanged** |
+| `bray2019`, `webb2020`, `cornish2023`, `morris1991`, `campolongo2007`, `iwanaga2022`, `ards2012`, `wilkinson2016`, `munafo2017` | — | Metadata only, no assertion-bearing field | **nothing to sweep** |
+
+### `severinghaus1979` — the source was reachable after all, and it settles two things
+
+The note said "Severinghaus 1979 itself was not re-read for this figure". It never
+needed hunting down: **the PubMed abstract prints all four equations in full.**
+Evaluating Eq. (1), `S = (((Po2^3 + 150·Po2)^-1 × 23,400) + 1)^-1`:
+
+| Point | Value from the equation |
+|---|---|
+| P50 | **26.86 mmHg** |
+| S(27 mmHg) | 0.5035 |
+| S(26.6 mmHg) | 0.4936 |
+| S(20 mmHg) | **0.3198** |
+
+1. **The manuscripts' "approximately 27 mmHg" is right on both sources** — the
+   equation gives 26.86 mmHg, West's 11th ed. p. 200 gives "about 27 mm Hg".
+2. **The 26.6 mmHg that `paper.bib` carried before 2026-07-27 was not invented.**
+   26.6 appears in the paper's **Eq. (4)**, the Bohr-coefficient normalisation
+   ("(Po2/26.6)(0.184) - 2.2"). It is simply not the P50 of Eq. (1). The 2026-07-27
+   note called it "a figure never verified here", which was unfair to it. Both `.bib`
+   files now record where it actually comes from — so nobody reinstates it as a P50,
+   and nobody undoes the correction either.
+
+### 🔴 OPEN — three decisions for the author; nothing was modified in the manuscripts
+
+**OPEN-1 — `severinghaus1979`, SpO2 at PaO2 = 20 mmHg.** `supplement.tex:221` and
+`manuscript.md:1095` justify the PaO2 lower bound with "PaO2 = 20 mmHg corresponds to
+SpO2 ≈ 0.30 on the Severinghaus dissociation curve". The cited equation gives
+**0.3198**. Written as "0.30" it also claims two-decimal precision the sentence does
+not need; "≈ 0.32" is exact and "≈ 0.3" would be defensible. Nothing downstream moves
+— the bound is 20 mmHg either way — but a reviewer who recomputes lands on 0.32.
+**A number in the body text is not mine to change.**
+
+**OPEN-1b — `manuscript.md:1018-1020`, the `implausible` worked example, two defects in
+one sentence.** The monograph illustrates the flag with "SpO2 = 0.40, which on the
+Severinghaus 1979 dissociation curve corresponds to PaO2 ≈ 22 mmHg, below the cellular
+oxygen-extraction threshold."
+
+1. *Arithmetic.* By the cited equation, SpO2 = 0.40 corresponds to PaO2 = **22.99 mmHg**,
+   i.e. ≈ 23. At 22 mmHg the equation gives SpO2 = 0.3735.
+2. *Withdrawn justification, survived here.* "Below the cellular oxygen-extraction
+   threshold" is the SpO2 rationale **withdrawn on 2026-07-27** by commit `0472424`:
+   Marini's critical-oxygen-delivery concept has no number, sits in Ch. 2, and is about
+   delivery rather than saturation. The paper was corrected in that same commit —
+   `paper.tex:167` now reads "though briefly survivable in a real patient — is
+   incompatible with a stable simulated steady state over the evaluation window" — but
+   **the monograph locus was missed**.
+
+Suggested replacement, aligned on the wording the paper already carries and asserting
+nothing unsourced: "…corresponds to PaO2 ≈ 23 mmHg, a value no patient could hold in a
+stable 60 s steady state." Not applied: it is body text.
+
+**OPEN-2 — `west2020respiratory`, the year.** Unlike the notes swept above, `year` is
+**rendered in the bibliography**. It reads 2020, the publication date (13 Oct 2020,
+OpenLibrary and publisher); the supplied copy's copyright page reads **2021**. Both
+are citable, they are not interchangeable, and the choice should be deliberate.
+
+**OPEN-3 — `marini2018critical`, the year.** Same shape: `year` = 2018 (published
+3 Nov 2018) against a copyright page reading **2019**. Recorded as open on 2026-07-27
+and still open; both `.bib` files now carry the note, so it cannot be silently
+resolved in one file only.
+
+### Scope note — what this pass deliberately did not touch
+
+`atls2018` and `nadler1962` exist only in `paper.bib`. That is **correct, not an
+omission**: neither is cited in the monograph, whose blood-volume section states the
+floor and the dose-response without invoking the ATLS classification or Nadler's
+equations. Verified by grep over `preprint/manuscript.md`.
+
 

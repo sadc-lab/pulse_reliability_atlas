@@ -3747,18 +3747,37 @@ during the literature-review pass logged in
   927 ICUs in 40 countries; anchors the PaCO2 upper bound.
 * []{#ref-west2020respiratory} West JB, Luks AM. *West's Respiratory Physiology: The
   Essentials.* 11th ed. Philadelphia, PA: Wolters Kluwer Health /
-  Lippincott (2020). ISBN: 978-1-9751-3918-6. Alveolar-gas-equation
-  PaO2 ceiling (≈ 663 mmHg at FiO2 = 1.0), anatomical dead space,
-  acid-base ranges.
+  Lippincott (2020). ISBN: 978-1-9751-3918-6. Anatomical dead space
+  (Ch. 2) and the alveolar-gas equation behind the PaO2 ceiling
+  (≈ 663 mmHg at FiO2 = 1.0, Ch. 5). Both chapter pointers were
+  verified against the cited edition on 2026-07-27. The work is also
+  cited, without a chapter pointer, for the PaCO2 drift-threshold row
+  of the steady-state table; that citation has not been pinned to a
+  chapter and is the last one outstanding for this reference. The
+  former "acid-base ranges" annotation was withdrawn on 2026-07-28:
+  no locus in this monograph cites the work for one, and the
+  CO2-narcosis justification it once supported was withdrawn on
+  2026-07-27 after the 9th, 10th and 11th editions were searched and
+  found not to contain the concept.
 * []{#ref-marino2013icu} Marino PL. *Marino's The ICU Book.* 4th ed. Philadelphia, PA:
   Lippincott Williams & Wilkins / Wolters Kluwer (2013). ISBN:
-  978-1-4511-2118-6. ICU-practice HR / MAP / Vt / PaCO2 extremes.
+  978-1-4511-2118-6. Pre-lung-protective tidal volumes of 10-15 mL/kg
+  (Ch. 25), which anchor the Vt upper bound — the sole claim this work
+  now carries. Its former HR and PaCO2 annotations were withdrawn on
+  2026-07-27 after a full-text search of the cited edition: it states
+  no extreme heart-rate threshold, and no CO2-narcosis threshold, and
+  the PaCO2 upper bound is now anchored on Nin et al. instead.
 * []{#ref-marini2018critical} Marini JJ, Dries DJ. *Critical Care Medicine: The Essentials
   and More.* 5th ed. Philadelphia, PA: Wolters Kluwer (Lippincott
-  Williams & Wilkins) (2018). ISBN: 978-1-4963-0291-5. HR / SpO2
-  cellular-extraction thresholds. (5th edition; LWW publisher date
-  confirmed as 2018 in the 2026-06-05 re-audit — bib key updated to
-  marini2018critical accordingly.)
+  Williams & Wilkins) (2018). ISBN: 978-1-4963-0291-5. Upper heart-rate
+  bound (Ch. 1: sinus rates exceeding (220 − age)/min reduce cardiac
+  output and myocardial perfusion). The former SpO2 annotation was
+  withdrawn on 2026-07-27: the critical-oxygen-delivery concept does
+  appear in the cited edition, but in Ch. 2, without a number, and
+  about delivery rather than saturation. (5th edition; LWW publisher
+  date confirmed as 2018 in the 2026-06-05 re-audit — bib key updated
+  to marini2018critical accordingly. The copyright page reads 2019;
+  see audit/reference_audit.md, OPEN-3.)
 
 ---
 

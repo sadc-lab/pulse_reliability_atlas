@@ -44,7 +44,7 @@
   author    = {{Kitware, Inc.}},
   howpublished = {\url{https://pulse.kitware.com/_respiratory_methodology.html}},
   year      = {2026},
-  internal_note = {Source of the 5-compartment lung description (carina, right and left anatomic dead space, right and left alveoli) and of the no-inertance limitation, both verbatim: "five major functional units, or compartments, that are designated as the carina, right and left anatomic dead space, and right and left alveoli" and "Inertance is not included in the model on the assumption that inertia does not play a significant role under conventional tidal breathing". Verified against the live page and against the REL_4_3_1 source tree on 2026-07-26; docs/ is byte-identical in REL_4_3_2. Both claims were previously mis-attributed to @bray2019, which contains neither statement.}
+  internal_note = {Source of the 5-compartment lung description (carina, right and left anatomic dead space, right and left alveoli) and of the no-inertance limitation, both verbatim: "five major functional units, or compartments, that are designated as the carina, right and left anatomic dead space, and right and left alveoli" and "Inertance is not included in the model on the assumption that inertia does not play a significant role under conventional tidal breathing". Verified against the live page and against the REL_4_3_1 source tree on 2026-07-26. Re-verified verbatim 2026-07-28 in the local clone at docs/Methodology/RespiratoryMethodology.md, L116-118 (compartments) and L1117-1120 (inertance, whose full sentence continues "as opposed to high-frequency ventilation"). The "byte-identical in REL_4_3_2" claim was re-tested the same day and holds: git diff REL_4_3_1..REL_4_3_2 -- docs/ returns nothing, and the whole-tag diff is 7 files (.gitignore, CMakeLists.txt, cmake/external/External_Eigen3.cmake, dockcross.cmake, xcompile.bat, xcompile.cmake, plus a 4-line change to the C# binding src/csharp/pulse/engine/PulseEngine.cs) -- not one file under src/cpp, i.e. no physiology source. Both claims were previously mis-attributed to @bray2019, which contains neither statement.}
 }
 
 @misc{pulsecardiomethod,
@@ -60,7 +60,7 @@
   author    = {{Kitware, Inc.}},
   howpublished = {\url{https://pulse.kitware.com/_patient_methodology.html}},
   year      = {2026},
-  internal_note = {Blood Volume Baseline table row, verbatim: Bv[mL] = 65.6 W[kg]^1.02, minimum Bv*0.85, maximum Bv*1.15, annotated "Above Stage 1 Hypovolemia". The documented 0.85 multiplier is the mechanism behind the 4,082.24 mL male setup-time floor measured in S027. Pulse itself credits Morgan et al., Clinical Anesthesiology, for the underlying blood-volume estimates; that textbook could not be consulted (the coefficients 65.6 / 1.02 appear nowhere in the indexed literature and the Morgan-derived calculators are per-kilogram, not allometric), so it is deliberately NOT cited. Verified 2026-07-26; previously mis-attributed to @bray2019.}
+  internal_note = {Blood Volume Baseline table row, verbatim: Bv[mL] = 65.6 W[kg]^1.02, minimum Bv*0.85, maximum Bv*1.15, annotated "Above Stage 1 Hypovolemia". The documented 0.85 multiplier is the mechanism behind the 4,082.24 mL male setup-time floor measured in S027. Pulse itself credits Morgan et al., Clinical Anesthesiology, for the underlying blood-volume estimates; that textbook could not be consulted (the coefficients 65.6 / 1.02 appear nowhere in the indexed literature and the Morgan-derived calculators are per-kilogram, not allometric), so it is deliberately NOT cited. Verified 2026-07-26; re-verified verbatim 2026-07-28 in the local clone at docs/Methodology/PatientMethodology.md L56, the Blood Volume Baseline row, whose comment column reads exactly "Above Stage 1 Hypovolemia. @cite Morgan2006Clinical". Previously mis-attributed to @bray2019.}
 }
 
 @misc{pulseabout,
@@ -68,7 +68,7 @@
   author    = {{Kitware, Inc.}},
   howpublished = {\url{https://pulse.kitware.com/_about_pulse.html}},
   year      = {2026},
-  internal_note = {Verbatim: "easy cross-platform deployment on all standard operating systems (Windows, Mac, Linux, and ARM) and multiple languages (C++, C#, Java, Unity)". Android and iOS are NOT listed here; they appear only in the changelog (iOS build support, v4.2.0 October 2023; Android ARMv7a/v8a), which records an addition rather than continued support, so neither is claimed. The Unity/Android/iOS list on the site index refers to the Unity asset's own platform reach, not the engine's. Verified 2026-07-26; previously mis-attributed to @bray2019.}
+  internal_note = {Verbatim: "easy cross-platform deployment on all standard operating systems (Windows, Mac, Linux, and ARM) and multiple languages (C++, C#, Java, Unity)". Android and iOS are NOT listed here; they appear only in the changelog (iOS build support, v4.2.0 October 2023; Android ARMv7a/v8a), which records an addition rather than continued support, so neither is claimed. The Unity/Android/iOS list on the site index refers to the Unity asset's own platform reach, not the engine's. Verified 2026-07-26; re-verified verbatim 2026-07-28 in the local REL_4_3_2 clone at docs/Markdown/About.md L13. Previously mis-attributed to @bray2019.}
 }
 
 @article{cornish2023,
@@ -261,7 +261,7 @@
   address   = {Philadelphia, PA},
   year      = {2020},
   isbn      = {978-1-9751-3918-6},
-  internal_note = {Reference respiratory-physiology textbook. WARNING [2026-07-27]: the previous chapter mapping recorded here was found INCORRECT and has been removed. It claimed "Chapter 4 (Blood Gas Transport)"; the 11th edition's Chapter 4 is "Blood Flow and Metabolism", and CO2 transport is Chapter 6. Two pointers survive audit and are still used in the manuscript: Ch. 2 "Ventilation" (adult anatomical dead space) and Ch. 5 "Ventilation-Perfusion Relationships" (alveolar-gas equation, approximately 663 mmHg at FiO2 = 1.0, sea level) -- both verified at table-of-contents level only, never against the full text. Do not add or restore chapter pointers without validating them against a physical copy.}
+  internal_note = {Reference respiratory-physiology textbook. Chapter titles corrected 2026-07-27 against the 11th edition itself, read in primary text (Eleventh Edition, copyright 2021 Wolters Kluwer, 514 pp). Two pointers survive audit and are still used in the manuscript: Ch. 2 "Ventilation" (adult anatomical dead space, "The normal value is about 150 ml") and Ch. 5 "Ventilation-Perfusion Relationships" (alveolar-gas equation, on a page whose running head reads "66 CHAPTER 5"; the approximately 663 mmHg sea-level ceiling at FiO2 = 1.0 follows from it arithmetically). Three claims previously recorded here were WRONG: Ch. 4 is "Blood Flow and Metabolism", not "Blood Gas Transport" (CO2 transport is Ch. 6); Ch. 5 is not titled "Gas Exchange"; and Ch. 7 is "Mechanics of Breathing", not "Ventilation-Perfusion Relationships", so it is not where shunt is treated. Also verified: "CO2 narcosis" appears nowhere in the 9th, 10th or 11th editions, which is why the PaCO2 upper bound no longer cites this work. OPEN [2026-07-28]: the year field reads 2020, which is the publication date (OpenLibrary and the publisher give 13 Oct 2020), while the copy's copyright page reads 2021; left unchanged pending an author decision. Aligned with preprint/references.bib on 2026-07-28, which had carried the primary-text result since 2026-07-27. Do not add or restore chapter pointers without validating them against a copy.}
 }
 
 @article{brower2000,
@@ -274,7 +274,7 @@
   year      = {2000},
   doi       = {10.1056/NEJM200005043421801},
   pmid      = {10793162},
-  internal_note = {Landmark 861-patient RCT establishing 6 mL/kg predicted body weight protective tidal-volume ventilation as the ARDS Network standard.}
+  internal_note = {Landmark ARDS Network RCT establishing 6 mL/kg predicted body weight protective tidal-volume ventilation as the standard. Verified 2026-07-28 against the primary abstract (PMID 10793162), verbatim: "The trial was stopped after the enrollment of 861 patients"; the comparison is "an initial tidal volume of 6 ml per kilogram of predicted body weight" against 12 mL/kg traditional; mortality "31.0 percent vs. 39.8 percent, P=0.007". Note for anyone re-using the figure: 861 is the enrolment at early stopping, not a planned sample size, so write "861-patient" only in that sense.}
 }
 
 @article{severinghaus1979,
@@ -287,7 +287,7 @@
   year      = {1979},
   doi       = {10.1152/jappl.1979.46.3.599},
   pmid      = {35496},
-  internal_note = {Canonical reference equation for the oxyhemoglobin dissociation curve. Corrected 2026-07-27: this field read "P50 = 26.6 mmHg", a figure never verified here and inconsistent with both the manuscripts and the textbook we cite. West's Respiratory Physiology 11th ed., p. 200: "This is known as the P50. The normal value for human blood is about 27 mm Hg", with the anchor point "P50: 27, SO2 50%". The manuscripts use approximately 27 mmHg, which is what the SpO2 lower bound rests on. Severinghaus 1979 itself was not re-read for this figure.}
+  internal_note = {Canonical reference equation for the oxyhemoglobin dissociation curve. Read at source 2026-07-28: the PubMed abstract (PMID 35496) carries the equations themselves, verbatim Eq. (1): "S = (((Po2(3) + 150 Po2)(-1) x 23,400) + 1)(-1)". Evaluating that equation gives P50 = 26.86 mmHg, S(27 mmHg) = 0.5035 and S(20 mmHg) = 0.3198. Consequences, recorded so neither is re-corrected by guesswork. (a) The "approximately 27 mmHg" used by the manuscripts is right on both sources -- the equation gives 26.86, and West's Respiratory Physiology 11th ed., p. 200 states "The normal value for human blood is about 27 mm Hg", anchor point "P50: 27, SO2 50 percent". (b) The 26.6 mmHg this field carried before 2026-07-27 was NOT invented: 26.6 appears in the paper's Eq. (4), the Bohr-coefficient normalisation, not as the P50 of Eq. (1). Do not reinstate it as a P50. (c) OPEN [2026-07-28]: supplement.tex L221 and manuscript.md L1095 state that PaO2 = 20 mmHg corresponds to SpO2 approximately 0.30 on this curve; the equation gives 0.3198. Flagged for author decision, nothing changed in the manuscripts.}
 }
 
 @article{singer2016,
@@ -300,7 +300,7 @@
   year      = {2016},
   doi       = {10.1001/jama.2016.0287},
   pmid      = {26903338},
-  internal_note = {Sepsis-3 defines septic shock with vasopressor-dependent MAP target greater than or equal to 65 mmHg.}
+  internal_note = {Sepsis-3. Verified 2026-07-28 against the primary abstract (PMID 26903338), verbatim: septic shock is clinically identified by "a vasopressor requirement to maintain a mean arterial pressure of 65 mm Hg or greater and serum lactate level greater than 2 mmol/L (greater than 18 mg/dL) in the absence of hypovolemia". Only the MAP limb anchors our MAP lower bound; the lactate limb belongs to the same criterion and must not be dropped if this note is ever quoted as the full definition. Distinct from the Surviving Sepsis Campaign target in @evans2021sepsis: Sepsis-3 states a diagnostic threshold ("65 mm Hg or greater"), SSC 2021 states a resuscitation target ("65 mmHg", recommended over higher targets). Both wordings are correct in their own document; do not harmonise one onto the other.}
 }
 
 @article{evans2021sepsis,
@@ -337,7 +337,7 @@
   pages     = {56--67},
   year      = {2020},
   doi       = {10.1038/s42256-019-0138-9},
-  internal_note = {Added 2026-07-27 because the atlas uses shap.TreeExplainer on a RandomForestRegressor, and Lundberg & Lee 2017 contains no tree-specific estimator: primary-text search of that paper finds Kernel SHAP and Deep SHAP only, with decision trees appearing solely as experimental subjects. The shap project's own README directs users to THIS paper for TreeExplainer. Metadata confirmed via Crossref (10 authors, Nat Mach Intell 2(1):56-67, 17 Jan 2020). CAVEAT ON DEPTH: the exactness result was read verbatim in the arXiv precursor 1802.03888 ("we derive an algorithm for tree ensembles that reduces the complexity of computing exact SHAP values from O(TL2^M) to O(TLD^2)"), not in the Nature Machine Intelligence article, which is paywalled. The two describe the same TreeExplainer algorithm, but this citation is VERIFIED (metadata + algorithm via precursor), not MATCH (full text).}
+  internal_note = {Added 2026-07-27 because the atlas uses shap.TreeExplainer on a RandomForestRegressor, and Lundberg \& Lee 2017 contains no tree-specific estimator: primary-text search of that paper finds Kernel SHAP and Deep SHAP only, with decision trees appearing solely as experimental subjects. The shap project's own README directs users to THIS paper for TreeExplainer. Metadata confirmed via Crossref (10 authors, Nat Mach Intell 2(1):56-67, 17 Jan 2020). CAVEAT ON DEPTH: the exactness result was read verbatim in the arXiv precursor 1802.03888 ("we derive an algorithm for tree ensembles that reduces the complexity of computing exact SHAP values from O(TL2^M) to O(TLD^2)"), not in the Nature Machine Intelligence article, which is paywalled. The two describe the same TreeExplainer algorithm, but this citation is VERIFIED (metadata + algorithm via precursor), not MATCH (full text).}
 }
 
 @article{nin2017,
@@ -374,7 +374,7 @@
   address   = {Philadelphia, PA},
   year      = {2013},
   isbn      = {978-1-4511-2118-6},
-  internal_note = {Standard ICU reference. WARNING [2026-07-27]: the previous chapter mapping recorded here was found INCORRECT and has been removed; all Ch. pointers to this work were stripped from paper.tex, supplement.tex and manuscript.md. The titles it claimed exist in no edition: "Chapter 5 (Hemodynamic Drug Infusions and the Cardiovascular Critical Patient)" -- Ch. 5 is "Alimentary Prophylaxis" in the 4th edition and "Venous Thromboembolism" in the 3rd; "Chapter 21 (Acid-Base Disorders)" -- that is a SECTION name spanning Ch. 28-30 in the 3rd edition, while Ch. 21 is "Oximetry and Capnometry" in the 4th; "Chapter 26 (Principles of Mechanical Ventilation)" -- Ch. 26 is "Conventional Modes of Ventilation" in the 4th. No Library of Congress table of contents exists for LCCN 2013038977 and Internet Archive holds only the 1991/1997/1998 editions, so the 4th-edition text is unreachable. Do not add or restore chapter pointers without validating them against a physical copy.}
+  internal_note = {Standard ICU reference. WARNING [2026-07-27]: the previous chapter mapping recorded here was found INCORRECT against the 4th edition itself and has been removed. ONE chapter pointer to this work survives on purpose and must not be swept away: Ch. 25, cited at supplement.tex L217 and manuscript.md L1093 for the pre-lung-protective tidal volumes -- tidal volumes of 10 to 15 mL/kg, which the chapter says "became standard during mechanical ventilation" (that clause is the verbatim fragment recorded in commit 0472424; the 10-15 mL/kg range is reported from the same passage but was not recorded as a quotation). Located in the primary text and restored in commit 0472424 in place of the Ch. 26 previously cited. Corrected here 2026-07-28: this field claimed that all Ch. pointers had been stripped, which was never true of Ch. 25. The copy audited is the 4th edition read in primary text ("Preface to Fourth Edition", copyright 2014 Wolters Kluwer Health/LWW, ISBN-13 9781451121186, 1075 pp), which matches the ISBN cited here exactly. The titles the note claimed exist in no edition: "Chapter 5 (Hemodynamic Drug Infusions and the Cardiovascular Critical Patient)" -- Ch. 5 is "Alimentary Prophylaxis" in the 4th edition and "Venous Thromboembolism" in the 3rd; "Chapter 21 (Acid-Base Disorders)" -- that is a SECTION name spanning Ch. 28-30 in the 3rd edition, while Ch. 21 is "Oximetry and Capnometry" in the 4th and hypercapnia is Ch. 20; "Chapter 26 (Principles of Mechanical Ventilation)" -- Ch. 26 is "Conventional Modes of Ventilation" in the 4th. Full-text search of that edition also found no CO2-narcosis threshold and no extreme heart-rate thresholds, which is why neither bound cites this work any more. Corrected here 2026-07-28 (this field still carried the earlier "the 4th-edition text is unreachable" state, which the supplied copy has since superseded; preprint/references.bib was corrected on 2026-07-27). Do not add or restore chapter pointers without validating them against a copy.}
 }
 
 @book{marini2018critical,
@@ -385,7 +385,7 @@
   address   = {Philadelphia, PA},
   year      = {2018},
   isbn      = {978-1-4963-0291-5},
-  internal_note = {Corroborating ICU reference. WARNING [2026-07-27]: the previous chapter mapping recorded here was found UNVERIFIABLE and has been removed; all Ch. pointers to this work were stripped from paper.tex, supplement.tex and manuscript.md. It claimed "Chapter 1 (Hemodynamic Monitoring and Support)"; the 5th edition's Chapter 1 is "Hemodynamics" (Section I), which is topically plausible but could not be confirmed at content level -- no full text is reachable and Internet Archive holds only the 1989/1997/2006/2010 editions. Do not add or restore chapter pointers without validating them against a physical copy.}
+  internal_note = {Corroborating ICU reference. Chapter mapping corrected 2026-07-27 against the 5th edition itself, read in primary text ("Fifth edition", ISBN 978-1-4963-0291-5, 1148 pp). Ch. 1 is "Hemodynamics" (Section I), not "Hemodynamic Monitoring and Support", which is Ch. 2. Ch. 1 is a live chapter pointer, cited at supplement.tex L213 and manuscript.md L1091, and it does support the upper heart-rate bound: sinus rates exceeding (220 - age) per minute "reduce cardiac output and myocardial perfusion" (that clause is the verbatim fragment recorded in commit 0472424) -- a perfusion statement, not an incompatibility with survival, and it yields 202 bpm on an 18-year-old body, below our 220 bpm ceiling. The claim that Chapters 5 and 7 cover PaCO2 and tidal volume was never verified and is removed. Full-text search found no numeric SpO2 threshold: the critical-oxygen-delivery concept appears in Ch. 2, without a number and about delivery rather than saturation, so the SpO2 lower bound no longer cites this work. OPEN [2026-07-28]: the year field reads 2018, which is the publication date (3 Nov 2018), while the copyright page reads 2019; left unchanged pending an author decision. Corrected here 2026-07-28 (this field still carried the earlier "no full text is reachable" state; preprint/references.bib was corrected on 2026-07-27). Do not add or restore chapter pointers without validating them against a copy.}
 }
 
 @book{atls2018,
@@ -395,7 +395,7 @@
   publisher = {American College of Surgeons},
   address   = {Chicago, IL},
   year      = {2018},
-  internal_note = {Standard trauma reference; the hemorrhagic-shock classification (Class I-IV) defines Class I as a loss of up to 15\% of total blood volume.}
+  internal_note = {Standard trauma reference. Verified 2026-07-26 against Table 3-1, "Signs and symptoms of hemorrhage by class", and the section heading on the same page, which names Class I hemorrhage by a strict less-than bound on 15 percent of blood volume. The four classes, transcribed from that table (symbols spelled out, since a raw percent sign is unsafe in a bib field): Class I, under 15; Class II (MILD), 15 to 30; Class III (MODERATE), 31 to 40; Class IV (SEVERE), over 40. The wording matters: ATLS bounds Class I strictly below 15, whereas paper.tex writes "a loss of up to 15 percent". The manuscript sentence claims only that our 15.0 percent reduction is "comparable to the upper bound of a Class I hemorrhage", which is correct -- 15.0 sits exactly on the Class I / Class II boundary -- but "up to 15 percent" must never be quoted as ATLS's own phrasing. Full verbatim rows are in audit/reference\_audit.md.}
 }
 
 @article{nadler1962,
@@ -407,7 +407,7 @@
   pages     = {224--232},
   year      = {1962},
   pmid      = {21936146},
-  internal_note = {Classic reference equation for blood-volume estimation in normal adults from sex, height, and weight; cited for the standard clinical per-kilogram blood-volume range.}
+  internal_note = {Classic reference equation for blood-volume estimation in normal adults from sex, height, and weight; cited for the standard clinical per-kilogram blood-volume range. Verified 2026-07-26 in a primary scan of the article itself (located as Exhibit 1016 in USPTO PTAB Terumo v. Haemonetics PGR2025-00077; internal PDF title "PII: 0039-6060(62)90166-6", 9 pages matching pp. 224-232). Verbatim p. 226: "The normal circulating blood volume has been reported to range from 64 to 79.3 ml. per kilogram of body weight with an average of 75 ml. per kilogram. Women have smaller volumes than men with an average of 66 ml. per kilogram." Prediction equations, verbatim: men PBV = 0.3669 H3 + 0.03219 W + 0.6041; women PBV = 0.3561 H3 + 0.03308 W + 0.1833. Applied to the atlas bodies these give 72.96 mL/kg male and 63.78 mL/kg female, against Pulse's sex-independent approximately 71 for both -- which is the paper's point. The word "modest" was removed from paper.tex in favour of the two computed values.}
 }
 
 @article{kuczmarski2002cdc,
@@ -418,5 +418,5 @@
   pages     = {1--190},
   year      = {2002},
   pmid      = {12043359},
-  internal_note = {National Center for Health Statistics.}
+  internal_note = {National Center for Health Statistics; Vital Health Stat 11(246), May 2002, ISBN 0-8406-0575-7. Source of the sex-specific 50th-percentile weight- and stature-for-age values behind the two reference bodies. Verified 2026-07-26 against Tables 22 (weight) and 23 (stature), each value read only after confirming that the M column equals the 50th-percentile column on the same row -- the report itself carries a cover erratum about column alignment ("Table 24 percentile column headings aligned correctly 6/30/2010"). Findings recorded there: the weights in use (67.3 kg male, 56.2 kg female) are the P50 at 214-214.99 months (17 y 10 m), 67.28992603 and 56.22969564, not at 18.0 years, where Table 22 gives 67.64 and 56.41. The offset is exactly two rows and identical for both sexes. Female stature 163 cm is the true 18-year P50 (163.156 cm). Do not "fix" this by changing the bodies: 67.3 and 56.2 kg are baked into 1,280 completed runs; only the provenance sentence is at issue, and its wording is an open author decision (see audit/reference\_audit.md).}
 }

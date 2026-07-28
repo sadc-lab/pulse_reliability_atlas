@@ -54,7 +54,7 @@
   author    = {{Kitware, Inc.}},
   howpublished = {\url{https://pulse.kitware.com/_respiratory_methodology.html}},
   year      = {2026},
-  note      = {Source of Pulse's documented ARDS severity-to-impairment-fraction mapping (mild = 0.3, moderate = 0.6, severe = 0.9) and the piecewise-linear severity-to-modifier scheme calibrated at key transition points (0.0, 0.3, 0.6, 0.9, 1.0). The associated P/F-ratio validation claim (340 / 130 / 50 mmHg for the three bands) is not stated on this documentation page; the quantitative P/F validation appears in the peer-reviewed @webb2020 Pulse-team COVID-19 paper. Also the source, from 2026-07-26, of the 5-compartment lung description (carina, right and left anatomic dead space, right and left alveoli) and of the no-inertance limitation, both verified verbatim; those two claims had been mis-attributed to @bray2019, which contains neither.}
+  note      = {Source of Pulse's documented ARDS severity-to-impairment-fraction mapping (mild = 0.3, moderate = 0.6, severe = 0.9) and the piecewise-linear severity-to-modifier scheme calibrated at key transition points (0.0, 0.3, 0.6, 0.9, 1.0). The associated P/F-ratio validation claim (340 / 130 / 50 mmHg for the three bands) is not stated on this documentation page; the quantitative P/F validation appears in the peer-reviewed @webb2020 Pulse-team COVID-19 paper. Also the source, from 2026-07-26, of the 5-compartment lung description (carina, right and left anatomic dead space, right and left alveoli) and of the no-inertance limitation, both verified verbatim; those two claims had been mis-attributed to @bray2019, which contains neither. Re-verified 2026-07-28 in the local REL_4_3_2 clone, docs/Methodology/RespiratoryMethodology.md: L116-118 (compartments), L1117-1120 (inertance), L1176 (verbatim "These severities are mapped to corresponding modifiers through piecewise linear functions, calibrated at key transition points: 0.0 (no change), 0.3 (mild), 0.6 (moderate), 0.9 (severe), and 1.0 (maximum)") and the table caption at L1189. The P/F values 340 / 130 / 50 do not occur anywhere on the page, confirming the exclusion recorded above; the page says only that ARDS "is implemented to meet the PaO2/FiO2 Berlin Criteria". docs/ is identical in REL_4_3_1 and REL_4_3_2 (empty git diff over docs/), so these line numbers apply to the pinned 4.3.1 as well.}
 }
 
 @misc{pulsecardiomethod,
@@ -62,7 +62,7 @@
   author    = {{Kitware, Inc.}},
   howpublished = {\url{https://pulse.kitware.com/_cardiovascular_methodology.html}},
   year      = {2026},
-  note      = {Source of the no-dicrotic-notch / no-retrograde-flow / idealised-valve limitation and of the ECG P-wave / T-wave merge at high heart rate. The engine ECG is a replayed waveform, not a computed one. Verified verbatim on 2026-07-26; both claims were previously mis-attributed to @bray2019, which contains neither.}
+  note      = {Source of the no-dicrotic-notch / no-retrograde-flow / idealised-valve limitation and of the ECG P-wave / T-wave merge at high heart rate. The engine ECG is a replayed waveform, not a computed one. Verified verbatim on 2026-07-26; re-verified 2026-07-28 in the local REL_4_3_2 clone at docs/Methodology/CardiovascularMethodology.md L614 (dicrotic notch, "This is not currently being modeled in the engine, but improvements in the circuit model, including the addition of inertance and diodes that allow retrograde flow, will likely enable the engine waveform to capture more detail") and L287 ("summing together the P and T waves"). Both claims were previously mis-attributed to @bray2019, which contains neither.}
 }
 
 @misc{pulsepatientmethod,
@@ -70,7 +70,7 @@
   author    = {{Kitware, Inc.}},
   howpublished = {\url{https://pulse.kitware.com/_patient_methodology.html}},
   year      = {2026},
-  note      = {Blood Volume Baseline table row: Bv[mL] = 65.6 W[kg]^1.02, minimum Bv*0.85, maximum Bv*1.15, annotated "Above Stage 1 Hypovolemia". The documented 0.85 multiplier is the mechanism behind the 4,082.24 mL male setup-time floor measured in S027. Pulse credits Morgan et al., Clinical Anesthesiology, for the underlying estimates; that textbook could not be consulted and is deliberately not cited. Verified 2026-07-26; previously mis-attributed to @bray2019.}
+  note      = {Blood Volume Baseline table row: Bv[mL] = 65.6 W[kg]^1.02, minimum Bv*0.85, maximum Bv*1.15, annotated "Above Stage 1 Hypovolemia". The documented 0.85 multiplier is the mechanism behind the 4,082.24 mL male setup-time floor measured in S027. Pulse credits Morgan et al., Clinical Anesthesiology, for the underlying estimates; that textbook could not be consulted and is deliberately not cited. Verified 2026-07-26; re-verified verbatim 2026-07-28 in the local REL_4_3_2 clone at docs/Methodology/PatientMethodology.md L56 (docs/ identical in REL_4_3_1). Previously mis-attributed to @bray2019.}
 }
 
 @misc{pulseabout,
@@ -78,7 +78,7 @@
   author    = {{Kitware, Inc.}},
   howpublished = {\url{https://pulse.kitware.com/_about_pulse.html}},
   year      = {2026},
-  note      = {Verbatim: "easy cross-platform deployment on all standard operating systems (Windows, Mac, Linux, and ARM) and multiple languages (C++, C#, Java, Unity)". Android and iOS are not listed and are therefore not claimed. Verified 2026-07-26; previously mis-attributed to @bray2019.}
+  note      = {Verbatim: "easy cross-platform deployment on all standard operating systems (Windows, Mac, Linux, and ARM) and multiple languages (C++, C#, Java, Unity)". Android and iOS are not listed and are therefore not claimed. Verified 2026-07-26; re-verified verbatim 2026-07-28 in the local REL_4_3_2 clone at docs/Markdown/About.md L13. Previously mis-attributed to @bray2019.}
 }
 
 @misc{pulsesystem,
@@ -86,7 +86,7 @@
   author    = {{Kitware, Inc.}},
   howpublished = {\url{https://pulse.kitware.com/_system_methodology.html}},
   year      = {2026},
-  note      = {Source of Pulse's self-description, under "Assumptions and Limitations", that "the engine uses a low fidelity clinical approach and is not necessarily for high fidelity predictive purposes." Citation re-pointed 2026-06-05 from the Nervous System Methodology page (which does not carry this phrase) to the System Methodology page, where it appears verbatim.}
+  note      = {Source of Pulse's self-description, under "Assumptions and Limitations", that "the engine uses a low fidelity clinical approach and is not necessarily for high fidelity predictive purposes." Citation re-pointed 2026-06-05 from the Nervous System Methodology page (which does not carry this phrase) to the System Methodology page, where it appears verbatim. Re-verified 2026-07-28 in the local REL_4_3_2 clone at docs/Methodology/SystemMethodology.md L261-263, under the heading "Assumptions and Limitations" (docs/ identical in REL_4_3_1).}
 }
 
 @article{cornish2023,
@@ -175,7 +175,7 @@
   pages     = {1301--1308},
   year      = {2000},
   doi       = {10.1056/NEJM200005043421801},
-  note      = {PMID: 10793162}
+  note      = {PMID: 10793162. Landmark ARDS Network RCT establishing 6 mL/kg predicted body weight protective tidal-volume ventilation. Verified 2026-07-28 against the primary abstract: "The trial was stopped after the enrollment of 861 patients"; 6 mL/kg predicted body weight against 12 mL/kg traditional; mortality 31.0 percent vs 39.8 percent, P = 0.007. 861 is the enrolment at early stopping, not a planned sample size.}
 }
 
 @article{wilkinson2016,
@@ -218,7 +218,7 @@
   pages     = {599--602},
   year      = {1979},
   doi       = {10.1152/jappl.1979.46.3.599},
-  note      = {PMID 35496. Reference equation for the oxyhemoglobin dissociation curve; canonical P50 at PaO2 $\approx$ 27 mmHg corresponds to SpO2 = 50 percent. Corroborated 2026-07-27 in West's Respiratory Physiology 11th ed., p. 200: "The normal value for human blood is about 27 mm Hg", anchor point "P50: 27, SO2 50\%". Severinghaus 1979 itself was not re-read for this figure; the companion paper.bib previously recorded 26.6 mmHg here, which is now aligned on the verified value.}
+  note      = {PMID 35496. Reference equation for the oxyhemoglobin dissociation curve; canonical P50 at PaO2 $\approx$ 27 mmHg corresponds to SpO2 = 50 percent. Corroborated 2026-07-27 in West's Respiratory Physiology 11th ed., p. 200: "The normal value for human blood is about 27 mm Hg", anchor point "P50: 27, SO2 50\%". Read at source 2026-07-28: the PubMed abstract carries the equations, verbatim Eq. (1) "S = (((Po2(3) + 150 Po2)(-1) x 23,400) + 1)(-1)", which evaluates to P50 = 26.86 mmHg, S(27) = 0.5035, S(20) = 0.3198. The 26.6 mmHg once recorded in the companion paper.bib was not invented -- it is the Bohr-coefficient normalisation in the paper's Eq. (4) -- but it is not the P50 of Eq. (1) and must not be reinstated as one. OPEN [2026-07-28]: the SpO2 $\approx$ 0.30 stated at PaO2 = 20 mmHg (manuscript.md L1095, supplement.tex L221) is 0.3198 by this equation; flagged for author decision, nothing changed.}
 }
 
 @article{singer2016,
@@ -230,7 +230,7 @@
   pages     = {801--810},
   year      = {2016},
   doi       = {10.1001/jama.2016.0287},
-  note      = {PMID 26903338. Sepsis-3 defines septic shock as requiring vasopressor support to maintain MAP $\geq$ 65 mmHg in the presence of persistent hypotension.}
+  note      = {PMID 26903338. Sepsis-3 defines septic shock as requiring vasopressor support to maintain MAP $\geq$ 65 mmHg in the presence of persistent hypotension. Verified 2026-07-28 against the primary abstract, verbatim: "a vasopressor requirement to maintain a mean arterial pressure of 65 mm Hg or greater and serum lactate level greater than 2 mmol/L ($>$18 mg/dL) in the absence of hypovolemia". Only the MAP limb anchors the MAP lower bound here; the lactate limb belongs to the same criterion. Distinct from the Surviving Sepsis Campaign resuscitation target in @evans2021sepsis; do not harmonise one wording onto the other.}
 }
 
 @article{evans2021sepsis,
@@ -301,7 +301,7 @@
   address   = {Philadelphia, PA},
   year      = {2013},
   isbn      = {978-1-4511-2118-6},
-  note      = {Standard ICU reference. WARNING [2026-07-27]: the chapter mapping previously recorded here was found INCORRECT against the 4th edition itself (ISBN 9781451121186) and has been removed; the same error was corrected in preprint\_npj/paper.bib. None of the titles it claimed exist: Ch. 5 is "Alimentary Prophylaxis", Ch. 21 is "Oximetry and Capnometry" (hypercapnia is Ch. 20), and Ch. 26 is "Conventional Modes of Ventilation". Full-text search of that edition also found no CO2-narcosis threshold and no extreme heart-rate thresholds, so all Ch. pointers to this work were stripped from the manuscripts. Do not add chapter pointers without validating them against a copy.}
+  note      = {Standard ICU reference. WARNING [2026-07-27]: the chapter mapping previously recorded here was found INCORRECT against the 4th edition itself (ISBN 9781451121186) and has been removed; the same error was corrected in preprint\_npj/paper.bib. ONE chapter pointer survives on purpose and must not be swept away: Ch. 25, cited at manuscript.md L1093 and supplement.tex L217 for the pre-lung-protective tidal volumes of 10 to 15 mL/kg, which that chapter says "became standard during mechanical ventilation" (only that clause was recorded verbatim in commit 0472424). Found in the primary text and restored there in place of the Ch. 26 previously cited. None of the titles the old note claimed exist: Ch. 5 is "Alimentary Prophylaxis", Ch. 21 is "Oximetry and Capnometry" (hypercapnia is Ch. 20), and Ch. 26 is "Conventional Modes of Ventilation". Full-text search of that edition also found no CO2-narcosis threshold and no extreme heart-rate thresholds, so those two citations were removed from the manuscripts; the Ch. 25 tidal-volume pointer described above is the one that remains. Do not add chapter pointers without validating them against a copy.}
 }
 
 @book{west2020respiratory,
@@ -312,7 +312,7 @@
   address   = {Philadelphia, PA},
   year      = {2020},
   isbn      = {978-1-9751-3918-6},
-  note      = {Reference respiratory-physiology textbook. Chapter titles corrected 2026-07-27 against the 11th edition itself (Eleventh Edition, copyright 2021 Wolters Kluwer, 514 pp). Two pointers survive audit and are used in the manuscripts: Ch. 2 "Ventilation" (anatomic dead space, "The normal value is about 150 ml") and Ch. 5 "Ventilation-Perfusion Relationships" (alveolar-gas equation, on a page whose running head reads "66 CHAPTER 5"; the approximately 663 mmHg sea-level ceiling at FiO2 = 1.0 follows from it arithmetically). Three claims previously recorded here were WRONG: Ch. 4 is "Blood Flow and Metabolism", not "Blood Gas Transport" (CO2 transport is Ch. 6); Ch. 5 is not titled "Gas Exchange"; and Ch. 7 is "Mechanics of Breathing", not "Ventilation-Perfusion Relationships", so it is not where shunt is treated. Also verified: "CO2 narcosis" appears nowhere in the 9th, 10th or 11th editions, which is why the PaCO2 upper bound no longer cites this work.}
+  note      = {Reference respiratory-physiology textbook. Chapter titles corrected 2026-07-27 against the 11th edition itself (Eleventh Edition, copyright 2021 Wolters Kluwer, 514 pp). Two pointers survive audit and are used in the manuscripts: Ch. 2 "Ventilation" (anatomic dead space, "The normal value is about 150 ml") and Ch. 5 "Ventilation-Perfusion Relationships" (alveolar-gas equation, on a page whose running head reads "66 CHAPTER 5"; the approximately 663 mmHg sea-level ceiling at FiO2 = 1.0 follows from it arithmetically). Three claims previously recorded here were WRONG: Ch. 4 is "Blood Flow and Metabolism", not "Blood Gas Transport" (CO2 transport is Ch. 6); Ch. 5 is not titled "Gas Exchange"; and Ch. 7 is "Mechanics of Breathing", not "Ventilation-Perfusion Relationships", so it is not where shunt is treated. Also verified: "CO2 narcosis" appears nowhere in the 9th, 10th or 11th editions, which is why the PaCO2 upper bound no longer cites this work. OPEN [2026-07-28]: the year field reads 2020, which is the publication date (13 Oct 2020 per OpenLibrary and the publisher), while the copy's copyright page reads 2021; left unchanged pending an author decision, and the same field in preprint\_npj/paper.bib carries the same note.}
 }
 
 @book{marini2018critical,
@@ -323,7 +323,7 @@
   address   = {Philadelphia, PA},
   year      = {2018},
   isbn      = {978-1-4963-0291-5},
-  note      = {Corroborating ICU reference. Chapter mapping corrected 2026-07-27 against the 5th edition itself (ISBN 978-1-4963-0291-5, "Fifth edition", 1148 pp). Ch. 1 is "Hemodynamics", not "Hemodynamic Monitoring and Support" (that is Ch. 2), and it does support the upper heart-rate bound: "sinus heart rates exceeding (220 - age)/min reduce cardiac output and myocardial perfusion" -- a perfusion statement, not survival incompatibility, and it yields 202 bpm on an 18-year-old body rather than 220. The claim that Chapters 5 and 7 cover PaCO2 and tidal volume was never verified and is removed. Full-text search found no numeric SpO2 threshold: the critical-oxygen-delivery concept appears in Ch. 2, without a number and about delivery rather than saturation, so the SpO2 lower bound no longer cites this work.}
+  note      = {Corroborating ICU reference. Chapter mapping corrected 2026-07-27 against the 5th edition itself (ISBN 978-1-4963-0291-5, "Fifth edition", 1148 pp). Ch. 1 is "Hemodynamics", not "Hemodynamic Monitoring and Support" (that is Ch. 2); it is a live chapter pointer, cited at manuscript.md L1091 and supplement.tex L213, and it does support the upper heart-rate bound: sinus rates exceeding (220 - age) per minute "reduce cardiac output and myocardial perfusion" (that clause is the verbatim fragment recorded in commit 0472424) -- a perfusion statement, not survival incompatibility, and it yields 202 bpm on an 18-year-old body rather than 220. The claim that Chapters 5 and 7 cover PaCO2 and tidal volume was never verified and is removed. Full-text search found no numeric SpO2 threshold: the critical-oxygen-delivery concept appears in Ch. 2, without a number and about delivery rather than saturation, so the SpO2 lower bound no longer cites this work. OPEN [2026-07-28]: the year field reads 2018, which is the publication date (3 Nov 2018), while the copyright page reads 2019; left unchanged pending an author decision, and the same field in preprint\_npj/paper.bib carries the same note.}
 }
 
 @article{kuczmarski2002cdc,
@@ -333,5 +333,5 @@
   number    = {246},
   pages     = {1--190},
   year      = {2002},
-  note      = {PMID: 12043359. National Center for Health Statistics.}
+  note      = {PMID: 12043359. National Center for Health Statistics; Vital Health Stat 11(246), May 2002. Source of the sex-specific 50th-percentile weight- and stature-for-age values behind the two reference bodies. Verified 2026-07-26 against Tables 22 and 23, reading each value only after confirming that the M column equals the 50th-percentile column on the same row. The weights in use (67.3 kg male, 56.2 kg female) are the P50 at 214-214.99 months (17 y 10 m), not at 18.0 years, where the table gives 67.64 and 56.41 kg; the offset is exactly two rows and identical for both sexes. Female stature 163 cm is the true 18-year P50 (163.156 cm). The bodies must not be changed -- they are baked into 1,280 completed runs; only the provenance wording is at issue, and it is an open author decision (see audit/reference\_audit.md).}
 }
