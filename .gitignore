@@ -87,6 +87,15 @@ audit/factcheck_paper_supplement_vs_monograph.md
 # notes. Scoped to these SPECIFIC files only — deliberately NOT wildcards, so
 # nothing legitimate is ever ignored by accident. To protect a new sensitive
 # file, add its exact name here AND to the guard list in .githooks/pre-commit.
+#
+# This literal-only rule is HALF of a two-tier design (2026-07-28). The other
+# half is .githooks/pre-commit, which DOES use broad patterns (TODO_*.md,
+# ROADMAP_*.md, NEXT_SESSION*.md). The asymmetry is deliberate and the two files
+# are not meant to converge: an over-broad .gitignore fails SILENTLY (a
+# legitimate file is swallowed and never published, and nobody notices), whereas
+# an over-broad commit guard fails LOUDLY (the commit stops with an explanation
+# and a human decides). So breadth belongs in the guard, not here. See the long
+# comment at the top of .githooks/pre-commit before changing either.
 Paper_retour_PJ.pdf
 paper_feedback_michaelSauthier.docx
 TODO_PJ_feedback.md

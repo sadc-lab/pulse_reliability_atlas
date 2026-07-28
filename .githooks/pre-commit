@@ -23,7 +23,21 @@ set -e
 # deletions, so REMOVING a sensitive file from tracking (the desired action when a
 # previously-tracked note is reclassified as private) is allowed, while ADDING or
 # modifying one is still blocked.
-SENSITIVE=$(git diff --cached --name-only --diff-filter=d | grep -Exi '(Paper_retour_PJ\.pdf|paper_feedback_michaelSauthier\.docx|TODO_PJ_feedback\.md|TODO_yassir_track\.md|TODO_publication_roadmap\.md|internal_morris_rebuttal\.md)' || true)
+#
+# TWO-TIER DESIGN, decided 2026-07-28 — do not "simplify" it into one tier.
+# .gitignore stays strictly literal (one exact filename per line) so that nothing
+# legitimate is ever ignored in silence: a file that .gitignore swallows is
+# invisible and simply never gets published, which is a failure in the opposite
+# direction and one nobody notices. This guard, by contrast, is allowed broad
+# patterns, because its failure mode is loud: it stops the commit and prints why,
+# forcing a human decision instead of making a file disappear from the index.
+# So a new TODO_*.md is NOT auto-ignored, but it also cannot be committed by
+# accident. If one is genuinely meant to be public, widen this pattern
+# deliberately.
+#
+# Verified when the patterns were widened: `git ls-files` matched none of
+# TODO_*, ROADMAP_*, NEXT_* at that time, so no existing tracked file is caught.
+SENSITIVE=$(git diff --cached --name-only --diff-filter=d | grep -Exi '(Paper_retour_PJ\.pdf|paper_feedback_michaelSauthier\.docx|internal_morris_rebuttal\.md|(.*/)?TODO_.*\.md|(.*/)?ROADMAP_.*\.md|(.*/)?NEXT_SESSION.*\.md)' || true)
 if [ -n "$SENSITIVE" ]; then
     echo ""
     echo "pre-commit: refusing to commit sensitive internal review material:"
