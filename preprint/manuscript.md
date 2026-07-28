@@ -915,7 +915,13 @@ ARDS calibration provenance are in Appendix B.3.
 values at 214 months, i.e. 17 y 10 m (67.29 kg boys, 56.23 kg girls; CDC
 growth-chart Table 22, @kuczmarski2002cdc,
 <https://www.cdc.gov/growthcharts/>); the CDC values at exactly 18.0 years
-are 67.64 kg and 56.41 kg — 0.34 and 0.21 kg above those used. They were inherited unchanged from
+are 67.64 kg and 56.41 kg — 0.34 and 0.21 kg above those used. The preregistration's
+provenance erratum describes these weights as the CDC values at 18 years
+(216.5 months), which is inaccurate: 216.5 months is the midpoint of the
+216–216.99-month row, two rows later in the same table. The discrepancy is one of
+provenance wording only — the two bodies named in the preregistration are exactly the
+two simulated in all 1,280 runs, so nothing registered was changed (§B.5; Supplement
+§S3.10, body-dimension provenance). They were inherited unchanged from
 the companion `Pulse_translation_new` pediatric-translation pipeline
 where they form the 18-year endpoint of its CDC progression. The
 female height (163 cm) is the CDC P50 stature for 18-year-old girls [@kuczmarski2002cdc].
@@ -1015,9 +1021,8 @@ dynamic criteria:
    cleanly but the steady-state mean falls outside the hard
    physiological bounds (`HARD_BOUNDS` table below): the output is
    mathematically valid but biologically incompatible with a viable
-   60 s steady-state — e.g. SpO2 = 0.40, which on the Severinghaus
-   1979 dissociation curve corresponds to PaO2 ≈ 22 mmHg, below the
-   cellular oxygen-extraction threshold.
+   60 s steady-state — e.g. SpO2 = 0.40, which on the standard
+   Severinghaus 1979 dissociation curve corresponds to PaO2 ≈ 23 mmHg.
 4. **`not_steady_state` — dynamic failure.** The output is
    mathematically valid and biologically coherent, but the
    trajectory has not settled in the 60 s window: flatline at a
@@ -1092,7 +1097,7 @@ specification.
 | MAP (mmHg)  |  30 |  180 | Lower: well below both the 70 mmHg at which the Sepsis-3 SOFA cardiovascular score first registers organ dysfunction [@singer2016] and the Surviving Sepsis Campaign initial MAP target of 65 mmHg [@evans2021sepsis]; upper: ESH 2023 hypertensive emergency, i.e. grade 3 hypertension (SBP ≥ 180 and/or DBP ≥ 110 mmHg) with acute symptomatic organ damage [@mancia2023esh] |
 | Vt (mL)     |  50 | 1500 | Lower: below anatomical dead space (~150 mL adult) [@west2020respiratory Ch.2] — alveolar ventilation impossible; upper: ~4× ARDSnet protective ventilation (6 mL/kg PBW [@brower2000] ≈ 400 mL for atlas surrogates) and above the 10–15 mL/kg tidal volumes that were standard practice before lung-protective ventilation [@marino2013icu Ch.25] |
 | SpO2 (%)    |  50 |  100 | Lower: oxyhemoglobin dissociation curve P50 (SpO2 = 50 % ↔ PaO2 ≈ 27 mmHg [@severinghaus1979]); upper: hemoglobin saturation ceiling (definitional) |
-| PaO2 (mmHg) |  20 |  600 | Lower: SpO2 ≈ 0.30 on the Severinghaus 1979 dissociation curve [@severinghaus1979] — incompatible with cellular respiration over a 60 s steady-state window, well inside Berlin severe-ARDS oxygenation territory [@ards2012]; upper: classifier-conservative choice below the alveolar-gas-equation ceiling [@west2020respiratory Ch.5] — supplementary `HARD_BOUNDS_PHYSIOLOGICAL` sensitivity analysis at 700 mmHg reported in §3.8 |
+| PaO2 (mmHg) |  20 |  600 | Lower: SpO2 ≈ 0.32 on the standard Severinghaus 1979 dissociation curve [@severinghaus1979] — a value incompatible with a stable steady state sustained over the 60 s evaluation window, well inside Berlin severe-ARDS oxygenation territory [@ards2012]; upper: classifier-conservative choice below the alveolar-gas-equation ceiling [@west2020respiratory Ch.5] — supplementary `HARD_BOUNDS_PHYSIOLOGICAL` sensitivity analysis at 700 mmHg reported in §3.8 |
 | PaCO2 (mmHg) | 10 |  120 | Lower: profound respiratory alkalosis from sustained maximal hyperventilation; upper: deliberately permissive rather than clinical — in a 1,899-patient ARDS cohort from 927 ICUs in 40 countries, the cutoffs categorising maximum PaCO2 in the first 48 h of ventilation placed approximately the 95th percentile at 70 mmHg [@nin2017], so a 120 mmHg ceiling leaves severe but clinically observed hypercapnia unflagged and marks only values well beyond the reported range |
 
 The bound is therefore a *time-window-conditional* operational
