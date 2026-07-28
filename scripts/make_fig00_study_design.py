@@ -81,6 +81,11 @@ def main() -> int:
         r"\documentclass[border=6pt]{standalone}",
         r"\usepackage{tikz}",
         r"\usetikzlibrary{arrows.meta,positioning}",
+        # npj asks for sans-serif lettering, in one typeface across all figures.
+        # A standalone TikZ document otherwise inherits the LaTeX serif default,
+        # which made this the only serif figure in the paper. Font only -- the
+        # tikzpicture body is still copied verbatim from paper.tex.
+        r"\renewcommand{\familydefault}{\sfdefault}",
         r"\setlength{\textwidth}{%.1fpt}" % TEXTWIDTH_PT,
         r"\begin{document}",
         tikz,

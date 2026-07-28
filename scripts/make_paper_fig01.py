@@ -55,6 +55,12 @@ def main() -> None:
 
     sns.set_context("paper")
     sns.set_style("whitegrid")
+    # seaborn puts Arial at the head of font.sans-serif, which made this the only
+    # figure in the paper not set in DejaVu Sans. npj asks for one typeface across
+    # all figures, so pin it back after seaborn has had its say. Font only --
+    # nothing else about the figure changes.
+    plt.rcParams["font.family"] = "sans-serif"
+    plt.rcParams["font.sans-serif"] = ["DejaVu Sans"]
     fig, ax = plt.subplots(figsize=(7.2, 4))
     sns.heatmap(
         score,
