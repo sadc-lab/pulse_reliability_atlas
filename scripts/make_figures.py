@@ -30,6 +30,11 @@ RESULTS_DIR = REPO_ROOT / "results"
 FIG_DIR = REPO_ROOT / "figures"
 sns.set_context("paper")
 sns.set_style("whitegrid")
+# seaborn puts Arial at the head of font.sans-serif. npj asks for one sans-serif
+# typeface across all figures in a paper, and the rest of ours are DejaVu Sans,
+# so pin it back after seaborn has had its say. Font only.
+plt.rcParams["font.family"] = "sans-serif"
+plt.rcParams["font.sans-serif"] = ["DejaVu Sans"]
 
 
 def _save(fig: plt.Figure, stem: str) -> None:

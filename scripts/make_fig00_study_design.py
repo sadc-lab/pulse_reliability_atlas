@@ -86,6 +86,10 @@ def main() -> int:
         # which made this the only serif figure in the paper. Font only -- the
         # tikzpicture body is still copied verbatim from paper.tex.
         r"\renewcommand{\familydefault}{\sfdefault}",
+        # ... and the same for maths, otherwise the digits inside $...$ stay in
+        # Computer Modern Roman and the flowchart is half serif.
+        r"\usepackage{sansmath}",
+        r"\sansmath",
         r"\setlength{\textwidth}{%.1fpt}" % TEXTWIDTH_PT,
         r"\begin{document}",
         tikz,
