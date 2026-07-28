@@ -205,7 +205,7 @@ Each bound falls into one of two logical categories: (a) a physical or definitio
 \small
 \caption{Per-bound primary-literature rationale for the \texttt{HARD\_BOUNDS} table. Each row identifies the clinical guidelines or physiological reference that anchor the lower and upper extremes for the corresponding output.}
 \label{tab:hard-bounds-rationale}
-\begin{tabular}{lp{0.78\textwidth}}
+\begin{tabular}{lp{0.66\textwidth}}
 \toprule
 Output & Primary-literature rationale (lower / upper) \\
 \midrule
@@ -254,7 +254,7 @@ PaCO$_2$ (mmHg) & 5 & \texttt{T1.06q.paco2\_drift} \\
 \small
 \caption{Per-channel clinical-meaningfulness rationale for the \texttt{DRIFT\_MAX\_DELTA\_60S} table. Each row identifies the standard critical-care monitoring context that anchors the drift magnitude for the corresponding channel; the citation set mirrors the per-channel rationale audited in the companion technical monograph (drift-threshold subsection). As emphasised in the prose above, these citations identify the relevant clinical-monitoring framing rather than primary-literature endorsements of the specific drift magnitudes --- the magnitudes themselves are atlas-internal calibration choices.}
 \label{tab:drift-rationale}
-\begin{tabular}{lp{0.74\textwidth}}
+\begin{tabular}{lp{0.55\textwidth}}
 \toprule
 Channel \& drift threshold & Clinical-meaningfulness anchor \\
 \midrule
@@ -374,7 +374,7 @@ Two distinct effects make the severe assignment at impairment 0.95 protocol-depe
 \centering
 \caption{Sweep-wide arterial P/F distribution per scenario on the atlas's clean runs with PEEP $\geq 5$~cmH$_2$O, stratified by FiO$_2$ (low 0.21--0.40, mid 0.40--0.70, high 0.70--1.00). This is \emph{not} the reference calibration of Table~\ref{tab:s5-berlin-calib} (which fixes FiO$_2$ = 0.4); it shows how the Berlin-band assignment shifts with FiO$_2$ across the dynamic sweep. Empty cells: S1 has no clean high-FiO$_2$ runs (transient hyperoxia flags PaO$_2 > 600$ as \texttt{implausible}); S4 has no clean low-FiO$_2$ runs. Reproducible via \texttt{scripts/pf\_berlin\_analysis.py} $\rightarrow$ \texttt{results/pf\_berlin\_by\_scenario.csv}.}
 \label{tab:s5-berlin-sweep}
-\begin{tabular}{lrrll}
+\begin{tabular}{lrrlp{2.6cm}}
 \toprule
 Scenario & $n$ & Median P/F [IQR] & Band (median) & P/F by FiO$_2$ (low / mid / high) \\
 \midrule
