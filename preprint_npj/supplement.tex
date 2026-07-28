@@ -104,7 +104,7 @@ The atlas is calibrated against the following twelve Pulse limitations, each ver
 
 \begin{table}[h]
 \centering
-\caption{Verified Pulse v4.3.1 limitations the atlas is calibrated against. Each row was verified against a primary source before the sweep launched; two earlier internal-probing assertions from the companion technical work (FiO$_2$ = 1.0 solver crash, absence of any sex-specific physiology) were tested empirically and could not be confirmed before preregistration locked. Companion-monograph cross-references in the rightmost column point to the experiment-log entry that established each limitation.}
+\caption{\textbf{Verified Pulse v4.3.1 limitations the atlas is calibrated against.} Each row was verified against a primary source before the sweep launched; two earlier internal-probing assertions from the companion technical work (FiO$_2$ = 1.0 solver crash, absence of any sex-specific physiology) were tested empirically and could not be confirmed before preregistration locked. Companion-monograph cross-references in the rightmost column point to the experiment-log entry that established each limitation.}
 \label{tab:limits}
 \small
 \begin{tabular}{rp{8.5cm}p{3.5cm}}
@@ -182,7 +182,7 @@ Table~\ref{tab:hard-bounds} reproduces the complete \texttt{HARD\_BOUNDS} dictio
 
 \begin{table}[htbp]
 \centering
-\caption{Hard physiological bounds locked at preregistration for the \texttt{implausible} flag. SpO$_2$ is reported by Pulse as a fraction in [0, 1], hence the 0.50 / 1.00 entries (corresponding to 50~\% / 100~\% saturation). Each row is regex-extracted from \texttt{src/detector.py HARD\_BOUNDS} at audit time via the corresponding \texttt{T1.06p.*} ledger entry.}
+\caption{\textbf{Hard physiological bounds locked at preregistration for the \texttt{implausible} flag.} SpO$_2$ is reported by Pulse as a fraction in [0, 1], hence the 0.50 / 1.00 entries (corresponding to 50~\% / 100~\% saturation). Each row is regex-extracted from \texttt{src/detector.py HARD\_BOUNDS} at audit time via the corresponding \texttt{T1.06p.*} ledger entry.}
 \label{tab:hard-bounds}
 \begin{tabular}{lrrl}
 \toprule
@@ -203,7 +203,7 @@ Each bound falls into one of two logical categories: (a) a physical or definitio
 \begin{table}[htbp]
 \centering
 \small
-\caption{Per-bound primary-literature rationale for the \texttt{HARD\_BOUNDS} table. Each row identifies the clinical guidelines or physiological reference that anchor the lower and upper extremes for the corresponding output.}
+\caption{\textbf{Per-bound primary-literature rationale for the \texttt{HARD\_BOUNDS} table.} Each row identifies the clinical guidelines or physiological reference that anchor the lower and upper extremes for the corresponding output.}
 \label{tab:hard-bounds-rationale}
 \begin{tabular}{lp{0.66\textwidth}}
 \toprule
@@ -233,7 +233,7 @@ The companion \texttt{DRIFT\_MAX\_DELTA\_60S} dictionary (Table~\ref{tab:drift})
 
 \begin{table}[htbp]
 \centering
-\caption{Maximum tolerated drift per 60-second window for the \texttt{not\_steady\_state} flag. SpO$_2$ is a fraction in [0, 1], hence 0.02 corresponds to 2 percentage points. Each row is regex-extracted from \texttt{src/detector.py DRIFT\_MAX\_DELTA\_60S} via the corresponding \texttt{T1.06q.*} ledger entry.}
+\caption{\textbf{Maximum tolerated drift per 60-second window for the \texttt{not\_steady\_state} flag.} SpO$_2$ is a fraction in [0, 1], hence 0.02 corresponds to 2 percentage points. Each row is regex-extracted from \texttt{src/detector.py DRIFT\_MAX\_DELTA\_60S} via the corresponding \texttt{T1.06q.*} ledger entry.}
 \label{tab:drift}
 \begin{tabular}{lrl}
 \toprule
@@ -252,7 +252,7 @@ PaCO$_2$ (mmHg) & 5 & \texttt{T1.06q.paco2\_drift} \\
 \begin{table}[htbp]
 \centering
 \small
-\caption{Per-channel clinical-meaningfulness rationale for the \texttt{DRIFT\_MAX\_DELTA\_60S} table. Each row identifies the standard critical-care monitoring context that anchors the drift magnitude for the corresponding channel; the citation set mirrors the per-channel rationale audited in the companion technical monograph (drift-threshold subsection). As emphasised in the prose above, these citations identify the relevant clinical-monitoring framing rather than primary-literature endorsements of the specific drift magnitudes --- the magnitudes themselves are atlas-internal calibration choices.}
+\caption{\textbf{Per-channel clinical-meaningfulness rationale for the \texttt{DRIFT\_MAX\_DELTA\_60S} table.} Each row identifies the standard critical-care monitoring context that anchors the drift magnitude for the corresponding channel; the citation set mirrors the per-channel rationale audited in the companion technical monograph (drift-threshold subsection). As emphasised in the prose above, these citations identify the relevant clinical-monitoring framing rather than primary-literature endorsements of the specific drift magnitudes --- the magnitudes themselves are atlas-internal calibration choices.}
 \label{tab:drift-rationale}
 \begin{tabular}{lp{0.55\textwidth}}
 \toprule
@@ -312,7 +312,7 @@ Table~1 of the main manuscript reports per-cell counts under the locked four-fla
 
 \begin{table}[h]
 \centering
-\caption{Per-cell attribution of the locked \texttt{not\_steady\_state} count by trigger sub-mode. Two sub-modes are audited explicitly: SpO$_2$ ``flatline at ceiling'' with mean $\geq$ 0.999 (a detector edge case in which a healthy or well-oxygenated patient's physiological hemoglobin saturation at 1.0 numerically satisfies the locked flatline rule), and Vt CV $>$ 0.05 (the patient-ventilator-trigger dyssynchrony signal characterised in Section~2.3 of the main manuscript). The two ``excl.\'' columns count residual \texttt{not\_steady\_state} runs after removing each sub-mode from the trigger criterion; the ``excl.\ both'' column removes both simultaneously. Source: \texttt{results/s022/nss\_decomposition.csv}; ledger anchors \texttt{T2.nssC.*}. Cell-label key (see main paper Table~1 for full definitions): S1 healthy baseline, S2 mild ARDS, S3 moderate, S4 severe; \_M and \_F denote the male and female reference body.}
+\caption{\textbf{Per-cell attribution of the locked \texttt{not\_steady\_state} count by trigger sub-mode.} Two sub-modes are audited explicitly: SpO$_2$ ``flatline at ceiling'' with mean $\geq$ 0.999 (a detector edge case in which a healthy or well-oxygenated patient's physiological hemoglobin saturation at 1.0 numerically satisfies the locked flatline rule), and Vt CV $>$ 0.05 (the patient-ventilator-trigger dyssynchrony signal characterised in Section~2.3 of the main manuscript). The two ``excl.\'' columns count residual \texttt{not\_steady\_state} runs after removing each sub-mode from the trigger criterion; the ``excl.\ both'' column removes both simultaneously. Source: \texttt{results/s022/nss\_decomposition.csv}; ledger anchors \texttt{T2.nssC.*}. Cell-label key (see main paper Table~1 for full definitions): S1 healthy baseline, S2 mild ARDS, S3 moderate, S4 severe; \_M and \_F denote the male and female reference body.}
 \label{tab:s4-nss}
 \begin{tabular}{lrrrrrr}
 \toprule
@@ -353,7 +353,7 @@ This calibration has since been reproduced inside the present repository (2026-0
 
 \begin{table}[h]
 \centering
-\caption{Reference-ventilation Berlin-band calibration of the scenario impairment fractions (companion technical monograph, Appendix~B.3, based on the \texttt{Pulse\_translation\_new} original ARDS severity calibration, the 28-run impairment sweep of 2026-03; its later \texttt{E6} experiment is an April refinement that re-confirmed the same fractions). Arterial P/F of the adult male reference body under VC-AC, Vt 6~mL/kg, PEEP 10~cmH$_2$O, FiO$_2$ 0.4. Pulse's own documented \{0.3, 0.6, 0.9\} defaults yield 199 / 150 / 119~mmHg at the same settings.}
+\caption{\textbf{Reference-ventilation Berlin-band calibration of the scenario impairment fractions (companion technical monograph, Appendix~B.3, based on the \texttt{Pulse\_translation\_new} original ARDS severity calibration, the 28-run impairment sweep of 2026-03; its later \texttt{E6} experiment is an April refinement that re-confirmed the same fractions).} Arterial P/F of the adult male reference body under VC-AC, Vt 6~mL/kg, PEEP 10~cmH$_2$O, FiO$_2$ 0.4. Pulse's own documented \{0.3, 0.6, 0.9\} defaults yield 199 / 150 / 119~mmHg at the same settings.}
 \label{tab:s5-berlin-calib}
 \begin{tabular}{lrl}
 \toprule
@@ -372,7 +372,7 @@ Two distinct effects make the severe assignment at impairment 0.95 protocol-depe
 
 \begin{table}[h]
 \centering
-\caption{Sweep-wide arterial P/F distribution per scenario on the atlas's clean runs with PEEP $\geq 5$~cmH$_2$O, stratified by FiO$_2$ (low 0.21--0.40, mid 0.40--0.70, high 0.70--1.00). This is \emph{not} the reference calibration of Table~\ref{tab:s5-berlin-calib} (which fixes FiO$_2$ = 0.4); it shows how the Berlin-band assignment shifts with FiO$_2$ across the dynamic sweep. Empty cells: S1 has no clean high-FiO$_2$ runs (transient hyperoxia flags PaO$_2 > 600$ as \texttt{implausible}); S4 has no clean low-FiO$_2$ runs. Reproducible via \texttt{scripts/pf\_berlin\_analysis.py} $\rightarrow$ \texttt{results/pf\_berlin\_by\_scenario.csv}.}
+\caption{\textbf{Sweep-wide arterial P/F distribution per scenario on the atlas's clean runs with PEEP $\geq 5$~cmH$_2$O, stratified by FiO$_2$ (low 0.21--0.40, mid 0.40--0.70, high 0.70--1.00).} This is \emph{not} the reference calibration of Table~\ref{tab:s5-berlin-calib} (which fixes FiO$_2$ = 0.4); it shows how the Berlin-band assignment shifts with FiO$_2$ across the dynamic sweep. Empty cells: S1 has no clean high-FiO$_2$ runs (transient hyperoxia flags PaO$_2 > 600$ as \texttt{implausible}); S4 has no clean low-FiO$_2$ runs. Reproducible via \texttt{scripts/pf\_berlin\_analysis.py} $\rightarrow$ \texttt{results/pf\_berlin\_by\_scenario.csv}.}
 \label{tab:s5-berlin-sweep}
 \begin{tabular}{lrrlp{2.6cm}}
 \toprule
@@ -392,7 +392,7 @@ Pulse represents ARDS as a single \texttt{Severity} scalar in $[0, 1]$ per lung 
 
 \begin{table}[h]
 \centering
-\caption{How Pulse v4.3.1 maps the single ARDS \texttt{Severity} scalar to respiratory-mechanics and gas-exchange multipliers at the three ARDS scenario severities (S2 = 0.26 mild, S3 = 0.60 moderate, S4 = 0.95 severe). Each multiplier scales the corresponding adult baseline value; one \texttt{Severity} value drives all four. Columns are linear interpolations of the hard-coded source calibration nodes; the S3 = 0.60 column coincides with exact nodes. Resistance increases with severity, while compliance, diffusion surface area, and shunt-path resistance decrease (a lower shunt-path resistance raises venous admixture). The shunt damage term is non-monotonic across severity and is combined in the engine with an alveolar-recruitment term, so its effective value is not the tabulated damage multiplier alone (see text). Source: \texttt{RespiratoryModel.cpp} (\texttt{UpdateResistances}, \texttt{UpdateAlveolarCompliances}, \texttt{UpdateDiffusion}, \texttt{UpdatePulmonaryShunt}).}
+\caption{\textbf{How Pulse v4.3.1 maps the single ARDS \texttt{Severity} scalar to respiratory-mechanics and gas-exchange multipliers at the three ARDS scenario severities (S2 = 0.26 mild, S3 = 0.60 moderate, S4 = 0.95 severe).} Each multiplier scales the corresponding adult baseline value; one \texttt{Severity} value drives all four. Columns are linear interpolations of the hard-coded source calibration nodes; the S3 = 0.60 column coincides with exact nodes. Resistance increases with severity, while compliance, diffusion surface area, and shunt-path resistance decrease (a lower shunt-path resistance raises venous admixture). The shunt damage term is non-monotonic across severity and is combined in the engine with an alveolar-recruitment term, so its effective value is not the tabulated damage multiplier alone (see text). Source: \texttt{RespiratoryModel.cpp} (\texttt{UpdateResistances}, \texttt{UpdateAlveolarCompliances}, \texttt{UpdateDiffusion}, \texttt{UpdatePulmonaryShunt}).}
 \label{tab:s5-mapping}
 \begin{tabular}{llrrr}
 \toprule
@@ -420,7 +420,7 @@ A 200-run continuous-severity sweep (100 male, 100 female) varying only the ARDS
 
 \begin{table}[h]
 \centering
-\caption{Continuous-severity divergence counts per impairment-fraction bin, sex-stratified. The sweep distributes runs non-uniformly across severities; the per-bin sample sizes (\texttt{n}) reflect that distribution. Divergence concentrates in [0.879, 0.945] --- slightly wider on the low edge than the documented 0.91--0.945 band --- and the per-bin sex pattern crosses over: female divergence dominates the (0.85, 0.91] bin while male divergence dominates the (0.91, 0.945] bin. Bold cells mark the sex with the larger divergence count in each non-zero bin. Scenario key (see main paper Table~1 for full definitions): S1 healthy baseline, S2 mild ARDS, S3 moderate, S4 severe; the sex columns enumerate the male and female reference bodies.}
+\caption{\textbf{Continuous-severity divergence counts per impairment-fraction bin, sex-stratified.} The sweep distributes runs non-uniformly across severities; the per-bin sample sizes (\texttt{n}) reflect that distribution. Divergence concentrates in [0.879, 0.945] --- slightly wider on the low edge than the documented 0.91--0.945 band --- and the per-bin sex pattern crosses over: female divergence dominates the (0.85, 0.91] bin while male divergence dominates the (0.91, 0.945] bin. Bold cells mark the sex with the larger divergence count in each non-zero bin. Scenario key (see main paper Table~1 for full definitions): S1 healthy baseline, S2 mild ARDS, S3 moderate, S4 severe; the sex columns enumerate the male and female reference bodies.}
 \label{tab:s5-cont}
 \begin{tabular}{lrrr}
 \toprule
@@ -443,7 +443,7 @@ Figure~\ref{fig:s5-dumbbell} visualises Table~\ref{tab:s5-cont} as a sex-stratif
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.95\textwidth]{figures/fig_s1_continuous_severity.pdf}
-\caption{Sex-stratified divergence rate across the continuous-severity micro-sweep ($n = 200$ runs at midrange Morris inputs). Each impairment-fraction bin is a single x-axis position with male (blue) and female (orange) dots connected by a grey vertical line (dumbbell) emphasising the within-bin sex divergence delta; error bars are Wilson 95~\% binomial confidence intervals on the per-bin divergence proportion. The (0.945, 0.95] bin has only $n = 2$ per sex; its very wide Wilson 95~\% CI ([0, 0.66] for $0 / 2$) is honestly shown rather than suppressed. The pink shaded region marks the previously documented 0.91--0.945 instability zone; the continuous sweep extends the empirical band to [0.879, 0.945] on the low edge. Female divergence dominates the lower band; male divergence dominates the upper band --- the input-extreme all-male divergence pattern from Section~2.5 of the main manuscript does not generalise to midrange inputs.}
+\caption{\textbf{Sex-stratified divergence rate across the continuous-severity micro-sweep ($n = 200$ runs at midrange Morris inputs).} Each impairment-fraction bin is a single x-axis position with male (blue) and female (orange) dots connected by a grey vertical line (dumbbell) emphasising the within-bin sex divergence delta; error bars are Wilson 95~\% binomial confidence intervals on the per-bin divergence proportion. The (0.945, 0.95] bin has only $n = 2$ per sex; its very wide Wilson 95~\% CI ([0, 0.66] for $0 / 2$) is honestly shown rather than suppressed. The pink shaded region marks the previously documented 0.91--0.945 instability zone; the continuous sweep extends the empirical band to [0.879, 0.945] on the low edge. Female divergence dominates the lower band; male divergence dominates the upper band --- the input-extreme all-male divergence pattern from Section~2.5 of the main manuscript does not generalise to midrange inputs.}
 \label{fig:s5-dumbbell}
 \end{figure}
 
@@ -463,7 +463,7 @@ The Discussion of the main manuscript reports that the cross-sex Spearman rank c
 
 \begin{table}[h]
 \centering
-\caption{Spearman rank correlation $\rho$ between the male and female Morris $\mu^{*}$ input-importance vectors (one entry per swept input, seven entries per (scenario, output) cell), with paired-input bootstrap 95~\% confidence intervals from 2{,}000 input-resamples. Computed only for S2 and S3; cells in S1 and S4\_F have no computable $\rho$ because FiO$_2$ has zero clean elementary-effect pairs there (see the Discussion of the main manuscript). Ledger anchors \texttt{T2.sp.S2.*} and \texttt{T2.sp.S3.*}.}
+\caption{\textbf{Spearman rank correlation $\rho$ between the male and female Morris $\mu^{*}$ input-importance vectors (one entry per swept input, seven entries per (scenario, output) cell), with paired-input bootstrap 95~\% confidence intervals from 2{,}000 input-resamples.} Computed only for S2 and S3; cells in S1 and S4\_F have no computable $\rho$ because FiO$_2$ has zero clean elementary-effect pairs there (see the Discussion of the main manuscript). Ledger anchors \texttt{T2.sp.S2.*} and \texttt{T2.sp.S3.*}.}
 \label{tab:s6-rho}
 \begin{tabular}{llcc}
 \toprule
@@ -491,7 +491,7 @@ Point estimates fall in the 0.75--1.00 range across the 12 (scenario, output) ce
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.85\textwidth]{figures/fig_s2_spearman.pdf}
-\caption{Spearman rank correlation $\rho$ between male and female Morris $\mu^{*}$ vectors per (scenario, output), with paired-input bootstrap 95~\% confidence intervals ($n = 2{,}000$ input-resamples). Reproduced verbatim from the companion technical monograph (Figure~5 of the monograph). Computed only for S2 and S3; S1 and S4\_F are blank because FiO$_2$ has zero clean elementary-effect pairs in those cells. Cell-label key (see main paper Table~1 for full definitions): S1 healthy baseline, S2 mild ARDS, S3 moderate, S4 severe; \_M and \_F denote the male and female reference body.}
+\caption{\textbf{Spearman rank correlation $\rho$ between male and female Morris $\mu^{*}$ vectors per (scenario, output), with paired-input bootstrap 95~\% confidence intervals ($n = 2{,}000$ input-resamples).} Reproduced verbatim from the companion technical monograph (Figure~5 of the monograph). Computed only for S2 and S3; S1 and S4\_F are blank because FiO$_2$ has zero clean elementary-effect pairs in those cells. Cell-label key (see main paper Table~1 for full definitions): S1 healthy baseline, S2 mild ARDS, S3 moderate, S4 severe; \_M and \_F denote the male and female reference body.}
 \label{fig:s6-rho}
 \end{figure}
 
@@ -505,7 +505,7 @@ The Discussion of the main manuscript summarises the complementarity between the
 
 \begin{table}[h]
 \centering
-\caption{Cornish et al.\ 2023 per-quantity rejection counts (Cornish Appendix Tables~4 and~5) re-tabulated against the present atlas's six-output panel and grouped by physiological system. Bold rows are the four-channel direct overlap. Of Cornish's 85 total Hoeffding rejections, 82 fall outside the four-channel direct overlap --- 80 on the eight channels the atlas does not assess at all (electrolyte, metabolic, acid--base, dermal) plus 2 on the partial-overlap pressure channel SysBP --- and only 3 of 85 fall on the four-channel overlap (all 3 on PaCO$_2$). The two studies' failure surfaces are therefore complementary rather than redundant.}
+\caption{\textbf{Cornish et al.\ 2023 per-quantity rejection counts (Cornish Appendix Tables~4 and~5) re-tabulated against the present atlas's six-output panel and grouped by physiological system.} Bold rows are the four-channel direct overlap. Of Cornish's 85 total Hoeffding rejections, 82 fall outside the four-channel direct overlap --- 80 on the eight channels the atlas does not assess at all (electrolyte, metabolic, acid--base, dermal) plus 2 on the partial-overlap pressure channel SysBP --- and only 3 of 85 fall on the four-channel overlap (all 3 on PaCO$_2$). The two studies' failure surfaces are therefore complementary rather than redundant.}
 \label{tab:s7-cornish}
 \begin{tabular}{lrrl}
 \toprule
@@ -563,7 +563,7 @@ Pulse's standard CSV output exposes the delivered tidal volume as a breath-integ
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.95\textwidth]{figures/fig_s4_vt_waveform.pdf}
-\caption{Per-breath delivered tidal volume at Pulse's native 50~Hz sampling rate, for the worst-case S014 paired configuration (S1\_F\_0117). \textbf{(a)} Default VC-AC trigger configuration: per-breath Vt oscillates erratically across the [60, 120]~s steady-state window (Vt CV = 1.826), the patient-ventilator dyssynchrony signal that the locked steady-state classifier flags as \texttt{not\_steady\_state}. \textbf{(b)} Locked trigger configuration ($-2$~cmH$_2$O): per-breath Vt is metronomic across the same window (Vt CV = 0.018), confirming that the intervention disables the spontaneous-drive coupling without disrupting volume delivery. Pulse's standard CSV output does not natively expose airway Pressure ($P_{\text{aw}}$) or Respiratory Flow ($\dot{Q}$) as top-level columns, so the per-breath delivered tidal-volume waveform shown here is the directly observable proxy of the trigger-coupling dynamics; the 50~Hz native sampling rate is Nyquist-safe for the $\sim$0.25~Hz breath-rate signal.}
+\caption{\textbf{Per-breath delivered tidal volume at Pulse's native 50~Hz sampling rate, for the worst-case S014 paired configuration (S1\_F\_0117).} \textbf{(a)} Default VC-AC trigger configuration: per-breath Vt oscillates erratically across the [60, 120]~s steady-state window (Vt CV = 1.826), the patient-ventilator dyssynchrony signal that the locked steady-state classifier flags as \texttt{not\_steady\_state}. \textbf{(b)} Locked trigger configuration ($-2$~cmH$_2$O): per-breath Vt is metronomic across the same window (Vt CV = 0.018), confirming that the intervention disables the spontaneous-drive coupling without disrupting volume delivery. Pulse's standard CSV output does not natively expose airway Pressure ($P_{\text{aw}}$) or Respiratory Flow ($\dot{Q}$) as top-level columns, so the per-breath delivered tidal-volume waveform shown here is the directly observable proxy of the trigger-coupling dynamics; the 50~Hz native sampling rate is Nyquist-safe for the $\sim$0.25~Hz breath-rate signal.}
 \label{fig:s8-vt}
 \end{figure}
 
@@ -586,7 +586,7 @@ Each S021 rerun reloads Pulse's saved engine state from the end of the original 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.95\textwidth]{figures/fig_s3_hyperoxia_convergence.pdf}
-\caption{Late-phase PaO$_2$ convergence in the S021 extended-simulation reruns at FiO$_2$ = 1.0 in the healthy S1 cohort (41 of 44 converged under the preregistered drift criterion). The figure x-axis ($t'$) is the elapsed time since the rerun start; the rerun continues from the saved Pulse state at the end of the original 120-second window, so $t' = 0$ corresponds to $t = 120$~s of the original simulation timeline rather than to atmospheric-air baseline. Thin blue traces are the 41 drift-converged trajectories; three of them are drift-converged but relax to unphysical $>700$~mmHg plateaus and run off the top of the panel (the vertical axis is limited to $[350, 760]$~mmHg; these three traces continue to $\approx$1{,}400~mmHg, see Section~\ref{sec:s9-guidance}), so the thick blue line is the median over the remaining 38 \emph{physiological}-converged runs. The dotted purple horizontal at 600~mmHg is the locked classifier upper bound; the dash-dotted brown horizontal at $\approx$~663~mmHg is the alveolar-gas-equation sea-level prediction (alveolar PAO$_2$). The median trajectory rises from approximately 552~mmHg at the rerun reload point to approximately 639~mmHg at $t' = 300$~s; 95~\% of that late-plateau gain is reached at $t' = 180$~s (audit anchor \texttt{T1.06u.s021\_time\_to\_95pct\_plateau}), quantifying why the locked 120-second window underestimates plateau PaO$_2$ at FiO$_2$ = 1.0.}
+\caption{\textbf{Late-phase PaO$_2$ convergence in the S021 extended-simulation reruns at FiO$_2$ = 1.0 in the healthy S1 cohort (41 of 44 converged under the preregistered drift criterion).} The figure x-axis ($t'$) is the elapsed time since the rerun start; the rerun continues from the saved Pulse state at the end of the original 120-second window, so $t' = 0$ corresponds to $t = 120$~s of the original simulation timeline rather than to atmospheric-air baseline. Thin blue traces are the 41 drift-converged trajectories; three of them are drift-converged but relax to unphysical $>700$~mmHg plateaus and run off the top of the panel (the vertical axis is limited to $[350, 760]$~mmHg; these three traces continue to $\approx$1{,}400~mmHg, see Section~\ref{sec:s9-guidance}), so the thick blue line is the median over the remaining 38 \emph{physiological}-converged runs. The dotted purple horizontal at 600~mmHg is the locked classifier upper bound; the dash-dotted brown horizontal at $\approx$~663~mmHg is the alveolar-gas-equation sea-level prediction (alveolar PAO$_2$). The median trajectory rises from approximately 552~mmHg at the rerun reload point to approximately 639~mmHg at $t' = 300$~s; 95~\% of that late-plateau gain is reached at $t' = 180$~s (audit anchor \texttt{T1.06u.s021\_time\_to\_95pct\_plateau}), quantifying why the locked 120-second window underestimates plateau PaO$_2$ at FiO$_2$ = 1.0.}
 \label{fig:s9-pao2}
 \end{figure}
 
@@ -602,7 +602,7 @@ The extended-simulation experiment also replayed four paired Morris input vector
 
 \begin{table}[h]
 \centering
-\caption{Converged PaO$_2$ plateau by ARDS scenario in the S021 extended-simulation reruns at FiO$_2$ = 1.0. S1 is the full 44-run healthy hyperoxia set; S3 and S4 are the four paired Morris input vectors replayed on both reference bodies (8 runs each). Plateau = per-run mean over the final 60~s of the 300~s extension; median and interquartile range (IQR) are across the runs in each scenario. Convergence is judged by the preregistered drift criterion. The monotonic decrease from S1 to S4 is the shunt-mediated oxygenation depression. Scenario key: S1 healthy baseline, S3 moderate ARDS, S4 severe ARDS.}
+\caption{\textbf{Converged PaO$_2$ plateau by ARDS scenario in the S021 extended-simulation reruns at FiO$_2$ = 1.0.} S1 is the full 44-run healthy hyperoxia set; S3 and S4 are the four paired Morris input vectors replayed on both reference bodies (8 runs each). Plateau = per-run mean over the final 60~s of the 300~s extension; median and interquartile range (IQR) are across the runs in each scenario. Convergence is judged by the preregistered drift criterion. The monotonic decrease from S1 to S4 is the shunt-mediated oxygenation depression. Scenario key: S1 healthy baseline, S3 moderate ARDS, S4 severe ARDS.}
 \label{tab:s9-shunt}
 \begin{tabular}{lrrr}
 \toprule
@@ -839,7 +839,7 @@ Aggregated across all clean Morris runs (those passing the four-flag steady-stat
 
 \begin{table}[h]
 \centering
-\caption{Output HR mean $\pm$ standard deviation per scenario, aggregated across clean Morris runs. Input HR is sampled uniformly from $[50, 110]$~bpm across all four scenarios; only the ARDS impairment fraction differs (S1 = 0.00 healthy, S2 = 0.26 mild, S3 = 0.60 moderate, S4 = 0.95 severe). The gap between the fixed input range and the scenario-dependent output mean quantifies the engine's compensatory reflex gain at each severity level.}
+\caption{\textbf{Output HR mean $\pm$ standard deviation per scenario, aggregated across clean Morris runs.} Input HR is sampled uniformly from $[50, 110]$~bpm across all four scenarios; only the ARDS impairment fraction differs (S1 = 0.00 healthy, S2 = 0.26 mild, S3 = 0.60 moderate, S4 = 0.95 severe). The gap between the fixed input range and the scenario-dependent output mean quantifies the engine's compensatory reflex gain at each severity level.}
 \label{tab:s15-comphr}
 \begin{tabular}{lcc}
 \toprule
@@ -885,7 +885,7 @@ The 1{,}280-run atlas yields several findings whose full statement lives in this
 
 \begin{table}[h]
 \centering
-\caption{Index of supplementary findings and discoveries. Each row points to the supplement section that carries the full provenance, method, and result. Findings already headlined by a main-paper subsection are listed with both their supplement anchor and their main-paper anchor.}
+\caption{\textbf{Index of supplementary findings and discoveries.} Each row points to the supplement section that carries the full provenance, method, and result. Findings already headlined by a main-paper subsection are listed with both their supplement anchor and their main-paper anchor.}
 \label{tab:s16-index}
 \begin{tabular}{lp{0.62\textwidth}}
 \toprule
