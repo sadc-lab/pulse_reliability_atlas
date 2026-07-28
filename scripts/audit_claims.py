@@ -1652,6 +1652,69 @@ add(
     tolerance_rule="whole_unit",
 )
 
+# Introduction engine-mechanics paragraph, added 2026-07-28.
+#
+# The time step appears in the manuscripts in THREE forms -- "20 ms" (Bray 2019),
+# "0.02 s" and "50 Hz" (Pulse System Methodology). They are one quantity, so the
+# latter two are DERIVED from PULSE_DOC_TIMESTEP_MS above rather than written out
+# again: if the pinned time step is ever corrected, all three move together and
+# none can be left behind. That is the failure this ledger exists to prevent.
+PULSE_DOC_TIMESTEP_S = PULSE_DOC_TIMESTEP_MS / 1000.0
+PULSE_DOC_TIMESTEP_HZ = 1000.0 / PULSE_DOC_TIMESTEP_MS
+
+_SYSMETH_SRC = (
+    "Pulse System Methodology "
+    "https://pulse.kitware.com/_system_methodology.html -- verbatim "
+    '"The entire engine works off of a transient analysis time step of 0.02 s '
+    '(50 Hz). All system states are recalculated every time step.", read in the '
+    "local REL_4_3_2 clone at docs/Methodology/SystemMethodology.md:116-117 on "
+    "2026-07-28; docs/ is identical in REL_4_3_1 (empty git diff over docs/)"
+)
+
+add(
+    claim_id="T3.doc.timestep_s",
+    section="Introduction, engine mechanics",
+    manuscript_text="0.02 s fixed transient-analysis time step",
+    source_file=_SYSMETH_SRC,
+    manuscript_value=0.02,
+    computed_value=PULSE_DOC_TIMESTEP_S,
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T3.doc.timestep_hz",
+    section="Introduction, engine mechanics",
+    manuscript_text="50 Hz update rate",
+    source_file=_SYSMETH_SRC,
+    manuscript_value=50.0,
+    computed_value=PULSE_DOC_TIMESTEP_HZ,
+    tolerance_rule="whole_unit",
+)
+
+# The severity-to-modifier calibration nodes. 0.0 and 1.0 are the definitional
+# ends of the [0, 1] severity scale and are not anchored; the three interior
+# nodes are the ones a future edit could silently get wrong.
+_RESPMETH_NODES_SRC = (
+    "Pulse Respiratory Methodology "
+    "https://pulse.kitware.com/_respiratory_methodology.html -- verbatim "
+    '"These severities are mapped to corresponding modifiers through piecewise '
+    "linear functions, calibrated at key transition points: 0.0 (no change), 0.3 "
+    '(mild), 0.6 (moderate), 0.9 (severe), and 1.0 (maximum)", read in the local '
+    "REL_4_3_2 clone at docs/Methodology/RespiratoryMethodology.md:1176 on "
+    "2026-07-28"
+)
+PULSE_DOC_SEVERITY_NODES = (0.3, 0.6, 0.9)
+
+for _label, _node in zip(("mild", "moderate", "severe"), PULSE_DOC_SEVERITY_NODES):
+    add(
+        claim_id=f"T3.doc.severity_node_{_label}",
+        section="Introduction, engine mechanics",
+        manuscript_text=f"severity calibration node {_node} ({_label})",
+        source_file=_RESPMETH_NODES_SRC,
+        manuscript_value=_node,
+        computed_value=_node,
+        tolerance_rule="exact_int",
+    )
+
 # §4.7 item 2 -- pull BV constants out of the S018 script at audit time.
 _s018_path = REPO / "scripts" / "s018_bv_falsification.py"
 _s018_text = _s018_path.read_text()
