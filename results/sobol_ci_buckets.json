@@ -1,0 +1,50 @@
+{
+  "cells_firing_point_estimate": 43,
+  "cells_touched_by_core": 17,
+  "core_by_input": {
+    "dbp": 1,
+    "fio2": 2,
+    "hr": 1,
+    "peep": 8,
+    "rr": 5,
+    "sbp": 3,
+    "vt": 3
+  },
+  "core_by_output": {
+    "HR": 4,
+    "PaCO2": 1,
+    "PaO2": 7,
+    "SpO2": 3,
+    "Vt": 8
+  },
+  "core_by_scenario": {
+    "S1": 2,
+    "S2": 5,
+    "S3": 12,
+    "S4": 4
+  },
+  "core_by_sex": {
+    "F": 12,
+    "M": 11
+  },
+  "core_nonlinear_all_seeds": 23,
+  "dominant_linear_all_seeds": 31,
+  "dominant_no_estimable_ci": 5,
+  "dominant_nonlinear_all_seeds": 1,
+  "n_bootstrap": 1000,
+  "n_cells": 48,
+  "n_top3_rows": 144,
+  "point_estimate_promotions": 72,
+  "promote_threshold": 0.6,
+  "seeds": [
+    12345,
+    999,
+    7,
+    555,
+    20260729
+  ],
+  "skip_threshold": 0.4,
+  "sobol_base_sample": 64,
+  "sobol_budget_runs_preregistered": 1500,
+  "sobol_runs_required": 11008
+}
