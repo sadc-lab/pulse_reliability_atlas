@@ -55,11 +55,11 @@ the manuscript.
 Per scenario × output, the 1-Wasserstein distance between the male
 and female clean-run distributions, in the output's native units
 (bpm, mmHg, mL, %, mmHg, mmHg). Each observed distance is compared
-against a within-sex sub-sampling null (n_null = 2,000 random splits
+against a permutation null (n_null = 2,000 random splits
 of the combined M+F clean runs into halves of the original sizes);
 distances marked with `*` exceed the 95th percentile of the null.
 Under Benjamini–Hochberg FDR control at q = 0.05, **5 of 24** (cell ×
-output) combinations survive the within-sex null — all 5 on
+output) combinations survive the permutation null — all 5 on
 gas-exchange channels (PaCO2 × 3, SpO2 × 1, PaO2 × 1). The
 naive-α = 0.05 analysis would flag 6; S2 SpO2 (p_emp = 0.022 above
 the 0.0104 BH critical) is the BH-demoted row. Cardiovascular and
