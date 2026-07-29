@@ -1988,10 +1988,85 @@ WASSERSTEIN_N_NULL = int(_m_wasserstein_n.group(1))
 add(
     claim_id="T2.analysis.wasserstein_n_null",
     section="§5 Methods Statistical analyses (npj paper)",
-    manuscript_text="2000 random within-sex splits for Wasserstein null reference",
+    manuscript_text="2000 random relabellings (pooled M+F clean runs re-split at the original group sizes) for the Wasserstein permutation null",
     source_file="src/analysis_compare.py wasserstein_per_output n_null default",
     manuscript_value=2000,
     computed_value=WASSERSTEIN_N_NULL,
+    tolerance_rule="exact_int",
+)
+
+# ---------------------------------------------------------------------------
+# S031 -- Sobol trigger applied as preregistered (top-three inputs), and the
+# post-hoc ratio-aware bootstrap on sigma/mu*. Every figure below is re-derived
+# by scripts/sobol_ci_buckets.py into results/sobol_ci_buckets.json, so the
+# ledger checks the manuscript against a regenerable artefact rather than
+# against a number typed once. The CI bucketing is post-hoc: the preregistration
+# conditions the trigger on the point ratio and attaches no uncertainty
+# qualifier (verified against preregistration.md Sec. Sampling method).
+# ---------------------------------------------------------------------------
+_sobol_ci = json.loads((REPO / "results/sobol_ci_buckets.json").read_text(encoding="utf-8"))
+
+for _cid, _text, _value, _key in [
+    ("T2.sobol.point_promotions",
+     "trigger fires on 72 of the 144 top-three inputs (point estimate)",
+     72, "point_estimate_promotions"),
+    ("T2.sobol.cells_firing",
+     "spanning 43 of the 48 cell x output combinations",
+     43, "cells_firing_point_estimate"),
+    ("T2.sobol.runs_required",
+     "43 cells at 11,008 runs under the preregistered cost formula",
+     11008, "sobol_runs_required"),
+    ("T2.sobol.budget_preregistered",
+     "preregistered compute envelope of 1,500 additional runs",
+     1500, "sobol_budget_runs_preregistered"),
+    ("T2.sobol.core_nonlinear",
+     "23 of the 144 top-three inputs keep a lower bound at or above 0.6 in every draw",
+     23, "core_nonlinear_all_seeds"),
+    ("T2.sobol.cells_touched",
+     "the stable set spans 17 of the 48 cells",
+     17, "cells_touched_by_core"),
+    ("T2.sobol.dominant_linear",
+     "dominant-input bucketing is 31 / 48 CI-robustly linear in every draw",
+     31, "dominant_linear_all_seeds"),
+    ("T2.sobol.dominant_nonlinear",
+     "one dominant-input cell is CI-robustly non-linear in all five draws",
+     1, "dominant_nonlinear_all_seeds"),
+    ("T2.sobol.n_bootstrap",
+     "trajectories are resampled 1,000 times per combination",
+     1000, "n_bootstrap"),
+]:
+    add(
+        claim_id=_cid,
+        section="§2.2 Results + §5 Methods Statistical analyses + Supplement S3-sobol",
+        manuscript_text=_text,
+        source_file="results/sobol_ci_buckets.json via scripts/sobol_ci_buckets.py",
+        manuscript_value=_value,
+        computed_value=_sobol_ci[_key],
+        tolerance_rule="exact_int",
+    )
+
+# The per-input breakdown of the stable set, quoted in Results and Supplement.
+for _inp, _count in [("peep", 8), ("rr", 5)]:
+    add(
+        claim_id="T2.sobol.core_input_%s" % _inp,
+        section="§2.2 Results + Supplement S3-sobol",
+        manuscript_text="PEEP in 8 of the 23, ahead of respiratory rate at 5"
+                        if _inp == "peep" else "respiratory rate at 5 of the 23",
+        source_file="results/sobol_ci_buckets.json core_by_input",
+        manuscript_value=_count,
+        computed_value=_sobol_ci["core_by_input"][_inp],
+        tolerance_rule="exact_int",
+    )
+
+# Delivered Vt is the most affected output, and none of those 8 falls in S1 --
+# the survivorship-censoring point made in Results.
+add(
+    claim_id="T2.sobol.core_output_vt",
+    section="§2.2 Results + Supplement S3-sobol",
+    manuscript_text="delivered tidal volume is the most affected output, in 8 of the 23",
+    source_file="results/sobol_ci_buckets.json core_by_output",
+    manuscript_value=8,
+    computed_value=_sobol_ci["core_by_output"]["Vt"],
     tolerance_rule="exact_int",
 )
 
