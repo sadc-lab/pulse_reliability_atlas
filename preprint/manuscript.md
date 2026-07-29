@@ -74,9 +74,9 @@ with Pulse's modelled A-a gradient — supporting a transient-regime
 explanation rather than a Pulse oxygenation overshoot. H4 (sex-specific
 reliability) is partially supported under Benjamini–Hochberg FDR
 control (q = 0.05): 5 of 24 cell × output Wasserstein distances
-survive the within-sex null — all five are gas-exchange (PaCO2 ×3,
+survive the permutation null — all five are gas-exchange (PaCO2 ×3,
 SpO2 ×1, PaO2 ×1). Cardiovascular and Vt sex effects do not exceed
-within-sex sub-sampling; input-importance rankings are largely
+the permutation null; input-importance rankings are largely
 preserved across sexes (Spearman ρ 0.75 – 1.00 in S2 / S3).
 
 **Conclusion.** The atlas provides a per-cell traffic-light reliability
@@ -178,11 +178,15 @@ below; this section is the exhaustive findings digest.*
   ventilator-driven (PaO2 ← FiO2 in mild/moderate ARDS, collapsing to a flat
   dependence in severe ARDS = shunt physiology; PaCO2 ← Vt via the
   alveolar-ventilation identity).
-* **Predominantly linear:** point-estimate σ/μ\* < 0.6 in 40 / 48 cells;
-  under trajectory bootstrap **31 / 48 CI-robustly linear**. Preregistered
-  Sobol bolt-on **closed by evidential redundancy** ([S019](#s019)): 0 / 48
-  cells meet the σ/μ\* ≥ 0.6 CI trigger (31 CI-robust linear, 12 straddle 0.6,
-  5 no estimable CI); ready-to-fire SALib implementation preserved.
+* **Linear on the dominant input, much less so on the top three:** the
+  dominant input's point-estimate σ/μ\* stays below 0.6 in 40 / 48 cells, and
+  31 / 48 are CI-robustly linear under the ratio-aware bootstrap. Applying the
+  rule the preregistration actually states — the top-three inputs, not the
+  dominant one alone — the trigger fires on 43 / 48 cells, and 23 of the 144
+  top-three inputs hold a lower CI bound at or above 0.6 across five seeds. The
+  bolt-on is **closed by its own preregistered budget** ([S019](#s019)): 11,008
+  runs required against an envelope of 1,500; ready-to-fire SALib implementation
+  preserved.
 
 **Silent clamping (H2) — does not happen.**
 
@@ -194,9 +198,9 @@ below; this section is the exhaustive findings digest.*
 **Sex as a reliability axis (H4).**
 
 * Under Benjamini–Hochberg FDR control (q = 0.05), **5 of 24** cell × output
-  Wasserstein distances survive the within-sex permutation null — **all five
+  Wasserstein distances survive the permutation null — **all five
   gas-exchange** (PaCO2 ×3, SpO2 ×1, PaO2 ×1). Cardiovascular and Vt sex
-  effects do not exceed within-sex sub-sampling.
+  effects do not exceed the permutation null.
 * Input-importance rankings are largely sex-preserved: **Spearman ρ
   0.75–1.00** in S2 / S3.
 * Net: the sex effect is **regime-dependent** — strong at the male
@@ -318,7 +322,7 @@ sweep.*
 * **Sex as a reliability-sensitivity axis** — the first sex-stratified
   reliability comparison in the Pulse literature. Under
   Benjamini–Hochberg FDR control (q = 0.05), 5 of 24 cell × output
-  Wasserstein tests survive the within-sex null, *all five in
+  Wasserstein tests survive the permutation null, *all five in
   gas-exchange channels*.
 * **Sex-stratified solver-divergence cluster in the input-extreme regime.**
   20 of 1,280 runs (1.6 %) diverge, *all 20 on the male surrogate in the
@@ -625,7 +629,7 @@ underlying files are in the repository.
 | S005 | 22-run pilot on cell (S1, M); passed all 5 preregistered gates. |
 | S006 | Full 1,280-run Morris sweep (the headline experiment). |
 | S007 | Targeted reproducibility check at three independent layers, all bit-exact. |
-| S008 | Tier-1 statistical refinement (block bootstrap on σ, within-sex Wasserstein null, Spearman CI, divergence-input mechanism). |
+| S008 | Tier-1 statistical refinement (block bootstrap on σ, Wasserstein permutation null, Spearman CI, divergence-input mechanism). |
 | S009 | Tier-2 robustness (seed stability, continuous-ARDS micro-sweep, pytest suite, GitHub Actions CI). |
 | S010 | Literature-review pass; every reference DOI / PMID-verified. |
 | S011 | Sex-vs-mass disentangling experiment. |
@@ -1339,7 +1343,7 @@ instrument.
 *A plain-language definition of every statistical tool used in §3
 (Results) and §4 (Discussion) — Morris EE, block bootstrap, Sobol
 (preregistered but closed-by-redundancy; see §3.3.1), 1-Wasserstein
-distance, the within-sex sub-sampling null, Spearman ρ, BH-FDR
+distance, the permutation null, Spearman ρ, BH-FDR
 control, and Hoeffding / Holm–Bonferroni (external; used by Cornish
 2023, §4.4). First appearance of each test in §3 is therefore
 immediately interpretable.*
@@ -1385,7 +1389,7 @@ are in §9.
   Used in §3.6 to quantify how different male vs female clean-run
   output distributions actually are.
 
-* **Within-sex sub-sampling null (permutation-style).** A reference
+* **Permutation null (pooled and re-split).** A reference
   distribution built by randomly splitting the *combined* M + F clean
   runs into halves the same size as the original M and F groups, then
   computing the same Wasserstein distance on the split (n = 2,000
@@ -1739,17 +1743,26 @@ distribute into four buckets:
   S1_F vs FiO2 in S4_M); per-input gaps are summarised at cell level
   in §4.3 / §4.5 limitations.
 
-*Methodological note (σ / μ\* CI formula).* The upper CI bound
-reported in the bucketing above is σ_hi / μ̂\*, where σ_hi is the
-upper 97.5-percentile of the trajectory-level block bootstrap on σ
-(1,000 resamples; implementation: `_block_bootstrap_sigma_ci` in
-`src/analysis_morris.py`). The μ̂\* in the denominator is the point
-estimate, treated as fixed. A fully ratio-aware bootstrap — one
-that resamples trajectories and recomputes σ_b / μ\*_b *jointly*
-per draw — yields a slightly different decomposition (30 / 48
-CI-robustly linear under that formula). The qualitative conclusion
-is unchanged either way: **zero cells are CI-robustly non-linear
-under either formula.**
+*Methodological note (σ / μ\* CI formula).* Two formulas are available once a
+confidence interval is put on σ / μ\*, and they do not agree. The first divides
+σ_hi — the upper 97.5-percentile of the trajectory-level block bootstrap on σ
+(`_block_bootstrap_sigma_ci` in `src/analysis_morris.py`) — by the μ̂\* point
+estimate, treating the denominator as fixed. The second, which this manuscript
+now adopts, resamples trajectories and recomputes σ_b / μ\*_b *jointly* per draw,
+so the interval covers the ratio itself. The first formula ignores the positive
+covariance between σ and μ\*, which widens its interval in an uncontrolled
+direction; it is retained here only as the historical variant.
+
+The two do not lead to the same conclusion, and an earlier version of this
+section stated otherwise. Under the ratio-aware formula the dominant-input
+bucketing is 31 / 48 CI-robustly linear in every draw, and one dominant-input
+cell — (S3, M, PaO2, FiO2) — is CI-robustly non-linear in all five, with occasional
+further cells appearing in individual draws but none surviving all five. The
+count is not zero under either reading. Applying the rule the preregistration
+actually states — the top-three inputs, not the dominant one alone — 23 of the
+144 top-three inputs hold a lower bound at or above 0.6 across five independent
+seeds. The earlier claim that "zero cells are CI-robustly non-linear under
+either formula" was wrong on both counts and is withdrawn.
 
 **The Sobol bolt-on is statistically redundant under the CI-aware
 evidence.** *In one sentence: the trigger that was supposed to
@@ -2130,7 +2143,7 @@ sex per se.
 at the cell level? Answer — partially. Under Benjamini–Hochberg FDR
 control (q = 0.05), 5 of 24 cell × output Wasserstein distances
 survive — *all five on gas-exchange channels* (PaCO2 × 3, SpO2 × 1,
-PaO2 × 1). Cardiovascular and Vt distances fall within the within-sex
+PaO2 × 1). Cardiovascular and Vt distances fall within the permutation-based
 sub-sampling null; input-importance rankings are largely preserved
 across sexes (Spearman ρ 0.75 – 1.00 in S2 / S3).*
 
@@ -2150,7 +2163,7 @@ values mean partial agreement.
 Both statistics need a null reference: raw point estimates on this
 sample size would overstate precision.
 
-**Wasserstein distance with within-sex null.** The observed value is
+**Wasserstein distance with permutation null.** The observed value is
 the M-vs-F distance on clean runs. The reference null is built by
 repeatedly splitting the *combined* M+F clean runs randomly into
 halves of the original sizes (n_null = 2,000 splits).
@@ -2173,14 +2186,14 @@ S2 & MAP   & 0.88  & 1.03  & 2.11  & 0.652 &   \\
 S2 & Vt    & 13.8  & 25.1  & 55.4  & 0.840 &   \\
 S2 & SpO2  & 0.012 & 0.006 & 0.011 & 0.022 &   \\
 S2 & PaO2  & 16.1  & 8.90  & 17.2  & 0.073 &   \\
-S2 & \textbf{PaCO2} & \textbf{5.12} & 1.07 & 2.13 & \textbf{0.000} & * \\
+S2 & \textbf{PaCO2} & \textbf{5.12} & 1.07 & 2.13 & \textbf{$<$ 0.001} & * \\
 \midrule
 S3 & HR    & 4.77  & 3.86  & 8.61  & 0.333 &   \\
 S3 & MAP   & 0.94  & 0.98  & 2.02  & 0.538 &   \\
 S3 & Vt    & 36.3  & 20.8  & 45.9  & 0.129 &   \\
 S3 & SpO2  & 0.014 & 0.009 & 0.017 & 0.119 &   \\
 S3 & PaO2  & 8.82  & 6.57  & 12.8  & 0.245 &   \\
-S3 & \textbf{PaCO2} & \textbf{2.94} & 0.75 & 1.33 & \textbf{0.000} & * \\
+S3 & \textbf{PaCO2} & \textbf{2.94} & 0.75 & 1.33 & \textbf{$<$ 0.001} & * \\
 \midrule
 S4 & HR    & 1.38  & 4.73  & 11.2  & 0.953 &   \\
 S4 & MAP   & 1.50  & 1.44  & 2.82  & 0.460 &   \\
@@ -2202,7 +2215,7 @@ multiple-comparisons control and is therefore reported *unbolded* in
 the table.
 
 **Honest interpretation.** Five of 24 (cell × output) Wasserstein
-distances survive BH-FDR control at q = 0.05 against a within-sex
+distances survive BH-FDR control at q = 0.05 against a permutation-based
 sub-sampling null. **All five are gas-exchange channels:** PaCO2 ×3,
 SpO2 ×1, PaO2 ×1.
 
@@ -2240,15 +2253,15 @@ under typical ICU monitoring tolerances.
 output distributions, per scenario × output, in each output's native
 units (bpm, mmHg, mL, %).
 **How to read it:** each bar is one (scenario, output) cell; the
-observed M-vs-F distance is compared against a within-sex
+observed M-vs-F distance is compared against a permutation-based
 sub-sampling null (n = 2,000 random splits of the combined M+F clean
 runs); cells flagged with `*` exceed the 95th-percentile of the null.
 **Key takeaway:** 5 of 24 cells survive BH-FDR control at q = 0.05 —
 *all five on gas-exchange channels* (PaCO2 × 3, SpO2 × 1, PaO2 × 1).
-Cardiovascular and Vt distances fall within the within-sex baseline
+Cardiovascular and Vt distances fall within the permutation-null baseline
 at this sample size.
 
-![Figure 4. H4 — 1-Wasserstein distance, M vs F clean-run outputs, per scenario × output, in each output's native units. Bars marked `*` exceed the within-sex sub-sampling null (n = 2,000 splits) at the 95th percentile; under BH-FDR control at q = 0.05, **5 of 24** survive — all 5 on gas-exchange channels (PaCO2 × 3, SpO2 × 1, PaO2 × 1). S2 SpO2 (p_emp = 0.022) is the BH-demoted row. Source: `results/wasserstein_male_vs_female.csv` + `results/bh_fdr_survivors.csv` (S006 / S008).](../figures/fig04_h4_wasserstein.png)
+![Figure 4. H4 — 1-Wasserstein distance, M vs F clean-run outputs, per scenario × output, in each output's native units. Bars marked `*` exceed the permutation null (n = 2,000 splits) at the 95th percentile; under BH-FDR control at q = 0.05, **5 of 24** survive — all 5 on gas-exchange channels (PaCO2 × 3, SpO2 × 1, PaO2 × 1). S2 SpO2 (p_emp = 0.022) is the BH-demoted row. Source: `results/wasserstein_male_vs_female.csv` + `results/bh_fdr_survivors.csv` (S006 / S008).](../figures/fig04_h4_wasserstein.png)
 
 **Spearman ρ on μ\* rankings with paired-input bootstrap CI.** ρ is
 computed wherever both sexes have clean elementary-effect pairs
@@ -2318,9 +2331,9 @@ driving Vt is not clearly preserved across sex.
 * H4 is **partially supported**, with the strong signal concentrated
   on gas-exchange outputs.
 * **Sex effect is real on PaCO2 (S1, S2, S3), SpO2 (S4), and PaO2 (S4)** —
-  these survive the within-sex null under BH-FDR control at q = 0.05.
+  these survive the permutation null under BH-FDR control at q = 0.05.
 * **Sex effect on HR, MAP, Vt is not distinguishable from
-  within-sex sub-sampling** at our sample size. Either it does not
+  the permutation null** at our sample size. Either it does not
   exist, or it is below the detection floor of 42 – 144 clean runs
   per cell.
 * **Input-importance rankings are similar by sex** (Spearman ρ
@@ -2936,7 +2949,7 @@ therefore disagree on absolute rates — the atlas exposes
 boundary-region failure that Cornish's sepsis-cohort intervention
 sequences do not visit — but agree on the *ordinal* pattern: PaCO2
 is the channel where Hoeffding rejections concentrate in Cornish,
-and PaCO2 is also the channel where the atlas finds within-sex
+and PaCO2 is also the channel where the atlas finds permutation-based
 Wasserstein significance (§3.6 H4); both papers single it out as
 the most assessment-sensitive gas-exchange variable. Cornish's
 bootstrap counts (Appendix Table 5) reinforce this: PaCO2 rises to
@@ -3274,7 +3287,7 @@ landing ~ 20 mmHg below the alveolar-gas-equation prediction
 consistent with Pulse's modelled A-a gradient rather than an
 oxygenation defect. We also established patient sex as a
 previously uncharacterized, *regime-dependent* reliability-sensitivity
-axis: concentrated on gas-exchange outputs under within-sex BH-FDR
+axis: concentrated on gas-exchange outputs under permutation-based BH-FDR
 control (5 of 24 cell × output Wasserstein survivors, §3.6) and on
 the male input-extreme divergence cluster mediated by Pulse's
 blood-volume baseline ([S018](#s018); 20 / 20 → 0 / 20 BV
