@@ -94,7 +94,7 @@ caught equally.*
   expected_value: 643
   format_in_paper: '643~mmHg'
   expected_occurrences: 3
-  notes: 'Appears 3 times: paper.tex abstract sentence 4 "median 643~mmHg" (1) + paper.tex §2.4 prose "the converged S1 plateau median was 643~mmHg" (1) + supplement §S9 prose "converged-subset median PaO2 of 643~mmHg" (1). The supplement Figure-S3 caption trajectory endpoint was changed 643 -> 639 in Supplement Pass C (SP-C.D2: figure median recomputed over the 38 physiological-converged runs, excluding the 3 numerical runaways), dropping the expected count from 4 to 3. All use ~ non-breaking space.'
+  notes: 'Appears 3 times: paper.tex abstract sentence 4, which since commit 6403787 reads "near the alveolar-gas ceiling (643~mmHg)" and no longer "median 643~mmHg" (1) + paper.tex §2.4 prose "the converged S1 plateau median was 643~mmHg" (1) + supplement §S9 prose "converged-subset median PaO2 of 643~mmHg" (1). The supplement Figure-S3 caption trajectory endpoint was changed 643 -> 639 in Supplement Pass C (SP-C.D2: figure median recomputed over the 38 physiological-converged runs, excluding the 3 numerical runaways), dropping the expected count from 4 to 3. All use ~ non-breaking space.'
 
 - paper_section: 'Abstract'
   paper_context: 'Divergence count (all male, input-extreme regime)'
@@ -249,6 +249,14 @@ caught equally.*
   format_in_paper: 'median 0.928'
   expected_occurrences: 1
   notes: 'Appears once in Figure 2 caption as ", median 0.928".'
+
+- paper_section: 'Abstract + §3 Discussion'
+  paper_context: 'H1 median top-3 fraction (rounded-percentage display form)'
+  monograph_claim_id: 'T1.08'
+  expected_value: 0.928
+  format_in_paper: 'median 93~\%'
+  expected_occurrences: 2
+  notes: 'Added 2026-08-01 (finding F-1 of the step-wise fact-check). Same underlying value as the two rows above, in its rounded-percentage display form: T1.08 = 0.9277 -> 92.77 % -> 93 %. Appears twice, both in paper.tex: the Abstract ("median 93~\% of total sensitivity") and the Discussion ("a median 93~\% of summed $\mu^{*}$"). Before this row, a future correction to 0.928 would have updated the two guarded loci and silently left these two behind, because the crosswalk guards the fraction and not its percentage form.'
 
 - paper_section: '§2.2 Morris (prose)'
   paper_context: 'H1 top-3 fraction range across cells'

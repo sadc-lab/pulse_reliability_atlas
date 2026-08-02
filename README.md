@@ -276,7 +276,7 @@ quick canary check), confirm the pipeline by running:
 ```bash
 uv run pytest tests/ -v                       # S009/S015 unit tests
 uv run python scripts/audit_claims.py          # S024 -- fresh clone prints 266/267 PASS (1 SKIPPED: T1.06u, gitignored raw S021 data); 267/267 with full local data
-uv run python scripts/audit_claims.py --check-paper-sync --check-monograph   # + 97 paper crosswalk entries and 26 monograph anchors
+uv run python scripts/audit_claims.py --check-paper-sync --check-monograph   # + 98 paper crosswalk entries and 26 monograph anchors
 ```
 
 The audit has three layers, all gated by the pre-commit hook and by CI:
@@ -284,7 +284,7 @@ The audit has three layers, all gated by the pre-commit hook and by CI:
 | Layer | Flag | What it checks |
 |---|---|---|
 | Claims ledger | *(default)* | Re-derives 267 numerical claims from the canonical data artifacts and compares them against the value printed in the manuscript. This is the layer that verifies **correctness**. |
-| Paper crosswalk | `--check-paper-sync` | 97 entries: every number the npj paper and supplement restate from the monograph still appears there, with the expected occurrence count (`preprint_npj/paper_to_monograph_map.md`). |
+| Paper crosswalk | `--check-paper-sync` | 98 entries: every number the npj paper and supplement restate from the monograph still appears there, with the expected occurrence count (`preprint_npj/paper_to_monograph_map.md`). |
 | Monograph anchors | `--check-monograph` | 26 anchors: numerical claims that live **only** in the monograph, with no ledger anchor and no crosswalk row (`preprint/monograph_anchor_map.md`). A presence guard — it detects a verified value silently drifting; it does **not** verify correctness, so every anchor is re-derived by hand before being locked. |
 
 The pilot gate study itself is a runnable smoke test on cell (S1, M):

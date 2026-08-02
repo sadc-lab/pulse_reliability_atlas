@@ -170,7 +170,7 @@ A second-tier variance-based analysis (Sobol) was preregistered as a conditional
 
 Applied as written, the trigger fires on 72 of the 144 top-three inputs, spanning 43 of the 48 cell $\times$ output combinations. The same preregistration capped the bolt-on at 1{,}500 additional runs, using a cost model of $64 \times (2k + 2)$ per promoted configuration. A Sobol sample cannot be shared across cells, because each scenario--sex cell is a different model. The narrowest reading of that formula --- one promoted input at a base sample of 64 --- already costs 256 runs per cell, and 11{,}008 runs across 43 cells. The bolt-on exceeded its own preregistered envelope by more than sevenfold, and would have done so under the narrower dominant-input reading as well (8 cells, 2{,}048 runs). It is therefore reported rather than executed, and a ready-to-fire SALib implementation is preserved in the released code base.
 
-The preregistered rule conditions on the point ratio and attaches no uncertainty qualifier. We therefore add a post-hoc sensitivity analysis, and label it as such: trajectories are resampled 1{,}000 times per combination and $\sigma / \mu^{*}$ is recomputed jointly on each draw, so that the resulting interval covers the ratio itself. Bootstrapping $\sigma$ alone and dividing by a fixed $\mu^{*}$ would ignore the covariance between the two and widen the interval in an uncontrolled direction. Under five independent seeds, 23 of the 144 top-three inputs keep a lower bound at or above 0.6 in every draw. Repeating the whole procedure at 2{,}000 and at 4{,}000 resamples returns the same 23 combinations, and at 500 one combination is lost, so the stable set does not depend on the resample count. The stable set spans 17 of the 48 cells, all seven swept inputs, all four scenarios, and both reference bodies (12 female, 11 male). PEEP is the most frequent single input at 8 of 23, followed by respiratory rate at 5.
+The preregistered rule conditions on the point ratio and attaches no uncertainty qualifier. We therefore add a post-hoc sensitivity analysis, and label it as such: trajectories are resampled 1{,}000 times per combination and $\sigma / \mu^{*}$ is recomputed jointly on each draw, so that the resulting interval covers the ratio itself. Bootstrapping $\sigma$ alone and dividing by a fixed $\mu^{*}$ would ignore the covariance between the two and widen the interval in an uncontrolled direction. Under five independent seeds, 23 of the 144 top-three inputs keep a lower bound at or above 0.6 in every draw. Repeating the whole procedure at 2{,}000 and at 4{,}000 resamples returns the same 23 combinations, and at 500 one combination is lost, so the stable set does not depend on the resample count. The stable set spans 17 of the 48 cell $\times$ output combinations, all seven swept inputs, all four scenarios, and both reference bodies (12 female, 11 male). PEEP is the most frequent single input at 8 of 23, followed by respiratory rate at 5.
 
 One structural limit governs how that map should be read. The elementary-effect estimator uses only runs that carry no flag, so a regime unstable enough to flag its own runs cannot also supply the pairs needed to characterise it. Delivered tidal volume is the clearest case. It is the most affected output in the stable set (8 of 23), yet none of those 8 falls in S1. That is the scenario where its oscillation is most prevalent: a delivered-Vt coefficient of variation above 0.05 on 139 of 320 runs, against 36 of 320 in S3. The median top-three input retains 3 clean trajectories in S1 and 16 in S3. Non-linearity is consequently easiest to establish where the engine is most stable, which is the opposite of where it matters most.
 
@@ -747,13 +747,13 @@ uv run python scripts/analyze_sweep.py
 
 # 4. Re-derive the computed quantitative claims in the
 #    manuscript + supplement from the canonical artefacts; expect
-#    267/267 PASS (exit 0) with the authors' full data tree,
-#    or 266/267 on a public clone (T1.06u auto-skipped).
+#    289/289 PASS (exit 0) with the authors' full data tree,
+#    or 288/289 on a public clone (T1.06u auto-skipped).
 uv run python scripts/audit_claims.py
 
 # 5. Optional: verify paper.tex + supplement.tex remain
 #    in sync with the audit ledger via the paper-to-
-#    monograph crosswalk map; expect 97/97 PASS exit 0.
+#    monograph crosswalk map; expect 98/98 PASS exit 0.
 uv run python scripts/audit_claims.py --check-paper-sync
 \end{lstlisting}
 
@@ -767,7 +767,7 @@ Bit-exact reproduction of the canonical sweep output is verified at three indepe
 \item \textbf{Derived statistical artefacts.} The Morris $\mu^{*}$ indices, bootstrap confidence intervals, Wasserstein distances, Spearman correlations, and BH-FDR survivors all regenerate bit-equivalently from the canonical aggregated parquets; this is what the audit ledger (\texttt{scripts/audit\_claims.py}) re-derives at every run.
 \end{enumerate}
 
-The audit ledger is the primary reproducibility instrument: a green ledger run confirms that the computed quantitative claims in the main manuscript and supplement are consistent with the canonical artefacts. The ledger reports a target of 267 anchors; on the authors' full data tree all 267 are evaluated (267/267 PASS), whereas on a public clone one anchor (T1.06u, the S021 time-to-95\%-plateau, which requires the heavy raw per-run trajectories that are gitignored) is automatically skipped, giving 266/267 PASS with one explicitly-reported SKIPPED. A failed claim is a structured triage item (Type A transcription drift, Type B orphaned number, Type C derivation mismatch) with a precise file:line pointer for forensic tracing.
+The audit ledger is the primary reproducibility instrument: a green ledger run confirms that the computed quantitative claims in the main manuscript and supplement are consistent with the canonical artefacts. The ledger reports a target of 289 anchors; on the authors' full data tree all 289 are evaluated (289/289 PASS), whereas on a public clone one anchor (T1.06u, the S021 time-to-95\%-plateau, which requires the heavy raw per-run trajectories that are gitignored) is automatically skipped, giving 288/289 PASS with one explicitly-reported SKIPPED. A failed claim is a structured triage item (Type A transcription drift, Type B orphaned number, Type C derivation mismatch) with a precise file:line pointer for forensic tracing.
 
 \subsection{Independent reproduction on separate hardware}\label{sec:s12-independent}
 

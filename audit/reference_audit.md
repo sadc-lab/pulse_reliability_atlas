@@ -1334,6 +1334,30 @@ Evaluating Eq. (1), `S = (((Po2^3 + 150·Po2)^-1 × 23,400) + 1)^-1`:
 
 ### 🔴 OPEN — three decisions for the author; nothing was modified in the manuscripts
 
+> ### ✅ STALE — OPEN-1 and OPEN-1b were CLOSED three hours after this block was written
+>
+> This block was committed in `0abca30` at **2026-07-28 10:11**. Commit
+> **`49a62e6`, 2026-07-28 13:25**, *"Make the two Severinghaus-derived numbers
+> match the equation we cite, and say which curve it is"*, fixed both loci and
+> this register was never updated. Re-verified at source on **2026-08-01**:
+>
+> - `supplement.tex:223` now reads **"SpO$_2 \approx 0.32$"** — the value the
+>   equation gives (0.3198). Zero occurrences of `0.30` remain in either file.
+> - `manuscript.md:1029` now reads **"PaO2 ≈ 23 mmHg"** (equation: 22.99), and
+>   the withdrawn *"below the cellular oxygen-extraction threshold"* clause is
+>   gone from the source. It survives only in `preprint/build/mono.txt`, a
+>   gitignored build artefact.
+>
+> That commit also went **further than this block asked**: all three loci now say
+> *"the **standard** Severinghaus dissociation curve"*, because the paper's own
+> abstract fits the *standard* curve (pH 7.40, 37 °C, PaCO2 40 mmHg) and these
+> bounds are applied in severe ARDS, where acidosis and hypercapnia shift the
+> curve rightward — so an acidotic patient's real saturation at PaO2 = 20 mmHg
+> is **lower** than 0.32. Quoting two decimals without "standard" claimed a
+> physiological precision that does not exist.
+>
+> **Do not re-open or re-apply either item.** Kept below for the record only.
+
 **OPEN-1 — `severinghaus1979`, SpO2 at PaO2 = 20 mmHg.** `supplement.tex:221` and
 `manuscript.md:1095` justify the PaO2 lower bound with "PaO2 = 20 mmHg corresponds to
 SpO2 ≈ 0.30 on the Severinghaus dissociation curve". The cited equation gives
