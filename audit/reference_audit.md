@@ -1379,3 +1379,285 @@ floor and the dose-response without invoking the ATLS classification or Nadler's
 equations. Verified by grep over `preprint/manuscript.md`.
 
 
+
+
+---
+
+# Phase 4 — 2026-07-29 — **bibliographic METADATA** swept against external authorities
+
+**A new axis, not a repeat.** Everything above this line audits whether each
+source *says what we make it say*. This phase audits the **bibliographic
+record itself**: authors, title, journal, year, volume, issue, pages, DOI,
+PMID, edition, URL. Commissioned by the author on 2026-07-29 as point 3 of
+the three final pre-submission audits.
+
+Scope: **all 40 entries of `preprint_npj/paper.bib` and all 31 of
+`preprint/references.bib`** (30 keys are shared, so 41 distinct works).
+
+## Instruments
+
+| Authority | Used for | Coverage |
+|---|---|---|
+| NCBI E-utilities `esummary` (db=pubmed) | every entry carrying a `pmid` | **18 / 18 records returned** |
+| Crossref REST API | every entry carrying a `doi` | **25 / 25 records returned** |
+| arXiv API `export.arxiv.org/api/query` | `cornish2023` | entry retrieved |
+| DBLP publication API | `lundberg2017` (NeurIPS, absent from Crossref) | record retrieved |
+| OpenLibrary | the four books, by ISBN | 3 by ISBN, 1 by title search |
+| Local `Pulse_engine_adults_Gitlab` clone | Pulse release dating | `git log REL_4_3_1` |
+| HTTP GET | the 9 URL-identified entries | **9 / 9 → HTTP 200** |
+
+Scripts, kept in the session scratchpad and re-runnable: `bib_dump.py`,
+`bib_metadata_verify.py` (fetch + cache to `bib_authority.json`),
+`bib_metadata_compare.py` (field-by-field diff), `bib_followups.py`,
+`bib_followups2.py`, `bib_url_and_atls.py`, `bib_note_leak.py`,
+`bib_leak_locate.py`.
+
+## Result
+
+**45 entry-checks ran against an authority record. 28 came back clean on every
+field. 17 raised a flag — and 16 of the 17 are artefacts of the comparison or
+of the authority's own house style, not defects in our bibliography.**
+
+### The 16 non-defects, itemised so nobody re-opens them
+
+| Pattern | Entries | Why it is not a defect |
+|---|---|---|
+| PubMed truncates the end page (`520-31` for `520–531`) | `akoumianaki2014`, `ards2012`, `blanch2015`, `brower2000`, `nadler1962`, `sinderby1999`, `singer2016`, `thille2006` | PubMed's house abbreviation. **Our full ranges are the correct form and the one Nature style wants.** |
+| Crossref stores only the first page | `singer2016` (`801`), `sinnige2026active` (`874`) | Crossref record is incomplete; PubMed gives `801-10` and `874-884`, matching us |
+| PubMed splits a collective author, so the "first author" and the author count differ | `ards2012` (ARDS Definition Task Force), `brower2000` (ARDS Network) | We deliberately carry the collective name as the leading author, which is how both papers are cited |
+| Crossref returns the journal name with an HTML entity, `Environmental Modelling &amp; Software` | `campolongo2007` | encoding, not content |
+| Comparator split `Munaf{\`o}` into `munaf o` | `munafo2017` | defect **in the comparison script**, not in the `.bib` |
+| Crossref truncates the title at the colon | `ards2012`, `sinnige2026active` | PubMed carries the full titles, and they match ours exactly |
+
+### Verified correct, against an authority, field by field
+
+`bray2019` · `evans2021sepsis` · `figueroacasas2016` · `herman2017salib` ·
+`iwanaga2022` · `katsoulakis2024digitaltwins` · `kuczmarski2002cdc` ·
+`lundberg2020tree` · `morris1991` · `nin2017` · `severinghaus1979` ·
+`webb2020` · `webb2022vent` · `wilkinson2016` — in `paper.bib`; and
+`bray2019` · `brower2000` · `emeriaud2023` · `evans2021sepsis` ·
+`figueroacasas2016` · `herman2017salib` · `iwanaga2022` · `lundberg2020tree` ·
+`morris1991` · `nin2017` · `severinghaus1979` · `webb2020` · `webb2022vent` ·
+`wilkinson2016` — in `references.bib`.
+
+---
+
+## Findings
+
+### ✅ M-1 — `lundberg2017`: page range confirmed at an authority
+
+Absent from Crossref (NeurIPS proceedings are not deposited). **DBLP**:
+*A Unified Approach to Interpreting Model Predictions*, venue NIPS, year 2017,
+pages **4765-4774**, authors Scott M. Lundberg and Su-In Lee. Our
+`howpublished` reads "Advances in Neural Information Processing Systems 30
+(NeurIPS 2017), pp. 4765--4774". **Exact match.** No change.
+
+### ✅ M-2 — `cornish2023`: still a preprint, so the citation form is right
+
+arXiv API, entry `2301.07210`:
+
+- `id` = `http://arxiv.org/abs/2301.07210v4` — **v4**, the version the content
+  audit read
+- title *Causal Falsification of Digital Twins* ✓
+- authors Rob Cornish, Muhammad Faaiz Taufiq, Arnaud Doucet, Chris Holmes ✓
+- published 2023-01-17, last updated **2023-11-02**
+- **`arxiv:journal_ref` absent** → the paper has still not appeared in a
+  journal, so citing it as an arXiv preprint remains correct
+- no arXiv DOI registered (Crossref returns 404 for
+  `10.48550/arXiv.2301.07210`), so its absence from our entry is right
+
+The only thing not recorded is the **version**. The content audit above read
+v4 specifically; the `.bib` says only `arXiv:2301.07210`. Optional
+improvement, no error.
+
+### ✅ M-3 — the four books check out
+
+| Entry | ISBN in `.bib` | OpenLibrary record | Verdict |
+|---|---|---|---|
+| `west2020respiratory` | 978-1-9751-3918-6 | *West's Respiratory Physiology*, John B. West & Andrew M. Luks, LWW, **Oct 13 2020** | ✓ |
+| `marini2018critical` | 978-1-4963-0291-5 | *Critical Care Medicine*, John J. Marini & David J. Dries, LWW, **Nov 03 2018** | ✓ |
+| `marino2013icu` | 978-1-4511-2118-6 | *ICU Book*, Paul L. Marino, Lippincott Williams & Wilkins / Wolters Kluwer, **2013** | ✓ |
+| `atls2018` | *(none recorded)* | *ATLS Advanced Trauma Life Support 10th Edition Student Course Manual*, first published **2018**; "American College of Surgeons. Committee on Trauma" is a recorded author form | ✓ |
+
+### 🟩 M-4 — **OPEN-2 and OPEN-3 are resolved. Both years are already correct; change nothing.**
+
+Both open items asked whether the `year` should follow the publication date or
+the copyright page.
+
+- **OPEN-2 `west2020respiratory`** — our `year = 2020`. Publisher and
+  OpenLibrary both give **13 October 2020**. The supplied copy's copyright page
+  reads 2021.
+- **OPEN-3 `marini2018critical`** — our `year = 2018`. OpenLibrary gives
+  **3 November 2018**. Copyright page reads 2019.
+
+Both gaps are the standard next-year imprint convention on a book published
+late in the calendar year. The publication date is the citable date, two
+independent sources agree with what we already have, and **the rendered
+bibliography is correct as it stands**. Recorded as resolved; nothing modified,
+because nothing needed modifying.
+
+### ✅ M-5 — all nine cited URLs are live
+
+Every entry whose bibliographic identity is a URL was fetched: **9 / 9 returned
+HTTP 200, none redirected.** `arxiv.org/abs/2301.07210` plus the eight Kitware
+documentation pages (`_about_pulse`, `_cardiovascular_methodology`,
+`_circuit_methodology`, `_f_a_q`, `_mechanical_ventilator_methodology`,
+`_patient_methodology`, `_respiratory_methodology`, `_system_methodology`).
+
+Also confirmed while checking: a PyMuPDF text extraction of `paper.pdf` renders
+these as `pulse.kitware.com/ f a q.html`, which reads like broken underscores.
+**It is an extraction artefact.** The page image and the PDF link annotations
+both carry the underscores intact.
+
+### 🟡 M-6 — `mancia2023esh`: our title is shorter than the authoritative one
+
+Our entry: *2023 ESH Guidelines for the management of arterial hypertension*.
+
+PubMed (PMID 37345492): *2023 ESH Guidelines for the management of arterial
+hypertension The Task Force for the management of arterial hypertension of the
+European Society of Hypertension: Endorsed by the International Society of
+Hypertension (ISH) and the European Renal Association (ERA).*
+
+Crossref carries the same long form, truncated slightly earlier.
+
+Nature style says the title should be "written exactly as it appears in the
+work cited" (`SG`, References). Two defensible readings, and this register does
+not pick one:
+
+1. **The long form is the record title.** Two independent authorities carry it.
+2. **The short form is the article's actual title.** What follows it is the
+   task-force byline, concatenated into the title field by the indexers — an
+   artefact of how *Journal of Hypertension* deposits guideline documents, not
+   part of the title on the page.
+
+**Author decision. Nothing modified.**
+
+### 🟡 M-7 — `sinnige2026active` has no `pmid` field, though its PMID is confirmed
+
+Seventeen sibling entries in `paper.bib` carry a `pmid`. This one does not.
+
+Resolved at source today: an `esearch` on `10.1001/jama.2025.24384[doi]`
+returns exactly one hit, **PMID 41361939**, and its `esummary` confirms every
+field we already carry — title including the `: A Randomized Clinical Trial`
+subtitle, JAMA, 2026 Mar 10, **335(10)**, pp. **874-884**, six listed authors
+with Sinnige JS, Buiteman-Kruizinga LA and Horn J leading.
+
+Six authors is more than five, so the `and others` truncation is also correct
+under Nature style ("more than five … only the first author … followed by
+*et al.*").
+
+The `pmid` field is never rendered (see M-9), so this is a completeness gap in
+the working instrument, not a defect on the page. Ground truth re-derived and
+unambiguous, no scientific claim touched → **applied**.
+
+### 🟡 M-8 — the eight Kitware entries date to the access year, not the document year
+
+All eight carry `year = {2026}` and render as `(2026)`.
+
+**Pulse `REL_4_3_1` was tagged 2025-01-24** (`git log -1 REL_4_3_1` in the
+local `Pulse_engine_adults_Gitlab/engine` clone; `REL_4_3_2` on 2025-08-12,
+build-system only). So the documentation these entries cite is a 2025 artefact,
+displayed with a 2026 date.
+
+Only `pulsefaq` declares what 2026 means, through the one surviving rendering
+note: `note = {Accessed April 2026.}`. The other seven say nothing.
+
+Two defensible readings again:
+
+1. **It is already correct.** Nature's own *Online material* example puts the
+   access/retrieval year in the parentheses for web content, and these pages
+   are living documents.
+2. **It misleads.** A reader takes `(2026)` for the document's year and cannot
+   tell that the object cited is v4.3.1, released January 2025.
+
+A middle path exists that asserts nothing new: give the other seven the same
+`note = {Accessed April 2026.}` that `pulsefaq` already carries. **Author
+decision. Nothing modified.**
+
+### 🟩 M-9 — the `note` fields in `references.bib` do **not** leak. Hypothesis raised and discarded.
+
+`references.bib` carries a rendering `note` on **26 of its 31 entries**, some
+very long (`pulserespmethod` 1,461 characters, `west2020respiratory` 1,241,
+`marini2018critical` 1,192, `marino2013icu` 1,150 — including a dated internal
+`WARNING [2026-07-27]` about a chapter mapping). `paper.bib`, fixed on
+2026-07-25/26 by commits `64fe63b` and `7a46040`, has exactly **one** rendering
+note left (`Accessed April 2026.`, genuinely bibliographic), plus 30
+`internal_note` and 18 `pmid` fields that BibTeX never emits.
+
+The obvious inference — that the twin defect had reappeared and the monograph
+was printing PMIDs — **is wrong**, and it is written down here so nobody
+re-derives it:
+
+1. A first probe found 15 `PMID` strings in the rendered `manuscript.pdf`
+   reference section. That looked conclusive.
+2. Locating them precisely puts them inside **§9.7 "Verified primary references
+   (full bibliographic detail)"**, a section whose own preamble says *"Each
+   entry has been individually verified against its DOI or PMID during the
+   literature-review pass logged in `experiments_log/santino/S010_literature_review.md`"*.
+   It is hand-written prose in `manuscript.md` and deliberate scholarly
+   transparency.
+3. `scripts/build_paper.ps1` settles it: pandoc is invoked with
+   `--citeproc --bibliography references.bib` **and
+   `--metadata suppress-bibliography=true`**. Citeproc resolves inline `[@key]`
+   citations to "(Author Year)" and **never emits a bibliography at all**.
+   `manuscript.md` uses `[@key]` 55 times and `\cite{}` zero times.
+
+So the only `references.bib` fields with any rendered consequence are `author`
+and `year`, and the cross-file comparison found **no divergence** on either.
+
+Standing risk worth recording: that safety rests entirely on
+`suppress-bibliography=true` staying in the build script. If it is ever
+removed, 26 internal annotations print at once.
+
+Confirmed clean in the meantime: **0 `PMID` strings in the rendered
+`paper.pdf` and `supplement.pdf` reference lists.** The supplement's three
+`verified` hits are the words in the title of Table S1, *"Verified Pulse v4.3.1
+limitations…"*, not notes.
+
+### 🟡 M-10 — the two `.bib` files diverge on 12 keys, all the same way
+
+Of the 30 keys present in both files, **12 differ, and every one of the 12 is
+the same difference**: `paper.bib` carries `pmid = {…}` as its own field, while
+`references.bib` keeps the same PMID inside its `note` string.
+
+`ards2012` · `brower2000` · `evans2021sepsis` · `figueroacasas2016` ·
+`kuczmarski2002cdc` · `mancia2023esh` · `munafo2017` · `nin2017` ·
+`severinghaus1979` · `singer2016` · `webb2020` · `wilkinson2016`.
+
+Same information, different structure — the consequence of applying the
+2026-07-25/26 field rename to one file only. **No author, title, year, volume,
+issue, page or DOI diverges between the two files.** Harmless while M-9 holds.
+
+### 🟡 M-11 — two entries in `paper.bib` are cited nowhere in the paper or supplement
+
+`marini2018critical` and `marino2013icu` appear in `paper.bib` but in no
+`\cite` in either `paper.tex` or `supplement.tex`. Both are genuinely used in
+the monograph (6 citations in `manuscript.md`, resolved through
+`references.bib`). BibTeX simply omits uncited entries, so nothing renders and
+nothing is broken; they are dead weight in the file.
+
+Distinguish this from the scope note at the end of Phase 3: `atls2018` and
+`nadler1962` live only in `paper.bib` **and are cited there** — correct, not an
+omission. M-11 is the opposite case.
+
+---
+
+## What this phase deliberately did not do
+
+The author routed the second half of point 3 — *"do the references make sense
+where they are cited?"* — into the step-wise fact-check (point 2), so that each
+`\cite` is judged with its own paragraph in view rather than in a second pass
+over the same sections. Nothing about citation *placement* is decided here.
+
+## Decisions carried forward
+
+Open before this phase and still open: **OPEN-1** (`severinghaus1979`,
+SpO2 ≈ 0.30 vs the equation's 0.3198, at `supplement.tex:221` and
+`manuscript.md:1095`) and **OPEN-1b** (`manuscript.md:1018-1020`, PaO2 ≈ 22 vs
+23, plus the withdrawn cellular-oxygen-extraction justification that survived
+in the monograph after commit `0472424` corrected the paper).
+
+Closed by this phase: **OPEN-2** and **OPEN-3** — see M-4, both already correct.
+
+Newly open: **M-6** (`mancia2023esh` title form) and **M-8** (Kitware access
+year).
