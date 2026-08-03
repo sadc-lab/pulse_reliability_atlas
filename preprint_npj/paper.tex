@@ -159,7 +159,7 @@ Term & Definition \\
 \addlinespace
 \textbf{$\mu^{*}$} & Mean of the absolute elementary effects of one input on one output across all trajectories in a cell. The Morris input-importance metric reported in Figure~\ref{fig:morris}; large $\mu^{*}$ indicates strong influence of the input on the output in that cell. \\
 \addlinespace
-\textbf{Clean pair} & The two simulations on either side of a single Morris step (the before-step and after-step runs) when \emph{both} are flag-clean, i.e.\ neither fired any of the four failure flags (see \S\ref{sec:methods-detector}). An elementary effect needs two trustworthy endpoints, so it is computed only from clean pairs; if either run is flagged, that pair is dropped. \\
+\textbf{Clean pair} & The two simulations either side of one Morris step (the run before the step and the run after it) when \emph{both} are flag-clean, i.e.\ neither fired any of the four failure flags (\S\ref{sec:methods-detector}). An elementary effect is the difference between those two endpoints, so it is computed only from clean pairs: if either run is flagged, the pair contributes nothing. \\
 \bottomrule
 \end{tabular}
 \end{table}
