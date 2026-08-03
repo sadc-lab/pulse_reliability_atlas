@@ -58,10 +58,29 @@ where a reviewer would find each one:
 are one- or two-sided"*. `paper.tex` §4.6 names the permutation test, the BH
 correction and the Spearman correlation, but never says one- or two-sided.
 
-The honest reading of the code's behaviour is that the permutation test is
-**one-sided by construction**: the statistic is a Wasserstein *distance*, which
-is non-negative, so "more extreme" can only mean *larger*. There is no lower
+**Confirmed in the implementation**, not inferred from the statistic's name.
+`src/analysis_compare.py` computes the empirical p-value as
+
+```python
+p_emp = float(np.mean(null >= w))
+```
+
+which counts only null draws at or above the observed distance. Upper tail
+only. This is forced by the design rather than chosen: a Wasserstein distance
+is non-negative, so "more extreme" can only mean larger, and there is no lower
 tail to test.
+
+Two consequences worth stating on the form if there is room, since it asks for
+the test statistic and its uncertainty:
+
+- There are **no degrees of freedom** — the reference distribution is built by
+  2,000 relabellings of the pooled sample, not drawn from a parametric family.
+- The plain proportion above can return exactly 0 when no null draw reaches the
+  observed distance. The manuscript already handles this by reporting such
+  tests as *P* < 0.001. (Whether to use the (b+1)/(B+1) estimator instead is a
+  known open nit, audited on 2026-07-06 and **deliberately held** by the author
+  until peer review; it changes no conclusion, since 0 and 5 × 10⁻⁴ both
+  survive the BH correction. Not reopened here.)
 
 **This is a claim about the manuscript's statistics and I have not touched the
 manuscript.** Two ways forward, author's call:
