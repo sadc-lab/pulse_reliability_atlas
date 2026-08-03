@@ -159,8 +159,11 @@ claims: list[Claim] = []
 # required artefact is absent (only the documented benign-skip path is allowed;
 # see the T1.06u guard below). Each entry is (claim_id, reason). The summary
 # reports the target total as len(claims) + len(skipped), so the headline ratio
-# stays honest in every environment: full local data tree -> 267/267, public
-# clone (raw S021 trajectories gitignored) -> 266/267 with 1 SKIPPED.
+# stays honest in every environment: full local data tree -> N/N, public clone
+# (raw S021 trajectories gitignored) -> (N-1)/N with 1 SKIPPED. No example
+# value of N is written here on purpose: N is computed at run time, and a
+# hard-coded illustration is precisely what went stale between 2026-07-24 and
+# 2026-08-03, while the ledger grew from 267 to 289 anchors.
 skipped: list[tuple[str, str]] = []
 
 
@@ -236,7 +239,9 @@ def check_paper_sync(ledger_claims: list[Claim]) -> tuple[int, int, int]:
     ledger via the crosswalk at preprint_npj/paper_to_monograph_map.md.
 
     For each map entry, count `re.findall(re.escape(format_in_paper), ...)`
-    in paper.tex and compare against the entry's `expected_occurrences`.
+    across the COMBINED paper.tex + supplement.tex corpus (see the
+    `sync_corpus` construction below) and compare against the entry's
+    `expected_occurrences`, which is the TOTAL across both documents.
     Also cross-check that `monograph_claim_id` exists in the ledger and
     that `expected_value` agrees with the ledger's recorded
     manuscript_value within the same tolerance as the ledger entry.
@@ -2776,8 +2781,9 @@ n_run = len(claims)
 n_skipped = len(skipped)
 # Target total = anchors evaluated this run + anchors deliberately skipped for a
 # missing-artefact reason. Computed dynamically so the ratio cannot go stale if
-# anchors are added or removed later. Full local data tree -> 267/267; public
-# clone with the gitignored raw S021 trajectories absent -> 266/267, 1 SKIPPED.
+# anchors are added or removed later. Full local data tree -> N/N; public clone
+# with the gitignored raw S021 trajectories absent -> (N-1)/N, 1 SKIPPED.
+# Deliberately no illustrative value of N here: see the note at `skipped`.
 n_expected = n_run + n_skipped
 
 print("# Claims-Ledger Audit (S024)\n")
@@ -2847,5 +2853,124 @@ n_mono_pass = n_mono_warn = n_mono_fail = 0
 if _ARGS.check_monograph:
     n_mono_pass, n_mono_warn, n_mono_fail = check_monograph()
 
+
+# -----------------------------------------------------------------------------
+# Head-line counter guard (2026-08-03).
+#
+# The three head-line counters -- ledger anchors, crosswalk entries, monograph
+# anchors -- describe the verification instrument itself, so none of the three
+# layers above can cover them: an anchor asserting the anchor count would
+# change the count it asserts. They were therefore the only literals in the
+# corpus with no automated guard, and on 2026-08-01 exactly that failed:
+# supplement.tex was updated 267 -> 289 while preprint/manuscript.md was not,
+# leaving the two documents of one submission package contradicting each other.
+# A third counter (crosswalk 98 -> 92) drifted the same way on 2026-08-02,
+# because the N-1 restructuring deliberately did not touch supplement.tex S12.
+#
+# The guard is SHAPE-based, not locus-based, so it keeps working when text
+# moves between documents: every `X / Y PASS` ratio quoted anywhere in the
+# corpus must be one of the four legitimate audit ratios, and every counter
+# quoted next to its context word must equal the live total.
+# -----------------------------------------------------------------------------
+def check_audit_counters(n_ledger: int, n_sync_total: int, n_mono_total: int) -> int:
+    """Verify the audit's own head-line counters as quoted in the documents.
+
+    Returns the number of FAILs (0 when every quoted counter is current).
+    """
+    print("\n## Head-line counter guard\n")
+
+    docs = [
+        REPO / "README.md",
+        REPO / "preprint_npj" / "paper.tex",
+        REPO / "preprint_npj" / "supplement.tex",
+        REPO / "preprint" / "manuscript.md",
+    ]
+    # The only ratios a document may legitimately quote.
+    ok_pairs = {
+        (n_ledger, n_ledger),
+        (n_ledger - 1, n_ledger),
+        (n_sync_total, n_sync_total),
+        (n_mono_total, n_mono_total),
+    }
+    # (regex, expected value, human label). One capture group each.
+    singles = [
+        # Lookahead is load-bearing: a bare `target of (\d+)` also matches the
+        # Surviving Sepsis "MAP target of 65 mmHg" in both documents.
+        (r"target of (\d+)(?=\s*(?:anchors|is computed))", n_ledger,
+         "ledger target"),
+        (r"Re-derives \*\*(\d+)\*\* numerical claims", n_ledger, "ledger total"),
+        (r"(\d+) paper crosswalk entries", n_sync_total, "crosswalk total"),
+        (r"\*\*(\d+)\*\* entries", n_sync_total, "crosswalk total"),
+        (r"(\d+) mapped entries", n_sync_total, "crosswalk total"),
+        (r"(\d+) monograph anchors", n_mono_total, "monograph total"),
+        (r"\*\*(\d+)\*\* anchors", n_mono_total, "monograph total"),
+    ]
+
+    rows: list[tuple[str, str, str, str]] = []
+    n_bad = 0
+    for doc in docs:
+        if not doc.exists():
+            continue
+        rel = doc.relative_to(REPO).as_posix()
+        # Scan the WHOLE text, not line by line: a ratio wrapped across a line
+        # break ("current state 289 / 289\nPASS on the ...") is invisible to a
+        # per-line scan, and manuscript.md contains exactly that. Line numbers
+        # are recovered from the match offset.
+        text = doc.read_text(encoding="utf-8")
+
+        def _lineno(off: int) -> int:
+            return text.count("\n", 0, off) + 1
+
+        # Both the "N/N PASS" and the "N / N on a public clone" phrasings: the
+        # second carries no PASS token and was missed by the first version.
+        for m in re.finditer(
+            r"(\d+)\s*/\s*(\d+)\s+(PASS|on a public clone)", text
+        ):
+            pair = (int(m.group(1)), int(m.group(2)))
+            good = pair in ok_pairs
+            n_bad += 0 if good else 1
+            rows.append(
+                (f"{rel}:{_lineno(m.start())}", "ratio",
+                 f"{m.group(1)}/{m.group(2)} {m.group(3)}",
+                 "PASS" if good else
+                 f"FAIL -- expected one of {sorted(ok_pairs)}")
+            )
+        for pat, expected, label in singles:
+            for m in re.finditer(pat, text):
+                good = int(m.group(1)) == expected
+                n_bad += 0 if good else 1
+                rows.append(
+                    (f"{rel}:{_lineno(m.start())}", label, m.group(1),
+                     "PASS" if good else f"FAIL -- expected {expected}")
+                )
+
+    if not rows:
+        print("_No head-line counter quoted in any document._\n")
+        return 0
+    print("| locus | counter | quoted | verdict |")
+    print("|---|---|---:|---|")
+    for locus, label, quoted, verdict in rows:
+        print(f"| `{locus}` | {label} | {quoted} | {verdict} |")
+    print(
+        f"\n**Head-line counters:** {len(rows)} quoted, "
+        f"{len(rows) - n_bad} PASS, {n_bad} FAIL "
+        f"(live totals: ledger {n_ledger}, crosswalk {n_sync_total}, "
+        f"monograph {n_mono_total}).\n"
+    )
+    return n_bad
+
+
+n_counter_fail = 0
+if _ARGS.check_paper_sync and _ARGS.check_monograph:
+    n_counter_fail = check_audit_counters(
+        n_expected,
+        n_sync_pass + n_sync_warn + n_sync_fail,
+        n_mono_pass + n_mono_warn + n_mono_fail,
+    )
+
 # Exit non-zero if any FAIL anywhere (allows piping to CI later).
-sys.exit(1 if (n_fail + n_sync_fail + n_mono_fail) > 0 else 0)
+sys.exit(
+    1
+    if (n_fail + n_sync_fail + n_mono_fail + n_counter_fail) > 0
+    else 0
+)
