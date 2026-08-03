@@ -2473,7 +2473,7 @@ def _fmt(v):
 
 # -----------------------------------------------------------------------------
 # T5.clip -- Cost of the pulse-pressure clip on diastolic elementary effects
-# (Supplement S3.3, sec:s3-clip-cost). Re-derives every computed figure in that
+# (Supplement S3.7, sec:s3-clip-cost). Re-derives every computed figure in that
 # subsection from the canonical Morris sample + master aggregate. The clip ratio
 # and the input bounds are READ FROM SOURCE rather than hardcoded here, so these
 # anchors also fail if src/scenario.py or src/sampler.py drifts.
@@ -2531,7 +2531,7 @@ _clip_intact = len(_clip_pairs) - len(_clip_short) - len(_clip_oat)
 
 add(
     claim_id="T5.clip.points",
-    section="Supplement S3.3 / monograph 2.2",
+    section="Supplement S3.7 / monograph 2.2",
     manuscript_text="35 of 160 sampled points carry a requested DBP above the ratio and are clipped",
     source_file="data/runs/full_sweep/morris_sample.parquet",
     manuscript_value=35,
@@ -2540,7 +2540,7 @@ add(
 )
 add(
     claim_id="T5.clip.dbp_shortened",
-    section="Supplement S3.3 / monograph 2.2",
+    section="Supplement S3.7 / monograph 2.2",
     manuscript_text="9 of the 20 diastolic Morris steps are shortened by the clip",
     source_file="data/runs/full_sweep/morris_sample.parquet",
     manuscript_value=9,
@@ -2549,7 +2549,7 @@ add(
 )
 add(
     claim_id="T5.clip.min_ratio_pct",
-    section="Supplement S3.3 / monograph 2.2",
+    section="Supplement S3.7 / monograph 2.2",
     manuscript_text="the shortest applied DBP step is 6.25 percent of nominal",
     source_file="data/runs/full_sweep/morris_sample.parquet",
     manuscript_value=6.25,
@@ -2558,7 +2558,7 @@ add(
 )
 add(
     claim_id="T5.clip.oat_violations",
-    section="Supplement S3.3 / monograph 2.2",
+    section="Supplement S3.7 / monograph 2.2",
     manuscript_text="8 of the 140 steps flip SBP and move the applied DBP as well",
     source_file="data/runs/full_sweep/morris_sample.parquet",
     manuscript_value=8,
@@ -2567,7 +2567,7 @@ add(
 )
 add(
     claim_id="T5.clip.intact_steps",
-    section="Supplement S3.3 / monograph 2.2",
+    section="Supplement S3.7 / monograph 2.2",
     manuscript_text="123 of 140 sampled steps are untouched by the clip",
     source_file="data/runs/full_sweep/morris_sample.parquet",
     manuscript_value=123,
@@ -2595,7 +2595,7 @@ for _key, _cell in _clip_agg.groupby(["scenario", "sex"]):
 
 add(
     claim_id="T5.clip.clean_dbp_total",
-    section="Supplement S3.3 / monograph 2.2",
+    section="Supplement S3.7 / monograph 2.2",
     manuscript_text="78 clean diastolic elementary-effect pairs across the eight cells",
     source_file="data/runs/full_sweep/aggregated.parquet",
     manuscript_value=78,
@@ -2604,7 +2604,7 @@ add(
 )
 add(
     claim_id="T5.clip.clean_dbp_shortened",
-    section="Supplement S3.3 / monograph 2.2",
+    section="Supplement S3.7 / monograph 2.2",
     manuscript_text="41 of 78 clean diastolic elementary-effect pairs are shortened",
     source_file="data/runs/full_sweep/aggregated.parquet",
     manuscript_value=41,
@@ -2613,7 +2613,7 @@ add(
 )
 add(
     claim_id="T5.clip.clean_sbp_total",
-    section="Supplement S3.3 / monograph 2.2",
+    section="Supplement S3.7 / monograph 2.2",
     manuscript_text="68 clean systolic elementary-effect pairs across the eight cells",
     source_file="data/runs/full_sweep/aggregated.parquet",
     manuscript_value=68,
@@ -2622,11 +2622,59 @@ add(
 )
 add(
     claim_id="T5.clip.clean_sbp_affected",
-    section="Supplement S3.3 / monograph 2.2",
+    section="Supplement S3.7 / monograph 2.2",
     manuscript_text="19 of 68 clean systolic elementary-effect pairs are affected",
     source_file="data/runs/full_sweep/aggregated.parquet",
     manuscript_value=19,
     computed_value=_css,
+    tolerance_rule="exact_int",
+)
+
+# Step length versus position in the sampled space. The clip makes diastolic
+# step length a function of the systolic setting: at SBP = 90 mmHg the 0.75
+# ratio caps DBP at 67.5, so no full-length diastolic step can exist there.
+# These three anchors guard that geometry, which is what licenses the
+# supplement's statement that no difference between the nominal and the
+# applied-step estimator can be attributed to step length alone.
+_clip_dbp_full = [p for p in _clip_dbp_steps if abs(p["dreq"] - p["dapp"]) <= 1e-9]
+_clip_min_app = min(abs(p["dapp"]) for p in _clip_short)
+_clip_smallest_sbp = sorted(
+    {
+        float(_clip_smp.loc[p["a"], "sbp"])
+        for p in _clip_short
+        if abs(abs(p["dapp"]) - _clip_min_app) < 1e-9
+    }
+)
+assert len(_clip_smallest_sbp) == 1, (
+    f"audit_claims: shortest DBP steps span SBP {_clip_smallest_sbp}, expected one"
+)
+_clip_full_sbp_min = min(float(_clip_smp.loc[p["a"], "sbp"]) for p in _clip_dbp_full)
+
+add(
+    claim_id="T5.clip.dbp_full_steps",
+    section="Supplement S3.7 / monograph 2.2",
+    manuscript_text="11 of the 20 diastolic Morris steps keep their full length",
+    source_file="data/runs/full_sweep/morris_sample.parquet",
+    manuscript_value=11,
+    computed_value=len(_clip_dbp_full),
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T5.clip.smallest_step_sbp",
+    section="Supplement S3.7 / monograph 2.2",
+    manuscript_text="the shortest diastolic steps occur only at SBP = 90 mmHg",
+    source_file="data/runs/full_sweep/morris_sample.parquet",
+    manuscript_value=90,
+    computed_value=int(_clip_smallest_sbp[0]),
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T5.clip.full_step_sbp_min",
+    section="Supplement S3.7 / monograph 2.2",
+    manuscript_text="every full-length diastolic step occurs at SBP >= 100 mmHg",
+    source_file="data/runs/full_sweep/morris_sample.parquet",
+    manuscript_value=100,
+    computed_value=int(_clip_full_sbp_min),
     tolerance_rule="exact_int",
 )
 
@@ -2679,7 +2727,7 @@ for _k, _g in _clip_mu.dropna().groupby(["sc", "sx", "out"]):
 
 add(
     claim_id="T5.clip.mustar_factor",
-    section="Supplement S3.3 / monograph 2.2",
+    section="Supplement S3.7 / monograph 2.2",
     manuscript_text="mu*(DBP) rises by a median factor of 2.4 under the applied-step denominator",
     source_file="data/runs/full_sweep/aggregated.parquet",
     manuscript_value=2.4,
@@ -2688,7 +2736,7 @@ add(
 )
 add(
     claim_id="T5.clip.dbp_enters_top3",
-    section="Supplement S3.3 / monograph 2.2",
+    section="Supplement S3.7 / monograph 2.2",
     manuscript_text="DBP enters the top three in 9 of the 48 cell-output combinations",
     source_file="data/runs/full_sweep/aggregated.parquet",
     manuscript_value=9,
@@ -2697,7 +2745,7 @@ add(
 )
 add(
     claim_id="T5.clip.h1_applied_median",
-    section="Supplement S3.3 / monograph 2.2",
+    section="Supplement S3.7 / monograph 2.2",
     manuscript_text="median top-3 fraction 0.910 under the applied-step estimator",
     source_file="data/runs/full_sweep/aggregated.parquet",
     manuscript_value=0.910,
@@ -2706,7 +2754,7 @@ add(
 )
 add(
     claim_id="T5.clip.h1_applied_min",
-    section="Supplement S3.3 / monograph 2.2",
+    section="Supplement S3.7 / monograph 2.2",
     manuscript_text="minimum top-3 fraction 0.696 under the applied-step estimator",
     source_file="data/runs/full_sweep/aggregated.parquet",
     manuscript_value=0.696,
@@ -2715,7 +2763,7 @@ add(
 )
 add(
     claim_id="T5.clip.h1_holds_both",
-    section="Supplement S3.3 / monograph 2.2",
+    section="Supplement S3.7 / monograph 2.2",
     manuscript_text="H1 holds in 48 of 48 cell-output combinations under either estimator",
     source_file="data/runs/full_sweep/aggregated.parquet",
     manuscript_value=48,

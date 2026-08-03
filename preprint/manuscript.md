@@ -645,7 +645,7 @@ underlying files are in the repository.
 | S021 | Hyperoxia convergence: 60-run pre-registered rerun at 300 s vs locked 120 s sweep window — tests whether F-003 PaO2 > 600 mmHg at FiO2 = 1.0 reflects oxygenation overshoot or transient non-convergence. |
 | S022 | No-compute failure-mode attribution audit of the locked `not_steady_state` count (Appendix C). |
 | S023 | Supplementary ML/SHAP cross-check of the Morris μ\* rankings on the clean subset (Supplementary §S11). |
-| S024 | Pre-submission claims-ledger audit — `scripts/audit_claims.py` re-derives every Tier-1/Tier-2 quantitative claim in §3 / §4 / Appendix C from the canonical parquets/CSVs and verifies it against the manuscript text (289 / 289 PASS at the locked tolerance band on the authors' full data tree; 288 / 289 on a public clone, where the one anchor needing the gitignored raw S021 trajectories is auto-skipped). |
+| S024 | Pre-submission claims-ledger audit — `scripts/audit_claims.py` re-derives every Tier-1/Tier-2 quantitative claim in §3 / §4 / Appendix C from the canonical parquets/CSVs and verifies it against the manuscript text (292 / 292 PASS at the locked tolerance band on the authors' full data tree; 291 / 292 on a public clone, where the one anchor needing the gitignored raw S021 trajectories is auto-skipped). |
 
 ---
 
@@ -849,10 +849,19 @@ in 9 of the 48 combinations from which the reported ranking excludes it. **The
 reported mu* for DBP is therefore a lower bound, not a point estimate.**
 
 We did not substitute the applied-step estimator for the preregistered one.
-Dividing by steps as small as 6.25 % of nominal amplifies output noise, so that
-estimator measures the size of the distortion rather than correcting it; and
-imposing the ratio at sampling time instead would forfeit the very geometry the
-design exists to protect. The control for this analysis is that the
+Dividing by the applied step changes the finite-difference denominator on the
+shortened diastolic transitions, but it does not restore the one-at-a-time
+property on the eight systolic transitions where the ratio constraint moves DBP
+as well, and the effective diastolic step then ranges from 0.83 to 13.33 mmHg,
+which is no longer the fixed-step design the Morris index is defined on. Step
+length is also structurally confounded with position in the sampled space: the
+shortest steps occur only at SBP = 90 mmHg, whereas all 11 full-length
+diastolic steps occur at SBP of 100 mmHg or above, so no step at the lowest
+systolic setting is full length and no difference between the two estimators
+can be attributed to step length alone. The applied-step mu* is therefore
+reported as evidence on the direction of the clip's effect, not as a
+term-by-term corrected index; and imposing the ratio at sampling time instead
+would forfeit the very geometry the design exists to protect. The control for this analysis is that the
 nominal-denominator recomputation reproduces `results/morris_indices.parquet`
 exactly — 318 / 318 rows, relative deviation 0, identical clean-pair counts —
 so the comparison is against the published pipeline rather than against a
@@ -1277,12 +1286,12 @@ an explicit per-class tolerance band (`exact_int` for integer counts;
 `displayed_1dp` / `displayed_2dp` / `displayed_3dp` for floats at
 their displayed precision; a 1 × 10⁻⁹ IEEE-754 epsilon protects
 against half-precision rounding boundaries). The current report on
-the locked manuscript is **289 / 289 PASS, 0 WARN, 0 FAIL** on the
+the locked manuscript is **292 / 292 PASS, 0 WARN, 0 FAIL** on the
 authors' full data tree. On a public clone, one anchor — T1.06u, the
 S021 time-to-95%-plateau, which requires the heavy raw per-run
 trajectories that are gitignored — is automatically skipped, so the
-script reports **288 / 289 PASS** with one explicitly-flagged SKIPPED
-(the headline target of 289 is computed dynamically as anchors-run
+script reports **291 / 292 PASS** with one explicitly-flagged SKIPPED
+(the headline target of 292 is computed dynamically as anchors-run
 plus anchors-skipped, so it cannot go stale). The
 script exits non-zero on any FAIL and is therefore CI-ready: future
 manuscript edits that drift a quoted number against its source
@@ -3336,8 +3345,8 @@ under Apache License 2.0.
   [`scripts/audit_claims.py`](../scripts/audit_claims.py) — read-only
   Python script verifying that every Tier-1 and Tier-2 quantitative
   claim in §3 / §4 / Appendix C matches the canonical artifacts
-  under explicit per-class tolerance rules; current state 289 / 289
-  PASS on the authors' full data tree (288 / 289 on a public clone,
+  under explicit per-class tolerance rules; current state 292 / 292
+  PASS on the authors' full data tree (291 / 292 on a public clone,
   where the one anchor needing the gitignored raw S021 trajectories
   is auto-skipped) ([S024](#s024); see §2.8 for protocol).
 * **Pinned Docker image hashes (byte-level reproducibility):**
@@ -3834,7 +3843,7 @@ indexed here.*
 | []{#s021} S021 | Hyperoxia convergence (60-run rerun at 300 s vs locked 120 s window; F-003 mechanism test) |
 | []{#s022} S022 | No-compute failure-mode attribution audit of the locked `not_steady_state` count (see Appendix C) |
 | []{#s023} S023 | Supplementary ML/SHAP cross-check of Morris μ\* rankings on the clean subset (see Supplementary §S11) |
-| []{#s024} S024 | Pre-submission claims-ledger audit (programmatic verification of all Tier-1 / Tier-2 quantitative claims; 289 / 289 PASS on the authors' full data tree, 288 / 289 on a public clone with one auto-skipped anchor, see §2.8) |
+| []{#s024} S024 | Pre-submission claims-ledger audit (programmatic verification of all Tier-1 / Tier-2 quantitative claims; 292 / 292 PASS on the authors' full data tree, 291 / 292 on a public clone with one auto-skipped anchor, see §2.8) |
 | []{#s025} S025 | Pre-release OSS code-hygiene audit and fixes |
 | []{#s026} S026 | Final pre-arXiv polish |
 
