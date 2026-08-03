@@ -192,7 +192,89 @@ Two rationale-table citations, `marini2018critical` and `marino2013icu`, appear
 in `supplement.tex` only. If either rationale table moved to the paper, both
 would have to be added to `paper.bib` and to the main reference list.
 
-## 7. Execution state
+## 7. What deleting the duplicated blocks would cost the audit
+
+`--check-paper-sync` counts literal occurrences over the **combined** corpus.
+A guarded literal living inside a deleted block loses an occurrence and the
+entry fails. Measured against all 98 crosswalk entries before deleting
+anything:
+
+| block proposed for deletion | crosswalk entries hit |
+|---|---|
+| S3.2 Morris sampler | 4 — `1{,}280` 39→38, `20 trajectories` 5→4, `4 grid levels` 2→1, `seed 42` 2→1. Each literal survives elsewhere; only the count moves. |
+| `tab:hard-bounds` | 6 — `HR (bpm) & 20 & 220`, `MAP (mmHg) & 30 & 180`, `Vt (mL) & 50 & 1500`, `SpO$_2$ (fraction) & 0.50 & 1.00`, `PaO$_2$ (mmHg) & 20 & 600`, `PaCO$_2$ (mmHg) & 10 & 120`. **All six drop to zero** — the table is their only witness. |
+| S3.9 scoring-rule paragraph | **0.** Nothing guarded lives in it. |
+
+The six table-row entries would have to be struck from the crosswalk, not
+decremented: the audit surface would fall from 98 to 92. That is a real loss of
+coverage, and it is avoidable — see the revision below.
+
+Note that each bound is guarded twice, in two shapes: the table-row form above,
+and an inline form (`HR [20, 220]~bpm`, expected 2 — once in `paper.tex` §4.4,
+once in `tab:hard-bounds-rationale`). Only the table-row guard is at risk.
+
+## 8. Three revisions to the plan, forced by §7 and by the SI's actual shape
+
+**(a) Merging `tab:hard-bounds` must carry the numbers, not drop them.**
+The merged `tab:hard-bounds-rationale` should gain Lower / Upper columns and
+the `T1.06p.*` anchors, and the six crosswalk literals should be **repointed to
+the new row shape** rather than struck. The audit stays at 98 entries and every
+bound keeps two independent guards.
+
+**(b) S3.2 should shrink, not vanish.** Its unique payload — the three sweep
+constants in `scripts/run_full_sweep.py` and the `T1.06e/f/g` anchors — is real
+provenance. A short code-provenance note keeps it; the duplicated 190 words of
+sampler description go.
+
+**(c) A "Supplementary Results" umbrella section was the wrong idea.** The SI
+is *already* mostly supplementary results: S4, S5, S6, S7, S8, S9, S10, S13,
+S15 and S16 all report findings. Gathering three blocks under a new umbrella
+would leave ten result sections outside it, and promoting them to top-level
+sections would renumber S4–S17 and every reference into them.
+
+**Lower-risk structure: keep §S3 as one section, retitled, and regroup its
+subsections** — provenance first, then the analyses that are not method. This
+keeps the `sec:s3` label alive, renumbers nothing, and still removes both
+things N-1 objects to: the title *Full Methods detail* and the opening sentence
+that announces the section as an expansion of §4.
+
+## 9. 🔴 A pre-existing defect found while checking the cross-references
+
+`paper.tex` §2.2, on the Morris heatmaps:
+
+> "Four cross-output patterns emerge directly from Figure~\ref{fig:morris}
+> (**full per-cell tables in Supplement~\S\,\ref{sec:s3}**)."
+
+**No such table exists.** `supplement.tex` carries 15 tables — `tab:drift`,
+`tab:drift-rationale`, `tab:hard-bounds`, `tab:hard-bounds-rationale`,
+`tab:limits`, `tab:s4-nss`, `tab:s5-berlin-calib`, `tab:s5-berlin-sweep`,
+`tab:s5-cont`, `tab:s5-mapping`, `tab:s6-rho`, `tab:s7-cornish`, `tab:s9-shunt`,
+`tab:s15-comphr`, `tab:s16-index` — and not one of them is a per-cell $\mu^{*}$
+table. The nearest, `tab:s6-rho`, reports cross-sex Spearman $\rho$ on the
+rankings, not the per-cell $\mu^{*}$ values themselves. §S3 in particular holds
+only the bounds and drift tables.
+
+The sentence promises the reader a table the supplement does not contain. This
+predates the present work and is **not** a consequence of it.
+
+Per the project's standing rule on a mismatch: recorded, **nothing modified**,
+brought back for a joint decision.
+
+## 10. A scope question N-1 did not ask
+
+§S12 *Reproducibility recipe* carries the Docker invocation template and the
+sweep, analysis and audit commands. Read maximally, npj's *"All descriptions of
+Methods should be provided in the main manuscript file"* reaches that too. The
+npj register flagged §S3 alone, because §S3 is the section that calls itself
+Methods.
+
+Recommendation: leave §S12 alone. A reproducibility recipe is an executable
+appendix rather than a methods description, §4.1 already carries the pinning
+and the three verification layers in prose, and Nature Portfolio actively asks
+for this material. Recorded so the choice is deliberate rather than an
+oversight.
+
+## 11. Execution state
 
 Nothing in `paper.tex` or `supplement.tex` has been modified. This register is
 measurement only; the restructuring plan built on it awaits author approval.
