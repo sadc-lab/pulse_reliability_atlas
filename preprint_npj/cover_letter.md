@@ -12,39 +12,28 @@ Dear Editors,
 We are pleased to submit our original research article, **"An Open Reliability Atlas of Sensitivity and Failure Modes in the Pulse Physiology Engine,"** for
 consideration as an Article in *npj Digital Medicine*.
 
-The Pulse Physiology Engine (Kitware, Apache-2.0) is a prominent
-open-source whole-body physiology simulator, and its synthetic patient
-trajectories increasingly feed device-validation studies, computational
-physiology research, and machine-learning pipelines. Yet the engine's own
-maintainers state on their public FAQ that they "have not [...] conducted a
-formal sensitivity analysis" of the model. Every downstream user has therefore
-been operating without a map of where the engine's user-facing operational
-envelope is trustworthy. **Our manuscript provides that map — the first open,
-preregistered reliability atlas of Pulse across the adult critical-care
+*npj Digital Medicine* lists **digital twins** explicitly within its scope, at
+the intersection of digital health, synthetic data, and reproducible
+computational methodology. What has not been established is how reliable they
+are as a source of data. **Our object of study is therefore not human
+physiology but the data-generating instrument itself.** The Pulse Physiology
+Engine (Kitware, Apache-2.0) is an actively maintained open-source whole-body
+physiology simulator whose synthetic patient trajectories are applied to
+device-validation studies and to computational physiology research; yet the
+engine's own maintainers state on their public FAQ that they "have not [...]
+conducted a formal sensitivity analysis" of the model. Every downstream user
+has therefore been operating without a map of where the engine's user-facing
+operational envelope is trustworthy — and any model fitted to that output
+absorbs whatever artefacts the envelope contains as though they were
+physiology. **Our manuscript provides that map — the first
+open, preregistered reliability atlas of Pulse across the adult critical-care
 envelope (1,280 Morris elementary-effects simulations spanning seven
 operational inputs, four ARDS severities, and two patient reference bodies).**
 
 Three findings make this contribution timely for the *npj Digital Medicine*
 readership:
 
-1. **A previously uncharacterised, sex-stratified solver-divergence cluster
-   with an identified mechanism.** All 20 of the 1,280 divergent runs fell on
-   the *male* reference body. We trace the effect to Pulse's allometric
-   blood-volume baseline: reducing the male baseline toward its setup-time
-   floor (4,082.24 mL) eliminated divergence at both bracket reductions (20/20 → 0/20). This
-   is a structural artefact, not a clinical phenomenon — and it means that
-   pooling male and female synthetic cohorts at input extremes silently injects
-   a spurious sex covariate into any downstream model.
-
-2. **The first public characterisation of an ARDS impairment-fraction
-   solver-instability band ([0.879, 0.945]).** Published Pulse validation work
-   samples ARDS severity only on round tenths and never probes inside this
-   interval. Our continuous-severity sweep resolves two distinct divergence
-   regimes — an input-driven regime on the male body and a severity-driven
-   regime affecting both sexes — and gives downstream users a concrete band to
-   avoid when stable steady-state output is required.
-
-3. **A reusable, open data-quality instrument for synthetic-cohort science.**
+1. **A reusable, open data-quality instrument for synthetic-cohort science.**
    The per-cell, four-flag traffic-light map is the atlas's principal
    deliverable: a drop-in filter that tells a clinical-AI or ML practitioner
    which Pulse configurations are safe to ingest, which require flag-stratified
@@ -53,14 +42,29 @@ readership:
    collapses tidal-volume dyssynchrony, and a steady-state-window correction for
    hyperoxia simulation at FiO₂ = 1.0.
 
-The work sits squarely within *npj Digital Medicine*'s scope at the
-intersection of digital health, synthetic data, and reproducible computational
-methodology. It directly addresses a stated gap acknowledged by the engine's
+2. **A previously uncharacterised, sex-stratified solver-divergence cluster
+   with an identified mechanism.** All 20 of the 1,280 divergent runs fell on
+   the *male* reference body. We trace the effect to Pulse's allometric
+   blood-volume baseline: reducing the male baseline toward its setup-time
+   floor (4,082.24 mL) eliminated divergence at both bracket reductions (20/20 → 0/20). This
+   is a structural artefact, not a clinical phenomenon — and it means that
+   pooling male and female synthetic cohorts at input extremes silently injects
+   a spurious sex covariate into any downstream model.
+
+3. **The first public characterisation of an ARDS impairment-fraction
+   solver-instability band ([0.879, 0.945]).** Published Pulse validation work
+   samples ARDS severity only on round tenths and never probes inside this
+   interval. Our continuous-severity sweep resolves two distinct divergence
+   regimes — an input-driven regime on the male body and a severity-driven
+   regime affecting both sexes — and gives downstream users a concrete band to
+   avoid when stable steady-state output is required.
+
+The work directly addresses a stated gap acknowledged by the engine's
 maintainers; its methodology (Morris screening plus a categorise-don't-discard
 steady-state classifier) transfers to sibling lumped-parameter engines such as
 BioGears and HumMod; and the entire pipeline — preregistration, Docker image,
-fixed seed, and a machine-checked audit ledger of every quantitative claim — is
-released open-source under Apache-2.0 for full reproducibility.
+fixed seed, and a machine-checked audit ledger of the computed quantitative
+claims — is released open-source under Apache-2.0 for full reproducibility.
 
 This manuscript is original, has not been published previously, and is not
 under consideration for publication elsewhere. All named authors have
