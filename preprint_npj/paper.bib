@@ -35,7 +35,7 @@
   title     = {Mechanical Ventilator Methodology --- Pulse Physiology Engine (v4.3.1 documentation)},
   author    = {{Kitware, Inc.}},
   howpublished = {\url{https://pulse.kitware.com/_mechanical_ventilator_methodology.html}},
-  note      = {Accessed April 2026.},
+  note      = {Accessed 3 August 2026.},
   year      = {2026},
   internal_note = {Tables 3, 5, 10, 12, 17, 19 of the validation section report Pulse vs ASL 5000 + Drager Evita Infinity V500 tidal-volume errors for VC-AC (0.0681 percent healthy / 1.01 percent restrictive / 2.25 percent obstructive) and PC-AC (11.3 percent healthy / 25.3 percent restrictive / 15.3 percent obstructive). Source of the numerical Vt-accuracy claims in this paper; the qualitative validation framework is described in @webb2022vent.}
 }
@@ -44,7 +44,7 @@
   title     = {Respiratory Methodology --- Pulse Physiology Engine (v4.3.1 documentation)},
   author    = {{Kitware, Inc.}},
   howpublished = {\url{https://pulse.kitware.com/_respiratory_methodology.html}},
-  note      = {Accessed April 2026.},
+  note      = {Accessed 3 August 2026.},
   year      = {2026},
   internal_note = {Source of the 5-compartment lung description (carina, right and left anatomic dead space, right and left alveoli) and of the no-inertance limitation, both verbatim: "five major functional units, or compartments, that are designated as the carina, right and left anatomic dead space, and right and left alveoli" and "Inertance is not included in the model on the assumption that inertia does not play a significant role under conventional tidal breathing". Verified against the live page and against the REL_4_3_1 source tree on 2026-07-26. Re-verified verbatim 2026-07-28 in the local clone at docs/Methodology/RespiratoryMethodology.md, L116-118 (compartments) and L1117-1120 (inertance, whose full sentence continues "as opposed to high-frequency ventilation"). The "byte-identical in REL_4_3_2" claim was re-tested the same day and holds: git diff REL_4_3_1..REL_4_3_2 -- docs/ returns nothing, and the whole-tag diff is 7 files (.gitignore, CMakeLists.txt, cmake/external/External_Eigen3.cmake, dockcross.cmake, xcompile.bat, xcompile.cmake, plus a 4-line change to the C# binding src/csharp/pulse/engine/PulseEngine.cs) -- not one file under src/cpp, i.e. no physiology source. Both claims were previously mis-attributed to @bray2019, which contains neither statement.}
 }
@@ -53,7 +53,7 @@
   title     = {Cardiovascular Methodology --- Pulse Physiology Engine (v4.3.1 documentation)},
   author    = {{Kitware, Inc.}},
   howpublished = {\url{https://pulse.kitware.com/_cardiovascular_methodology.html}},
-  note      = {Accessed April 2026.},
+  note      = {Accessed 3 August 2026.},
   year      = {2026},
   internal_note = {Source of the no-dicrotic-notch / no-retrograde-flow / idealised-valve limitation ("This is the dicrotic notch ... This is not currently being modeled in the engine, but improvements in the circuit model, including the addition of inertance and diodes that allow retrograde flow, will likely enable the engine waveform to capture more detail") and of the ECG P-wave / T-wave merge at high heart rate ("Due to the high heart rate, the engine output is summing together the P and T waves"). The engine ECG is a replayed waveform, not a computed one. Verified verbatim on 2026-07-26; previously mis-attributed to @bray2019.}
 }
@@ -62,7 +62,7 @@
   title     = {Patient Methodology --- Pulse Physiology Engine (v4.3.1 documentation)},
   author    = {{Kitware, Inc.}},
   howpublished = {\url{https://pulse.kitware.com/_patient_methodology.html}},
-  note      = {Accessed April 2026.},
+  note      = {Accessed 3 August 2026.},
   year      = {2026},
   internal_note = {Blood Volume Baseline table row, verbatim: Bv[mL] = 65.6 W[kg]^1.02, minimum Bv*0.85, maximum Bv*1.15, annotated "Above Stage 1 Hypovolemia". The documented 0.85 multiplier is the mechanism behind the 4,082.24 mL male setup-time floor measured in S027. Pulse itself credits Morgan et al., Clinical Anesthesiology, for the underlying blood-volume estimates; that textbook could not be consulted (the coefficients 65.6 / 1.02 appear nowhere in the indexed literature and the Morgan-derived calculators are per-kilogram, not allometric), so it is deliberately NOT cited. Verified 2026-07-26; re-verified verbatim 2026-07-28 in the local clone at docs/Methodology/PatientMethodology.md L56, the Blood Volume Baseline row, whose comment column reads exactly "Above Stage 1 Hypovolemia. @cite Morgan2006Clinical". Previously mis-attributed to @bray2019.}
 }
@@ -71,7 +71,7 @@
   title     = {Circuit Methodology --- Pulse Physiology Engine (v4.3.1 documentation)},
   author    = {{Kitware, Inc.}},
   howpublished = {\url{https://pulse.kitware.com/_circuit_methodology.html}},
-  note      = {Accessed April 2026.},
+  note      = {Accessed 3 August 2026.},
   year      = {2026},
   internal_note = {Added 2026-07-28 for the Introduction's engine-mechanics paragraph. Source of two claims, both read verbatim in the local REL_4_3_2 clone at docs/Methodology/CircuitMethodology.md (docs/ is identical in REL_4_3_1) and re-confirmed against the live page the same day, whose heading is "Circuit Methodology". L55: "In order to ease the implementation of individual system models and ensure adherence to sound physics principles, a generic circuit solver was created to centralize and solve the lumped-parameter circuit math ... DC transient analysis must be performed on nonlinear networks". L99: "Standardized circuits are defined in the CDM through paths connected by source and target nodes, similar to the netlists often used for electronic designs ... Ideal resistances, capacitances, inductances, switches, diodes, potential sources, and flux sources are assignable to paths." The paragraph names only resistances, capacitances and diodes -- the three that matter for the cardiopulmonary circuits this atlas sweeps -- and does not claim the list is complete.}
 }
@@ -80,7 +80,7 @@
   title     = {About Pulse --- Pulse Physiology Engine},
   author    = {{Kitware, Inc.}},
   howpublished = {\url{https://pulse.kitware.com/_about_pulse.html}},
-  note      = {Accessed April 2026.},
+  note      = {Accessed 3 August 2026.},
   year      = {2026},
   internal_note = {Verbatim: "easy cross-platform deployment on all standard operating systems (Windows, Mac, Linux, and ARM) and multiple languages (C++, C#, Java, Unity)". Android and iOS are NOT listed here; they appear only in the changelog (iOS build support, v4.2.0 October 2023; Android ARMv7a/v8a), which records an addition rather than continued support, so neither is claimed. The Unity/Android/iOS list on the site index refers to the Unity asset's own platform reach, not the engine's. Verified 2026-07-26; re-verified verbatim 2026-07-28 in the local REL_4_3_2 clone at docs/Markdown/About.md L13. Previously mis-attributed to @bray2019.}
 }
@@ -89,7 +89,7 @@
   title     = {System Methodology --- Pulse Physiology Engine (v4.3.1 documentation)},
   author    = {{Kitware, Inc.}},
   howpublished = {\url{https://pulse.kitware.com/_system_methodology.html}},
-  note      = {Accessed April 2026.},
+  note      = {Accessed 3 August 2026.},
   year      = {2026},
   internal_note = {Added to this file 2026-07-28 (it already existed in preprint/references.bib, where the monograph has cited it since 2026-06-05). Source of two claims, both read verbatim in the local REL_4_3_2 clone at docs/Methodology/SystemMethodology.md. L116-117: "The entire engine works off of a transient analysis time step of 0.02 s (50 Hz). All system states are recalculated every time step." L261-263, under the heading "Assumptions and Limitations": "The engine uses a low fidelity clinical approach and is not necessarily for high fidelity predictive purposes." Note that the 0.02 s here and the "time step of 20 ms" attributed to @bray2019 are the same quantity from two independent sources, not two separate facts; the ledger derives one from the other so they cannot drift apart. The self-description was re-pointed to this page on 2026-06-05 from the Nervous System Methodology page, which does not carry the phrase.}
 }
@@ -273,7 +273,7 @@
   title     = {Pulse {FAQ}: Have you done {UQ} / {SA}?},
   author    = {{Kitware, Inc.}},
   howpublished = {\url{https://pulse.kitware.com/_f_a_q.html}},
-  note      = {Accessed April 2026.},
+  note      = {Accessed 3 August 2026.},
   year      = {2026}
 }
 
