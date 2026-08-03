@@ -32,11 +32,47 @@ The single material finding is **N-1**: npj states twice, in two separate
 documents, that Supplementary Methods are not permitted, and our supplement
 carries a 3,804-word section titled *Full Methods detail*.
 
+> **Update 2026-08-02.** N-1 is resolved; see its entry below. The counts in
+> this paragraph are those of the original audit at `5675f52` and are left as
+> written, because this is a dated record of what was found.
+
 ---
 
 ## N — Non-conformities and risks
 
-### 🔴 N-1 — Supplementary Methods are not permitted. §S3 is one.
+### 🟢 N-1 — Supplementary Methods are not permitted. §S3 was one. **Resolved 2026-08-02.**
+
+> **Resolution.** Commits `72171e3` (main text), `29b8546` (a defect found on
+> the way) and `23c0d7b` (supplement). The measurement that drove it, and the
+> two revisions it forced on the original plan, are in
+> `audit/n1_methods_restructure.md`.
+>
+> The premise of the obvious remedy was false: measured block by block, §4
+> already carried most of §S3's science, several passages near-verbatim.
+> Moving those blocks would have duplicated the main text rather than complied
+> with anything. Four items were genuinely method living only in the SI, and
+> those moved: the six drift thresholds, the flatline constants, the four
+> clamp regular expressions, and the engine-wrapper description. A fifth
+> addition was not required by the rule — §4 never described how the
+> traffic-light map is built, so `sec:methods-traffic` was added.
+>
+> §S3 is now *Parameter provenance and supplementary analyses*: 3,818 → 3,497
+> words, and neither its title nor its opening sentence announces Methods any
+> longer. §4 is 2,547 → 2,968 words in 7 subsections. Every bare
+> `\ref{sec:s3}` is repointed; the count is 0 in both documents.
+>
+> One consequence recorded rather than hidden: deleting `tab:hard-bounds` as a
+> duplicate of §4.4's inline list retires six crosswalk entries that guarded
+> its row literals. The crosswalk falls **98 → 92**. Each bound keeps two
+> independent numeric guards and the 289-anchor layer is untouched, and the
+> six were deliberately not replaced by anchor-name literals that would have
+> preserved the count while guarding no number.
+>
+> **§S12 *Reproducibility recipe* is deliberately untouched** — see
+> `audit/n1_methods_restructure.md` §10 for why.
+
+The finding as originally recorded follows.
+
 
 npj says it twice, in two different places, in near-identical words:
 
@@ -200,7 +236,7 @@ Each row states the rule as npj words it, then what was measured.
 | C-3 | Introduction "No subheadings permitted" (`CT`) | single `\section`, no `\subsection` | ✓ |
 | C-4 | Results "Subheadings should be used" (`CT`) | 6 subsections | ✓ |
 | C-5 | Discussion "No subheadings, limitations, or conclusions sections are permitted" (`CT`) | 0 heading macros in the 1,584-word Discussion; the words *limitation* and *conclusion* each appear once, in prose, never as a heading | ✓ |
-| C-6 | Methods "Subheadings should be used… subdivided by short bold headings" (`CT`, `SG`) | 6 subsections | ✓ |
+| C-6 | Methods "Subheadings should be used… subdivided by short bold headings" (`CT`, `SG`) | 6 subsections at `5675f52`; **7 since the N-1 restructuring** (`sec:methods-traffic` added) | ✓ |
 | C-7 | Section order with Methods last (`CT` table order) | Title → Abstract → Intro → Results → Discussion → Methods → back matter | ✓ |
 | C-8 | Data availability "Mandatory"; "provided as a separate section after the Methods section before the References" (`CT`, `SG`) | `\bmhead{Data availability}` at `paper.tex:362`, after Methods, before `\bibliography` | ✓ |
 | C-9 | Code availability "Where applicable" (`CT`) | `paper.tex:366`, Apache-2.0 repository URL, reproducibility recipe pointer | ✓ |
@@ -213,8 +249,8 @@ Each row states the rule as npj words it, then what was measured.
 | C-16 | "Figure lettering should be in a clear, sans-serif typeface… the same typeface in the same font size… for all figures" (`SG`) | enforced in the generators; commits `bf85cd8` and `b3caa1c` | ✓ |
 | C-17 | "Thousands should be separated by commas (1,000)" (`SG`) | `1{,}280`, `4{,}082`, `11{,}008` throughout | ✓ |
 | C-18 | Statistics: "Use of the word 'significant' should always be accompanied by a P value; otherwise, use 'substantial,' 'considerable,' etc." (`SG`) | **one** occurrence of the stem in the whole corpus — `supplement.tex:506`, *"reverse-percentile bootstrap rejections at the same significance level"*, a technical term describing Cornish's test, not a claim about our data. Zero occurrences in `paper.tex` | ✓ |
-| C-19 | Statistics: multiple comparisons — "authors should explain how they adjusted the alpha level to avoid an inflated Type I error rate" (`SG`) | Benjamini–Hochberg FDR, described in Methods §4.5 | ✓ |
-| C-20 | AI: "Use of an LLM should be properly documented in the Methods section"; LLMs "do not currently satisfy our authorship criteria" (`AI`) | Methods §4.6 *Use of AI tools* names every model and phase; no LLM in the author list; Author contributions restates the scope | ✓ |
+| C-19 | Statistics: multiple comparisons — "authors should explain how they adjusted the alpha level to avoid an inflated Type I error rate" (`SG`) | Benjamini–Hochberg FDR, described in Methods §4.5 at `5675f52`, **§4.6 since the N-1 restructuring** | ✓ |
+| C-20 | AI: "Use of an LLM should be properly documented in the Methods section"; LLMs "do not currently satisfy our authorship criteria" (`AI`) | Methods §4.6 *Use of AI tools* (**§4.7 since the N-1 restructuring**) names every model and phase; no LLM in the author list; Author contributions restates the scope | ✓ |
 | C-21 | AI images: "Springer Nature journals are unable to permit its use for publication" (`AI`) | every figure is generated by a versioned script in `scripts/` from atlas data; no generative-AI imagery | ✓ |
 | C-22 | Supplementary Information "combined and supplied as a single, separate file, preferably in PDF format" (`CT`) | one `supplement.pdf` | ✓ |
 

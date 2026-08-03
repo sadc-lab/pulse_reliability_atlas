@@ -274,7 +274,34 @@ and the three verification layers in prose, and Nature Portfolio actively asks
 for this material. Recorded so the choice is deliberate rather than an
 oversight.
 
-## 11. Execution state
+## 11. Execution state — **N-1 resolved 2026-08-02**
 
-Nothing in `paper.tex` or `supplement.tex` has been modified. This register is
-measurement only; the restructuring plan built on it awaits author approval.
+| commit | what |
+|---|---|
+| `91de952` | the measurement in §§1–4 above |
+| `72171e3` | the four gaps filled in §4, plus `sec:methods-traffic` |
+| `29b8546` | the §2.2 defect of §9 above |
+| `23c0d7b` | §S3 dissolved into provenance and analyses |
+
+Final state: §4 2,547 → 2,968 words in 7 subsections; §S3 3,818 → 3,497 words
+in 10 subsections, retitled, with neither title nor opening sentence
+announcing Methods. Bare `\ref{sec:s3}`: 0 in both documents. Audit 289/289
+anchors and 92/92 crosswalk entries, exit 0. Build clean, 0 undefined
+references, and the four overfull residues unchanged to five decimals across
+every step.
+
+### One revision this register got wrong first
+
+§8(a) claimed the hard-bounds merge could keep the crosswalk at 98 by
+repointing the six table-row entries to the merged table. On execution that
+proved to be cosmetic: the only literal such a repointing could target is
+built from ledger-anchor names and guards no number. The six entries were
+retired instead and the crosswalk stands at **92**, with each bound still
+guarded twice in its inline form and by the 289-anchor layer. Recorded because
+the first answer was the more comfortable one and it was wrong.
+
+### Left open
+
+Section §9 above: the §2.2 defect is fixed, but no per-cell $\mu^{*}$ table
+exists in the supplement. Producing one remains available as an improvement,
+not a defect.
