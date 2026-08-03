@@ -258,8 +258,37 @@ under the autonomy pact.
 
 | | Requirement | Source | State |
 |---|---|---|---|
-| E-1 | **Nature Portfolio Reporting Summary** — "You will be asked to complete and submit [it] together with the revised version of your manuscript after peer-review… Authors are encouraged to include both completed forms at the time of submission." | `SG` | not in the repo |
-| E-2 | **Editorial Policy Checklist** — "must be received by the Editors before the paper can be sent for peer-review" | `SG` | not in the repo |
+| E-1 | **Nature Portfolio Reporting Summary** — "You will be asked to complete and submit [it] together with the revised version of your manuscript after peer-review… Authors are encouraged to include both completed forms at the time of submission." | `SG` | **draft prepared 2026-08-02**: `preprint_npj/reporting_summary_draft.md`, built against the official flat form. The deliverable remains Nature's interactive PDF. |
+| E-2 | **Editorial Policy Checklist** — "must be received by the Editors before the paper can be sent for peer-review" | `SG` | 🟢 **RETIRED BY THE PUBLISHER — no action possible or needed.** See below. |
+
+### E-2 no longer exists, and npj's own page has not caught up
+
+Checked at source 2026-08-02. The URL npj links to for this form,
+<https://www.nature.com/documents/nr-editorial-policy-checklist.pdf>, returns a
+one-page PDF whose entire content (217 characters, verified in full) is:
+
+> "This form is no longer required for Nature Portfolio submissions and has
+> been removed.
+>
+> Please review all current Nature Portfolio policy details here:
+> https://www.nature.com/nature-portfolio/editorial-policies"
+
+The retirement stub is dated **2026-01-23**. Corroboration: the current
+Nature Portfolio *reporting standards* page lists six Reporting Summary
+variants and does not mention an Editorial Policy Checklist anywhere.
+
+So the npj submission-guidelines page still carries three sentences demanding a
+form its own publisher withdrew — including *"must be received by the Editors
+before the paper can be sent for peer-review"*, which this register had
+recorded as the single hard gate on submission. **It is not a gate. There is
+nothing to submit.**
+
+Note the direction of the staleness: the Reporting Summary PDF still dates from
+2023-08-02 and its own preamble still refers readers to "the Editorial Policy
+Checklist". The retired form is referenced by both the journal page and the
+live form; only the artefact itself records that it is gone. Recorded so this
+is not re-derived, and re-checked before submission in case npj updates its
+page.
 | E-3 | **Cover letter** — mandatory; "please avoid repeating information that is already present in the abstract and introduction" | `CT`, `SG` | `cover_letter.md` exists, has placeholders |
 | E-4 | **ORCID for the corresponding author** — "it is not possible to add/modify ORCID details at proof stage" | `SG` | tracked in `TODO_publication_roadmap.md` |
 
