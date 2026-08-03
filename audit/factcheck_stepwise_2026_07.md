@@ -1022,3 +1022,105 @@ Fair caveat, to be stated if this is written up: these runs are mechanically
 ventilated with PEEP, which limits the shunt that widens the A-a difference
 in a spontaneously breathing subject, so the comparison is not
 like-for-like.
+
+---
+
+## Addendum 2026-08-03 — F-8: the pulse-pressure clip, re-examined after an external critique
+
+An external methodological critique of the Morris design was brought in for
+assessment. Every figure it cited (35 clipped points, 9/20 shortened diastolic
+steps, 0.83 mmHg, 8 contaminated SBP steps, 41/78 and 19/68 clean pairs, mu*
+factor 2.4 / 15.4, DBP entering the top three in 9 further combinations) proved
+to be **verbatim from `supplement.tex` S3.7 itself**. The critique reproduced
+the paper's own disclosure; it did not find anything the paper had not already
+published. Recorded here because that fact is the useful signal: the disclosure
+is legible enough to be mistaken for an external discovery.
+
+### F-8a — CONFIRMED, and the paper was already right
+
+Independent re-derivation from the Morris grid, done by hand *before* running
+any code (SBP levels 90/100/110/120 -> ratio caps 67.5/75/82.5/90; DBP levels
+60/66.67/73.33/80), reproduced all five structural counts exactly: 35/160,
+9/20, the 5x6.25% / 1x56.25% / 3x62.5% split, 8/140, 123/140. A separate
+pair-matching pass against `aggregated.parquet` independently returned
+37 full + 17 partial + 24 shortest = 78 clean diastolic pairs, of which 41
+shortened — matching the anchored 41/78. Three independent instruments, no
+disagreement. **Nothing in S3.7's arithmetic required correction.**
+
+### F-8b — the critique's proposed remedy is arithmetically worse — REJECTED
+
+The critique proposed reparametrising to SBP + pulse pressure as
+"intrinsically valid". Measured against Pulse's three gates
+(SBP <= 120, DBP <= 80, DBP <= 0.75*SBP), the feasible region is a polygon with
+an oblique edge covering 17.4 % of the preregistered box; no rectangle covers
+it. Grid evaluation of the proposal:
+
+| candidate | infeasible | which gate breaks | implied DBP span |
+|---|---|---|---|
+| PP in [30,50] | 8.3 % | DBP > 80 (100 %) | [40, 90] |
+| PP in [25,45] | **19.4 %** (worse than now) | DBP > 80 | [45, 95] |
+| PP in [30,60] | 5.6 % | DBP > 80 | [30, 90] |
+
+DBP > 80 is Pulse's *loud* gate (`[ERROR]` + exit 1), so the proposal trades
+shortened steps for dead runs plus a DBP range outside preregistration.
+Separately, the applied-step recomputation the critique asked for repairs only
+the denominator: the 8 contaminated SBP steps stay contaminated under either
+estimator. No re-run was warranted and none was performed.
+
+### F-8c — the supplement's *justification* was too strong — CORRECTED
+
+S3.7 justified keeping the nominal estimator with "dividing by steps as small
+as 6.25 % of nominal amplifies output noise, so it measures the distortion
+rather than correcting it". Tested and **not supported as a general claim**.
+For MAP the engine's proportional response is flat across step sizes
+(median observed/predicted 1.289 at 13.33 mmHg, 1.334 at 7.5-8.33 mmHg,
+1.379 at 0.83 mmHg; sign agreement 100 / 100 / 95.8 %), i.e. it resolves a
+0.83 mmHg step cleanly. Corrected in `supplement.tex` S3.7 and
+`preprint/manuscript.md` on 2026-08-03, replacing the unprovable noise
+mechanism with three structural facts (persistent OAT violation; variable
+effective step 0.83-13.33 mmHg is not a fixed-step Morris design; step length
+confounded with systolic setting). New anchors `T5.clip.dbp_full_steps`,
+`T5.clip.smallest_step_sbp`, `T5.clip.full_step_sbp_min` (ledger 289 -> 292).
+
+### F-8d — a six-output robustness table was drafted and DISCARDED
+
+A per-output step-scaling table (ratio of median |dy| at 13.33 mmHg to that at
+0.83 mmHg; 16 = proportional response, 1 = none) was drafted for S3.7 and then
+withdrawn as not publishable. Two defects, both found before publication:
+
+1. **Pseudo-replication.** The 24 and 37 "pairs" are 5 and 11 *distinct* Morris
+   steps replicated across 8 cells. Recomputing per cell moves four of the six
+   ratios by factors of 2-4 (SpO2 14.9 pooled -> 3.6 per cell; PaO2 16.3 -> 28.1;
+   HR spans 1.45-52.13 across cells). Only 3 of 8 cells hold enough clean pairs
+   in both buckets to yield a ratio at all. The cell mix differs between buckets
+   (S4_M: 7 full vs 1 shortest; S1_F: 1 vs 3), so the pooled medians compare
+   severities, not step sizes — an aggregation artefact.
+2. **Total confounding.** The 0.83 mmHg steps occur *only* at SBP = 90 and the
+   full-length steps *only* at SBP >= 100. This is structural, not sampling
+   luck: at SBP = 90 the cap is 67.5 mmHg, so no full-length diastolic step can
+   exist there. Step size and location can never be separated in this design.
+
+Only MAP survived both checks (pooled 15.0, per-cell 15.6, range 13.6-15.7,
+expected 16) and it is the output whose ground truth is known a priori through
+its arithmetic coupling to DBP — so it serves as an internal positive control,
+not as a result. **Positive-control statement, for internal use only:** MAP
+response scaled consistently with the applied DBP step across cells, indicating
+numerical resolution of the smallest pressure perturbation; this does not
+identify step-size effects for the other outputs, because DBP step size and SBP
+location do not overlap. Deliberately kept out of the manuscript: it would add
+a post-hoc analysis that the estimator choice does not need, and would reopen
+F-8e below.
+
+### F-8e — LEAD, not a finding: Pulse's MAP versus the configuration formula
+
+Pulse's achieved MAP departs from `DBP + (SBP - DBP)/3` applied to the
+requested pressures by a median of +14.3 mmHg (IQR 9.8-19.4, max 27.2, n = 663
+clean runs), and the gap scales with severity: S1 +6.3, S2 +9.9, S3 +18.5,
+S4 +19.2. **Not attributable with the aggregated data**, which record MAP but
+not the achieved SBP/DBP. At least four readings remain open: a coherent
+dynamic cardiovascular response; a gap between initial targets and realised
+pressures; the one-third formula's known approximation as diastole shortens;
+or an internal Pulse anomaly. Settling it needs SBP, DBP, MAP and HR recorded
+together, with MAP ideally integrated over the pressure waveform. It does not
+affect the elementary effects, which are differential and were shown above to
+track the applied step correctly. Deferred to the monograph or Paper 2.
