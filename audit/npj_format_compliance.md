@@ -105,7 +105,7 @@ tables and rationale registers, which sit naturally in Supplementary
 Information. But the section title, and the sentence above, both announce it as
 Methods. **Author decision required.** Nothing modified.
 
-### 🟠 N-2 — Abstract: 150 words, or 153, depending on the convention.
+### 🟢 N-2 — Abstract: 147 words, or 150. **Compliant under both readings.** Resolved 2026-08-03.
 
 > "No subheadings permitted and up to 150 words in length" — `CT`.
 
@@ -115,8 +115,44 @@ Length: the count depends on whether three standalone symbols are words.
 
 | Convention | Count | Verdict |
 |---|---:|---|
-| Tokens containing a letter or digit | **150** | at the limit, exactly |
-| All whitespace-delimited tokens (what a word processor reports) | **153** | 3 over |
+| Tokens containing a letter or digit | **147** | 3 under the limit |
+| All whitespace-delimited tokens (what a word processor reports) | **150** | exactly at the limit |
+
+> ### ❌ Correction, 2026-08-03 — this finding previously recorded 150 / 153, and that was wrong
+>
+> Commit `3fc08ad`, titled *"Correct the abstract word count: it is 150/153, not
+> the 147/150 previously reported"*, **replaced a correct figure with an
+> incorrect one**. The 147 / 150 reported on 2026-08-01 was right all along.
+>
+> **Cause: three PDF-extraction artefacts were counted as words.** The abstract
+> straddles the page-1/page-2 break in this template, and PyMuPDF returns:
+>
+> | artefact | what the extraction contains | what it actually is |
+> |---|---|---|
+> | page number | `…643 mmHg.` `\n` **`1`** `\n` `Solver…` | the page-1 folio, not a word |
+> | line-break split | `patient–` `\n` `ventilator` | **one** word, `patient--ventilator` |
+> | line-break split | `blood-` `\n` `volume` | **one** word, `blood-volume` |
+>
+> 153 raw − 3 = **150** whitespace tokens; minus the three non-alphanumeric
+> tokens (`%`, `%`, `=`) = **147** strict. Note that the ORIGINAL 2026-07-29
+> measurement, recorded above, already named two of these three artefacts and
+> subtracted them; the 2026-08-02 re-measurement stopped subtracting.
+>
+> **Both instruments now agree exactly**, which the 2026-08-02 pass never
+> achieved: rendered `build/paper.pdf` with the three artefacts removed →
+> 147 / 150; LaTeX source macro-expanded, zero leftover LaTeX tokens →
+> 147 / 150.
+>
+> **Status: compliant under both conventions.** 147 is three under npj's cap;
+> 150 is exactly at *"up to 150 words"*. There is no non-conformity here and
+> nothing needs to be cut. The author decided on 2026-08-03 to change nothing:
+> the abstract keeps its content, and the only cost is zero margin under the
+> word-processor reading, so any future addition must be paid for by a removal.
+>
+> **Method lesson.** A word count taken from a rendered PDF is not a word count
+> until page furniture and hyphenation splits are removed, and the check that
+> catches it is instrument agreement: two methods that disagree by exactly 3
+> are reporting an artefact, not a measurement.
 
 The three extra tokens are the two `%` in `93~\%` / `20.6~\%` and the `=` in
 `FiO$_2$~=~1.0`. The `~` renders as a space, so a word processor sees
@@ -131,11 +167,16 @@ tokens after expansion: none). Both land on the same reading text.
 
 **Author decision.** Nothing modified.
 
+> **⚠️ SUPERSEDED 2026-08-03 — the block below is the erroneous re-measurement.**
+> Kept verbatim as a dated record of how the error was reasoned, per the
+> verify-then-remove principle. Its numbers are wrong; see the correction above.
+>
 > **Re-measured 2026-08-02 at `ddddc06`, and the abstract is still at the cap.**
 >
 > The abstract was edited on 2026-08-01 (`91d705d`) to remove a mis-attributed
 > ceiling, and that session reported the result as **147 / 150**. That figure is
-> **not reproducible** and should not be relied on.
+> **not reproducible** and should not be relied on. *(This sentence is the
+> error: 147 / 150 was correct, and is reproducible with the artefacts removed.)*
 >
 > Two instruments, run today:
 >
@@ -356,7 +397,7 @@ Each row states the rule as npj words it, then what was measured.
 | C-2 | Abstract "No subheadings permitted" (`CT`) | no sectioning macro inside `\abstract{}` | ✓ |
 | C-3 | Introduction "No subheadings permitted" (`CT`) | single `\section`, no `\subsection` | ✓ |
 | C-4 | Results "Subheadings should be used" (`CT`) | 6 subsections | ✓ |
-| C-5 | Discussion "No subheadings, limitations, or conclusions sections are permitted" (`CT`) | 0 heading macros in the 1,584-word Discussion; the words *limitation* and *conclusion* each appear once, in prose, never as a heading | ✓ |
+| C-5 | Discussion "No subheadings, limitations, or conclusions sections are permitted" (`CT`) | **0** heading macros in the **1,602**-word Discussion; the words *limitation* and *conclusion* each appear once, in prose, never as a heading. Re-measured 2026-08-03; was 1,584, the drift is the abbreviation expansion of `ddddc06`. The load-bearing measurements — 0 headings, 1 + 1 in prose — are unchanged. | ✓ |
 | C-6 | Methods "Subheadings should be used… subdivided by short bold headings" (`CT`, `SG`) | 6 subsections at `5675f52`; **7 since the N-1 restructuring** (`sec:methods-traffic` added) | ✓ |
 | C-7 | Section order with Methods last (`CT` table order) | Title → Abstract → Intro → Results → Discussion → Methods → back matter | ✓ |
 | C-8 | Data availability "Mandatory"; "provided as a separate section after the Methods section before the References" (`CT`, `SG`) | `\bmhead{Data availability}` at `paper.tex:362`, after Methods, before `\bibliography` | ✓ |
@@ -364,8 +405,8 @@ Each row states the rule as npj words it, then what was measured.
 | C-10 | Acknowledgements: funding declared here, "a separate Funding statement is not permitted" (`CT`) | funding in Acknowledgements; no Funding section anywhere | ✓ |
 | C-11 | Author contributions "Mandatory, the statement should refer to all authors individually, denoted by their initials" (`CT`, `SG`) | all seven contributors by initials (S.N., M.S., Y.M., A.W., C.S., P.J.) | ✓ |
 | C-12 | Competing interests "Mandatory… If there are no competing interests to declare, this should be stated" (`CT`) | "The authors declare no competing interests, financial or otherwise." | ✓ |
-| C-13 | References "Limited to 60 references, though not strictly enforced" (`CT`) | **33** rendered entries in `paper.pdf`; 25 in the supplement | ✓ |
-| C-14 | "Figure legends — Limited to 350 words per figure" (`CT`); "this guidance also applies to any supplementary figures" (`SG`) | 15 figure legends measured; **maximum 319 words** (Figure 1, the traffic-light map). Counted from LaTeX source, which over-counts inline math, so the rendered counts are lower still | ✓ |
+| C-13 | References "Limited to 60 references, though not strictly enforced" (`CT`) | **34** rendered entries in `paper.pdf`; **23** in the supplement. Re-measured 2026-08-03 from the built PDFs, entries `[1]`–`[34]` and `[1]`–`[23]`, both contiguous. Was recorded as 33 / 25: the paper gained `ward2024ventilator` (`5b4ad8c`), and the supplement lost two when `23c0d7b` dissolved §S3 and removed 106 lines of citation-bearing prose — that second change had never been re-measured. | ✓ |
+| C-14 | "Figure legends — Limited to 350 words per figure" (`CT`); "this guidance also applies to any supplementary figures" (`SG`) | **15** figure legends measured; **maximum 322 words**, in the traffic-light map — which is **Figure 2**, not Figure 1 as this row said until 2026-08-03: Figure 1 is the study-design schematic, confirmed against the rendered PDF (`Fig. 1 \| Study design…`, `Fig. 2 \| Cell colour encodes reliability…`). **0 legends over the 350 cap.** Counted from LaTeX source, which over-counts inline math, so the rendered counts are lower still. Re-measured 2026-08-03; was recorded as 319, and the +3 is within the variance between two source-side counters — the original script lived in a session scratchpad and no longer exists, so the two figures are not strictly comparable. The compliance verdict does not depend on it. | ✓ |
 | C-15 | "multi-panel figures should be presented on a single page with each panel labeled using an a), b), c) convention" (`CT`) | panel labels (a)–(f) present in the render | ✓ |
 | C-16 | "Figure lettering should be in a clear, sans-serif typeface… the same typeface in the same font size… for all figures" (`SG`) | enforced in the generators; commits `bf85cd8` and `b3caa1c` | ✓ |
 | C-17 | "Thousands should be separated by commas (1,000)" (`SG`) | `1{,}280`, `4{,}082`, `11{,}008` throughout | ✓ |
