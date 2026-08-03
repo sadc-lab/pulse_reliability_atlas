@@ -933,3 +933,92 @@ which is the only reason none of them reached this register as a finding.
 - Machine baseline re-confirmed after this session's two mechanical edits
   (`supplement.tex` header comment, `paper.bib` PMID): **289 / 289 · 97 / 97 ·
   26 / 26, exit 0.**
+
+---
+
+## Addendum 2026-08-03 — F-7: the PaO2 upper bound, checked against the sweep's own data
+
+Opened while re-verifying the Results §2.1 sentence on the 600 mmHg PaO2
+bound. **Nothing was modified in the manuscript. Two decisions are pending
+with the author.**
+
+### What was verified and holds
+
+| Claim | Status | Evidence |
+|---|---|---|
+| 663 mmHg is the alveolar-gas-equation value at FiO2 = 1.0 | **CONFIRMED** | StatPearls, *Alveolar Gas Equation* (NCBI Bookshelf NBK482268), verbatim: "For 100% oxygen: PAO2 = [(760 − 47) × 1] − (40 / 0.8) = 663 mm Hg". Deranged Physiology (CICM primary, chapter 134) tabulates 662 at FiO2 100 %. The preregistration's own anchor (West & Luks 2020 Ch.5) is consistent. **Do not change 663.** |
+| 34 runs exceed the 600 mmHg bound | **CONFIRMED** | `data/runs/full_sweep/aggregated.parquet`, `PaO2_mean > 600` = 34. Matches §2.4 exactly. |
+| §2.4's "91 % at FiO2 >= 0.95" | **CONFIRMED** | 31 of 34 = 91.2 %. The 3 remaining are all S1_F at FiO2 = 0.7367. |
+
+### F-7a — OVERCLAIM in Results §2.1 (not corrected, pending decision)
+
+Current text: *"at FiO2 = 1.0 a healthy lung's PaO2 can legitimately climb
+toward the alveolar-gas-equation ceiling of ≈663 mmHg, so **real values
+between 600 and 663 mmHg occur**."*
+
+663 is the **alveolar** value; arterial PaO2 sits below it by the A-a
+difference. StatPearls NBK482268, verbatim: "A-a gradient typically increases
+by 5 to 7 mm Hg for every 10% increase in FiO2". For an 18-year-old
+(room-air normal (18+10)/4 ≈ 7 mmHg), FiO2 0.21 → 1.0 gives A-a ≈ 47–62 mmHg,
+so arterial PaO2 ≈ 600–616 mmHg; the commonly quoted "up to 100 mmHg on 100 %
+O2" gives ≈ 563. The sentence's range is therefore the optimistic edge of the
+literature at best, and is stated as fact.
+
+A replacement of the form "real values between 600 and ~650 occur" was
+drafted and **rejected on the same grounds** — equally unsupported.
+
+⚠️ Discarded source: a web search attributed "PaO2 587 mmHg in a healthy
+subject after 20 min on 100 % O2" to PMC5587703. The article was opened: it
+is a study of **anesthetized pigs**, PaO2 120–161 mmHg, no human 100 % O2
+data. The number does not exist in that source and must not be cited.
+
+### F-7b — the per-run alveolar ceiling is not flat (not corrected, pending)
+
+663 is the ceiling **at FiO2 = 1.0 and PaCO2 = 40 only**. The sweep varies
+both. Computing each run's own ceiling, FiO2 × (760 − 47) − PaCO2/0.8:
+
+- 15 of 1,280 runs have `PaO2_mean` > 663; 2 exceed 700.
+- **5 runs exceed their own per-run ceiling**, three of them grossly: S1_F at
+  FiO2 = 0.7367 with PaO2 means of 845.0, 722.9 and 678.6 against a ceiling
+  of ≈505 mmHg (excess +339, +216, +174). All five are flagged both
+  `implausible` and `not_steady_state`.
+- The other two (FiO2 = 1.0, PaO2 688.7 and 688.3 vs ceiling ≈683) exceed by
+  ~5 mmHg, within model noise.
+
+Caveat that keeps this from being a proven physics violation: all three large
+cases are `not_steady_state`, and the alveolar gas equation is a
+steady-state relation. A window mean of a signal that is still climbing is
+not a steady state, so the equation does not strictly bind it.
+
+**Already disclosed, and correctly:** Supplement §S3-pao2-sensitivity
+identifies the two runs above 700 as "a genuine numerical runaway ... climbing
+to a physically impossible plateau above the 760 mmHg sea-level barometric
+pressure", and §S9 reports 6 of 44 extended reruns developing unphysical
+plateaus above 700 mmHg. The engine's high-FiO2 misbehaviour is not a new
+finding.
+
+**What is new:** the F-003 supplementary reclassification raises the bound to
+a **flat** 700 mmHg, a value derived at FiO2 = 1.0. Applied to the third
+S1_F run (FiO2 = 0.7367, PaO2 678.6), that flat bound declares
+"physiologically clean" a value 174 mmHg above what its own FiO2 permits. It
+is one of the 32 runs the supplement reports as reclassified. An FiO2-aware
+ceiling would keep it flagged. One sentence in §S3-pao2-sensitivity would
+close this.
+
+### F-7c — under-hedge in §2.4 (not corrected, pending)
+
+Current text: the ≈20 mmHg gap between the converged S1 plateau (643 mmHg)
+and 663 *"is consistent with Pulse's modelled alveolar-arterial difference
+rather than an oxygenation defect, which would be expected to push PaO2 above
+the theoretical ceiling, not below it."*
+
+Staying below the ceiling rules out a **runaway**, not an **offset**. Pulse's
+implied A-a difference at FiO2 = 1.0 is ≈20 mmHg against the ≈47–62 mmHg the
+5–7 mmHg-per-10 %-FiO2 rule predicts, i.e. 2–3× smaller: the engine reads
+high at high FiO2. Consistent with verified Pulse limitation #9 (no regional
+V/Q mismatch; five-compartment lumped model).
+
+Fair caveat, to be stated if this is written up: these runs are mechanically
+ventilated with PEEP, which limits the shunt that widens the A-a difference
+in a spontaneously breathing subject, so the comparison is not
+like-for-like.
