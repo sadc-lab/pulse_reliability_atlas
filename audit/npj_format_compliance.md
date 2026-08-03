@@ -131,6 +131,38 @@ tokens after expansion: none). Both land on the same reading text.
 
 **Author decision.** Nothing modified.
 
+> **Re-measured 2026-08-02 at `ddddc06`, and the abstract is still at the cap.**
+>
+> The abstract was edited on 2026-08-01 (`91d705d`) to remove a mis-attributed
+> ceiling, and that session reported the result as **147 / 150**. That figure is
+> **not reproducible** and should not be relied on.
+>
+> Two instruments, run today:
+>
+> | instrument | letter-or-digit tokens | all whitespace tokens |
+> |---|---:|---:|
+> | rendered `build/paper.pdf`, extraction bounded from *"Pulse is an actively maintained"* to *"…training cohorts."* | **150** | **153** |
+> | LaTeX source, macro-expanded | **150** | 156 |
+>
+> The two agree on **150** under the strict reading. The rendered PDF's three
+> non-alphanumeric tokens are `%`, `%`, `=` — the same three this finding names
+> above, so the structure is unchanged from the original measurement.
+>
+> **Status: 150 is exactly at npj's cap** (*"up to 150 words"* — compliant, zero
+> margin) **and 153 is three over** under the word-processor reading an editor
+> is likely to apply.
+>
+> A third attempt, reimplementing this finding's own macro-expansion recipe,
+> **failed its calibration**: it returned 153 / 159 on `5675f52` where this
+> table records 150 / 153. It is therefore not reproducing the original
+> convention and its numbers are discarded rather than reported. The original
+> counting script lived in a session scratchpad and no longer exists, so the
+> 2026-07-29 numbers cannot be re-derived; only the current state can be, and
+> the two instruments above are what it rests on.
+>
+> **Author decision, reopened.** The abstract has zero margin. Any future edit
+> that adds a word puts it over on both readings.
+
 ### 🟠 N-3 — The funder's role is not declared.
 
 > "The role of the funding body in the design of the study and collection,
