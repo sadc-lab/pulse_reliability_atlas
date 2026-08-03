@@ -211,6 +211,40 @@ Pre-existing and long-tracked, not introduced here. It intersects the npj rule
 only insofar as a float that does not fit its page cannot be "presented on a
 single page". Recorded, not acted on.
 
+> **Measured in the rendered PDFs, 2026-08-02 — none of the four manifests.**
+> The warnings had never been checked against the pages they describe.
+>
+> The two floats are `tab:limits` (§S2, twelve limitation rows) and
+> `tab:s16-index` (§S17). Both render **complete**: the last row of each is
+> present in the extracted text.
+>
+> | | measured | normal text block | margin left |
+> |---|---|---|---|
+> | `tab:limits`, vertical | 654.9 pt | 654.9 pt — **+0.0** | 187.0 pt |
+> | `tab:s16-index`, vertical | 663.4 pt | +8.6 pt | 178.5 pt |
+> | Table 1 (paper), horizontal | 495.3 pt | +6.4 pt | 100.0 pt |
+> | `tab:limits`, horizontal | 489.9 pt | +19.2 pt | 105.3 pt |
+>
+> Normals are the median text-block edge over every page of each document. The
+> largest real excursion is 19.2 pt into a 124 pt margin. And the supplement's
+> **widest page is 28, at +24.5 pt, which LaTeX does not flag at all** — so the
+> warnings do not even rank the pages by how far their content actually
+> reaches.
+>
+> The gap between "31.26 pt too large" and 0 pt of visible spill is normal:
+> LaTeX measures the float box against `\textheight` when it tries to place it,
+> caption and float glue included, and a dedicated float page then absorbs
+> most of that.
+>
+> **Consequence: N-6 is a build-log tidiness item, not a render defect.**
+> Converting the two tables to `longtable` would silence it and would change
+> how two tables paginate. Not worth it before submission, and this note exists
+> so the trade is made on the measurement.
+>
+> *This corrects a recommendation made the same day that N-6 was "the only real
+> render defect" and "the best effort-to-result ratio". It was the least
+> verified thing on that list.*
+
 ### 🟢 N-7 — Stale internal header. **Fixed.**
 
 `supplement.tex:11` declared `Status: Complete supplement, sections S1-S16.`
