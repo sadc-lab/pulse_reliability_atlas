@@ -77,8 +77,8 @@ caught equally.*
   monograph_claim_id: 'T1.01'
   expected_value: 1280
   format_in_paper: '1{,}280'
-  expected_occurrences: 39
-  notes: 'Bumped 38 -> 39 (2026-08-02), N-1 removal of Supplementary Methods: Methods §4.4 now prints the four clamp regular expressions themselves, which the main text previously described only by their count ("any of 4 documented input-rejection patterns"). Their lead-in names the set as the one "with which the 1{,}280-run sweep was classified", adding one occurrence of the canonical literal. The patterns move because npj does not permit Supplementary Methods; the four-pattern set printed is the one recovered from 708efb1^, i.e. the set as executed, not the current five-pattern set in src/detector.py. Bumped 37 -> 38 (2026-07-29): the §2.1 Overview paragraph now states the verdicts of the preregistered hypotheses, giving H2 as "the observed rate is 0 of 1{,}280", which adds one occurrence of the canonical literal. The same null is already counted at the Table 3 caption and once in the Discussion; this third instance is the one that names it as the H2 outcome (hypothesis not supported). Bumped 36 -> 37 (2026-07-28, second change that day): the Figure 1 caption title was changed from "One grid, eight times." to "Study design of the 1{,}280-run sweep." at the author''s request, which adds one occurrence of the canonical literal. Bumped 35 -> 36 (2026-07-28): the Table 3 caption gains an opening sentence stating the silent-clamping null as read off that table, "the clamped column is empty in all eight cells, 0 of 1{,}280", adding one occurrence. This is the same null already counted once in the Discussion, reported here at its own table. Bumped 36 -> 35 (2026-07-27, second change that day): the study-design figure was externalised from an inline tikzpicture to preprint_npj/figures/fig00_study_design.tex, because pinning it with [H] after the full-page Table 1 overflowed the page by 410 pt and swallowed its caption, and because pandoc drops TikZ so it was missing from paper.docx. Its node text "8 x 160 = 1,280 simulations" therefore left paper.tex. The claim still renders in the figure; only the file holding it changed, and scripts/make_fig00_study_design.py regenerates that file so it cannot drift. Earlier that day, bumped 35 -> 36 (2026-07-27): the Supplement §S3 body-dimension paragraph gains the CDC-lookup provenance declaration, whose closing clause states that the two preregistered bodies "are exactly the two bodies simulated in all 1{,}280 runs" (1). Earlier history: Total occurrences of "1{,}280" across paper.tex + supplement.tex as of Phase 9.B: paper.tex 12 (abstract 2, §2.1 5, §2.5+Fig4 2, §4 Discussion 1, Methods §4.1+§4.3 2) + supplement.tex 5 (S3.2 Morris sampler, S4 NSS table prose "1{,}280-run sweep" + Table S1 total row + "1{,}008 / 1{,}280" + "663 / 1{,}280" repeats). Bumped 14 -> 17 in Phase 9.B for the S4 extended-Table-1 additions. Bumped 23 -> 24 in Phase H (2026-05-31): the new Supplement §S16 "Summary of supplementary findings and discoveries" intro paragraph uses "The 1{,}280-run atlas" as its opening descriptor, so the canonical formatted string appears once more. Bumped 24 -> 28 in the cross-platform reproduction round (2026-06-11): the new Supplement §S12 "Independent reproduction on separate hardware" subsection plus the Code-availability sentence add four "1{,}280" substring occurrences --- paper.tex "full 1{,}280-run sweep" (1), supplement.tex "full 1{,}280-run Morris sweep" (1), and "matched on 1{,}280/1{,}280 runs" (2). Bumped 28 -> 30 (2026-06-24): the new study-design Figure 1 adds two "1{,}280" occurrences --- figure caption ("8 x 160 = 1,280 simulations in total") + figure body ("8 x 160 = 1,280 simulations"). Bumped 30 -> 31 (2026-07-05): the §4 Discussion ML-pipeline paragraph now surfaces the silent-clamping null as "0 of 1{,}280 runs", adding one occurrence. Bumped 31 -> 33 (2026-07-24), Methods §4.1 clarity rewrite + S-G-1 resolution: paper.tex §4.1 now names the first verification layer as "the 1{,}280-row table of input combinations" (1), and supplement.tex §S12.1 gains the compute-effort sentence "the full 1{,}280-run sweep was carried out end-to-end three times in total" (1).'
+  expected_occurrences: 37
+  notes: 'Bumped 39 -> 37 (2026-08-02, second change that day), N-1 removal of Supplementary Methods: two supplement subsections were deleted as duplicates of the main Methods text, each carrying one occurrence of the canonical literal. §S3.1 "Engine wrapper, Docker pinning, and reproducibility" stated that "bit-exact reproduction of the canonical 1{,}280-run sweep was verified at three independent layers" -- paper.tex §4.1 already names those three layers, and the wrapper description it uniquely held has moved there. §S3.2 "Morris sampler implementation" stated "1{,}280 evaluations across the full sweep"; paper.tex §4.3 already carried the sampler settings, the seven ranges, the clip rationale and that same total, so only a short code-provenance note survives, under the label sec:s3-morris. Bumped 38 -> 39 (2026-08-02), N-1 removal of Supplementary Methods: Methods §4.4 now prints the four clamp regular expressions themselves, which the main text previously described only by their count ("any of 4 documented input-rejection patterns"). Their lead-in names the set as the one "with which the 1{,}280-run sweep was classified", adding one occurrence of the canonical literal. The patterns move because npj does not permit Supplementary Methods; the four-pattern set printed is the one recovered from 708efb1^, i.e. the set as executed, not the current five-pattern set in src/detector.py. Bumped 37 -> 38 (2026-07-29): the §2.1 Overview paragraph now states the verdicts of the preregistered hypotheses, giving H2 as "the observed rate is 0 of 1{,}280", which adds one occurrence of the canonical literal. The same null is already counted at the Table 3 caption and once in the Discussion; this third instance is the one that names it as the H2 outcome (hypothesis not supported). Bumped 36 -> 37 (2026-07-28, second change that day): the Figure 1 caption title was changed from "One grid, eight times." to "Study design of the 1{,}280-run sweep." at the author''s request, which adds one occurrence of the canonical literal. Bumped 35 -> 36 (2026-07-28): the Table 3 caption gains an opening sentence stating the silent-clamping null as read off that table, "the clamped column is empty in all eight cells, 0 of 1{,}280", adding one occurrence. This is the same null already counted once in the Discussion, reported here at its own table. Bumped 36 -> 35 (2026-07-27, second change that day): the study-design figure was externalised from an inline tikzpicture to preprint_npj/figures/fig00_study_design.tex, because pinning it with [H] after the full-page Table 1 overflowed the page by 410 pt and swallowed its caption, and because pandoc drops TikZ so it was missing from paper.docx. Its node text "8 x 160 = 1,280 simulations" therefore left paper.tex. The claim still renders in the figure; only the file holding it changed, and scripts/make_fig00_study_design.py regenerates that file so it cannot drift. Earlier that day, bumped 35 -> 36 (2026-07-27): the Supplement §S3 body-dimension paragraph gains the CDC-lookup provenance declaration, whose closing clause states that the two preregistered bodies "are exactly the two bodies simulated in all 1{,}280 runs" (1). Earlier history: Total occurrences of "1{,}280" across paper.tex + supplement.tex as of Phase 9.B: paper.tex 12 (abstract 2, §2.1 5, §2.5+Fig4 2, §4 Discussion 1, Methods §4.1+§4.3 2) + supplement.tex 5 (S3.2 Morris sampler, S4 NSS table prose "1{,}280-run sweep" + Table S1 total row + "1{,}008 / 1{,}280" + "663 / 1{,}280" repeats). Bumped 14 -> 17 in Phase 9.B for the S4 extended-Table-1 additions. Bumped 23 -> 24 in Phase H (2026-05-31): the new Supplement §S16 "Summary of supplementary findings and discoveries" intro paragraph uses "The 1{,}280-run atlas" as its opening descriptor, so the canonical formatted string appears once more. Bumped 24 -> 28 in the cross-platform reproduction round (2026-06-11): the new Supplement §S12 "Independent reproduction on separate hardware" subsection plus the Code-availability sentence add four "1{,}280" substring occurrences --- paper.tex "full 1{,}280-run sweep" (1), supplement.tex "full 1{,}280-run Morris sweep" (1), and "matched on 1{,}280/1{,}280 runs" (2). Bumped 28 -> 30 (2026-06-24): the new study-design Figure 1 adds two "1{,}280" occurrences --- figure caption ("8 x 160 = 1,280 simulations in total") + figure body ("8 x 160 = 1,280 simulations"). Bumped 30 -> 31 (2026-07-05): the §4 Discussion ML-pipeline paragraph now surfaces the silent-clamping null as "0 of 1{,}280 runs", adding one occurrence. Bumped 31 -> 33 (2026-07-24), Methods §4.1 clarity rewrite + S-G-1 resolution: paper.tex §4.1 now names the first verification layer as "the 1{,}280-row table of input combinations" (1), and supplement.tex §S12.1 gains the compute-effort sentence "the full 1{,}280-run sweep was carried out end-to-end three times in total" (1).'
 
 - paper_section: 'Abstract + §2.3 VC-AC'
   paper_context: 'VC-AC trigger-dyssynchrony primary-flag rate (Vt CV > 0.05 under not_steady_state)'
@@ -734,53 +734,30 @@ caught equally.*
 
 ## Phase 9.A - Supplement S3 Tables S2 + S3 (HARD_BOUNDS + DRIFT row literals)
 
-- paper_section: 'Supplement S3 Table S2 HARD_BOUNDS HR row'
-  paper_context: 'HR hard physiological bounds (lower 20, upper 220 bpm)'
-  monograph_claim_id: 'T1.06p.hr_low'
-  expected_value: 20
-  format_in_paper: 'HR (bpm) & 20 & 220'
-  expected_occurrences: 1
-  notes: 'Full S2 row literal anchored on the lower bound; upper bound co-validated by literal presence. Bounds regex-extracted from src/detector.py HARD_BOUNDS["HR"] at audit time.'
-
-- paper_section: 'Supplement S3 Table S2 HARD_BOUNDS MAP row'
-  paper_context: 'MAP hard physiological bounds (lower 30, upper 180 mmHg)'
-  monograph_claim_id: 'T1.06p.map_low'
-  expected_value: 30
-  format_in_paper: 'MAP (mmHg) & 30 & 180'
-  expected_occurrences: 1
-  notes: 'Full S2 row literal anchored on lower bound.'
-
-- paper_section: 'Supplement S3 Table S2 HARD_BOUNDS Vt row'
-  paper_context: 'Vt hard physiological bounds (lower 50, upper 1500 mL)'
-  monograph_claim_id: 'T1.06p.vt_low'
-  expected_value: 50
-  format_in_paper: 'Vt (mL) & 50 & 1500'
-  expected_occurrences: 1
-  notes: 'Full S2 row literal anchored on lower bound.'
-
-- paper_section: 'Supplement S3 Table S2 HARD_BOUNDS SpO2 row'
-  paper_context: 'SpO2 hard physiological bounds (lower 0.50, upper 1.00 fraction)'
-  monograph_claim_id: 'T1.06p.spo2_low'
-  expected_value: 0.50
-  format_in_paper: 'SpO$_2$ (fraction) & 0.50 & 1.00'
-  expected_occurrences: 1
-  notes: 'Full S2 row literal anchored on lower bound. SpO2 reported by Pulse as fraction in [0, 1], hence 0.50 / 1.00.'
-
-- paper_section: 'Supplement S3 Table S2 HARD_BOUNDS PaO2 row'
-  paper_context: 'PaO2 hard physiological bounds (lower 20, upper 600 mmHg)'
-  monograph_claim_id: 'T1.06p.pao2_low'
-  expected_value: 20
-  format_in_paper: 'PaO$_2$ (mmHg) & 20 & 600'
-  expected_occurrences: 1
-  notes: 'Full S2 row literal anchored on lower bound. Upper bound 600 is the locked classifier value; HARD_BOUNDS_PHYSIOLOGICAL raises it to 700.'
-
-- paper_section: 'Supplement S3 Table S2 HARD_BOUNDS PaCO2 row'
-  paper_context: 'PaCO2 hard physiological bounds (lower 10, upper 120 mmHg)'
-  monograph_claim_id: 'T1.06p.paco2_low'
-  expected_value: 10
-  format_in_paper: 'PaCO$_2$ (mmHg) & 10 & 120'
-  expected_occurrences: 1
-  notes: 'Full S2 row literal anchored on lower bound.'
+## RETIRED 2026-08-02 (N-1, removal of Supplementary Methods) — the six
+## HARD_BOUNDS table-row entries.
+##
+## They guarded the row literals of supplement.tex tab:hard-bounds -- 'HR (bpm)
+## & 20 & 220', 'MAP (mmHg) & 30 & 180', 'Vt (mL) & 50 & 1500', 'SpO$_2$
+## (fraction) & 0.50 & 1.00', 'PaO$_2$ (mmHg) & 20 & 600', 'PaCO$_2$ (mmHg) &
+## 10 & 120'. That table was deleted: §4.4 of the main manuscript already listed
+## all six pairs inline, so under npj's rule against Supplementary Methods the
+## supplement's copy was a duplicate of the main text rather than provenance.
+##
+## No bound loses its guard. Each is still checked twice, in the inline form,
+## by the six T1.06p.* entries above (expected_occurrences = 2): once in
+## paper.tex §4.4 and once in the first column of tab:hard-bounds-rationale,
+## which stays in the supplement. Verified after deletion: 'HR [20, 220]~bpm',
+## 'MAP [30, 180]~mmHg', 'Vt [50, 1{,}500]~mL', 'SpO$_2$ [50, 100]~\%',
+## 'PaO$_2$ [20, 600]~mmHg' and 'PaCO$_2$ [10, 120]~mmHg' each occur exactly
+## once in paper.tex and once in supplement.tex. The values are additionally
+## regex-extracted from src/detector.py HARD_BOUNDS by the 289-anchor layer,
+## which this deletion does not touch.
+##
+## These six were NOT replaced by a literal built from the ledger-anchor names.
+## Such a literal would have kept the entry count at 98 while guarding no
+## number, which is a cosmetic audit rather than a real one. The count drops to
+## 92 and that is the honest figure.
 
 - paper_section: 'Supplement S3 Table S3 DRIFT HR row'
   paper_context: 'HR drift threshold per 60 s = 5 bpm'
