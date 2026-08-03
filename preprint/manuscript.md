@@ -645,7 +645,7 @@ underlying files are in the repository.
 | S021 | Hyperoxia convergence: 60-run pre-registered rerun at 300 s vs locked 120 s sweep window — tests whether F-003 PaO2 > 600 mmHg at FiO2 = 1.0 reflects oxygenation overshoot or transient non-convergence. |
 | S022 | No-compute failure-mode attribution audit of the locked `not_steady_state` count (Appendix C). |
 | S023 | Supplementary ML/SHAP cross-check of the Morris μ\* rankings on the clean subset (Supplementary §S11). |
-| S024 | Pre-submission claims-ledger audit — `scripts/audit_claims.py` re-derives every Tier-1/Tier-2 quantitative claim in §3 / §4 / Appendix C from the canonical parquets/CSVs and verifies it against the manuscript text (267 / 267 PASS at the locked tolerance band on the authors' full data tree; 266 / 267 on a public clone, where the one anchor needing the gitignored raw S021 trajectories is auto-skipped). |
+| S024 | Pre-submission claims-ledger audit — `scripts/audit_claims.py` re-derives every Tier-1/Tier-2 quantitative claim in §3 / §4 / Appendix C from the canonical parquets/CSVs and verifies it against the manuscript text (289 / 289 PASS at the locked tolerance band on the authors' full data tree; 288 / 289 on a public clone, where the one anchor needing the gitignored raw S021 trajectories is auto-skipped). |
 
 ---
 
@@ -1277,12 +1277,12 @@ an explicit per-class tolerance band (`exact_int` for integer counts;
 `displayed_1dp` / `displayed_2dp` / `displayed_3dp` for floats at
 their displayed precision; a 1 × 10⁻⁹ IEEE-754 epsilon protects
 against half-precision rounding boundaries). The current report on
-the locked manuscript is **267 / 267 PASS, 0 WARN, 0 FAIL** on the
+the locked manuscript is **289 / 289 PASS, 0 WARN, 0 FAIL** on the
 authors' full data tree. On a public clone, one anchor — T1.06u, the
 S021 time-to-95%-plateau, which requires the heavy raw per-run
 trajectories that are gitignored — is automatically skipped, so the
-script reports **266 / 267 PASS** with one explicitly-flagged SKIPPED
-(the headline target of 267 is computed dynamically as anchors-run
+script reports **288 / 289 PASS** with one explicitly-flagged SKIPPED
+(the headline target of 289 is computed dynamically as anchors-run
 plus anchors-skipped, so it cannot go stale). The
 script exits non-zero on any FAIL and is therefore CI-ready: future
 manuscript edits that drift a quoted number against its source
@@ -3334,8 +3334,8 @@ under Apache License 2.0.
   [`scripts/audit_claims.py`](../scripts/audit_claims.py) — read-only
   Python script verifying that every Tier-1 and Tier-2 quantitative
   claim in §3 / §4 / Appendix C matches the canonical artifacts
-  under explicit per-class tolerance rules; current state 267 / 267
-  PASS on the authors' full data tree (266 / 267 on a public clone,
+  under explicit per-class tolerance rules; current state 289 / 289
+  PASS on the authors' full data tree (288 / 289 on a public clone,
   where the one anchor needing the gitignored raw S021 trajectories
   is auto-skipped) ([S024](#s024); see §2.8 for protocol).
 * **Pinned Docker image hashes (byte-level reproducibility):**
@@ -3832,7 +3832,7 @@ indexed here.*
 | []{#s021} S021 | Hyperoxia convergence (60-run rerun at 300 s vs locked 120 s window; F-003 mechanism test) |
 | []{#s022} S022 | No-compute failure-mode attribution audit of the locked `not_steady_state` count (see Appendix C) |
 | []{#s023} S023 | Supplementary ML/SHAP cross-check of Morris μ\* rankings on the clean subset (see Supplementary §S11) |
-| []{#s024} S024 | Pre-submission claims-ledger audit (programmatic verification of all Tier-1 / Tier-2 quantitative claims; 267 / 267 PASS on the authors' full data tree, 266 / 267 on a public clone with one auto-skipped anchor, see §2.8) |
+| []{#s024} S024 | Pre-submission claims-ledger audit (programmatic verification of all Tier-1 / Tier-2 quantitative claims; 289 / 289 PASS on the authors' full data tree, 288 / 289 on a public clone with one auto-skipped anchor, see §2.8) |
 | []{#s025} S025 | Pre-release OSS code-hygiene audit and fixes |
 | []{#s026} S026 | Final pre-arXiv polish |
 

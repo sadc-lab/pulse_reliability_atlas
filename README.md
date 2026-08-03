@@ -22,12 +22,12 @@ submission. The three fastest entry points for verifying the work:
 
 - **Preregistration** (commitments locked before any data was collected):
   [`preregistration.md`](preregistration.md).
-- **Audit ledger** (every quantitative claim in the manuscript is
+- **Audit ledger** (the computed quantitative claims in the manuscript are
   machine-checked against the data):
   `uv run python scripts/audit_claims.py` — on a fresh public clone
-  this prints `266/267 PASS ... 1 SKIPPED` (the T1.06u anchor is
+  this prints `288/289 PASS ... 1 SKIPPED` (the T1.06u anchor is
   auto-skipped because it needs the gitignored raw S021 trajectories;
-  with the authors' full `data/runs/` tree it prints `267/267 PASS`).
+  with the authors' full `data/runs/` tree it prints `289/289 PASS`).
 - **One-command reproduction** (Docker, fixed seed, ~9-23 h on a laptop
   depending on hardware and worker count):
 
@@ -275,17 +275,19 @@ quick canary check), confirm the pipeline by running:
 
 ```bash
 uv run pytest tests/ -v                       # S009/S015 unit tests
-uv run python scripts/audit_claims.py          # S024 -- fresh clone prints 266/267 PASS (1 SKIPPED: T1.06u, gitignored raw S021 data); 267/267 with full local data
-uv run python scripts/audit_claims.py --check-paper-sync --check-monograph   # + 98 paper crosswalk entries and 26 monograph anchors
+uv run python scripts/audit_claims.py          # S024 -- fresh clone prints 288/289 PASS (1 SKIPPED: T1.06u, gitignored raw S021 data); 289/289 with full local data
+uv run python scripts/audit_claims.py --check-paper-sync --check-monograph   # + 92 paper crosswalk entries and 26 monograph anchors
 ```
 
-The audit has three layers, all gated by the pre-commit hook and by CI:
+The audit has three layers, all gated by the pre-commit hook and by CI.
+**They do not all do the same thing, and the difference matters** — only the
+first re-derives a value from data:
 
-| Layer | Flag | What it checks |
-|---|---|---|
-| Claims ledger | *(default)* | Re-derives 267 numerical claims from the canonical data artifacts and compares them against the value printed in the manuscript. This is the layer that verifies **correctness**. |
-| Paper crosswalk | `--check-paper-sync` | 98 entries: every number the npj paper and supplement restate from the monograph still appears there, with the expected occurrence count (`preprint_npj/paper_to_monograph_map.md`). |
-| Monograph anchors | `--check-monograph` | 26 anchors: numerical claims that live **only** in the monograph, with no ledger anchor and no crosswalk row (`preprint/monograph_anchor_map.md`). A presence guard — it detects a verified value silently drifting; it does **not** verify correctness, so every anchor is re-derived by hand before being locked. |
+| Layer | Flag | What it does | What it does **not** do |
+|---|---|---|---|
+| Claims ledger | *(default)* | Re-derives **289** numerical claims from the canonical data artifacts (parquet/CSV) and compares each against the value printed in the manuscript, under per-class tolerance rules. This is the layer that verifies **correctness**. | It does not re-derive everything in the manuscript. Hard-coded detector constants (`HARD_BOUNDS`, `DRIFT_MAX_DELTA_60S`) are **regex-extracted from `src/detector.py` at audit time** — read from the code, not recomputed from data — and bounds taken from the literature trace to a citation, not to an artifact. This is why the manuscript scopes the statement to "the computed quantitative claims" rather than to all of them. |
+| Paper crosswalk | `--check-paper-sync` | **92** entries. For each, counts the literal's occurrences across the **combined `paper.tex` + `supplement.tex` corpus** and compares against the expected count, *and* checks the mapped value still agrees with the ledger entry behind it (`preprint_npj/paper_to_monograph_map.md`). | It performs no independent computation: it binds the paper to the ledger's already-re-derived value. A number wrong in the ledger stays wrong here. |
+| Monograph anchors | `--check-monograph` | **26** anchors: numerical claims that live **only** in the monograph, with no ledger anchor and no crosswalk row (`preprint/monograph_anchor_map.md`). A presence guard — it detects a verified value silently drifting. | It is a **string-occurrence count**, not a re-derivation: `26/26 PASS` means each string still appears the expected number of times, not that its arithmetic was checked. Every anchor is therefore re-derived by hand before being locked. |
 
 The pilot gate study itself is a runnable smoke test on cell (S1, M):
 
@@ -416,9 +418,9 @@ Quick map (highlights — full audit trail in
   `not_steady_state` (Appendix C).
 - **S023** Supplementary ML/SHAP cross-check of Morris μ\* rankings
   (manuscript §4.5; requires `uv sync --extra ml`).
-- **S024** Pre-submission claims-ledger audit (266 / 267 PASS on a
+- **S024** Pre-submission claims-ledger audit (288 / 289 PASS on a
   public clone — 1 anchor auto-skipped, needs gitignored raw S021 data;
-  267 / 267 with the authors' full data tree).
+  289 / 289 with the authors' full data tree).
 - **S025** Pre-release OSS code-hygiene audit + fixes (this release).
 
 ---
