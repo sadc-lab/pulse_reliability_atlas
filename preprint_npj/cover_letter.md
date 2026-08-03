@@ -23,9 +23,12 @@ device-validation studies and to computational physiology research; yet the
 engine's own maintainers state on their public FAQ that they "have not [...]
 conducted a formal sensitivity analysis" of the model. Every downstream user
 has therefore been operating without a map of where the engine's user-facing
-operational envelope is trustworthy — and any model fitted to that output
-absorbs whatever artefacts the envelope contains as though they were
-physiology. **Our manuscript provides that map — the first
+operational envelope is trustworthy — and the stakes are no longer
+hypothetical: an independent group has already used the engine's respiratory
+dynamics as a source of simulated data to learn and benchmark
+ventilator-control policies for ARDS (Ward et al., *IEEE CBMS* 2024), and any
+model fitted to that output absorbs whatever artefacts the envelope contains as
+though they were physiology. **Our manuscript provides that map — the first
 open, preregistered reliability atlas of Pulse across the adult critical-care
 envelope (1,280 Morris elementary-effects simulations spanning seven
 operational inputs, four ARDS severities, and two patient reference bodies).**
