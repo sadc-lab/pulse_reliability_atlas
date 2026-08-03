@@ -322,7 +322,27 @@ live form; only the artefact itself records that it is gone. Recorded so this
 is not re-derived, and re-checked before submission in case npj updates its
 page.
 | E-3 | **Cover letter** — mandatory; "please avoid repeating information that is already present in the abstract and introduction" | `CT`, `SG` | `cover_letter.md` exists, has placeholders |
-| E-4 | **ORCID for the corresponding author** — "it is not possible to add/modify ORCID details at proof stage" | `SG` | tracked in `TODO_publication_roadmap.md` |
+| E-4 | **ORCID for the corresponding author** — "it is not possible to add/modify ORCID details at proof stage" | `SG` | tracked in `TODO_publication_roadmap.md`. **Re-read at source 2026-08-02, see below.** |
+
+### E-4, restated after re-reading the source
+
+Two things this register implied, and that a status report on 2026-08-02
+repeated, are wrong:
+
+- **ORCID does not go in the manuscript file.** `SG` describes linking it to
+  the Springer Nature account inside the submission portal ("Modify My Springer
+  Nature Account" → "Personal Profile" → "Create/link an Open Researcher
+  Contributor ID"). Reporting that `paper.tex` contains zero occurrences of
+  "ORCID" was therefore a meaningless measurement: it never belongs there.
+- **It is not an initial-submission blocker.** The requirement binds "all
+  corresponding authors of **accepted** papers" and must be satisfied "before
+  submitting the final version of the manuscript". Non-corresponding authors
+  are encouraged, not required.
+
+The proof-stage sentence quoted above is accurate and is the real constraint:
+the link must exist before acceptance, because it cannot be added afterwards.
+That makes E-4 a few minutes of portal work with a deadline at acceptance, not
+a gate on submission.
 
 ---
 
