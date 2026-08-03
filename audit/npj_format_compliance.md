@@ -176,7 +176,13 @@ defect.
 **Author decision** — these are load-bearing citations for the verified-
 limitations table, so moving them to parenthetical in-text URLs is not free.
 
-### 🟡 N-5 — Multi-panel legends do not describe each panel individually.
+### 🟢 N-5 — Multi-panel legends do not describe each panel individually. **Fixed in `91d705d`.**
+
+> The Figure 2 legend now reads *"The panels are Morris $\mu^{*}$ heatmaps, one
+> per steady-state output: **(a)** HR, **(b)** MAP, **(c)** Vt delivered,
+> **(d)** SpO$_2$, **(e)** PaO$_2$, **(f)** PaCO$_2$."* Verified in
+> `paper.tex` on 2026-08-02. The finding as originally recorded follows.
+
 
 > "Multi-panel figures should be presented on a single page and labeled using
 > an a), b), c) convention and each panel should be described in the legend

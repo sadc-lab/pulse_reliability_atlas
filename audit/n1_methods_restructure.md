@@ -188,9 +188,20 @@ main manuscript file, so this is compliant as it stands; it is recorded because
 the map is the paper's primary deliverable and its construction is the one
 method the Methods section does not state.
 
-Two rationale-table citations, `marini2018critical` and `marino2013icu`, appear
-in `supplement.tex` only. If either rationale table moved to the paper, both
-would have to be added to `paper.bib` and to the main reference list.
+Two rationale-table citations, `marini2018critical` and `marino2013icu`, are
+cited **only from `supplement.tex`** — three times in all, inside
+`tab:hard-bounds-rationale` (`marini` twice in the HR row, `marino` once in the
+Vt row) and never from `paper.tex`.
+
+*Corrected 2026-08-02, same day:* this paragraph first said both keys "would
+have to be added to `paper.bib`". They are already in it — both documents build
+against the same `paper.bib`. What moving a rationale table into the paper
+would actually change is the **main reference list**, which would grow from 33
+rendered entries to 35.
+
+The memory note `M-11` states that these two keys are cited *nowhere* in the
+paper or supplement. That is wrong: they carry three live citations in
+`supplement.tex`. Corrected there too.
 
 ## 7. What deleting the duplicated blocks would cost the audit
 
