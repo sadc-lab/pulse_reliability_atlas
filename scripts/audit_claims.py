@@ -924,7 +924,7 @@ add(
 # arterial 643 mmHg is Pulse's modelled A-a gradient (Pass C SP-C.D1 / D1-a).
 add(
     claim_id="T1.23b.alveolar_gas_prediction",
-    section="Abstract + §2.4 + Fig 3 (npj paper); §3.8 S021 derivation (monograph)",
+    section="Abstract + §2.4 + Fig 4 (npj paper); §3.8 S021 derivation (monograph)",
     manuscript_text="alveolar PAO2 = 1.0*(760-47) - 40/0.8 ~= 663 mmHg (sea-level; A-a gradient ~20 vs measured arterial 643)",
     source_file="alveolar gas equation, sea-level constants (West 2020 respiratory physiology)",
     manuscript_value=663.0,
@@ -943,7 +943,7 @@ _s14_pc = pd.read_parquet(
 _s14_worst = _s14_pc.loc[_s14_pc["Vt_cv_orig"].idxmax()]
 add(
     claim_id="T1.s014.worstcase_default_vtcv",
-    section="Section 2.3 + Fig 3a (npj); worst-case (monograph); Supplement Fig S8",
+    section="Section 2.3 + Fig 4a (npj); worst-case (monograph); Supplement Fig S3",
     manuscript_text="worst-case S014 default Vt CV = 1.826 (run S1_F_0117, largest before/after delta)",
     source_file="data/runs/s014_trigger_lockout/paired_comparison.parquet (max Vt_cv_orig row)",
     manuscript_value=1.826,
@@ -952,7 +952,7 @@ add(
 )
 add(
     claim_id="T1.s014.worstcase_locked_vtcv",
-    section="Section 2.3 + Fig 3a (npj); worst-case (monograph); Supplement Fig S8",
+    section="Section 2.3 + Fig 4a (npj); worst-case (monograph); Supplement Fig S3",
     manuscript_text="worst-case S014 paired-config locked Vt CV = 0.018 (same run S1_F_0117)",
     source_file="data/runs/s014_trigger_lockout/paired_comparison.parquet (Vt_cv_lock of max-Vt_cv_orig row)",
     manuscript_value=0.018,
@@ -989,9 +989,9 @@ add(
     tolerance_rule="exact_int",
 )
 # Worst-case S1 hyperoxia numerical-runaway plateau (off the [0, 760] mmHg
-# visible range of npj Figure 3b). Guarded after the D.8 paper sweep flagged
+# visible range of npj Figure 4b). Guarded after the D.8 paper sweep flagged
 # the "~1,408 mmHg" caption value as an orphan: it appears only in paper.tex
-# Fig 3 caption with no monograph/ledger anchor. Computed as the max S1
+# Fig 4 caption with no monograph/ledger anchor. Computed as the max S1
 # plateau across the S021 extended-simulation reruns. approx_round tolerance
 # because the caption renders it with an explicit "~".
 s021_s1_max_plateau = float(
@@ -999,7 +999,7 @@ s021_s1_max_plateau = float(
 )
 add(
     claim_id="T1.24d.s021_s1_max_runaway_plateau",
-    section="Fig 3b caption (npj paper); §3.8 S021 runaway (monograph)",
+    section="Fig 4b caption (npj paper); §3.8 S021 runaway (monograph)",
     manuscript_text="worst-case S1 hyperoxia runaway plateau ~1,408 mmHg (off-scale; 6 S1 reruns > 700 mmHg)",
     source_file="data/runs/s021_hyperoxia_convergence/plateau_stats.parquet (max S1 PaO2_plateau_mmHg)",
     manuscript_value=1408.0,

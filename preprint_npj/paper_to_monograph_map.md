@@ -214,7 +214,7 @@ caught equally.*
   expected_occurrences: 1
   notes: 'Full Table 1 row for the S4_F cell. Note: 0 divergences (consistent with the all-male divergence cluster, §2.5).'
 
-## Step 3 — Results §2.1 Figure 1 traffic-light caption
+## Step 3 — Results §2.1 Figure 2 traffic-light caption
 
 - paper_section: '§2.1 Figure 2 caption + §4.5 deviation declaration'
   paper_context: 'Reliability traffic-light aggregate breakdown'
@@ -224,15 +224,15 @@ caught equally.*
   expected_occurrences: 2
   notes: 'Bumped 1 -> 2 (2026-08-04), post hoc deviation declaration: Methods §4.5 now restates the primary counts at the point where the 7 / 3 / 38 sensitivity is introduced, so a reader meets both distributions together instead of having to hold one from §2.1. The canonical slash form was used deliberately rather than a comma variant, which would have escaped this check while leaving two spellings of the same anchored quantity in the paper. Also corrected in this entry: paper_section said "Figure 1 caption"; the traffic-light map is Figure 2 (fig00_study_design was inserted as Figure 1 on 2026-06-24 and this label was not renumbered). Single literal-string check covering all three traffic-light counts (T1.25=7 green, T1.26=29 yellow, T1.27=12 red). Anchored on T1.25 for value-cross-check; 29 and 12 are co-validated by literal presence.'
 
-## Step 3 — Results §2.2 Morris rankings (prose + Figure 2 caption)
+## Step 3 — Results §2.2 Morris rankings (prose + Figure 3 caption)
 
-- paper_section: '§2.2 Morris (prose + Figure 2 caption)'
+- paper_section: '§2.2 Morris (prose + Figure 3 caption)'
   paper_context: 'H1 verdict — top-3 fraction >= 0.5 on all 48 cell x output combinations'
   monograph_claim_id: 'T1.07'
   expected_value: 48
   format_in_paper: '48 of 48'
   expected_occurrences: 4
-  notes: 'Appears three times: once in §2.2 prose ("the data support this on 48 of 48 cell $\times$ output combinations"), once in Figure 2 caption ("48 of 48 cell $\times$ output combinations"), and (bumped 2 -> 3, 2026-07-05) once in the §4 Discussion, where the H1 skewed-sensitivity result is surfaced at the FAQ-gap sentence. Bumped 3 -> 4 (2026-07-24): the new Supplement §S3.3 subsection on the pulse-pressure-clip cost states that H1 "holds in 48 of 48 cell--output combinations under either estimator", adding a fourth occurrence.'
+  notes: 'Appears three times: once in §2.2 prose ("the data support this on 48 of 48 cell $\times$ output combinations"), once in Figure 3 caption ("48 of 48 cell $\times$ output combinations"), and (bumped 2 -> 3, 2026-07-05) once in the §4 Discussion, where the H1 skewed-sensitivity result is surfaced at the FAQ-gap sentence. Bumped 3 -> 4 (2026-07-24): the new Supplement §S3.3 subsection on the pulse-pressure-clip cost states that H1 "holds in 48 of 48 cell--output combinations under either estimator", adding a fourth occurrence.'
 
 - paper_section: '§2.2 Morris (prose)'
   paper_context: 'H1 median top-3 fraction (prose form)'
@@ -242,13 +242,13 @@ caught equally.*
   expected_occurrences: 1
   notes: 'Appears once in §2.2 prose as "with a median top-3 fraction of 0.928".'
 
-- paper_section: '§2.2 Figure 2 caption'
+- paper_section: '§2.2 Figure 3 caption'
   paper_context: 'H1 median top-3 fraction (figure caption form)'
   monograph_claim_id: 'T1.08'
   expected_value: 0.928
   format_in_paper: 'median 0.928'
   expected_occurrences: 1
-  notes: 'Appears once in Figure 2 caption as ", median 0.928".'
+  notes: 'Appears once in Figure 3 caption as ", median 0.928".'
 
 - paper_section: 'Abstract + §3 Discussion'
   paper_context: 'H1 median top-3 fraction (rounded-percentage display form)'
@@ -290,7 +290,7 @@ caught equally.*
   expected_value: 0.351
   format_in_paper: '0.351'
   expected_occurrences: 3
-  notes: 'Appears twice: §2.3 prose ("collapses the median Vt CV from 0.351 to 0.016") and Figure 3 caption ("Median CV collapses from 0.351 to 0.016"). Both are downstream of T1.03 (S014 paired_comparison.parquet).'
+  notes: 'Appears twice: §2.3 prose ("collapses the median Vt CV from 0.351 to 0.016") and Figure 4 caption ("Median CV collapses from 0.351 to 0.016"). Both are downstream of T1.03 (S014 paired_comparison.parquet).'
 
 - paper_section: '§2.3 + §2.4 caption'
   paper_context: 'Median Vt CV after -2 cmH2O trigger lock'
@@ -298,7 +298,7 @@ caught equally.*
   expected_value: 0.016
   format_in_paper: '0.016'
   expected_occurrences: 3
-  notes: 'Appears twice: §2.3 prose and Figure 3 caption (same context as T1.03).'
+  notes: 'Appears twice: §2.3 prose and Figure 4 caption (same context as T1.03).'
 
 - paper_section: '§2.3 VC-AC (prose)'
   paper_context: 'Worst-case Vt CV original'
@@ -330,7 +330,7 @@ caught equally.*
   expected_value: 78.1
   format_in_paper: '78.1~\%'
   expected_occurrences: 3
-  notes: 'Appears twice: §2.3 prose ("78.1~\% of locked-trigger reruns drop below the 0.05 steady-state threshold") and Figure 3 caption ("78.1~\% of locked reruns drop below the threshold"). New ledger claim T1.06c added in Step 4.'
+  notes: 'Appears twice: §2.3 prose ("78.1~\% of locked-trigger reruns drop below the 0.05 steady-state threshold") and Figure 4 caption ("78.1~\% of locked reruns drop below the threshold"). New ledger claim T1.06c added in Step 4.'
 
 - paper_section: 'Abstract + §2.3 subsection title + §2.3 prose ×2 + §2.4 caption + Supplement §S5 Berlin-calibration caveat + Supplement §S8 contribution-claim sentence'
   paper_context: 'Inspiration-trigger pressure for VC-AC lockout fix'
@@ -384,13 +384,13 @@ caught equally.*
 
 ## Step 5 — Results §2.5 sex-stratified divergence + BV mechanism
 
-- paper_section: '§2.5 prose + Figure 4 caption'
+- paper_section: '§2.5 prose + Figure 5 caption'
   paper_context: 'All 20 divergence events on male surrogate (anchor for the sex-stratification claim)'
   monograph_claim_id: 'T1.12'
   expected_value: 20
   format_in_paper: '20 divergence events'
   expected_occurrences: 2
-  notes: 'Appears twice: §2.5 prose "The 20 divergence events are not spread uniformly" (1) and Figure 4 caption "All 20 divergence events fall on the male surrogate" (1).'
+  notes: 'Appears twice: §2.5 prose "The 20 divergence events are not spread uniformly" (1) and Figure 5 caption "All 20 divergence events fall on the male surrogate" (1).'
 
 - paper_section: '§2.5 prose'
   paper_context: 'Female surrogate divergence count (zero across 4 cells x 160 runs)'
@@ -432,7 +432,7 @@ caught equally.*
   expected_occurrences: 9
   notes: 'paper §2.5 (2) + supplement S3.7 (1) + supplement S5 continuous-severity table "0 / 20" rows (the (0.5, 0.85] bin counts) (2). Bumped 3 -> 5 in Phase 9.B.'
 
-- paper_section: 'paper.tex prose, rounded mL (Tier 3 id8/54): §2.5 (x2) + Figure 4 caption'
+- paper_section: 'paper.tex prose, rounded mL (Tier 3 id8/54): §2.5 (x2) + Figure 5 caption'
   paper_context: 'Male reference body BloodVolumeBaseline default, rounded to whole mL in the paper'
   monograph_claim_id: 'T3.s027.bv_default'
   expected_value: 4802.63
@@ -440,7 +440,7 @@ caught equally.*
   expected_occurrences: 3
   notes: 'Tier 3 split (Sauthier id8/54): paper prose rounds 4,802.63 -> 4,803 mL (3x); expected_value stays the exact 4802.63 for the value-check; supplement keeps the exact 4{,}802.63 form (8x, the paired row).'
 
-- paper_section: 'paper.tex prose, rounded mL (Tier 3 id8/54): Abstract + §2.5 (x2) + Figure 4 caption'
+- paper_section: 'paper.tex prose, rounded mL (Tier 3 id8/54): Abstract + §2.5 (x2) + Figure 5 caption'
   paper_context: 'Male reference body BloodVolumeBaseline floor, rounded to whole mL in the paper'
   monograph_claim_id: 'T3.s027.bv_floor'
   expected_value: 4082.24
@@ -448,7 +448,7 @@ caught equally.*
   expected_occurrences: 4
   notes: 'Tier 3 split (Sauthier id8/54): paper prose rounds 4,082.24 -> 4,082 mL (4x); expected_value stays the exact 4082.24; supplement keeps the exact 4{,}082.24 form (5x, the paired row).'
 
-- paper_section: 'paper.tex prose, rounded mL (Tier 3 id8/54): §2.5 (x2) + Figure 4 caption'
+- paper_section: 'paper.tex prose, rounded mL (Tier 3 id8/54): §2.5 (x2) + Figure 5 caption'
   paper_context: 'Female reference body BloodVolumeBaseline default, rounded to whole mL in the paper'
   monograph_claim_id: 'T3.s028.bv_female_default'
   expected_value: 3996.09
@@ -456,15 +456,15 @@ caught equally.*
   expected_occurrences: 3
   notes: 'Tier 3 split (Sauthier id8/54): paper prose rounds 3,996.09 -> 3,996 mL (3x); expected_value stays the exact 3996.09; supplement keeps the exact 3{,}996.09 form (5x, the paired row).'
 
-- paper_section: '§2.5 + Figure 4 + supplement S3.6 (exact-precision occurrences; paper prose moved to the rounded-mL row above)'
+- paper_section: '§2.5 + Figure 5 + supplement S3.6 (exact-precision occurrences; paper prose moved to the rounded-mL row above)'
   paper_context: 'Male reference body BloodVolumeBaseline default'
   monograph_claim_id: 'T3.s027.bv_default'
   expected_value: 4802.63
   format_in_paper: '4{,}802.63'
   expected_occurrences: 6
-  notes: 'Figure 4 caption + supplement S3.6 body-dimension provenance + supplement S10 prose. Count 8 -> 6 on 2026-06-16: the S018 dose-response rewording (20->0->0) removed two "4,802.63" mentions from supplement S10.'
+  notes: 'Figure 5 caption + supplement S3.6 body-dimension provenance + supplement S10 prose. Count 8 -> 6 on 2026-06-16: the S018 dose-response rewording (20->0->0) removed two "4,802.63" mentions from supplement S10.'
 
-- paper_section: 'Abstract + §2.5 prose (×2) + Figure 4 caption'
+- paper_section: 'Abstract + §2.5 prose (×2) + Figure 5 caption'
   paper_context: 'Male reference body BloodVolumeBaseline floor (Pulse setup-time minimum)'
   monograph_claim_id: 'T3.s027.bv_floor'
   expected_value: 4082.24
@@ -472,21 +472,21 @@ caught equally.*
   expected_occurrences: 5
   notes: 'Appears 4 times as of Step 5: abstract sentence 5 "4{,}082.24~mL floor" (1), §2.5 prose ¶2 "the engine''s setup-time minimum for this body (4{,}082.24~mL, a 15.0~\% reduction)" (1), §2.5 prose ¶3 "4{,}082.24~mL on this male body" (1), Figure 4 caption "4{,}082.24~mL Pulse setup-time floor on this body" (1). Bumped from 1 (Step 1, abstract-only format "4{,}082.24~mL") to 4 (Step 5). Format simplified to just "4{,}082.24" to match all four occurrences regardless of trailing unit/context.'
 
-- paper_section: '§2.5 + Figure 4 + supplement S3.6'
+- paper_section: '§2.5 + Figure 5 + supplement S3.6'
   paper_context: 'Female reference body BloodVolumeBaseline default (Pulse allometric for 56.2 kg)'
   monograph_claim_id: 'T3.s028.bv_female_default'
   expected_value: 3996.09
   format_in_paper: '3{,}996.09'
   expected_occurrences: 5
-  notes: 'paper §2.5 (×2) + Figure 4 caption (1) + supplement S3.6 body-dimension provenance (1). Bumped 3 -> 4 in Phase 9.A.'
+  notes: 'paper §2.5 (×2) + Figure 5 caption (1) + supplement S3.6 body-dimension provenance (1). Bumped 3 -> 4 in Phase 9.A.'
 
-- paper_section: '§2.5 prose + Figure 4 caption'
+- paper_section: '§2.5 prose + Figure 5 caption'
   paper_context: 'Intermediate BV bracket in S018 dose-response (4400 mL = 8.4% reduction from male default)'
   monograph_claim_id: 'T2.bv.bracket.diverged'
   expected_value: 0
   format_in_paper: '4{,}400'
   expected_occurrences: 4
-  notes: 'Appears twice: §2.5 prose "an intermediate bracket (4{,}400~mL, a 8.4~\% reduction)" (1), Figure 4 caption "4{,}400~mL intermediate bracket" (1). Anchored on T2.bv.bracket.diverged (value corrected 2026-06-16 to 0 diverged at this BV setting; the "4400" value itself is the experimental BV override, declared in scripts/s018_bv_falsification.py as BV_BRACKETS["bracket"]).'
+  notes: 'Appears twice: §2.5 prose "an intermediate bracket (4{,}400~mL, a 8.4~\% reduction)" (1), Figure 5 caption "4{,}400~mL intermediate bracket" (1). Anchored on T2.bv.bracket.diverged (value corrected 2026-06-16 to 0 diverged at this BV setting; the "4400" value itself is the experimental BV override, declared in scripts/s018_bv_falsification.py as BV_BRACKETS["bracket"]).'
 
 ## Step 5 — Results §2.6 secondary observations narrative block
 
@@ -562,13 +562,13 @@ caught equally.*
   expected_occurrences: 2
   notes: 'Added in the [SCIENTIFIC] final-fixes pass (D.8 sweep finding A1). paper §2.6 ¶3 "only 3 of 85 fall on the four-channel overlap" (1) + supplement S7 caption L351 "only 3 of 85 fall on the four-channel overlap" (1). This number was present in both documents before but untracked; now guarded.'
 
-- paper_section: '§2.4 Figure 3b caption (npj paper)'
+- paper_section: '§2.4 Figure 4b caption (npj paper)'
   paper_context: 'Worst-case S1 hyperoxia numerical-runaway plateau, off the [0,760] visible range'
   monograph_claim_id: 'T1.24d.s021_s1_max_runaway_plateau'
   expected_value: 1408
   format_in_paper: '1{,}408'
   expected_occurrences: 2
-  notes: 'Added in the [SCIENTIFIC] final-fixes pass (D.8 sweep finding A2). Appears once in the Figure 3 caption: "plateau off-scale (up to $\\approx$1{,}408~mmHg ...)". Verified against data/runs/s021_hyperoxia_convergence/plateau_stats.parquet (max S1 PaO2_plateau_mmHg = 1408.49); approx_round tolerance because the caption uses an explicit "~". Count raised 1 -> 2 on 2026-07-25: Supplement S9 now also cites the maximum as the upper end of the 1,169-1,408 mmHg female runaway range, in the corrected hyperoxia-signature paragraph. The sync corpus is paper.tex + supplement.tex, so both occurrences count; both state the same re-derived value (max S1 PaO2_plateau_mmHg = 1408.49).'
+  notes: 'Added in the [SCIENTIFIC] final-fixes pass (D.8 sweep finding A2). Appears once in the Figure 4 caption: "plateau off-scale (up to $\\approx$1{,}408~mmHg ...)". Verified against data/runs/s021_hyperoxia_convergence/plateau_stats.parquet (max S1 PaO2_plateau_mmHg = 1408.49); approx_round tolerance because the caption uses an explicit "~". Count raised 1 -> 2 on 2026-07-25: Supplement S9 now also cites the maximum as the upper end of the 1,169-1,408 mmHg female runaway range, in the corrected hyperoxia-signature paragraph. The sync corpus is paper.tex + supplement.tex, so both occurrences count; both state the same re-derived value (max S1 PaO2_plateau_mmHg = 1408.49).'
 
 ## Step 7 — Methods reproducibility constants
 
