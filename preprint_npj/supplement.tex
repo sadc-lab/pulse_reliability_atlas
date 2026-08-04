@@ -288,6 +288,33 @@ We verified that this male-baseline choice does not drive the classification. Re
 
 Within category (b), the exact numerical choice (e.g., PaO$_2$ lower 20 vs 25~mmHg) is a defensible judgment call within the cited literature rather than a unique biological constant. Section~3.8 of the companion technical monograph demonstrates the sensitivity-analysis pattern on the single most contestable bound (PaO$_2$ upper, raised from 600 to 700~mmHg per the alveolar-gas-equation ceiling), with reclassification results reported in Section~2.4 of the main manuscript. Under this wider physiology-anchored bound, 32 of the 34 runs flagged \texttt{implausible} by the locked 600~mmHg PaO$_2$ ceiling become physiologically clean (31 at FiO$_2 \geq 0.95$; 21 on the female and 11 on the male reference body); the remaining two are healthy-female runs at maximal minute ventilation (Vt 800~mL $\times$ RR 20 = 16~L/min) whose PaO$_2$ suffers a genuine numerical runaway within the window --- stable at $\approx$480~mmHg for the first 60~s, then climbing to a physically impossible plateau above the 760~mmHg sea-level barometric pressure --- so they correctly stay implausible under either bound (the same high-minute-ventilation solver instability seen at extended windows, Section~\ref{sec:s9-guidance}). One limit of the wider bound is worth stating, since it bears on how the side-analysis should be read. 700~mmHg is a \emph{flat} ceiling derived at FiO$_2$ = 1.0, whereas the alveolar-gas-equation value scales with each run's own inspired fraction and PaCO$_2$. Of the 32 runs it reclassifies, 31 sit at FiO$_2 \geq 0.95$, where the flat ceiling is close to the run-specific one; the exception is a single healthy-female run at FiO$_2$ = 0.737, whose 679~mmHg steady-state mean stands well above the $0.737 \times (760 - 47) - 16.2 / 0.8 \approx 505$~mmHg its own inspired fraction and PaCO$_2$ permit. An FiO$_2$-aware ceiling would keep that run flagged. The flat 700~mmHg bound is therefore a deliberately permissive stress test of the locked classifier, not a better classifier. No locked threshold has been adjusted post-hoc; the only preregistration amendment (2026-04-22-b, flatline tolerance 1~\% $\rightarrow$ 0.1~\%) was made before the sweep launched.
 
+\subsection{Sensitivity of the traffic-light map to the preregistered wording}\label{sec:s3-tl-sensitivity}
+
+Section~4.5 of the main manuscript records a post hoc deviation between the preregistered traffic-light rule and the rule implemented. This subsection quantifies it. All three classifications in Table~\ref{tab:s3-tl-sensitivity} were rebuilt from the eight per-cell run-level artefacts (\texttt{data/runs/full\_sweep/*/aggregated.parquet}), not read from the derived classification table, so the comparison does not depend on the chain it audits (\texttt{scripts/audit\_traffic\_light\_rule.py}).
+
+\begin{table}[h]
+\centering
+\caption{\textbf{The traffic-light map under three readings of the preregistered rule.} The implemented rule reserves red for a combined \texttt{diverged}-plus-\texttt{implausible} rate above $30~\%$ and assigns yellow whenever that rate is positive; the literal readings make a cell red as soon as it carries any flag, and differ only in whether ``flag'' spans the two hard flags or all four. Deviation thresholds ($10~\%$, $30~\%$) are the preregistered ones throughout.}
+\label{tab:s3-tl-sensitivity}
+\begin{tabular}{lccc}
+\toprule
+Reading of the rule & Green & Yellow & Red \\
+\midrule
+Implemented hard-flag-rate rule (reported) & 7 & 29 & 12 \\
+Literal wording, ``flag'' = the two hard flags & 7 & 3 & 38 \\
+Literal wording, ``flag'' = all four flags & 0 & 0 & 48 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Four properties of Table~\ref{tab:s3-tl-sensitivity} matter more than the counts themselves. First, the rebuilt implemented rule reproduces the published classification on all 48 cell $\times$ output combinations, so the artefact underlying Figure~2 of the main manuscript is confirmed correct rather than merely self-consistent. Second, no cell's deviation falls exactly on the $10~\%$ or $30~\%$ threshold, so the two readings' differing treatment of the bounds --- inclusive versus strict --- cannot change a single verdict; the comparison is about the rules, not about a tie-breaking convention. Third, the green set is invariant: the same seven combinations are green under the implemented rule and under the literal hard-flag reading, because green requires zero hard flags either way and only the two cells S2\_F and S3\_F carry none. The implemented rule therefore never converted a cell into a favourable verdict. Fourth, all twelve combinations that are red under the implemented rule remain red under the literal reading, so the entire difference is the 26 combinations that move from yellow to red at the boundary between ``carries a hard flag'' and ``carries them at above $30~\%$''.
+
+The four-flag reading is reported to document the ambiguity of the preregistered word ``flag'', not as an alternative analysis: every cell in the sweep contains \texttt{not\_steady\_state} runs (minimum 12, in S3\_M), so that reading colours all 48 combinations red and carries no information. The complete list of the 26 transitions, the chronology of the two rules in the repository, and the reasoning behind retaining the implemented rule are recorded in the companion audit register released with the code.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% S4 -- Extended Table 1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Extended Table 1: not\_steady\_state attribution}\label{sec:s4}
 
 Table~1 of the main manuscript reports per-cell counts under the locked four-flag classifier. The \texttt{not\_steady\_state} count in each cell is a composite of three trigger sub-modes: flatline at a hard bound, coefficient of variation above 0.05, or drift above the per-channel threshold (Supplement~\S\,\ref{sec:s3-detector-order}). A post-hoc trigger-attribution audit decomposes the 530 \texttt{not\_steady\_state} runs into the contributing sub-modes (Table~\ref{tab:s4-nss}). The locked classifier is unchanged; this table is a presentation transform that gives readers a finer-grained read on what the \texttt{not\_steady\_state} flag is doing per cell.
@@ -739,8 +766,8 @@ uv run python scripts/analyze_sweep.py
 
 # 4. Re-derive the computed quantitative claims in the
 #    manuscript + supplement from the canonical artefacts; expect
-#    304/304 PASS (exit 0) with the authors' full data tree,
-#    or 303/304 on a public clone (T1.06u auto-skipped).
+#    313/313 PASS (exit 0) with the authors' full data tree,
+#    or 312/313 on a public clone (T1.06u auto-skipped).
 uv run python scripts/audit_claims.py
 
 # 5. Optional: verify paper.tex + supplement.tex remain
@@ -759,7 +786,7 @@ Bit-exact reproduction of the canonical sweep output is verified at three indepe
 \item \textbf{Derived statistical artefacts.} The Morris $\mu^{*}$ indices, bootstrap confidence intervals, Wasserstein distances, Spearman correlations, and BH-FDR survivors all regenerate bit-equivalently from the canonical aggregated parquets; this is what the audit ledger (\texttt{scripts/audit\_claims.py}) re-derives at every run.
 \end{enumerate}
 
-The audit ledger is the primary reproducibility instrument: a green ledger run confirms that the computed quantitative claims in the main manuscript and supplement are consistent with the canonical artefacts. The ledger reports a target of 304 anchors; on the authors' full data tree all 304 are evaluated (304/304 PASS), whereas on a public clone one anchor (T1.06u, the S021 time-to-95\%-plateau, which requires the heavy raw per-run trajectories that are gitignored) is automatically skipped, giving 303/304 PASS with one explicitly-reported SKIPPED. A failed claim is a structured triage item (Type A transcription drift, Type B orphaned number, Type C derivation mismatch) with a precise file:line pointer for forensic tracing.
+The audit ledger is the primary reproducibility instrument: a green ledger run confirms that the computed quantitative claims in the main manuscript and supplement are consistent with the canonical artefacts. The ledger reports a target of 313 anchors; on the authors' full data tree all 313 are evaluated (313/313 PASS), whereas on a public clone one anchor (T1.06u, the S021 time-to-95\%-plateau, which requires the heavy raw per-run trajectories that are gitignored) is automatically skipped, giving 312/313 PASS with one explicitly-reported SKIPPED. A failed claim is a structured triage item (Type A transcription drift, Type B orphaned number, Type C derivation mismatch) with a precise file:line pointer for forensic tracing.
 
 \subsection{Independent reproduction on separate hardware}\label{sec:s12-independent}
 

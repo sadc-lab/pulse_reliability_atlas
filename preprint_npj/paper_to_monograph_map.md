@@ -216,13 +216,13 @@ caught equally.*
 
 ## Step 3 — Results §2.1 Figure 1 traffic-light caption
 
-- paper_section: '§2.1 Figure 1 caption'
+- paper_section: '§2.1 Figure 2 caption + §4.5 deviation declaration'
   paper_context: 'Reliability traffic-light aggregate breakdown'
   monograph_claim_id: 'T1.25'
   expected_value: 7
   format_in_paper: '7 green / 29 yellow / 12 red'
-  expected_occurrences: 1
-  notes: 'Single literal-string check covering all three traffic-light counts (T1.25=7 green, T1.26=29 yellow, T1.27=12 red). Anchored on T1.25 for value-cross-check; 29 and 12 are co-validated by literal presence.'
+  expected_occurrences: 2
+  notes: 'Bumped 1 -> 2 (2026-08-04), post hoc deviation declaration: Methods §4.5 now restates the primary counts at the point where the 7 / 3 / 38 sensitivity is introduced, so a reader meets both distributions together instead of having to hold one from §2.1. The canonical slash form was used deliberately rather than a comma variant, which would have escaped this check while leaving two spellings of the same anchored quantity in the paper. Also corrected in this entry: paper_section said "Figure 1 caption"; the traffic-light map is Figure 2 (fig00_study_design was inserted as Figure 1 on 2026-06-24 and this label was not renumbered). Single literal-string check covering all three traffic-light counts (T1.25=7 green, T1.26=29 yellow, T1.27=12 red). Anchored on T1.25 for value-cross-check; 29 and 12 are co-validated by literal presence.'
 
 ## Step 3 — Results §2.2 Morris rankings (prose + Figure 2 caption)
 

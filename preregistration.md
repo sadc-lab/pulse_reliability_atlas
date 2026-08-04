@@ -216,3 +216,74 @@ If any fail, pause, diagnose, log amendment, re-pilot. Do **not** silently edit 
 **2026-04-22.** Rescope from hackathon to methods paper. See revision log at top. No data was collected before this amendment; preregistration integrity preserved.
 
 **2026-04-22-b.** Detector calibration amendment. Flatline-bound tolerance tightened from 1% → 0.1% of the relevant hard bound, after dogfooding the detector on 20 pre-existing Pulse runs in `Pulse_translation_new/data/engine_runs/`. Under the original 1% tolerance, 3 healthy runs with naturally-saturated SpO2 (≈0.995–0.996) were flagged as "flatline at extreme" — a physiological ceiling, not a solver pathology. Tightening to 0.1% limits the flag to genuinely pinned cases (mean exactly at bound). No atlas data had been collected. The validation script is at `scripts/validate_detector_on_existing_runs.py`.
+
+---
+
+### Post hoc deviation record — 2026-08-04
+
+This entry was added after completion of the sweep and its analysis. It does
+not modify, overwrite or reinterpret the original preregistered text above,
+which stands as written. It is filed separately from the two 2026-04-22
+amendments because those were made before any data existed, and this one was
+not.
+
+**What the preregistration said.** §Analysis plan, item 7: *"Reliability
+classification. Per output per input cell: green (<10% deviation from cell
+baseline), yellow (10–30%), red (>30% or any flag raised)."*
+
+**What was implemented** (`src/analysis_compare.py`, function
+`reliability_classification`): red when the combined `diverged`-plus-
+`implausible` rate exceeds 30% **or** the deviation exceeds 30%; yellow when
+the deviation exceeds 10% **or** that combined rate is greater than zero; green
+otherwise.
+
+**D1 — material deviation.** The yellow–red boundary implemented is not the one
+written. The preregistered rule made a cell red as soon as any flag was raised;
+the implemented rule sends that case to yellow and reserves red for a hard-flag
+rate above 30%. The implementation also adds a flag term to the yellow
+criterion, which the preregistered rule does not contain at all. The two
+changes are inseparable: the second is why the first does not push cells into
+green. The preregistered 10% and 30% deviation thresholds are unchanged.
+
+**D2 — operational clarification.** "Flag" was applied to `diverged` and
+`implausible` only. Applying it to all four flags — including
+`not_steady_state`, which occurs in every cell — makes all 48 cell × output
+combinations red and yields no information. The preregistered wording is
+therefore ambiguous rather than unusable, and the restriction to the two hard
+flags is declared as a reading, not presented as the only possible one.
+
+**D3 — terminological ambiguity, not an established deviation.** "Cell
+baseline" admits both a per-cell reading and a reading in which it denotes the
+baseline cell, i.e. (S1, M). The implementation uses (S1, M), which the
+analysis code's own contemporaneous docstring calls the "cell baseline". The
+repository does not settle which the preregistered sentence intended, and a
+literal per-cell baseline would make every deviation zero by construction. This
+is recorded as an ambiguity of wording; it is not claimed as a deviation.
+
+**Effect, rebuilt from the run-level artefacts rather than from the derived
+classification table** (`scripts/audit_traffic_light_rule.py`):
+
+| Reading | Green | Yellow | Red |
+|---|---|---|---|
+| Implemented rule (reported) | 7 | 29 | 12 |
+| Literal wording, two hard flags | 7 | 3 | 38 |
+| Literal wording, all four flags | 0 | 0 | 48 |
+
+The same seven combinations are green under both non-degenerate readings, and
+the same twelve are red; the entire difference is 26 combinations moving from
+yellow to red. **The deviation created no additional favourable verdict.** No
+cell's deviation falls exactly on the 10% or 30% threshold, so the readings'
+differing treatment of the bounds cannot change any verdict.
+
+**Chronology, stated at the limit of what the repository proves.** The
+repository establishes that the implemented rule was committed after
+preregistration, in the same commit as the tracked sweep artefacts. It does not
+establish whether the rule was defined before or after inspection of the sweep
+outputs. No recollection is offered in place of that evidence.
+
+**What was and was not changed in response.** The classifier, the map and the
+reported counts are unchanged. The deviation is declared in Methods §4.5 of the
+manuscript, the sensitivity analysis is published in Supplement §S3.11, and the
+full record — the 26 transitions, the git chronology, and the reasoning for
+retaining the implemented rule — is in `audit/preregistration_traffic_light_deviation.md`,
+released with the code.

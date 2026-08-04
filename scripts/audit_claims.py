@@ -1861,6 +1861,145 @@ add(
     tolerance_rule="displayed_1dp",
 )
 
+# --- Traffic-light rule: the post hoc deviation declared in paper §4.5 -----
+# Every count below is rebuilt HERE from the run-level sweep artefact, never read
+# from results/reliability_classification.csv. That file is the output of the
+# rule under audit, so anchoring against it would only confirm that the paper
+# reports what the code computed -- see audit/preregistration_traffic_light_deviation.md
+# §5.2. The full derivation, with the 26 transitions enumerated, lives in
+# scripts/audit_traffic_light_rule.py; this block re-expresses it compactly so
+# that the ledger's own numbers do not depend on that script either.
+_TL_OUTPUTS = ["HR", "MAP", "Vt", "SpO2", "PaO2", "PaCO2"]
+_tl_ref = agg[(agg["scenario"] == "S1") & (agg["sex"] == "M") & agg["clean"]]
+_tl_rows = []
+for (_sc, _sx), _cell in agg.groupby(["scenario", "sex"]):
+    _hard = int(_cell[["diverged", "implausible"]].any(axis=1).sum())
+    _anyflag = int(
+        _cell[["clamped", "diverged", "implausible", "not_steady_state"]].any(axis=1).sum()
+    )
+    for _ch in _TL_OUTPUTS:
+        _base = float(_tl_ref[f"{_ch}_mean"].mean())
+        _mean = float(_cell[_cell["clean"]][f"{_ch}_mean"].mean())
+        _tl_rows.append(
+            {
+                "cell": f"{_sc}_{_sx}",
+                "dev": abs(_mean - _base) / abs(_base),
+                "hard_rate": _hard / len(_cell),
+                "hard_any": _hard > 0,
+                "anyflag_any": _anyflag > 0,
+            }
+        )
+_tl = pd.DataFrame(_tl_rows)
+
+
+def _tl_light(row: pd.Series, rule: str) -> str:
+    if rule == "implemented":
+        if row["hard_rate"] > 0.3 or row["dev"] > 0.3:
+            return "red"
+        return "yellow" if (row["dev"] > 0.1 or row["hard_rate"] > 0.0) else "green"
+    flagged = row["hard_any"] if rule == "literal-hard" else row["anyflag_any"]
+    if row["dev"] > 0.3 or flagged:
+        return "red"
+    return "green" if row["dev"] < 0.1 else "yellow"
+
+
+for _rule in ("implemented", "literal-hard", "literal-four"):
+    _tl[_rule] = _tl.apply(_tl_light, axis=1, rule=_rule)
+
+TL_LITERAL_HARD = {c: int((_tl["literal-hard"] == c).sum()) for c in ("green", "yellow", "red")}
+TL_LITERAL_FOUR = {c: int((_tl["literal-four"] == c).sum()) for c in ("green", "yellow", "red")}
+TL_YELLOW_TO_RED = int(((_tl["implemented"] == "yellow") & (_tl["literal-hard"] == "red")).sum())
+TL_GREEN_INVARIANT = int(((_tl["implemented"] == "green") & (_tl["literal-hard"] == "green")).sum())
+TL_RED_INVARIANT = int(((_tl["implemented"] == "red") & (_tl["literal-hard"] == "red")).sum())
+TL_ON_THRESHOLD = int(_tl["dev"].isin([0.1, 0.3]).sum())
+TL_S1M_HARD_RUNS = int(
+    agg[(agg["scenario"] == "S1") & (agg["sex"] == "M")][["diverged", "implausible"]]
+    .any(axis=1)
+    .sum()
+)
+
+add(
+    claim_id="T1.tl.literal_hard_green",
+    section="§4.5 (npj paper); Supplement S3.11; §3.7 (monograph)",
+    manuscript_text="7 green under the literal hard-flag reading of the preregistered rule",
+    source_file="data/runs/full_sweep/aggregated.parquet, rule re-expressed in this ledger",
+    manuscript_value=7,
+    computed_value=TL_LITERAL_HARD["green"],
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T1.tl.literal_hard_yellow",
+    section="§4.5 (npj paper); Supplement S3.11; §3.7 (monograph)",
+    manuscript_text="3 yellow under the literal hard-flag reading of the preregistered rule",
+    source_file="data/runs/full_sweep/aggregated.parquet, rule re-expressed in this ledger",
+    manuscript_value=3,
+    computed_value=TL_LITERAL_HARD["yellow"],
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T1.tl.literal_hard_red",
+    section="§4.5 (npj paper); Supplement S3.11; §3.7 (monograph)",
+    manuscript_text="38 red under the literal hard-flag reading of the preregistered rule",
+    source_file="data/runs/full_sweep/aggregated.parquet, rule re-expressed in this ledger",
+    manuscript_value=38,
+    computed_value=TL_LITERAL_HARD["red"],
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T1.tl.literal_four_red",
+    section="§4.5 (npj paper); Supplement S3.11; §3.7 (monograph)",
+    manuscript_text="48 red -- all combinations -- when 'any flag' spans all four flags",
+    source_file="data/runs/full_sweep/aggregated.parquet, rule re-expressed in this ledger",
+    manuscript_value=48,
+    computed_value=TL_LITERAL_FOUR["red"],
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T1.tl.yellow_to_red",
+    section="§4.5 (npj paper); Supplement S3.11; §3.7 (monograph)",
+    manuscript_text="26 combinations move from yellow to red between the two readings",
+    source_file="data/runs/full_sweep/aggregated.parquet, rule re-expressed in this ledger",
+    manuscript_value=26,
+    computed_value=TL_YELLOW_TO_RED,
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T1.tl.green_invariant",
+    section="§4.5 (npj paper); Supplement S3.11; §3.7 (monograph)",
+    manuscript_text="the same 7 combinations are green under both non-degenerate readings",
+    source_file="data/runs/full_sweep/aggregated.parquet, rule re-expressed in this ledger",
+    manuscript_value=7,
+    computed_value=TL_GREEN_INVARIANT,
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T1.tl.red_invariant",
+    section="§4.5 (npj paper); Supplement S3.11; §3.7 (monograph)",
+    manuscript_text="the same 12 combinations are red under both non-degenerate readings",
+    source_file="data/runs/full_sweep/aggregated.parquet, rule re-expressed in this ledger",
+    manuscript_value=12,
+    computed_value=TL_RED_INVARIANT,
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T1.tl.no_threshold_ties",
+    section="Supplement S3.11",
+    manuscript_text="0 cells sit exactly on the 10 % or 30 % deviation threshold",
+    source_file="data/runs/full_sweep/aggregated.parquet, rule re-expressed in this ledger",
+    manuscript_value=0,
+    computed_value=TL_ON_THRESHOLD,
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T1.tl.s1m_hard_runs",
+    section="§4.5 (npj paper)",
+    manuscript_text="15 of the 160 S1_M runs carry a hard flag (4 diverged + 11 implausible, disjoint)",
+    source_file="data/runs/full_sweep/aggregated.parquet",
+    manuscript_value=15,
+    computed_value=TL_S1M_HARD_RUNS,
+    tolerance_rule="exact_int",
+)
+
 # --- Relative ventilation dose on the two reference bodies -----------------
 # paper.tex §2.5 and supplement §S6.2 state that, because the sweep varies Vt in
 # ABSOLUTE mL over the same range on both reference bodies, a matched input
