@@ -1861,6 +1861,160 @@ add(
     tolerance_rule="displayed_1dp",
 )
 
+# --- Relative ventilation dose on the two reference bodies -----------------
+# paper.tex §2.5 and supplement §S6.2 state that, because the sweep varies Vt in
+# ABSOLUTE mL over the same range on both reference bodies, a matched input
+# vector is not a matched dose per kilogram. Every literal in those passages is
+# COMPUTED, so all of them are anchored here rather than trusted.
+#
+# The reference bodies come from src/scenario.py via _reference_body() above and
+# the swept Vt range from src/sampler.py, so editing either makes this audit
+# fail instead of silently invalidating the manuscript sentences.
+#
+# Ideal body weight is Pulse's own quantity, read from the engine source
+# (SetupPatient.cpp:136-146, sex-specific Devine relation in its imperial form):
+#     male    IBW_kg = 50.0 + 2.3 * (height_in - 60)
+#     female  IBW_kg = 45.5 + 2.3 * (height_in - 60)
+# It is deliberately NOT called "ARDSnet predicted body weight": the metric
+# coefficients usually attributed to that protocol could not be verified against
+# an accessible primary source on 2026-08-04 (see audit/reference_audit.md).
+_sampler_src = (REPO / "src" / "sampler.py").read_text(encoding="utf-8")
+_vt_spec = re.search(r'InputSpec\("vt",\s*([\d.]+),\s*([\d.]+)', _sampler_src)
+assert _vt_spec is not None, "audit_claims: Vt InputSpec not located in src/sampler.py"
+VT_SWEEP_MIN_ML = float(_vt_spec.group(1))
+VT_SWEEP_MAX_ML = float(_vt_spec.group(2))
+CM_PER_INCH = 2.54
+
+
+def _pulse_ideal_body_weight_kg(sex_key: str) -> float:
+    _, height_cm = _reference_body(sex_key)
+    intercept = 50.0 if sex_key == "M" else 45.5
+    return intercept + 2.3 * (height_cm / CM_PER_INCH - 60.0)
+
+
+def _vt_per_kg(sex_key: str, vt_ml: float, *, ideal: bool) -> float:
+    denom = (
+        _pulse_ideal_body_weight_kg(sex_key) if ideal else _reference_body(sex_key)[0]
+    )
+    return vt_ml / denom
+
+
+def _dose_excess_pct(*, ideal: bool) -> float:
+    """Female-over-male excess in mL/kg at any matched absolute Vt setting."""
+    denom_m = _pulse_ideal_body_weight_kg("M") if ideal else _reference_body("M")[0]
+    denom_f = _pulse_ideal_body_weight_kg("F") if ideal else _reference_body("F")[0]
+    return (denom_m / denom_f - 1.0) * 100.0
+
+
+add(
+    claim_id="T1.dose.ibw_male",
+    section="Supplement S6.2 (npj supplement); §3.6 (monograph)",
+    manuscript_text="74.99 kg ideal body weight, Pulse Devine relation on the male reference body (180 cm)",
+    source_file="src/scenario.py PATIENTS['M'] + Pulse SetupPatient.cpp:136-146",
+    manuscript_value=74.99,
+    computed_value=_pulse_ideal_body_weight_kg("M"),
+    tolerance_rule="displayed_2dp",
+)
+add(
+    claim_id="T1.dose.ibw_female",
+    section="Supplement S6.2 (npj supplement); §3.6 (monograph)",
+    manuscript_text="55.10 kg ideal body weight, Pulse Devine relation on the female reference body (163 cm)",
+    source_file="src/scenario.py PATIENTS['F'] + Pulse SetupPatient.cpp:136-146",
+    manuscript_value=55.10,
+    computed_value=_pulse_ideal_body_weight_kg("F"),
+    tolerance_rule="displayed_2dp",
+)
+add(
+    claim_id="T1.dose.actual_male_low",
+    section="Supplement S6.2 (npj supplement)",
+    manuscript_text="4.5 mL/kg actual body weight at the low end of the swept Vt range, male reference body",
+    source_file="src/sampler.py Vt InputSpec + src/scenario.py PATIENTS['M']",
+    manuscript_value=4.5,
+    computed_value=_vt_per_kg("M", VT_SWEEP_MIN_ML, ideal=False),
+    tolerance_rule="displayed_1dp",
+)
+add(
+    claim_id="T1.dose.actual_male_high",
+    section="Supplement S6.2 (npj supplement)",
+    manuscript_text="11.9 mL/kg actual body weight at the high end of the swept Vt range, male reference body",
+    source_file="src/sampler.py Vt InputSpec + src/scenario.py PATIENTS['M']",
+    manuscript_value=11.9,
+    computed_value=_vt_per_kg("M", VT_SWEEP_MAX_ML, ideal=False),
+    tolerance_rule="displayed_1dp",
+)
+add(
+    claim_id="T1.dose.actual_female_low",
+    section="Supplement S6.2 (npj supplement)",
+    manuscript_text="5.3 mL/kg actual body weight at the low end of the swept Vt range, female reference body",
+    source_file="src/sampler.py Vt InputSpec + src/scenario.py PATIENTS['F']",
+    manuscript_value=5.3,
+    computed_value=_vt_per_kg("F", VT_SWEEP_MIN_ML, ideal=False),
+    tolerance_rule="displayed_1dp",
+)
+add(
+    claim_id="T1.dose.actual_female_high",
+    section="Supplement S6.2 (npj supplement)",
+    manuscript_text="14.2 mL/kg actual body weight at the high end of the swept Vt range, female reference body",
+    source_file="src/sampler.py Vt InputSpec + src/scenario.py PATIENTS['F']",
+    manuscript_value=14.2,
+    computed_value=_vt_per_kg("F", VT_SWEEP_MAX_ML, ideal=False),
+    tolerance_rule="displayed_1dp",
+)
+add(
+    claim_id="T1.dose.ideal_male_low",
+    section="Supplement S6.2 (npj supplement)",
+    manuscript_text="4.0 mL/kg ideal body weight at the low end of the swept Vt range, male reference body",
+    source_file="src/sampler.py Vt InputSpec + Pulse SetupPatient.cpp Devine relation",
+    manuscript_value=4.0,
+    computed_value=_vt_per_kg("M", VT_SWEEP_MIN_ML, ideal=True),
+    tolerance_rule="displayed_1dp",
+)
+add(
+    claim_id="T1.dose.ideal_male_high",
+    section="Supplement S6.2 (npj supplement)",
+    manuscript_text="10.7 mL/kg ideal body weight at the high end of the swept Vt range, male reference body",
+    source_file="src/sampler.py Vt InputSpec + Pulse SetupPatient.cpp Devine relation",
+    manuscript_value=10.7,
+    computed_value=_vt_per_kg("M", VT_SWEEP_MAX_ML, ideal=True),
+    tolerance_rule="displayed_1dp",
+)
+add(
+    claim_id="T1.dose.ideal_female_low",
+    section="Supplement S6.2 (npj supplement)",
+    manuscript_text="5.4 mL/kg ideal body weight at the low end of the swept Vt range, female reference body",
+    source_file="src/sampler.py Vt InputSpec + Pulse SetupPatient.cpp Devine relation",
+    manuscript_value=5.4,
+    computed_value=_vt_per_kg("F", VT_SWEEP_MIN_ML, ideal=True),
+    tolerance_rule="displayed_1dp",
+)
+add(
+    claim_id="T1.dose.ideal_female_high",
+    section="Supplement S6.2 (npj supplement)",
+    manuscript_text="14.5 mL/kg ideal body weight at the high end of the swept Vt range, female reference body",
+    source_file="src/sampler.py Vt InputSpec + Pulse SetupPatient.cpp Devine relation",
+    manuscript_value=14.5,
+    computed_value=_vt_per_kg("F", VT_SWEEP_MAX_ML, ideal=True),
+    tolerance_rule="displayed_1dp",
+)
+add(
+    claim_id="T1.dose.excess_actual_pct",
+    section="§2.5 (npj paper); Supplement S6.2; §3.6 (monograph)",
+    manuscript_text="19.8 % more tidal volume per kilogram of actual body weight on the female reference body at any matched absolute setting",
+    source_file="src/scenario.py PATIENTS['M'] and PATIENTS['F']",
+    manuscript_value=19.8,
+    computed_value=_dose_excess_pct(ideal=False),
+    tolerance_rule="displayed_1dp",
+)
+add(
+    claim_id="T1.dose.excess_ideal_pct",
+    section="§2.5 (npj paper); Supplement S6.2; §3.6 (monograph)",
+    manuscript_text="36.1 % more tidal volume per kilogram of ideal body weight on the female reference body at any matched absolute setting",
+    source_file="Pulse SetupPatient.cpp Devine relation on both reference bodies",
+    manuscript_value=36.1,
+    computed_value=_dose_excess_pct(ideal=True),
+    tolerance_rule="displayed_1dp",
+)
+
 add(
     claim_id="T3.s028.cornish_non_overlap_hoeffding",
     section="§4.4 (monograph); §2.6 (npj paper)",

@@ -439,7 +439,9 @@ Together with Section~2.5 of the main manuscript, the data distinguish two opera
 %% S6 -- Sex-stratified reliability: Spearman rho on mu*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{\texorpdfstring{Sex-stratified reliability: Spearman $\rho$ on $\mu^{*}$ rankings}{Sex-stratified reliability: Spearman rho on mu* rankings}}\label{sec:s6}
+\section{Sex-stratified comparisons}\label{sec:s6}
+
+\subsection{\texorpdfstring{Cross-sex Spearman $\rho$ on $\mu^{*}$ rankings}{Cross-sex Spearman rho on mu* rankings}}\label{sec:s6-rho}
 
 The Discussion of the main manuscript reports that the cross-sex Spearman rank correlation $\rho$ on Morris $\mu^{*}$ input-importance vectors is computable only for the moderate-ARDS scenarios S2 and S3 (the gas-exchange and severe-ARDS cells S1 and S4\_F have no clean FiO$_2$ elementary-effect pairs because every Morris OAT step that flips FiO$_2$ between 0.21 and 1.0 has at least one endpoint flagged by SpO$_2$-saturation pinning, transient-hyperoxia drift, or implausibility). This supplement section provides the full $\rho$ table (Table~\ref{tab:s6-rho}) with paired-input bootstrap 95~\% confidence intervals from 2{,}000 input-resamples.
 
@@ -476,6 +478,16 @@ Point estimates fall in the 0.75--1.00 range across the 12 (scenario, output) ce
 \caption{\textbf{Spearman rank correlation $\rho$ between male and female Morris $\mu^{*}$ vectors per (scenario, output), with paired-input bootstrap 95~\% confidence intervals ($n = 2{,}000$ input-resamples).} Reproduced verbatim from the companion technical monograph (Figure~5 of the monograph). Computed only for S2 and S3; S1 and S4\_F are blank because FiO$_2$ has zero clean elementary-effect pairs in those cells. Cell-label key (see main paper Table~1 for full definitions): S1 healthy baseline, S2 mild ARDS, S3 moderate, S4 severe; \_M and \_F denote the male and female reference body.}
 \label{fig:s6-rho}
 \end{figure}
+
+\subsection{Relative ventilation-dose mismatch between the two reference bodies}\label{sec:s6-dose}
+
+The sweep varies tidal volume in absolute millilitres, over the same 300--800~mL range on both reference bodies. A matched input vector therefore delivers a matched \emph{absolute} tidal volume, but not a matched dose per unit of body size. Two normalisations make the mismatch explicit.
+
+Per kilogram of \emph{actual} body weight (67.3 and 56.2~kg), the swept range corresponds to 4.5--11.9~mL\,kg$^{-1}$ on the male reference body and 5.3--14.2~mL\,kg$^{-1}$ on the female. At every matched setting the female body therefore receives 19.8~\% more tidal volume per kilogram.
+
+Per kilogram of \emph{ideal} body weight the gap is larger. Pulse computes ideal body weight at patient setup from a sex-specific Devine relation --- $50.0 + 2.3\,(\text{height in inches} - 60)$~kg for a male body and $45.5 + 2.3\,(\text{height in inches} - 60)$~kg for a female body --- giving 74.99~kg at 180~cm and 55.10~kg at 163~cm. The swept range then corresponds to 4.0--10.7~mL\,kg$^{-1}$ of ideal body weight on the male body and 5.4--14.5~mL\,kg$^{-1}$ on the female, a 36.1~\% relative excess on the female body.
+
+This is an interpretive constraint, not a defect in the sweep: sweeping tidal volume in absolute units is what keeps the Morris design identical across all eight cells, which is the property the balanced factorial rests on. It does mean, however, that a male--female contrast on any gas-exchange output combines three contributions the design does not separate --- the sex flag, body morphology, and ventilatory dose. PaCO$_2$ is where this matters most, because alveolar ventilation is its dominant determinant, and PaCO$_2$ carries three of the five surviving Wasserstein distances reported in Section~2.5 of the main manuscript. Separating the three would require a design in which both bodies retain the same grid points \emph{and} receive matched relative ventilation doses; matching grid points alone does not suffice.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% S7 -- Cornish Table 2 expanded
@@ -727,13 +739,13 @@ uv run python scripts/analyze_sweep.py
 
 # 4. Re-derive the computed quantitative claims in the
 #    manuscript + supplement from the canonical artefacts; expect
-#    292/292 PASS (exit 0) with the authors' full data tree,
-#    or 291/292 on a public clone (T1.06u auto-skipped).
+#    304/304 PASS (exit 0) with the authors' full data tree,
+#    or 303/304 on a public clone (T1.06u auto-skipped).
 uv run python scripts/audit_claims.py
 
 # 5. Optional: verify paper.tex + supplement.tex remain
 #    in sync with the audit ledger via the paper-to-
-#    monograph crosswalk map; expect 92/92 PASS exit 0.
+#    monograph crosswalk map; expect 94/94 PASS exit 0.
 uv run python scripts/audit_claims.py --check-paper-sync
 \end{lstlisting}
 
@@ -747,7 +759,7 @@ Bit-exact reproduction of the canonical sweep output is verified at three indepe
 \item \textbf{Derived statistical artefacts.} The Morris $\mu^{*}$ indices, bootstrap confidence intervals, Wasserstein distances, Spearman correlations, and BH-FDR survivors all regenerate bit-equivalently from the canonical aggregated parquets; this is what the audit ledger (\texttt{scripts/audit\_claims.py}) re-derives at every run.
 \end{enumerate}
 
-The audit ledger is the primary reproducibility instrument: a green ledger run confirms that the computed quantitative claims in the main manuscript and supplement are consistent with the canonical artefacts. The ledger reports a target of 292 anchors; on the authors' full data tree all 292 are evaluated (292/292 PASS), whereas on a public clone one anchor (T1.06u, the S021 time-to-95\%-plateau, which requires the heavy raw per-run trajectories that are gitignored) is automatically skipped, giving 291/292 PASS with one explicitly-reported SKIPPED. A failed claim is a structured triage item (Type A transcription drift, Type B orphaned number, Type C derivation mismatch) with a precise file:line pointer for forensic tracing.
+The audit ledger is the primary reproducibility instrument: a green ledger run confirms that the computed quantitative claims in the main manuscript and supplement are consistent with the canonical artefacts. The ledger reports a target of 304 anchors; on the authors' full data tree all 304 are evaluated (304/304 PASS), whereas on a public clone one anchor (T1.06u, the S021 time-to-95\%-plateau, which requires the heavy raw per-run trajectories that are gitignored) is automatically skipped, giving 303/304 PASS with one explicitly-reported SKIPPED. A failed claim is a structured triage item (Type A transcription drift, Type B orphaned number, Type C derivation mismatch) with a precise file:line pointer for forensic tracing.
 
 \subsection{Independent reproduction on separate hardware}\label{sec:s12-independent}
 
@@ -877,7 +889,7 @@ Anchor & Finding / discovery \\
 \S\ref{sec:s3-sobol} & \textbf{Sobol bolt-on: preregistered trigger and budget ceiling.} Applied as preregistered to the top-three inputs, the trigger fires on 43 of the 48 cell $\times$ output combinations; the preregistered compute envelope of 1{,}500 runs would have required 11{,}008. The bolt-on is reported rather than executed. \\
 \S\ref{sec:s4} & \textbf{\texttt{not\_steady\_state} attribution decomposition.} Per-cell breakdown of the locked \texttt{not\_steady\_state} count into three trigger sub-modes (SpO$_2$ flatline at ceiling; Vt CV $>$ 0.05; drift) without modifying the locked classifier. \\
 \S\ref{sec:s5} & \textbf{ARDS impairment-fraction instability band --- atlas-specific extension.} A 200-run continuous-severity sweep at midrange Morris inputs extends the empirical band to $[0.879, 0.945]$ on the low edge and distinguishes two divergence regimes (input-driven, severity-driven). Supports Section~2.6 of the main paper. \\
-\S\ref{sec:s6} & \textbf{Cross-sex Spearman $\rho$ table.} Per-(scenario, output) cross-sex agreement on Morris $\mu^{*}$ input-importance rankings, with paired-input bootstrap 95~\% confidence intervals. Supports the Discussion of the main paper. \\
+\S\ref{sec:s6} & \textbf{Sex-stratified comparisons.} Per-(scenario, output) cross-sex agreement on Morris $\mu^{*}$ input-importance rankings, with paired-input bootstrap 95~\% confidence intervals (\S\ref{sec:s6-rho}), followed by the relative ventilation-dose mismatch that applying identical absolute tidal volumes to the two reference bodies induces (\S\ref{sec:s6-dose}). Supports the Discussion of the main paper and the sex-comparison caveat of Section~2.5. \\
 \S\ref{sec:s7} & \textbf{Cornish et al.\ 2023 per-channel cross-mapping.} Each of Cornish's 15 channels mapped against the atlas's six steady-state outputs, supporting the complementarity claim in the Discussion of the main paper. \\
 \S\ref{sec:s10} & \textbf{Sex-stratified blood-volume mechanism: absolute and weight-normalised framings.} Re-examines the 20-event male-only divergence cluster from Section~2.5 of the main paper under both an absolute-BV and a weight-normalised-BV lens, with implications for sex-balanced synthetic cohort design. \\
 \S\ref{sec:s11} & \textbf{Six engine-side infrastructure recommendations} addressed to the Pulse maintainers: setup-warning for the ARDS instability zone; per-channel steady-state convergence diagnostic in CSV output; field-attributed setup-error messages; documentation of the male BV floor; reference SA recipe for operational inputs; companion Morris / Sobol implementation. \\

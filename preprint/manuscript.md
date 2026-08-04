@@ -645,7 +645,7 @@ underlying files are in the repository.
 | S021 | Hyperoxia convergence: 60-run pre-registered rerun at 300 s vs locked 120 s sweep window — tests whether F-003 PaO2 > 600 mmHg at FiO2 = 1.0 reflects oxygenation overshoot or transient non-convergence. |
 | S022 | No-compute failure-mode attribution audit of the locked `not_steady_state` count (Appendix C). |
 | S023 | Supplementary ML/SHAP cross-check of the Morris μ\* rankings on the clean subset (Supplementary §S11). |
-| S024 | Pre-submission claims-ledger audit — `scripts/audit_claims.py` re-derives every Tier-1/Tier-2 quantitative claim in §3 / §4 / Appendix C from the canonical parquets/CSVs and verifies it against the manuscript text (292 / 292 PASS at the locked tolerance band on the authors' full data tree; 291 / 292 on a public clone, where the one anchor needing the gitignored raw S021 trajectories is auto-skipped). |
+| S024 | Pre-submission claims-ledger audit — `scripts/audit_claims.py` re-derives every Tier-1/Tier-2 quantitative claim in §3 / §4 / Appendix C from the canonical parquets/CSVs and verifies it against the manuscript text (304 / 304 PASS at the locked tolerance band on the authors' full data tree; 303 / 304 on a public clone, where the one anchor needing the gitignored raw S021 trajectories is auto-skipped). |
 
 ---
 
@@ -1286,12 +1286,12 @@ an explicit per-class tolerance band (`exact_int` for integer counts;
 `displayed_1dp` / `displayed_2dp` / `displayed_3dp` for floats at
 their displayed precision; a 1 × 10⁻⁹ IEEE-754 epsilon protects
 against half-precision rounding boundaries). The current report on
-the locked manuscript is **292 / 292 PASS, 0 WARN, 0 FAIL** on the
+the locked manuscript is **304 / 304 PASS, 0 WARN, 0 FAIL** on the
 authors' full data tree. On a public clone, one anchor — T1.06u, the
 S021 time-to-95%-plateau, which requires the heavy raw per-run
 trajectories that are gitignored — is automatically skipped, so the
-script reports **291 / 292 PASS** with one explicitly-flagged SKIPPED
-(the headline target of 292 is computed dynamically as anchors-run
+script reports **303 / 304 PASS** with one explicitly-flagged SKIPPED
+(the headline target of 304 is computed dynamically as anchors-run
 plus anchors-skipped, so it cannot go stale). The
 script exits non-zero on any FAIL and is therefore CI-ready: future
 manuscript edits that drift a quoted number against its source
@@ -2251,11 +2251,25 @@ reach significance *without* correction. The observed M-vs-F gaps —
 ~ 1 – 5 bpm on HR and ~ 13 – 36 mL on Vt — are no larger than what
 random sub-sampling of the *same* combined M+F population produces.
 
-The surviving sex-stratified effect concentrates exactly where
-sex-specific physiology *should* matter most: gas exchange. This is
-the regime where alveolar volume scaling and lung-volume-to-body-mass
-ratios diverge by sex. PaCO2 is the strongest signal — significant
-in 3 of 4 scenarios, with very small p_emp values in S2 and S3.
+The surviving cross-body differences concentrate in the gas-exchange
+outputs, but they cannot be read as isolated effects of the sex flag.
+The two reference bodies differ jointly in sex, in morphology, and in
+relative ventilation dose: because the sweep varies tidal volume in
+absolute millilitres over the same 300–800 mL range on both bodies,
+an identical absolute setting delivers 19.8 % more tidal volume per
+kilogram of actual body weight, and 36.1 % more per kilogram of the
+ideal body weight Pulse itself computes at setup (sex-specific Devine
+relation, `SetupPatient.cpp`), to the female body. That difference
+acts directly on alveolar ventilation.
+
+PaCO2 is the strongest signal — significant in 3 of 4 scenarios, with
+very small p_emp values in S2 and S3 — and that concentration is
+exactly what the ventilation-dose mismatch predicts, since alveolar
+ventilation is PaCO2's dominant determinant. It therefore cannot be
+attributed to sex-specific physiology alone. Separating sex-dependent
+physiology from morphology and from ventilatory dose would require
+matched input configurations *together with* matched relative
+ventilation doses; matching configurations alone does not suffice.
 
 *Clinical-meaningfulness context.* The observed 4.7 – 5.1 mmHg
 M-vs-F PaCO2 Wasserstein in S1 and S2 is comparable to one
@@ -3353,8 +3367,8 @@ under Apache License 2.0.
   [`scripts/audit_claims.py`](../scripts/audit_claims.py) — read-only
   Python script verifying that every Tier-1 and Tier-2 quantitative
   claim in §3 / §4 / Appendix C matches the canonical artifacts
-  under explicit per-class tolerance rules; current state 292 / 292
-  PASS on the authors' full data tree (291 / 292 on a public clone,
+  under explicit per-class tolerance rules; current state 304 / 304
+  PASS on the authors' full data tree (303 / 304 on a public clone,
   where the one anchor needing the gitignored raw S021 trajectories
   is auto-skipped) ([S024](#s024); see §2.8 for protocol).
 * **Pinned Docker image hashes (byte-level reproducibility):**
@@ -3851,7 +3865,7 @@ indexed here.*
 | []{#s021} S021 | Hyperoxia convergence (60-run rerun at 300 s vs locked 120 s window; F-003 mechanism test) |
 | []{#s022} S022 | No-compute failure-mode attribution audit of the locked `not_steady_state` count (see Appendix C) |
 | []{#s023} S023 | Supplementary ML/SHAP cross-check of Morris μ\* rankings on the clean subset (see Supplementary §S11) |
-| []{#s024} S024 | Pre-submission claims-ledger audit (programmatic verification of all Tier-1 / Tier-2 quantitative claims; 292 / 292 PASS on the authors' full data tree, 291 / 292 on a public clone with one auto-skipped anchor, see §2.8) |
+| []{#s024} S024 | Pre-submission claims-ledger audit (programmatic verification of all Tier-1 / Tier-2 quantitative claims; 304 / 304 PASS on the authors' full data tree, 303 / 304 on a public clone with one auto-skipped anchor, see §2.8) |
 | []{#s025} S025 | Pre-release OSS code-hygiene audit and fixes |
 | []{#s026} S026 | Final pre-arXiv polish |
 

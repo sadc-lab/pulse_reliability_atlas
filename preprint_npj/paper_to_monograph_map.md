@@ -856,3 +856,19 @@ caught equally.*
   format_in_paper: 'PaCO$_2$ (5 mmHg / 60~s)'
   expected_occurrences: 1
   notes: 'Added 2026-05-30 in the drift-rationale expansion. Supplement S3.5 tab:drift-rationale row for PaCO2, anchored to West 2020 Ch.4 (Blood Gas Transport) for the alveolar-ventilation framing. The "5 mmHg" magnitude is an atlas-internal calibration choice, not endorsed as a specific drift threshold by the cited reference. Supplement S3 Table S3 drift row uses a different format ("PaCO$_2$ (mmHg) & 5 &") tracked separately.'
+
+- paper_section: 'paper.tex §2.5 + supplement S6.2'
+  paper_context: 'Female-over-male tidal-volume excess per kilogram of actual body weight at any matched absolute setting'
+  monograph_claim_id: 'T1.dose.excess_actual_pct'
+  expected_value: 19.8
+  format_in_paper: '19.8~\%'
+  expected_occurrences: 2
+  notes: 'Added 2026-08-04 with the ventilation-dose caveat. The sweep varies Vt in absolute mL over the same 300-800 mL range on both reference bodies, so a matched input vector is not a matched dose per kg; 67.3 / 56.2 = 1.1975. Appears once in paper.tex §2.5 (the sex-comparison caveat paragraph) and once in supplement S6.2 (the numeric expansion). The monograph carries the same figure in §3.6 but in Markdown form (19.8 %), which this crosswalk does not count.'
+
+- paper_section: 'paper.tex §2.5 + supplement S6.2'
+  paper_context: 'Female-over-male tidal-volume excess per kilogram of Pulse-computed ideal body weight at any matched absolute setting'
+  monograph_claim_id: 'T1.dose.excess_ideal_pct'
+  expected_value: 36.1
+  format_in_paper: '36.1~\%'
+  expected_occurrences: 2
+  notes: 'Added 2026-08-04 with the ventilation-dose caveat. Ideal body weight is Pulse own quantity, computed at patient setup by the sex-specific Devine relation in SetupPatient.cpp:136-146 (74.99 kg at 180 cm, 55.10 kg at 163 cm); 74.99 / 55.10 = 1.3611. Deliberately NOT called ARDSnet predicted body weight: the metric coefficients usually attributed to that protocol could not be verified against an accessible primary source on 2026-08-04, recorded in audit/reference_audit.md. Appears once in paper.tex §2.5 and once in supplement S6.2.'

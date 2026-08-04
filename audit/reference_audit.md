@@ -1685,3 +1685,64 @@ Closed by this phase: **OPEN-2** and **OPEN-3** — see M-4, both already correc
 
 Newly open: **M-6** (`mancia2023esh` title form) and **M-8** (Kitware access
 year).
+
+---
+
+# Phase 5 — 2026-08-04 — one `UNVERIFIABLE`, raised while writing the ventilation-dose caveat
+
+## UNVERIFIABLE — exact metric coefficients of the ARDS Network predicted-body-weight equations
+
+**What was needed.** Supplement §S6.2 and paper §2.5 quantify the relative
+ventilation-dose mismatch between the two reference bodies. The first draft
+expressed it per kilogram of ARDSnet *predicted* body weight, which requires
+the equations
+
+    male    PBW_kg = 50.0  + 0.91 * (height_cm - 152.4)
+    female  PBW_kg = 45.5  + 0.91 * (height_cm - 152.4)
+
+**Verification attempted 2026-08-04, four routes, all failed.**
+
+| Route | Outcome |
+|---|---|
+| NEJM full text of `brower2000` (doi 10.1056/NEJM200005043421801) | HTTP 403 |
+| `ardsnet.org` ventilator protocol card (PDF) | Fetched, but the PDF-to-text conversion lost the calculation box: the string "height" does not occur anywhere in the extracted text; only `= 6ml/kg PBW` and `>= 4 ml/kg PBW` survive |
+| `ardsnet.org/tools.shtml` (the Network's own PBW calculator page) | Connection reset — the host is not serving |
+| Moreault *et al.*, *Anesthesiology* 2017, "Calculating Ideal Body Weight: Keep It Simple" | HTTP 402 |
+
+**One source was read and did not settle it.** Linares-Perdomo *et al.*
+(PMC5442651), a peer-reviewed treatment of exactly these equations, presents
+them graphically rather than in quoted text, and attributes them upstream to
+McCarron MM, Devine BJ, *Ann Pharmacother* 1974;8:650–655 — i.e. the ARDS
+Network equations are the Devine relation transcribed to metric
+(2.3 kg/inch ÷ 2.54 = 0.9055 ≈ 0.91; 60 in = 152.4 cm).
+
+**Why no proxy was accepted.** Search-result snippets did carry the
+coefficients, and were not used: one widely-read secondary reproduction
+(LITFL, *ARDSnet Ventilation Strategy*) states the female intercept as **45**
+rather than 45.5. A coefficient that is wrong in a popular reproduction is
+precisely the case the no-proxy rule exists for.
+
+**Resolution — the claim was rewritten, not softened.** The manuscript does not
+use the ARDSnet coefficients at all. Relative ventilation doses are computed
+instead from the sex-specific ideal-body-weight relation implemented in Pulse
+itself (`SetupPatient.cpp:136-146`, imperial Devine form), read in primary
+source on 2026-08-04:
+
+    male    IBW_kg = 50.0 + 2.3 * (height_in - 60)
+    female  IBW_kg = 45.5 + 2.3 * (height_in - 60)
+
+giving 74.99 kg and 55.10 kg on the two reference bodies. The manuscript says
+"ideal body weight", never "ARDSnet predicted body weight". The two readings
+differ by 0.1 percentage point on the reported excess (36.1 % vs 36.2 %), so
+nothing scientific rests on which one is used — only the sourcing does.
+
+**Status.** This entry is internal. It is not a limitation of the manuscript,
+because the coefficients it concerns are not used there. Reopen only if the
+ARDSnet metric form is ever quoted in the text; a reachable primary source
+would then be required first.
+
+**Left open deliberately.** `brower2000`'s `internal_note` still records
+"Verified 2026-07-28 against the primary abstract". That remains accurate and
+is enough for the two places that cite it — supplement §S3.5 and §S3.4, which
+invoke the *clinical standard* (6 mL/kg PBW), not the equations. Those two
+passages were reviewed during this phase and left untouched.
