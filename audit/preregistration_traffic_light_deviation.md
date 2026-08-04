@@ -1,0 +1,308 @@
+# Preregistration ↔ implementation: the traffic-light classification rule
+
+**Opened** 2026-08-04. **Status: OPEN — nothing modified.**
+Scope: `preregistration.md` §Analysis plan item 7 versus
+`src/analysis_compare.py::reliability_classification`, and the published
+7 / 29 / 12 traffic-light distribution that follows from the latter.
+
+This dossier establishes facts and quantifies consequences. It changes no
+document, no classifier and no number. The editorial decision is stated as a
+recommendation at the end and is explicitly deferred.
+
+---
+
+## 1. The two rules, quoted exactly
+
+### 1.1 Preregistered
+
+`preregistration.md:193`, the seventh and last entry of `## Analysis plan`
+(the section begins at `:185`; `## Stop rules` follows at `:195`):
+
+> 7. **Reliability classification.** Per output per input cell: green (<10%
+>    deviation from cell baseline), yellow (10–30%), red (>30% or any flag
+>    raised).
+
+### 1.2 Implemented
+
+`src/analysis_compare.py:240-244`, the branch that assigns every cell colour:
+
+```python
+pct_off = abs(mean_clean - baseline) / abs(baseline)
+hard_failure_rate = (n_diverged + n_implausible) / max(n_total, 1)
+if hard_failure_rate > 0.3 or pct_off > 0.3:
+    light = "red"
+elif pct_off > 0.1 or hard_failure_rate > 0.0:
+    light = "yellow"
+else:
+    light = "green"
+```
+
+### 1.3 The three differences
+
+| # | Preregistered | Implemented | Materiality |
+|---|---|---|---|
+| **D1** | red on **any flag raised** | red only when the hard-flag **rate exceeds 30 %**; any hard flag gives **yellow** | **Material.** This is the whole of the 12 → 38 change. |
+| **D2** | "any **flag**" — the atlas has four (`clamped`, `diverged`, `implausible`, `not_steady_state`) | only two enter the rule: `diverged` + `implausible` | Material, and it is also what makes the literal rule tractable at all (§4.3). |
+| **D3** | deviation from "**cell** baseline" | deviation from a single **(S1, M)** baseline for every cell | Minor and disclosed. Paper §4.5 states the (S1, M) choice explicitly and Supplement §S3.11 tests it (0 of 24 female cells change colour). A literal per-cell baseline would make every deviation zero by construction, so (S1, M) is arguably the only non-degenerate reading. **Not pursued further here.** |
+
+A fourth, silent difference: the preregistered rule has **no flag term in
+yellow at all** — flags appear only in the red criterion. The implementation
+adds one (`hard_failure_rate > 0.0`). That addition is what keeps the green set
+from growing; see §4.4.
+
+---
+
+## 2. Chronology
+
+All dates from `git log`, timezone as recorded in the commits (-0400).
+
+| Fact | Commit | Timestamp | Evidence |
+|---|---|---|---|
+| Preregistered rule text enters the repository | `19945f6` "first commit" | **2026-04-22 18:05:08** | `git log -S "any flag raised" -- preregistration.md` returns this commit and **no other** — the sentence has never been edited since. |
+| `hard_failure_rate` enters the repository | `e068544` "Pulse Reliability Atlas — full 1,280-run Morris sweep, analysis, and methods-paper draft" | **2026-04-26 13:20:06** | `git log -S "hard_failure_rate" -- src/analysis_compare.py` returns this commit and no earlier one. |
+| The sweep's tracked data arrives | `e068544` — **the same commit** | 2026-04-26 13:20:06 | `git log --diff-filter=A -- data/runs/full_sweep` returns exactly one commit; 10 tracked files (the eight per-cell `aggregated.parquet` plus two). |
+
+**Gap: 3 days 19 h 15 min.** The implemented rule is unambiguously *posterior*
+to the preregistered text.
+
+### 2.1 What the chronology cannot settle
+
+Git records when code was **committed**, not when it was **written**, and here
+the rule and the data landed in one commit. It is therefore not established
+whether the rule was authored before or after the sweep output was inspected.
+This dossier does not assert either. It is the single most consequential open
+question and no artefact in the repository answers it.
+
+### 2.2 The amendments log does not cover it
+
+`preregistration.md` carries an append-only `## Amendments` section (`:214`)
+and, separately, an `ERRATUM` note (`:9`, dated 2026-05-19, self-described as
+"terminology only, no design change") and a "Documentation amendment"
+(`:136`, 2026-05-21).
+
+The amendments log has **exactly two entries**, both dated **2026-04-22** —
+i.e. both *before* the implemented rule existed — and both explicitly note that
+no data had been collected:
+
+1. `2026-04-22` — rescope from hackathon to methods paper.
+2. `2026-04-22-b` — detector calibration (flatline tolerance 1 % → 0.1 %).
+
+Neither concerns the traffic light. The file ends at line 218; there is no
+third entry. **No amendment, erratum or documentation note anywhere in the
+repository records the classification-rule change.**
+
+---
+
+## 3. Ground-truth inputs to the recomputation
+
+From `results/cell_flag_summary.csv` (n = 160 per cell):
+
+| cell | diverged | implausible | **hard** | hard-rate | not_steady_state |
+|---|---:|---:|---:|---:|---:|
+| S1_F | 0 | 23 | 23 | 14.38 % | 118 |
+| S1_M | 4 | 11 | 15 | 9.38 % | 107 |
+| S2_F | 0 | 0 | **0** | 0 % | 68 |
+| S2_M | 4 | 0 | 4 | 2.50 % | 69 |
+| S3_F | 0 | 0 | **0** | 0 % | 38 |
+| S3_M | 4 | 0 | 4 | 2.50 % | 12 |
+| S4_F | 0 | 46 | 46 | 28.75 % | 74 |
+| S4_M | 8 | 46 | **54** | **33.75 %** | 44 |
+
+Two facts do all the work:
+
+- **Only S4_M exceeds the 30 % hard-flag rate** (54 / 160 = 33.75 %).
+- **Only S2_F and S3_F have zero hard flags.** The other six cells each have
+  at least one.
+- **Every cell has `not_steady_state` runs** (minimum 12, in S3_M). No cell is
+  free of all four flags.
+
+Deviations from the (S1, M) baseline are read from
+`results/reliability_classification.csv`, column `pct_off_baseline`.
+
+---
+
+## 4. The three classification matrices
+
+### 4.1 Implemented rule — the published state
+
+**7 green / 29 yellow / 12 red** of 48.
+
+Cross-checked two ways: by counting the `light` column of
+`results/reliability_classification.csv`, and against the figure caption in
+`paper.tex:226` ("7 green / 29 yellow / 12 red"). They agree.
+
+The 12 red decompose by *which* criterion fired:
+
+| trigger | count | cells |
+|---|---:|---|
+| deviation > 30 % only (hard-rate below threshold) | 6 | S3_F HR (+101.3 %), S3_M HR (+107.5 %), S4_F HR (+94.1 %), S3_F PaO₂ (−39.0 %), S3_M PaO₂ (−43.6 %), S4_F PaO₂ (−56.6 %) |
+| hard-rate > 30 % only (deviation small) | 4 | S4_M MAP (15.4 %), S4_M Vt (17.0 %), S4_M SpO₂ (7.1 %), **S4_M PaCO₂ (0.22 %)** |
+| both | 2 | S4_M HR (+92.6 %), S4_M PaO₂ (−59.9 %) |
+
+### 4.2 Literal preregistered rule, hard-flag reading of "any flag"
+
+Red if deviation > 30 % **or** the cell contains ≥ 1 `diverged`/`implausible`
+run; green if deviation < 10 % and not red; yellow otherwise.
+
+**7 green / 3 yellow / 38 red** of 48.
+
+Derivation: six cells carry ≥ 1 hard flag → 36 red. Of the remaining 12
+combinations (S2_F and S3_F), two exceed 30 % deviation — S3_F HR (101.3 %) and
+S3_F PaO₂ (39.0 %) → 38 red. Of the last 10, seven are below 10 % → 7 green;
+three sit in 10–30 % → 3 yellow (S2_F HR 15.1 %, S2_F PaO₂ 17.5 %, S3_F MAP
+13.3 %).
+
+### 4.3 Literal preregistered rule, four-flag reading of "any flag"
+
+**0 green / 0 yellow / 48 red.**
+
+Every cell contains `not_steady_state` runs, so every cell is red. The rule is
+degenerate under this reading and carries no information. It is reported here
+because it demonstrates that the word "flag" in the preregistered sentence is
+**ambiguous**, not because it is a defensible analysis.
+
+### 4.4 The green set is identical under both non-degenerate rules
+
+The same seven combinations are green under §4.1 and §4.2: **S2_F** MAP, Vt,
+SpO₂, PaCO₂ and **S3_F** Vt, SpO₂, PaCO₂.
+
+This is not a coincidence. Green requires ≤ 10 % deviation under either rule,
+and additionally zero hard flags under the implementation; S2_F and S3_F are
+the only cells with zero hard flags, so the flag term is inert on exactly the
+cells that could be green. **The implemented rule's leniency never manufactures
+a green cell.** It moves cells between yellow and red only.
+
+### 4.5 The 26 combinations that move yellow → red
+
+All 12 red cells of §4.1 remain red in §4.2, so red grows by exactly 26 and
+yellow shrinks by exactly 26. The 26 are every yellow combination that sits in
+a cell carrying at least one hard flag:
+
+| cell | outputs moved | n |
+|---|---|---:|
+| S1_F | HR, MAP, Vt, SpO₂, PaO₂, PaCO₂ | 6 |
+| S1_M | HR, MAP, Vt, SpO₂, PaO₂, PaCO₂ | 6 |
+| S2_M | HR, MAP, Vt, SpO₂, PaO₂, PaCO₂ | 6 |
+| S3_M | MAP, Vt, SpO₂, PaCO₂ | 4 |
+| S4_F | MAP, Vt, SpO₂, PaCO₂ | 4 |
+| | **total** | **26** |
+
+The three that stay yellow are the three in flag-free cells: S2_F HR, S2_F
+PaO₂, S3_F MAP.
+
+Note what the move implies. **S1_M — the healthy male reference body, the
+baseline cell itself — becomes red on all six outputs** under the literal rule,
+at zero deviation by construction, on the strength of 15 hard-flagged runs out
+of 160. That outcome is a fair statement of why the rule was tightened; it is
+not a fair statement of the engine's behaviour.
+
+---
+
+## 5. Effect on published claims
+
+### 5.1 Loci that quote the distribution
+
+| document | locus | text |
+|---|---|---|
+| paper | `paper.tex:226` (Fig. 2 caption) | "7 green / 29 yellow / 12 red, i.e. 7/48 (15 %), 29/48 (60 %), and 12/48 (25 %)" |
+| monograph | `manuscript.md:119-120` | "**7 green / 29 yellow / 12 red** of the 48 cell × output combinations" |
+| monograph | `manuscript.md:2379` | "7 green, 29 yellow, 12 red out of 48 cells" |
+| monograph | `manuscript.md:2409` | "**7 green, 29 yellow, 12 red** out of 48 cells" |
+| monograph | `manuscript.md:2431` | "**Key takeaway:** 7 green, 29 yellow, 12 red out of 48 cells" |
+| supplement | — | does not quote the distribution |
+| README | — | does not quote the distribution; §"traffic-light grid" refers to the figure only |
+
+Six loci, all in the paper caption and the monograph.
+
+### 5.2 The ledger cannot detect this class of defect
+
+The counts are anchored — `T1.25` (7 green), `T1.26` (29 yellow), `T1.27`
+(12 red) in `scripts/audit_claims.py`. Each compares the manuscript literal
+against a `computed_value` derived from `results/reliability_classification.csv`,
+i.e. **from the artefact the implemented rule produced**.
+
+The ledger therefore verifies that the paper faithfully reports what the code
+computed. It cannot, and does not, verify that the code implements the
+protocol. This dossier's finding sits in exactly that blind spot, and the same
+blind spot covers every other anchored claim whose `computed_value` is read
+from a derived artefact rather than re-derived from the protocol.
+
+### 5.3 What does *not* change
+
+- **H1, H2, H3, H4 are untouched.** None depends on the traffic light. H2 is a
+  clamping rate (0 / 1,280), H3 an existence claim, H4 the divergence
+  asymmetry plus the Wasserstein family.
+- **The four flags and their per-cell counts are untouched.** Table 1 is the
+  primary flag report and it is rule-independent.
+- **The 10 % / 30 % deviation bands really were preregistered.** The Fig. 2
+  caption claims exactly that and nothing more, so the caption as it stands
+  today is *incomplete*, not false. The word "preregistered" was deliberately
+  not extended to the combination rule when the caption was revised on
+  2026-08-04 (commit `e271f02`).
+- **The traffic-light figure and the classifier code are unchanged by this
+  dossier.**
+
+---
+
+## 6. Classification of the finding
+
+Against the three hypotheses set at the opening of this dossier:
+
+| hypothesis | verdict |
+|---|---|
+| Drafting error in the preregistration, demonstrated by an earlier implementation | **Refused.** The implementation is 3 d 19 h posterior and no earlier variant exists in the history. |
+| Clarification of an ambiguous protocol sentence | **Partly supported, insufficient alone.** The word "flag" *is* genuinely ambiguous (§4.3), and disambiguating it to the two hard flags is defensible. But D1 — moving "any flag" from the red criterion to the yellow criterion and gating red behind a 30 % rate — is not a reading of the preregistered sentence. It is a different rule. |
+| **Material, undocumented deviation** | **Supported, and this is the dominant reading.** The rule changed, after the lock, without an amendment, and the change moves 26 of 48 combinations. |
+
+The honest formulation is therefore: **one material deviation (D1), bundled
+with one defensible disambiguation (D2) and one disclosed simplification (D3),
+none of them recorded.**
+
+---
+
+## 7. Recommendation — for decision, not applied
+
+**Keep the implemented rule as the primary analysis, declare the deviation
+explicitly, and report the literal rule as a sensitivity analysis.**
+
+Reasons, in order of weight:
+
+1. **Reverting is not neutral.** The literal rule turns the healthy male
+   reference cell red on all six outputs at zero deviation (§4.5). A map whose
+   baseline cell is red does not communicate reliability; it communicates the
+   rule's own coarseness.
+2. **The deviation is one-directional and its direction is disclosable.** The
+   implemented rule is *more lenient* on red. Saying so plainly, with the
+   7 / 3 / 38 sensitivity beside it, gives a reader everything they need to
+   apply the stricter rule themselves.
+3. **Nothing else in the paper moves.** §5.3.
+4. **The green set is invariant** (§4.4), so the "which cells are safe as-is"
+   reading — the map's main use for downstream users — is identical under both
+   rules. That is the strongest single argument that the deviation did not
+   manufacture a favourable result.
+
+What that would require, if adopted:
+
+- a short, dated deviation statement in Methods §4.5 naming D1 and D2, quoting
+  the preregistered sentence, and giving the 7 / 3 / 38 figure;
+- the sensitivity matrix in the Supplement, with §4.5's 26-cell table;
+- an append-only entry in `preregistration.md` §Amendments recording the
+  deviation *as a deviation*, dated 2026-08-04, explicitly not backdated;
+- no change to the classifier, the figure, or the 7 / 29 / 12 counts.
+
+**Rejected alternative:** silently keeping the current text. The 10 % / 30 %
+sentence is true but incomplete, and a reader comparing `preregistration.md`
+against the published caption would find the gap unaided — as this dossier did.
+
+---
+
+## 8. Open questions carried forward
+
+1. **Was the rule written before or after the sweep output was seen?** Not
+   answerable from the repository (§2.1). Only the author can state it, and the
+   statement would rest on recollection, not artefact.
+2. **Does D3 (the (S1, M) baseline) also warrant a line in the deviation
+   statement?** It is disclosed in Methods and tested in §S3.11, but it is not
+   what `preregistration.md` says. Argued here as minor; not decided.
+3. Whether the same blind spot (§5.2) affects other anchored claims whose
+   `computed_value` is read from a derived artefact. Not surveyed.
