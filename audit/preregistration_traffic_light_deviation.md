@@ -71,12 +71,12 @@ Nothing in the repository establishes which reading the preregistered sentence
 intended. D3 is therefore recorded as a **terminological ambiguity, not a third
 material deviation**.
 
-**Supplement §S3.11 must not be cited in support of D3.** That check re-scores
+**Supplement §S3.9 must not be cited in support of D3.** That check re-scores
 the 24 female cells against a sex-specific **(S1, F)** baseline and finds 0 of
 24 colour changes. It varies the *sex* of the baseline while holding the
 scenario at S1. It never scores an S4 cell against an S4 baseline — and it is
 precisely that healthy-versus-scenario axis which produces the six
-deviation-only reds of §4.1. Invoking §S3.11 for D3 would be an overclaim a
+deviation-only reds of §4.1. Invoking §S3.9 for D3 would be an overclaim a
 reader can falsify in one minute.
 
 ---
