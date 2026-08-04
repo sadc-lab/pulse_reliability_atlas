@@ -189,11 +189,22 @@ adult surrogates are tuned per-pair, not per-input independently.
 4. We did not test stochasticity — divergence may or may not be
    deterministic. A single re-run with a different RNG hash would
    answer this; not done here.
-5. Height was held at body-native (180 vs 163). The "synthetic" cells
-   thus mix sex and height too — strictly speaking this is a
-   sex-and-height vs mass decomposition. Pulse's mass-vs-height
-   coupling means we cannot separate cleanly without violating the
-   acceptance gate.
+5. Height was held at body-native (180 cm at 67.3 kg, 163 cm at 56.2 kg).
+   **Corrected 2026-08-04 — this limitation was previously stated backwards.**
+   It is the *mass* arm that is confounded, not the sex arm. The two cells of
+   each sex contrast share a height (M_67.3 and F_67.3 are both at 180 cm;
+   M_56.2 and F_56.2 are both at 163 cm), so `sex_effect_at_67.3` and
+   `sex_effect_at_56.2` isolate the sex flag at fixed mass **and** fixed
+   height. By contrast `mass_effect_for_M` and `mass_effect_for_F` each move
+   height together with mass (180 → 163 cm), so this is strictly a
+   sex vs mass-and-height decomposition. Pulse's mass-vs-height coupling
+   means the mass arm cannot be separated from height without violating the
+   BMI acceptance gate.
+
+   The earlier wording ("the synthetic cells thus mix sex and height too")
+   understated the design: it is the clean arm that it called confounded.
+   Nothing computed in this log changes; only the reading of which arm carries
+   the confound.
 
 ### What this lets the manuscript claim / not claim
 
