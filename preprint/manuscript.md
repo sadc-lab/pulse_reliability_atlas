@@ -2727,7 +2727,8 @@ the work in §4.5.*
 ### 4.1 What the atlas tells Pulse users
 
 *A practitioner-oriented summary of which cells and which outputs are
-trustworthy, marginal, or unreliable — and the specific reasons:
+green, yellow, or red under the combined flag-and-baseline-deviation
+rule — and the specific reasons:
 F-003 transient hyperoxia regime, F-004 trigger dyssynchrony,
 severe-ARDS solver behaviour, and the sex-stratified divergence
 cluster in the input-extreme regime.*
