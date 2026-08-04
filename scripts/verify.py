@@ -20,6 +20,7 @@ is absent (it does fail if the toolchain is present but a build breaks).
 
 from __future__ import annotations
 
+import os
 import shutil
 import subprocess
 import sys
@@ -29,6 +30,26 @@ REPO = Path(__file__).resolve().parents[1]
 PY = sys.executable
 
 # Figure / data-artefact generators that are data-derived and live in the repo.
+# Matplotlib stamps wall-clock time into every PDF it writes, so two runs of the
+# same generator over the same frozen data produce byte-different files that are
+# pixel-identical. That made this gate self-defeating: running it always left the
+# tracked figure PDFs modified, so the command that demonstrates reproducibility
+# was itself the reason `git status` was never clean.
+#
+# matplotlib honours SOURCE_DATE_EPOCH for the PDF CreationDate. Pinning it makes
+# figure output deterministic: verified 2026-08-04 by regenerating the same
+# figure twice and comparing with cmp -- bit-identical.
+#
+# The value is arbitrary but must stay FIXED; changing it rewrites every tracked
+# figure. It is the preregistration lock, 2026-04-22 18:05:08 -0400, chosen only
+# because it is a date this repository already treats as immovable.
+#
+# Caveat: this pins the environment of THIS script. Running a generator directly,
+# or through `make figures`, still produces a timestamped PDF. verify.py is the
+# canonical path.
+REPRODUCIBLE_EPOCH = "1776895508"
+REPRODUCIBLE_ENV = {**os.environ, "SOURCE_DATE_EPOCH": REPRODUCIBLE_EPOCH}
+
 # Comments give the RENDERED figure number, resolved from build/*.aux, not the
 # filename stem. The two drift apart: fig00_study_design was inserted as
 # Figure 1 on 2026-06-24 and shifted every later npj figure by one, and the
@@ -69,7 +90,7 @@ LATEX_DOCS = ["supplement", "paper"]
 def _run(cmd, cwd=REPO, quiet=False):
     if not quiet:
         print(f"    $ {' '.join(str(c) for c in cmd)}")
-    kw = {"cwd": str(cwd)}
+    kw = {"cwd": str(cwd), "env": REPRODUCIBLE_ENV}
     if quiet:
         kw["stdout"] = subprocess.DEVNULL
         kw["stderr"] = subprocess.DEVNULL
