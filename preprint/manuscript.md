@@ -1956,13 +1956,21 @@ but downstream users adapting the result to clinical inference
 should not extrapolate to a per-kg sex-physiology claim that the
 data does not support.
 
-Several other parameters are sex-conditional: ideal-body-weight
-(Devine formula coefficient 50.0 vs 45.5), fat-fraction standard
-(0.21 vs 0.28), height bounds (151 – 176 cm vs 163 – 190 cm). Among
-these, the BV gap is the most plausible candidate for the divergence
-asymmetry. It enters the cardiovascular circuit's stabilisation
-directly, and shifts the operating-point neighborhood between the
-two sexes.
+Pulse's blood-volume baseline is not itself sex-conditional: it is
+computed from body mass alone. Several other patient-setup parameters
+are: ideal-body-weight (Devine formula coefficient 50.0 vs 45.5),
+fat-fraction standard (0.21 vs 0.28), height bounds
+(151 – 175.5 cm vs 163 – 190 cm), and the Harris–Benedict basal
+metabolic rate, which the engine's energy model uses both to
+initialise total metabolic rate and as the set point toward which it
+is held under resting, normothermic conditions, and which therefore
+drives tissue oxygen consumption and carbon-dioxide production
+(`EnergyModel.cpp`, `TissueModel.cpp`). None of those is the
+divergence mechanism. The BV gap remains the most plausible candidate
+for the divergence asymmetry — it enters the cardiovascular circuit's
+stabilisation directly, and shifts the operating-point neighborhood
+between the two bodies — but it does so as a body-mass difference,
+not as a sex difference.
 
 **Mechanism confirmed ([S018](#s018), 2026-05-13).** *In one sentence:
 forcing the male surrogate's BV down to the female-equivalent range
