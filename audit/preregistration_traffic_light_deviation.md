@@ -41,14 +41,43 @@ else:
 
 | # | Preregistered | Implemented | Materiality |
 |---|---|---|---|
-| **D1** | red on **any flag raised** | red only when the hard-flag **rate exceeds 30 %**; any hard flag gives **yellow** | **Material.** This is the whole of the 12 → 38 change. |
-| **D2** | "any **flag**" — the atlas has four (`clamped`, `diverged`, `implausible`, `not_steady_state`) | only two enter the rule: `diverged` + `implausible` | Material, and it is also what makes the literal rule tractable at all (§4.3). |
-| **D3** | deviation from "**cell** baseline" | deviation from a single **(S1, M)** baseline for every cell | Minor and disclosed. Paper §4.5 states the (S1, M) choice explicitly and Supplement §S3.11 tests it (0 of 24 female cells change colour). A literal per-cell baseline would make every deviation zero by construction, so (S1, M) is arguably the only non-degenerate reading. **Not pursued further here.** |
+| **D1** | red on **any flag raised**; the rule carries **no flag term in yellow at all** | **two indissociable changes**: red only when the hard-flag **rate exceeds 30 %**, *and* yellow whenever that rate is strictly positive (`hard_failure_rate > 0.0`) | **Material deviation.** This is the whole of the 12 → 38 change. |
+| **D2** | "any **flag**" — the atlas has four (`clamped`, `diverged`, `implausible`, `not_steady_state`) | only two enter the rule: `diverged` + `implausible` | **Operational clarification.** The four-flag reading is degenerate (48 / 48 red, §4.3); the hard-flag reading is usable and gives 7 / 3 / 38 (§4.2). The preregistered text is therefore **ambiguous, not globally unusable**. Defensible, but it must be declared. |
+| **D3** | deviation from "**cell** baseline" | deviation from a single **(S1, M)** baseline for every cell | **Ambiguity of reading; no deviation established.** See §1.4. |
 
-A fourth, silent difference: the preregistered rule has **no flag term in
-yellow at all** — flags appear only in the red criterion. The implementation
-adds one (`hard_failure_rate > 0.0`). That addition is what keeps the green set
-from growing; see §4.4.
+**Why D1's two components must be declared together.** Taken alone, "red now
+needs a 30 % rate" would predict that cells leaving red land wherever their
+deviation puts them, including green. They do not, because the second component
+sends every cell with a non-zero hard-flag rate to yellow. That is the
+mechanism behind the invariance of the green set (§4.4), and the invariance is
+the strongest evidence that the change did not manufacture a favourable
+result. Reporting the first component without the second would make that
+invariance look like a coincidence.
+
+### 1.4 D3: two defensible readings, and the repository does not settle it
+
+- **Reading A** — "cell baseline" means *a baseline proper to each cell*. Under
+  this reading the implementation deviates. Note that a literal per-cell
+  baseline makes every deviation zero by construction, so Reading A is
+  degenerate as an analysis even though it is a grammatical reading of the
+  sentence.
+- **Reading B** — "cell baseline" means *the baseline cell*, i.e. (S1, M).
+  Under this reading the implementation **conforms**. This is not a
+  reconstruction after the fact: the function's own docstring, contemporaneous
+  with the code, uses the phrase in exactly that sense — "Cell baseline is the
+  mean of clean S1_M runs".
+
+Nothing in the repository establishes which reading the preregistered sentence
+intended. D3 is therefore recorded as a **terminological ambiguity, not a third
+material deviation**.
+
+**Supplement §S3.11 must not be cited in support of D3.** That check re-scores
+the 24 female cells against a sex-specific **(S1, F)** baseline and finds 0 of
+24 colour changes. It varies the *sex* of the baseline while holding the
+scenario at S1. It never scores an S4 cell against an S4 baseline — and it is
+precisely that healthy-versus-scenario axis which produces the six
+deviation-only reds of §4.1. Invoking §S3.11 for D3 would be an overclaim a
+reader can falsify in one minute.
 
 ---
 
@@ -252,11 +281,16 @@ Against the three hypotheses set at the opening of this dossier:
 |---|---|
 | Drafting error in the preregistration, demonstrated by an earlier implementation | **Refused.** The implementation is 3 d 19 h posterior and no earlier variant exists in the history. |
 | Clarification of an ambiguous protocol sentence | **Partly supported, insufficient alone.** The word "flag" *is* genuinely ambiguous (§4.3), and disambiguating it to the two hard flags is defensible. But D1 — moving "any flag" from the red criterion to the yellow criterion and gating red behind a 30 % rate — is not a reading of the preregistered sentence. It is a different rule. |
-| **Material, undocumented deviation** | **Supported, and this is the dominant reading.** The rule changed, after the lock, without an amendment, and the change moves 26 of 48 combinations. |
+| **Material, undocumented deviation** | **Supported for D1, and this is the dominant reading of the finding as a whole.** The rule changed, after the lock, without an amendment, and the change moves 26 of 48 combinations. |
 
-The honest formulation is therefore: **one material deviation (D1), bundled
-with one defensible disambiguation (D2) and one disclosed simplification (D3),
-none of them recorded.**
+The honest formulation is therefore: **one material deviation (D1, itself made
+of two indissociable changes), bundled with one defensible operational
+clarification (D2), and one terminological ambiguity that is not an established
+deviation at all (D3). Neither D1 nor D2 is recorded anywhere.**
+
+Stated as a scope sentence for the eventual declaration: *the change did not
+affect which cells are identified as green, but it substantially altered the
+yellow–red boundary.*
 
 ---
 
@@ -301,8 +335,46 @@ against the published caption would find the gap unaided — as this dossier did
 1. **Was the rule written before or after the sweep output was seen?** Not
    answerable from the repository (§2.1). Only the author can state it, and the
    statement would rest on recollection, not artefact.
-2. **Does D3 (the (S1, M) baseline) also warrant a line in the deviation
-   statement?** It is disclosed in Methods and tested in §S3.11, but it is not
-   what `preregistration.md` says. Argued here as minor; not decided.
+2. **How should D3 read in the declaration?** Recorded here as a
+   terminological ambiguity (§1.4). One line naming both readings and stating
+   that the repository does not settle them is the conservative form; whether
+   it belongs in the published declaration at all is not decided.
 3. Whether the same blind spot (§5.2) affects other anchored claims whose
-   `computed_value` is read from a derived artefact. Not surveyed.
+   `computed_value` is read from a derived artefact. **Not surveyed**, and
+   deliberately not made a precondition for closing this dossier.
+
+### 8.1 The classifier docstring has drifted from its own code
+
+Internal, unpublished, and **not probative** of intent or chronology — recorded
+because it is the most plausible origin of the preregistration's vocabulary.
+`reliability_classification()` carries a docstring that its body contradicts on
+three points:
+
+| docstring says | code does |
+|---|---|
+| "Cell baseline is the mean of clean S1_M runs **at that input bin**" | `baseline = s1m_clean[f"{ch}_mean"].mean()` — averages **all** clean S1_M runs; there is no input-bin term |
+| "Per cell × output × **input bin**" | the loop is `df_master.groupby(["scenario", "sex"])` — **scenario × sex only** |
+| "Green: **no flags raised** AND …" | green requires only `hard_failure_rate == 0`, i.e. `diverged` + `implausible`; `clamped` and `not_steady_state` never enter |
+
+The first two suggest the design once carried a per-input-bin baseline that was
+simplified away, which would explain why "cell baseline" reads naturally as
+"per-cell" in the preregistered sentence while the code's own author used the
+same phrase for the S1_M reference (§1.4). The third mirrors D2 exactly: the
+docstring says "flags", the code means the two hard flags.
+
+**What this does not establish.** It does not show what the preregistered
+sentence intended, and it does not date any decision. It is a lead, not
+evidence.
+
+### 8.2 Requirement on the independent recomputation, if one is built
+
+A check that re-derives the three matrices must start **above**
+`reliability_classification.csv` *and* above `cell_flag_summary.csv`: both are
+outputs of the very chain under audit, and `mean_clean` is computed inside the
+audited function itself. The run-level artefacts are tracked —
+`data/runs/full_sweep/` holds **eight per-cell `aggregated.parquet` files**,
+plus a pooled `aggregated.parquet` and `morris_sample.parquet` (the input
+design, not run output). Rebuilding the flags, the clean-run means, the
+deviations from (S1, M) and all three classifications from the eight per-cell
+files would close the §5.2 blind spot for this claim, without waiting on the
+general survey.
