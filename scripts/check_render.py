@@ -123,6 +123,81 @@ def check(name: str, src: pathlib.Path, pdf: pathlib.Path, log: pathlib.Path | N
     return problems
 
 
+# Hard-coded cross-references that LaTeX cannot keep honest.
+#
+# paper.tex and supplement.tex reference sections through \ref, so LaTeX
+# renumbers them automatically. Three files cannot: manuscript.md is pandoc,
+# preregistration.md is a plain dated record, and reporting_summary_draft.md is
+# a submission form. Each of them names npj section and table numbers as literal
+# text, and each goes stale in silence the moment a section is inserted upstream.
+#
+# That is not hypothetical. On 2026-08-04 the audit register cited "Supplement
+# S3.11" for a subsection that renders as S3.9, and the ledger cited "Supplement
+# Fig S8" for a figure that renders as S3 -- both because a LABEL NAME was read
+# as a rendered number. The .aux files are the only authority on what a label
+# resolves to, so this guard resolves them there rather than grepping the PDF: a
+# section that moves is caught before anyone re-reads a page.
+#
+# Add an entry whenever a non-LaTeX file starts naming an npj number.
+HARDCODED_REFS = [
+    # (file, literal as written, aux file, label, what it points at)
+    ("preprint/manuscript.md", "Methods §4.5", "paper", "sec:methods-traffic",
+     "npj Methods, Reliability traffic-light"),
+    ("preprint/manuscript.md", "Supplement §S3.11", "supplement", "sec:s3-tl-sensitivity",
+     "traffic-light sensitivity subsection"),
+    ("preregistration.md", "Methods §4.5", "paper", "sec:methods-traffic",
+     "npj Methods, Reliability traffic-light"),
+    ("preregistration.md", "Supplement §S3.11", "supplement", "sec:s3-tl-sensitivity",
+     "traffic-light sensitivity subsection"),
+    ("preprint_npj/reporting_summary_draft.md", "Methods §4.5", "paper",
+     "sec:methods-traffic", "npj Methods, Reliability traffic-light"),
+    ("preprint_npj/reporting_summary_draft.md", "Supplement §S3.11", "supplement",
+     "sec:s3-tl-sensitivity", "traffic-light sensitivity subsection"),
+]
+
+_AUX = {
+    "paper": ROOT / "preprint_npj" / "build" / "paper.aux",
+    "supplement": ROOT / "preprint_npj" / "build" / "supplement.aux",
+}
+
+
+def _resolve_label(aux_key: str, label: str) -> str | None:
+    """What number does LaTeX actually assign this label? None if unresolvable."""
+    aux = _AUX[aux_key]
+    if not aux.exists():
+        return None
+    m = re.search(r"\\newlabel\{%s\}\{\{([^}]*)\}" % re.escape(label), aux.read_text(
+        encoding="utf-8", errors="replace"))
+    return m.group(1) if m else None
+
+
+def check_hardcoded_refs() -> list[str]:
+    problems: list[str] = []
+    for rel, literal, aux_key, label, what in HARDCODED_REFS:
+        path = ROOT / rel
+        if not path.exists():
+            problems.append("hard-coded refs: %s not found" % rel)
+            continue
+        text = path.read_text(encoding="utf-8", errors="replace")
+        if literal not in text:
+            problems.append(
+                "hard-coded refs: %s no longer contains %r -- the guard entry is "
+                "stale, or the sentence was reworded (%s)" % (rel, literal, what))
+            continue
+        resolved = _resolve_label(aux_key, label)
+        if resolved is None:
+            problems.append(
+                "hard-coded refs: label %s not resolvable in %s.aux -- rebuild the "
+                "PDFs before trusting this check" % (label, aux_key))
+            continue
+        expected = literal.rsplit("§", 1)[-1]
+        if resolved != expected:
+            problems.append(
+                "hard-coded reference mismatch: %s expects %s, but label %s resolves "
+                "to §%s (%s)" % (rel, literal, label, resolved, what))
+    return problems
+
+
 def main() -> int:
     all_problems: list[str] = []
     for name, src, pdf, log in DOCS:
@@ -131,6 +206,12 @@ def main() -> int:
         for line in p:
             print("    - " + line)
         all_problems += p
+
+    hp = check_hardcoded_refs()
+    print("%-11s %s" % ("hardcoded", "OK" if not hp else "%d PROBLEM(S)" % len(hp)))
+    for line in hp:
+        print("    - " + line)
+    all_problems += hp
 
     print()
     if all_problems:
