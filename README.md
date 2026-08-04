@@ -107,7 +107,12 @@ What the atlas says, in one paragraph:
 > approximately sex-balanced — the sex effect is regime-dependent; see
 > manuscript §3.5.1.) Severe ARDS on the male surrogate is the worst
 > reliability cell — all six outputs are classified red under the
-> combined rule. Healthy male and female
+> combined rule. (That combined rule differs from the literal
+> preregistered wording at the yellow–red boundary; the post hoc
+> deviation and its run-level sensitivity analysis are documented in
+> Methods §4.5, Supplement §S3.11, and
+> [`audit/preregistration_traffic_light_deviation.md`](audit/preregistration_traffic_light_deviation.md).)
+> Healthy male and female
 > adults at FiO2 = 1.0 produce **PaO2 above 600 mmHg, still drifting at
 > the end of the locked 120 s window** — a *transient hyperoxia regime*
 > (S021): under a 300 s rerun, PaO2 converges to a plateau ~ 20 mmHg
