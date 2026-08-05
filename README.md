@@ -46,8 +46,8 @@ submission. The three fastest entry points for verifying the work:
 
 ## What is Pulse?
 
-[Pulse](https://pulse.kitware.com) is the most-used open-source whole-body
-human physiology simulator (Kitware, Apache-2.0). It models cardiovascular,
+[Pulse](https://pulse.kitware.com) is an actively maintained open-source
+whole-body human physiology simulator (Kitware, Apache-2.0). It models cardiovascular,
 respiratory, gas-exchange, and pharmacology dynamics. People use it for:
 
 - **Clinical research** (hypothesis generation, virtual-patient cohorts).
@@ -55,7 +55,7 @@ respiratory, gas-exchange, and pharmacology dynamics. People use it for:
   a virtual patient instead of human subjects in early-stage trials).
 - **Teaching** (anaesthesia, ICU, paramedic training).
 
-Pulse is widely cited and downloaded — but its developers themselves state
+Pulse is openly licensed and actively developed — but its developers themselves state
 on the [Pulse FAQ](https://pulse.kitware.com/_f_a_q.html) (verified verbatim
 2026-04-19, still current 2026-05-07):
 
