@@ -5,9 +5,9 @@
 
 **The first open reliability atlas for the Pulse Physiology Engine
 (v4.3.1).** This repository tells you — clinician, engineer, researcher,
-educator — *where Pulse can be trusted*, *where it silently bends inputs
-out of acceptance*, *where its solver gives up*, and *which inputs
-actually drive each output*.
+educator — *which regimes meet the stated screening criteria*, *where it
+silently bends inputs out of acceptance*, *where its solver gives up*, and
+*which inputs actually drive each output*.
 
 The full result is [`preprint/manuscript.md`](preprint/manuscript.md). The
 short answer: see [Section "Plain-language summary"](#plain-language-summary)

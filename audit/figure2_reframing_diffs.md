@@ -373,7 +373,20 @@ change.**
    covers commits 2, 3a, 3b and 3c.
 5. cumulative review before any push.
 
-## Out-of-band change, recorded here because git cannot see it
+## Out-of-band changes, recorded here because git cannot see them
+
+`preprint_npj/pre_submission_inquiry.txt` is covered by `.gitignore:127`. Two
+edits were applied to it on 2026-08-05 as part of 3a-bis and will never appear
+in any commit:
+
+- `:46` "yields a per-cell traffic-light **data-quality filter** for synthetic
+  cohorts" → "yields a per-cell traffic-light **curation and review-priority
+  map** for synthetic cohorts";
+- the same sentence reflowed, no further change of sense.
+
+If that file is ever regenerated from a template, both edits are lost.
+
+
 
 `.claude/settings.json` is covered by `.gitignore:48`, so the following leaves
 no trace in the history. On **2026-08-05**, with the maintainer's explicit

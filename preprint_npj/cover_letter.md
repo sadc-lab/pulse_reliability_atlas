@@ -22,8 +22,8 @@ physiology simulator whose synthetic patient trajectories are applied to
 device-validation studies and to computational physiology research; yet the
 engine's own maintainers state on their public FAQ that they "have not [...]
 conducted a formal sensitivity analysis" of the model. Every downstream user
-has therefore been operating without a map of where the engine's user-facing
-operational envelope is characterised — and the stakes are no longer
+has therefore been operating without a map of how the engine behaves across
+its user-facing operational envelope — and the stakes are no longer
 hypothetical: an independent group has already used the engine's respiratory
 dynamics as a source of simulated data to learn and benchmark
 ventilator-control policies for ARDS (Ward et al., *IEEE CBMS* 2024), and any
@@ -36,12 +36,13 @@ operational inputs, four ARDS severities, and two patient reference bodies).**
 Three findings make this contribution timely for the *npj Digital Medicine*
 readership:
 
-1. **A reusable, open data-quality instrument for synthetic-cohort science.**
-   The per-cell, four-flag traffic-light map is the atlas's principal
-   deliverable: a drop-in filter that tells a clinical-AI or ML practitioner
-   which Pulse configurations are default-eligible under the stated criteria,
-   which require flag-stratified
-   handling, and which need per-channel justification. We also surface two
+1. **A reusable, open curation instrument for synthetic-cohort science.**
+   The per-cell traffic-light curation map is a principal deliverable of the
+   atlas: under the stated criteria, it identifies configurations that are
+   default-eligible, require review, or require priority review. A separate
+   run-level four-flag classifier supports exclusion, remediation, or
+   stratified handling; neither layer is a distribution-neutral automatic
+   filter. We also surface two
    operator-actionable fixes — a one-line VC-AC trigger setting (−2 cmH₂O) that
    collapses tidal-volume dyssynchrony, and a steady-state-window correction for
    hyperoxia simulation at FiO₂ = 1.0.
