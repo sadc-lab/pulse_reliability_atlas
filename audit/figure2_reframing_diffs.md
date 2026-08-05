@@ -90,11 +90,18 @@ Spread ratios are quoted from the counts, not the percentages:
 ### 0.2 A defect found while reading the loci
 
 `paper.tex:311` — *"the four-flag classifier doubles as a **per-cell**
-data-quality contract"*. The four-flag classifier is **run-level**. The same
-conflation appears at `manuscript.md:2857` (*"a per-cell data-quality filter"*)
-and `manuscript.md:92` (*"a per-cell data-quality filter"*). This is precisely
-the run/cell conflation the reframing exists to remove, in three places nobody
-had listed. Diffs D1.5, D5.6 and D5.7 below.
+data-quality contract"*. The subject is the four-flag classifier, which is
+**run-level**; its per-cell aggregate is the map, a different object. Diff D1.5.
+
+> **Corrected 2026-08-05, before commit 2.** This finding first listed three
+> loci, adding `manuscript.md:2857` and `manuscript.md:92`. Re-read in context,
+> **both are correct as written**: at `:2857` the subject is *"The atlas's
+> reliability map"* and at `:92` it is the atlas's deliverable, and the map
+> genuinely *is* per-cell. The original finding matched the string
+> `per-cell data-quality` without checking the grammatical subject. What those
+> two loci actually carry is the `filter` / `reliability map` vocabulary, which
+> belongs to LOT 5 (D5.6, D5.7), not to the run/cell fix. **Commit 2 therefore
+> touches one locus, not three.**
 
 ---
 
@@ -280,8 +287,8 @@ New figure, three panels, all from tracked data, **no new simulations**.
 | D5.3 | `preprint_npj/cover_letter.md:26` | "operational envelope is trustworthy" | "operational envelope is characterised" |
 | D5.4 | `preprint_npj/cover_letter.md:42` | "which Pulse configurations are safe to ingest" | "which Pulse configurations are default-eligible under the stated criteria" |
 | D5.5 | `preprint_npj/submission_metadata.txt:30` | "These results map where Pulse is trustworthy and provide an…" | "These results map Pulse's operational sensitivity and review-priority regions and provide an…" |
-| D5.6 | `preprint/manuscript.md:92` | "provides a per-cell data-quality filter for downstream" | "provides a run-level quality-control classifier and a cell-level curation map for downstream" |
-| D5.7 | `preprint/manuscript.md:2857` | "it doubles as a **per-cell data-quality filter for synthetic…**" | "it doubles as a **run-level data-quality contract for synthetic…**" |
+| D5.6 | `preprint/manuscript.md:92` | "provides a per-cell data-quality filter for downstream" | "provides a per-cell curation and review-priority map for downstream" — `per-cell` is **correct here** (subject is the map); only `filter` changes |
+| D5.7 | `preprint/manuscript.md:2857` | "The atlas's reliability map … doubles as a **per-cell data-quality filter for synthetic…**" | "The atlas's curation map … doubles as a **per-cell curation layer for synthetic…**" — `per-cell` **correct here** too; `reliability map` and `filter` change |
 | D5.8 | `preprint/manuscript.md:522, 528` | "where adult Pulse is trustworthy" | "where adult Pulse's behaviour is characterised" |
 | D5.9 | `preprint/manuscript.md:2853` | "data-quality filter — green cells ingest as-is, yellow ingest…" | "curation map — green cells are default-eligible, yellow…" |
 | D5.10 | `preprint/manuscript.md:2892` | "**Green cells:** safe to ingest into training cohorts without" | "**Green cells:** eligible for default inclusion, subject to use-case-specific validation, without" |
