@@ -23,7 +23,7 @@ device-validation studies and to computational physiology research; yet the
 engine's own maintainers state on their public FAQ that they "have not [...]
 conducted a formal sensitivity analysis" of the model. Every downstream user
 has therefore been operating without a map of where the engine's user-facing
-operational envelope is trustworthy — and the stakes are no longer
+operational envelope is characterised — and the stakes are no longer
 hypothetical: an independent group has already used the engine's respiratory
 dynamics as a source of simulated data to learn and benchmark
 ventilator-control policies for ARDS (Ward et al., *IEEE CBMS* 2024), and any
@@ -39,7 +39,8 @@ readership:
 1. **A reusable, open data-quality instrument for synthetic-cohort science.**
    The per-cell, four-flag traffic-light map is the atlas's principal
    deliverable: a drop-in filter that tells a clinical-AI or ML practitioner
-   which Pulse configurations are safe to ingest, which require flag-stratified
+   which Pulse configurations are default-eligible under the stated criteria,
+   which require flag-stratified
    handling, and which need per-channel justification. We also surface two
    operator-actionable fixes — a one-line VC-AC trigger setting (−2 cmH₂O) that
    collapses tidal-volume dyssynchrony, and a steady-state-window correction for

@@ -27,8 +27,9 @@ At FiO2 = 1.0 a transient hyperoxia regime makes 120-second runs underestimate
 plateau PaO2, which 300-second runs resolve near the alveolar-gas ceiling
 (median 643 mmHg). Solver divergence fell entirely on the male body
 (20/1,280); reducing its blood-volume baseline to the 4,082 mL floor
-eliminated it. These results map where Pulse is trustworthy and provide an
-open-source data-quality filter (Apache-2.0) for cohorts.
+eliminated it. These results map Pulse's operational sensitivity and
+review-priority regions and provide an
+open-source curation layer (Apache-2.0) for cohorts.
 
 ------------------------------------------------------------------------------
 KEYWORDS

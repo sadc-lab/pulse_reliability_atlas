@@ -1,7 +1,7 @@
 """Export the per-cell reliability traffic-light as clean, machine-readable
 CSV + JSON artefacts for the paper's Data Availability statement.
 
-The atlas sells itself as providing a *reusable data-quality filter* for
+The atlas provides a *conservative curation and review-priority layer* for
 downstream Pulse users. This script turns the canonical classification
 artefact (``results/reliability_classification.csv``, produced by
 ``src.analysis_compare.reliability_classification`` and consumed by the npj
@@ -71,12 +71,17 @@ def main() -> None:
     counts = tidy["light"].value_counts().to_dict()
     payload = {
         "description": (
-            "Per-cell reliability traffic-light for the Pulse Physiology Engine "
-            "v4.3.1 adult operational envelope. One verdict per (scenario, sex, "
-            "output) combination; intended as a reusable data-quality filter on "
-            "synthetic patient cohorts. Green = trustworthy as-is; yellow = "
-            "filter to the clean subset and report per-cell flag rates; red = "
-            "per-channel justification required before downstream use."
+            "Per-cell curation and review-priority map for the Pulse Physiology "
+            "Engine v4.3.1 adult operational envelope. One classification per "
+            "(scenario, sex, output) combination; intended as a conservative "
+            "curation layer on synthetic patient cohorts, not a "
+            "distribution-neutral automatic filter. Green = default-eligible "
+            "under the stated composite criteria; yellow = filter to the clean "
+            "subset and report per-cell flag rates; red = per-channel "
+            "justification required before downstream use. The colour combines "
+            "the hard-flag rate with deviation from the healthy-male (S1, M) "
+            "baseline, and does not constitute external physiological "
+            "validation."
         ),
         "source_artifact": "results/reliability_classification.csv",
         "generated_by": "scripts/export_traffic_light.py",

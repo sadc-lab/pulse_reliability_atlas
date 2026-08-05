@@ -72,7 +72,8 @@ the 4.3.x release line (audit logged in
 [`experiments_log/santino/S016`](experiments_log/santino/S016_pulse_gitlab_audit_may2026.md)).
 
 That means **every Pulse user driving the engine from operational settings
-has been operating without a map of where the engine is reliable** — until
+has been operating without a map of how the engine behaves across its
+operational envelope** — until
 this repository.
 
 ---
@@ -133,7 +134,7 @@ actionable single artifact.
 
 | You are a … | Read this first | Then this |
 |---|---|---|
-| **Clinician / domain expert** wanting to know where Pulse is safe | [`preprint/manuscript.md`](preprint/manuscript.md) §3.7 (traffic-light table) and [Figure 6](figures/fig06_reliability_traffic_light.png) | [§4.1](preprint/manuscript.md) practical recommendations |
+| **Clinician / domain expert** wanting to know which regimes require scenario-specific review | [`preprint/manuscript.md`](preprint/manuscript.md) §3.7 (traffic-light table) and [Figure 6](figures/fig06_reliability_traffic_light.png) | [§4.1](preprint/manuscript.md) practical recommendations |
 | **Engineer / device developer** building a Pulse-based validation pipeline | [`preprint/interim_findings.md`](preprint/interim_findings.md) (every finding linked to data) | [`results/cell_flag_summary.csv`](results/cell_flag_summary.csv) (Table 1 — failure breakdown per scenario × sex) |
 | **Researcher / reviewer** auditing the methodology | [`preregistration.md`](preregistration.md) (commitments locked before data collection) and [`experiments_log/INDEX.md`](experiments_log/INDEX.md) | [`src/detector.py`](src/detector.py) (locked-threshold classifier) |
 | **Student** wanting to learn how Pulse and Morris-EE sensitivity work | this README + [`src/sampler.py`](src/sampler.py) (~50 lines, well commented) | [`scripts/run_pilot.py`](scripts/run_pilot.py) (the 22-run gate study) |
