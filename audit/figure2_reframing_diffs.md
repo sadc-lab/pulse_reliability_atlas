@@ -345,9 +345,46 @@ change.**
 
 ## Commit order
 
-1. **audit** — calibration script + this dossier. No new anchors.
-2. **`[PAPER] distinguish run-level labels from cell-level curation`** — the
-   three loci of §0.2. Self-contained and scientifically coherent alone.
-3. **scientific** — reframing, retention, figures, and the matching anchors.
-4. regeneration of artefacts + render checks.
+1. ✅ **audit** — calibration script + this dossier. No new anchors. → `9586b06`
+2. ✅ **`[PAPER] Distinguish run-level labels from cell-level curation`** — the
+   single genuine locus of §0.2. → `7765aa4`. Ledger after: 313/313 anchors,
+   94/94 crosswalk, 26/26 monograph, 25/25 head-line counters, exit 0.
+3. **scientific** — split into three, because these are three different kinds of
+   change and a single commit would make a regression impossible to isolate:
+   - **3a — text only.** D1.1 (abstract), D1.2, D1.3, D1.4, D1.6, and the 13
+     rows of LOT 5. No new number, no code. Fully checkable by the ledger.
+   - **3b — retention.** The LOT 2 paragraph and table, the two new labels
+     (`sec:results-screening-retention`, `tab:screening-retention`), their entry
+     in the `.aux` cross-reference guard (`e95c343`), and the new anchors. This
+     is where every new number enters, so anchors land here with their prose.
+     **Run a targeted LaTeX compile before committing** — not to ship a PDF, but
+     to prove the two labels actually reach `.aux` and that the guard resolves
+     them, with zero unresolved references. No restore step is needed
+     afterwards: `preprint_npj/build/` is gitignored (`.gitignore:68`), so the
+     compile leaves no tracked change and 3b is source-only by construction.
+     Watch the known trap: if the PDF is open in a viewer the build fails
+     silently and bibtex reports "0 entries", so confirm the compile actually
+     ran rather than trusting the exit code.
+   - **3c — figures.** Figure 2 panel B (LOT 3) and the Supplement's
+     three-panel view (LOT 4). Code, then a real render measurement, then the
+     §4 fallback if the page does not hold.
+4. regeneration of artefacts + render checks. **`build/paper.pdf` is knowingly
+   one word stale from commit 2 onwards**; a single rebuild at the end of 3c
+   covers commits 2, 3a, 3b and 3c.
 5. cumulative review before any push.
+
+## Out-of-band change, recorded here because git cannot see it
+
+`.claude/settings.json` is covered by `.gitignore:48`, so the following leaves
+no trace in the history. On **2026-08-05**, with the maintainer's explicit
+authorisation, `"Bash(git push)"` and `"Bash(git push origin main)"` were
+removed from the `allow` list. `"Bash(git push --dry-run origin main)"` is
+kept, and the `deny` on `git push --force` / `-f` is untouched.
+
+Effect: `git push` now prompts, because on this installation the `ask` key is
+inoperative and "prompt" is obtained by absence from `allow`. This makes the
+guarantee mechanical rather than merely a policy in `CLAUDE.md` (async protocol,
+rule 5), and it makes the file's own comment at `:19` — which already listed
+`git push` among what is deliberately not in `allow` — true for the first time.
+`git add`, `commit`, `checkout`, `stash` and `mv` are unchanged, so no friction
+is added to the intermediate steps.
