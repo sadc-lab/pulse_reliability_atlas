@@ -2719,8 +2719,8 @@ elif _n_expected > 0 and _n_found == 0:
     # Benign CI case: plateau_stats lists N>0 S1 physio runs but every per-run
     # output.csv is gitignored and absent on a clean checkout. Skip T1.06u
     # with a NOTE; the parquet/CSV-backed anchors still run as the gate. The
-    # skip is recorded in `skipped` so the summary reports 266/267 (1 SKIPPED)
-    # rather than a bare 266/266 that would hide the existence of the anchor.
+    # skip is recorded in `skipped` so the summary reports 312/313 (1 SKIPPED)
+    # rather than a bare 312/312 that would hide the existence of the anchor.
     skipped.append(
         (
             "T1.06u.s021_time_to_95pct_plateau",
@@ -3254,7 +3254,7 @@ def check_audit_counters(n_ledger: int, n_sync_total: int, n_mono_total: int) ->
             continue
         rel = doc.relative_to(REPO).as_posix()
         # Scan the WHOLE text, not line by line: a ratio wrapped across a line
-        # break ("current state 289 / 289\nPASS on the ...") is invisible to a
+        # break ("current state 313 / 313\nPASS on the ...") is invisible to a
         # per-line scan, and manuscript.md contains exactly that. Line numbers
         # are recovered from the match offset.
         text = doc.read_text(encoding="utf-8")
