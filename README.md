@@ -152,7 +152,7 @@ for the lab-notebook entry.)
 |---|---|
 | **H1 — top-3 inputs explain ≥ 50 % of sensitivity** | **PASS, 48 / 48** cell × output combos. Median 0.928, range 0.658 – 0.998. |
 | **H2 — silent clamping ≥ 5 %** | **NOT supported**, 0 / 1,280. Pulse rejects out-of-range inputs *loudly* (verified by explicit clamp probes in S005). |
-| **H3 — divergence outside ARDS 0.91 – 0.945** | **PASS** — 1.6 % overall divergence rate. **All 20 divergent runs are male in the Morris input-extreme regime** (the complementary continuous-severity sweep at midrange inputs shows divergence approximately sex-balanced inside the [0.879, 0.945] band — see §3.5.1). Mechanism confirmed (S018): mediated by Pulse's `BloodVolumeBaseline` gap (male default 4,802.63 mL vs female 3,996.09 mL); reducing the male BV monotonically eliminates divergence (20 / 20 → 2 / 20 → 0 / 20 across BV = 4,802.63 → 4,400 → 4,082.24 mL). |
+| **H3 — divergence outside ARDS 0.91 – 0.945** | **PASS** — 1.6 % overall divergence rate. **All 20 divergent runs are male in the Morris input-extreme regime** (the complementary continuous-severity sweep at midrange inputs shows divergence approximately sex-balanced inside the [0.879, 0.945] band — see §3.5.1). Mechanism confirmed (S018): mediated by Pulse's `BloodVolumeBaseline` gap (male default 4,802.63 mL vs female 3,996.09 mL); reducing the male BV eliminates divergence entirely — the count falls from **20 / 20** at the default to **0 / 20 at both reductions** (BV = 4,802.63 → 4,400 → 4,082.24 mL); even the 8.4 % reduction to 4,400 mL clears all 20. |
 | **H4 — sex-specific reliability** | **Partially supported (gas-exchange only)** — under Benjamini–Hochberg FDR control at q = 0.05, **5 of 24** cell × output Wasserstein distances survive the permutation null; all 5 are gas-exchange (PaCO2 × 3, SpO2 × 1, PaO2 × 1). The naive-α = 0.05 analysis would flag 6; S2 SpO2 (p_emp = 0.022) is demoted by BH-FDR. Cardiovascular (HR, MAP) and Vt sex effects do not exceed the permutation-null baseline at our sample size. Input-importance rankings are similar between sexes (Spearman ρ 0.75 – 1.00 in S2 / S3, wide CIs). |
 
 Two structural Pulse findings, independent of the hypotheses:
@@ -353,7 +353,7 @@ pulse_reliability_atlas/
 ├── experiments_log/
 │   ├── INDEX.md                 auto-regenerated table of all experiments
 │   ├── README.md                lab-notebook conventions
-│   └── santino/                 S001 … S025 entries (one .md each)
+│   └── santino/                 S001 … S031 entries (one .md each)
 └── reference/                   verified Pulse run templates and limits
 ```
 
@@ -380,7 +380,7 @@ contribution to the PhD. Hackathon-era framing documents are preserved in
 
 ## How to read the experiments log
 
-`experiments_log/santino/S001` … `S025` are individual lab-notebook
+`experiments_log/santino/S001` … `S031` are individual lab-notebook
 entries. Every entry follows the same template — *hypothesis →
 motivation → method → what we tried (incl. dead ends) → results →
 interpretation → next steps* — so a reviewer can audit any decision
@@ -417,7 +417,7 @@ Quick map (highlights — full audit trail in
   panel (Table 2).
 - **S018** Blood-volume mechanism falsification — confirms BV gap
   mediates the all-male divergence cluster
-  (20 / 20 → 2 / 20 → 0 / 20 across BV brackets).
+  (20 / 20 at the male default → 0 / 20 at both BV reductions).
 - **S021** Hyperoxia convergence — 60-run 300 s rerun reframes F-003
   from "overshoot" to "transient hyperoxia regime + AGE undershoot."
 - **S022** No-compute failure-mode attribution audit of
@@ -436,8 +436,8 @@ Quick map (highlights — full audit trail in
 Plain text:
 
 ```
-Nanini, S., et al. (2026). An open reliability atlas for the Pulse
-Physiology Engine: sensitivity, divergence, and sex-stratified failure modes.
+Nanini, S., et al. (2026). An Open Reliability Atlas of Sensitivity and
+Failure Modes in the Pulse Physiology Engine.
 Preprint forthcoming on arXiv. Code: https://github.com/santinon/pulse_reliability_atlas
 ```
 
