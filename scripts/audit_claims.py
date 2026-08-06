@@ -1128,6 +1128,123 @@ add(
     tolerance_rule="pct_1dp",
 )
 
+# 25. Screening retention, both definitions (npj §2.1, Table 4). Added 2026-08-05.
+#
+# Two screens are reported side by side because neither is distribution-neutral
+# and they deplete opposite ends of the severity axis. "Four-flag clean" is the
+# existing `clean` column (T1.28/T1.29 already anchor its total). "Hard-failure-
+# free" keeps every run firing neither `diverged` nor `implausible`; `clamped` is
+# empty in this sweep, so including it in the hard set changes no count.
+_hard = agg["diverged"] | agg["implausible"] | agg["clamped"]
+_hard_free = int((~_hard).sum())
+_cell_clean = agg.groupby(["scenario", "sex"])["clean"].sum().astype(int)
+_cell_hard_free = (~_hard).groupby([agg["scenario"], agg["sex"]]).sum().astype(int)
+
+add(
+    claim_id="T1.30r.hard_free_total",
+    section="npj §2.1, Table 4",
+    manuscript_text="1,134 hard-failure-free simulations",
+    source_file="data/runs/full_sweep/aggregated.parquet",
+    manuscript_value=1134,
+    computed_value=_hard_free,
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T1.30r.hard_free_pct",
+    section="npj §2.1, Table 4",
+    manuscript_text="88.6% hard-failure-free rate",
+    source_file="data/runs/full_sweep/aggregated.parquet",
+    manuscript_value=88.6,
+    computed_value=100.0 * _hard_free / len(agg),
+    tolerance_rule="pct_1dp",
+)
+add(
+    claim_id="T1.30r.nss_sole",
+    section="npj §2.1",
+    manuscript_text="471 runs carry not_steady_state as their sole flag",
+    source_file="data/runs/full_sweep/aggregated.parquet",
+    manuscript_value=471,
+    computed_value=int(((~_hard) & ~agg["clean"]).sum()),
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T1.30r.non_clean",
+    section="npj §2.1",
+    manuscript_text="617 non-clean runs (471 + 20 + 126)",
+    source_file="data/runs/full_sweep/aggregated.parquet",
+    manuscript_value=617,
+    computed_value=int((~agg["clean"]).sum()),
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T1.30r.implausible_total",
+    section="npj §2.1",
+    manuscript_text="126 implausible runs",
+    source_file="data/runs/full_sweep/aggregated.parquet",
+    manuscript_value=126,
+    computed_value=int(agg["implausible"].sum()),
+    tolerance_rule="exact_int",
+)
+# The identity 471 + 20 + 126 = 617 only closes if diverged and implausible are
+# disjoint. That is measured here, not assumed: the manuscript states it.
+add(
+    claim_id="T1.30r.div_imp_disjoint",
+    section="npj §2.1",
+    manuscript_text="diverged and implausible are disjoint in this sweep",
+    source_file="data/runs/full_sweep/aggregated.parquet",
+    manuscript_value=0,
+    computed_value=int((agg["diverged"] & agg["implausible"]).sum()),
+    tolerance_rule="exact_int",
+)
+# Spreads are quoted from the counts, never from rounded percentages: with
+# n = 160 a per-cell percentage is a multiple of 0.125 and nine of the sixteen
+# values fall on an exact rounding tie.
+add(
+    claim_id="T1.30r.spread_four_flag",
+    section="npj §2.1",
+    manuscript_text="3.43-fold spread in four-flag retention (144/42)",
+    source_file="data/runs/full_sweep/aggregated.parquet",
+    manuscript_value=3.43,
+    computed_value=float(_cell_clean.max()) / float(_cell_clean.min()),
+    tolerance_rule="displayed_2dp",
+)
+add(
+    claim_id="T1.30r.spread_hard_free",
+    section="npj §2.1",
+    manuscript_text="1.51-fold spread in hard-failure-free retention (160/106)",
+    source_file="data/runs/full_sweep/aggregated.parquet",
+    manuscript_value=1.51,
+    computed_value=float(_cell_hard_free.max()) / float(_cell_hard_free.min()),
+    tolerance_rule="displayed_2dp",
+)
+# The sixteen cells of Table 4, one anchor each, so a single stale count cannot
+# hide inside a table nobody re-derives.
+_RETENTION_TABLE = {
+    ("S1", "M"): (49, 145), ("S1", "F"): (42, 137),
+    ("S2", "M"): (87, 156), ("S2", "F"): (92, 160),
+    ("S3", "M"): (144, 156), ("S3", "F"): (122, 160),
+    ("S4", "M"): (67, 106), ("S4", "F"): (60, 114),
+}
+for (_sk, _xk), (_v_clean, _v_hf) in _RETENTION_TABLE.items():
+    add(
+        claim_id=f"T1.30r.clean.{_sk}_{_xk}",
+        section="npj Table 4",
+        manuscript_text=f"{_sk}_{_xk} four-flag clean = {_v_clean}/160",
+        source_file="data/runs/full_sweep/aggregated.parquet",
+        manuscript_value=_v_clean,
+        computed_value=int(_cell_clean.loc[(_sk, _xk)]),
+        tolerance_rule="exact_int",
+    )
+    add(
+        claim_id=f"T1.30r.hardfree.{_sk}_{_xk}",
+        section="npj Table 4",
+        manuscript_text=f"{_sk}_{_xk} hard-failure-free = {_v_hf}/160",
+        source_file="data/runs/full_sweep/aggregated.parquet",
+        manuscript_value=_v_hf,
+        computed_value=int(_cell_hard_free.loc[(_sk, _xk)]),
+        tolerance_rule="exact_int",
+    )
+
 # -----------------------------------------------------------------------------
 # TIER 2 -- §3 deep cuts + appendices
 # -----------------------------------------------------------------------------

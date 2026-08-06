@@ -142,22 +142,22 @@ def check(name: str, src: pathlib.Path, pdf: pathlib.Path, log: pathlib.Path | N
 HARDCODED_REFS = [
     # (file, literal as written, aux file, label, what it points at)
     ("preprint/manuscript.md", "Methods §4.5", "paper", "sec:methods-traffic",
-     "npj Methods, Reliability traffic-light"),
+     "npj Methods, Traffic-light curation map"),
     ("preprint/manuscript.md", "Supplement §S3.11", "supplement", "sec:s3-tl-sensitivity",
      "traffic-light sensitivity subsection"),
     ("preregistration.md", "Methods §4.5", "paper", "sec:methods-traffic",
-     "npj Methods, Reliability traffic-light"),
+     "npj Methods, Traffic-light curation map"),
     ("preregistration.md", "Supplement §S3.11", "supplement", "sec:s3-tl-sensitivity",
      "traffic-light sensitivity subsection"),
     ("preprint_npj/reporting_summary_draft.md", "Methods §4.5", "paper",
-     "sec:methods-traffic", "npj Methods, Reliability traffic-light"),
+     "sec:methods-traffic", "npj Methods, Traffic-light curation map"),
     ("preprint_npj/reporting_summary_draft.md", "Supplement §S3.11", "supplement",
      "sec:s3-tl-sensitivity", "traffic-light sensitivity subsection"),
     # README.md is the repository's public face and names npj numbers in its
     # plain-language summary and its reproduction section. Added 2026-08-05
     # after a manual sweep found it carried three unguarded hard-coded refs.
     ("README.md", "Methods §4.5", "paper", "sec:methods-traffic",
-     "npj Methods, Reliability traffic-light"),
+     "npj Methods, Traffic-light curation map"),
     ("README.md", "Supplement §S3.11", "supplement", "sec:s3-tl-sensitivity",
      "traffic-light sensitivity subsection"),
     ("README.md", "Supplement §S12", "supplement", "sec:s12",
