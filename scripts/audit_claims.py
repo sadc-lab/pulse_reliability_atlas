@@ -4046,6 +4046,94 @@ def check_s021_clock() -> int:
 
 n_s021_fail = check_s021_clock()
 
+
+# -----------------------------------------------------------------------------
+# S021 converged-plateau claim (2026-08-06).
+#
+# Two different statistics round to the same published integer 643:
+#   S1_plateau_median_mmHg           = 643.3063  (all 44 S1 reruns)
+#   S1_converged_plateau_median_mmHg = 642.8716  (the 41 drift-converged ones)
+# They differ by 0.4348, below whole_unit = 0.5, so no ledger anchor can tell
+# them apart: swapping one for the other leaves any such anchor green.
+#
+# T1.23 correctly checks the 44-run median, because that is what the MONOGRAPH
+# claims (manuscript.md:2664 "S1 (n = 44): plateau median 643.3 mmHg", and the
+# table at :2684). The paper and supplement instead attribute their 643 to the
+# 41 CONVERGED runs, and nothing verified that quantity.
+#
+# This check closes the gap without adding a 383rd anchor -- which would have
+# cascaded into 16 counter-bearing lines across README, supplement and
+# monograph for a purely bookkeeping reason, and would have pointed the ledger
+# at a quantity outside its contract (the ledger audits the monograph).
+#
+# It is deliberately a JOINT check: the count, the source statistic, its
+# published rounding, and the prose that ties them together must agree. Any one
+# of them alone is satisfiable by the wrong quantity.
+# -----------------------------------------------------------------------------
+S021_CONVERGED_N = 41
+S021_CONVERGED_PUBLISHED_MMHG = 643
+S021_CONVERGED_CONTEXT: tuple[tuple[str, str], ...] = (
+    ("preprint_npj/supplement.tex", "over all 41 drift-converged runs"),
+    ("preprint_npj/paper.tex", "the converged S1 plateau median was 643~mmHg"),
+)
+
+
+def check_s021_converged_plateau() -> int:
+    """Verify the 41-run converged plateau median behind the published 643 mmHg."""
+    print("\n## S021 converged-plateau claim\n")
+    rows: list[tuple[str, str, str]] = []
+    n_bad = 0
+
+    s1 = _s21_plateau[_s21_plateau["scenario"] == "S1"]
+    conv = s1[s1["converged"]]
+
+    # 1. the converged count
+    n_conv = int(len(conv))
+    ok = n_conv == S021_CONVERGED_N
+    n_bad += 0 if ok else 1
+    rows.append(("converged S1 reruns", f"{n_conv} (expected {S021_CONVERGED_N})",
+                 "PASS" if ok else "**FAIL**"))
+
+    # 2. the source statistic, recomputed from the parquet and cross-checked
+    #    against summary.json -- two artefacts, so a stale summary cannot hide
+    #    a drifted parquet.
+    med_parquet = float(conv["PaO2_plateau_mmHg"].median())
+    med_summary = float(s21_sum["S1_converged_plateau_median_mmHg"])
+    ok = abs(med_parquet - med_summary) <= 0.0005
+    n_bad += 0 if ok else 1
+    rows.append(("parquet vs summary.json",
+                 f"{med_parquet:.4f} vs {med_summary:.4f}",
+                 "PASS" if ok else "**FAIL**"))
+
+    # 3. its published rounding
+    ok = round(med_parquet) == S021_CONVERGED_PUBLISHED_MMHG
+    n_bad += 0 if ok else 1
+    rows.append(("rounds to published value",
+                 f"round({med_parquet:.4f}) = {round(med_parquet)} "
+                 f"(published {S021_CONVERGED_PUBLISHED_MMHG})",
+                 "PASS" if ok else "**FAIL**"))
+
+    # 4. the prose that ties the count to the value
+    for rel, needle in S021_CONVERGED_CONTEXT:
+        path = REPO / rel
+        hits = path.read_text(encoding="utf-8").count(needle) if path.exists() else 0
+        ok = hits >= 1
+        n_bad += 0 if ok else 1
+        rows.append((f"`{rel}`", f"`{needle}`", "PASS" if ok else "**FAIL** (absent)"))
+
+    print("| check | observed | verdict |")
+    print("|---|---|---|")
+    for label, observed, verdict in rows:
+        print(f"| {label} | {observed} | {verdict} |")
+    print(
+        f"\n**S021 converged-plateau claim:** {len(rows)} checks, "
+        f"{len(rows) - n_bad} PASS, {n_bad} FAIL.\n"
+    )
+    return n_bad
+
+
+n_s021_conv_fail = check_s021_converged_plateau()
+
 n_counter_fail = 0
 if _ARGS.check_paper_sync and _ARGS.check_monograph:
     n_counter_fail = check_audit_counters(
@@ -4057,6 +4145,9 @@ if _ARGS.check_paper_sync and _ARGS.check_monograph:
 # Exit non-zero if any FAIL anywhere (allows piping to CI later).
 sys.exit(
     1
-    if (n_fail + n_sync_fail + n_mono_fail + n_counter_fail + n_s021_fail) > 0
+    if (
+        n_fail + n_sync_fail + n_mono_fail + n_counter_fail
+        + n_s021_fail + n_s021_conv_fail
+    ) > 0
     else 0
 )
