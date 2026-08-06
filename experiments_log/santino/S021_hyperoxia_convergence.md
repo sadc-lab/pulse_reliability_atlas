@@ -288,3 +288,84 @@ sed-patch from S014 was already baked into `pulse-atlas-engine:latest`.
    §3.2 / §4.1 / §4.2 / §4.5 (done).
 3. Commit S021 + manuscript revision as a single change set with a
    commit message describing the preregistered design and result.
+
+---
+
+## Addendum — 2026-08-06: the manuscript misdescribed this protocol
+
+**Nothing in the protocol above was wrong, and nothing in it is corrected
+here.** This addendum records that the *write-up* departed from the protocol
+this log had stated correctly, and what was done about it.
+
+### What the manuscript said, and why it was wrong
+
+`paper.tex`, `supplement.tex`, `manuscript.md` and `scripts/make_supp_fig_s3.py`
+described each S021 rerun as **reloading Pulse's saved engine state** at the end
+of the original 120-second run and continuing for 300 more seconds, with the
+figure's x-axis plotted as `t'`, where `t' = 0` was said to correspond to
+`t = 120 s` of the original timeline.
+
+No such mechanism exists in this repository.
+`scripts/run_s021_hyperoxia_convergence.py:221-230` builds a **fresh config**
+via `build_config(...)` and then sets `cfg["duration_hours"] = 300/3600`. Each
+rerun is a **separate re-execution from time zero** with the recorded duration
+raised from 120 s to 300 s. That is exactly what this log says at `:105`,
+`:108`, `:113-115`, `:119` and `:121-123`; the log contains zero occurrences of
+*saved*, *reload* or *resum*.
+
+### Proof
+
+Two independent instruments, both shell-level, neither sharing code with the
+analysis pipeline:
+
+| Artefact | Shared interval | Points | Tool | Result |
+|---|---|---:|---|---|
+| `output.csv` (atlas, 5 s) | t = 0–120 s | 25 | `diff` | **60/60 identical** |
+| `output_pulse_native.csv` (50 Hz) | t = 0.02–240.00 s | 12,000 | `cmp` | **60/60 identical** |
+
+The native comparison spans the **settle phase**, so the 120 s settle is proven
+identical between each original run and its rerun, not merely assumed. A
+saved-state continuation could not reproduce the 0–120 s interval at all,
+because it would not simulate it.
+
+Harness calibrated before being believed: a different run's original →
+DIFFERENT; the correct pair with a single digit mutated → DIFFERENT; the
+untouched pair → IDENTICAL.
+
+### The `420 s` figure was never wrong
+
+`VENT_SETTLE_S = 120.0` (`engine/run_atlas_engine.py:92`) is applied after the
+ventilator is connected and before recording starts (`:242-243`). Pulse's own
+clock, read directly off `output_pulse_native.csv`, runs `0.02 → 240.00 s` for
+a sweep run and `0.02 → 420.00 s` for an S021 rerun. So **420 s = 120 s settle +
+300 s recorded**, and this log already said so at `:174`.
+
+The trap: `120 + 300 = 420` under the false reading *and* the true one. The
+number was right while the mechanism was wrong — which is why the error
+survived review, and why the ledger could never have caught it.
+
+Vocabulary now fixed across the corpus: **recorded simulation time** (0–300 s,
+every figure axis and every reported time) versus **Pulse-internal time**
+(420 s, settle included). `total simulated time` is no longer used unqualified.
+
+### No result changes
+
+Figure S3 was regenerated and its own output reconfirms every published value:
+median PaO₂ **551.9** mmHg at t = 0 ("≈552"), **639.3** at t = 300 ("≈639"),
+time-to-95 % of the late-plateau gain **180 s**, and n = 44 / 41 converged /
+38 physiological / 3 runaway among the converged. The plateau window
+`[240, 300] s` is unchanged and is recorded in `summary.json`.
+
+One related imprecision was corrected at the same time: `paper.tex:304` offered
+"95 % of its plateau" where `audit_claims.py:2932` computes 95 % of the *gain*
+from the t = 0 value to the late plateau. The two are not the same (≈607 vs
+≈635 mmHg), and the sentence is operator-facing guidance.
+
+### Guard
+
+`check_s021_clock()` in `scripts/audit_claims.py` now fails the audit — and
+therefore the pre-commit hook and CI — if the false mechanism reappears, with
+per-file expectations. `420` is deliberately **not** forbidden. Full rationale,
+the twelve loci and the calibration record: `audit/s021_clock_reframing_diffs.md`.
+
+Commits: `cd25c68` (register), `9d0d7d9` (corrections + guard + figure).
