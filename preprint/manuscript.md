@@ -867,7 +867,7 @@ exactly — 318 / 318 rows, relative deviation 0, identical clean-pair counts �
 so the comparison is against the published pipeline rather than against a
 re-implementation of it. Every figure above is re-derived from the canonical
 artefacts by `scripts/audit_claims.py` (anchors `T5.clip.*`) and is reported to
-readers in Supplement §S3.3.
+readers in Supplement §S3.7.
 
 
 ### 2.3 Scenarios and patients
