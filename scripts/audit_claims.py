@@ -3339,6 +3339,340 @@ for _arm, _armlabel, _expected in (
             tolerance_rule="displayed_1dp",
         )
 
+# -----------------------------------------------------------------------------
+# T5.robust / T5.strat -- Robustness of the systolic ranking to the clip
+# (paper limitation (vi), Supplement S3.7 addendum, monograph 2.2).
+#
+# The analysis functions are IMPORTED from the S032 script rather than
+# reimplemented here. A second implementation would drift from the one that
+# produced the manuscript numbers; importing alone would let a single bug reach
+# both the manuscript and its own audit. The compromise is that the import is
+# preceded, in this block, by four gates the imported code must clear before any
+# T5.robust anchor is produced:
+#   1. the nine audited S3.7 counts,
+#   2. exact reproduction of results/morris_indices.parquet (318 rows, 0 delta),
+#   3. the applied-step factor and top-3 entry count,
+#   4. internal agreement between the f_c > f_flip test and the hybrid rank.
+# Each gate is an assertion: a failure aborts the audit rather than downgrading
+# a claim, because past that point the ledger would be checking the manuscript
+# against machinery already known to disagree with the frozen artefacts.
+# -----------------------------------------------------------------------------
+import contextlib as _ctx  # noqa: E402
+import io as _io  # noqa: E402
+
+# NOTE ON A DEPARTURE. Everywhere else this ledger reads repository source as
+# text and re-derives constants by regex, deliberately never executing project
+# code. This block does execute it. The alternative -- a second implementation
+# of the elementary-effect machinery living here -- was judged the larger risk,
+# because it would drift from the one that produced the manuscript numbers
+# without anything noticing. The four gates below are the price of the import.
+sys.path.insert(0, str(REPO / "scripts"))
+from src.scenario import iter_cells  # noqa: E402
+from s032_uncontaminated_step_analysis import (  # noqa: E402
+    annotate_pairs as _s32_annotate,
+    applied_table as _s32_applied,
+    calibrate as _s32_calibrate,
+    elementary_effects as _s32_effects,
+    load_inputs as _s32_load,
+    mu_star as _s32_mu,
+    ranked as _s32_ranked,
+)
+
+_s32_agg, _s32_smp = _s32_load()
+_s32_pairs = _s32_annotate(_s32_smp)
+
+# Gate 1 -- the nine audited S3.7 counts.
+with _ctx.redirect_stdout(_io.StringIO()):
+    _s32_g1 = _s32_calibrate(_s32_agg, _s32_smp, _s32_pairs)
+assert _s32_g1, "audit_claims: S032 gate 1 FAILED -- S3.7 counts not reproduced"
+
+# Gate 2 -- the nominal estimator must reproduce the published Morris index.
+_s32_ee = _s32_effects(_s32_agg, _s32_pairs)
+_s32_nom = _s32_mu(_s32_ee, "ee")
+_s32_pub = pd.read_parquet(REPO / "results" / "morris_indices.parquet")[
+    ["scenario", "sex", "output", "input", "mu_star"]
+]
+_s32_j = _s32_pub.merge(
+    _s32_nom[["scenario", "sex", "output", "input", "mu_star"]],
+    on=["scenario", "sex", "output", "input"],
+    suffixes=("_pub", "_here"),
+    how="outer",
+    indicator=True,
+)
+assert (_s32_j["_merge"] == "both").all(), (
+    "audit_claims: S032 gate 2 FAILED -- Morris index rows do not match one-to-one"
+)
+assert float((_s32_j["mu_star_pub"] - _s32_j["mu_star_here"]).abs().max()) == 0.0, (
+    "audit_claims: S032 gate 2 FAILED -- nominal mu* does not reproduce the published index"
+)
+
+# Gate 3 -- the applied-step machinery reproduces its own audited anchors.
+_s32_m = _s32_applied(_s32_ee)
+_s32_dbpmu = _s32_m[_s32_m["input"] == "dbp"]
+assert abs(float((_s32_dbpmu["app"] / _s32_dbpmu["nom"]).median()) - _clip_factor) <= 1e-9, (
+    "audit_claims: S032 gate 3 FAILED -- applied/nominal DBP factor disagrees with T5.clip"
+)
+_s32_enter = sum(
+    1
+    for _, _g in _s32_m.groupby(["scenario", "sex", "output"])
+    if "dbp" in set(_g.nlargest(3, "app")["input"])
+    and "dbp" not in set(_g.nlargest(3, "nom")["input"])
+)
+assert _s32_enter == _clip_enter, (
+    "audit_claims: S032 gate 3 FAILED -- DBP top-3 entry count disagrees with T5.clip"
+)
+
+# The six estimators, then gate 4 -- two independent routes to the same verdict.
+_s32_unc = _s32_mu(_s32_ee[~_s32_ee["contaminated"]], "ee")
+_s32_bad = set(_s32_pairs[_s32_pairs["contaminated"]]["trajectory"])
+_s32_good = sorted(set(_s32_pairs["trajectory"]) - _s32_bad)
+_s32_keep = _s32_ee["trajectory"].isin(_s32_good)
+_s32_est = {
+    "nominal": _s32_nom,
+    "applied": _s32_mu(_s32_ee, "ee_app"),
+    "uncontaminated": _s32_unc,
+    "matched": _s32_mu(_s32_ee[_s32_keep], "ee"),
+    "hybrid_combined": _s32_mu(_s32_ee[~_s32_ee["contaminated"]], "ee_app"),
+    "matched_combined": _s32_mu(_s32_ee[_s32_keep], "ee_app"),
+}
+_s32_first = {}
+for _name, _tbl in _s32_est.items():
+    _r = _s32_ranked(_tbl, "MAP")
+    _s32_first[_name] = sum(
+        1
+        for _sk, _xk in iter_cells()
+        if float(
+            _r[(_r["scenario"] == _sk) & (_r["sex"] == _xk) & (_r["input"] == "sbp")][
+                "rank"
+            ].iloc[0]
+        )
+        == 1.0
+    )
+
+_s32_map = _s32_m[_s32_m["output"] == "MAP"]
+_s32_hyb = _s32_est["hybrid_combined"]
+_s32_rows = []
+for _sk, _xk in iter_cells():
+    _sel = (_s32_map["scenario"] == _sk) & (_s32_map["sex"] == _xk) & (_s32_map["input"] == "dbp")
+    _dn = float(_s32_map[_sel]["nom"].iloc[0])
+    _da = float(_s32_map[_sel]["app"].iloc[0])
+    _su = float(
+        _s32_unc[
+            (_s32_unc["scenario"] == _sk)
+            & (_s32_unc["sex"] == _xk)
+            & (_s32_unc["output"] == "MAP")
+            & (_s32_unc["input"] == "sbp")
+        ]["mu_star"].iloc[0]
+    )
+    _hd = float(
+        _s32_hyb[
+            (_s32_hyb["scenario"] == _sk)
+            & (_s32_hyb["sex"] == _xk)
+            & (_s32_hyb["output"] == "MAP")
+            & (_s32_hyb["input"] == "dbp")
+        ]["mu_star"].iloc[0]
+    )
+    _s32_rows.append({"f_c": _da / _dn, "f_flip": _su / _dn, "margin": _su / _hd})
+_s32_cmb = pd.DataFrame(_s32_rows)
+assert not (_s32_cmb["f_c"] > _s32_cmb["f_flip"]).any() and _s32_first[
+    "hybrid_combined"
+] == 8, "audit_claims: S032 gate 4 FAILED -- f_c threshold and hybrid rank disagree"
+
+# --- Gates passed. Manuscript claims follow. ---
+
+_lim_src = (REPO / "preprint_npj" / "paper.tex").read_text(encoding="utf-8")
+_lim_txt = _lim_src[
+    _lim_src.index("scope limits bound the conclusions") : _lim_src.index(
+        "Together, these limitations define the scope"
+    )
+]
+add(
+    claim_id="T5.robust.scope_limits",
+    section="Paper §3 Discussion",
+    manuscript_text="Six scope limits bound the conclusions",
+    source_file="preprint_npj/paper.tex",
+    manuscript_value=6,
+    computed_value=len(re.findall(r"\((?:i|ii|iii|iv|v|vi)\)~", _lim_txt)),
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T5.robust.paper_dbp_shortened",
+    section="Paper §3 limitation (vi)",
+    manuscript_text="clipping shortened 9 of 20 DBP steps",
+    source_file="data/runs/full_sweep/morris_sample.parquet",
+    manuscript_value=9,
+    computed_value=int(
+        _s32_pairs[_s32_pairs["flipped"] == "dbp"]["shortened"].sum()
+    ),
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T5.robust.paper_sbp_contaminated",
+    section="Paper §3 limitation (vi)",
+    manuscript_text="applied DBP co-varied in 8 of 20 SBP steps",
+    source_file="data/runs/full_sweep/morris_sample.parquet",
+    manuscript_value=8,
+    computed_value=int(
+        _s32_pairs[_s32_pairs["flipped"] == "sbp"]["contaminated"].sum()
+    ),
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T5.robust.sbp_rank1_worst_estimator",
+    section="Paper §3 limitation (vi) / Supplement S3.7 / monograph 2.2",
+    manuscript_text="SBP remained rank 1 for MAP in all eight cells under six estimators",
+    source_file="data/runs/full_sweep/aggregated.parquet",
+    manuscript_value=8,
+    computed_value=min(_s32_first.values()),
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T5.robust.n_estimators",
+    section="Supplement S3.7 / monograph 2.2",
+    manuscript_text="six sensitivity estimators are compared",
+    source_file="data/runs/full_sweep/aggregated.parquet",
+    manuscript_value=6,
+    computed_value=len(_s32_est),
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T5.robust.min_combined_margin",
+    section="Paper §3 limitation (vi) / Supplement S3.7 / monograph 2.2",
+    manuscript_text="smallest SBP-to-DBP mu* ratio 1.22, in S2_M, under the combined estimator",
+    source_file="data/runs/full_sweep/aggregated.parquet",
+    manuscript_value=1.22,
+    computed_value=float(_s32_cmb["margin"].min()),
+    tolerance_rule="displayed_2dp",
+)
+for _cid, _txt, _val, _got in (
+    ("fc_min", "applied-to-nominal DBP mu* ratio ranges from 1.131", 1.131,
+     float(_s32_cmb["f_c"].min())),
+    ("fc_max", "applied-to-nominal DBP mu* ratio ranges to 3.289", 3.289,
+     float(_s32_cmb["f_c"].max())),
+    ("fflip_min", "uncontaminated-SBP-to-nominal-DBP ratio ranges from 2.266", 2.266,
+     float(_s32_cmb["f_flip"].min())),
+    ("fflip_max", "uncontaminated-SBP-to-nominal-DBP ratio ranges to 4.669", 4.669,
+     float(_s32_cmb["f_flip"].max())),
+):
+    add(
+        claim_id=f"T5.robust.{_cid}",
+        section="Supplement S3.7 / monograph 2.2",
+        manuscript_text=_txt,
+        source_file="data/runs/full_sweep/aggregated.parquet",
+        manuscript_value=_val,
+        computed_value=_got,
+        tolerance_rule="displayed_3dp",
+    )
+
+# T5.strat -- the transition-stratified table.
+_st = _s32_ee[(_s32_ee["input"] == "sbp") & (_s32_ee["output"] == "MAP")].copy()
+_st_lab = {
+    int(r.trajectory): f"{int(r.sbp_lo)}-to-{int(r.sbp_hi)}"
+    for r in _s32_pairs[_s32_pairs["flipped"] == "sbp"].itertuples()
+}
+_st["transition"] = _st["trajectory"].map(_st_lab)
+_st["abs_ee"] = _st["ee"].abs()
+_STRAT = {
+    "100-to-120": (3, 9, 20.44, 15.74),
+    "110-to-90": (15, 16, 24.94, 17.26),
+    "120-to-100": (1, 19, 20.32, 16.74),
+    "90-to-110": (0, 5, None, None),
+}
+for _t, (_nc, _nk, _mc, _mk) in _STRAT.items():
+    _c = _st[(_st["transition"] == _t) & (_st["contaminated"])]
+    _k = _st[(_st["transition"] == _t) & (~_st["contaminated"])]
+    add(
+        claim_id=f"T5.strat.{_t}.n_contaminated",
+        section="Supplement S3.7 Table / monograph 2.2",
+        manuscript_text=f"{_t}: {_nc} contaminated clean pairs",
+        source_file="data/runs/full_sweep/aggregated.parquet",
+        manuscript_value=_nc,
+        computed_value=len(_c),
+        tolerance_rule="exact_int",
+    )
+    add(
+        claim_id=f"T5.strat.{_t}.n_uncontaminated",
+        section="Supplement S3.7 Table / monograph 2.2",
+        manuscript_text=f"{_t}: {_nk} uncontaminated clean pairs",
+        source_file="data/runs/full_sweep/aggregated.parquet",
+        manuscript_value=_nk,
+        computed_value=len(_k),
+        tolerance_rule="exact_int",
+    )
+    if _mc is not None:
+        add(
+            claim_id=f"T5.strat.{_t}.median_contaminated",
+            section="Supplement S3.7 Table / monograph 2.2",
+            manuscript_text=f"{_t}: median |EE| {_mc} for contaminated steps",
+            source_file="data/runs/full_sweep/aggregated.parquet",
+            manuscript_value=_mc,
+            computed_value=float(_c["abs_ee"].median()),
+            tolerance_rule="displayed_2dp",
+        )
+        add(
+            claim_id=f"T5.strat.{_t}.median_uncontaminated",
+            section="Supplement S3.7 Table / monograph 2.2",
+            manuscript_text=f"{_t}: median |EE| {_mk} for uncontaminated steps",
+            source_file="data/runs/full_sweep/aggregated.parquet",
+            manuscript_value=_mk,
+            computed_value=float(_k["abs_ee"].median()),
+            tolerance_rule="displayed_2dp",
+        )
+
+_st_eval = [t for t, v in _STRAT.items() if v[2] is not None]
+add(
+    claim_id="T5.strat.transitions_contaminated_higher",
+    section="Supplement S3.7 / monograph 2.2",
+    manuscript_text="contaminated steps had the higher median |EE| in all 3 evaluable transitions",
+    source_file="data/runs/full_sweep/aggregated.parquet",
+    manuscript_value=len(_st_eval),
+    computed_value=sum(
+        1
+        for _t in _st_eval
+        if float(_st[(_st["transition"] == _t) & (_st["contaminated"])]["abs_ee"].median())
+        > float(_st[(_st["transition"] == _t) & (~_st["contaminated"])]["abs_ee"].median())
+    ),
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T5.strat.loto_positive",
+    section="Supplement S3.7 / monograph 2.2",
+    manuscript_text="the stratified contrast stays positive in every leave-one-transition-out analysis",
+    source_file="data/runs/full_sweep/aggregated.parquet",
+    manuscript_value=len(_st_eval),
+    computed_value=sum(
+        1
+        for _t in _st_eval
+        if float(_st[(_st["transition"] != _t) & (_st["contaminated"])]["abs_ee"].median())
+        > float(_st[(_st["transition"] != _t) & (~_st["contaminated"])]["abs_ee"].median())
+    ),
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T5.strat.mu_drop_cells",
+    section="Monograph 2.2",
+    manuscript_text="dropping the contaminated pairs lowers mu*(SBP -> MAP) in 8 of 8 cells",
+    source_file="data/runs/full_sweep/aggregated.parquet",
+    manuscript_value=8,
+    computed_value=sum(
+        1
+        for _sk, _xk in iter_cells()
+        if float(
+            _s32_unc[
+                (_s32_unc["scenario"] == _sk) & (_s32_unc["sex"] == _xk)
+                & (_s32_unc["output"] == "MAP") & (_s32_unc["input"] == "sbp")
+            ]["mu_star"].iloc[0]
+        )
+        < float(
+            _s32_nom[
+                (_s32_nom["scenario"] == _sk) & (_s32_nom["sex"] == _xk)
+                & (_s32_nom["output"] == "MAP") & (_s32_nom["input"] == "sbp")
+            ]["mu_star"].iloc[0]
+        )
+    ),
+    tolerance_rule="exact_int",
+)
+
 # Summary counts.
 n_pass = sum(1 for c in claims if c.status == "PASS")
 n_warn = sum(1 for c in claims if c.status == "WARN")

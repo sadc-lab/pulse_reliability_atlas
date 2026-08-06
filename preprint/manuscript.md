@@ -645,7 +645,7 @@ underlying files are in the repository.
 | S021 | Hyperoxia convergence: 60-run pre-registered rerun at 300 s vs locked 120 s sweep window — tests whether F-003 PaO2 > 600 mmHg at FiO2 = 1.0 reflects oxygenation overshoot or transient non-convergence. |
 | S022 | No-compute failure-mode attribution audit of the locked `not_steady_state` count (Appendix C). |
 | S023 | Supplementary ML/SHAP cross-check of the Morris μ\* rankings on the clean subset (Supplementary §S11). |
-| S024 | Pre-submission claims-ledger audit — `scripts/audit_claims.py` re-derives every quantitative claim registered in the audit ledger from the canonical parquets/CSVs and verifies it against the manuscript text (350 / 350 PASS at the locked tolerance band on the authors' full data tree; 349 / 350 on a public clone, where the one anchor needing the gitignored raw S021 trajectories is auto-skipped). |
+| S024 | Pre-submission claims-ledger audit — `scripts/audit_claims.py` re-derives every quantitative claim registered in the audit ledger from the canonical parquets/CSVs and verifies it against the manuscript text (377 / 377 PASS at the locked tolerance band on the authors' full data tree; 376 / 377 on a public clone, where the one anchor needing the gitignored raw S021 trajectories is auto-skipped). |
 
 ---
 
@@ -868,6 +868,66 @@ so the comparison is against the published pipeline rather than against a
 re-implementation of it. Every figure above is re-derived from the canonical
 artefacts by `scripts/audit_claims.py` (anchors `T5.clip.*`) and is reported to
 readers in Supplement §S3.7.
+
+**Robustness of the systolic ranking under six estimators (added 2026-08-06).**
+The disclosure above prices the clip but leaves one question open: does the
+published finding that MAP is SBP-driven in every cell depend on the affected
+steps? Four further estimators answer it. The *uncontaminated-step* estimator
+drops every clean pair in which the applied DBP co-varies with SBP. The
+*trajectory-matched* variant additionally restricts every input to the 12 of 20
+trajectories whose systolic step is uncontaminated, so that no input is
+estimated on more data than another. Two *combined* estimators apply the
+applied-step denominator and the contaminated-pair exclusion at once — a
+pairing evaluated neither by the analysis above nor by the published index, and
+the reconstruction a methodological reviewer is most likely to build.
+
+SBP remains rank 1 for MAP in all eight cells under all six estimators
+(nominal-step, applied-step, uncontaminated-step, trajectory-matched,
+hybrid-combined, matched-combined). DBP is the runner-up in all eight cells
+under the combined estimators — the applied-step denominator lifts it past HR
+in S3_M and S3_F, where HR is second under the nominal estimator — so the
+smallest margin is a 1.22-fold mu* ratio, in S2_M. Under the hybrid-combined
+estimator DBP would overtake SBP in a cell only if its applied-to-nominal mu*
+ratio exceeded that cell's uncontaminated-SBP-to-nominal-DBP ratio; the former
+ranges from 1.131 to 3.289 across cells and the latter from 2.266 to 4.669, so
+the condition is met in no cell.
+
+**Transition-stratified comparison, and what it does not settle.** Dropping the
+contaminated pairs lowers mu\*(SBP → MAP) in 8 of 8 cells (median −10.4 %),
+which is consistent with upward contamination but confounded with position,
+since the contaminated steps sit at the low-SBP end of the domain. Three
+systolic transitions carry both contaminated and uncontaminated steps, so the
+two groups can be compared where the systolic start and end values are
+identical.
+
+| SBP transition | Contam. pairs | Uncontam. pairs | Median \|EE\| contam. | Median \|EE\| uncontam. | Difference | Applied-DBP path (mmHg) |
+|---|---:|---:|---:|---:|---:|---|
+| 100-to-120 | 3 | 9 | 20.44 | 15.74 | +4.70 | 75 → 80 (midpoint 77.5) |
+| 110-to-90 | 15 | 16 | 24.94 | 17.26 | +7.68 | 80 → 67.5 (midpoint 73.75) |
+| 120-to-100 | 1 | 19 | 20.32 | 16.74 | +3.59 | 80 → 75 (midpoint 77.5) |
+| 90-to-110 | 0 | 5 | — | — | not evaluable | — |
+
+Counts are clean elementary-effect pairs pooled across the eight cells, not
+trajectories of the shared 20-trajectory design. The contaminated group has the
+higher median absolute effect in all three evaluable transitions, and the
+stratified contrast stays positive in every leave-one-transition-out analysis.
+Requested DBP is perfectly collinear with contamination: structurally for the
+100-to-120 and 120-to-100 transitions, whose 75 mmHg ceiling no lower grid
+level can exceed, and as an artefact of the realised Morris draw for 110-to-90.
+The observed ordering does not support a simple monotonic explanation by mean
+applied-DBP level alone — the largest contrast occurs for 110-to-90 despite its
+lower mean endpoint DBP — and mean endpoint DBP is in any case only a coarse
+proxy for the level at which the elementary effect is evaluated. These results
+are consistent with an influence of applied-DBP co-variation but do not
+establish a causal contribution. Separating the two would require re-running
+each contaminated step along the one admissible rectangular path, holding the
+applied DBP fixed while SBP moves; that probe campaign is specified and
+deferred, because the ranking claim is already robust without it.
+
+Both analyses are reproduced by `scripts/s032_uncontaminated_step_analysis.py`
+and `scripts/s032_transition_stratified_analysis.py`, each gated on reproducing
+the nine S3.7 counts and the 318 published Morris indices exactly before it
+reports anything of its own.
 
 
 ### 2.3 Scenarios and patients
@@ -1287,12 +1347,12 @@ an explicit per-class tolerance band (`exact_int` for integer counts;
 `displayed_1dp` / `displayed_2dp` / `displayed_3dp` for floats at
 their displayed precision; a 1 × 10⁻⁹ IEEE-754 epsilon protects
 against half-precision rounding boundaries). The current report on
-the locked manuscript is **350 / 350 PASS, 0 WARN, 0 FAIL** on the
+the locked manuscript is **377 / 377 PASS, 0 WARN, 0 FAIL** on the
 authors' full data tree. On a public clone, one anchor — T1.06u, the
 S021 time-to-95%-plateau, which requires the heavy raw per-run
 trajectories that are gitignored — is automatically skipped, so the
-script reports **349 / 350 PASS** with one explicitly-flagged SKIPPED
-(the headline target of 350 is computed dynamically as anchors-run
+script reports **376 / 377 PASS** with one explicitly-flagged SKIPPED
+(the headline target of 377 is computed dynamically as anchors-run
 plus anchors-skipped, so it cannot go stale). The
 script exits non-zero on any FAIL and is therefore CI-ready: future
 manuscript edits that drift a quoted number against its source
@@ -3479,8 +3539,8 @@ under Apache License 2.0.
   [`scripts/audit_claims.py`](../scripts/audit_claims.py) — read-only
   Python script verifying that every quantitative
   claim registered in the ledger matches the canonical artifacts
-  under explicit per-class tolerance rules; current state 350 / 350
-  PASS on the authors' full data tree (349 / 350 on a public clone,
+  under explicit per-class tolerance rules; current state 377 / 377
+  PASS on the authors' full data tree (376 / 377 on a public clone,
   where the one anchor needing the gitignored raw S021 trajectories
   is auto-skipped) ([S024](#s024); see §2.8 for protocol).
 * **Pinned Docker image hashes (byte-level reproducibility):**
@@ -3982,7 +4042,7 @@ indexed here.*
 | []{#s021} S021 | Hyperoxia convergence (60-run rerun at 300 s vs locked 120 s window; F-003 mechanism test) |
 | []{#s022} S022 | No-compute failure-mode attribution audit of the locked `not_steady_state` count (see Appendix C) |
 | []{#s023} S023 | Supplementary ML/SHAP cross-check of Morris μ\* rankings on the clean subset (see Supplementary §S11) |
-| []{#s024} S024 | Pre-submission claims-ledger audit (programmatic verification of the quantitative claims registered in the audit ledger; 350 / 350 PASS on the authors' full data tree, 349 / 350 on a public clone with one auto-skipped anchor, see §2.8) |
+| []{#s024} S024 | Pre-submission claims-ledger audit (programmatic verification of the quantitative claims registered in the audit ledger; 377 / 377 PASS on the authors' full data tree, 376 / 377 on a public clone with one auto-skipped anchor, see §2.8) |
 | []{#s025} S025 | Pre-release OSS code-hygiene audit and fixes |
 | []{#s026} S026 | Final pre-arXiv polish |
 

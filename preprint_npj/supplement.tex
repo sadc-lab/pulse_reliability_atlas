@@ -291,6 +291,29 @@ Of the 160 sampled points, 35 carry a requested DBP above the 0.75 ratio and are
 
 The distortion does not overturn the reported findings. H1 holds in 48 of 48 cell--output combinations under either estimator (median top-3 fraction 0.928 nominal versus 0.910 applied-step; minimum 0.658 versus 0.696), and output MAP remains SBP-dominated in all eight cells. What does change is the standing of DBP itself: under the applied-step estimator it enters the top three in 9 of the 48 combinations from which the reported ranking excludes it, and its $\mu^{*}$ rises by a median factor of 2.4 (maximum 15.4). The reported $\mu^{*}$ for DBP should therefore be read as a lower bound. We do not substitute the applied-step estimator for the preregistered one. Dividing by the applied step changes the finite-difference denominator on the shortened diastolic transitions, but it does not restore the one-at-a-time property on the eight systolic transitions where the ratio constraint moves DBP as well, and the effective diastolic step then ranges from 0.83 to 13.33~mmHg, which is no longer the fixed-step design the Morris index is defined on. Step length is also structurally confounded with position in the sampled space: the shortest steps occur only at SBP = 90~mmHg, whereas all 11 full-length diastolic steps occur at SBP $\geq$ 100~mmHg, so no step at the lowest systolic setting is full length and no difference between the two estimators can be attributed to step length alone. The applied-step $\mu^{*}$ is therefore reported as evidence on the direction of the clip's effect, not as a term-by-term corrected index. Imposing the ratio at sampling time instead would forfeit the very sample geometry the design was built to protect.
 
+Two further estimators test whether the reported systolic dominance depends on the affected steps. The \emph{uncontaminated-step} estimator drops every clean pair in which the applied DBP co-varies with SBP; the \emph{trajectory-matched} variant additionally restricts every input to the 12 of 20 trajectories whose systolic step is uncontaminated, so that no input is estimated on more data than another. Two \emph{combined} estimators apply the applied-step denominator and the contaminated-pair exclusion at once, a pairing evaluated neither above nor by the published index. SBP remained rank 1 for MAP in all eight cells under all six estimators (nominal-step, applied-step, uncontaminated-step, trajectory-matched, hybrid-combined and matched-combined). DBP is the runner-up in all eight cells under the combined estimators, and the smallest margin is a 1.22-fold $\mu^{*}$ ratio in S2\_M. Under the hybrid-combined estimator, DBP would overtake SBP in a cell only if its applied-to-nominal $\mu^{*}$ ratio exceeded that cell's uncontaminated-SBP-to-nominal-DBP ratio; the former ranged from 1.131 to 3.289 and the latter from 2.266 to 4.669, so the condition was met in no cell. The matched-combined analysis independently retained SBP at rank 1 in all eight cells.
+
+A descriptive transition-stratified comparison narrows, without removing, the confounding between exclusion and position. Three systolic transitions carry both contaminated and uncontaminated steps, allowing the two groups to be compared where the systolic start and end values are identical (Table~\ref{tab:transition-stratified}). Within each of the three evaluable transitions the contaminated steps had the higher median absolute MAP elementary effect, and the stratified contrast remained positive in every leave-one-transition-out analysis. Requested DBP is perfectly collinear with contamination: structurally for the 100-to-120 and 120-to-100 transitions, whose 75~mmHg ceiling no lower grid level can exceed, and as an artefact of the realised Morris draw for 110-to-90. The observed ordering does not support a simple monotonic explanation by mean applied-DBP level alone: the largest contrast occurred for 110-to-90, despite its lower mean endpoint DBP, and mean endpoint DBP is in any case only a coarse proxy for the level at which the elementary effect is evaluated. These results are consistent with an influence of applied-DBP co-variation, but do not establish a causal contribution.
+
+\begin{table}[htbp]
+\centering
+\caption{\textbf{Transition-stratified comparison of systolic elementary effects on MAP.} Counts are clean elementary-effect pairs pooled across the eight atlas cells, not trajectories of the shared 20-trajectory design. The comparison is descriptive: matching the systolic transition does not control the requested DBP, the other five inputs, or position within the trajectory. The 90-to-110 transition carries no contaminated step and is therefore not evaluable. \emph{Midpoint} is the mean of the two endpoint values of the applied-DBP path, a coarse proxy for the diastolic level at which the elementary effect is evaluated.}
+\label{tab:transition-stratified}
+\footnotesize
+\begin{tabular}{lrrrrrrr}
+\toprule
+SBP & \multicolumn{2}{c}{Clean pairs} & \multicolumn{2}{c}{Median $|\mathrm{EE}|$} & Diff. & \multicolumn{2}{c}{Applied DBP (mmHg)} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){7-8}
+transition & contam. & uncontam. & contam. & uncontam. & & path & midpoint \\
+\midrule
+100-to-120 & 3 & 9 & 20.44 & 15.74 & $+4.70$ & $75 \to 80$ & 77.5 \\
+110-to-90 & 15 & 16 & 24.94 & 17.26 & $+7.68$ & $80 \to 67.5$ & 73.75 \\
+120-to-100 & 1 & 19 & 20.32 & 16.74 & $+3.59$ & $80 \to 75$ & 77.5 \\
+90-to-110 & 0 & 5 & --- & --- & --- & --- & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \subsection{Sobol bolt-on: preregistered decision}\label{sec:s3-sobol}
 
 A second-tier variance-based analysis (Sobol) was preregistered as a conditional bolt-on on top of the Morris main-effect screening. The rule locked in \texttt{preregistration.md}~\S~Sampling method evaluates the top-three $\mu^{*}$-ranked inputs of each cell $\times$ output against their $\sigma / \mu^{*}$ ratio. At or below 0.4 the response is treated as linear and no Sobol is run; at or above 0.6 the input is promoted; the interval between is a declared gray zone. The ratio is the standard Morris proxy for non-linearity and input--input interaction.
@@ -803,8 +826,8 @@ uv run python scripts/analyze_sweep.py
 
 # 4. Re-derive the computed quantitative claims in the
 #    manuscript + supplement from the canonical artefacts; expect
-#    350/350 PASS (exit 0) with the authors' full data tree,
-#    or 349/350 on a public clone (T1.06u auto-skipped).
+#    377/377 PASS (exit 0) with the authors' full data tree,
+#    or 376/377 on a public clone (T1.06u auto-skipped).
 uv run python scripts/audit_claims.py
 
 # 5. Optional: verify paper.tex + supplement.tex remain
@@ -823,7 +846,7 @@ Bit-exact reproduction of the canonical sweep output is verified at three indepe
 \item \textbf{Derived statistical artefacts.} The Morris $\mu^{*}$ indices, bootstrap confidence intervals, Wasserstein distances, Spearman correlations, and BH-FDR survivors all regenerate bit-equivalently from the canonical aggregated parquets; this is what the audit ledger (\texttt{scripts/audit\_claims.py}) re-derives at every run.
 \end{enumerate}
 
-The audit ledger is the primary reproducibility instrument: a green ledger run confirms that the computed quantitative claims in the main manuscript and supplement are consistent with the canonical artefacts. The ledger reports a target of 350 anchors; on the authors' full data tree all 350 are evaluated (350/350 PASS), whereas on a public clone one anchor (T1.06u, the S021 time-to-95\%-plateau, which requires the heavy raw per-run trajectories that are gitignored) is automatically skipped, giving 349/350 PASS with one explicitly-reported SKIPPED. A failed claim is a structured triage item (Type A transcription drift, Type B orphaned number, Type C derivation mismatch) with a precise file:line pointer for forensic tracing.
+The audit ledger is the primary reproducibility instrument: a green ledger run confirms that the computed quantitative claims in the main manuscript and supplement are consistent with the canonical artefacts. The ledger reports a target of 377 anchors; on the authors' full data tree all 377 are evaluated (377/377 PASS), whereas on a public clone one anchor (T1.06u, the S021 time-to-95\%-plateau, which requires the heavy raw per-run trajectories that are gitignored) is automatically skipped, giving 376/377 PASS with one explicitly-reported SKIPPED. A failed claim is a structured triage item (Type A transcription drift, Type B orphaned number, Type C derivation mismatch) with a precise file:line pointer for forensic tracing.
 
 \subsection{Independent reproduction on separate hardware}\label{sec:s12-independent}
 
