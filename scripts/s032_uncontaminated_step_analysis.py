@@ -475,8 +475,9 @@ def main() -> int:
           "f_c = mu*_applied(DBP) / mu*_nominal(DBP) and "
           "f_flip = mu*_uncontaminated(SBP) / mu*_nominal(DBP).\n")
     print("| cell | mu* SBP nom | mu* SBP uncont. | mu* DBP nom | mu* DBP applied "
-          "| f_c | f_flip | f_c > f_flip? | combined margin | rank SBP hybrid | rank SBP paired |")
-    print("|---|---|---|---|---|---|---|---|---|---|---|")
+          "| f_c | f_flip | flips? | SBP/DBP margin | runner-up | margin to runner-up "
+          "| rank hybrid | rank paired |")
+    print("|---|---|---|---|---|---|---|---|---|---|---|---|---|")
 
     comb = []
     for sk, xk in iter_cells():
@@ -490,13 +491,24 @@ def main() -> int:
         rh = val(r_hyb, sk, xk, "sbp", "rank")
         rp2 = val(r_cpr, sk, xk, "sbp", "rank")
         margin = s_unc / d_app if d_app else float("nan")
+        # The SBP-to-DBP margin is only the decisive one if DBP is actually the
+        # runner-up under this estimator. In two cells HR outranks DBP under the
+        # nominal estimator, so the true margin must be taken against whichever
+        # input is second, not against DBP by assumption.
+        cell_h = mu_hyb[(mu_hyb["scenario"] == sk) & (mu_hyb["sex"] == xk)
+                        & (mu_hyb["output"] == "MAP")].sort_values("mu_star", ascending=False)
+        oth = cell_h[cell_h["input"] != "sbp"]
+        up2 = str(oth["input"].iloc[0]) if len(oth) else "-"
+        up2_mu = float(oth["mu_star"].iloc[0]) if len(oth) else float("nan")
+        true_margin = s_unc / up2_mu if up2_mu else float("nan")
         print(f"| {sk}_{xk} | {s_nom:.4g} | {s_unc:.4g} | {d_nom:.4g} | {d_app:.4g} "
               f"| {f_c:.3f} | {f_flip:.3f} | {'**YES**' if flips else 'no'} "
-              f"| {margin:.2f}x | {rh:.0f} | {rp2:.0f} |")
+              f"| {margin:.2f}x | {up2} | {true_margin:.2f}x | {rh:.0f} | {rp2:.0f} |")
         comb.append({"scenario": sk, "sex": xk, "mu_sbp_nominal": s_nom,
                      "mu_sbp_uncontaminated": s_unc, "mu_dbp_nominal": d_nom,
                      "mu_dbp_applied": d_app, "f_c": f_c, "f_flip": f_flip,
-                     "dbp_overtakes": flips, "combined_margin": margin,
+                     "dbp_overtakes": flips, "sbp_to_dbp_margin": margin,
+                     "runner_up_combined": up2, "margin_to_runner_up": true_margin,
                      "rank_sbp_hybrid": rh, "rank_sbp_combined_paired": rp2})
 
     cdf = pd.DataFrame(comb)
