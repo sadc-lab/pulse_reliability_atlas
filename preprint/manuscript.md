@@ -2437,9 +2437,9 @@ rebuilds all three readings).
 * Red cells cluster in **S3 + S4 on HR + PaO2** — moderate-to-severe
   hypoxemia drives both heart-rate compensation and arterial-oxygen
   values far from the S1_M baseline.
-* **(S4, M) is red on every output.** This is the single worst
-  reliability cell in the atlas and corresponds to severe ARDS on the
-  larger male body habitus. Users running Pulse at this configuration
+* **(S4, M) is red on every output.** It is the only cell whose hard-failure
+  rate exceeds 30 % (54 / 160 = 33.75 %), and it corresponds to severe ARDS on
+  the larger male body habitus. Users running Pulse at this configuration
   should treat the engine output as a starting point, not a faithful
   steady-state physiology.
 
@@ -2456,6 +2456,92 @@ cluster: (S2, F) + (S3, F). Red cluster: HR and PaO2 in S3 / S4.
 (S4, M) is red on every output — the worst single cell in the atlas.
 
 ![Figure 6. Reliability traffic light — per cell × output, one of {green, yellow, red}. Green = no diverged or implausible flags in the cell AND clean-run mean within 10 % of the (S1, M) baseline. Yellow = any diverged or implausible flag OR mean 10 – 30 % off baseline. Red = mean > 30 % off baseline OR diverged + implausible rate > 30 %. Distribution: 7 green / 29 yellow / 12 red across 48 cells — i.e. 7/48 (15 %), 29/48 (60 %), 12/48 (25 %) respectively, shares of the map distinct from the 10 %/30 % baseline-deviation thresholds that define the colours; the user-facing summary of the entire atlas. Source: `results/reliability_classification.csv` (S006).](../figures/fig06_reliability_traffic_light.png)
+
+### 3.7.1 What the colour does not say, and what each screen costs
+
+*Mirror of the npj reframing. The map is a conservative curation and
+review-priority instrument, not a reliability verdict, and neither of
+the two screens available to a downstream user is distribution-neutral.*
+
+**Two levels, not one.** The four-flag classifier assigns labels to
+**runs**; the traffic light is what you get by **aggregating** those
+runs per cell and combining the result with a deviation term. They are
+not interchangeable. Only two of the four flags enter the cell-level
+rule — `diverged` and `implausible`; `clamped` and `not_steady_state`
+never do — so the map is not a "four-flag map", and the run-level
+classifier is not a per-cell contract.
+
+**Why the colour alone is not a diagnosis.** Each colour is produced by
+two independent criteria, on class-relative and deliberately asymmetric
+thresholds: for deviation, yellow above 10 % and red above 30 %; for the
+hard-flag rate, yellow at any positive value and red above 30 %.
+Re-applying that rule to the 48 cells gives **7 neither** (which
+coincides with the green set by construction), **23 hard flags only**,
+**9 deviation only** and **9 both**. Among the 12 red cells the split is
+**6 deviation-only, 4 flag-only, 2 both** — so half the red cells are red
+because the clean-run mean sits far from a *healthy male*, in scenarios
+where the compensatory tachycardia and the ARDS hypoxemia are exactly
+what Pulse should produce. A red cell is a request for justification,
+not a verdict that the physiology is wrong.
+
+**The two screens, and what each removes.** Under the strict four-flag
+definition, 663 / 1,280 simulations (51.8 %) are clean, with per-cell
+retention from 42/160 in S1_F to 144/160 in S3_M — a 3.43-fold spread.
+Treating `not_steady_state` as a review-and-remediation label rather
+than an automatic exclusion instead leaves 1,134 / 1,280 (88.6 %)
+hard-failure-free, from 106/160 in S4_M to 160/160 in S2_F and S3_F, a
+1.51-fold spread. Retention is given as counts rather than percentages
+because with *n* = 160 every per-cell percentage is a multiple of 0.125
+and nine of the sixteen values fall on an exact rounding tie.
+
+| cell | four-flag clean | hard-failure-free |
+|---|---:|---:|
+| S1_M | 49/160 | 145/160 |
+| S1_F | 42/160 | 137/160 |
+| S2_M | 87/160 | 156/160 |
+| S2_F | 92/160 | 160/160 |
+| S3_M | 144/160 | 156/160 |
+| S3_F | 122/160 | 160/160 |
+| S4_M | 67/160 | 106/160 |
+| S4_F | 60/160 | 114/160 |
+
+**The two screens deplete opposite ends of the severity axis.** The
+four-flag screen is harshest on the *healthy* cells (S1_F, S1_M); the
+hard-failure-free screen is harshest on the *severe-ARDS* cells (S4_M,
+S4_F). Choosing a screening rule therefore chooses which clinical
+regime a downstream cohort under-represents. Neither subset is
+distribution-neutral, and neither is an automatic filter: downstream
+studies should report per-cell retention and cohort composition before
+and after screening. The 1,134-run subset must not be called clean — it
+still contains non-stationary trajectories.
+
+**The partition closes exactly.** The 471 runs gained by moving from the
+strict-clean subset to the hard-failure-free subset are precisely those
+carrying `not_steady_state` as their sole flag; with 20 `diverged` and
+126 `implausible` runs they account for all 617 non-clean runs
+(471 + 20 + 126 = 617). That identity only closes if `diverged` and
+`implausible` are disjoint in this sweep, which is measured rather than
+assumed. `clamped` is a provided category that is empty here (0 / 1,280).
+
+**Recorded reasons undercount co-occurring mechanisms.** The detector
+stores, for each failing channel, only the *first* trigger its ordered
+checks reach (flatline, then CV, then drift). Re-applying the registered
+thresholds to the stored per-channel statistics instead gives an
+exhaustive, multi-label attribution — and that reconstruction reproduces
+the stored `not_steady_state` flag on 1,280 of 1,280 runs, which is what
+licenses using it. The gap is large on delivered Vt: **133** channels
+exceed the drift threshold but only **3** appear in the recorded reason,
+because a CV trigger was reached first in 130 of them. Exhaustive counts
+are non-mutually-exclusive channel-level occurrences (918 in total) and
+must not be summed as independent runs.
+
+**Where this is published.** The npj paper carries the driver totals as
+a compact strip under Figure 2; the full per-cell driver matrix, the
+per-cell hard-failure rates, the exhaustive trigger attribution and the
+*signed* deviation from the (S1, M) baseline are Supplement Figure S5
+(§S3.12). The signed panel is descriptive only: a directionally expected
+change under ARDS does not validate its magnitude, and nothing in this
+atlas is an external physiological validation.
 
 ### 3.8 Two structural findings carried from pilot to full sweep
 
