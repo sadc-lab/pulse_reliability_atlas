@@ -267,7 +267,7 @@ each can be entered independently.*
 * **§3 — Results.** Per-cell flag breakdown (Table 1), Morris
   sensitivity rankings (H1), silent-clamping audit (H2), solver-divergence
   characterisation (H3), sex-specific comparison (H4), and the cell-level
-  traffic-light reliability map (Figure 6).
+  traffic-light curation map (Figure 6).
 * **§4 — Discussion.** Practical user guidance, implications for
   machine-learning pipelines that train on Pulse synthetic cohorts, a
   side-by-side mapping against Cornish et al. 2023 causal falsification
@@ -382,7 +382,7 @@ need to chase definitions through the prose.*
 | Cell | One (scenario, sex) slice of the atlas — one severity scenario combined with one reference body. 4 scenarios × 2 bodies = 8 cells, each holding 160 runs. |
 | Clean pair | A Morris elementary-effect step whose two endpoint runs both carry no flag. Only clean pairs enter the μ\* estimate. |
 | `primary_flag` | When a run fires several flags, the single highest-priority one, resolved by the order `clamped > diverged > implausible > not_steady_state` (§2.6). |
-| Traffic light | The per-cell reliability map (§3.7): each cell scored green / amber / red from its flag rates and its deviation from the healthy baseline. |
+| Traffic light | The per-cell curation map (§3.7): each cell scored green / yellow / red from its flag rates and its deviation from the healthy baseline. |
 | Tier-1 / Tier-2 | Claim classes in the audit ledger. Tier-1 are headline claims of the main results; Tier-2 are follow-up and supplementary claims. |
 | Sobol bolt-on | The preregistered option to escalate from Morris screening to a full Sobol variance decomposition if non-linearity warranted it. Evaluated and closed in §3.3.1. |
 | Runaway | A run whose PaO2 keeps climbing past the plausibility ceiling instead of settling — the numerically unstable tail of the hyperoxia regime (§3.8). |
@@ -584,7 +584,7 @@ silently capped at the wrapper layer.
 *The five methodological contributions of the paper, in prose form:
 the atlas itself, the four-flag classifier, Morris EE with bootstrap
 CI, the first sex-specific comparison in the Pulse literature, and
-the cell-level traffic-light reliability map. (See also the
+the cell-level traffic-light curation map. (See also the
 artifact-focused 'Key contributions' bullet list near the top of the
 paper, which highlights the same work as reusable deliverables.)*
 
@@ -599,7 +599,7 @@ paper, which highlights the same work as reusable deliverables.)*
   amendment log, with no impact on hypothesis thresholds).
 * Sex-specific comparison (Wasserstein, Spearman ρ on μ\* vectors) — the
   first such comparison in the Pulse literature.
-* A traffic-light reliability map (green / yellow / red) per cell ×
+* A traffic-light curation map (green / yellow / red) per cell ×
   output, suitable for direct user consumption.
 
 ### 1.4 Experiment log nomenclature ([S001](#s001) – [S024](#s024))
