@@ -645,7 +645,7 @@ underlying files are in the repository.
 | S021 | Hyperoxia convergence: 60-run pre-registered rerun at 300 s vs locked 120 s sweep window — tests whether F-003 PaO2 > 600 mmHg at FiO2 = 1.0 reflects oxygenation overshoot or transient non-convergence. |
 | S022 | No-compute failure-mode attribution audit of the locked `not_steady_state` count (Appendix C). |
 | S023 | Supplementary ML/SHAP cross-check of the Morris μ\* rankings on the clean subset (Supplementary §S11). |
-| S024 | Pre-submission claims-ledger audit — `scripts/audit_claims.py` re-derives every Tier-1/Tier-2 quantitative claim in §3 / §4 / Appendix C from the canonical parquets/CSVs and verifies it against the manuscript text (350 / 350 PASS at the locked tolerance band on the authors' full data tree; 349 / 350 on a public clone, where the one anchor needing the gitignored raw S021 trajectories is auto-skipped). |
+| S024 | Pre-submission claims-ledger audit — `scripts/audit_claims.py` re-derives every quantitative claim registered in the audit ledger from the canonical parquets/CSVs and verifies it against the manuscript text (350 / 350 PASS at the locked tolerance band on the authors' full data tree; 349 / 350 on a public clone, where the one anchor needing the gitignored raw S021 trajectories is auto-skipped). |
 
 ---
 
@@ -1274,10 +1274,11 @@ Independently of the bit-exact re-execution above, a third
 verification layer closes the data-integrity loop at the *manuscript*
 level. The read-only Python script
 [`scripts/audit_claims.py`](../scripts/audit_claims.py) registers
-every Tier-1 (Abstract, Key Contributions, hypothesis verdicts,
-Table 1, Figure 6 traffic-light) and Tier-2 (per-cell numbers in §3.3
-/ §3.4.1 / §3.5 / §3.6 / §3.8 / §3.8.1, plus Appendix C and §4.5
-S023) quantitative claim as a `Claim` record (manuscript value,
+each quantitative claim it covers — Tier-1 (Abstract, Key
+Contributions, hypothesis verdicts, Table 1, Figure 6 traffic-light)
+and Tier-2 (per-cell numbers in §3.3 / §3.4.1 / §3.5 / §3.6 / §3.8 /
+§3.8.1, plus Appendix C and §4.5 S023) among them — as a `Claim`
+record (manuscript value,
 source artifact, computed value, tolerance rule), re-derives the
 computed value from the canonical parquets / CSVs / JSON summaries,
 and verifies the manuscript text against each computed value under
@@ -3476,8 +3477,8 @@ under Apache License 2.0.
   §2.9; full reproduction recipe in `README.md`.
 * **Programmatic claims-ledger audit:**
   [`scripts/audit_claims.py`](../scripts/audit_claims.py) — read-only
-  Python script verifying that every Tier-1 and Tier-2 quantitative
-  claim in §3 / §4 / Appendix C matches the canonical artifacts
+  Python script verifying that every quantitative
+  claim registered in the ledger matches the canonical artifacts
   under explicit per-class tolerance rules; current state 350 / 350
   PASS on the authors' full data tree (349 / 350 on a public clone,
   where the one anchor needing the gitignored raw S021 trajectories
@@ -3981,7 +3982,7 @@ indexed here.*
 | []{#s021} S021 | Hyperoxia convergence (60-run rerun at 300 s vs locked 120 s window; F-003 mechanism test) |
 | []{#s022} S022 | No-compute failure-mode attribution audit of the locked `not_steady_state` count (see Appendix C) |
 | []{#s023} S023 | Supplementary ML/SHAP cross-check of Morris μ\* rankings on the clean subset (see Supplementary §S11) |
-| []{#s024} S024 | Pre-submission claims-ledger audit (programmatic verification of all Tier-1 / Tier-2 quantitative claims; 350 / 350 PASS on the authors' full data tree, 349 / 350 on a public clone with one auto-skipped anchor, see §2.8) |
+| []{#s024} S024 | Pre-submission claims-ledger audit (programmatic verification of the quantitative claims registered in the audit ledger; 350 / 350 PASS on the authors' full data tree, 349 / 350 on a public clone with one auto-skipped anchor, see §2.8) |
 | []{#s025} S025 | Pre-release OSS code-hygiene audit and fixes |
 | []{#s026} S026 | Final pre-arXiv polish |
 
