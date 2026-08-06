@@ -3619,6 +3619,84 @@ for _t, (_nc, _nk, _mc, _mk) in _STRAT.items():
             tolerance_rule="displayed_2dp",
         )
 
+# The applied-DBP path column of the same table. Anchoring only the counts and
+# medians would leave the column that carries the whole dose-response reading
+# unguarded, and it is the column a future resample would move first.
+_MIDPOINT = {"100-to-120": 77.5, "110-to-90": 73.75, "120-to-100": 77.5}
+_s32_smp_i = _s32_smp.set_index("idx")
+for _t, _mid in _MIDPOINT.items():
+    _rows = [
+        r
+        for r in _s32_pairs[_s32_pairs["flipped"] == "sbp"].itertuples()
+        if f"{int(r.sbp_lo)}-to-{int(r.sbp_hi)}" == _t and r.contaminated
+    ]
+    add(
+        claim_id=f"T5.strat.{_t}.applied_dbp_midpoint",
+        section="Supplement S3.7 Table / monograph 2.2",
+        manuscript_text=f"{_t}: applied-DBP path midpoint {_mid} mmHg",
+        source_file="data/runs/full_sweep/morris_sample.parquet",
+        manuscript_value=_mid,
+        computed_value=float(
+            pd.Series(
+                [
+                    (
+                        float(_s32_smp_i.loc[r.idx_lo, "dbp_applied"])
+                        + float(_s32_smp_i.loc[r.idx_hi, "dbp_applied"])
+                    )
+                    / 2.0
+                    for r in _rows
+                ]
+            ).median()
+        ),
+        tolerance_rule="displayed_2dp",
+    )
+
+add(
+    claim_id="T5.robust.matched_trajectories",
+    section="Supplement S3.7 / monograph 2.2",
+    manuscript_text="the 12 of 20 trajectories whose systolic step is uncontaminated",
+    source_file="data/runs/full_sweep/morris_sample.parquet",
+    manuscript_value=12,
+    computed_value=len(_s32_good),
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T5.robust.mu_drop_median_pct",
+    section="Monograph 2.2",
+    manuscript_text="dropping the contaminated pairs lowers mu*(SBP -> MAP) by a median of 10.4 percent",
+    source_file="data/runs/full_sweep/aggregated.parquet",
+    manuscript_value=-10.4,
+    computed_value=float(
+        pd.Series(
+            [
+                100.0
+                * (
+                    float(
+                        _s32_unc[
+                            (_s32_unc["scenario"] == _sk) & (_s32_unc["sex"] == _xk)
+                            & (_s32_unc["output"] == "MAP") & (_s32_unc["input"] == "sbp")
+                        ]["mu_star"].iloc[0]
+                    )
+                    - float(
+                        _s32_nom[
+                            (_s32_nom["scenario"] == _sk) & (_s32_nom["sex"] == _xk)
+                            & (_s32_nom["output"] == "MAP") & (_s32_nom["input"] == "sbp")
+                        ]["mu_star"].iloc[0]
+                    )
+                )
+                / float(
+                    _s32_nom[
+                        (_s32_nom["scenario"] == _sk) & (_s32_nom["sex"] == _xk)
+                        & (_s32_nom["output"] == "MAP") & (_s32_nom["input"] == "sbp")
+                    ]["mu_star"].iloc[0]
+                )
+                for _sk, _xk in iter_cells()
+            ]
+        ).median()
+    ),
+    tolerance_rule="displayed_1dp",
+)
+
 _st_eval = [t for t, v in _STRAT.items() if v[2] is not None]
 add(
     claim_id="T5.strat.transitions_contaminated_higher",
