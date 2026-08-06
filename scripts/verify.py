@@ -178,7 +178,16 @@ def main() -> int:
 
     print("\n" + "=" * 70)
     print("SUMMARY")
-    print(f"  figures : {'FAIL (' + ', '.join(fig_failed) + ')' if fig_failed else 'OK'}")
+    # "OK" here means every generator that exists ran clean -- NOT that every
+    # figure in the manuscripts is reproducible. The MISSING_GENERATORS count
+    # rides along so a reader of the summary alone cannot take the stronger
+    # reading; the detail is printed by regen_figures() above.
+    _fig_ok = (
+        f"OK ({len(MISSING_GENERATORS)} figure(s) not regenerated: no generator in repo)"
+        if MISSING_GENERATORS
+        else "OK"
+    )
+    print(f"  figures : {'FAIL (' + ', '.join(fig_failed) + ')' if fig_failed else _fig_ok}")
     print(f"  pdfs    : {'SKIPPED (no TeX toolchain)' if pdf_ok is None else ('OK' if pdf_ok else 'FAIL')}")
     print(f"  audits  : {'OK' if audits_ok else 'FAIL'}")
     print("=" * 70)
