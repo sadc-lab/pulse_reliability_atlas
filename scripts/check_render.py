@@ -207,6 +207,32 @@ def _strip_tex_comment(line: str) -> str:
     return line[: m.start()] if m else line
 
 
+# A \mainref that loses its backslash becomes ordinary text, and NOTHING else
+# catches it: it is not a \ref, so the build succeeds, no reference goes
+# unresolved, and the label/number comparison below never sees it. That is not a
+# hypothetical either -- the migration that introduced the macro did exactly
+# this, in all 25 sites at once, because MSYS sed emits no backslash for "\\" in
+# a replacement. The rendered PDF read "Section mainrefsec:results-sex2.5 of the
+# main manuscript" and only a human reading the PDF noticed. These two checks
+# close that hole from both ends: at the source, and in the artefacts a reader
+# actually receives.
+_BARE_MACRO_RE = re.compile(r"(?<!\\)\bmainref\s*\{")
+_LEAK_ARTEFACTS = [
+    ("preprint_npj/build/supplement.pdf", "pdf"),
+    ("preprint_npj/build/supplement.docx", "docx"),
+]
+
+
+def _docx_text(path: pathlib.Path) -> str | None:
+    """Word twin body text, or None if unreadable. Stdlib only."""
+    import zipfile
+    try:
+        with zipfile.ZipFile(path) as z:
+            return z.read("word/document.xml").decode("utf-8", errors="replace")
+    except Exception:
+        return None
+
+
 def check_cross_document_refs() -> list[str]:
     problems: list[str] = []
     for rel in _MAINREF_SOURCES:
@@ -217,7 +243,14 @@ def check_cross_document_refs() -> list[str]:
         found = 0
         for lineno, line in enumerate(
                 path.read_text(encoding="utf-8", errors="replace").splitlines(), 1):
-            for m in _MAINREF_RE.finditer(_strip_tex_comment(line)):
+            live = _strip_tex_comment(line)
+            for bare in _BARE_MACRO_RE.finditer(live):
+                problems.append(
+                    "cross-document refs: %s:%d has 'mainref{' without its "
+                    "leading backslash at column %d -- it will typeset as literal "
+                    "text, not as a reference"
+                    % (rel, lineno, bare.start() + 1))
+            for m in _MAINREF_RE.finditer(live):
                 label, written = m.group(1), m.group(2)
                 found += 1
                 resolved = _resolve_label("paper", label)
@@ -236,6 +269,27 @@ def check_cross_document_refs() -> list[str]:
             problems.append(
                 "cross-document refs: %s contains no \\mainref -- the migration "
                 "was reverted, or the macro was renamed" % rel)
+
+    # The macro name must never reach a reader. Checked in the two artefacts a
+    # reader is actually given, because the source-side check above cannot see a
+    # macro that pandoc or LaTeX failed to expand for some other reason.
+    for rel, kind in _LEAK_ARTEFACTS:
+        path = ROOT / rel
+        if not path.exists():
+            problems.append(
+                "cross-document refs: %s missing -- build before trusting the "
+                "leaked-macro check" % rel)
+            continue
+        text = pdf_text(path) if kind == "pdf" else _docx_text(path)
+        if text is None:
+            problems.append("cross-document refs: %s could not be read" % rel)
+            continue
+        n = text.count("mainref")
+        if n:
+            problems.append(
+                "cross-document refs: the literal string 'mainref' appears %d "
+                "time(s) in %s -- the macro reached the reader instead of "
+                "expanding to a section number" % (n, rel))
     return problems
 
 
