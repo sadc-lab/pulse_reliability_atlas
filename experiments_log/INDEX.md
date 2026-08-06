@@ -6,12 +6,13 @@ This file is rebuilt from the YAML frontmatter of every entry in
 `santino/` and `shared/`. To update it, edit the experiment
 and recommit — the pre-commit hook regenerates and stages this file.
 
-Total entries: **30**
+Total entries: **31**
 
 ## All experiments (newest first)
 
 | ID | Date | Author | Status | Title |
 |---|---|---|---|---|
+| `S032` | 2026-08-06 | santino | done | [S032 — Does the pulse-pressure clip hold up the SBP → MAP conclusion?](santino/S032_clip_robustness_and_transition_stratification.md) |
 | `S031` | 2026-07-29 | santino | done | [S031 — Sobol trigger reframe, systemic non-linearity, and the survivorship censoring on delivered Vt](santino/S031_sobol_reframe_and_nonlinearity.md) |
 | `S029` | 2026-05-28 | santino | done | [S029 — Cornish 2023 hypothesis-count forensics: reconciling the 1,442-vs-1,522 main-text-vs-appendix discrepancy](santino/S029_cornish_forensics.md) |
 | `S028` | 2026-05-26 | santino | done | [S028 — npj Digital Medicine submission: extract `paper.tex` (~12 pp) + `supplement.tex` (~22 pp) from the 92-page audited monograph, under a strict Zero-Hallucination + audit-ledger lock-step discipline](santino/S028_npj_submission_extraction.md) |
@@ -75,6 +76,7 @@ Total entries: **30**
 - `S028` (2026-05-26, done) — [S028 — npj Digital Medicine submission: extract `paper.tex` (~12 pp) + `supplement.tex` (~22 pp) from the 92-page audited monograph, under a strict Zero-Hallucination + audit-ledger lock-step discipline](santino/S028_npj_submission_extraction.md) — _npj-submission, manuscript-splitting, latex, audit-ledger, zero-hallucination, human-ai-workflow, regex-extraction, incremental-build, xr-hyper_
 - `S029` (2026-05-28, done) — [S029 — Cornish 2023 hypothesis-count forensics: reconciling the 1,442-vs-1,522 main-text-vs-appendix discrepancy](santino/S029_cornish_forensics.md) — _cornish, falsification, forensics, value-recomputation, manuscript-discussion, audit_
 - `S031` (2026-07-29, done) — [S031 — Sobol trigger reframe, systemic non-linearity, and the survivorship censoring on delivered Vt](santino/S031_sobol_reframe_and_nonlinearity.md) — _statistics, sobol, bootstrap, preregistration-fidelity, non-linearity, survivorship-bias, manuscript-correction, ratio-aware-bootstrap, retraction_
+- `S032` (2026-08-06, done) — [S032 — Does the pulse-pressure clip hold up the SBP → MAP conclusion?](santino/S032_clip_robustness_and_transition_stratification.md) — _morris, pulse-pressure-clip, one-at-a-time-violation, robustness, sensitivity-estimators, transition-stratification, integrity-audit, ledger-expansion, deferred-analysis_
 
 ## By tag
 
@@ -143,6 +145,9 @@ Total entries: **30**
 
 ### `decomposition`
 - `S011` — [S011 — Sex vs mass disentangling (controlled 2×2 design)](santino/S011_sex_vs_mass_disentangle.md)
+
+### `deferred-analysis`
+- `S032` — [S032 — Does the pulse-pressure clip hold up the SBP → MAP conclusion?](santino/S032_clip_robustness_and_transition_stratification.md)
 
 ### `detector-bug-fix`
 - `S005` — [S005 — 22-run pilot on cell (S1, Male) — preregistration §Pilot gate](santino/S005_pilot_S1_male.md)
@@ -254,8 +259,14 @@ Total entries: **30**
 ### `infrastructure`
 - `S002` — [S002 — Project bootstrap (separate repo, skeleton, licensing)](santino/S002_project_bootstrap.md)
 
+### `integrity-audit`
+- `S032` — [S032 — Does the pulse-pressure clip hold up the SBP → MAP conclusion?](santino/S032_clip_robustness_and_transition_stratification.md)
+
 ### `latex`
 - `S028` — [S028 — npj Digital Medicine submission: extract `paper.tex` (~12 pp) + `supplement.tex` (~22 pp) from the 92-page audited monograph, under a strict Zero-Hallucination + audit-ledger lock-step discipline](santino/S028_npj_submission_extraction.md)
+
+### `ledger-expansion`
+- `S032` — [S032 — Does the pulse-pressure clip hold up the SBP → MAP conclusion?](santino/S032_clip_robustness_and_transition_stratification.md)
 
 ### `lexical-precision`
 - `S013` — [S013 — Lexical lockdown (solver-divergence vs implausible-output taxonomy)](santino/S013_lexical_lockdown.md)
@@ -313,6 +324,7 @@ Total entries: **30**
 - `S005` — [S005 — 22-run pilot on cell (S1, Male) — preregistration §Pilot gate](santino/S005_pilot_S1_male.md)
 - `S006` — [S006 — Full 1,280-run Morris sweep + post-sweep analysis](santino/S006_full_morris_sweep.md)
 - `S023` — [S023 — Supplementary ML/SHAP cross-check of the Morris μ* rankings](santino/S023_shap_vs_morris_topk.md)
+- `S032` — [S032 — Does the pulse-pressure clip hold up the SBP → MAP conclusion?](santino/S032_clip_robustness_and_transition_stratification.md)
 
 ### `no-compute`
 - `S022` — [S022 — No-compute failure-mode diagnostic for the top-3 unstable cells](santino/S022_nss_failure_mode_diagnostic.md)
@@ -331,6 +343,9 @@ Total entries: **30**
 
 ### `null-distribution`
 - `S008` — [S008 — Tier-1 statistical refinement: block bootstrap, within-sex Wasserstein null, divergence mechanism, manuscript polish](santino/S008_tier1_statistical_refinement.md)
+
+### `one-at-a-time-violation`
+- `S032` — [S032 — Does the pulse-pressure clip hold up the SBP → MAP conclusion?](santino/S032_clip_robustness_and_transition_stratification.md)
 
 ### `oss-release`
 - `S025` — [S025 — Pre-release OSS code-hygiene audit and fixes](santino/S025_oss_release_hygiene.md)
@@ -371,6 +386,9 @@ Total entries: **30**
 ### `pulse-explainer`
 - `S027` — [S027 — §1.1 Pulse-in-a-nutshell explainer + §4.7 engine-side recommendations](santino/S027_pulse_intro_and_engine_recommendations.md)
 
+### `pulse-pressure-clip`
+- `S032` — [S032 — Does the pulse-pressure clip hold up the SBP → MAP conclusion?](santino/S032_clip_robustness_and_transition_stratification.md)
+
 ### `pytest`
 - `S009` — [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md)
 
@@ -409,11 +427,17 @@ Total entries: **30**
 - `S024` — [S024 — Pre-submission claims-ledger audit](santino/S024_claims_ledger_audit.md)
 - `S025` — [S025 — Pre-release OSS code-hygiene audit and fixes](santino/S025_oss_release_hygiene.md)
 
+### `robustness`
+- `S032` — [S032 — Does the pulse-pressure clip hold up the SBP → MAP conclusion?](santino/S032_clip_robustness_and_transition_stratification.md)
+
 ### `seed-stability`
 - `S009` — [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md)
 
 ### `sensitivity-analysis`
 - `S016` — [S016 — Pulse GitLab + literature re-audit (May 2026): version state, V&V infrastructure, and the 2020 sensitivity-analysis study tag](santino/S016_pulse_gitlab_audit_may2026.md)
+
+### `sensitivity-estimators`
+- `S032` — [S032 — Does the pulse-pressure clip hold up the SBP → MAP conclusion?](santino/S032_clip_robustness_and_transition_stratification.md)
 
 ### `sex-comparison`
 - `S006` — [S006 — Full 1,280-run Morris sweep + post-sweep analysis](santino/S006_full_morris_sweep.md)
@@ -471,6 +495,9 @@ Total entries: **30**
 - `S025` — [S025 — Pre-release OSS code-hygiene audit and fixes](santino/S025_oss_release_hygiene.md)
 - `S026` — [S026 — Final pre-arXiv polish](santino/S026_pre_arxiv_polish.md)
 - `S027` — [S027 — §1.1 Pulse-in-a-nutshell explainer + §4.7 engine-side recommendations](santino/S027_pulse_intro_and_engine_recommendations.md)
+
+### `transition-stratification`
+- `S032` — [S032 — Does the pulse-pressure clip hold up the SBP → MAP conclusion?](santino/S032_clip_robustness_and_transition_stratification.md)
 
 ### `trigger-pressure`
 - `S014` — [S014 — Trigger-pressure lockout: causal test of F-004 mechanism](santino/S014_trigger_pressure_lockout.md)
