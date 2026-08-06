@@ -116,8 +116,12 @@ def main() -> None:
     # is 1.80 and fits; shrinking it enough to seat a second 48-cell matrix would
     # have cost panel A its legibility. The driver decomposition therefore ships
     # as a compact strip here and in full in the Supplement.
+    # 4.6 -> 4.2 after the caption grew to describe panel (b): the FLOAT is
+    # figure plus caption, and at 4.6 the pair overflowed by 17.2 pt, which
+    # showed up as caption text colliding with the page folio. Trimming 0.4 in
+    # of figure was preferred to cutting caption content that carries claims.
     fig, (ax, axb) = plt.subplots(
-        2, 1, figsize=(7.2, 4.6), gridspec_kw={"height_ratios": [8, 1]})
+        2, 1, figsize=(7.2, 4.2), gridspec_kw={"height_ratios": [8, 1]})
 
     # --- panel A: the composite curation map, unchanged ------------------
     sns.heatmap(
@@ -159,11 +163,13 @@ def main() -> None:
     for side in ("top", "right", "left", "bottom"):
         axb.spines[side].set_visible(False)
     axb.grid(False)
+    # Kept short on purpose: the caption carries the thresholds, the red-cell
+    # split and the interpretive guard, so repeating them here in 7.5 pt only
+    # made the strip harder to read at print size.
     axb.set_title(
-        "(b)  Which criterion produced each of the 48 classifications:  "
-        "F hard flags only · D deviation only · FD both · -- neither (= green).  "
-        "The 12 red cells split 6 D / 4 F / 2 FD.",
-        loc="left", fontsize=7.5)
+        "(b)  Classification drivers over the 48 cells:  "
+        "F hard flags only · D deviation only · FD both · -- neither (= green)",
+        loc="left", fontsize=8)
 
     fig.tight_layout()
     OUT_DIR.mkdir(parents=True, exist_ok=True)
