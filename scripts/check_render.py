@@ -180,6 +180,65 @@ def _resolve_label(aux_key: str, label: str) -> str | None:
     return m.group(1) if m else None
 
 
+# Cross-document references, supplement.tex -> paper.tex.
+#
+# supplement.tex is compiled as its own document, so it CANNOT \ref into
+# paper.tex: every reference to a main-manuscript section is a literal number.
+# HARDCODED_REFS above exempts supplement.tex on the premise that it "references
+# sections through \ref"; that premise holds inside the document and fails
+# across documents. On 2026-08-05 one new subsection in the paper's Results
+# shifted 21 of these literals by one and no check noticed.
+#
+# supplement.tex now writes them as \mainref{<paper label>}{<number>}, which
+# renders as the number alone. This check reads every occurrence, resolves the
+# label in the PAPER's .aux, and compares. It needs no table to maintain: the
+# dependency lives at the point of use and new references are picked up
+# automatically.
+_MAINREF_RE = re.compile(r"\\mainref\s*\{([^{}]+)\}\s*\{([^{}]+)\}")
+_MAINREF_SOURCES = ["preprint_npj/supplement.tex"]
+# An unescaped % starts a LaTeX comment. Without this the macro's own
+# documentation in the preamble -- which necessarily spells out the call shape
+# -- is read as a live reference, and so is any reference someone comments out.
+_TEX_COMMENT_RE = re.compile(r"(?<!\\)%")
+
+
+def _strip_tex_comment(line: str) -> str:
+    m = _TEX_COMMENT_RE.search(line)
+    return line[: m.start()] if m else line
+
+
+def check_cross_document_refs() -> list[str]:
+    problems: list[str] = []
+    for rel in _MAINREF_SOURCES:
+        path = ROOT / rel
+        if not path.exists():
+            problems.append("cross-document refs: %s not found" % rel)
+            continue
+        found = 0
+        for lineno, line in enumerate(
+                path.read_text(encoding="utf-8", errors="replace").splitlines(), 1):
+            for m in _MAINREF_RE.finditer(_strip_tex_comment(line)):
+                label, written = m.group(1), m.group(2)
+                found += 1
+                resolved = _resolve_label("paper", label)
+                if resolved is None:
+                    problems.append(
+                        "cross-document refs: %s:%d cites label %s, which does not "
+                        "resolve in paper.aux -- rebuild the paper before trusting "
+                        "this check, or the label is wrong" % (rel, lineno, label))
+                    continue
+                if resolved != written:
+                    problems.append(
+                        "cross-document reference mismatch: %s:%d writes %s but "
+                        "label %s resolves to %s in the main manuscript"
+                        % (rel, lineno, written, label, resolved))
+        if found == 0:
+            problems.append(
+                "cross-document refs: %s contains no \\mainref -- the migration "
+                "was reverted, or the macro was renamed" % rel)
+    return problems
+
+
 def check_hardcoded_refs() -> list[str]:
     problems: list[str] = []
     for rel, literal, aux_key, label, what in HARDCODED_REFS:
@@ -221,6 +280,12 @@ def main() -> int:
     for line in hp:
         print("    - " + line)
     all_problems += hp
+
+    xp = check_cross_document_refs()
+    print("%-11s %s" % ("crossdoc", "OK" if not xp else "%d PROBLEM(S)" % len(xp)))
+    for line in xp:
+        print("    - " + line)
+    all_problems += xp
 
     print()
     if all_problems:

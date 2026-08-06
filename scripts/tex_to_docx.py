@@ -190,6 +190,15 @@ def resolve_refs(tex: str, labels: dict[str, tuple[str, str]]) -> str:
         p = page(m.group(1))
         return p if p is not None else m.group(0)
 
+    # \mainref{<label in paper.tex>}{<number>} -- cross-document reference to a
+    # main-manuscript section, defined in supplement.tex. It must be unwrapped to
+    # its literal number BEFORE the \ref family is handled below: the label it
+    # carries belongs to paper.tex and is deliberately absent from this
+    # document's .aux, so leaving it for repl_num would resolve nothing, and
+    # leaving it for pandoc would drop an unknown two-argument macro and silently
+    # strip 25 section numbers from the Word twin.
+    tex = re.sub(r"\\mainref\s*\{[^{}]+\}\s*\{([^{}]+)\}", r"\1", tex)
+
     tex = re.sub(r"\\pageref\s*\{([^{}]+)\}", repl_page, tex)
     tex = re.sub(r"\\eqref\s*\{([^{}]+)\}", repl_eq, tex)
     tex = re.sub(r"\\(?:ref|autoref|cref|Cref)\s*\{([^{}]+)\}", repl_num, tex)
