@@ -992,7 +992,7 @@ add(
 # visible range of npj Figure 4b). Guarded after the D.8 paper sweep flagged
 # the "~1,408 mmHg" caption value as an orphan: it appears only in paper.tex
 # Fig 4 caption with no monograph/ledger anchor. Computed as the max S1
-# plateau across the S021 extended-simulation reruns. approx_round tolerance
+# plateau across the S021 300-second reruns. approx_round tolerance
 # because the caption renders it with an explicit "~".
 s021_s1_max_plateau = float(
     s21_plat[s21_plat["scenario"] == "S1"]["PaO2_plateau_mmHg"].max()
@@ -2891,11 +2891,12 @@ add(
 
 # S021 time-to-95-percent-of-plateau kinetic anchor: derived at audit
 # time from the S021 plateau_stats parquet + each S1 run's output.csv.
-# The "floor" is the median PaO2 at t=0 of the extended-simulation
-# rerun (saved-state reload point, corresponding to the end of the
-# original 120-second window); the "asymptote" is the median PaO2
-# at t=300 of the extended simulation; the anchor is the smallest
-# extended-simulation time at which the median trajectory across the
+# The "floor" is the median PaO2 at t=0 of the 300-second rerun
+# (recorded simulation time; the rerun re-executes from time zero, so
+# t=0 follows the unchanged 120 s ventilator-settle phase and is
+# already hyperoxic); the "asymptote" is the median PaO2 at t=300 --
+# the last observed value, not a fitted asymptote; the anchor is the
+# smallest recorded-simulation time at which the median trajectory across the
 # physiological-converged S1 reruns (drift-converged AND plateau
 # <= 700 mmHg, i.e. excluding the three numerically-unstable runaway
 # runs) reaches 95 percent of (asymptote - floor).
@@ -2934,7 +2935,7 @@ if _n_expected > 0 and _n_found == _n_expected:
     add(
         claim_id="T1.06u.s021_time_to_95pct_plateau",
         section="Supplement S9 (extended hyperoxia convergence)",
-        manuscript_text="180 s of extended simulation to reach 95% of late plateau (38 physiological-converged S1 runs)",
+        manuscript_text="95% of the late-plateau gain reached by t=180 s of recorded simulation (38 physiological-converged S1 runs)",
         source_file="derived from data/runs/s021_hyperoxia_convergence/<S1 runs>/output.csv",
         manuscript_value=180.0,
         computed_value=_t_95,
@@ -3938,6 +3939,113 @@ def check_audit_counters(n_ledger: int, n_sync_total: int, n_mono_total: int) ->
     return n_bad
 
 
+# -----------------------------------------------------------------------------
+# S021 clock guard (2026-08-06).
+#
+# The manuscript described the S021 hyperoxia reruns as a saved-state
+# continuation -- a reload of Pulse's engine state at the end of the original
+# 120-second run, continuing 300 s further. No such mechanism exists in this
+# repository: scripts/run_s021_hyperoxia_convergence.py builds a fresh config
+# and raises duration_hours, so each rerun re-executes from time zero. Measured
+# proof: across all 60 pairs the atlas CSVs are byte-identical over t=0-120 s,
+# and the Pulse-native CSVs are byte-identical over the 12,000 points of
+# t=0.02-240.00 s, settle phase included.
+#
+# No layer could see this: the defect lived in prose and carried no drifting
+# literal. Every published number was and remains correct -- the failure was
+# purely mechanistic, which is exactly the class the ledger cannot catch.
+#
+# NOTE ON 420: `420 s of Pulse-internal time` is TRUE and measured
+# (VENT_SETTLE_S = 120 s + 300 s recorded = 420 s on Pulse's own clock, read
+# off output_pulse_native.csv). It is deliberately NOT forbidden. No forbidden
+# string below is a bare "420", which also keeps PMID 36661420 in
+# manuscript.md from ever matching.
+#
+# Expectations are per file: the paper carries only the 300 s recorded clock,
+# the supplement carries both clocks (maintainer decision, 2026-08-06).
+# -----------------------------------------------------------------------------
+S021_FORBIDDEN: dict[str, tuple[str, ...]] = {
+    "preprint_npj/paper.tex": (
+        "saved engine state",
+        "continued for an additional 300",
+        "of total simulated time",
+    ),
+    "preprint_npj/supplement.tex": (
+        "saved engine state",
+        "saved Pulse state",
+        "saved-state reload",
+        "reload point",
+        "continues for an additional 300",
+        "of total simulated time",
+        "$t' = 0$",
+    ),
+    "preprint/manuscript.md": (
+        "300 s beyond the locked 120 s",
+        "beyond the 120 s window",
+        "420 s total",
+        "to 420 s of total simulated time",
+    ),
+    "scripts/make_supp_fig_s3.py": (
+        "saved Pulse state",
+        "corresponds to $t = 120$ s",
+        "t'=0",
+    ),
+}
+
+S021_REQUIRED: dict[str, tuple[str, ...]] = {
+    "preprint_npj/paper.tex": (
+        "300 seconds",
+        "$t = 240$--$300$~s",
+    ),
+    "preprint_npj/supplement.tex": (
+        "420~s of Pulse-internal time",
+        "recorded simulation time",
+        "120-second ventilator-settling phase",
+    ),
+    "scripts/make_supp_fig_s3.py": ("Recorded simulation time",),
+}
+
+
+def check_s021_clock() -> int:
+    """Guard the S021 two-clock framing. Returns the number of FAILs."""
+    print("\n## S021 clock guard\n")
+    rows: list[tuple[str, str, str, str]] = []
+    n_bad = 0
+
+    for rel, needles in S021_FORBIDDEN.items():
+        path = REPO / rel
+        if not path.exists():
+            continue
+        text = path.read_text(encoding="utf-8")
+        for needle in needles:
+            hits = text.count(needle)
+            verdict = "PASS" if hits == 0 else f"**FAIL** ({hits}x)"
+            if hits:
+                n_bad += 1
+            rows.append((rel, "forbidden", needle, verdict))
+
+    for rel, needles in S021_REQUIRED.items():
+        path = REPO / rel
+        if not path.exists():
+            continue
+        text = path.read_text(encoding="utf-8")
+        for needle in needles:
+            hits = text.count(needle)
+            verdict = "PASS" if hits >= 1 else "**FAIL** (absent)"
+            if not hits:
+                n_bad += 1
+            rows.append((rel, "required", needle, verdict))
+
+    print("| file | kind | string | verdict |")
+    print("|---|---|---|---|")
+    for rel, kind, needle, verdict in rows:
+        print(f"| `{rel}` | {kind} | `{needle}` | {verdict} |")
+    print(f"\n**S021 clock guard:** {len(rows)} checks, {len(rows) - n_bad} PASS, {n_bad} FAIL.\n")
+    return n_bad
+
+
+n_s021_fail = check_s021_clock()
+
 n_counter_fail = 0
 if _ARGS.check_paper_sync and _ARGS.check_monograph:
     n_counter_fail = check_audit_counters(
@@ -3949,6 +4057,6 @@ if _ARGS.check_paper_sync and _ARGS.check_monograph:
 # Exit non-zero if any FAIL anywhere (allows piping to CI later).
 sys.exit(
     1
-    if (n_fail + n_sync_fail + n_mono_fail + n_counter_fail) > 0
+    if (n_fail + n_sync_fail + n_mono_fail + n_counter_fail + n_s021_fail) > 0
     else 0
 )

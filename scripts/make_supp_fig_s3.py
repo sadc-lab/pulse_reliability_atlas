@@ -1,13 +1,17 @@
 """Generate Supplement Figure S3: PaO2 late-phase convergence trajectories
 from the S021 hyperoxia 300-second rerun cohort.
 
-IMPORTANT framing (per maintainer-audited Phase 9.C decision):
-t=0 on the plot corresponds to t=120s of the overall simulation timeline.
-The S021 reruns continue from the saved Pulse state at the end of the
-original locked 120-second window (where PaO2 was already in the
-hyperoxia regime) out to t=300s of overall simulation time. The figure
-therefore visualises the LATE-PHASE CONVERGENCE of PaO2 toward its true
-plateau, not a fresh wash-in from atmospheric-air baseline.
+IMPORTANT framing (corrected 2026-08-06; see
+audit/s021_clock_reframing_diffs.md):
+The x-axis is the rerun's own recorded simulation time, t = 0 to 300 s.
+Each rerun is a separate re-execution of the same configuration from time
+zero, with the recorded duration raised from 120 s to 300 s -- NOT a
+saved-state continuation. PaO2 is already hyperoxic at t = 0 because the
+configured FiO2 = 1.0 applies through the unchanged 120 s ventilator-settle
+phase that precedes recording (VENT_SETTLE_S in engine/run_atlas_engine.py),
+so one rerun spans 420 s of Pulse-internal time. The figure therefore
+visualises the LATE-PHASE CONVERGENCE of PaO2 toward its true plateau, not a
+fresh wash-in from an atmospheric-air baseline.
 
 Visualises the 41 drift-converged S1 (healthy) S021 reruns as overlapping
 thin trajectories. Three of those 41 are drift-converged but relax to
@@ -99,7 +103,7 @@ ax.annotate(
     xy=(0.97, 0.97), xycoords="axes fraction", ha="right", va="top",
     fontsize=8, color="#555555", style="italic",
 )
-ax.set_xlabel(r"Extended-simulation time $t'$ (s); $t' = 0$ corresponds to $t = 120$ s of the original simulation")
+ax.set_xlabel(r"Recorded simulation time $t$ (s), 300-s rerun")
 ax.set_ylabel(r"Arterial PaO$_2$ (mmHg)")
 ax.set_title(
     "Hyperoxia late-phase convergence (S021 reruns, FiO$_2$ = 1.0, S1 healthy)",
@@ -115,8 +119,8 @@ fig.savefig(OUT.with_suffix(".png"), dpi=200, bbox_inches="tight")
 print(f"Wrote {OUT}")
 print(f"Wrote {OUT.with_suffix('.png')}")
 print(f"  n_total = {n_total}, n_converged = {n_converged}, n_physio = {n_physio}, n_runaway = {n_runaway}")
-print(f"  PaO2 at t'=0   (= t=120 s original): median {median_traj.iloc[0]:.1f} mmHg")
-print(f"  PaO2 at t'=300 (= t=300 s extended): median {median_traj.iloc[-1]:.1f} mmHg")
+print(f"  PaO2 at t=0   (recorded clock): median {median_traj.iloc[0]:.1f} mmHg")
+print(f"  PaO2 at t=300 (recorded clock): median {median_traj.iloc[-1]:.1f} mmHg")
 
 # Compute time to 95 percent of plateau (physiological median trajectory).
 asymptote = median_traj.iloc[-1]
@@ -125,4 +129,4 @@ target = floor_val + 0.95 * (asymptote - floor_val)
 above_target = median_traj[median_traj >= target]
 if not above_target.empty:
     t_95 = above_target.index[0]
-    print(f"  Time-to-95% (physiological median, t'=0 floor to t'=300 asymptote): {t_95:.0f} s")
+    print(f"  Time-to-95% (physiological median, t=0 floor to t=300 late plateau): {t_95:.0f} s")

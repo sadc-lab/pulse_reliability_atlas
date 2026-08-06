@@ -137,7 +137,7 @@ below; this section is the exhaustive findings digest.*
 * Under the locked 120 s window, steady-state PaO2 exceeds the 600 mmHg
   classifier bound in **34 of 126** implausible-flagged runs; **91 %** at
   FiO2 ≥ 0.95.
-* Extended reruns ([S021](#s021); 300 s beyond the locked 120 s window = 420 s total) resolve it: S1 plateau
+* Longer reruns ([S021](#s021); the same configurations re-executed at 300 s of recorded simulation instead of the locked 120 s) resolve it: S1 plateau
   **median 643 mmHg**, ~20 mmHg *below* the alveolar-gas-equation sea-level
   ceiling (≈663 mmHg) — consistent with Pulse's modelled A-a gradient, i.e. a
   window-length artefact, not an oxygenation overshoot. 41/44 S1 reruns
@@ -2651,7 +2651,8 @@ corrected by setting trigger pressure to −2 cmH2O.*
 
   **The transient-regime interpretation is supported ([S021](#s021)).**
   A pre-registered controlled experiment reran 60 matched-input cases
-  at FiO2 = 1.0 with the simulation extended by a further 300 s beyond the 120 s window, to 420 s of total simulated time
+  at FiO2 = 1.0, each re-executed from time zero with the recorded
+  simulation duration raised from the locked 120 s to 300 s
   (sample interval 5 s; 22 paired Morris indices × S1 (M + F) =
   44 S1 runs; 4 paired indices × {S3, S4} × {M, F} = 16 ARDS runs).
   All thresholds were committed before any S021 Pulse run was
