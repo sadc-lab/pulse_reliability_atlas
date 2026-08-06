@@ -46,12 +46,22 @@ AGG = REPO / "data" / "runs" / "full_sweep" / "aggregated.parquet"
 CHANNELS = ("HR", "MAP", "Vt", "SpO2", "PaO2", "PaCO2")
 
 
-def main() -> None:
-    df = pd.read_parquet(AGG)
-    n = len(df)
-    print(f"rows in {AGG.relative_to(REPO)}: {n}")
+def attribution(df: pd.DataFrame):
+    """Per-channel not_steady_state triggers, both ways of counting them.
 
-    # ---------- 1. exhaustive per-channel attribution ---------- #
+    Returns ``(exhaustive, first_cause, skipped, reconstructed_flag)``.
+
+    ``exhaustive`` evaluates all three tests on every channel, so a channel that
+    both oscillates and drifts is counted in both. ``first_cause`` replicates
+    the detector's own record, which stops at the first test that fires
+    (``continue`` after each branch, order flatline > CV > drift) and therefore
+    undercounts co-occurring mechanisms -- by a factor of 44 on Vt.
+
+    This is the single implementation. The figure script imports it rather than
+    re-applying the thresholds, so the published panel cannot drift from the
+    calibration that licensed it.
+    """
+    n = len(df)
     exhaustive = {ch: {"flatline": 0, "cv": 0, "drift": 0} for ch in CHANNELS}
     first_cause = {ch: {"flatline": 0, "cv": 0, "drift": 0} for ch in CHANNELS}
     skipped = {ch: 0 for ch in CHANNELS}
@@ -96,6 +106,16 @@ def main() -> None:
 
             if flat or cvh or dri:
                 recon[i] = True
+
+    return exhaustive, first_cause, skipped, recon
+
+
+def main() -> None:
+    df = pd.read_parquet(AGG)
+    n = len(df)
+    print(f"rows in {AGG.relative_to(REPO)}: {n}")
+
+    exhaustive, first_cause, skipped, recon = attribution(df)
 
     stored = df["not_steady_state"].to_numpy().astype(bool)
     agree = int((recon == stored).sum())

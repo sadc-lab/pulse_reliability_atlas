@@ -65,6 +65,8 @@ FIGURE_SCRIPTS = [
     "scripts/make_supp_fig_s1.py",      # npj Figure S1 (continuous severity)
     "scripts/make_supp_fig_s3.py",      # npj Figure S4 (hyperoxia convergence)
     "scripts/make_supp_fig_s4.py",      # npj Figure S3 (Vt waveform)
+    "scripts/make_supp_fig_s5_decomposition.py",  # npj Figure S5 (what the
+                                        # composite colour compresses)
     "scripts/export_traffic_light.py",  # reliability traffic-light CSV + JSON
 ]
 

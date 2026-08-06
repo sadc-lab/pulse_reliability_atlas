@@ -1245,6 +1245,114 @@ for (_sk, _xk), (_v_clean, _v_hf) in _RETENTION_TABLE.items():
         tolerance_rule="exact_int",
     )
 
+# 25b. Classification drivers and not_steady_state attribution, published in
+# npj Figure 2b and Supplement Figure S5. Added 2026-08-05.
+#
+# The driver rule is re-applied here rather than read from a stored column, so
+# an anchor fails if the figure and the ledger ever disagree about it. The
+# thresholds are class-relative, matching
+# src/analysis_compare.reliability_classification exactly.
+_tl = pd.read_csv(REPO / "results" / "reliability_traffic_light.csv")
+
+
+def _driver_of(row) -> str:
+    rate = (row["n_diverged"] + row["n_implausible"]) / row["n_total"]
+    pct = row["pct_off_baseline"]
+    if row["light"] == "red":
+        dev, flag = pct > 0.3, rate > 0.3
+    elif row["light"] == "yellow":
+        dev, flag = pct > 0.1, rate > 0.0
+    else:
+        return "neither"
+    if dev and flag:
+        return "both"
+    return "dev_only" if dev else "flag_only"
+
+
+_tl["_driver"] = _tl.apply(_driver_of, axis=1)
+_drv_counts = _tl["_driver"].value_counts()
+_red_counts = _tl[_tl["light"] == "red"]["_driver"].value_counts()
+
+for _key, _expected, _what in [
+    ("neither", 7, "neither criterion (coincides with the green set)"),
+    ("flag_only", 23, "hard flags only"),
+    ("dev_only", 9, "deviation only"),
+    ("both", 9, "both criteria"),
+]:
+    add(
+        claim_id=f"T1.30d.driver_{_key}",
+        section="npj Figure 2b; Supplement Figure S5d",
+        manuscript_text=f"{_expected} of 48 cells classified by {_what}",
+        source_file="results/reliability_traffic_light.csv",
+        manuscript_value=_expected,
+        computed_value=int(_drv_counts.get(_key, 0)),
+        tolerance_rule="exact_int",
+    )
+
+# The 12 red cells split 6 / 4 / 2. This is the split the figure prints, and it
+# is the sharpest statement of why a red cell is not a reliability verdict:
+# half of them are red on deviation alone, where Pulse is behaving correctly.
+for _key, _expected in [("dev_only", 6), ("flag_only", 4), ("both", 2)]:
+    add(
+        claim_id=f"T1.30d.red_{_key}",
+        section="npj Figure 2b; Supplement Figure S5d",
+        manuscript_text=f"{_expected} of the 12 red cells are red on {_key}",
+        source_file="results/reliability_traffic_light.csv",
+        manuscript_value=_expected,
+        computed_value=int(_red_counts.get(_key, 0)),
+        tolerance_rule="exact_int",
+    )
+
+# not_steady_state trigger attribution (Supplement Figure S5b). Imported from
+# the calibration script so the ledger, the figure and the calibration share one
+# implementation of the thresholds.
+from scripts.calibrate_nss_attribution import attribution as _nss_attr  # noqa: E402
+
+_ex, _fc, _skipped, _recon = _nss_attr(agg)
+add(
+    claim_id="T1.30n.reconstruction_agreement",
+    section="Supplement Figure S5b caption",
+    manuscript_text="the exhaustive reconstruction reproduces the stored "
+                    "not_steady_state flag on 1,280 of 1,280 runs",
+    source_file="data/runs/full_sweep/aggregated.parquet",
+    manuscript_value=1280,
+    computed_value=int((_recon == agg["not_steady_state"].to_numpy().astype(bool)).sum()),
+    tolerance_rule="exact_int",
+)
+for _cid, _ch, _trig, _expected, _txt in [
+    ("spo2_flatline", "SpO2", "flatline", 232, "SpO2 flatline triggers"),
+    ("vt_cv", "Vt", "cv", 303, "Vt CV triggers"),
+    ("vt_drift_exhaustive", "Vt", "drift", 133, "Vt drift triggers, exhaustive"),
+]:
+    add(
+        claim_id=f"T1.30n.{_cid}",
+        section="Supplement Figure S5b",
+        manuscript_text=f"{_expected} {_txt}",
+        source_file="data/runs/full_sweep/aggregated.parquet",
+        manuscript_value=_expected,
+        computed_value=int(_ex[_ch][_trig]),
+        tolerance_rule="exact_int",
+    )
+add(
+    claim_id="T1.30n.vt_drift_recorded",
+    section="Supplement Figure S5b caption",
+    manuscript_text="only 3 of the 133 Vt drift triggers survive in the "
+                    "detector's recorded reason",
+    source_file="data/runs/full_sweep/aggregated.parquet",
+    manuscript_value=3,
+    computed_value=int(_fc["Vt"]["drift"]),
+    tolerance_rule="exact_int",
+)
+add(
+    claim_id="T1.30n.total_exhaustive",
+    section="Supplement Figure S5b caption",
+    manuscript_text="918 exhaustive channel-level trigger occurrences in total",
+    source_file="data/runs/full_sweep/aggregated.parquet",
+    manuscript_value=918,
+    computed_value=int(sum(sum(v.values()) for v in _ex.values())),
+    tolerance_rule="exact_int",
+)
+
 # -----------------------------------------------------------------------------
 # TIER 2 -- §3 deep cuts + appendices
 # -----------------------------------------------------------------------------
