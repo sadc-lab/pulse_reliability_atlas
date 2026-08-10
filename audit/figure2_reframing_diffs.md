@@ -1,6 +1,32 @@
-# Figure 2 reframing — drafted diffs, NOT APPLIED
+# Figure 2 reframing — drafted diffs
 
-**Opened** 2026-08-05. **Status: DRAFT — no manuscript file modified.**
+**Opened** 2026-08-05. **CLOSED 2026-08-06; closure recorded here 2026-08-10.**
+
+> ## ✅ STATUS: APPLIED AND PUSHED — this header used to say "DRAFT, NOT APPLIED"
+>
+> The status line was never updated when the work shipped, and on 2026-08-10 it
+> caused a session to report 3a/3b/3c as outstanding when all three were already
+> in `origin/main`. The body below is the **drafted** text, kept verbatim as the
+> dated record of what was proposed; the applied wording differs in places.
+>
+> | step | commit | subject |
+> |---|---|---|
+> | 3a | `a480b57` | the claim vocabulary (LOT 1, LOT 5) |
+> | 3a-bis | `140e696` | the loci grep could not reach + a cover-letter factual error |
+> | 3b | `baad15f` | retention under both screens (LOT 2, `tab:screening-retention`) |
+> | 3c | `ed5259f` | classification drivers: paper strip + full Supplement view (LOT 3, LOT 4) |
+>
+> Verified 2026-08-10 locus by locus: all 13 LOT 5 rows applied, `trustworthy` /
+> `safe to ingest` / `data-quality filter` = **0 occurrences** in `paper.tex`,
+> `supplement.tex`, `README.md`, `cover_letter.md`, `submission_metadata.txt`,
+> `reliability_traffic_light.json` and `export_traffic_light.py`. Audit green:
+> **382/382 ledger · 94/94 crosswalk · 26/26 monograph · 25/25 counters, exit 0.**
+>
+> **One residue found and NOT fixed** (needs an author ruling, monograph is in
+> the stop-and-ask zone): `preprint/manuscript.md:484` still reads "operating
+> *without a map* of **where the engine is reliable**". Its sibling locus
+> `README.md:75` was reframed to "without a map of how the engine behaves across
+> its operational envelope". The two documents now disagree.
 
 Scope: reframe the cell-level traffic light from a *reliability verdict* to a
 *curation and review-priority map*, add the classification-driver decomposition,
