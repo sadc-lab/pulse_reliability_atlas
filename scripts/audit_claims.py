@@ -4267,7 +4267,161 @@ def check_readme_science(ledger_claims: list[Claim]) -> int:
     return n_bad
 
 
+# -----------------------------------------------------------------------------
+# Figure-legend length guard (2026-08-10).
+#
+# npj caps a figure legend at 350 words, and its submission guidelines extend
+# that to supplementary figures. On 2026-08-10 two legends were found over it --
+# paper Figure 2 at 363 words and supplement Figure S5 at 361 -- and both had
+# been over since ed5259f added their extra panels. The compliance register had
+# measured a maximum of 322 words on 2026-08-03; that measurement was correct
+# when taken and simply went stale, because nothing re-measured it. This guard
+# is what re-measures it.
+#
+# THE UNIT IS THE EDITORIAL LEGEND, NOT THE `\caption{}`. This is the whole
+# difficulty. The paper's Figure 3 carries SEVEN caption objects -- one main
+# caption plus one per panel, inside `subfigure` blocks -- and they are one
+# legend for npj's purposes, so the cap applies to their sum (293 words, under).
+# Counting caption objects separately would understate a long multi-panel
+# figure; counting unrelated floats together would invent a breach. So each
+# top-level figure/table environment is one unit, and nested subfigure captions
+# are summed into it.
+#
+# TWO COUNTS, BOTH REPORTED, because the convention is genuinely ambiguous and a
+# single number would hide which one a verdict rests on -- the same ambiguity
+# that makes the abstract "147 or 150 words". `strict` counts tokens bearing a
+# letter or digit; `wp` counts every whitespace-separated token, as a word
+# processor does. A legend fails if EITHER exceeds the cap.
+#
+# SOURCE, NOT PDF. Two earlier attempts at this measurement were unsound and are
+# recorded so neither is rebuilt: matching `\caption{` only at the start of a
+# line misses the six sub-captions of Figure 3, which do not begin their lines;
+# and ending a legend at the first blank line in the PDF text swallows the table
+# body, which reported "Table 1: 478 words" for a one-sentence legend. The
+# structured source is the primary instrument. The rendered PDF is a secondary
+# spot-check only, and only where the delimitation is unambiguous.
+LEGEND_CAP = 350
+_LEGEND_KEEP_ARG = ("textbf", "emph", "textit", "texttt", "text", "mathrm",
+                    "textrm", "underline")
+_LEGEND_DROP_ALL = ("cite", "label", "ref", "hyperlink", "hypertarget", "url",
+                    "citep", "citet")
+_LEGEND_TOP = r"(figure\*?|table\*?|sidewaystable\*?)"
+_LEGEND_SUB = r"(subfigure|subtable)"
+
+
+def _legend_rendered(body: str) -> str:
+    """Reduce a caption body to what a reader actually reads."""
+    s = body
+    for name in _LEGEND_DROP_ALL:          # \cite{...} renders as a bracket number
+        s = re.sub(r"\\%s(\[[^\]]*\])?\{[^{}]*\}" % name, " ", s)
+    for name in _LEGEND_KEEP_ARG:          # \textbf{x} renders as x
+        prev = None
+        while prev != s:
+            prev = s
+            s = re.sub(r"\\%s\{([^{}]*)\}" % name, r"\1", s)
+    s = re.sub(r"\$[^$]*\$", "MATH", s)    # inline math renders as one token
+    s = s.replace("\\%", "%").replace("\\&", "&").replace("\\_", "_")
+    s = re.sub(r"\\\\", " ", s)
+    s = re.sub(r"\\[a-zA-Z]+\*?", " ", s)  # any macro left renders as nothing
+    s = s.replace("~", " ")
+    s = re.sub(r"[{}]", " ", s)
+    return re.sub(r"\s+", " ", s).strip()
+
+
+def _legend_counts(body: str) -> tuple[int, int]:
+    toks = _legend_rendered(body).split()
+    return len([t for t in toks if re.search(r"[A-Za-z0-9]", t)]), len(toks)
+
+
+def _caption_body(src: str, at: int) -> str:
+    """Caption text from `at` to its matching close brace, braces balanced."""
+    i, depth = at, 1
+    while i < len(src) and depth:
+        c = src[i]
+        if c == "\\":                      # an escaped char cannot close a group
+            i += 2
+            continue
+        depth += 1 if c == "{" else -1 if c == "}" else 0
+        i += 1
+    return src[at:i - 1]
+
+
+def legend_units(src: str):
+    """Yield (name, strict, wp, n_captions) for each editorial legend unit."""
+    n_fig = n_tab = 0
+    for m in re.finditer(r"\\begin\{%s\}" % _LEGEND_TOP, src):
+        kind = m.group(1)
+        depth, i = 1, m.end()
+        while i < len(src) and depth:
+            nxt = re.search(r"\\(begin|end)\{%s\}" % kind, src[i:])
+            if not nxt:
+                break
+            depth += 1 if nxt.group(1) == "begin" else -1
+            i += nxt.end()
+        block = src[m.end():i]
+
+        sub_spans = []
+        for sm in re.finditer(r"\\begin\{%s\}" % _LEGEND_SUB, block):
+            se = re.search(r"\\end\{%s\}" % _LEGEND_SUB, block[sm.end():])
+            if se:
+                sub_spans.append((sm.start(), sm.end() + se.end()))
+
+        strict = wp = n_caps = 0
+        for cm in re.finditer(r"\\caption\{", block):
+            n_caps += 1
+            s, w = _legend_counts(_caption_body(block, cm.end()))
+            strict += s
+            wp += w
+        if not n_caps:
+            continue
+        if kind.startswith("figure"):
+            n_fig += 1
+            name = "Figure %d" % n_fig
+        else:
+            n_tab += 1
+            name = "Table %d" % n_tab
+        yield name, strict, wp, n_caps
+
+
+def check_legend_lengths() -> int:
+    """Verify every editorial legend stays within npj's 350-word cap.
+
+    Returns the number of FAILs (0 when every legend is inside the cap).
+    """
+    print("\n## Figure-legend length guard\n")
+
+    rows: list[tuple[str, str, int, int, str]] = []
+    n_bad = 0
+    for rel in ("preprint_npj/paper.tex", "preprint_npj/supplement.tex"):
+        path = REPO / rel
+        if not path.exists():
+            print("_WARN: %s not found; guard skipped._\n" % rel)
+            continue
+        src = path.read_text(encoding="utf-8")
+        for name, strict, wp, n_caps in legend_units(src):
+            over = max(strict, wp) > LEGEND_CAP
+            if over:
+                n_bad += 1
+            rows.append((rel.split("/")[-1], name, strict, wp,
+                         "FAIL" if over else "PASS"))
+
+    print("| document | legend | strict | word-processor | verdict |")
+    print("|---|---|---:|---:|---|")
+    for doc, name, strict, wp, verdict in rows:
+        print("| `%s` | %s | %d / %d | %d / %d | %s |"
+              % (doc, name, strict, LEGEND_CAP, wp, LEGEND_CAP, verdict))
+    worst = max((max(r[2], r[3]) for r in rows), default=0)
+    print(
+        f"\n**Legend lengths:** {len(rows)} editorial legends, "
+        f"{len(rows) - n_bad} PASS, {n_bad} FAIL "
+        f"(cap {LEGEND_CAP}; longest {worst}).\n"
+    )
+    return n_bad
+
+
 n_readme_fail = check_readme_science(claims)
+
+n_legend_fail = check_legend_lengths()
 
 n_s021_conv_fail = check_s021_converged_plateau()
 
@@ -4284,7 +4438,7 @@ sys.exit(
     1
     if (
         n_fail + n_sync_fail + n_mono_fail + n_counter_fail
-        + n_s021_fail + n_s021_conv_fail + n_readme_fail
+        + n_s021_fail + n_s021_conv_fail + n_readme_fail + n_legend_fail
     ) > 0
     else 0
 )
