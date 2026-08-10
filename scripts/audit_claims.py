@@ -4132,6 +4132,143 @@ def check_s021_converged_plateau() -> int:
     return n_bad
 
 
+# -----------------------------------------------------------------------------
+# README science guard (2026-08-10).
+#
+# The hole this closes. The ledger covers preprint/manuscript.md; the crosswalk
+# covers paper.tex + supplement.tex; the head-line counter guard covers the
+# audit's own ratios wherever they are quoted, README included. Nothing covered
+# the README's SCIENTIFIC numbers. That gap is not hypothetical: the S018
+# dose-response was corrected on 2026-06-16 in the ledger, the crosswalk, a
+# figure, the paper, the supplement and six loci of the monograph -- and the
+# README kept printing the retracted "20 / 20 -> 2 / 20 -> 0 / 20" for SEVEN
+# WEEKS while every audit layer reported green. The README is the first thing a
+# reader of the public repository sees.
+#
+# Why this is a separate check and not extra crosswalk rows. The crosswalk
+# counts each literal across a COMBINED paper.tex + supplement.tex corpus and
+# asserts an exact total. Adding README.md to that corpus would change the
+# occurrence count of every existing row that also appears in the README, and
+# would move the crosswalk total (94) that four documents quote. A separate
+# guard with its own scope costs nothing and moves no published counter.
+#
+# What each row asserts, end to end:
+#   1. the literal is still present in README.md;
+#   2. the number as the README writes it parses to the value the ledger holds,
+#      within that ledger entry's own tolerance;
+#   3. the ledger entry itself is PASS, i.e. still re-derived from the frozen
+#      artefacts.
+# So the chain is README -> ledger -> data artefact. Editing the README breaks
+# (1); changing the data breaks (3); a silent drift between them breaks (2).
+#
+# Whitespace is normalised on both sides before matching, because README prose
+# is hard-wrapped: "worst-case from 1.826\n  -> 0.018" is one claim split
+# across two lines, and a literal match would miss it. Normalising is what lets
+# a row quote the claim as a human reads it.
+#
+# DELIBERATELY OUT OF SCOPE, recorded so the omission is not mistaken for an
+# oversight: the wall-clock figures "9-23 h" (README:31, :228) and "27-46 h"
+# (:231). No ledger anchor exists for either -- they are provenance statements
+# about how long the sweep took on given hardware, not quantities re-derived
+# from an artefact -- so there is nothing to bind them to. Anchoring them would
+# mean first creating a ledger entry with a real computed source.
+#
+# Each row: (literal as it appears in README.md, the number inside that literal
+# exactly as written, ledger claim_id, human label).
+README_SCIENCE_ANCHORS = [
+    ("Median 0.928", "0.928", "T1.08", "H1 median top-3 fraction"),
+    ("range 0.658 – 0.998", "0.658", "T1.09", "H1 top-3 range, lower end"),
+    ("range 0.658 – 0.998", "0.998", "T1.10", "H1 top-3 range, upper end"),
+    ("**5 of 24**", "5", "T1.15", "H4 Wasserstein survivors under BH-FDR"),
+    ("(p_emp = 0.022)", "0.022", "T2.bh.s2_spo2.p", "S2 SpO2 p_emp, demoted by BH"),
+    ("34 implausibly-flagged runs produce PaO2 > 600 mmHg", "34", "T1.21",
+     "F-003 runs above the 600 mmHg ceiling"),
+    ("91 % at FiO2 ≥ 0.95", "91", "T1.22", "F-003 share at FiO2 >= 0.95"),
+    ("264 / 1,280 (20.6 %)", "20.6", "T1.02a", "F-004 primary-flag rate"),
+    ("0.351 → 0.016", "0.351", "T1.03", "median Vt CV before the trigger lock"),
+    ("0.351 → 0.016", "0.016", "T1.04", "median Vt CV after the trigger lock"),
+    ("worst-case from 1.826 → 0.018", "1.826", "T1.05",
+     "worst-case Vt CV before the lock (run S1_F_0117)"),
+    ("worst-case from 1.826 → 0.018", "0.018",
+     "T1.s014.worstcase_locked_vtcv",
+     "same run after the lock -- NOT the max locked CV, which is 0.112"),
+    ("lock-below-0.05 fraction = 78.1 %", "78.1", "T1.06c.s14_frac_below",
+     "S014 fraction of reruns below the 0.05 threshold"),
+    ("**1.6 %**", "1.6", "T1.13", "overall divergence rate"),
+    ("male default 4,802.63 mL", "4,802.63", "T3.s027.bv_default",
+     "male BloodVolumeBaseline default"),
+    ("female 3,996.09 mL", "3,996.09", "T3.s028.bv_female_default",
+     "female BloodVolumeBaseline default"),
+    ("4,082.24 mL", "4,082.24", "T3.s027.bv_floor",
+     "male blood-volume floor imposed at setup"),
+]
+
+
+def check_readme_science(ledger_claims: list[Claim]) -> int:
+    """Bind the README's scientific numbers to the ledger entries behind them.
+
+    Returns the number of FAILs (0 when every anchored number is current).
+    """
+    print("\n## README science guard\n")
+
+    readme = REPO / "README.md"
+    if not readme.exists():
+        print("_WARN: README.md not found; guard skipped._\n")
+        return 0
+
+    # Collapse every run of whitespace so a hard-wrapped claim still matches.
+    text = re.sub(r"\s+", " ", readme.read_text(encoding="utf-8"))
+    by_id = {c.claim_id: c for c in ledger_claims}
+
+    rows: list[tuple[str, str, str, str]] = []
+    n_bad = 0
+    for literal, number, claim_id, what in README_SCIENCE_ANCHORS:
+        needle = re.sub(r"\s+", " ", literal)
+        claim = by_id.get(claim_id)
+
+        if number not in literal:
+            # A coding error in the table above, not a defect in the README:
+            # the row quotes a number that is not in its own literal.
+            verdict, note = "FAIL", f"table error: {number!r} absent from the row's literal"
+        elif needle not in text:
+            verdict, note = "FAIL", "literal absent from README.md -- reworded, or the claim was removed"
+        elif claim is None:
+            verdict, note = "FAIL", f"claim_id `{claim_id}` not in the ledger"
+        elif claim.status == "SKIPPED":
+            # A public clone without the gitignored raw data cannot re-derive
+            # every anchor. Not the README's fault, and not a reason to fail.
+            verdict, note = "SKIP", "ledger entry skipped (raw artefact absent)"
+        elif claim.status != "PASS":
+            verdict, note = "FAIL", f"ledger entry `{claim_id}` is {claim.status}, so this number is not re-derived"
+        else:
+            written = float(number.replace(",", ""))
+            target = claim.computed_value
+            tol = TOLERANCE[claim.tolerance_rule]
+            if target is None:
+                verdict, note = "FAIL", f"ledger entry `{claim_id}` has no computed value"
+            elif abs(written - target) <= tol + FLOAT_EPS:
+                verdict, note = "PASS", ""
+            else:
+                verdict, note = "FAIL", f"README says {number}, ledger computes {target} (tolerance {tol})"
+
+        if verdict == "FAIL":
+            n_bad += 1
+        rows.append((claim_id, what, number, verdict + (f" -- {note}" if note else "")))
+
+    print("| ledger anchor | quantity | README value | verdict |")
+    print("|---|---|---:|---|")
+    for claim_id, what, number, verdict in rows:
+        print(f"| `{claim_id}` | {what} | {number} | {verdict} |")
+    n_skip = sum(1 for r in rows if r[3].startswith("SKIP"))
+    print(
+        f"\n**README science guard:** {len(rows)} anchored, "
+        f"{len(rows) - n_bad - n_skip} PASS, {n_bad} FAIL, {n_skip} SKIPPED.\n"
+    )
+    return n_bad
+
+
+n_readme_fail = check_readme_science(claims)
+
 n_s021_conv_fail = check_s021_converged_plateau()
 
 n_counter_fail = 0
@@ -4147,7 +4284,7 @@ sys.exit(
     1
     if (
         n_fail + n_sync_fail + n_mono_fail + n_counter_fail
-        + n_s021_fail + n_s021_conv_fail
+        + n_s021_fail + n_s021_conv_fail + n_readme_fail
     ) > 0
     else 0
 )
