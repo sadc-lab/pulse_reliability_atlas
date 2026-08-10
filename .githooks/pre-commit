@@ -1,13 +1,23 @@
 #!/bin/sh
 # PulseProbe pre-commit hook.
 #
-# Two checks, in order:
+# Five steps, in order. This list was stale for months -- it announced two
+# checks while the hook ran four -- so keep it in step with the code below.
+#   0. Blocks sensitive internal review material from entering the history.
 #   1. Regenerates experiments_log/INDEX.md from frontmatter and stages the
 #      update into the current commit. Fast, idempotent, stdlib-only.
-#   2. Runs `ruff check` over the same scope as the GitHub Actions tests
+#   2. Runs the claims-ledger audit (all layers, one invocation) and blocks on
+#      any FAIL, mirroring the GitHub Actions claims-audit job.
+#   3. Runs the render check against the built PDFs, blocking on new problems
+#      only. Local-only: CI has no PDFs. Skipped when the artefacts are absent.
+#   4. Runs `ruff check` over the same scope as the GitHub Actions tests
 #      workflow (src/ scripts/ tests/ engine/) and blocks the commit if any
 #      violation remains. This catches CI-failing lint locally rather than
 #      after push.
+#
+# Steps 2 and 4 have a CI twin, so a bypass gets caught on push. Step 3 does
+# NOT: it is the only gate on the rendered artefacts, and nothing downstream
+# will catch what it misses.
 #
 # To enable this hook in a fresh clone, run once:
 #     git config core.hooksPath .githooks
@@ -108,7 +118,60 @@ if [ -n "$AUDIT_CMD" ]; then
     fi
 fi
 
-# ---- 3. Ruff lint (mirrors GitHub Actions tests workflow) -------------------
+# ---- 3. Render check (no CI equivalent -- this is the only place it runs) ---
+#
+# audit_claims.py validates the SOURCES: it counts numeric literals in the .tex
+# and .md files. It is blind to the renderer. On 2026-07-27 all its layers were
+# green while paper Figure 1 was cut off mid-diagram and its caption had fallen
+# off the page entirely -- the crosswalk faithfully counted numbers in a caption
+# that never reached the PDF.
+#
+# scripts/check_render.py was written that day to close exactly that gap, and
+# then wired NOWHERE for two weeks. This is that wiring.
+#
+# It cannot go in GitHub Actions: it reads the built PDFs, and preprint_npj/build
+# is gitignored, so CI has nothing to look at. The pre-commit hook is the only
+# place with real artefacts on disk. Consequences of that, both accepted:
+#   * it is skipped, not failed, when the PDFs or uv are absent -- a contributor
+#     without a LaTeX toolchain must still be able to commit;
+#   * it can only see the PDFs as last built. A source edited after the last
+#     build is checked against a stale artefact, so a staleness note is printed
+#     below. It is a NOTE and not a failure on purpose: a newer source mtime is
+#     not proof of a stale PDF (an edit that was applied and reverted moves the
+#     mtime and changes nothing), and blocking on it would train people to
+#     rebuild blindly to appease the hook.
+#
+# It blocks only on problems NOT in the script's documented baseline of four
+# pre-existing typographic residues. See KNOWN_RESIDUES in check_render.py for
+# why each is accepted and the rules for amending that set.
+if command -v uv >/dev/null 2>&1 && [ -f preprint_npj/build/paper.pdf ]; then
+    for src in preprint_npj/paper.tex preprint_npj/supplement.tex; do
+        pdf="preprint_npj/build/$(basename "${src%.tex}").pdf"
+        if [ -f "$pdf" ] && [ "$src" -nt "$pdf" ]; then
+            echo "pre-commit: note -- $src is newer than $pdf; the render check" >&2
+            echo "            below reads the PDF as last built, not your edit." >&2
+        fi
+    done
+    if ! uv run --with pymupdf python scripts/check_render.py; then
+        echo ""
+        echo "pre-commit: render check FAILED — commit aborted."
+        echo ""
+        echo "  Something reached the built PDF that should not have, or"
+        echo "  something declared in the source did not reach it. Only NEW"
+        echo "  problems block; the four accepted residues never do. Inspect:"
+        echo "    uv run --with pymupdf python scripts/check_render.py"
+        echo "  If the finding is a genuine, measured, harmless residue, add it"
+        echo "  to KNOWN_RESIDUES in scripts/check_render.py WITH its rationale."
+        echo "  Never add one just to make this commit pass."
+        echo ""
+        exit 1
+    fi
+else
+    echo "pre-commit: no uv, or preprint_npj/build/paper.pdf absent — skipping" >&2
+    echo "            the render check (build the PDFs to enable it)." >&2
+fi
+
+# ---- 4. Ruff lint (mirrors GitHub Actions tests workflow) -------------------
 
 # Prefer `uv run ruff` to match CI exactly; fall back to a plain `ruff`
 # binary on PATH; if neither is available, skip with a clear note rather

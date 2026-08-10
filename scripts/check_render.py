@@ -37,6 +37,44 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 # lot loses content. 5pt is under a line of body text.
 OVERFLOW_TOLERANCE_PT = 5.0
 
+# --- accepted baseline -------------------------------------------------------
+#
+# Why this exists. Until 2026-08-10 this script was wired NOWHERE -- not in
+# .githooks/pre-commit, not in .github/workflows/tests.yml -- so every guard it
+# contains was inert. The reason it could not simply be wired is right here:
+# four typographic residues have been present since long before the script was
+# written, they were each measured and deliberately kept, and a script that
+# exits 1 on them would have blocked every single commit.
+#
+# The decision on each, on the record:
+#   * `tab:limits` (paper) -- "Overfull hbox" is a warning about the box, not
+#     evidence of visible damage. The ink was measured on 2026-07-28: the table
+#     stops at 489.97pt where ordinary body text reaches 495.29pt, so it is
+#     NARROWER than the text around it. Ruled: do not touch.
+#   * the three supplement residues -- pre-existing, tracked since 2026-07-27,
+#     and re-measured identical to the fifth decimal after every editing pass
+#     since. They are the stability witness of the supplement's layout.
+#
+# HOW TO AMEND THIS SET, and the property that makes it safe. Matching is on the
+# EXACT message string, magnitude included. A residue that shifts by even one
+# unit in the fifth decimal therefore stops matching and is reported as NEW.
+# That is deliberate: "the same four warnings, unchanged to five decimals" is
+# precisely the check the repository already performs by hand after every layout
+# edit, and this makes it mechanical. So:
+#   * never widen an entry into a prefix or a regex -- that would silence the
+#     next real regression along with this one;
+#   * never add an entry to make a commit pass. An entry is added only after the
+#     residue has been measured, judged harmless, and the judgement written
+#     down, exactly as the four below were;
+#   * an entry that stops firing is reported as OBSOLETE, not silently kept:
+#     a stale baseline is how a guard goes blind.
+KNOWN_RESIDUES = frozenset({
+    "paper: overfull box, 11.89064pt too wide (tolerance 5pt)",
+    "supplement: overfull box, 19.30798pt too wide (tolerance 5pt)",
+    "supplement: float too large for page by 31.26459pt (tolerance 5pt)",
+    "supplement: float too large for page by 53.88974pt (tolerance 5pt)",
+})
+
 DOCS = [
     ("paper",      ROOT / "preprint_npj" / "paper.tex",      ROOT / "preprint_npj" / "build" / "paper.pdf",      ROOT / "preprint_npj" / "build" / "paper.log"),
     ("supplement", ROOT / "preprint_npj" / "supplement.tex", ROOT / "preprint_npj" / "build" / "supplement.pdf", ROOT / "preprint_npj" / "build" / "supplement.log"),
@@ -341,11 +379,26 @@ def main() -> int:
         print("    - " + line)
     all_problems += xp
 
+    # Split the findings against the accepted baseline. Only genuinely new
+    # problems decide the exit status; the four documented residues are
+    # reported so they stay visible, and never gate a commit.
+    new_problems = [p for p in all_problems if p not in KNOWN_RESIDUES]
+    seen_residues = {p for p in all_problems if p in KNOWN_RESIDUES}
+    obsolete = sorted(KNOWN_RESIDUES - seen_residues)
+
     print()
-    if all_problems:
-        print("RENDER CHECK FAILED: %d problem(s)" % len(all_problems))
+    print("%-11s %d present, %d obsolete (of %d accepted)"
+          % ("baseline", len(seen_residues), len(obsolete), len(KNOWN_RESIDUES)))
+    for line in obsolete:
+        print("    - OBSOLETE, no longer fires -- remove it from KNOWN_RESIDUES: " + line)
+
+    print()
+    if new_problems:
+        print("RENDER CHECK FAILED: %d new problem(s)" % len(new_problems))
+        for line in new_problems:
+            print("    - " + line)
         return 1
-    print("RENDER CHECK PASSED")
+    print("RENDER CHECK PASSED (%d accepted residues, 0 new)" % len(seen_residues))
     return 0
 
 
