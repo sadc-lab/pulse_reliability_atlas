@@ -481,9 +481,9 @@ PEEP) has been published.
 
 The corollary is operational: every Pulse user driving the engine
 from operational settings — clinical, industrial, educational — is
-operating *without a map* of where the engine is reliable, where it
-silently bends inputs out of acceptance, and which inputs dominate
-which outputs. Each user re-encounters the same limitations
+operating *without a map* of how the engine behaves across its
+operational envelope, where it silently bends inputs out of acceptance,
+and which inputs dominate which outputs. Each user re-encounters the same limitations
 independently. Each medical-device validation pipeline re-derives its
 own working envelope by trial and error.
 
