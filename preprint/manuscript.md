@@ -2202,7 +2202,8 @@ Two refinements of the literature picture:
 The atlas therefore distinguishes **two separate divergence regimes**:
 
 * **Input-driven regime** ([S006](#s006)): male reference surrogate at low HR
-  + low SBP + high RR + FiO2 = 1.0. ~ 5× higher than female.
+  + low SBP + high RR + FiO2 = 1.0. 20 divergence events on the male
+  body, versus zero across the 640 runs on the female body.
   Mechanism candidate: ~17 % blood-volume difference (§3.5, computed
   as (4 802.63 − 3 996.09) / 4 802.63 against the male default).
 * **Severity-driven regime** ([S009](#s009)): both sexes, midrange inputs,

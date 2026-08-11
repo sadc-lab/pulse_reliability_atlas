@@ -397,8 +397,8 @@ caught equally.*
   monograph_claim_id: 'T1.14b'
   expected_value: 0
   format_in_paper: '640 runs on the female reference body'
-  expected_occurrences: 1
-  notes: 'Appears once in §2.5 prose: "zero divergences across the 640 runs on the female reference body". Anchored on T1.14b (the value 0 for female divergence count); the 640 denominator is co-validated. Format updated 2026-05-30 in the surrogate -> reference body terminology change: from "640 female-surrogate" to "640 runs on the female reference body" (the natural English phrasing for the new terminology, avoiding the awkward hyphenated form "female-reference body").'
+  expected_occurrences: 2
+  notes: 'Appears once in §2.5 prose: "zero divergences across the 640 runs on the female reference body". Anchored on T1.14b (the value 0 for female divergence count); the 640 denominator is co-validated. Format updated 2026-05-30 in the surrogate -> reference body terminology change: from "640 female-surrogate" to "640 runs on the female reference body" (the natural English phrasing for the new terminology, avoiding the awkward hyphenated form "female-reference body"). Count 1 -> 2 on 2026-08-11: supplement S5 replaced the unverifiable "approximately fivefold higher ... than on the female" ratio with the measured counts, which restate the same 640-run female denominator (see audit/fivefold_divergence_ratio_defect.md).'
 
 - paper_section: '§2.5 + S018 follow-up prose (×2)'
   paper_context: 'S018 rerun sample size for BV-rescue dose-response'
@@ -461,8 +461,8 @@ caught equally.*
   monograph_claim_id: 'T3.s027.bv_default'
   expected_value: 4802.63
   format_in_paper: '4{,}802.63'
-  expected_occurrences: 6
-  notes: 'Figure 5 caption + supplement S3.6 body-dimension provenance + supplement S10 prose. Count 8 -> 6 on 2026-06-16: the S018 dose-response rewording (20->0->0) removed two "4,802.63" mentions from supplement S10.'
+  expected_occurrences: 8
+  notes: 'Figure 5 caption + supplement S3.6 body-dimension provenance + supplement S10 prose. Count 8 -> 6 on 2026-06-16: the S018 dose-response rewording (20->0->0) removed two "4,802.63" mentions from supplement S10. Count 6 -> 8 on 2026-08-11: the new S10 paragraph documenting the BloodVolumeBaseline CEILING (allometric x 1.15) adds two mentions -- the male default as the level the female reference body cannot reach, and the same default recomputed for a female-configured body at 67.3 kg.'
 
 - paper_section: 'Abstract + §2.5 prose (×2) + Figure 5 caption'
   paper_context: 'Male reference body BloodVolumeBaseline floor (Pulse setup-time minimum)'
