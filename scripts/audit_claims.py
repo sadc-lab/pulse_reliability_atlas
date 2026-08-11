@@ -4419,6 +4419,131 @@ def check_legend_lengths() -> int:
     return n_bad
 
 
+# -----------------------------------------------------------------------------
+# Sex-stratified divergence guard (2026-08-11).
+#
+# The hole this closes. The supplement and the monograph both described the
+# input-driven regime as producing "an approximately fivefold higher divergence
+# rate on the male body than on the female", while the female count in that
+# regime is ZERO -- an undefined ratio, and a direct contradiction of the main
+# paper's own "all 20 fell on the male reference body ... zero divergences".
+# The number was introduced in e736d0d with no derivation, copied into the
+# supplement by df821f3, and survived because it was anchored NOWHERE: `grep -c
+# fivefold scripts/*.py` returned 0 in every script. The step-wise fact-check
+# register did mark it green, but its contract is paper/supplement <-> monograph
+# agreement, not number <-> data: the two documents agreed with each other,
+# both carrying the same unverifiable value.
+#
+# Why the counts are recomputed rather than asserted as literals. Correcting the
+# prose once would leave exactly the same exposure the defect had: nothing would
+# re-measure it. The chain here is data -> prose. Row 1-3 rebuild the per-sex
+# divergence totals from results/cell_flag_summary.csv, so a change in the sweep
+# breaks the guard; rows 4+ require the contextualised prose that ties those
+# totals to their denominator, so an edit that drops the scope breaks it too.
+#
+# Rows 4+ deliberately require the REGIME-SCOPED form. "None occurred on the
+# female body" is false unscoped: in the severity-driven regime (supplement S5,
+# continuous-severity sweep) female divergences do occur (F = 19, M = 14). The
+# guard therefore pins the phrasing that carries its own denominator, not the
+# bare fact.
+#
+# The forbidden list scans the three MANUSCRIPT files only. The audit register
+# audit/fivefold_divergence_ratio_defect.md documents the defect and necessarily
+# quotes it; scanning that file would make the register unfileable.
+SEX_DIV_SOURCE = "results/cell_flag_summary.csv"
+SEX_DIV_EXPECTED = {"M": 20, "F": 0}
+SEX_DIV_FEMALE_RUNS = 640
+SEX_DIV_DOCS = [
+    "preprint_npj/paper.tex",
+    "preprint_npj/supplement.tex",
+    "preprint/manuscript.md",
+]
+SEX_DIV_CONTEXT = [
+    ("preprint_npj/paper.tex", "all 20 fell on the male reference body"),
+    ("preprint_npj/paper.tex",
+     "zero divergences across the 640 runs on the female reference body"),
+    ("preprint_npj/supplement.tex",
+     "20 events across the four male cells versus zero across the 640 runs"),
+    ("preprint/manuscript.md", "20 divergence events on the male"),
+]
+# Literal reintroductions, plus a narrow proximity pattern for a reworded one.
+# The pattern requires "female" within 80 characters of a fold-change token, so
+# the unrelated "200-fold" in supplement S5 does not trip it.
+# Two alternations, because the defect existed in BOTH forms and a single
+# pattern caught only one of them. The supplement wrote "fivefold"; the
+# monograph wrote "~ 5x higher than female", which contains no fold token at
+# all. Calibrating the first pattern surfaced that hole -- an uncalibrated
+# guard would have re-admitted the monograph's exact original wording.
+SEX_DIV_FORBIDDEN = ["fivefold", "five-fold"]
+SEX_DIV_FORBIDDEN_RE = re.compile(
+    r"(?:\d+|two|three|four|five|six|seven|eight|nine|ten)[-\s×]*fold"
+    r"[^.]{0,80}female"
+    r"|"
+    r"\d[\d.]*\s*[×x]\s*(?:higher|more|greater|as\s+many)[^.]{0,80}female",
+    re.IGNORECASE,
+)
+
+
+def check_sex_divergence() -> int:
+    """Bind the per-sex divergence totals to the data and to the scoped prose."""
+    print("\n## Sex-stratified divergence guard\n")
+    rows: list[tuple[str, str, str]] = []
+    n_bad = 0
+
+    flags = pd.read_csv(REPO / SEX_DIV_SOURCE)
+
+    # 1-2. per-sex divergence totals, rebuilt from the artefact
+    for sex, expected in SEX_DIV_EXPECTED.items():
+        observed = int(flags.loc[flags["sex"] == sex, "n_diverged"].sum())
+        ok = observed == expected
+        n_bad += 0 if ok else 1
+        rows.append((f"{sex} divergence total (recomputed)",
+                     f"{observed} (expected {expected})",
+                     "PASS" if ok else "**FAIL**"))
+
+    # 3. the female denominator the prose quotes
+    n_female = int(flags.loc[flags["sex"] == "F", "n_total"].sum())
+    ok = n_female == SEX_DIV_FEMALE_RUNS
+    n_bad += 0 if ok else 1
+    rows.append(("female runs (denominator in prose)",
+                 f"{n_female} (expected {SEX_DIV_FEMALE_RUNS})",
+                 "PASS" if ok else "**FAIL**"))
+
+    # 4+. the regime-scoped prose that ties the totals to that denominator
+    for rel, needle in SEX_DIV_CONTEXT:
+        path = REPO / rel
+        hits = path.read_text(encoding="utf-8").count(needle) if path.exists() else 0
+        ok = hits >= 1
+        n_bad += 0 if ok else 1
+        rows.append((f"`{rel}`", f"`{needle[:52]}...`",
+                     "PASS" if ok else "**FAIL** (absent)"))
+
+    # No fold-change against a zero denominator, in any of the three documents.
+    for rel in SEX_DIV_DOCS:
+        text = (REPO / rel).read_text(encoding="utf-8")
+        found = [lit for lit in SEX_DIV_FORBIDDEN if lit.lower() in text.lower()]
+        match = SEX_DIV_FORBIDDEN_RE.search(text)
+        if match:
+            found.append(match.group(0)[:40])
+        ok = not found
+        n_bad += 0 if ok else 1
+        rows.append((f"no male/female fold-change in `{rel}`",
+                     "none" if ok else f"**{'; '.join(found)}**",
+                     "PASS" if ok else "**FAIL**"))
+
+    print("| check | observed | verdict |")
+    print("|---|---|---|")
+    for label, observed, verdict in rows:
+        print(f"| {label} | {observed} | {verdict} |")
+    print(
+        f"\n**Sex-stratified divergence guard:** {len(rows)} checks, "
+        f"{len(rows) - n_bad} PASS, {n_bad} FAIL.\n"
+    )
+    return n_bad
+
+
+n_sexdiv_fail = check_sex_divergence()
+
 n_readme_fail = check_readme_science(claims)
 
 n_legend_fail = check_legend_lengths()
@@ -4439,6 +4564,7 @@ sys.exit(
     if (
         n_fail + n_sync_fail + n_mono_fail + n_counter_fail
         + n_s021_fail + n_s021_conv_fail + n_readme_fail + n_legend_fail
+        + n_sexdiv_fail
     ) > 0
     else 0
 )
