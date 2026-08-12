@@ -1,13 +1,44 @@
 # Preregistration ↔ implementation: the traffic-light classification rule
 
-**Opened** 2026-08-04. **Status: OPEN — nothing modified.**
+**Opened** 2026-08-04. **Status: CLOSED — recommendation adopted the same day in
+`1eaeff9` (2026-08-04 16:11 -0400), pushed to `origin/main`.** Closure header
+added 2026-08-12; the body below is the investigation as written on 2026-08-04,
+unedited apart from one dated adoption pointer appended under the §7 heading.
+§7's "for decision, not applied" framing was true when it was written and is
+kept, not rewritten.
+
 Scope: `preregistration.md` §Analysis plan item 7 versus
 `src/analysis_compare.py::reliability_classification`, and the published
 7 / 29 / 12 traffic-light distribution that follows from the latter.
 
-This dossier establishes facts and quantifies consequences. It changes no
-document, no classifier and no number. The editorial decision is stated as a
-recommendation at the end and is explicitly deferred.
+This dossier establishes facts and quantifies consequences. It changed no
+classifier and no number; the declaration it recommended was then written into
+the manuscript, the supplement and the preregistration (§7 below, and the
+adoption table here).
+
+## Adoption — what §7 asked for, and what shipped
+
+| §7 asked for | shipped | locus |
+|---|---|---|
+| deviation statement in Methods §4.5 naming D1 and D2, quoting the preregistered sentence, giving 7 / 3 / 38 | ✅ | `preprint_npj/paper.tex:390` (rendered §4.5, p. 27), plus the retention rationale at `:392` |
+| sensitivity matrix in the Supplement | ✅ | `preprint_npj/supplement.tex:337-358` → §S3.11, Table **S6** (p. 43); the three readings are rebuilt from the eight run-level `aggregated.parquet`, not from the derived table |
+| §4.5's 26-cell transition table in the Supplement | ⚠️ **partial, deliberate** | the per-cell table stayed **here** (§4.5 of this register); `supplement.tex:358` cites it rather than reproducing it |
+| append-only entry in `preregistration.md`, dated 2026-08-04, not backdated | ✅ | `preregistration.md:222-289`, filed separately from the two 2026-04-22 amendments and saying so |
+| no change to the classifier, the figure, or the 7 / 29 / 12 counts | ✅ | `results/reliability_classification.csv` still counts 7 / 29 / 12 over its 48 rows (re-counted 2026-08-12) |
+
+A sixth item was added later, on 2026-08-12: the Discussion calls the map "the
+principal deliverable" (`paper.tex:339`) twelve pages before §4.5 declares the
+deviation. A forward reference to §4.5 was added at that locus so the deviation
+cannot read as buried.
+
+> **Why this header exists.** Until 2026-08-12 the two lines above said
+> `Status: OPEN — nothing modified`, eight days after the recommendation had
+> been adopted in full. That is the second time in this repository that a stale
+> declared status caused a false report — the first was
+> `audit/figure2_reframing_diffs.md`, whose "DRAFT — NOT APPLIED" header
+> produced a wrong hand-off on 2026-08-10. **A status field is not a
+> measurement.** Nothing in `scripts/audit_claims.py` checks a register header
+> against the repository, so these headers are re-read by hand or not at all.
 
 ---
 
@@ -295,6 +326,13 @@ yellow–red boundary.*
 ---
 
 ## 7. Recommendation — for decision, not applied
+
+> **Appended 2026-08-12: this recommendation was ADOPTED on 2026-08-04 in
+> `1eaeff9`, hours after this section was written.** The heading and the text
+> below are the state at drafting time and are deliberately not rewritten; see
+> the adoption table in the closure header for what shipped and where, including
+> the one item (the 26-cell transition table) that stayed in this register
+> rather than moving to the Supplement.
 
 **Keep the implemented rule as the primary analysis, declare the deviation
 explicitly, and report the literal rule as a sensitivity analysis.**
