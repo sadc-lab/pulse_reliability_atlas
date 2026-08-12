@@ -1,6 +1,16 @@
 # S030 — in-repo replication of the ARDS severity → Berlin calibration
 
-**Status: LAUNCHED 2026-07-26, running in the background.**
+**Status: NO LONGER RUNNING.** Header corrected 2026-08-12; it read "LAUNCHED
+2026-07-26, running in the background", which has not been true for weeks.
+
+What is verified at correction time: the run produced its output artefacts —
+`results/s030_run_index.csv`, `results/s030_pf_by_arm.csv` and
+`results/s030b_analysis.csv` are present in the repository. **What is NOT
+asserted here: the scientific outcome, or whether the plan below was completed
+as written.** Neither was re-derived during the register audit that found this
+header stale, and inventing a conclusion would be worse than an out-of-date one.
+Closing this properly requires the author to read the three artefacts against
+the plan.
 Script: `scripts/run_s030_ards_berlin_recalibration.py`.
 Launched with `nohup uv run python scripts/run_s030_ards_berlin_recalibration.py`,
 log at `data/runs/s030_run.log` (stdout is buffered; follow progress by counting

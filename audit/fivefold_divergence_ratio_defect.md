@@ -1,6 +1,17 @@
 # Defect: the "~5× / fivefold" male-vs-female divergence ratio
 
-**Opened** 2026-08-11. **Status: MISMATCH recorded. Nothing modified.**
+**Opened** 2026-08-11. **Status: CLOSED — the replacements proposed in §6 were
+applied on 2026-08-11 in `24c08e7`, pushed to `origin/main`.** Closure header
+added 2026-08-12 after a repository-wide register audit found this one still
+declaring an unapplied state. Verified at closure: `fivefold` and `five-fold`
+occur **0 times** in `preprint_npj/supplement.tex` and `preprint/manuscript.md`,
+and `scripts/audit_claims.py::check_sex_divergence` (10 checks) now recomputes
+the 20 / 0 counts from `results/cell_flag_summary.csv` and forbids fold-change
+phrasings in the three manuscript files.
+
+The body below is the investigation as written on 2026-08-11, unedited apart
+from one dated adoption pointer under §6, whose heading still reads "NOT
+APPLIED"; "Nothing modified" was true of the investigation itself.
 Per the autonomy pact, a mismatch is registered and brought back for a joint
 decision; no manuscript file was touched.
 
@@ -72,6 +83,12 @@ than on the female". These are incompatible descriptions of the same regime,
 in the same submission package.
 
 ## 6. Proposed replacements — NOT APPLIED, awaiting decision
+
+> **Appended 2026-08-12: these replacements were ADOPTED on 2026-08-11 in
+> `24c08e7`.** The heading and the text below are the state at drafting time and
+> are deliberately not rewritten; see the closure header for what shipped. This
+> pointer exists because a reader landing on this section would otherwise read
+> "NOT APPLIED" — the same failure the closure header was added to fix.
 
 `supplement.tex:523`, replacing only the trailing clause and keeping the regime
 subject intact:

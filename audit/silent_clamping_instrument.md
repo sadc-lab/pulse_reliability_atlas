@@ -1,6 +1,15 @@
 # Does the atlas measure the absence of silent input clamping?
 
-**Opened** 2026-08-12. **Status: OPEN — read-only, nothing modified.**
+**Opened** 2026-08-12. **Status: PARTLY ACTED ON, same day.** The §5 wording
+defect was corrected and the H2 claims were scoped to the measured result in
+`65c1cc9`, on the basis of the measurement recorded in §6; `silently bent` now
+occurs 0 times in `preprint_npj/paper.tex`. Still open: the clamp / no-clamp
+verdict (§3, deliberately withheld) and the unmeasured runtime layer (§6.7).
+
+Header corrected 2026-08-12 — it read "OPEN — read-only, nothing modified",
+which was true when written that morning and false by the same evening. This
+register documents a drift-detection failure and drifted within twelve hours;
+that is recorded here rather than quietly fixed.
 Scope: the `clamped` flag (`src/detector.py::check_clamped`), the published
 claim `0 / 1,280`, and preregistered hypothesis H2.
 
