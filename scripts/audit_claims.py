@@ -3099,8 +3099,13 @@ _clip_agg = agg.copy()
 _clip_agg["idx"] = _clip_agg["case_id"].str.rsplit("_", n=1).str[1].astype(int)
 _clip_agg["clean"] = ~_clip_agg[_clip_flags].any(axis=1)
 _cd = _cds = _cs = _css = 0
+# Per-cell systolic counts, recorded inside the loop that already produces the
+# pooled 68 / 19. Supplement S3.7 publishes the per-cell retained counts, and a
+# pooled total cannot show that three cells retain only four pairs.
+_clip_percell: dict[str, dict[str, int]] = {}
 for _key, _cell in _clip_agg.groupby(["scenario", "sex"]):
     _ok = set(_cell[_cell["clean"]]["idx"])
+    _cell_s = _cell_ss = 0
     for _p in _clip_pairs:
         if _p["a"] in _ok and _p["b"] in _ok:
             if _p["f"] == "dbp":
@@ -3108,9 +3113,17 @@ for _key, _cell in _clip_agg.groupby(["scenario", "sex"]):
                 if abs(_p["dreq"] - _p["dapp"]) > 1e-9:
                     _cds += 1
             elif _p["f"] == "sbp":
-                _cs += 1
+                _cell_s += 1
                 if abs(_p["dapp"]) > 1e-9:
-                    _css += 1
+                    _cell_ss += 1
+    _clip_percell[f"{_key[0]}_{_key[1]}"] = {
+        "clean": _cell_s,
+        "contaminated": _cell_ss,
+        "retained": _cell_s - _cell_ss,
+    }
+    # The pooled totals stay exactly what they were: sums over the same loop.
+    _cs += _cell_s
+    _css += _cell_ss
 
 add(
     claim_id="T5.clip.clean_dbp_total",
@@ -4623,6 +4636,74 @@ def check_input_instantiation() -> int:
 
 n_inst_fail = check_input_instantiation()
 
+
+# Per-cell retention of uncontaminated systolic elementary-effect pairs
+# (Supplement S3.7). The pooled 68 / 19 was already anchored; what the pooled
+# figure cannot show is that the systolic robustness checks rest on as few as
+# four pairs in three of the eight cells, which is why S3.7 now publishes the
+# breakdown and why this guard binds it to the run-level artefact.
+CLIP_RETAINED_EXPECTED = {
+    "S1_M": 4, "S1_F": 4, "S2_M": 7, "S2_F": 6,
+    "S3_M": 10, "S3_F": 9, "S4_M": 4, "S4_F": 5,
+}
+CLIP_RETAINED_TOTAL = 49
+# The caveat is the reason the numbers were published. Numbers alone would
+# survive a rewrite that deleted it, so it is pinned too.
+CLIP_RETENTION_CAVEAT = (
+    "the systolic robustness checks below therefore rest on as few as four "
+    "elementary-effect pairs in S1\\_M, S1\\_F and S4\\_M"
+)
+
+
+def check_clip_pair_retention() -> int:
+    """Bind S3.7's per-cell uncontaminated-pair counts to the run-level data.
+
+    Derived from ``_clip_percell``, which is built in the same loop that already
+    produces the pooled 68 / 19 from ``data/runs/full_sweep/aggregated.parquet``
+    -- deliberately NOT from ``results/s032/sbp_map_dominance.csv``, which is an
+    output of the chain under audit.
+    """
+    print("\n## Clip pair-retention guard (Supplement S3.7)\n")
+    rows: list[tuple[str, str, str]] = []
+    n_bad = 0
+
+    def record(label: str, observed: object, expected: object) -> None:
+        nonlocal n_bad
+        ok = observed == expected
+        n_bad += 0 if ok else 1
+        rows.append((label, f"{observed} (expected {expected})",
+                     "PASS" if ok else "**FAIL**"))
+
+    for cell, expected in CLIP_RETAINED_EXPECTED.items():
+        record(f"{cell} uncontaminated systolic pairs",
+               _clip_percell.get(cell, {}).get("retained"), expected)
+
+    total = sum(v["retained"] for v in _clip_percell.values())
+    record("total retained across the eight cells", total, CLIP_RETAINED_TOTAL)
+    # 49 = 68 - 19, re-derived rather than restated: the guard fails if the
+    # breakdown ever stops reconciling with the two anchored pooled figures.
+    record("invariant retained = clean - contaminated", total, _cs - _css)
+
+    supp = (REPO / "preprint_npj" / "supplement.tex").read_text(encoding="utf-8")
+    present = CLIP_RETENTION_CAVEAT in supp
+    n_bad += 0 if present else 1
+    rows.append(("supplement.tex: the `as few as four` caveat",
+                 "present" if present else "ABSENT",
+                 "PASS" if present else "**FAIL**"))
+
+    print("| check | observed | verdict |")
+    print("|---|---|---|")
+    for label, observed, verdict in rows:
+        print(f"| {label} | {observed} | {verdict} |")
+    print(
+        f"\n**Clip pair-retention guard:** {len(rows)} checks, "
+        f"{len(rows) - n_bad} PASS, {n_bad} FAIL.\n"
+    )
+    return n_bad
+
+
+n_cliprt_fail = check_clip_pair_retention()
+
 n_readme_fail = check_readme_science(claims)
 
 n_legend_fail = check_legend_lengths()
@@ -4643,7 +4724,7 @@ sys.exit(
     if (
         n_fail + n_sync_fail + n_mono_fail + n_counter_fail
         + n_s021_fail + n_s021_conv_fail + n_readme_fail + n_legend_fail
-        + n_sexdiv_fail + n_inst_fail
+        + n_sexdiv_fail + n_inst_fail + n_cliprt_fail
     ) > 0
     else 0
 )
