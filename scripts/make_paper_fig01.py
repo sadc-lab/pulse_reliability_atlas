@@ -86,7 +86,23 @@ def _driver(row: pd.Series) -> str:
 # survives greyscale printing and colour-vision deficiency without the colour.
 DRIVER_COLOR = {"neither": "#ffffff", "flag_only": "#2a78d6",
                 "dev_only": "#eb6834", "both": "#4a3aa7"}
-DRIVER_GLYPH = {"neither": "", "flag_only": "F", "dev_only": "D", "both": "FD"}
+# Full words, not the codes F / D / FD / -- used until 2026-08-12. The codes
+# were only decodable from a run-on key printed above the strip, and a reader
+# reported being unable to tell what each count referred to. Nothing was ever
+# clipped by the renderer: the problem was that a code carries no meaning on
+# its own. The caption already spells the four categories out
+# ("7 neither, 23 hard flags only, 9 deviation only, 9 both"), so the key was
+# redundant with it; putting the words in the segments lets the key go and
+# makes the strip readable without the caption.
+# The widths allow it: the segments are 7 / 23 / 9 / 9 of 48 units, and the
+# tightest word ("deviation only", 14 characters at 7.5 pt) occupies about
+# three quarters of its 9-unit segment. Verified at render, not estimated.
+# Wording matches the caption VERBATIM ("7 neither, 23 hard flags only,
+# 9 deviation only, 9 both"), so the reader maps strip to caption with no
+# translation step. The blue segment is 23 of 48 units, so "hard flags only"
+# costs nothing there.
+DRIVER_LABEL = {"neither": "neither", "flag_only": "hard flags only",
+                "dev_only": "deviation only", "both": "both"}
 DRIVER_ORDER = ["neither", "flag_only", "dev_only", "both"]
 
 
@@ -150,9 +166,17 @@ def main() -> None:
         n = int(counts.get(k, 0))
         if not n:
             continue
-        axb.barh(0, n, left=left, height=0.55, color=DRIVER_COLOR[k],
+        # 0.55 -> 0.80 on 2026-08-12. At 0.55 the two-line label overflowed the
+        # bar by 1.8 px vertically -- measured, and PRE-EXISTING: matplotlib
+        # sizes a text box from font metrics, so "--\n7" and "neither\n7" have
+        # the identical 21.6 px height and the old codes overflowed by exactly
+        # the same 1.8 px. Widening the bar inside its own axes fixes it for
+        # free: 0.80 spans +/-0.40 against a ylim of +/-0.55, so the FIGURE
+        # geometry is untouched and the float budget documented above still
+        # holds. Margin at 0.80 is +2.3 px.
+        axb.barh(0, n, left=left, height=0.80, color=DRIVER_COLOR[k],
                  edgecolor="0.35", linewidth=0.6)
-        axb.text(left + n / 2, 0, f"{DRIVER_GLYPH[k] or '--'}\n{n}",
+        axb.text(left + n / 2, 0, f"{DRIVER_LABEL[k]}\n{n}",
                  ha="center", va="center", fontsize=7.5, weight="bold",
                  color="0.15" if k == "neither" else "white")
         left += n
@@ -165,10 +189,11 @@ def main() -> None:
     axb.grid(False)
     # Kept short on purpose: the caption carries the thresholds, the red-cell
     # split and the interpretive guard, so repeating them here in 7.5 pt only
-    # made the strip harder to read at print size.
+    # made the strip harder to read at print size. The category key that used
+    # to trail this line went with the codes it decoded (2026-08-12); the
+    # segments now name themselves.
     axb.set_title(
-        "(b)  Classification drivers over the 48 cells:  "
-        "F hard flags only · D deviation only · FD both · -- neither (= green)",
+        "(b)  Classification drivers over the 48 cells",
         loc="left", fontsize=8)
 
     fig.tight_layout()
