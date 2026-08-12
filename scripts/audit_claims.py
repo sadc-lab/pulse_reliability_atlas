@@ -4544,6 +4544,85 @@ def check_sex_divergence() -> int:
 
 n_sexdiv_fail = check_sex_divergence()
 
+
+# Setup-input instantiation (§2.1, §4.4, Discussion). Every number below is
+# recomputed from the run-level long artefact, never hard-coded here: the
+# expected values are the assertion, and the CSV is the measurement.
+INST_SOURCE = "results/input_instantiation_long.csv"
+INST_N_PARSED = 10_160
+INST_N_NOT_REACHED = 80
+INST_N_NOT_REACHED_RUNS = 20
+INST_VENT_CONTRACTS = 4
+# The prose these numbers live in. Pinned so a rewrite cannot quietly drop the
+# scope that makes them true.
+INST_LITERALS = [
+    "found exact agreement for all 10{,}160 input contracts that reached ingestion",
+    "The remaining 80 ventilator contracts belong to 20 runs that failed during "
+    "patient stabilisation before the ventilator action was submitted",
+]
+
+
+def check_input_instantiation() -> int:
+    """Bind the H2 instantiation claims to the artefact they were measured on.
+
+    The paper's strongest new statement is a NEGATIVE one -- no submitted input
+    was altered at ingestion -- so the guard recomputes the zero rather than
+    trusting it, and fails if any non-zero delta_setup ever appears.
+    """
+    print("\n## Setup-input instantiation guard\n")
+    rows: list[tuple[str, str, str]] = []
+    n_bad = 0
+
+    def record(label: str, observed: object, expected: object) -> None:
+        nonlocal n_bad
+        ok = observed == expected
+        n_bad += 0 if ok else 1
+        rows.append((label, f"{observed} (expected {expected})",
+                     "PASS" if ok else "**FAIL**"))
+
+    long = pd.read_csv(REPO / INST_SOURCE)
+    parsed = long[long["parse_status"] == "parsed"]
+    unparsed = long[long["parse_status"] != "parsed"]
+
+    record("contracts reaching ingestion (recomputed)",
+           len(parsed), INST_N_PARSED)
+    record("ventilator contracts NOT_REACHED (recomputed)",
+           len(unparsed), INST_N_NOT_REACHED)
+    record("distinct runs behind them (recomputed)",
+           unparsed["run_id"].nunique(), INST_N_NOT_REACHED_RUNS)
+    # Invariant: the 80 are 20 runs x the 4 ventilator contracts, nothing else.
+    record("invariant 80 = 20 x 4",
+           unparsed["run_id"].nunique() * INST_VENT_CONTRACTS,
+           INST_N_NOT_REACHED)
+    record("every NOT_REACHED row is a ventilator contract",
+           set(unparsed["source_block"]), {"vent"})
+    record("every NOT_REACHED run diverged",
+           bool(unparsed["diverged"].all()), True)
+    # The load-bearing negative claim.
+    record("non-zero delta_setup among ingested contracts",
+           int((parsed["delta_setup_abs"] != 0).sum()), 0)
+
+    paper_tex = (REPO / "preprint_npj" / "paper.tex").read_text(encoding="utf-8")
+    for literal in INST_LITERALS:
+        present = literal in paper_tex
+        n_bad += 0 if present else 1
+        rows.append((f"paper.tex: `{literal[:52]}...`",
+                     "present" if present else "ABSENT",
+                     "PASS" if present else "**FAIL**"))
+
+    print("| check | observed | verdict |")
+    print("|---|---|---|")
+    for label, observed, verdict in rows:
+        print(f"| {label} | {observed} | {verdict} |")
+    print(
+        f"\n**Setup-input instantiation guard:** {len(rows)} checks, "
+        f"{len(rows) - n_bad} PASS, {n_bad} FAIL.\n"
+    )
+    return n_bad
+
+
+n_inst_fail = check_input_instantiation()
+
 n_readme_fail = check_readme_science(claims)
 
 n_legend_fail = check_legend_lengths()
@@ -4564,7 +4643,7 @@ sys.exit(
     if (
         n_fail + n_sync_fail + n_mono_fail + n_counter_fail
         + n_s021_fail + n_s021_conv_fail + n_readme_fail + n_legend_fail
-        + n_sexdiv_fail
+        + n_sexdiv_fail + n_inst_fail
     ) > 0
     else 0
 )
