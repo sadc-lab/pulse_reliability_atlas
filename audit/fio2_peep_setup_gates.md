@@ -114,7 +114,51 @@ Repository-wide, the same behaviour, same value:
 
 ---
 
-## 3. The disclosure question — for the author, nothing modified
+## 3. The disclosure question — DECIDED AND APPLIED 2026-08-13
+
+> **Resolution.** The author chose to disclose, without touching the detector,
+> the classifications, or H2. Applied the same day:
+>
+> - **`paper.tex` §2.1** — the binary sentence was replaced by what was
+>   measured: *"the preregistered `clamped` category remained empty at setup
+>   (0 / 1,280 across every cell). Pulse does make one explicit downstream
+>   adjustment: where FiO₂ = 1.0 was requested and the ventilator action was
+>   reached, the ventilator model caps the inspired oxygen fraction at 0.9996
+>   — the ambient mixture already carries CO₂ at 4 × 10⁻⁴, so a fraction of
+>   exactly 1.0 cannot be composed — with a logged error on all 195 runs
+>   concerned (Supplement §S3.3)."*
+>   Two deliberate wording choices: **"the preregistered `clamped` category
+>   remained empty"** rather than "silent clamping never happens", because the
+>   detector reads rejection strings and cannot by itself establish an absence
+>   of substitution — the same circularity `65c1cc9` had removed from §2.2; and
+>   **"the ventilator action was reached"**, because 208 runs request
+>   FiO₂ = 1.0 while 195 reach the action.
+> - **`supplement.tex` §S3.3** (`sec:s3-clamp`, where the flag's patterns are
+>   defined) — a paragraph carrying the verbatim log line, the mechanism, the
+>   208 / 195 / 13 split, the 0.04 %, the 663.0 → 662.7 mmHg check, and the two
+>   non-consequences (no reclassification; H2 untouched).
+> - **Removed and not replaced:** *"Pulse rejects an out-of-range input loudly,
+>   with a setup error, instead of quietly bending it back into range."* The
+>   sweep submits no out-of-envelope value (§2.2 of
+>   `audit/silent_clamping_instrument.md`), so the paper cannot generalise from
+>   it; the measured setup-layer facts remain stated in §2.1's H2 passage.
+> - **Not done, by decision:** no change to `src/detector.py`, no run
+>   reclassified, `≈663 mmHg` kept (662.7 rounds to the same approximation).
+>
+> Verified after the edit: audit exit 0 (382/382 · 94/94 · 26/26); both PDFs
+> rebuilt; render-probed — `paper.pdf` p.8 carries the new sentence and
+> resolves the cross-reference to "Supplement § S3.3", the string
+> "quietly bending" appears on none of its 35 pages, the supplement paragraph
+> renders on p.7 inside §S3.3, and both LaTeX logs report zero undefined
+> references.
+>
+> **Still unguarded:** 195, 208, 13, 0.9996 and 0.04 % are now published and no
+> layer re-derives them. The register's §2.2 commands reproduce them, but that
+> is documentation, not a guard. Closing that gap needs the same treatment as
+> S030: a committed artefact plus a `check_*` in `audit_claims.py`, because the
+> logs they come from are gitignored.
+
+### The question as it was originally posed (kept)
 
 `preprint_npj/paper.tex:198` reads:
 
