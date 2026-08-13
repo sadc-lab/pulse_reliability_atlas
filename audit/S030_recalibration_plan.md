@@ -1,16 +1,57 @@
 # S030 — in-repo replication of the ARDS severity → Berlin calibration
 
-**Status: NO LONGER RUNNING.** Header corrected 2026-08-12; it read "LAUNCHED
-2026-07-26, running in the background", which has not been true for weeks.
+**Status: CLOSED (2026-08-13). The experiment ran, was analysed, and shipped.**
 
-What is verified at correction time: the run produced its output artefacts —
-`results/s030_run_index.csv`, `results/s030_pf_by_arm.csv` and
-`results/s030b_analysis.csv` are present in the repository. **What is NOT
-asserted here: the scientific outcome, or whether the plan below was completed
-as written.** Neither was re-derived during the register audit that found this
-header stale, and inventing a conclusion would be worse than an out-of-date one.
-Closing this properly requires the author to read the three artefacts against
-the plan.
+## ⚠️ Correction of this file's own 2026-08-12 header
+
+That header read, verbatim:
+
+> **What is NOT asserted here: the scientific outcome, or whether the plan below
+> was completed as written.** […] Closing this properly requires the author to
+> read the three artefacts against the plan.
+
+**That statement was false when written.** The outcome was already in this very
+file, 130 lines further down (`# RÉSULTATS (2026-07-26, 40 runs terminés)`, five
+numbered findings, then `# S030b — RÉSULTATS (16 runs terminés, 16/16)`), and
+the work had already shipped:
+
+| commit | what it did |
+|---|---|
+| `5fa148c` | launched the two-arm replication (40 runs) |
+| `63c8c65` | recorded the results: window-dependent calibration, severe band depends on patient–ventilator interaction |
+| `abd1e5f` | the 9.7 % gap was a window-definition artefact; replication exact within 2 %; variance study cancelled |
+| `3875e07`, `b38cbd1` | S030b: 16 runs, HR/RR bounds re-derived in-repo, severe-band robustness |
+| `9dc079e` | **wrote it into the manuscript**: Supplement §S2 and §S5 |
+
+The correction pass of 2026-08-12 read the top of the file, found a stale
+"running in the background" line, and declared an absence without reading on.
+It is the same failure as the "Status: DRAFT" field of
+`audit/figure2_reframing_diffs.md`, in the opposite direction: **a status field
+is not a measurement, and neither is its correction.**
+
+## Verification performed at closure (2026-08-13), read-only
+
+Plan → data → analysis, with every CSV accessed by column name:
+
+- **The five replication values match exactly.** This file's "notre [60,120]"
+  column (255.2 / 199.1 / 149.8 / 116.4 / 86.8) equals the `free`, `M` rows of
+  `results/s030_pf_by_arm.csv` at fractions 0.26 / 0.30 / 0.60 / 0.90 / 0.95.
+- **The instability band reproduces.** `status = FAILED` on exactly 10 rows:
+  fractions 0.910, 0.920, 0.930, 0.940, 0.945, in **both** arms; 0.900 and
+  0.950 completed.
+- **The 0.95 chain matches the supplement.** Free arm: P/F 86.8 → 112.8,
+  RR 30.5, Vt 418.2 mL, PaCO₂ 43.6. Locked: 69.1 → 91.8, RR 20.0, PaCO₂ 50.9.
+- **S030b is 16/16**: 8 severity rows (0.96–0.99 × 2 arms) and 8 acceptance
+  probes in `results/s030b_analysis.csv`, the probes carrying Pulse's own
+  rejection strings for HR 49/111 and RR 7/21 and acceptance for 50/110/8/20.
+- **The published tolerance is the right one.** §S5's "within 0.6 %" holds and
+  "within 0.5 %" would not: 96.6 against the companion's 96.1 is +0.52 %.
+
+**Scientifically, nothing here is open.** One traceability gap was found during
+this verification and is filed separately, because it is a provenance problem
+and not a result: three published values (256.5 / 150.5 / 96.6, at the
+companion's [108, 168] s window) and the alveolar chain of §S5 exist in no
+committed artefact. See `audit/s030_published_value_provenance.md`.
 Script: `scripts/run_s030_ards_berlin_recalibration.py`.
 Launched with `nohup uv run python scripts/run_s030_ards_berlin_recalibration.py`,
 log at `data/runs/s030_run.log` (stdout is buffered; follow progress by counting
