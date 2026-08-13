@@ -4830,9 +4830,115 @@ def check_s030_provenance() -> int:
     return n_bad
 
 
+FIO2_ADJ_SOURCE = "results/fio2_adjustment_provenance.csv"
+
+# Phrases, not bare numbers: "195" occurs 2/3/9 times across the three
+# documents, so a literal check would survive an edit to the sentence that
+# carries the finding. Matched against whitespace-normalised text, because the
+# monograph is hard-wrapped and every one of these phrases spans a line break
+# there.
+FIO2_ADJ_PHRASES: list[tuple[str, str]] = [
+    ("preprint_npj/paper.tex", "caps the inspired oxygen fraction at 0.9996"),
+    ("preprint_npj/paper.tex", "with a logged error on all 195 runs concerned"),
+    ("preprint_npj/supplement.tex",
+     "208 runs request FiO$_2$ = 1.0; 195 of them reach the ventilator action"),
+    ("preprint_npj/supplement.tex", "The adjustment is 0.04~\\%"),
+    ("preprint_npj/supplement.tex", "from 663.0 to 662.7~mmHg"),
+    ("preprint/manuscript.md",
+     "208 runs request FiO2 = 1.0; **195 reach the ventilator action and "
+     "all 195 are adjusted**"),
+    ("preprint/manuscript.md", "from 663.0 to 662.7 mmHg"),
+]
+
+
+def check_fio2_adjustment() -> int:
+    """Bind the FiO2 downstream-adjustment figures to a re-derived artefact.
+
+    195 / 208 / 13 / 0.9996 / 0.04 % entered three documents on 2026-08-13 from
+    shell one-liners over gitignored logs. ``scripts/audit_fio2_adjustment.py``
+    recomputes them into the committed artefact this guard reads. The two
+    negative facts are recomputed too, not restated: that no run requesting less
+    than FiO2 = 1.0 is ever adjusted, and that the 13 unadjusted runs at 1.0 are
+    unadjusted because they never reach the ventilator action -- they are not
+    exceptions to the mechanism, which is what the documents claim.
+
+    A missing artefact is a FAIL, never a skip.
+    """
+    print("\n## FiO2 downstream-adjustment guard (paper §2.1, Supplement S3.3, monograph §3.4)\n")
+    rows: list[tuple[str, str, str]] = []
+    n_bad = 0
+
+    def record(label: str, observed: object, ok: bool) -> None:
+        nonlocal n_bad
+        n_bad += 0 if ok else 1
+        rows.append((label, str(observed), "PASS" if ok else "**FAIL**"))
+
+    path = REPO / FIO2_ADJ_SOURCE
+    if not path.is_file():
+        record(f"artefact {FIO2_ADJ_SOURCE}", "ABSENT", False)
+        print("| check | observed | verdict |")
+        print("|---|---|---|")
+        for label, observed, verdict in rows:
+            print(f"| {label} | {observed} | {verdict} |")
+        print("\n**FiO2 adjustment guard:** 1 check, 0 PASS, 1 FAIL.\n")
+        return n_bad
+
+    df = pd.read_csv(path)
+    record("artefact rows (the full sweep)", len(df), len(df) == 1280)
+
+    at_one = df[df["requested_fio2"] == 1.0]
+    adjusted = df[df["adjusted"]]
+    missed = at_one[~at_one["adjusted"]]
+
+    record("runs requesting FiO2 = 1.0", len(at_one), len(at_one) == 208)
+    record("of those, adjusted", len(adjusted), len(adjusted) == 195)
+    record("of those, unadjusted", len(missed), len(missed) == 13)
+    record("every unadjusted one never reached the ventilator action",
+           bool((~missed["action_reached"]).all()), bool((~missed["action_reached"]).all()))
+    n_below = int((df["adjusted"] & (df["requested_fio2"] < 1.0)).sum())
+    record("runs below FiO2 = 1.0 that were adjusted", n_below, n_below == 0)
+
+    values = sorted(adjusted["adjusted_fio2"].dropna().unique())
+    record("distinct substituted values", values, len(values) == 1 and values[0] == 0.9996)
+
+    # The three derived checks below must exist whatever the artefact says: a
+    # guard whose check count shrinks when the data degrade is a guard that
+    # turns a defect into a silence. When the substituted value is not unique
+    # they FAIL rather than disappear.
+    single = values[0] if len(values) == 1 else None
+    pct = 100.0 * (1.0 - single) if single is not None else None
+    record("relative adjustment (%)",
+           "n/a (value not unique)" if pct is None else f"{pct:.4f}",
+           pct is not None and round(pct, 2) == 0.04)
+    # Alveolar ceiling re-derived, not restated: FiO2*(760-47) - 40/0.8.
+    ceil_one = 1.0 * (760.0 - 47.0) - 40.0 / 0.8
+    ceil_adj = single * (760.0 - 47.0) - 40.0 / 0.8 if single is not None else None
+    record("alveolar ceiling at FiO2 = 1.0", f"{ceil_one:.2f}", round(ceil_one, 1) == 663.0)
+    record("alveolar ceiling at the substituted value",
+           "n/a (value not unique)" if ceil_adj is None else f"{ceil_adj:.2f}",
+           ceil_adj is not None and round(ceil_adj, 1) == 662.7)
+
+    for rel, phrase in FIO2_ADJ_PHRASES:
+        text = " ".join((REPO / rel).read_text(encoding="utf-8").split())
+        present = phrase in text
+        record(f"{rel} carries `{phrase[:52]}...`", "present" if present else "ABSENT", present)
+
+    print("| check | observed | verdict |")
+    print("|---|---|---|")
+    for label, observed, verdict in rows:
+        print(f"| {label} | {observed} | {verdict} |")
+    print(
+        f"\n**FiO2 adjustment guard:** {len(rows)} checks, "
+        f"{len(rows) - n_bad} PASS, {n_bad} FAIL.\n"
+    )
+    return n_bad
+
+
 n_cliprt_fail = check_clip_pair_retention()
 
 n_s030prov_fail = check_s030_provenance()
+
+n_fio2adj_fail = check_fio2_adjustment()
 
 n_readme_fail = check_readme_science(claims)
 
@@ -4855,6 +4961,7 @@ sys.exit(
         n_fail + n_sync_fail + n_mono_fail + n_counter_fail
         + n_s021_fail + n_s021_conv_fail + n_readme_fail + n_legend_fail
         + n_sexdiv_fail + n_inst_fail + n_cliprt_fail + n_s030prov_fail
+        + n_fio2adj_fail
     ) > 0
     else 0
 )

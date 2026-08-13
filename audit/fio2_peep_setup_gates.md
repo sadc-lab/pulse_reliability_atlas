@@ -152,11 +152,36 @@ Repository-wide, the same behaviour, same value:
 > renders on p.7 inside §S3.3, and both LaTeX logs report zero undefined
 > references.
 >
-> **Still unguarded:** 195, 208, 13, 0.9996 and 0.04 % are now published and no
-> layer re-derives them. The register's §2.2 commands reproduce them, but that
-> is documentation, not a guard. Closing that gap needs the same treatment as
-> S030: a committed artefact plus a `check_*` in `audit_claims.py`, because the
-> logs they come from are gitignored.
+> **Guarded, same day.** `scripts/audit_fio2_adjustment.py` rebuilds every
+> figure from the run configs and logs into the committed artefact
+> `results/fio2_adjustment_provenance.csv` (1,280 rows: requested FiO₂, whether
+> the ventilator action was reached, whether the adjustment fired, its value),
+> and `check_fio2_adjustment()` in `scripts/audit_claims.py` binds them in
+> **17 checks**. It re-derives the two negative facts rather than restating
+> them — that no run below FiO₂ = 1.0 is ever adjusted, and that the 13
+> unadjusted runs at 1.0 are unadjusted *because they never reach the action* —
+> and it re-derives the alveolar ceiling arithmetic (663.00 and 662.71 mmHg)
+> instead of matching the printed strings. The published sentences are pinned
+> as **phrases on whitespace-normalised text**, not as bare numbers: "195"
+> occurs 2 / 3 / 9 times across the three documents, and every phrase spans a
+> line break in the hard-wrapped monograph.
+>
+> Calibrated in four directions, each injection verified independently before
+> the result was believed: a substituted value changed to 0.999 → 3 FAIL; one of
+> the 13 marked as having reached the action → FAIL; a published phrase drifted
+> by one digit (662.7 → 662.8) → FAIL; the artefact removed → FAIL, with no skip
+> path. All restorations verified by MD5 rather than by trusting the copy.
+>
+> ⚠️ **A defect in the guard itself, found by that calibration and fixed:** the
+> three derived checks (relative adjustment, both ceilings) sat inside
+> `if len(values) == 1`, so a degraded artefact made the guard report **14
+> checks instead of 17** — three checks vanishing rather than failing, the
+> "skip counted as pass" pattern. They now fail explicitly and the count is
+> constant.
+>
+> **The availability limit is unchanged:** `data/runs/full_sweep/**` is
+> gitignored, so the artefact and guard make the figures auditable in-repo, but
+> the re-derivation runs only where the logs exist.
 
 ### The question as it was originally posed (kept)
 
