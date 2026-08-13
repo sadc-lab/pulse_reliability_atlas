@@ -43,6 +43,7 @@ produced by the build, because Word cannot embed PDF figures.
   stamp *and* its generator `scripts/make_fig00_study_design.py` is absent from
   `verify.py::FIGURE_SCRIPTS`, so the gate never regenerates it. **Handled
   separately**; it is a coverage question, not a byte-drift one.
+  → **Closed 2026-08-14, second commit. See the addendum at the end.**
 
 ### What was applied
 
@@ -147,3 +148,48 @@ file as a side effect.
 Whether `pdftoppm` output is byte-reproducible across poppler versions, and
 whether the DOCX twins visibly differ at 200 vs 300 dpi. Neither is needed to
 choose; both would matter if option 2 is taken.
+
+---
+
+## ▶ Addendum, 2026-08-14 — Figure 1 enters the reproducibility gate
+
+The third defect above is closed. It needed two things settled first, both
+measured rather than assumed.
+
+**1. pdfTeX ignores `SOURCE_DATE_EPOCH`.** Unlike matplotlib, it stamps a
+wall-clock `/CreationDate` unless **`FORCE_SOURCE_DATE=1`** is also set. That is
+why this figure — a `pdflatex` generator, not a matplotlib one — could not have
+been added to the gate as it stood: `verify.py` would have been permanently
+dirty on it. With both variables set, two successive runs produce **byte-
+identical** PDFs (`db11072e…`), verified before anything was changed.
+
+**2. `pymupdf` was required but undeclared.** The generator rasterises its PNG
+twin with pymupdf and exits if it is missing, and `verify.py` runs generators
+with `sys.executable`, i.e. the declared project environment. Measured:
+`pymupdf 1.28.0` was installed in the local `.venv` while **absent from both
+`pyproject.toml` and `uv.lock` (0 occurrences)**. So the local environment had
+silently diverged from the declared one, and on a clean clone `pdf_probe.py`,
+`check_render.py` (pre-commit hook) and this generator would all have failed.
+Declaring it fixes a pre-existing defect, not just this figure's.
+
+**Applied:** `pymupdf>=1.24.0` declared and locked (the lock gained **20 lines,
+0 deletions — no other pin moved**); `FORCE_SOURCE_DATE=1` added to
+`REPRODUCIBLE_ENV`; `scripts/make_fig00_study_design.py` added to
+`FIGURE_SCRIPTS`; `fig00_study_design.pdf` replaced by its pinned build; its
+entry removed from the timestamp guard's exception list.
+
+**Nothing scientific changed, measured:** the committed and pinned PDFs
+rasterise at 300 dpi to the **same MD5** (`ce95970e…`); the only differences are
+the timestamp and the `/ID` pdfTeX derives from it, 11 bytes. The PNG twin and
+the `.tex` twin did not change at all — including across the pymupdf upgrade the
+lock brought (1.28.0 → 1.28.2), which was checked because a rasteriser version
+bump could have moved those bytes: it did not (108,325 bytes either way).
+
+**Invariants re-verified after the change:** `verify.py` run twice → byte-
+identical figure outputs and a tree carrying only the intended edits; then
+`build_npj.ps1` → tree unchanged; Figure 1 renders in `paper.pdf` p.7 with its
+caption.
+
+**One maintenance item noted, not acted on:** `make_fig00_study_design.py`,
+`pdf_probe.py` and `check_render.py` all `import fitz`, and pymupdf 1.28 warns
+that this alias will be removed. Three one-line changes, whenever convenient.

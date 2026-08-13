@@ -19,6 +19,11 @@ dependencies = [
     "streamlit>=1.38.0",
     "tqdm>=4.66.0",
     "pydantic>=2.8.0",
+    # Required by scripts/pdf_probe.py, scripts/check_render.py (pre-commit hook)
+    # and scripts/make_fig00_study_design.py. It was installed in the local
+    # .venv but declared nowhere until 2026-08-14, so a clean clone could not
+    # run the render check or regenerate the paper Figure 1.
+    "pymupdf>=1.24.0",
 ]
 
 [project.optional-dependencies]

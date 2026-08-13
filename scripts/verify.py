@@ -48,7 +48,17 @@ PY = sys.executable
 # or through `make figures`, still produces a timestamped PDF. verify.py is the
 # canonical path.
 REPRODUCIBLE_EPOCH = "1776895508"
-REPRODUCIBLE_ENV = {**os.environ, "SOURCE_DATE_EPOCH": REPRODUCIBLE_EPOCH}
+# FORCE_SOURCE_DATE is required by pdfTeX specifically: unlike matplotlib, it
+# IGNORES SOURCE_DATE_EPOCH unless this is set, and stamps a wall-clock
+# /CreationDate instead. That is what kept fig00_study_design.pdf -- a pdflatex
+# figure, not a matplotlib one -- outside this gate until 2026-08-14. Verified
+# on that date: with both variables set, two successive runs produce
+# byte-identical PDFs.
+REPRODUCIBLE_ENV = {
+    **os.environ,
+    "SOURCE_DATE_EPOCH": REPRODUCIBLE_EPOCH,
+    "FORCE_SOURCE_DATE": "1",
+}
 
 # Comments give the RENDERED figure number, resolved from build/*.aux, not the
 # filename stem. The two drift apart: fig00_study_design was inserted as
@@ -58,6 +68,13 @@ REPRODUCIBLE_ENV = {**os.environ, "SOURCE_DATE_EPOCH": REPRODUCIBLE_EPOCH}
 # Corrected 2026-08-04; every number below was read out of the .aux.
 FIGURE_SCRIPTS = [
     "scripts/make_figures.py",          # monograph figure set -> figures/
+    "scripts/make_fig00_study_design.py",  # npj Figure 1 (study-design flowchart).
+                                        # Added 2026-08-14: it was missing, so the
+                                        # gate never regenerated the paper's first
+                                        # figure. It is a pdflatex + pymupdf
+                                        # generator, which is why FORCE_SOURCE_DATE
+                                        # above and the pymupdf dependency both
+                                        # had to be settled first.
     "scripts/make_paper_fig01.py",      # npj Figure 2 (reliability traffic-light)
     "scripts/make_paper_fig02.py",      # npj Figure 3 (Morris mu* heatmaps, 6 panels)
     "scripts/make_paper_fig03.py",      # npj Figure 4 (actionable corrections)

@@ -4943,9 +4943,6 @@ FIGURE_DIRS = ("figures", "preprint_npj/figures")
 FIGURE_TIMESTAMP_EXCEPTIONS: dict[str, str] = {
     "fig_s2_spearman.pdf":
         "no generator anywhere in the repo (scripts/verify.py::MISSING_GENERATORS)",
-    "fig00_study_design.pdf":
-        "generator exists (scripts/make_fig00_study_design.py) but is absent from "
-        "verify.py::FIGURE_SCRIPTS; opened 2026-08-13, decided separately",
 }
 
 
