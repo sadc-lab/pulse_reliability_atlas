@@ -1893,7 +1893,13 @@ ingestion, and Pulse announces it too: FiO2 = 1.0 is instantiated as
 
 The preregistered hypothesis was that ≥ 5 % of the Morris sample would
 hit at least one silent clamp. **Zero runs out of 1,280 fired the
-`clamped` regex.** This is the strongest possible H2 null result.
+`clamped` regex.** That is a null result on the preregistered detector,
+bounded to the sampled acceptance envelope. The detector reads Pulse's
+setup log, so on its own it establishes the absence of an explicit
+rejection rather than the absence of a silent substitution; the direct
+setup-time evidence for the latter is the instantiation audit reported
+below, which found every submitted value preserved in what Pulse
+serialises after ingestion, on all 10,160 contracts that reached it.
 
 Two implications:
 1. Pulse's *verified* acceptance ranges (HR 50 – 110, SBP 90 – 120, DBP
