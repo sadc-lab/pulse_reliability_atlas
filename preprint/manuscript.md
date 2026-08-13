@@ -60,8 +60,10 @@ summed μ\* in their top-3 inputs (median 0.928), and the engine is
 31 of 48 cells (65 %) are CI-robustly linear (upper bootstrap CI
 < 0.6); the remaining 17 cells have either bootstrap CI straddling
 0.6 (12) or insufficient clean trajectories for a CI (5; FiO2-edge
-cells in S1 and S4_F). Pulse rejects out-of-range inputs *loudly*:
-0 of 1,280 runs fired the silent-clamping flag. Solver divergence is
+cells in S1 and S4_F). The preregistered `clamped` category stayed
+empty: 0 of 1,280 runs, and the setup rejections Pulse does perform are
+explicit; one explicit downstream adjustment (FiO2 1.0 → 0.9996, 195
+runs) is documented in §3.4. Solver divergence is
 sex-stratified — 20 of 1,280 runs (1.6 %) diverged, **all 20 male in
 the input-extreme regime** (sex-stratification is regime-dependent;
 §3.5.1). A second boundary finding (**F-003**): under the
@@ -188,12 +190,17 @@ below; this section is the exhaustive findings digest.*
   runs required against an envelope of 1,500; ready-to-fire SALib implementation
   preserved.
 
-**Silent clamping (H2) — does not happen.**
+**Silent clamping (H2) — not observed; one explicit downstream adjustment.**
 
-* **0 of 1,280** runs fired the `clamped` flag: Pulse rejects out-of-range
-  setup inputs *loudly* (`[ERROR]` + exit), never silently bending them. The
-  BP gate (SBP > 120 / DBP > 80; DBP/SBP ≤ 0.75) and HR/RR/age bands are
-  enforced at setup.
+* **0 of 1,280** runs fired the `clamped` flag: the preregistered category
+  stayed empty, and no submitted setup input was refused. The setup rejections
+  that Pulse does perform are explicit (`[ERROR]` + exit code 1, confirmed by
+  the [S005](#s005) probes); the BP gate (SBP > 120 / DBP > 80;
+  DBP/SBP ≤ 0.75) and the HR/RR/age bands are enforced at setup.
+* One adjustment does occur, downstream of ingestion and announced in the log:
+  where FiO2 = 1.0 was requested, the ventilator model caps the inspired
+  oxygen fraction at **0.9996** (195 runs; see §3.4). It is neither silent nor
+  a setup event, so it neither enters `clamped` nor bears on H2.
 
 **Sex as a reliability axis (H4).**
 
@@ -1877,10 +1884,12 @@ references. The downstream analysis pipeline is preserved in
 ### 3.4 H2 — silent clamping rate (NOT supported, 0 / 1,280)
 
 *The second hypothesis test: does Pulse silently clamp out-of-range
-inputs at setup? Answer — no, zero silent clamps across the entire
-sweep. Pulse rejects out-of-envelope inputs *loudly*, with explicit
+inputs at setup? Answer — no silent clamp was observed anywhere in the
+sweep. The setup rejections Pulse does perform are explicit, with
 `[ERROR]` log lines and exit code 1 (confirmed by the [S005](#s005)
-deliberate clamp probes).*
+deliberate clamp probes). One adjustment does occur downstream of
+ingestion, and Pulse announces it too: FiO2 = 1.0 is instantiated as
+0.9996 (see the subsection below).*
 
 The preregistered hypothesis was that ≥ 5 % of the Morris sample would
 hit at least one silent clamp. **Zero runs out of 1,280 fired the
@@ -1897,6 +1906,28 @@ Two implications:
    line and exit code 1, not a silent substitution. Rejection is loud and
    observable; users can detect it from logs alone with no special
    instrumentation.
+
+**One explicit downstream adjustment (measured 2026-08-13).** Inside the swept
+envelope Pulse does make one deterministic change to a submitted ventilator
+setting, and it announces that too. When the requested inspired-oxygen fraction
+plus the non-nitrogen ambient fractions exceeds one, the ventilator model logs
+`[ERROR] FiO2 setting + ambient fractions other than N2 is greater than 1.0.
+Setting FiO2 to max value of 0.9996.` and writes 0.9996 onto the ventilator
+compartment. The cause is compositional rather than a bound on the input:
+Pulse's ambient gas mixture carries carbon dioxide at 4 × 10⁻⁴, so an oxygen
+fraction of exactly 1.0 leaves no room for it. In the design, 208 runs request
+FiO2 = 1.0; **195 reach the ventilator action and all 195 are adjusted**, once
+each, at the moment the action is applied. The remaining 13 are not exceptions
+to the mechanism: they diverge during patient stabilisation, before the action
+is submitted. No requested FiO2 below 1.0 is affected, and the substituted value
+is identical in every affected run. The adjustment is 0.04 % in relative terms
+and moves the sea-level alveolar-gas ceiling from 663.0 to 662.7 mmHg, so the
+≈ 663 mmHg used elsewhere in this document stands. It is neither silent nor a
+setup event — the serialised ventilator action still carries FiO2 = 1.0, and
+ingestion is exact for all 10,160 contracts that reached it — so it reclassifies
+no run as `clamped` and does not bear on H2, which concerns *silent* clamping.
+Full audit trail: `audit/fio2_peep_setup_gates.md`; the same fact appears in the
+paper (§2.1) and in Supplement §S3.3.
 
 ### 3.4.1 Compensatory tachycardia: input HR ≠ output HR under hypoxemia
 
