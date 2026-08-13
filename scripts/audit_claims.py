@@ -4702,7 +4702,122 @@ def check_clip_pair_retention() -> int:
     return n_bad
 
 
+S030_PROV_SOURCE = "results/s030_published_value_provenance.csv"
+S030_PROV_TOLERANCE = 0.05
+
+# Companion anchors (Pulse_translation_new E6), transcribed in
+# audit/S030_recalibration_plan.md, behind the two published tolerance bounds.
+S030_COMPANION_PF = {0.26: 256.0, 0.30: 199.3, 0.60: 150.1, 0.90: 118.7, 0.95: 96.1}
+
+# (arm, severity, window, column, published literal, present in supplement.tex?)
+S030_PUBLISHED: list[tuple[str, float, str, str, float, bool]] = [
+    ("free", 0.26, "calibration_108_168", "pf_mmhg", 256.5, True),
+    ("free", 0.60, "calibration_108_168", "pf_mmhg", 150.5, True),
+    ("free", 0.95, "calibration_108_168", "pf_mmhg", 96.6, True),
+    ("free", 0.30, "calibration_108_168", "pf_mmhg", 199.8, False),
+    ("free", 0.90, "calibration_108_168", "pf_mmhg", 121.0, False),
+    ("free", 0.95, "atlas_60_120", "alveolar_po2_mmhg", 231.4, True),
+    ("free", 0.95, "late_240_300", "alveolar_po2_mmhg", 230.7, True),
+    ("free", 0.95, "atlas_60_120", "aa_gradient_mmhg", 196.6, True),
+    ("free", 0.95, "late_240_300", "aa_gradient_mmhg", 185.6, True),
+    ("locked", 0.95, "late_240_300", "aa_gradient_mmhg", 184.9, True),
+]
+
+
+def check_s030_provenance() -> int:
+    """Bind Supplement S5's S030 literals to a re-derived artefact.
+
+    Three of those values -- the P/F at the companion's [108, 168] s window --
+    and the whole alveolar chain existed in no committed artefact until
+    ``scripts/audit_s030_provenance.py`` was written: they had been computed ad
+    hoc and recorded in a register only. This guard reads the artefact that
+    script writes, so the published numbers stay tied to something.
+
+    Availability, stated rather than skipped: the artefact is committed, so this
+    guard is live on every clone. The raw runs it derives from
+    (``data/runs/s030_ards_berlin_recalibration``) are gitignored, so on a clone
+    without them nothing re-checks the artefact against the runs. There is no
+    SKIP path here -- a missing artefact is a FAIL, never a pass.
+    """
+    print("\n## S030 published-value provenance guard (Supplement S5)\n")
+    rows: list[tuple[str, str, str]] = []
+    n_bad = 0
+
+    def record(label: str, observed: object, ok: bool) -> None:
+        nonlocal n_bad
+        n_bad += 0 if ok else 1
+        rows.append((label, str(observed), "PASS" if ok else "**FAIL**"))
+
+    path = REPO / S030_PROV_SOURCE
+    if not path.is_file():
+        record(f"artefact {S030_PROV_SOURCE}", "ABSENT", False)
+        print("| check | observed | verdict |")
+        print("|---|---|---|")
+        for label, observed, verdict in rows:
+            print(f"| {label} | {observed} | {verdict} |")
+        print("\n**S030 provenance guard:** 1 check, 0 PASS, 1 FAIL.\n")
+        return n_bad
+
+    prov = pd.read_csv(path)
+    record("artefact rows (2 arms x 5 fractions x 3 windows)", len(prov), len(prov) == 30)
+
+    supp = (REPO / "preprint_npj" / "supplement.tex").read_text(encoding="utf-8")
+
+    def cell(arm: str, sev: float, window: str) -> pd.Series | None:
+        sel = prov[(prov["arm"] == arm) & (prov["severity"] == sev)
+                   & (prov["window"] == window)]
+        return sel.iloc[0] if len(sel) == 1 else None
+
+    for arm, sev, window, col, published, in_supp in S030_PUBLISHED:
+        row = cell(arm, sev, window)
+        if row is None:
+            record(f"{arm} {sev} {window} row", "MISSING", False)
+            continue
+        got = float(row[col])
+        ok = abs(got - published) <= S030_PROV_TOLERANCE and round(got, 1) == published
+        record(f"{arm} {sev} {window} {col} = {published}", f"{got:.4f}", ok)
+        if in_supp:
+            record(f"supplement.tex carries the literal {published}",
+                   "present" if f"{published}" in supp else "ABSENT",
+                   f"{published}" in supp)
+
+    # The effective window is part of the result: these three reproduce the
+    # published values only at 12 samples. A regenerated artefact that admits
+    # the drifted endpoint (13 samples) shifts P/F by ~0.5 mmHg and must fail.
+    for arm, sev, window in (("free", 0.95, "atlas_60_120"),
+                             ("free", 0.95, "calibration_108_168"),
+                             ("free", 0.95, "late_240_300")):
+        row = cell(arm, sev, window)
+        n = None if row is None else int(row["n_samples"])
+        record(f"{window}: samples entering the mean", n, n == 12)
+
+    def pct(sev: float) -> float:
+        row = cell("free", sev, "calibration_108_168")
+        return 100.0 * (float(row["pf_mmhg"]) - S030_COMPANION_PF[sev]) / S030_COMPANION_PF[sev]
+
+    three = max(abs(pct(s)) for s in (0.26, 0.60, 0.95))
+    five = max(abs(pct(s)) for s in S030_COMPANION_PF)
+    record("max deviation on the three published fractions <= 0.6 %",
+           f"{three:.3f} %", three <= 0.6)
+    record("max deviation across all five fractions <= 2 %", f"{five:.3f} %", five <= 2.0)
+    for phrase in ("within 0.6~\\%", "within 2~\\%"):
+        record(f"supplement.tex carries `{phrase}`",
+               "present" if phrase in supp else "ABSENT", phrase in supp)
+
+    print("| check | observed | verdict |")
+    print("|---|---|---|")
+    for label, observed, verdict in rows:
+        print(f"| {label} | {observed} | {verdict} |")
+    print(
+        f"\n**S030 provenance guard:** {len(rows)} checks, "
+        f"{len(rows) - n_bad} PASS, {n_bad} FAIL.\n"
+    )
+    return n_bad
+
+
 n_cliprt_fail = check_clip_pair_retention()
+
+n_s030prov_fail = check_s030_provenance()
 
 n_readme_fail = check_readme_science(claims)
 
@@ -4724,7 +4839,7 @@ sys.exit(
     if (
         n_fail + n_sync_fail + n_mono_fail + n_counter_fail
         + n_s021_fail + n_s021_conv_fail + n_readme_fail + n_legend_fail
-        + n_sexdiv_fail + n_inst_fail + n_cliprt_fail
+        + n_sexdiv_fail + n_inst_fail + n_cliprt_fail + n_s030prov_fail
     ) > 0
     else 0
 )
