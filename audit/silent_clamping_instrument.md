@@ -1,10 +1,18 @@
 # Does the atlas measure the absence of silent input clamping?
 
-**Opened** 2026-08-12. **Status: PARTLY ACTED ON, same day.** The §5 wording
-defect was corrected and the H2 claims were scoped to the measured result in
-`65c1cc9`, on the basis of the measurement recorded in §6; `silently bent` now
-occurs 0 times in `preprint_npj/paper.tex`. Still open: the clamp / no-clamp
-verdict (§3, deliberately withheld) and the unmeasured runtime layer (§6.7).
+**Opened** 2026-08-12. **Status: PARTLY ACTED ON (2026-08-12); §3 CLOSED
+(2026-08-13).** The §5 wording defect was corrected and the H2 claims were
+scoped to the measured result in `65c1cc9`, on the basis of the measurement
+recorded in §6; `silently bent` now occurs 0 times in `preprint_npj/paper.tex`
+(re-verified 2026-08-13). The clamp / no-clamp verdict withheld in §3 is now
+settled against the Pulse source and all 1,280 logs — **see §3.0** — and §6.7's
+second bullet, which mis-described that log line as a runtime retargeting
+posterior to ingestion, is corrected in place. Still open: the two unchecked
+questions of §7 (which flag fires on `S4_F_0042`, and whether PEEP and FiO₂ have
+undocumented setup gates). A separate finding made while verifying §3 — Pulse
+re-baselines several patient properties after stabilization — is registered on
+its own in `audit/patient_baseline_rebaselining.md`; it is not a clamp and it
+changes nothing here.
 
 Header corrected 2026-08-12 — it read "OPEN — read-only, nothing modified",
 which was true when written that morning and false by the same evening. This
@@ -128,6 +136,13 @@ after the data existed**, structurally identical to D2 in
 as the two hard flags. It should be declared in the same way and with the same
 words: a reading, offered as such, not presented as what the hypothesis said.
 
+> **Dated pointer, 2026-08-13.** The one concrete runtime candidate that gave
+> this subsection its bite — the `TidalVolume` line of §3 — is refuted (§3.0):
+> it is stabilization telemetry emitted before the ventilator action, so it was
+> never a runtime substitution of a submitted input. The general caveat above
+> survives untouched: H2's wording still does not distinguish setup from
+> runtime, and no measurement in this register covers the runtime layer.
+
 ### 2.1 The atlas wrapper does clip one input, and records it
 
 `config.json` carries an `atlas_meta` block per run, e.g. `S1_F_0000`:
@@ -145,9 +160,105 @@ so it is not confused with an engine-side clamp.
 
 ## 3. The open question: is the excluded log line "convergence" or "substitution"?
 
+> **CLOSED 2026-08-13. The answer is convergence, and reading B is *refuted*,
+> not merely unchosen.** §3.0 below establishes it from the Pulse source and
+> from all 1,280 logs. The original §3 text is kept underneath, unedited, and
+> is superseded by §3.0 — including its comparison table, which §3.0 shows to
+> be uninterpretable. The exclusion questioned here was correct.
+
+### 3.0 Closure (2026-08-13) — what the log line is, measured at the source
+
+**Emitter.** `SEDynamicStabilizationPropertyConvergence::Test()`,
+`src/cpp/cdm/engine/SEDynamicStabilizationPropertyConvergence.cpp:29-49`
+(message at `:43`), in the local `REL_4_3_2` clone. The method, in full:
+
+1. read the current value `v` of a tracked property;
+2. if `GeneralMath::PercentTolerance(m_Target, v) < m_Error`, return `true`
+   (this property has converged);
+3. otherwise emit the log line, set `m_Target = v`, return `false`.
+
+Seven facts follow, each independently checkable:
+
+1. **The line comes from the dynamic-stabilization convergence test**, not from
+   the ventilator, the respiratory driver, or any controller that acts on the
+   patient.
+2. **`m_Target` is the previous sample of the tracked property, not a
+   setpoint.** It is a protected member exposed read-only through
+   `GetCurrentTarget()` (header, same directory); a repository-wide grep for
+   `m_Target` / `GetCurrentTarget` outside this class returns no consumer — the
+   only hits are the unrelated `GetTarget*` accessors of `cdm/blackbox/`. The
+   two `friend` classes are `SEDynamicStabilizationEngineConvergence` (its
+   owner) and `PBEngine`, whose only role is (de)serialisation: it constructs
+   criteria from a data request plus a percent difference
+   (`src/cpp/cdm/io/protobuf/PBEngine.cpp:880-891`).
+3. **`Test()` modifies no physiological quantity.** Its verdict controls one
+   thing only: when stabilization terminates.
+4. **The property observed is the physiological tidal volume, before
+   intubation.** Three converging indications: the name is resolved through
+   `GetDataRequest().GetPropertyName()`; the logged values are in **litres**
+   (`0.516231` in `S3_M_0007`) whereas the atlas submits its ventilator tidal
+   volume in mL; and Pulse's own canonical construction of this criterion is
+   `CreatePropertyConvergence(drMgr.CreatePhysiologyDataRequest("TidalVolume"),
+   4.0)` (`src/cpp/howto/HowTo-RunToStable.cpp:60`). **Declared limit:** the
+   criteria actually used by the whole-body engine are deserialised from the
+   engine configuration (`PBEngine.cpp:885`), a file that is not in the source
+   clone and **was not inspected**. The three indications above are evidence,
+   not a reading of that file.
+5. **Global measurement over the sweep, 2026-08-13.** All 1,280 run logs
+   contain these lines; **none** contains one after the first `[Action]` block;
+   20 logs contain no `[Action]` block at all. Those 20 are the divergence
+   cluster already characterised in §6.4 (S1 = 4, S2 = 4, S3 = 4, S4 = 8, all
+   on the male reference body): they never reach the step. Re-derivable with:
+
+   ```bash
+   grep -rn --include=pulse.log -e "Resetting the target for TidalVolume" \
+        -e "\[Action\]" data/runs/full_sweep |
+   awk -F: '{f=$1; l=$2+0;
+             if (index($0,"[Action]")>0) {if (!(f in a)) a[f]=l}
+             else {if (l>m[f]) m[f]=l; n[f]++}}
+        END {for (f in n) {c++; if (!(f in a)) {noact++; continue};
+                           if (m[f]>a[f]) bad++}
+             print "files="c, "no_action="noact, "reset_after_action="bad}'
+   # files=1280 no_action=20 reset_after_action=0
+   ```
+
+   Read directly in `S3_M_0007`: the last such line is at Pulse-internal
+   747.7 s, followed by `We have passed required and optional convergence
+   criteria`, then the clock restarts at `[0(s)]`, and only then do the
+   intubation and `MechanicalVentilatorVolumeControl` actions appear.
+6. **The "Δ vs requested" table below is not interpretable.** It compares the
+   requested *ventilator* tidal volume with a quantity measured **before that
+   ventilator action was ever submitted** — the spontaneous tidal volume of a
+   not-yet-intubated patient during stabilization, in a different unit. This is
+   exactly the comparison §3.1 forbids ("the tracked output Vt cannot prove the
+   input was preserved"); the original §3 fell into the trap its own §3.1 had
+   set. Consequently **−9.0 %, −18.5 %, −100 % and the near-return to 300 mL
+   are evidence of nothing about substitution**: the 300.59 mL "return to
+   target" is a coincidence between a requested 300 mL and a measured
+   0.300591 L, and the 0 mL of `S4_F_0042` is a measured spontaneous tidal
+   volume of zero during severe-ARDS stabilization, not a target driven to
+   zero.
+7. **H2 needs no restriction to absorb this phenomenon.** The published
+   conclusion stands as written in `65c1cc9`; the line was never a candidate
+   silent clamp under any reading, so no interpretive narrowing of the
+   preregistered hypothesis is required — and none is made here. Nothing in
+   `paper.tex`, `supplement.tex` or `manuscript.md` was touched by this closure,
+   and no locus in any of the three mentions this log line.
+
+**What this closure does not do.** It does not revive or weaken §2.2 (H2 was
+tested on the intersection of its stated domain with Pulse's acceptance
+envelope), and it does not dissolve §2.3: bounding "silent clamp" to setup-time
+remains an interpretive decision taken after the data existed. What it removes
+is the single concrete candidate that made §2.3 bite.
+
 `Resetting the target for TidalVolume to Y, the last target value was Z`
 appears in **1,280 / 1,280 run logs** (measured: `find … -name pulse.log | wc -l`
 = 1280; `grep -rl … | wc -l` = 1280).
+
+⚠️ **The table below is superseded and uninterpretable — see §3.0, fact 6.**
+Its four measured pairs are reproducible (reset counts 14 / 84 / 100 / 152 and
+last logged values 0.300591 / 0.728167 / 0.516231 / 0 L were re-derived on
+2026-08-13); what is wrong is the comparison, not the numbers.
 
 Measured requested-versus-final-target on four sampled runs:
 
@@ -158,7 +269,9 @@ Measured requested-versus-final-target on four sampled runs:
 | S3_M_0007 | 633.3 mL | 100 | 516.23 mL | **−18.5 %** |
 | S4_F_0042 | 800.0 mL | 152 | **0 mL** | **−100 %** |
 
-Two defensible readings, and this register picks neither:
+Two defensible readings, and this register picks neither [**superseded
+2026-08-13: reading B is refuted by the source and by the log chronology; see
+§3.0**]:
 
 - **Reading A — control-loop behaviour, correctly excluded.** This is the VC-AC
   controller retargeting *during* the run, not a *setup* clamp. H2 and the
@@ -382,8 +495,14 @@ before being believed (`scratchpad/calibrate_instantiation.py`, read-only):
 - Nothing about the 20 diverged runs' ventilator inputs — but §6.5 shows those
   values were never submitted to the engine, so this is an absence of an event,
   not an unobserved one.
-- Nothing about the runtime layer: the VC-AC tidal-volume retargeting of §3 is
-  posterior to ingestion and was excluded by design.
+- Nothing about the runtime layer. ⚠️ **Corrected 2026-08-13:** this bullet
+  read "the VC-AC tidal-volume retargeting of §3 is posterior to ingestion and
+  was excluded by design". Both halves are wrong. There is no VC-AC
+  retargeting: the §3 line is a stabilization convergence log (§3.0), and it is
+  emitted *before* the ventilator action, not posterior to ingestion of it. The
+  standing limit is the one this bullet meant to state: **no measurement in
+  this register observes what the engine does with a submitted value once the
+  recorded run is under way.**
 - Nothing about values the solver may use internally downstream of the stored
   configuration. The measurement is of what Pulse *recorded as configured*.
 - Coverage is the sweep's own 4-level Morris grid per input, not a continuum,
@@ -393,10 +512,20 @@ before being believed (`scratchpad/calibrate_instantiation.py`, read-only):
 
 ## 7. Open questions carried forward
 
-1. Did the four gated inputs ever land on a value Pulse altered at setup?
-   Answerable now from §4's artefacts.
-2. Is the `TidalVolume` target reset in scope for H2? Author's call (§3).
-3. Is the S4_F_0042 reset-to-zero run flagged by another flag, and by which?
-   Not checked.
-4. Do PEEP and FiO₂ have undocumented setup gates? Not checked against
-   `SetupPatient.cpp`.
+1. ✅ **Answered** (§6.3, 2026-08-12). No: Δ_setup is exactly zero on all
+   10,160 parsed contracts.
+2. ✅ **Answered** (§3.0, 2026-08-13). The question dissolves rather than being
+   arbitrated: the line is not a target reset on a submitted input at all, so
+   it is out of scope for H2 under every reading. No author call was needed.
+3. 🔶 **Partly answered** (2026-08-13). `S4_F_0042` is **not** `diverged`:
+   `run_meta.json` records `exit_code = 0` and its `output.csv` exists, and its
+   log reaches the ventilator action (first `[Action]` at line 1761). Which of
+   the remaining flags it carries is still unread — the per-run flags live in
+   `data/runs/full_sweep/*/aggregated.parquet`, which needs the analysis stack
+   rather than a grep. Note the premise has also changed: the "reset to zero"
+   is a measured spontaneous tidal volume of zero during stabilization, so the
+   question is now about a physiological state, not about a clamp.
+4. ⬜ Do PEEP and FiO₂ have undocumented setup gates? Not checked against
+   `SetupPatient.cpp`. **This is the one remaining input-integrity question in
+   this register**, and unlike the §3 line it genuinely belongs to H2's domain:
+   a gate that modifies or refuses a submitted value is what H2 is about.
