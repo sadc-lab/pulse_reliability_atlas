@@ -52,6 +52,7 @@ import json
 import re
 import sys
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 
@@ -4934,9 +4935,100 @@ def check_fio2_adjustment() -> int:
     return n_bad
 
 
+FIGURE_DIRS = ("figures", "preprint_npj/figures")
+
+# Tracked figure PDFs that legitimately carry a wall-clock timestamp, each with
+# the reason. An entry that stops being needed is reported: a stale exception is
+# how a real defect hides.
+FIGURE_TIMESTAMP_EXCEPTIONS: dict[str, str] = {
+    "fig_s2_spearman.pdf":
+        "no generator anywhere in the repo (scripts/verify.py::MISSING_GENERATORS)",
+    "fig00_study_design.pdf":
+        "generator exists (scripts/make_fig00_study_design.py) but is absent from "
+        "verify.py::FIGURE_SCRIPTS; opened 2026-08-13, decided separately",
+}
+
+
+def check_figure_timestamps() -> int:
+    """Every regenerable tracked figure PDF must carry the pinned epoch.
+
+    ``scripts/verify.py`` regenerates the tracked figures under a fixed
+    ``SOURCE_DATE_EPOCH`` so their bytes are stable. A figure committed from a
+    manual run instead embeds a wall-clock ``/CreationDate``, which no amount of
+    re-running can reproduce, and the gate then reports a dirty tree on a file
+    nobody edited. That happened on 2026-08-06 (fixed in ``63b99da``) and again
+    on 2026-08-12 (``4e6c0b0``), because nothing checked it. This does.
+
+    The expected timestamp is *derived* from ``verify.py``'s own constant, read
+    out of its source, so the two cannot drift apart.
+    """
+    print("\n## Figure timestamp guard (pinned SOURCE_DATE_EPOCH)\n")
+    rows: list[tuple[str, str, str]] = []
+    n_bad = 0
+
+    def record(label: str, observed: object, ok: bool) -> None:
+        nonlocal n_bad
+        n_bad += 0 if ok else 1
+        rows.append((label, str(observed), "PASS" if ok else "**FAIL**"))
+
+    verify_src = (REPO / "scripts" / "verify.py").read_text(encoding="utf-8")
+    m = re.search(r'^REPRODUCIBLE_EPOCH\s*=\s*"(\d+)"', verify_src, re.M)
+    if m is None:
+        record("REPRODUCIBLE_EPOCH readable from scripts/verify.py", "NOT FOUND", False)
+        print("| check | observed | verdict |")
+        print("|---|---|---|")
+        for label, observed, verdict in rows:
+            print(f"| {label} | {observed} | {verdict} |")
+        print("\n**Figure timestamp guard:** 1 check, 0 PASS, 1 FAIL.\n")
+        return n_bad
+
+    epoch = int(m.group(1))
+    expected = datetime.fromtimestamp(epoch, tz=timezone.utc).strftime("D:%Y%m%d%H%M%SZ")
+    record(f"pinned epoch read from verify.py ({epoch})", expected, True)
+
+    date_re = re.compile(rb"/CreationDate\s*\(([^)]*)\)")
+    seen_exceptions: set[str] = set()
+    n_pdfs = 0
+    for d in FIGURE_DIRS:
+        for pdf in sorted((REPO / d).glob("*.pdf")):
+            n_pdfs += 1
+            raw = pdf.read_bytes()
+            found = date_re.search(raw)
+            stamp = found.group(1).decode("latin-1") if found else None
+            name = pdf.name
+            if name in FIGURE_TIMESTAMP_EXCEPTIONS:
+                seen_exceptions.add(name)
+                # A stale exception is a defect of its own: report it.
+                ok = stamp is None or stamp != expected
+                record(f"{d}/{name} (documented exception)",
+                       f"{stamp} -- {FIGURE_TIMESTAMP_EXCEPTIONS[name]}"
+                       if ok else f"{stamp} -- now pinned, exception is obsolete",
+                       ok)
+                continue
+            record(f"{d}/{name}", stamp if stamp else "no /CreationDate",
+                   stamp == expected)
+
+    record("tracked figure PDFs examined", n_pdfs, n_pdfs > 0)
+    missing = set(FIGURE_TIMESTAMP_EXCEPTIONS) - seen_exceptions
+    record("every documented exception still exists on disk",
+           sorted(missing) if missing else "yes", not missing)
+
+    print("| check | observed | verdict |")
+    print("|---|---|---|")
+    for label, observed, verdict in rows:
+        print(f"| {label} | {observed} | {verdict} |")
+    print(
+        f"\n**Figure timestamp guard:** {len(rows)} checks, "
+        f"{len(rows) - n_bad} PASS, {n_bad} FAIL.\n"
+    )
+    return n_bad
+
+
 n_cliprt_fail = check_clip_pair_retention()
 
 n_s030prov_fail = check_s030_provenance()
+
+n_figts_fail = check_figure_timestamps()
 
 n_fio2adj_fail = check_fio2_adjustment()
 
@@ -4960,7 +5052,7 @@ sys.exit(
     if (
         n_fail + n_sync_fail + n_mono_fail + n_counter_fail
         + n_s021_fail + n_s021_conv_fail + n_readme_fail + n_legend_fail
-        + n_sexdiv_fail + n_inst_fail + n_cliprt_fail + n_s030prov_fail
+        + n_sexdiv_fail + n_inst_fail + n_cliprt_fail + n_s030prov_fail + n_figts_fail
         + n_fio2adj_fail
     ) > 0
     else 0

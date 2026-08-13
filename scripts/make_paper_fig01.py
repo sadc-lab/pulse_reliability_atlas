@@ -198,10 +198,19 @@ def main() -> None:
 
     fig.tight_layout()
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    fig.savefig(OUT_DIR / "fig01_traffic_light.png", dpi=200, bbox_inches="tight")
+    # PDF only, deliberately. This script wrote the .png twin as well until
+    # 2026-08-13, which gave one tracked artefact two producers: this one
+    # (matplotlib, 200 dpi, RGBA) and build_npj.ps1's pdftoppm rasterisation
+    # (300 dpi, RGB). The committed bytes alternated between them four times in
+    # eight days, and the repository's two gates could not both be satisfied --
+    # verify.py regenerates through this script, the DOCX build regenerates
+    # through pdftoppm. The PDF is now the single source: scripts/tex_to_docx.py
+    # already documents the .png as a DOCX-only derivative that build_npj.ps1
+    # produces, because Word cannot embed PDF figures.
     fig.savefig(OUT_DIR / "fig01_traffic_light.pdf", bbox_inches="tight")
     plt.close(fig)
-    print(f"Wrote {(OUT_DIR / 'fig01_traffic_light.pdf').relative_to(REPO)} (+ .png)")
+    print(f"Wrote {(OUT_DIR / 'fig01_traffic_light.pdf').relative_to(REPO)} "
+          f"(the .png twin is rasterised from it by build_npj.ps1)")
 
 
 if __name__ == "__main__":
