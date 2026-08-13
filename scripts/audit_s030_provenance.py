@@ -28,18 +28,19 @@ reproducibility waits on the raw-data deposit planned with the release.
 
 Conventions, all declared before the first number was computed
 --------------------------------------------------------------
-* Window membership reproduces the producing scripts EXACTLY:
-  `df[(df.time_s >= lo) & (df.time_s <= hi)]`, with **no float slack**
-  (`scripts/analyze_s030.py:36-38`, `scripts/analyze_s030b.py:52-54`).
+* Window membership reproduces the producing scripts EXACTLY, which since
+  2026-08-13 means the atlas rule: `time_s >= lo - 1e-6` and
+  `time_s <= hi + 1e-6`, i.e. `src/detector.py::_steady_state_window`, the
+  window every published mean of the 1,280-run sweep already used
+  (`scripts/analyze_s030.py`, `scripts/analyze_s030b.py`).
   This is not cosmetic. The recorded grid drifts: a nominal t = 120 s is stored
-  as 120.0000000000557 and is therefore *excluded*, while a nominal t = 300 s
-  is stored as 299.99999999991473 and is *included*. Adding a 1e-6 slack, as a
-  first version of this script did, changes the [60, 120] mean of the free
-  0.95 run from 86.83 to 87.34 mmHg P/F. Both readings sit in the same Berlin
-  band, so no published conclusion moves; but only the no-slack form reproduces
-  the published literals, and that is what a provenance artefact must do.
-  The drift is recorded per row (`n_samples`, `t_first_s`, `t_last_s`) so the
-  effective window is visible rather than assumed.
+  as 120.0000000000557 and a nominal t = 300 s as 299.99999999991473. Without
+  the slack the first is dropped, so the same nominal window held 12 samples in
+  S030 and 13 in the main sweep, and the free 0.95 run read P/F 86.83 instead
+  of 87.34. The two conventions never disagreed on a Berlin band; they
+  disagreed on which samples "the atlas window" names. The drift is recorded
+  per row (`n_samples`, `t_first_s`, `t_last_s`) so the effective window stays
+  visible rather than assumed.
 * P/F = mean(PaO2 over the window) / FiO2, with FiO2 read per run from
   `config.json` -- never assumed.
 * Alveolar PO2 uses the repository's own alveolar-gas convention: dry
@@ -67,6 +68,7 @@ OUT = REPO / "results" / "s030_published_value_provenance.csv"
 DRY_BAROMETRIC_MMHG = 760.0 - 47.0
 RESPIRATORY_QUOTIENT = 0.8
 TOLERANCE_MMHG = 0.05
+TIME_SLACK_S = 1e-6  # src/detector.py::_steady_state_window
 
 WINDOWS: dict[str, tuple[float, float]] = {
     "atlas_60_120": (60.0, 120.0),
@@ -92,11 +94,15 @@ PUBLISHED: list[tuple[str, str, float, str, str, float]] = [
     ("supplement.tex:421,440", "free", 0.95, "calibration_108_168", "pf", 96.6),
     ("S030_recalibration_plan.md §1", "free", 0.30, "calibration_108_168", "pf", 199.8),
     ("S030_recalibration_plan.md §1", "free", 0.90, "calibration_108_168", "pf", 121.0),
-    ("supplement.tex:440", "free", 0.95, "atlas_60_120", "alveolar_po2", 231.4),
+    ("supplement.tex:440", "free", 0.95, "atlas_60_120", "alveolar_po2", 231.3),
     ("supplement.tex:440", "free", 0.95, "late_240_300", "alveolar_po2", 230.7),
-    ("supplement.tex:440", "free", 0.95, "atlas_60_120", "aa_gradient", 196.6),
-    ("supplement.tex:440", "free", 0.95, "late_240_300", "aa_gradient", 185.6),
-    ("supplement.tex:440", "locked", 0.95, "late_240_300", "aa_gradient", 184.9),
+    ("supplement.tex:440", "free", 0.95, "atlas_60_120", "aa_gradient", 196.4),
+    ("supplement.tex:440", "free", 0.95, "late_240_300", "aa_gradient", 185.7),
+    ("supplement.tex:440", "locked", 0.95, "late_240_300", "aa_gradient", 185.1),
+    ("supplement.tex:440", "free", 0.95, "atlas_60_120", "pf", 87.3),
+    ("supplement.tex:440", "free", 0.95, "late_240_300", "pf", 112.6),
+    ("supplement.tex:440", "locked", 0.95, "atlas_60_120", "pf", 69.4),
+    ("supplement.tex:440", "locked", 0.95, "late_240_300", "pf", 91.5),
 ]
 
 ARM_PREFIX = {"free": "fr", "locked": "lk"}
@@ -131,7 +137,7 @@ def measure(arm: str, sex: str, severity: float) -> list[dict[str, object]]:
     rows: list[dict[str, object]] = []
     for window, (lo, hi) in WINDOWS.items():
         # Exactly the producing scripts' comparison -- see the module docstring.
-        w = df[(df["time_s"] >= lo) & (df["time_s"] <= hi)]
+        w = df[(df["time_s"] >= lo - TIME_SLACK_S) & (df["time_s"] <= hi + TIME_SLACK_S)]
         if w.empty:
             _fail(f"{case}: window {window} contains no sample")
         pao2 = float(w["ArterialOxygenPressure"].mean())

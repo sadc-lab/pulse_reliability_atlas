@@ -52,6 +52,35 @@ this verification and is filed separately, because it is a provenance problem
 and not a result: three published values (256.5 / 150.5 / 96.6, at the
 companion's [108, 168] s window) and the alveolar chain of §S5 exist in no
 committed artefact. See `audit/s030_published_value_provenance.md`.
+
+## ⚠️ Window convention aligned, 2026-08-13 — read before quoting the tables below
+
+The `RÉSULTATS` sections below were computed with `time_s >= lo & time_s <= hi`
+and **no float slack**, which the recorded grid's drift turns into 12 samples
+per 60 s window. The 1,280-run sweep uses `src/detector.py::_steady_state_window`
+(±1e-6 slack, 13 samples) for every published mean, so the same nominal window
+named two different sample sets. `scripts/analyze_s030.py` and
+`scripts/analyze_s030b.py` were aligned to the atlas rule and both artefacts
+regenerated.
+
+**The tables below are NOT rewritten** — they are the dated record of what was
+measured then. What moved, in the atlas and late windows only:
+
+| quantity | this file's tables | after alignment |
+|---|---:|---:|
+| libre 0,95 P/F [60, 120] | 86,8 | **87,3** |
+| libre 0,95 P/F [240, 300] | 112,8 | **112,6** |
+| verrouillé 0,95 P/F [60, 120] | 69,1 | **69,4** |
+| verrouillé 0,95 P/F [240, 300] | 91,8 | **91,5** |
+| libre 0,95 RR / verrouillé PaCO₂ [240, 300] | 30,5 / 50,9 | **30,6 / 50,8** |
+| colonne « notre [60,120] » des cinq crans | 255,2 / 199,1 / 149,8 / 116,4 / 86,8 | 255,3 / 199,2 / 149,8 / 116,6 / 87,3 |
+
+**La colonne `[108, 168]` est inchangée** (256,5 / 199,8 / 150,5 / 121,0 / 96,6) :
+ses bornes tombent entre deux échantillons, donc les deux conventions admettent
+les mêmes 12 points. Inchangées aussi, toutes les conclusions des §§1–5 : la
+bande d'instabilité 0,910–0,945 dans les deux bras, le basculement du cran 0,30,
+les lectures sévère/modéré, et les bornes S030b. Avant/après complet et preuve
+du diff catégoriel : `audit/s030_published_value_provenance.md` §7.
 Script: `scripts/run_s030_ards_berlin_recalibration.py`.
 Launched with `nohup uv run python scripts/run_s030_ards_berlin_recalibration.py`,
 log at `data/runs/s030_run.log` (stdout is buffered; follow progress by counting

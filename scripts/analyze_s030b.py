@@ -49,8 +49,14 @@ def berlin(pf: float) -> str:
     return "severe"
 
 
+# See scripts/analyze_s030.py: the same slack as
+# src/detector.py::_steady_state_window, so this side experiment and the
+# 1,280-run sweep read the same samples from the same nominal window.
+TIME_SLACK_S = 1e-6
+
+
 def wmean(df: pd.DataFrame, col: str, lo: float, hi: float) -> float:
-    m = df[(df.time_s >= lo) & (df.time_s <= hi)]
+    m = df[(df.time_s >= lo - TIME_SLACK_S) & (df.time_s <= hi + TIME_SLACK_S)]
     return float(m[col].mean()) if len(m) else float("nan")
 
 

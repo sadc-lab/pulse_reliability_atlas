@@ -2,8 +2,11 @@
 
 **Opened and closed 2026-08-13.** Status: **gap closed** — the values are now
 re-derived by a committed script into a committed artefact, and a guard binds
-them to the manuscript. **No claim was changed and no manuscript file was
-touched.** One decision is left open in §7.
+them to the manuscript. The window-convention question raised in §7 was then
+**decided the same day (option B, align S030 to the atlas rule) and applied**:
+ten §S5 literals moved by at most 0.6 %, no categorical result changed, and the
+before/after table is in §7. §§1–6 below describe the state as first measured,
+under the pre-alignment convention, and are kept as written.
 
 This is a provenance dossier, not a new analysis. The science of S030 is closed
 in `audit/S030_recalibration_plan.md`.
@@ -132,7 +135,60 @@ under `data/runs/`). Consequences, exactly:
 This is an improvement in traceability, not a claim of public reproducibility,
 and it is written here so the guard's green does not imply more than it is.
 
-## 7. Open — an author decision, not applied
+## 7. Decided 2026-08-13 — option B adopted, and applied
+
+> The question below was put to the author with three options: **A** keep the
+> published values and document the difference, **B** align S030 to the
+> detector's rule, **C** keep the numbers and rewrite the sentence to name the
+> effective window. **B was chosen**, on the ground that the window is a
+> measurement primitive shared with the main sweep: `src/detector.py` defines
+> it, `src/aggregator.py` applies it to all 1,280 runs, and §S5 was calling a
+> different sample set by the same name. The original question is kept below,
+> unedited.
+
+**What the alignment did.** `TIME_SLACK_S = 1e-6` was added to
+`scripts/analyze_s030.py` and `scripts/analyze_s030b.py`, both artefacts were
+regenerated, this artefact was regenerated, and the affected §S5 literals were
+updated. Measured, before and after, with the categorical columns checked first:
+
+| §S5 literal | before (12 samples) | after (13 samples) |
+|---|---:|---:|
+| free P/F, atlas window | 86.8 | **87.3** |
+| free P/F, [240, 300] | 112.8 | **112.6** |
+| locked P/F, atlas window | 69.1 | **69.4** |
+| locked P/F, [240, 300] | 91.8 | **91.5** |
+| free alveolar PO₂, atlas window | 231.4 | **231.3** |
+| free A-a, atlas window | 196.6 | **196.4** |
+| free A-a, [240, 300] | 185.6 | **185.7** |
+| locked A-a, [240, 300] | 184.9 | **185.1** |
+| free RR, [240, 300] | 30.5 | **30.6** |
+| locked PaCO₂, [240, 300] | 50.9 | **50.8** |
+
+Unchanged, and verified so rather than assumed: **every [108, 168] value**
+(256.5 / 199.8 / 150.5 / 121.0 / 96.6 — its bounds are off-grid, so the slack
+admits the same 12 samples), the two tolerance bounds (0.519 % and 1.910 %),
+free PaCO₂ 43.6, free Vt 418 mL and locked RR 20.0 (their printed forms do not
+move), and `paper.tex` and `manuscript.md`, which carry none of these literals.
+
+**Nothing categorical moved.** A cell-by-cell diff of the two regenerated
+artefacts found **239 changed numeric cells in `s030_pf_by_arm.csv` and 50 in
+`s030b_analysis.csv`, and zero changes in any `band`, `status`, `outcome`,
+`probe` or `value` column.** Every Berlin assignment, the severe/moderate
+readings of §S5, the 0.30 mild-at-300 s finding (P/F 199.2 at [60, 120] against
+200.4 at [240, 300], still straddling the 200 threshold) and the HR/RR
+acceptance verdicts are identical. The four probe `measured` values shifted in
+the third digit (46.29 → 46.27, 99.55 → 99.53, 10.44 → 10.47, 22.53 → 22.54)
+and appear in no document.
+
+**Guard re-calibrated after the change, in both directions.** 34 checks pass on
+the aligned artefact; injecting the *old* convention into the free 0.95 atlas
+row (12 samples, P/F 86.8331, alveolar 231.3504, gradient 196.6171) returns
+exit 1 with 4 FAIL. That injection had to be redone once: `awk` had silently
+truncated 231.3504 to 231.35 through `CONVFMT`, which slipped under the 0.05
+tolerance, so the first attempt did not exercise the check it appeared to.
+Verified faithfully the second time before trusting the result.
+
+### The question as it was originally posed (kept)
 
 Should `scripts/analyze_s030.py` and `scripts/analyze_s030b.py` adopt the
 detector's ±1e-6 slack, so that "the atlas window" means the same sample set

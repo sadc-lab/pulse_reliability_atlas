@@ -33,8 +33,17 @@ def berlin(pf: float) -> str:
     return "severe"
 
 
+# Matches src/detector.py::_steady_state_window, which is what the 1,280-run
+# sweep uses for every published steady-state mean. Without this slack the
+# recorded grid's float drift silently excludes the nominal upper endpoint
+# (t = 120 s is stored as 120.0000000000557), so the same nominal window held
+# 12 samples here and 13 in the main sweep. Aligned 2026-08-13; the numeric
+# consequence is documented in audit/s030_published_value_provenance.md §4.
+TIME_SLACK_S = 1e-6
+
+
 def window_mean(df: pd.DataFrame, col: str, lo: float, hi: float) -> float:
-    m = df[(df.time_s >= lo) & (df.time_s <= hi)]
+    m = df[(df.time_s >= lo - TIME_SLACK_S) & (df.time_s <= hi + TIME_SLACK_S)]
     return float(m[col].mean()) if len(m) else float("nan")
 
 

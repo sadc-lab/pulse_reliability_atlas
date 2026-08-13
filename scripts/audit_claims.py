@@ -4709,18 +4709,32 @@ S030_PROV_TOLERANCE = 0.05
 # audit/S030_recalibration_plan.md, behind the two published tolerance bounds.
 S030_COMPANION_PF = {0.26: 256.0, 0.30: 199.3, 0.60: 150.1, 0.90: 118.7, 0.95: 96.1}
 
-# (arm, severity, window, column, published literal, present in supplement.tex?)
-S030_PUBLISHED: list[tuple[str, float, str, str, float, bool]] = [
-    ("free", 0.26, "calibration_108_168", "pf_mmhg", 256.5, True),
-    ("free", 0.60, "calibration_108_168", "pf_mmhg", 150.5, True),
-    ("free", 0.95, "calibration_108_168", "pf_mmhg", 96.6, True),
-    ("free", 0.30, "calibration_108_168", "pf_mmhg", 199.8, False),
-    ("free", 0.90, "calibration_108_168", "pf_mmhg", 121.0, False),
-    ("free", 0.95, "atlas_60_120", "alveolar_po2_mmhg", 231.4, True),
-    ("free", 0.95, "late_240_300", "alveolar_po2_mmhg", 230.7, True),
-    ("free", 0.95, "atlas_60_120", "aa_gradient_mmhg", 196.6, True),
-    ("free", 0.95, "late_240_300", "aa_gradient_mmhg", 185.6, True),
-    ("locked", 0.95, "late_240_300", "aa_gradient_mmhg", 184.9, True),
+# (arm, severity, window, column, published literal, phrase pinned in
+# supplement.tex or None). The phrase, not the bare number, is what is looked
+# for: "87.3" also occurs elsewhere in the supplement, so a bare-literal check
+# would survive an edit that changed this sentence's value.
+S030_PUBLISHED: list[tuple[str, float, str, str, float, str | None]] = [
+    ("free", 0.26, "calibration_108_168", "pf_mmhg", 256.5, "0.26 $\\to$ 256.5"),
+    ("free", 0.60, "calibration_108_168", "pf_mmhg", 150.5, "0.60 $\\to$ 150.5"),
+    ("free", 0.95, "calibration_108_168", "pf_mmhg", 96.6, "0.95 $\\to$ 96.6~mmHg"),
+    ("free", 0.30, "calibration_108_168", "pf_mmhg", 199.8, None),
+    ("free", 0.90, "calibration_108_168", "pf_mmhg", 121.0, None),
+    ("free", 0.95, "atlas_60_120", "alveolar_po2_mmhg", 231.3,
+     "(231.3 to 230.7~mmHg)"),
+    ("free", 0.95, "late_240_300", "alveolar_po2_mmhg", 230.7,
+     "(231.3 to 230.7~mmHg)"),
+    ("free", 0.95, "atlas_60_120", "aa_gradient_mmhg", 196.4,
+     "narrows from 196.4 to 185.7~mmHg"),
+    ("free", 0.95, "late_240_300", "aa_gradient_mmhg", 185.7,
+     "narrows from 196.4 to 185.7~mmHg"),
+    ("locked", 0.95, "late_240_300", "aa_gradient_mmhg", 185.1,
+     "(185.7 against 185.1~mmHg)"),
+    ("free", 0.95, "atlas_60_120", "pf_mmhg", 87.3,
+     "P/F is 87.3~mmHg over the atlas window"),
+    ("free", 0.95, "late_240_300", "pf_mmhg", 112.6,
+     "and 112.6~mmHg over [240, 300]~s"),
+    ("locked", 0.95, "atlas_60_120", "pf_mmhg", 69.4, "(87.3 and 69.4~mmHg)"),
+    ("locked", 0.95, "late_240_300", "pf_mmhg", 91.5, "P/F falls to 91.5~mmHg"),
 ]
 
 
@@ -4768,7 +4782,7 @@ def check_s030_provenance() -> int:
                    & (prov["window"] == window)]
         return sel.iloc[0] if len(sel) == 1 else None
 
-    for arm, sev, window, col, published, in_supp in S030_PUBLISHED:
+    for arm, sev, window, col, published, phrase in S030_PUBLISHED:
         row = cell(arm, sev, window)
         if row is None:
             record(f"{arm} {sev} {window} row", "MISSING", False)
@@ -4776,20 +4790,21 @@ def check_s030_provenance() -> int:
         got = float(row[col])
         ok = abs(got - published) <= S030_PROV_TOLERANCE and round(got, 1) == published
         record(f"{arm} {sev} {window} {col} = {published}", f"{got:.4f}", ok)
-        if in_supp:
-            record(f"supplement.tex carries the literal {published}",
-                   "present" if f"{published}" in supp else "ABSENT",
-                   f"{published}" in supp)
+        if phrase is not None:
+            record(f"supplement.tex carries `{phrase}`",
+                   "present" if phrase in supp else "ABSENT", phrase in supp)
 
-    # The effective window is part of the result: these three reproduce the
-    # published values only at 12 samples. A regenerated artefact that admits
-    # the drifted endpoint (13 samples) shifts P/F by ~0.5 mmHg and must fail.
-    for arm, sev, window in (("free", 0.95, "atlas_60_120"),
-                             ("free", 0.95, "calibration_108_168"),
-                             ("free", 0.95, "late_240_300")):
+    # The effective window is part of the result. Since 2026-08-13 S030 uses the
+    # atlas rule (src/detector.py::_steady_state_window, 1e-6 slack), which
+    # admits the drifted endpoints: 13 samples on the two windows whose bounds
+    # sit on the 5 s grid, 12 on [108, 168] whose bounds do not. Reverting to
+    # the slack-free comparison shifts P/F by ~0.5 mmHg and must fail here.
+    for arm, sev, window, expected_n in (("free", 0.95, "atlas_60_120", 13),
+                                         ("free", 0.95, "calibration_108_168", 12),
+                                         ("free", 0.95, "late_240_300", 13)):
         row = cell(arm, sev, window)
         n = None if row is None else int(row["n_samples"])
-        record(f"{window}: samples entering the mean", n, n == 12)
+        record(f"{window}: samples entering the mean", n, n == expected_n)
 
     def pct(sev: float) -> float:
         row = cell("free", sev, "calibration_108_168")

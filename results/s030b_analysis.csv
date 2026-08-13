@@ -1,17 +1,17 @@
 arm,severity,status,exit_code,PaO2_60_120,PF_60_120,band_60_120,PaO2_108_168,PF_108_168,band_108_168,PaO2_240_300,PF_240_300,band_240_300,RR_meas,Vt_meas,PaCO2,SpO2,probe,value,csv_written,outcome,errors,measured
-free,0.96,ok,0,30.9,77.4,severe,34.4,85.9,severe,41.9,104.8,moderate,31.5,417.9,43.6,0.812,,,,,,
-free,0.97,ok,0,28.0,70.1,severe,30.8,77.0,severe,37.7,94.3,severe,32.6,417.4,43.7,0.765,,,,,,
-free,0.98,ok,0,25.5,63.9,severe,27.7,69.3,severe,33.2,83.1,severe,33.5,416.7,43.7,0.698,,,,,,
-free,0.99,ok,0,23.3,58.4,severe,25.0,62.6,severe,29.2,72.9,severe,34.3,416.6,43.7,0.62,,,,,,
-locked,0.96,ok,0,25.7,64.2,severe,27.8,69.6,severe,33.9,84.6,severe,21.2,406.5,50.0,0.678,,,,,,
-locked,0.97,ok,0,23.9,59.6,severe,25.8,64.4,severe,30.9,77.1,severe,22.3,406.8,49.1,0.626,,,,,,
-locked,0.98,ok,0,21.9,54.8,severe,23.6,59.0,severe,27.8,69.5,severe,23.6,406.6,48.1,0.563,,,,,,
-locked,0.99,ok,0,20.1,50.1,severe,21.4,53.5,severe,24.7,61.7,severe,21.3,407.0,52.5,0.46,,,,,,
+free,0.96,ok,0,31.1,77.8,severe,34.4,85.9,severe,41.8,104.5,moderate,31.6,417.9,43.6,0.811,,,,,,
+free,0.97,ok,0,28.2,70.4,severe,30.8,77.0,severe,37.6,94.0,severe,32.6,417.3,43.7,0.763,,,,,,
+free,0.98,ok,0,25.7,64.1,severe,27.7,69.3,severe,33.1,82.8,severe,33.5,416.7,43.7,0.696,,,,,,
+free,0.99,ok,0,23.4,58.6,severe,25.0,62.6,severe,29.1,72.7,severe,34.3,416.6,43.7,0.618,,,,,,
+locked,0.96,ok,0,25.8,64.5,severe,27.8,69.6,severe,33.7,84.4,severe,21.2,406.5,50.0,0.676,,,,,,
+locked,0.97,ok,0,24.0,59.9,severe,25.8,64.4,severe,30.8,76.9,severe,22.3,406.8,49.0,0.624,,,,,,
+locked,0.98,ok,0,22.0,55.1,severe,23.6,59.0,severe,27.7,69.3,severe,23.5,406.7,48.0,0.561,,,,,,
+locked,0.99,ok,0,20.1,50.3,severe,21.4,53.5,severe,24.6,61.5,severe,21.3,407.0,52.4,0.459,,,,,,
 ,,,1,,,,,,,,,,,,,,HR,49.0,False,REJECTED,[ERROR] [0(s)] Unable to find substance directory : ./ || [ERROR] [0(s)] Patient heart rate baseline of 49 is too low. Minimum heart rate baseline allowed is 50 bpm.,
-,,,0,,,,,,,,,,,,,,HR,50.0,True,ACCEPTED,[ERROR] [0(s)] Unable to find substance directory : ./,46.29
-,,,0,,,,,,,,,,,,,,HR,110.0,True,ACCEPTED,[ERROR] [0(s)] Unable to find substance directory : ./,99.55
+,,,0,,,,,,,,,,,,,,HR,50.0,True,ACCEPTED,[ERROR] [0(s)] Unable to find substance directory : ./,46.27
+,,,0,,,,,,,,,,,,,,HR,110.0,True,ACCEPTED,[ERROR] [0(s)] Unable to find substance directory : ./,99.53
 ,,,1,,,,,,,,,,,,,,HR,111.0,False,REJECTED,[ERROR] [0(s)] Unable to find substance directory : ./ || [ERROR] [0(s)] Patient heart rate baseline of 111 bpm is too high. Maximum heart rate baseline allowed is 110 bpm.,
 ,,,1,,,,,,,,,,,,,,RR,7.0,False,REJECTED,[ERROR] [0(s)] Unable to find substance directory : ./ || [ERROR] [0(s)] Patient respiration rate baseline of 7 bpm is too low. Non-healthy values must be modeled by adding/using a condition. Minimum respiration rate baseline allowed is 8 bpm.,
-,,,0,,,,,,,,,,,,,,RR,8.0,True,ACCEPTED,[ERROR] [0(s)] Unable to find substance directory : ./,10.44
-,,,0,,,,,,,,,,,,,,RR,20.0,True,ACCEPTED,[ERROR] [0(s)] Unable to find substance directory : ./,22.53
+,,,0,,,,,,,,,,,,,,RR,8.0,True,ACCEPTED,[ERROR] [0(s)] Unable to find substance directory : ./,10.47
+,,,0,,,,,,,,,,,,,,RR,20.0,True,ACCEPTED,[ERROR] [0(s)] Unable to find substance directory : ./,22.54
 ,,,1,,,,,,,,,,,,,,RR,21.0,False,REJECTED,[ERROR] [0(s)] Unable to find substance directory : ./ || [ERROR] [0(s)] Patient respiration rate baseline of 21 bpm is too high. Non-healthy values must be modeled by adding/using a condition. Maximum respiration rate baseline allowed is 20 bpm.,
