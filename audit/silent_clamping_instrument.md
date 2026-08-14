@@ -1,18 +1,30 @@
 # Does the atlas measure the absence of silent input clamping?
 
-**Opened** 2026-08-12. **Status: PARTLY ACTED ON (2026-08-12); §3 CLOSED
-(2026-08-13).** The §5 wording defect was corrected and the H2 claims were
+**Opened** 2026-08-12. **Status: CLOSED 2026-08-14 — all four questions of §7
+are answered, and every finding either shipped or is registered elsewhere.**
+
+The route, in order: the §5 wording defect was corrected and the H2 claims were
 scoped to the measured result in `65c1cc9`, on the basis of the measurement
-recorded in §6; `silently bent` now occurs 0 times in `preprint_npj/paper.tex`
-(re-verified 2026-08-13). The clamp / no-clamp verdict withheld in §3 is now
-settled against the Pulse source and all 1,280 logs — **see §3.0** — and §6.7's
-second bullet, which mis-described that log line as a runtime retargeting
-posterior to ingestion, is corrected in place. Still open: the two unchecked
-questions of §7 (which flag fires on `S4_F_0042`, and whether PEEP and FiO₂ have
-undocumented setup gates). A separate finding made while verifying §3 — Pulse
-re-baselines several patient properties after stabilization — is registered on
-its own in `audit/patient_baseline_rebaselining.md`; it is not a clamp and it
-changes nothing here.
+recorded in §6 — `silently bent` now occurs 0 times in `preprint_npj/paper.tex`.
+The clamp / no-clamp verdict withheld in §3 was then settled against the Pulse
+source and all 1,280 logs (**§3.0**, `c30dbcb`), and §6.7's second bullet, which
+mis-described that log line as a runtime retargeting posterior to ingestion, was
+corrected in place. §7's remaining two questions closed last: the PEEP / FiO₂
+gate audit (`e1fcbd4`, own register) and the flag carried by `S4_F_0042`
+(§7.3, from committed artefacts).
+
+**The one finding that reached the manuscript** came out of that gate audit:
+Pulse instantiates a submitted FiO₂ of 1.0 as 0.9996 on 195 published runs,
+announced in the log. It is disclosed in the paper (§2.1), the supplement
+(§S3.3) and the monograph (§3.4), and guarded by `check_fio2_adjustment()`.
+
+Two findings are registered elsewhere rather than here, because they are
+different questions: Pulse's post-stabilization re-baselining of patient
+properties (`audit/patient_baseline_rebaselining.md`) and the PEEP / FiO₂ gate
+chain (`audit/fio2_peep_setup_gates.md`). Neither is a clamp.
+
+**What this register never covered, and does not claim:** Pulse's behaviour for
+values outside the sampled acceptance envelope. The sweep submits none.
 
 Header corrected 2026-08-12 — it read "OPEN — read-only, nothing modified",
 which was true when written that morning and false by the same evening. This
@@ -21,7 +33,14 @@ that is recorded here rather than quietly fixed.
 Scope: the `clamped` flag (`src/detector.py::check_clamped`), the published
 claim `0 / 1,280`, and preregistered hypothesis H2.
 
-Loci under audit:
+Loci under audit. ⚠️ **The quotes below are the text as it stood on
+2026-08-12, when this register was opened — they are a dated record, not the
+current manuscript.** Every one of the four has since been rewritten, and the
+attribution was checked with `git log -S` rather than assumed: **`:169`, `:343`
+and `:371` in `65c1cc9`**, **`:202` in `37f12b6`**. None of the four quoted
+strings — "silently bent", "silent input clamping never occurs", "No run was
+silently clamped", "loudly or not at all" — occurs in `preprint_npj/paper.tex`
+any more. Read the documents, not this table, for current wording.
 
 | document | locus | text |
 |---|---|---|
@@ -517,15 +536,42 @@ before being believed (`scratchpad/calibrate_instantiation.py`, read-only):
 2. ✅ **Answered** (§3.0, 2026-08-13). The question dissolves rather than being
    arbitrated: the line is not a target reset on a submitted input at all, so
    it is out of scope for H2 under every reading. No author call was needed.
-3. 🔶 **Partly answered** (2026-08-13). `S4_F_0042` is **not** `diverged`:
-   `run_meta.json` records `exit_code = 0` and its `output.csv` exists, and its
-   log reaches the ventilator action (first `[Action]` at line 1761). Which of
-   the remaining flags it carries is still unread — the per-run flags live in
-   `data/runs/full_sweep/*/aggregated.parquet`, which needs the analysis stack
-   rather than a grep. Note the premise has also changed: the "reset to zero"
-   is a measured spontaneous tidal volume of zero during stabilization, so the
-   question is now about a physiological state, not about a clamp.
-4. ⬜ Do PEEP and FiO₂ have undocumented setup gates? Not checked against
-   `SetupPatient.cpp`. **This is the one remaining input-integrity question in
-   this register**, and unlike the §3 line it genuinely belongs to H2's domain:
-   a gate that modifies or refuses a submitted value is what H2 is about.
+3. ✅ **Answered 2026-08-14 — `implausible`, on the low side.** Two committed
+   artefacts settle it without the parquet and without ad hoc code:
+
+   | flag | verdict | evidence |
+   |---|---|---|
+   | `clamped` | no | 0 / 1,280 across the sweep |
+   | `diverged` | **no** | `results/divergence_timeline.csv`: `diverged=False`, `exit_code=0`, last stage reached `airway_switched` (8 of 8), and `fail_no_convergence`, `fail_no_stabilisation_criteria`, `fail_wrapper_stabilise_error` all False |
+   | `implausible` | **yes** | `results/f003_physiological_reclassification.csv`: `implausible_locked=True`, steady-state mean **PaO₂ = 12.81 mmHg** against the locked lower bound of **20 mmHg** (`src/detector.py:59`) |
+   | `not_steady_state` | undetermined | not carried by any committed artefact; it would need the per-run `aggregated.parquet` |
+
+   The flag fires on the **low** side, not the hyperoxia side:
+   `pao2_above_locked_bound = False`. The context explains it and makes it
+   expected rather than anomalous — this run is ARDS severity 0.95 on **room
+   air** (`in_fio2 = 0.21`). A steady-state PaO₂ of 12.8 mmHg is below mixed
+   venous PO₂ and incompatible with life, which is exactly what the
+   `implausible` flag exists to catch, and it coheres with the ~0 mL
+   spontaneous tidal volume measured on this run during stabilization.
+   The premise of the original question had already changed: the "reset to
+   zero" was a measured spontaneous tidal volume, not a target driven to zero
+   (§3.0).
+4. ✅ **Answered 2026-08-13** in `audit/fio2_peep_setup_gates.md` (`e1fcbd4`),
+   which followed each input from the Morris value to the value the engine runs
+   with. **PEEP: no gate at any layer** — copied verbatim from action to
+   settings to driver pressure, no range on its type, and zero PEEP-related
+   lines in the 1,280 logs; the only pressure limit is the relief valve at
+   1000 cmH₂O, fifty times the swept maximum. **FiO₂: two gates.** The type gate
+   (`SEScalar0To1::SetValue` throws outside [0,1]) is never approached. The
+   second one fires: on **195 of the 1,280 runs** the ventilator model logs an
+   `[ERROR]` and instantiates FiO₂ = 1.0 as **0.9996**, because the ambient
+   mixture carries CO₂ at 4 × 10⁻⁴. It is a real substitution of a submitted
+   operational input, but neither silent nor setup-time, so it neither enters
+   `clamped` nor bears on H2 — and it is now disclosed in the paper (§2.1), the
+   supplement (§S3.3) and the monograph (§3.4), and guarded by
+   `check_fio2_adjustment()` (17 checks).
+
+**With that, every question this register opened is closed.** What it does not
+cover, and never claimed to, is Pulse's behaviour for values **outside** the
+sampled acceptance envelope: the sweep submits none, so nothing is asserted
+about that regime.
