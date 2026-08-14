@@ -18,8 +18,14 @@ Target content type: **Article** ("Articles should report substantial original
 primary research", `CT`).
 
 Artefacts measured: `preprint_npj/paper.tex`, `preprint_npj/supplement.tex`,
-and the built `preprint_npj/build/paper.pdf` (31 pages) and
-`build/supplement.pdf` (45 pages), at commit `5675f52`.
+and the built `preprint_npj/build/paper.pdf` and `build/supplement.pdf`.
+
+Rendered page counts are **descriptive only, never a compliance threshold**, and
+they move with every content revision: 31 and 45 pages at commit `5675f52`, 35 and
+49 pages at commit `87ec439`. No npj page-count limit is recorded anywhere in this
+register: the extent limits it does carry are word counts (title 15, abstract 150,
+figure legends 350) and a cap of 60 references. Do not read a page figure here as
+an invariant.
 
 ---
 
