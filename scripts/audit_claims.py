@@ -5062,6 +5062,11 @@ SOBOL_FRAMING_DOCS = (
     # The bolt-on script ships under Apache-2.0, so its docstring is published
     # too, and it carried the same withdrawn thesis as the three documents.
     "scripts/s019_sobol_bolton.py",
+    # The README is clean of this thesis today and never carried it. It is
+    # covered anyway because it is the repository's most public living surface,
+    # and it has a precedent: a retracted S018 figure survived there for seven
+    # weeks because no layer re-measured it.
+    "README.md",
 )
 
 # Withdrawn wording, each with the revision it was last verified to match.
