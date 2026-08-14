@@ -1,32 +1,57 @@
-"""S019 — Sobol bolt-on (Phase B item B3): DRAFT, NOT EXECUTED.
+"""S019 — restricted exploratory Sobol demonstrator: DRAFT, NOT EXECUTED.
 
-This script is preserved in the repository as a ready-to-fire
-implementation of the preregistered Sobol variance decomposition on
-the 6 Group-B point-estimate-promote cells (see manuscript §3.3.1).
-It is **not** part of the published paper — §3.3.1 closes the
-Sobol bolt-on by *redundancy* (the trajectory-level σ block-bootstrap
-CI shows 0 / 48 cells are CI-robustly nonlinear, so Sobol indices
-would quantify variance already classified as bootstrap-noise-
-dominated). The script exists for future reviewers or practitioners
-who request the variance decomposition anyway.
+This script is NOT an implementation of the preregistered Sobol bolt-on
+and must not be cited as one. It is a restricted exploratory
+demonstrator, written in May 2026 under a reading of the preregistered
+trigger that has since been withdrawn, and it is preserved for
+provenance rather than as a runnable version of the preregistered
+design.
 
 ----------------------------------------------------------------------
-Why this script is DRAFT-ONLY
+What it does, and how that differs from the preregistration
 ----------------------------------------------------------------------
 
-Reading the §3.3.1 closure: Sobol indices on cells that are not
-CI-robustly nonlinear can only re-derive Morris-rank-equivalent
-information at substantially higher compute cost. The interaction
-structure on the 6 Group-B cells is *a priori* established by
-respiratory physiology (shunt-fraction kinetics on PaO2; alveolar-
-ventilation identity V̇A = RR · (V_t − V_d) on PaCO2). Running
-this script will produce S₁ / S_t tables that *quantify* what
-§3.2 Morris main-effect rankings already *qualitatively* establish.
+                    preregistration           this script
+  cells             every cell whose top-3    the 6 cells fixed
+                    has sigma/mu* >= 0.6,     below, chosen on the
+                    which is 43 of 48         DOMINANT input, with
+                                              2 more excluded
+  inputs            "Sobol on that input";    all 7 swept inputs
+                    cost k = inputs promoted
+  base sample       64                        256, first-order only
 
-The default invocation (N = 256, calc_second_order = False) yields
-~2,304 Pulse runs per cell × 6 cells ≈ ~14 k runs. At ~30 s/run on
-2 parallel laptop workers, that is ~58 hours wall time —
-laptop-infeasible. Cluster or Colab is required.
+The costs follow from that. The preregistered design is 43 cells at 256
+runs each = 11,008 runs, which is the figure the manuscript quotes. This
+script is 6 cells at N x (D + 2) = 256 x 9 = 2,304 rows each = 13,824
+runs. The two totals are close by coincidence, not because they are the
+same design.
+
+What it does share with the sweep is the locked input-space definition
+(`src.sampler.salib_problem()`) and RNG seed 42, so any indices it
+produced would be comparable to the Morris mu*/sigma in
+`results/morris_indices.parquet` cell-for-cell.
+
+----------------------------------------------------------------------
+Provenance, and why the framing changed
+----------------------------------------------------------------------
+
+The 6-cell scope comes from the Group-A / Group-B split of an earlier
+dominant-input analysis. The script was written to support a conclusion
+that S031 has since withdrawn: that the bolt-on could be settled on the
+bootstrap CI evidence rather than on cost. The current reason it was not
+executed is compute budget -- the design the trigger selects exceeds the
+preregistered 1,500-run envelope. See manuscript S3.3.1 and
+experiments_log/santino/S031_sobol_reframe_and_nonlinearity.md.
+
+One part of the older reasoning survives that withdrawal, and is why the
+2 Group-A cells stay excluded below: SpO2 sits at its saturation ceiling
+(~0.997) in the healthy respiratory envelope, which makes sigma/mu*
+mathematically large and physiologically empty. That is a property of
+the physiology, not of the retracted CI argument.
+
+At the default N = 256 the cost is ~13,824 Pulse runs; at ~30 s/run on
+2 parallel laptop workers, ~58 hours wall time — laptop-infeasible.
+Cluster or Colab is required.
 
 ----------------------------------------------------------------------
 The 6 Group-B cells (manuscript §3.3.1)

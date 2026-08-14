@@ -187,8 +187,9 @@ below; this section is the exhaustive findings digest.*
   dominant one alone — the trigger fires on 43 / 48 cells, and 23 of the 144
   top-three inputs hold a lower CI bound at or above 0.6 across five seeds. The
   bolt-on is **closed by its own preregistered budget** ([S019](#s019)): 11,008
-  runs required against an envelope of 1,500; ready-to-fire SALib implementation
-  preserved.
+  runs required against an envelope of 1,500. A restricted exploratory Sobol
+  demonstrator is preserved in the repository; it is not an implementation of
+  that design.
 
 **Silent clamping (H2) — not observed; one explicit downstream adjustment.**
 
@@ -647,7 +648,7 @@ underlying files are in the repository.
 | S016 | Re-audit of the Pulse GitLab + literature (May 2026). |
 | S017 | Cornish 2023 cross-mapping against the atlas's 6-output panel. |
 | S018 | Blood-volume mechanism falsification (explains the all-male divergence cluster). |
-| S019 | Sobol bolt-on draft script (ready-to-fire; not executed — see §3.3.1: the design its trigger selects exceeds the preregistered compute envelope). |
+| S019 | Restricted exploratory Sobol demonstrator, written under the earlier dominant-input reading; not executed, and not an implementation of the preregistered bolt-on — see §3.3.1. |
 | S020 | Pre-submission novelty audit; verified that every "first" / "novel" claim in the manuscript survives a literature double-check (single citation added: Figueroa-Casas & Montoya 2016 for the F-004 clinical precedent). |
 | S021 | Hyperoxia convergence: 60-run pre-registered rerun at 300 s vs locked 120 s sweep window — tests whether F-003 PaO2 > 600 mmHg at FiO2 = 1.0 reflects oxygenation overshoot or transient non-convergence. |
 | S022 | No-compute failure-mode attribution audit of the locked `not_steady_state` count (Appendix C). |
@@ -1872,17 +1873,27 @@ rankings. They do not stand in for the variance decomposition, and
 they carry no prediction about what its indices would have been: Sobol
 was not run.
 
-A reviewer or practitioner who wants the
-variance decomposition anyway will find a ready-to-fire SALib
-implementation in
-[`scripts/s019_sobol_bolton.py`](../scripts/s019_sobol_bolton.py) —
-N = 256, 6 Group-B cells, ~14 k Pulse runs, cluster-friendly. The
-script consumes the canonical Morris sample
+The repository preserves a restricted exploratory Sobol demonstrator in
+[`scripts/s019_sobol_bolton.py`](../scripts/s019_sobol_bolton.py). It is
+**not** an implementation of the preregistered bolt-on costed above, and
+should not be read as one. It was written under the earlier
+dominant-input reading of the trigger, and its scope follows from that
+reading: 6 Group-B cells selected on the dominant input, all seven swept
+inputs, N = 256 with first-order indices only — 256 × (7 + 2) = 2,304
+rows per cell, 13,824 runs in total. The preregistered design is a
+different one, 43 cells at a base sample of 64 on the promoted inputs,
+and the 11,008-run figure above is its cost, not the demonstrator's. The
+two totals are close by coincidence, not because they are the same
+design.
+
+What the demonstrator does share with the sweep is the locked
+input-space definition (`src.sampler.salib_problem()`) and RNG seed 42,
+so any indices it produced would be comparable to the Morris μ\* / σ in
+`results/morris_indices.parquet` cell-for-cell. It consumes the
+canonical Morris sample
 (`data/runs/full_sweep/morris_sample.parquet`) and the atlas Docker
-image ([S006](#s006)), writes per-cell S₁ / Sₜ tables, and is verified to
-produce the same sample-grid that this paper's deferral argument
-references. The downstream analysis pipeline is preserved in
-`src/analysis_morris.py`.
+image ([S006](#s006)), and writes per-cell S₁ / Sₜ tables. The
+downstream analysis pipeline is preserved in `src/analysis_morris.py`.
 
 ### 3.4 H2 — silent clamping rate (NOT supported, 0 / 1,280)
 
@@ -4079,7 +4090,7 @@ indexed here.*
 | []{#s016} S016 | Pulse GitLab + literature re-audit (May 2026) |
 | []{#s017} S017 | Cornish 2023 cross-mapping (Phase B item B1) |
 | []{#s018} S018 | Blood-volume mechanism falsification (Phase B item B2) |
-| []{#s019} S019 | Sobol bolt-on draft (Phase B item B3 — not executed; ready-to-fire) |
+| []{#s019} S019 | Restricted exploratory Sobol demonstrator (Phase B item B3 — not executed; not the preregistered bolt-on) |
 | []{#s020} S020 | Pre-submission novelty audit (literature double-check on every "first" claim; one citation added) |
 | []{#s021} S021 | Hyperoxia convergence (60-run rerun at 300 s vs locked 120 s window; F-003 mechanism test) |
 | []{#s022} S022 | No-compute failure-mode attribution audit of the locked `not_steady_state` count (see Appendix C) |
