@@ -5021,6 +5021,124 @@ def check_figure_timestamps() -> int:
     return n_bad
 
 
+# ---------------------------------------------------------------------------
+# Sobol framing guard.
+#
+# Until 2026-08-14 the paper closed the preregistered Sobol bolt-on with the
+# parenthesis "no cell cleared its promotion trigger once sampling uncertainty
+# was accounted for", and the monograph concluded S3.3.1 "closed by
+# redundancy, not by compute-shortage". Both restated a reading of the
+# preregistered trigger -- the dominant input alone -- that S031 withdrew in
+# favour of the top-three rule the preregistration actually states. Under that
+# rule 23 of the 144 top-three inputs clear the threshold in every bootstrap
+# draw, spanning 17 of the 48 combinations, and the bolt-on was deferred on
+# compute budget (11,008 runs against a preregistered envelope of 1,500), not
+# on an absence of non-linearity to decompose.
+#
+# Nothing measured that prose. It carries no numeral, and the ledger anchors
+# literals, so the wording survived six weeks in the paper and seven passages
+# in the monograph -- including two sitting directly against the retraction
+# that had already withdrawn them. This guard is the instrument that was
+# missing.
+#
+# Scope is the three publishable documents only. Experiment logs and audit
+# registers must stay free to quote the withdrawn wording; recording what was
+# believed when is their job, so they are deliberately not scanned. For the
+# same reason the phrases below are specific claim-shapes rather than broad
+# motifs: "zero of the 48" is not among them, because a future retraction may
+# legitimately need to name the number it retracts. The monograph's own
+# retraction says "zero cells are CI-robustly non-linear under either
+# formula", and no phrase here matches it.
+#
+# Calibration, recorded because a guard that cannot fail is not a guard. Every
+# phrase was checked to match a real defective revision and to be absent from
+# the corrected tree. Re-run it with:
+#   git grep -c -F "<phrase>" <rev> -- <the three documents>
+# ---------------------------------------------------------------------------
+SOBOL_FRAMING_DOCS = (
+    "preprint_npj/paper.tex",
+    "preprint_npj/supplement.tex",
+    "preprint/manuscript.md",
+)
+
+# Withdrawn wording, each with the revision it was last verified to match.
+SOBOL_RETIRED_PHRASES: tuple[tuple[str, str], ...] = (
+    ("no cell cleared its promotion trigger", "d953d3d"),
+    ("satisfy the trigger CI-robustly", "d953d3d"),
+    ("statistically redundant", "d953d3d"),
+    ("closed by redundancy", "d953d3d"),
+    ("closed-by-redundancy", "d953d3d"),
+    ("closes it by redundancy", "d953d3d"),
+    ("adds no evidential weight", "d953d3d"),
+    ("would re-derive the same ordering", "d953d3d"),
+    # The June ancestor of the same thesis, removed by 91d705d on 2026-08-02.
+    ("evidential redundancy", "bbd2cbf"),
+)
+
+# The framing that replaced it. A guard that only forbids is satisfied by
+# deleting the passage, so each document must still carry the current reason.
+SOBOL_REQUIRED_PHRASES: tuple[tuple[str, str], ...] = (
+    ("preprint_npj/paper.tex",
+     "the triggered design exceeded its locked compute budget"),
+    ("preprint_npj/supplement.tex", "reported rather than executed"),
+    ("preprint/manuscript.md", "reported rather than executed"),
+)
+
+
+def check_sobol_framing() -> int:
+    """Forbid the withdrawn Sobol-redundancy thesis in the publishable set.
+
+    Two directions, because either failure mode reintroduces the defect: a
+    retired phrase coming back, or the replacement framing disappearing.
+
+    A missing document is a FAIL, never a skip.
+    """
+    print("\n## Sobol framing guard "
+          "(paper 2.1/2.2, Supplement S3.4, monograph 3.3.1)\n")
+    rows: list[tuple[str, str, str]] = []
+    n_bad = 0
+
+    def record(label: str, observed: object, ok: bool) -> None:
+        nonlocal n_bad
+        n_bad += 0 if ok else 1
+        rows.append((label, str(observed), "PASS" if ok else "**FAIL**"))
+
+    # Whitespace-normalised before matching: the monograph hard-wraps its
+    # prose, so several of these phrases spanned a line break in the very
+    # revisions that motivated the guard. A raw line scan would have missed
+    # them.
+    texts: dict[str, str | None] = {}
+    for rel in SOBOL_FRAMING_DOCS:
+        path = REPO / rel
+        if not path.is_file():
+            texts[rel] = None
+            record(f"document {rel}", "ABSENT", False)
+        else:
+            texts[rel] = " ".join(path.read_text(encoding="utf-8").split())
+
+    for phrase, calibrated_at in SOBOL_RETIRED_PHRASES:
+        hits = [rel for rel, t in texts.items() if t is not None and phrase in t]
+        record(f"withdrawn `{phrase}` (matched at {calibrated_at})",
+               ", ".join(hits) if hits else "absent from all three",
+               not hits)
+
+    for rel, phrase in SOBOL_REQUIRED_PHRASES:
+        text = texts.get(rel)
+        present = text is not None and phrase in text
+        record(f"{rel} still states `{phrase[:44]}`",
+               "present" if present else "ABSENT", present)
+
+    print("| check | observed | verdict |")
+    print("|---|---|---|")
+    for label, observed, verdict in rows:
+        print(f"| {label} | {observed} | {verdict} |")
+    print(
+        f"\n**Sobol framing guard:** {len(rows)} checks, "
+        f"{len(rows) - n_bad} PASS, {n_bad} FAIL.\n"
+    )
+    return n_bad
+
+
 n_cliprt_fail = check_clip_pair_retention()
 
 n_s030prov_fail = check_s030_provenance()
@@ -5034,6 +5152,8 @@ n_readme_fail = check_readme_science(claims)
 n_legend_fail = check_legend_lengths()
 
 n_s021_conv_fail = check_s021_converged_plateau()
+
+n_sobolframe_fail = check_sobol_framing()
 
 n_counter_fail = 0
 if _ARGS.check_paper_sync and _ARGS.check_monograph:
@@ -5050,7 +5170,7 @@ sys.exit(
         n_fail + n_sync_fail + n_mono_fail + n_counter_fail
         + n_s021_fail + n_s021_conv_fail + n_readme_fail + n_legend_fail
         + n_sexdiv_fail + n_inst_fail + n_cliprt_fail + n_s030prov_fail + n_figts_fail
-        + n_fio2adj_fail
+        + n_fio2adj_fail + n_sobolframe_fail
     ) > 0
     else 0
 )
