@@ -647,7 +647,7 @@ underlying files are in the repository.
 | S016 | Re-audit of the Pulse GitLab + literature (May 2026). |
 | S017 | Cornish 2023 cross-mapping against the atlas's 6-output panel. |
 | S018 | Blood-volume mechanism falsification (explains the all-male divergence cluster). |
-| S019 | Sobol bolt-on draft script (ready-to-fire; not executed — see §3.3.1 for the closed-by-redundancy argument). |
+| S019 | Sobol bolt-on draft script (ready-to-fire; not executed — see §3.3.1: the design its trigger selects exceeds the preregistered compute envelope). |
 | S020 | Pre-submission novelty audit; verified that every "first" / "novel" claim in the manuscript survives a literature double-check (single citation added: Figueroa-Casas & Montoya 2016 for the F-004 clinical precedent). |
 | S021 | Hyperoxia convergence: 60-run pre-registered rerun at 300 s vs locked 120 s sweep window — tests whether F-003 PaO2 > 600 mmHg at FiO2 = 1.0 reflects oxygenation overshoot or transient non-convergence. |
 | S022 | No-compute failure-mode attribution audit of the locked `not_steady_state` count (Appendix C). |
@@ -1325,16 +1325,17 @@ post-[S014](#s014)-patch rebuild — a different image hash than the
   manuscript's regime-vs-count nuance predicts; and **(b)** the
   PaO2 σ / μ\* point estimate on FiO2 moved from 0.667 (canonical, in
   the §3.3.1 Group-B "promote" set) to 0.547 (new-seed, below the
-  preregistered 0.6 trigger), empirically confirming the §3.3.1
-  closed-by-redundancy argument: the point-estimate trigger is
-  bootstrap-borderline, no cell is CI-robustly nonlinear, and the
-  Sobol bolt-on adds no evidential weight. Per-run timings,
+  preregistered 0.6 trigger), showing that the point-estimate trigger
+  is seed-sensitive at the threshold. That sensitivity is why §3.3.1
+  reports a ratio-aware bootstrap alongside the point estimate; it
+  carries no implication about whether the Sobol bolt-on was worth
+  running, which §3.3.1 settles on compute budget. Per-run timings,
   `phase4b_morris_S2M_seed44.parquet`, and the top-3 comparison are
   in `results/`.
 
 Neither phase falsified a manuscript claim. Phase 4a strengthens the
-determinism statement to the full sample size; Phase 4b empirically
-confirms the bootstrap-CI-aware story §3.3.1 already tells.
+determinism statement to the full sample size; Phase 4b motivates the
+uncertainty-aware reading of the trigger that §3.3.1 now adopts.
 
 **Programmatic manuscript-numbers audit ([S024](#s024), 2026-05-22).**
 Independently of the bit-exact re-execution above, a third
@@ -1419,7 +1420,7 @@ instrument.
 
 *A plain-language definition of every statistical tool used in §3
 (Results) and §4 (Discussion) — Morris EE, block bootstrap, Sobol
-(preregistered but closed-by-redundancy; see §3.3.1), 1-Wasserstein
+(preregistered but deferred on compute budget; see §3.3.1), 1-Wasserstein
 distance, the permutation null, Spearman ρ, BH-FDR
 control, and Hoeffding / Holm–Bonferroni (external; used by Cornish
 2023, §4.4). First appearance of each test in §3 is therefore
@@ -1455,8 +1456,9 @@ are in §9.
   interactions with all others (total-order index S_T). It is more
   informative than Morris but costs roughly an order of magnitude more
   simulations. We preregistered a conditional Sobol bolt-on if Morris
-  flagged non-linearity, and discuss in §3.3.1 why the bootstrap
-  evidence renders that bolt-on statistically redundant here.
+  flagged non-linearity, and discuss in §3.3.1 why the design that
+  trigger selected exceeded its own preregistered compute envelope, so
+  the bolt-on is reported rather than executed.
 
 * **1-Wasserstein distance.** A distance between two probability
   *distributions* on a one-dimensional output. Intuitively: the
@@ -1695,8 +1697,9 @@ claim (formal test in §3.3).
 *The first hypothesis test: in every cell × output combination, do
 the top-3 inputs account for at least 50 % of summed μ\*? Answer —
 yes, 48 / 48, median 0.928. Section 3.3.1 then addresses the
-preregistered Sobol bolt-on and explains why CI-aware bootstrap
-evidence closes it by redundancy.*
+preregistered Sobol bolt-on and explains why the design its trigger
+selects exceeds the preregistered compute envelope, so it is reported
+rather than executed.*
 
 Top-3 fraction of summed μ\* per cell × output:
 * All 48 combinations are ≥ 0.5 (the preregistered threshold).
@@ -1798,27 +1801,25 @@ above is a *point* estimate. To attach a confidence interval to it,
 we resampled trajectories (block bootstrap, 1,000 resamples, same
 RNG seed as the μ\* CI) and recomputed σ / μ\* on each resample.
 Per-cell `sigma_lo` / `sigma_hi` columns are persisted in
-`results/morris_indices.parquet`. Under this bootstrap, the 48 cells
-distribute into four buckets:
+`results/morris_indices.parquet`. What that bootstrap returns depends
+on two choices that an earlier version of this subsection got wrong:
+which of two σ / μ\* CI formulas is used, and whether the trigger is
+read on the dominant input alone or on the top three the
+preregistration actually names. Both are settled in the methodological
+note below, which carries the current counts. The four-bucket table
+that stood here reported a non-linear count of zero and a straddling
+count of twelve; both were wrong, and the table is removed rather than
+rebuilt, since the note below states what the corrected reading gives.
 
-* **CI-robust *non-linear*: 0 / 48 cells.** No cell's *lower*
-  bootstrap CI bound on σ / μ\* sits at or above 0.6 — i.e. no cell
-  satisfies the trigger when evaluated at full evidential weight.
-* **CI-robust *linear*: 31 / 48 cells (65 %).** Upper bootstrap CI
-  bound on σ / μ\* strictly below 0.6.
-* **Straddles 0.6: 12 / 48 cells.** Their non-linearity classification
-  is bootstrap-borderline. Eight are the point-estimate "promote"
-  cells (Groups A + B above). The other four are *point-estimate-below*
-  but *upper-CI-above* 0.6: two PEEP-edge cells in (S4, F): PaO2 and
-  SpO2; two FiO2-on-SpO2 cells in (S2_M, S3_M).
-* **No estimable CI: 5 / 48 cells.** Three lie in S1_F where the
-  dominant input is Vt — the Vt one-at-a-time (OAT) step has only
-  one clean trajectory pair (S1_F × {PaCO2, PaO2, Vt}). Two lie in
-  S4_M where the dominant input is FiO2 — the FiO2 OAT step has
-  only one clean trajectory pair (S4_M × {PaO2, SpO2}). The
-  *which-input-lacks-pairs* differs between the two groups (Vt in
-  S1_F vs FiO2 in S4_M); per-input gaps are summarised at cell level
-  in §4.3 / §4.5 limitations.
+One of its buckets survives unchanged, because it reflects data
+availability rather than any bootstrap formula: the cells with **no
+estimable σ / μ\* CI at all**. Three lie in S1_F where the dominant
+input is Vt — the Vt one-at-a-time (OAT) step has only one clean
+trajectory pair (S1_F × {PaCO2, PaO2, Vt}). Two lie in S4_M where the
+dominant input is FiO2 — the FiO2 OAT step has only one clean
+trajectory pair (S4_M × {PaO2, SpO2}). The *which-input-lacks-pairs*
+differs between the two groups (Vt in S1_F vs FiO2 in S4_M); per-input
+gaps are summarised at cell level in §4.3 / §4.5 limitations.
 
 *Methodological note (σ / μ\* CI formula).* Two formulas are available once a
 confidence interval is put on σ / μ\*, and they do not agree. The first divides
@@ -1841,35 +1842,37 @@ actually states — the top-three inputs, not the dominant one alone — 23 of t
 seeds. The earlier claim that "zero cells are CI-robustly non-linear under
 either formula" was wrong on both counts and is withdrawn.
 
-**The Sobol bolt-on is statistically redundant under the CI-aware
-evidence.** *In one sentence: the trigger that was supposed to
-motivate Sobol does not survive its own confidence interval.* The
-preregistered trigger σ / μ\* ≥ 0.6 was designed to flag cells whose
-non-linearity is *evidentially* established — not cells whose point
-estimate merely happens to land above threshold. The trajectory-level
-bootstrap above resolves the trigger at full evidential weight.
-**Zero of the 48 cells satisfy the trigger CI-robustly:** no cell has
-a *lower* bootstrap CI bound on σ / μ\* at or above 0.6. Of the
-remaining cells, 31 are CI-robustly linear, 12 straddle 0.6, and 5
-have no estimable σ / μ\* CI (the FiO2- and Vt-edge cells described
-above).
+**The Sobol bolt-on was not executed because the design its own
+trigger selects exceeds the preregistered compute envelope.** Applying
+the rule the preregistration states — the top-three inputs of every
+cell, not the dominant one alone — the point-estimate trigger fires on
+72 of the 144 top-three inputs, spanning 43 of the 48 cell × output
+combinations. The same preregistration capped the bolt-on at 1,500
+additional runs. A Sobol sample cannot be shared across cells, because
+each scenario–sex cell is a different model, so even the narrowest
+reading of the preregistered cost formula — one promoted input at a
+base sample of 64, or 256 runs per cell — puts 43 cells at 11,008 runs.
+The bolt-on exceeded its own preregistered envelope by more than
+sevenfold, and is therefore reported rather than executed.
 
-Running a variance decomposition on cells whose non-linearity-trigger
-status is *itself* bootstrap-borderline cannot tighten the evidential
-picture. Sobol S₁ / Sₜ indices on cells that are not CI-robustly
-non-linear would simply quantify the proportion of an
-already-bootstrap-noise-dominated variance.
+The reason is the budget, not an absence of non-linearity to decompose.
+The post-hoc ratio-aware bootstrap is the stricter test of the two, and
+23 of the 144 top-three inputs still hold a lower bound at or above 0.6
+in every draw, spanning 17 of the 48 combinations. What the atlas
+reports here is a deferral under a declared budget, not a finding that
+the variance decomposition would have been uninformative.
 
 The interaction structure on the 6 Group B cells is additionally
 *a priori* established by respiratory physiology: shunt-fraction
 kinetics on PaO2, and the alveolar-ventilation identity
 $\dot{V}_A = \mathrm{RR} \cdot (V_T - V_D)$ on PaCO2. Both are qualitatively recovered by
-the Morris main-effect rankings reported in §3.2. A quantitative
-Sobol decomposition would re-derive the same ordering at
-substantially higher compute cost.
+the Morris main-effect rankings reported in §3.2. These mechanisms
+provide a physiological interpretation of the dominant Morris
+rankings. They do not stand in for the variance decomposition, and
+they carry no prediction about what its indices would have been: Sobol
+was not run.
 
-The preregistered Sobol bolt-on is therefore **closed by redundancy,
-not by compute-shortage.** A reviewer or practitioner who wants the
+A reviewer or practitioner who wants the
 variance decomposition anyway will find a ready-to-fire SALib
 implementation in
 [`scripts/s019_sobol_bolton.py`](../scripts/s019_sobol_bolton.py) —
