@@ -205,7 +205,30 @@ register supplies the mechanism behind that observation.
 
 ---
 
-## 7. Candidate disclosure — DRAFTED, NOT APPLIED
+## 7. Disclosure — DECIDED AND APPLIED 2026-08-14
+
+> **Adopted, qualitative, in Methods §Sweep design (`sec:methods-sweep`).** The
+> author kept it free of numbers: §2.6 already quantifies the consequence on HR,
+> and a second quantified account of the same phenomenon would have required
+> measuring SBP/DBP/MAP and building a guard for little gain.
+>
+> Two refinements came from the author and are in the shipped sentence:
+> **"each stabilisation stage that is reached"** and the scoping **"For runs
+> that reach the recorded phase"**, which keep the claim true of the 20 runs
+> that diverge during stabilisation; and **"these cardiovascular baseline
+> fields"** in place of "them", which could have been read as including the
+> respiratory rate the previous clause has just excluded. One change was
+> editorial: *stabilised / stabilisation*, because `paper.tex` is British
+> English — measured, 4 occurrences of `stabilis*` against 0 of `stabiliz*`.
+>
+> **Deliberately left out of the manuscript:** the setup circuit-tuning write
+> (`CardiovascularModel.cpp:3282-3330`). It sets the same fields to the *tuned*
+> values, which sit within about 0.5 mmHg of the requested ones (the trace
+> quoted in `audit/silent_clamping_instrument.md` §4: 100 → 100.084 and
+> 75 → 75.531 mmHg), so it refines rather than contradicts "honoured at
+> ingestion". It is recorded in §1 for anyone auditing the source.
+
+### The candidate as it was drafted
 
 For the author. If adopted, Methods (not Results) — the natural locus is
 `\subsection{Sweep design}\label{sec:methods-sweep}` (`paper.tex:365`), which is
