@@ -41,6 +41,32 @@ Three properties of this block matter, and they are not symmetrical:
 - The single guard on the cardiovascular block is
   `!(state > AtInitialStableState && HasDehydration())`. The atlas applies no
   dehydration condition, so the overwrite always executes.
+
+> ### ⚠️ Correction 2026-08-14 — this section listed two write sites; there are five
+>
+> A repository-wide grep for the setters, excluding `/test/`, `howto/` and the
+> 2020 `study/patient_variability` tooling, finds the cardiovascular baselines
+> written in **five** places, not the two named above. The three missing ones do
+> not change this register's conclusion, but the sentence drafted in §7 depended
+> on knowing them:
+>
+> | locus | when | reached by the atlas? |
+> |---|---|---|
+> | `CardiovascularModel.cpp:831-834` | `AtSteadyState`, both stabilization stages | **yes** |
+> | `CardiovascularModel.cpp:3282-3330` | setup **circuit tuning** (`TunePaths`, the "Tuning paths, Current values" trace) | **yes**, at setup |
+> | `Controller.cpp:845` | after a `CardiovascularMechanicsModification` action re-stabilises | no — the atlas sends no such action |
+> | `CardiovascularModel.cpp:2193` | arrhythmia: `PulselessVentricularTachycardia` (cardiac-arrest entry) | no |
+> | `CardiovascularModel.cpp:2323` | end of an arrhythmia **transition** | no |
+>
+> The last three are the ones that matter for wording: **Pulse does rewrite these
+> baselines during a run**, under an arrhythmia or a cardiovascular-mechanics
+> action. The atlas sends neither, and that is measured, not assumed: `grep -li
+> "arrhythmia\|cardiac arrest"` over the 1,280 sweep logs returns **0 files**.
+>
+> Consequence: "held for the recorded run" is true **of this sweep's
+> configuration**, not of Pulse in general, and any published sentence must say
+> so. `RespirationRateBaseline` remains the clean case — its only non-test,
+> non-study write in the whole engine is `SetupPatient.cpp:573`, at setup.
 - When the engine state is `Active` — the recorded window — the same method
   **prints only** (`typeString = "Starting "`). The fields are therefore
   re-baselined once, before recording, and then held.
@@ -181,7 +207,35 @@ register supplies the mechanism behind that observation.
 
 ## 7. Candidate disclosure — DRAFTED, NOT APPLIED
 
-For the author. If adopted, Methods (not Results), one sentence:
+For the author. If adopted, Methods (not Results) — the natural locus is
+`\subsection{Sweep design}\label{sec:methods-sweep}` (`paper.tex:365`), which is
+where the submitted inputs are described.
+
+**Revised 2026-08-14 after the correction above.** The first draft is kept below
+it, because the two differences are the whole point of the correction.
+
+> Pulse re-baselines the patient's heart-rate, systolic, diastolic and mean
+> arterial pressure baseline fields to the stabilized physiological state at
+> the end of each stabilization stage, before the recorded window begins; the
+> respiratory-rate baseline is not re-written. No action in this sweep rewrites
+> them afterwards, so the swept heart-rate and blood-pressure values are setup
+> interventions, honoured at ingestion, rather than setpoints maintained
+> against the conditions applied afterwards.
+
+Two changes from the first draft, each traceable to a measurement:
+
+1. **`respiratory-rate baseline is not re-written`** — the earlier draft said
+   "the swept patient values are therefore setup interventions", which
+   over-generalises: RR is one of the four swept patient inputs and its baseline
+   survives untouched (`SetupPatient.cpp:573` is its only non-test write).
+2. **`No action in this sweep rewrites them afterwards`** replaces the flat
+   "they are then held for the recorded run". Pulse *does* rewrite them at
+   runtime under an arrhythmia or a cardiovascular-mechanics action; the atlas
+   sends neither (0 of 1,280 logs mention arrhythmia or cardiac arrest). The
+   claim is now scoped to what was measured instead of asserting a property of
+   the engine.
+
+### The first draft, superseded
 
 > Pulse re-baselines the patient's heart-rate, systolic, diastolic and mean
 > arterial pressure baseline fields to the stabilized physiological state at
