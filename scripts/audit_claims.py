@@ -5059,6 +5059,9 @@ SOBOL_FRAMING_DOCS = (
     "preprint_npj/paper.tex",
     "preprint_npj/supplement.tex",
     "preprint/manuscript.md",
+    # The bolt-on script ships under Apache-2.0, so its docstring is published
+    # too, and it carried the same withdrawn thesis as the three documents.
+    "scripts/s019_sobol_bolton.py",
 )
 
 # Withdrawn wording, each with the revision it was last verified to match.
@@ -5073,6 +5076,14 @@ SOBOL_RETIRED_PHRASES: tuple[tuple[str, str], ...] = (
     ("would re-derive the same ordering", "d953d3d"),
     # The June ancestor of the same thesis, removed by 91d705d on 2026-08-02.
     ("evidential redundancy", "bbd2cbf"),
+    # scripts/s019_sobol_bolton.py is a restricted demonstrator built on the
+    # withdrawn dominant-input reading: 6 cells, all 7 inputs, base sample 256,
+    # first-order only, 13,824 runs. The preregistered design is 43 cells,
+    # promoted inputs, base sample 64, 11,008 runs. Calling the script
+    # "ready-to-fire" made the paper's cost argument read as its cost. If a
+    # conforming implementation is ever written, this guard must fail once and
+    # be revisited deliberately -- which is the point.
+    ("ready-to-fire", "1c3f9b4"),
 )
 
 # The framing that replaced it. A guard that only forbids is satisfied by
