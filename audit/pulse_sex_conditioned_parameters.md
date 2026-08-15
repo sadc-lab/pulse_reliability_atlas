@@ -28,7 +28,7 @@ out-of-scope.
 
 | # | Sweep | Status |
 |---|---|---|
-| 1 | Syntactic: enum, `Male`, `Female`, ternaries, **and derived intermediate variables** | **partial** — engine `src/cpp/engine/` + `src/cpp/cdm/` done; `bool male` propagation done for `SetupCircuitsAndCompartments.cpp` only |
+| 1 | Syntactic: enum, `Male`, `Female`, ternaries, **and derived intermediate variables** | **closed** — engine + cdm swept; transitive closure done: all level-1 variables have traced consumers (§C.5) |
 | 2 | Semantic propagation of derived quantities (IBW, BMR/TMR, Hb/Hct, cardiac output, tissue masses, regional flows, dead space) | **traced** — IBW, BMR, Hb (§C.1), cardiac output (§C.2), regional flows (§C.3), tissue masses per consumer (§C.4). One residual: metabolic distribution CONDITIONAL/UNKNOWN (§C.4) |
 | 3 | Non-code sources (data files, protobuf defaults, serialized defaults, config) | **swept** — no state and no patient file loaded; proto3 default `Male=0` recorded (§H) |
 | 4 | Condition-application path (ARDS — 6 of our 8 cells) | **swept** — multiplicative on sex-conditioned baselines; conditioning preserved (§H) |
@@ -444,6 +444,43 @@ and none contradicting another.
 |---|---|
 | Consumer arithmetic | ratio of measured flows |
 | **Effective sex-dep** | **CONDITIONAL / UNKNOWN — not measured.** CO scaling cancels; survival of the relative distribution to runtime is unverified |
+
+### C.5 Transitive closure — the four remaining level-1 variables
+
+Sweep 1 had closed the `bool male` propagation for the 27 ternaries but not for
+every *variable assigned from* them. Four had untraced consumers. Both
+denominators they meet are sex-neutral, verified: `computedBloodVolume_mL =
+65.6 × weight^1.02` (`SetupPatient.cpp:534`, no sex term — this is the same
+allometric relation the main paper §2.5 already reports as sex-independent) and
+`arteryTuningMultiplier = 1.25` (L1336, plain constant).
+
+| variable | consumer | net F vs M |
+|---|---|---|
+| `VolumeFractionFat` .05/.085 | L496 `Fat1.VolumeBaseline = f × bloodVolume` | equal weight **+70 %**; atlas native (BV 4 803 / 3 996 mL) **+41.4 %** |
+| `VolumeFractionMuscle` .14/.105 | L525 `Muscle1.VolumeBaseline = f × bloodVolume` | equal weight **−25 %**; atlas native **−37.6 %** |
+| `renalArteryResistanceFactor` .025/.055 | L1340 renal artery resistance | **×2.2 (+120 %)** — weight-independent, no blood-volume term |
+| `typicalSkinSurfaceArea_m2` (from the 170/130 lb, 71/64 in reference body) | L2179 `SkinTissueMass ×= patientSkinArea / typicalSkinArea` | **structure recorded, value not computed** — see caution below |
+
+**The renal artery resistance factor is the largest single sex ratio in this
+register: 2.2×.** Larger than haemoglobin (1.07×), cardiac output (1.14×) or any
+tissue mass. It is recorded here as a *parameter* ratio; no renal or gas-exchange
+consequence is claimed, and the atlas records no renal output.
+
+Skin is the one mass **not** scaled by `leanBodyMassFractionOfTypical`; it is
+normalised by a surface-area ratio instead, whose denominator is the
+sex-conditioned reference body.
+
+> ⚠️ **Deliberately not computed.** The skin figure needs four fractional powers
+> (`0.20247 · W^0.425 · H^0.725`, evaluated for both the patient and the
+> sex-specific reference). This register has no second instrument available to
+> check such a hand computation, and a single wrong digit would look entirely
+> plausible. The *structure* is established and sufficient for §S10; the number
+> is left open rather than published unverified.
+
+**Other carrier files carry no untraced level-1 variable.** `SubstanceManager`
+(`Hb_total_g_Per_dL` → `hematocrit`, `Hb_total_mM`, both traced in §C.1),
+`CardiovascularModel` (direct setter, §C.2), `EnergyModel` (dead code, §E),
+`SetupPatient` (IBW, fat fraction, BMR — all traced in §A, §B.1, §D).
 
 ## D. BMR consumers — the cancellation calibration witnesses
 
