@@ -20,7 +20,7 @@ why the sweep is (or is not) closed — so the next reader can re-check the
 
 ---
 
-## Completeness condition — **NOT SATISFIED** (2026-08-15)
+## Completeness condition — ✅ **SATISFIED** (2026-08-15) — see §C.7 for the decision and its two bounded residuals
 
 The register closes only when all five sweeps below have been run *independently*
 and every surviving item is classified as active / overwritten / inactive /
@@ -29,7 +29,7 @@ out-of-scope.
 | # | Sweep | Status |
 |---|---|---|
 | 1 | Syntactic: enum, `Male`, `Female`, ternaries, **and derived intermediate variables** | **closed** — engine + cdm swept; transitive closure done: all level-1 variables have traced consumers (§C.5) |
-| 2 | Semantic propagation of derived quantities (IBW, BMR/TMR, Hb/Hct, cardiac output, tissue masses, regional flows, dead space) | **traced** — IBW, BMR, Hb (§C.1), cardiac output (§C.2), regional flows (§C.3), tissue masses per consumer (§C.4). Metabolic distribution resolved to CONDITIONAL — YES by construction, unmeasured (§C.4.1) |
+| 2 | Semantic propagation of derived quantities (IBW, BMR/TMR, Hb/Hct, cardiac output, tissue masses, regional flows, dead space) — ⚠️ this declared list proved INCOMPLETE, see §C.7 | **traced** — IBW, BMR, Hb (§C.1), cardiac output (§C.2), regional flows (§C.3), tissue masses per consumer (§C.4). Metabolic distribution resolved to CONDITIONAL — YES by construction, unmeasured (§C.4.1) |
 | 3 | Non-code sources (data files, protobuf defaults, serialized defaults, config) | **swept** — no state and no patient file loaded; proto3 default `Male=0` recorded (§H) |
 | 4 | Condition-application path (ARDS — 6 of our 8 cells) | **swept** — multiplicative on sex-conditioned baselines; conditioning preserved (§H) |
 | 5 | Equipment path actually used by the atlas (VC-AC mechanical ventilator) | **swept** — no direct branch; propagation confirmed (§H) |
@@ -573,6 +573,65 @@ difference as the value it replaced.
 > sex-conditioned quantity, exactly like `AdiposeTissueMass`. Had the transversal
 > line not been run, §C.1 would have stood on a persistence claim that is false,
 > while reaching the right answer for the wrong reason.
+
+## C.7 Cross-convergence of sweeps 1 and 2 — an audit of **disagreements**
+
+Not another count. Each entry of the syntactic sweep is asked where it appears in
+the semantic sweep, then the reverse. Six entries appear on one side only. **Every
+one is explained, and neither sweep would have been sufficient alone.**
+
+### Present in sweep 1 (syntactic), absent from sweep 2's declared list
+
+| Entry | Why sweep 2 missed it | Resolution |
+|---|---|---|
+| Height bounds `SetupPatient:80–86` | it is a **gate**, not a derived quantity — sweep 2 enumerated quantities | §A.1: warns without clamping; effect is a log line, not a value |
+| **Body-fat fraction** `:217` | simply **not in sweep 2's declared list** | traced anyway: → `AdiposeTissueMass` (§B), → `LeanBodyMass` → the LBM factor (§B.1) |
+| `VolumeFractionFat` / `Muscle` `:363, :370` | idem | §C.5, traced to compartment blood volumes |
+| `renalArteryResistanceFactor` `:1338` | idem | §C.5, largest ratio quantified so far |
+| Standard reference body `:2174–2175, :2182` | idem | §B.1 and §C.5 |
+
+**Finding: sweep 2's quantity list was incomplete.** It was drawn up before the
+transitive closure, and four dependencies were found only because sweep 1 chased
+every variable assigned from a ternary (§C.5).
+
+### Present in sweep 2, with no sweep-1 introduction site
+
+| Entry | Why sweep 1 missed it | Resolution |
+|---|---|---|
+| **Anatomic dead space** | carries **no `male ?` anywhere** — a syntactic sweep is blind to it | pure propagation from IBW: `0.002 × IBW` (§B, L2979) |
+
+**Finding: the syntactic sweep is structurally blind to the propagation class.**
+Dead space is arguably among the most gas-relevant dependencies in the register,
+and no branch-grep would ever surface it.
+
+> The two sweeps are **genuinely complementary, and each caught what the other
+> could not**. That is the substantive result of the convergence — more useful
+> than any agreement would have been.
+
+---
+
+## ✅ Closure decision — **COMPLETENESS SATISFIED** (2026-08-15)
+
+Against the condition agreed with the maintainer: *every active sex-conditioned
+dependency found by either sweep is represented in the other, directly or through
+an explicitly documented propagation chain, and every remaining discrepancy has a
+resolved classification.* All six divergences above are resolved; no entry remains
+unexplained on either side.
+
+**Two residuals are carried deliberately, both bounded, neither blocking:**
+
+| # | Residual | Why it does not block |
+|---|---|---|
+| R1 | Realised regional-flow magnitudes at runtime — `CONDITIONAL`, unmeasured (§C.4.1) | the **existence** of the structural dependence is established by construction; only its quantitative realisation is open, and no §S10 sentence claims a realised magnitude |
+| R2 | Skin-mass magnitude — uncomputed by choice (§C.5) | the **structural** dependence is established; the number was withheld rather than published without a second instrument |
+
+**What this register does and does not license.** It licenses the structural
+statement — that sex is a setup switch across many parameters in several
+subsystems, so S011 isolates their combined effect and not any one mechanism. It
+does **not** license attributing any observed PaO₂/PaCO₂ contrast to haemoglobin,
+BMR, cardiac output, lung mass or any single pathway; that still requires a
+dedicated ablation. And per the header, the parameter **count** must not become a
+manuscript claim without revalidation.
 
 ## D. BMR consumers — the cancellation calibration witnesses
 
