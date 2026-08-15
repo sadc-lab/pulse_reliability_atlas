@@ -1317,14 +1317,16 @@ post-[S014](#s014)-patch rebuild — a different image hash than the
   second- and third-ranked inputs, where μ\* magnitudes are similar across
   competing inputs — consistent with the trajectory-bootstrap CI
   reported in §3.3.1 and the Spearman ρ analysis in §3.6.
-  In full transparency, two sample-dependent quantities surfaced:
-  **(a)** the S2_M divergence count went from 4 / 160 (canonical
-  `seed=42`) to 7 / 160 (`seed=44`), with all 7 new-seed divergences
-  in the same low-HR + low-SBP + high-FiO2 regime that §3.5 / §3.5.1
-  identify as the input-driven mechanism — i.e. the *regime* is
-  preserved while the *count* is sample-dependent, exactly as the
-  manuscript's regime-vs-count nuance predicts; and **(b)** the
-  PaO2 σ / μ\* point estimate on FiO2 moved from 0.667 (canonical, in
+  In full transparency, two sample-dependent quantities surfaced.
+  **(a)** The S2_M divergence count went from 4 / 160 (canonical
+  `seed=42`) to 7 / 160 (`seed=44`). All 7 new-seed divergences
+  occurred at HR = 50 and SBP = 90, with RR in the upper two grid
+  levels (16 or 20) and FiO2 likewise in its upper two levels (0.737
+  or 1.0); only 1 / 7 occurred at FiO2 = 1.0, against 13 / 20 in the
+  canonical sweep. The broad input-space regime that §3.5 / §3.5.1
+  identify is therefore preserved, whereas both the divergence count
+  and the within-regime sampling pattern are sample-dependent.
+  **(b)** The PaO2 σ / μ\* point estimate on FiO2 moved from 0.667 (canonical, in
   the §3.3.1 Group-B "promote" set) to 0.547 (new-seed, below the
   preregistered 0.6 trigger), showing that the point-estimate trigger
   is seed-sensitive at the threshold. That sensitivity is why §3.3.1

@@ -92,9 +92,15 @@ Plus 4 additional (S4, M)-only diverging runs:
 | 90    | 100    | 75      | 16    | 300     | 0.737   | 13.3    |
 | 90    | 100    | 75      | 16    | 300     | 0.737   | 0       |
 
-**Pattern across all 20:** low cardiovascular pressure / output (HR ≤
-50 or SBP ≤ 100) combined with high-FiO2 or extreme-Vt ventilation,
-evaluated on the male Pulse standard surrogate.
+**Pattern across the 20.** The 20 diverged runs correspond to **8
+distinct input vectors**: 4 that diverge in all four male cells, and 4
+that diverge only in S4_M. Every diverged run is on the male surrogate,
+and every one has FiO2 in the upper two grid levels (0.737 or 1.000),
+making FiO2 the only input variable with a common two-level restriction
+across all 20 runs. The hypotensive–tachypneic signature (HR = 50,
+SBP = 90, RR = 20) covers 16 of the 20 runs, corresponding to 4 of the 8
+distinct vectors; the remaining 4 vectors, all S4_M-only, occur at
+HR 90–110 and SBP 100–120.
 
 **All 0 / 20 of these inputs diverge on the female surrogate.**
 
