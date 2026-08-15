@@ -31,8 +31,8 @@ out-of-scope.
 | 1 | Syntactic: enum, `Male`, `Female`, ternaries, **and derived intermediate variables** | **partial** — engine `src/cpp/engine/` + `src/cpp/cdm/` done; `bool male` propagation done for `SetupCircuitsAndCompartments.cpp` only |
 | 2 | Semantic propagation of derived quantities (IBW, BMR/TMR, Hb/Hct, cardiac output, tissue masses, regional flows, dead space) | **partial** — IBW and BMR traced; Hb, CO, tissue masses, regional flows **not** traced to consumers |
 | 3 | Non-code sources (data files, protobuf defaults, serialized defaults, config) | **not started** |
-| 4 | Condition-application path (ARDS — 6 of our 8 cells) | **not started** |
-| 5 | Equipment path actually used by the atlas (VC-AC mechanical ventilator) | **not started** |
+| 4 | Condition-application path (ARDS — 6 of our 8 cells) | **partial** — consumers located, application arithmetic not yet traced (§H) |
+| 5 | Equipment path actually used by the atlas (VC-AC mechanical ventilator) | **swept** — no direct branch; propagation confirmed (§H) |
 | ⊥ | Transversal: for every retained quantity, setup-time vs runtime | **partial** — done for BMR only |
 
 **Scope.** Pulse v4.3.1 (`pulse-atlas-engine`, image identical for the 1,280-run
@@ -201,6 +201,46 @@ overwrite yields 14.13 (M) / 18.84 (F) against the hard-coded 14.5/19.0.
 → **Sex-dep after overwrite: `survives`, source changed.** `overwritten = yes`
 must never be read as `sex dependence removed`.
 
+### B.1 Compound conditioning — the lungs, and why one ternary tells you nothing
+
+L2182–2197 apply a second, sex-conditioned normalisation on top of the L2153–2165
+constants:
+
+```
+standardFatFraction        = male ? 0.21 : 0.28                    // L2182
+standardPatientWeight_lb   = male ? 170.0 : 130                    // L2174
+standardLeanBodyMass_kg    = standardPatientWeight_lb→kg × (1 − standardFatFraction)
+patientLeanBodyMass_kg     = weight_kg × (1 − fatFraction)         // SetupPatient.cpp:252
+leanBodyMassFractionOfTypical = patientLeanBodyMass / standardLeanBodyMass
+```
+
+The fat fraction is the *same* value in numerator and denominator for a given
+sex, so it cancels and the factor reduces to `weight / standardWeight(sex)`.
+**The sex dependence therefore survives entirely through the 170 vs 130 lb
+reference body**: 77.11 vs 58.97 kg, so at *equal patient weight* the female
+factor is **1.308×** the male one.
+
+It multiplies ten tissue masses (L2188–2197): Bone, Gut, R/L Kidney, Liver,
+**R/L Lung**, Muscle, Myocardium, Spleen. (Adipose is excluded — already
+overwritten at L2170; Brain and Skin are scaled on other bases.)
+
+**Worked case — lung tissue mass at an identical 67.3 kg body:**
+
+| | ternary (L2160) | × LBM factor | net |
+|---|---|---|---|
+| M | 0.50 | × 0.873 | **0.436** × lung ratio |
+| F | 0.42 | × 1.141 | **0.479** × lung ratio |
+
+The female body ends up with **~9.8 % more** lung tissue mass at equal weight,
+although its ternary constant is the *smaller* of the two. **The normalisation
+reverses the direction the ternary suggests.** Downstream this sets lung tissue
+volume (L2209–2210), compartment total mass (L2515, L2755) and the
+vascular–tissue resistance baselines `(1/LungTissueMass) × resistanceConstant`
+(L2490, L2730).
+
+> This is the register's central cautionary case: reading a mechanism off a
+> single `male ? a : b` would have produced a claim with the **wrong sign**.
+
 ## C. Other engine sites
 
 | Source | Parameter | M / F | Status |
@@ -263,6 +303,39 @@ sex-conditioned quantities cancel on division.
    variables of height, weight, age, and sex in the HBE reflect the relationship
    between body weight and the BCM."* The sex term is a body-composition proxy —
    so "Pulse models a sex-specific metabolism" would misdescribe the cited source.
+
+## H. Sweeps 4 and 5 — results (2026-08-15)
+
+### Sweep 5 — VC-AC mechanical ventilator: **no direct branch, propagation confirmed**
+
+`MechanicalVentilatorModel.cpp` contains **no** `ePatient_Sex`, no `GetSex()` and
+no `GetIdealBodyWeight` — the ventilator itself is sex-blind. (Contrast
+`BagValveMaskModel.cpp:549`, which *does* read IBW; that equipment is not on the
+atlas path.)
+
+But it ventilates a respiratory circuit that is sex-conditioned throughout:
+anatomic dead space `0.002 × IBW` (L2979) → physiologic dead space; and lung
+tissue mass → tissue volume, compartment mass, and vascular–tissue resistance
+(§B.1). **A sex-blind ventilator delivering a fixed Vt into a sex-conditioned
+lung still produces sex-conditioned alveolar ventilation.** Textbook propagation
+class; a grep-only sweep of the equipment tree would have returned "not
+sex-dependent" and been wrong.
+
+### Sweep 4 — ARDS condition path: **partial**
+
+ARDS severity is consumed at **12+ sites** in `RespiratoryModel.cpp` (3045, 3709,
+3884, 4036, 4206, 4461, …). `RespiratoryModel.cpp` itself contains **no**
+`ePatient_Sex` and no `GetIdealBodyWeight`, so ARDS introduces no new sex branch.
+At each site the severity is combined as
+`restrictiveSeverity = MAX(restrictiveSeverity, severity)`, pooling ARDS with the
+other restrictive conditions.
+
+**Not yet traced, and it is the question that matters:** whether
+`restrictiveSeverity` is then applied *multiplicatively* to a sex-conditioned
+baseline (conditioning preserved) or used to *set an absolute value*
+(conditioning erased). If it erases, that would bear directly on why S011's
+gas-exchange sex effects shrink from S1 to S4 — but that is a **lead, not a
+finding**, and it must not leave this register until the arithmetic is read.
 
 ## G. Open items
 
