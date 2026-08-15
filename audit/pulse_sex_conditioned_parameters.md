@@ -29,7 +29,7 @@ out-of-scope.
 | # | Sweep | Status |
 |---|---|---|
 | 1 | Syntactic: enum, `Male`, `Female`, ternaries, **and derived intermediate variables** | **partial** — engine `src/cpp/engine/` + `src/cpp/cdm/` done; `bool male` propagation done for `SetupCircuitsAndCompartments.cpp` only |
-| 2 | Semantic propagation of derived quantities (IBW, BMR/TMR, Hb/Hct, cardiac output, tissue masses, regional flows, dead space) | **partial** — IBW, BMR, Hb (§C.1), cardiac output (§C.2) and **regional flows** (§C.3) traced; **tissue masses** not yet traced per consumer |
+| 2 | Semantic propagation of derived quantities (IBW, BMR/TMR, Hb/Hct, cardiac output, tissue masses, regional flows, dead space) | **traced** — IBW, BMR, Hb (§C.1), cardiac output (§C.2), regional flows (§C.3), tissue masses per consumer (§C.4). One residual: metabolic distribution CONDITIONAL/UNKNOWN (§C.4) |
 | 3 | Non-code sources (data files, protobuf defaults, serialized defaults, config) | **swept** — no state and no patient file loaded; proto3 default `Male=0` recorded (§H) |
 | 4 | Condition-application path (ARDS — 6 of our 8 cells) | **swept** — multiplicative on sex-conditioned baselines; conditioning preserved (§H) |
 | 5 | Equipment path actually used by the atlas (VC-AC mechanical ventilator) | **swept** — no direct branch; propagation confirmed (§H) |
@@ -398,6 +398,52 @@ right.
 > a property of the net computation, never of the fraction. And this is a
 > statement about **parameter perturbation only**: no consequence for PaO₂/PaCO₂
 > is established here.
+
+### C.4 Tissue masses — **one verdict per consumer**, not one per mass
+
+Prerequisite verified: every `*TissueDensity` is a plain constant (**0** of them
+contain `male`) and `resistanceConstant = 20000.0` is sex-neutral, so each
+conversion below is a sex-neutral operation on a sex-conditioned input.
+
+Five distinct consumers, and they do **not** agree on sign.
+
+| # | Consumer | Locus | Form | Verdict |
+|---|---|---|---|---|
+| 1 | tissue **volume** | L2209–2210 | `mass / density` | preserved, **same sign** |
+| 2 | compartment **total mass** | L2515, L2755 | direct assignment | preserved, same sign |
+| 3 | vascular–tissue **resistance** | L2490, L2730 | `(1/mass) × 20000` | preserved, **SIGN INVERTED** |
+| 4 | vascular→EC **permeability** | `TissueModel.cpp:507` | `coeff_per_g × mass` | preserved, same sign |
+| 5 | **capillary coverage area** | `TissueModel.cpp:516` | `coeff_cm²_per_g × mass` | preserved, same sign |
+
+**Worked case — the lung, four signed statements from one ternary:**
+
+| contrast | mass & volume & permeability & cap. area | resistance |
+|---|---|---|
+| equal weight | **F +9.8 %** | **F −9.0 %** |
+| atlas native (M 67.3, F 56.2 kg) | **F −8.3 %** | **F +9.0 %** |
+
+`0.42 < 0.50` in the source. The net answer is +9.8 %, −8.3 %, −9.0 % or +9.0 %
+depending on *which contrast* and *which consumer* — all four simultaneously true
+and none contradicting another.
+
+#### Two of my earlier statements were wrong and are corrected here
+
+- **Tissue mass does *not* drive the metabolic distribution.** I had said it did.
+  `TissueModel.cpp:888` uses `LocalATPUseRate = BloodFlowFraction × ATPUseRate ×
+  vascularVolumeMultiplier`, and `BloodFlowFraction` (L863) is
+  `vascular->GetInFlow() / totalFlowRate` — **measured runtime flow**, not tissue
+  mass. Mass reaches physiology through consumers 1–5 above, not through the
+  metabolic budget.
+- **The §C.3 setup flow targets are not the runtime fraction either.**
+  `BloodFlowFraction` is a **ratio of measured flows**, so the −12.5 % cardiac
+  output scaling appears in numerator *and* denominator and **cancels**. What
+  could survive is the *relative* distribution, and whether the setup-time target
+  ratios reach runtime through the circuit is **not established**.
+
+| Column | metabolic distribution |
+|---|---|
+| Consumer arithmetic | ratio of measured flows |
+| **Effective sex-dep** | **CONDITIONAL / UNKNOWN — not measured.** CO scaling cancels; survival of the relative distribution to runtime is unverified |
 
 ## D. BMR consumers — the cancellation calibration witnesses
 
