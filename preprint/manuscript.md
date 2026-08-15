@@ -2772,10 +2772,22 @@ corrected by setting trigger pressure to −2 cmH2O.*
   regime-dependence that section establishes. It is consistent with the
   systematically higher PaO2 the female body reaches at identical
   inputs (mean 686 vs 663 mmHg in the locked 120 s window across the
-  four RR = 20 pairs) and with the +21.3 mmHg sex effect on S1 PaO2
-  measured by the controlled 2×2 sex×mass design ([S011](#s011)).
-  **No mechanism is claimed:** S011 was run at midrange inputs and
-  FiO2 = 0.6, so this cohort cannot separate sex from the 11.1 kg
+  four RR = 20 pairs) and with the sex effect on S1 PaO2 measured by
+  the controlled 2×2 sex×mass design ([S011](#s011)), which held body
+  mass and height fixed across sexes. That design has two arms and they
+  carry different weight: **+13.7 mmHg** in the 56.2 kg comparison,
+  where both phenotypes lie inside Pulse's stated height and BMI
+  ranges, against **+21.3 mmHg** in the 67.3 kg comparison, whose
+  synthetic 180 cm female exceeds Pulse's nominal female height ceiling
+  of 175.5 cm and carries the engine's own model-validity warning. The
+  smaller, fully in-envelope figure is the one to weigh.
+  **No mechanism is claimed**, and three limits bound the design even
+  on its clean arm: the two bodies are not percentile-matched (163 cm is
+  simultaneously Pulse's female 50th-percentile standard and its male
+  3rd-percentile floor, so equal height cannot mean equal percentile);
+  it was run at a single midrange operating point at FiO2 = 0.6; and
+  Pulse's sex flag switches parameters across several subsystems at
+  once. This cohort therefore cannot separate sex from the 11.1 kg
   body-mass difference in this regime.
   Inspection of the per-run trajectories shows a stable
   ~ 690 mmHg PaO2 plateau through ~ 195 s, then an abrupt numerical
