@@ -206,6 +206,54 @@ adult surrogates are tuned per-pair, not per-input independently.
    Nothing computed in this log changes; only the reading of which arm carries
    the confound.
 
+---
+
+## Correction (2026-08-15) — envelope, percentile matching, determinism
+
+Three statements above are superseded. Nothing computed in this log changes; the
+numbers stand. What changes is what may be said about them.
+
+**1. "inside Pulse's nominal envelope" (§Divergence pattern at S4) is false for
+the 67.3 kg female cells.** `SetupPatient.cpp` sets `heightMaxFemale_cm = 175.5`
+(the female 97th percentile, per the source comment). The synthetic female is at
+**180 cm**, i.e. 4.5 cm above it. Pulse does **not** clamp — only the
+sex-independent 4.5–7.0 ft gate is a hard error — but it emits a warning, present
+in the run logs:
+
+> `[WARN] [0(s)] Patient height of 180 cm is outside of typical ranges - above 97th percentile(151 cm). No guarantees of model validity.`
+> — `data/runs/sex_vs_mass/SVM_S1_F_67.3kg/pulse.log:60`
+
+**2 of 8 cells** carry it: `SVM_S1_F_67.3kg` and `SVM_S4_F_67.3kg`. The other six
+are clean. So `sex_effect_at_67.3` (PaCO2 −7.21, PaO2 +21.3 mmHg) is measured with
+one body Pulse itself declares outside its typical range, and the S4 divergence
+described in that paragraph occurred on such a body. The atlas sweep is
+unaffected: **0 of 3,340** atlas `pulse.log` files carry the warning (full scan,
+with these two cells as positive control).
+
+**2. Neither arm is percentile-matched, and this is structural.**
+`heightMinMale_cm = 163.0` and `heightStandardFemale_cm = 163.0` are the same
+number, so the 56.2 kg contrast — which *is* fully in-envelope on height and BMI —
+compares a male at his **3rd percentile** with a female at her **50th**. Holding
+mass and height fixed across sexes cannot also keep both bodies at the centre of
+their own reference distribution, because those distributions differ. This is a
+property of any such design, not a defect of S011.
+
+**3. Limitation 4 ("may or may not be deterministic") is superseded**, not
+contradicted — it was written 2026-04-27, before the reproduction audits of June.
+Supplement §S12 records bit-identical reproduction of the 1,280-run sweep across
+CPU vendor and host OS (`max|Δ| = 0`, five-flag concordance 1,280/1,280), no RNG
+in the engine path, and a fixed 20 ms ODE timestep. The engine is reproducible for
+identical inputs on the pinned image; S011 ran on that same image.
+
+*Cosmetic upstream note:* the warning above prints `151 cm` where the female
+ceiling is 175.5 — the `else if (height_cm > heightMax_cm)` branch prints
+`heightMin_cm`. A Pulse display bug, no effect on behaviour.
+
+Full parameter inventory behind this correction:
+[`audit/pulse_sex_conditioned_parameters.md`](../../audit/pulse_sex_conditioned_parameters.md).
+
+---
+
 ### What this lets the manuscript claim / not claim
 
 **Can claim:** the H4 M-vs-F gas-exchange separation at healthy
