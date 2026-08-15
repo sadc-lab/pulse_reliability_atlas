@@ -633,6 +633,55 @@ BMR, cardiac output, lung mass or any single pathway; that still requires a
 dedicated ablation. And per the header, the parameter **count** must not become a
 manuscript claim without revalidation.
 
+## C.8 ⚠️ The supplement already documents the sex-dependent BMR — §S2, L164
+
+**Correcting a false statement I made earlier in this session.** I told the
+maintainer that `BMR`, `Harris` and `Roza` *"appear nowhere in `paper.tex` or
+`supplement.tex` (verified)"*. **That was wrong**, and it partly framed the
+decision to treat the BMR as new engine information.
+
+`supplement.tex:164`, inside §S2 *Verified Pulse 4.3.1 limitations*, already
+carries the passage that withdraws the "no sex-specific physiology beyond weight
+and height" claim, on exactly these grounds:
+
+> "A subsequent source-code audit identified other sex-dependent patient-setup
+> pathways in Pulse. In particular, the Harris--Benedict calculation in
+> \texttt{SetupPatient.cpp} sets a sex-dependent patient basal metabolic rate.
+> Under the resting, normothermic conditions used in the atlas, the engine's
+> energy model uses this value both to initialise total metabolic rate and as the
+> set point toward which total metabolic rate is regulated; total metabolic rate
+> in turn drives tissue oxygen consumption and carbon-dioxide production."
+
+*How the error happened:* the grep did return `supplement.tex:164`, but the line
+is long enough that the tool printed `[Omitted long matching line]`, and I read
+the omission as a match on the generic word "metabolic" elsewhere. **A match I did
+not read is not a match I checked.**
+
+### Is that passage correct against this register?
+
+Checked clause by clause — **it holds**, including the clause I initially
+suspected:
+
+| Clause | Verdict |
+|---|---|
+| "sets a sex-dependent patient basal metabolic rate" | ✅ `SetupPatient.cpp:772–775` |
+| "uses this value … to initialise total metabolic rate" | ✅ `EnergyModel.cpp:104` |
+| "and as the set point toward which total metabolic rate is regulated" | ✅ **defensible.** `EnergyModel.cpp:461` computes `setPoint = BMR + workRate×conv`; at rest `workRate = 0`, so **the set point *is* BMR**. The regulation *loop* (L468) is gated on `HasExercise()` and never runs here, but TMR already sits exactly at the set point, so nothing is misdescribed |
+| "total metabolic rate in turn drives tissue O₂ consumption and CO₂ production" | ✅ `TissueModel.cpp:721–722` — the one BMR consumer of four that does not cancel (§D) |
+
+**No correction to §S2 is required on mechanism.** One citation nuance remains
+open for the maintainer: the passage says "Harris--Benedict", while the code cites
+`roza1984metabolic`, i.e. the **1984 Roza & Shizgal revision** (Equations 3 and 6),
+not the 1919 originals — which are also in that paper (Equations 1 and 4) with
+different constants.
+
+### Consequence for §S10
+
+§S10 must **not** present the sex-dependent BMR as a new finding. What this
+register adds beyond §S2 is *breadth*: haemoglobin, cardiac-output circuit sizing,
+regional flows, tissue masses and — via ideal body weight — anatomic dead space,
+none of which §S2 mentions.
+
 ## D. BMR consumers — the cancellation calibration witnesses
 
 `EnergyModel.cpp:104` initialises `TotalMetabolicRate = BasalMetabolicRate`, so at
