@@ -29,7 +29,7 @@ out-of-scope.
 | # | Sweep | Status |
 |---|---|---|
 | 1 | Syntactic: enum, `Male`, `Female`, ternaries, **and derived intermediate variables** | **partial** — engine `src/cpp/engine/` + `src/cpp/cdm/` done; `bool male` propagation done for `SetupCircuitsAndCompartments.cpp` only |
-| 2 | Semantic propagation of derived quantities (IBW, BMR/TMR, Hb/Hct, cardiac output, tissue masses, regional flows, dead space) | **partial** — IBW, BMR and **Hb** traced (§C.1); cardiac output, tissue masses and regional flows **not** traced to consumers |
+| 2 | Semantic propagation of derived quantities (IBW, BMR/TMR, Hb/Hct, cardiac output, tissue masses, regional flows, dead space) | **partial** — IBW, BMR, **Hb** (§C.1) and **cardiac output** (§C.2) traced; tissue masses and regional flows **not** traced to consumers |
 | 3 | Non-code sources (data files, protobuf defaults, serialized defaults, config) | **swept** — no state and no patient file loaded; proto3 default `Male=0` recorded (§H) |
 | 4 | Condition-application path (ARDS — 6 of our 8 cells) | **swept** — multiplicative on sex-conditioned baselines; conditioning preserved (§H) |
 | 5 | Equipment path actually used by the atlas (VC-AC mechanical ventilator) | **swept** — no direct branch; propagation confirmed (§H) |
@@ -93,13 +93,14 @@ the trap taxonomy below was written, and it is precisely the case that taxonomy
 describes. Knowing a trap by name does not stop you falling into it; only
 re-deriving each claim against the source does.
 
-### The three structural traps this inventory must not fall into
+### The four structural traps this inventory must not fall into
 
 | Trap | Produces | Proof case |
 |---|---|---|
 | **Overwrite** — a sex-conditioned value is overwritten later, but by *another* sex-conditioned quantity | false **negative** | `AdiposeTissueMass` (§B) |
 | **Propagation** — a quantity carries **no sex branch of its own** yet inherits the dependence from a factor upstream | false **negative** | every `VascularFlowTarget*`, via `cardiacOutputTarget` (§B) |
 | **Cancellation** — a consumer reads a sex-conditioned quantity but its arithmetic eliminates the dependence | false **positive** | BMR ratio consumers (§D) |
+| **Same literal, two fates** — one value appears at several loci with different lifetimes; merging them inherits whichever verdict was found first | **either** | cardiac output 5600/4900 (§C.2) |
 
 A "who reads what" inventory would have produced **three false positives out of
 four** on the BMR alone. A "who has a `male ?` branch" inventory misses the whole
@@ -277,7 +278,7 @@ one is. Any §S10 sentence must name the contrast it refers to.
 | Source | Parameter | M / F | Status |
 |---|---|---|---|
 | `SubstanceManager.cpp:336` | **haemoglobin** → haematocrit (`Hb/34`) | **15.0 / 14.0 g·dL⁻¹** (F −6.7 %) | **traced — see §C.1** |
-| `CardiovascularModel.cpp:314` | cardiac output initialisation | 5600 / 4900 mL·min⁻¹ | verified; consumers **not yet traced** |
+| `CardiovascularModel.cpp:314` | cardiac output initialisation | 5600 / 4900 mL·min⁻¹ | **traced — see §C.2** |
 
 ### C.1 Haemoglobin — traced to its consumers. **Effective sex dependence: YES**
 
@@ -310,6 +311,48 @@ both active in our configuration and neither of them a ratio:
 > **That is a statement about mechanism availability, not about attribution.**
 > Nothing here licenses saying that Hb explains S011's PaO₂/SpO₂ contrast; that
 > would still require an ablation.
+
+### C.2 Cardiac output — the **same constant, two opposite verdicts**
+
+`5600 / 4900 mL·min⁻¹` appears twice. The two occurrences do **not** have the same
+fate, and treating them as one entry would be an error in either direction.
+
+| # | Locus | Role | Verdict |
+|---|---|---|---|
+| 1 | `CardiovascularModel.cpp:314`, inside `Initialize()` | sets the `CardiacOutput` **field** | **NO — overwritten** |
+| 2 | `SetupCircuitsAndCompartments.cpp:293` | `cardiacOutputTarget`, which **sizes the circuit** (every `VascularFlowTarget*`, §B) | **YES — structural** |
+
+**(1) is an initial condition with a lifetime of one heartbeat.**
+`RecordAndResetCardiacCycle()` (L1338) recomputes, at the end of **every cardiac
+cycle**, `CardiacOutput = StrokeVolume × HeartRate` (L1367). Stroke volume and
+heart rate are both emergent from the circuit. The sex-conditioned constant is
+therefore gone within roughly one beat — well under 1.2 s at HR 50 — while the
+recorded window is the final 60 s of a 120 s run, after stabilisation. Nothing of
+the initialised value reaches the data.
+
+This is exactly the failure mode the maintainer flagged: *a sex-conditioned setup
+constant is not automatically a persistent difference in the recorded window.* It
+is the same class as `CardiovascularModel::AtSteadyState()` overwriting four
+patient baseline fields with measured values, already documented in
+[`patient_baseline_rebaselining.md`](patient_baseline_rebaselining.md).
+
+**(2) persists, because it is not a value but a sizing input.** It sets the flow
+targets from which the circuit's resistances are derived; those are structural
+circuit parameters, not patient baseline fields, and the rebaselining register
+records only HR / SBP / DBP / MAP as overwritten at steady state.
+
+| Column | (1) `CardiovascularModel.cpp:314` | (2) `SetupCircuits…:293` |
+|---|---|---|
+| Phase | setup-time only | setup-time, structural |
+| Overwrite chain | `RecordAndResetCardiacCycle()` L1367, every cycle | none found |
+| Consumer arithmetic | value replaced outright | multiplied into flow targets |
+| **Effective sex-dep** | **NO — overwritten before the recorded window** | **YES** |
+| Gas relevance | none (never reaches the data) | plausible, **not established** |
+
+> **A fourth trap, and it is not any of the previous three:** the *same literal*
+> can be sex-conditioned and irrelevant at one locus while sex-conditioned and
+> structural at another. An inventory keyed on values rather than on loci would
+> merge these two rows and inherit whichever verdict it happened to find first.
 
 ## D. BMR consumers — the cancellation calibration witnesses
 
