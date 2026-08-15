@@ -593,8 +593,8 @@ caught equally.*
   monograph_claim_id: 'T1.06g.morris_seed'
   expected_value: 42
   format_in_paper: 'seed 42'
-  expected_occurrences: 2
-  notes: 'paper §5 Methods §4.3 (1) + supplement S3.2 (1). Bumped 1 -> 2 in Phase 9.A.'
+  expected_occurrences: 3
+  notes: 'paper §5 Methods §4.3 (1) + supplement S3.2 (1) + supplement S3 sampling-stability subsection (1), which names the canonical seed to contrast it with the seed-44 resampling. Bumped 1 -> 2 in Phase 9.A, then 2 -> 3 when that subsection was added.'
 
 - paper_section: '§5 Methods + Supplement S3.Sobol'
   paper_context: 'Bootstrap resamples for Morris mu* CI (1,000)'

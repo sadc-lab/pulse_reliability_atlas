@@ -1314,7 +1314,7 @@ post-[S014](#s014)-patch rebuild — a different image hash than the
   Wall time: 1 h 34 m. **The dominant input by μ\* was preserved for
   all 6 outputs**, and top-3 input sets matched canonical in 4 / 6
   outputs (top-3 orders in 3 / 6); disagreements were confined to the
-  position-3 tertiary input where μ\* magnitudes are similar across
+  second- and third-ranked inputs, where μ\* magnitudes are similar across
   competing inputs — consistent with the trajectory-bootstrap CI
   reported in §3.3.1 and the Spearman ρ analysis in §3.6.
   In full transparency, two sample-dependent quantities surfaced:

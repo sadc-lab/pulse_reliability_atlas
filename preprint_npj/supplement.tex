@@ -376,6 +376,14 @@ exhaustively from the stored per-channel statistics by re-applying the
 registered thresholds; that reconstruction reproduces the stored
 \texttt{not\_steady\_state} flag on 1{,}280 of 1{,}280 runs.
 
+\subsection{Sampling stability at fixed trajectory count}\label{sec:s3-resample}
+
+The canonical sweep draws one Morris sample at seed 42. To test the sensitivity of the reported rankings to that particular draw, cell S2\_M was re-run in full with an independent sample at seed 44, holding the design constant at 20 trajectories and 4 levels (160 points, matching the canonical cell size). This varies the sample, not its size: it is a resampling check, not a convergence analysis in the number of trajectories.
+
+The highest-$\mu^{*}$ input was preserved for all six outputs. The complete top-three set was preserved for four of six (MAP, PaCO$_2$, PaO$_2$, SpO$_2$) and its order for three; the observed disagreements were confined to ranks 2 and 3 for heart rate, delivered tidal volume and PaO$_2$.
+
+Two sample-dependent quantities are reported for completeness. First, the S2\_M divergence count rose from 4/160 to 7/160, so how many divergent configurations a sweep encounters is itself sample-dependent. Second, the $\sigma/\mu^{*}$ point estimate for FiO$_2$ on PaO$_2$ moved from 0.667 to 0.547, crossing the preregistered 0.6 point-estimate promotion trigger. This illustrates the sample dependence of that point-estimate trigger. It does not contradict the 23-input bootstrap-stable set reported in \S\ref{sec:s3-sobol}: this combination was already excluded from that set, because its ratio-aware interval straddled 0.6 under every bootstrap seed (lower bounds 0.287--0.309).
+
 
 \section{Extended Table 1: not\_steady\_state attribution}\label{sec:s4}
 
