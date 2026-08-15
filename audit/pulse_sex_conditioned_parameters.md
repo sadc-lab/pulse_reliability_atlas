@@ -67,12 +67,26 @@ complete-looking inventory*.
 | 2 | + `ePatient_Sex::Male`, engine-wide | **9** sites | the derived `bool male` variable |
 | 3 | + `male ? :` derived-variable propagation | **30+** introduction sites | **the propagation class entirely** (a quantity with no branch of its own can still be sex-conditioned), plus sweeps 3, 4, 5 |
 
-**Five** self-corrections in the same session, all the same failure mode —
+**Six** self-corrections in the same session, all the same failure mode —
 concluding from a partial read: (a) `SetupPatient.cpp` only; (b) `::Female` only;
 (c) reading Supplement §S12-independent and missing §S12-scope; (d) asserting all
 four BMR consumers propagate sex conditioning when three cancel it; (e) writing
 into *this register* that nine regional-flow lines were sex-neutral, when all of
-them inherit the sex-conditioned cardiac output (§B).
+them inherit the sex-conditioned cardiac output (§B); (f) counting **105**
+blood-gas compartments for our branch when the true figure is **38** — see below.
+
+**(f) is a distinct instrument failure and deserves its own row.** The count came
+from `grep -c "VascularCompartment::…"`, which **silently also matches
+`ExpandedVascularCompartment::`** — a substring. So the number returned was the
+sum of both branches (67 expanded + 38 standard = 105), i.e. it counted 67 calls
+on a code path the atlas never executes. The line number was wrong in the same
+pass: L354 is the `if`, the `else` is at L448.
+
+> **Rule added:** when a count is used to characterise *one* branch, anchor the
+> pattern so it cannot match the other, and verify the partition explicitly
+> (here: 0 standard calls before L448, 38 after, 67 expanded inside [354, 448)).
+> A substring match between two enum names is invisible in the output — the
+> result looks like a clean number.
 
 (e) is the most instructive: it was committed to the register **minutes after**
 the trap taxonomy below was written, and it is precisely the case that taxonomy
@@ -262,8 +276,40 @@ one is. Any §S10 sentence must name the contrast it refers to.
 
 | Source | Parameter | M / F | Status |
 |---|---|---|---|
-| `SubstanceManager.cpp:336` | **haemoglobin** → haematocrit (`Hb/34`) | **15.0 / 14.0 g·dL⁻¹** | verified; consumers **not yet traced** |
+| `SubstanceManager.cpp:336` | **haemoglobin** → haematocrit (`Hb/34`) | **15.0 / 14.0 g·dL⁻¹** (F −6.7 %) | **traced — see §C.1** |
 | `CardiovascularModel.cpp:314` | cardiac output initialisation | 5600 / 4900 mL·min⁻¹ | verified; consumers **not yet traced** |
+
+### C.1 Haemoglobin — traced to its consumers. **Effective sex dependence: YES**
+
+`SubstanceManager.cpp:336–351`. The single ternary feeds **two** downstream paths,
+both active in our configuration and neither of them a ratio:
+
+1. **Saturation calculator body state.** `hematocrit = Hb_total_g_Per_dL / 34.0`
+   → **0.4412 (M) / 0.4118 (F)** → passed to
+   `GetSaturationCalculator().SetBodyState(albumin, hematocrit, bodyTemp, SID,
+   phosphate)` (L342). The saturation calculator is what resolves O₂/CO₂ carriage,
+   so this enters oxygen-carrying capacity directly.
+2. **Initial blood gases of every compartment.**
+   `Hb_total_mM = Hb_total_g_Per_dL / molarMass × 10.0` (L351) is passed to
+   `InitializeBloodGases(...)` for **38** compartments in the **standard**
+   vasculature branch — the `else` at **L448**, which is ours. The expanded arm
+   (`if` at L354, 67 compartments) is gated `UseExpandedVasculature == On` and is
+   never enabled here (§E). Verified partition: 0 standard calls before L448, 38
+   after; 67 expanded calls inside [354, 448).
+
+| Column | Value |
+|---|---|
+| Phase | setup-time (initialisation of body state and compartment gases) |
+| Overwrite chain | none found |
+| Consumer arithmetic | **absolute** — division by the constant 34.0 and by molar mass; no sex-conditioned denominator, so **no cancellation** |
+| **Effective sex-dep in executed regime** | **YES** |
+| Gas relevance | **established** — haematocrit and Hb concentration are direct inputs to O₂ carriage, not a plausibility argument |
+
+> This makes haemoglobin the most directly gas-relevant sex conditioning found so
+> far — more direct than BMR, three of whose four runtime consumers cancel (§D).
+> **That is a statement about mechanism availability, not about attribution.**
+> Nothing here licenses saying that Hb explains S011's PaO₂/SpO₂ contrast; that
+> would still require an ablation.
 
 ## D. BMR consumers — the cancellation calibration witnesses
 
@@ -390,11 +436,21 @@ no C++ grep reaches. Four surfaces checked:
    on the atlas path. `data/config/PatientVerification.config` is a test-runner
    manifest, not physiology.
 3. **Protobuf default — a real finding.** `Patient.proto` declares
-   `enum eSex { Male=0; Female=1; }`. Under proto3 semantics an **unset** sex
-   field deserialises to the zero value, i.e. **a patient with no sex specified is
-   silently male**. This never bites the atlas — `src/scenario.py:159` always sets
-   it explicitly — but it is a genuine non-code default and is exactly the class
-   of thing this sweep existed to find.
+   `syntax = "proto3"` and `enum eSex { Male=0; Female=1; }`, so an **unset** sex
+   field deserialises to the zero value: **a patient with no sex specified is
+   silently male**.
+
+   The deserialiser makes this sharper than generic proto3 semantics would.
+   `PBPatient.cpp:24` reads `dst.SetSex((ePatient_Sex)src.sex());` with **no
+   presence check** — while the two lines immediately following it *do* check,
+   `if (src.has_age())` and `if (src.has_weight())`. So within one function,
+   an absent age or weight stays unset (and `SetupPatient` later fills it with an
+   explicit `Info` log), whereas an absent sex is silently resolved to Male with
+   no log at all.
+
+   This never bites the atlas — `src/scenario.py:159` always sets it explicitly —
+   but it is exactly the class of thing this sweep existed to find, and no amount
+   of C++ branch-grepping would have surfaced it.
 4. **Image build layer.** `engine/Dockerfile` adds only a pandas install, a patch
    to the Python SDK's mechanical-ventilator serialiser (an upstream field-name
    bug, not sex-related) and the wrapper. No physiology data is added or replaced.
