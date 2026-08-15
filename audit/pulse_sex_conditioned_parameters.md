@@ -33,7 +33,7 @@ out-of-scope.
 | 3 | Non-code sources (data files, protobuf defaults, serialized defaults, config) | **swept** — no state and no patient file loaded; proto3 default `Male=0` recorded (§H) |
 | 4 | Condition-application path (ARDS — 6 of our 8 cells) | **swept** — multiplicative on sex-conditioned baselines; conditioning preserved (§H) |
 | 5 | Equipment path actually used by the atlas (VC-AC mechanical ventilator) | **swept** — no direct branch; propagation confirmed (§H) |
-| ⊥ | Transversal: for every retained quantity, setup-time vs runtime | **partial** — done for BMR only |
+| ⊥ | Transversal: introduction → stabilisation → surviving form → recorded window | **closed** — all seven families (§C.6) |
 
 **Scope.** Pulse v4.3.1 (`pulse-atlas-engine`, image identical for the 1,280-run
 sweep and for S011). Atlas configuration: `src/scenario.py` supplies age, weight,
@@ -470,7 +470,7 @@ the flow through it equals its target**. Two consequences:
    on everything but mass, height and the sex flag). So `ΔP` is sex-neutral and
    **cancels entirely in the ratio**: `R_F/R_M = Q_M/Q_F`.
 
-   Consequence worth recording: **the sex ratio of these branch resistances is
+   Consequence, scoped: **the sex ratio of these CONSTRUCTED TARGET resistances is
    invariant to the swept SBP.** The absolute resistances move across the
    90–120 mmHg sweep; their male/female ratio does not.
 2. To the extent the realised pressures track the target pressures, the realised
@@ -530,6 +530,49 @@ sex-conditioned reference body.
 (`Hb_total_g_Per_dL` → `hematocrit`, `Hb_total_mM`, both traced in §C.1),
 `CardiovascularModel` (direct setter, §C.2), `EnergyModel` (dead code, §E),
 `SetupPatient` (IBW, fat fraction, BMR — all traced in §A, §B.1, §D).
+
+## C.6 Transversal line — introduction → stabilisation → surviving form → recorded window
+
+Not a `setup / runtime` column but four questions per family, which is what
+caught the haemoglobin correction below.
+
+| Family | Introduced | What happens during stabilisation | Surviving form | Present in the recorded 60 s? |
+|---|---|---|---|---|
+| **Hb / haematocrit** | `SubstanceManager:336` | setup haematocrit **overwritten every timestep** (§C.6.1) | recomputed from sex-conditioned Hb mass ÷ sex-neutral blood volume | **YES** — magnitude essentially unchanged |
+| **`CardiacOutput` field** | `CardiovascularModel:314` | overwritten **every cardiac cycle**, L1367 | none | **NO** |
+| **`cardiacOutputTarget`** | `SetupCircuits:293` | not overwritten — a circuit parameter | branch resistances `R = ΔP/Q` | **YES** structurally; realised flows CONDITIONAL (§C.4.1) |
+| **BMR** | `SetupPatient:772` | field never overwritten (the only other writer, `EnergyModel:756`, is dead code) | the field itself | **YES**, but only **1 of 4** runtime consumers propagates it (§D) |
+| **Tissue masses** | `SetupCircuits:2153–2165` | LBM and skin-area scaling applied at setup; no later overwrite | volumes, compartment masses, resistances, permeability, capillary area | **YES**, verdict per consumer (§C.4) |
+| **IBW → dead space** | `SetupPatient:136` → `SetupCircuits:2979` | not overwritten | circuit dead-space volume | **YES** structurally |
+| **Regional flows** | `SetupCircuits:314–330` | become resistances | resistances | **CONDITIONAL** (§C.4.1) |
+
+### C.6.1 Haemoglobin — the verdict survives, the stated mechanism did not
+
+§C.1 said the setup haematocrit reaches the saturation calculator. **It does, and
+then it is replaced every timestep.** `TissueModel::Process()` — which runs each
+step — calls `SetBodyState` again at L387.
+
+The `\todo Remove SetBodyState hardcode` comment there refers to **albumin only**
+(45.0 g/L, sex-neutral, and hardcoded identically at setup). The haematocrit it
+passes is `BloodChemistry::GetHematocrit()`, a **computed** value:
+
+```
+RedBloodCellCount  = HemoglobinContent / HbPerRedBloodCell
+RedBloodCellVolume = RedBloodCellCount × RedBloodCellVolume
+Hematocrit         = RedBloodCellVolume / TotalBloodVolume        (L203–206)
+```
+
+`HemoglobinContent` traces back to the Hb mass placed in the 38 compartments at
+initialisation from the sex-conditioned 15.0 / 14.0 g·dL⁻¹, and no atlas run
+carries a haemorrhage or transfusion action. `TotalBloodVolume` is
+`65.6 × weight^1.02`, **sex-neutral**. So the replacement carries the same sex
+difference as the value it replaced.
+
+> **Verdict unchanged (YES); the mechanism I recorded was wrong.** This is a
+> third instance of the **overwrite trap** — overwritten, but by another
+> sex-conditioned quantity, exactly like `AdiposeTissueMass`. Had the transversal
+> line not been run, §C.1 would have stood on a persistence claim that is false,
+> while reaching the right answer for the wrong reason.
 
 ## D. BMR consumers — the cancellation calibration witnesses
 
