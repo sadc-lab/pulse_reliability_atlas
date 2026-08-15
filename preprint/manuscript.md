@@ -3365,7 +3365,7 @@ bounded.*
   [Appendix C](#appendix-c)
   for readers who want to score "engine instability" separately from
   "detector edge case on healthy oxygenation." Under the joint
-  exclusion the clean rate would rise from 51.8 % to 78.7 % — this is
+  exclusion the clean rate would rise from 51.8 % to 78.8 % — this is
   presented as a decomposition, not a re-classification.
 * **`not_steady_state` cross-validation by ML/SHAP surrogate.** A
   supplementary RandomForest + SHAP ranking on the n = 663 clean
@@ -4497,7 +4497,7 @@ not feed §3.1 Table 1 or any of the headline figures.
 * **Counterfactual "clean" recount.** Under the joint exclusion
   (treat SpO2 saturation as physiological *and* re-attribute F-004
   dyssynchrony to its own documented finding), the clean count would
-  rise from 663 / 1,280 (51.8 %) to 1,008 / 1,280 (78.7 %). This
+  rise from 663 / 1,280 (51.8 %) to 1,008 / 1,280 (78.8 %). This
   number is *not* a re-classification of the atlas — it is a
   decomposition of where the 51.8 % clean rate comes from. The
   headline locked-classifier numbers in §3.1 Table 1 stand.

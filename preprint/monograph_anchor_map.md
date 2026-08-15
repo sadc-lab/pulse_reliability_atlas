@@ -59,7 +59,7 @@ monograph:
 
 | Value | Also matches inside | Mitigation |
 |---|---|---|
-| `8.7 %` | `78.7 %` (clean-rate decomposition, ×2) | pattern carries its sentence context |
+| `8.7 %` | ~~`78.7 %`~~ (clean-rate decomposition; collision ended 2026-08-15, now `78.8 %`) | pattern carries its sentence context |
 | `2.5 %` | `62.5 %` (DBP-clip step ratio) | pattern carries its sentence context |
 
 Any new row whose pattern is a bare short number must be checked the same way
@@ -287,7 +287,7 @@ FAILs contribute to the script's exit code; WARNs do not.
   min_occurrences: 1
   derivation: 'S012 audit — 8.72 % of the n = 195 runs at FiO2 >= 0.95 exceed DRIFT_MAX_DELTA_60S["Vt"] = 50.0'
   verified_on: '2026-07-25'
-  notes: 'context-anchored: a bare "8.7 %" also matches inside "78.7 %" in the clean-rate decomposition, twice'
+  notes: 'context-anchored. Historically a bare "8.7 %" also matched inside "78.7 %" in the clean-rate decomposition, twice; that collision ended on 2026-08-15 when the decomposition percentage was corrected to 78.8 % (1,008/1,280 = 78.75 %, a rounding tie previously truncated rather than rounded). No anchor collides with "78.8 %". The context anchoring is kept: it costs nothing and does not depend on that value.'
 
 - anchor_id: 'M.T19.pao2_exceedance'
   monograph_section: '§3.8.1 steady-state window audit (S012)'

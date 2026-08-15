@@ -1747,9 +1747,12 @@ add(
 add(
     claim_id="T2.nss.counterfactual",
     section="Appendix C L3290-3291, §4.5 L2574",
-    manuscript_text="78.7% clean rate under joint exclusion (1008/1280)",
+    manuscript_text="78.8% clean rate under joint exclusion (1008/1280)",
     source_file="results/s022/nss_decomposition.csv",
-    manuscript_value=78.7,
+    # 1,008/1,280 = 78.75 % exactly -- a tie at one decimal. The documents round
+    # it to 78.8; this field records what they say. Note that pct_1dp (+/-0.05)
+    # cannot arbitrate this tie: it accepts 78.7 and 78.8 alike against 78.75.
+    manuscript_value=78.8,
     computed_value=100.0 * int(total_row["n_clean_excl_both"]) / int(total_row["n_total"]),
     tolerance_rule="pct_1dp",
 )
