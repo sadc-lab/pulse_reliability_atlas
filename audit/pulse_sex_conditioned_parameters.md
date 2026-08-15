@@ -30,7 +30,7 @@ out-of-scope.
 |---|---|---|
 | 1 | Syntactic: enum, `Male`, `Female`, ternaries, **and derived intermediate variables** | **partial** — engine `src/cpp/engine/` + `src/cpp/cdm/` done; `bool male` propagation done for `SetupCircuitsAndCompartments.cpp` only |
 | 2 | Semantic propagation of derived quantities (IBW, BMR/TMR, Hb/Hct, cardiac output, tissue masses, regional flows, dead space) | **partial** — IBW and BMR traced; Hb, CO, tissue masses, regional flows **not** traced to consumers |
-| 3 | Non-code sources (data files, protobuf defaults, serialized defaults, config) | **not started** |
+| 3 | Non-code sources (data files, protobuf defaults, serialized defaults, config) | **swept** — no state and no patient file loaded; proto3 default `Male=0` recorded (§H) |
 | 4 | Condition-application path (ARDS — 6 of our 8 cells) | **swept** — multiplicative on sex-conditioned baselines; conditioning preserved (§H) |
 | 5 | Equipment path actually used by the atlas (VC-AC mechanical ventilator) | **swept** — no direct branch; propagation confirmed (§H) |
 | ⊥ | Transversal: for every retained quantity, setup-time vs runtime | **partial** — done for BMR only |
@@ -241,6 +241,23 @@ vascular–tissue resistance baselines `(1/LungTissueMass) × resistanceConstant
 > This is the register's central cautionary case: reading a mechanism off a
 > single `male ? a : b` would have produced a claim with the **wrong sign**.
 
+**The sign depends on which contrast you make — and it inverts twice.** The
+complete expression is `LungTissueMass = ternary(sex) × lungRatio ×
+weight / standardWeight(sex)`, with nothing further modifying it after L2194
+(L2209–2210 only consume it). `lungRatio` is **not** sex-conditioned
+(`rightLungRatioStandard = 0.525`, single value, never supplied by us), so it
+cancels from every comparison.
+
+| contrast | male | female | F vs M |
+|---|---|---|---|
+| **equal weight** (S011 sex arm) | `0.50·W/77.11` | `0.42·W/58.97` | **+9.8 %**, and `W` cancels — *weight-independent* |
+| **atlas native** (M 67.3 kg, F 56.2 kg) | `0.50 × 0.8728` = 0.4364 | `0.42 × 0.9531` = 0.4003 | **−8.3 %** |
+
+So: local ternary says female **lower**; equal-weight net says female **higher**;
+the atlas's own native bodies say female **lower** again. *"Females have more/less
+lung tissue in Pulse"* is not a well-formed statement — only a contrast-specific
+one is. Any §S10 sentence must name the contrast it refers to.
+
 ## C. Other engine sites
 
 | Source | Parameter | M / F | Status |
@@ -356,6 +373,38 @@ recorded outputs depend on the full non-linear system, and multiplicative
 preservation of a *parameter* ratio does not imply preservation of an *output*
 difference. Nothing here explains S011's scenario dependence, and no such
 inference may leave this register.
+
+### Sweep 3 — non-code sources: **swept, one finding**
+
+The premise of this sweep was that sex conditioning could arrive through a route
+no C++ grep reaches. Four surfaces checked:
+
+1. **Serialized state — none loaded.** `engine/run_atlas_engine.py:168` calls
+   `pulse.initialize_engine(pc, data_mgr)`, never `serialize_from_file`. The only
+   `json.load` in the wrapper (L288) reads *our* `config.json`. **`SetupPatient`
+   therefore executes on every run**, so no pre-stabilised per-sex state can carry
+   hidden conditioning — which was this sweep's largest risk.
+2. **Patient files — none loaded.** The patient is built programmatically from
+   our config. Pulse's shipped patient assets
+   (`data/human/adult/baselines/scenarios/…`) are its own V&V material and are not
+   on the atlas path. `data/config/PatientVerification.config` is a test-runner
+   manifest, not physiology.
+3. **Protobuf default — a real finding.** `Patient.proto` declares
+   `enum eSex { Male=0; Female=1; }`. Under proto3 semantics an **unset** sex
+   field deserialises to the zero value, i.e. **a patient with no sex specified is
+   silently male**. This never bites the atlas — `src/scenario.py:159` always sets
+   it explicitly — but it is a genuine non-code default and is exactly the class
+   of thing this sweep existed to find.
+4. **Image build layer.** `engine/Dockerfile` adds only a pandas install, a patch
+   to the Python SDK's mechanical-ventilator serialiser (an upstream field-name
+   bug, not sex-related) and the wrapper. No physiology data is added or replaced.
+
+> **Bounded limitation.** Surfaces 2 and 4 were verified against the Pulse **source
+> tree** and the atlas Dockerfile, not by listing `/pulse/bin/` inside the running
+> `kitware/pulse:4.3.1` image. The image's data root is used for substance,
+> environment and nutrition definitions, none of which is sex-typed by nature, and
+> the patient never comes from it — but *"verified in the source tree"* is the
+> honest scope of this row, not *"verified in the image"*.
 
 ## G. Open items
 
