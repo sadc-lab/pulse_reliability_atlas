@@ -31,7 +31,7 @@ out-of-scope.
 | 1 | Syntactic: enum, `Male`, `Female`, ternaries, **and derived intermediate variables** | **partial** — engine `src/cpp/engine/` + `src/cpp/cdm/` done; `bool male` propagation done for `SetupCircuitsAndCompartments.cpp` only |
 | 2 | Semantic propagation of derived quantities (IBW, BMR/TMR, Hb/Hct, cardiac output, tissue masses, regional flows, dead space) | **partial** — IBW and BMR traced; Hb, CO, tissue masses, regional flows **not** traced to consumers |
 | 3 | Non-code sources (data files, protobuf defaults, serialized defaults, config) | **not started** |
-| 4 | Condition-application path (ARDS — 6 of our 8 cells) | **partial** — consumers located, application arithmetic not yet traced (§H) |
+| 4 | Condition-application path (ARDS — 6 of our 8 cells) | **swept** — multiplicative on sex-conditioned baselines; conditioning preserved (§H) |
 | 5 | Equipment path actually used by the atlas (VC-AC mechanical ventilator) | **swept** — no direct branch; propagation confirmed (§H) |
 | ⊥ | Transversal: for every retained quantity, setup-time vs runtime | **partial** — done for BMR only |
 
@@ -163,7 +163,7 @@ inline `ePatient_Sex::` ternary in this file.
 | L363, L370 | volume fractions | Fat .05/.085 · Muscle .14/.105 |
 | L1338 | renal artery resistance factor | .025 / .055 |
 | L2153–2165 | **13** tissue masses | Adipose 14.5/19.0 · Bone 10.5/7.8 · Brain 1.45/1.3 · Gut 1.02/.96 · R/L Kidney .155/.1375 · Liver 1.8/1.4 · **R/L Lung 0.5/0.42 × lung ratio** · Muscle 29.0/17.5 · Myocardium .33/.25 · Skin 3.3/2.3 · Spleen .15/.13 |
-| L2174–2175 | standard-patient reference body (skin scaling) | 170/130 lb · 71/64 in |
+| L2174–2175 | standard-patient reference body — feeds **both** `typicalSkinSurfaceArea` (L2177, uses both values) **and** `standardLeanBodyMass` (L2184, the normalisation in §B.1) | 170/130 lb · 71/64 in |
 | L2182 | standard fat fraction (**third copy** of 0.21/0.28) | 0.21 / 0.28 |
 
 ### ⚠️ The ternary count is a **lower bound**, not the inventory
@@ -330,12 +330,32 @@ At each site the severity is combined as
 `restrictiveSeverity = MAX(restrictiveSeverity, severity)`, pooling ARDS with the
 other restrictive conditions.
 
-**Not yet traced, and it is the question that matters:** whether
-`restrictiveSeverity` is then applied *multiplicatively* to a sex-conditioned
-baseline (conditioning preserved) or used to *set an absolute value*
-(conditioning erased). If it erases, that would bear directly on why S011's
-gas-exchange sex effects shrink from S1 to S4 — but that is a **lead, not a
-finding**, and it must not leave this register until the arithmetic is read.
+**Answer — conditioning is PRESERVED, not erased.** Every application read is
+purely multiplicative on the value already in the circuit, with a factor that is
+a function of `restrictiveSeverity` alone and carries no sex term:
+
+| Locus | Arithmetic |
+|---|---|
+| L3736–3737 | reads `GetNextResistance()`, writes `resistance × resistanceScalingFactor` |
+| L3904–3905 | reads `GetNextCompliance()`, then `*= positivePressure × obstructive × restrictive` factors |
+| L3078–3079 | `deadSpaceIncrement` / `alveoliIncrement`, each scaled by `alveoliVolumeRatio` |
+| L4683 | `restrictiveModifier = LinearInterpolator(0, 1, 0, 0.8, restrictiveSeverity)` |
+
+The baselines being multiplied are the sex-conditioned circuit values of §B.1
+(lung tissue mass → resistance baselines L2490/L2730; compliances from lung
+volumes). Multiplying a sex-conditioned baseline by a sex-neutral factor leaves
+the **relative** sex difference exactly intact.
+
+**The lead is therefore closed, negatively.** The earlier hypothesis — "ARDS may
+overwrite sex-conditioned baselines with absolute values, which would explain why
+S011's gas-exchange sex effects shrink from S1 to S4" — is **not supported by the
+code**. It is recorded here so it is not re-proposed.
+
+**What is still not established:** anything about the S1→S4 pattern itself. The
+recorded outputs depend on the full non-linear system, and multiplicative
+preservation of a *parameter* ratio does not imply preservation of an *output*
+difference. Nothing here explains S011's scenario dependence, and no such
+inference may leave this register.
 
 ## G. Open items
 
