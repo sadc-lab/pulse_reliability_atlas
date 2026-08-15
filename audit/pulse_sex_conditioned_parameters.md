@@ -29,7 +29,7 @@ out-of-scope.
 | # | Sweep | Status |
 |---|---|---|
 | 1 | Syntactic: enum, `Male`, `Female`, ternaries, **and derived intermediate variables** | **closed** — engine + cdm swept; transitive closure done: all level-1 variables have traced consumers (§C.5) |
-| 2 | Semantic propagation of derived quantities (IBW, BMR/TMR, Hb/Hct, cardiac output, tissue masses, regional flows, dead space) | **traced** — IBW, BMR, Hb (§C.1), cardiac output (§C.2), regional flows (§C.3), tissue masses per consumer (§C.4). One residual: metabolic distribution CONDITIONAL/UNKNOWN (§C.4) |
+| 2 | Semantic propagation of derived quantities (IBW, BMR/TMR, Hb/Hct, cardiac output, tissue masses, regional flows, dead space) | **traced** — IBW, BMR, Hb (§C.1), cardiac output (§C.2), regional flows (§C.3), tissue masses per consumer (§C.4). Metabolic distribution resolved to CONDITIONAL — YES by construction, unmeasured (§C.4.1) |
 | 3 | Non-code sources (data files, protobuf defaults, serialized defaults, config) | **swept** — no state and no patient file loaded; proto3 default `Male=0` recorded (§H) |
 | 4 | Condition-application path (ARDS — 6 of our 8 cells) | **swept** — multiplicative on sex-conditioned baselines; conditioning preserved (§H) |
 | 5 | Equipment path actually used by the atlas (VC-AC mechanical ventilator) | **swept** — no direct branch; propagation confirmed (§H) |
@@ -443,7 +443,41 @@ and none contradicting another.
 | Column | metabolic distribution |
 |---|---|
 | Consumer arithmetic | ratio of measured flows |
-| **Effective sex-dep** | **CONDITIONAL / UNKNOWN — not measured.** CO scaling cancels; survival of the relative distribution to runtime is unverified |
+| **Effective sex-dep** | **CONDITIONAL — YES by construction** (resolved below), *not* by measurement |
+
+#### C.4.1 Resolving the metabolic-distribution residual
+
+The circuit resistances are **not independent of the flow targets**. They are
+derived from them by Ohm's law — e.g. L392–393:
+
+```
+ResistanceFat       = (systolicPressureTarget − VascularPressureTargetFat) / VascularFlowTargetFat
+ResistanceFatVenous = (VascularPressureTargetFat − VascularPressureTargetVenaCava) / VascularFlowTargetFat
+```
+
+So each branch resistance is set **precisely so that, at the target pressures,
+the flow through it equals its target**. Two consequences:
+
+1. Resistance carries the **inverse** of the flow-target difference. Fat: female
+   target +48.8 % → female resistance ≈ −33 %. Muscle: female target −38.2 % →
+   female resistance ≈ +62 %.
+2. To the extent the realised pressures track the target pressures, the realised
+   flows track the targets, so
+   `BloodFlowFraction = Q_organ/Q_total ≈ f_organ(sex)·CO(sex) / CO(sex) = f_organ(sex)`.
+   **The cardiac-output factor cancels and the sex-conditioned *fraction*
+   survives.**
+
+> **Status upgraded from UNKNOWN to CONDITIONAL, and the distinction matters.**
+> This is an argument from how the circuit is *constructed*, not a measurement.
+> The realised pressures are emergent and are known to drift from their targets —
+> `CardiovascularModel::AtSteadyState()` rebaselines SBP/DBP/MAP to measured
+> values ([`patient_baseline_rebaselining.md`](patient_baseline_rebaselining.md)),
+> and ARDS multiplies compliances and resistances (§H). The atlas CSVs record no
+> compartment flows, so the realised fractions **cannot be checked against these
+> artefacts**. Settling this by measurement would need a run with per-compartment
+> flow data requests — not done, and not needed for the §S10 claim, which rests
+> on the existence of sex-conditioned pathways rather than on their realised
+> magnitudes.
 
 ### C.5 Transitive closure — the four remaining level-1 variables
 
@@ -461,10 +495,13 @@ allometric relation the main paper §2.5 already reports as sex-independent) and
 | `renalArteryResistanceFactor` .025/.055 | L1340 renal artery resistance | **×2.2 (+120 %)** — weight-independent, no blood-volume term |
 | `typicalSkinSurfaceArea_m2` (from the 170/130 lb, 71/64 in reference body) | L2179 `SkinTissueMass ×= patientSkinArea / typicalSkinArea` | **structure recorded, value not computed** — see caution below |
 
-**The renal artery resistance factor is the largest single sex ratio in this
-register: 2.2×.** Larger than haemoglobin (1.07×), cardiac output (1.14×) or any
-tissue mass. It is recorded here as a *parameter* ratio; no renal or gas-exchange
-consequence is claimed, and the atlas records no renal output.
+**The renal artery resistance factor is the largest sex ratio *quantified so far*
+in this register: 2.2×** — against haemoglobin 1.07×, cardiac output 1.14× and
+under 1.1× for the tissue masses. Deliberately **not** stated as "the largest in
+the register": the completeness condition is unsatisfied, one magnitude is left
+uncomputed (skin, above) and one is unmeasured (§C.4.1), so a larger ratio may
+still surface. It is recorded as a *parameter* ratio only; no renal or
+gas-exchange consequence is claimed, and the atlas records no renal output.
 
 Skin is the one mass **not** scaled by `leanBodyMassFractionOfTypical`; it is
 normalised by a surface-area ratio instead, whose denominator is the
