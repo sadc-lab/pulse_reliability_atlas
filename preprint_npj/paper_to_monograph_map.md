@@ -85,8 +85,8 @@ caught equally.*
   monograph_claim_id: 'T1.02a'
   expected_value: 20.6
   format_in_paper: '20.6~\%'
-  expected_occurrences: 2
-  notes: 'Appears twice as of Step 4: abstract sentence 3 "in 20.6~\% of runs" (1), §2.3 opening sentence "20.6~\% of runs" (1). Format standardised in Step 4 to use ~ (LaTeX non-breaking space) between number and unit; the abstract was retroactively updated for consistency.'
+  expected_occurrences: 3
+  notes: 'paper (2): abstract sentence 3 "in 20.6~\% of runs", §2.3 opening sentence "20.6~\% of runs". supplement (1): the S3 detector-convention paragraph, which names this rate as an example of a prevalence estimate conditioned on the 0.05 CV convention. Format standardised in Step 4 to use ~ (LaTeX non-breaking space) between number and unit; the abstract was retroactively updated for consistency. Bumped 2 -> 3 when the detector-convention provenance sentence was added.'
 
 - paper_section: 'Abstract + §2.4 hyperoxia'
   paper_context: 'Hyperoxia 300s plateau median (S1)'
@@ -289,16 +289,16 @@ caught equally.*
   monograph_claim_id: 'T1.03'
   expected_value: 0.351
   format_in_paper: '0.351'
-  expected_occurrences: 3
-  notes: 'Appears twice: §2.3 prose ("collapses the median Vt CV from 0.351 to 0.016") and Figure 4 caption ("Median CV collapses from 0.351 to 0.016"). Both are downstream of T1.03 (S014 paired_comparison.parquet).'
+  expected_occurrences: 4
+  notes: 'paper (2): §2.3 prose ("collapses the median Vt CV from 0.351 to 0.016") and Figure 4 caption ("Median CV collapses from 0.351 to 0.016"). supplement (2): S8 opening and the S3 detector-convention paragraph, which cites the same collapse to bound the 0.05 CV convention. All downstream of T1.03 (S014 paired_comparison.parquet). Bumped 3 -> 4 when the detector-convention provenance sentence was added; the previous note said "Appears twice" while the count was already 3.'
 
 - paper_section: '§2.3 + §2.4 caption'
   paper_context: 'Median Vt CV after -2 cmH2O trigger lock'
   monograph_claim_id: 'T1.04'
   expected_value: 0.016
   format_in_paper: '0.016'
-  expected_occurrences: 3
-  notes: 'Appears twice: §2.3 prose and Figure 4 caption (same context as T1.03).'
+  expected_occurrences: 4
+  notes: 'paper (2): §2.3 prose and Figure 4 caption. supplement (2): S8 opening and the S3 detector-convention paragraph. Same contexts as T1.03. Bumped 3 -> 4 when the detector-convention provenance sentence was added.'
 
 - paper_section: '§2.3 VC-AC (prose)'
   paper_context: 'Worst-case Vt CV original'
