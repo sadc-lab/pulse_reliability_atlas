@@ -459,8 +459,20 @@ So each branch resistance is set **precisely so that, at the target pressures,
 the flow through it equals its target**. Two consequences:
 
 1. Resistance carries the **inverse** of the flow-target difference. Fat: female
-   target +48.8 % → female resistance ≈ −33 %. Muscle: female target −38.2 % →
-   female resistance ≈ +62 %.
+   target +48.8 % → female resistance **−32.8 %**. Muscle: female target −38.2 %
+   → female resistance **+61.9 %**.
+
+   *The numerator had to be checked before this could be said.* **0** of the
+   `VascularPressureTarget*` variables carries a `male ?` ternary; each is a plain
+   fraction of `systolicPressureTarget_mmHg` (Fat and Muscle 0.33×, vena cava
+   0.0333×), which is `GetSystolicArterialPressureBaseline()` — **our swept SBP**,
+   identical for both bodies at the same Morris point (the female grid is matched
+   on everything but mass, height and the sex flag). So `ΔP` is sex-neutral and
+   **cancels entirely in the ratio**: `R_F/R_M = Q_M/Q_F`.
+
+   Consequence worth recording: **the sex ratio of these branch resistances is
+   invariant to the swept SBP.** The absolute resistances move across the
+   90–120 mmHg sweep; their male/female ratio does not.
 2. To the extent the realised pressures track the target pressures, the realised
    flows track the targets, so
    `BloodFlowFraction = Q_organ/Q_total ≈ f_organ(sex)·CO(sex) / CO(sex) = f_organ(sex)`.
