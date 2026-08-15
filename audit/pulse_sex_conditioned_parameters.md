@@ -29,7 +29,7 @@ out-of-scope.
 | # | Sweep | Status |
 |---|---|---|
 | 1 | Syntactic: enum, `Male`, `Female`, ternaries, **and derived intermediate variables** | **partial** — engine `src/cpp/engine/` + `src/cpp/cdm/` done; `bool male` propagation done for `SetupCircuitsAndCompartments.cpp` only |
-| 2 | Semantic propagation of derived quantities (IBW, BMR/TMR, Hb/Hct, cardiac output, tissue masses, regional flows, dead space) | **partial** — IBW, BMR, **Hb** (§C.1) and **cardiac output** (§C.2) traced; tissue masses and regional flows **not** traced to consumers |
+| 2 | Semantic propagation of derived quantities (IBW, BMR/TMR, Hb/Hct, cardiac output, tissue masses, regional flows, dead space) | **partial** — IBW, BMR, Hb (§C.1), cardiac output (§C.2) and **regional flows** (§C.3) traced; **tissue masses** not yet traced per consumer |
 | 3 | Non-code sources (data files, protobuf defaults, serialized defaults, config) | **swept** — no state and no patient file loaded; proto3 default `Male=0` recorded (§H) |
 | 4 | Condition-application path (ARDS — 6 of our 8 cells) | **swept** — multiplicative on sex-conditioned baselines; conditioning preserved (§H) |
 | 5 | Equipment path actually used by the atlas (VC-AC mechanical ventilator) | **swept** — no direct branch; propagation confirmed (§H) |
@@ -353,6 +353,51 @@ records only HR / SBP / DBP / MAP as overwritten at steady state.
 > can be sex-conditioned and irrelevant at one locus while sex-conditioned and
 > structural at another. An inventory keyed on values rather than on loci would
 > merge these two rows and inherit whichever verdict it happened to find first.
+
+### C.3 Regional flows — net absolute values, not fractions
+
+Two layers stack: **every** target is a fraction of a sex-conditioned
+`cardiacOutputTarget` (F 4900 vs M 5600 mL·min⁻¹, i.e. **F −12.5 %**), and seven
+of them carry a sex-conditioned fraction on top. Reading the fractions alone is
+therefore not enough — the net value is `fraction(sex) × CO(sex)`.
+
+**Threshold:** a female fraction must exceed the male one by more than
+`5600/4900 = +14.29 %` for the *absolute* flow to end up higher. Below that, a
+higher female fraction still yields a lower female flow.
+
+| Target | fraction M / F | fraction F vs M | **net flow F vs M** |
+|---|---|---|---|
+| Fat | .05 / .085 | +70 % | **+48.8 %** |
+| Large intestine | .04 / .05 | +25 % | **+9.4 %** |
+| Myocardium | .04 / .05 | +25 % | **+9.4 %** |
+| Small intestine | .10 / .11 | **+10 %** | **−3.8 %** ⚠ inverts |
+| Kidney | .085 / .075 | −11.8 % | **−22.8 %** |
+| Muscle | .17 / .12 | −29.4 % | **−38.2 %** |
+| *(all sex-neutral fractions)* | — | 0 | **−12.5 %** |
+
+Two of the five fractions that are *higher* for the female body sit below the
+14.29 % threshold and therefore invert — small intestine here, and the portal
+vein below. **The maintainer predicted this case before it was computed.**
+
+**Liver is a third case, and it needs the subtraction.** L330 is
+`VascularFlowTargetLiver = (male ? 0.255·CO : 0.27·CO) − VascularFlowTargetPortalVein`,
+and L329 `PortalVein = LargeIntestine + SmallIntestine + Splanchnic + Spleen`
+(the last two sex-neutral at .01 and .03).
+
+| | M | F | F vs M |
+|---|---|---|---|
+| Portal vein | .18 × 5600 = 1008 | .20 × 4900 = 980 | **−2.8 %** ⚠ inverts (fraction sum +11.1 %) |
+| Liver, net of portal | 1428 − 1008 = **420** | 1323 − 980 = **343** | **−18.3 %** |
+
+Taking the liver ternary at face value gives −7.4 %; carrying the subtraction
+gives **−18.3 %**, two and a half times larger. A register that recorded
+"liver .255/.27" and stopped would have been wrong in magnitude while looking
+right.
+
+> **Effective sex-dep: YES for all regional flows** — but the *sign and size* are
+> a property of the net computation, never of the fraction. And this is a
+> statement about **parameter perturbation only**: no consequence for PaO₂/PaCO₂
+> is established here.
 
 ## D. BMR consumers — the cancellation calibration witnesses
 
