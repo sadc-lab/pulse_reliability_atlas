@@ -140,6 +140,14 @@ npj's "up to 150 words", zero margin (`audit/npj_format_compliance.md` N-2).
 Old sentence 18 words, new sentence 18 words — **budget-neutral on both
 conventions**; no `%`, `=` or `~` introduced.
 
+> ⏱️ **Superseded 2026-08-16 — this budget line is a record of its date, not the
+> current state.** `bc01969` hyphenated two compound modifiers, so the abstract
+> now stands at **145 strict / 148 whitespace tokens**, with a margin of 2. One
+> of them lands inside the replacement sentence quoted below, which now reads
+> `synthetic-cohort construction`. The count is no longer register-only either:
+> `check_abstract_extent` in `scripts/audit_claims.py` fails above 150, and
+> deliberately does not pin the observed figure. See N-2 for the chronology.
+
 ```diff
 -The atlas maps where Pulse is trustworthy and ships an Apache-2.0-licensed data-quality filter for synthetic machine-learning training cohorts.
 +The atlas maps operational sensitivity and review-priority regions, and releases an Apache-2.0-licensed curation layer for synthetic cohort construction.
