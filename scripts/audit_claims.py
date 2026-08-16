@@ -5137,10 +5137,19 @@ FIGURE_DIRS = ("figures", "preprint_npj/figures")
 # Tracked figure PDFs that legitimately carry a wall-clock timestamp, each with
 # the reason. An entry that stops being needed is reported: a stale exception is
 # how a real defect hides.
-FIGURE_TIMESTAMP_EXCEPTIONS: dict[str, str] = {
-    "fig_s2_spearman.pdf":
-        "no generator anywhere in the repo (scripts/verify.py::MISSING_GENERATORS)",
-}
+# Emptied 2026-08-16. The single entry, fig_s2_spearman.pdf, was exempted on the
+# stated ground of "no generator anywhere in the repo
+# (scripts/verify.py::MISSING_GENERATORS)". That ground was false: the figure is
+# written by scripts/make_figures.py::fig_h4_spearman() under the name
+# figures/fig05_h4_spearman_mu_star.pdf, which commit b3caa1c established on
+# 2026-07-28. The exemption therefore rested on a premise this guard never
+# re-checked, because the premise lived in another file -- and by suppressing the
+# timestamp check it hid the very drift it should have caught, when 94d19c2
+# rewrote the tracked figures under SOURCE_DATE_EPOCH and left the npj copy on
+# its old wall-clock stamp. Exactly what the note above warns about: a stale
+# exception is how a real defect hides. verify.py now propagates the generated
+# file, so the figure carries the pinned epoch like every other.
+FIGURE_TIMESTAMP_EXCEPTIONS: dict[str, str] = {}
 
 
 def check_figure_timestamps() -> int:
