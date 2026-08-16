@@ -4470,6 +4470,39 @@ def check_legend_lengths() -> int:
 SEX_DIV_SOURCE = "results/cell_flag_summary.csv"
 SEX_DIV_EXPECTED = {"M": 20, "F": 0}
 SEX_DIV_FEMALE_RUNS = 640
+# Effective input-side sample (2026-08-16).
+#
+# The hole this closes. Every input-signature statement about the divergence
+# cluster is counted over the 20 EVENTS ("16 of 20", "13 of 20"), which reads as
+# 20 independent draws from the input space. It is not: the 20 runs span only 8
+# distinct operational-input vectors, because 4 vectors diverge in all four male
+# cells and are therefore counted four times each. The dominant hypotensive-
+# tachypneic signature is 16/20 events but only 4/8 vectors -- a 4x difference in
+# evidential weight. Nothing in the repository measured this, and the paper did
+# not disclose it, so a reviewer could reasonably read the signature as better
+# sampled than it is.
+#
+# Why recomputed rather than asserted. Same reasoning as the rows above: a prose
+# fix alone would leave nothing re-measuring the decomposition. Row A rebuilds
+# the distinct-vector count from the sweep artefact; row B pins the replication
+# STRUCTURE (four vectors seen four times, four seen once), so a sweep whose
+# divergence set regrouped differently breaks the guard even if the total held;
+# row C requires the paper to keep disclosing it.
+#
+# Run counts are NOT changed by this: "16 of 20" and "13 of 20" remain true as
+# event counts, and the blood-volume rescue (20/20 -> 0/20) is legitimately a run
+# count, since each of the 20 is a distinct (vector, scenario) pair. The unit
+# only collapses to 8 for statements about which INPUTS are associated with
+# divergence.
+SEX_DIV_VECTOR_COLS = ["in_hr", "in_sbp", "in_dbp", "in_rr", "in_vt",
+                       "in_fio2", "in_peep"]
+SEX_DIV_DISTINCT_VECTORS = 8
+# {times a vector recurs: how many vectors recur that often}
+SEX_DIV_VECTOR_STRUCTURE = {1: 4, 4: 4}
+SEX_DIV_UNIT_PROSE = (
+    "preprint_npj/paper.tex",
+    "span only 8 distinct operational-input vectors",
+)
 SEX_DIV_DOCS = [
     "preprint_npj/paper.tex",
     "preprint_npj/supplement.tex",
@@ -4525,6 +4558,32 @@ def check_sex_divergence() -> int:
     rows.append(("female runs (denominator in prose)",
                  f"{n_female} (expected {SEX_DIV_FEMALE_RUNS})",
                  "PASS" if ok else "**FAIL**"))
+
+    # 3b. the effective input-side sample: 20 events, 8 distinct vectors
+    dv = agg.loc[agg["diverged"], SEX_DIV_VECTOR_COLS].round(4)
+    n_vec = len(dv.drop_duplicates())
+    ok = n_vec == SEX_DIV_DISTINCT_VECTORS
+    n_bad += 0 if ok else 1
+    rows.append(("distinct input vectors among the diverged (recomputed)",
+                 f"{n_vec} (expected {SEX_DIV_DISTINCT_VECTORS})",
+                 "PASS" if ok else "**FAIL**"))
+
+    # 3c. and how those vectors recur across cells
+    structure = dict(sorted(dv.groupby(SEX_DIV_VECTOR_COLS).size()
+                            .value_counts().items()))
+    ok = structure == SEX_DIV_VECTOR_STRUCTURE
+    n_bad += 0 if ok else 1
+    rows.append(("vector recurrence {times: n_vectors} (recomputed)",
+                 f"{structure} (expected {SEX_DIV_VECTOR_STRUCTURE})",
+                 "PASS" if ok else "**FAIL**"))
+
+    # 3d. the paper must keep disclosing that the unit is the vector, not the run
+    _rel, _needle = SEX_DIV_UNIT_PROSE
+    ok = (REPO / _rel).read_text(encoding="utf-8").count(_needle) >= 1
+    n_bad += 0 if ok else 1
+    rows.append((f"`{_rel}` discloses the effective input sample",
+                 f"`{_needle[:52]}...`",
+                 "PASS" if ok else "**FAIL** (absent)"))
 
     # 4+. the regime-scoped prose that ties the totals to that denominator
     for rel, needle in SEX_DIV_CONTEXT:
