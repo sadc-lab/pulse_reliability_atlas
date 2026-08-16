@@ -111,7 +111,7 @@ tables and rationale registers, which sit naturally in Supplementary
 Information. But the section title, and the sentence above, both announce it as
 Methods. **Author decision required.** Nothing modified.
 
-### 🟢 N-2 — Abstract: 147 words, or 150. **Compliant under both readings.** Resolved 2026-08-03.
+### 🟢 N-2 — Abstract: **145 words, or 148** since 2026-08-16 (was 147 / 150). **Compliant under both readings.** First resolved 2026-08-03, superseded 2026-08-16.
 
 > "No subheadings permitted and up to 150 words in length" — `CT`.
 
@@ -159,6 +159,53 @@ Length: the count depends on whether three standalone symbols are words.
 > until page furniture and hyphenation splits are removed, and the check that
 > catches it is instrument agreement: two methods that disagree by exactly 3
 > are reporting an artefact, not a measurement.
+
+> ### 🔄 2026-08-16 — the 2026-08-03 decision is superseded, not erased
+>
+> **Chronology, both entries true of their date:**
+>
+> - **2026-08-03** — abstract left unchanged at **150 / 147**, compliant under
+>   both conventions, zero margin under the word-processor reading.
+> - **2026-08-16** — superseded by two grammatical compound-modifier
+>   hyphenations; the abstract now counts **148 / 145** under the same
+>   conventions, restoring a margin of 2.
+>
+> **What changed, and only that:** `adult physiology simulator` →
+> `adult-physiology simulator`, and `synthetic cohort construction` →
+> `synthetic-cohort construction`. Both are compound modifiers preceding their
+> head noun, where hyphenation is the standard form; the head noun stays outside
+> the compound, exactly as the abstract already writes
+> *"an **Apache-2.0-licensed** curation layer"*. No scientific content changed,
+> and no claim was touched.
+>
+> This is a correction of typography before it is a saving of words. Both open
+> forms were ambiguous: *adult physiology simulator* also parses as an adult
+> simulator of physiology, and *synthetic cohort construction* as synthetic
+> construction of cohorts. The hyphen removes each reading. The abstract already
+> carried 16 hyphenated compounds, so these two were the outliers.
+>
+> **Rejected in the same pass:** `formal sensitivity analysis` →
+> `formal-sensitivity-analysis`. Here `analysis` IS the head noun, with no
+> following noun to modify, so the open form is the correct one. The paper's own
+> usage settles it: `sensitivity-analysis` appears hyphenated 5 times and every
+> one precedes a head noun (*recipe*, *reclassification* ×2, *pattern*,
+> *wrappers*), while the open form is used wherever `analysis` is itself the
+> head. Hyphenating it in the abstract would have been the single violation of a
+> rule the manuscript otherwise applies consistently — and would have read as
+> word-count gaming.
+>
+> **Verified with the instrument that produced the 150.** It first reproduced
+> the registered baseline on the committed file (150 / 147); the working tree
+> then measured 148 / 145; and reverting *only* those two hyphens restored the
+> committed abstract **byte-for-byte** and the count to 150 — so no other edit
+> is hiding inside the difference. `git diff --numstat` on `paper.tex`: one line.
+>
+> ⚠️ **Scope of the claim.** 148 is the count **under this repository's counting
+> convention** (whitespace-delimited tokens, hyphenated compounds counting as
+> one — the reading the 150 was measured under). npj's own counting method has
+> not been verified at source. The margin is real relative to the convention
+> this register has used throughout; it is not a statement about what the
+> submission portal will report.
 
 The three extra tokens are the two `%` in `93~\%` / `20.6~\%` and the `=` in
 `FiO$_2$~=~1.0`. The `~` renders as a space, so a word processor sees

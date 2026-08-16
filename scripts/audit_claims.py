@@ -4306,7 +4306,9 @@ def check_readme_science(ledger_claims: list[Claim]) -> int:
 #
 # TWO COUNTS, BOTH REPORTED, because the convention is genuinely ambiguous and a
 # single number would hide which one a verdict rests on -- the same ambiguity
-# that makes the abstract "147 or 150 words". `strict` counts tokens bearing a
+# that makes the abstract count read two ways (the literal figures are not
+# repeated here: they drift with the text, and nothing in this file re-measures
+# them -- see audit/npj_format_compliance.md N-2). `strict` counts tokens bearing a
 # letter or digit; `wp` counts every whitespace-separated token, as a word
 # processor does. A legend fails if EITHER exceeds the cap.
 #
