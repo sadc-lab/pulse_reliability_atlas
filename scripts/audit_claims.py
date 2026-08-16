@@ -5364,6 +5364,120 @@ n_readme_fail = check_readme_science(claims)
 
 n_legend_fail = check_legend_lengths()
 
+
+# Abstract extent guard (2026-08-16).
+#
+# The hole this closes. npj allows "up to 150 words" for the abstract. The
+# count sat at exactly 150 for two weeks with zero margin, and NOTHING
+# re-measured it: audit/npj_format_compliance.md N-2 was the only record, and a
+# register is a dated observation, not an invariant. Two hyphenations in bc01969
+# brought it to 148; without a guard, the next edit could cross 150 silently and
+# the register would still read 148.
+#
+# WHAT IS PINNED IS THE LIMIT, NOT THE COUNT. Freezing 148 would be the wrong
+# invariant twice over: a legitimate rewrite landing on 149 or 150 is compliant
+# and would break the guard for nothing, and the count is an observed state that
+# belongs in the register, not in a script. So the guard reports both counts and
+# fails only above 150.
+#
+# The counting convention is the one N-2 has used throughout: whitespace-
+# delimited tokens, as a word processor reports them, with a hyphenated compound
+# counting as ONE word -- the register records `blood-` + `volume` across a line
+# break as one word. The strict count (tokens bearing a letter or digit) is
+# reported alongside because the convention is genuinely ambiguous, exactly as
+# the legend guard above reports two counts for the same reason.
+#
+# Rows 1-2 are soundness witnesses, deliberately written as invariants rather
+# than as pins on the current text: a renderer that leaves LaTeX behind, or that
+# mangles a macro into a multi-character token, inflates the count silently and
+# in the SAFE-LOOKING direction. They stay true under any rewording.
+#
+# WHAT THIS GUARD DOES NOT PROVE. It measures the repository's convention. npj's
+# own counting method has never been verified at source, so a PASS here is not a
+# guarantee about what the submission portal will report.
+ABSTRACT_WORD_CAP = 150
+
+
+def check_abstract_extent() -> int:
+    """Bound the abstract at npj's cap under the register's counting convention."""
+    print("\n## Abstract extent guard\n")
+    rows: list[tuple[str, str, str]] = []
+    n_bad = 0
+    src = (REPO / "preprint_npj/paper.tex").read_text(encoding="utf-8")
+
+    start = re.search(r"\\abstract\{", src)
+    depth, i, out = 1, start.end(), []
+    while depth:
+        c = src[i]
+        if c == "{":
+            depth += 1
+        elif c == "}":
+            depth -= 1
+            if depth == 0:
+                break
+        out.append(c)
+        i += 1
+    body = "".join(out)
+
+    t = body.replace("~", " ").replace("{,}", ",")
+    t = re.sub(r"\$([^$]*)\$", r"\1", t)
+    t = t.replace("\\%", "%").replace("\\,", " ")
+    t = re.sub(r"\\text[a-z]*\{([^}]*)\}", r"\1", t)
+    t = re.sub(r"_\{?(\d)\}?", r"\1", t)
+    t = re.sub(r"\\[a-zA-Z]+", "", t)
+    t = t.replace("{", "").replace("}", "")
+    toks = t.split()
+    strict = [w for w in toks if re.search(r"[A-Za-z0-9]", w)]
+    symbols = [w for w in toks if w not in strict]
+
+    # 1. the renderer left no LaTeX behind (invariant under rewording)
+    residue = [w for w in toks if any(ch in w for ch in "\\{}$")]
+    ok = not residue
+    n_bad += 0 if ok else 1
+    rows.append(("no LaTeX residue among the counted tokens",
+                 "none" if ok else f"**{residue[:4]}**",
+                 "PASS" if ok else "**FAIL**"))
+
+    # 2. every non-alphanumeric token is a lone symbol, not a mangled macro
+    fat = [w for w in symbols if len(w) > 2]
+    ok = not fat
+    n_bad += 0 if ok else 1
+    rows.append(("non-alphanumeric tokens are lone symbols",
+                 f"{symbols} " + ("" if ok else f"**oversized: {fat}**"),
+                 "PASS" if ok else "**FAIL**"))
+
+    # 3. THE INVARIANT: at or under npj's cap, word-processor reading
+    ok = len(toks) <= ABSTRACT_WORD_CAP
+    n_bad += 0 if ok else 1
+    rows.append((f"word-processor count <= {ABSTRACT_WORD_CAP} (npj cap)",
+                 f"{len(toks)}",
+                 "PASS" if ok else "**FAIL**"))
+
+    # 4. the strict reading, judged on its own terms. Written as its own
+    # conjunction rather than reusing row 3's, so that each row fails only for
+    # the reason its label states: an over-length abstract must trip row 3 alone,
+    # not drag row 3's verdict into a row whose own condition still holds.
+    ok = len(strict) <= len(toks) and len(strict) <= ABSTRACT_WORD_CAP
+    n_bad += 0 if ok else 1
+    rows.append(("strict count (letter/digit tokens), also under the cap",
+                 f"{len(strict)}",
+                 "PASS" if ok else "**FAIL**"))
+
+    print("| check | observed | verdict |")
+    print("|---|---|---|")
+    for label, observed, verdict in rows:
+        print(f"| {label} | {observed} | {verdict} |")
+    print(
+        f"\n**Abstract extent guard:** {len(rows)} checks, "
+        f"{len(rows) - n_bad} PASS, {n_bad} FAIL. "
+        f"Counts are reported, not pinned; only the {ABSTRACT_WORD_CAP}-word cap "
+        f"is an invariant.\n"
+    )
+    return n_bad
+
+
+n_abstract_fail = check_abstract_extent()
+
 n_s021_conv_fail = check_s021_converged_plateau()
 
 n_sobolframe_fail = check_sobol_framing()
@@ -5383,7 +5497,7 @@ sys.exit(
         n_fail + n_sync_fail + n_mono_fail + n_counter_fail
         + n_s021_fail + n_s021_conv_fail + n_readme_fail + n_legend_fail
         + n_sexdiv_fail + n_inst_fail + n_cliprt_fail + n_s030prov_fail + n_figts_fail
-        + n_fio2adj_fail + n_sobolframe_fail + n_s011_fail
+        + n_fio2adj_fail + n_sobolframe_fail + n_s011_fail + n_abstract_fail
     ) > 0
     else 0
 )
