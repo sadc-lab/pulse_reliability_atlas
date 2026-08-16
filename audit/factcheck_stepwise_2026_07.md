@@ -939,8 +939,16 @@ which is the only reason none of them reached this register as a finding.
 ## Addendum 2026-08-03 — F-7: the PaO2 upper bound, checked against the sweep's own data
 
 Opened while re-verifying the Results §2.1 sentence on the 600 mmHg PaO2
-bound. **Nothing was modified in the manuscript. Two decisions are pending
-with the author.**
+bound. **Nothing was modified in the manuscript** on 2026-08-03.
+
+> ⏱️ **Two corrections to this header, 2026-08-16.** It said *"Two decisions are
+> pending with the author"* while the addendum lists **three** entries, F-7a,
+> F-7b and F-7c — the count was wrong on the day it was written. And all three
+> are now **RESOLVED**, verified individually against the current text; each
+> carries its evidence in its own block below. This addendum therefore has no
+> open item. The register itself had gone stale: the fixes landed between
+> 2026-08-03 and 2026-08-16 without these headers being updated, which is why a
+> reader scanning for "pending" would have been misled.
 
 ### What was verified and holds
 
@@ -950,7 +958,18 @@ with the author.**
 | 34 runs exceed the 600 mmHg bound | **CONFIRMED** | `data/runs/full_sweep/aggregated.parquet`, `PaO2_mean > 600` = 34. Matches §2.4 exactly. |
 | §2.4's "91 % at FiO2 >= 0.95" | **CONFIRMED** | 31 of 34 = 91.2 %. The 3 remaining are all S1_F at FiO2 = 0.7367. |
 
-### F-7a — OVERCLAIM in Results §2.1 (not corrected, pending decision)
+### F-7a — OVERCLAIM in Results §2.1 (pending at the time; **RESOLVED 2026-08-16**)
+
+> **RESOLVED 2026-08-16 — what was verified.** The offending sentence no longer
+> exists: `paper.tex` and `supplement.tex` return **0 occurrences** of "real
+> values", "values between 600" and "can legitimately climb". The 663 figure
+> survives (8× in the paper, 7× in the supplement) but only in the defensible
+> role — the 600 mmHg bound is now described as *"deliberately conservative, set
+> below the alveolar-gas-equation value of ≈663 mmHg at FiO2 = 1.0"*, which
+> positions 600 relative to the alveolar ceiling instead of asserting that
+> arterial values in 600–663 occur. The diagnosis below is preserved as the
+> historical record; the StatPearls A-a reasoning that motivated it is no longer
+> contradicted by any sentence in either document.
 
 Current text: *"at FiO2 = 1.0 a healthy lung's PaO2 can legitimately climb
 toward the alveolar-gas-equation ceiling of ≈663 mmHg, so **real values
@@ -972,7 +991,21 @@ subject after 20 min on 100 % O2" to PMC5587703. The article was opened: it
 is a study of **anesthetized pigs**, PaO2 120–161 mmHg, no human 100 % O2
 data. The number does not exist in that source and must not be cited.
 
-### F-7b — the per-run alveolar ceiling is not flat (not corrected, pending)
+### F-7b — the per-run alveolar ceiling is not flat (pending at the time; **RESOLVED 2026-08-16**)
+
+> **RESOLVED 2026-08-16 — what was verified.** This entry closed with the exact
+> sentence it asked for, and then some. `\S`\,`sec:s3-pao2-sensitivity` now
+> reads: *"700 mmHg is a **flat** ceiling derived at FiO2 = 1.0, whereas the
+> alveolar-gas-equation value scales with each run's own inspired fraction and
+> PaCO2. Of the 32 runs it reclassifies, 31 sit at FiO2 ≥ 0.95 … the exception is
+> a single healthy-female run at FiO2 = 0.737, whose 679 mmHg steady-state mean
+> stands well above the 0.737 × (760 − 47) − 16.2 / 0.8 ≈ 505 mmHg its own
+> inspired fraction and PaCO2 permit. **An FiO2-aware ceiling would keep that run
+> flagged.** The flat 700 mmHg bound is therefore a deliberately permissive
+> stress test of the locked classifier, **not a better classifier**."* The
+> arithmetic this entry derived (679 against ≈505) is reproduced with its formula
+> spelled out, and the conclusion goes further than the entry required by
+> reclassifying the wider bound as a robustness probe rather than an improvement.
 
 663 is the ceiling **at FiO2 = 1.0 and PaCO2 = 40 only**. The sweep varies
 both. Computing each run's own ceiling, FiO2 × (760 − 47) − PaCO2/0.8:
@@ -1005,7 +1038,22 @@ is one of the 32 runs the supplement reports as reclassified. An FiO2-aware
 ceiling would keep it flagged. One sentence in §S3-pao2-sensitivity would
 close this.
 
-### F-7c — under-hedge in §2.4 (not corrected, pending)
+### F-7c — under-hedge in §2.4 (pending at the time; **RESOLVED 2026-08-16**)
+
+> **RESOLVED 2026-08-16 — what was verified.** The sentence was reworded on the
+> exact axis this entry identified. It read *"consistent with Pulse's modelled
+> alveolar-arterial difference **rather than an oxygenation defect**, which would
+> be expected to push PaO2 above the theoretical ceiling, not below it."* It now
+> reads: *"The ≈20 mmHg gap is consistent with Pulse's modelled
+> alveolar-arterial difference, and **it rules out a runaway**: an **unbounded**
+> oxygenation defect would push PaO2 above the theoretical ceiling, not below it.
+> **It does not establish that the plateau level itself is right**, which would
+> take a validation against measured arterial data and is outside the scope of a
+> curation map."* The entry's objection was that staying below the ceiling rules
+> out a runaway and not an offset; the text now says exactly that, qualifies the
+> defect as *unbounded*, and adds the missing hedge on the plateau level. The
+> A-a magnitude observation (Pulse ≈20 mmHg against a predicted 47–62) is not
+> asserted in the manuscript either way, so no claim rests on it.
 
 Current text: the ≈20 mmHg gap between the converged S1 plateau (643 mmHg)
 and 663 *"is consistent with Pulse's modelled alveolar-arterial difference
