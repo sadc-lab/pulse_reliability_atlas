@@ -4621,6 +4621,139 @@ def check_sex_divergence() -> int:
 n_sexdiv_fail = check_sex_divergence()
 
 
+# S011 sex-contrast guard (2026-08-16).
+#
+# The hole this closes. Supplement S9's practical-guidance passage carries five
+# numbers from the S011 2x2 sex-by-mass design -- +13.7 and +21.3 mmHg (already
+# there), and -1.97 mmHg, -3.8 % and +3.97 % (added the same day the passage was
+# rebalanced to report the severe-ARDS arm). NONE of the five was anchored in the
+# crosswalk or recomputed by any script: `grep 13.7 scripts/*.py` returned
+# nothing. That is exactly the exposure the sex-divergence guard above exists to
+# close, reproduced in the very commit that closed a dossier about verification
+# discipline, and asymmetric besides -- the "8 distinct input vectors" introduced
+# in the same work WAS guarded.
+#
+# What is recomputed, and from where. results/sex_vs_mass.parquet holds one row
+# per run with PaO2_mean, sex and mass_kg. The guard subtracts F minus M itself,
+# by column name, and derives the percentages as 100*(F-M)/M from those same two
+# means. It deliberately does NOT read results/sex_vs_mass_decomposition.csv:
+# that file is emitted by scripts/sex_vs_mass_check.py, the same producer, so
+# checking against it would only confirm the script agrees with itself.
+#
+# Rows 1-2 are the two historically published figures and double as the positive
+# witnesses: if the reconstruction is wrong, they break first, before any of the
+# three new values is believed.
+#
+# Rows 6-8 pin the QUALIFICATIONS, not just the magnitudes. Removing "reverses
+# direction", the diverged S4 female cell, or the scope sentence would leave
+# every number exact while restoring precisely the one-sided reading the
+# rebalancing removed. Row 6 pins the direction flip itself (F above M at S1,
+# below at S4), so a sweep that changed sign without changing magnitude is caught.
+#
+# What this guard does NOT prove. It protects the S011 values and qualifications
+# as currently known. It says nothing about whether they generalise beyond the
+# single tested operating point (FiO2 = 0.6, midrange inputs), and nothing about
+# any mechanism: Pulse's sex flag switches several subsystems at once, and the
+# two bodies are not percentile-matched.
+S011_SOURCE = "results/sex_vs_mass.parquet"
+S011_IN_ENVELOPE_KG = 56.2
+S011_OUT_ENVELOPE_KG = 67.3
+# (scenario, mass_kg, decimals, expected F-M in mmHg)
+S011_ABS_EXPECTED = [
+    ("S1", 56.2, 1, 13.7),
+    ("S1", 67.3, 1, 21.3),
+    ("S4", 56.2, 2, -1.97),
+]
+# (scenario, mass_kg, decimals, expected 100*(F-M)/M)
+S011_REL_EXPECTED = [
+    ("S1", 56.2, 2, 3.97),
+    ("S4", 56.2, 1, -3.8),
+]
+S011_DIVERGED_CELL = ("S4", 67.3)
+S011_PROSE = [
+    ("preprint_npj/supplement.tex", "reverses direction"),
+    ("preprint_npj/supplement.tex", "diverged outright at S4"),
+    ("preprint_npj/supplement.tex",
+     "scenario-dependent sensitivity to the sex-conditioned setup"),
+]
+
+
+def check_s011_sex_contrast() -> int:
+    """Rebuild the S011 sex contrast from run means, and pin its qualifications."""
+    print("\n## S011 sex-contrast guard\n")
+    rows: list[tuple[str, str, str]] = []
+    n_bad = 0
+    d = pd.read_parquet(REPO / S011_SOURCE)
+
+    def mean_for(scenario: str, sex: str, mass: float) -> float | None:
+        sel = d[(d["scenario"] == scenario) & (d["sex"] == sex)
+                & (d["mass_kg"] == mass)]
+        if sel.empty:
+            return None
+        v = sel.iloc[0]["PaO2_mean"]
+        return None if pd.isna(v) else float(v)
+
+    # 1-3. absolute F - M, subtracted here rather than read from a derived field
+    for scen, mass, dp, expected in S011_ABS_EXPECTED:
+        f, m = mean_for(scen, "F", mass), mean_for(scen, "M", mass)
+        obs = None if (f is None or m is None) else round(f - m, dp)
+        ok = obs == expected
+        n_bad += 0 if ok else 1
+        rows.append((f"{scen} @ {mass} kg, F - M PaO2 (recomputed)",
+                     f"{obs} (expected {expected})",
+                     "PASS" if ok else "**FAIL**"))
+
+    # 4-5. relative effect, derived from the same two means
+    for scen, mass, dp, expected in S011_REL_EXPECTED:
+        f, m = mean_for(scen, "F", mass), mean_for(scen, "M", mass)
+        obs = None if (f is None or m is None or m == 0) else round(100 * (f - m) / m, dp)
+        ok = obs == expected
+        n_bad += 0 if ok else 1
+        rows.append((f"{scen} @ {mass} kg, 100*(F-M)/M (recomputed)",
+                     f"{obs} (expected {expected})",
+                     "PASS" if ok else "**FAIL**"))
+
+    # 6. the direction flip itself, independent of magnitude
+    f1, m1 = mean_for("S1", "F", S011_IN_ENVELOPE_KG), mean_for("S1", "M", S011_IN_ENVELOPE_KG)
+    f4, m4 = mean_for("S4", "F", S011_IN_ENVELOPE_KG), mean_for("S4", "M", S011_IN_ENVELOPE_KG)
+    ok = None not in (f1, m1, f4, m4) and f1 > m1 and f4 < m4
+    n_bad += 0 if ok else 1
+    rows.append((f"sign flips between S1 and S4 at {S011_IN_ENVELOPE_KG} kg",
+                 f"S1 F>M {f1 > m1}, S4 F<M {f4 < m4}",
+                 "PASS" if ok else "**FAIL**"))
+
+    # 7. the S4 2x2 is incomplete because the out-of-envelope female diverged
+    scen, mass = S011_DIVERGED_CELL
+    sel = d[(d["scenario"] == scen) & (d["sex"] == "F") & (d["mass_kg"] == mass)]
+    ok = len(sel) == 1 and bool(sel.iloc[0]["diverged"])
+    n_bad += 0 if ok else 1
+    rows.append((f"{scen} @ {mass} kg female run diverged (S4 2x2 incomplete)",
+                 f"diverged={bool(sel.iloc[0]['diverged']) if len(sel) == 1 else 'missing'}",
+                 "PASS" if ok else "**FAIL**"))
+
+    # 8-10. the qualifications that stop a one-sided reading
+    for rel, needle in S011_PROSE:
+        hits = (REPO / rel).read_text(encoding="utf-8").count(needle)
+        ok = hits >= 1
+        n_bad += 0 if ok else 1
+        rows.append((f"`{rel}` keeps `{needle[:44]}`",
+                     f"{hits} occurrence(s)",
+                     "PASS" if ok else "**FAIL** (absent)"))
+
+    print("| check | observed | verdict |")
+    print("|---|---|---|")
+    for label, observed, verdict in rows:
+        print(f"| {label} | {observed} | {verdict} |")
+    print(
+        f"\n**S011 sex-contrast guard:** {len(rows)} checks, "
+        f"{len(rows) - n_bad} PASS, {n_bad} FAIL.\n"
+    )
+    return n_bad
+
+
+n_s011_fail = check_s011_sex_contrast()
+
+
 # Setup-input instantiation (§2.1, §4.4, Discussion). Every number below is
 # recomputed from the run-level long artefact, never hard-coded here: the
 # expected values are the assertion, and the CSV is the measurement.
@@ -5248,7 +5381,7 @@ sys.exit(
         n_fail + n_sync_fail + n_mono_fail + n_counter_fail
         + n_s021_fail + n_s021_conv_fail + n_readme_fail + n_legend_fail
         + n_sexdiv_fail + n_inst_fail + n_cliprt_fail + n_s030prov_fail + n_figts_fail
-        + n_fio2adj_fail + n_sobolframe_fail
+        + n_fio2adj_fail + n_sobolframe_fail + n_s011_fail
     ) > 0
     else 0
 )
