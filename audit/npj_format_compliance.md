@@ -111,7 +111,7 @@ tables and rationale registers, which sit naturally in Supplementary
 Information. But the section title, and the sentence above, both announce it as
 Methods. **Author decision required.** Nothing modified.
 
-### 🟢 N-2 — Abstract: **145 words, or 148** since 2026-08-16 (was 147 / 150). **Compliant under both readings.** First resolved 2026-08-03, superseded 2026-08-16.
+### 🟢 N-2 — Abstract: **146 words, or 149** since 2026-08-17 (was 145 / 148, and 147 / 150 before that). **Compliant under both readings.** First resolved 2026-08-03, superseded 2026-08-16, superseded again 2026-08-17.
 
 > "No subheadings permitted and up to 150 words in length" — `CT`.
 
@@ -206,6 +206,39 @@ Length: the count depends on whether three standalone symbols are words.
 > not been verified at source. The margin is real relative to the convention
 > this register has used throughout; it is not a statement about what the
 > submission portal will report.
+
+> ### 🔄 2026-08-17 — superseded again: **149 / 146**, and the illustrative
+> quotation above no longer exists in the abstract
+>
+> The abstract's closing clause changed from *"an **Apache-2.0-licensed**
+> curation layer"* to *"an **openly licensed** curation layer"*, costing one
+> word: **149 / 146** under the same two conventions, one under the cap.
+>
+> **Why, and it is not a typographic matter this time.** The clause attached a
+> *software* licence to the artefact the paper's own Data availability statement
+> describes as a machine-readable CSV/JSON map — a data artefact, and one the
+> same statement licenses CC-BY-4.0 in the Zenodo deposit. An enumeration of all
+> 9 `Apache` occurrences in `paper.tex` + `supplement.tex` found this to be the
+> **only** locus in the submission sources where Apache-2.0 qualified a data
+> artefact; the other 8 refer to Pulse itself, to the pipeline, or to the two
+> statements that carry the split correctly. `openly licensed` is true under
+> both regimes and defers the exact terms to Data/Code availability, which now
+> state a four-class policy (code + lab-notebook entries Apache-2.0; deposited
+> data + the authors' own monograph content CC-BY-4.0; third-party excerpts
+> unchanged).
+>
+> **What this invalidates in the entry above.** The 2026-08-16 block cites
+> *"an Apache-2.0-licensed curation layer"* as the worked example of a compound
+> modifier keeping its head noun outside the compound. The example is gone; the
+> rule it illustrated is not, and `synthetic-cohort construction` still
+> demonstrates it. The counts `148 / 145` there are superseded by `149 / 146`.
+>
+> The margin is now 1 word, deliberately. A search for a free word to reclaim it
+> found none: every remaining candidate carries a bound, a denominator or a
+> substantive qualification (`actively maintained`, `entirely`, `transient`,
+> `severity`, `of total sensitivity`, `review-priority`). Buying margin would
+> have cost a claim. Measured by `scripts/audit_claims.py` (abstract extent
+> guard), which fails only above 150.
 
 The three extra tokens are the two `%` in `93~\%` / `20.6~\%` and the `=` in
 `FiO$_2$~=~1.0`. The `~` renders as a space, so a word processor sees

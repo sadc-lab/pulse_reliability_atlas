@@ -307,7 +307,7 @@ sweep.*
 
 * **First open reliability atlas for Pulse v4.3.1** — a per-cell
   traffic-light map across 8 patient × scenario cells × 6 outputs
-  (48 combinations, 1,280 simulations), released Apache-2.0 alongside
+  (48 combinations, 1,280 simulations), openly released alongside
   the engine.
 * **Operator-actionable VC-AC correction (F-004).** Tidal-volume
   instability in 20.6 % of runs is *causally identified* as

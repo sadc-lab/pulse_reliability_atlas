@@ -464,7 +464,21 @@ managers (Zotero, Mendeley) import it directly.
 
 ## License
 
-Apache 2.0, matching the upstream Pulse engine licence. See [LICENSE](LICENSE).
+Licensing follows the function of each artefact, not the folder it sits in:
+
+| Artefact | Licence |
+|---|---|
+| Code (`src/`, `scripts/`, `engine/`) and the per-experiment lab-notebook entries (`experiments_log/`) | **Apache-2.0**, matching the upstream Pulse engine licence — see [LICENSE](LICENSE) |
+| Data deposited at Zenodo (raw simulation outputs, derived parquet artefacts) | **CC-BY-4.0**, the conventional choice for a data archive; version 4.0 also covers sui generis database rights, which Apache-2.0 does not address |
+| The companion technical monograph (authors' own content) | **CC-BY-4.0** |
+
+Verbatim third-party excerpts — notably from the Pulse documentation and
+source (Apache-2.0) — retain their original licensing terms; the CC-BY-4.0
+grant covers only the authors' own content.
+
+Zenodo accepts a single record carrying more than one licence, so the split
+survives the deposit without splitting the archive. This mirrors the paper's
+*Data availability* and *Code availability* statements.
 
 ---
 
