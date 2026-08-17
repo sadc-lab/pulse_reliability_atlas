@@ -967,9 +967,35 @@ against the **PLoS full-text XML** (downloaded and grepped locally, because a We
 summary answered `sensitivity: NOT PRESENT` and fabricated a quotation) shows that
 **Webb publishes exactly such a ranking**: Table 1, one-way ANOVA, `Outcome
 Correlation (eta^2)`, nine rows, of which **two are his own swept inputs** —
-`dCstat = 0.46` (highest of the nine) and `dDIF = 0.02`. Shipping the banked sentence
+`dCstat = 0.46` (**tied** highest of the nine, level with `dEtCO2 = 0.46`) and
+`dDIF = 0.02`. Shipping the banked sentence
 would have replaced an imprecise claim with a demonstrably false one, against a
 Kitware first-party paper.
+
+> **Correction, 2026-08-17 — `(highest of the nine)` was wrong, and the nine rows
+> are now recorded in full.** Re-read from the PLoS full-text XML today, Table 1
+> in its entirety: `dCstat 0.46`, `dEtCO2 0.46`, `dA-a gradient 0.18`,
+> `dOSI 0.11`, `dOI 0.11`, `dP/F 0.08`, `dDIF 0.02`, `dMAP 0.02`,
+> `dS/F 0.02`. There are **two ties**, not one clear maximum: `dCstat` shares the
+> top with `dEtCO2`, and `dOSI` shares fourth with `dOI`. The earlier note also
+> left `dOI` without a value. Webb's own text agrees: *"Five parameters were
+> found to be most correlated to outcomes"* — a set, never a ranked winner.
+>
+> **No manuscript text changes.** This error lived only in the register: the
+> sentence shipped to `paper.tex:139` says Webb *"does rank parameters by outcome
+> correlation"* and never names a top parameter, so nothing published depended on
+> the false superlative. Re-checked in the same pass, all seven of that sentence's
+> clauses hold against the XML (12,642 verbatim; compliance 10–50 step 1;
+> DIF 0.3–0.9 step 0.1; PEEP 10–20 step 5; "Two equal-sized 70 kg patients are
+> modeled"; the ANOVA runs on "the absolute value of the difference … from patient
+> one and patient two", i.e. the mismatch; one composite green/yellow/red scoring;
+> RR fixed 20, I:E fixed 1:2, total respiratory resistance fixed 5).
+>
+> One nuance worth keeping for a future reader: only 2 of the 9 ranked rows are
+> swept inputs (`dCstat`, `dDIF`); the other 7 are derived clinical measures.
+> PIP and FiO2 also vary across Webb's grid but as *derived* quantities (PIP from
+> 6 mL/kg given PEEP, FiO2 found by simulation for SpO2 > 90 %), which is why our
+> sentence lists three swept axes and not five.
 
 A second error in the same sentence: `two identical 70 kg bodies`. Webb writes
 **`Two equal-sized 70 kg patients are modeled`** and the two patients deliberately
