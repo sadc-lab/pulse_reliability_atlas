@@ -3577,9 +3577,19 @@ layer (Paper 1, in preparation) and a native pediatric Pulse fork
 
 ## 6. Data availability
 
-All data, code, and lab notebooks needed to reproduce every number,
-figure, and table in this paper are openly available in the repository
-under Apache License 2.0.
+All **derived** data, code, and lab notebooks needed to reproduce the
+numbers, figures, and tables in this paper are openly available in the
+repository. The raw per-run Pulse CSVs and setup logs are deliberately
+excluded from git (1,280 raw CSVs plus ~50 MB of engine logs belong in
+the Zenodo deposit, not in git history; see `.gitignore`) — which is
+why one ledger anchor (`T1.06u`) auto-skips on a public clone, giving
+381 / 382 there against 382 / 382 on the authors' full data tree.
+
+Licensing follows the function of each artefact, not the folder it sits
+in: code and the per-experiment lab-notebook entries under Apache
+License 2.0; the deposited data and this monograph's own content under
+CC-BY-4.0. Verbatim third-party excerpts — notably from the Pulse
+documentation and source (Apache-2.0) — retain their original terms.
 
 * **Master aggregated table:**
   `data/runs/full_sweep/aggregated.parquet` (1,280 rows × all outputs
