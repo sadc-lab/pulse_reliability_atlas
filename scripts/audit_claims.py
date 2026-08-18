@@ -5502,6 +5502,8 @@ def check_abstract_extent() -> int:
 # and its supplement.
 # -----------------------------------------------------------------------------
 VTCV_THRESHOLD = 0.05
+S014_PAIRED_DROP = 0.326
+S014_GATE = 0.04
 VTCV_SCENARIO_SPLIT = {"S1": 139, "S3": 36}
 VTCV_RUNS_PER_SCENARIO = 320
 VTCV_TEXT_LOCI = (
@@ -5553,6 +5555,24 @@ def check_vtcv_scenario_split() -> int:
         rows.append(("quoted split fits inside the sweep-wide Vt-CV count",
                      f"{quoted} of {total}", "PASS" if good else "**FAIL**"))
 
+        # 3b. DIAGNOSTIC, reported and not pinned. Section 2.3 states that the
+        # oscillation "concentrates in healthy adults and fades as ARDS severity
+        # rises". Only S1 and S3 are quoted, so the monotonicity that sentence
+        # asserts is invisible from the quoted pair alone. Printing all four
+        # keeps it under the eye of anyone who reruns the audit, without pinning
+        # values the manuscript does not state.
+        per_sc = {
+            sc: int((exceed & (agg["scenario"] == sc)).sum())
+            for sc in sorted(agg["scenario"].unique())
+        }
+        ordered = [per_sc[k] for k in sorted(per_sc)]
+        monotone = all(a >= b for a, b in zip(ordered, ordered[1:]))
+        rows.append(("diagnostic (not pinned): Vt-CV count by scenario",
+                     ", ".join(f"{k}={v}" for k, v in sorted(per_sc.items()))
+                     + ("  [decreasing with severity]" if monotone
+                        else "  [NOT monotone in severity]"),
+                     "reported"))
+
         # 4. NEGATIVE CALIBRATION: the counts must depend on the threshold the
         # sentence names. If a different threshold reproduced them, this guard
         # would be measuring something other than what Section 2.2 claims.
@@ -5563,6 +5583,42 @@ def check_vtcv_scenario_split() -> int:
         rows.append((f"negative control: threshold {decoy_thr} does NOT reproduce S1's count",
                      f"{decoy} vs {VTCV_SCENARIO_SPLIT['S1']}",
                      "PASS" if good else "**FAIL**"))
+
+    # 6. The S014 gate statistic. Section 2.3 reports "+0.326" as the median
+    # PAIRED drop, against a preregistered gate of 0.04. It is a median of
+    # per-run differences, not a difference of medians (which is 0.335); the two
+    # were confused once already, and the fix at 91d705d re-derived the right
+    # one from the parquet without leaving anything that re-measures it. Both
+    # forms clear the gate, so no conclusion moves either way -- but a reviewer
+    # recomputing the preregistered statistic lands on the paired value, and
+    # this check keeps the published literal tied to it.
+    if {"Vt_cv_orig", "Vt_cv_lock"} <= set(s14_pair.columns):
+        paired = float((s14_pair["Vt_cv_orig"] - s14_pair["Vt_cv_lock"]).median())
+        good = abs(paired - S014_PAIRED_DROP) < 0.0005
+        n_bad += 0 if good else 1
+        rows.append((f"S014 median paired Vt-CV drop (gate {S014_GATE})",
+                     f"{paired:+.4f} (published {S014_PAIRED_DROP:+.3f})",
+                     "PASS" if good else "**FAIL**"))
+
+        # It must clear the preregistered gate, and it must NOT be the
+        # difference of medians that the sentence used to quote.
+        clears = paired >= S014_GATE
+        n_bad += 0 if clears else 1
+        rows.append((f"the paired drop clears the preregistered {S014_GATE} gate",
+                     f"{paired / S014_GATE:.2f}x", "PASS" if clears else "**FAIL**"))
+
+        diff_of_medians = float(
+            s14_pair["Vt_cv_orig"].median() - s14_pair["Vt_cv_lock"].median()
+        )
+        distinct = abs(diff_of_medians - paired) > 0.0005
+        n_bad += 0 if distinct else 1
+        rows.append(("the two statistics stay distinguishable (paired vs difference of medians)",
+                     f"{paired:.4f} vs {diff_of_medians:.4f}",
+                     "PASS" if distinct else "**FAIL**"))
+    else:
+        n_bad += 1
+        rows.append(("S014 paired columns resolve by name",
+                     "**absent**", "**FAIL**"))
 
     # 5. The literals must still be present in both documents that carry them.
     for rel, needle in VTCV_TEXT_LOCI:
