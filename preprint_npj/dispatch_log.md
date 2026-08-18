@@ -66,3 +66,68 @@ them rather than re-reporting them:
   sentences is rewriting and cannot be verified by a token-identity check.
 - The Zenodo DOI and arXiv identifier are not yet minted; availability statements
   say so.
+
+---
+
+## 2026-08-18 — co-author review round, second build (paper + supplement, DOCX)
+
+Supersedes the entry above. The four artefacts sent on 2026-08-18 at 11:56 were
+never dispatched; a joint reading pass with the maintainer landed 27 corrections
+first (commit `b5ce9f9`), so the earlier hashes are stale. Keep the entry above
+for traceability, use this one for anything actually sent.
+
+| Field | Value |
+|---|---|
+| Source commit | `b5ce9f9749a6c97c0f3c20609fa876f3e43f18c7` |
+| Commit date | 2026-08-18 16:47:00 +0200 |
+| Built | 2026-08-18, from a tree identical to the commit (only the four edited sources differed from `530d281`, and all four are in the commit) |
+| Format sent | `.docx` (annotation-friendly); `.pdf` twins built from the same run |
+
+| Artefact | SHA-256 | Bytes |
+|---|---|---|
+| `build/paper.docx` | `1c51fb5911cd2008744326dd4c6011d5c18dbc1507b2c889d762cf65374f5ff3` | 960,461 |
+| `build/supplement.docx` | `7a7c6fdefbfb2e24f40cbf0880e6287c68834f71071bf9ba1a7c253752fefd37` | 743,153 |
+| `build/paper.pdf` | `8dfe7726bbd0915217e4e57e10d7f508d6749422f8d435008a998318f8a2e090` | 711,514 |
+| `build/supplement.pdf` | `9e34b466526e3a9ade1553d6c247239eabcf2450c4e23b890f899a3149e504a1` | 669,127 |
+
+**State of the manuscript at this commit.**
+
+- Claims ledger: 382 / 382 anchors PASS, 0 FAIL, every guard green.
+- Render check: PASSED, 4 accepted pre-existing residues, 0 new.
+- Build logs: 0 undefined citations, 0 undefined references, both documents.
+- Abstract: 150 / 147 words under the register's two conventions (npj cap 150).
+- Paper: 36 pages, thinnest qualifying body page 433 words; all five figures
+  render within the call-to-figure bound.
+- Supplement: 52 pages, thinnest qualifying body page 287 words.
+- `paper.docx` carries 10 media objects for 10 `\includegraphics` and locates 8
+  of 9 captions uniquely (the ninth, "figure: hr", is ambiguous by string
+  matching, not missing), all in source order. `supplement.docx` carries 5 for 5
+  and all 21 captions, in order. The checking script was calibrated on a
+  known-present and a known-absent control before its output was believed.
+
+**Closed since the previous entry** — do not re-report these:
+
+- The pediatric mechanics claim in `supplement.tex` §S5 and its two counterparts
+  in the monograph were **removed**, not hedged. Papastamelos et al. 1995 shows
+  the per-kilogram developmental difference is in *chest-wall* compliance and
+  converges to the adult relationship by the second year of life, so a blanket
+  pediatric-vs-adult statement was wrong rather than merely unsourced.
+- The `detector` / `classifier` naming is harmonised. The four-flag object is now
+  "classifier" throughout the prose; "detector" survives only where it names the
+  narrower log-based rejection detector, a LaTeX label, or the `src/detector.py`
+  module.
+
+**Known open items at dispatch time**, so returning comments can be read against
+them rather than re-reporting them:
+
+- Mean sentence length is 30.6 words against a typical 20–25. Paragraph structure
+  was fixed on 2026-08-17; sentence length was not, because shortening sentences
+  is rewriting and cannot be verified by a token-identity check.
+- Supplement Figure S5 renders 13 pages after its single call. Closed without
+  action by maintainer decision on 2026-08-18: moving the figure block would
+  renumber all five supplement figures, and `Figure S5` is hard-coded in nine
+  ledger anchors, two prose documents and three generator filenames. The
+  pagination guard prints the distance at every run but does not gate it in the
+  supplement.
+- The Zenodo DOI and arXiv identifier are not yet minted; the availability
+  statements say so.
