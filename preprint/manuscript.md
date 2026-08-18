@@ -2605,7 +2605,7 @@ Treating `not_steady_state` as a review-and-remediation label rather
 than an automatic exclusion instead leaves 1,134 / 1,280 (88.6 %)
 hard-failure-free, from 106/160 in S4_M to 160/160 in S2_F and S3_F, a
 1.51-fold spread. Retention is given as counts rather than percentages
-because with *n* = 160 every per-cell percentage is a multiple of 0.125
+because with *n* = 160 every per-cell percentage is a multiple of 0.625
 and nine of the sixteen values fall on an exact rounding tie.
 
 | cell | four-flag clean | hard-failure-free |
