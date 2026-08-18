@@ -358,6 +358,153 @@ def check_hardcoded_refs() -> list[str]:
     return problems
 
 
+# --------------------------------------------------------------------------
+# Pagination guard
+# --------------------------------------------------------------------------
+#
+# THE HOLE THIS CLOSES. Until 2026-08-18 the paper carried a page of 72 words
+# against 263-764 elsewhere: \clearpage fired straight after a paragraph whose
+# tail had already been pushed onto a fresh page, so the break closed a page
+# that had barely opened. Commit 530d281 removed that break and moved Figure 1
+# from [H] to [!t].
+#
+# WHY A GUARD, AND WHY NOW. [H] and \clearpage were STRUCTURAL: they held the
+# figure in place whatever the surrounding text did. [!t] does not -- it yields
+# a placement that happens to be good, and that only stays good while the text
+# around it stays put. Nothing else here watches it: the checks above catch
+# overfull boxes, missing floats and broken references, and none of them can see
+# a half-empty page or a figure that has drifted away from its call. So the
+# property was measured once and guarded by nothing, which is how it silently
+# rots.
+#
+# WHAT IS PINNED IS THE BOUND, NEVER THE OBSERVATION. Page numbers move with
+# every legitimate edit. Freezing "Figure 1 on page 8" would break on the next
+# added sentence and teach everyone to ignore the guard.
+#
+# THREE MEASUREMENTS DECIDED THE THRESHOLDS, none of them guessed:
+#   * 150 words for a thin page. The defect was 72; the thinnest legitimate
+#     body page is 263. Anything in between is genuinely ambiguous, so the bound
+#     sits below the legitimate floor and well above the defect.
+#   * <= 10 pages between a figure's first call and where it renders. The worst
+#     CURRENT case is 8 (Figure 3: first called in the Table 1 glossary on p6,
+#     rendered p14) and it is entirely legitimate. An earlier draft of this
+#     guard proposed <= 5, generalised from Figure 1's delta of 3 without
+#     looking at the other four -- it would have failed on day one. The June
+#     2026 drift bug this bound exists to catch was ~14 pages.
+#   * figure_page >= first_call_page is strict, with no tolerance: a figure
+#     printed before the text that introduces it is a composition fault.
+#
+# TWO EXEMPTIONS, both measured rather than assumed:
+#   * a page carrying a caption is exempt from the thin-page rule. A figure that
+#     legitimately owns most of a page leaves little room for text. Detecting
+#     that geometrically does NOT work here -- the figures are vector PDFs, so
+#     fitz get_images() returns zero on four of the five figure pages -- hence
+#     the textual proxy.
+#   * a page carrying three or more bibliography entries is exempt. The
+#     supplement's page 41 holds the last four references and then 387pt of
+#     white: a section ending, not a broken page.
+#
+# The captions are matched as "Fig. 3" / "Table S3" and the calls as
+# "Figure 3": the npj class renders the two differently, which is what makes
+# them separable at all. The optional S prefix is not cosmetic -- the supplement
+# numbers its floats S1..S5, and an earlier version of this regex missed every
+# one of them, then reported the Table S3 caption page as a defect.
+THIN_PAGE_MIN_WORDS = 150
+FIGURE_MAX_PAGES_AFTER_CALL = 10
+BIBLIOGRAPHY_ENTRIES_EXEMPT = 3
+
+
+def _page_facts(pdf: pathlib.Path) -> list[dict]:
+    import fitz
+
+    out = []
+    for n, page in enumerate(fitz.open(pdf), start=1):
+        t = re.sub(r"\s+", " ", page.get_text())
+        out.append({
+            "n": n,
+            "words": len([w for w in t.split() if re.search(r"[A-Za-z0-9]", w)]),
+            "captions": set(re.findall(r"(?:Fig\.|Table)\s*(S?\d+)", t)),
+            "figcaps": set(re.findall(r"Fig\.\s*(S?\d+)", t)),
+            "figrefs": set(re.findall(r"Figure\s*(S?\d+)", t)),
+            "bibentries": len(re.findall(r"\[\d+\]\s+[A-Z]", t)),
+            # A contents page is not text: its entries are subsection TITLES, and
+            # several of those titles contain a parenthesised figure number. Read
+            # naively, the table of contents becomes the "first call" of half the
+            # supplement's figures -- which is how an earlier run of this guard
+            # reported Figure S4 as rendering 23 pages after its call, from page 2.
+            # Dotted leaders are the signature, and they cannot occur in prose.
+            "is_contents": len(re.findall(r"\.\s\.\s\.", t)) >= 5,
+        })
+    return out
+
+
+# SCOPE OF THE DISTANCE BOUND, and why it is not applied to both documents.
+# In the paper, the gap between a figure's call and where it prints measures
+# FLOAT DRIFT: the source places the figure next to its call and LaTeX moves it,
+# which is exactly the June 2026 bug. In the supplement it measures nothing of
+# the sort. Figure S5 is called at supplement.tex:368 and its figure block sits
+# at line ~684, three hundred lines and one section later, so the 13-page gap in
+# the PDF is an authoring decision faithfully rendered, not a placement accident.
+# Gating on it would be measuring the wrong thing with the right instrument.
+# The delta is still PRINTED for every figure in both documents -- the number is
+# not hidden, only the gate is scoped. The Figure S5 gap is a real reader-facing
+# issue and is raised with the author as an editorial question, not silenced here.
+DISTANCE_BOUND_APPLIES_TO = {"paper"}
+
+
+def check_pagination(name: str, pdf: pathlib.Path) -> list[str]:
+    problems: list[str] = []
+    if not pdf.exists():
+        return ["%s pagination: %s does not exist -- run the build first" % (name, pdf.name)]
+
+    pages = _page_facts(pdf)
+    body = pages[1:-1]          # the title page and the final page are short by design
+
+    qualifying = []
+    for p in body:
+        if p["captions"] or p["bibentries"] >= BIBLIOGRAPHY_ENTRIES_EXEMPT:
+            continue
+        qualifying.append(p)
+        if p["words"] < THIN_PAGE_MIN_WORDS:
+            problems.append(
+                "%s pagination: page %d carries only %d words and no float or "
+                "bibliography block to justify it (floor %d)"
+                % (name, p["n"], p["words"], THIN_PAGE_MIN_WORDS))
+    if qualifying:
+        thinnest = min(qualifying, key=lambda p: p["words"])
+        print("    %s: %d pages, thinnest qualifying body page %d words (p%d)"
+              % (name, len(pages), thinnest["words"], thinnest["n"]))
+
+    figures = sorted({f for p in pages for f in p["figcaps"]},
+                     key=lambda f: (f.startswith("S"), int(f.lstrip("S"))))
+    for f in figures:
+        cap = next((p["n"] for p in pages if f in p["figcaps"]), None)
+        call = next((p["n"] for p in pages
+                     if f in p["figrefs"] and not p["is_contents"]), None)
+        if call is None:
+            problems.append("%s pagination: Figure %s renders on page %d but is never "
+                            "called in the text" % (name, f, cap))
+            continue
+        delta = cap - call
+        verdict = "PASS"
+        if delta < 0:
+            problems.append("%s pagination: Figure %s renders on page %d, BEFORE its "
+                            "first call on page %d" % (name, f, cap, call))
+            verdict = "FAIL (before its call)"
+        elif delta > FIGURE_MAX_PAGES_AFTER_CALL:
+            if name in DISTANCE_BOUND_APPLIES_TO:
+                problems.append("%s pagination: Figure %s renders %d pages after its "
+                                "first call (p%d -> p%d, bound %d)"
+                                % (name, f, delta, call, cap,
+                                   FIGURE_MAX_PAGES_AFTER_CALL))
+                verdict = "FAIL (too far)"
+            else:
+                verdict = "far (%d pages), not gated in this document" % delta
+        print("    %s: Figure %s first call p%s -> rendered p%s, delta=%s  %s"
+              % (name, f, call, cap, delta, verdict))
+    return problems
+
+
 def main() -> int:
     all_problems: list[str] = []
     for name, src, pdf, log in DOCS:
@@ -378,6 +525,18 @@ def main() -> int:
     for line in xp:
         print("    - " + line)
     all_problems += xp
+
+    # Pagination. Scoped to the two npj documents: the monograph is a 100+ page
+    # internal record, not a typeset submission, and holding it to a submission's
+    # layout standard would report noise nobody intends to act on.
+    pg: list[str] = []
+    print("%-11s" % "pagination")
+    for pname, ppdf in (("paper", ROOT / "preprint_npj" / "build" / "paper.pdf"),
+                        ("supplement", ROOT / "preprint_npj" / "build" / "supplement.pdf")):
+        pg += check_pagination(pname, ppdf)
+    for line in pg:
+        print("    - " + line)
+    all_problems += pg
 
     # Split the findings against the accepted baseline. Only genuinely new
     # problems decide the exit status; the four documented residues are
