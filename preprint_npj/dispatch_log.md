@@ -131,3 +131,84 @@ them rather than re-reporting them:
   supplement.
 - The Zenodo DOI and arXiv identifier are not yet minted; the availability
   statements say so.
+
+---
+
+## 2026-08-19 — co-author review round, third build (paper + supplement, DOCX)
+
+Supersedes both entries above. The `b5ce9f9` artefacts were never dispatched
+either: four more reading blocks landed after them (`bfc3de5`, `f71c812`,
+`466a21c`), so their hashes are stale. Keep the earlier entries for traceability,
+use this one for anything actually sent.
+
+| Field | Value |
+|---|---|
+| Source commit | `466a21c5fc3441c54e0e8b6cbd1b43ad0942c410` |
+| Commit date | 2026-08-19 00:57:25 +0200 |
+| Built | 2026-08-19, working tree clean at build time (both `build/` trees are gitignored) |
+| Format sent | `.docx` (annotation-friendly); `.pdf` twins from the same run |
+
+| Artefact | SHA-256 | Bytes |
+|---|---|---|
+| `preprint_npj/build/paper.docx` | `68f1b403d6bff2d7283e42f46b1566dcc9cd2e668a76f0e5266addd839abde98` | 960,436 |
+| `preprint_npj/build/supplement.docx` | `35a99711ba9159d9b1b639d4c78866f43054141701462526836d67e473847d8e` | 743,153 |
+| `preprint_npj/build/paper.pdf` | `eb4e9cac0dba8e774f9c057693ae5d19a9f1919c250e8fcefe6b9dc3dd6da750` | 711,348 |
+| `preprint_npj/build/supplement.pdf` | `a9942b642292ebfdcf37e6f7ff9636bfd9d86dc4a6ce837169103562ec2af636` | 669,127 |
+
+The companion monograph was rebuilt in the same pass (`preprint/build/manuscript.pdf`
+and `.docx`), because `manuscript.md` also changed; it is not part of the
+co-author dispatch and is not hashed here.
+
+**State of the manuscript at this commit.**
+
+- Claims ledger: 382 / 382 anchors PASS, 0 FAIL, script exit 0.
+- New guard since the last entry: `check_vtcv_scenario_split`, 9 / 9 PASS. It
+  re-derives Section 2.2's "139 of 320" and "36 of 320" from the aggregated
+  parquet with columns resolved by name, checks the quoted denominators, proves
+  its own sensitivity to the 0.05 threshold with a negative control, and was
+  falsified before being trusted (a wrong expected value makes it FAIL and the
+  script exit 1).
+- Render check: PASSED, 4 accepted pre-existing residues, 0 new.
+- Abstract: 150 / 147 words under the register's two conventions (npj cap 150).
+- Paper: 36 pages, thinnest qualifying body page 433 words.
+- Supplement: 52 pages, thinnest qualifying body page 287 words.
+- `paper.docx` carries 10 media objects for 10 `\includegraphics` and locates 8
+  of 9 captions uniquely (the ninth, "figure: hr", is ambiguous by string
+  matching, not missing). `supplement.docx` carries 5 for 5 and all 21 captions.
+  Both in source order; the checker was calibrated on a known-present and a
+  known-absent control before its output was believed.
+
+**⚠️ The reading pass was NOT complete when this build was made.** Sections
+reviewed so far: Abstract, Introduction, Results §2 / §2.1 / §2.2 including their
+tables, figures and legends, and the closing Discussion paragraphs. Sections
+§2.3 through §2.6, the Methods and the Supplement body have not yet had the same
+line-by-line pass. Reviewer comments on those sections are expected and are not
+duplicates of anything already found.
+
+**Closed since the previous entry** — do not re-report:
+
+- Three announced cardinals that did not match what followed them: "Three
+  implementation choices" (Introduction), "Four cross-output patterns" (§2.2)
+  and "Two implausibility bounds" (§2.1). The first two became "Several"; the
+  third became "channels", because there the count is exactly right at the
+  channel level. Three instances in three sections suggests a writing habit
+  rather than three accidents; remaining sections should be read with that in
+  mind.
+- The `not_steady_state` "two regimes" sentence, which read as a claim about
+  counts that Table 3 contradicts (S2 carries 137 flags against S4's 118). It
+  now states what was actually meant, about mechanisms at opposite ends of the
+  severity axis.
+- The Cornish attribution: his 15-channel panel contains no renal channel, and
+  glucose carries 5 of 85 Hoeffding rejections against 63 for the electrolytes.
+- The rounding-granularity constant in Table 4's legend, 0.125 -> 0.625, in the
+  paper and the monograph both.
+
+**Known open items at dispatch time:**
+
+- Mean sentence length is 30.6 words against a typical 20-25.
+- Supplement Figure S5 renders 13 pages after its single call; closed without
+  action by maintainer decision on 2026-08-18, because moving the block would
+  renumber all five supplement figures and `Figure S5` is hard-coded in nine
+  ledger anchors, two prose documents and three generator filenames.
+- The Zenodo DOI and arXiv identifier are not yet minted; the availability
+  statements say so.
