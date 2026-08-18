@@ -86,7 +86,7 @@ caught equally.*
   expected_value: 20.6
   format_in_paper: '20.6~\%'
   expected_occurrences: 3
-  notes: 'paper (2): abstract sentence 3 "in 20.6~\% of runs", §2.3 opening sentence "20.6~\% of runs". supplement (1): the S3 detector-convention paragraph, which names this rate as an example of a prevalence estimate conditioned on the 0.05 CV convention. Format standardised in Step 4 to use ~ (LaTeX non-breaking space) between number and unit; the abstract was retroactively updated for consistency. Bumped 2 -> 3 when the detector-convention provenance sentence was added.'
+  notes: 'paper (2): abstract sentence 5 "in 20.6~\% of runs", §2.3 opening sentence "20.6~\% of runs". supplement (1): the S3 detector-convention paragraph, which names this rate as an example of a prevalence estimate conditioned on the 0.05 CV convention. Format standardised in Step 4 to use ~ (LaTeX non-breaking space) between number and unit; the abstract was retroactively updated for consistency. Bumped 2 -> 3 when the detector-convention provenance sentence was added.'
 
 - paper_section: 'Abstract + §2.4 hyperoxia'
   paper_context: 'Hyperoxia 300s plateau median (S1)'
@@ -94,7 +94,7 @@ caught equally.*
   expected_value: 643
   format_in_paper: '643~mmHg'
   expected_occurrences: 3
-  notes: 'Appears 3 times: paper.tex abstract sentence 4, which since commit 6403787 reads "near the alveolar-gas ceiling (643~mmHg)" and no longer "median 643~mmHg" (1) + paper.tex §2.4 prose "the converged S1 plateau median was 643~mmHg" (1) + supplement §S9 prose "converged-subset median PaO2 of 643~mmHg" (1). The supplement Figure-S3 caption trajectory endpoint was changed 643 -> 639 in Supplement Pass C (SP-C.D2: figure median recomputed over the 38 physiological-converged runs, excluding the 3 numerical runaways), dropping the expected count from 4 to 3. All use ~ non-breaking space.'
+  notes: 'Appears 3 times: paper.tex abstract sentence 6, which since 2026-08-18 reads "300-second healthy-lung reruns give a median 643~mmHg" (1) + paper.tex §2.4 prose "the converged S1 plateau median was 643~mmHg" (1) + supplement §S9 prose "converged-subset median PaO2 of 643~mmHg" (1). The supplement Figure-S3 caption trajectory endpoint was changed 643 -> 639 in Supplement Pass C (SP-C.D2: figure median recomputed over the 38 physiological-converged runs, excluding the 3 numerical runaways), dropping the expected count from 4 to 3. All use ~ non-breaking space.'
 
 - paper_section: 'Abstract'
   paper_context: 'Divergence count (all male, input-extreme regime)'

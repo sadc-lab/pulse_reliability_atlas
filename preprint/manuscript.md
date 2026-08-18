@@ -531,8 +531,7 @@ preparation, validation underway) and native pediatric Pulse fork
 its operational envelope.
 Characterising the adult engine's operational envelope is therefore
 a *methodological prerequisite* for the downstream pediatric
-translation work: pediatric physiological dynamics differ
-fundamentally from adult dynamics, and any pediatric adaptation of
+translation work: any pediatric adaptation of
 Pulse must first establish how the adult engine itself behaves.
 This atlas is that prerequisite.
 
@@ -3410,9 +3409,8 @@ downstream lines of work, both currently in preparation:
   explicitly, the translation layer must keep its output baselines
   inside the green / yellow cells of Figure 6. The present
   adult-envelope characterisation is the *methodological prerequisite*
-  for this translation work: pediatric physiological dynamics differ
-  fundamentally from adult dynamics and cannot be safely adapted from
-  an unmapped substrate.
+  for this translation work: a pediatric adaptation cannot be safely
+  derived from an unmapped substrate.
 * **Native pediatric Pulse fork (Paper 2, planned).** Modifies
   Pulse's C++ source for paediatric physiology. Source-code patch
   ordering is prioritised by the atlas's input-importance ranking:
