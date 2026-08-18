@@ -5485,6 +5485,106 @@ def check_abstract_extent() -> int:
     return n_bad
 
 
+# -----------------------------------------------------------------------------
+# Vt-CV scenario split (2026-08-19).
+#
+# Section 2.2 quotes two per-scenario counts that no ledger anchor covers:
+# "In S1 the delivered-Vt coefficient of variation exceeds the 0.05 threshold on
+# 139 of 320 runs ... In S3 the same three figures are 36 of 320 runs".
+#
+# The sweep-wide count IS anchored (T1.30n.vt_cv = 303), but a total cannot tell
+# a right split from a wrong one: 139 + 36 and 120 + 55 are equally consistent
+# with 303. Both literals also appear in supplement.tex, so a drift would have to
+# be noticed in two documents at once.
+#
+# Written as a guard rather than two more ledger anchors, on the author's ruling:
+# the ledger audits the monograph, and these two numbers live only in the paper
+# and its supplement.
+# -----------------------------------------------------------------------------
+VTCV_THRESHOLD = 0.05
+VTCV_SCENARIO_SPLIT = {"S1": 139, "S3": 36}
+VTCV_RUNS_PER_SCENARIO = 320
+VTCV_TEXT_LOCI = (
+    ("preprint_npj/paper.tex", "exceeds the 0.05 threshold on 139 of 320 runs"),
+    ("preprint_npj/supplement.tex", "above 0.05 on 139 of 320 runs, against 36 of 320 in S3"),
+)
+
+
+def check_vtcv_scenario_split() -> int:
+    """Re-derive Section 2.2's per-scenario Vt-CV exceedance counts."""
+    print("\n## Vt-CV scenario-split guard\n")
+    rows: list[tuple[str, str, str]] = []
+    n_bad = 0
+
+    # 0. Resolve the columns by NAME. A silent upstream rename would otherwise
+    # make every check below vacuous instead of failing.
+    missing = [c for c in ("scenario", "Vt_cv") if c not in agg.columns]
+    ok = not missing
+    n_bad += 0 if ok else 1
+    rows.append(("columns resolve by name (scenario, Vt_cv)",
+                 "both present" if ok else f"**absent: {missing}**",
+                 "PASS" if ok else "**FAIL**"))
+
+    if ok:
+        exceed = agg["Vt_cv"] > VTCV_THRESHOLD
+
+        # 1. POSITIVE CALIBRATION: the denominator the text quotes must be real.
+        for sc in VTCV_SCENARIO_SPLIT:
+            n_runs = int((agg["scenario"] == sc).sum())
+            good = n_runs == VTCV_RUNS_PER_SCENARIO
+            n_bad += 0 if good else 1
+            rows.append((f"{sc} holds {VTCV_RUNS_PER_SCENARIO} runs (the quoted denominator)",
+                         f"{n_runs}", "PASS" if good else "**FAIL**"))
+
+        # 2. THE INVARIANT: each quoted numerator, re-derived from the parquet.
+        for sc, published in VTCV_SCENARIO_SPLIT.items():
+            got = int((exceed & (agg["scenario"] == sc)).sum())
+            good = got == published
+            n_bad += 0 if good else 1
+            rows.append((f"{sc}: runs with Vt CV > {VTCV_THRESHOLD}",
+                         f"{got} (published {published})",
+                         "PASS" if good else "**FAIL**"))
+
+        # 3. The split must sit inside the anchored sweep-wide count.
+        total = int(exceed.sum())
+        quoted = sum(VTCV_SCENARIO_SPLIT.values())
+        good = quoted <= total
+        n_bad += 0 if good else 1
+        rows.append(("quoted split fits inside the sweep-wide Vt-CV count",
+                     f"{quoted} of {total}", "PASS" if good else "**FAIL**"))
+
+        # 4. NEGATIVE CALIBRATION: the counts must depend on the threshold the
+        # sentence names. If a different threshold reproduced them, this guard
+        # would be measuring something other than what Section 2.2 claims.
+        decoy_thr = VTCV_THRESHOLD * 4
+        decoy = int(((agg["Vt_cv"] > decoy_thr) & (agg["scenario"] == "S1")).sum())
+        good = decoy != VTCV_SCENARIO_SPLIT["S1"]
+        n_bad += 0 if good else 1
+        rows.append((f"negative control: threshold {decoy_thr} does NOT reproduce S1's count",
+                     f"{decoy} vs {VTCV_SCENARIO_SPLIT['S1']}",
+                     "PASS" if good else "**FAIL**"))
+
+    # 5. The literals must still be present in both documents that carry them.
+    for rel, needle in VTCV_TEXT_LOCI:
+        present = needle in (REPO / rel).read_text(encoding="utf-8")
+        n_bad += 0 if present else 1
+        rows.append((f"`{rel}` still states this split",
+                     "present" if present else "**absent**",
+                     "PASS" if present else "**FAIL**"))
+
+    print("| check | observed | verdict |")
+    print("|---|---|---|")
+    for label, observed, verdict in rows:
+        print(f"| {label} | {observed} | {verdict} |")
+    print(
+        f"\n**Vt-CV scenario-split guard:** {len(rows)} checks, "
+        f"{len(rows) - n_bad} PASS, {n_bad} FAIL.\n"
+    )
+    return n_bad
+
+
+n_vtcv_split_fail = check_vtcv_scenario_split()
+
 n_abstract_fail = check_abstract_extent()
 
 n_s021_conv_fail = check_s021_converged_plateau()
@@ -5507,6 +5607,7 @@ sys.exit(
         + n_s021_fail + n_s021_conv_fail + n_readme_fail + n_legend_fail
         + n_sexdiv_fail + n_inst_fail + n_cliprt_fail + n_s030prov_fail + n_figts_fail
         + n_fio2adj_fail + n_sobolframe_fail + n_s011_fail + n_abstract_fail
+        + n_vtcv_split_fail
     ) > 0
     else 0
 )
