@@ -4088,6 +4088,7 @@ n_s021_fail = check_s021_clock()
 # of them alone is satisfiable by the wrong quantity.
 # -----------------------------------------------------------------------------
 S021_CONVERGED_N = 41
+S021_PHYSIO_CONVERGED = 38
 S021_CONVERGED_PUBLISHED_MMHG = 643
 S021_CONVERGED_CONTEXT: tuple[tuple[str, str], ...] = (
     ("preprint_npj/supplement.tex", "over all 41 drift-converged runs"),
@@ -4128,6 +4129,46 @@ def check_s021_converged_plateau() -> int:
     rows.append(("rounds to published value",
                  f"round({med_parquet:.4f}) = {round(med_parquet)} "
                  f"(published {S021_CONVERGED_PUBLISHED_MMHG})",
+                 "PASS" if ok else "**FAIL**"))
+
+    # 3b. The PHYSIOLOGICALLY converged subset, added 2026-08-19 when §2.4 began
+    # quoting it by size. Three populations of S1 reruns now appear in print and
+    # they are easy to confuse: 44 reruns in total, 41 drift-converged (median
+    # 643, quoted in §2.4 and the abstract), and 38 physiologically converged
+    # (median 639, the figure trajectory and the t = 180 s statistic). The
+    # difference between 41 and 38 is exactly the three runaways that clear the
+    # drift criterion while sitting above 700 mmHg, so the partition must hold:
+    # 38 + 3 runaway-converged + 3 runaway-non-converged = 44.
+    #
+    # Note that "38" collides with three unrelated ledger anchors that also
+    # carry the value 38 (S3_F not_steady_state, S3_F n_nss_locked, and the
+    # literal hard-flag red count), which is precisely why this one needs its
+    # own check rather than a grep for the numeral.
+    s1_all = s21_plat[s21_plat["scenario"] == "S1"]
+    physio = s1_all[s1_all["converged"] & (s1_all["PaO2_plateau_mmHg"] <= 700)]
+    runaway = s1_all[s1_all["PaO2_plateau_mmHg"] > 700]
+    runaway_conv = runaway[runaway["converged"]]
+
+    ok = len(physio) == S021_PHYSIO_CONVERGED
+    n_bad += 0 if ok else 1
+    rows.append(("physiologically converged S1 reruns (converged and <= 700 mmHg)",
+                 f"{len(physio)} (published {S021_PHYSIO_CONVERGED})",
+                 "PASS" if ok else "**FAIL**"))
+
+    parts = (len(physio), len(runaway_conv), len(runaway) - len(runaway_conv))
+    ok = sum(parts) == len(s1_all) == 44 and len(physio) + len(runaway_conv) == S021_CONVERGED_N
+    n_bad += 0 if ok else 1
+    rows.append(("the 44 S1 reruns partition, and 38 + runaway-converged = 41",
+                 f"{parts[0]} + {parts[1]} + {parts[2]} = {sum(parts)}; "
+                 f"{parts[0]} + {parts[1]} = {parts[0] + parts[1]}",
+                 "PASS" if ok else "**FAIL**"))
+
+    # NEGATIVE CONTROL: the two populations must stay distinguishable, or the
+    # sentence in §2.4 could quote either one and still look right.
+    ok = len(physio) != S021_CONVERGED_N
+    n_bad += 0 if ok else 1
+    rows.append(("the 38-run and 41-run populations stay distinct",
+                 f"{len(physio)} vs {S021_CONVERGED_N}",
                  "PASS" if ok else "**FAIL**"))
 
     # 4. the prose that ties the count to the value
