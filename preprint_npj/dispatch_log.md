@@ -373,3 +373,66 @@ preregistration still carrying the criterion name the paper quotes.
 **Sections read so far:** Abstract, Introduction, §2 and §2.1-§2.6, §4.1-§4.4,
 and the closing Discussion paragraphs, with their tables, figures and legends.
 **NOT yet read line by line: §4.5 onward, and the Supplement body.**
+
+---
+
+## 2026-08-20 (fourth build) — co-author review round
+
+Supersedes every entry above. Built from a clean working tree at `f5ed1db`, with
+the complete gate run before hashing.
+
+| Field | Value |
+|---|---|
+| Source commit | `f5ed1db5950420ec7767dd71cca6851b01d52a98` |
+| Format sent | `.docx`; `.pdf` twins from the same run |
+
+| Artefact | SHA-256 | Bytes |
+|---|---|---|
+| `preprint_npj/build/paper.docx` | `a2db1089b67ff4292121096e4729850a64f980556252157f07889920d5398c41` | 961,557 |
+| `preprint_npj/build/supplement.docx` | `7a0e6c58e02acddcfc5d6bb9ea5aa9bfb4ffd19ffb561bb41cbc16dc1687e321` | 743,476 |
+| `preprint_npj/build/paper.pdf` | `93fabfa7e711da1988a7d5f8b48c4cd5d8d0bcba8dd268bbd5978a46d23c5c30` | 702,452 |
+| `preprint_npj/build/supplement.pdf` | `bc8686da3dc6a0e9512852d28ec9eacfea2d650598e2ebc23d08fb49c50300ce` | 669,690 |
+
+**On what the pinned SHA means.** `f5ed1db` is the commit whose SOURCES produced
+these files. It is not a commit containing them: `preprint_npj/build/` and
+`preprint/build/` are gitignored (`.gitignore:68` and `:60`), so no commit ever
+carries a built artefact. The SHA identifies the source; the hash identifies the
+file. The commit that adds this entry is deliberately NOT the pinned one.
+
+**Gate run before hashing, in full rather than the bare claims script.**
+
+- Claims ledger 382 / 382, sync 94 / 94, monograph anchors 26 / 26, exit 0.
+- Fifteen guards, all green, including the four added during this reading pass:
+  Vt-CV scenario split (13), SHAP pooled-agreement unit (5),
+  detector/classifier vocabulary (18) and CDC body-weight provenance (12).
+- Render check PASSED, 4 accepted residues, 0 new.
+- DOCX structure check passed with its calibration controls green.
+- 0 undefined citations and 0 undefined references in both build logs.
+- Paper 37 pages, thinnest qualifying body page 433 words; supplement 52 pages,
+  thinnest 298. All nine figures render within their call-distance bound.
+- All six artefacts verified present, non-empty, and newer than every source
+  file that feeds them.
+
+The monograph was rebuilt in the same pass. It is not part of the co-author
+dispatch and is not hashed here.
+
+**Substantive corrections since the previous entry.**
+
+- The CDC body-weight provenance was wrong in three documents, and wrongly
+  declared the preregistration's erratum inaccurate. The weights ARE the CDC P50
+  at exactly 18.0 years (`Agemos` = 216.5, the 216.0-216.99-month interval);
+  67.64 / 56.41 kg belong to `Agemos` = 218.5, that is 18 y 2 m. No simulated
+  quantity changes. See `audit/cdc_weight_provenance_mismatch.md`.
+- §2.6's flatline paragraph attributed SpO2 pinning to health alone; a healthy
+  subject on room air sits near 96 % and does not trigger. The rule needs
+  variability below 1 % of the mean AND a mean within 0.1 % of a bound, and the
+  ceiling is reached as inspired oxygen rises.
+- §2.2's SHAP sentence gained its citation, named what the 17-of-18 agreement
+  counts, and dropped a causal attribution the Supplement does not license.
+- §4.4 no longer prints the clamp regexes; they have one guarded home in
+  Supplement §S3.3.
+
+**⚠️ The reading pass is still incomplete.** Read: Abstract, Introduction,
+§2 and §2.1-§2.6, §4.1-§4.5, and the closing Discussion paragraphs, with their
+tables, figures and legends. NOT read line by line: §4.6 onward, and the
+Supplement body. Reviewer comments there are expected rather than duplicates.
