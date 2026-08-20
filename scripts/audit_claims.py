@@ -4480,6 +4480,9 @@ def check_legend_lengths() -> int:
 
 
 # -----------------------------------------------------------------------------
+WASSERSTEIN_RAW_EXCEEDANCES = 6
+WASSERSTEIN_DROPPED_BY_BH = ("S2 SpO2",)
+
 # Sex-stratified divergence guard (2026-08-11).
 #
 # The hole this closes. The supplement and the monograph both described the
@@ -4649,6 +4652,62 @@ def check_sex_divergence() -> int:
         rows.append((f"no male/female fold-change in `{rel}`",
                      "none" if ok else f"**{'; '.join(found)}**",
                      "PASS" if ok else "**FAIL**"))
+
+    # Wasserstein: raw exceedance versus BH survival (added 2026-08-20).
+    #
+    # §2.5 used to say the distance "exceeds its permutation null on five". Five
+    # is the BH-SURVIVOR count (anchored as T1.15); six comparisons clear the raw
+    # null, and S2 SpO2 is the one the correction removes (p = 0.0215 against a
+    # BH critical value of 0.0125 at rank 6). The sentence now reports both, so
+    # both need re-measuring -- T1.15 only ever covered the five.
+    #
+    # The raw count is checked under BOTH readings of "exceeds its permutation
+    # null", because the prose does not say which one it means: the empirical
+    # p-value below 0.05, and the observed distance above the null's 95th
+    # percentile. They agree at six here; if a future re-run made them disagree,
+    # the sentence would become ambiguous and this guard should fail rather than
+    # let one reading silently stand in for the other.
+    raw_p = int((bh["p_value_empirical"] < 0.05).sum())
+    raw_p95 = int((bh["wasserstein"] > bh["wasserstein_null_p95"]).sum())
+    surviving = int(bh["bh_survives"].sum())
+
+    ok = raw_p == WASSERSTEIN_RAW_EXCEEDANCES
+    n_bad += 0 if ok else 1
+    rows.append(("Wasserstein comparisons clearing the raw null (p < 0.05)",
+                 f"{raw_p} (published {WASSERSTEIN_RAW_EXCEEDANCES})",
+                 "PASS" if ok else "**FAIL**"))
+
+    ok = raw_p95 == raw_p
+    n_bad += 0 if ok else 1
+    rows.append(("both readings of `exceeds its permutation null` agree",
+                 f"p<0.05: {raw_p}; distance>null p95: {raw_p95}",
+                 "PASS" if ok else "**FAIL**"))
+
+    ok = surviving < raw_p
+    n_bad += 0 if ok else 1
+    rows.append(("BH correction removes at least one comparison",
+                 f"{raw_p} raw -> {surviving} surviving",
+                 "PASS" if ok else "**FAIL**"))
+
+    # The survivors must be a strict subset of the raw exceedances. If BH ever
+    # promoted a comparison that did not clear the raw null, the two numbers in
+    # the sentence would no longer describe nested sets.
+    survivor_rows = bh[bh["bh_survives"]]
+    ok = bool((survivor_rows["p_value_empirical"] < 0.05).all())
+    n_bad += 0 if ok else 1
+    rows.append(("every BH survivor also clears the raw null (nested sets)",
+                 "yes" if ok else "**no**",
+                 "PASS" if ok else "**FAIL**"))
+
+    # Name the dropped comparison, so a change of identity is visible and not
+    # merely a change of count.
+    dropped = bh[(bh["p_value_empirical"] < 0.05) & (~bh["bh_survives"])]
+    got = sorted(f"{r.scenario} {r.output}" for r in dropped.itertuples())
+    ok = got == list(WASSERSTEIN_DROPPED_BY_BH)
+    n_bad += 0 if ok else 1
+    rows.append(("the comparison BH removes is the expected one",
+                 f"{got} (expected {list(WASSERSTEIN_DROPPED_BY_BH)})",
+                 "PASS" if ok else "**FAIL**"))
 
     print("| check | observed | verdict |")
     print("|---|---|---|")
