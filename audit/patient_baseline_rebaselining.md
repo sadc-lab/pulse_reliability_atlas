@@ -1,8 +1,16 @@
 # Does Pulse keep the swept patient baselines at their submitted values?
 
-**Opened and measured 2026-08-13. Status: MEASURED — no document, flag or
-number was modified.** Disclosure is an author decision and is drafted, not
-applied, in §7.
+**Opened and measured 2026-08-13. Status: CLOSED — disclosure DECIDED AND
+APPLIED 2026-08-14, see §7.** The adopted sentence is live in `paper.tex`
+Methods §Sweep design (`sec:methods-sweep`); verified against the repository on
+2026-08-20, not against this header.
+
+> Until 2026-08-20 this header still read "drafted, not applied", contradicting
+> §7 of its own file. That is the second time a stale status field in this
+> repository has reported work as pending after it shipped — the first was
+> `audit/figure2_reframing_diffs.md`, whose "Status: DRAFT" caused three
+> completed commits to be re-announced as outstanding. **A status field is not a
+> measurement**; grep the manuscript before believing one.
 
 Found while verifying `audit/silent_clamping_instrument.md` §3. It is a
 different question from that register's, and is filed separately for that
