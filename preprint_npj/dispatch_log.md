@@ -326,3 +326,50 @@ alone would have accepted both.
 
 **⚠️ The reading pass remains incomplete.** Methods §4 and the Supplement body
 have not been read line by line.
+
+---
+
+## 2026-08-20 (third build) — co-author review round
+
+Supersedes the two entries above from the same day. Four commits landed after the
+second build: `f237bfd`, `67ad7b7`, `7c3676d` and this entry's own predecessor.
+
+| Field | Value |
+|---|---|
+| Source commit | `7c3676d` |
+| Format sent | `.docx`; `.pdf` twins from the same run |
+
+| Artefact | SHA-256 | Bytes |
+|---|---|---|
+| `preprint_npj/build/paper.docx` | `29faacbbc5eb1e1b7100678a9dcf6ce0994f0ae4efcba85ae504eade6aaec5d4` | 961,613 |
+| `preprint_npj/build/supplement.docx` | `ab98b86bbd9e22f2f3e47fbfc5f906f9f91d9d965ab6b08bce1fceeab18d76cd` | 743,152 |
+| `preprint_npj/build/paper.pdf` | `4935a80c072d640df59735ba2197846408f03781c1d36c2ec7007b9e00951fe9` | 715,487 |
+| `preprint_npj/build/supplement.pdf` | `5b12b47a5e56301a2cfb52da5c5fdd86392db5f773d6f36e9de8fb3ae24b297b` | 669,127 |
+
+**State.** Claims ledger 382 / 382, 0 FAIL, exit 0. Render check PASSED, 4
+accepted residues, 0 new. Build logs: 0 undefined citations, 0 undefined
+references. DOCX structure check passed with calibration controls green. Paper 37
+pages, supplement 52.
+
+**Corrections since the previous entry.**
+
+- §4.4's opening sentence still called the four-flag object a "detector" while
+  the subsection title called it a "classifier"; two further loci said the same
+  (§2.4 and Code availability). All three now say classifier. One locus was
+  deliberately left alone: "detector self-consistency" quotes preregistered pilot
+  criterion 2, which preregistration.md:178 names "Detector self-consistent" and
+  which that document forbids editing silently.
+- §2.5 now points at Methods §4.6 for the Wasserstein and Benjamini-Hochberg
+  definitions. The Results referenced the Supplement constantly and the Methods
+  never, although the plain-language glosses live in the Methods.
+- `audit/patient_baseline_rebaselining.md` carried a header saying its disclosure
+  was "drafted, not applied" while its own §7 recorded it as applied on
+  2026-08-14 and the sentence was live in the paper.
+
+**Guards added:** a detector/classifier vocabulary guard that checks BOTH
+directions -- banned phrasings absent, legitimate senses present, and the
+preregistration still carrying the criterion name the paper quotes.
+
+**Sections read so far:** Abstract, Introduction, §2 and §2.1-§2.6, §4.1-§4.4,
+and the closing Discussion paragraphs, with their tables, figures and legends.
+**NOT yet read line by line: §4.5 onward, and the Supplement body.**
