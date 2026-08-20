@@ -2866,7 +2866,7 @@ add(
 )
 add(
     claim_id="T1.detector.n_patterns_current",
-    section="Supplement S3.8 (clamp regex set)",
+    section="Supplement S3.3 (clamp regex set)",
     manuscript_text="the five-pattern set now in src/detector.py",
     source_file="src/detector.py CLAMP_PATTERNS",
     manuscript_value=5,
@@ -2885,7 +2885,7 @@ _clamp_verbatim_hits = sum(
 )
 add(
     claim_id="T1.detector.patterns_verbatim_in_supplement",
-    section="Supplement S3.8 (clamp regex set)",
+    section="Supplement S3.3 (clamp regex set)",
     manuscript_text="each printed regex is character-identical to src/detector.py",
     source_file="src/detector.py CLAMP_PATTERNS vs preprint_npj/supplement.tex",
     manuscript_value=len(CLAMP_PATTERNS_FROM_SRC),
@@ -5916,6 +5916,31 @@ def check_detector_vocabulary() -> int:
                          f"`{expected}`" if present
                          else f"**`{expected}` absent from paper.tex**",
                          "PASS" if present else "**FAIL**"))
+
+    # The clamp regexes have ONE documentary home. They are printed in
+    # supplement.tex, where T1.detector.patterns_verbatim_in_supplement holds
+    # them character-identical to src/detector.py. paper.tex used to print a
+    # second, unguarded copy -- the sweep-era four rather than the current five
+    # -- which is a drift surface with no compensating benefit: the flag fired
+    # 0 of 1,280 times, while the bounds and drift thresholds behind the flags
+    # that fired 126 and 530 times were already deferred to the supplement.
+    # Removed 2026-08-20; this check keeps it removed.
+    # Match the PRINTED-REGEX form, r"...", not the bare string. Table 2 quotes
+    # two rejection messages as prose examples of what `clamped` means, and a
+    # guard that fired on those would be banning a legitimate use -- the same
+    # miscalibration that "two rows earlier" produced in the CDC guard.
+    for pat in CLAMP_PATTERNS_FROM_SRC:
+        present = f'r"{pat}"' in src
+        n_bad += 0 if not present else 1
+        rows.append((f"clamp regex not printed in paper.tex: `{pat[:30]}...`",
+                     "absent" if not present else "**re-introduced in paper.tex**",
+                     "PASS" if not present else "**FAIL**"))
+
+    ok = "lstlisting" not in src
+    n_bad += 0 if ok else 1
+    rows.append(("paper.tex prints no code listing at all",
+                 "none" if ok else "**a listing environment is present**",
+                 "PASS" if ok else "**FAIL**"))
 
     # The preregistered criterion must still match its source document.
     prereg = (REPO / "preregistration.md").read_text(encoding="utf-8")
