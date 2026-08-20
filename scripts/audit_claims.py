@@ -5824,6 +5824,87 @@ def check_shap_pooled_unit() -> int:
     return n_bad
 
 
+# -----------------------------------------------------------------------------
+# detector / classifier vocabulary (2026-08-20).
+#
+# The four-flag object is called the "classifier" in prose; "detector" survives
+# only in three places where it means something else, and each has a reason:
+#
+#   - the log-based rejection detector, a narrower object that reads the setup
+#     log and can only see EXPLICIT refusal (§2.1, §4.4, Discussion);
+#   - "Detector self-consistent", the name of preregistered pilot gating
+#     criterion 2 (preregistration.md:178). That document says in the same
+#     breath: "Do not silently edit pilot criteria". It is quoted, not chosen;
+#   - LaTeX labels (sec:methods-detector, sec:s3-detector-order), invisible to
+#     the reader and load-bearing for cross-references.
+#
+# This guard exists because the first harmonisation pass MISSED three loci. The
+# search that enumerated them used a context window of 90 characters either side,
+# and "Every simulation was classified by a four-flag steady-state detector"
+# begins only 60 characters into its line, so the pattern could not match and the
+# absence was read as completeness. Both directions are therefore checked: the
+# banned phrasings must be gone, AND the three legitimate senses must remain.
+# -----------------------------------------------------------------------------
+DETECTOR_BANNED = (
+    "four-flag detector",
+    "four-flag steady-state detector",
+    "preregistered detector flags",
+    "steady-state detector",
+)
+DETECTOR_REQUIRED = (
+    "log-based detector",
+    "rejection-log detector",
+    "detector self-consistency",
+)
+
+
+def check_detector_vocabulary() -> int:
+    """Keep 'detector' only where it does not mean the four-flag object."""
+    print("\n## detector/classifier vocabulary guard\n")
+    rows: list[tuple[str, str, str]] = []
+    n_bad = 0
+    src = (REPO / "preprint_npj/paper.tex").read_text(encoding="utf-8")
+
+    for phrase in DETECTOR_BANNED:
+        hits = src.count(phrase)
+        ok = hits == 0
+        n_bad += 0 if ok else 1
+        rows.append((f"`{phrase}` absent from paper.tex",
+                     "absent" if ok else f"**{hits} occurrence(s)**",
+                     "PASS" if ok else "**FAIL**"))
+
+    # The other direction. A blanket replace of "detector" would silently rename
+    # a preregistered criterion and erase the distinction between the four-flag
+    # object and the narrower log reader.
+    for phrase in DETECTOR_REQUIRED:
+        hits = src.count(phrase)
+        ok = hits >= 1
+        n_bad += 0 if ok else 1
+        rows.append((f"`{phrase}` still present",
+                     f"{hits} occurrence(s)" if ok else "**absent**",
+                     "PASS" if ok else "**FAIL**"))
+
+    # The preregistered criterion must still match its source document.
+    prereg = (REPO / "preregistration.md").read_text(encoding="utf-8")
+    ok = "Detector self-consistent" in prereg
+    n_bad += 0 if ok else 1
+    rows.append(("preregistration.md still names the criterion `Detector self-consistent`",
+                 "yes" if ok else "**no -- the paper would be quoting a phrase that moved**",
+                 "PASS" if ok else "**FAIL**"))
+
+    print("| check | observed | verdict |")
+    print("|---|---|---|")
+    for label, observed, verdict in rows:
+        print(f"| {label} | {observed} | {verdict} |")
+    print(
+        f"\n**detector/classifier vocabulary guard:** {len(rows)} checks, "
+        f"{len(rows) - n_bad} PASS, {n_bad} FAIL.\n"
+    )
+    return n_bad
+
+
+n_detvocab_fail = check_detector_vocabulary()
+
 n_shap_unit_fail = check_shap_pooled_unit()
 
 n_vtcv_split_fail = check_vtcv_scenario_split()
@@ -5850,7 +5931,7 @@ sys.exit(
         + n_s021_fail + n_s021_conv_fail + n_readme_fail + n_legend_fail
         + n_sexdiv_fail + n_inst_fail + n_cliprt_fail + n_s030prov_fail + n_figts_fail
         + n_fio2adj_fail + n_sobolframe_fail + n_s011_fail + n_abstract_fail
-        + n_vtcv_split_fail + n_shap_unit_fail
+        + n_vtcv_split_fail + n_shap_unit_fail + n_detvocab_fail
     ) > 0
     else 0
 )
