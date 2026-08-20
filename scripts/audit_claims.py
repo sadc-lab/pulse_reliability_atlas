@@ -5884,6 +5884,39 @@ def check_detector_vocabulary() -> int:
                      f"{hits} occurrence(s)" if ok else "**absent**",
                      "PASS" if ok else "**FAIL**"))
 
+    # §2.6 now states the two flatline conditions numerically. They are constants
+    # in src/detector.py, so the paper must not drift from the code that produced
+    # the flags. Guarded rather than anchored: two numbers, and the repository
+    # rule is that a ledger anchor cascades across counter-bearing lines while a
+    # guard carries its own count.
+    src_det = (REPO / "src" / "detector.py").read_text(encoding="utf-8")
+    m_std = re.search(r"FLATLINE_STD_RATIO:\s*float\s*=\s*([\d.]+)", src_det)
+    m_tol = re.search(r"FLATLINE_BOUND_TOL:\s*float\s*=\s*([\d.]+)", src_det)
+    ok = m_std is not None and m_tol is not None
+    n_bad += 0 if ok else 1
+    rows.append(("flatline constants located in src/detector.py",
+                 "both" if ok else "**absent -- the paper's numbers cannot be checked**",
+                 "PASS" if ok else "**FAIL**"))
+
+    if ok:
+        std_pct = float(m_std.group(1)) * 100
+        tol_pct = float(m_tol.group(1)) * 100
+        ceiling = 100.0 - tol_pct
+        # Each expected literal is BUILT from the constant, not hard-coded. A
+        # hard-coded literal would keep passing after the constant moved, which
+        # is precisely the drift this check exists to catch.
+        for label, expected in (
+            ("variability threshold", f"below {std_pct:g}~\\% of the mean"),
+            ("bound tolerance", f"within {tol_pct:g}~\\% of a hard bound"),
+            ("SpO2 flatline ceiling", f"$\\geq$~{ceiling:g}~\\%"),
+        ):
+            present = expected in src
+            n_bad += 0 if present else 1
+            rows.append((f"§2.6 states the {label} as the code defines it",
+                         f"`{expected}`" if present
+                         else f"**`{expected}` absent from paper.tex**",
+                         "PASS" if present else "**FAIL**"))
+
     # The preregistered criterion must still match its source document.
     prereg = (REPO / "preregistration.md").read_text(encoding="utf-8")
     ok = "Detector self-consistent" in prereg
