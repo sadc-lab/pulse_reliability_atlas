@@ -6078,6 +6078,93 @@ def check_cdc_weight_provenance() -> int:
     return n_bad
 
 
+# -----------------------------------------------------------------------------
+# Publication gate (2026-08-20).
+#
+# The manuscript claims, in the present tense, that the code and lab-notebook
+# entries ARE openly available on GitHub. That is true only once the repository
+# is public, and the maintainer's release order puts the arXiv deposit and the
+# visibility flip BEFORE the npj submission. The constraint had no tracked home
+# -- it lived in TODO_publication_roadmap.md, which .gitignore:103 excludes --
+# so audit/publication_gate.md now carries it and this guard keeps the two in
+# step.
+#
+# What this can and cannot do: it cannot reach GitHub, so it does not check
+# visibility. It checks that the register exists, that it still states the
+# ordering constraint, and that the number of present-tense availability claims
+# has not drifted from what the register enumerates. A new claim added without
+# updating the register fails here, which is the realistic failure mode.
+# -----------------------------------------------------------------------------
+PUBLICATION_CLAIM_PATTERNS = (
+    "are released open-source",
+    "openly available",
+    "is released under the Apache",
+)
+PUBLICATION_CLAIM_FILES = (
+    "preprint_npj/paper.tex",
+    "preprint_npj/supplement.tex",
+    "preprint/manuscript.md",
+)
+PUBLICATION_CLAIM_TOTAL = 5
+
+
+def check_publication_gate() -> int:
+    """Keep the availability claims in step with the publication-gate register."""
+    print("\n## Publication-gate guard\n")
+    rows: list[tuple[str, str, str]] = []
+    n_bad = 0
+
+    reg = REPO / "audit" / "publication_gate.md"
+    ok = reg.exists()
+    n_bad += 0 if ok else 1
+    rows.append(("`audit/publication_gate.md` exists",
+                 "present" if ok else "**absent -- the constraint has no tracked home**",
+                 "PASS" if ok else "**FAIL**"))
+
+    if ok:
+        # Whitespace-normalised, because the register is prose and reflows. A
+        # needle that assumes a single space between two words fails the moment
+        # the line wraps between them -- which is exactly how this check failed
+        # on its first run.
+        text = re.sub(r"\s+", " ", reg.read_text(encoding="utf-8"))
+        for needle, label in (
+            ("**before** npj acceptance or review", "states that public release precedes npj"),
+            ("**Private**", "records the last verified repository visibility"),
+        ):
+            found = needle in text
+            n_bad += 0 if found else 1
+            rows.append((f"register {label}",
+                         "yes" if found else f"**`{needle}` absent**",
+                         "PASS" if found else "**FAIL**"))
+
+    total = 0
+    per_file: list[str] = []
+    for rel in PUBLICATION_CLAIM_FILES:
+        src_text = (REPO / rel).read_text(encoding="utf-8")
+        n = sum(src_text.count(p) for p in PUBLICATION_CLAIM_PATTERNS)
+        total += n
+        per_file.append(f"{rel.split('/')[-1]}={n}")
+    ok = total == PUBLICATION_CLAIM_TOTAL
+    n_bad += 0 if ok else 1
+    rows.append(("present-tense availability claims match the register",
+                 f"{total} ({', '.join(per_file)}); register enumerates "
+                 f"{PUBLICATION_CLAIM_TOTAL}",
+                 "PASS" if ok else "**FAIL**"))
+
+    print("| check | observed | verdict |")
+    print("|---|---|---|")
+    for label, observed, verdict in rows:
+        print(f"| {label} | {observed} | {verdict} |")
+    print(
+        f"\n**Publication-gate guard:** {len(rows)} checks, "
+        f"{len(rows) - n_bad} PASS, {n_bad} FAIL. Visibility itself is not "
+        f"checkable offline; see the register's checklist.\n"
+    )
+    return n_bad
+
+
+n_pubgate_fail = check_publication_gate()
+
 n_cdcprov_fail = check_cdc_weight_provenance()
 
 n_detvocab_fail = check_detector_vocabulary()
@@ -6108,7 +6195,7 @@ sys.exit(
         + n_s021_fail + n_s021_conv_fail + n_readme_fail + n_legend_fail
         + n_sexdiv_fail + n_inst_fail + n_cliprt_fail + n_s030prov_fail + n_figts_fail
         + n_fio2adj_fail + n_sobolframe_fail + n_s011_fail + n_abstract_fail
-        + n_vtcv_split_fail + n_shap_unit_fail + n_detvocab_fail + n_cdcprov_fail
+        + n_vtcv_split_fail + n_shap_unit_fail + n_detvocab_fail + n_cdcprov_fail + n_pubgate_fail
     ) > 0
     else 0
 )
