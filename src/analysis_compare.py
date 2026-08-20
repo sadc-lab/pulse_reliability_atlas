@@ -36,7 +36,8 @@ def wasserstein_per_output(
 
     Adds a within-sex null reference: for each (scenario, output), build a null
     Wasserstein distribution by repeatedly splitting the *combined* M+F clean
-    runs randomly into two equal-sized halves and computing the distance.
+    runs randomly into two groups of the original male and female sizes and
+    computing the distance.
     Report the empirical p-value (fraction of null distances >= observed) and
     the 95th-percentile null distance.
 
