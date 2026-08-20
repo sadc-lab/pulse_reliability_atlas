@@ -212,3 +212,73 @@ duplicates of anything already found.
   ledger anchors, two prose documents and three generator filenames.
 - The Zenodo DOI and arXiv identifier are not yet minted; the availability
   statements say so.
+
+---
+
+## 2026-08-20 — co-author review round, fourth build (paper + supplement, DOCX)
+
+Supersedes every entry above. The 2026-08-19 artefacts were not dispatched
+either: §2.3, §2.4, §2.5 and §2.6 were read after them and five commits landed
+(`6d2ba12`, `306dd22`, `44024b0`, `3ef081c`, `2139743`).
+
+| Field | Value |
+|---|---|
+| Source commit | `2139743` |
+| Built | 2026-08-20, before the dispatch entry was written |
+| Format sent | `.docx`; `.pdf` twins from the same run |
+
+| Artefact | SHA-256 | Bytes |
+|---|---|---|
+| `preprint_npj/build/paper.docx` | `ef9ea834b0cbc8c5f9390ed463ec7e869c30374961256899ecf48a12b7dac284` | 961,477 |
+| `preprint_npj/build/supplement.docx` | `e2b607fb055f1baa2e842c58d61710d9dd581945d4333d0eee39d7c6bc11dacc` | 743,152 |
+| `preprint_npj/build/paper.pdf` | `be0d3fb5dbeddb2c9dee9c4c14d8b763bb78412df34bfa425a40574eb556e339` | 714,976 |
+| `preprint_npj/build/supplement.pdf` | `bed84c43b28b25c23c4604f8311bdf79ffaabcaa32df21fdb21d08e68c192a4a` | 669,127 |
+
+The monograph was rebuilt in the same pass; it is not part of the co-author
+dispatch and is not hashed here.
+
+**State at this commit.** Claims ledger 382 / 382, 0 FAIL, exit 0. Render check
+PASSED, 4 accepted residues, 0 new. Build logs carry 0 undefined citations and 0
+undefined references. Abstract 150 / 147 against the npj cap of 150. Paper **37
+pages** (36 in the previous build; §2.6 gained two items), thinnest qualifying
+body page 433 words. Supplement 52 pages, thinnest 287. DOCX structure check
+passed with its calibration controls green.
+
+**Guards added since the previous entry**, each falsified on the value that would
+actually be wrong rather than an arbitrary one:
+
+- Vt-CV scenario split (139 / 36) plus the S014 gate statistic (+0.326, kept
+  distinguishable from the 0.335 difference of medians that was once quoted in
+  its place), and a reported-not-pinned per-scenario profile.
+- The 38 physiologically converged S1 reruns, with the partition 38 + 3 + 3 = 44
+  and 38 + 3 = 41, and a check that the 38-run and 41-run populations stay
+  distinct.
+- The Wasserstein raw-exceedance count (6), under BOTH readings of "exceeds its
+  permutation null", with the BH-removed comparison named.
+
+**⚠️ The reading pass is still incomplete.** Read so far: Abstract,
+Introduction, §2 and §2.1 through §2.6 with their tables, figures and legends,
+and the closing Discussion paragraphs. NOT yet read line by line: the Methods
+§4, and the Supplement body. Reviewer comments there are expected.
+
+**Substantive corrections since the previous entry** — do not re-report:
+
+- §2.5 attributed the BH-survivor count to the raw permutation test. Six
+  comparisons clear the raw null; five survive correction; S2 SpO2 is removed at
+  p = 0.0215 against a BH critical value of 0.0125. Both counts are now stated.
+- §2.4 said the 20 mmHg gap "rules out a runaway" while the same section reports
+  six runaway reruns, three of them inside the very median quoted. Bounded to
+  "a cohort-wide oxygenation runaway".
+- §2.4 attributed the t = 180 s statistic to "the healthy cohort"; it belongs to
+  the 38 physiologically converged reruns, and excluding the runaways is what
+  makes the statistic meaningful.
+- §2.3's "fades as ARDS severity rises" implied a monotonicity the data does not
+  show (139, 89, 36, 39); now "falls markedly with increasing ARDS severity".
+- §2.6 gained the preregistered Sobol deviation (triggered on 43 of 48
+  combinations, 11,008 runs against a 1,500-run cap) and the SpO2 flatline edge
+  case (232 trigger occurrences, not 232 runs). The cross-sex Spearman rho moved
+  from a Discussion limitation into §2.5.
+
+**Known open items:** mean sentence length 30.6 words; Supplement Figure S5 at 13
+pages from its call, closed without action; Zenodo DOI and arXiv identifier not
+yet minted.
