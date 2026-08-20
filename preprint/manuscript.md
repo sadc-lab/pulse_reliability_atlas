@@ -694,7 +694,8 @@ erratum saying so (`preregistration.md`, erratum of 2026-05-19, lines
 9–34). The two bodies used here — male 18 yr / 67.3 kg / 180 cm and
 female 18 yr / 56.2 kg / 163 cm — are **not** Pulse's source-code
 "Standard" patients: the weights are CDC 50th-percentile
-weight-for-age values at 214 months (17 y 10 m), the female height is
+weight-for-age values at `Agemos` = 216.5, the row beginning at exactly
+18.0 years, the female height is
 the CDC P50 stature (coincidentally equal to Pulse's
 `heightStandardFemale_cm = 163.0`), and the male height is a
 researcher-fixed value chosen for a BMI of 20.8 — it is **not** Pulse's
@@ -992,16 +993,15 @@ ARDS calibration provenance are in Appendix B.3.
 * **Female reference surrogate:** age 18, weight 56.2 kg, height 163 cm (BMI 21.2).
 
 *Provenance.* Body weights are the CDC 50th-percentile weight-for-age
-values at 214 months, i.e. 17 y 10 m (67.29 kg boys, 56.23 kg girls; CDC
-growth-chart Table 22, @kuczmarski2002cdc,
-<https://www.cdc.gov/growthcharts/>); the CDC values at exactly 18.0 years
-are 67.64 kg and 56.41 kg — 0.34 and 0.21 kg above those used. The preregistration's
-provenance erratum describes these weights as the CDC values at 18 years
-(216.5 months), which is inaccurate: 216.5 months is the midpoint of the
-216–216.99-month row, two rows later in the same table. The discrepancy is one of
-provenance wording only — the two bodies named in the preregistration are exactly the
-two simulated in all 1,280 runs, so nothing registered was changed (§B.5; Supplement
-§S3.10, body-dimension provenance). They were inherited unchanged from
+values at `Agemos` = 216.5 (67.28992603 kg boys, 56.22969564 kg girls;
+@kuczmarski2002cdc, <https://www.cdc.gov/growthcharts/>), rounded to 67.3 and
+56.2 kg. CDC lists age at the half-month point standing for the whole month, so
+that row denotes 216.0–216.99 months, the interval beginning at exactly 18.0
+years, and the preregistration's provenance erratum is correct in naming 18
+years. An earlier version of this passage placed the weights at a 214-month row
+and treated the `Agemos` = 218.5 values (67.64 and 56.41 kg, in fact 18 y 2 m)
+as the 18.0-year ones; both were wrong, and nothing registered or simulated
+changes (§B.5; Supplement §S3.10, body-dimension provenance). They were inherited unchanged from
 the companion `Pulse_translation_new` pediatric-translation pipeline
 where they form the 18-year endpoint of its CDC progression. The
 female height (163 cm) is the CDC P50 stature for 18-year-old girls [@kuczmarski2002cdc].
@@ -4363,12 +4363,14 @@ source-level audit established that this label is technically a
 misnomer. The actual provenance, by dimension, is as follows:
 
 * **Weights (67.3 kg M, 56.2 kg F).** CDC weight-for-age 50th-percentile
-  values at 214 months, i.e. 17 y 10 m — 67.29 kg for boys, 56.23 kg for
-  girls (CDC growth-chart tables; cross-verified against the CDC
-  z-score files `wtage.csv` from
-  <https://www.cdc.gov/growthcharts/data/zscore/>); the CDC values at
-  exactly 18.0 years are 67.64 kg and 56.41 kg — 0.34 and 0.21 kg above
-  those used. These anchors were
+  values at `Agemos` = 216.5 — 67.28992603 kg for boys, 56.22969564 kg for
+  girls (CDC z-score file `wtage.csv`,
+  <https://www.cdc.gov/growthcharts/data/zscore/>, re-read 2026-08-20 with
+  columns resolved by name). CDC lists age at the half-month point standing
+  for the whole month, so this row denotes 216.0–216.99 months, beginning at
+  exactly 18.0 years. An earlier version of this entry placed the values at a
+  214-month row and gave 67.64 and 56.41 kg as the 18.0-year figures; those
+  belong to `Agemos` = 218.5, that is 18 y 2 m. These anchors were
   taken directly from the companion `Pulse_translation_new`
   pediatric-translation pipeline, where they form the adult (18 yr)
   endpoint of the CDC progression used for its pediatric strata

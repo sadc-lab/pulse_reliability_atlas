@@ -5936,6 +5936,125 @@ def check_detector_vocabulary() -> int:
     return n_bad
 
 
+# -----------------------------------------------------------------------------
+# CDC body-weight provenance (2026-08-20).
+#
+# The manuscript, the supplement and the monograph all stated that the reference
+# weights came from a CDC 214-month row, and that 67.64 / 56.41 kg were the
+# values "at exactly 18.0 years". Both were wrong, from one cause: Agemos = 218.5
+# was taken for the 18.0-year row. It is 18 y 2 m. The values in use sit at
+# Agemos = 216.5, which CDC documents as denoting 216.0-216.99 months -- the
+# interval beginning at exactly 18.0 years ("Age is listed at the half month
+# point for the entire month", cdc.gov/growthcharts/cdc-data-files.htm).
+#
+# The preregistration erratum, which the manuscript had declared inaccurate, was
+# correct. It is a dated record and is NOT edited; this guard instead pins the
+# corrected provenance so the two-month shift cannot return.
+#
+# Values below are transcribed from the official CDC z-score file wtage.csv,
+# read 2026-08-20 with columns resolved by NAME (P50 is column 10; reading
+# column 9 gives P25, which is how a first pass here produced wrong figures).
+# -----------------------------------------------------------------------------
+CDC_P50_WEIGHT_KG = {
+    (1, "216.5"): 67.28992603,
+    (2, "216.5"): 56.22969564,
+    (1, "218.5"): 67.64281378,
+    (2, "218.5"): 56.40963105,
+    (1, "214.5"): 66.91783563,
+    (2, "214.5"): 56.05304601,
+}
+# Only phrases that UNIQUELY constitute the wrong claim. "two rows earlier" was
+# tried and removed: it is generic, and it appears in the corrected text where
+# the mechanism of the error is explained. A guard that forces contortions in
+# legitimate prose is miscalibrated, and the four below already fail on any
+# restatement of the wrong provenance.
+CDC_PROVENANCE_BANNED = (
+    "214 months",
+    "214--214.99-month",
+    "214-214.99-month",
+    "at exactly 18.0 years are 67.64",
+    "off-by-two-rows lookup was inherited",
+)
+CDC_PROVENANCE_DOCS = (
+    "preprint_npj/paper.tex",
+    "preprint_npj/supplement.tex",
+    "preprint/manuscript.md",
+)
+
+
+def check_cdc_weight_provenance() -> int:
+    """Pin the corrected CDC provenance of the two reference body weights."""
+    print("\n## CDC body-weight provenance guard\n")
+    rows: list[tuple[str, str, str]] = []
+    n_bad = 0
+
+    # 1. The published weights are the 216.5 row, rounded.
+    for sex, label, published in ((1, "male", 67.3), (2, "female", 56.2)):
+        exact = CDC_P50_WEIGHT_KG[(sex, "216.5")]
+        ok = round(exact, 1) == published
+        n_bad += 0 if ok else 1
+        rows.append((f"CDC P50 at Agemos 216.5 rounds to the {label} body weight",
+                     f"{exact} -> {round(exact, 1)} (published {published})",
+                     "PASS" if ok else "**FAIL**"))
+
+    # 2. NEGATIVE CONTROL, and the exact defect that motivated this guard: the
+    # 214.5 row must NOT round to the published weights, and the 218.5 row must
+    # not be mistakable for the 18.0-year row.
+    for sex, label, published in ((1, "male", 67.3), (2, "female", 56.2)):
+        wrong = CDC_P50_WEIGHT_KG[(sex, "214.5")]
+        ok = round(wrong, 1) != published
+        n_bad += 0 if ok else 1
+        rows.append((f"the 214.5 row does NOT give the {label} weight",
+                     f"{wrong} -> {round(wrong, 1)} vs {published}",
+                     "PASS" if ok else "**FAIL**"))
+
+    ok = CDC_P50_WEIGHT_KG[(1, "218.5")] != CDC_P50_WEIGHT_KG[(1, "216.5")]
+    n_bad += 0 if ok else 1
+    rows.append(("the 218.5 and 216.5 rows stay distinct",
+                 f"{CDC_P50_WEIGHT_KG[(1, '218.5')]} vs {CDC_P50_WEIGHT_KG[(1, '216.5')]}",
+                 "PASS" if ok else "**FAIL**"))
+
+    # 3. The wrong provenance must be gone from every document that carried it.
+    for rel in CDC_PROVENANCE_DOCS:
+        text = (REPO / rel).read_text(encoding="utf-8")
+        found = [p for p in CDC_PROVENANCE_BANNED if p in text]
+        ok = not found
+        n_bad += 0 if ok else 1
+        rows.append((f"`{rel}` free of the 214-month provenance",
+                     "clean" if ok else f"**{found}**",
+                     "PASS" if ok else "**FAIL**"))
+
+    # 4. The corrected row must be named where the provenance is stated.
+    for rel in CDC_PROVENANCE_DOCS:
+        text = (REPO / rel).read_text(encoding="utf-8")
+        ok = "216.5" in text
+        n_bad += 0 if ok else 1
+        rows.append((f"`{rel}` names the corrected CDC row",
+                     "Agemos 216.5 present" if ok else "**absent**",
+                     "PASS" if ok else "**FAIL**"))
+
+    # 5. The preregistration erratum is a dated record and stays untouched. It
+    # was correct all along, so its text must still be there to be correct.
+    prereg = (REPO / "preregistration.md").read_text(encoding="utf-8")
+    ok = "216.5 months" in prereg
+    n_bad += 0 if ok else 1
+    rows.append(("preregistration.md still states 18 years (216.5 months)",
+                 "present -- and correct" if ok else "**absent**",
+                 "PASS" if ok else "**FAIL**"))
+
+    print("| check | observed | verdict |")
+    print("|---|---|---|")
+    for label, observed, verdict in rows:
+        print(f"| {label} | {observed} | {verdict} |")
+    print(
+        f"\n**CDC body-weight provenance guard:** {len(rows)} checks, "
+        f"{len(rows) - n_bad} PASS, {n_bad} FAIL.\n"
+    )
+    return n_bad
+
+
+n_cdcprov_fail = check_cdc_weight_provenance()
+
 n_detvocab_fail = check_detector_vocabulary()
 
 n_shap_unit_fail = check_shap_pooled_unit()
@@ -5964,7 +6083,7 @@ sys.exit(
         + n_s021_fail + n_s021_conv_fail + n_readme_fail + n_legend_fail
         + n_sexdiv_fail + n_inst_fail + n_cliprt_fail + n_s030prov_fail + n_figts_fail
         + n_fio2adj_fail + n_sobolframe_fail + n_s011_fail + n_abstract_fail
-        + n_vtcv_split_fail + n_shap_unit_fail + n_detvocab_fail
+        + n_vtcv_split_fail + n_shap_unit_fail + n_detvocab_fail + n_cdcprov_fail
     ) > 0
     else 0
 )
