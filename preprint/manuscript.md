@@ -1001,7 +1001,7 @@ years, and the preregistration's provenance erratum is correct in naming 18
 years. An earlier version of this passage placed the weights at a 214-month row
 and treated the `Agemos` = 218.5 values (67.64 and 56.41 kg, in fact 18 y 2 m)
 as the 18.0-year ones; both were wrong, and nothing registered or simulated
-changes (§B.5; Supplement §S3.10, body-dimension provenance). They were inherited unchanged from
+changes (§B.5; Supplement §S3.4, body-dimension provenance). They were inherited unchanged from
 the companion `Pulse_translation_new` pediatric-translation pipeline
 where they form the 18-year endpoint of its CDC progression. The
 female height (163 cm) is the CDC P50 stature for 18-year-old girls [@kuczmarski2002cdc].
