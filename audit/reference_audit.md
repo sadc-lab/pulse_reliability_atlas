@@ -1772,3 +1772,45 @@ would then be required first.
 is enough for the two places that cite it — supplement §S3.5 and §S3.4, which
 invoke the *clinical standard* (6 mL/kg PBW), not the equations. Those two
 passages were reviewed during this phase and left untouched.
+
+---
+
+## ADDENDUM 2026-08-21 — the three Tier 1 `MISMATCH` rows are closed, verified against the repository
+
+**Why this block exists.** The Tier 1 summary table above (the `evans2021sepsis`
+/ `mancia2023esh` / `kuczmarski2002cdc` rows) still reads as three open defects,
+and the CDC row further down still says "pre-existing open question, unchanged".
+All three were fixed after that table was written. A register that keeps a
+resolved defect in the present tense manufactures a false alarm for whoever reads
+it next — which is exactly what happened during this session's sweep.
+
+Each row below was re-tested **against the current text**, not against a later
+entry in this register.
+
+| row | what the audit required | current text | status |
+|---|---|---|---|
+| `evans2021sepsis` | drop the superseded ">= 65"; the 2021 guideline targets **65** | supplement §S3 now reads "initial MAP target of 65~mmHg" and "targets 65~mmHg on resuscitation" — **both** loci, no ">=" | **CLOSED** |
+| `mancia2023esh` | ESH grade 3 is **>= 180** and/or **>= 110**, not "> 180" / "DBP > 120" | supplement §S3 now reads "grade~3 hypertension (SBP $\geq$ 180 and/or DBP $\geq$ 110~mmHg)" | **CLOSED** |
+| `kuczmarski2002cdc` | the age label: values said to be the P50 at 17.83 y, not 18 y | superseded by the 2026-08-20 provenance work; see `audit/cdc_weight_provenance_mismatch.md` | **CLOSED** |
+
+**On the CDC row specifically.** The "17.83 y" reading came from treating the row
+used as a 214-month row. It is not one. The CDC dataset labels each row at the
+half-month midpoint standing for the whole month, so `Agemos` = 216.5 is the
+interval from exactly 18.0 years to 18 years 1 month — the values used are the
+18.0-year P50 after all. The row that carries a 214-month label (214.5) holds
+66.91783563 and 56.05304601 kg, which are used nowhere in this work. A guard in
+`scripts/audit_claims.py` now pins all six CDC weights to ten digits.
+
+**Do not read the surviving "214-month" strings as residue.** Three remain, one in
+`preprint_npj/supplement.tex` and two in `preprint/manuscript.md`, and all three
+are the corrective prose itself — a correction has to name the error it corrects.
+Two of them are explicitly framed as "An earlier version of this passage".
+
+**Counting note, recorded because it caused a wrong report during this session.**
+Do not count verdicts in this file with a bare `grep -o "MATCH"`: `MATCH` is a
+substring of `MISMATCH`, so the raw count inflates the positives and hides the
+negatives. At the time of writing the file holds **61** raw `MATCH` strings =
+**52** genuine `MATCH` + **9** inside `MISMATCH`. The schema table at the top of
+this file also contributes one occurrence of each verdict word as a *definition*,
+not as a finding, so every status count here is at least one too high unless the
+schema line is excluded.
