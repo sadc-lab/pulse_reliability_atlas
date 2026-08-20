@@ -282,3 +282,47 @@ and the closing Discussion paragraphs. NOT yet read line by line: the Methods
 **Known open items:** mean sentence length 30.6 words; Supplement Figure S5 at 13
 pages from its call, closed without action; Zenodo DOI and arXiv identifier not
 yet minted.
+
+---
+
+## 2026-08-20 (second build) — co-author review round
+
+Supersedes the entry above, made a few hours earlier the same day: §2.2's SHAP
+sentence and §2.3's run-identifier gloss landed afterwards in `6b78aa3`.
+
+| Field | Value |
+|---|---|
+| Source commit | `6b78aa3` |
+| Format sent | `.docx`; `.pdf` twins from the same run |
+
+| Artefact | SHA-256 | Bytes |
+|---|---|---|
+| `preprint_npj/build/paper.docx` | `95943ccf02e517814a29a73e6b38a9bb1414e4f203f9da6e4208d48a56ef6833` | 961,600 |
+| `preprint_npj/build/supplement.docx` | `7323375ef2df64d4455cc0e8be0757d632607ae90a14757b2cc5b799951f7a28` | 743,152 |
+| `preprint_npj/build/paper.pdf` | `520bd94aad5f2723aa189bae9856090ea90db914327d30784046c1006e7bb100` | 715,354 |
+| `preprint_npj/build/supplement.pdf` | `81e739263f3e02205861a4f602b74bfe165832b50103dbdb2982886c2b5251ce` | 669,127 |
+
+**State.** Claims ledger 382 / 382, 0 FAIL, exit 0. Render check PASSED, 4
+accepted residues, 0 new. Build logs: 0 undefined citations, 0 undefined
+references — checked specifically because this build adds the first citation of
+`lundberg2017` in the paper, and `Lundberg` is present in the rendered
+bibliography. Paper 37 pages; supplement 52. DOCX structure check passed with its
+calibration controls green.
+
+**Corrections since the previous entry.** §2.2 described a SHAP cross-check with
+no citation, at an unstated level of agreement, and concluded with a causal
+attribution the Supplement does not license. It now cites `lundberg2017`, states
+that SHAP places 17 of the 18 Morris top-three inputs in its own top three across
+the six outputs, and concludes only that the skew is unlikely to be specific to
+the elementary-effects design. §4's "independently cross-verified" became "also
+supported by the secondary SHAP analysis". §2.3's `S1_F_0117` is glossed as
+"run index 117 in the healthy-female cell".
+
+**Guard added:** the SHAP pooled-agreement UNIT, not its value. The statistic is
+a set intersection summed over six outputs, maximum 18; it ignores order inside
+the top three. Two candidate rewrites of the sentence would have described a
+rank-based measurement the code does not perform, and a guard on the value 17
+alone would have accepted both.
+
+**⚠️ The reading pass remains incomplete.** Methods §4 and the Supplement body
+have not been read line by line.
