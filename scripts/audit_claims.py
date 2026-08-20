@@ -5739,6 +5739,93 @@ def check_vtcv_scenario_split() -> int:
     return n_bad
 
 
+# -----------------------------------------------------------------------------
+# SHAP pooled-agreement unit (2026-08-20).
+#
+# T2.s023.pooled already pins the VALUE 17. What drifted was the UNIT: §2.2 first
+# said SHAP "recovers the same dominant inputs", and two candidate rewrites --
+# "17 of the 18 pooled top-three input selections" and "17 of the 18 pooled
+# output-by-rank comparisons" -- both described a measurement the code does not
+# perform. The statistic is sum(overlap_size) over the six outputs, i.e. a SET
+# intersection of the two top-three sets, with a maximum of 6 x 3 = 18. It
+# ignores order inside the top three: HR scores 3 although SHAP ranks
+# hr|fio2|peep and Morris ranks hr|peep|fio2.
+#
+# A guard on the value alone would not have caught either rewrite. These checks
+# pin the unit instead.
+# -----------------------------------------------------------------------------
+SHAP_POOLED_OVERLAP = 17
+SHAP_POOLED_OUTPUTS = 6
+SHAP_TOPK = 3
+SHAP_PARTIAL_OUTPUTS = ("PaO2",)
+
+
+def check_shap_pooled_unit() -> int:
+    """Pin what the 17-of-18 pooled SHAP agreement actually counts."""
+    print("\n## SHAP pooled-agreement unit guard\n")
+    rows: list[tuple[str, str, str]] = []
+    n_bad = 0
+
+    n_out = len(s23_pooled)
+    ok = n_out == SHAP_POOLED_OUTPUTS
+    n_bad += 0 if ok else 1
+    rows.append(("the pooled table holds one row per output",
+                 f"{n_out} (expected {SHAP_POOLED_OUTPUTS})",
+                 "PASS" if ok else "**FAIL**"))
+
+    denom = n_out * SHAP_TOPK
+    total = int(s23_pooled["overlap_size"].sum())
+    ok = total == SHAP_POOLED_OVERLAP and denom == 18
+    n_bad += 0 if ok else 1
+    rows.append(("summed top-three membership overlap",
+                 f"{total} of {denom} (published {SHAP_POOLED_OVERLAP} of 18)",
+                 "PASS" if ok else "**FAIL**"))
+
+    # The unit is a SET intersection. Demonstrate it: at least one output must
+    # have a full overlap while the two orderings differ. If that ever stopped
+    # holding, a rank-based rewrite of the sentence would look defensible.
+    order_differs = [
+        r.output for r in s23_pooled.itertuples()
+        if r.overlap_size == SHAP_TOPK and r.shap_top3 != r.morris_top3
+    ]
+    ok = bool(order_differs)
+    n_bad += 0 if ok else 1
+    rows.append(("the metric ignores order within the top three",
+                 f"full overlap but different ordering on {order_differs}"
+                 if ok else "**no such output -- the set/rank distinction is unprovable here**",
+                 "PASS" if ok else "**FAIL**"))
+
+    partial = sorted(r.output for r in s23_pooled.itertuples()
+                     if r.overlap_size < SHAP_TOPK)
+    ok = partial == list(SHAP_PARTIAL_OUTPUTS)
+    n_bad += 0 if ok else 1
+    rows.append(("the outputs that fall short are the expected ones",
+                 f"{partial} (expected {list(SHAP_PARTIAL_OUTPUTS)})",
+                 "PASS" if ok else "**FAIL**"))
+
+    # The prose must not re-describe the statistic as rank-based.
+    paper_src = (REPO / "preprint_npj/paper.tex").read_text(encoding="utf-8")
+    banned = [p for p in ("output-by-rank", "top-three input selections",
+                          "same rank", "rank-for-rank") if p in paper_src]
+    ok = not banned
+    n_bad += 0 if ok else 1
+    rows.append(("no rank-based description of the pooled SHAP statistic",
+                 "none" if ok else f"**{banned}**",
+                 "PASS" if ok else "**FAIL**"))
+
+    print("| check | observed | verdict |")
+    print("|---|---|---|")
+    for label, observed, verdict in rows:
+        print(f"| {label} | {observed} | {verdict} |")
+    print(
+        f"\n**SHAP pooled-agreement unit guard:** {len(rows)} checks, "
+        f"{len(rows) - n_bad} PASS, {n_bad} FAIL.\n"
+    )
+    return n_bad
+
+
+n_shap_unit_fail = check_shap_pooled_unit()
+
 n_vtcv_split_fail = check_vtcv_scenario_split()
 
 n_abstract_fail = check_abstract_extent()
@@ -5763,7 +5850,7 @@ sys.exit(
         + n_s021_fail + n_s021_conv_fail + n_readme_fail + n_legend_fail
         + n_sexdiv_fail + n_inst_fail + n_cliprt_fail + n_s030prov_fail + n_figts_fail
         + n_fio2adj_fail + n_sobolframe_fail + n_s011_fail + n_abstract_fail
-        + n_vtcv_split_fail
+        + n_vtcv_split_fail + n_shap_unit_fail
     ) > 0
     else 0
 )
