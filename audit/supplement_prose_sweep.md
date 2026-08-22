@@ -34,6 +34,8 @@ findings and must not be reported as such.
 | 6 | supplement p52 | The last page of the supplement carries **no page number**; it is the only such page in 52. It holds Table S16, a `[h]` float that LaTeX defers to the end | **OPEN — cosmetic but visible** |
 | 7 | §S5 ¶433 | "reproduces the published anchors to **within 0.6 %**" — on the displayed integers (256, 150, 96) the worst case is 96 -> 96.6 = **0.625 %** | **OPEN — low severity, likely a rounding artefact** |
 | 8 | §S6, **2 loci** | Calls S2 and S3 "the **moderate**-ARDS scenarios", and the pair "the moderate-ARDS **regime**". S2 is **mild** ARDS (0.26) everywhere else — 11 loci say so. Mild and moderate are distinct Berlin bands (P/F 200-300 vs 100-200) | **OPEN — clearest internal contradiction found; clinical category** |
+| 9 | §S7 ¶597 | Quotes the Discussion as ``80 of 85 Hoeffding rejections fall on channels the present atlas does not assess''. That string occurs **0 times** in `paper.tex`; the Discussion says "82 of 85 fall outside the four-channel overlap: 80 on channels the present atlas does not assess" | **OPEN — quotation marks around a paraphrase** |
+| 10 | §S7 ¶597 vs its table caption | Prose says "**Cornish's Table~4**" and "their **Appendix** Table~5"; the caption says "Cornish **Appendix Tables~4 and~5**". Same document, two accounts of where Cornish's Table 4 lives | **OPEN — internal contradiction; needs the source** |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -271,6 +273,40 @@ cells S1 and S4_F". S1 is the healthy baseline, not a gas-exchange cell. The
 *reason* S1 has no clean FiO2 pairs is gas-exchange-related — SpO2 saturation
 pinning — so the descriptor is loose rather than wrong, but it reads oddly beside
 the precise scenario names used everywhere else.
+
+### 9 and 10 — §S7's quotation and its Cornish table locations
+
+**9. The quotation is a paraphrase.** §S7 opens by summarising the Discussion
+"as ``80 of 85 Hoeffding rejections fall on channels the present atlas does not
+assess''". Measured: that string occurs **0 times** in `paper.tex`. The
+Discussion reads "Of these, 82 of 85 fall outside the four-channel overlap (HR,
+MAP, PaO2, PaCO2): 80 on channels the present atlas does not assess (electrolyte,
+metabolic, acid--base, dermal), plus 2 on partial-overlap pressure channels".
+
+The content is faithful — 80 really do fall on unassessed channels — so this is
+not a misstatement of fact. But quotation marks promise verbatim, and in a paper
+whose subject is verification discipline, quoting its own Discussion loosely is
+the kind of thing a reviewer notices. Applied to an external source the same
+habit would be serious.
+
+**10. Where does Cornish's Table 4 live?** The prose distinguishes them:
+"``Hoeffding'' counts come from **Cornish's Table~4**" and "``Bootstrap'' counts
+come from their **Appendix Table~5**". The caption of the very table that prose
+introduces says "(Cornish **Appendix Tables~4 and~5**)".
+
+Not resolvable from inside the repository: it is a claim about the cited paper's
+structure, and `audit/reference_audit.md` records the Cornish figures (85
+Hoeffding, 281 bootstrap, 15 channels) without locating the tables. Escalation
+needs the source opened.
+
+**Verified in the same pass and correct** — the caption's arithmetic. "80 on the
+**eight** channels the atlas does not assess" matches the table exactly:
+Chloride, Sodium, Potassium, Calcium, Glucose, HCO3, arterial pH and skin
+temperature, and their Hoeffding numerators sum to 80. "Plus 2 on the
+partial-overlap pressure channel SysBP" matches SysBP 2 / DiaBP 0, and 80 + 2 + 3
+= 85. The whole table sums to 15 channels, 85 rejections and 1,522 hypotheses —
+1,522 being the correct figure, not the 1,442 typo carried by Cornish's own main
+text, which appears nowhere in our three documents.
 
 ---
 
