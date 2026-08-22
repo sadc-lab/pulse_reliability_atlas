@@ -39,6 +39,10 @@ findings and must not be reported as such.
 | 11 | §S8 ¶650 | "The 64 paired reruns sampled **all eight** (scenario, sex) cells" — **S3_M has zero pairs**; the 64 cover **seven** cells | **OPEN — factual, overstates experimental coverage** |
 | 12 | §S8 caption (¶659) | "Pulse's standard CSV output **does not natively expose** airway Pressure or Respiratory Flow as top-level columns" — **Pulse does expose them**; our data-request list does not ask for them | **OPEN — misattributes our configuration to the engine** |
 | 13 | §S8 ¶665 | "by a factor of **approximately twenty** in the median paired comparison" — three defensible readings give 22.45, 28.16 and 64.5 | OPEN — low: ambiguous, and conservative under every reading |
+| 14 | §S9 ¶673 vs ¶697 | **663 mmHg means two unrelated things in one section**: the alveolar-gas-equation prediction, and the measured male 120-s mean (662.57) | OPEN — collision hazard, both values correct |
+| 15 | §S9 ¶695 | "within **approximately 5 %** of the asymptote" — the measured deviation is **0.05 %** (0.33 mmHg) | OPEN — low: true but ~100x too loose, and it is downstream guidance |
+| 16 | §S9 ¶701 | "an **order-of-magnitude** drop … to 144 mmHg at moderate and 73 mmHg at severe" — 4.48x and 8.87x | OPEN — correct for severe, wrong for moderate |
+| 17 | §S9 ¶701 | "the shunt-fraction kinetics **the alveolar-gas equation predicts** under increasing venous admixture" — that equation predicts alveolar PAO2, not shunt | OPEN — physiological attribution, needs author arbitration |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -434,6 +438,74 @@ sentence in ¶646, which quotes the two medians 0.351 and 0.016.
 **Low severity, and worth saying why**: every reading exceeds twenty, so the
 phrasing understates the effect in all three. It is never an overclaim. The
 defect is ambiguity, not inaccuracy.
+
+
+### 14 — 663 mmHg carries two unrelated referents in §S9
+
+- ¶673: "approximately 20~mmHg below the simple alveolar-gas-equation prediction
+  at sea level of ~663~mmHg" — a **theoretical** value, 1.0(760-47) - 40/0.8 = 663.
+- ¶697: "mean 686 versus **663**~mmHg in the locked 120-second window across the
+  four RR = 20 pairs" — a **measured** male mean. Reproduced: 662.57.
+
+Both are right. They sit 0.43 mmHg and roughly twenty lines apart, and they
+measure nothing in common. The hazard is the inference a reader can draw
+unaided: that the male body "matches theory" while the female body exceeds it.
+The text neither makes that claim nor supports it — the agreement is a
+coincidence.
+
+Verified correct here: the female mean 685.96 → "686", the five input-identical
+pairs, female runaway 5/5, male 1/5, male plateau 779.20 → "779", female range
+1168.94–1408.49 → "1,169--1,408".
+
+### 15 — "within approximately 5 % of the asymptote" (§S9 ¶695)
+
+Guidance to downstream users: record 300 s and average over t = 240--300 s, which
+"puts the PaO2 estimate within approximately 5 % of the asymptote".
+
+Measured on the 38 physiological-converged median trajectory: asymptote 639.34
+mmHg, window mean 639.01 mmHg, deviation **0.33 mmHg = 0.05 %**. Even reading
+"5 %" as 5 % of the *gain* (87.5 mmHg) gives 4.37 mmHg = 0.68 % of the asymptote.
+
+True, therefore, but about two orders of magnitude too loose — and the two
+denominators, asymptote and gain, are not the same quantity. It matters because
+it is a recipe: "approximately 5 %" of 639 mmHg reads as ±32 mmHg of residual
+error, which a reader could reasonably judge too imprecise for a blood-gas
+endpoint, and so reject a recommendation that is in fact excellent.
+
+### 16 — "an order-of-magnitude drop" (§S9 ¶701)
+
+> …an order-of-magnitude drop from the healthy S1 median to 144~mmHg at moderate
+> and 73~mmHg at severe ARDS…
+
+From the table's own medians: 643.31 / 143.58 = **4.48x**, and 643.31 / 72.56 =
+**8.87x**. The descriptor is defensible for severe (8.87 is within 11 % of ten)
+and wrong for moderate, where the drop is under half an order of magnitude. One
+magnitude word is attached to two values and fits only one.
+
+Verified correct in the same sentence and table: 143.58 → "143.6" → "144",
+72.56 → "72.6" → "73", n = 8 and 8 (four paired Morris vectors x two bodies),
+n = 44, and 8 + 8 + 44 = 60, matching the rerun total stated in ¶677.
+
+### 17 — what the alveolar-gas equation predicts (§S9 ¶701)
+
+> This reproduces the shunt-fraction kinetics the alveolar-gas equation predicts
+> under increasing venous admixture…
+
+The alveolar gas equation, PAO2 = FiO2(Pb - PH2O) - PaCO2/R, predicts **alveolar**
+oxygen tension. It says nothing about venous admixture: the fall in *arterial*
+PaO2 with increasing shunt is described by the shunt (Berggren) equation, and
+shows up as a widening A–a gradient. As written, the equation is the grammatical
+subject doing the predicting, which attributes to it a behaviour it does not
+model.
+
+A defensible weaker reading exists — "the kinetics that follow from the alveolar
+gas equation *together with* increasing venous admixture" — so **two readings**,
+which by this project's own rule means presenting both rather than silently
+picking one. Author arbitration required: it is a physiological attribution, not
+a typo.
+
+The underlying result is untouched and correct: the plateau falls monotonically
+with severity, and the S1 elevation is a healthy-lung property.
 
 
 ---
