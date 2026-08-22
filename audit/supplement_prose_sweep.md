@@ -36,6 +36,7 @@ findings and must not be reported as such.
 | 8 | §S6, **2 loci** | Calls S2 and S3 "the **moderate**-ARDS scenarios", and the pair "the moderate-ARDS **regime**". S2 is **mild** ARDS (0.26) everywhere else — 11 loci say so. Mild and moderate are distinct Berlin bands (P/F 200-300 vs 100-200) | **OPEN — clearest internal contradiction found; clinical category** |
 | 9 | §S7 ¶597 | Quotes the Discussion as ``80 of 85 Hoeffding rejections fall on channels the present atlas does not assess''. That string occurs **0 times** in `paper.tex`; the Discussion says "82 of 85 fall outside the four-channel overlap: 80 on channels the present atlas does not assess" | **OPEN — quotation marks around a paraphrase** |
 | 10 | §S7 ¶597 vs its table caption | Prose says "**Cornish's Table~4**" and "their **Appendix** Table~5"; the caption says "Cornish **Appendix Tables~4 and~5**". Same document, two accounts of where Cornish's Table 4 lives | **OPEN — internal contradiction; needs the source** |
+| 11 | §S8 ¶650 | "The 64 paired reruns sampled **all eight** (scenario, sex) cells" — **S3_M has zero pairs**; the 64 cover **seven** cells | **OPEN — factual, overstates experimental coverage** |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -307,6 +308,39 @@ partial-overlap pressure channel SysBP" matches SysBP 2 / DiaBP 0, and 80 + 2 + 
 = 85. The whole table sums to 15 channels, 85 rejections and 1,522 hypotheses —
 1,522 being the correct figure, not the 1,442 typo carried by Cornish's own main
 text, which appears nowhere in our three documents.
+
+### 11 — the S014 pairs cover seven cells, not eight (§S8 ¶650)
+
+> The 64 paired reruns sampled **all eight** (scenario, sex) cells, with most
+> coverage concentrated on the healthy-S1 and mild-ARDS-S2 cells…
+
+Enumerated cell by cell from `data/runs/s014_trigger_lockout/*_lock`, all eight
+named explicitly rather than counted from whatever the listing happened to show:
+
+| cell | pairs | | cell | pairs |
+|---|---|---|---|---|
+| S1_M | 6 | | S3_M | **0** |
+| S1_F | 20 | | S3_F | 5 |
+| S2_M | 10 | | S4_M | 1 |
+| S2_F | 9 | | S4_F | 13 |
+
+Total 64 ✓, over **seven** cells. **S3_M is empty.**
+
+This is factual, not terminological: it overstates the experiment's coverage. A
+reader takes "all eight cells" to mean every cell is represented in the paired
+design, and one is not.
+
+**The intention is defensible and worth recording with the defect.** S3_M carries
+the fewest `not_steady_state` runs of any cell in the sweep — 12, against 107 and
+118 in the S1 cells, per `results/cell_flag_summary.csv` — so it offers the
+fewest candidates for a Vt-CV pairing. Zero pairs there is a consequence of the
+selection criterion, not an omission. The sentence needs "seven of the eight" and
+probably a clause naming why.
+
+**Verified correct in the same paragraph and sentence**: "most coverage
+concentrated on the healthy-S1 and mild-ARDS-S2 cells" — S1 holds 26 pairs and S2
+holds 19, so 45 of 64 ✓. And note it writes "**mild**-ARDS-S2" here, which
+strengthens signal 8: §S6's "moderate" is the outlier, not the norm.
 
 ---
 
