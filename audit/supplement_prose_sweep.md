@@ -33,6 +33,7 @@ findings and must not be reported as such.
 | 5 | §S4 ¶392 and §S8 ¶650 (+ §S4 title, to arbitrate) | Two hard-coded references send the reader to "**Table 1** of the main manuscript" for per-cell flag counts. Paper Table 1 is the terminology glossary; the per-cell breakdown is **Table 3**. ⚠️ Three OTHER `Table~1` references are CORRECT and must not be swept | **OPEN — wrong pointer** |
 | 6 | supplement p52 | The last page of the supplement carries **no page number**; it is the only such page in 52. It holds Table S16, a `[h]` float that LaTeX defers to the end | **OPEN — cosmetic but visible** |
 | 7 | §S5 ¶433 | "reproduces the published anchors to **within 0.6 %**" — on the displayed integers (256, 150, 96) the worst case is 96 -> 96.6 = **0.625 %** | **OPEN — low severity, likely a rounding artefact** |
+| 8 | §S6 ¶545 | Calls S2 and S3 "the **moderate**-ARDS scenarios". S2 is **mild** ARDS (0.26) everywhere else — 11 loci say so. Mild and moderate are distinct Berlin bands (P/F 200-300 vs 100-200) | **OPEN — clearest internal contradiction found; clinical category** |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -236,6 +237,32 @@ locked arms, with 0.90 and 0.95 completing, exactly as the paragraph claims. Tha
 0.90 completes here while Figure S1's micro-sweep diverges at the 0.88 bin is not
 a contradiction: this is one fixed reference setting, the micro-sweep is midrange
 Morris inputs, and §S5 states the instability is input-dependent.
+
+### 8 — S2 called "moderate" where 11 other loci call it "mild" (§S6 ¶545)
+
+> …is computable only for the **moderate-ARDS scenarios S2 and S3** (the
+> gas-exchange and severe-ARDS cells S1 and S4_F have no clean FiO2
+> elementary-effect pairs…)
+
+Measured across `supplement.tex` and `paper.tex`: **"S2 mild ARDS" 8 times,
+"S2 mild" 3 more — 11 loci.** "moderate-ARDS scenarios S2 and S3" occurs
+**once**, here.
+
+This is not a style slip. S2 is impairment 0.26, calibrated in §S5 to a P/F of
+256 mmHg, which is the **mild** Berlin band (200--300). Moderate is 100--200,
+where S3 sits at 150. Calling S2 moderate moves a scenario between two distinct
+diagnostic categories, in a paper whose ARDS severities are calibrated *to those
+very bands*. A clinician reviewer reads this immediately.
+
+The sentence is otherwise correct: ρ really is computable only for S2 and S3, and
+Figure S2 shows exactly that — the S1 and S4 rows are empty, which
+`results/spearman_mu_star.csv` confirms with blank entries.
+
+Secondary, same sentence, lower confidence: "the **gas-exchange** and severe-ARDS
+cells S1 and S4_F". S1 is the healthy baseline, not a gas-exchange cell. The
+*reason* S1 has no clean FiO2 pairs is gas-exchange-related — SpO2 saturation
+pinning — so the descriptor is loose rather than wrong, but it reads oddly beside
+the precise scenario names used everywhere else.
 
 ---
 
