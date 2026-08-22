@@ -43,6 +43,9 @@ findings and must not be reported as such.
 | 15 | §S9 ¶695 | "within **approximately 5 %** of the asymptote" — the measured deviation is **0.05 %** (0.33 mmHg) | OPEN — low: true but ~100x too loose, and it is downstream guidance |
 | 16 | §S9 ¶701 | "an **order-of-magnitude** drop … to 144 mmHg at moderate and 73 mmHg at severe" — 4.48x and 8.87x | OPEN — correct for severe, wrong for moderate |
 | 17 | §S9 ¶701 | "the shunt-fraction kinetics **the alveolar-gas equation predicts** under increasing venous admixture" — that equation predicts alveolar PAO2, not shunt | OPEN — physiological attribution, needs author arbitration |
+| 18 | §S11 ¶787 | "**each** is anchored in a specific experiment from this work" — items **3 and 6 carry no cross-reference at all** | OPEN — universal quantifier false on 2 of 6 |
+| 19 | §S11 ¶787 | "The Discussion of the main manuscript **closes with** a forward-looking note on engine-side infrastructure" — it is paragraph **5 of 14**, with 9 after it | OPEN — positional claim, checkable and wrong |
+| 20 | §S11 item 2 | "this constant **is not currently exposed** in the public patient-setup documentation" — unsourced absence claim about external documentation | OPEN — same class as signal 1; **triggers criterion (b)** of the citation rule |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -566,6 +569,79 @@ the 2×2 sex×mass check (§S9 ¶697).
 (that 88.362 is what the paper prints). The value matches the equation as
 universally cited, and the reference audit closed Tiers 1–3 in an earlier
 campaign, but that is a recorded claim, not a measurement made here.
+
+
+### 18 — "each is anchored in a specific experiment from this work" (§S11 ¶787)
+
+Counted per item, printed before counting, with `grep -o 'ref{...}'` after an
+`awk` attempt returned 0 for every item and was discarded as broken (its escape
+warnings gave it away — item 1 visibly carries a reference):
+
+| item | cross-references |
+|---|---|
+| 1 structured input-rejection events | `sec:s3-clamp` |
+| 2 blood-volume floor | `sec:results-sex` |
+| **3 sensitivity-analysis recipe** | **none** |
+| 4 ARDS band warning | `sec:s2`, `sec:s5-prov`, `sec:s5-cont` |
+| 5 per-channel drift column | `sec:results-hyperoxia`, `sec:s3-drift` |
+| **6 field-attributed error messages** | **none** |
+
+Four of six are anchored; two are not. Item 3 points only at Pulse's own 2020
+study tag, and item 6 at nothing.
+
+**In fairness**: the *substance* of both is anchored in this work — item 3 in the
+atlas's sampler and runner, item 6 in the same setup-rejection experience as item
+1. What is missing is the reference, not the experience. But "each" is a
+universal quantifier over an enumerable population of six, and it is false as
+written.
+
+### 19 — the Discussion does not close with the infrastructure note (§S11 ¶787)
+
+> The Discussion of the main manuscript **closes with** a forward-looking note on
+> engine-side infrastructure suggestions for the Pulse maintainers.
+
+The Discussion runs `paper.tex` 366--395 and holds **14 paragraphs**. The
+infrastructure note is **paragraph 5** (L376). Nine paragraphs follow it: the six
+scope limits (L378--L388), the foundational-infrastructure paragraph (L390), the
+extensions (L392), and the actual closing paragraph (L394), which is about
+Pulse-generated cohorts being used as machine-learning training data.
+
+Low stakes, but it is a positional claim any reader can check in ten seconds, and
+it is wrong.
+
+### 20 — an unsourced absence claim about Pulse's public documentation (§S11 item 2)
+
+> Pulse hard-enforces a 4,082.24 mL blood-volume floor at setup … but **this
+> constant is not currently exposed in the public patient-setup documentation**.
+
+Same class as signal 1 (BioGears): a claim of **absence** about a document
+outside this repository, carrying no citation. The floor itself is verified
+(§S10, `SetupPatient.cpp:535`); what is unverified is that Pulse's public patient
+methodology does not mention it.
+
+**This is the first signal to trigger criterion (b) of the citation rule agreed
+this session** — open the primary source when the sentence asserts an absence,
+exclusivity or negation. The source to open is `pulsepatientmethod`, which §S10
+already cites for the allometric formula. Deferred to the combined citation pass.
+
+Consequence if wrong is bounded: the recommendation to the maintainers becomes
+moot, and no scientific result moves.
+
+### §S11 — verified correct
+
+- The six items map **1:1 and in the same order** onto the six enumerated in
+  `paper.tex:376`, down to the parenthetical "one typed record per rejected
+  field" in item 1. Cross-document consistency here is exact.
+- "items 1--6" in ¶803 matches the six-item list.
+- `paper.tex:221` independently says "six concrete engineering recommendations".
+- Item 2's 4,082.24 and 4,802.63 mL — re-derived in §S10.
+- Item 4's `[0.879, 0.945]`, the narrower 0.91--0.945 zone, and "three
+  independent boundary probes" — consistent with the project's verified
+  limitation #4 and with the now-closed signal 2.
+- Item 3's `STUDY_SENSITIVITY_ANALYSIS_1_0_0` characterisation matches verified
+  limitation #1.
+- Item 1's pointer to §S3-clamp is correct: that subsection does print the
+  pattern set in a `lstlisting`.
 
 
 ---
