@@ -29,6 +29,7 @@ findings and must not be reported as such.
 | 1 | §S1 ¶116 | "…that are not present in BioGears" — comparative claim of ABSENCE about a third-party project, uncited | **OPEN — needs primary source or removal** |
 | 2 | §S2 Table row 4 | "a continuous-severity micro-sweep **confirms** the band" where §S5, Fig. S1 and the Discussion all say the sweep **extends** it to [0.879, 0.945] | **OPEN — wording agreed, not yet applied** |
 | 3 | §S3 | Four prose uses of "detector" for the object `paper.tex` calls "classifier" 33 times | **OPEN — needs per-occurrence semantic arbitration** |
+| 4 | §S3 clamp patch note | "all **3,348** Pulse logs on disk" — a `find data -name pulse.log` today returns **3,349** | **OPEN — low severity, unresolved** |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -111,6 +112,34 @@ appears.** The 15 break down as:
 **Never apply a blanket replacement.** `DETECTOR_REQUIRED` exists precisely to
 fail on that, and was falsified on it on 2026-08-22: renaming "log-based
 detector" makes the gate exit 1.
+
+### 4 — the 3,348 log denominator (§S3, clamp-patch note)
+
+The note says: "Replaying both pattern sets over all **3,348** Pulse logs on disk
+flips exactly one run --- the probe written to expose the gap --- and no run in
+the published sweep".
+
+Measured 2026-08-22: `find data -name "pulse.log"` returns **3,349**. The figure
+3,348 also appears in `audit/figure2_reframing_diffs.md` and
+`audit/n1_methods_restructure.md`, both tracing it to a commit message written
+when the patch was made on 2026-07-26.
+
+**Could not be resolved, and the reason is worth recording.** File mtimes cannot
+date these runs: a checkout, a copy or a regeneration rewrites them. Splitting
+the corpus at 2026-07-26 by mtime gives 3,293 before and 56 after, which matches
+neither figure, so mtime archaeology is not evidence here.
+
+**Low severity, and deliberately left open rather than "corrected" to 3,349.**
+The load-bearing claim is "flips exactly one run, and no run in the published
+sweep" — a numerator and an exclusion, neither of which depends on the exact
+denominator. Rewriting 3,348 to today's 3,349 would replace a figure traceable to
+a dated commit with one traceable to nothing, which is worse. Settling it
+properly means re-running the replay and recording the count with its date.
+
+Corroborating detail: the newest logs on disk are `s030b_bound_hr49`, `hr50`,
+`hr110` and `hr111` — the heart-rate boundary probes. The note's mechanism is
+exactly that a heart rate below 50 bpm was rejected by Pulse at setup without
+raising `clamped`, so the probe it describes does exist.
 
 ---
 
