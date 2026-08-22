@@ -330,12 +330,38 @@ This is factual, not terminological: it overstates the experiment's coverage. A
 reader takes "all eight cells" to mean every cell is represented in the paired
 design, and one is not.
 
-**The intention is defensible and worth recording with the defect.** S3_M carries
-the fewest `not_steady_state` runs of any cell in the sweep — 12, against 107 and
-118 in the S1 cells, per `results/cell_flag_summary.csv` — so it offers the
-fewest candidates for a Vt-CV pairing. Zero pairs there is a consequence of the
-selection criterion, not an omission. The sentence needs "seven of the eight" and
-probably a clause naming why.
+**The supplement contradicts its own upstream experiment log.**
+`experiments_log/santino/S014_trigger_pressure_lockout.md` states at L204:
+
+> S3_M is absent from the top-64 (S3_M's three flagged runs have lower `Vt_cv`
+> than the cutoff).
+
+and at L76: "Stratification across cells is sacrificed for paired-test power."
+The selection is `pool.nlargest(64, "Vt_cv")` in
+`scripts/run_s014_trigger_lockout.py:114` — a top-64 ranking over the whole
+sweep, **deliberately not stratified**. So "sampled … all eight cells"
+misstates the design twice: the coverage is not eight, and coverage was never a
+design property to begin with.
+
+**The log's explanation, verified directly** (reproducing the top-64 from
+`data/runs/full_sweep/aggregated.parquet`, 1,280 rows, eligible pool 1,260 after
+the 20 diverged):
+
+- cutoff = min `Vt_cv` of the top-64 = **0.284786**
+- S3_M's highest `Vt_cv` = **0.222869** → below the cutoff ✓
+- S3_M runs at `Vt_cv` ≥ 0.05 = **3 of 160** ✓ — the log's "three flagged runs"
+  is the CV-threshold flag, **not** `not_steady_state`, which is 12 for that
+  cell. Two different referents; the earlier draft of this entry cited the wrong
+  one.
+
+The reproduced distribution — 6/20/10/9/**0**/5/1/13 — matches the directory
+listing, `selection.parquet` and `paired_comparison.parquet` exactly. Four
+instruments, one answer.
+
+**In fairness to the sentence**: its second clause, "most coverage concentrated
+on the healthy-S1 and mild-ARDS-S2 cells where the dyssynchrony signal is
+densest", is honest about the unevenness and about what drives it. The defect is
+localised to "all eight".
 
 **Verified correct in the same paragraph and sentence**: "most coverage
 concentrated on the healthy-S1 and mild-ARDS-S2 cells" — S1 holds 26 pairs and S2
