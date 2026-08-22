@@ -31,6 +31,7 @@ findings and must not be reported as such.
 | 3 | §S3 | Four prose uses of "detector" for the object `paper.tex` calls "classifier" 33 times | **OPEN — needs per-occurrence semantic arbitration** |
 | 4 | §S3 clamp patch note | "all **3,348** Pulse logs on disk" — a `find data -name pulse.log` today returns **3,349** | **OPEN — low severity, unresolved** |
 | 5 | §S4 ¶392 and §S8 ¶650 (+ §S4 title, to arbitrate) | Two hard-coded references send the reader to "**Table 1** of the main manuscript" for per-cell flag counts. Paper Table 1 is the terminology glossary; the per-cell breakdown is **Table 3**. ⚠️ Three OTHER `Table~1` references are CORRECT and must not be swept | **OPEN — wrong pointer** |
+| 6 | supplement p52 | The last page of the supplement carries **no page number**; it is the only such page in 52. It holds Table S16, a `[h]` float that LaTeX defers to the end | **OPEN — cosmetic but visible** |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -187,6 +188,27 @@ stale. The three "Figure~2 of the main manuscript" references are, by contrast,
 Escalation note for the fix: correcting the numbers is not enough on its own if
 nothing re-measures them. Either extend `\mainref` to floats, or guard the
 mapping the way `check_detector_vocabulary` guards vocabulary.
+
+### 6 — the supplement's last page has no page number
+
+Raised by the author on 2026-08-22, and not by any check: `check_render.py`
+counts pages and float placement, not whether a folio is printed.
+
+Measured across all 52 pages: **p52 is the only page without its number**, and it
+is not blank -- 455 words. The paper does not share the defect; its last page,
+37, prints its number. `supplement.tex` contains no `	hispagestyle` or
+`\pagestyle` command, so nothing suppresses it explicitly.
+
+Page 52 holds Table S16, the index of supplementary findings, declared `[h]`
+rather than `[p]`. Being the last content and too large for the remaining space,
+it is deferred and flushed at `\end{document}` onto a float page, whose style
+drops the folio.
+
+⚠️ Any fix must be MEASURED, not assumed. On 2026-08-22 two float interventions
+in this repository behaved unexpectedly: tightening subfigure spacing cleared an
+overflow while silently pushing rows over their own subcaptions, and a longer
+caption deferred three supplement figures to the end of the document. Rebuild and
+re-read the pages after whatever is tried.
 
 ---
 
