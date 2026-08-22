@@ -30,6 +30,7 @@ findings and must not be reported as such.
 | 2 | §S2 Table row 4 | "a continuous-severity micro-sweep **confirms** the band" where §S5, Fig. S1 and the Discussion all say the sweep **extends** it to [0.879, 0.945] | **OPEN — wording agreed, not yet applied** |
 | 3 | §S3 | Four prose uses of "detector" for the object `paper.tex` calls "classifier" 33 times | **OPEN — needs per-occurrence semantic arbitration** |
 | 4 | §S3 clamp patch note | "all **3,348** Pulse logs on disk" — a `find data -name pulse.log` today returns **3,349** | **OPEN — low severity, unresolved** |
+| 5 | §S4 ¶392 and §S8 ¶650 (+ §S4 title, to arbitrate) | Two hard-coded references send the reader to "**Table 1** of the main manuscript" for per-cell flag counts. Paper Table 1 is the terminology glossary; the per-cell breakdown is **Table 3**. ⚠️ Three OTHER `Table~1` references are CORRECT and must not be swept | **OPEN — wrong pointer** |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -140,6 +141,52 @@ Corroborating detail: the newest logs on disk are `s030b_bound_hr49`, `hr50`,
 `hr110` and `hr111` — the heart-rate boundary probes. The note's mechanism is
 exactly that a heart rate below 50 bpm was rejected by Pulse at setup without
 raising `clamped`, so the probe it describes does exist.
+
+### 5 — "Table 1 of the main manuscript" points at the glossary (§S4, §S8)
+
+Read out of the built PDF rather than counted from source, the paper's tables are:
+
+| | caption |
+|---|---|
+| Table 1 | Terms used in this paper, with section references |
+| Table 2 | Definitions and trigger conditions of the four steady-state flags |
+| **Table 3** | **Per-cell flag breakdown across the eight scenario × sex cells** |
+| Table 4 | Per-cell retention under the two screening definitions |
+
+The supplement holds **seven** hard-coded `Table~N` references. Enumerated in
+full before counting, because the first pass of this very entry got it wrong:
+
+| line | reference | verdict |
+|---|---|---|
+| 392 | "Table~1 … reports per-cell counts under the locked four-flag classifier" | ⚠️ **wrong — wants Table 3** |
+| 650 | "cells where the dyssynchrony signal is densest (Table~1 of the main manuscript)" | ⚠️ **wrong — wants Table 3** |
+| 396 | "Cell-label key (see main paper Table~1 for **full definitions**)" | ✅ correct |
+| 504 | "Scenario key (see main paper Table~1 for **full definitions**)" | ✅ correct |
+| 577 | "Cell-label key (see main paper Table~1 for **full definitions**)" | ✅ correct |
+| 597 | "**Cornish's** Table~4" and "their **Appendix** Table~5" | ✅ correct — these are the cited study's tables, not ours |
+
+So **two of seven** are wrong, not three or more. Three other `Table~1`
+references are right, because Table 1 *is* the glossary and they ask for
+definitions. ⚠️ **A blanket replacement of `Table~1` would break all three.**
+
+Also to arbitrate, separately: §S4 is titled "Extended **Table 1**:
+not_steady_state attribution" while what it extends is the per-cell breakdown,
+i.e. Table 3. Possibly a legacy name from when the paper carried fewer tables.
+
+**A false alarm this entry raised and must not leave behind**: "Table~5" looked
+like a dangling pointer, the paper having only four tables. It is Cornish's
+appendix table, correctly attributed in the same sentence.
+
+**Structural cause, and why it will recur.** The supplement hard-codes paper
+table and figure numbers. Its `\mainref{label}{number}` macro exists for
+**sections only** — 35 uses, none on a table or a figure. So these pointers
+cannot follow a table inserted upstream, which is the most likely way they went
+stale. The three "Figure~2 of the main manuscript" references are, by contrast,
+**correct**: Figure 2 is the traffic-light map, and each context is about it.
+
+Escalation note for the fix: correcting the numbers is not enough on its own if
+nothing re-measures them. Either extend `\mainref` to floats, or guard the
+mapping the way `check_detector_vocabulary` guards vocabulary.
 
 ---
 
