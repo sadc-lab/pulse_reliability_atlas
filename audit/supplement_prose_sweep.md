@@ -33,7 +33,7 @@ findings and must not be reported as such.
 | 5 | §S4 ¶392 and §S8 ¶650 (+ §S4 title, to arbitrate) | Two hard-coded references send the reader to "**Table 1** of the main manuscript" for per-cell flag counts. Paper Table 1 is the terminology glossary; the per-cell breakdown is **Table 3**. ⚠️ Three OTHER `Table~1` references are CORRECT and must not be swept | **OPEN — wrong pointer** |
 | 6 | supplement p52 | The last page of the supplement carries **no page number**; it is the only such page in 52. It holds Table S16, a `[h]` float that LaTeX defers to the end | **OPEN — cosmetic but visible** |
 | 7 | §S5 ¶433 | "reproduces the published anchors to **within 0.6 %**" — on the displayed integers (256, 150, 96) the worst case is 96 -> 96.6 = **0.625 %** | **OPEN — low severity, likely a rounding artefact** |
-| 8 | §S6 ¶545 | Calls S2 and S3 "the **moderate**-ARDS scenarios". S2 is **mild** ARDS (0.26) everywhere else — 11 loci say so. Mild and moderate are distinct Berlin bands (P/F 200-300 vs 100-200) | **OPEN — clearest internal contradiction found; clinical category** |
+| 8 | §S6, **2 loci** | Calls S2 and S3 "the **moderate**-ARDS scenarios", and the pair "the moderate-ARDS **regime**". S2 is **mild** ARDS (0.26) everywhere else — 11 loci say so. Mild and moderate are distinct Berlin bands (P/F 200-300 vs 100-200) | **OPEN — clearest internal contradiction found; clinical category** |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -245,8 +245,16 @@ Morris inputs, and §S5 states the instability is input-dependent.
 > elementary-effect pairs…)
 
 Measured across `supplement.tex` and `paper.tex`: **"S2 mild ARDS" 8 times,
-"S2 mild" 3 more — 11 loci.** "moderate-ARDS scenarios S2 and S3" occurs
-**once**, here.
+"S2 mild" 3 more — 11 loci.** Against them, **two** loci in §S6, both found only
+after widening the pattern past the first one:
+
+- "computable only for the **moderate-ARDS scenarios S2 and S3**" — unambiguous,
+  it labels both scenarios moderate;
+- "rankings are preserved across sex in the **moderate-ARDS regime**" — weaker,
+  since "regime" could denote the mid-severity region taken as a whole.
+
+No hyphenated "mild-ARDS" form exists anywhere; the documents write "S2 mild
+ARDS".
 
 This is not a style slip. S2 is impairment 0.26, calibrated in §S5 to a P/F of
 256 mmHg, which is the **mild** Berlin band (200--300). Moderate is 100--200,
