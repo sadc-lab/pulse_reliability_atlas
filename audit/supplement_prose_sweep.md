@@ -508,6 +508,66 @@ The underlying result is untouched and correct: the plateau falls monotonically
 with severity, and the S1 elevation is a healthy-lung property.
 
 
+### §S10 — swept, no signal
+
+Recorded because a clean section is a result, not an absence of work. Every
+numeric claim in §S10 was re-derived, and the two source claims were opened in
+the Pulse clone in this session.
+
+**Arithmetic, all exact** (recomputed from the two reference-body masses):
+
+| claim | text | recomputed |
+|---|---|---|
+| BV male | 4,802.63 | 4802.6308 |
+| BV female | 3,996.09 | 3996.0865 |
+| difference | 806.54 | 806.5443 |
+| gap as % of male | 16.8 % | 16.794 % |
+| male floor ×0.85 | 4,082.24 | 4082.2362 |
+| male − floor | 720.39 | 720.3946 |
+| floor − female | 86.15 | 86.1497 |
+| female ceiling ×1.15 | 4,595.50 | 4595.4995 |
+| male − ceiling | 207.13 | 207.1314 |
+| mL/kg male | 71.4 | 71.3615 |
+| mL/kg female | 71.1 | 71.1047 |
+| normalised gap | 0.3 mL/kg, ≈0.4 % | 0.2568, 0.360 % |
+| body-mass gap | 16.5 % | 16.493 % |
+
+**Primary source, opened this session** —
+`SetupPatient.cpp` in the local Pulse clone:
+
+- L534 `computedBloodVolume_mL = 65.6 * pow(weight_kg, 1.02)` — the formula as
+  printed, and **no sex term**, which is what "not sex-branched" asserts.
+- L535–536 `* 0.85 //Stage 1 Hypovolemia` and `* 1.15`.
+- L550–561: **both** bounds raise `patient.Error(ss)` and set `err = true`. The
+  supplement's "rejects any baseline above … with an `[ERROR]` and exit, exactly
+  as it rejects one below the floor" is exact, including the symmetry.
+- Incidental cross-check: L567–569 gives RR standard 12, max 20, min 8,
+  independently reconfirming the project's verified limitation #6.
+
+**§S10-breadth**, traced to `audit/pulse_sex_conditioned_parameters.md` (the file
+the text names, 52 KB, present):
+
+- body fat 0.21 / 0.28 — confirmed at `SetupPatient.cpp:207–208`
+- Hb 15.0 / 14.0 → Hct via `Hb/34`: 0.44118 → **0.4412**, 0.41176 → **0.4118** ✓
+- cardiac output 5,600 / 4,900 at `SetupCircuitsAndCompartments.cpp:293`
+- **seven** regional flow fractions (L314–330) and **thirteen** tissue masses
+  (L2153–2165) — both counts as printed
+- lung tissue mass **+9.8 %** at equal weight and **−8.3 %** at native masses,
+  both reproduced from the inventory's worked case
+- dead space: Devine intercepts 50.0 vs 45.5 → 4.5 kg, × 0.002 L/kg = **9 mL** ✓
+- Roza–Shizgal: 88.632 − 88.362 = **0.270** kcal·day⁻¹; on a male-body BMR of
+  1,751.6 kcal·day⁻¹ that is **0.0154 %** → "0.015 %" ✓
+
+**Cross-references checked**: `\S\ref{sec:s2}` does document the sex-conditioned
+BMR pathway (§S2 closing paragraph, Roza–Shizgal); `\S\ref{sec:s9}` does carry
+the 2×2 sex×mass check (§S9 ¶697).
+
+⚠️ **Not verified in this session**: the Roza & Shizgal 1984 primary source itself
+(that 88.362 is what the paper prints). The value matches the equation as
+universally cited, and the reference audit closed Tiers 1–3 in an earlier
+campaign, but that is a recorded claim, not a measurement made here.
+
+
 ---
 
 ## Sections swept, and to what depth
