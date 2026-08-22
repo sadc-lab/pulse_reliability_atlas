@@ -644,6 +644,51 @@ moot, and no scientific result moves.
   pattern set in a `lstlisting`.
 
 
+### Census of the paper-supplement coupling, and what actually guards it
+
+Added because "the two documents must agree" is only actionable once the
+population is enumerated. Measured with a calibrated pattern (a known-present
+reference is asserted before any count is believed).
+
+| direction | occurrences | distinct targets | numbering guarded? | semantics guarded? |
+|---|---|---|---|---|
+| supplement → paper (`\mainref`) | **39** | 10 | **yes** — `check_cross_document_refs()` | **no** |
+| paper → supplement (`\ref` to `sec:s*`) | **51** | 30 | resolved by `xr-hyper` at build | **no** |
+
+**What `check_cross_document_refs()` actually does** (`scripts/check_render.py`
+L274--305): for each `\mainref{label}{written}` it checks the backslash is
+present, that `label` resolves in `paper.aux`, and that the hard-coded `written`
+number matches what the label resolves to. It is a **numbering** check. It scans
+`_MAINREF_SOURCES = ["preprint_npj/supplement.tex"]` — **the supplement only**.
+
+**Three consequences, stated plainly:**
+
+1. The **paper → supplement** direction has no equivalent scan. It cannot carry a
+   wrong number (LaTeX resolves it), but nothing checks the 51 references at all.
+2. **Semantics is guarded in neither direction.** Nothing verifies that the
+   target says what the citing sentence claims it says. Signal 19 is exactly
+   this: the `\mainref` numbering is correct, and the sentence about what that
+   target *contains* is wrong.
+3. A supplement-driven sweep sees a paper/supplement disagreement **only where
+   the supplement raises the topic**. Anything asserted only in the paper is
+   structurally invisible to it. This is a second, independent argument for the
+   paper's own B sweep, distinct from the "the ledger sees numbers, not prose"
+   one.
+
+**Hotspot worth knowing before any edit**: 15 of the 39 supplement→paper
+references point at `sec:results-sex` alone, and 6 more at
+`sec:results-secondary`. Rewording §2.5 of the paper puts fifteen supplement loci
+at risk in one move.
+
+**One artefact, not a defect**: the census counts one `\mainref{<label in
+paper.tex>}` occurrence. That is the macro's own documentation in the preamble;
+the guard strips `%` comments before scanning, and `crossdoc` reports OK.
+
+This table is the population for the semantic pass. 39 + 51 = **90
+cross-references** to walk, each asking one question: does the target say what
+the sentence claims?
+
+
 ---
 
 ## Sections swept, and to what depth
