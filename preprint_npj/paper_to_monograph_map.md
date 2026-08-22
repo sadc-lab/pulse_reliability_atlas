@@ -289,8 +289,8 @@ caught equally.*
   monograph_claim_id: 'T1.03'
   expected_value: 0.351
   format_in_paper: '0.351'
-  expected_occurrences: 4
-  notes: 'paper (2): §2.3 prose ("collapses the median Vt CV from 0.351 to 0.016") and Figure 4 caption ("Median CV collapses from 0.351 to 0.016"). supplement (2): S8 opening and the S3 detector-convention paragraph, which cites the same collapse to bound the 0.05 CV convention. All downstream of T1.03 (S014 paired_comparison.parquet). Bumped 3 -> 4 when the detector-convention provenance sentence was added; the previous note said "Appears twice" while the count was already 3.'
+  expected_occurrences: 5
+  notes: 'paper (2): §2.3 prose ("collapses the median Vt CV from 0.351 to 0.016") and Figure 4 caption ("Median CV collapses from 0.351 to 0.016"). supplement (3): S8 opening, the S3 detector-convention paragraph which cites the same collapse to bound the 0.05 CV convention, and the S8 waveform-figure caption. All downstream of T1.03 (S014 paired_comparison.parquet). Bumped 3 -> 4 when the detector-convention provenance sentence was added; the previous note said "Appears twice" while the count was already 3. Bumped 4 -> 5 on 2026-08-22 when the waveform figure switched to a deterministically median-selected run. CAUTION, the fifth occurrence is NOT this median: it is run S4_F_0003s own classifier CV, 0.350839, which rounds to the same three-decimal string as the median 0.350867. Two different quantities that print identically; do not treat the caption as quoting T1.03.'
 
 - paper_section: '§2.3 + §2.4 caption'
   paper_context: 'Median Vt CV after -2 cmH2O trigger lock'
@@ -305,16 +305,16 @@ caught equally.*
   monograph_claim_id: 'T1.05'
   expected_value: 1.826
   format_in_paper: '1.826'
-  expected_occurrences: 2
-  notes: 'Appears in §2.3 prose ("reduces the worst-case Vt CV from 1.826 to 0.018") and the Supplement Fig S8 caption.'
+  expected_occurrences: 1
+  notes: 'Appears in §2.3 prose ("reduces the worst-case Vt CV from 1.826 to 0.018"). Dropped 2 -> 1 on 2026-08-22: the Supplement S8 waveform figure used to illustrate this same worst-case run and quoted the value in its caption, but that run is worst because ventilation stops rather than oscillates, so the figure moved to a deterministically median-selected run. The worst case is unchanged and still quoted in §2.3, and remains visible as the extreme point of paper Figure 4a.'
 
 - paper_section: '§2.3 VC-AC (prose)'
   paper_context: 'Worst-case Vt CV after lock (paired same-run S1_F_0117)'
   monograph_claim_id: 'T1.s014.worstcase_locked_vtcv'
   expected_value: 0.018
   format_in_paper: '0.018'
-  expected_occurrences: 2
-  notes: 'Paired same-run worst-case (S1_F_0117): 1.826 -> 0.018. Appears in §2.3 prose and the Supplement Fig S8 caption.'
+  expected_occurrences: 1
+  notes: 'Paired same-run worst-case (S1_F_0117): 1.826 -> 0.018. Appears in §2.3 prose. Dropped 2 -> 1 on 2026-08-22 for the same reason as T1.05: the Supplement S8 waveform figure no longer illustrates the worst-case run. The value itself is unchanged and independently reproduced from data/runs/full_sweep/S1_F/S1_F_0117/output.csv.'
 
 - paper_section: '§2.3 VC-AC (prose)'
   paper_context: 'S014 paired-rerun sample size'
