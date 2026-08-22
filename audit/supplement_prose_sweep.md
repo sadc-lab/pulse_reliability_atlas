@@ -37,6 +37,8 @@ findings and must not be reported as such.
 | 9 | §S7 ¶597 | Quotes the Discussion as ``80 of 85 Hoeffding rejections fall on channels the present atlas does not assess''. That string occurs **0 times** in `paper.tex`; the Discussion says "82 of 85 fall outside the four-channel overlap: 80 on channels the present atlas does not assess" | **OPEN — quotation marks around a paraphrase** |
 | 10 | §S7 ¶597 vs its table caption | Prose says "**Cornish's Table~4**" and "their **Appendix** Table~5"; the caption says "Cornish **Appendix Tables~4 and~5**". Same document, two accounts of where Cornish's Table 4 lives | **OPEN — internal contradiction; needs the source** |
 | 11 | §S8 ¶650 | "The 64 paired reruns sampled **all eight** (scenario, sex) cells" — **S3_M has zero pairs**; the 64 cover **seven** cells | **OPEN — factual, overstates experimental coverage** |
+| 12 | §S8 caption (¶659) | "Pulse's standard CSV output **does not natively expose** airway Pressure or Respiratory Flow as top-level columns" — **Pulse does expose them**; our data-request list does not ask for them | **OPEN — misattributes our configuration to the engine** |
+| 13 | §S8 ¶665 | "by a factor of **approximately twenty** in the median paired comparison" — three defensible readings give 22.45, 28.16 and 64.5 | OPEN — low: ambiguous, and conservative under every reading |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -367,6 +369,72 @@ localised to "all eight".
 concentrated on the healthy-S1 and mild-ARDS-S2 cells" — S1 holds 26 pairs and S2
 holds 19, so 45 of 64 ✓. And note it writes "**mild**-ARDS-S2" here, which
 strengthens signal 8: §S6's "moderate" is the outlier, not the norm.
+
+### 12 — Pulse does expose airway pressure and flow (§S8 caption, ¶659)
+
+> Pulse's standard CSV output does not natively expose airway Pressure
+> ($P_{	ext{aw}}$) or Respiratory Flow ($\dot{Q}$) as top-level columns, so the
+> per-breath delivered tidal-volume waveform shown here is the directly
+> observable proxy of the trigger-coupling dynamics.
+
+The archived CSV indeed carries neither: 13 columns, every pressure match
+arterial (`SystolicArterialPressure`, `DiastolicArterialPressure`,
+`MeanArterialPressure`, `ArterialCarbonDioxidePressure`,
+`ArterialOxygenPressure`), zero matches on flow. That part is true of the file.
+
+**But the engine does expose them.** In the Pulse clone,
+`src/cpp/cdm/system/physiology/SERespiratorySystem.h` declares as first-class
+scalars:
+
+| line | property |
+|---|---|
+| 37–39 | `AirwayPressure` |
+| 81–83 | `ExpiratoryFlow` |
+| 113–115 | `InspiratoryFlow` |
+| 145–147 | `MeanAirwayPressure` |
+| 241–243 | `TotalPulmonaryVentilation` |
+
+And the atlas requests its channels by name from a hard-coded list:
+`engine/run_atlas_engine.py:101–111` loops over `OUTPUT_VARIABLES` calling
+`SEDataRequest.create_physiology_request(name)`. `AirwayPressure` is one entry in
+that list away.
+
+So the CSV lacks those channels because of **our data-request set**, not because
+Pulse cannot produce them. The sentence attributes a configuration choice of ours
+to a limitation of the engine.
+
+**Why this one matters more than its size suggests.** It is a factual claim about
+Pulse's capabilities, in a paper whose subject is characterising Pulse, and its
+most likely reader is a Pulse maintainer. It also does work in the argument: it
+is the stated reason the waveform figure uses Vt as a *proxy*. Remove the false
+premise and the justification has to be restated — truthfully, and just as
+defensibly: the archived runs do not carry those channels, so showing them would
+require re-running the sweep.
+
+No result changes. **Escalation A is not needed** — the ground truth is in the
+source and in our own runner.
+
+### 13 — "a factor of approximately twenty" (§S8 ¶665)
+
+> …dropping the Vt CV by a factor of approximately twenty in the median paired
+> comparison.
+
+Three readings of "in the median paired comparison", measured over the 64 pairs:
+
+| reading | value |
+|---|---|
+| ratio of the medians (0.350867 / 0.015631) | **22.45** |
+| median of the per-pair ratios | **28.16** |
+| the pair at the median, S4_F_0003 (0.350839 / 0.005442) | **64.51** |
+
+"Approximately twenty" is defensible for the first, marginal for the second,
+wrong for the third. The first is also the one that matches the neighbouring
+sentence in ¶646, which quotes the two medians 0.351 and 0.016.
+
+**Low severity, and worth saying why**: every reading exceeds twenty, so the
+phrasing understates the effect in all three. It is never an overclaim. The
+defect is ambiguity, not inaccuracy.
+
 
 ---
 
