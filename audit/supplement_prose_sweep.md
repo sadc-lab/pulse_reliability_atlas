@@ -32,6 +32,7 @@ findings and must not be reported as such.
 | 4 | §S3 clamp patch note | "all **3,348** Pulse logs on disk" — a `find data -name pulse.log` today returns **3,349** | **OPEN — low severity, unresolved** |
 | 5 | §S4 ¶392 and §S8 ¶650 (+ §S4 title, to arbitrate) | Two hard-coded references send the reader to "**Table 1** of the main manuscript" for per-cell flag counts. Paper Table 1 is the terminology glossary; the per-cell breakdown is **Table 3**. ⚠️ Three OTHER `Table~1` references are CORRECT and must not be swept | **OPEN — wrong pointer** |
 | 6 | supplement p52 | The last page of the supplement carries **no page number**; it is the only such page in 52. It holds Table S16, a `[h]` float that LaTeX defers to the end | **OPEN — cosmetic but visible** |
+| 7 | §S5 ¶433 | "reproduces the published anchors to **within 0.6 %**" — on the displayed integers (256, 150, 96) the worst case is 96 -> 96.6 = **0.625 %** | **OPEN — low severity, likely a rounding artefact** |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -209,6 +210,32 @@ in this repository behaved unexpectedly: tightening subfigure spacing cleared an
 overflow while silently pushing rows over their own subcaptions, and a longer
 caption deferred three supplement figures to the end of the document. Rebuild and
 re-read the pages after whatever is tried.
+
+### 7 — the 0.6 % replication tolerance (§S5)
+
+"Evaluated over the companion's measurement window, the replication reproduces
+the published anchors to within 0.6 % at the three scenario fractions (0.26 ->
+256.5, 0.60 -> 150.5, 0.95 -> 96.6 mmHg)".
+
+Table `tab:s5-berlin-calib` prints the published anchors as integers: 256, 150,
+96. Computed on those, the relative differences are 0.195 %, 0.333 % and
+**0.625 %** — the last one just over the stated 0.6 %.
+
+**Unresolved, and honestly so.** The displayed 96 is rounded, so the comparison
+was presumably made on unrounded values, where it may well hold. The artefact
+`results/s030_pf_by_arm.csv` carries unrounded P/F but over two windows,
+[60,120] and [240,300], giving 255.27 / 258.63 for 0.26 and 87.34 / 112.64 for
+0.95. The section's figures fall *between* those windows, consistent with the
+third "companion's measurement window" it names, which is not in this artefact.
+Settling it needs that window's definition.
+
+**Verified in the same pass and NOT a defect** — the band re-derivation of ¶433
+is confirmed directly in the raw artefact. `results/s030_pf_by_arm.csv` shows
+impairment 0.91, 0.92, 0.93, 0.94 and 0.945 all `FAILED` on **both** the free and
+locked arms, with 0.90 and 0.95 completing, exactly as the paragraph claims. That
+0.90 completes here while Figure S1's micro-sweep diverges at the 0.88 bin is not
+a contradiction: this is one fixed reference setting, the micro-sweep is midrange
+Morris inputs, and §S5 states the instability is input-dependent.
 
 ---
 
