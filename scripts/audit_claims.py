@@ -5863,24 +5863,54 @@ def check_detector_vocabulary() -> int:
     print("\n## detector/classifier vocabulary guard\n")
     rows: list[tuple[str, str, str]] = []
     n_bad = 0
-    src = (REPO / "preprint_npj/paper.tex").read_text(encoding="utf-8")
 
+    # Corpus widened 2026-08-22. Reading paper.tex alone left a hole the size of
+    # a figure: the study-design flowchart lived inside paper.tex as a
+    # tikzpicture when this guard was written, and moved out to
+    # figures/fig00_study_design.tex when it was externalised. Its boxes then
+    # read "Four-flag steady-state detector" and "Per-cell traffic-light
+    # reliability atlas" for weeks, in the guarded document's own Figure 1,
+    # without this check ever seeing them.
+    #
+    # Globbed rather than named so a future .tex figure is covered on arrival.
+    # Supplement figure sources are deliberately NOT swept: the defect was at the
+    # paper/externalised-figure boundary, and an instrument should stay the size
+    # of the claim it protects.
+    sources = {"preprint_npj/paper.tex": (REPO / "preprint_npj/paper.tex").read_text(encoding="utf-8")}
+    for tex in sorted((REPO / "preprint_npj" / "figures").glob("*.tex")):
+        sources[f"preprint_npj/figures/{tex.name}"] = tex.read_text(encoding="utf-8")
+    rows.append(("corpus swept",
+                 ", ".join(sorted(sources)), "PASS"))
+
+    # The checks further down -- flatline literals, verbatim clamp patterns, the
+    # absence of a code listing -- are about the paper's PROSE and stay scoped to
+    # paper.tex, case-sensitively. Only the banned-phrase sweep widened.
+    src = sources["preprint_npj/paper.tex"]
+
+    # Case-insensitive. The box read "Four-flag" with a capital F while the
+    # banned list is lowercase, so a case-sensitive str.count would have missed
+    # it even once the file was in scope. Two independent reasons for one miss.
     for phrase in DETECTOR_BANNED:
-        hits = src.count(phrase)
+        needle = phrase.lower()
+        where = {name: text.lower().count(needle) for name, text in sources.items()}
+        hits = sum(where.values())
         ok = hits == 0
         n_bad += 0 if ok else 1
-        rows.append((f"`{phrase}` absent from paper.tex",
-                     "absent" if ok else f"**{hits} occurrence(s)**",
+        detail = "absent" if ok else "**" + ", ".join(
+            f"{name}: {n}" for name, n in where.items() if n) + "**"
+        rows.append((f"`{phrase}` absent (any case)", detail,
                      "PASS" if ok else "**FAIL**"))
 
     # The other direction. A blanket replace of "detector" would silently rename
     # a preregistered criterion and erase the distinction between the four-flag
-    # object and the narrower log reader.
+    # object and the narrower log reader. These stay required in paper.tex
+    # specifically: they are prose, and a figure box is not where they belong.
+    paper = sources["preprint_npj/paper.tex"].lower()
     for phrase in DETECTOR_REQUIRED:
-        hits = src.count(phrase)
+        hits = paper.count(phrase.lower())
         ok = hits >= 1
         n_bad += 0 if ok else 1
-        rows.append((f"`{phrase}` still present",
+        rows.append((f"`{phrase}` still present in paper.tex",
                      f"{hits} occurrence(s)" if ok else "**absent**",
                      "PASS" if ok else "**FAIL**"))
 
