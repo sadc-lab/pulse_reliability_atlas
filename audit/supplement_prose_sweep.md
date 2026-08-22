@@ -27,7 +27,7 @@ findings and must not be reported as such.
 | # | Locus | Signal | Status |
 |---|---|---|---|
 | 1 | §S1 ¶116 | "…that are not present in BioGears" — comparative claim of ABSENCE about a third-party project, uncited | **OPEN — needs primary source or removal** |
-| 2 | §S2 Table row 4 | "a continuous-severity micro-sweep **confirms** the band" where §S5, Fig. S1 and the Discussion all say the sweep **extends** it to [0.879, 0.945] | **OPEN — wording agreed, not yet applied** |
+| 2 | §S2 Table row 4 | "a continuous-severity micro-sweep **confirms** the band" where §S5, Fig. S1 and the Discussion all say the sweep **extends** it to [0.879, 0.945] | ✅ **CLOSED `04d6f0f`** — now "confirms it and extends the low edge to 0.879" |
 | 3 | §S3 | Four prose uses of "detector" for the object `paper.tex` calls "classifier" 33 times | **OPEN — needs per-occurrence semantic arbitration** |
 | 4 | §S3 clamp patch note | "all **3,348** Pulse logs on disk" — a `find data -name pulse.log` today returns **3,349** | **OPEN — low severity, unresolved** |
 | 5 | §S4 ¶392 and §S8 ¶650 (+ §S4 title, to arbitrate) | Two hard-coded references send the reader to "**Table 1** of the main manuscript" for per-cell flag counts. Paper Table 1 is the terminology glossary; the per-cell breakdown is **Table 3**. ⚠️ Three OTHER `Table~1` references are CORRECT and must not be swept | **OPEN — wrong pointer** |
