@@ -48,7 +48,7 @@ findings and must not be reported as such.
 | 20 | §S11 item 2 | "this constant **is not currently exposed** in the public patient-setup documentation" — unsourced absence claim about external documentation | OPEN — same class as signal 1; **triggers criterion (b)** of the citation rule |
 | 21 | §S12 ¶884 **and `paper.tex:402`** | "The **1,280-row** Morris sample … matches the committed `morris_sample.parquet` byte-for-byte" — that file has **160 rows** | **OPEN — wrong figure in the reproducibility recipe** |
 | 22 | §S12 ¶895/897/899 | "**five** run-level flags" against the paper's "four-flag classifier"; and a "22-run pilot … 22/22" against "the **20** per-run output CSVs" | OPEN — both accurate, neither bridged for the reader |
-| 23 | §S12 ¶903 | "`kitware/pulse:4.3.1` is published for `linux/amd64` **only**" and "**no** prebuilt ARM64 image exists" | OPEN — two absence claims, **trigger criterion (b)** |
+| 23 | §S12 ¶903 | "`kitware/pulse:4.3.1` … `linux/amd64` **only**" and "**no** prebuilt ARM64 image exists" | ✅ **SUPPORTED 2026-08-23** — registry queried; recommend **bounding** the second clause |
 | 24 | §S13 ¶931 | "The SHAP cross-verification works **because the underlying physiology is real**, not the other way round" — two readings, one of which contradicts the Figure S5 disclaimer | OPEN — ambiguous epistemic premise |
 | 25 | §S13 ¶931 | "input dependencies that **any reasonable statistical method** would identify on the same data" — an unbounded universal from **two** methods | OPEN — **downgraded**: wording only; the "undercut by its own numbers" reading was mine and is withdrawn |
 | 26 | §S14 ¶939 | Of eight claims about what the monograph **contains**, two overclaim: "the **full preregistration document** with its amendment history" (§2.0 reproduces only §Primary hypotheses) and "the **complete experiment-log entries**" (Appendix A is a 43-line index) | **OPEN — checkable by anyone who downloads the Zenodo deposit** |
@@ -823,8 +823,33 @@ no CSV, so `diverged` fires instead"). So 22 runs minus 2 CSV-less rejections =
 Two claims of exclusivity/absence about a third-party registry, uncited. Same
 class as signals 1 and 20, and they trigger criterion (b) of the citation rule.
 They are load-bearing: the whole ARM64 argument — that the Apple Silicon run is
-emulated rather than native — rests on them. Deferred to the combined citation
-pass; the check is a Docker Hub manifest query.
+emulated rather than native — rests on them.
+
+**✅ VERDICT 2026-08-23 — SUPPORTED. Registry queried this session.**
+
+Docker Hub API, `kitware/pulse` tags, read as **raw JSON** rather than through a
+summariser:
+
+- `"count":10` — the listing is complete, no pagination
+- the ten tags are 3.0.0, 3.0.1, jupyter_3.0.1, 4.1.0, 4.2.0, **4.3.1**,
+  8168c942, bfd8b1a, bfd8b1aJ, d7655177
+- **ten `"architecture"` entries, every one `"amd64"`**
+- **zero** occurrences of `arm64` or `aarch64` in the whole document
+
+So "published for `linux/amd64` only" is exact, and no ARM64 image is published
+in that repository.
+
+⚠️ **Recommended repair anyway, and it is about scope, not truth.** "No prebuilt
+ARM64 image exists" is an unbounded negative: the evidence covers the official
+`kitware/pulse` repository, not every registry on earth. Bounding it costs
+nothing and removes the only attackable part — e.g. "no ARM64 image is published
+in the official `kitware/pulse` repository". This is the general treatment the
+four absence claims need: **bound the claim rather than try to prove the
+negative.**
+
+**Recorded as a process failure of mine**: this verification was performed and
+reported to the maintainer, but not written here for twenty minutes. A result
+that lives only in conversation is not a result. Persist before reporting.
 
 ### §S12 — verified correct
 
