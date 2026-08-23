@@ -35,7 +35,7 @@ findings and must not be reported as such.
 | 7 | §S5 ¶433 | "reproduces the published anchors to **within 0.6 %**" — on the displayed integers (256, 150, 96) the worst case is 96 -> 96.6 = **0.625 %** | **OPEN — low severity, likely a rounding artefact** |
 | 8 | §S6, **2 loci** | Calls S2 and S3 "the **moderate**-ARDS scenarios", and the pair "the moderate-ARDS **regime**". S2 is **mild** ARDS (0.26) everywhere else — 11 loci say so. Mild and moderate are distinct Berlin bands (P/F 200-300 vs 100-200) | **OPEN — clearest internal contradiction found; clinical category** |
 | 9 | §S7 ¶597 | Quotes the Discussion as ``80 of 85 Hoeffding rejections fall on channels the present atlas does not assess''. That string occurs **0 times** in `paper.tex`; the Discussion says "82 of 85 fall outside the four-channel overlap: 80 on channels the present atlas does not assess" | **OPEN — quotation marks around a paraphrase** |
-| 10 | §S7 ¶597 vs its table caption | Prose says "**Cornish's Table~4**" and "their **Appendix** Table~5"; the caption says "Cornish **Appendix Tables~4 and~5**". Same document, two accounts of where Cornish's Table 4 lives | **OPEN — internal contradiction; needs the source** |
+| 10 | ✅ **RESOLVED 2026-08-23** — §S7 ¶597 vs its table caption | Prose says "**Cornish's Table~4**" and "their **Appendix** Table~5"; the caption says "Cornish **Appendix Tables~4 and~5**". Same document, two accounts of where Cornish's Table 4 lives | **OPEN — internal contradiction; needs the source** |
 | 11 | §S8 ¶650 | "The 64 paired reruns sampled **all eight** (scenario, sex) cells" — **S3_M has zero pairs**; the 64 cover **seven** cells | **OPEN — factual, overstates experimental coverage** |
 | 12 | §S8 caption (¶659) | "Pulse's standard CSV output **does not natively expose** airway Pressure or Respiratory Flow as top-level columns" — **Pulse does expose them**; our data-request list does not ask for them | **OPEN — misattributes our configuration to the engine** |
 | 13 | §S8 ¶665 | "by a factor of **approximately twenty** in the median paired comparison" — three defensible readings give 22.45, 28.16 and 64.5 | OPEN — low: ambiguous, and conservative under every reading |
@@ -314,10 +314,44 @@ habit would be serious.
 come from their **Appendix Table~5**". The caption of the very table that prose
 introduces says "(Cornish **Appendix Tables~4 and~5**)".
 
-Not resolvable from inside the repository: it is a claim about the cited paper's
-structure, and `audit/reference_audit.md` records the Cornish figures (85
-Hoeffding, 281 bootstrap, 15 channels) without locating the tables. Escalation
-needs the source opened.
+~~Not resolvable from inside the repository~~ — **✅ RESOLVED 2026-08-23, source
+opened.** The PDF was downloaded (arXiv:2301.07210) and read.
+
+**Cornish states the location twice, in his own words:**
+
+> L806 — "(see **Table 4 in the Appendix** for a complete list)"
+> L848 — "(**Table 4 in the Appendix** shows all hypotheses we tested, including
+> those not rejected.)"
+
+And both tables sit physically in the appendix, adjacent, from page 39: **Table
+4** (Hoeffding) then **Table 5**, whose caption reads "obtained using the
+**reverse percentile bootstrap**", immediately followed by section *I.7
+Bootstrapping Details*.
+
+**Verdict: the caption is right, the prose is misleading.** "Cornish
+**Appendix Tables 4 and 5**" is correct. §S7 ¶597's "Cornish's Table~4" followed
+by "their **Appendix** Table~5" implies by contrast that Table 4 is in the main
+text; both are in the appendix. The *content* attribution is correct on both
+sides — Hoeffding counts do come from Table 4, bootstrap counts from Table 5.
+Only the location wording is wrong.
+
+**Repair, for the correction pass**: "Cornish's Table~4" → "Cornish's **Appendix**
+Table~4". One word, no claim changes.
+
+⚠️ **A source-side defect found while resolving this, recorded so no future
+reading treats Cornish's narrative as authority over his own tables**: his prose
+says "we obtained rejections for hypotheses corresponding to **10** different
+physiological quantities shown in Table 1", while Tables 1 and 4 both show
+**nine** with non-zero rejections. Our documents follow the tabulated data and do
+not repeat the error.
+
+**Independently recomputed from Table 4 during the same read**, confirming the
+figures this register already carried: **15** assessed quantities; rejection
+column summing to **85**; hypothesis column summing to **1,522**; and the
+80 / 2 / 3 split — Chloride 24 + Sodium 21 + Potassium 13 + Calcium 5 + Glucose 5
++ HCO₃ 2 + arterial pH 0 + Skin Temperature 10 = **80** across the eight
+unassessed channels, SysBP **2**, paCO₂ **3**, with HR, MeanBP and paO₂ all at
+zero.
 
 **Verified in the same pass and correct** — the caption's arithmetic. "80 on the
 **eight** channels the atlas does not assess" matches the table exactly:
