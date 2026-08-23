@@ -1942,6 +1942,62 @@ total / 3 dominates and 9.1 h genuinely bounds from below.
    but S12 is not yet among them.
 
 
+### 39 / 44 -- final decisions of 2026-08-23, and the one gap they leave
+
+**Scope narrowed, and rightly.** The monograph gets **neither** the 27.4 h
+aggregate **nor** the 9.1 h lower bound. Its two loci get the minimal repair: the
+wrong number replaced by the derived one, execution profile preserved. The
+aggregate lives in supplement S12, where its provenance and the two contaminated
+`wall_time_s` values can be explained together. This is more conservative than
+what I proposed and is the better call -- the defect is "~7 h is wrong", and
+anything beyond "~14 h" is scope creep.
+
+**Precision policy by function -- adopted, and it resolves the pair problem.**
+
+| register | figures |
+|---|---|
+| narrative prose | ~14 h, ~27 h |
+| derivation and provenance | 13.94 h, 27.43 h, 9.14 h -- displayed ~13.9, ~27.4, ~9.1 |
+
+⚠️ **This is intentional and must never be "harmonised".** `README:229`, the code
+comment at `supplement.tex:858` and `supplement.tex:817` are narrative and stay at
+~14 h / ~27 h. The S12 provenance note carries 41.1 h and 27.4 h. **13.940 h ->
+narrative ~14 h; 27.43 h -> narrative ~27 h.** A later sweep that "corrects" one
+toward the other is destroying information, not removing an inconsistency.
+
+⚠️ **A direct consequence to record before it is mis-read**: section S12 will
+carry both "Aggregate Pulse container time is approximately 27~h per sweep on the
+reference machine and 46~h on the slower independent host" (L817, narrative) and
+"~27.4 h" in the new provenance note. **Same section, same quantity, two
+displays, both correct.** The 46 h is not refined to one decimal because no run
+metadata exists for the independent host -- the asymmetry is honest, not sloppy.
+
+**⚠️ The one gap the decisions leave, and the clause that closes it.** The
+monograph sentence promises "approximately 14 h of **active elapsed time** ... the
+timing-metadata correction is documented in Supplement S12". But the (c) note as
+drafted documents only the **exclusion of two records from the aggregate**. It
+says nothing about how a 20.8 h calendar span becomes 13.9 h of active elapsed
+time, and "active elapsed time" is defined nowhere. A reader follows the pointer
+and does not find what was promised. **One clause in (c) closes both:**
+
+> The same suspension accounts for the difference between the sweep's 20.8 h
+> calendar span and its ~13.9 h of active elapsed time.
+
+It defines the term by its derivation and gives the monograph's cross-reference a
+real target.
+
+**Cross-reference watch.** The new monograph -> supplement S12 pointer joins the
+inter-document dependency population, **carrying the target's title and not only
+its number**: S12 is `\section{Reproducibility recipe}` at `supplement.tex:809`.
+A number can stay valid while the target's description drifts, which is the exact
+failure class this register already tracks.
+
+**Authorised order**: (c) first -> render and context check -> (a) in both
+monograph loci at ~14 h, without 27.4 h or 9.1 h -> cross-document check of the
+new pointer. Nothing applied yet: the added clause in (c) is mine, not the
+maintainer's, and is awaiting their word.
+
+
 ---
 
 ## Sections swept, and to what depth
