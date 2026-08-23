@@ -3385,11 +3385,12 @@ bounded.*
   VC-AC dyssynchrony at default trigger settings, transient hyperoxia
   regime at FiO2 = 1.0 in a 120 s steady-state window) are unique to
   Pulse or generic to related physiology
-  engines such as BioGears or HumMod. No
-  publicly-available comparable Morris-EE / Sobol / clamping atlas
-  exists for either engine at the time of writing, so cross-engine
-  relativisation is a limitation of the comparative literature rather
-  than of this paper. A multi-engine reliability atlas remains an
+  engines such as BioGears or HumMod. To our
+  knowledge, no comparable publicly available reliability atlas
+  combining Morris screening with explicit clamping analysis has been
+  published for either BioGears or HumMod at the time of writing, so
+  cross-engine relativisation remains limited by the available
+  comparative literature. A multi-engine reliability atlas remains an
   open opportunity for the broader physiology-simulation community.
 
 ### 4.6 Implications for downstream Pulse research

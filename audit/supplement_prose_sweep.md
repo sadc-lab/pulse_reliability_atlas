@@ -3153,6 +3153,57 @@ and the block's indent is **2**, not 4. My first correction over-shot to 4 befor
 being measured back to 2. Block now homogeneous, 0 lines out of line.
 
 
+### XDOCCONFLICT closed -- the monograph aligned on the repaired paper
+
+The monograph read "No publicly-available comparable Morris-EE / **Sobol** /
+clamping atlas **exists** for either engine at the time of writing, so cross-engine
+relativisation is a limitation of the comparative literature rather than of this
+paper." It now reads:
+
+> To our knowledge, no comparable publicly available reliability atlas combining
+> Morris screening with explicit clamping analysis has been published for either
+> BioGears or HumMod at the time of writing, so cross-engine relativisation remains
+> limited by the available comparative literature.
+
+Four things change at once: **exists -> has been published**; a universal absence
+becomes **to our knowledge**; **Sobol is dropped**, since `paper.tex:363` records
+the bolt-on was "triggered but not executed" and naming it would imply a comparable
+atlas must have executed one; and the comparable object becomes a **combination**
+rather than a disjunction.
+
+**The closing clause is also softened, on the maintainer's reading**: "a limitation
+of the comparative literature **rather than of this paper**" deflected the limit
+entirely away from the study. "Remains limited by the available comparative
+literature" does not.
+
+⚠️ **A citation I added and then removed, recorded because the reasoning matters.**
+I first attached `[@hester2011hummod]` to the monograph's HumMod mention, to finish
+closing signal 62. Checking the render exposed two problems.
+
+1. The monograph's bibliography is **hand-curated** in §9.7, where every entry
+   carries a pandoc anchor of the form `[]{#ref-brower2000}`. The in-text citation
+   formatted correctly from `references.bib` -- it rendered "(Hester et al. 2011)"
+   -- **but pointed at an anchor that does not exist**. A reader could not resolve it.
+2. §9.7 has five thematic groups and none houses a third-party engine. The Pulse
+   group holds one outside work, `cornish2023`, but that paper is *about* Pulse.
+3. ⚠️ Decisive: **BioGears has no §9.7 entry either**, and is named in the same
+   sentence. Citing HumMod alone would leave one engine sourced and the other bare,
+   side by side.
+
+**Reverted to exactly the authorised sentence.** The paper carries
+`\cite{hester2011hummod}`, so the corpus holds the source and signal 62's
+substance is met.
+
+⚠️ **Consequence recorded**: `preprint/references.bib` now contains an **unused**
+`hester2011hummod` entry. Harmless -- pandoc and BibTeX ignore uncited entries -- and
+it preserves the verification note, but it is unused and someone should know why.
+
+**Verified in the render, with positive controls**: "Hester" **0**, `[@hester`
+literal **0**, "Sobol / clamping" **0**, "exists for either engine" **0**, control
+"BioGears" **3**. The two documents now carry the same sentence word for word up to
+their intended differences. All four gates exit 0.
+
+
 ---
 
 ## Sections swept, and to what depth
