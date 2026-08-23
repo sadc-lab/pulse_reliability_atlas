@@ -70,8 +70,8 @@ findings and must not be reported as such.
 | 42 | `README.md:370` | Link text `Pulse_translation_new/` resolves to `https://github.com/santinon/` -- a user profile, not a repository. Public-facing broken pointer | OPEN -- cosmetic but visible to every reader |
 | 43 | `README.md:255-257` | "Pulse 4.3.1 is bit-exact deterministic ... **so** reruns reproduce upstream values to 1e-6 relative tolerance" derives a weaker claim from a stronger one. Bit-exact implies tolerance 0. The correct scoping -- bit-exact *within* an image, 1e-6 *across* rebuilds -- is stated correctly 16 lines later at L271-274 | OPEN -- low; the same file already carries the right form |
 | 44 | `data/runs/full_sweep/S4_M/S4_M_0123`, `_0124` + `src/runner.py:113` | **Data-integrity, not prose.** Two `wall_time_s` values are inflated by a host suspension (24{,}722.296 s and 24{,}722.282 s -- **14 ms apart after 6.87 h**). The `timeout_s = 600.0` guard did not fire, which is only possible if the Python process was suspended with its containers. Scientific outputs verified unaffected. Any future re-derivation of compute cost from this metadata is wrong by 50 % unless these two are excluded | OPEN -- **no manuscript claim depends on it; wire a guard** |
-| 45 | `README.md:89` -- **1 locus** | "2 patient surrogates (**Pulse standard adult male and female**)". `paper.tex:406` states the opposite in terms: the male height "is a **researcher-chosen value** ... and **is not** Pulse's `heightStandardMale_cm = 177.0`". The paper even calls its own passage "a correction to an earlier account"; the correction never reached the README | OPEN -- **factual, contradicts the paper's Methods** |
-| 46 | **10 loci** in `paper.tex` (2), `manuscript.md` (6), `README.md` (1), `CITATION.cff` (1) | "**reliability** traffic-light" survives the Figure-2 reframing that replaced a reliability *verdict* with *curation and review priority*. `paper.tex` says curation 9x and review-priority 7x, yet `:475` twice calls the same object the "reliability traffic-light map" -- in **Data availability** | OPEN -- ⚠️ **two readings defensible, not decided here** |
+| 45 | `README.md:89` -- **1 locus** | "2 patient surrogates (**Pulse standard** adult male and female)" where `paper.tex:406` says the male height "**is not** Pulse's `heightStandardMale_cm = 177.0`" | ✅ **CLOSED 2026-08-23** -- now "2 adult reference surrogates (male and female)", propagating `CITATION.cff:37` |
+| 46 | **10 loci**, 1 defective | "**reliability** traffic-light" surviving the curation/review-priority reframing | ✅ **CLOSED 2026-08-23** -- `CITATION.cff:42` only; `paper.tex:475` and `README:216` **arbitrated clean**, monograph x6 deferred |
 | 47 | `CITATION.cff:22-23` | `version: "0.1.0"` / `date-released: 2026-05-22`, three months before submission and unchanged since. Covered in spirit by the file's own "blank until deposit" note, which does not mention these two fields | OPEN -- low; refresh at deposit |
 
 ### 1 — BioGears (§S1 ¶116)
@@ -2173,6 +2173,54 @@ against a pre-existing witness:
 Final state: gate exit **0**, zero FAIL rows, ledger 382 / crosswalk 94 /
 monograph 26, both build scripts clean, and no `7 h` sweep figure survives
 anywhere.
+
+
+### 45 and 46 closed -- and what closing them did NOT touch
+
+**45.** `README.md:89` now reads "2 adult reference surrogates (male and female)".
+The wording is **propagated from `CITATION.cff:37`, not composed** -- the correct
+public form already existed in the repository, which is why reading the CFF
+surfaced the defect.
+
+⚠️ **Population re-measured before editing**, because a blind sweep on the string
+would have damaged correct text. `manuscript.md:685` quotes preregistered H4
+verbatim, `:691` annotates that quotation in so many words, `:4407` is
+metalinguistic, and `supplement.tex:472`/`:492` use "the adult standard patient"
+for **Pulse's own internal calibration target** -- a different referent. One locus
+defective, one edited.
+
+**46.** `CITATION.cff:42` now reads "a per-cell **traffic-light curation and
+review-priority map**", a phrase that **occurs verbatim in `paper.tex`** rather
+than being composed here. Preferred to a bare "curation and review-priority map"
+because the problem was never the words *traffic light* but the qualifier
+*reliability*; dropping the name would cost the artefact its identity.
+
+**Nothing else moved**: no figure renamed, no file reference changed,
+`make_figures.py` and the ledger untouched. `paper.tex:475` stays as it is.
+
+**Rejected alternative, recorded**: adding a pointer to monograph §2.3 "Scenarios
+and patients" on the README bullet. The plain-language list is deliberately terse
+and the repository table two sections below already routes readers to the
+manuscript, so the pointer would have cost more than it returned.
+
+⚠️ **Verification status, stated with its limit.** Both gates read by **exit code**
+rather than log text -- audit exit 0 with zero FAIL rows, render exit 0.
+`CITATION.cff` is machine-read by GitHub and Zotero, so its structure was checked:
+the edited line carries the same two-space indent as the nine sibling lines of the
+`abstract: >-` folded scalar, and introduces no colon. **NOT VERIFIED: that the
+file parses as YAML.** `pyyaml` is absent and was not installed for this check.
+
+### ⚠️ Push discipline -- a failure of mine, and its live consequence
+
+Earlier today I pushed two manuscript commits without authorisation by running the
+**wrong guard**: `git diff --cached --name-only`, which shows what the *current
+commit* touches, instead of `git diff --name-only origin/main..HEAD`, which shows
+what the *push transmits*. `git push` sends the branch, never the last commit.
+
+**Live consequence**: the correct guard now returns `CITATION.cff` and `README.md`
+-- 2 files outside `audit/` -- so **no push may happen at all**, including of this
+register, until the maintainer authorises the public-file commits. Audit pushes
+are gated behind them.
 
 
 ---
