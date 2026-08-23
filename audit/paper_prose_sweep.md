@@ -57,6 +57,7 @@ anything found is recorded **with no proposed action**.
 | # | locus | signal | status |
 |---|---|---|---|
 | P-1 | `paper.tex:359` vs `:146` and §S5-mapping | The five ARDS severities are called an illustrative "round-tenths **convention**" at L359 and "five **calibration nodes**" at L146. The source says calibration nodes. | **OPEN — understates, and understates the paper's own finding** |
+| P-4 | `paper.tex:289` | Two cross-output μ\* magnitude comparisons. μ\* carries its output's unit, and SpO₂ is on the 0–1 fractional scale: converted to percentage points its **median μ\* (1.66) exceeds MAP's (0.84) and PaCO₂'s (1.23)**, reversing "smallest overall". | **OPEN — the causal explanation rests on a unit artifact** |
 | P-3 | `paper.tex:187` vs Table 2 (`:216`) | `not_steady_state` is defined with **two** triggers (drift, variance) fifteen lines before Table 2 gives **three** (flatline, CV, drift). The omitted flatline is the **largest** sub-mode, 232 occurrences. | **OPEN — internal, and it loses the biggest contributor** |
 | P-2 | monograph `L44` and `L954` vs `L509` and `L3808` | **XDOCCONFLICT — contradiction.** The severity bands are attributed to **PALICC-2** in the monograph's abstract and scenario list, while the same document states twice that they are anchored on the **Berlin Definition**, "not on PALICC-2". Paper and supplement are clean. | **OPEN — monograph-internal; clinically a category error (adult P/F vs pediatric OI/OSI)** |
 
@@ -105,6 +106,44 @@ table.** The three published multipliers reproduce exactly from these nodes:
 | S2 | 0.26 | 1.0 + (0.26/0.3) × 9.0 = **8.8** | 8.8× ✓ |
 | S3 | 0.60 | exact node = **15.0** | 15× ✓ |
 | S4 | 0.95 | 20 + (0.05/0.1) × 5 = **22.5** | 22.5× ✓ |
+
+### P-4 — cross-output μ\* comparisons are unit artifacts (¶289)
+
+> SpO$_2$ shows the smallest $\mu^{*}$ magnitudes overall **because** the output
+> sits at the hemoglobin-saturation ceiling across most of the swept range.
+
+μ\* carries the unit of its output. Measured over `morris_indices.parquet`:
+
+| output | median μ\* | max μ\* | unit |
+|---|---|---|---|
+| SpO₂ | 0.0166 | 0.1247 | **fraction, 0–1** |
+| MAP | 0.8435 | 20.25 | mmHg |
+| PaCO₂ | 1.2330 | 20.02 | mmHg |
+| HR | 3.2906 | 95.12 | bpm |
+| PaO₂ | 9.6704 | 146.69 | mmHg |
+| Vt | 1.7250 | **503.05** | mL |
+
+**Convert SpO₂ to percentage points — the scale Figure 3's own caption says a
+reader should use — and the ordering reverses.** Its median μ\* becomes **1.66
+pp**, which is *larger* than MAP's 0.84 and larger than PaCO₂'s 1.23. "Smallest
+magnitudes overall" holds only on the fractional scale.
+
+The ceiling effect is probably real; SpO₂ does saturate. **But the evidence
+offered does not establish it** — the observation it rests on is an artifact of
+the unit, and the paper knows this elsewhere: the Figure 3 caption states "For
+SpO$_2$, $\mu^{*}$ is expressed on the fractional scale reported by Pulse (0--1),
+so 0.12 corresponds to 12 percentage points."
+
+**Second instance, same paragraph, same class**: "Output Vt tracks input Vt at
+far higher $\mu^{*}$ magnitudes than any other input--output pair". Vt is in mL,
+where 503 is an ordinary number; PaO₂'s 147 mmHg is not a smaller *effect*, it is
+a different quantity. Comparing μ\* across outputs of different physical
+dimension has no scale-free meaning.
+
+**What is untouched.** Every *within-output* statement in §2.2 is sound, and
+that is where the paper's actual claims live: top-3 fractions are dimensionless
+ratios, so the 48/48, the median 0.928 and the 0.658–0.998 range are all immune
+to this.
 
 ### P-3 — `not_steady_state` has three triggers; ¶187 names two
 
