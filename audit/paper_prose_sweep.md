@@ -83,7 +83,7 @@ comparable to the supplement's figure. Coverage, not the count, is the claim.
 | **P-2** | monograph L44, L954 | Severity bands credited to **PALICC-2** where the same document says Berlin "not on PALICC-2" | **established — contradiction, monograph-only** |
 | **P-3** | `paper.tex:187` | `not_steady_state` defined with 2 triggers; Table 2 gives 3, and the omitted one is the largest | **established — internal** |
 | **P-1** | `paper.tex:359` | Five severities called an illustrative "convention"; the source shows hard-coded calibration nodes | **established — understates the paper's own finding** |
-| **P-5** | `paper.tex:372` | "No comparable open atlas yet exists" for BioGears/HumMod — unsourced, unhedged | **needs investigation — citation trigger (b)** |
+| **P-5** | `paper.tex:372` | "No comparable open atlas yet exists" for BioGears/HumMod | ⚠️ **arbitrated — SOURCE INSUFFICIENT for the universal form**; BioGears half now citable |
 
 **The two that matter scientifically** are P-4 (a comparison the paper's own
 Methods does not license, with a recoverable mechanism claim) and P-2 (an
@@ -723,9 +723,30 @@ Recorded as unknown, not as absent.
 
 **Verdict: SOURCE INSUFFICIENT for the universal form.** "No comparable open
 atlas **yet exists**" quantifies over the whole literature and cannot be
-established by any search. The defensible form bounds the claim to what was
-looked at — "we did not identify a comparable open atlas for …" — while the
-BioGears clause gains a citation rather than losing force.
+established by any search.
+
+⚠️ **And the search behind this verdict must be stated, because it constrains the
+repair.** For P-5 it consisted of exactly **two web searches and one targeted
+fetch** — one query on BioGears/HumMod sensitivity and reliability, one on HumMod
+alone, and the BioGears FAQ downloaded and read. **No named bibliographic
+database, no recorded query set, no cutoff date.** That is enough to find the
+BioGears admission; it is *not* a systematic search.
+
+**This rules out one repair that looks safe and is not.** A bounded form such as
+"we did not identify a comparable open atlas … in the literature and public
+resources **searched** as of [date]" *promises an instrument*. Writing it on the
+back of two uncalibrated web queries would replace one overclaim with a subtler
+one, because it reads as methodological. Only two options are honest:
+
+1. **Do the search properly** — named databases, recorded queries, a cutoff, and
+   operational definitions of *comparable* and *open* fixed in advance — after
+   which the bounded sentence is exact and strong; or
+2. **Write the weak, unimpeachable form** — "to our knowledge, no comparable open
+   atlas has been published for …" — which promises no instrument and cannot be
+   caught out.
+
+**Independent of that choice, the BioGears clause gains a citation rather than
+losing force**, since the admission is on that project's own public FAQ.
 
 
 ### Highest value — open these first
