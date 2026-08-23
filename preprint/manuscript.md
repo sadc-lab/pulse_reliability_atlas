@@ -1268,7 +1268,8 @@ reproducible bit-exactly. A pre-submission Phase-4 re-execution
 i5-11400H (6 physical / 12 logical cores), 8 GB RAM, no GPU. Docker
 allocation 3.95 GB / 12 CPU. Two-to-three parallel containers per the
 verified [S001](#s001) budget. Pulse is bit-exact deterministic for fixed
-inputs ([S005](#s005) G5). Wall time for the full sweep ≈ 7 h on this hardware.
+inputs ([S005](#s005) G5). The full sweep required approximately 14 h of
+active elapsed time on this hardware (Supplement §S12).
 
 The atlas's published numbers have eleven independent verification
 points (Pulse determinism, pipeline + analysis correctness, and
@@ -3311,9 +3312,11 @@ bounded.*
   artifacts (`results/clamp_grid.parquet`, `results/diverged_grid.parquet`)
   use the *full* sweep (not clean-only) and remain valid in S1 / S4 for
   flag-rate maps.
-* The 1,280-run sweep took ~7 h on the maintainer's i5-11400H laptop
-  with two parallel Docker workers (lowered from three mid-sweep to
-  control thermal load; resume-safe). The preregistered Sobol
+* On the reference machine, the canonical sweep required
+  approximately 14 h of active elapsed time, using three parallel
+  Docker workers initially and two after a mid-sweep reduction to
+  control thermal load (resume-safe); the timing-metadata correction
+  is documented in Supplement §S12. The preregistered Sobol
   bolt-on (preregistration §Sampling method) was evaluated and
   formally closed in §3.3.1; if future work re-opens it on the
   Group B cells, larger-scale variance decomposition would benefit
