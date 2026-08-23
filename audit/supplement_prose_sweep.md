@@ -60,6 +60,10 @@ findings and must not be reported as such.
 | 32 | §S12 vs `README.md` | ~~The two public recipes diverge~~ | **WITHDRAWN — my error; the README does cover the ledger, in a separate section** |
 | 33 | `TODO_publication_roadmap.md:143` | A **live acceptance criterion** pinned to a stale count: "must stay **313/313** · 94/94 · 26/26 · 25/25 (currently green)" where the ledger is at **382** | **OPEN — nothing re-measures it** |
 | 34 | `README.md:357` | "santino/ **S001 … S031** entries" where the log reaches **S032**. The same locus previously read S001…S025 and was corrected to S031 — **it has drifted again** | **OPEN — recurrence, nothing re-measures it** |
+| 35 | Figure S5 legend, from `make_supp_fig_s5_decomposition.py:137` | The legend reads "as recorded by the **detector**" — a term the project retired, **baked into a rendered PDF**, so invisible to both a `grep` of `supplement.tex` and to the vocabulary guard | **OPEN — recurrence of the Figure 1 defect, one scope out** |
+| 36 | `paper.tex:77` vs `submission_metadata.txt:12` | Running title case differs: "Reliability **A**tlas: Pulse Physiology Engine" against "Reliability **a**tlas: …" | OPEN — cosmetic, two submission artefacts |
+| 37 | `README.md:161` | "**34** implausibly-flagged runs produce PaO₂ > 600 mmHg **at FiO₂ = 1.0** (91 % at FiO₂ ≥ 0.95)" — the two halves contradict; **31** are at 1.0 and 3 at 0.7367 | **OPEN — the paper states it correctly** |
+| 38 | `README.md:156` vs Figure S1 caption | README: divergence "approximately **sex-balanced**" in the band. Supplement: "**Female divergence dominates the lower band; male divergence dominates the upper band**" | **OPEN — flattens a sign-reversing effect into no effect** |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -1360,6 +1364,87 @@ means wiring a guard when nothing re-measures it.** A range bound of the form
 claimed: title consistency across loci (point 3), and the full end-to-end read of
 each file (point 5) — the checklist warns that the two S018 defects sat at lines
 155 and 420 of a 475-line file, so a targeted read is not a substitute.
+
+
+## Visual figure pass — 9 remaining figures inspected against their captions (2026-08-23)
+
+The only blind spot no guard covers: **what the pixels show versus what the
+caption says.** Figures 1 and 2 and four of Figure 3's six panels had been done
+earlier; this pass closes the remaining nine. Each figure PDF was rendered to PNG
+at 140 dpi and read.
+
+| figure | verdict |
+|---|---|
+| **Fig. 3 panel PaO₂** | ✅ OK |
+| **Fig. 3 panel PaCO₂** | ✅ OK |
+| **Fig. 4** `fig03_actionable_corrections` | ✅ OK |
+| **Fig. 5** `fig04_sex_bv_mechanism` | ✅ OK |
+| **Fig. S1** `fig_s1_continuous_severity` | ✅ OK (but surfaced signal 38, in the README) |
+| **Fig. S2** `fig_s2_spearman` | ✅ OK |
+| **Fig. S3** `fig_s4_vt_waveform` | ✅ OK — **tonight's window fix is visible** |
+| **Fig. S4** `fig_s3_hyperoxia_convergence` | ✅ OK |
+| **Fig. S5** `fig_s5_decomposition` | ⚠️ **signal 35** |
+
+**What the images independently confirmed** — each of these was measured from
+data earlier and is now corroborated by the picture:
+
+- Fig. 3 PaO₂: the **three blank FiO₂ cells are exactly S1_M, S1_F, S4_F**, the
+  same three the data showed as short an input. FiO₂ dominant in all four S2/S3
+  columns; magnitude collapsing 133/147 → 31 in S4.
+- Fig. 3 PaCO₂: **Vt first and RR second in all eight cells**, an order of
+  magnitude above the third input — exactly the two terms of
+  $\dot{V}_A = \mathrm{RR}(V_T - V_D)$.
+- Fig. 4a: the extreme point sits at x ≈ 1.83, y ≈ 0.02 — **S1_F_0117, 1.826 →
+  0.018**. Every point below the diagonal.
+- Fig. 4b: legend **44 + 8 + 8 = 60**; annotation "**779-1408 mmHg**", the exact
+  runaway range measured; S3 and S4 clusters far below the 600 line.
+- Fig. 5a: bars **4 · 4 · 4 · 8** male, **0** female; labels say "S2 (**mild**
+  ARDS)", so the figure is on the correct side of signal 8.
+- Fig. 5b: **20/20 → 0/20 → 0/20**. The retracted "2/20" is absent. And the
+  female-default line is drawn **left of** the male floor, encoding the 86 mL
+  shortfall geometrically.
+- Fig. S1: the per-bin counts are **per sex** (100 + 100 = 200), as the caption
+  and the table header both state.
+- Fig. S2: **all twelve ρ values match `spearman_mu_star.csv` exactly**; S1 and
+  S4 rows blank; min 0.75, max 1.00.
+- Fig. S3: x-axis now reads **60–120 s recorded time**; trace min ≈ 136 and max
+  ≈ 1180 mL; both panels on one y-scale, so the contrast is not inflated.
+- Fig. S4: y-axis **[350, 760]**; median from **≈ 552** to **≈ 639**; three
+  traces exiting the top; both reference lines at 600 and ≈ 663.
+- Fig. S5: all eight hard-failure rates; only S4_M above the 30 % line; the
+  **232 / 303 / 133** anchors visible and correctly placed, with the recorded
+  inner bar for Vt drift visibly tiny against 133; **23 + 9 + 9 + 7 = 48**;
+  glyphs present for greyscale; traffic-light colours not reused.
+
+### 35 — "detector" baked into the Figure S5 legend
+
+`make_supp_fig_s5_decomposition.py:137`:
+
+```python
+label="as recorded by the detector" if j == 0 else None
+```
+
+That string is rendered into `fig_s5_decomposition.pdf` and appears in the
+supplement's printed legend.
+
+**Why no existing check sees it.** `check_detector_vocabulary` sweeps
+`paper.tex` plus `preprint_npj/figures/*.tex`, and its own comment records the
+scope decision verbatim: *"Supplement figure sources are deliberately NOT swept:
+the defect was at the paper/externalised-figure boundary, and an instrument
+should stay the size of the claim it protects."* A `grep` of `supplement.tex`
+cannot find it either — the word is in a PDF, not in the LaTeX.
+
+**This is the Figure 1 defect recurring one scope out.** The same guard's comment
+describes that precedent: the flowchart's boxes "read 'Four-flag steady-state
+detector' … for weeks, without this check ever seeing them". The repair then
+widened the corpus to `.tex` figure sources. Python-generated **supplement**
+figures were left outside it.
+
+**Distinct from signal 3**, which is four prose uses in §S3. This one is in an
+image, so no textual sweep of the supplement will ever surface it.
+
+**Guard candidate, and a cheap one**: extend the corpus to the figure
+*generators* — `scripts/make_*fig*.py` — rather than only to `.tex` sources.
 
 
 ---
