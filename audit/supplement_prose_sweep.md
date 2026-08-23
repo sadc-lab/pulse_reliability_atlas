@@ -50,7 +50,7 @@ findings and must not be reported as such.
 | 22 | §S12 ¶895/897/899 | "**five** run-level flags" against the paper's "four-flag classifier"; and a "22-run pilot … 22/22" against "the **20** per-run output CSVs" | OPEN — both accurate, neither bridged for the reader |
 | 23 | §S12 ¶903 | "`kitware/pulse:4.3.1` is published for `linux/amd64` **only**" and "**no** prebuilt ARM64 image exists" | OPEN — two absence claims, **trigger criterion (b)** |
 | 24 | §S13 ¶931 | "The SHAP cross-verification works **because the underlying physiology is real**, not the other way round" — two readings, one of which contradicts the Figure S5 disclaimer | OPEN — ambiguous epistemic premise |
-| 25 | §S13 ¶931 | "input dependencies that **any reasonable statistical method** would identify on the same data" — the section's own per-cell full-match rate is **23 of 48** | OPEN — universal claim undercut by the paragraph's own numbers |
+| 25 | §S13 ¶931 | "input dependencies that **any reasonable statistical method** would identify on the same data" — an unbounded universal from **two** methods | OPEN — **downgraded**: wording only; the "undercut by its own numbers" reading was mine and is withdrawn |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -876,24 +876,43 @@ Naming the referent would settle it — e.g. "…because the input dependencies 
 implements are genuine structure in the engine, not an artefact of either
 method".
 
-### 25 — "any reasonable statistical method" (§S13 ¶931)
+### 25 — "any reasonable statistical method" (§S13 ¶931) — DOWNGRADED
 
 > …they correspond to input dependencies that **any reasonable statistical
 > method** would identify on the same data.
 
-A universal claim over an unbounded and undefined class ("reasonable"),
-extrapolated from a comparison of **two** methods.
+**What survives.** A universal claim over an unbounded, undefined class
+("reasonable"), extrapolated from a comparison of exactly **two** methods. That
+is a wording defect, of the same family as signal 18's "each".
 
-**And the section's own numbers undercut it.** The second method does *not*
-recover the same ranking in half the cells: the per-cell full 3-of-3 agreement is
-**23 of 48** (¶923), i.e. 48 %. The claim is well supported at the **pooled**
-level (17 of 18) and at the **≥2-of-3** per-cell level (44 of 48, 92 %), but the
-sentence distinguishes none of these, so it reads as a claim about the rankings
-in general.
+**⚠️ What I withdraw, and why it matters.** This entry first asserted that the
+section's own numbers undercut the claim, citing the per-cell full 3-of-3
+agreement of 23 of 48. **That objection does not hold.** Re-reading ¶929, which
+immediately precedes the sentence, the author has already done the scoping work
+explicitly:
 
-The narrower statement immediately before it — "evidence that the Morris-derived
-rankings are not artefacts of the elementary-effects design" — is exactly right
-and needs no strengthening.
+- "The strong pooled-level agreement (17 of 18) **is the central
+  cross-verification**"
+- "The lower per-cell full-match rate (23 of 48) **is expected**", with the
+  reason given (per-cell n of 42--144, and dependence on which trajectories
+  landed clean)
+- "The 92 % $\geq$ 2-of-3 agreement at the per-cell level **is the appropriate
+  level of comparison**"
+
+So "input dependencies" in ¶931 most naturally refers to the pooled dominant
+dependencies the previous paragraph designated as central. Citing 23/48 against
+it ignores scoping the author had already performed in the adjacent sentence.
+
+**The error class, recorded because it is mine and it recurs**: I quoted a number
+from the section against a sentence in the same section without reading the two
+paragraphs as one argument. A figure is not a counter-example until the
+neighbouring text has been read for the scope it already sets. The same
+discipline as "characterise before explaining", applied to prose rather than
+data.
+
+**Consequence for the correction pass**: this is a light-touch rewording at most,
+not a claim change. Something like "…dependencies that a second, observational
+method recovers on the same data" would say exactly what was measured.
 
 ### §S13 — verified correct
 
