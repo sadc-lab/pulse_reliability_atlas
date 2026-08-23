@@ -3204,6 +3204,62 @@ literal **0**, "Sobol / clamping" **0**, "exists for either engine" **0**, contr
 their intended differences. All four gates exit 0.
 
 
+### 17 -- canonical formulations inventoried before writing anything
+
+The maintainer's instruction was to propagate rather than repair from memory.
+**Inventory first, and their pointer to "§S5-mapping" was exact**: the label
+`sec:s5-mapping` exists at `supplement.tex:470`, "Severity-to-physiology mapping in
+the Pulse respiratory model".
+
+| audited formulation | locus |
+|---|---|
+| "collapses the **alveolar diffusion surface area** to approx 7.5 % of baseline, and opens the **intrapulmonary shunt**" | `supplement.tex:490` |
+| "the **diffusion-surface collapse together with the widened shunt** is the proximate [mechanism]" | `supplement.tex:490` |
+| "the shunt row is the **least direct** of the four: its damage term is **non-monotonic** across severity" | `supplement.tex:490` |
+| "consistent with Pulse's modelled **alveolar-arterial difference**" | `paper.tex:325` |
+| "Pulse's modelled **A-a gradient**" x6 | `manuscript.md` |
+
+⚠️ **A search term of mine was wrong and I corrected it.** I first reported
+"non-monotone" as absent (0 occurrences) and treated the maintainer's fourth
+proposition as unsupported. The supplement writes **"non-monotonic"**, three times.
+All four of their propositions are present; the failure was my word form.
+
+⚠️ **What the inventory changes about the repair.** §S5's audited mechanism is a
+**pair** -- diffusion-surface collapse **and** widened shunt. Attributing the PaO2
+fall to shunt alone, which is the obvious minimal fix, would **narrow the
+mechanism against our own audited text**.
+
+⚠️ **And a limit on the vocabulary**: "A--a gradient" and "Berggren" occur **zero**
+times in the supplement. The correct physiological framing the dossier identifies
+lives in the paper (once, as "alveolar-arterial difference") and the monograph (six
+times), so it is established project vocabulary -- but importing it here would still
+be a new claim, because **we measured PaO2, not the A--a difference**, at S3 and S4.
+
+**The sentence** (`supplement.tex:701`), whose second half the dossier already
+records as correct:
+
+> This reproduces the shunt-fraction **kinetics** the **alveolar-gas equation
+> predicts** under increasing venous admixture, and confirms that the elevated S1
+> plateau is a healthy-lung property rather than a generic FiO2 = 1.0 artefact.
+
+**Proposed, propagating §S5-mapping and inventing nothing:**
+
+> This is the fall in arterial oxygenation expected from the diffusion-surface
+> collapse and widened intrapulmonary shunt that the severity scalar produces
+> (\Sef{sec:s5-mapping}), and confirms that the elevated S1 plateau is a
+> healthy-lung property rather than a generic FiO2 = 1.0 artefact.
+
+* the false attribution to the alveolar-gas equation is gone;
+* **"kinetics" is gone** -- it implies a time course, where the measurement is a
+  steady-state plateau compared across severities;
+* the mechanism is the **audited pair**, not shunt alone;
+* the correct second half is untouched;
+* the cross-reference turns a bare assertion into a pointer to where the mechanism
+  was established. **Optional** -- the sentence stands without it.
+
+**Not applied.**
+
+
 ---
 
 ## Sections swept, and to what depth
