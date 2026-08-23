@@ -62,8 +62,8 @@ findings and must not be reported as such.
 | 34 | `README.md:357` | "santino/ **S001 … S031** entries" where the log reaches **S032**. The same locus previously read S001…S025 and was corrected to S031 — **it has drifted again** | **OPEN — recurrence, nothing re-measures it** |
 | 35 | Figure S5 legend, from `make_supp_fig_s5_decomposition.py:137` | The legend reads "as recorded by the **detector**" — a term the project retired, **baked into a rendered PDF**, so invisible to both a `grep` of `supplement.tex` and to the vocabulary guard | **OPEN — recurrence of the Figure 1 defect, one scope out** |
 | 36 | `paper.tex:77` vs `submission_metadata.txt:12` | Running title case differs: "Reliability **A**tlas: Pulse Physiology Engine" against "Reliability **a**tlas: …" | OPEN — cosmetic, two submission artefacts |
-| 37 | `README.md:161` | "**34** implausibly-flagged runs produce PaO₂ > 600 mmHg **at FiO₂ = 1.0** (91 % at FiO₂ ≥ 0.95)" — the two halves contradict; **31** are at 1.0 and 3 at 0.7367 | **OPEN — the paper states it correctly** |
-| 38 | `README.md:156` vs Figure S1 caption | README: divergence "approximately **sex-balanced**" in the band. Supplement: "**Female divergence dominates the lower band; male divergence dominates the upper band**" | **OPEN — flattens a sign-reversing effect into no effect** |
+| 37 | **3 loci**: `README.md:161`, monograph **L71**, monograph **L320** | "34 … **at FiO₂ = 1.0**" over-attributes: **31** are at 1.0, 3 at 0.7367. Four other loci state it correctly | **OPEN — count corrected; the monograph says it both ways** |
+| 38 | **5 loci**: `README.md:108`, `:156`, monograph **L338**, **L2007**, **L2231** | "divergence approximately **sex-balanced**" flattens a sign-reversing effect. `paper.tex` and `supplement.tex` are **clean** — their single occurrences mean *cohort design*, a different claim | **OPEN — count corrected after a homonym false alarm** |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -1445,6 +1445,87 @@ image, so no textual sweep of the supplement will ever surface it.
 
 **Guard candidate, and a cheap one**: extend the corpus to the figure
 *generators* — `scripts/make_*fig*.py` — rather than only to `.tex` sources.
+
+
+### 37 and 38 — loci recounted, after two errors of mine in five minutes
+
+Both entries were first written from a single hit and a single comparison. Both
+counts were wrong, in **opposite directions**. The corrected populations:
+
+#### 37 — "34 … at FiO₂ = 1.0"
+
+| locus | wording | verdict |
+|---|---|---|
+| `paper.tex:323` | "on 34 of the 126 … and **91 % of these excursions** occur at FiO₂ ≥ 0.95" | ✅ |
+| monograph **L140** | "in **34 of 126** … ; **91 %** at FiO₂ ≥ 0.95" | ✅ |
+| monograph **L2674** | "**34 of 126** … with **91 % of those** at FiO₂ ≥ 0.95" | ✅ |
+| `supplement.tex:339` | carries the full decomposition — see below | ✅ **canonical** |
+| `README.md:161` | "34 … **at FiO₂ = 1.0** (91 % at ≥ 0.95)" | ⚠️ self-contradicting |
+| monograph **L320** | "600 mmHg **at FiO₂ = 1.0 in 34** … (91 % at ≥ 0.95)" | ⚠️ self-contradicting, identical shape |
+| monograph **L71** | "600 mmHg **at FiO₂ = 1.0 in 34 of 126**" | ⚠️ over-attributes, no contradicting parenthetical |
+
+**Three defective, four correct — and the monograph states it both ways, twice
+each.** That is useful rather than alarming: a canonical formulation already
+exists inside the same document, so the repair is propagation, not invention.
+
+**`supplement.tex:339` is the best source of all**, because it carries the
+decomposition rather than a summary: "**32 of the 34** … become physiologically
+clean (**31 at FiO₂ ≥ 0.95**; **21 on the female and 11 on the male**); the
+remaining **two** are healthy-female runs at maximal minute ventilation (**Vt 800
+mL × RR 20 = 16 L/min**)". Checked: 21 + 11 = 32 ✓, 32 + 2 = 34 ✓, and 1 + 2 = 3
+at FiO₂ = 0.737, which is exactly the 31/3 split measured from the data. Its
+run-specific alveolar computation also checks: 0.737 × (760 − 47) − 16.2/0.8 =
+**505.3** ✓.
+
+⚠️ **A false alarm of mine, caught before reporting**: "31 at ≥ 0.95; 2 remaining"
+looked like 31 + 2 = 33 ≠ 32. It is not a partition — the 31 is a *subset of the
+32*.
+
+#### 38 — "divergence approximately sex-balanced"
+
+**⚠️ The first entry claimed this was README-only. Then a string count across the
+corpus made it look like a seven-locus claim spanning all four documents. Both
+were wrong.** "Sex-balanced" carries **two unrelated meanings**:
+
+| sense | loci | status |
+|---|---|---|
+| a **sex-balanced synthetic cohort** — a design goal | `paper.tex:342`, `supplement.tex:1021` | ✅ **not this claim at all** |
+| divergence rates **approximately sex-balanced** — an empirical claim | `README.md:108`, `README.md:156`, monograph **L338**, **L2007**, **L2231** | ⚠️ **the signal, 5 loci** |
+
+So the paper and supplement are clean, and the drift is README + monograph.
+
+**Why it is a defect**: the Figure S1 caption states "**Female divergence
+dominates the lower band; male divergence dominates the upper band**". That is a
+sex effect that **reverses sign** across the band, and "approximately
+sex-balanced" reads as *no effect*. `README.md:108` is partly self-correcting —
+it appends "the sex effect is regime-dependent" — while `:156` leaves the claim
+bare. `paper.tex` says only "both sexes diverge", which is neutral and correct.
+
+**The lesson, stated so it is not over-generalised**: a shared string never
+establishes a shared claim. Compare the whole proposition and its referent. Three
+times tonight a string count was mistaken for a claim count — "do not overlap",
+then this entry twice.
+
+### Guard design constraint for signal 35, recorded before anyone builds it
+
+Scanning `scripts/make_*fig*.py` wholesale **would fail on the very file it is
+meant to protect**: `make_supp_fig_s5_decomposition.py` contains "detector"
+twice — at **L137** inside a rendered `label=`, and at **L15** inside a
+**docstring that is never drawn**.
+
+The instrument must therefore read only string constants that reach a drawing
+primitive — `label=`, `set_title` / `title` / `suptitle`, `set_xlabel` /
+`set_ylabel` / `xlabel` / `ylabel`, `text`, `annotate`, tick labels — extracting
+constants recursively from the passed expression, so that
+
+```python
+label="as recorded by the detector" if j == 0 else None
+```
+
+is caught inside its `IfExp` while the docstring is ignored. **Calibration the
+guard must pass before it is trusted**: L137 as it stands → FAIL; L15's docstring
+→ PASS; the corrected L137 → PASS; and `detector` re-injected into any `label=`
+→ FAIL.
 
 
 ---
