@@ -1874,6 +1874,74 @@ read from `src/runner.py`, not duplicated as a literal.
 wording, and blocked behind (c) regardless.
 
 
+### 39 -- diffs prepared, not applied (2026-08-23)
+
+Arithmetic re-verified to the millesimal before drafting: span 20.777 h, minus a
+suspension inflation of 6.837 h (24{,}722.296 s recorded against a 107.5 s healthy
+mean), gives **13.940 h** active elapsed. The maintainer's 13.9 h is exact.
+
+**The "two-worker" objection is withdrawn.** Locus 2 already reads "with two
+parallel Docker workers (**lowered from three mid-sweep** to control thermal
+load)". The proposed wording restates the existing detail in the other order; the
+objection only ever applied to the bare phrase without the qualifier.
+`paper.tex:402` independently says "**2--3 parallel Docker workers**", the safest
+form of all, and is untouched.
+
+**Order is (c) then (a)**, because (a) cites a note that (c) creates.
+
+**(c) -- supplement `\S`S12, appended after the three-executions sentence at L817:**
+
+> Two otherwise valid runs (`S4_M_0123`, `S4_M_0124`) carry wall-time metadata
+> spanning a suspension of the reference machine and are excluded from the runtime
+> aggregation; a naive sum over all 1,280 records in `aggregated.parquet` returns
+> 41.1 h instead. Their simulation outputs are unaffected and are retained in every
+> scientific analysis.
+
+Two refinements on the maintainer's draft: "**documented** host suspension" is
+self-referential inside the section that documents it, so it becomes "a suspension
+of the reference machine"; and the two identifiers **plus the 41.1 h** are stated
+in-line, which is what makes the 41.1 -> 27.4 derivation reproducible without
+leaving the document -- the maintainer's own stated requirement.
+
+**(a) locus 1 -- `manuscript.md:1271`, in the terse `\S`2.8 register:**
+
+> ~~Wall time for the full sweep ~ 7 h on this hardware.~~
+> The full sweep consumed ~ 27.4 aggregate container-hours and required ~ 13.9 h of
+> active elapsed time on this hardware, after excluding the host suspension
+> documented in Supplement S12.
+
+**(a) locus 2 -- `manuscript.md:3314-3316`:**
+
+> ~~The 1,280-run sweep took ~7 h on the maintainer's i5-11400H laptop with two
+> parallel Docker workers (lowered from three mid-sweep to control thermal load;
+> resume-safe).~~
+> The 1,280-run sweep consumed ~ 27.4 aggregate container-hours and required
+> ~ 13.9 h of active elapsed time on the maintainer's i5-11400H laptop, using three
+> parallel Docker workers reduced to two mid-sweep to control thermal load
+> (resume-safe), after excluding the host suspension documented in Supplement S12.
+> The aggregate gives a theoretical ~ 9.1 h lower bound under ideal three-worker
+> parallelism.
+
+⚠️ **"Theoretical lower bound" is the right term and beats my "would project to".**
+The makespan lower bound for n jobs on 3 machines is max(total / 3, longest job);
+here 27.39 / 3 = 9.13 h against a longest healthy job of 141.7 s = 0.039 h, so
+total / 3 dominates and 9.1 h genuinely bounds from below.
+
+⚠️ **Three things the maintainer should decide knowingly.**
+
+1. **This is an addition, not only a repair.** The monograph carries **no**
+   aggregate-container-hours figure anywhere -- zero occurrences of the 27 h / 46 h
+   pair that lives in `supplement.tex:817`. (a) introduces a quantity the document
+   has never held.
+2. **Two deliberate number pairs are created**: monograph **13.9** against
+   README/supplement **~14**, and monograph **27.4** against supplement
+   **approximately 27**. Both are compatible and both round correctly, but unless
+   they are recorded as intentional a later sweep will "harmonise" one of them.
+3. **Supplement `\S`S12 is a new cross-reference target for the monograph.** The
+   form is established -- `\S`S3.7, `\S`S3.4, `\S`S3.3, `\S`S3.11 are already cited --
+   but S12 is not yet among them.
+
+
 ---
 
 ## Sections swept, and to what depth
