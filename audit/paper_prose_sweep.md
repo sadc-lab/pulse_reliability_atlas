@@ -57,6 +57,7 @@ anything found is recorded **with no proposed action**.
 | # | locus | signal | status |
 |---|---|---|---|
 | P-1 | `paper.tex:359` vs `:146` and §S5-mapping | The five ARDS severities are called an illustrative "round-tenths **convention**" at L359 and "five **calibration nodes**" at L146. The source says calibration nodes. | **OPEN — understates, and understates the paper's own finding** |
+| P-5 | `paper.tex:372` | "**No comparable open atlas yet exists** for … BioGears … or HumMod" — unsourced, unhedged absence claim about two third-party engines. **Pairs with supplement signal 1**, also an unsourced BioGears absence claim. | OPEN — trigger (b); repair together with signal 1 |
 | P-4 | `paper.tex:289` | Two cross-output μ\* magnitude comparisons. μ\* carries its output's unit, and SpO₂ is on the 0–1 fractional scale: converted to percentage points its **median μ\* (1.66) exceeds MAP's (0.84) and PaCO₂'s (1.23)**, reversing "smallest overall". | **OPEN — the causal explanation rests on a unit artifact** |
 | P-3 | `paper.tex:187` vs Table 2 (`:216`) | `not_steady_state` is defined with **two** triggers (drift, variance) fifteen lines before Table 2 gives **three** (flatline, CV, drift). The omitted flatline is the **largest** sub-mode, 232 occurrences. | **OPEN — internal, and it loses the biggest contributor** |
 | P-2 | monograph `L44` and `L954` vs `L509` and `L3808` | **XDOCCONFLICT — contradiction.** The severity bands are attributed to **PALICC-2** in the monograph's abstract and scenario list, while the same document states twice that they are anchored on the **Berlin Definition**, "not on PALICC-2". Paper and supplement are clean. | **OPEN — monograph-internal; clinically a category error (adult P/F vs pediatric OI/OSI)** |
@@ -457,6 +458,45 @@ functions calibrated at those nodes, which is true of a shared function.
 
 **P-2, P-3, P-4** re-read against their evidence and unchanged. P-3 is
 strengthened by §2.6 as noted above.
+
+### Discussion (¶368–394) — one signal (P-5), and the most careful hedging in the paper
+
+**P-5, ¶372** — "**No comparable open atlas yet exists** for related
+lumped-parameter engines such as BioGears (Pulse's predecessor) or HumMod." An
+unsourced, **unhedged** claim of absence about two third-party engines. The
+contrast inside the same paper is instructive: its other absence claim, "no
+formal sensitivity analysis of its operational inputs has been published", is
+backed by the Pulse maintainers' own FAQ admission. This one has no such anchor
+and carries no "to our knowledge". Same family as supplement signals 1 and 20 —
+and signal 1 is *also* an unsourced BioGears absence claim, so the two should be
+repaired together. Trigger (b) for the citation pass.
+
+**Everything else in the Discussion re-derived or already anchored:**
+
+| claim | measured |
+|---|---|
+| ¶372 "median 93 % … on 48 of 48" | 0.9277, 48/48 ✓ |
+| ¶374 Cornish "85 rejections across 15 quantities; 82 of 85 outside the four-channel overlap: 80 + 2; only 3 … all on PaCO₂" | internally exact (82+3 = 85, 80+2 = 82) and consistent with this project's recorded reading of that source ✓ |
+| ¶376 the six recommendations | 1:1 with §S11, same order ✓ |
+| ¶382 limit (iv): FiO₂ pairs lost "in the healthy (S1) and severe-ARDS (S4_F) cells" | **exactly 18 of 48 combinations are short an input; the cells are S1_M, S1_F, S4_F, six outputs each; and the missing input is `fio2` in all 18.** S4_M keeps all seven ✓ |
+| ¶384 resampling S2_M | top-1 preserved **6/6**; top-3 *set* preserved **4/6**; top-3 *order* preserved **3/6** ✓. And "disagreements involving only the second- and third-ranked inputs" holds: HR [hr,rr,peep]→[hr,fio2,rr], PaO₂ [fio2,rr,peep]→[fio2,peep,rr], Vt [vt,rr,sbp]→[vt,rr,fio2] ✓ |
+| ¶388 "clipping shortened **9 of 20** DBP steps" | a **ledger anchor**, re-derived at every gate run ✓ |
+| ¶388 "SBP remained rank 1 for MAP in all eight cells … smallest ratio 1.22 in S2_M" | consistent with the closed S032 dossier ✓ |
+
+⚠️ **Not verified**: ¶388's companion figure, "caused applied DBP to co-vary in
+**8 of 20** SBP steps". The 9/20 has a ledger anchor; no anchor for the 8/20 was
+located in this scan, and it was not measured. Marked rather than assumed.
+
+**Hedging recorded as exemplary**, because it is the standard the rest of the
+corpus should be held to: "it does not imply that physiological states or
+controller targets stay fixed once the simulation runs"; "Green … does not
+establish physiological validity"; "These comparisons establish a sex-conditioned
+distributional signal **without identifying a single physiological mechanism or a
+scenario-independent direction of effect**"; "**No trajectory-count convergence
+analysis was performed**"; "These analyses establish **ranking robustness, not
+causal isolation**"; "whether these adult-model reliability patterns transfer to
+pediatric physiology **remains untested**". A material post hoc deviation at the
+yellow–red boundary is declared in ¶368 rather than buried.
 
 **Marked for the citation pass, not opened:**
 
