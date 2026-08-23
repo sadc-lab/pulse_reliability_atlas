@@ -1809,6 +1809,71 @@ next re-derives compute cost from `run_meta.json` -- as I just did -- gets 41.12
 instead of 27.43 h, a 50 % overstatement, with no warning.
 
 
+### 39 / 44 -- maintainer's decisions of 2026-08-23, and three measurements they forced
+
+The maintainer settled (a) wording, (b) guard design, (c) public disclosure.
+**Two of the three needed correcting, and the corrections came from measurements
+their own phrasing forced.**
+
+**(a) -- one factual error in the proposed sentence.** The draft reads "the
+canonical **two-worker** execution". `manuscript.md:3315` describes the sweep as
+three workers "lowered from three mid-sweep to control thermal load". Calling it a
+two-worker execution would put a new defect inside the sentence written to remove
+one. It also forward-references "a **documented** host suspension", which is not
+documented anywhere yet -- so (a) **depends on (c)** and cannot be written first.
+
+**Only one suspension occurred, which is what makes the singular safe.** The
+healthy maximum across 1,278 runs is **141.7 s**; there are **zero** runs between
+150 s and 600 s. The distribution jumps from 141.7 s straight to 24,722.3 s. The
+eight longest healthy runs are 132.1, 132.3, 133.2, 133.5, 133.8, 133.9, 134.6,
+141.7 s -- a tight tail with no second population. A suspension shorter than a few
+seconds would be invisible, which is immaterial against a 14 h figure.
+
+**(c) -- the conclusion is right; the stated mechanism is not, and the correction
+makes it more urgent, not less.** The maintainer argued the note is needed because
+"les `run_meta.json` sont publics". They are **not**: `.gitignore:22` covers
+`data/runs/**/run_meta.json`. But **`data/runs/full_sweep/aggregated.parquet` is
+git-tracked**, carries 1,280 rows and a **`wall_time_s` column**, and on the public
+clone `df.wall_time_s.sum() / 3600` returns **41.12 h** against a published ≈27.4 h.
+The exposure is real and present on any clone today -- it does not wait for the
+Zenodo deposit. Contaminated rows: `S4_M_0123`, `S4_M_0124`.
+
+| derivation on the public parquet | value |
+|---|---|
+| naive sum | **41.12 h** |
+| excluding the two artefacts (n = 1,278) | **27.39 h** |
+| imputing the two at the healthy mean | **27.43 h** |
+
+Both treatments round to **27.4 h**, and both give ≈13.7 h at two workers and
+≈9.1 h at three. **Exclusion is preferable**, because it matches the disclosure
+sentence's own verb and needs no imputation rule; the runtime aggregate is then
+over n = 1,278 while all 1,280 runs stay in every scientific analysis.
+
+**(b) -- adopted unchanged, and it is better than what I proposed.** I suggested
+excluding runs above the timeout from cost computations. The maintainer's design
+**fails** the computation unless the run is explicitly qualified as
+timing-contaminated, on the grounds that a silent drop would let the instrument
+erase the very performance regression it exists to detect. That is correct and the
+weaker design should not be built.
+
+⚠️ **The guard has no existing home.** `audit_claims.py` contains zero occurrences
+of `wall_time`, `container-hour`, `aggregate container` or `elapsed`: the 27.4 h,
+14 h and 9.1 h figures are currently guarded by nothing at all. Per the repository's
+own rule -- a guard once there is more than one number -- this is a guard with its
+own counter, not a ledger anchor.
+
+**Calibration, with the negative control measured rather than assumed**: positive
+controls are the two 24,722.3 s runs, which must FAIL while unqualified and PASS
+once qualified; the negative control is **141.7 s**, the true healthy maximum,
+which sits 4.2x below the 600 s timeout and must never fire. The timeout must be
+read from `src/runner.py`, not duplicated as a literal.
+
+**S4_M**: agreed, nothing published, no ratio, no mechanism.
+
+⚠️ **Nothing applied.** (a) is blocked on the maintainer confirming the corrected
+wording, and blocked behind (c) regardless.
+
+
 ---
 
 ## Sections swept, and to what depth
