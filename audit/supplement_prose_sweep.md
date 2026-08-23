@@ -663,13 +663,40 @@ outside this repository, carrying no citation. The floor itself is verified
 (§S10, `SetupPatient.cpp:535`); what is unverified is that Pulse's public patient
 methodology does not mention it.
 
-**This is the first signal to trigger criterion (b) of the citation rule agreed
-this session** — open the primary source when the sentence asserts an absence,
-exclusivity or negation. The source to open is `pulsepatientmethod`, which §S10
-already cites for the allometric formula. Deferred to the combined citation pass.
+**✅ SOURCE OPENED 2026-08-23 — verdict: PARTIALLY OVERCLAIMED, and it is worse
+than the original entry assumed.**
 
-Consequence if wrong is bounded: the recommendation to the maintainers becomes
-moot, and no scientific result moves.
+Pulse's public *Patient Methodology* page, Table 1, read this session:
+
+> formula **`Bv[mL] = 65.6W[kg]^1.02`** · lower bound **`Bv * 0.85`** · upper
+> bound `Bv * 1.15` · annotation "Above Stage 1 Hypovolemia."
+
+And, checked explicitly: the page **does not** state that a baseline below that
+fraction is *rejected at setup*.
+
+So the claim splits three ways:
+
+| clause | verdict |
+|---|---|
+| "**this constant** is not currently exposed" — i.e. the 4,082.24 mL value for the male body | ✅ **true**; it is body-specific and derived, and does not appear |
+| "a one-line note in the **patient-baseline reference table** would have saved the investigation" | ⚠️ **wrong about the table it names** — that table already carries `Bv * 0.85`, which is the rule that produces the floor |
+| what is genuinely undocumented | ✅ that the bounds are **hard-enforced, with an `[ERROR]` and exit**, rather than advisory — the page presents them as bounds without saying they gate setup |
+
+**Why this one matters more than its size.** It is a recommendation *addressed to
+the maintainers of the very documentation it mischaracterises*, in a paper whose
+subject is verification discipline. Its most expert reader is the person best
+placed to notice.
+
+**The repair is available and makes the recommendation stronger, not weaker**:
+ask for the *enforcement* to be documented, not the constant. The rule is already
+public; the fact that violating it aborts the run is not.
+
+**The paper is the better-stated document again.** `paper.tex:376` says only "(2)
+documentation of the male reference body's blood-volume floor" and makes no claim
+about what the table lacks.
+
+**Unaffected**: §S10's and §2.5's use of `pulsepatientmethod` for the allometric
+formula. The formula is on that page verbatim, as quoted above.
 
 ### §S11 — verified correct
 
