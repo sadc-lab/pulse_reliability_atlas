@@ -2607,10 +2607,12 @@ rather than made conditional on a check that cannot run.
 
 WARNING: **the regeneration transform must be pinned before it is written.** The
 portal file's house style, measured: `1,280` (not the LaTeX brace form), `cmH2O` /
-`FiO2` / `PaO2` without subscripts, `20.6 %` with a space. **It currently mixes
-U+2212 and the ASCII hyphen for the same minus sign in the same file** -- the
-transform has to choose one, and that choice should be recorded rather than made
-silently.
+`FiO2` / `PaO2` without subscripts, `20.6 %` with a space. The minus sign is **unambiguous** and an
+earlier warning of mine here was a false alarm from a crude pattern: the file
+contains exactly **one** minus, `-2 cmH2O` at L25, correctly U+2212. Everything
+else my pattern caught was a hyphen -- `Apache-2.0`, `6-affiliation`, and the ORCID
+separators. `paper.tex` writes `$-2$`, which maps to U+2212 with nothing to
+decide.
 
 
 ---
