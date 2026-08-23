@@ -118,6 +118,36 @@ if [ -n "$AUDIT_CMD" ]; then
     fi
 fi
 
+# ---- 2b. Portal-metadata sync (paper.tex -> submission_metadata.txt) --------
+#
+# preprint_npj/submission_metadata.txt is the text pasted into the npj portal.
+# On 2026-08-23 an audit found its abstract had drifted from paper.tex in every
+# sentence: 155 words against npj's 150-word cap, the H1 headline result missing
+# entirely, the hyperoxia claim widened past what the paper says, and five of the
+# paper's thirteen keywords gone. Nothing re-derived it, so the drift was
+# invisible -- and TODO_publication_roadmap.md certified the file as synced while
+# instructing the author to paste from it.
+#
+# The block is now generated, and this is the check that it still matches.
+if [ -n "$AUDIT_CMD" ]; then
+    if ! $AUDIT_CMD scripts/sync_submission_metadata.py --check >/dev/null 2>&1; then
+        echo ""
+        echo "pre-commit: portal metadata OUT OF SYNC with paper.tex - commit aborted."
+        echo ""
+        echo "  preprint_npj/submission_metadata.txt is what gets pasted into the"
+        echo "  submission portal. Its title, running title, abstract and keywords"
+        echo "  are generated from preprint_npj/paper.tex and must not be hand-edited."
+        echo "  See the difference, then regenerate:"
+        echo "    uv run python scripts/sync_submission_metadata.py --check"
+        echo "    uv run python scripts/sync_submission_metadata.py"
+        echo ""
+        echo "  If it reports the abstract is over 150 words, fix paper.tex - that"
+        echo "  is npj's cap, not ours."
+        echo ""
+        exit 1
+    fi
+fi
+
 # ---- 3. Render check (no CI equivalent -- this is the only place it runs) ---
 #
 # audit_claims.py validates the SOURCES: it counts numeric literals in the .tex

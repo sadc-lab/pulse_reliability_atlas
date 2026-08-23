@@ -1,42 +1,50 @@
 ==============================================================================
-npj Digital Medicine — submission metadata
-Extracted verbatim from preprint_npj/paper.tex (LaTeX macros de-escaped to
-plain Unicode for portal copy-paste). Draft, uncommitted — verify before paste.
+npj Digital Medicine -- submission metadata
+
+Title, running title, abstract and keywords are GENERATED from
+preprint_npj/paper.tex, which is their only source of truth. Do not edit
+them here: run scripts/sync_submission_metadata.py, or --check to verify.
+Everything below the generated block is hand-maintained.
 ==============================================================================
+
+*** BEGIN GENERATED BLOCK -- regenerate with scripts/sync_submission_metadata.py ***
 
 ------------------------------------------------------------------------------
 TITLE
 ------------------------------------------------------------------------------
 An Open Reliability Atlas of Sensitivity and Failure Modes in the Pulse Physiology Engine
 
-(Running title / short title: Reliability atlas: Pulse Physiology Engine)
+(Running title / short title: Reliability Atlas: Pulse Physiology Engine)
 
 ------------------------------------------------------------------------------
-ABSTRACT  (145 words)
+ABSTRACT  (150 words, npj cap 150)
 ------------------------------------------------------------------------------
-Pulse is an actively maintained open-source adult physiology simulator, yet no formal
-sensitivity analysis of its operational inputs has been published. We present
-the first reliability atlas across Pulse's critical-care envelope: Morris
-elementary-effects sampling of seven inputs across four severity levels
-(healthy through severe ARDS) in two bodies (1,280 simulations). A four-flag
-classifier (clamping, divergence, implausible, non-steady-state) surfaces
-several failure modes, two operator-actionable plus a sex-specific reliability axis. Tidal-volume instability in
-20.6 % of runs reflects patient–ventilator dyssynchrony; locking the VC-AC
-inspiration trigger to −2 cmH2O makes Vt deterministic for cohort generation.
-At FiO2 = 1.0 a transient hyperoxia regime makes 120-second runs underestimate
-plateau PaO2, which 300-second runs resolve near the alveolar-gas ceiling
-(median 643 mmHg). Solver divergence fell entirely on the male body
-(20/1,280); reducing its blood-volume baseline to the 4,082 mL floor
-eliminated it. These results map Pulse's operational sensitivity and
-review-priority regions and provide an open-source curation layer
-(Apache-2.0) for cohorts.
+Pulse is an actively maintained open-source adult-physiology simulator, yet no
+formal sensitivity analysis of its operational inputs has been published. We
+present the first reliability atlas across Pulse's critical-care envelope:
+Morris elementary-effects sampling of seven inputs, four severity scenarios,
+two bodies (1,280 simulations). Sensitivity is skewed: three inputs dominate
+each output (median 93 % of total sensitivity). A four-flag classifier
+(clamping, divergence, implausible, non-steady-state) surfaces failure modes:
+two operator-actionable, a third sex-dependent. Tidal-volume instability
+(20.6 % of runs) reflects patient–ventilator dyssynchrony; locking the VC-AC
+inspiration trigger to −2 cmH2O makes Vt reproducible. At FiO2 = 1.0 transient
+hyperoxia makes 120-second runs underestimate plateau PaO2; 300-second
+healthy-lung reruns give a median 643 mmHg. Solver divergence fell entirely on
+the male body (20/1,280); reducing its blood-volume baseline to the 4,082 mL
+floor eliminated it. The atlas maps operational sensitivity and
+review-priority regions, and releases an openly licensed curation layer for
+synthetic-cohort construction.
 
 ------------------------------------------------------------------------------
-KEYWORDS
+KEYWORDS  (13)
 ------------------------------------------------------------------------------
 Pulse Physiology Engine; digital twin; synthetic patient data; Morris
-elementary effects; ARDS; machine learning training data; operational
-envelope; reproducibility
+elementary effects; sensitivity analysis; uncertainty quantification; ARDS;
+mechanical ventilation; VC-AC ventilation; critical care; machine learning
+training data; operational envelope; reproducibility
+
+*** END GENERATED BLOCK ***
 
 ------------------------------------------------------------------------------
 CORRESPONDING AUTHOR
