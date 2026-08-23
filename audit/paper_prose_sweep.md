@@ -10,52 +10,59 @@ recorded and left for a later, separate correction pass.
 
 ---
 
-## ▶▶ COMBINED STATE — both documents swept (2026-08-23)
+## ▶▶ COMBINED STATE — refreshed 2026-08-23, after the visual pass and citation pass 1
+
+⚠️ **This block was stale for several hours** — it still read "35 signals, 34
+open" while the registers had reached 43. That is the exact defect this audit
+diagnoses elsewhere: a summary shorter than the truth it summarises. It is
+refreshed here, and **must be refreshed with every batch**, or this register
+becomes what it criticises.
 
 | | signals |
 |---|---|
-| supplement §S1–§S17 (`audit/supplement_prose_sweep.md`) | **30** (1 closed) |
-| paper, abstract → back matter (this file) | **5** |
-| **total** | **35, of which 34 open** |
+| supplement (`audit/supplement_prose_sweep.md`), ids 1–38 | **38** |
+| paper (this file), P-1 … P-5 | **5** |
+| **total** | **43 — 39 open, 4 off the table** |
 
-**Signal counts verified by enumeration**: the supplement register carries ids
-1–30 with no gaps; this one carries P-1 … P-5. The class breakdown below was
-checked for completeness and overlap — 35 assigned, 35 distinct, no duplicate,
-none missing, none extra.
-
-⚠️ **Paragraph totals are deliberately not given here, because they are
-instrument-dependent and I mis-stated them once.** Three different rules produce
-three different answers for the same supplement: 193 lines over 120 characters,
-281 non-markup text lines, and 253 from an earlier session under a rule not
-recorded. For the paper, the same >120-character rule gives **120** over the
-whole file but **112** when restricted to the body from the abstract through the
-back matter. A first version of this summary added the paper's *body* count to
-the supplement's *whole-file* count and reported "305 paragraphs" — two
-populations summed as one. **Coverage is what matters and it is complete:** every
-section of both documents was read, §S1 through §S17 and abstract through back
-matter.
+**Verified by enumeration, not by regex**: supplement ids 1–38 with no gaps,
+paper P-1…P-5. The class partition below was checked for completeness and
+overlap — 43 assigned, 43 distinct, no duplicate, none missing, none extra.
 
 **By class:**
 
-- **Scientific — a claim or interpretation outruns the evidence (5):** §S9 signal
-  17 (what the alveolar-gas equation predicts), §S13 signal 24 ("the underlying
-  physiology is real"), §S15 signal 28 (the S3→S4 dip and its survivorship
-  confound), **P-4** (cross-output μ\*), **P-2** (Berlin vs PALICC-2).
-- **Factual, established, cheap to repair (12):** signals 5, 8, 11, 12, 18, 19,
-  21, 26, 27, 30 and **P-1**, **P-3**.
-- **Needs a source before anything can be decided (5):** signals 1, 10, 20, 23
-  and **P-5** — all four unsourced absence claims plus the Cornish table
-  location. These are the citation pass.
-- **Low, legibility or cosmetic (12):** signals 3, 4, 6, 7, 9, 13, 14, 15, 16,
-  22, 25, 29.
-- **Closed (1):** signal 2.
+- **Scientific — a claim outruns its evidence (6):** 17 (what the alveolar-gas
+  equation predicts) · 24 ("the underlying physiology is real") · 28 (the S3→S4
+  dip and its survivorship confound) · **38** (sex-balanced flattens a
+  sign-reversing effect) · **P-2** (Berlin vs PALICC-2) · **P-4** (cross-output
+  μ\*).
+- **Factual, established, cheap to repair (17):** 5, 8, 11, 12, 18, 19, 21, 26,
+  27, 30, **31** (the fresh-clone recipe cannot run), **33** (313/313 pinned in a
+  live criterion), **34** (S001…S031 where the log reaches S032), **35**
+  ("detector" baked into the Figure S5 legend), **37** (34 at FiO₂ = 1.0), **P-1**,
+  **P-3**.
+- **Arbitrated against a source, repair still to write (4):** **1** (four
+  sub-claims: 2 supported, 1 source-insufficient, 1 overclaimed) · **20**
+  (escalated — the Pulse docs *do* carry the rule) · **23** (SUPPORTED; bound the
+  unbounded negative) · **P-5** (source-insufficient universal, but the BioGears
+  half is now citable).
+- **Low, legibility or cosmetic (13):** 3, 4, 6, 7, 9, 13, 14, 15, 16, 22, 25,
+  29, **36** (running-title case).
+- **Off the table (3):** 2 closed · 10 resolved from the source · 32 withdrawn as
+  my error.
 
-**Nothing has been corrected. Nothing has been pushed.**
+**Nothing has been corrected in any manuscript.**
 
-**Where the paper is the model, not the patient** — repairs should copy it, not
-rewrite it: signal 13 → §2.3's median of paired differences; signals 21, 22(a),
-29 → Table 1's correct units and four-flag wording; signal 26 → the
-Data-availability statement's "consolidates".
+**Where the paper is the model, not the patient** — repairs should copy it:
+signal 13 → §2.3's median of paired differences; signals 21, 22(a), 29 → Table 1;
+signal 26 → the Data-availability statement's "consolidates"; signal 37 →
+`supplement.tex:339`, which carries the full 34/31/32/2 decomposition.
+
+⚠️ **Paragraph totals are deliberately absent**, because they are
+instrument-dependent and were mis-stated once: three rules give 193, 281 and 253
+for the same supplement, and the paper gives 120 whole-file against 112 body-only
+under one rule. A first version summed a body count and a whole-file count as
+"305 paragraphs". **Coverage is the claim, and it is complete** — §S1 through
+§S17, abstract through back matter, and all 14 figures inspected as images.
 
 ---
 
