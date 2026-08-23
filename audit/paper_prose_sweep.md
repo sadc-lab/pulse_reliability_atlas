@@ -12,11 +12,28 @@ recorded and left for a later, separate correction pass.
 
 ## ▶▶ COMBINED STATE — both documents swept (2026-08-23)
 
-| | paragraphs | signals |
-|---|---|---|
-| supplement §S1–§S17 (`audit/supplement_prose_sweep.md`) | 193 | **30** (1 closed) |
-| paper, abstract → back matter (this file) | 112 | **5** |
-| **total** | **305** | **35, of which 34 open** |
+| | signals |
+|---|---|
+| supplement §S1–§S17 (`audit/supplement_prose_sweep.md`) | **30** (1 closed) |
+| paper, abstract → back matter (this file) | **5** |
+| **total** | **35, of which 34 open** |
+
+**Signal counts verified by enumeration**: the supplement register carries ids
+1–30 with no gaps; this one carries P-1 … P-5. The class breakdown below was
+checked for completeness and overlap — 35 assigned, 35 distinct, no duplicate,
+none missing, none extra.
+
+⚠️ **Paragraph totals are deliberately not given here, because they are
+instrument-dependent and I mis-stated them once.** Three different rules produce
+three different answers for the same supplement: 193 lines over 120 characters,
+281 non-markup text lines, and 253 from an earlier session under a rule not
+recorded. For the paper, the same >120-character rule gives **120** over the
+whole file but **112** when restricted to the body from the abstract through the
+back matter. A first version of this summary added the paper's *body* count to
+the supplement's *whole-file* count and reported "305 paragraphs" — two
+populations summed as one. **Coverage is what matters and it is complete:** every
+section of both documents was read, §S1 through §S17 and abstract through back
+matter.
 
 **By class:**
 
@@ -44,8 +61,14 @@ Data-availability statement's "consolidates".
 
 ## ▶ SUMMARY — read this first (sweep complete, 2026-08-23)
 
-**112 of 112 paragraphs swept**, abstract through back matter. **5 signals.** No
+**Every section swept**, abstract through back matter, including both tables of
+the Results opening, all six Results subsections, the fourteen Discussion
+paragraphs, all seven Methods subsections and the back matter. **5 signals.** No
 manuscript edit made; nothing pushed.
+
+⚠️ See the paragraph-count caveat above: the "112" quoted while this sweep was
+running is the body-only count under a >120-character rule, and it is not
+comparable to the supplement's figure. Coverage, not the count, is the claim.
 
 | # | locus | one line | class |
 |---|---|---|---|
