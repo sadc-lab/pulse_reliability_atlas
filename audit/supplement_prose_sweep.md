@@ -3036,6 +3036,65 @@ which **this atlas did not**.
 **Not applied.**
 
 
+### HumMod bibliographic entry -- metadata verified on two instruments
+
+| field | PubMed (PMID 21647209) | Crossref (DOI 10.3389/fphys.2011.00012) |
+|---|---|---|
+| title | HumMod: A Modeling Environment for the Simulation of Integrative Human Physiology | **identical** |
+| journal | Front Physiol | Frontiers in Physiology |
+| volume | 2 | **2** |
+| year | 2011 (Apr 13) | 2011 (`issued`, `published-online`) |
+| authors | 7: Hester RL, Brown AJ, Husband L, Iliescu R, Pruett D, Summers R, Coleman TG | **7, same names** |
+| article no. | **12** | ⚠️ **not carried by Crossref -- one instrument only** |
+
+**House style measured, not guessed**: proper nouns are brace-protected in titles
+(`{COVID-19}`, `{SALib}`, `{Berlin}`, `{FAIR}`), so `{HumMod}`; entries with more
+than five authors list the first three followed by `others` (`sinnige2026active`);
+the tail carries `doi`, `pmid`, `internal_note`. The entry must go into **both**
+`paper.bib` and `references.bib`.
+
+### P-5 falsified against the most relevant published review -- and it is the wrong instrument
+
+`katsoulakis2024digitaltwins` (*npj Digital Medicine* 2024;7:77, PMID 38519626) is
+a scoping review of digital twins for health **published in the target journal**
+and already in our bibliography. If it listed a reliability atlas for BioGears or
+HumMod, P-5 would be false. Full text pulled from Europe PMC (PMC10960047,
+142,937 B) and searched:
+
+| term | occurrences |
+|---|---|
+| "digital twin" | **140** (positive control) |
+| model / simulation / cardiovascular | 60 / 18 / 6 |
+| **BioGears · HumMod · Pulse** | **0 · 0 · 0** |
+| Morris · "sensitivity analys" · "physiology engine" · lumped | **0 · 0 · 0 · 0** |
+
+⚠️ **This neither supports nor refutes P-5, and the reason matters**: the review
+returns **0 for Pulse as well**, and Pulse certainly exists. Its silence shows the
+review does not cover mechanistic physiology engines at all -- so it is **the wrong
+instrument** for this question, not evidence of absence. Recorded so the result is
+not later mistaken for corroboration.
+
+⚠️ **Instrument artefact caught mid-measurement, the third time tonight**: `grep -c`
+returned 1 for "digital twin" because the XML is a **single line** -- it counts
+lines, not occurrences. Re-run with `grep -o | wc -l` gave 140. The zeros were
+unaffected, but the controls were meaningless until corrected.
+
+### katsoulakis2024digitaltwins -- both citations VERIFIED, no defect
+
+Checked while the full text was open, because `paper.tex:140` leans on it twice.
+
+| claim in `paper.tex:140` | what the review says |
+|---|---|
+| "Longitudinal health data ... are often **scarce and incomplete**" | "requires access to **longitudinal data**. This data is **often scarce and may have gaps**"; and "Inaccurate or **incomplete** data can lead to incorrect digital twin representations" |
+| "Digital twins for health ... **are proliferating across healthcare**" | its **opening abstract sentence**: "The use of digital twins (DTs) **has proliferated across various fields and industries, with a recent surge in the healthcare sector**" |
+
+✅ **Both supported.** The parenthetical "virtual, often mechanistic models of human
+physiology..." is the **authors' own definition** offered to the reader, not an
+attribution to the source; the citation attaches to the asserted claim, which the
+review carries. **A doubt I raised and then closed against the source rather than
+leaving it hanging.**
+
+
 ---
 
 ## Sections swept, and to what depth
