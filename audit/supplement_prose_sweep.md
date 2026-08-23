@@ -87,7 +87,7 @@ findings and must not be reported as such.
 | 59 | `preprint_npj/README.md:53-54` | "A `build_npj.ps1` PowerShell wrapper **will be added** once the LaTeX sources stabilise (Step 1)." The file has existed since **2026-06-01** and was run twice today | OPEN -- low, stale future tense |
 | 60 | `preprint_npj/README.md:248-252` | Status block: "Step 0 ✓ complete (**this commit**) · Step 1 -- Title + Abstract + Methods stub: **in progress** · Steps 2--10: **scheduled**". The package is submission-ready | OPEN -- low but conspicuous on a public page |
 | 61 | `preprint_npj/README.md:106-110` | "The phrase 'clinical-AI training' applied to Pulse has **no verified citation** ... **as of 2026-05-23**. Do **not** write it without first adding a verified citation." The date-stamp makes the sentence honest, but it reads as a **live prohibition** whose premise has since been met: `ward2024ventilator` sits at `paper.bib:448` with a full-text-read verification note, and `cover_letter.md:27` uses it for exactly that | OPEN -- low; dated, not false |
-| 62 | `paper.tex:372` and `manuscript.md:3388` | **HumMod is named as a comparable engine with no citation anywhere in the corpus** -- it appears exactly twice and has no `.bib` entry -- and the two loci characterise it differently: the paper says "**lumped-parameter** engines", the monograph says "**cardiopulmonary** engines" | OPEN -- ⚠️ **surfaced by the P-5 repair; an unsourced claim about a third-party system** |
+| 62 | `paper.tex:372` ("lumped-parameter") and `manuscript.md:3388` ("cardiopulmonary") | **Both characterisations of HumMod fail against its canonical source**, and HumMod is cited nowhere. BioGears has no bib entry either | OPEN -- ⚠️ **grew rather than shrank; primary source opened** |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -2966,6 +2966,74 @@ of 60, confirmed at `audit/npj_format_compliance.md:27`.
 **with no citation anywhere** -- it has no `.bib` entry and appears exactly twice in
 the whole corpus. Any repair to this sentence touches an unsourced claim about a
 third-party system, so it cannot be settled inside P-5.
+
+
+### Signal 62 -- primary source opened, and BOTH our descriptions of HumMod fail
+
+⚠️ **I told the maintainer this signal was shrinking. It grew.** I had reported
+that "lumped-parameter" and "cardiopulmonary" were not contradictory with each
+other -- true, but irrelevant. Measured against the source, **both are wrong.**
+
+**Canonical reference, located in PubMed and read today**: Hester RL, Brown AJ,
+Husband L, Iliescu R, Pruett D, Summers R, Coleman TG. *HumMod: A Modeling
+Environment for the Simulation of Integrative Human Physiology.* Front Physiol
+2011;2:12. **PMID 21647209**, PMCID PMC3082131, DOI 10.3389/fphys.2011.00012.
+
+> "We developed HumMod, a Windows-based model of **integrative human physiology**.
+> HumMod consists of **5000 variables** describing **cardiovascular, respiratory,
+> renal, neural, endocrine, skeletal muscle, and metabolic** physiology."
+
+| our word | locus | verdict against the source |
+|---|---|---|
+| "**cardiopulmonary** engines" | `manuscript.md:3388` | ⚠️ **wrong, and by a wide margin** -- renal, neural, endocrine, skeletal-muscle and metabolic physiology are all in scope |
+| "**lumped-parameter** engines" | `paper.tex:372` | ⚠️ **unsupported** -- the abstract describes an XML-driven model of 5,000 variables built from empirical data and says nothing about a lumped or compartmental architecture |
+
+⚠️ **An inference I will not write**: HumMod descends from Guyton's model, which
+*is* compartmental. That is my reasoning, not the source's statement, so
+"lumped-parameter" stays unsupported.
+
+**Neither HumMod nor BioGears has a `.bib` entry** in `paper.bib` or
+`references.bib`. Both are named as third-party systems without citation.
+
+✅ **Checked and NOT a defect**: `manuscript.md:3250` also says "cardiopulmonary",
+but its referent is **our own sweep** -- "the way this atlas sweeps its
+cardiopulmonary inputs" -- and HR, BP, RR, Vt, FiO2 and PEEP are cardiopulmonary.
+One locus is defective, not two.
+
+### P-5 -- wording that follows from both of the maintainer's answers
+
+The two replies differ on order and on wording. Reconciled:
+
+**On order**, reply 1 is right and reply 2's sequencing would have cost a reopen:
+the P-5 sentence *contains* the word HumMod, so closing P-5 first and then finding
+"lumped-parameter" unsupported would reopen the sentence just closed.
+
+**On wording**, reply 2's logical point is correct and improves on my draft: "no
+Morris-screening **or** clamping atlas" distributes over the disjunction into
+**two separate and broader** absence claims, where "**using Morris screening and
+explicit clamping analysis**" describes the combination that makes an atlas
+comparable.
+
+**And reply 2's Sobol exclusion is confirmed verbatim**: `paper.tex:363` reads
+"**A preregistered Sobol bolt-on was triggered but not executed.**" Naming Sobol as
+a comparability criterion would imply a comparable atlas must have executed one,
+which **this atlas did not**.
+
+**Proposed, combining both replies plus the primary source:**
+
+> To our knowledge, no comparable reliability atlas using Morris screening and
+> explicit clamping analysis has been published for related physiology engines
+> such as BioGears (Pulse's predecessor) or HumMod~\cite{hester2011hummod}.
+
+* "To our knowledge" promises **no instrument**, which is all two web queries and
+  one targeted fetch can support.
+* "published" bounds the claim to the literature rather than to existence.
+* The comparable object is defined **by method**, so a reader knows what falsifies it.
+* **No architectural qualifier at all** -- neither "lumped-parameter" nor
+  "cardiopulmonary" survives, because neither is sourced.
+* HumMod gains its canonical citation at the locus that names it.
+
+**Not applied.**
 
 
 ---
