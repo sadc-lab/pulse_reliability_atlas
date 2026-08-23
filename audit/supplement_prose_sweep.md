@@ -1581,7 +1581,7 @@ there.
 | term | Pulse `RespiratoryModel.cpp` | BioGears, all four sources |
 |---|---|---|
 | mechanoreceptor | **18** (`m_MechanoreceptorsDyspneaFactor`, `targetTidalVolumeMechanoreceptorMultiplier` at L1445) | **0** |
-| recruit | **16** ("Acinar recruitment", `recruitmentScalingFactor`) | **0** |
+| recruit | **16** (`recruitedFraction`, `recruitmentScalingFactor`, `recruitment`) | **0** |
 
 **Why "improved hemorrhage response" is overclaimed, and it needs no external
 source to see.** An *improvement* cannot be "not present in" the system it
@@ -2816,6 +2816,70 @@ that Pulse revised it after the 2017 fork, which has not been done.** Asserting 
 would replace an overclaim with an unverified claim.
 
 **Nothing applied.** This is a scientific claim in `supplement.tex`.
+
+
+### Signal 1 -- corpus RE-MEASURED today, and the authorised wording cannot be written
+
+The maintainer authorised naming the corpus as "**the four BioGears system
+implementations and four methodology pages examined**". ⚠️ **That sentence cannot
+go into the supplement, for two independent reasons.**
+
+**1. The count cannot be enumerated.** The register names the four `.cpp` files
+(`Respiratory`, `Nervous`, `Cardiovascular`, `Drugs`) but records only "**four
+methodology pages**" without naming them. Searching every audit register, exactly
+**three** are identifiable -- nervous, cardiovascular, respiratory -- and the fourth
+appears nowhere. The FAQ page that does appear belongs to **P-5's** evidence, a
+different investigation. A count whose members cannot be listed does not belong in
+a manuscript.
+
+**2. The result was a prior session's record, not a measurement.** The claim rests
+on a **negative** -- zero occurrences -- and the repository's own rule is that a
+recorded verification is a claim. A negative going into a manuscript deserves a
+fresh reading.
+
+**Re-measured 2026-08-24, three named sources, each with positive controls:**
+
+| source | size | positive controls | `mechanorecept` | `recruit` |
+|---|---|---|---|---|
+| BioGears `Respiratory.cpp` | **148,907 B** (register: 149 KB ✓) | `Ventilat` 74, `Alveoli` 85, `Respiratory` 157 | **0** | **0** |
+| BioGears `Nervous.cpp` | **81,674 B** (register: 82 KB ✓) | `baroreceptor` 44, `hemoreceptor` 29 | **0** | **0** |
+| BioGears *Respiratory Methodology* page | 173,955 B | `ventilat` **52**, `respirat` 214, `lung` 95 | **0** | **0** |
+
+**Provenance checked, not assumed**: `Respiratory.cpp` carries "Copyright 2015
+Applied Research Associates" -- BioGears' owner, not Kitware. The methodology page
+returns `biogears` 258 and **`pulse` 0**, so there is no cross-site contamination --
+which is the exact near-miss recorded earlier, when a search summary blended the
+two projects.
+
+⚠️ **The strongest single piece of evidence is not the zero.** `Nervous.cpp`
+implements `AfferentBaroreceptor` (18), `AfferentChemoreceptor` (17) and
+`baroreceptor` (44 across forms). **The receptor family is richly represented and
+mechanoreceptors are specifically absent.** An instrument that finds the whole
+neighbourhood and not the target is saying something; a bare zero is not.
+
+⚠️ **One discrepancy against the record, stated rather than smoothed**:
+`hemoreceptor` returns **29** today where the register wrote 30. Probably a
+different pattern boundary. The file identity is confirmed by size.
+
+**Also withdrawn in this commit**: the register's own table said `recruit` -> 16
+*("Acinar recruitment", ...)*. The Pulse file uses `recruitedFraction`,
+`recruitmentScalingFactor` and `recruitment`. **"Acinar" is not in the source** and
+the table now says so.
+
+**Revised sentence, for a one-line confirmation:**
+
+> Pulse v4.3.1 models mechanoreceptor feedback and lung recruitment; we did not
+> identify either in the BioGears respiratory and nervous system implementations
+> or in its respiratory methodology documentation.
+
+It keeps the maintainer's "**we did not identify**", which describes what the
+search established rather than BioGears' ontology; it keeps the date out of the
+prose; and it names a corpus whose members can be listed and were **all measured
+today**. Cardiovascular and Drugs are dropped from the named corpus because they
+bear on neither term.
+
+**Not applied** -- the corpus *is* the claim, so this differs materially from the
+authorised text.
 
 
 ---
