@@ -545,6 +545,53 @@ causal isolation**"; "whether these adult-model reliability patterns transfer to
 pediatric physiology **remains untested**". A material post hoc deviation at the
 yellow–red boundary is declared in ¶368 rather than buried.
 
+---
+
+## Citation inventory for the later pass — listed, not opened
+
+**Population measured**: 105 citation occurrences over 44 distinct keys across
+`paper.tex` and `supplement.tex`. A lexical screen flagged 41 occurrences firing
+two or more of the agreed triggers.
+
+⚠️ **The screen over-fires and is not a verdict.** Its "absence" pattern matches
+any `no|not|only|first`, so it catches ordinary prose. The ranking below is
+judgement applied on top of it, not the score.
+
+### Highest value — open these first
+
+| key | locus | what to check | trigger |
+|---|---|---|---|
+| `sinnige2026active` | `paper.tex:394` | ACTiVE "improved overall ventilation quality yet showed **no difference in ventilator-free days or mortality**" — an attributed RCT outcome, and the four supervising reviewers will know this trial | (a) |
+| `ward2024ventilator` | `:380`, `:394` | "of its **six** ventilator settings, only FiO₂, RR and PEEP are inputs this atlas sweeps"; and "assessed **against Pulse rather than against patient data**" | (a)(d) |
+| `webb2020` | `:142` | "**12,642** unique patient and ventilator combinations"; "two equal-sized **70 kg** bodies"; "RR, I:E ratio and respiratory resistance **held fixed**" | (a) |
+| `cornish2023` | `:374` | "**85** Hoeffding rejections across **15** quantities", and the **80 / 2 / 3** split | (a) |
+| `kuczmarski2002cdc` | `:406` | CDC row at `Agemos = 216.5` giving **67.28992603** and **56.22969564** kg | (a) |
+| `ards2012` | `:414` | the Berlin band boundaries the calibration targets | (d) |
+| — | `:372` | **P-5**: "No comparable open atlas yet exists" for BioGears/HumMod — **no citation at all** | (b) |
+| — | §S11 item 2 | **signal 20**: the BV floor "is not currently exposed in the public patient-setup documentation" → `pulsepatientmethod` | (b) |
+| — | §S12 ¶903 | **signal 23**: `kitware/pulse:4.3.1` published "for `linux/amd64` **only**"; "**no** prebuilt ARM64 image exists" → a Docker Hub manifest query | (b) |
+| — | §S1 ¶116 | **signal 1**: "not present in BioGears" | (b) |
+
+### Verbatim quotations — trigger (c)
+
+`pulsefaq` (`:144`, the FAQ sentence quoted in full) and `pulsesystem` (`:146`,
+"a low fidelity clinical approach… not necessarily for high fidelity predictive
+purposes"). Plus supplement **signal 9**, the §S7 ¶597 paraphrase carried inside
+quotation marks.
+
+### Hard-bound provenance — trigger (d), one sentence each
+
+`brower2000`, `severinghaus1979`, `singer2016`, `evans2021sepsis`,
+`mancia2023esh`, `nin2017`, `west2020respiratory` — each anchors one
+`implausible` bound in §4.4.
+
+### ✅ Already discharged during this sweep — do not re-open
+
+- **`nadler1962`** — the 73.0 and 63.8 mL·kg⁻¹ were recomputed by hand from the
+  published sex-specific formulas and both are exact.
+- **`pulserespmethod`** (the five severity nodes) — confirmed directly in
+  `RespiratoryModel.cpp:3724–3731`, which is stronger than the citation.
+
 **Marked for the citation pass, not opened:**
 
 | locus | trigger | what to check |
