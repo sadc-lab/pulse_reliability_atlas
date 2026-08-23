@@ -363,6 +363,55 @@ which would take a validation against measured arterial data and is outside the
 scope of a curation map" sits at the same epistemic level as the Figure S5
 caption's refusal of external physiological validation.
 
+### §2.5 sex-stratified divergence — no signal, and it is the most solid section swept
+
+Recorded at length because this is the **coupling hotspot**: 15 of the 39
+supplement→paper cross-references point at `sec:results-sex`, and 6 more at
+`sec:results-secondary`. Rewording it would put twenty-one supplement loci at
+risk, so its soundness matters more than most.
+
+**¶338, the divergence signature — six claims, six exact:**
+
+| claim | measured |
+|---|---|
+| "20 runs (1.6 %) … 4 in each of S1_M, S2_M, S3_M and 8 in S4_M" | 4/4/4/8 = 20, 20/1,280 = 1.5625 % ✓ |
+| "zero divergences across the 640 runs on the female body" | 0/640 ✓ |
+| "span only **8 distinct operational-input vectors**" | **8** distinct 7-tuples ✓ |
+| "4 vectors that diverge in all four male cells and 4 that diverge only in S4_M" | exactly **4 vectors at multiplicity 4** and **4 at multiplicity 1**, the latter all in S4_M ✓ |
+| "**16 of the 20** … HR = 50, SBP = 90 … RR = 20" | **16** ✓; the other four sit at HR 90, 90, 90, 110 → "HR 90--110" ✓ |
+| "FiO₂ … 1.0 in **13** of the 20 (the other **7** near ≈ 0.74)" | 13 at 1.0, **7 at 0.7367** ✓ |
+
+💡 This paragraph makes the **events-versus-configurations** distinction
+explicitly — "supported by 8 distinct input vectors, not by one per divergence
+event" — which is the discipline this project's own method notes demand. It is
+the cleanest handling of that distinction in either document.
+
+**¶340–342, the blood-volume mechanism:**
+
+- 4,803 / 3,996 mL, ≈71 mL·kg⁻¹, 16.8 %, the 4,082 mL floor and the 86 mL gap —
+  all re-derived earlier tonight ✓
+- "an intermediate bracket (4,400 mL, an **8.4 %** reduction)" → 402.63/4,802.63
+  = **8.383 %** ✓
+- **"Nadler's sex-specific equations give 73.0 and 63.8 mL·kg⁻¹" — recomputed by
+  hand from the published formulas and both exact.** Male, H = 1.80 m, W = 67.3:
+  0.3669(5.832) + 0.03219(67.3) + 0.6041 = 4.910 L → **72.96** → 73.0 ✓. Female,
+  H = 1.63 m, W = 56.2: 0.3561(4.3307) + 0.03308(56.2) + 0.1833 = 3.585 L →
+  **63.78** → 63.8 ✓. This claim is guarded by nothing and it is right.
+- "comparable to the upper bound of a **Class I hemorrhage** (ATLS)… up to 15 %"
+  — clinically correct; ATLS Class I is a loss below 15 % ✓ (citation
+  `atls2018`, criterion (a), marked below)
+
+**¶344, the three sex axes:**
+
+| claim | measured |
+|---|---|
+| "24 (scenario × output) comparisons" | 4 × 6 = 24 ✓ |
+| "exceeds its permutation null on **six**, of which **five** survive BH" | 6 → 5 ✓ |
+| "PaCO₂ in S1, S2 and S3 … SpO₂ and PaO₂ in S4" | the exact five survivors ✓ |
+| "**12** scenario–output cells where the comparison is computable" | **12** — S2 and S3 only; every S1 and S4 cell is NaN ✓ |
+| "ρ point estimates **0.75--1.00**" | min **0.7500** (S2 Vt), max **1.0000** (S2 MAP) ✓ |
+| "the **mild-ARDS delivered-tidal-volume** cell is the only one whose CI includes zero" | S2 Vt has lo = **−0.0588**; every other lower bound ≥ 0.3433 ✓ **the only one** ✓ |
+
 **Marked for the citation pass, not opened:**
 
 | locus | trigger | what to check |
