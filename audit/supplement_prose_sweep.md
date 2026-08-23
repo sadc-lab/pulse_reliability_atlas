@@ -87,6 +87,7 @@ findings and must not be reported as such.
 | 59 | `preprint_npj/README.md:53-54` | "A `build_npj.ps1` PowerShell wrapper **will be added** once the LaTeX sources stabilise (Step 1)." The file has existed since **2026-06-01** and was run twice today | OPEN -- low, stale future tense |
 | 60 | `preprint_npj/README.md:248-252` | Status block: "Step 0 ✓ complete (**this commit**) · Step 1 -- Title + Abstract + Methods stub: **in progress** · Steps 2--10: **scheduled**". The package is submission-ready | OPEN -- low but conspicuous on a public page |
 | 61 | `preprint_npj/README.md:106-110` | "The phrase 'clinical-AI training' applied to Pulse has **no verified citation** ... **as of 2026-05-23**. Do **not** write it without first adding a verified citation." The date-stamp makes the sentence honest, but it reads as a **live prohibition** whose premise has since been met: `ward2024ventilator` sits at `paper.bib:448` with a full-text-read verification note, and `cover_letter.md:27` uses it for exactly that | OPEN -- low; dated, not false |
+| 62 | `paper.tex:372` and `manuscript.md:3388` | **HumMod is named as a comparable engine with no citation anywhere in the corpus** -- it appears exactly twice and has no `.bib` entry -- and the two loci characterise it differently: the paper says "**lumped-parameter** engines", the monograph says "**cardiopulmonary** engines" | OPEN -- ⚠️ **surfaced by the P-5 repair; an unsourced claim about a third-party system** |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -2905,6 +2906,66 @@ absent from the system it improves). Neither was replaced by a new assertion.
 present, **"not present in BioGears" now 0**, **"improved hemorrhage response" now
 0**. Gate exit 0, zero FAIL rows; the publication gate and the portal sync both
 still pass.
+
+
+### P-5 -- three findings that reshape the repair, and a new signal
+
+**1. The paragraph already knows the right move.** Two sentences earlier it cites
+the Pulse maintainers' own admission (`\cite{pulsefaq}`) rather than asserting an
+absence. The sentence's job here is **motivation** -- justifying that applying the
+recipe elsewhere is worth doing -- not reporting a result. So an unverifiable
+universal negative can be replaced by a **sourced positive**, mirroring a move the
+paragraph already makes well.
+
+**2. The BioGears half re-verified at its primary source, today.** The FAQ says
+verbatim: "We have not performed a systematic forward propagation or inverse
+quantification of model uncertainty, **nor do we have the resources to conduct a
+formal sensitivity analysis.**" Provenance checked: `biogears` 92, **`pulse` 0** --
+no cross-site contamination. Attribution confirmed on the page itself: "Copyright
+(c) 2016 **Applied Research Associates, Inc.**", matching the `Respiratory.cpp`
+header.
+
+⚠️ **Pulse and BioGears do not use the same wording** -- Pulse writes "nor **have we
+conducted**", BioGears "nor **do we have the resources to** conduct". Two distinct
+texts, so the two engines admit the gap **separately** and the BioGears admission
+is independently citable.
+
+⚠️ **Discrepancy against my own earlier record, stated**: I counted `biogears` 66
+times on this page in a previous session and 92 today, probably a case-sensitivity
+difference. The invariant that matters, `pulse` = 0, holds in both, and the
+verbatim sentence is identical.
+
+**3. ⚠️ npj's own rule cuts against adding a reference.** `audit/npj_format_compliance.md`
+N-4 quotes the Submission Guidelines: "**URLs for web sites should be cited
+parenthetically in the text, not in the reference list**". The paper already
+carries **six** web-page references, all Kitware Pulse documentation including
+`pulsefaq`, and the register grades that 🟡. A `biogearsfaq` entry would be the
+**seventh**. The register also records that npj contradicts itself -- it supplies an
+*Online material* format and accepts blog posts and figshare datasets -- so the six
+are an accepted, documented risk rather than an oversight.
+
+**The options, with their real costs:**
+
+| | form | cost |
+|---|---|---|
+| **A** | `\cite{biogearsfaq}` -- a numbered reference, consistent with `pulsefaq` in the same paragraph | a **seventh** web-page reference against a rule already flagged 🟡; needs an entry in **both** `.bib` files |
+| **A'** | parenthetical URL in the text, per npj's stated rule | **inconsistent with `pulsefaq` two sentences earlier** -- two FAQ pages treated differently in one paragraph |
+| **B** | "To our knowledge, no comparable open atlas has been published for…" | promises no instrument, but remains an **absence claim**, only hedged |
+
+⚠️ **The form the maintainer proposed -- "we did not identify … in the literature
+searched" -- is still ruled out**, and by my own record: it **promises an
+instrument**. The actual search was two web queries and one targeted fetch, with
+no named database, no recorded query set and no cutoff. Writing it would replace
+one overclaim with a subtler one, because it *reads* as methodological.
+
+**Reference budget is not the constraint**: 37 `bibitem` compiled against npj's cap
+of 60, confirmed at `audit/npj_format_compliance.md:27`.
+
+**New signal 62 raised by this repair.** HumMod is named in `paper.tex:372` as a
+"lumped-parameter" engine and in `manuscript.md:3388` as a "cardiopulmonary" one,
+**with no citation anywhere** -- it has no `.bib` entry and appears exactly twice in
+the whole corpus. Any repair to this sentence touches an unsourced claim about a
+third-party system, so it cannot be settled inside P-5.
 
 
 ---

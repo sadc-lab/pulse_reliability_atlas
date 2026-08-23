@@ -20,14 +20,14 @@ becomes what it criticises.
 
 | | signals |
 |---|---|
-| supplement (`audit/supplement_prose_sweep.md`), ids 1–61 | **61** |
+| supplement (`audit/supplement_prose_sweep.md`), ids 1–62 | **62** |
 | paper (this file), P-1 … P-5 | **5** |
-| **total** | **66 — 54 open, 12 closed or off the table** |
+| **total** | **67 — 55 open, 12 closed or off the table** |
 
-**Verified by enumeration, not by regex**: supplement ids 1–61 with no gaps,
+**Verified by enumeration, not by regex**: supplement ids 1–62 with no gaps,
 paper P-1…P-5. The class partition below was checked for completeness and
 overlap — 66 assigned, 66 distinct, no duplicate, none missing, none extra.
-7 + 23 + 5 + 20 + 12 = 66; open = 66 − 12 = 54.
+7 + 23 + 5 + 20 + 12 = 67; open = 67 − 12 = 55.
 
 **By class:**
 
@@ -48,7 +48,8 @@ overlap — 66 assigned, 66 distinct, no duplicate, none missing, none extra.
   four scenarios ARDS; one is the healthy baseline), **57** (a *third* stale ledger
   figure, 195, on a public page), **58** (every page count in the npj README is
   wrong; the two submitted documents are **correct**).
-- **Arbitrated against a source, repair still to write (4):** **20**
+- **Arbitrated against a source, repair still to write (5):** **62** (HumMod named as
+  a comparable engine with **no citation**, and characterised two ways) · **20**
   (escalated — the Pulse docs *do* carry the rule) · **23** (SUPPORTED; bound the
   unbounded negative) · **P-5** (source-insufficient universal, but the BioGears
   half is now citable) · **56** (two incompatible affiliation schemes —
