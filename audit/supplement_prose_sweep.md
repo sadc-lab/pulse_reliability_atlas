@@ -57,7 +57,9 @@ findings and must not be reported as such.
 | 29 | §S15 ¶959 | Names "the **four**-flag steady-state classifier" then lists **three** flags, omitting `clamped` | OPEN — zero numerical impact (`clamped` = 0/1,280) |
 | 30 | §S17 ¶1022 | "**Six** engine-side infrastructure recommendations" — the six listed are **not the same six** as §S11: item 1 is dropped, item 3 is split in two | **OPEN — an index wrong about what it indexes** |
 | 31 | §S12 ¶842–877 | "The **minimal command sequence** … from a **fresh clone**" **omits the Docker image build**. `src/runner.py:35` sets `DEFAULT_IMAGE = "pulse-atlas-engine"`, a locally-built image; step 2 fails on a fresh clone. | **OPEN — reproducibility, breaks for any outside user** |
-| 32 | §S12 vs `README.md` | The two public reproduction recipes **diverge**: README has the image build and the figures but no `uv sync` step and no audit ledger; §S12 has `uv sync` and the ledger but no build and no figures. | **OPEN — neither recipe alone is complete** |
+| 32 | §S12 vs `README.md` | ~~The two public recipes diverge~~ | **WITHDRAWN — my error; the README does cover the ledger, in a separate section** |
+| 33 | `TODO_publication_roadmap.md:143` | A **live acceptance criterion** pinned to a stale count: "must stay **313/313** · 94/94 · 26/26 · 25/25 (currently green)" where the ledger is at **382** | **OPEN — nothing re-measures it** |
+| 34 | `README.md:357` | "santino/ **S001 … S031** entries" where the log reaches **S032**. The same locus previously read S001…S025 and was corrected to S031 — **it has drifted again** | **OPEN — recurrence, nothing re-measures it** |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -1254,6 +1256,85 @@ earlier session.
 - `preprint/references.bib`: 33 entries, 32 shared with `paper.bib`, and **0 DOI
   divergence** across the shared keys — the drift this project recorded three
   times is currently absent
+
+
+### 32 — WITHDRAWN
+
+The entry claimed the README omits the audit ledger and that neither public
+recipe is complete. **Both halves are wrong.**
+
+- `README.md:278–297` carries a dedicated section, *Verifying everything is
+  wired up*, running `audit_claims.py`, `--check-paper-sync` and
+  `--check-monograph`, with a three-layer table stating what each layer does
+  **and does not** do. The ledger is not omitted; it is in a different section
+  from the four-step reproduction block.
+- §S12 promises "the canonical sweep **+ audit ledger**", not figures, so its
+  omission of `make_figures.py` is inside its stated scope.
+- The README's missing `uv sync` step is immaterial: its step 2 is
+  `uv run …`, which resolves dependencies itself.
+
+Nothing specific to this entry survives. What remains is entirely contained in
+**signal 31**, whose defect is §S12's own completeness claim.
+
+**How the error was made, since it is the second of its kind tonight**: I
+compared the two recipes as *lists of commands* without reading what each
+document *promises*. The same failure as the withdrawn half of signal 25 —
+quoting a number or a list against a passage without reading the passage's own
+scoping. Read the promise before comparing the delivery.
+
+### 33 — a live acceptance criterion pinned to a stale count
+
+`TODO_publication_roadmap.md:143`:
+
+> `audit_claims.py --check-paper-sync --check-monograph` → **must stay
+> 313/313 · 94/94 · 26/26 · 25/25** (currently green)
+
+The ledger is at **382**. Every gate run in this session printed 382 anchors, and
+`README.md` prints 381/382 and 382/382 correctly at five loci.
+
+⚠️ **Not the same as L51**, which reads "Last run 2026-08-04. On a clean public
+clone expect 312/313 …". That one is a **dated record** and legitimately keeps
+its original value, per this checklist's own rule. L143 is an instruction for the
+future, and it is wrong.
+
+### 34 — the experiments-log range has drifted again
+
+`README.md:357` prints "`santino/` **S001 … S031** entries (one .md each)".
+Measured on disk: the highest entry is **S032**.
+
+**This is a recurrence.** The same locus previously read "S001 … S025" and was
+corrected to S031 on 2026-08-05. One new experiment later it is stale again.
+
+### Why 33 and 34 drifted and the README's counters did not
+
+The README's ledger counters are **correct** at all five loci — 381/382, 382/382,
+26/26 — because they were wired to the ledger (`8cae68c`, "17 chiffres liés au
+ledger"). The two values that drifted are precisely the two that **nothing
+re-measures**: a prose range bound and a hand-written acceptance criterion.
+
+That is this project's own rule restated by a fresh example: **finding a drift
+means wiring a guard when nothing re-measures it.** A range bound of the form
+`S001 … SNNN` and a counter target inside a TODO are both mechanically checkable.
+
+### Anti-recurrence checklist — the rest came back clean
+
+| check | result |
+|---|---|
+| 1. the retracted S018 value "2 / 20" | ✅ **zero occurrences** across all seven public files |
+| 2. withdrawn vocabulary ("widely/most used", "increasingly used") | ✅ five hits, **all legitimate** — a dated archive warning in `pre_submission_inquiry.txt:21–24` and its archived body, a description of the withdrawal in the roadmap, and the house rule at `preprint_npj/README.md:104` that forbids the phrase |
+| 2b. other retracted claims (FiO₂ crash, no sex-specific physiology, CO₂ narcosis, "clinical-AI training") | ✅ one hit, the house rule itself |
+| 3. article title consistency | not separately tested in this pass |
+| 4. range bounds | ⚠️ **signal 34** |
+| 5. full read of each file | README read in the sections the checklist targets; not line-by-line end to end |
+
+**Files covered**: `README.md`, `CITATION.cff`, `preprint_npj/cover_letter.md`,
+`preprint_npj/submission_metadata.txt`, `preprint_npj/pre_submission_inquiry.txt`,
+`TODO_publication_roadmap.md`, `preprint_npj/README.md` — all seven present.
+
+⚠️ **Two checklist points are not fully discharged** and are marked rather than
+claimed: title consistency across loci (point 3), and the full end-to-end read of
+each file (point 5) — the checklist warns that the two S018 defects sat at lines
+155 and 420 of a 475-line file, so a targeted read is not a substitute.
 
 
 ---
