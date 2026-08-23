@@ -39,4 +39,4 @@ abstract: >-
   failure-mode classifier, two structural findings (F-003 transient
   hyperoxia regime, F-004 VC-AC patient-ventilator dyssynchrony with
   an operator-actionable trigger-pressure fix), and a per-cell
-  reliability traffic light.
+  traffic-light curation and review-priority map.

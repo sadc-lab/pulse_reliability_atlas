@@ -86,7 +86,7 @@ We ran Pulse 4.3.1 **1,280 times** across:
   inspired oxygen, PEEP) — sampled with Morris elementary effects.
 - **4 scenarios** (healthy ventilated adult; mild, moderate, and severe
   acute respiratory distress syndrome — ARDS).
-- **2 patient surrogates** (Pulse standard adult male and female).
+- **2 adult reference surrogates** (male and female).
 
 Every run was classified by a four-flag detector:
 
