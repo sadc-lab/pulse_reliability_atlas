@@ -20,14 +20,14 @@ becomes what it criticises.
 
 | | signals |
 |---|---|
-| supplement (`audit/supplement_prose_sweep.md`), ids 1–44 | **44** |
+| supplement (`audit/supplement_prose_sweep.md`), ids 1–47 | **47** |
 | paper (this file), P-1 … P-5 | **5** |
-| **total** | **49 — 46 open, 3 off the table** |
+| **total** | **52 — 49 open, 3 off the table** |
 
-**Verified by enumeration, not by regex**: supplement ids 1–44 with no gaps,
+**Verified by enumeration, not by regex**: supplement ids 1–47 with no gaps,
 paper P-1…P-5. The class partition below was checked for completeness and
-overlap — 49 assigned, 49 distinct, no duplicate, none missing, none extra.
-6 + 20 + 4 + 16 + 3 = 49; open = 49 − 3 = 46.
+overlap — 52 assigned, 52 distinct, no duplicate, none missing, none extra.
+6 + 21 + 5 + 17 + 3 = 52; open = 52 − 3 = 49.
 
 **By class:**
 
@@ -36,23 +36,25 @@ overlap — 49 assigned, 49 distinct, no duplicate, none missing, none extra.
   dip and its survivorship confound) · **38** (sex-balanced flattens a
   sign-reversing effect) · **P-2** (Berlin vs PALICC-2) · **P-4** (cross-output
   μ\*).
-- **Factual, established, cheap to repair (20):** 5, 8, 11, 12, 18, 19, 21, 26,
+- **Factual, established, cheap to repair (21):** 5, 8, 11, 12, 18, 19, 21, 26,
   27, 30, **31** (the fresh-clone recipe cannot run), **33** (313/313 pinned in a
   live criterion), **34** (S001…S031 where the log reaches S032), **35**
   ("detector" baked into the Figure S5 legend), **37** (34 at FiO₂ = 1.0), **P-1**,
   **P-3**, **40** (README announces two image hashes and prints one), **39** (the
   monograph's ~7 h sweep wall time, below the 13.72 h floor — README, supplement
   and paper are all **correct** here), **44** (two `wall_time_s` values inflated
-  by a host suspension the 600 s timeout failed to catch).
-- **Arbitrated against a source, repair still to write (4):** **1** (four
+  by a host suspension the 600 s timeout failed to catch), **45** (README calls the
+  bodies "Pulse standard" where the paper says the male one is not).
+- **Arbitrated against a source, repair still to write (5):** **1** (four
   sub-claims: 2 supported, 1 source-insufficient, 1 overclaimed) · **20**
   (escalated — the Pulse docs *do* carry the rule) · **23** (SUPPORTED; bound the
   unbounded negative) · **P-5** (source-insufficient universal, but the BioGears
-  half is now citable).
-- **Low, legibility or cosmetic (16):** 3, 4, 6, 7, 9, 13, 14, 15, 16, 22, 25,
+  half is now citable) · **46** ("reliability traffic-light" survives the reframing
+  at 10 loci — **name or claim? two readings, undecided**).
+- **Low, legibility or cosmetic (17):** 3, 4, 6, 7, 9, 13, 14, 15, 16, 22, 25,
   29, **36** (running-title case), **41** ("silent FiO2 cap" unscoped beside the
   "does not silently clamp" headline), **42** (broken link), **43** (bit-exact vs
-  1e-6 conflated).
+  1e-6 conflated), **47** (`CITATION.cff` version and release date three months stale).
 - **Off the table (3):** 2 closed · 10 resolved from the source · 32 withdrawn as
   my error.
 
@@ -96,7 +98,7 @@ Methods does not license, with a recoverable mechanism claim) and P-2 (an
 adult-vs-pediatric definition mix-up that pediatric intensivist reviewers will
 see). P-3 and P-1 are precise and cheap to repair. P-5 needs a source or a hedge.
 
-**Awaiting a decision before any edit:** all five, plus the 41 open supplement
+**Awaiting a decision before any edit:** all five, plus the 44 open supplement
 signals. Nothing has been corrected.
 
 **Three findings that run the other way** — places where the paper is the

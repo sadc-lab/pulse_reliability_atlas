@@ -70,6 +70,9 @@ findings and must not be reported as such.
 | 42 | `README.md:370` | Link text `Pulse_translation_new/` resolves to `https://github.com/santinon/` -- a user profile, not a repository. Public-facing broken pointer | OPEN -- cosmetic but visible to every reader |
 | 43 | `README.md:255-257` | "Pulse 4.3.1 is bit-exact deterministic ... **so** reruns reproduce upstream values to 1e-6 relative tolerance" derives a weaker claim from a stronger one. Bit-exact implies tolerance 0. The correct scoping -- bit-exact *within* an image, 1e-6 *across* rebuilds -- is stated correctly 16 lines later at L271-274 | OPEN -- low; the same file already carries the right form |
 | 44 | `data/runs/full_sweep/S4_M/S4_M_0123`, `_0124` + `src/runner.py:113` | **Data-integrity, not prose.** Two `wall_time_s` values are inflated by a host suspension (24{,}722.296 s and 24{,}722.282 s -- **14 ms apart after 6.87 h**). The `timeout_s = 600.0` guard did not fire, which is only possible if the Python process was suspended with its containers. Scientific outputs verified unaffected. Any future re-derivation of compute cost from this metadata is wrong by 50 % unless these two are excluded | OPEN -- **no manuscript claim depends on it; wire a guard** |
+| 45 | `README.md:89` -- **1 locus** | "2 patient surrogates (**Pulse standard adult male and female**)". `paper.tex:406` states the opposite in terms: the male height "is a **researcher-chosen value** ... and **is not** Pulse's `heightStandardMale_cm = 177.0`". The paper even calls its own passage "a correction to an earlier account"; the correction never reached the README | OPEN -- **factual, contradicts the paper's Methods** |
+| 46 | **10 loci** in `paper.tex` (2), `manuscript.md` (6), `README.md` (1), `CITATION.cff` (1) | "**reliability** traffic-light" survives the Figure-2 reframing that replaced a reliability *verdict* with *curation and review priority*. `paper.tex` says curation 9x and review-priority 7x, yet `:475` twice calls the same object the "reliability traffic-light map" -- in **Data availability** | OPEN -- ⚠️ **two readings defensible, not decided here** |
+| 47 | `CITATION.cff:22-23` | `version: "0.1.0"` / `date-released: 2026-05-22`, three months before submission and unchanged since. Covered in spirit by the file's own "blank until deposit" note, which does not mention these two fields | OPEN -- low; refresh at deposit |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -2054,6 +2057,75 @@ Checks on the displayed chain: 41.1 - 27.4 = 13.7 ✅ · 13.7 / 2 = 6.85 ~ 6.84 
 ⚠️ The 20.8 -> 20.78 change is mechanical and serves the maintainer's own stated
 intent. **The double-counting clause is an addition to a manuscript and is not**,
 so it waits for their word.
+
+
+### CITATION.cff read line by line -- 2 signals, and a miss of mine recovered
+
+All 43 lines read. **Verified exact**: ORCID `0009-0000-5645-4691`, contact
+`santino.nanini@umontreal.ca`, `license: Apache-2.0`, `type: software`, the
+1,280-run figure, H1-H4, F-003 and F-004, and the careful phrase "two adult
+reference **surrogates**" -- which is the right term and is precisely what the
+README gets wrong.
+
+**45 -- the miss.** I read `README.md:89` during the line-by-line pass, flagged
+"Pulse standard adult male and female" in working notes, and **never registered
+it**, having been diverted into the wall-time investigation. It surfaced again
+only because `CITATION.cff` states the same fact correctly.
+
+⚠️ **The population is one locus, not four -- a homonym, exactly as in signal 38.**
+
+| locus | wording | verdict |
+|---|---|---|
+| `paper.tex:406` | "the male height is a researcher-chosen value ... **is not** Pulse's `heightStandardMale_cm = 177.0`" | ✅ **canonical, and explicit** |
+| `CITATION.cff:37` | "two adult reference surrogates" | ✅ neutral and correct |
+| `manuscript.md:685` | "**H4.** Male and female Pulse standard patients differ..." | ✅ **a verbatim quotation of the preregistered H4** |
+| `manuscript.md:691` | "The phrase 'Pulse standard patients' in H4 is **quoted exactly as it was**" | ✅ the monograph annotates the quotation itself |
+| `manuscript.md:4407` | discusses "the original 'Pulse standard' wording" | ✅ metalinguistic |
+| `supplement.tex:472`, `:492` | "the adult standard patient" as **Pulse's own calibration target** for its diffusion and severity curves | ✅ **different referent entirely** |
+| `README.md:89` | "2 patient surrogates (**Pulse standard adult male and female**)" | ⚠️ **the only defect** |
+
+The paper describes its own passage as "a correction to an earlier account of it
+in this manuscript" -- so this error was caught once and repaired inside the
+manuscript, and the repair never reached the public front page.
+
+**46 -- a scope question, deliberately not decided.** The reframing replaced a
+reliability *verdict* with *curation and review priority*.
+
+| file | "curation" | "review-priority" | "reliability traffic" |
+|---|---|---|---|
+| `paper.tex` | 9 | 7 | **2** |
+| `supplement.tex` | 0 | 0 | **0** -- says "traffic-light baseline", neutral ✅ |
+| `manuscript.md` | 6 | 3 | **6** |
+| `README.md` | 0 | 0 | **1** (ASCII diagram) |
+| `CITATION.cff` | 0 | 0 | **1** (abstract) |
+
+⚠️ **The sharpest case is inside the submitted paper**: `paper.tex:475`, in *Data
+availability*, twice names the object "the reliability traffic-light figures" and
+"the per-cell reliability traffic-light map", where §4.5 is titled "Traffic-light
+curation map".
+
+⚠️ **But the figure file is literally `fig06_reliability_traffic_light.pdf`**, so
+a Data-availability sentence naming released artefacts may be pointing at
+**filenames**, not restating a retired claim. **Two readings, both defensible:**
+
+1. The reframing retired the *verdict claim* only, and a filename-shaped reference
+   in a data statement is fine. Then `paper.tex:475` is correct and only
+   `CITATION.cff:42`, which makes a claim in an abstract, needs changing.
+2. The reframing retired the *name*, and every occurrence should follow. Then
+   `paper.tex:475` needs editing too, and the figure file arguably should be
+   renamed -- which cascades into the figure-generating script, the ledger and
+   every path reference.
+
+Option 2 is far more expensive and touches build artefacts. **Not decided here.**
+
+⚠️ **The monograph's 6 occurrences belong to the deferred Zenodo-gate population**
+and are registered, not actioned.
+
+⚠️ **Note against the repository's own memory**: the Figure-2 reframing is recorded
+as closed with "1 residue". Ten string occurrences now exist. That is not
+necessarily a contradiction -- most may be legitimate under reading 1 -- but the
+closure was recorded without the population being enumerated, which is the
+condition under which a count can silently grow.
 
 
 ---
