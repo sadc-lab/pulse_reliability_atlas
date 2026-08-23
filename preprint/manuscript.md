@@ -3384,8 +3384,8 @@ bounded.*
   whether the patterns reported here (sex-stratified divergence,
   VC-AC dyssynchrony at default trigger settings, transient hyperoxia
   regime at FiO2 = 1.0 in a 120 s steady-state window) are unique to
-  Pulse or generic to lumped-parameter
-  cardiopulmonary engines such as BioGears or HumMod. No
+  Pulse or generic to related physiology
+  engines such as BioGears or HumMod. No
   publicly-available comparable Morris-EE / Sobol / clamping atlas
   exists for either engine at the time of writing, so cross-engine
   relativisation is a limitation of the comparative literature rather

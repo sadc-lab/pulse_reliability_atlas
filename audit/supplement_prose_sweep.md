@@ -87,7 +87,7 @@ findings and must not be reported as such.
 | 59 | `preprint_npj/README.md:53-54` | "A `build_npj.ps1` PowerShell wrapper **will be added** once the LaTeX sources stabilise (Step 1)." The file has existed since **2026-06-01** and was run twice today | OPEN -- low, stale future tense |
 | 60 | `preprint_npj/README.md:248-252` | Status block: "Step 0 ✓ complete (**this commit**) · Step 1 -- Title + Abstract + Methods stub: **in progress** · Steps 2--10: **scheduled**". The package is submission-ready | OPEN -- low but conspicuous on a public page |
 | 61 | `preprint_npj/README.md:106-110` | "The phrase 'clinical-AI training' applied to Pulse has **no verified citation** ... **as of 2026-05-23**. Do **not** write it without first adding a verified citation." The date-stamp makes the sentence honest, but it reads as a **live prohibition** whose premise has since been met: `ward2024ventilator` sits at `paper.bib:448` with a full-text-read verification note, and `cover_letter.md:27` uses it for exactly that | OPEN -- low; dated, not false |
-| 62 | `paper.tex:372` ("lumped-parameter") and `manuscript.md:3388` ("cardiopulmonary") | **Both characterisations of HumMod fail against its canonical source**, and HumMod is cited nowhere. BioGears has no bib entry either | OPEN -- ⚠️ **grew rather than shrank; primary source opened** |
+| 62 | `paper.tex:372`, `manuscript.md:3388` | HumMod named with no citation, and characterised as "lumped-parameter" / "cardiopulmonary" against a source supporting neither | ✅ **CLOSED 2026-08-24** -- both qualifiers removed, `hester2011hummod` added to **both** `.bib` files |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -3093,6 +3093,64 @@ physiology..." is the **authors' own definition** offered to the reader, not an
 attribution to the source; the citation attaches to the asserted claim, which the
 review carries. **A doubt I raised and then closed against the source rather than
 leaving it hanging.**
+
+
+### P-5 and 62 applied -- and an XDOCCONFLICT the paper's own repair created
+
+**Written into `paper.tex:372`:**
+
+> To our knowledge, no comparable publicly available reliability atlas combining
+> Morris screening with explicit clamping analysis has been published for either
+> BioGears (Pulse's predecessor) or HumMod~\cite{hester2011hummod}.
+
+⚠️ **The maintainer caught an error in my draft that I had missed: I dropped
+"open".** My version said "no comparable reliability atlas has been published",
+which is **broader** than the original "no comparable **open** atlas" -- it would
+have covered non-public atlases too. "Publicly available" restores the original
+scope. Their "combining … with" also fixes the disjunction problem in my "using
+Morris screening **and** explicit clamping".
+
+**Presentation choice reported, alternative named**: both of the maintainer's
+drafts dropped "(Pulse's predecessor)". It is kept, because BioGears occurs
+**once** in `paper.tex` and that parenthesis is the only place the paper says what
+BioGears is.
+
+**Verified in the rendered PDF, not assumed**: bibitems **37 -> 38**, Hester present
+in `paper.bbl`, and the citation resolves to **[25]** rather than a `[?]`.
+`manuscript.md` rebuilt; "cardiopulmonary engines" and "lumped-parameter
+cardiopulmonary" both now **0** in the rendered monograph, with "BioGears" at 2 as
+the positive control. All four gates exit 0.
+
+⚠️ **XDOCCONFLICT, and the paper's repair created half of it.** The monograph still
+reads:
+
+> No publicly-available comparable Morris-EE / **Sobol** / clamping atlas **exists**
+> for either engine at the time of writing…
+
+Against the paper's new sentence, two differences:
+
+| | paper (repaired) | monograph |
+|---|---|---|
+| modality | "To our knowledge … **has been published**" | "**exists** … at the time of writing" -- ontological |
+| method set | Morris screening **with** explicit clamping | Morris-EE / **Sobol** / clamping |
+
+⚠️ **The Sobol difference is not cosmetic.** `paper.tex:363` states "A preregistered
+Sobol bolt-on was **triggered but not executed**". Naming Sobol as a comparability
+criterion implies a comparable atlas must have executed one -- which **this atlas
+did not**. The monograph is now **stronger than the paper on the same claim**,
+which inverts their intended relationship, since the monograph is the audited
+source of truth.
+
+**Not fixed**: the authorisation covered "cardiopulmonary" only, and both remaining
+differences are scientific claims.
+
+⚠️ **Four display artefacts in one small edit, recorded because the pattern is the
+lesson.** Two failed `assert`s came from guessing at whitespace instead of
+measuring it; `sed 's/^/  /'` in my own reporting added two spaces and made me
+"see" an indent that was not there; and the file uses LF where I assumed CRLF. An
+`od -c` dump settled it in one call: the line had **zero** leading spaces, not two,
+and the block's indent is **2**, not 4. My first correction over-shot to 4 before
+being measured back to 2. Block now homogeneous, 0 lines out of line.
 
 
 ---

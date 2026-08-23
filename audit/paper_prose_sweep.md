@@ -22,12 +22,12 @@ becomes what it criticises.
 |---|---|
 | supplement (`audit/supplement_prose_sweep.md`), ids 1–62 | **62** |
 | paper (this file), P-1 … P-5 | **5** |
-| **total** | **67 — 55 open, 12 closed or off the table** |
+| **total** | **67 — 53 open, 14 closed or off the table** |
 
 **Verified by enumeration, not by regex**: supplement ids 1–62 with no gaps,
 paper P-1…P-5. The class partition below was checked for completeness and
 overlap — 66 assigned, 66 distinct, no duplicate, none missing, none extra.
-7 + 23 + 5 + 20 + 12 = 67; open = 67 − 12 = 55.
+7 + 23 + 3 + 20 + 14 = 67; open = 67 − 14 = 53.
 
 **By class:**
 
@@ -48,12 +48,10 @@ overlap — 66 assigned, 66 distinct, no duplicate, none missing, none extra.
   four scenarios ARDS; one is the healthy baseline), **57** (a *third* stale ledger
   figure, 195, on a public page), **58** (every page count in the npj README is
   wrong; the two submitted documents are **correct**).
-- **Arbitrated against a source, repair still to write (5):** **62** (HumMod named as
-  a comparable engine with **no citation**, and characterised two ways) · **20**
-  (escalated — the Pulse docs *do* carry the rule) · **23** (SUPPORTED; bound the
-  unbounded negative) · **P-5** (source-insufficient universal, but the BioGears
-  half is now citable) · **56** (two incompatible affiliation schemes —
-  **author data, flagged not touched**).
+- **Arbitrated against a source, repair still to write (3):** **20** (escalated —
+  the Pulse docs *do* carry the rule) · **23** (SUPPORTED; bound the unbounded
+  negative) · **56** (two incompatible affiliation schemes — **author data,
+  flagged not touched**).
 - **Low, legibility or cosmetic (20):** 3, 4, 6, 7, 9, 13, 14, 15, 16, 22, 25,
   29, **41** ("silent FiO2 cap" unscoped beside the
   "does not silently clamp" headline), **42** (broken link), **43** (bit-exact vs
@@ -61,7 +59,7 @@ overlap — 66 assigned, 66 distinct, no duplicate, none missing, none extra.
   Pulse-scoped priority claim in the cover letter), **59** (a wrapper "will be added" that has
   existed since June), **60** (a Status block frozen at Step 1), **61** (a dated
   citation prohibition whose premise has since been met).
-- **Closed or off the table (12):** **1 closed 2026-08-24, corpus re-measured** · **55 closed 2026-08-23 by content-anchoring the publication gate** · **36, 52, 53, 54 closed 2026-08-23 by generating the portal block from paper.tex** · **50 verified TRUE at source 2026-08-23** · 2 closed · 10 resolved from the source · 32
+- **Closed or off the table (14):** **P-5 and 62 closed 2026-08-24** · **1 closed 2026-08-24, corpus re-measured** · **55 closed 2026-08-23 by content-anchoring the publication gate** · **36, 52, 53, 54 closed 2026-08-23 by generating the portal block from paper.tex** · **50 verified TRUE at source 2026-08-23** · 2 closed · 10 resolved from the source · 32
   withdrawn as my error · **45 and 46 corrected and closed 2026-08-23**.
 
 **Nothing has been corrected in any manuscript.**
@@ -104,7 +102,7 @@ Methods does not license, with a recoverable mechanism claim) and P-2 (an
 adult-vs-pediatric definition mix-up that pediatric intensivist reviewers will
 see). P-3 and P-1 are precise and cheap to repair. P-5 needs a source or a hedge.
 
-**Awaiting a decision before any edit:** all five, plus the 49 open supplement
+**Awaiting a decision before any edit:** all five, plus the 47 open supplement
 signals. Nothing has been corrected.
 
 **Three findings that run the other way** — places where the paper is the
