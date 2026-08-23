@@ -2277,7 +2277,7 @@ HowTo examples", which narrows what was checked while the sentence claims more.
 validation work and HowTo examples sample at most up to severity 0.9 and do not
 examine impairment fractions inside 0.91--0.945."
 
-**50 -- UNVERIFIABLE, and recorded as such rather than softened.**
+**50 -- was UNVERIFIABLE; CLOSED 2026-08-23 as VERIFIED TRUE (see below).** What follows is the state when it was raised, kept for the record.
 
 The letter opens by telling the journal what its own scope contains. Two nature.com
 pages were attempted this session -- the aims page and the digital-twin collection
@@ -2525,6 +2525,92 @@ All seven files read line by line, no grep substituting for a read.
 
 ⚠️ **Two of the seven are not public**, which the original framing assumed they
 were. Their staleness misleads the maintainer rather than a reader.
+
+
+---
+
+## REFERENCE STATE FROZEN -- 2026-08-23
+
+Inventory closed. **A general audit is not reopened** unless a correction creates
+a new conflict or reveals a dependency.
+
+| quantity | value |
+|---|---|
+| signals | **66** (supplement 1-61, paper P-1 to P-5) |
+| open | **60** |
+| closed or off the table | **6** (2, 10, 32, 45, 46, 50) |
+| awaiting a source or an author decision | **5** (1, 20, 23, P-5, 56) |
+| public files read line by line | **7 / 7**, no grep substituting for a read |
+
+WARNING: **two figures in the maintainer's freeze proposal were wrong and are
+corrected here.**
+
+1. The scientific class holds **7**, not 5. The proposed list -- 17, 24, 28, P-2,
+   P-4 -- omits **38** (a sign-reversing sex effect flattened into "sex-balanced")
+   and **49** (the cover letter stretching Pulse's non-examination of 0.91-0.945
+   over the wider band *we* established). **49 sits in the submission package
+   itself**, so it cannot be deferred with the monograph work.
+2. "**0 awaiting a source**" is not the case. Five signals cannot close without
+   either a new source or an author decision: **1** (one sub-claim SOURCE
+   INSUFFICIENT, one OVERCLAIMED), **20** (PARTIALLY OVERCLAIMED, source opened),
+   **23** (SUPPORTED, unbounded negative still to bound), **P-5** (SOURCE
+   INSUFFICIENT for the universal form), **56** (AUTHOR DECISION REQUIRED).
+
+WARNING: **a stale status in this register, found while checking the above.**
+Signal 50's table row was updated on closure but its **dossier heading below still
+read "UNVERIFIABLE"**. Fixed in the same commit. Third time in this session that
+the summary-updated / body-left-behind defect has appeared *inside the register
+that diagnoses it*.
+
+### Risk taxonomy adopted (maintainer's, 2026-08-23)
+
+| class | meaning | members |
+|---|---|---|
+| **publication-surface** | a reader or reviewer can see it | 39-43, 45-53, 57-61 |
+| **workflow** | it can cause a bad submission | **54, 55** |
+| **internal stale note** | no known operational consequence | parts of 33 |
+
+The two gitignored files are **workflow / internal files**, not public files.
+Their risk is to the operator, not the reader -- but `TODO_publication_roadmap.md`
+*orchestrates the submission*, so a false private instruction has an indirect
+public effect.
+
+### Correction order authorised
+
+1. **Operational block.** 52 + 54 together: `paper.tex` becomes the canonical
+   source of the abstract, `submission_metadata.txt` is **regenerated** from it
+   (never hand-corrected), and the roadmap's tick goes. Then **55**: content
+   anchors replace line numbers as the durable identity of a locus; line numbers
+   may stay in diagnostics, never as the addressing mechanism.
+2. **Absence and priority claims** -- 1, P-5 -- closed before any text propagates
+   into the short forms.
+3. **The 7 scientific.** Strict rule: **find the canonical correct formulation
+   already present** in paper / supplement / monograph and propagate it. No
+   independent rewriting where an audited long form exists.
+4. **Established factual**, grouped by canonical source. The 195 / 313 / 382
+   family is the model: identify the live quantity (**382**), then check **each
+   locus and its function** before propagating -- some are dated records, one is a
+   live acceptance criterion.
+5. **The stale public README**, distinguishing **honest dated snapshots** from
+   lines presenting as current state. Do not convert history into the present
+   tense wholesale.
+6. **Minor and legibility** last, without touching an arbitrated claim.
+7. **Guards**, once corrections stabilise.
+
+### Guard feasibility, measured before designing
+
+`paper.tex` and `submission_metadata.txt` are **both git-tracked**, so an abstract
+content-guard runs on a fresh clone. `TODO_publication_roadmap.md` is
+**gitignored** and cannot be guarded on a clone -- which settles the design: the
+guard binds paper to portal file, and the roadmap's tick is simply **removed**
+rather than made conditional on a check that cannot run.
+
+WARNING: **the regeneration transform must be pinned before it is written.** The
+portal file's house style, measured: `1,280` (not the LaTeX brace form), `cmH2O` /
+`FiO2` / `PaO2` without subscripts, `20.6 %` with a space. **It currently mixes
+U+2212 and the ASCII hyphen for the same minus sign in the same file** -- the
+transform has to choose one, and that choice should be recorded rather than made
+silently.
 
 
 ---
