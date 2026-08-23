@@ -46,7 +46,7 @@ findings and must not be reported as such.
 | 18 | §S11 ¶787 | "**each** is anchored in a specific experiment from this work" — items **3 and 6 carry no cross-reference at all** | OPEN — universal quantifier false on 2 of 6 |
 | 19 | §S11 ¶787 | "The Discussion of the main manuscript **closes with** a forward-looking note on engine-side infrastructure" — it is paragraph **5 of 14**, with 9 after it | OPEN — positional claim, checkable and wrong |
 | 20 | §S11 item 2 | "this constant **is not currently exposed** in the public patient-setup documentation" — unsourced absence claim about external documentation | OPEN — same class as signal 1; **triggers criterion (b)** of the citation rule |
-| 21 | §S12 ¶884 | "The **1,280-row** Morris sample … matches the committed `morris_sample.parquet` byte-for-byte" — that file has **160 rows** | **OPEN — wrong figure in the reproducibility recipe** |
+| 21 | §S12 ¶884 **and `paper.tex:402`** | "The **1,280-row** Morris sample … matches the committed `morris_sample.parquet` byte-for-byte" — that file has **160 rows** | **OPEN — wrong figure in the reproducibility recipe** |
 | 22 | §S12 ¶895/897/899 | "**five** run-level flags" against the paper's "four-flag classifier"; and a "22-run pilot … 22/22" against "the **20** per-run output CSVs" | OPEN — both accurate, neither bridged for the reader |
 | 23 | §S12 ¶903 | "`kitware/pulse:4.3.1` is published for `linux/amd64` **only**" and "**no** prebuilt ARM64 image exists" | OPEN — two absence claims, **trigger criterion (b)** |
 
@@ -795,6 +795,59 @@ two-digit numbers (S10-S15) do not overlap the following title" — with no
 relation to Cornish. The pattern matched a string, not a claim, and it was
 announced before the context was read. Sequence to hold: match → read → *then*
 characterise.
+
+
+### 21 (extended) — the row/run confusion is twinned, and the paper contradicts itself
+
+The first pass found one locus. Widening the net found a second, in the other
+document. Recorded as its own block because the enumeration, not the first hit,
+is the result.
+
+**Method.** Wide net first: every spelling of 1,280 within 90 characters of a
+word denoting the *sample* artefact (`row|sample|table of input|input
+table|point|design|combination`), across all three documents, with a positive
+control asserting the known locus is inside the net before any count is
+believed. **13 windows. 2 defects. 11 correct.**
+
+| document | locus | text | verdict |
+|---|---|---|---|
+| paper | **L402** | "the input sample (the **1,280-row** table of input combinations, regenerated from the fixed sampler seed)" | ⚠️ **defect** |
+| supplement | **L884** | "The **1,280-row** Morris sample … matches the committed `morris_sample.parquet` byte-for-byte" | ⚠️ **defect** |
+| paper | L198 | "The same **160-point** Morris design is executed in each of the eight cells"; "$8 \times 160 = 1{,}280$ simulations in total" | ✅ correct |
+| paper | L258 | "0 / 1,280" | ✅ run count |
+| supplement | L379 | "1,280 of 1,280 runs" | ✅ run count |
+| monograph | L3592 | "`aggregated.parquet` (**1,280 rows** × all outputs + flags + meta)" | ✅ correct — that file *does* have 1,280 rows |
+| monograph | **L3595** | "`morris_sample.parquet` (seed = 42, 20 trajectories, 4 levels ⇒ **160 unique input points**)" | ✅ **the ground truth, correctly stated** |
+| monograph | L310, L813, L1245, L1290, L1910, L2010 | run counts | ✅ correct |
+
+**The paper contradicts itself.** Its Figure 1 caption (L198) says the Morris
+design is **160-point** and that 8 × 160 = 1,280; its Methods (L402) calls the
+same object a **1,280-row** table. Two hundred lines apart, same document.
+
+**The monograph already carries the right phrasing** and it is worth borrowing
+rather than reinventing: *seed = 42, 20 trajectories, 4 levels ⇒ 160 unique input
+points*.
+
+**⚠️ A repair that must not drop the sampler parameters.** A candidate rewrite
+discussed with the maintainer removed `levels = 4` and `seed = 42` while fixing
+the row count. Those are the only two facts in the sentence that make the sample
+regenerable; deleting the seed from a reproducibility recipe trades one defect
+for a worse one. Both proposed repairs below keep them.
+
+- **Supplement L884** → "The locked 160-row Morris sample — `trajectories = 20`,
+  `levels = 4`, `seed = 42`, giving 20 × (7+1) = 160 input points — is
+  regenerated deterministically from the SALib sampler and reused across all
+  eight cells, yielding the 1,280 runs of the full sweep; the regenerated sample
+  matches the committed `morris_sample.parquet` byte-for-byte."
+- **Paper L402** → "the input sample (the **160-row** table of input
+  combinations, reused across the eight cells and regenerated from the fixed
+  sampler seed)".
+
+**Class, for the guard phase**: this is a *unit* error — rows counted where runs
+were meant. It is the same shape as the events-versus-configurations error
+already recorded in this project's method notes, and it is the kind that recurs.
+A guard should assert the row count of `morris_sample.parquet` against whatever
+number the two documents print next to that filename.
 
 
 ---
