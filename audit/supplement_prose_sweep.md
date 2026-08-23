@@ -49,6 +49,8 @@ findings and must not be reported as such.
 | 21 | §S12 ¶884 **and `paper.tex:402`** | "The **1,280-row** Morris sample … matches the committed `morris_sample.parquet` byte-for-byte" — that file has **160 rows** | **OPEN — wrong figure in the reproducibility recipe** |
 | 22 | §S12 ¶895/897/899 | "**five** run-level flags" against the paper's "four-flag classifier"; and a "22-run pilot … 22/22" against "the **20** per-run output CSVs" | OPEN — both accurate, neither bridged for the reader |
 | 23 | §S12 ¶903 | "`kitware/pulse:4.3.1` is published for `linux/amd64` **only**" and "**no** prebuilt ARM64 image exists" | OPEN — two absence claims, **trigger criterion (b)** |
+| 24 | §S13 ¶931 | "The SHAP cross-verification works **because the underlying physiology is real**, not the other way round" — two readings, one of which contradicts the Figure S5 disclaimer | OPEN — ambiguous epistemic premise |
+| 25 | §S13 ¶931 | "input dependencies that **any reasonable statistical method** would identify on the same data" — the section's own per-cell full-match rate is **23 of 48** | OPEN — universal claim undercut by the paragraph's own numbers |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -848,6 +850,74 @@ were meant. It is the same shape as the events-versus-configurations error
 already recorded in this project's method notes, and it is the kind that recurs.
 A guard should assert the row count of `morris_sample.parquet` against whatever
 number the two documents print next to that filename.
+
+
+### 24 — "because the underlying physiology is real" (§S13 ¶931)
+
+> The SHAP cross-verification works because the underlying physiology is real,
+> not the other way round.
+
+**Two readings, and they are not equivalent.**
+
+- *Engine-internal*: "the underlying physiology" = the dependencies Pulse
+  actually implements, so the agreement reflects genuine input–output structure
+  in the engine. Modest, defensible, almost certainly what is meant.
+- *External*: "the underlying physiology" = human physiology, asserted as real
+  and offered as the *explanation* of the agreement. That is an external-validity
+  premise, and §S9's Figure S5 caption states in terms that "nothing here
+  constitutes external physiological validation".
+
+The second reading puts the sentence in direct conflict with a disclaimer
+elsewhere in the same document. "Real" is doing load-bearing work without a
+stated referent, and "not the other way round" leaves the reader to reconstruct
+which direction is being denied.
+
+Naming the referent would settle it — e.g. "…because the input dependencies Pulse
+implements are genuine structure in the engine, not an artefact of either
+method".
+
+### 25 — "any reasonable statistical method" (§S13 ¶931)
+
+> …they correspond to input dependencies that **any reasonable statistical
+> method** would identify on the same data.
+
+A universal claim over an unbounded and undefined class ("reasonable"),
+extrapolated from a comparison of **two** methods.
+
+**And the section's own numbers undercut it.** The second method does *not*
+recover the same ranking in half the cells: the per-cell full 3-of-3 agreement is
+**23 of 48** (¶923), i.e. 48 %. The claim is well supported at the **pooled**
+level (17 of 18) and at the **≥2-of-3** per-cell level (44 of 48, 92 %), but the
+sentence distinguishes none of these, so it reads as a claim about the rankings
+in general.
+
+The narrower statement immediately before it — "evidence that the Morris-derived
+rankings are not artefacts of the elementary-effects design" — is exactly right
+and needs no strengthening.
+
+### §S13 — verified correct
+
+All measured against `data/runs/full_sweep/aggregated.parquet`:
+
+| claim | text | measured |
+|---|---|---|
+| `not_steady_state` total | 530 of 1,280 | **530** |
+| clean subset | n = 663 | **663** |
+| per-cell clean range | 42--144 | **min 42 (S1_F), max 144 (S3_M)** |
+| ≥2-of-3 per-cell rate | 92 % (44 of 48) | 44/48 = **91.67 %** |
+
+Per-cell clean counts in full: S1_M 49, S1_F 42, S2_M 87, S2_F 92, S3_M 144,
+S3_F 122, S4_M 67, S4_F 60 — summing to 663.
+
+The three agreement statistics (17/18, 23/48, 44/48) each carry a ledger anchor
+(`T2.s023.pooled`, `T2.s023.fullmatch`, `T2.s023.ge2_pct`), so they are
+re-derived at every gate run. The §S4 cross-reference is correct: that section
+does decompose the 530 into three named sub-modes.
+
+The epistemological framing in ¶915 — Morris as interventional, SHAP as
+observational, the two answering different questions, SHAP kept explicitly
+secondary — is careful and correct, and `TreeExplainer` is accurately described
+as exact for tree ensembles rather than sampled.
 
 
 ---
