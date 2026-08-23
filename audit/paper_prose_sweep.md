@@ -612,6 +612,79 @@ two or more of the agreed triggers.
 any `no|not|only|first`, so it catches ordinary prose. The ranking below is
 judgement applied on top of it, not the score.
 
+### ✅ PASS 1 COMPLETE — the four positive-claim citations, all SUPPORTED
+
+Format per the agreed protocol: claim → primary source → supporting passage →
+verdict. **No manuscript edit follows from any of these.**
+
+#### `sinnige2026active` (ACTiVE) — `paper.tex:394` — **SUPPORTED**
+
+Source opened in this session: PubMed E-utilities, PMID 41361939 (JAMA 2026;
+335(10):874–884). PubMed's HTML is blocked by a cookie wall; the E-utilities
+endpoint returns the abstract clean.
+
+| clause | source passage |
+|---|---|
+| "improved overall ventilation quality" | "There were no differences in secondary outcomes **except for ventilation quality, which was higher with closed-loop ventilation**" |
+| "no difference in ventilator-free days" | median **16.7 vs 16.3 days**, OR 0.91 (95 % CI 0.77–1.06), **P = .23**; conclusion "did not increase ventilator-free days at day 28" |
+| "or **mortality**" | "There were no differences between groups in components of the primary outcome, ie, duration of ventilation in survivors and **28-day mortality**" |
+
+⚠️ **Two corrections for the `.bib` `internal_note`, not for the paper**: the note
+covers only the VFD outcome and ventilation quality, so it does **not** record the
+mortality result the paper relies on; and its "n = 1,201" is the **modified
+intention-to-treat** population, where **1,514** were randomised.
+
+#### `webb2020` — `paper.tex:142` — **SUPPORTED on every clause**
+
+Source opened: PLoS One 15(11):e0242532.
+
+| clause | source |
+|---|---|
+| "**12,642** unique patient and ventilator combinations" | 12,642 ✓ |
+| "spanning respiratory compliance, diffusion impairment and PEEP" | compliance 10–50 mL/cmH₂O, DIF 0.3–0.9, PEEP 10–20 ✓ |
+| "two equal-sized **70 kg** bodies" | "Two equal-sized 70 kg patients are modeled" ✓ verbatim |
+| "**pressure-mode** ventilation" | PC-CMV ✓ |
+| "RR, I:E ratio and respiratory resistance **held fixed**" | RR 20/min, I:E 1:2, resistance 5 cmH₂O·s/L ✓ all three |
+| "does rank parameters by **outcome correlation**" | one-way ANOVA then Pearson: "Five parameters were found to be most correlated to outcomes: Cstat, EtCO₂, A-a gradient, OSI, and OI" ✓ |
+| "that ranking … is over the **mismatch**" | the ranked quantities are *differences* between the paired patients (compliance difference, OSI difference) ✓ |
+
+#### `cornish2023` — `paper.tex:374` — **SUPPORTED, verified against the source's own Table 4**
+
+PDF downloaded (arXiv:2301.07210) and read; `pdftotext -layout` mangled the
+table columns, `-raw` resolved them. Table 4 lists all 15 assessed quantities.
+
+- "**85** total Hoeffding rejections" → Table 4's rejection column sums to **85** ✓
+- "across **15** physiological quantities" → Table 4 lists exactly **15** ✓ (nine
+  with non-zero rejections, six at zero: paO₂, arterial pH, DiaBP, MeanBP, RR, HR)
+- "**80** on channels the present atlas does not assess (electrolyte, metabolic,
+  acid–base, dermal)" → Chloride 24 + Sodium 21 + Potassium 13 + Calcium 5 +
+  Glucose 5 + HCO₃ 2 = 70, plus Skin Temperature 10 = **80** ✓
+- "plus **2** on partial-overlap pressure channels" → SysBP 2 ✓
+- "only **3** of 85 fall on the four-channel overlap, **all on PaCO₂**" → paCO₂ 3,
+  and HR, MeanBP, paO₂ are all at **0** ✓
+- "four-channel overlap (HR, MAP, PaO₂, PaCO₂)" → those four are exactly the
+  intersection of our six outputs with Cornish's 15; Vt and SpO₂ are absent
+  from theirs ✓
+- "MIMIC-III sepsis trajectories" → abstract: "the MIMIC-III dataset of ICU
+  patients", "a large-scale, real-world case study involving sepsis modelling" ✓
+
+Also computed from Table 4 rather than taken on trust: the hypothesis column sums
+to **1,522**, confirming this project's recorded figure independently.
+
+⚠️ **A defect in the source, recorded so nobody "corrects" our paper toward it.**
+Cornish's own prose reads "we obtained rejections for hypotheses corresponding to
+**10** different physiological quantities shown in Table 1", while Tables 1 and 4
+both show **nine** with non-zero rejections. Our paper does not repeat the error.
+
+#### `ward2024ventilator` — `paper.tex:380`, `:394` — **DISCHARGED**
+
+Not re-opened, and the reason is recorded: its `.bib` `internal_note` carries
+"**FULL TEXT READ 2026-08-10** (7 pages, arXiv:2411.07971v1)" and documents both
+claims the paper makes — the six-setting pressure-targeted action vector of which
+only FiO₂, RR and PEEP are swept here, and the latent model "used *in lieu of*
+Pulse", judged against "Pulse's respiratory dynamics", with real-data validation
+listed as future work. Both paper sentences match that note.
+
 ### Highest value — open these first
 
 | key | locus | what to check | trigger |
