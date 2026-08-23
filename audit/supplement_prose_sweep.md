@@ -1729,13 +1729,40 @@ the documented drop "from three mid-sweep to two".
 **Signal 39 therefore shrinks from seven loci to two, all in the monograph.**
 README, supplement and `paper.tex` are correct and must not be edited.
 
-⚠️ **One thing genuinely is unrecorded**, and it survives all three versions of
-this entry: the canonical sweep's *own* observed wall time. The sweep ran three
-workers then two, so its floor lies between 9.14 h and 13.72 h, plus idle. The
-23~h~01~m figures belong to the **two re-executions**, not to it -- `supplement.tex:817`
-says so explicitly ("the canonical sweep, **and** a later re-execution logged at
-23~h~01~m"). A repair that writes "23 h 01 m observed wall time on the canonical
-execution" would introduce a **new** factual error.
+### The canonical sweep's wall time, recovered -- a third independent confirmation
+
+Earlier versions of this entry said the canonical sweep's own wall time was
+recorded nowhere. **It is recoverable from the metadata timestamps.** Every
+`run_meta.json` under `data/runs/full_sweep/` is dated 2026-04-26; the first was
+written at **00:01:41** and the last at **20:48:21**, an elapsed span of
+**20.78 h**. Subtracting the 6.87 h host suspension leaves **~13.9 h of actual
+elapsed running time**, against a computed floor of **13.72 h at two workers** --
+a 98.6 % packing efficiency, and an independent confirmation of "~14 h with 2"
+arrived at without using the aggregate at all.
+
+Three routes now agree: the decontaminated aggregate divided by two workers
+(13.72 h), the timestamp span minus the suspension (13.9 h), and the prose in
+`README:229` and `supplement.tex:858` (~14 h).
+
+⚠️ **Trust conditions for the timestamp route, stated rather than assumed**: it
+holds only if the mtimes are original. `data/runs/` is gitignored, so git never
+rewrote them, and the spread is a plausible single working day. It measures
+first-write to last-write, so it omits the first run's own duration (~40 s,
+negligible). And exactly two runs carry inflated durations, which is what fixes
+the concurrency during the suspension at two -- had three workers been active,
+three runs would show it.
+
+⚠️ **What remains genuinely unrecorded** is narrower than before: the split
+between the three-worker and two-worker phases. The sweep is described as
+starting at three and dropping to two; the measured 13.9 h sits almost exactly on
+the all-two-worker floor, which suggests the three-worker phase was short, but
+nothing in the repository pins it.
+
+**The 23~h~01~m figures still belong to the two re-executions**, not to the
+canonical sweep. `supplement.tex:817` says so explicitly
+("the canonical sweep, **and** a later re-execution logged at 23~h~01~m"), so a
+repair writing "23 h 01 m observed wall time on the canonical execution" would
+introduce a **new** factual error.
 
 ### S4_M -- the finding is fully withdrawn
 
