@@ -2,10 +2,22 @@
 
 Why this exists
 ---------------
-Eight statements in the submission package assert, in the present tense, that the
+Nine statements in the submission package assert, in the present tense, that the
 code and data are already publicly available. Each is false while the GitHub
 repository is private, so the release order is fixed: public repository first,
 submission second.
+
+The prose gate this replaces said EIGHT. The ninth -- paper.tex's "The pipeline is
+preregistered, reproducible from a single Docker image with a fixed seed, and
+released open-source under Apache-2.0" -- sits in the Introduction, not in a
+Code/Data availability section, and was missed by an enumeration that searched
+where such sentences are expected to live.
+
+Deliberately excluded, recorded so it is not re-raised: paper.tex's "the deposited
+data and the authors' own monograph content are released under the Creative
+Commons Attribution 4.0 licence". Its own paragraph says the data "will be
+deposited at Zenodo", so it declares the licence of a deposit that has not
+happened. That is a licensing statement, not a claim of present availability.
 
 That gate was written as prose listing eight FILE:LINE positions. By 2026-08-23
 six of the eight numbers were wrong -- paper.tex 409/430/434 had become 454/475/479,
@@ -58,6 +70,12 @@ CONTROL = "torvalds/linux"
 
 # file, anchor, expected occurrences, the proposition the anchor stands for
 CLAIMS: list[tuple[str, str, int, str]] = [
+    # Found 2026-08-23 while measuring anchor margins, NOT in the original list of
+    # eight. It sits in the Introduction rather than in a Code/Data availability
+    # section, which is why an enumeration that looked where such sentences are
+    # expected missed it. Finding one occurrence never measures the population.
+    ("preprint_npj/paper.tex", "and released open-source under Apache-2.0", 1,
+     "Introduction: the pipeline itself is public NOW."),
     ("preprint_npj/paper.tex", "are released open-source", 1,
      "Code availability: the artefacts are public NOW."),
     ("preprint_npj/paper.tex", "already openly available in the public code repository", 1,

@@ -2713,6 +2713,46 @@ instead of listing positions, but that file is gitignored. The durable guarantee
 is the script, not the note.
 
 
+### ⚠️ The gate's population was EIGHT and is NINE -- found by measuring anchor margins
+
+The content-anchored gate was built to cover the eight loci the prose block named.
+A paranoid check of **anchor specificity** -- how close each anchor sits to a
+collision -- turned up a locus the original enumeration never had.
+
+| anchor | occurrences in its file | margin |
+|---|---|---|
+| `openly available under` (supplement) | 1 | the word **"openly" appears once in the whole file** -- enormous margin |
+| `are released open-source` (paper) | 1 | ⚠️ but **"released open-source" appears twice** |
+
+The second occurrence is **`paper.tex:156`**, closing the Introduction:
+
+> The pipeline is preregistered, reproducible from a single Docker image with a
+> fixed seed, and **released open-source under Apache-2.0**.
+
+**That is a ninth present-tense availability assertion**, false while the
+repository is private, and it was **not** in the gate. It sits in the
+**Introduction**, not in a Code/Data availability section -- which is exactly why an
+enumeration that searched where such sentences are expected to live missed it.
+Finding one occurrence never measures the population; that is the fourth time
+today.
+
+**Anchor chosen after measuring uniqueness**, per the maintainer's constraint:
+`and released open-source under Apache-2.0` -- **1 occurrence** in `paper.tex`, and
+it is the tensed phrase itself, so a future-tense rewrite breaks it. Rejected
+alternative: `reproducible from a single Docker image`, which occurs **twice**.
+
+⚠️ **One candidate examined and deliberately excluded, recorded so it is not
+re-raised.** `paper.tex:475` says "the deposited data and the authors' own
+monograph content **are released** under the Creative Commons Attribution 4.0
+licence". Present tense, but its own paragraph says the data "**will be deposited**
+at Zenodo": it declares the licence of a deposit that has not happened. A
+licensing statement, not a claim of present availability.
+
+**Gate now 9/9, exit 0.** The new row was falsified on its own: L156 rewritten to
+"will be released" gives **found 0 (expected 1)**, exit 1. `paper.tex` restored and
+verified byte-identical to HEAD.
+
+
 ---
 
 ## Sections swept, and to what depth
