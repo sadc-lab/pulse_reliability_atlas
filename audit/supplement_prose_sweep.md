@@ -73,6 +73,10 @@ findings and must not be reported as such.
 | 45 | `README.md:89` -- **1 locus** | "2 patient surrogates (**Pulse standard** adult male and female)" where `paper.tex:406` says the male height "**is not** Pulse's `heightStandardMale_cm = 177.0`" | ✅ **CLOSED 2026-08-23** -- now "2 adult reference surrogates (male and female)", propagating `CITATION.cff:37` |
 | 46 | **10 loci**, 1 defective | "**reliability** traffic-light" surviving the curation/review-priority reframing | ✅ **CLOSED 2026-08-23** -- `CITATION.cff:42` only; `paper.tex:475` and `README:216` **arbitrated clean**, monograph x6 deferred |
 | 47 | `CITATION.cff:22-23` | `version: "0.1.0"` / `date-released: 2026-05-22`, three months before submission and unchanged since. Covered in spirit by the file's own "blank until deposit" note, which does not mention these two fields | OPEN -- low; refresh at deposit |
+| 48 | `cover_letter.md:34` | "four ARDS severities". `paper.tex` says "four severity scenarios (**a healthy baseline plus three ARDS severities**, impairment fractions 0.00 / 0.26 / 0.60 / 0.95)". S1 at 0.00 is healthy, not ARDS | OPEN -- **factual, contradicts the paper** |
+| 49 | `cover_letter.md:60-62` | "Published Pulse validation work samples ARDS severity **only on round tenths** and **never probes inside this interval**." Outruns `paper.tex:359` on **two** axes -- see the dossier | OPEN -- ⚠️ **an absence claim outrunning its source** |
+| 50 | `cover_letter.md:15` | "*npj Digital Medicine* lists **digital twins** explicitly within its scope" | ⚠️ **UNVERIFIABLE 2026-08-23** -- nature.com 303s to an auth endpoint; proxy evidence contradicts |
+| 51 | `cover_letter.md:31-32` | "the **first** open, preregistered reliability atlas of Pulse" -- a priority claim, but scoped to Pulse rather than universal | OPEN -- low; far more defensible than P-5's universal form |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -2221,6 +2225,71 @@ what the *push transmits*. `git push` sends the branch, never the last commit.
 -- 2 files outside `audit/` -- so **no push may happen at all**, including of this
 register, until the maintainer authorises the public-file commits. Audit pushes
 are gated behind them.
+
+
+### cover_letter.md read line by line -- 4 signals
+
+All 92 lines read. **Verified exact**: the 1,280 total; all 20 divergent runs on
+the male body; the blood-volume floor 4{,}082.24 mL and the 20/20 -> 0/20
+dose-response; the band [0.879, 0.945]; the -2 cmH2O VC-AC lever; the title,
+matching the README citation block. **The traffic-light wording is already
+canonical here** -- "the per-cell traffic-light **curation map**", "default-eligible,
+require review, or require priority review", and "neither layer is a
+distribution-neutral automatic filter", which matches `paper.tex:475`. Author
+contributions, competing interests, funding and affiliations were **read but not
+touched**, per standing instruction.
+
+**49 -- the one that matters, and it fails on two axes.**
+
+`paper.tex:359` states, precisely:
+
+> Pulse's own methodology documents ARDS severity as a continuous parameter on
+> [0, 1] and **exemplifies the range** with the round-tenths convention
+> {0.0, 0.3, 0.6, 0.9, 1.0}; published Pulse validation work **and HowTo examples
+> sample at most up to severity 0.9** and do not examine impairment fractions
+> **inside the interval 0.91--0.945**.
+
+The letter compresses this to "Published Pulse validation work samples ARDS
+severity **only on round tenths** and **never probes inside this interval**."
+
+| axis | paper | letter | verdict |
+|---|---|---|---|
+| who uses round tenths | **Pulse's methodology documentation**, to *exemplify the range* | **validation work**, as its *sampling grid* | ⚠️ two different propositions merged |
+| what is unexamined | inside **0.91--0.945** | inside "**this interval**", i.e. the **[0.879, 0.945]** stated two lines earlier | ⚠️ the absence is stretched over a wider band |
+
+⚠️ **The second is the serious one.** [0.879, 0.945] is **our own extension** of the
+band -- the atlas's contribution. Saying Pulse "never probes inside this interval"
+implies the whole widened band was a domain Pulse failed to examine, when the
+established non-examination covers only 0.91--0.945. The letter also drops "and
+HowTo examples", which narrows what was checked while the sentence claims more.
+
+**Safe form, taken from the paper rather than composed**: "Published Pulse
+validation work and HowTo examples sample at most up to severity 0.9 and do not
+examine impairment fractions inside 0.91--0.945."
+
+**50 -- UNVERIFIABLE, and recorded as such rather than softened.**
+
+The letter opens by telling the journal what its own scope contains. Two nature.com
+pages were attempted this session -- the aims page and the digital-twin collection
+policies page -- and **both return HTTP 303 to `idp.nature.com/authorize`**. No
+primary source was opened.
+
+⚠️ **Proxy evidence, which is not a substitute and points the wrong way**: a
+nature.com-restricted search summary of the aims page enumerates five topic areas
+-- mobile applications, monitors, sensors, software and wearables; validated AI and
+ML models; clinical informatics and digital transformation; clinical trials of
+digital tools; and ethics, governance, policy, regulation and security. **Digital
+twins is not among them.** What is independently visible is that the journal
+*publishes* digital-twin work heavily and runs a "Digital twins for precision
+health" collection.
+
+**If the proxy is right, the claim as written is false**, and it is the opening
+argument of a letter addressed to that journal's editors. The defensible version
+does not need the scope claim at all: the journal's own digital-twin collection
+and publication record carry the same rhetorical weight and are checkable.
+
+⚠️ **Not decided here, and it cannot be, until the aims page is read from a
+session that can reach it.**
 
 
 ---
