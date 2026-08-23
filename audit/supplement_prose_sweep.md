@@ -52,6 +52,10 @@ findings and must not be reported as such.
 | 24 | §S13 ¶931 | "The SHAP cross-verification works **because the underlying physiology is real**, not the other way round" — two readings, one of which contradicts the Figure S5 disclaimer | OPEN — ambiguous epistemic premise |
 | 25 | §S13 ¶931 | "input dependencies that **any reasonable statistical method** would identify on the same data" — an unbounded universal from **two** methods | OPEN — **downgraded**: wording only; the "undercut by its own numbers" reading was mine and is withdrawn |
 | 26 | §S14 ¶939 | Of eight claims about what the monograph **contains**, two overclaim: "the **full preregistration document** with its amendment history" (§2.0 reproduces only §Primary hypotheses) and "the **complete experiment-log entries**" (Appendix A is a 43-line index) | **OPEN — checkable by anyone who downloads the Zenodo deposit** |
+| 27 | §S15 table caption ¶963 | "Input HR is sampled **uniformly** from $[50, 110]$~bpm" — it takes exactly **four** values, 50/70/90/110, the Morris grid | OPEN — contradicts §S12's own `levels = 4` |
+| 28 | §S15 ¶979 | The S3→S4 dip attributed to "incipient cardiovascular decompensation" with no mention of the **survivorship confound**: clean survival is 83.1 % in S3 against 39.7 % in S4 | **OPEN — scientific, an available alternative is unaddressed** |
+| 29 | §S15 ¶959 | Names "the **four**-flag steady-state classifier" then lists **three** flags, omitting `clamped` | OPEN — zero numerical impact (`clamped` = 0/1,280) |
+| 30 | §S17 ¶1022 | "**Six** engine-side infrastructure recommendations" — the six listed are **not the same six** as §S11: item 1 is dropped, item 3 is split in two | **OPEN — an index wrong about what it indexes** |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -982,6 +986,140 @@ overclaims*. It was wrong. The section headings, read afterwards, located §2.10
 missed. **For a claim of the form "document X contains Y", the table of contents
 is the instrument; a keyword search is not.** Absence of a phrase is not absence
 of a section.
+
+
+### 27 — "sampled uniformly from [50, 110] bpm" (§S15 caption)
+
+Measured on all 1,280 runs: `in_hr` takes **four** values — **50, 70, 90, 110** —
+with counts 336 / 320 / 304 / 320. That is the Morris 4-level grid, and the
+counts are not even equal.
+
+"Sampled uniformly from [50, 110]" invites a continuous-uniform reading, which
+changes how a reader interprets the table's means and standard deviations. §S12
+¶884 states `levels = 4` for the same sampler, so the two sections describe the
+same design differently.
+
+### 28 — the S3→S4 dip, and the confound the text does not mention (§S15 ¶979)
+
+> …the overshoot is non-monotonic in severity: output HR peaks at S3 (moderate)
+> and eases at S4 (severe), **plausibly reflecting incipient cardiovascular
+> decompensation** at 95 % alveolar impairment…
+
+The observation is real and exactly reproduced: 155.72 bpm at S3 against 147.06
+at S4, a difference of **8.7 bpm**.
+
+**But the two populations are not comparable in the way the sentence assumes.**
+Clean-run survival by scenario:
+
+| scenario | clean / 320 | rate |
+|---|---|---|
+| S1 | 91 | 28.4 % |
+| S2 | 179 | 55.9 % |
+| S3 | **266** | **83.1 %** |
+| S4 | **127** | **39.7 %** |
+
+S3's mean rests on 83 % of its cell; S4's on 40 %. A 43-point difference in
+survival is a **selection effect** available to explain an 8.7 bpm difference,
+and the text offers a physiological mechanism without mentioning it.
+
+**What is and is not established here.** I have *not* shown that selection
+explains the dip — that would need the flagged S4 runs' HR, which by construction
+are not steady-state and so have no comparable mean. What is established is that
+an alternative explanation exists, is quantified, and is unaddressed. "Plausibly"
+hedges the mechanism but not the comparison.
+
+The S1→S3 contrast is untouched by this: 73.8 against 155.7 bpm is far too large
+for a selection effect of this size to account for.
+
+### 29 — three flags named where four are claimed (§S15 ¶959)
+
+> …all clean Morris runs (those passing the **four**-flag steady-state classifier
+> without firing `diverged`, `implausible`, or `not_steady_state`)…
+
+`clamped` is missing from the list. **Zero numerical consequence**: recomputing
+the table both ways — with and without `clamped` in the exclusion — gives
+identical values to two decimals in all four scenarios, because `clamped` is
+0/1,280. A wording gap, not an error, and of the same family as signal 22(a).
+
+### §S15 — the table is exact
+
+| scenario | text | measured | n |
+|---|---|---|---|
+| S1 | 73.8 ± 20.4 | 73.77 ± 20.41 | 91 |
+| S2 | 87.3 ± 24.3 | 87.33 ± 24.30 | 179 |
+| S3 | 155.7 ± 34.7 | 155.72 ± 34.67 | 266 |
+| S4 | 147.1 ± 31.8 | 147.06 ± 31.78 | 127 |
+
+Eight values, eight exact. The "approximately 70 bpm overshoot above the
+[50,110] midpoint" spans 75.7 (S3) and 67.1 (S4) — defensible for both.
+
+### §S16 — swept, no signal, twelve values exact
+
+Recomputed with the thresholds read from `src/detector.py`
+(`DRIFT_MAX_DELTA_60S`), on the two arms the text defines:
+
+| arm | n | HR | MAP | PaCO₂ | PaO₂ | Vt |
+|---|---|---|---|---|---|---|
+| hyperoxia (FiO₂ ≥ 0.95) | **195** | 2.56 → 2.6 % | 0.00 → 0 % | 3.59 → 3.6 % | 19.49 → 19.5 % | 8.72 → **8.7 %** |
+| Vt-oscillation (Vt CV > 0.05) | **303** | 2.31 → 2.3 % | 0.66 → 0.7 % | 1.98 → 2.0 % | 7.26 → 7.3 % | — |
+
+Medians also exact: 0.197 → "0.20 bpm", 0.049 → "0.05 mmHg", 0.575 → "0.58
+mmHg", 4.312 → "4.3 mmHg"; and the 95th percentile 40.177 → "40.2 mmHg".
+
+**A cross-section coincidence that is not one.** The hyperoxia arm's n = 195 is
+the same 195 as §S3-clamp's "195 of them reach the ventilator action": the Morris
+FiO₂ levels are 0.21 / 0.4733 / 0.7367 / 1.0, so "≥ 0.95" selects exactly
+FiO₂ = 1.0, and 208 requesting minus 13 diverging before the action leaves 195.
+The two sections agree exactly.
+
+**Guard coverage, measured**: six anchors `T5.window.*` cover HR, MAP and PaCO₂ in
+both arms — with thresholds read from `src/detector.py` rather than hardcoded,
+and an assert that exactly six thresholds were parsed. `T2.f003.*` covers the
+PaO₂ rate and both arm sizes. ⚠️ **The 8.7 % delivered-Vt rate in the hyperoxia
+arm is covered by no anchor** (`8.7` appears zero times in `audit_claims.py`).
+Correct today; a guard candidate, not a defect.
+
+Not a defect either: the Vt-oscillation paragraph lists four channels and omits
+Vt itself, which sits at 42.9 %. Vt is that arm's *defining* variable, so listing
+it would be circular; the claim is about propagation to other channels.
+
+### 30 — §S17's six recommendations are not §S11's six (¶1022)
+
+Both say "six". They enumerate different sets.
+
+| §S11 | §S17 |
+|---|---|
+| 1. **Structured input-rejection events** | ⚠️ **absent** |
+| 2. Male `BloodVolumeBaseline` floor | 4. documentation of the male BV floor |
+| 3. Reference SA recipe for operational inputs | 5. reference SA recipe for operational inputs |
+| 4. Setup-time warning, ARDS band | 1. setup-warning for the ARDS instability zone |
+| 5. Per-channel convergence diagnostic | 2. per-channel steady-state convergence diagnostic |
+| 6. Field-attributed setup-error messages | 3. field-attributed setup-error messages |
+| — | 6. ⚠️ **companion Morris / Sobol implementation** |
+
+Item 1 is dropped; item 3 is split into two entries ("reference SA recipe" and
+"companion Morris / Sobol implementation", both facets of §S11 item 3's single
+paragraph). **The count survives only because the two errors cancel.**
+
+The dropped item is the one `paper.tex:376` lists **first**, and §S17 states its
+own purpose as an index "so that a skim reader, or an automated indexing agent,
+can locate each finding in one place". A skim reader takes this list as the six.
+
+### §S17 — verified correct, and one row better written than its own section
+
+- "**Twelve** verified Pulse 4.3.1 limitations" ✅ — the §S2 table has **11
+  physical rows for 12 limitations**, because the row labelled "5--6" carries two
+  (HR init 50--110 bpm and RR init 8--20 bpm). A first count returned 10 because
+  the pattern `^[0-9]+ &` cannot match `5--6 &`; the table was then read.
+- 43 of 48 Sobol trigger, 1,500 vs 11,008 runs, Cornish's 15 channels, the
+  200-run continuous-severity sweep, `[0.879, 0.945]`, three `not_steady_state`
+  sub-modes — all consistent with what the cited sections state.
+- "the **20-event** male-only divergence cluster" ✅ — the careful noun, matching
+  this project's own events-versus-configurations rule.
+- 💡 The §S13 row says the SHAP agreement confirms "the rankings are an **engine
+  property** rather than an artefact of the elementary-effects design". That is
+  precisely the referent **signal 24** finds missing from §S13's own ¶931. The
+  index already contains the fix.
 
 
 ---
