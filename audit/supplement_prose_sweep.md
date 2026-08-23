@@ -64,6 +64,11 @@ findings and must not be reported as such.
 | 36 | `paper.tex:77` vs `submission_metadata.txt:12` | Running title case differs: "Reliability **A**tlas: Pulse Physiology Engine" against "Reliability **a**tlas: …" | OPEN — cosmetic, two submission artefacts |
 | 37 | **3 loci**: `README.md:161`, monograph **L71**, monograph **L320** | "34 … **at FiO₂ = 1.0**" over-attributes: **31** are at 1.0, 3 at 0.7367. Four other loci state it correctly | **OPEN — count corrected; the monograph says it both ways** |
 | 38 | **5 loci**: `README.md:108`, `:156`, monograph **L338**, **L2007**, **L2231** | "divergence approximately **sex-balanced**" flattens a sign-reversing effect. `paper.tex` and `supplement.tex` are **clean** — their single occurrences mean *cohort design*, a different claim | **OPEN — count corrected after a homonym false alarm** |
+| 39 | **4 loci**: `manuscript.md:1271`, `:3314` vs `supplement.tex:817` (+ `README.md:229-230`, `supplement.tex:857-859`) | Sweep wall time. Monograph: "~7 h" at 2 workers on the reference machine. Supplement L817: aggregate container time "approximately 27 h per sweep on the reference machine" -- which at 2 workers is ~13.5 h. README and the supplement's own code comment both say **~14 h at 2 / ~9 h at 3**. The monograph's ~7 h is the outlier and cannot be reconciled with the 27 h it sits beside | OPEN -- **factual, cross-document; paper.tex is clean (0 loci)** |
+| 40 | `README.md:261-266` | Announces "Manuscript S2.8 names **two** image hashes" and then prints **one**. The canonical sweep image `3b18bdc08660` is named in `manuscript.md:744` but dropped from the README bullet, which reads "Initial atlas image" with no hash. Not the S032 irrecoverable-image problem: the hash is recorded, it just fell out of the README | OPEN -- a promise the text does not keep |
+| 41 | **3 loci**: `README.md:141`, `:323`, `:398` | "the silent FiO2 cap" stated with no scope, on a page whose headline says H2 NOT supported, Pulse "does **not** silently clamp" (0/1,280). Both are true and the monograph says why at S2.1 -- the cap is at the **wrapper layer**, and the atlas deliberately raises FiO2_MAX from 0.95 to 1.0 so the boundary reaches Pulse. The README never states wrapper != engine | OPEN -- legibility, not a factual error |
+| 42 | `README.md:370` | Link text `Pulse_translation_new/` resolves to `https://github.com/santinon/` -- a user profile, not a repository. Public-facing broken pointer | OPEN -- cosmetic but visible to every reader |
+| 43 | `README.md:255-257` | "Pulse 4.3.1 is bit-exact deterministic ... **so** reruns reproduce upstream values to 1e-6 relative tolerance" derives a weaker claim from a stronger one. Bit-exact implies tolerance 0. The correct scoping -- bit-exact *within* an image, 1e-6 *across* rebuilds -- is stated correctly 16 lines later at L271-274 | OPEN -- low; the same file already carries the right form |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -1581,6 +1586,37 @@ terms returned a confident description of BioGears mechanoreceptor feedback and
 lung recruitment — text that in fact came from the **Pulse** pages returned by
 the same query. Fetching the BioGears page directly gave **0** for both. A search
 summary that mixes two sites cannot settle a claim about one of them.
+
+
+### README read line by line, 2026-08-23 -- 5 signals raised, 5 suspicions dissolved
+
+All 491 lines read, not grepped. **The dissolutions are recorded with the
+findings**, because each was a plausible defect that a later reader would
+otherwise re-raise, and each was killed by opening the full source rather than a
+truncated window.
+
+| suspicion | why it is NOT a defect |
+|---|---|
+| README cites "S4.5" for two different contents (L114 traffic-light deviation, L234/L427 SHAP) | **Two different documents.** `paper.tex` S4.5 = "Traffic-light curation map"; monograph S4.5 = "Limitations", and the SHAP cross-check is indeed there (`manuscript.md:3371`). Confirmed independently by `supplement.tex:343`, which resolves the main-text pointer to 4.5 for the traffic light |
+| 23 h 01 m attributed to the reference machine at `supplement.tex:817` and to Y.M.'s AMD host at `:895` | **The supplement flags its own coincidence**: L817 reads "once on the independent host ..., whose elapsed time, **by coincidence, also totalled 23 h 01 m**". Read on a 300-character window this looked like a contradiction; read whole it is a deliberate note |
+| `README.md:138` sends the reader to "Table 1 -- failure breakdown per scenario x sex" -- signal 5's defect | **Correct here.** The monograph's Table 1 (`manuscript.md:1557`) *is* "Per-cell flag counts", and the README refers to the monograph throughout. Signal 5 stays what it was: the *supplement* pointing at "Table 1 **of the main manuscript**" |
+| `README.md:353` says "Figures 1-6" where `figures/` holds 11 PDFs | Figure 2 has six per-output variants (`fig02_morris_mu_star_{HR,MAP,PaCO2,PaO2,SpO2,Vt}.pdf`). 6 numbers, 11 files -- the numbering is right |
+| "F-001..F-013" | Exact: `preprint/interim_findings.md` reaches F-013 |
+
+**Also checked and exact**: `README.md:231`'s "~27-46 h of aggregate Pulse
+container time" matches `supplement.tex:817` verbatim (27 h reference, 46 h
+independent host); the 382 / 381+1-skipped / 94 / 26 audit figures; H1's median
+0.928 and range 0.658-0.998; H4's 5-of-24 with the 6-to-5 BH demotion of S2 SpO2;
+264 / 1,280 = 20.6 %; the 643-vs-663 mmHg hyperoxia pair.
+
+**Signal 34 gains three loci**: `README.md:357` and `:384` both say "S001 ...
+S031" where `experiments_log/santino/` reaches **S032**, and `:431` calls S025
+"(this release)".
+
+⚠️ **Signal 39 is the one that matters** and it is a *factual* claim, so nothing
+is corrected here. It is also the first number a reviewer meets --- `README.md:31`
+budgets "~9-23 h on a laptop" in the **For peer reviewers** block --- and that
+range excludes the monograph's own ~7 h.
 
 
 ---
