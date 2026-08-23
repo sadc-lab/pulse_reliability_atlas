@@ -75,7 +75,7 @@ findings and must not be reported as such.
 | 47 | `CITATION.cff:22-23` | `version: "0.1.0"` / `date-released: 2026-05-22`, three months before submission and unchanged since. Covered in spirit by the file's own "blank until deposit" note, which does not mention these two fields | OPEN -- low; refresh at deposit |
 | 48 | `cover_letter.md:34` | "four ARDS severities". `paper.tex` says "four severity scenarios (**a healthy baseline plus three ARDS severities**, impairment fractions 0.00 / 0.26 / 0.60 / 0.95)". S1 at 0.00 is healthy, not ARDS | OPEN -- **factual, contradicts the paper** |
 | 49 | `cover_letter.md:60-62` | "Published Pulse validation work samples ARDS severity **only on round tenths** and **never probes inside this interval**." Outruns `paper.tex:359` on **two** axes -- see the dossier | OPEN -- ⚠️ **an absence claim outrunning its source** |
-| 50 | `cover_letter.md:15` | "*npj Digital Medicine* lists **digital twins** explicitly within its scope" | ⚠️ **UNVERIFIABLE 2026-08-23** -- nature.com 303s to an auth endpoint; proxy evidence contradicts |
+| 50 | `cover_letter.md:15` | "*npj Digital Medicine* lists **digital twins** explicitly within its scope" | ✅ **CLOSED 2026-08-23 -- VERIFIED TRUE at the primary source.** "Digital twins" is a topic bullet on the journal's own Aims and scope page |
 | 51 | `cover_letter.md:31-32` | "the **first** open, preregistered reliability atlas of Pulse" -- a priority claim, but scoped to Pulse rather than universal | OPEN -- low; far more defensible than P-5's universal form |
 | 52 | `preprint_npj/submission_metadata.txt:15-32` | The abstract declared "**Extracted verbatim from `preprint_npj/paper.tex`**" is **stale in every sentence**, is **155 words against npj's 150 cap**, **omits the H1 headline result**, and **loses the healthy-lung scope** on the hyperoxia claim. This is the text that would be pasted into the submission portal | OPEN -- ⚠️ **the most consequential defect found in the public files** |
 | 53 | `submission_metadata.txt:4` | Header says "Draft, **uncommitted**" -- `git ls-files` shows the file **is tracked** | OPEN -- low, stale self-description |
@@ -2346,6 +2346,52 @@ the six-affiliation scheme, CRediT contributions and funding acquisition.
 ⚠️ **Not verified**: whether `paper.tex` declares a running title at all. My
 patterns found none, and an empty result from an uncalibrated pattern establishes
 nothing. The metadata proposes "Reliability atlas: Pulse Physiology Engine".
+
+
+### 50 closed -- the claim is TRUE, and the proxy that suggested otherwise was wrong
+
+**Primary source finally reached.** `WebFetch` and `web.archive.org` both failed --
+nature.com answers 303 to `idp.nature.com/authorize`, and the archive host is
+unreachable from this tool. **The maintainer suggested Firecrawl**, whose CLI is
+authenticated in this environment, and a single scrape of
+`https://www.nature.com/npjdigitalmed/aims` returned the page.
+
+The scope section lists **eight** topic bullets, not five:
+
+> - Clinical application and efficacy of novel mobile applications, monitors, sensors, software, and wearables
+> - Clinical application of novel and validated artificial intelligence and machine learning models
+> - Clinical informatics and digital transformation of clinical practice
+> - Clinical trials testing the efficacy and interoperability of digital tools and devices
+> - Digital medicine ethics, governance, policy, regulation, and security
+> - **Digital twins**
+> - Validated digital biomarkers
+> - Virtual models of care
+
+**`cover_letter.md:15` is correct as written.** Digital twins is a bullet in the
+journal's own topics-covered list.
+
+⚠️ **The lesson is the proxy, not the claim.** The search-engine summary I used
+earlier enumerated only the first five bullets and silently dropped the last
+three -- including the one that settles the question. I had labelled it "proxy
+evidence, which is not a substitute" and written that the claim would be false
+*if the proxy were right*. **The proxy was wrong.** Without that hedge I would
+have had the maintainer delete a true and well-chosen sentence from the opening
+paragraph of a letter to those editors. A truncated summary is not a short
+version of a page; it is a different document.
+
+**Firecrawl output checked rather than trusted**, per the repository's own
+discipline: the scrape carries the journal masthead and the breadcrumb
+`nature > npj digital medicine > aims and scope`, so it is the intended page and
+not a success-shaped error.
+
+✅ **A second fact worth having, found on the same page.** The journal states it
+"typically does not consider ... **pre-clinical basic science studies**, purely
+observational studies, case studies, and small-scale preliminary studies." A
+reliability study of a physiology *simulator* could plausibly be mis-sorted into
+that bucket by a screening editor. **The cover letter already pre-empts exactly
+this**, at L18-19: "Our object of study is therefore not human physiology but the
+data-generating instrument itself." No change needed -- recorded because the
+defence is load-bearing and should not be edited away later.
 
 
 ---
