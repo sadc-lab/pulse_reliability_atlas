@@ -2128,6 +2128,53 @@ closure was recorded without the population being enumerated, which is the
 condition under which a count can silently grow.
 
 
+### 46 arbitrated per the maintainer's criterion -- the expensive option is off the table
+
+Criterion: an occurrence that **names a file or artefact** may keep the historical
+string; an occurrence whose **prose asserts a reliability verdict** takes the
+canonical curation / review-priority vocabulary.
+
+| locus | verdict |
+|---|---|
+| `paper.tex:475` (x2) | ✅ **CLEAN.** The sentence names the released artefacts (`results/reliability_traffic_light.csv` and `.json`, and the figure files) **and in the same sentence supplies the current reading**: "so that downstream users can apply it directly as a **curation and review-priority layer**". It attributes no outdated interpretation |
+| `README.md:216` | ✅ **CLEAN.** ASCII pipeline diagram, naming what `analysis_compare.py` emits |
+| `CITATION.cff:42` | ⚠️ **CHANGE.** An abstract asserting what the work reports, with no canonical qualifier |
+| `manuscript.md` x6 | deferred to the Zenodo-gate population |
+
+**One locus to change, and no figure rename.** The cascade into
+`make_figures.py`, the ledger and every path reference does not happen.
+
+### (c) and (a) applied -- what the gate and the renders actually said
+
+⚠️ **The gate FAILED on the first attempt and I had already reported it green**,
+having read a `tail` instead of the exit code. The pre-commit hook caught it.
+Cause: crosswalk `T1.01` counts occurrences of the literal `1{,}280` across
+`paper.tex` + `supplement.tex`, expected 45, and the new S12 note makes 46.
+
+**Bumped 45 -> 46, which is growth and not drift** -- there are 1,280 records and
+naming the population is what makes the derivation reproducible. Its
+`paper_section` label was corrected from `S3/S4/S5/S16` to `S3/S4/S5/S12/S16`:
+**already stale before this edit**, since a 2026-07-24 note in the same entry
+records an occurrence added in S12.1 while the label never listed S12. The field
+is documentary, read at `audit_claims.py:309` for display and used by no check.
+
+⚠️ **Three instrument artefacts diagnosed rather than believed**, each calibrated
+against a pre-existing witness:
+
+1. `pdftotext` drops `\_` from `	exttt` -- a pre-existing `data/runs/full\_sweep`
+   path loses them identically.
+2. `grep -c` on a file flattened to one line counts **lines, not occurrences**, so
+   "1" meant "at least one". Presence was all that was needed, but earlier checks
+   in this session established presence and not counts.
+3. `§` breaks pdftotext's text run: "Supplement " appears bare **6 times** -- the
+   four pre-existing pointers plus the two new ones. The generated LaTeX carries
+   `Supplement §S12` and `Supplement §S3.11` identically, so rendering is correct.
+
+Final state: gate exit **0**, zero FAIL rows, ledger 382 / crosswalk 94 /
+monograph 26, both build scripts clean, and no `7 h` sweep figure survives
+anywhere.
+
+
 ---
 
 ## Sections swept, and to what depth
