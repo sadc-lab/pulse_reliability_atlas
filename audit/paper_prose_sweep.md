@@ -320,6 +320,49 @@ operational detector", "That detector reads the setup log", "what that detector
 measured" — which is the legitimate use the supplement's signal 3 explicitly
 protects. The vocabulary guard passes on every commit, which corroborates it.
 
+### §2.3 VC-AC dyssynchrony — no signal, and more precise than its supplement twin
+
+| claim | measured |
+|---|---|
+| "median paired Vt CV drop of at least 0.04 (met, **+0.326**)" | **median of the per-pair differences = 0.325724** ✓ |
+| "collapses the median Vt CV from 0.351 to 0.016" | 0.350867 → 0.015631 ✓ |
+| "S1\_F\_0117 … from 1.826 to 0.018" | **1.825742 → 0.017750** ✓ |
+| "50 of the 64 reruns … below 0.05 … (78.1 %)" | 50/64 = 78.125 % ✓ |
+| "20.6 % of runs" (Vt oscillation as primary flag) | 264/1,280 ✓ |
+| "`SEMechanicalVentilatorVolumeControl.cpp` lines 120--128" | line-exact in the clone ✓ |
+| "strongest where the set respiratory rate is high" | share of S1 runs above 0.05 rises monotonically with RR: **8.3 % at RR = 8, 43.4 % at 12, 45.8 % at 16, 58.8 % at 20** ✓ |
+| "the single largest source of `not_steady_state` flags" | Vt CV = 303 exhaustive triggers vs SpO₂ flatline 232 and Vt drift 133 ✓ |
+
+💡 **Worth carrying to the correction pass**: §2.3 uses the **median of paired
+differences** (0.325724), which is the correct statistic for a paired gate — the
+difference of medians is a different number, 0.335236. This is exactly the
+distinction supplement signal 13 leaves ambiguous in §S8 ¶665. **The paper is the
+better-stated of the two**, so signal 13's repair should follow the paper, not
+rewrite it.
+
+Attribution hygiene noted as exemplary: "The dyssynchrony itself is well
+documented clinically…~\cite{figueroacasas2016}; the specific conditions that
+produce it here … are **our own in-silico finding, not a claim drawn from that
+source**."
+
+### §2.4 transient hyperoxia — no signal
+
+| claim | measured |
+|---|---|
+| "exceeds … 600 mmHg on **34 of the 126** `implausible`-flagged runs" | 126 implausible, **34** with PaO₂ > 600 ✓ |
+| "**91 %** of these excursions occur at FiO₂ ≥ 0.95" | **31/34 = 91.18 %** ✓; the other 3 sit at FiO₂ = 0.7367 |
+| "60-run longer-rerun experiment" · "41 of 44 (93.2 %)" · "median 643 mmHg" · "≈663 mmHg" · "38 … 95 % … by t = 180 s" · "six … above 700 mmHg, four … near 1,400" · "five of five female, one of five male" | all re-derived under §S9 earlier tonight ✓ |
+
+Bonus reconciliation: the 126 `implausible` runs decompose exactly into **92
+SpO₂-driven + 34 PaO₂-driven**.
+
+**Cross-document coherence: consistent.** §2.4 and §S9 agree on population,
+protocol and every shared number, and the paper's hedging matches the
+supplement's — "It does not establish that the plateau level itself is right,
+which would take a validation against measured arterial data and is outside the
+scope of a curation map" sits at the same epistemic level as the Figure S5
+caption's refusal of external physiological validation.
+
 **Marked for the citation pass, not opened:**
 
 | locus | trigger | what to check |
