@@ -82,6 +82,11 @@ findings and must not be reported as such.
 | 54 | `TODO_publication_roadmap.md:284` | "⬜ Paste **Title / Abstract / Keywords** from `submission_metadata.txt` (**✅ synced**)." It is **not** synced -- see signal 52. The roadmap both instructs the paste and certifies the source | OPEN -- ⚠️ **this is what makes 52 operationally dangerous** |
 | 55 | `TODO_publication_roadmap.md:206-210` -- **6 of 8 loci** | The HARD GATE's line numbers have drifted: `paper.tex` 409/430/434 are now **454/475/479** (+45, predating this session), `supplement.tex` 809/939 are now **811/943**. `cover_letter.md:72`/`:76` still hold | OPEN -- **the project's most critical gate points at wrong lines** |
 | 56 | `TODO_publication_roadmap.md:114-117` vs `submission_metadata.txt:52-53` | Two incompatible affiliation schemes: the roadmap records **4 affiliations** "[1]-[4]" dated 2026-06-11; the metadata records a **6-affiliation scheme** dated 2026-07-06 | OPEN -- ⚠️ **author data: flagged, deliberately NOT touched** |
+| 57 | `preprint_npj/README.md` -- **3 loci**: L9, L78, L155 | Ledger pinned at "**195**/195 PASS" and "the legacy **195**-claim ledger" where the live total is **382**. A **third** stale ledger figure in the repository, distinct from the 313 of signal 33 | OPEN -- **factual, and this file is public** |
+| 58 | `preprint_npj/README.md` -- **4 loci**: L6, L20, L66, L71 | Every page count is wrong, and two contradict each other in the same file. Monograph "**~92**-page" (L6, L66) against "**~100** pages" (L71); measured **118**. Supplement "**~22** pages"; measured **52**. Main "~12 pages"; `paper.pdf` is **37** | OPEN -- ⚠️ **`paper.tex:475` and `supplement.tex:941` say "over 100 pages" and are CORRECT** |
+| 59 | `preprint_npj/README.md:53-54` | "A `build_npj.ps1` PowerShell wrapper **will be added** once the LaTeX sources stabilise (Step 1)." The file has existed since **2026-06-01** and was run twice today | OPEN -- low, stale future tense |
+| 60 | `preprint_npj/README.md:248-252` | Status block: "Step 0 ✓ complete (**this commit**) · Step 1 -- Title + Abstract + Methods stub: **in progress** · Steps 2--10: **scheduled**". The package is submission-ready | OPEN -- low but conspicuous on a public page |
+| 61 | `preprint_npj/README.md:106-110` | "The phrase 'clinical-AI training' applied to Pulse has **no verified citation** ... **as of 2026-05-23**. Do **not** write it without first adding a verified citation." The date-stamp makes the sentence honest, but it reads as a **live prohibition** whose premise has since been met: `ward2024ventilator` sits at `paper.bib:448` with a full-text-read verification note, and `cover_letter.md:27` uses it for exactly that | OPEN -- low; dated, not false |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -2459,6 +2464,67 @@ the gate reports.
 dated 2026-06-11; the metadata's 6-affiliation scheme is dated 2026-07-06 and is
 therefore the later record. Which is correct is not mine to decide and nothing was
 edited.
+
+
+### preprint_npj/README.md -- the stalest artefact in the set, and it is public
+
+Seventh and last file, all 253 lines read. `git ls-files` confirms it is
+**tracked**, so unlike the two planning files its staleness faces outward. It
+dates from the S028 splitting work of 2026-05-23 and appears never to have been
+refreshed.
+
+| claim | measured today |
+|---|---|
+| ledger "195 / 195 PASS" (x3) | **382** |
+| "`build_npj.ps1` **will be added**" | exists since **2026-06-01**, run twice today |
+| supplement "~22 pages" (x2) | `supplement.pdf` = **52** |
+| main "~12 pages" | `paper.pdf` = **37** |
+| monograph "~92-page" (x2) **and** "~100 pages" | `manuscript.pdf` = **118** |
+| Status: "Step 1 in progress, Steps 2--10 scheduled" | package is submission-ready |
+
+✅ **The two submitted documents are correct and must not be swept.**
+`paper.tex:475` and `supplement.tex:941` both say the monograph is "**over 100
+pages**", which is **true** at 118. The page-count defect is confined to this
+README (4 loci) plus one internal locus at `TODO_publication_roadmap.md:239`.
+Likewise "~22 pages" for the supplement exists **only** in this file.
+
+⚠️ **Three different stale ledger figures now coexist in the repository**: 195
+here, 313 in the internal roadmap (signal 33, 5 loci), against a live 382. They
+are three separate populations in three separate files, which is why finding one
+never measured the others.
+
+**61 is dated rather than false, and that is the interesting part.** The sentence
+carries "as of 2026-05-23", so it is an honest record. But it is written as an
+instruction -- "Do **not** write it without first adding a verified citation that
+demonstrates a specific third-party team training a clinical AI on Pulse-generated
+data" -- and that citation now exists: `ward2024ventilator` at `paper.bib:448`,
+carrying a full-text-read verification note, used at `cover_letter.md:27` for an
+independent group learning ventilator-control policies from Pulse output. A reader
+of this README would believe a constraint still binds that has been satisfied.
+
+⚠️ **Not checked, and not asserted**: whether L102-105's "third-party
+Pulse-*assessment* work is currently a single paper (`cornish2023`)" still holds.
+`ward2024ventilator` is third-party *use*, not assessment, and `sinnige2026active`
+is a ventilation trial, so the claim may well stand. It was not measured.
+
+---
+
+## Public-file population: COMPLETE
+
+All seven files read line by line, no grep substituting for a read.
+
+| file | lines | public? | signals |
+|---|---|---|---|
+| `README.md` | 491 | public | 39-43, 45 |
+| `CITATION.cff` | 43 | public | 46, 47 |
+| `preprint_npj/cover_letter.md` | 92 | public | 48-51 |
+| `preprint_npj/submission_metadata.txt` | 79 | public | 52, 53 |
+| `preprint_npj/pre_submission_inquiry.txt` | 57 | **gitignored** | none -- exemplary |
+| `TODO_publication_roadmap.md` | 358 | **gitignored** | 33 (recount), 54-56 |
+| `preprint_npj/README.md` | 253 | public | 57-61 |
+
+⚠️ **Two of the seven are not public**, which the original framing assumed they
+were. Their staleness misleads the maintainer rather than a reader.
 
 
 ---

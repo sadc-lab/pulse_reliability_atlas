@@ -20,14 +20,14 @@ becomes what it criticises.
 
 | | signals |
 |---|---|
-| supplement (`audit/supplement_prose_sweep.md`), ids 1–56 | **56** |
+| supplement (`audit/supplement_prose_sweep.md`), ids 1–61 | **61** |
 | paper (this file), P-1 … P-5 | **5** |
-| **total** | **61 — 56 open, 5 closed or off the table** |
+| **total** | **66 — 60 open, 6 closed or off the table** |
 
-**Verified by enumeration, not by regex**: supplement ids 1–56 with no gaps,
+**Verified by enumeration, not by regex**: supplement ids 1–61 with no gaps,
 paper P-1…P-5. The class partition below was checked for completeness and
-overlap — 61 assigned, 61 distinct, no duplicate, none missing, none extra.
-7 + 24 + 5 + 19 + 6 = 61; open = 61 − 5 = 56.
+overlap — 66 assigned, 66 distinct, no duplicate, none missing, none extra.
+7 + 26 + 5 + 22 + 6 = 66; open = 66 − 6 = 60.
 
 **By class:**
 
@@ -37,9 +37,9 @@ overlap — 61 assigned, 61 distinct, no duplicate, none missing, none extra.
   sign-reversing effect) · **P-2** (Berlin vs PALICC-2) · **P-4** (cross-output
   μ\*) · **49** (the cover letter stretches Pulse's non-examination of 0.91–0.945
   over the wider band **we** established).
-- **Factual, established, cheap to repair (24):** 5, 8, 11, 12, 18, 19, 21, 26,
-  27, 30, **31** (the fresh-clone recipe cannot run), **33** (313/313 pinned in a
-  live criterion), **34** (S001…S031 where the log reaches S032), **35**
+- **Factual, established, cheap to repair (26):** 5, 8, 11, 12, 18, 19, 21, 26,
+  27, 30, **31** (the fresh-clone recipe cannot run), **33** (313 pinned at **5 loci**, one of
+  them a live acceptance criterion), **34** (S001…S031 where the log reaches S032), **35**
   ("detector" baked into the Figure S5 legend), **37** (34 at FiO₂ = 1.0), **P-1**,
   **P-3**, **40** (README announces two image hashes and prints one), **39** (the
   monograph's ~7 h sweep wall time, below the 13.72 h floor — README, supplement
@@ -47,19 +47,23 @@ overlap — 61 assigned, 61 distinct, no duplicate, none missing, none extra.
   by a host suspension the 600 s timeout failed to catch), **48** (the cover letter calls all
   four scenarios ARDS; one is the healthy baseline), **52** (the portal abstract is
   stale, 155 words against a 150 cap, H1 missing), **54** (the roadmap certifies it
-  "✅ synced"), **55** (the hard gate's line numbers have drifted).
+  "✅ synced"), **55** (the hard gate's line numbers have drifted), **57** (a *third* stale ledger
+  figure, 195, on a public page), **58** (every page count in the npj README is
+  wrong; the two submitted documents are **correct**).
 - **Arbitrated against a source, repair still to write (5):** **1** (four
   sub-claims: 2 supported, 1 source-insufficient, 1 overclaimed) · **20**
   (escalated — the Pulse docs *do* carry the rule) · **23** (SUPPORTED; bound the
   unbounded negative) · **P-5** (source-insufficient universal, but the BioGears
   half is now citable) · **56** (two incompatible affiliation schemes —
   **author data, flagged not touched**).
-- **Low, legibility or cosmetic (19):** 3, 4, 6, 7, 9, 13, 14, 15, 16, 22, 25,
+- **Low, legibility or cosmetic (22):** 3, 4, 6, 7, 9, 13, 14, 15, 16, 22, 25,
   29, **36** (running-title case), **41** ("silent FiO2 cap" unscoped beside the
   "does not silently clamp" headline), **42** (broken link), **43** (bit-exact vs
   1e-6 conflated), **47** (`CITATION.cff` version and release date three months stale), **51** (a
   Pulse-scoped priority claim in the cover letter), **53** (`submission_metadata.txt`
-  says "uncommitted" and is tracked).
+  says "uncommitted" and is tracked), **59** (a wrapper "will be added" that has
+  existed since June), **60** (a Status block frozen at Step 1), **61** (a dated
+  citation prohibition whose premise has since been met).
 - **Closed or off the table (6):** **50 verified TRUE at source 2026-08-23** · 2 closed · 10 resolved from the source · 32
   withdrawn as my error · **45 and 46 corrected and closed 2026-08-23**.
 
@@ -103,7 +107,7 @@ Methods does not license, with a recoverable mechanism claim) and P-2 (an
 adult-vs-pediatric definition mix-up that pediatric intensivist reviewers will
 see). P-3 and P-1 are precise and cheap to repair. P-5 needs a source or a hedge.
 
-**Awaiting a decision before any edit:** all five, plus the 51 open supplement
+**Awaiting a decision before any edit:** all five, plus the 55 open supplement
 signals. Nothing has been corrected.
 
 **Three findings that run the other way** — places where the paper is the
