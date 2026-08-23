@@ -10,6 +10,53 @@ recorded and left for a later, separate correction pass.
 
 ---
 
+## ▶ SUMMARY — read this first (sweep complete, 2026-08-23)
+
+**112 of 112 paragraphs swept**, abstract through back matter. **5 signals.** No
+manuscript edit made; nothing pushed.
+
+| # | locus | one line | class |
+|---|---|---|---|
+| **P-4** | `paper.tex:289` | Cross-output μ\* comparisons are unit artifacts, and **§4.6 licenses comparability across inputs only** | **established (a) + interpretation to arbitrate (b)** |
+| **P-2** | monograph L44, L954 | Severity bands credited to **PALICC-2** where the same document says Berlin "not on PALICC-2" | **established — contradiction, monograph-only** |
+| **P-3** | `paper.tex:187` | `not_steady_state` defined with 2 triggers; Table 2 gives 3, and the omitted one is the largest | **established — internal** |
+| **P-1** | `paper.tex:359` | Five severities called an illustrative "convention"; the source shows hard-coded calibration nodes | **established — understates the paper's own finding** |
+| **P-5** | `paper.tex:372` | "No comparable open atlas yet exists" for BioGears/HumMod — unsourced, unhedged | **needs investigation — citation trigger (b)** |
+
+**The two that matter scientifically** are P-4 (a comparison the paper's own
+Methods does not license, with a recoverable mechanism claim) and P-2 (an
+adult-vs-pediatric definition mix-up that pediatric intensivist reviewers will
+see). P-3 and P-1 are precise and cheap to repair. P-5 needs a source or a hedge.
+
+**Awaiting a decision before any edit:** all five, plus the 29 open supplement
+signals. Nothing has been corrected.
+
+**Three findings that run the other way** — places where the paper is the
+*better-stated* document and should be the model for repairing the supplement:
+
+1. §2.3 uses the **median of paired differences** (0.325724) where §S8 ¶665 is
+   ambiguous → supplement **signal 13** should follow the paper.
+2. Table 1 states "160 simulations per cell" and "the four failure flags"
+   correctly → supplement **signals 21, 22(a), 29** are localised, not systemic.
+3. The Data-availability statement says the monograph "**consolidates**" the
+   lab-notebook entries — the weaker, accurate verb that supplement **signal 26**
+   finds missing from §S14 ¶939's "carries".
+
+**Two things recorded that are not signals:**
+
+- ⚠️ **`CLAUDE.md` misstates a preregistered threshold** — it summarises the Sobol
+  trigger as σ/μ\* > 0.5 where `preregistration.md:168` says ≥ 0.6. The paper is
+  right; the instruction file is wrong, and it nearly caused a false signal.
+- 🔜 **Deferred, already dated elsewhere**: `paper.tex:460` says "**the**
+  supervisor-review phase" and "the **final** rounds". Both become false once the
+  second supervisor round happens.
+
+**Not verified, and marked rather than assumed**: `paper.tex:388`'s "applied DBP
+to co-vary in **8 of 20** SBP steps" (its 9/20 companion is a ledger anchor; this
+one is not, and was not measured).
+
+---
+
 ## Method
 
 Four questions per paragraph:
