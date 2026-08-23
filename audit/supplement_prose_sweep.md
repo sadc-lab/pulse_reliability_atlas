@@ -80,7 +80,7 @@ findings and must not be reported as such.
 | 52 | `submission_metadata.txt` | Portal abstract stale in every sentence, 155 words against a 150 cap, H1 absent, hyperoxia scope widened | ✅ **CLOSED 2026-08-23** -- block now **generated** from `paper.tex` by `scripts/sync_submission_metadata.py`, guarded in the pre-commit hook |
 | 53 | `submission_metadata.txt` header | "Draft, **uncommitted**" on a git-tracked file | ✅ **CLOSED 2026-08-23** -- header replaced; it now names the generator as the source of truth |
 | 54 | `TODO_publication_roadmap.md:284` | "(**✅ synced**)" certifying a file that was not | ✅ **CLOSED 2026-08-23** -- tick removed and replaced by a pointer to the mechanical check; the file is gitignored, so no guard can verify a claim made in it |
-| 55 | `TODO_publication_roadmap.md:206-210` -- **6 of 8 loci** | The HARD GATE's line numbers have drifted: `paper.tex` 409/430/434 are now **454/475/479** (+45, predating this session), `supplement.tex` 809/939 are now **811/943**. `cover_letter.md:72`/`:76` still hold | OPEN -- **the project's most critical gate points at wrong lines** |
+| 55 | `TODO_publication_roadmap.md:206-210` -- 6 of 8 line numbers wrong | The HARD GATE addressed its eight loci by `FILE:LINE`; `paper.tex` 409/430/434 had become 454/475/479, `supplement.tex` 809/939 had become 811/943 | ✅ **CLOSED 2026-08-23** -- replaced by `scripts/check_publication_gate.py`, which locates by **content**, refuses first-match-wins, and is wired into the pre-commit hook |
 | 56 | `TODO_publication_roadmap.md:114-117` vs `submission_metadata.txt:52-53` | Two incompatible affiliation schemes: the roadmap records **4 affiliations** "[1]-[4]" dated 2026-06-11; the metadata records a **6-affiliation scheme** dated 2026-07-06 | OPEN -- ⚠️ **author data: flagged, deliberately NOT touched** |
 | 57 | `preprint_npj/README.md` -- **3 loci**: L9, L78, L155 | Ledger pinned at "**195**/195 PASS" and "the legacy **195**-claim ledger" where the live total is **382**. A **third** stale ledger figure in the repository, distinct from the 313 of signal 33 | OPEN -- **factual, and this file is public** |
 | 58 | `preprint_npj/README.md` -- **4 loci**: L6, L20, L66, L71 | Every page count is wrong, and two contradict each other in the same file. Monograph "**~92**-page" (L6, L66) against "**~100** pages" (L71); measured **118**. Supplement "**~22** pages"; measured **52**. Main "~12 pages"; `paper.pdf` is **37** | OPEN -- ⚠️ **`paper.tex:475` and `supplement.tex:941` say "over 100 pages" and are CORRECT** |
@@ -2665,6 +2665,52 @@ both giving `0cdb370f...`.
 gitignored. Its tick is gone from disk, but nothing in the repository records that
 -- which is precisely why the replacement text points at the check rather than
 re-asserting the fact.
+
+
+### 55 closed -- the gate now addresses by content
+
+`scripts/check_publication_gate.py` replaces eight `FILE:LINE` positions with a
+declarative table: **file, anchor, expected occurrences, the proposition it
+stands for**. Two cases only -- a unique anchor occurs exactly once, or a
+deliberately repeated anchor declares its count and **every** occurrence is
+printed before the row passes. **There is no first-match-wins**: an instrument
+that silently picks one of two candidates is choosing the claim it audits. Line
+numbers are printed as diagnostics, never used as identity.
+
+⚠️ **The anchors are the tensed phrases themselves** -- "are released", "already
+openly available", "is released", "All data and code are openly available".
+Rewriting a statement into the future tense therefore **breaks its anchor and
+fails the gate**, which is the intended behaviour. Anchor resolution *is* tense
+verification, by construction rather than by a separate check.
+
+**Stated limit, written into the script's own docstring**: it does **not** verify
+that the surrounding sentence still *means* what the proposition column says. A
+count is not a semantics check. The propositions are printed so a human reads them
+at submission time.
+
+**Falsified before being trusted.**
+
+| test | expected | observed |
+|---|---|---|
+| F0 baseline | 8/8 resolve | exit **0** |
+| F1 anchor reworded present -> future | 0 found | **0 (expected 1)**, exit 1 |
+| F2 anchor duplicated | 2 found, both shown | **2 (expected 1)**, exit 1, **both loci printed** |
+| F3 `--verify-public`, repo private | BLOCKED | exit 1, control `torvalds/linux` **200** rules out a network cause |
+| F5 **the wiring**: anchor broken, `git commit` attempted | hook aborts | **aborted**, `git log` shows HEAD unchanged at `e7d7243` |
+
+`cover_letter.md` restored after F1, F2 and F5 and verified **byte-identical to
+HEAD** each time. All four gate files are **git-tracked**, so the check runs on a
+fresh clone.
+
+⚠️ **Repository visibility is deliberately not checked at commit time** -- it would
+fail every commit until release day. Only the anchor half is wired; `--verify-public`
+is run by hand before submitting. Measured again today: repo **404**, control
+**200**, still private, so the eight present-tense statements remain correctly
+future-facing.
+
+⚠️ **What is local only**: the roadmap's prose block now points at the script
+instead of listing positions, but that file is gitignored. The durable guarantee
+is the script, not the note.
 
 
 ---
