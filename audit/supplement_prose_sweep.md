@@ -77,6 +77,8 @@ findings and must not be reported as such.
 | 49 | `cover_letter.md:60-62` | "Published Pulse validation work samples ARDS severity **only on round tenths** and **never probes inside this interval**." Outruns `paper.tex:359` on **two** axes -- see the dossier | OPEN -- ⚠️ **an absence claim outrunning its source** |
 | 50 | `cover_letter.md:15` | "*npj Digital Medicine* lists **digital twins** explicitly within its scope" | ⚠️ **UNVERIFIABLE 2026-08-23** -- nature.com 303s to an auth endpoint; proxy evidence contradicts |
 | 51 | `cover_letter.md:31-32` | "the **first** open, preregistered reliability atlas of Pulse" -- a priority claim, but scoped to Pulse rather than universal | OPEN -- low; far more defensible than P-5's universal form |
+| 52 | `preprint_npj/submission_metadata.txt:15-32` | The abstract declared "**Extracted verbatim from `preprint_npj/paper.tex`**" is **stale in every sentence**, is **155 words against npj's 150 cap**, **omits the H1 headline result**, and **loses the healthy-lung scope** on the hyperoxia claim. This is the text that would be pasted into the submission portal | OPEN -- ⚠️ **the most consequential defect found in the public files** |
+| 53 | `submission_metadata.txt:4` | Header says "Draft, **uncommitted**" -- `git ls-files` shows the file **is tracked** | OPEN -- low, stale self-description |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -2290,6 +2292,60 @@ and publication record carry the same rhetorical weight and are checkable.
 
 ⚠️ **Not decided here, and it cannot be, until the aims page is read from a
 session that can reach it.**
+
+
+### 52 -- submission_metadata.txt carries a stale abstract, over the word cap
+
+**This is the file whose contents get pasted into the npj portal.** Its header
+claims the abstract is "Extracted verbatim from `preprint_npj/paper.tex`".
+**Not one sentence matches.**
+
+**Word counts, two instruments agreeing on the paper side.** My probe and the
+repository's own `check_abstract_extent()` guard both give `paper.tex` **150
+word-processor words** -- exactly npj's cap, zero margin -- and the guard adds a
+strict letter/digit count of 147. On the same rule, `submission_metadata.txt` is
+**155 words: five over the cap**. The file meanwhile announces **145** on itself,
+which matches neither.
+
+| defect | paper.tex (canonical) | submission_metadata.txt |
+|---|---|---|
+| ⚠️ **H1 headline result** | "**Sensitivity is skewed: three inputs dominate each output (median 93 % of total sensitivity).**" | **absent entirely** |
+| ⚠️ hyperoxia scope | "300-second **healthy-lung** reruns give a median 643 mmHg" | "300-second runs **resolve near the alveolar-gas ceiling** (median 643 mmHg)" |
+| Vt claim | "makes Vt **reproducible**" | "makes Vt **deterministic** for cohort generation" |
+| classifier result | "surfaces failure modes: two operator-actionable, **a third sex-dependent**" | "several failure modes, two operator-actionable **plus a sex-specific reliability axis**" |
+| design | "seven inputs, **four severity scenarios, two bodies**" | "seven inputs across **four severity levels (healthy through severe ARDS) in two bodies**" |
+| hyphenation | "adult-physiology" | "adult physiology" |
+| closing | "The atlas maps ... releases an **openly licensed** curation layer for **synthetic-cohort construction**" | "These results map ... provide an **open-source** curation layer **(Apache-2.0) for cohorts**" |
+
+⚠️ **The two marked entries are not stylistic.**
+
+The **missing H1 sentence** is the atlas's primary preregistered result. An abstract
+that omits it understates the paper to the editor who first reads it.
+
+The **hyperoxia rewrite** does two things at once: it drops the *healthy-lung*
+restriction, and it adds an interpretation the paper deliberately withholds.
+"Resolve near the alveolar-gas ceiling" reads as convergence *to* the ceiling,
+where the established finding is a plateau **approximately 20 mmHg below** the
+alveolar-gas prediction -- 643 mmHg against roughly 663 predicted. The paper states
+the measurement and stops.
+
+**Dating the drift.** The "adult physiology" / "adult-physiology" split places this
+file before commit `bc01969`, which hyphenated two compound modifiers to recover
+margin under the cap, and therefore before the abstract guard `e210680` as well.
+
+✅ **Verified sound in the same file, and worth recording as a positive result**:
+all **six ORCID identifiers pass the MOD 11-2 checksum**, computed offline rather
+than eyeballed -- Nanini 0009-0000-5645-4691, Wiedemann 0000-0003-3514-8841,
+Mamouni 0009-0000-4308-6287, Schweitzer 0000-0003-0895-774X, Jouvet
+0000-0001-5684-3398, Sauthier 0000-0001-7269-4767. A checksum catches a
+transposed digit, which is the realistic failure mode here.
+
+⚠️ **Read but deliberately untouched**, per standing instruction: the author list,
+the six-affiliation scheme, CRediT contributions and funding acquisition.
+
+⚠️ **Not verified**: whether `paper.tex` declares a running title at all. My
+patterns found none, and an empty result from an uncalibrated pattern establishes
+nothing. The metadata proposes "Reliability atlas: Pulse Physiology Engine".
 
 
 ---
