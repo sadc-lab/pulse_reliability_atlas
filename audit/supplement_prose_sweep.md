@@ -64,7 +64,7 @@ findings and must not be reported as such.
 | 36 | `paper.tex:77` vs `submission_metadata.txt:12` | Running title case differs: "Reliability **A**tlas: Pulse Physiology Engine" against "Reliability **a**tlas: …" | OPEN — cosmetic, two submission artefacts |
 | 37 | **3 loci**: `README.md:161`, monograph **L71**, monograph **L320** | "34 … **at FiO₂ = 1.0**" over-attributes: **31** are at 1.0, 3 at 0.7367. Four other loci state it correctly | **OPEN — count corrected; the monograph says it both ways** |
 | 38 | **5 loci**: `README.md:108`, `:156`, monograph **L338**, **L2007**, **L2231** | "divergence approximately **sex-balanced**" flattens a sign-reversing effect. `paper.tex` and `supplement.tex` are **clean** — their single occurrences mean *cohort design*, a different claim | **OPEN — count corrected after a homonym false alarm** |
-| 39 | **4 loci**: `manuscript.md:1271`, `:3314` vs `supplement.tex:817` (+ `README.md:229-230`, `supplement.tex:857-859`) | Sweep wall time. Monograph: "~7 h" at 2 workers on the reference machine. Supplement L817: aggregate container time "approximately 27 h per sweep on the reference machine" -- which at 2 workers is ~13.5 h. README and the supplement's own code comment both say **~14 h at 2 / ~9 h at 3**. The monograph's ~7 h is the outlier and cannot be reconciled with the 27 h it sits beside | OPEN -- **factual, cross-document; paper.tex is clean (0 loci)** |
+| 39 | **7 loci** across README, supplement and monograph | Sweep compute cost. **Re-derived from all 1,280 `run_meta.json`: aggregate container time is 41.12 h, not the 27 h stated.** Ideal wall floor 20.56 h at 2 workers, 13.71 h at 3. Every estimate in the corpus (~7 h, ~9 h, ~14 h) is **below the floor**; only the measured 23 h 01 m survives | OPEN -- **UPGRADED: not a disagreement between two documents, a corpus-wide contradiction with the data** |
 | 40 | `README.md:261-266` | Announces "Manuscript S2.8 names **two** image hashes" and then prints **one**. The canonical sweep image `3b18bdc08660` is named in `manuscript.md:744` but dropped from the README bullet, which reads "Initial atlas image" with no hash. Not the S032 irrecoverable-image problem: the hash is recorded, it just fell out of the README | OPEN -- a promise the text does not keep |
 | 41 | **3 loci**: `README.md:141`, `:323`, `:398` | "the silent FiO2 cap" stated with no scope, on a page whose headline says H2 NOT supported, Pulse "does **not** silently clamp" (0/1,280). Both are true and the monograph says why at S2.1 -- the cap is at the **wrapper layer**, and the atlas deliberately raises FiO2_MAX from 0.95 to 1.0 so the boundary reaches Pulse. The README never states wrapper != engine | OPEN -- legibility, not a factual error |
 | 42 | `README.md:370` | Link text `Pulse_translation_new/` resolves to `https://github.com/santinon/` -- a user profile, not a repository. Public-facing broken pointer | OPEN -- cosmetic but visible to every reader |
@@ -1617,6 +1617,69 @@ S031" where `experiments_log/santino/` reaches **S032**, and `:431` calls S025
 is corrected here. It is also the first number a reviewer meets --- `README.md:31`
 budgets "~9-23 h on a laptop" in the **For peer reviewers** block --- and that
 range excludes the monograph's own ~7 h.
+
+
+### 39 -- re-derived from the run metadata, which overturns my own first report
+
+⚠️ **I first reported this as the monograph's ~7 h being the outlier against a
+coherent README/supplement ~14 h. That was wrong: both are impossible.** The
+error came from arbitrating between two prose claims instead of re-deriving the
+quantity. Recorded because the correction is the finding.
+
+**What settled it.** Every run directory carries `run_meta.json` with
+`wall_time_s`, which `src/runner.py:138-162` computes as `time.monotonic()`
+around the `subprocess.run` of the `docker run` invocation -- i.e. per-container
+wall clock, exactly the quantity the supplement calls "Pulse container time".
+
+**Provenance checked before the numbers were believed**: all 1,280 metadata files
+are dated **2026-04-26**, a single execution, matching the canonical sweep date.
+`--resume` skips completed runs without rewriting their metadata, so no later
+re-execution could have contaminated the tree. 1,280 / 1,280 carry the field;
+none missing.
+
+**Two independent instruments, identical result**: a JSON parse over the tree,
+and a raw text extraction with no JSON parser. Both give n = 1,280, 148,038 s,
+**41.12 h**, mean 115.7 s per run.
+
+| claim | locus | verdict against the data |
+|---|---|---|
+| "approximately 27~h per sweep on the reference machine" | `supplement.tex:817` | ⚠️ **measured 41.12 h** |
+| "~7 h" wall at two workers | `manuscript.md:1271`, `:3314` | ⚠️ **below the 20.56 h floor** |
+| "~14 h on the canonical laptop with 2 workers" | `README.md:229`, `supplement.tex:858` | ⚠️ below the floor |
+| "~9 h with 3" | `README.md:229`, `supplement.tex:859` | ⚠️ below the 13.71 h floor |
+| "~9-23 h on a laptop" | `README.md:31`, `:228` | ⚠️ only the top of the range survives |
+| "wall time 23~h~01~m" | `supplement.tex:817`, `:895` | ✅ **consistent** -- 20.56 h ideal plus idle across resume points |
+| "46~h on the slower independent host" | `supplement.tex:817` | not re-derivable from this tree; plausible for slower hardware |
+
+⚠️ **The floor is a floor, not an estimate.** Wall time at *w* workers is at least
+aggregate / *w*, because no schedule packs better than perfect. 20.56 h at two
+workers is therefore a hard lower bound, and 7 h and 14 h are not merely
+optimistic -- they are arithmetically unreachable given the recorded per-run
+durations. The sweep is described as starting at three workers and dropping to
+two mid-run, which places its true wall time between 13.71 h and 20.56 h plus
+idle. **The canonical sweep's own wall time appears to be recorded nowhere; every
+figure for it in the corpus is an estimate.**
+
+**A substantive by-product, offered but not acted on.** The cost is extremely
+concentrated: **S4_M alone is 18.45 h of the 41.12 h, 44.9 % of all container
+time**, at a mean of 415.2 s per run against 42-106 s in the other seven cells.
+
+| cell | aggregate | mean/run |
+|---|---|---|
+| S1_F | 1.87 h | 42.2 s |
+| S1_M | 2.12 h | 47.7 s |
+| S2_F | 3.24 h | 72.9 s |
+| S2_M | 3.13 h | 70.3 s |
+| S3_F | 3.64 h | 82.0 s |
+| S3_M | 3.96 h | 89.0 s |
+| S4_F | 4.71 h | 106.0 s |
+| **S4_M** | **18.45 h** | **415.2 s** |
+
+That is the severe-ARDS male cell -- the same cell holding all 20 solver
+divergences and the worst traffic-light row. Compute time rising ~4x there is
+consistent with a solver struggling, and would be an independent quantitative
+signal of the same phenomenon. ⚠️ **Whether that belongs in the paper is a
+scientific-content decision and is not taken here.**
 
 
 ---

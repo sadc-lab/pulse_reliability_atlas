@@ -45,8 +45,9 @@ overlap — 48 assigned, 48 distinct, no duplicate, none missing, none extra.
   sub-claims: 2 supported, 1 source-insufficient, 1 overclaimed) · **20**
   (escalated — the Pulse docs *do* carry the rule) · **23** (SUPPORTED; bound the
   unbounded negative) · **P-5** (source-insufficient universal, but the BioGears
-  half is now citable) · **39** (sweep wall time: the monograph's ~7 h against the
-  supplement's own 27 h aggregate — **needs the author to say which is right**).
+  half is now citable) · **39** (sweep compute cost — **re-derived: 41.12 h aggregate,
+  20.56 h floor at 2 workers; ~7 h, ~9 h and ~14 h are all below the floor, and
+  the 27 h aggregate is wrong too. Only the measured 23 h 01 m survives**).
 - **Low, legibility or cosmetic (16):** 3, 4, 6, 7, 9, 13, 14, 15, 16, 22, 25,
   29, **36** (running-title case), **41** ("silent FiO2 cap" unscoped beside the
   "does not silently clamp" headline), **42** (broken link), **43** (bit-exact vs
