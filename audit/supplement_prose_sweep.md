@@ -77,9 +77,9 @@ findings and must not be reported as such.
 | 49 | `cover_letter.md:60-62` | "Published Pulse validation work samples ARDS severity **only on round tenths** and **never probes inside this interval**." Outruns `paper.tex:359` on **two** axes -- see the dossier | OPEN -- ⚠️ **an absence claim outrunning its source** |
 | 50 | `cover_letter.md:15` | "*npj Digital Medicine* lists **digital twins** explicitly within its scope" | ✅ **CLOSED 2026-08-23 -- VERIFIED TRUE at the primary source.** "Digital twins" is a topic bullet on the journal's own Aims and scope page |
 | 51 | `cover_letter.md:31-32` | "the **first** open, preregistered reliability atlas of Pulse" -- a priority claim, but scoped to Pulse rather than universal | OPEN -- low; far more defensible than P-5's universal form |
-| 52 | `preprint_npj/submission_metadata.txt:15-32` | The abstract declared "**Extracted verbatim from `preprint_npj/paper.tex`**" is **stale in every sentence**, is **155 words against npj's 150 cap**, **omits the H1 headline result**, and **loses the healthy-lung scope** on the hyperoxia claim. This is the text that would be pasted into the submission portal | OPEN -- ⚠️ **the most consequential defect found in the public files** |
-| 53 | `submission_metadata.txt:4` | Header says "Draft, **uncommitted**" -- `git ls-files` shows the file **is tracked** | OPEN -- low, stale self-description |
-| 54 | `TODO_publication_roadmap.md:284` | "⬜ Paste **Title / Abstract / Keywords** from `submission_metadata.txt` (**✅ synced**)." It is **not** synced -- see signal 52. The roadmap both instructs the paste and certifies the source | OPEN -- ⚠️ **this is what makes 52 operationally dangerous** |
+| 52 | `submission_metadata.txt` | Portal abstract stale in every sentence, 155 words against a 150 cap, H1 absent, hyperoxia scope widened | ✅ **CLOSED 2026-08-23** -- block now **generated** from `paper.tex` by `scripts/sync_submission_metadata.py`, guarded in the pre-commit hook |
+| 53 | `submission_metadata.txt` header | "Draft, **uncommitted**" on a git-tracked file | ✅ **CLOSED 2026-08-23** -- header replaced; it now names the generator as the source of truth |
+| 54 | `TODO_publication_roadmap.md:284` | "(**✅ synced**)" certifying a file that was not | ✅ **CLOSED 2026-08-23** -- tick removed and replaced by a pointer to the mechanical check; the file is gitignored, so no guard can verify a claim made in it |
 | 55 | `TODO_publication_roadmap.md:206-210` -- **6 of 8 loci** | The HARD GATE's line numbers have drifted: `paper.tex` 409/430/434 are now **454/475/479** (+45, predating this session), `supplement.tex` 809/939 are now **811/943**. `cover_letter.md:72`/`:76` still hold | OPEN -- **the project's most critical gate points at wrong lines** |
 | 56 | `TODO_publication_roadmap.md:114-117` vs `submission_metadata.txt:52-53` | Two incompatible affiliation schemes: the roadmap records **4 affiliations** "[1]-[4]" dated 2026-06-11; the metadata records a **6-affiliation scheme** dated 2026-07-06 | OPEN -- ⚠️ **author data: flagged, deliberately NOT touched** |
 | 57 | `preprint_npj/README.md` -- **3 loci**: L9, L78, L155 | Ledger pinned at "**195**/195 PASS" and "the legacy **195**-claim ledger" where the live total is **382**. A **third** stale ledger figure in the repository, distinct from the 313 of signal 33 | OPEN -- **factual, and this file is public** |
@@ -2613,6 +2613,58 @@ contains exactly **one** minus, `-2 cmH2O` at L25, correctly U+2212. Everything
 else my pattern caught was a hyphen -- `Apache-2.0`, `6-affiliation`, and the ORCID
 separators. `paper.tex` writes `$-2$`, which maps to U+2212 with nothing to
 decide.
+
+
+### Operational block executed -- 52, 53, 54 and 36 closed
+
+`paper.tex` is now the **only** source of the portal text.
+`scripts/sync_submission_metadata.py` generates title, running title, abstract and
+keywords; everything below them -- corresponding author, author list, the
+six-affiliation scheme, ORCID iDs, CRediT -- is hand-maintained and was verified
+byte-identical after regeneration.
+
+**36 closed as a by-product.** The generator reads the **live** `	itle[...]`,
+which is `Reliability Atlas: Pulse Physiology Engine` with a capital A at
+`paper.tex:77`. The two lower-cased variants at `:63` and `:71` are **commented-out
+drafts**. No separate decision was needed.
+
+⚠️ **Two bugs in my own generator, caught by printing the output before writing
+it, and both worse than the defect being fixed.**
+
+1. It harvested the **first** `	itle` in the file -- a commented-out draft -- and
+   would have pasted *"Mapping the reliability of an open-source physiological
+   digital twin for adult critical-care simulation..."* into the submission
+   portal. Comments are now stripped before parsing, handling the escaped `\%`
+   the abstract genuinely contains.
+2. The wrapper split `20.6` from its `%` across a line break. Values are now glued
+   to their units.
+
+**Safety property, deliberate**: the transform **fails on any LaTeX construct it
+does not recognise** rather than emitting it. A backslash reaching the portal is
+worse than a crash.
+
+**Falsified before being trusted.**
+
+| test | expected | observed |
+|---|---|---|
+| T1 negative control, file synced | PASS | exit **0** |
+| T2 one-word drift -- the exact historical defect, `reproducible` -> `deterministic` | FAIL | exit **1**, precise diff |
+| T3 abstract padded to 162 words, generation | FAIL | exit **1**, cap named |
+| T4 same, `--check` | FAIL, not a silent pass | exit **1** |
+| T5 **the wiring itself**: drift injected, `git commit` attempted | hook aborts | **aborted**, `git log` confirms no commit created |
+
+⚠️ **T5 is the one that mattered.** `check_render.py` was once written correctly
+and **wired nowhere for two weeks**; a guard that is right but unreachable is not
+a guard.
+
+`paper.tex` was restored from a backup after T3/T4 and verified **byte-identical
+to HEAD by two instruments** -- `git diff --exit-code` and a SHA-1 hash comparison,
+both giving `0cdb370f...`.
+
+⚠️ **What this does NOT close.** The roadmap edit is local only: the file is
+gitignored. Its tick is gone from disk, but nothing in the repository records that
+-- which is precisely why the replacement text points at the check rather than
+re-asserting the fact.
 
 
 ---
