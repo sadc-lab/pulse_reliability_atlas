@@ -159,7 +159,7 @@ anything found is recorded **with no proposed action**.
 | # | locus | signal | status |
 |---|---|---|---|
 | P-1 | `paper.tex:359` vs `:146` and §S5-mapping | The five ARDS severities are called an illustrative "round-tenths **convention**" at L359 and "five **calibration nodes**" at L146. The source says calibration nodes. | **OPEN — understates, and understates the paper's own finding** |
-| P-5 | `paper.tex:372` | "**No comparable open atlas yet exists** for … BioGears … or HumMod" — unsourced, unhedged absence claim about two third-party engines. **Pairs with supplement signal 1**, also an unsourced BioGears absence claim. | OPEN — trigger (b); repair together with signal 1 |
+| P-5 | `paper.tex:372` | "**No comparable open atlas yet exists** for … BioGears … or HumMod" | ⚠️ **SOURCE INSUFFICIENT for the universal form 2026-08-23** — but the **BioGears half is now anchorable to a primary source** |
 | P-4 | `paper.tex:289` | Two cross-output μ\* magnitude comparisons. μ\* carries its output's unit, and SpO₂ is on the 0–1 fractional scale: converted to percentage points its **median μ\* (1.66) exceeds MAP's (0.84) and PaCO₂'s (1.23)**, reversing "smallest overall". | **OPEN — the causal explanation rests on a unit artifact** |
 | P-3 | `paper.tex:187` vs Table 2 (`:216`) | `not_steady_state` is defined with **two** triggers (drift, variance) fifteen lines before Table 2 gives **three** (flatline, CV, drift). The omitted flatline is the **largest** sub-mode, 232 occurrences. | **OPEN — internal, and it loses the biggest contributor** |
 | P-2 | monograph `L44` and `L954` vs `L509` and `L3808` | **XDOCCONFLICT — contradiction.** The severity bands are attributed to **PALICC-2** in the monograph's abstract and scenario list, while the same document states twice that they are anchored on the **Berlin Definition**, "not on PALICC-2". Paper and supplement are clean. | **OPEN — monograph-internal; clinically a category error (adult P/F vs pediatric OI/OSI)** |
@@ -684,6 +684,42 @@ claims the paper makes — the six-setting pressure-targeted action vector of wh
 only FiO₂, RR and PEEP are swept here, and the latent model "used *in lieu of*
 Pulse", judged against "Pulse's respiratory dynamics", with real-data validation
 listed as future work. Both paper sentences match that note.
+
+### P-5 — arbitrated: the repair is to **anchor** it, not merely to soften it
+
+> No comparable open atlas yet exists for related lumped-parameter engines such
+> as BioGears (Pulse's predecessor) or HumMod.
+
+**The BioGears half has a primary source, found this session.** The BioGears FAQ
+(`biogearsengine.com/documentation/_f_a_q.html`, downloaded and read; the page
+mentions "biogears" 66 times and "pulse" **zero** times, so there is no
+contamination) states verbatim:
+
+> "We have not performed a systematic forward propagation or inverse
+> quantification of model uncertainty, **nor do we have the resources to conduct
+> a formal sensitivity analysis.**"
+
+⚠️ **Not a copy of the Pulse FAQ, and the difference matters.** Pulse writes "nor
+**have we conducted** a formal sensitivity analysis"; BioGears writes "nor **do we
+have the resources to** conduct" one. Two related but distinct texts, consistent
+with the fork history — so the two engines admit it **separately**, and the
+BioGears admission is independently citable.
+
+**This changes the repair.** The sentence is today an unsourced universal
+negative. It can become a *sourced* one for the engine it names first, cited
+exactly as `pulsefaq` already is in the same paper.
+
+**The HumMod half is not established.** A literature search returned nothing
+HumMod-specific — ⚠️ **but that search was not calibrated**, so its emptiness
+distinguishes nothing between "no such work exists" and "the query was wrong".
+Recorded as unknown, not as absent.
+
+**Verdict: SOURCE INSUFFICIENT for the universal form.** "No comparable open
+atlas **yet exists**" quantifies over the whole literature and cannot be
+established by any search. The defensible form bounds the claim to what was
+looked at — "we did not identify a comparable open atlas for …" — while the
+BioGears clause gains a citation rather than losing force.
+
 
 ### Highest value — open these first
 

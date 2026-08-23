@@ -26,7 +26,7 @@ findings and must not be reported as such.
 
 | # | Locus | Signal | Status |
 |---|---|---|---|
-| 1 | §S1 ¶116 | "…that are not present in BioGears" — comparative claim of ABSENCE about a third-party project, uncited | **OPEN — needs primary source or removal** |
+| 1 | §S1 ¶116 | "…that are **not present in BioGears**" — **four sub-claims, four different statuses** | ⚠️ **PARTIALLY ARBITRATED 2026-08-23** — 2 SUPPORTED · 1 SOURCE INSUFFICIENT · 1 **OVERCLAIMED** |
 | 2 | §S2 Table row 4 | "a continuous-severity micro-sweep **confirms** the band" where §S5, Fig. S1 and the Discussion all say the sweep **extends** it to [0.879, 0.945] | ✅ **CLOSED `04d6f0f`** — now "confirms it and extends the low edge to 0.879" |
 | 3 | §S3 | Four prose uses of "detector" for the object `paper.tex` calls "classifier" 33 times | **OPEN — needs per-occurrence semantic arbitration** |
 | 4 | §S3 clamp patch note | "all **3,348** Pulse logs on disk" — a `find data -name pulse.log` today returns **3,349** | **OPEN — low severity, unresolved** |
@@ -1526,6 +1526,61 @@ is caught inside its `IfExp` while the docstring is ignored. **Calibration the
 guard must pass before it is trusted**: L137 as it stands → FAIL; L15's docstring
 → PASS; the corrected L137 → PASS; and `detector` re-injected into any `label=`
 → FAIL.
+
+
+### 1 — BioGears absence claim, arbitrated four ways (2026-08-23)
+
+The sentence bundles **four** sub-claims under one "not present in BioGears".
+They do not share a status, so no single rewrite can carry them.
+
+> Pulse v4.3.1 includes **respiratory calibration for ventilated patients**,
+> **mechanoreceptor feedback**, **lung-recruitment modelling**, and **improved
+> hemorrhage response** that are not present in BioGears.
+
+| sub-claim | verdict |
+|---|---|
+| mechanoreceptor feedback | ✅ **SUPPORTED on the examined corpus** |
+| lung-recruitment modelling | ✅ **SUPPORTED on the examined corpus** |
+| respiratory calibration for ventilated patients | ⚠️ **SOURCE INSUFFICIENT** |
+| improved hemorrhage response | ⚠️ **OVERCLAIMED** |
+
+**Corpus examined, named so the verdict can be re-tested.** BioGears primary
+sources, fetched this session: four system implementations from
+`raw.githubusercontent.com/BioGearsEngine/core/master` — `Respiratory.cpp`
+(149 KB), `Nervous.cpp` (82 KB), `Cardiovascular.cpp` (130 KB), `Drugs.cpp`
+(83 KB) — plus four methodology pages from `biogearsengine.com`.
+
+**Calibrated before being believed**: `chemoreceptor` returns **30** in
+`Nervous.cpp` and 15 in the nervous methodology page; `hemorrhage` returns **21**
+in `Cardiovascular.cpp` and 48 in its documentation. The instrument finds what is
+there.
+
+| term | Pulse `RespiratoryModel.cpp` | BioGears, all four sources |
+|---|---|---|
+| mechanoreceptor | **18** (`m_MechanoreceptorsDyspneaFactor`, `targetTidalVolumeMechanoreceptorMultiplier` at L1445) | **0** |
+| recruit | **16** ("Acinar recruitment", `recruitmentScalingFactor`) | **0** |
+
+**Why "improved hemorrhage response" is overclaimed, and it needs no external
+source to see.** An *improvement* cannot be "not present in" the system it
+improves. BioGears plainly models hemorrhage — 21 occurrences in its
+cardiovascular implementation, 48 in its documentation. Only the *revision* is
+Pulse's. The sentence tests the wrong property.
+
+**Why the ventilated-patient calibration is source-insufficient.** It is not a
+feature-presence claim but a calibration claim, and it does not reduce to a term
+search. BioGears has ventilation — "ventilat" returns 52 on its respiratory page.
+Presence of ventilation neither proves nor disproves a calibration specific to
+ventilated patients.
+
+⚠️ **Scope, stated rather than implied**: four system files of a larger
+repository, plus four documentation pages. Supported *on the corpus examined* is
+not proof of absence across BioGears' whole history.
+
+⚠️ **A near-miss recorded with the finding.** A web-search summary for these
+terms returned a confident description of BioGears mechanoreceptor feedback and
+lung recruitment — text that in fact came from the **Pulse** pages returned by
+the same query. Fetching the BioGears page directly gave **0** for both. A search
+summary that mixes two sites cannot settle a claim about one of them.
 
 
 ---
