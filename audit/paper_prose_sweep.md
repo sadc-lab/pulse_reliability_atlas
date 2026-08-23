@@ -145,6 +145,57 @@ that is where the paper's actual claims live: top-3 fractions are dimensionless
 ratios, so the 48/48, the median 0.928 and the 0.658–0.998 range are all immune
 to this.
 
+#### P-4 in three levels
+
+**(a) Established defect.** A cross-output μ\* magnitude ranking is not
+interpretable. It is not merely that the ordering happens to hold on the
+fractional scale — mmHg→kPa would divide PaO₂'s numbers by 7.5 and mL→L would
+divide Vt's by 1,000, with no change to the model. The superlative has no
+unit-free meaning.
+
+**(b) The mechanism is recoverable — by different evidence.** A *within-SpO₂*
+analysis does support ceiling compression. Per cell, summed μ\* against the
+clean-run mean saturation:
+
+| cell | Σμ\* (SpO₂) | mean SpO₂ | share ≥ 0.99 |
+|---|---|---|---|
+| S1_F | 0.0103 | 0.9833 | 50.0 % |
+| S1_M | 0.0409 | 0.9757 | 51.0 % |
+| S2_F | 0.1751 | 0.9680 | 34.8 % |
+| S2_M | 0.2317 | 0.9555 | 25.3 % |
+| S3_F | 0.2755 | 0.9300 | 18.0 % |
+| S4_F | 0.1354 | 0.9223 | 0 % |
+| S3_M | 0.3179 | 0.9164 | 11.1 % |
+| S4_M | 0.2507 | 0.9060 | 0 % |
+
+Spearman ρ = **−0.762** against mean saturation, **−0.587** against the share at
+the ceiling. And the ordering holds **within every scenario**: in all four, the
+cell with the higher mean SpO₂ carries the lower Σμ\*.
+
+**(c) ⚠️ Why that is still only an association, and the design cannot fix it.**
+The within-scenario contrast looks like it removes the severity confound. It does
+not: with 8 cells structured as 4 severities × 2 sexes, **the only contrast at
+constant severity is the sex contrast**, and in all four pairs it is the female
+cell that carries both the higher saturation and the lower μ\*. So saturation
+level is never varied independently of either severity or sex. n = 8, no formal
+test, descriptive only.
+
+**Consequence for the correction pass.** The mechanism claim survives if it is
+scoped within SpO₂ and stated as an association — e.g. "within SpO₂, sensitivity
+was lowest in the cells with the highest mean saturation, consistent with
+compression near the saturation ceiling". The cross-output superlative and the
+word "because" do not survive.
+
+**XDOCCONFLICT scan — provisionally negative.** No other locus in the three
+documents makes a cross-output μ\* magnitude comparison. The other μ\* comparisons
+found are **within-output and therefore dimensionless**: the "smallest SBP-to-DBP
+μ\* ratio was 1.22" appearing at `paper.tex:388`, `supplement.tex:298` and
+monograph L897, and the monograph's L1738 ordering of inputs within each output.
+⚠️ The net was lexical (`smallest|largest|far higher|magnitudes overall|than any
+other`) and was calibrated on the known locus, which it recovered — but it is
+narrow, so "isolated to `paper.tex:289`" is a provisional finding, not proof of
+absence.
+
 ### P-3 — `not_steady_state` has three triggers; ¶187 names two
 
 Fifteen lines apart, inside one subsection:
