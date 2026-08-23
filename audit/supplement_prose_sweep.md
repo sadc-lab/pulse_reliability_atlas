@@ -1998,6 +1998,64 @@ new pointer. Nothing applied yet: the added clause in (c) is mine, not the
 maintainer's, and is awaiting their word.
 
 
+### (c) -- two arithmetic traps found in the authorised clause
+
+The maintainer authorised "After subtracting that ~6.84 h host suspension, the
+sweep's **20.8 h** calendar span corresponds to ~13.9 h of active elapsed time",
+explicitly so that a reader could re-do the arithmetic. **As displayed it does not
+re-do.**
+
+**Trap 1 -- the displayed subtraction lands on the wrong tenth.**
+
+| displayed | result | rounds to |
+|---|---|---|
+| 20.8 - 6.84 | 13.96 | **14.0** -- not the stated 13.9 |
+| **20.78 - 6.84** | **13.94** | **13.9** ✅ |
+
+The true span is 20.777 h. Rounding it *up* to 20.8 adds 0.023 h, which is enough
+to move the displayed difference across a tenth. Writing **20.78 h** restores
+reproducibility, and two decimals are what the maintainer's own precision policy
+allows in a provenance register.
+
+**Trap 2 -- the aggregate difference is twice the suspension, and looks like a
+factor-2 contradiction.**
+
+A reader computing 41.1 - 27.4 = **13.7 h** and comparing it with a "~6.84 h
+suspension" sees a discrepancy of exactly 2x. The resolution: **two runs were in
+flight**, so a single wall-clock interval was recorded twice.
+
+    2 x 6.846 h                      = 13.692 h
+    + the two runs' true durations   =  0.043 h
+                                       -------
+                                       13.735 h   vs 41.12 - 27.39 = 13.73 h
+
+Exact. Without a clause stating it, the chain contradicts itself in appearance.
+
+**Robustness of the imputation basis**: estimating the two runs' true duration
+from the S4_M healthy mean (107.5 s) gives a 6.837 h suspension; from the global
+clean mean (77.1 s) it gives 6.846 h. **Every displayed figure is unchanged** --
+~6.84 h, ~13.9 h, ~27.4 h, ~41.1 h. The derivation does not depend on the choice.
+
+**Consolidated (c), every displayed number reproducing from the displayed ones:**
+
+> Two otherwise valid runs (`S4_M_0123` and `S4_M_0124`) have wall-time metadata
+> spanning a suspension of the reference machine. Their timing records are excluded
+> only from runtime aggregation: a naive sum over all 1,280 `wall_time_s` values in
+> `aggregated.parquet` gives ~41.1 h, whereas excluding these two contaminated
+> timing records gives ~27.4 h. The ~13.7 h difference is twice the ~6.84 h
+> suspension, because two runs were in flight when it occurred. After subtracting
+> that suspension, the sweep's 20.78 h calendar span corresponds to ~13.9 h of
+> active elapsed time. Their simulation outputs are unaffected and remain included
+> in every scientific analysis.
+
+Checks on the displayed chain: 41.1 - 27.4 = 13.7 ✅ · 13.7 / 2 = 6.85 ~ 6.84 ✅ ·
+20.78 - 6.84 = 13.94 -> ~13.9 ✅.
+
+⚠️ The 20.8 -> 20.78 change is mechanical and serves the maintainer's own stated
+intent. **The double-counting clause is an addition to a manuscript and is not**,
+so it waits for their word.
+
+
 ---
 
 ## Sections swept, and to what depth
