@@ -22,12 +22,12 @@ becomes what it criticises.
 |---|---|
 | supplement (`audit/supplement_prose_sweep.md`), ids 1–61 | **61** |
 | paper (this file), P-1 … P-5 | **5** |
-| **total** | **66 — 55 open, 11 closed or off the table** |
+| **total** | **66 — 54 open, 12 closed or off the table** |
 
 **Verified by enumeration, not by regex**: supplement ids 1–61 with no gaps,
 paper P-1…P-5. The class partition below was checked for completeness and
 overlap — 66 assigned, 66 distinct, no duplicate, none missing, none extra.
-7 + 23 + 5 + 20 + 11 = 66; open = 66 − 11 = 55.
+7 + 23 + 5 + 20 + 12 = 66; open = 66 − 12 = 54.
 
 **By class:**
 
@@ -48,8 +48,7 @@ overlap — 66 assigned, 66 distinct, no duplicate, none missing, none extra.
   four scenarios ARDS; one is the healthy baseline), **57** (a *third* stale ledger
   figure, 195, on a public page), **58** (every page count in the npj README is
   wrong; the two submitted documents are **correct**).
-- **Arbitrated against a source, repair still to write (5):** **1** (four
-  sub-claims: 2 supported, 1 source-insufficient, 1 overclaimed) · **20**
+- **Arbitrated against a source, repair still to write (4):** **20**
   (escalated — the Pulse docs *do* carry the rule) · **23** (SUPPORTED; bound the
   unbounded negative) · **P-5** (source-insufficient universal, but the BioGears
   half is now citable) · **56** (two incompatible affiliation schemes —
@@ -61,7 +60,7 @@ overlap — 66 assigned, 66 distinct, no duplicate, none missing, none extra.
   Pulse-scoped priority claim in the cover letter), **59** (a wrapper "will be added" that has
   existed since June), **60** (a Status block frozen at Step 1), **61** (a dated
   citation prohibition whose premise has since been met).
-- **Closed or off the table (11):** **55 closed 2026-08-23 by content-anchoring the publication gate** · **36, 52, 53, 54 closed 2026-08-23 by generating the portal block from paper.tex** · **50 verified TRUE at source 2026-08-23** · 2 closed · 10 resolved from the source · 32
+- **Closed or off the table (12):** **1 closed 2026-08-24, corpus re-measured** · **55 closed 2026-08-23 by content-anchoring the publication gate** · **36, 52, 53, 54 closed 2026-08-23 by generating the portal block from paper.tex** · **50 verified TRUE at source 2026-08-23** · 2 closed · 10 resolved from the source · 32
   withdrawn as my error · **45 and 46 corrected and closed 2026-08-23**.
 
 **Nothing has been corrected in any manuscript.**
@@ -104,7 +103,7 @@ Methods does not license, with a recoverable mechanism claim) and P-2 (an
 adult-vs-pediatric definition mix-up that pediatric intensivist reviewers will
 see). P-3 and P-1 are precise and cheap to repair. P-5 needs a source or a hedge.
 
-**Awaiting a decision before any edit:** all five, plus the 50 open supplement
+**Awaiting a decision before any edit:** all five, plus the 49 open supplement
 signals. Nothing has been corrected.
 
 **Three findings that run the other way** — places where the paper is the

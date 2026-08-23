@@ -26,7 +26,7 @@ findings and must not be reported as such.
 
 | # | Locus | Signal | Status |
 |---|---|---|---|
-| 1 | §S1 ¶116 | "…that are **not present in BioGears**" — **four sub-claims, four different statuses** | ⚠️ **PARTIALLY ARBITRATED 2026-08-23** — 2 SUPPORTED · 1 SOURCE INSUFFICIENT · 1 **OVERCLAIMED** |
+| 1 | §S1 ¶116 | "…that are **not present in BioGears**" — four sub-claims, four different statuses | ✅ **CLOSED 2026-08-24** — two supported claims kept, the source-insufficient and overclaimed ones dropped, and the absence bounded to a corpus **re-measured today** |
 | 2 | §S2 Table row 4 | "a continuous-severity micro-sweep **confirms** the band" where §S5, Fig. S1 and the Discussion all say the sweep **extends** it to [0.879, 0.945] | ✅ **CLOSED `04d6f0f`** — now "confirms it and extends the low edge to 0.879" |
 | 3 | §S3 | Four prose uses of "detector" for the object `paper.tex` calls "classifier" 33 times | **OPEN — needs per-occurrence semantic arbitration** |
 | 4 | §S3 clamp patch note | "all **3,348** Pulse logs on disk" — a `find data -name pulse.log` today returns **3,349** | **OPEN — low severity, unresolved** |
@@ -2880,6 +2880,31 @@ bear on neither term.
 
 **Not applied** -- the corpus *is* the claim, so this differs materially from the
 authorised text.
+
+
+### Signal 1 CLOSED -- applied 2026-08-24
+
+**Written into `supplement.tex:116`:**
+
+> Pulse v4.3.1 models mechanoreceptor feedback and lung recruitment; we did not
+> identify either feature in the examined BioGears respiratory or nervous-system
+> implementations or in its respiratory methodology documentation.
+
+Three refinements came from the maintainer and all three are improvements:
+**"examined"** bounds the population explicitly; **"either feature"** removes an
+ambiguity about what *either* refers back to; and **"respiratory or
+nervous-system"** avoids implying each mechanism should live in both modules.
+
+**What the sentence no longer claims**: respiratory calibration for ventilated
+patients (SOURCE INSUFFICIENT -- a calibration claim does not reduce to a term
+search), and improved hemorrhage response (OVERCLAIMED -- an improvement cannot be
+absent from the system it improves). Neither was replaced by a new assertion.
+
+**Render verified, not assumed.** Rebuilt and read back out of
+`build/supplement.pdf`: positive control "forked in 2017" present, the new clause
+present, **"not present in BioGears" now 0**, **"improved hemorrhage response" now
+0**. Gate exit 0, zero FAIL rows; the publication gate and the portal sync both
+still pass.
 
 
 ---
