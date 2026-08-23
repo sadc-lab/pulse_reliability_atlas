@@ -412,6 +412,52 @@ the cleanest handling of that distinction in either document.
 | "ρ point estimates **0.75--1.00**" | min **0.7500** (S2 Vt), max **1.0000** (S2 MAP) ✓ |
 | "the **mild-ARDS delivered-tidal-volume** cell is the only one whose CI includes zero" | S2 Vt has lo = **−0.0588**; every other lower bound ≥ 0.3433 ✓ **the only one** ✓ |
 
+### §2.6 secondary observations — no new signal (carries P-1)
+
+| claim | measured |
+|---|---|
+| Sobol trigger "σ/μ\* ratio reached **0.6**" | **the preregistration says 0.6** (`preregistration.md:168`), in a three-band rule: ≤0.4 no Sobol, ≥0.6 Sobol, 0.4–0.6 gray zone ✓ |
+| "fired on **43 of the 48**" | **43** combinations have a top-3 input at σ/μ\* ≥ 0.6; 4 more are gray-zone-only ✓ |
+| "more than **sevenfold** its preregistered compute envelope" | 11,008 / 1,500 = 7.34 ✓, and the preregistration's envelope is "≤1,500 extra runs" ✓ |
+| "variability falls below **1 %** of the mean" | `FLATLINE_STD_RATIO = 0.01` ✓ |
+| "the mean lies within **0.1 %** of a hard bound — ≥ 99.9 % for SpO₂" | `FLATLINE_BOUND_TOL = 0.001` ✓ |
+| "SpO₂ flatline accounts for **232** trigger occurrences … second only to the delivered-Vt CV" | 232 < 303 ✓ |
+| "lowers the `not_steady_state` count from **530 to 454**" | exactly **76** runs carry SpO₂ flatline as their sole recorded reason; 530 − 76 = **454** ✓ |
+| HR means 73.8 / 155.7 / 147.1 with σ = 20.4 | re-derived under §S15 ✓ |
+
+⚠️ **A trap that nearly produced a false signal, recorded so it does not recur.**
+This project's own `CLAUDE.md` summarises the Sobol trigger as "σ/μ\* **> 0.5**".
+The preregistration says **≥ 0.6**. The paper follows the preregistration and is
+right; **the instruction file is the document that is wrong.** It is not
+published, so this is not a manuscript defect — but it is a live source of error
+for anyone working from it, and it came within one step of making me flag a
+correct claim. `CLAUDE.md` sits at the repository root, outside the Edit
+allowlist, so this is reported and left to the maintainer.
+
+💡 **§2.6 strengthens P-3.** ¶365 discusses the SpO₂-flatline sub-mode at length
+— its rule, its 232 occurrences, its effect on the total. So the paper plainly
+knows flatline is one of the three triggers; ¶187's two-trigger definition is an
+oversight, not a definitional choice.
+
+**Cross-document check on the compensatory-tachycardia paragraph**: §2.6 ¶361
+gives the same four means as §S15 and stops there. It does **not** carry §S15's
+attribution of the S3→S4 dip to "incipient cardiovascular decompensation".
+Supplement signal 28 is therefore **supplement-only**; the paper does not need
+the same repair.
+
+### Step-back re-audit of P-1 … P-4 (after finishing Results)
+
+All four verdicts hold. One scope refinement:
+
+⚠️ **P-1** — the `interpolatorPoints` I quoted live on the **restrictive-severity**
+pathway, which ARDS feeds through a `MAX` with other restrictive conditions.
+They are hard-coded calibration nodes, so the verdict stands, but they are **not
+ARDS-exclusive**. `paper.tex:146` is unaffected: it says the ARDS scalar *drives*
+functions calibrated at those nodes, which is true of a shared function.
+
+**P-2, P-3, P-4** re-read against their evidence and unchanged. P-3 is
+strengthened by §2.6 as noted above.
+
 **Marked for the citation pass, not opened:**
 
 | locus | trigger | what to check |
