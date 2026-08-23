@@ -10,6 +10,38 @@ recorded and left for a later, separate correction pass.
 
 ---
 
+## ▶▶ COMBINED STATE — both documents swept (2026-08-23)
+
+| | paragraphs | signals |
+|---|---|---|
+| supplement §S1–§S17 (`audit/supplement_prose_sweep.md`) | 193 | **30** (1 closed) |
+| paper, abstract → back matter (this file) | 112 | **5** |
+| **total** | **305** | **35, of which 34 open** |
+
+**By class:**
+
+- **Scientific — a claim or interpretation outruns the evidence (5):** §S9 signal
+  17 (what the alveolar-gas equation predicts), §S13 signal 24 ("the underlying
+  physiology is real"), §S15 signal 28 (the S3→S4 dip and its survivorship
+  confound), **P-4** (cross-output μ\*), **P-2** (Berlin vs PALICC-2).
+- **Factual, established, cheap to repair (12):** signals 5, 8, 11, 12, 18, 19,
+  21, 26, 27, 30 and **P-1**, **P-3**.
+- **Needs a source before anything can be decided (5):** signals 1, 10, 20, 23
+  and **P-5** — all four unsourced absence claims plus the Cornish table
+  location. These are the citation pass.
+- **Low, legibility or cosmetic (12):** signals 3, 4, 6, 7, 9, 13, 14, 15, 16,
+  22, 25, 29.
+- **Closed (1):** signal 2.
+
+**Nothing has been corrected. Nothing has been pushed.**
+
+**Where the paper is the model, not the patient** — repairs should copy it, not
+rewrite it: signal 13 → §2.3's median of paired differences; signals 21, 22(a),
+29 → Table 1's correct units and four-flag wording; signal 26 → the
+Data-availability statement's "consolidates".
+
+---
+
 ## ▶ SUMMARY — read this first (sweep complete, 2026-08-23)
 
 **112 of 112 paragraphs swept**, abstract through back matter. **5 signals.** No
