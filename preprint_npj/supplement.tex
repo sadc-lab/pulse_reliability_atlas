@@ -816,6 +816,8 @@ The atlas pins Pulse v4.3.1 inside a single Docker image (\texttt{pulse-atlas-en
 
 Executing the atlas is a substantial computation. The full 1{,}280-run sweep was carried out end-to-end three times: twice on the reference machine described above --- the canonical sweep, and a later re-execution logged at 23~h~01~m elapsed, inclusive of idle intervals across resume points --- and once on the independent host documented in \S\ref{sec:s12-independent}, whose elapsed time, by coincidence, also totalled 23~h~01~m. Aggregate Pulse container time is approximately 27~h per sweep on the reference machine and 46~h on the slower independent host.
 
+Two otherwise valid runs (\texttt{S4\_M\_0123} and \texttt{S4\_M\_0124}) have wall-time metadata spanning the same approximately 6.84~h suspension of the reference machine. Because both timing records include that same suspension interval, a naive sum of \texttt{wall\_time\_s} counts it twice in aggregate container time: summing all 1{,}280 records in \texttt{aggregated.parquet} gives approximately 41.1~h, whereas excluding the two contaminated timing records gives approximately 27.4~h. After subtracting the same approximately 6.84~h suspension once from the sweep's 20.78~h calendar span, the execution corresponds to approximately 13.9~h of active elapsed time. Their simulation outputs are unaffected and remain included in every scientific analysis.
+
 \subsection{Docker invocation template}\label{sec:s12-docker}
 
 \begin{lstlisting}[
