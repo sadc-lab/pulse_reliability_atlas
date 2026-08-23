@@ -2753,6 +2753,71 @@ licensing statement, not a claim of present availability.
 verified byte-identical to HEAD.
 
 
+### Signal 1 -- repair drafted, NOT applied (2026-08-24)
+
+⚠️ **The maintainer's propagation rule cannot apply here, and that had to be
+measured rather than assumed.** The rule is: find the canonical correct
+formulation already present in paper / supplement / monograph and propagate it.
+**There is none.** `BioGears` occurs once in `paper.tex` (L372, which is P-5's
+sentence), twice in the monograph (L446 historical fork context, L3388 the P-5
+family), and once in the supplement -- the defective sentence itself. Nothing to
+copy from, so this repair is written.
+
+**The sentence, in full** (`supplement.tex:116`):
+
+> Pulse was forked in 2017 from the U.S. Department of Defense--funded BioGears
+> engine by the original BioGears core developers (Clipp, Bray, Webb) and is now
+> maintained by Kitware, Inc. under the Apache-2.0 license. Both projects still
+> exist independently but have diverged substantially since 2017; **Pulse v4.3.1
+> includes respiratory calibration for ventilated patients, mechanoreceptor
+> feedback, lung-recruitment modelling, and improved hemorrhage response that are
+> not present in BioGears.**
+
+**Terminology re-verified at the Pulse source**, after a first attempt used the
+wrong path and returned empty. Positive control: `Respiratory` occurs 224 times
+in the file, so it was readable.
+
+| term | occurrences in `RespiratoryModel.cpp` | forms |
+|---|---|---|
+| `recruit` | **16** | `recruitedFraction` (9), `recruitmentScalingFactor` (5), `recruitment` (5) |
+| `mechanorecept` | **18** | `MechanoreceptorsDyspneaFactor` (6), `AppliedMechanoreceptorsDyspneaFactor` (5), `targetTidalVolumeMechanoreceptorMultiplier` (2) |
+
+Both reproduce the figures measured on 2026-08-23 exactly. ⚠️ **A term of mine
+withdrawn**: an earlier note in this register wrote "Acinar recruitment". The file
+says plainly `recruitment` / `recruitedFraction`; **"acinar" is not used** and will
+not be written.
+
+**Draft repair, for decision:**
+
+> Pulse v4.3.1 models mechanoreceptor feedback and lung recruitment; neither
+> appears in the BioGears source files and methodology pages we examined.
+
+What each change answers:
+
+| sub-claim | verdict | treatment |
+|---|---|---|
+| mechanoreceptor feedback | ✅ SUPPORTED | kept, existing wording |
+| lung-recruitment modelling | ✅ SUPPORTED | kept, existing wording |
+| respiratory calibration for ventilated patients | ⚠️ SOURCE INSUFFICIENT | **dropped** -- it is a calibration claim, not a feature-presence claim, and does not reduce to a term search; BioGears has ventilation ("ventilat" returns 52 on its respiratory page) |
+| improved hemorrhage response | ⚠️ OVERCLAIMED | **dropped** -- an *improvement* cannot be "not present in" the system it improves, and BioGears plainly models hemorrhage (21 in `Cardiovascular.cpp`, 48 in its documentation) |
+| "not present in BioGears" | unbounded | **bounded to the corpus examined** |
+
+⚠️ **Open question for the maintainer: how explicitly to name the corpus.**
+
+(a) as drafted -- "the BioGears source files and methodology pages we examined":
+honest, unspecific;
+(b) named -- "the four BioGears system implementations and four methodology pages
+examined (2026-08-23)": the stricter standard for an absence claim in a scientific
+document, but heavy for one supplement sentence.
+
+⚠️ **A third option NOT taken, and why.** Hemorrhage could be re-framed rather than
+dropped -- "and revises its hemorrhage response". **That would require verifying
+that Pulse revised it after the 2017 fork, which has not been done.** Asserting it
+would replace an overclaim with an unverified claim.
+
+**Nothing applied.** This is a scientific claim in `supplement.tex`.
+
+
 ---
 
 ## Sections swept, and to what depth
