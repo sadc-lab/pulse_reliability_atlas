@@ -58,7 +58,7 @@ findings and must not be reported as such.
 | 30 | §S17 ¶1022 | "**Six** engine-side infrastructure recommendations" — the six listed are **not the same six** as §S11: item 1 is dropped, item 3 is split in two | **OPEN — an index wrong about what it indexes** |
 | 31 | §S12 ¶842–877 | "The **minimal command sequence** … from a **fresh clone**" **omits the Docker image build**. `src/runner.py:35` sets `DEFAULT_IMAGE = "pulse-atlas-engine"`, a locally-built image; step 2 fails on a fresh clone. | **OPEN — reproducibility, breaks for any outside user** |
 | 32 | §S12 vs `README.md` | ~~The two public recipes diverge~~ | **WITHDRAWN — my error; the README does cover the ledger, in a separate section** |
-| 33 | `TODO_publication_roadmap.md:143` | A **live acceptance criterion** pinned to a stale count: "must stay **313/313** · 94/94 · 26/26 · 25/25 (currently green)" where the ledger is at **382** | **OPEN — nothing re-measures it** |
+| 33 | `TODO_publication_roadmap.md` -- **5 loci**: L44, L49, L51, L58, **L143** | The ledger count pinned at **313** where it is now **382**. L143 is a **live acceptance criterion**: "must stay 313/313 · 94/94 · 26/26 · 25/25 (currently green)". Population confined to this one file | **OPEN -- count corrected from 1 locus to 5; nothing re-measures it** |
 | 34 | `README.md:357` | "santino/ **S001 … S031** entries" where the log reaches **S032**. The same locus previously read S001…S025 and was corrected to S031 — **it has drifted again** | **OPEN — recurrence, nothing re-measures it** |
 | 35 | Figure S5 legend, from `make_supp_fig_s5_decomposition.py:137` | The legend reads "as recorded by the **detector**" — a term the project retired, **baked into a rendered PDF**, so invisible to both a `grep` of `supplement.tex` and to the vocabulary guard | **OPEN — recurrence of the Figure 1 defect, one scope out** |
 | 36 | `paper.tex:77` vs `submission_metadata.txt:12` | Running title case differs: "Reliability **A**tlas: Pulse Physiology Engine" against "Reliability **a**tlas: …" | OPEN — cosmetic, two submission artefacts |
@@ -79,6 +79,9 @@ findings and must not be reported as such.
 | 51 | `cover_letter.md:31-32` | "the **first** open, preregistered reliability atlas of Pulse" -- a priority claim, but scoped to Pulse rather than universal | OPEN -- low; far more defensible than P-5's universal form |
 | 52 | `preprint_npj/submission_metadata.txt:15-32` | The abstract declared "**Extracted verbatim from `preprint_npj/paper.tex`**" is **stale in every sentence**, is **155 words against npj's 150 cap**, **omits the H1 headline result**, and **loses the healthy-lung scope** on the hyperoxia claim. This is the text that would be pasted into the submission portal | OPEN -- ⚠️ **the most consequential defect found in the public files** |
 | 53 | `submission_metadata.txt:4` | Header says "Draft, **uncommitted**" -- `git ls-files` shows the file **is tracked** | OPEN -- low, stale self-description |
+| 54 | `TODO_publication_roadmap.md:284` | "⬜ Paste **Title / Abstract / Keywords** from `submission_metadata.txt` (**✅ synced**)." It is **not** synced -- see signal 52. The roadmap both instructs the paste and certifies the source | OPEN -- ⚠️ **this is what makes 52 operationally dangerous** |
+| 55 | `TODO_publication_roadmap.md:206-210` -- **6 of 8 loci** | The HARD GATE's line numbers have drifted: `paper.tex` 409/430/434 are now **454/475/479** (+45, predating this session), `supplement.tex` 809/939 are now **811/943**. `cover_letter.md:72`/`:76` still hold | OPEN -- **the project's most critical gate points at wrong lines** |
+| 56 | `TODO_publication_roadmap.md:114-117` vs `submission_metadata.txt:52-53` | Two incompatible affiliation schemes: the roadmap records **4 affiliations** "[1]-[4]" dated 2026-06-11; the metadata records a **6-affiliation scheme** dated 2026-07-06 | OPEN -- ⚠️ **author data: flagged, deliberately NOT touched** |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -2392,6 +2395,70 @@ that bucket by a screening editor. **The cover letter already pre-empts exactly
 this**, at L18-19: "Our object of study is therefore not human physiology but the
 data-generating instrument itself." No change needed -- recorded because the
 defence is load-bearing and should not be edited away later.
+
+
+### pre_submission_inquiry.txt and TODO_publication_roadmap.md read line by line
+
+⚠️ **Two of the seven "public files" are not public.** `.gitignore:127` covers
+`pre_submission_inquiry.txt` and `.gitignore:103` covers
+`TODO_publication_roadmap.md`. Staleness there does not mislead a reader -- it
+misleads **the maintainer**, which for a submission checklist is at least as bad.
+
+**`pre_submission_inquiry.txt` is exemplary and nothing is proposed on it.** It is
+headed `*** SUPERSEDED 2026-08-03 -- DO NOT SEND, DO NOT COPY FROM ***` and it
+**enumerates the two withdrawn claims it still contains** -- "widely used" against
+the manuscript's "actively maintained" (Pulse 37 founding-paper citations against
+Guyton 865, matching the register), and "ledger of **every** quantitative claim"
+against "the computed quantitative claims". It is a **dated record**, like
+`preregistration.md`; correcting it would violate its own contract. Its
+"detector" wording is left alone for the same reason.
+
+**54 is the finding that matters**, because it converts signal 52 from a stale
+file into an operational trap. The roadmap tells the maintainer to paste the
+abstract from `submission_metadata.txt` **and puts a green tick on it**. On
+submission day the abstract pasted would be 155 words against a 150 cap, missing
+the H1 result, with the hyperoxia scope loosened -- while a checkmark certifies it.
+
+**55 -- the hard gate points at wrong lines.**
+
+| gate says | actual | drift |
+|---|---|---|
+| `paper.tex:409` "are released open-source" | **`:454`** | +45 |
+| `paper.tex:430` "openly available in the public code repository" | **`:475`** | +45 |
+| `paper.tex:434` "released ... at <URL>" | **`:479`** | +45 |
+| `supplement.tex:809` "released ... at <URL>" | **`:811`** | +2 |
+| `supplement.tex:939` "openly available under" | **`:943`** | +4 |
+| `cover_letter.md:72`, `:76` | unchanged | 0 |
+
+⚠️ **The arithmetic closes, and part of it is mine.** The `paper.tex` +45 predates
+this session entirely -- that file was never edited here. The supplement carried
++2 of pre-existing drift, which is why `809` reads `811`; my S12 note inserted 2
+further lines at 818, so loci **below** 818 took only the pre-existing +2 while
+`939` took both, reaching `943`.
+
+**Recommendation, not applied**: key the gate on **strings** rather than line
+numbers. It already quotes each string, so the line numbers add nothing but a
+maintenance burden that has already failed. Same lesson as the crosswalk's
+`paper_section` label.
+
+✅ **Re-verified today rather than trusted from the record.** The gate's own
+privacy check, run with its control as the file instructs: repo **404**, control
+`torvalds/linux` **200** -- still private, so the eight present-tense availability
+statements remain correctly future-facing. The record's measurement was six days
+old; a hard gate deserves a fresh reading.
+
+✅ **A corroboration worth keeping.** `TODO_publication_roadmap.md:37-38` records
+the abstract as "**147 words** (letter-or-digit tokens) / **150** (whitespace
+tokens) -- re-measured 2026-08-03 with two agreeing instruments". **My independent
+measurement today returned exactly 147 and 150.** The repository's counting rule
+and mine coincide, which is what licenses the 155 figure for
+`submission_metadata.txt`. The 4 render residues named at L146-148 also match what
+the gate reports.
+
+**56 is author data and is flagged only.** The roadmap's 4-affiliation scheme is
+dated 2026-06-11; the metadata's 6-affiliation scheme is dated 2026-07-06 and is
+therefore the later record. Which is correct is not mine to decide and nothing was
+edited.
 
 
 ---
