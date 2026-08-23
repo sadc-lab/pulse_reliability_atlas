@@ -64,11 +64,12 @@ findings and must not be reported as such.
 | 36 | `paper.tex:77` vs `submission_metadata.txt:12` | Running title case differs: "Reliability **A**tlas: Pulse Physiology Engine" against "Reliability **a**tlas: …" | OPEN — cosmetic, two submission artefacts |
 | 37 | **3 loci**: `README.md:161`, monograph **L71**, monograph **L320** | "34 … **at FiO₂ = 1.0**" over-attributes: **31** are at 1.0, 3 at 0.7367. Four other loci state it correctly | **OPEN — count corrected; the monograph says it both ways** |
 | 38 | **5 loci**: `README.md:108`, `:156`, monograph **L338**, **L2007**, **L2231** | "divergence approximately **sex-balanced**" flattens a sign-reversing effect. `paper.tex` and `supplement.tex` are **clean** — their single occurrences mean *cohort design*, a different claim | **OPEN — count corrected after a homonym false alarm** |
-| 39 | **7 loci** across README, supplement and monograph | Sweep compute cost. **Re-derived from all 1,280 `run_meta.json`: aggregate container time is 41.12 h, not the 27 h stated.** Ideal wall floor 20.56 h at 2 workers, 13.71 h at 3. Every estimate in the corpus (~7 h, ~9 h, ~14 h) is **below the floor**; only the measured 23 h 01 m survives | OPEN -- **UPGRADED: not a disagreement between two documents, a corpus-wide contradiction with the data** |
+| 39 | **2 loci, monograph only**: `manuscript.md:1271`, `:3314` | "Wall time for the full sweep ~ 7 h" at two workers. Corrected aggregate is **27.43 h**, so the floor is **13.72 h at two workers** and **9.14 h at three**. 7 h is below both. **README, supplement and paper are all CORRECT and must not be touched** | OPEN -- **factual, ground truth established; scope shrank from 7 loci to 2** |
 | 40 | `README.md:261-266` | Announces "Manuscript S2.8 names **two** image hashes" and then prints **one**. The canonical sweep image `3b18bdc08660` is named in `manuscript.md:744` but dropped from the README bullet, which reads "Initial atlas image" with no hash. Not the S032 irrecoverable-image problem: the hash is recorded, it just fell out of the README | OPEN -- a promise the text does not keep |
 | 41 | **3 loci**: `README.md:141`, `:323`, `:398` | "the silent FiO2 cap" stated with no scope, on a page whose headline says H2 NOT supported, Pulse "does **not** silently clamp" (0/1,280). Both are true and the monograph says why at S2.1 -- the cap is at the **wrapper layer**, and the atlas deliberately raises FiO2_MAX from 0.95 to 1.0 so the boundary reaches Pulse. The README never states wrapper != engine | OPEN -- legibility, not a factual error |
 | 42 | `README.md:370` | Link text `Pulse_translation_new/` resolves to `https://github.com/santinon/` -- a user profile, not a repository. Public-facing broken pointer | OPEN -- cosmetic but visible to every reader |
 | 43 | `README.md:255-257` | "Pulse 4.3.1 is bit-exact deterministic ... **so** reruns reproduce upstream values to 1e-6 relative tolerance" derives a weaker claim from a stronger one. Bit-exact implies tolerance 0. The correct scoping -- bit-exact *within* an image, 1e-6 *across* rebuilds -- is stated correctly 16 lines later at L271-274 | OPEN -- low; the same file already carries the right form |
+| 44 | `data/runs/full_sweep/S4_M/S4_M_0123`, `_0124` + `src/runner.py:113` | **Data-integrity, not prose.** Two `wall_time_s` values are inflated by a host suspension (24{,}722.296 s and 24{,}722.282 s -- **14 ms apart after 6.87 h**). The `timeout_s = 600.0` guard did not fire, which is only possible if the Python process was suspended with its containers. Scientific outputs verified unaffected. Any future re-derivation of compute cost from this metadata is wrong by 50 % unless these two are excluded | OPEN -- **no manuscript claim depends on it; wire a guard** |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -1680,6 +1681,105 @@ divergences and the worst traffic-light row. Compute time rising ~4x there is
 consistent with a solver struggling, and would be an independent quantitative
 signal of the same phenomenon. ⚠️ **Whether that belongs in the paper is a
 scientific-content decision and is not taken here.**
+
+
+### 39 -- rewritten a third time, and this time against a decontaminated aggregate
+
+⚠️ **I got this wrong twice, in opposite directions, and the second error made the
+maintainer abandon a correct answer.** The sequence is recorded because the
+failure mode is the finding.
+
+1. First report: "the monograph's ~7 h is the outlier; README/supplement's ~14 h
+   is coherent." Built by arbitrating between two prose claims.
+2. Second report: "re-derived 41.12 h aggregate, so ~7 h, ~9 h, ~14 h are *all*
+   below the floor and the 27 h is wrong too." Built by summing `wall_time_s`
+   over 1,280 runs **without inspecting the distribution**.
+3. This one: the 41.12 h was contaminated. **The maintainer's original arbitration
+   was right all along.**
+
+**What contaminated it.** Exactly two runs of 1,280 exceed the 600 s timeout:
+
+| run | `wall_time_s` | exit | `output.csv` |
+|---|---|---|---|
+| `S4_M_0122` | 107.375 s | 0 | 26 lines |
+| **`S4_M_0123`** | **24{,}722.295999999973 s** | 0 | 26 lines |
+| **`S4_M_0124`** | **24{,}722.281999999960 s** | 0 | 26 lines |
+| `S4_M_0125` | 106.359999999986 s | 0 | 26 lines |
+
+The two anomalies differ by **14 milliseconds after 6.87 hours**. Two independent
+Docker containers do not finish 14 ms apart; two processes **frozen and resumed
+together** do. `src/runner.py:113` sets `timeout_s = 600.0` and passes it to
+`subprocess.run(timeout=...)`; a 24,722 s run should have been recorded as
+`exit_code = 124`. It was not, which is only possible if the interpreter enforcing
+the timeout was suspended alongside its children. Two runs in flight also matches
+the documented drop "from three mid-sweep to two".
+
+**Decontaminated, with the two artefacts imputed at the healthy mean:**
+
+| quantity | measured | what the corpus says | verdict |
+|---|---|---|---|
+| aggregate container time | **27.43 h** | "approximately 27~h per sweep on the reference machine" (`supplement.tex:817`) | ✅ **correct** |
+| floor at 2 workers | **13.72 h** | "~14 h with 2" (`README:229`, `supplement.tex:858`) | ✅ **correct** |
+| floor at 3 workers | **9.14 h** | "~9 h with 3" (`README:229`, `supplement.tex:859`) | ✅ **correct** |
+| -- | -- | "~9-23 h on a laptop" (`README:31`, `:228`) | ✅ **correct** |
+| -- | -- | "46~h on the slower independent host" (`supplement.tex:817`) | ✅ consistent: 46 / 2 = 23 h = its own observed 23~h~01~m |
+| -- | -- | "wall time 23~h~01~m" (`supplement.tex:817`, `:895`) | ✅ correct |
+| -- | -- | **"~7 h" (`manuscript.md:1271`, `:3314`)** | ⚠️ **below both floors -- the only defect** |
+
+**Signal 39 therefore shrinks from seven loci to two, all in the monograph.**
+README, supplement and `paper.tex` are correct and must not be edited.
+
+⚠️ **One thing genuinely is unrecorded**, and it survives all three versions of
+this entry: the canonical sweep's *own* observed wall time. The sweep ran three
+workers then two, so its floor lies between 9.14 h and 13.72 h, plus idle. The
+23~h~01~m figures belong to the **two re-executions**, not to it -- `supplement.tex:817`
+says so explicitly ("the canonical sweep, **and** a later re-execution logged at
+23~h~01~m"). A repair that writes "23 h 01 m observed wall time on the canonical
+execution" would introduce a **new** factual error.
+
+### S4_M -- the finding is fully withdrawn
+
+**There is no compute concentration.** With the two suspension artefacts removed,
+S4_M costs **4.72 h** against S4_F's **4.71 h** -- mean 107.5 s vs 106.0 s, median
+106.7 s vs 104.0 s. Twins.
+
+| cell | aggregate | mean | median |
+|---|---|---|---|
+| S1_F / S1_M | 1.87 h / 2.12 h | 42.2 s / 47.7 s | 40.9 s / 43.2 s |
+| S2_F / S2_M | 3.24 h / 3.13 h | 72.9 s / 70.3 s | 71.3 s / 67.5 s |
+| S3_F / S3_M | 3.64 h / 3.96 h | 82.0 s / 89.0 s | 80.4 s / 84.2 s |
+| S4_F / S4_M | 4.71 h / **4.72 h** | 106.0 s / **107.5 s** | 104.0 s / **106.7 s** |
+
+The "44.9 % of aggregate compute", the "5.70x", the "4x" and the reading
+"consistent with a solver struggling" are **all withdrawn**. They were the shadow
+of a laptop going to sleep. Nothing goes to the paper, nothing goes to the
+supplement, and the hedged descriptive sentence drafted for the audit is
+withdrawn too, because its premise is false.
+
+⚠️ **Two independent facts killed the mechanistic reading before the artefact was
+even found**, and both should have stopped it: the 20 divergent runs total
+**0.47 h** at a mean of **84.8 s**, i.e. they are *faster* than the sweep mean of
+116.1 s -- divergence is cheap, it fails fast; and the ratio of **medians** was
+1.46x where the ratio of means was 5.70x. The maintainer's instruction to
+harmonise the statistic was correct and I dismissed it as already-harmonised.
+
+**What the cell table does show**, cleanly and symmetrically, is a severity
+gradient: ~2 h at S1 rising to ~4.7 h at S4, about 2.5x, with the two sexes
+within a few percent at every severity. That is unremarkable and not a finding.
+
+### 44 -- the suspension artefacts, as a data-integrity item
+
+The scientific outputs are **verified unaffected**, and not by inspection:
+`manuscript.md:1297-1300` records the S015 re-execution comparing SHA-256 of every
+`output.csv` against canonical, giving **1,260 / 1,280 bit-identical clean runs
+and 20 / 20 diverged runs reproducing divergence**. 1,260 + 20 = 1,280, and both
+artefact runs carry `exit_code = 0`, so both are inside the bit-identical 1,260.
+The suspension corrupted the timing metadata only.
+
+⚠️ **But `timeout_s = 600.0` silently failed to bound anything**, and no artefact
+in the repository records that two runs exceeded it by a factor of 41. Whoever
+next re-derives compute cost from `run_meta.json` -- as I just did -- gets 41.12 h
+instead of 27.43 h, a 50 % overstatement, with no warning.
 
 
 ---
