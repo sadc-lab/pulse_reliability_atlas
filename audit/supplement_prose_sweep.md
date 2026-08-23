@@ -46,6 +46,9 @@ findings and must not be reported as such.
 | 18 | §S11 ¶787 | "**each** is anchored in a specific experiment from this work" — items **3 and 6 carry no cross-reference at all** | OPEN — universal quantifier false on 2 of 6 |
 | 19 | §S11 ¶787 | "The Discussion of the main manuscript **closes with** a forward-looking note on engine-side infrastructure" — it is paragraph **5 of 14**, with 9 after it | OPEN — positional claim, checkable and wrong |
 | 20 | §S11 item 2 | "this constant **is not currently exposed** in the public patient-setup documentation" — unsourced absence claim about external documentation | OPEN — same class as signal 1; **triggers criterion (b)** of the citation rule |
+| 21 | §S12 ¶884 | "The **1,280-row** Morris sample … matches the committed `morris_sample.parquet` byte-for-byte" — that file has **160 rows** | **OPEN — wrong figure in the reproducibility recipe** |
+| 22 | §S12 ¶895/897/899 | "**five** run-level flags" against the paper's "four-flag classifier"; and a "22-run pilot … 22/22" against "the **20** per-run output CSVs" | OPEN — both accurate, neither bridged for the reader |
+| 23 | §S12 ¶903 | "`kitware/pulse:4.3.1` is published for `linux/amd64` **only**" and "**no** prebuilt ARM64 image exists" | OPEN — two absence claims, **trigger criterion (b)** |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -687,6 +690,111 @@ the guard strips `%` comments before scanning, and `crossdoc` reports OK.
 This table is the population for the semantic pass. 39 + 51 = **90
 cross-references** to walk, each asking one question: does the target say what
 the sentence claims?
+
+
+### 21 — the Morris sample has 160 rows, not 1,280 (§S12 ¶884)
+
+> The **1,280-row** Morris sample is regenerated deterministically from the SALib
+> sampler with `trajectories = 20, levels = 4, seed = 42`; the regenerated sample
+> matches the committed `data/runs/full_sweep/morris_sample.parquet`
+> byte-for-byte.
+
+Three independent confirmations that the named file is 160 rows:
+
+1. **The artefact**: `morris_sample.parquet` has shape **(160, 9)**.
+2. **The arithmetic**: Morris gives `r(k+1)` rows; `20 × (7+1) = 160`.
+3. **The code's own docstring**, `src/sampler.py:9` — "7 inputs, 20 trajectories,
+   4 grid levels → **N = 20 \* (7 + 1) = 160 rows**". And
+   `src/analysis_morris.py:10` states the sample is "**locked across all 8
+   cells**", i.e. one 160-row design reused eight times.
+
+1,280 is the number of **runs** (160 × 8 cells), not the number of rows in the
+file the sentence names.
+
+**Why this one is worse than its size.** It sits in the reproducibility recipe
+and names a specific file with a specific expected shape. An independent
+reproducer regenerates 160 rows, compares against a stated 1,280, and concludes
+the reproduction failed. It is the one place in the document where a wrong number
+actively misleads someone doing the right thing.
+
+**Verified exact in the same sentence**: `trajectories = 20`, `levels = 4` and
+`seed = 42` all match `src/sampler.py` (`seed: int | None = 42`), and the four
+grid levels were independently confirmed today by the four distinct Vt values in
+the S021 cohort (300, 466.7, 633.3, 800 mL).
+
+### 22 — two legibility gaps in §S12, both statements accurate
+
+Neither is an error. Both are places where a reader who counts gets a different
+number than the text, with no bridge provided.
+
+**(a) "all five run-level flags" (¶895) and "five-flag concordance" (¶897)**
+against the main manuscript's "**four**-flag classifier", used 33 times. Measured:
+`aggregated.parquet` carries five classification booleans — `clamped`,
+`diverged`, `implausible`, `not_steady_state` **and `clean`**. The fifth is
+`clean`. Correct, and nowhere stated.
+
+**(b) "the 22-run S1_M pilot … 22/22 runs" (¶897) against "the 20 per-run output
+CSVs" (¶899).** Measured: the canonical pilot holds 22 rows —
+`S1_M_0000`--`0015` (16 Morris), `9001/9002/9081/9082` (4 probes), and
+`9900/9901`. The last two carry `clamped=True, diverged=True, exit_code=1` and
+**no `output.csv` on disk**: they are deliberate-clamp probes that Pulse rejects
+at setup, exactly as §S3-clamp describes ("a setup rejection exits non-zero with
+no CSV, so `diverged` fires instead"). So 22 runs minus 2 CSV-less rejections =
+20 archived CSVs. Both reproduction archives hold exactly 20, and exactly those
+20. Correct, and nowhere stated.
+
+### 23 — two absence claims about the upstream Docker image (§S12 ¶903)
+
+> the pinned base image `kitware/pulse:4.3.1` is published for `linux/amd64`
+> **only** … (**no** prebuilt ARM64 image exists)
+
+Two claims of exclusivity/absence about a third-party registry, uncited. Same
+class as signals 1 and 20, and they trigger criterion (b) of the citation rule.
+They are load-bearing: the whole ARM64 argument — that the Apple Silicon run is
+emulated rather than native — rests on them. Deferred to the combined citation
+pass; the check is a Docker Hub manifest query.
+
+### §S12 — verified correct
+
+- Hardware envelope in ¶815 matches the project's recorded machine exactly, down
+  to "Windows 11 Home, version 25H2" and the CPU-only statement.
+- Docker template in ¶821--836 matches the project's canonical template,
+  including `MSYS_NO_PATHCONV=1`, `--memory=1g --cpus=3` and the `//data/...`
+  double-slash forms.
+- The 23 h 01 m coincidence in ¶817 is genuine and was already adjudicated:
+  reference machine 23h01m12s (`data/runs/phase4a_run.log`), independent host
+  23h01m21s (`audits/reproduction_check_2026-06-07.md:8`) — **9 seconds apart**.
+  Register entry S-G-1, resolved 2026-07-24. The container times "approximately
+  27 h" and "46 h" match the register's robust 27.4 h and its 27/46 pair.
+- 382 ledger anchors and the T1.06u skip on a public clone are consistent with
+  the ledger and with §S9's use of that same anchor.
+- All three reproduction archives exist; the thinkpad one holds exactly the 20
+  CSVs claimed.
+- The 20 ms ODE timestep is consistent with the 0.02 s native sampling interval
+  measured directly today.
+
+**Not verified here**: the macOS `max|Δ| = 2.9×10⁻⁹`.
+
+### Three older cross-document items, re-checked against the repository
+
+`audit/factcheck_paper_supplement_vs_monograph.md` still lists P0-1, P1-1 and
+P2-1 under "Medium (cross-document drift)". All three are **extinct in the
+current text**, verified rather than taken on trust:
+
+- **P0-1** ("three" vs "one/two" operator-actionable): every occurrence enumerated
+  and displayed — 4 in `paper.tex`, all "two"; 5 in the monograph, all "two" or
+  naming exactly F-003 and F-004; 0 in the supplement. No "three" anywhere.
+- **P1-1** (Cornish channels "do not overlap"): the paper now reads "concentrated
+  on … lie largely outside" at both loci; 0 occurrences of the old wording in
+  paper or monograph.
+- **P2-1** ("no flags raised"): 0 occurrences in all three documents.
+
+⚠️ **A false alarm of mine, retracted.** A grep found "do not overlap" surviving
+in `supplement.tex:43`. It is a **LaTeX layout comment** — "% S-prefixed
+two-digit numbers (S10-S15) do not overlap the following title" — with no
+relation to Cornish. The pattern matched a string, not a claim, and it was
+announced before the context was read. Sequence to hold: match → read → *then*
+characterise.
 
 
 ---
