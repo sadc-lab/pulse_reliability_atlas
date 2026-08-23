@@ -57,6 +57,7 @@ anything found is recorded **with no proposed action**.
 | # | locus | signal | status |
 |---|---|---|---|
 | P-1 | `paper.tex:359` vs `:146` and §S5-mapping | The five ARDS severities are called an illustrative "round-tenths **convention**" at L359 and "five **calibration nodes**" at L146. The source says calibration nodes. | **OPEN — understates, and understates the paper's own finding** |
+| P-3 | `paper.tex:187` vs Table 2 (`:216`) | `not_steady_state` is defined with **two** triggers (drift, variance) fifteen lines before Table 2 gives **three** (flatline, CV, drift). The omitted flatline is the **largest** sub-mode, 232 occurrences. | **OPEN — internal, and it loses the biggest contributor** |
 | P-2 | monograph `L44` and `L954` vs `L509` and `L3808` | **XDOCCONFLICT — contradiction.** The severity bands are attributed to **PALICC-2** in the monograph's abstract and scenario list, while the same document states twice that they are anchored on the **Berlin Definition**, "not on PALICC-2". Paper and supplement are clean. | **OPEN — monograph-internal; clinically a category error (adult P/F vs pediatric OI/OSI)** |
 
 ### P-1 — "round-tenths convention" versus the source's calibration nodes
@@ -104,6 +105,27 @@ table.** The three published multipliers reproduce exactly from these nodes:
 | S2 | 0.26 | 1.0 + (0.26/0.3) × 9.0 = **8.8** | 8.8× ✓ |
 | S3 | 0.60 | exact node = **15.0** | 15× ✓ |
 | S4 | 0.95 | 20 + (0.05/0.1) × 5 = **22.5** | 22.5× ✓ |
+
+### P-3 — `not_steady_state` has three triggers; ¶187 names two
+
+Fifteen lines apart, inside one subsection:
+
+- **¶187** — "`not_steady_state` flags a run that never settled: over its final
+  60-second measurement window the output is still trending (*drift*) or still
+  oscillating (*variance*)". **Two** triggers.
+- **Table 2 (L216)** — "at least one tracked output **flatlines at a hard bound**
+  (frozen with near-zero variation), **varies too much** (coefficient of
+  variation > 0.05; most often tidal volume), or **drifts** past its locked
+  per-channel limit". **Three**, in the classifier's own evaluation order.
+
+The omitted trigger is **the largest**. The ledger anchor
+`T1.30n.spo2_flatline` puts SpO₂ flatline at **232** exhaustive occurrences,
+against 303 for the Vt CV trigger and 133 for Vt drift. A reader who takes ¶187's
+definition cannot account for the biggest single sub-mode of the flag, and §S4 of
+the supplement decomposes the 530 into exactly those three.
+
+Same family as supplement signals 22(a) and 29 — an enumeration that loses a
+member — but here the lost member carries real weight rather than none.
 
 ### P-2 — Berlin Definition or PALICC-2? The monograph answers both ways
 
@@ -172,6 +194,41 @@ directly against a native Pulse CSV today; the five-compartment lung, matching
 verified limitation #9; the Cornish channels described as "concentrated on …
 largely outside", which is the softened wording an earlier audit asked for and
 which is now in place at both loci.
+
+### Results, Table 1 (glossary) and Table 2 (flag definitions) — no signal
+
+**Table 1 independently confirms the scoping of three supplement signals**, by
+stating correctly what those loci state wrongly:
+
+- "The mild/moderate/severe labels are **Berlin Definition bands**" — unambiguous,
+  which is what makes P-2 a monograph-only conflict.
+- "20 trajectories per cell yield 20 × 8 = **160 simulations per cell**" — the
+  right unit, so supplement signal 21 is localised to `paper.tex:402` and
+  `supplement.tex:884` rather than being a general confusion.
+- "neither fired any of the **four** failure flags" — four, so supplement signals
+  22(a) and 29 are localised too.
+
+Verified in Table 1: the Morris step of "**two-thirds** of that input's swept
+range" is exactly Δ = p/(2(p−1)) = 4/6 for the p = 4 grid, and it checks against
+the data — HR spans [50, 110] = 60 bpm, so Δ = 40 bpm, exactly two intervals of
+the measured four-level grid {50, 70, 90, 110}.
+
+### Results ¶187–193 — one signal (P-3), everything else exact
+
+| claim | measured |
+|---|---|
+| "10{,}160 input contracts that reached ingestion" | `input_instantiation_long.csv` holds **10,240** rows = 1,280 runs × **8** contracts each (min = max = 8); 10,240 − 80 = **10,160** ✓ |
+| "The remaining 80 ventilator contracts belong to 20 runs" | 20 × 4 ventilator fields = **80** ✓ |
+| "divergence occurs on 20 runs spread across all four scenarios, including the healthy baseline and both sub-severe ARDS settings" | **S1 4, S2 4, S3 4, S4 8**, total 20, **all four scenarios** ✓ |
+| "All 20 fall on the male reference body" | 20/20 male ✓ |
+| "PaO₂ upper bound of 600 mmHg … set below the alveolar-gas-equation value of ≈663 mmHg" | 600 < 663 ✓, and 663 re-derived |
+| "The four flags are independent presence counts (a single run can fire several)" | matches the project's non-exclusivity rule ✓ |
+
+**Not a signal, checked because it looked like one**: ¶191 uses "detector" three
+times. All three are scoped to the *preregistered* object — "its preregistered
+operational detector", "That detector reads the setup log", "what that detector
+measured" — which is the legitimate use the supplement's signal 3 explicitly
+protects. The vocabulary guard passes on every commit, which corroborates it.
 
 **Marked for the citation pass, not opened:**
 
