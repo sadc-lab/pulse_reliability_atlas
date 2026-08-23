@@ -56,6 +56,8 @@ findings and must not be reported as such.
 | 28 | §S15 ¶979 | The S3→S4 dip attributed to "incipient cardiovascular decompensation" with no mention of the **survivorship confound**: clean survival is 83.1 % in S3 against 39.7 % in S4 | **OPEN — scientific, an available alternative is unaddressed** |
 | 29 | §S15 ¶959 | Names "the **four**-flag steady-state classifier" then lists **three** flags, omitting `clamped` | OPEN — zero numerical impact (`clamped` = 0/1,280) |
 | 30 | §S17 ¶1022 | "**Six** engine-side infrastructure recommendations" — the six listed are **not the same six** as §S11: item 1 is dropped, item 3 is split in two | **OPEN — an index wrong about what it indexes** |
+| 31 | §S12 ¶842–877 | "The **minimal command sequence** … from a **fresh clone**" **omits the Docker image build**. `src/runner.py:35` sets `DEFAULT_IMAGE = "pulse-atlas-engine"`, a locally-built image; step 2 fails on a fresh clone. | **OPEN — reproducibility, breaks for any outside user** |
+| 32 | §S12 vs `README.md` | The two public reproduction recipes **diverge**: README has the image build and the figures but no `uv sync` step and no audit ledger; §S12 has `uv sync` and the ledger but no build and no figures. | **OPEN — neither recipe alone is complete** |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -1181,6 +1183,77 @@ can locate each finding in one place". A skim reader takes this list as the six.
   property** rather than an artefact of the elementary-effects design". That is
   precisely the referent **signal 24** finds missing from §S13's own ¶931. The
   index already contains the fix.
+
+
+### 31 — the "minimal command sequence from a fresh clone" cannot run on a fresh clone
+
+§S12 ¶842 introduces its listing as "**The minimal command sequence to regenerate
+the canonical sweep + audit ledger from a fresh clone**". The listing is:
+
+1. `uv sync`
+2. `uv run python scripts/run_full_sweep.py`
+3. `uv run python scripts/analyze_sweep.py`
+4. `uv run python scripts/audit_claims.py`
+5. `uv run python scripts/audit_claims.py --check-paper-sync`
+
+**Step 2 cannot succeed on a fresh clone.** `scripts/run_full_sweep.py` delegates
+to `src.runner.run_many`, and `src/runner.py:35` sets
+
+```python
+DEFAULT_IMAGE: str = "pulse-atlas-engine"
+```
+
+which is a **locally built** image, not one pulled from a registry. The step that
+creates it exists — `engine/Dockerfile` is present, and `README.md:241` gives
+`docker build -t pulse-atlas-engine engine/` — but §S12 never mentions it. No
+pre-flight existence check was found in `src/runner.py`, so the failure surfaces
+as a raw Docker error rather than a diagnostic.
+
+**Directly relevant to outside reproduction**, which is what §S12 exists for: an
+independent reproducer following the supplement literally stops at step 2.
+
+**Verified present, so the repair is one line**: `pyproject.toml`, `uv.lock`,
+`engine/Dockerfile`, `scripts/run_full_sweep.py`, `scripts/analyze_sweep.py`,
+`scripts/audit_claims.py`, `scripts/make_figures.py`, `README.md` and `LICENSE`
+all exist, and `--check-paper-sync` and `--check-monograph` are real flags of
+`audit_claims.py`.
+
+### 32 — the two public reproduction recipes diverge
+
+| step | `README.md` L239–251 | §S12 ¶854–877 |
+|---|---|---|
+| build the Docker image | ✅ `docker build -t pulse-atlas-engine engine/` | ❌ absent |
+| `uv sync` | ❌ (only in prose, for the optional `--extra ml`) | ✅ step 1 |
+| run the sweep | ✅ **with `--resume`** | ✅ without |
+| analyse | ✅ | ✅ |
+| generate figures | ✅ `scripts/make_figures.py` | ❌ absent |
+| audit ledger | ❌ absent | ✅ steps 4–5 |
+
+Neither recipe alone regenerates what the paper releases. They are not in
+conflict — each is a valid subset — but a community member will follow **one** of
+them, and both are public-facing.
+
+The README's `--resume` flag is worth keeping in whichever recipe survives: §S12
+itself reports a 23-hour wall time, and the README explains that `--resume` makes
+that crash-safe via per-run `run_meta.json`.
+
+**Checked while comparing, and correct**: the README's `uv sync --extra ml` is
+valid — `pyproject.toml` defines an `ml` extra with `scikit-learn>=1.5.0` and
+`shap>=0.46.0`. A first look missed it because the listing was truncated, not
+because it was absent.
+
+### Reference integrity — checked mechanically, clean
+
+Run with the **calibrated** citation pattern, the one that also matches
+`\cite[Ch.~1]{key}`; the naïve form produced a false "2 uncited entries" in an
+earlier session.
+
+- `paper.tex` cites **37** keys, `supplement.tex` **24**, union **44**
+- `paper.bib` defines **44**
+- **0 cited-but-undefined** (a build breaker) · **0 defined-but-uncited**
+- `preprint/references.bib`: 33 entries, 32 shared with `paper.bib`, and **0 DOI
+  divergence** across the shared keys — the drift this project recorded three
+  times is currently absent
 
 
 ---
