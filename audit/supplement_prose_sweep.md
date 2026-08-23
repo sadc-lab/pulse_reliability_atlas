@@ -51,6 +51,7 @@ findings and must not be reported as such.
 | 23 | §S12 ¶903 | "`kitware/pulse:4.3.1` is published for `linux/amd64` **only**" and "**no** prebuilt ARM64 image exists" | OPEN — two absence claims, **trigger criterion (b)** |
 | 24 | §S13 ¶931 | "The SHAP cross-verification works **because the underlying physiology is real**, not the other way round" — two readings, one of which contradicts the Figure S5 disclaimer | OPEN — ambiguous epistemic premise |
 | 25 | §S13 ¶931 | "input dependencies that **any reasonable statistical method** would identify on the same data" — an unbounded universal from **two** methods | OPEN — **downgraded**: wording only; the "undercut by its own numbers" reading was mine and is withdrawn |
+| 26 | §S14 ¶939 | Of eight claims about what the monograph **contains**, two overclaim: "the **full preregistration document** with its amendment history" (§2.0 reproduces only §Primary hypotheses) and "the **complete experiment-log entries**" (Appendix A is a 43-line index) | **OPEN — checkable by anyone who downloads the Zenodo deposit** |
 
 ### 1 — BioGears (§S1 ¶116)
 
@@ -937,6 +938,50 @@ The epistemological framing in ¶915 — Morris as interventional, SHAP as
 observational, the two answering different questions, SHAP kept explicitly
 secondary — is careful and correct, and `TreeExplainer` is accurately described
 as exact for tree ensembles rather than sampled.
+
+
+### 26 — what §S14 says the monograph contains, against what it contains
+
+§S14 ¶939 lists five things the companion monograph "carries", and ¶941 names
+three more a reader might consult it for. Each was checked against
+`preprint/manuscript.md` by section heading, not by keyword.
+
+| # | claim in §S14 | where it lives in the monograph | verdict |
+|---|---|---|---|
+| 1 | "the **full preregistration document** with its amendment history" | §2.0 *Preregistered hypotheses* — which states it reproduces "**verbatim from `preregistration.md` §Primary hypotheses**"; amendments appear only as in-text notes (L519, L606, L816, L1121, L1196) | ⚠️ **overclaim** |
+| 2 | "the **complete experiment-log entries** for every analytical decision" | Appendix A — *Experiment log **index***, 43 lines of `ID | Title`, stating the entries themselves are "in `experiments_log/santino/`" | ⚠️ **overclaim** |
+| 3 | "the full bibliography with per-reference DOI / PMID verification trail" | §9 References + **§9.7 *Verified primary references (full bibliographic detail)*** | ✅ |
+| 4 | "the per-experiment forensic chains … verified Pulse 4.3.1 limitations table" | §1.2 *Verified limitations of Pulse 4.3.1* + Appendix B | ✅ |
+| 5 | "the full source-code map of the Pulse 4.3.1 audit" | **§B.4 *Source-code audit findings and discrepancies*** | ✅ |
+| 6 | "per-experiment statistical-test selection rationale" | **§2.10 *Statistical methods overview*** | ✅ |
+| 7 | "calibration trace for the empirical {0.26, 0.60, 0.95} ARDS-severity mapping" | **§B.3 *ARDS severity calibration and solver instability*** | ✅ |
+| 8 | "the bit-exact reproduction protocol at the engine-binary level" | **§2.8 *Hardware and reproducibility*** | ✅ |
+
+Six of eight are backed by a dedicated section. Two are not.
+
+**Why the two matter.** They describe a **public deposit**. A reader who downloads
+the Zenodo monograph expecting "the complete experiment-log entries" receives a
+43-line index of titles, and expecting "the full preregistration document"
+receives four hypotheses. Both are trivially checkable from outside.
+
+**A defensible weaker reading exists**, and ¶941 supplies it: "the complete
+experiment-log entries **it consolidates** are openly available under
+`experiments_log/`". So the author's model may be *consolidates*, not *contains*.
+But ¶939's verb is "carries", and a reader applies the literal one.
+
+**Verified correct in the same section**: "over 100 pages" — the built monograph
+is **118 pages** (`preprint/build/manuscript.pdf`). And the ARDS severities
+{0.26, 0.60, 0.95} match the locked scenario definitions exactly.
+
+**⚠️ Instrument failure of mine, recorded because it nearly produced a false
+report.** A first pass searched the monograph for eight keyword patterns and
+returned 1 hit for "statistical-test selection", 3 for "forensic chains" and
+scattered hits for "source-code map" — which read as a *cluster of five
+overclaims*. It was wrong. The section headings, read afterwards, located §2.10,
+§B.4, §9.7, §B.3 and §2.8, each a dedicated home for the claim its keywords had
+missed. **For a claim of the form "document X contains Y", the table of contents
+is the instrument; a keyword search is not.** Absence of a phrase is not absence
+of a section.
 
 
 ---
