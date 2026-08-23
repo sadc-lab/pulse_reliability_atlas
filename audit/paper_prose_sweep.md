@@ -1,7 +1,7 @@
 # Paper prose sweep — `preprint_npj/paper.tex`
 
 Companion to `audit/supplement_prose_sweep.md`, which covered §S1–§S17 of the
-supplement and closed at 30 signals. This register covers the **main manuscript**
+supplement and now stands at 38 signals. This register covers the **main manuscript**
 by the same method, and adds a fourth question dedicated to paper↔supplement
 coherence.
 
@@ -22,7 +22,7 @@ becomes what it criticises.
 |---|---|
 | supplement (`audit/supplement_prose_sweep.md`), ids 1–38 | **38** |
 | paper (this file), P-1 … P-5 | **5** |
-| **total** | **43 — 39 open, 4 off the table** |
+| **total** | **43 — 40 open, 3 off the table** |
 
 **Verified by enumeration, not by regex**: supplement ids 1–38 with no gaps,
 paper P-1…P-5. The class partition below was checked for completeness and
@@ -90,7 +90,7 @@ Methods does not license, with a recoverable mechanism claim) and P-2 (an
 adult-vs-pediatric definition mix-up that pediatric intensivist reviewers will
 see). P-3 and P-1 are precise and cheap to repair. P-5 needs a source or a hedge.
 
-**Awaiting a decision before any edit:** all five, plus the 29 open supplement
+**Awaiting a decision before any edit:** all five, plus the 35 open supplement
 signals. Nothing has been corrected.
 
 **Three findings that run the other way** — places where the paper is the
