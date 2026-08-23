@@ -148,6 +148,41 @@ if [ -n "$AUDIT_CMD" ]; then
     fi
 fi
 
+# ---- 2c. Publication-gate anchors (content, not line numbers) --------------
+#
+# Eight statements in the package assert in the PRESENT TENSE that the code and
+# data are already public. Each is false while the repo is private, which fixes
+# the release order: public repo first, submission second.
+#
+# That gate used to be prose listing eight FILE:LINE positions. By 2026-08-23 six
+# of the eight numbers were wrong -- paper.tex 409/430/434 had become 454/475/479.
+# The claims had not moved; the addressing had aged. A gate that opens the wrong
+# line is worse than none, because it reports success.
+#
+# This checks the ANCHORS only. The anchors are the tensed phrases themselves, so
+# rewriting a statement into the future tense breaks its anchor and fails here --
+# intended: the gate's premise changed and a human should look.
+#
+# Repository visibility is NOT checked at commit time; it would fail every commit
+# until release day. Run this before submitting:
+#     uv run python scripts/check_publication_gate.py --verify-public
+if [ -n "$AUDIT_CMD" ]; then
+    if ! $AUDIT_CMD scripts/check_publication_gate.py >/dev/null 2>&1; then
+        echo ""
+        echo "pre-commit: publication-gate anchor MISSING or DUPLICATED - commit aborted."
+        echo ""
+        echo "  One of the eight present-tense public-availability statements no"
+        echo "  longer resolves exactly once. It was reworded, moved or deleted."
+        echo "  See which, with every occurrence found:"
+        echo "    uv run python scripts/check_publication_gate.py"
+        echo ""
+        echo "  Re-read the locus and update the CLAIMS table in that script."
+        echo "  Do not weaken an expected count to make this pass."
+        echo ""
+        exit 1
+    fi
+fi
+
 # ---- 3. Render check (no CI equivalent -- this is the only place it runs) ---
 #
 # audit_claims.py validates the SOURCES: it counts numeric literals in the .tex
