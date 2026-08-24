@@ -3246,7 +3246,8 @@ records as correct:
 
 > This is the fall in arterial oxygenation expected from the diffusion-surface
 > collapse and widened intrapulmonary shunt that the severity scalar produces
-> (\Sef{sec:s5-mapping}), and confirms that the elevated S1 plateau is a
+> (\S
+ef{sec:s5-mapping}), and confirms that the elevated S1 plateau is a
 > healthy-lung property rather than a generic FiO2 = 1.0 artefact.
 
 * the false attribution to the alveolar-gas equation is gone;
@@ -3258,6 +3259,86 @@ records as correct:
   was established. **Optional** -- the sentence stands without it.
 
 **Not applied.**
+
+
+## The 7 scientific signals -- triaged 2026-08-24
+
+Reading each dossier and hunting the canonical formulation **before** proposing
+anything splits them cleanly in two.
+
+| | signal | canonical source | status |
+|---|---|---|---|
+| **propagation** | **49** | `paper.tex:359`, verbatim | diff ready |
+| **propagation** | **38** | `supplement.tex:504` and `:527` | diff ready |
+| **propagation** | **P-2** | `manuscript.md:507-512`, in the same document | diff ready |
+| arbitration | **17** | §S5-mapping found; **two readings** | presented, awaiting |
+| arbitration | **24** | ambiguous epistemic premise | to inventory |
+| arbitration | **28** | survivorship confound unaddressed | to inventory |
+| arbitration | **P-4(b)** | (a) established, (b) interpretation | partly |
+
+### 49 -- cover letter, propagate `paper.tex:359`
+
+`cover_letter.md:60-62` reads "Published Pulse validation work samples ARDS
+severity **only on round tenths** and **never probes inside this interval**."
+
+`paper.tex:359` is precise where the letter is not:
+
+> Pulse's own methodology documents ARDS severity as a continuous parameter on
+> [0, 1] and **exemplifies the range** with the round-tenths convention {0.0, 0.3,
+> 0.6, 0.9, 1.0}; published Pulse validation work **and HowTo examples sample at
+> most up to severity 0.9** and **do not examine impairment fractions inside the
+> interval 0.91--0.945**.
+
+⚠️ Two defects, and the second is the serious one. The letter moves the
+round-tenths convention from **Pulse's documentation**, where it exemplifies a
+range, onto **validation work**, where it becomes a sampling grid. And "this
+interval" refers to the **[0.879, 0.945]** stated two lines earlier in the same
+bullet -- **our own extension** -- where the established non-examination covers only
+**0.91--0.945**.
+
+**Proposed**: "Published Pulse validation work and HowTo examples sample at most up
+to severity 0.9 and do not examine impairment fractions inside 0.91–0.945."
+
+### 38 -- five loci, propagate the supplement's crossover finding
+
+The audited statement is that the pattern **reverses**:
+
+> `supplement.tex:504` -- "the per-bin sex pattern **crosses over**: female
+> divergence dominates the (0.85, 0.91] bin while male divergence dominates the
+> (0.91, 0.945] bin"
+> `supplement.tex:527` -- "Female divergence dominates the lower band; male
+> divergence dominates the upper band"
+
+`paper.tex` says only "both sexes diverge" -- neutral and correct. **"Approximately
+sex-balanced" flattens a sign-reversing effect into no effect** at
+`README.md:108`, `README.md:156`, `manuscript.md:338`, `:2008`, `:2232`.
+`README.md:108` is partly self-correcting, appending "the sex effect is
+regime-dependent"; the other four are bare.
+
+### P-2 -- two loci, and the monograph refutes itself 465 lines apart
+
+⚠️ **`paper.tex` and `supplement.tex` mention PALICC **zero** times.** Both attribute
+the bands exclusively to the Berlin Definition, three times in the paper: "The
+mild/moderate/severe labels are **Berlin Definition** bands, set by the arterial
+PaO$_2$/FiO$_2$ ratio" (`paper.tex:168`).
+
+The monograph carries **five** PALICC mentions, and only two are defects:
+
+| locus | text | verdict |
+|---|---|---|
+| `manuscript.md:44` | "three ARDS severities, **spanning PALICC-2 mild–severe**" | ⚠️ credits the bands |
+| `manuscript.md:954` | "**S2** Mild ARDS, impairment 0.26 (**PALICC-2 mild**)" | ⚠️ credits the band |
+| `manuscript.md:384` | glossary row defining the acronym | ✅ definition, not a credit |
+| `manuscript.md:507-512` | "calibrated on the **Berlin Definition's** PaO2/FiO2 bands…; **PALICC-2** … is cited as the **parallel pediatric** severity framework; note that PALICC-2 itself favours Oxygenation Index" | ✅ **canonical, and correct** |
+
+**The monograph therefore contains its own repair.** L44 and L954 should credit
+Berlin, exactly as L509 does.
+
+⚠️ **Recorded, not actioned**: `CLAUDE.md` also lists "S2 0.26 Mild ARDS
+(PALICC-2)". It is project rules rather than a manuscript, so it is out of the
+manuscript population -- but it is plausibly where the two defective loci came from.
+
+**None of the three applied.**
 
 
 ---
