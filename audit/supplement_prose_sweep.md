@@ -3356,3 +3356,128 @@ manuscript population -- but it is plausibly where the two defective loci came f
 | §S3 PaO2 ceiling | full + recomputed | clean — 32 + 2 = 34; 21 F + 11 M = 32; Vt 800 mL × RR 20 = 16 L/min; the paper's 91 % is 31/34; the 126 implausible total matches `cell_flag_summary.csv` |
 
 Remaining: the rest of §S3, then §S4 through §S17.
+
+
+---
+
+## Bloc scientifique appliqué -- 2026-08-24
+
+Sept dossiers appliqués après arbitrage de l'auteur. Gates : `audit_claims.py
+--check-paper-sync --check-monograph` **382/382 ancres, 94/94 crosswalk, 26/26
+monographie, 15 gardes à 0 FAIL, exit 0** ; `check_render.py` **PASSED** (paper
+37 p., supplement 52 p., inchangé) ; les trois builds OK.
+
+### Source primaire ouverte : PALICC-2 (Emeriaud 2023)
+
+Téléchargée et lue dans la session (`pdftotext -layout`), p. 147-148 :
+
+- **DS 1.4.1** -- « Oxygenation index (OI) or oxygen saturation index (OSI), **in
+  preference to** Pao2/Fio2 or Spo2/Fio2, should be the **primary metric of lung
+  disease severity** to define PARDS for all patients treated with **invasive
+  mechanical ventilation** (IMV) » (Ungraded DS, 90 % agreement).
+- **DS 1.4.2** -- P/F ou S/F pour NIV / HFNC.
+- Table de stratification : **IMV-PARDS = mild/moderate (OI < 16 ou OSI < 12) vs
+  severe (OI >= 16 ou OSI >= 12)** ; NIV-PARDS = mild/moderate (P/F > 100) vs
+  severe (P/F <= 100).
+
+Trois conséquences :
+
+1. `manuscript.md:511` (« PALICC-2 itself favours OI/OSI over P/F ») est
+   **vérifié correct**, et même prudent.
+2. `Pulse_translation_new/experiments_log.md:604` (« PALICC-2 uses the same
+   PaO2/FiO2 cutoffs ») est **faux pour l'IMV**. ⚠️ Consigné ici seulement :
+   **NO-GO** de l'auteur sur toute écriture dans le dépôt Paper 1.
+3. ⚠️ **Décisif** : pour l'IMV, PALICC-2 **ne sépare pas « mild » de
+   « moderate »**. Les deux étiquettes distinctes de `preregistration.md:108-109`
+   désignent donc des strates qui n'existent pas dans ce cadre pour un patient
+   ventilé invasivement -- ce que l'atlas simule (VC-AC).
+
+### Ce qui a été appliqué
+
+| # | dossier | loci |
+|---|---|---|
+| D1 | erratum daté, **append-only** | `preregistration.md` +10 lignes, 0 supprimée ; texte historique intact |
+| P-2 | étiquettes Berlin | `manuscript.md` L44, L954 ; PALICC monographie 9 -> 7 |
+| 49 | portée 0,91--0,945 propagée de `paper.tex:359` | `cover_letter.md` L60-62 |
+| 38 | « aggregate near-balance + sex asymmetry reversed » | README 108/156 ; `manuscript.md` 338/2008/2232 |
+| 17 | mécanisme audité de §S5.2, sans « kinetics » ni équation prédictive | `supplement.tex:701` |
+| B3 | titre + légende descriptifs | `supplement.tex:699`, `:705` |
+| jumeaux | « shunt-fraction kinetics » éliminé | `manuscript.md` 1634, 1796, 1871, 2751 (2751 = réparation propositionnelle complète) |
+
+⚠️ **Le quatrième jumeau était coupé par un retour à la ligne** (« shunt-fraction »
+/ « kinetics » sur deux lignes) : un grep sur la locution complète n'en trouvait
+que 3 sur 4. Contre-mesure : chercher le radical, pas la locution.
+
+### Mesure d'audit, non publiée
+
+Différence alvéolo-artérielle calculée sur les 16 runs S3/S4 (moyenne t >= 240 s,
+12 points, PAO2 = 713 - PaCO2/0,8, constantes de `paper.tex:325`) :
+
+| | PaCO2 mesurée | PAO2 calculée | PaO2 mesurée | A-a |
+|---|---|---|---|---|
+| S1 (publié) | 40 (hypothèse) | 663 | 643,3 | ~20 |
+| S3 (8 runs) | 42,0--66,8 | 629,6--660,5 | 85,6--282,9 | **377--553** |
+| S4 (8 runs) | 39,6--64,9 | 631,9--663,4 | 67,1--79,3 | **557--592** |
+
+Le plafond calculé ne bouge que de ~34 mmHg pendant que PaO2 chute de ~570 : la
+formulation qualitative de `supplement.tex:701` est vraie et robuste. **Décision
+de l'auteur : ces chiffres restent au registre**, aucun ajout au SI (ils
+exigeraient script, provenance et ancre de ledger).
+
+### Signaux ouverts créés par ce bloc, non actionnés
+
+- **63** -- `manuscript.md:1763` : « mechanism: shunt-fraction caps FiO2's
+  marginal effect » (texte alternatif de figure). Famille shunt large, NO-GO.
+- **64** -- « Shunt depression confirms... » `manuscript.md` L2731/L2827 (à
+  re-localiser après décalage) et `paper.tex:289` (« the same shunt physiology
+  that flattens PaO2 »). Deux lectures défendables pour le locus du papier.
+- **65** -- `manuscript.md:2748` « The same FiO2 = 1.0 + **identical input
+  vector** » : la médiane S1 publiée porte sur 44 runs (22 index x 2 corps), les
+  médianes S3/S4 sur 4 index. La comparaison appariée existe dans les données
+  (index 0006/0007/0012/0013 sur les 6 cellules, entrées identiques vérifiées)
+  mais n'est pas celle qui est publiée.
+- **66** -- `experiments_log.md` S021 : la prédiction préenregistrée du carnet est
+  `S1 > S2 > S3 > S4`, or **aucun bras S2 n'a été exécuté** (44/8/8).
+
+### D2 appliqué -- convention à deux étages (2026-08-24)
+
+**Population énumérée et affichée avant toute édition**, à la demande de
+l'auteur : **24 occurrences d'« ARDSnet », 16 dans le périmètre, 8 hors.**
+Partition complète, sans recouvrement.
+
+⚠️ **Deux corrections de mon propre classement, faites en lisant le contexte :**
+
+1. `4261` disait « at **the same** … settings » : c'est un **référent**, pas un
+   définisseur. Le définisseur du bloc est la puce `4233`, qui porte
+   l'arithmétique. Définisseurs = `975` et `4233`, pas trois.
+2. Le contrôle d'antécédent exigé par l'auteur a fait passer **deux loci de plus**
+   à la forme complète : `92` (résumé exécutif, aucun antécédent) et `4195`
+   (introduction d'annexe : les réglages n'arrivent que 28 lignes **plus bas**,
+   donc renvoi vers l'avant).
+
+Répartition finale : **4 loci en forme complète ou auto-suffisante** (`975`,
+`4233`, `92`, `4195`) · **3 en forme courte avec pointeur explicite**
+(`supplement.tex:496` → `\S\ref{sec:s5-berlin}` ; `3820` et `3904` → Appendix
+B.3) · **9 en forme courte à antécédent local**.
+
+**Une édition supplémentaire, imposée par le contrôle d'antécédent** :
+`manuscript.md:359` portait « Vt 6 mL/kg » sans référent de poids dans la puce
+même qui sert d'antécédent à `355`. Corrigé en « 6 mL/kg actual body weight ».
+
+✅ **Le nom court n'est pas une invention** : `supplement.tex:431` employait déjà
+« a fixed **reference ventilation setting** ». La convention propage le
+vocabulaire existant du document, pas une étiquette neuve.
+
+**Vérification, avec témoins :** « ARDSnet-protective » **0** · « ARDSnet
+lung-protective » **0** · « at ARDSnet settings » **0** · « ARDSnet anchor »
+**0**. Population ARDSnet **24 → 12** (11 lignes ; `803` en porte deux) : les 9
+occurrences hors périmètre intactes, plus 3 qui conservent le lien historique
+sous la forme hedgée « based on the ARDSnet framework ». Les 14 usages de la
+forme courte ont tous un antécédent résoluble -- **aucun référent flottant**.
+
+**Gates après application :** `audit_claims.py --check-paper-sync
+--check-monograph` **382/382 · 94/94 · 26/26 · 19 gardes à 0 FAIL · exit 0** ;
+`check_render.py` **PASSED** (paper 37 p., supplement 52 p., pagination
+inchangée) ; les trois builds OK, zéro référence non définie.
+
+**Rien poussé.**
