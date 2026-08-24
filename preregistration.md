@@ -35,6 +35,18 @@
 > original wording below is preserved verbatim for preregistration
 > integrity.
 
+> **ERRATUM — 2026-08-24 (terminology only, no design change).**
+>
+> The S2 and S3 entries in the scenario table below cite PALICC-2 in their
+> rationale. The severity fractions were in fact calibrated against the
+> **adult Berlin Definition** P/F bands, as documented in the March 2026
+> 28-run impairment-sweep calibration record of the companion project,
+> whose outcome is summarised in Appendix B.3 of the technical monograph;
+> that record states that the adult definition was chosen because the
+> Pulse engine runs an adult surrogate. The final reporting uses those
+> bands throughout. The preregistered impairment values (S2 = 0.26,
+> S3 = 0.60, S4 = 0.95) and the simulation design are **unchanged**.
+
 ---
 
 ## Revision log
