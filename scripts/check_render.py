@@ -400,9 +400,24 @@ def check_hardcoded_refs() -> list[str]:
 #     that geometrically does NOT work here -- the figures are vector PDFs, so
 #     fitz get_images() returns zero on four of the five figure pages -- hence
 #     the textual proxy.
-#   * a page carrying three or more bibliography entries is exempt. The
-#     supplement's page 41 holds the last four references and then 387pt of
-#     white: a section ending, not a broken page.
+#   * a page that is BIBLIOGRAPHY-ONLY is exempt: it carries at least one
+#     reference entry and no words before the first one. RE-SCOPED 2026-08-24.
+#     The previous form exempted "three or more entries" -- but 3 was an
+#     OBSERVATION of the then-current last page ("holds the last four
+#     references"), not the property being protected, and it is exactly the
+#     kind of frozen observation the header above forbids: a supplement edit
+#     that pushes one reference onto its own page made the count 1 and the
+#     guard fired on a page that is not the defect class at all.
+#     MEASURED, on both PDFs, 2026-08-24 -- words appearing BEFORE the first
+#     entry separate the population with no threshold to guess:
+#       pure bibliography pages   supplement 41, 42; paper 35, 36, 37 -> 0
+#       mixed section-end pages   supplement 40 -> 60; paper 34 -> 316
+#     A mixed page therefore stays gated, which is what keeps the motivating
+#     defect in range: the 72-word page of commit 530d281 was body text left
+#     thin by a float placement and carried no reference entry at all, so it
+#     fails both conjuncts. The bound is strict (== 0) rather than tolerant,
+#     so a future bibliography page that acquires a running header stops
+#     being exempt and is REPORTED -- the guard errs toward firing.
 #
 # The captions are matched as "Fig. 3" / "Table S3" and the calls as
 # "Figure 3": the npj class renders the two differently, which is what makes
@@ -411,7 +426,49 @@ def check_hardcoded_refs() -> list[str]:
 # one of them, then reported the Table S3 caption page as a defect.
 THIN_PAGE_MIN_WORDS = 150
 FIGURE_MAX_PAGES_AFTER_CALL = 10
-BIBLIOGRAPHY_ENTRIES_EXEMPT = 3
+BIBLIOGRAPHY_ONLY_MAX_LEAD_WORDS = 0
+
+
+def _lead_words(t: str) -> int:
+    """Alphanumeric words before the page's first reference entry.
+
+    Returns -1 when the page carries no entry at all, so that a page with no
+    bibliography can never satisfy the bibliography-only exemption.
+    """
+    m = re.search(r"\[\d+\]\s+[A-Z]", t)
+    if m is None:
+        return -1
+    return len([w for w in t[:m.start()].split() if re.search(r"[A-Za-z0-9]", w)])
+
+
+def _is_bibliography_only(p: dict) -> bool:
+    """True when the page's whole content is the reference list.
+
+    At least one entry, and nothing before it. See the calibration note above
+    for why the entry COUNT is deliberately not part of this predicate.
+    """
+    return (p["bibentries"] >= 1
+            and p["leadwords"] == BIBLIOGRAPHY_ONLY_MAX_LEAD_WORDS)
+
+
+def _selftest_exemption() -> None:
+    """Re-runs, on every invocation, the cases that calibrated the predicate.
+
+    Written 2026-08-24 with the re-scoping, so that the judgement cannot rot
+    into an unchecked assumption the way the "three entries" threshold did.
+    """
+    # The defect this guard exists for: the 72-word page of commit 530d281,
+    # body text left thin by a float placement, carrying no reference entry.
+    assert not _is_bibliography_only({"bibentries": 0, "leadwords": -1})
+    # The 2026-08-24 case: supplement p42, one reference and nothing else.
+    assert _is_bibliography_only({"bibentries": 1, "leadwords": 0})
+    # Mixed pages -- a section closing above the first reference. Measured at
+    # 60 words (supplement p40) and 316 (paper p34); neither may be exempted.
+    assert not _is_bibliography_only({"bibentries": 1, "leadwords": 60})
+    assert not _is_bibliography_only({"bibentries": 10, "leadwords": 316})
+    # The entry count is no longer the protected property.
+    for k in (1, 2, 3, 4, 13):
+        assert _is_bibliography_only({"bibentries": k, "leadwords": 0})
 
 
 def _page_facts(pdf: pathlib.Path) -> list[dict]:
@@ -427,6 +484,12 @@ def _page_facts(pdf: pathlib.Path) -> list[dict]:
             "figcaps": set(re.findall(r"Fig\.\s*(S?\d+)", t)),
             "figrefs": set(re.findall(r"Figure\s*(S?\d+)", t)),
             "bibentries": len(re.findall(r"\[\d+\]\s+[A-Z]", t)),
+            # Words appearing BEFORE the first reference entry on the page.
+            # 0 on every pure bibliography page; 60 and 316 on the two pages
+            # that close a section and open the reference list. This is what
+            # separates a bibliography-only page from a page whose body text
+            # merely happens to be followed by references.
+            "leadwords": _lead_words(t),
             # A contents page is not text: its entries are subsection TITLES, and
             # several of those titles contain a parenthesised figure number. Read
             # naively, the table of contents becomes the "first call" of half the
@@ -462,7 +525,7 @@ def check_pagination(name: str, pdf: pathlib.Path) -> list[str]:
 
     qualifying = []
     for p in body:
-        if p["captions"] or p["bibentries"] >= BIBLIOGRAPHY_ENTRIES_EXEMPT:
+        if p["captions"] or _is_bibliography_only(p):
             continue
         qualifying.append(p)
         if p["words"] < THIN_PAGE_MIN_WORDS:
@@ -506,6 +569,7 @@ def check_pagination(name: str, pdf: pathlib.Path) -> list[str]:
 
 
 def main() -> int:
+    _selftest_exemption()
     all_problems: list[str] = []
     for name, src, pdf, log in DOCS:
         p = check(name, src, pdf, log)
