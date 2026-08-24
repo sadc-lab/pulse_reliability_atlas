@@ -58,11 +58,12 @@ readership:
 
 3. **The first public characterisation of an ARDS impairment-fraction
    solver-instability band ([0.879, 0.945]).** Published Pulse validation work
-   samples ARDS severity only on round tenths and never probes inside this
-   interval. Our continuous-severity sweep resolves two distinct divergence
-   regimes — an input-driven regime on the male body and a severity-driven
-   regime affecting both sexes — and gives downstream users a concrete band to
-   avoid when stable steady-state output is required.
+   and HowTo examples sample at most up to severity 0.9 and do not examine
+   impairment fractions inside 0.91–0.945. Our continuous-severity sweep
+   resolves two distinct divergence regimes — an input-driven regime on the
+   male body and a severity-driven regime affecting both sexes — and gives
+   downstream users a concrete band to avoid when stable steady-state output
+   is required.
 
 The work directly addresses a stated gap acknowledged by the engine's
 maintainers; its methodology (Morris screening plus a categorise-don't-discard
