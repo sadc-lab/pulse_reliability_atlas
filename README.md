@@ -104,8 +104,10 @@ What the atlas says, in one paragraph:
 > diverges in **1.6 %** of our runs, and **all 20 divergent runs are in
 > male patient cells in the Morris input-extreme regime** — the first
 > quantitative sex-specific reliability finding for Pulse. (At midrange
-> inputs, a complementary continuous-severity sweep shows divergence is
-> approximately sex-balanced — the sex effect is regime-dependent; see
+> inputs, a complementary continuous-severity sweep shows divergence to be
+> approximately sex-balanced in aggregate, but the sex asymmetry reverses
+> between the two severity bands — female-dominated in (0.85, 0.91],
+> male-dominated in (0.91, 0.945]; the sex effect is regime-dependent; see
 > manuscript §3.5.1.) Severe ARDS on the male surrogate is the worst
 > reliability cell — all six outputs are classified red under the
 > combined rule. (That combined rule differs from the literal
@@ -153,7 +155,7 @@ for the lab-notebook entry.)
 |---|---|
 | **H1 — top-3 inputs explain ≥ 50 % of sensitivity** | **PASS, 48 / 48** cell × output combos. Median 0.928, range 0.658 – 0.998. |
 | **H2 — silent clamping ≥ 5 %** | **NOT supported**, 0 / 1,280. Pulse rejects out-of-range inputs *loudly* (verified by explicit clamp probes in S005). |
-| **H3 — divergence outside ARDS 0.91 – 0.945** | **PASS** — 1.6 % overall divergence rate. **All 20 divergent runs are male in the Morris input-extreme regime** (the complementary continuous-severity sweep at midrange inputs shows divergence approximately sex-balanced inside the [0.879, 0.945] band — see §3.5.1). Mechanism confirmed (S018): mediated by Pulse's `BloodVolumeBaseline` gap (male default 4,802.63 mL vs female 3,996.09 mL); reducing the male BV eliminates divergence entirely — the count falls from **20 / 20** at the default to **0 / 20 at both reductions** (BV = 4,802.63 → 4,400 → 4,082.24 mL); even the 8.4 % reduction to 4,400 mL clears all 20. |
+| **H3 — divergence outside ARDS 0.91 – 0.945** | **PASS** — 1.6 % overall divergence rate. **All 20 divergent runs are male in the Morris input-extreme regime** (the complementary continuous-severity sweep at midrange inputs shows divergence approximately sex-balanced in aggregate inside the [0.879, 0.945] band, but the sex asymmetry reverses between the two severity bands — female 14/18 vs male 5/18 in (0.85, 0.91], female 5/10 vs male 9/10 in (0.91, 0.945] — see §3.5.1). Mechanism confirmed (S018): mediated by Pulse's `BloodVolumeBaseline` gap (male default 4,802.63 mL vs female 3,996.09 mL); reducing the male BV eliminates divergence entirely — the count falls from **20 / 20** at the default to **0 / 20 at both reductions** (BV = 4,802.63 → 4,400 → 4,082.24 mL); even the 8.4 % reduction to 4,400 mL clears all 20. |
 | **H4 — sex-specific reliability** | **Partially supported (gas-exchange only)** — under Benjamini–Hochberg FDR control at q = 0.05, **5 of 24** cell × output Wasserstein distances survive the permutation null; all 5 are gas-exchange (PaCO2 × 3, SpO2 × 1, PaO2 × 1). The naive-α = 0.05 analysis would flag 6; S2 SpO2 (p_emp = 0.022) is demoted by BH-FDR. Cardiovascular (HR, MAP) and Vt sex effects do not exceed the permutation-null baseline at our sample size. Input-importance rankings are similar between sexes (Spearman ρ 0.75 – 1.00 in S2 / S3, wide CIs). |
 
 Two structural Pulse findings, independent of the hypotheses:

@@ -41,11 +41,11 @@ unaddressed.
 **Methods.** We swept seven user-facing inputs (HR, SBP, DBP, RR, Vt,
 FiO2, PEEP) from Pulse's verified acceptance ranges using Morris
 elementary-effects sampling. The sweep spanned four scenarios (healthy
-and three ARDS severities, spanning PALICC-2 mild–severe and bracketing
-the 0.91–0.945 solver-instability zone) across two adult surrogates
-(CDC weight-anchored male and female), yielding 1,280 total simulations. A
-locked four-flag detector (`clamped` / `diverged` / `implausible` /
-`not_steady_state`) classified every run before analysis.
+and three ARDS severities, spanning the Berlin Definition's mild–severe
+bands and bracketing the 0.91–0.945 solver-instability zone) across two
+adult surrogates (CDC weight-anchored male and female), yielding 1,280
+total simulations. A locked four-flag detector (`clamped` / `diverged` /
+`implausible` / `not_steady_state`) classified every run before analysis.
 
 **Results.** The headline operator-actionable result: VC-AC
 (volume-controlled assist-control) tidal-volume instability appears in
@@ -88,8 +88,9 @@ reliability-sensitivity axis, yields two operator-actionable corrections
 tidal-volume determinism, and extending the steady-state window to
 300 s of total simulated time for FiO2 = 1.0 hyperoxia), delivers an
 empirical Pulse-severity → P/F calibration table — Pulse's documented
-severity defaults all land in the Berlin *moderate* band under
-ARDSnet-protective ventilation, and the table supplies corrected
+severity defaults all land in the Berlin *moderate* band under the
+low-tidal-volume reference ventilation used for that calibration
+(6 mL/kg actual body weight), and the table supplies corrected
 fractions that reach the intended mild, moderate and severe bands —
 and provides a per-cell curation and review-priority map for downstream
 machine-learning pipelines that train on Pulse-generated synthetic
@@ -335,10 +336,12 @@ sweep.*
 * **Sex-stratified solver-divergence cluster in the input-extreme regime.**
   20 of 1,280 runs (1.6 %) diverge, *all 20 on the male surrogate in the
   Morris input-extreme regime*; the complementary continuous-severity
-  sweep at midrange inputs (§3.5.1) shows approximately sex-balanced
-  divergence inside the [0.879, 0.945] band — the sex effect is
-  regime-dependent. The [S006](#s006) cluster is mechanistically
-  confirmed ([S018](#s018)) to be mediated by Pulse's
+  sweep at midrange inputs (§3.5.1) shows divergence approximately
+  sex-balanced in aggregate inside the [0.879, 0.945] band, but with the
+  sex asymmetry reversed between the two severity bands (female 14/18 vs
+  male 5/18 in (0.85, 0.91]; female 5/10 vs male 9/10 in (0.91, 0.945])
+  — the sex effect is regime-dependent. The [S006](#s006) cluster is
+  mechanistically confirmed ([S018](#s018)) to be mediated by Pulse's
   `BloodVolumeBaseline` (male default 4,802.63 mL vs female default
   3,996.09 mL, a ~17 % gap): reducing the male surrogate's BV
   eliminates divergence
@@ -350,11 +353,12 @@ sweep.*
   (`clamped` / `diverged` / `implausible` / `not_steady_state`) that
   future Pulse users can apply to their own scenario configurations
   without re-running this sweep.
-* **Reusable ARDS-severity → P/F calibration table at ARDSnet ventilation.**
+* **Reusable ARDS-severity → P/F calibration table at the reference ventilation setting.**
   Empirical mapping {0.26, 0.60, 0.95} lands Pulse's per-lung severity
   scalar near the Berlin mild and moderate band centres, and just inside
   the severe band's upper boundary (P/F ≈ 256 / 150 / 96 mmHg), under VC-AC +
-  Vt 6 mL/kg + PEEP 10 + FiO2 0.4; Pulse's documented {0.3, 0.6, 0.9}
+  Vt 6 mL/kg actual body weight + PEEP 10 + FiO2 0.4; Pulse's
+  documented {0.3, 0.6, 0.9}
   defaults yield 199 / 150 / 119 mmHg at the same settings (vs. published
   340 / 130 / 50 mmHg, Webb 2020) — calibration is *ventilation-setting-dependent*.
 
@@ -951,7 +955,7 @@ Vt error vs PC-AC's 11.3 – 25.3 %).*
 Four scenarios × two patients = 8 cells:
 
 * **S1** Healthy ventilated adult, ARDS impairment 0.00.
-* **S2** Mild ARDS, impairment 0.26 (PALICC-2 mild).
+* **S2** Mild ARDS, impairment 0.26 (Berlin mild band).
 * **S3** Moderate ARDS, impairment 0.60.
 * **S4** Severe ARDS, impairment 0.95 (above the 0.91–0.945 solver-
   instability zone documented in `Pulse_translation_new` E6/E10).
@@ -970,8 +974,9 @@ calibrated at 0.3 / 0.6 / 0.9 but does not state these P/F values
 directly; the quantitative validation claim is anchored on
 [@webb2020] alone (citation attribution corrected in pre-submission
 Phase-2 audit, [S020](#s020) follow-up). Under
-the ARDSnet-protective ventilation regime that the Atlas sweep is
-built around (VC-AC, Vt = 6 mL/kg, PEEP = 10 cmH2O, FiO2 = 0.4),
+the reference ventilation setting that the Atlas sweep is built
+around — based on the ARDSnet low-tidal-volume framework (VC-AC,
+Vt = 6 mL/kg actual body weight, PEEP = 10 cmH2O, FiO2 = 0.4) —
 direct measurement of the documented mapping in a 28-run impairment
 sweep (`Pulse_translation_new`, original ARDS severity calibration)
 produced P/F ratios of
@@ -984,7 +989,7 @@ boundary (P/F ≈ 256 / 150 / 96 mmHg) under the same ventilation
 settings. The calibration is therefore *ventilation-setting-dependent*
 rather than a global correction; Pulse's documented mapping may
 reproduce its claimed P/F values under different Vt / PEEP / FiO2
-combinations, but does not at ARDSnet-protective settings. Full
+combinations, but does not at the reference ventilation setting. Full
 contrast table, ventilation-setting disclosure, three-source
 convergence for the 0.91 – 0.945 solver-instability zone, and the
 ARDS calibration provenance are in Appendix B.3.
@@ -1629,9 +1634,9 @@ visual patterns dominate:
   20). No cross-talk from ventilator settings.
 * **Gas-exchange outputs are ventilator-driven.** PaO2 is dominated by
   FiO2 in S2 / S3 (μ\* peaks at 147 mmHg in (S2, F)) — the regime
-  where shunt-fraction kinetics make oxygenation FiO2-limited. PaCO2
-  is dominated by Vt in most cells, consistent with the
-  alveolar-ventilation identity
+  where venous admixture has not yet decoupled oxygenation from
+  inspired oxygen. PaCO2 is dominated by Vt in most cells, consistent
+  with the alveolar-ventilation identity
   $\dot{V}_A = \mathrm{RR} \cdot (V_T - V_D)$
   (where $\dot{V}_A$ is alveolar minute ventilation, RR is set
   respiratory rate, $V_T$ is delivered tidal volume, and $V_D$ is
@@ -1791,7 +1796,7 @@ these into two regimes:
   PaO2, FiO2), with μ\* in the 84 – 147 mmHg range and σ / μ\* between
   0.64 and 0.94. This is the regime where venous admixture caps
   oxygenation gain per FiO2 increment — an established physiological
-  non-linearity (shunt-fraction kinetics). The remaining two cells
+  non-linearity. The remaining two cells
   reflect minute-ventilation coupling on PaCO2: RR → PaCO2 in healthy
   males ((S1, M), σ / μ\* = 0.87), and Vt → PaCO2 in severe-ARDS
   females ((S4, F), σ / μ\* = 0.66). Both are predicted by the
@@ -1866,8 +1871,9 @@ reports here is a deferral under a declared budget, not a finding that
 the variance decomposition would have been uninformative.
 
 The interaction structure on the 6 Group B cells is additionally
-*a priori* established by respiratory physiology: shunt-fraction
-kinetics on PaO2, and the alveolar-ventilation identity
+*a priori* established by respiratory physiology: venous admixture
+capping the oxygenation gain per FiO2 increment on PaO2, and the
+alveolar-ventilation identity
 $\dot{V}_A = \mathrm{RR} \cdot (V_T - V_D)$ on PaCO2. Both are qualitatively recovered by
 the Morris main-effect rankings reported in §3.2. These mechanisms
 provide a physiological interpretation of the dominant Morris
@@ -2005,8 +2011,9 @@ with a separate F-S018-A side-finding that Pulse enforces a
 per-surrogate BV floor (4,082.24 mL on this male body) which bounds
 how far the gap can be closed by a one-way transplant. In the §3.5.1
 continuous-severity regime at midrange inputs, divergence is
-approximately sex-balanced inside the [0.879, 0.945] band — so the
-original sex effect varies with *what is varying*, not sex per se.*
+approximately sex-balanced in aggregate inside the [0.879, 0.945] band,
+though the sex asymmetry reverses between its two severity bands — so
+the original sex effect varies with *what is varying*, not sex per se.*
 
 20 / 1,280 runs (1.6 %) diverged. **All 20 are in male cells.**
 
@@ -2229,8 +2236,10 @@ M-diverged columns show divergences per sex (denominators differ
 because runs distribute non-uniformly across severities).
 **Key takeaway:** divergences concentrate in `[0.879, 0.945]` —
 wider than the previously reported `[0.91, 0.945]` zone — and are
-approximately sex-balanced at midrange inputs. The original [S006](#s006)
-"all-male divergences" claim is therefore *regime-specific*
+approximately sex-balanced in aggregate at midrange inputs, though the
+sex asymmetry reverses between the two bands above (female-dominated
+in (0.85, 0.91], male-dominated in (0.91, 0.945]). The original
+[S006](#s006) "all-male divergences" claim is therefore *regime-specific*
 (Morris-extreme inputs), not a global sex effect on solver reliability.
 
 Two refinements of the literature picture:
@@ -2728,8 +2737,9 @@ corrected by setting trigger pressure to −2 cmH2O.*
       the alveolar prediction and does not overshoot. The pre-registered
       decision is `HYPOTHESIS_II_TRANSIENT_REGIME_SUPPORTED`.
 
-  **Shunt depression confirms the physiological mapping ([S021](#s021)
-  auxiliary, descriptive — not part of the (i)-vs-(ii) decision).**
+  **Severity-graded oxygenation depression, consistent with the
+  documented physiological mapping ([S021](#s021) auxiliary,
+  descriptive — not part of the (i)-vs-(ii) decision).**
   On the 4 paired input combinations replayed across all three
   scenarios at FiO2 = 1.0, the [240, 300] s median plateau decreases
   monotonically with ARDS severity (S1 → S3 → S4):
@@ -2743,9 +2753,12 @@ corrected by setting trigger pressure to −2 cmH2O.*
   The same FiO2 = 1.0 + identical input vector therefore produces
   PaO2 ≈ 643 mmHg in healthy lungs and PaO2 ≈ 73 mmHg in severe
   ARDS — an order-of-magnitude depression mediated entirely by the
-  ARDS severity scalar. This is exactly the shunt-fraction kinetics
-  the alveolar-gas equation predicts under increasing venous
-  admixture; Pulse reproduces it correctly.
+  ARDS severity scalar. Across the tested S1, S3 and S4
+  configurations this is consistent with worsening gas exchange as the
+  alveolar diffusion surface collapses and intrapulmonary-shunt
+  behaviour changes under the severity scalar, increasingly separating
+  arterial PaO2 from the calculated alveolar oxygen tension at
+  unchanged FiO2 = 1.0.
 
   **Solver-instability tail at extended windows ([S021](#s021),
   additional sub-finding).** A separate phenomenon emerges *only*
@@ -2824,7 +2837,7 @@ corrected by setting trigger pressure to −2 cmH2O.*
   detector is correctly flagging an unfinished trajectory. Under an
   extended window of ≥ 300 s total simulated time, use a plateau window in the final 60 s of
   the simulation; expect a physiological plateau in healthy lungs
-  (~ 640 mmHg) and graded shunt depression in ARDS (~ 144 mmHg at
+  (~ 640 mmHg) and graded oxygenation depression in ARDS (~ 144 mmHg at
   60 % severity, ~ 73 mmHg at 95 % severity). On healthy lungs at
   FiO2 = 1.0, screen each run's PaO2 trajectory individually:
   extended-window simulations can enter a separate
@@ -3808,7 +3821,7 @@ the following or to an experiment-log entry in this repository.
    itself favours the Oxygenation Index / Oxygen Saturation Index over
    P/F). The atlas's adult scenarios S2 (0.26), S3 (0.60), S4 (0.95)
    are anchored on the Berlin Definition P/F bands, calibrated
-   empirically at ARDSnet-protective ventilation (Appendix B.3) — not
+   empirically at the reference ventilation setting (Appendix B.3) — not
    on PALICC-2.
 10. **SALib (Iwanaga, Usher, Herman 2022).** Socio-Environmental
     Systems Modelling. Morris and Sobol implementations used for
@@ -3892,7 +3905,8 @@ during the literature-review pass logged in
   correctly attribute them. Cited in §2.3
   and Appendix B.3 as the canonical documentation against which the
   empirically calibrated mapping {0.26, 0.60, 0.95} is contrasted at
-  ARDSnet-protective ventilation. Verified verbatim 2026-05-15.
+  that appendix's reference ventilation setting. Verified verbatim
+  2026-05-15.
   Also, from 2026-07-26, the source of the 5-compartment lung
   description (carina, right and left anatomic dead space, right and
   left alveoli) and of the no-inertance limitation, both verified
@@ -4183,8 +4197,9 @@ initialization failure prior to stabilization.
 The Acute Respiratory Distress Syndrome (ARDS) condition in Pulse is
 modulated by a per-lung `Severity` scalar in [0, 1]. This appendix
 documents the calibration of that scalar against the Berlin
-Definition [@ards2012] severity bands at ARDSnet-protective
-ventilation [@brower2000], and the solver-instability zone
+Definition [@ards2012] severity bands at a low-tidal-volume
+reference ventilation setting based on the ARDSnet framework
+[@brower2000], and the solver-instability zone
 encountered above the moderate-band ceiling.
 
 **Pulse's documented mapping (prior claim).** Pulse's official
@@ -4211,7 +4226,7 @@ points). Two independent prior sources (the Respiratory Methodology
 page and Webb 2020) therefore converge on the same documented
 mapping and the same P/F claim.
 
-**Empirical calibration at ARDSnet-protective ventilation.** The
+**Empirical calibration at the reference ventilation setting.** The
 documented mapping was tested directly against the male reference
 surrogate (age 18, 67.3 kg, 180 cm) in a 28-run impairment-
 fraction sweep (`Pulse_translation_new`, the original ARDS severity
@@ -4220,8 +4235,10 @@ calibration — the later `E6` experiment is its April refinement).
 The ventilation regime was held constant across all 28 runs:
 
 * Mode: VC-AC (volume-control assist-control).
-* Tidal volume: 403.8 mL = 6 mL/kg on the 67.3 kg male standard
-  (ARDSnet lung-protective ventilation, [@brower2000]).
+* Tidal volume: 403.8 mL = 6 mL/kg of **actual** body weight on the
+  67.3 kg male standard — a low-tidal-volume setting based on the
+  ARDSnet framework [@brower2000], which specifies 6 mL/kg of
+  predicted body weight.
 * PEEP: 10 cmH2O.
 * FiO2: 0.4.
 * Settle time before measurement: 120 s.
@@ -4234,7 +4251,7 @@ transition (step 0.01, 11 runs), and a high-end 0.90–0.99 sweep
 across the severe-band candidates (8 runs). Under this regime the
 documented mapping does not reproduce the documented P/F claim:
 
-| `Severity` | Documented P/F (mmHg) | Measured P/F at ARDSnet settings (mmHg) | Berlin classification of measured value |
+| `Severity` | Documented P/F (mmHg) | Measured P/F at the reference setting (mmHg) | Berlin classification of measured value |
 |------------|------------------------|------------------------------------------|------------------------------------------|
 | 0.3        | 340  (Mild claim)      | 199                                       | Moderate (at the mild / moderate boundary) |
 | 0.6        | 130  (Moderate claim)  | 150                                       | Moderate (matches band)                   |
@@ -4249,7 +4266,7 @@ moderate by Berlin.
 **Corrected mapping used by the Atlas.** From that same 28-run sweep, the
 fractions that produce P/F values at the Berlin band centres
 (or, for severe, immediately below the band ceiling) at the same
-ARDSnet-protective ventilation settings are:
+reference ventilation settings are:
 
 | Berlin band               | Atlas `Severity` | Measured P/F (mmHg) | Position in Berlin band            |
 |---------------------------|------------------|---------------------|------------------------------------|
@@ -4258,11 +4275,11 @@ ARDSnet-protective ventilation settings are:
 | Severe (P/F ≤ 100)        | **0.95**         | 96                  | Just inside the severe band ceiling |
 
 **Ventilation-setting dependence.** This calibration is anchored
-to the ARDSnet-protective ventilation regime above. Pulse's
+to the reference ventilation setting above. Pulse's
 documented mapping may reproduce its claimed P/F values under
 different combinations of Vt, PEEP, and FiO2 — we have not tested
 that. The Atlas's reliability sweep is preregistered to vary all
-seven operational inputs around the ARDSnet anchor, so the
+seven operational inputs around that reference setting, so the
 calibration applies precisely to the regime the Atlas characterises.
 Reliability of the documented mapping at other ventilation regimes
 is out of scope.
@@ -4276,7 +4293,7 @@ respiratory solver:
 
 * **The original ARDS severity calibration** (the 28-run impairment
   sweep above, 2026-03): fractions 0.92
-  and 0.94 fail to stabilise at ARDSnet settings.
+  and 0.94 fail to stabilise at the reference ventilation setting.
 * **E10** (a 10-run high-resolution boundary probe, 2026-04,
   testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94,
   0.945, 0.95): 0.90 PASS, 0.91 – 0.945 all FAIL (8 consecutive),
@@ -4292,7 +4309,7 @@ independent third-party replications, so the convergence is
 evidence of reproducibility under the same engine version and
 surrogate, not of generalisation across labs. Impairment fractions
 in this zone consistently result in fatal solver divergence at
-ARDSnet-protective ventilation. The Atlas's calibrated severe
+the reference ventilation setting. The Atlas's calibrated severe
 fraction (0.95) was selected to clear the upper edge of the zone
 with a 0.005 margin. Pulse's documentation [@pulserespmethod] does
 not flag this zone.
