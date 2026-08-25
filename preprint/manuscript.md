@@ -226,14 +226,17 @@ below; this section is the exhaustive findings digest.*
 * **Compensatory tachycardia decouples input HR from output HR under
   hypoxemia.** Output HR settles at **73.8 ± 20.4 bpm** in S1 but rises to
   **155.7 (S3)** and **147.1 (S4)** bpm despite the same [50, 110] input
-  range — Pulse's baroreflex/chemoreflex overriding the requested baseline.
+  range — a scenario-dependent compensatory response that dominates the
+  requested baseline, consistent with Pulse's documented
+  baroreflex/chemoreflex behaviour.
   ML pipelines will internalise this as a steady-state feature, not an active
   response.
 * **ML/SHAP cross-check of the Morris ranking** ([S023](#s023)): a
   RandomForest + SHAP surrogate on the 663 clean runs recovers the Morris
   top-3 in **17 / 18** pooled cases (mean per-cell overlap 2.40 / 3; 92 % of
-  48 comparisons ≥ 2/3) — the ranking is an engine property, not an OAT-design
-  artefact. Supplementary only (training R² uninformative; clean-subset
+  48 comparisons ≥ 2/3) — supporting the robustness of the Morris ranking
+  to an alternative analysis route on the same Pulse-generated data.
+  Supplementary only (training R² uninformative; clean-subset
   selection bias).
 * **ARDS-severity → P/F calibration table** (ventilation-setting-dependent):
   impairment {0.26, 0.60, 0.95} lands P/F ≈ **256 / 150 / 96 mmHg** (near the
@@ -656,7 +659,7 @@ underlying files are in the repository.
 | S020 | Pre-submission novelty audit; verified that every "first" / "novel" claim in the manuscript survives a literature double-check (single citation added: Figueroa-Casas & Montoya 2016 for the F-004 clinical precedent). |
 | S021 | Hyperoxia convergence: 60-run pre-registered rerun at 300 s vs locked 120 s sweep window — tests whether F-003 PaO2 > 600 mmHg at FiO2 = 1.0 reflects oxygenation overshoot or transient non-convergence. |
 | S022 | No-compute failure-mode attribution audit of the locked `not_steady_state` count (Appendix C). |
-| S023 | Supplementary ML/SHAP cross-check of the Morris μ\* rankings on the clean subset (Supplementary §S11). |
+| S023 | Supplementary ML/SHAP cross-check of the Morris μ\* rankings on the clean subset (Supplementary §S13). |
 | S024 | Pre-submission claims-ledger audit — `scripts/audit_claims.py` re-derives every quantitative claim registered in the audit ledger from the canonical parquets/CSVs and verifies it against the manuscript text (382 / 382 PASS at the locked tolerance band on the authors' full data tree; 381 / 382 on a public clone, where the one anchor needing the gitignored raw S021 trajectories is auto-skipped). |
 
 ---
@@ -1977,7 +1980,7 @@ versus the output HR mean ± std that Pulse actually returns at steady
 state.
 **How to read it:** the input range is fixed at [50, 110] bpm across
 all scenarios; the gap between that range and the output mean
-quantifies the engine's compensatory reflex gain.
+quantifies the scenario-dependent decoupling between input and output HR.
 **Key takeaway:** in S3 / S4 the output HR sits at 145 – 160 bpm
 despite inputs drawn from [50, 110] — a ~70 bpm sympathetic overshoot above the input-range midpoint
 consistent with Pulse's documented baroreceptor and chemoreceptor reflex
@@ -1989,11 +1992,11 @@ its explanation without excluding unmeasured numerical effects.
 In S1 (healthy), Pulse settles output HR near a physiological norm
 (~74 bpm) regardless of the requested baseline. By S3 / S4, output HR
 is in the 145 – 160 bpm range *despite* the input being drawn from
-[50, 110] — a ~70 bpm sympathetic overshoot above the input-range midpoint. This is the engine's
-documented baroreceptor / chemoreceptor reflex asserting itself: the
-patient is hypoxemic, the reflex commands tachycardia, and the
-compensation is *strong enough to dominate the explicit input HR
-baseline*.
+[50, 110] — a ~70 bpm sympathetic overshoot above the input-range midpoint. This is
+consistent with the engine's documented baroreceptor / chemoreceptor
+reflex behaviour under hypoxemia, though the atlas did not record or
+isolate the contribution of those reflexes; the compensation is
+*strong enough to dominate the explicit input HR baseline*.
 
 Operational implication: **Morris elementary effects on input HR in
 ARDS scenarios capture the *coupling between compensation gain and
@@ -2002,7 +2005,8 @@ support for HR-dominated cardiovascular outputs (HR, MAP) is robust;
 the *interpretation* is "the compensation responds proportionally to
 the input baseline" rather than "the input HR is the steady-state
 HR." Users running Pulse for ARDS device-validation should treat
-output HR as the engine's reflex response, not a setpoint.
+output HR as the engine's scenario-dependent steady-state response,
+not a setpoint.
 
 ### 3.5 H3 — solver divergence exists; sex-stratification is regime-dependent (partially supported)
 
@@ -2747,8 +2751,7 @@ corrected by setting trigger pressure to −2 cmH2O.*
   **Severity-graded oxygenation depression, consistent with the
   documented physiological mapping ([S021](#s021) auxiliary,
   descriptive — not part of the (i)-vs-(ii) decision).**
-  On the 4 paired input combinations replayed across all three
-  scenarios at FiO2 = 1.0, the [240, 300] s median plateau decreases
+  At FiO2 = 1.0, the [240, 300] s median PaO2 plateau decreases
   monotonically with ARDS severity (S1 → S3 → S4):
 
   | Scenario | n | Plateau median (mmHg) | Plateau IQR (mmHg) | Converged |
@@ -3112,12 +3115,13 @@ internalise simulator artefacts as if they were physiology:
 * The compensatory tachycardia decoupling input HR from output HR in
   S3 / S4 (§3.4.1) is a particularly insidious feature-engineering
   trap: a neural network trained on these outputs will learn an
-  *active physiological reflex* (the baroreceptor / chemoreceptor
-  tachycardic response to hypoxemia) as if it were a baseline
+  *active physiological response* (the engine's compensatory
+  tachycardia under hypoxemia) as if it were a baseline
   steady-state feature of the cohort. Down-stream this becomes a
   learned input-output relation that does not exist in real patients
   with set heart-rate baselines, and the model will silently
-  generalise the reflex gain as a population property.
+  generalise this scenario-dependent compensation as a population
+  property.
 * The all-male divergence cluster (§3.5) becomes a "clinical pattern"
   if synthetic male / female cohorts are pooled without flag-stratified
   filtering.
@@ -3693,7 +3697,7 @@ classifier, performed all computational runs and statistical
 analyses, and wrote the manuscript. M.S. provided detailed clinical review of the manuscript and contributed the clinical interpretation of the VC-AC inspiration-trigger caveat. Y.M. contributed to the cross-platform reproducibility validation of the simulation environment, and to the review and editing of the manuscript. A.W. contributed to the study's conceptualization and to the iterative scientific refinement of the analysis and its framing (notably the ARDS severity-to-Berlin calibration and the reliability-classification transparency) through sustained methodological discussion, in addition to clinical supervision and manuscript review. C.S., M.S., and P.J. provided clinical supervision, contributed to the interpretation of the findings in their clinical context, and reviewed the manuscript. C.S., M.S.,
 and P.J. additionally secured the funding that supported this work.
 All authors approved the final version. AI tooling (Claude Code,
-`claude-opus-4-7` for the original drafting/refactoring, `claude-opus-4-8`, released 28 May 2026 and coinciding with the supervisor-review phase, for the subsequent supervisor-review revisions, and `claude-opus-5` from 24 July 2026 for the in-repository calibration replication and the primary-source reference audit, cross-checked against Gemini Pro 3.1 up to 2 August 2026 and against OpenAI ChatGPT (GPT-5.6 Sol, high intelligence mode) from 3 August 2026) provided drafting / refactoring /
+`claude-opus-4-7` for the original drafting/refactoring, `claude-opus-4-8`, released 28 May 2026 and coinciding with the supervisor-review phase, for the subsequent supervisor-review revisions, and `claude-opus-5` from 24 July 2026 for the in-repository calibration replication and the primary-source reference audit, cross-checked against Gemini Pro 3.1 up to 2 August 2026 and against OpenAI ChatGPT (GPT-5.6 Sol, High reasoning level) from 3 August 2026) provided drafting / refactoring /
 reviewer-style critique assistance on text and code only, as
 detailed in §8.
 
@@ -3713,7 +3717,7 @@ through the Claude Code agent at the `xhigh` thinking-effort default,
 and, as the second model, Gemini Pro 3.1 (Google;
 extended-thinking mode) through a separate web session up to and
 including 2 August 2026, replaced from 3 August 2026 by OpenAI
-ChatGPT (GPT-5.6 Sol, high intelligence mode, browser session), with no further use of
+ChatGPT (GPT-5.6 Sol, High reasoning level, browser session), with no further use of
 Gemini thereafter. Prompt
 engineering instructed each model to critique and cross-correct the
 other's outputs at every iteration, mitigating hallucination by
@@ -3724,7 +3728,7 @@ verifying claims against the audit ledger and the source code.
   within the dual-model cross-checking loop described above
   (**Claude Code** with `claude-opus-4-7` / `claude-opus-4-8` /
   `claude-opus-5`, and as second model **Gemini Pro 3.1** to
-  2 August 2026, then **OpenAI ChatGPT** (GPT-5.6 Sol, high intelligence mode)).
+  2 August 2026, then **OpenAI ChatGPT** (GPT-5.6 Sol, High reasoning level)).
   Every AI-assisted code change was reviewed,
   tested, and committed by S.N.; all preregistered
   thresholds, hypotheses, and experimental decisions were authored
@@ -3734,7 +3738,7 @@ verifying claims against the audit ledger and the source code.
 * **Manuscript drafting and editing.** Portions of this manuscript
   were drafted and edited within the same dual-model cross-checking
   loop (Claude Code, with Gemini Pro 3.1 as second model to
-  2 August 2026 and OpenAI ChatGPT (GPT-5.6 Sol, high intelligence mode) thereafter). All
+  2 August 2026 and OpenAI ChatGPT (GPT-5.6 Sol, High reasoning level) thereafter). All
   scientific claims, statistical interpretations, and citations
   were authored, verified, and accepted by S.N. Every
   numerical claim in the paper traces to a primary source or an
@@ -4154,7 +4158,7 @@ indexed here.*
 | []{#s020} S020 | Pre-submission novelty audit (literature double-check on every "first" claim; one citation added) |
 | []{#s021} S021 | Hyperoxia convergence (60-run rerun at 300 s vs locked 120 s window; F-003 mechanism test) |
 | []{#s022} S022 | No-compute failure-mode attribution audit of the locked `not_steady_state` count (see Appendix C) |
-| []{#s023} S023 | Supplementary ML/SHAP cross-check of Morris μ\* rankings on the clean subset (see Supplementary §S11) |
+| []{#s023} S023 | Supplementary ML/SHAP cross-check of Morris μ\* rankings on the clean subset (see Supplementary §S13) |
 | []{#s024} S024 | Pre-submission claims-ledger audit (programmatic verification of the quantitative claims registered in the audit ledger; 382 / 382 PASS on the authors' full data tree, 381 / 382 on a public clone with one auto-skipped anchor, see §2.8) |
 | []{#s025} S025 | Pre-release OSS code-hygiene audit and fixes |
 | []{#s026} S026 | Final pre-arXiv polish |

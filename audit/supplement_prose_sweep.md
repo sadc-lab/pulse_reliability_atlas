@@ -3525,3 +3525,40 @@ modifier `scripts/audit_claims.py` -- un changement d'outillage disproportionné
 à la veille d'un envoi. La dérivation est reproductible en une commande `awk`
 sur un CSV committé ; la décision d'automatiser cette classe de résultats est
 séparée et reste ouverte.
+
+---
+
+## Décision de périmètre — le contrôle de stabilité seed 43 n'est pas rapporté (2026-08-25)
+
+**Ce qui existe.** S009 a produit un second contrôle de stabilité du classement
+Morris, distinct de celui que le papier rapporte :
+`results/seed_stability_S2M_seed43.parquet` et
+`results/seed_stability_top3_comparison.csv`.
+
+**Ce qu'il dit, et il est moins favorable.** Sur la cellule S2_M :
+
+| contrôle | design | top-3 conservés | ordre conservé | rang 1 conservé |
+|---|---|---|---|---|
+| seed 44 (rapporté, §S3.13) | 160 points, taille égale | **4 / 6** | **3 / 6** | 6 / 6 |
+| seed 43 (S009, non rapporté) | 80 points, demi-taille | **3 / 6** | **1 / 6** | 5 / 6 — PaCO2 passe de `vt` à `rr` |
+
+**Pourquoi ce n'est pas un rapport sélectif.** Les deux ne mesurent pas la même
+chose. S009 déclare le sous-dimensionnement comme intentionnel : « *New
+canonical Morris sample at `seed=43`, `trajectories=10`, `levels=4` → 80 unique
+points (half the published 160). Smaller sample is intentional: cheaper compute,
+wider Morris CI by construction, so any match with the published top-3 ranking
+is robust evidence; any mismatch tells us the ranking is not invariant to sample
+size.* » Le contrôle seed 44 teste la graine à taille constante ; le contrôle
+seed 43 teste la sensibilité à la taille d'échantillon. Un désaccord du second
+est un résultat attendu de sa conception, pas une contradiction du premier.
+
+**Mesure de l'absence.** Le supplément ne mentionne le contrôle demi-taille sous
+aucune forme : `seed 43` = 0, `80 points` = 0, `80 unique` = 0,
+`10 trajectories` = 0, `ten trajectories` = 0, `half the` = 0. Seul `seed 44`
+apparaît, une fois.
+
+**Décision.** Ne pas rouvrir le manuscrit pour l'ajouter avant l'envoi aux
+relecteurs. Décision de périmètre assumée par le mainteneur, consignée ici pour
+que l'absence soit traçable et non un oubli. Si un relecteur demande la
+sensibilité du classement à la taille d'échantillon, la donnée existe et la
+réponse est ci-dessus.
