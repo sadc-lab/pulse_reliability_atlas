@@ -218,7 +218,7 @@ below; this section is the exhaustive findings digest.*
 
 **Secondary findings.**
 
-* **ARDS-impairment instability band — first public characterisation.** Three
+* **ARDS-impairment instability band — to our knowledge, the first systematic characterisation.** Three
   converging boundary probes first flagged 0.91–0.945; the 200-run
   continuous-severity sweep extends the empirical divergence band to
   **[0.879, 0.945]**. The locked sweep places S4 at 0.95, deliberately above
@@ -466,8 +466,9 @@ Pulse is used in three broad communities:
   assist-control) across healthy, restrictive, and obstructive lung
   profiles [@pulsevent]; the
   surrounding validation framework is described in [@webb2022vent].
-* **Education** — anaesthesia, critical-care, and paramedic training
-  curricula increasingly use Pulse for case-based simulation.
+* **Education** — Pulse has been integrated into medical education and
+  simulation-training applications, including virtual-patient and
+  emergency-medicine training systems [@pulseinaction].
 
 Despite this footprint, the engine's developers state explicitly on
 the public Pulse FAQ [@pulsefaq; verified verbatim 2026-04-19, still
@@ -1650,11 +1651,10 @@ visual patterns dominate:
   correctly captures the regime where shunt physiology pins PaO2
   regardless of FiO2 — a textbook ARDS finding, captured by the engine
   without explicit programming.
-* **Output Vt tracks input Vt at μ\* ≈ 500 mL** in every cell — by
-  far the largest μ\* in the atlas. In VC-AC mode, asking Pulse for a
-  500 mL tidal volume produces close to a 500 mL delivered tidal
-  volume, cell-invariant. The cells where this coupling is disrupted
-  are the F-004 dyssynchrony runs (§3.8).
+* **Output Vt tracks input Vt at μ\* ≈ 500 mL** in every cell. In VC-AC
+  mode, asking Pulse for a 500 mL tidal volume produces close to a
+  500 mL delivered tidal volume, cell-invariant. The cells where this
+  coupling is disrupted are the F-004 dyssynchrony runs (§3.8).
 
 **Bootstrap 95 % CI on μ\*** (1,000 resamples) is reported alongside
 each μ\* point estimate in the table; CI overlap between the top-3 and
@@ -1714,10 +1714,12 @@ Top-3 fraction of summed μ\* per cell × output:
 * Median 0.928; range 0.658 – 0.998.
 * Lowest fractions are in S4 (severe ARDS), and concentrate on the
   gas-exchange outputs PaO2 and SpO2: S4_F SpO2 (0.658), S4_M SpO2
-  (0.703), S4_F PaO2 (0.707), S4_M PaO2 (0.727). Mechanism: at 95 %
-  alveolar impairment the dominant shunt fraction caps FiO2's marginal
-  effect on arterial oxygenation (and SpO2 additionally sits near the
-  oxyhemoglobin-saturation plateau), so the residual sensitivity
+  (0.703), S4_F PaO2 (0.707), S4_M PaO2 (0.727). Physiological
+  interpretation: at 95 % alveolar impairment, increased venous
+  admixture could limit FiO2's marginal effect on arterial oxygenation,
+  consistent with established high-shunt physiology; the atlas did not
+  record Pulse's shunt-fraction output, so this mechanism was not
+  tested directly. The residual sensitivity
   redistributes across PEEP and the cardiovascular inputs (HR, SBP, DBP
   — arterial O2 becomes sensitive to mixed-venous content, and thus to
   cardiac output, under high shunt) rather than concentrating on a
@@ -1763,7 +1765,7 @@ support skewed sensitivity, cells below (red-side) would not.
 **Key takeaway:** all 48 combinations exceed 0.5 (median 0.928, range
 0.658 – 0.998); H1 passes 48 / 48 across the full atlas.
 
-![Figure 3. H1 — top-3 fraction of summed μ\* per cell × output (48 combinations). Heatmap with RdYlGn palette, crossover at 0.5 (the preregistered H1 threshold). Lowest fractions are in S4 (severe ARDS) gas-exchange outputs (S4_F SpO2 0.658; mechanism: shunt-fraction caps FiO2's marginal effect). Source: `results/h1_top3_fraction.csv` (S006).](../figures/fig03_h1_top3_fraction.png)
+![Figure 3. H1 — top-3 fraction of summed μ\* per cell × output (48 combinations). Heatmap with RdYlGn palette, crossover at 0.5 (the preregistered H1 threshold). Lowest fractions are in S4 (severe ARDS) gas-exchange outputs (S4_F SpO2 0.658; the reduced FiO2 effect is compatible with high-shunt physiology, but Pulse's shunt-fraction output was not recorded). Source: `results/h1_top3_fraction.csv` (S006).](../figures/fig03_h1_top3_fraction.png)
 
 ### 3.3.1 Sobol bolt-on: preregistered decision
 
@@ -1978,8 +1980,11 @@ all scenarios; the gap between that range and the output mean
 quantifies the engine's compensatory reflex gain.
 **Key takeaway:** in S3 / S4 the output HR sits at 145 – 160 bpm
 despite inputs drawn from [50, 110] — a ~70 bpm sympathetic overshoot above the input-range midpoint
-driven by Pulse's baroreceptor / chemoreceptor reflex, not a numerical
-artefact.
+consistent with Pulse's documented baroreceptor and chemoreceptor reflex
+behaviour, though the atlas did not record or isolate the contribution of
+those reflexes. The response occurs in runs that meet the atlas's clean-run
+criteria, which argues against the classifier's predefined failure modes as
+its explanation without excluding unmeasured numerical effects.
 
 In S1 (healthy), Pulse settles output HR near a physiological norm
 (~74 bpm) regardless of the requested baseline. By S3 / S4, output HR
@@ -2270,8 +2275,10 @@ The atlas therefore distinguishes **two separate divergence regimes**:
   as (4 802.63 − 3 996.09) / 4 802.63 against the male default).
 * **Severity-driven regime** ([S009](#s009)): both sexes, midrange inputs,
   severity in the band `[0.879, 0.945]`. F slightly higher overall;
-  F earlier in the band, M later. Mechanism: solver-stability
-  gradient at the high-impairment compliance edge.
+  F earlier in the band, M later. Interpretation: the sex asymmetry shifts
+  across the high-impairment band, consistent with a change in solver
+  stability; the atlas did not record solver-conditioning metrics or isolate
+  a compliance-edge mechanism.
 
 Together these regimes give a more honest H3 picture: divergence
 exists, it is partially sex-conditional, but the sex effect varies
@@ -2750,11 +2757,13 @@ corrected by setting trigger pressure to −2 cmH2O.*
   | S3       |  8 |  143.6 | [ 93, 218] |  8 /  8 (100 %) |
   | S4       |  8 |   72.6 | [ 71,  76] |  8 /  8 (100 %) |
 
-  The same FiO2 = 1.0 + identical input vector therefore produces
-  PaO2 ≈ 643 mmHg in healthy lungs and PaO2 ≈ 73 mmHg in severe
-  ARDS — an order-of-magnitude depression mediated entirely by the
-  ARDS severity scalar. Across the tested S1, S3 and S4
-  configurations this is consistent with worsening gas exchange as the
+  At FiO2 = 1.0, PaO2 spans from approximately 643 mmHg in the healthy
+  S1 configuration to approximately 73 mmHg in severe ARDS (S4), an
+  order-of-magnitude decrease across severity. The S3 and S4 summaries
+  use the four paired Morris input vectors replayed on both reference
+  bodies, whereas the S1 summary uses the full 44-run healthy hyperoxia
+  set. Across the tested S1, S3 and S4 configurations this decrease is
+  consistent with worsening gas exchange as the
   alveolar diffusion surface collapses and intrapulmonary-shunt
   behaviour changes under the severity scalar, increasingly separating
   arterial PaO2 from the calculated alveolar oxygen tension at
@@ -3921,6 +3930,17 @@ during the literature-review pass logged in
   appear only in the changelog (iOS build support, v4.2.0, October
   2023) — and are therefore no longer claimed. Previously
   mis-attributed to Bray 2019. Verified verbatim 2026-07-26.
+* []{#ref-pulseinaction} Kitware, Inc. *Pulse in Action — Pulse Physiology
+  Engine.* <https://pulse.kitware.com/pulse-in-action.html>.
+  Source of the medical-education / simulation-training claim. Named
+  integrations, verbatim: *"Pulse is of particular importance for emergency
+  medical training simulations like VRescue"*; *"SimPulse utilizes Kitware's
+  Pulse Physiology Engine"*, *"well-suited for use in lab, classroom, and
+  remote settings"*, *"presenting healthcare learners with real-time,
+  physiological and pharmacological patient data"*. The page separates these
+  named integrations from a list introduced as *"a wide range of potential
+  applications"* (serious games, manikin training); only the named
+  integrations are cited. Verified verbatim 2026-08-25.
 * []{#ref-pulsefaq} Kitware, Inc. *Pulse FAQ.*
   <https://pulse.kitware.com/_f_a_q.html>. Accessed April 2026; re-verified
   2026-07-27. Source of Pulse's own statement that it has performed no formal
