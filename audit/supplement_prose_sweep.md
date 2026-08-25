@@ -3481,3 +3481,47 @@ forme courte ont tous un antécédent résoluble -- **aucun référent flottant*
 inchangée) ; les trois builds OK, zéro référence non définie.
 
 **Rien poussé.**
+
+
+### Provenance du `8 of 20` de `paper.tex:388` -- dérivé 2026-08-25
+
+La phrase : « Configuration-time clipping shortened **9 of 20** DBP steps and
+caused applied DBP to co-vary in **8 of 20** SBP steps ». Le 9/20 était ancré au
+ledger, le 8/20 ne l'était pas et n'avait jamais été re-mesuré. **Les deux le
+sont maintenant**, sur un artefact committé.
+
+**L'unité, définie avant de compter.** Les « 20 pas » sont les pas élémentaires
+du plan Morris partagé : 20 trajectoires x 8 points = 160, rejouées à
+l'identique dans chaque cellule. Ce n'est PAS 20 par cellule. Dans
+`results/input_instantiation_long.csv`, l'index de `run_id` (`S1_F_0000` ..
+`S1_F_0159`) reproduit ce plan ; la trajectoire *t* occupe les runs 8t..8t+7.
+
+**Les deux prédicats, posés avant le comptage.**
+
+- *pas DBP raccourci* : sur la transition où le DBP échantillonné varie et le
+  SBP ne varie pas, `|delta appliqué| < |delta échantillonné|`.
+- *co-variation dans un pas SBP* : sur la transition où le SBP varie et le DBP
+  échantillonné ne varie pas, le DBP **appliqué** change malgré tout -- le clip
+  `DBP <= 0.75 x SBP` dépendant de SBP.
+
+**Résultat** : 20 pas DBP identifiés dont **9 raccourcis** ; 20 pas SBP
+identifiés dont **8 à co-variation**. Conforme au texte publié.
+
+**Trois témoins.**
+
+| témoin | attendu | obtenu |
+|---|---|---|
+| positif -- le clip est actif | > 0 | **35 des 160 points** ont DBP appliqué < échantillonné |
+| croisé -- le plan est partagé, donc toute cellule doit donner la même chose | 9 et 8 | **S4_M : 9 et 8** ; **S2_F : 9 et 8** |
+| négatif -- groupement volontairement faux (trajectoires de 7 au lieu de 8) | pas 20/20 | **18 pas DBP, 22 pas SBP** |
+
+Le témoin structurel est le plus fort : la décomposition correcte trouve
+**exactement** 20 pas DBP et 20 pas SBP, ce qu'un plan à 20 trajectoires doit
+donner. Une hypothèse fausse sur le groupement produit autre chose, comme le
+témoin négatif le montre.
+
+⚠️ **Non ancré au ledger, délibérément.** Ajouter une ancre exigerait de
+modifier `scripts/audit_claims.py` -- un changement d'outillage disproportionné
+à la veille d'un envoi. La dérivation est reproductible en une commande `awk`
+sur un CSV committé ; la décision d'automatiser cette classe de résultats est
+séparée et reste ouverte.
