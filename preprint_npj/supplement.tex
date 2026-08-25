@@ -883,7 +883,7 @@ uv run python scripts/audit_claims.py --check-paper-sync
 Bit-exact reproduction of the canonical sweep output is verified at three independent layers, each checked against its own committed artefact. Layers 1 and 3 can be re-executed from a fresh clone without re-running the sweep; layer 2, by construction, requires re-executing it:
 
 \begin{enumerate}
-\item \textbf{Canonical Morris sample.} The 1{,}280-row Morris sample is regenerated deterministically from the SALib sampler with \texttt{trajectories = 20, levels = 4, seed = 42}; the regenerated sample matches the committed \texttt{data/runs/full\_sweep/morris\_sample.parquet} byte-for-byte.
+\item \textbf{Canonical Morris sample.} The 160-point Morris design, expanded across the eight scenario $\times$ sex cells into the 1{,}280-run sweep, is regenerated deterministically from the SALib sampler with \texttt{trajectories = 20, levels = 4, seed = 42}; the regenerated sample matches the committed \texttt{data/runs/full\_sweep/morris\_sample.parquet} byte-for-byte.
 \item \textbf{Per-cell aggregate parquets.} The 8 per-cell aggregated parquets (\texttt{data/runs/full\_sweep/<scenario>\_<sex>/aggregated.parquet}) reproduce identically when the full sweep is re-executed against the pinned Docker image on the canonical compute envelope.
 \item \textbf{Derived statistical artefacts.} The Morris $\mu^{*}$ indices, bootstrap confidence intervals, Wasserstein distances, Spearman correlations, and BH-FDR survivors all regenerate bit-equivalently from the canonical aggregated parquets; this is what the audit ledger (\texttt{scripts/audit\_claims.py}) re-derives at every run.
 \end{enumerate}
@@ -962,7 +962,7 @@ Aggregated across all clean Morris runs (those passing the four-flag steady-stat
 
 \begin{table}[h]
 \centering
-\caption{\textbf{Output HR mean $\pm$ standard deviation per scenario, aggregated across clean Morris runs.} Input HR is sampled uniformly from $[50, 110]$~bpm across all four scenarios; only the ARDS impairment fraction differs (S1 = 0.00 healthy, S2 = 0.26 mild, S3 = 0.60 moderate, S4 = 0.95 severe). The gap between the fixed input range and the scenario-dependent output mean quantifies the engine's compensatory reflex gain at each severity level.}
+\caption{\textbf{Output HR mean $\pm$ standard deviation per scenario, aggregated across clean Morris runs.} Input HR spans the same four-level Morris grid (50, 70, 90 and 110~bpm) across all four scenarios; only the ARDS impairment fraction differs (S1 = 0.00 healthy, S2 = 0.26 mild, S3 = 0.60 moderate, S4 = 0.95 severe). The gap between the fixed input range and the scenario-dependent output mean quantifies the engine's compensatory reflex gain at each severity level.}
 \label{tab:s15-comphr}
 \begin{tabular}{lcc}
 \toprule
