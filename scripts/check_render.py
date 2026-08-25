@@ -42,7 +42,7 @@ OVERFLOW_TOLERANCE_PT = 5.0
 # Why this exists. Until 2026-08-10 this script was wired NOWHERE -- not in
 # .githooks/pre-commit, not in .github/workflows/tests.yml -- so every guard it
 # contains was inert. The reason it could not simply be wired is right here:
-# four typographic residues have been present since long before the script was
+# typographic residues have been present since long before the script was
 # written, they were each measured and deliberately kept, and a script that
 # exits 1 on them would have blocked every single commit.
 #
@@ -51,7 +51,7 @@ OVERFLOW_TOLERANCE_PT = 5.0
 #     evidence of visible damage. The ink was measured on 2026-07-28: the table
 #     stops at 489.97pt where ordinary body text reaches 495.29pt, so it is
 #     NARROWER than the text around it. Ruled: do not touch.
-#   * the three supplement residues -- pre-existing, tracked since 2026-07-27,
+#   * the supplement residues -- pre-existing, tracked since 2026-07-27,
 #     and re-measured identical to the fifth decimal after every editing pass
 #     since. They are the stability witness of the supplement's layout.
 #
@@ -65,14 +65,24 @@ OVERFLOW_TOLERANCE_PT = 5.0
 #     next real regression along with this one;
 #   * never add an entry to make a commit pass. An entry is added only after the
 #     residue has been measured, judged harmless, and the judgement written
-#     down, exactly as the four below were;
+#     down, exactly as the ones below were;
 #   * an entry that stops firing is reported as OBSOLETE, not silently kept:
 #     a stale baseline is how a guard goes blind.
+#   * ONE ENTRY WAS REMOVED, 2026-08-25, and the reason belongs here. The
+#     supplement's "float too large for page by 53.88974pt" had been accepted
+#     as harmless. A human visual read of the rendered PDF falsified that: the
+#     oversized float pushed the page-53 folio onto the last row of the S16
+#     index table, colliding with the text mid-sentence. The guard could not
+#     see it -- it counts words per page, never ink position. A local
+#     \footnotesize on that table resolved the overflow, the supplement
+#     returned from 53 to 52 pages, the residue stopped firing, and this list
+#     was trimmed as the OBSOLETE rule requires. The lesson is recorded rather
+#     than the entry: "measured and judged harmless" was a judgement about a
+#     warning, not about the page.
 KNOWN_RESIDUES = frozenset({
     "paper: overfull box, 11.89064pt too wide (tolerance 5pt)",
     "supplement: overfull box, 19.30798pt too wide (tolerance 5pt)",
     "supplement: float too large for page by 31.26459pt (tolerance 5pt)",
-    "supplement: float too large for page by 53.88974pt (tolerance 5pt)",
 })
 
 DOCS = [
@@ -603,7 +613,7 @@ def main() -> int:
     all_problems += pg
 
     # Split the findings against the accepted baseline. Only genuinely new
-    # problems decide the exit status; the four documented residues are
+    # problems decide the exit status; the documented residues are
     # reported so they stay visible, and never gate a commit.
     new_problems = [p for p in all_problems if p not in KNOWN_RESIDUES]
     seen_residues = {p for p in all_problems if p in KNOWN_RESIDUES}
