@@ -499,3 +499,24 @@
   pmid      = {6741850},
   internal_note = {Cited as the source of the basal-metabolic-rate equations Pulse v4.3.1 implements: SetupPatient.cpp:768-775 carries the comment "The basal metabolic rate is determined from the Harris-Benedict formula" and the Doxygen tag \cite roza1984metabolic. VERIFICATION DEPTH: primary PDF obtained and read 2026-08-15; every bibliographic field above taken from the article's own self-citation on its first page, verbatim "Am J Clin Nutr 1984;40: 168-182". No DOI is printed in the 1984 article, so none is recorded here; PMID verified via PubMed. THE EQUATIONS, from p. 171, which prints them twice: Equation 3, men (n = 168), REE = 88.362 + 4.799 (ht) + 13.397 (wt) - 5.677 (age); Equation 6, women (n = 169), REE = 447.593 + 3.098 (ht) + 9.247 (wt) - 4.330 (age). These are the REVISED equations, not the 1919 originals, which appear on the same page as Equations 1 and 4 with different constants (men 66.473, women 655.096) -- so the text must say "the Roza-Shizgal revision", never "the Harris-Benedict equations" unqualified. Read from the page image via pdftoppm, not from OCR alone: the OCR of this PDF demonstrably confuses B and 8, rendering "BCM" as "8CM". IMPLEMENTATION DIVERGENCE, documented in Supplement S10 and audit/pulse_sex_conditioned_parameters.md: Pulse uses 88.632 for the male intercept where this paper reports 88.362, a digit transposition present at two loci in the engine (SetupPatient.cpp:771, live; EnergyModel.cpp:752, dead code). Effect on the male reference body is +0.27 kcal/day, 0.015 %, immaterial to every comparison in this work. WHAT MUST NOT BE WRITTEN: the authors' own conclusion is that resting energy expenditure "is directly related to the size of the BCM and is independent of age and sex", the sex term being a body-composition proxy -- so this reference does not support describing Pulse as modelling a sex-specific metabolism.}
 }
+@article{emeriaud2023,
+  author    = {Emeriaud, G and L{\'o}pez-Fern{\'a}ndez, Y M and Iyer, N P and Bembea, M M and Agulnik, A and Barbaro, R P and others},
+  title     = {Executive Summary of the Second International Guidelines for the Diagnosis and Management of Pediatric Acute Respiratory Distress Syndrome ({PALICC-2})},
+  journal   = {Pediatric Critical Care Medicine},
+  volume    = {24},
+  number    = {2},
+  pages     = {143--168},
+  year      = {2023},
+  doi       = {10.1097/PCC.0000000000003147},
+  note      = {PMID: 36661420}
+}
+
+
+@misc{pulseinaction,
+  title     = {Pulse in Action --- Pulse Physiology Engine},
+  author    = {{Kitware, Inc.}},
+  howpublished = {\url{https://pulse.kitware.com/pulse-in-action.html}},
+  note      = {Accessed 25 August 2026.},
+  year      = {2026},
+  internal_note = {Source of the medical-education / simulation-training application claim. NAMED integrations, verbatim: "Pulse is of particular importance for emergency medical training simulations like VRescue. Integration of Pulse into VRescue provides a realistic representation of examination and treatment options"; "SimPulse utilizes Kitware's Pulse Physiology Engine"; "Well-suited for use in lab, classroom, and remote settings"; "presenting healthcare learners with real-time, physiological and pharmacological patient data". CAUTION: the page separates these named integrations from a list introduced as "a wide range of POTENTIAL applications" (serious games, manikin training). Only the named integrations are cited. Verified 2026-08-25.}
+}
