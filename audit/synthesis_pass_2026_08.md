@@ -1733,3 +1733,155 @@ recipients nor the hour. The build is 613f2a6, paper 38 pages, supplement 52.
   supervisor-review phase" and "the final rounds" become false when it does.
 - Whether to spend the two structural levers of 23.1 (figures as separate files
   is free; the glossary table costs the reader a page-2 reference).
+
+## 24. End of the 2026-09-02 session: state, decisions, and what is open
+
+Working tree clean at `10fbde7`. `audit_claims.py --check-paper-sync` exit 0
+(382/382 anchors, 94/94 crosswalk); `check_render.py` exit 0 (2 accepted
+residues, 0 obsolete, 0 new). Both documents rebuilt.
+
+### 24.1 What was committed today
+
+| commit | what |
+|---|---|
+| `d88a1ca` | Results, Methods and Discussion drafts applied; **three claims the drafts had silently weakened** repaired; seven guard-pinned literals restored |
+| `7e1a1ff` | seven substantive legends compressed 1,715 to 1,248 words; the cell-label key six captions repeated verbatim replaced by a pointer to Table 1 |
+| `0949d6d` | abstract closing sentence rewritten for P.J.'s comment 70, inside a 150-word cap with zero headroom |
+| `28acdfe` | register section 23: the page-frame resolution and the measured floor |
+| `0e9ef02` | four numbers and a cross-reference **I had written wrong in section 23** |
+| `e361c2a` | abstract's "makes Vt reproducible" bounded to what was measured; the Discussion's one run-in subheading folded into prose |
+| `10fbde7` | Table 1 trimmed from seven glossary rows to three; Morris terminology moved verbatim to a new last subsection of Supplement S3 |
+
+### 24.2 Measured state
+
+| frame, double-spaced | sent 613f2a6 | now `10fbde7` |
+|---|---|---|
+| full `.docx`, images embedded | 71 | **43** |
+| figures as separate files | 68 | **38** |
+| paper PDF | 38 | 23 |
+| supplement PDF | 52 | 56 |
+| body prose, floats stripped | 13,386 | 7,164 (**-46.5 %**) |
+
+The abstract sits at exactly **150 of 150** words. Any word added must be paid
+for in the same edit, and `scripts/sync_submission_metadata.py` must be re-run
+or the pre-commit hook refuses the commit.
+
+### 24.3 Decisions taken by the author today
+
+- **Abstract Vt claim** -> "collapses that variability". Applied.
+- **Discussion subheading** -> folded into prose. Applied.
+- **Pagination levers** -> both approved, then revised by the author: the
+  glossary is **trimmed in place, not moved**, because all seven
+  `\ref{tab:terms}` occurrences are captions and moving the table would send the
+  reader out of the paper to decode a figure axis. Applied.
+- **Section 4.7 (AI disclosure)** -> **wait for all four supervisor returns.**
+  Consequence accepted: the circulating version carries two statements about the
+  review that are now inaccurate. Memory card
+  `todo_ai_disclosure_second_review_round` updated with re-verified loci.
+- **Letter to P.J.** -> **hold until the rest is done.** The corrected draft is
+  in the session transcript; its arithmetic is section 23.1 and 23.2 of this
+  register, with the numbers above superseding them.
+
+### 24.4 The dispatch-log gap, now fillable
+
+`dispatch_log.md` stops at 2026-08-20 and has no entry for the send the four
+supervisors are reviewing. The author supplied: sent **2026-08-25 at 19:18
+France time, from Paris**, to the four supervisors. Build `613f2a6`, paper 38
+pages, supplement 52.
+
+**The log names no individual** -- checked, no recipient name appears anywhere
+in it -- so the entry must follow that convention and say "supervisor review
+round", not the names. The artefact SHA-256 hashes are **lost**: `build/` was
+overwritten. Either omit them with a note, or rebuild `613f2a6` and label the
+hashes explicitly as reproduced on 2026-09-02 rather than as the files sent.
+Not written: an entry in a dated log, awaiting the author's choice between those
+two.
+
+### 24.5 OPEN, in the order agreed
+
+**1. One real defect, awaiting a decision.** `paper.tex:321` says "Three traps
+documented here merit explicit attention", names **two**, and defers: "The third
+trap survives flag-based curation altogether, and is set out with the other two
+in Supplement~\S\ref{sec:s17-summary}." Three things are wrong:
+
+- "trap" occurs **zero times** in `supplement.tex` (verified with a word
+  boundary; a first search matched "boots**trap**");
+- **S17 is an index** of findings pointing at other sections, and sets out no
+  traps;
+- the other two traps are set out in the paper, not in S17.
+
+The register's own draft is identical to the applied text, so this came from the
+drafting, not the application. **The third trap was never named anywhere.**
+
+Candidate found on evidence, by walking the eleven index rows: the
+**ventilation-dose mismatch** (Supplement S6), 19.8 % more tidal volume per kg
+actual body weight and 36.1 % per kg ideal at matched absolute Vt. No flag
+detects it, so it survives curation intact, and it is exactly a hazard for
+training on cross-body cohorts. Rejected candidates, with reasons: the
+flatline-rule limitation **over**-flags 76 runs, the opposite of surviving
+curation; the cross-output drift audit validates the window rather than
+exposing a trap.
+
+Three ways out, and this is a scientific claim, so it was not decided:
+name the third trap and point at S6; reduce the sentence to **two** traps, which
+is accurate and loses nothing actually stated; or a third candidate the author
+sees.
+
+**2. Finish the semantic cross-reference sweep.** 34 pointers into the
+supplement, 27 distinct labels. Content verified for five -- `s3-decomposition`,
+`s8`, `s9`, `s2-scope`, `s17-summary` -- of which four are exact and one is the
+defect above. **The remaining ~22 are checked only by title concordance**, which
+is weak. Tooling is in the scratchpad: `xrefs.py` enumerates every pointer with
+the sentence that makes the claim; `target.py <label> <promise> ...` extracts a
+supplement section and tests it for promised items.
+
+Two of the five raised **false alarms that reading dissolved**: `s3-decomposition`
+looked 93 words thin but delivers all four promised items in its figure's four
+panels; `s9` has no phrase matching "time-to-plateau" but carries the statistic
+as "95 % of that late-plateau gain is reached at $t = 180$~s", audit anchor
+`T1.06u`.
+
+**3. Re-read the Introduction against the current Results.** It was halved in
+`da5bd97` **before** Results, Discussion and Methods were rewritten, so it
+announces a paper that has changed since. Nothing checks that coherence; the
+risk was created by the order the passes ran in.
+
+**4. The stale anchor counts.** Three live files advertise counts the repository
+no longer has: `PROVENANCE_CHECK.md:5` "the 247-anchor ledger",
+`preprint_npj/README_FIGURES.md:120` "247-anchor monograph audit + 85-row
+crosswalk", `preprint_npj/paper_to_monograph_map.md:754` "the 289-anchor layer".
+The ledger holds 382 and the crosswalk 94. Occurrences under `audit/` and
+`experiments_log/` are **dated records, correct as history, not to be touched**.
+More than one number is involved, so the repository's own rule says wire a guard
+rather than patch literals.
+
+### 24.6 Known and left alone
+
+- `T2.f003.shunt_s4` passes at high tolerance usage. The register records 89 %;
+  today's audit prints the computed value to 2 dp only, which bounds it between
+  70 % and 90 %. Not re-measurable without running code.
+- `paper.tex` preamble comment says "Morris mu* heatmaps (Figure 2)"; the Morris
+  figure is Figure 3. A LaTeX comment, no render effect.
+
+### 24.7 Instrument lessons from today, each paid for
+
+- **`check_render.py` does not rebuild.** Run on a stale build it reported "36
+  pages" and PASSED; re-run after `build_npj.ps1` it FAILED with seven problems.
+  Rebuild, then check.
+- **A bare `pandoc file.tex -o file.docx` drops `--citeproc`** and loses part of
+  the reference list: 388 words short, 2 pages optimistic. Use
+  `scripts/tex_to_docx.py`, the converter the build itself calls. The check that
+  catches it: every frame of one revision must carry an identical word count.
+- **Whether a literal is required is settled by mutation, not by inspection.**
+  Replace it, run the gate, watch the exit code, with a known-required and a
+  known-free control. `--check-paper-sync` must be passed or crosswalk pins read
+  as free.
+- **Inserting a subsection mid-section renumbers everything after it.** A new S3
+  subsection moved `sec:s3-tl-sensitivity` from S3.11 to S3.12 and broke four
+  hard-coded references, one of them in `preregistration.md`, which must never be
+  edited. Insert **last** in a section.
+- **Grep with a word boundary.** "trap" matched "bootstrap" and produced a
+  FOUND where the truth was zero, the same shape as `MATCH` inside `MISMATCH`.
+- **Removing a table row saves less than its share of the table's pages.** The
+  glossary's 493 words cost 3 pages; removing 53 % of its rows returned 2, not
+  1.6, because a table carries fixed overhead that scales with neither.
