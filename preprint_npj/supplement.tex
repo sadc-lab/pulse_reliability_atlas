@@ -380,7 +380,6 @@ Four properties of Table~\ref{tab:s3-tl-sensitivity} matter more than the counts
 The four-flag reading is reported to document the ambiguity of the preregistered word ``flag'', not as an alternative analysis: every cell in the sweep contains \texttt{not\_steady\_state} runs (minimum 12, in S3\_M), so that reading colours all 48 combinations red and carries no information. The complete list of the 26 transitions, the chronology of the two rules in the repository, and the reasoning behind retaining the implemented rule are recorded in the companion audit register released with the code.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% S4 -- Extended Table 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{What the composite colour compresses}\label{sec:s3-decomposition}
@@ -403,6 +402,20 @@ The canonical sweep draws one Morris sample at seed 42. To test the sensitivity 
 The highest-$\mu^{*}$ input was preserved for all six outputs. The complete top-three set was preserved for four of six (MAP, PaCO$_2$, PaO$_2$, SpO$_2$) and its order for three; the observed disagreements were confined to ranks 2 and 3 for heart rate, delivered tidal volume and PaO$_2$.
 
 Two sample-dependent quantities are reported for completeness. First, the S2\_M divergence count rose from 4/160 to 7/160, so how many divergent configurations a sweep encounters is itself sample-dependent. Second, the $\sigma/\mu^{*}$ point estimate for FiO$_2$ on PaO$_2$ moved from 0.667 to 0.547, crossing the preregistered 0.6 point-estimate promotion trigger. This illustrates the sample dependence of that point-estimate trigger. It does not contradict the 23-input bootstrap-stable set reported in \S\ref{sec:s3-sobol}: this combination was already excluded from that set, because its ratio-aware interval straddled 0.6 under every bootstrap seed (lower bounds 0.287--0.309).
+\subsection{Morris terminology: trajectory, elementary effect, $\mu^{*}$ and clean pair}\label{sec:s3-terms}
+
+These four terms are used throughout the main manuscript and are defined here in full; Table~\mainref{tab:terms}{1} of the main manuscript keeps the three terms needed to read its figures.
+
+\textbf{Trajectory.} One Morris path through the seven-dimensional input space, walked one step at a time. From a random starting point, each step changes exactly one input by one fixed Morris step (two-thirds of that input's swept range) until all seven inputs have each been changed once. A trajectory therefore visits $7+1 = 8$ points (the start point plus seven one-input steps), and each two \emph{consecutive} points differ in a single input, apart from the pulse-pressure clip quantified in \S\,\ref{sec:s3-clip-cost}. 20 trajectories per cell yield $20 \times 8 = 160$ simulations per cell.
+
+\textbf{Elementary effect (EE).} A finite-difference estimate of one input's influence on one output: the change in the steady-state output divided by the size of the step that produced it, measured as a fraction of that input's swept range. Every step here is the same fixed jump: two-thirds of that range (Morris grid, 4 levels). Each elementary effect comes from one consecutive pair of simulations in a trajectory: the run just before the step and the run just after. For each (cell, input, output) combination, these elementary effects are then reduced across trajectories into the $\mu^{*}$ importance metric.
+
+\textbf{$\mu^{*}$.} Mean of the absolute elementary effects of one input on one output across all trajectories in a cell. The Morris input-importance metric reported in Figure~\mainref{fig:morris}{3} of the main manuscript; large $\mu^{*}$ indicates strong influence of the input on the output in that cell.
+
+\textbf{Clean pair.} The two simulations either side of one Morris step (the run before the step and the run after it) when \emph{both} are flag-clean, i.e.\ neither fired any of the four failure flags (Section~\mainref{sec:methods-detector}{4.4} of the main manuscript). An elementary effect is the difference between those two endpoints, so it is computed only from clean pairs: if either run is flagged, the pair contributes nothing.
+
+%% S4 -- Extended Table 1
+
 
 
 \section{Extended Table 1: not\_steady\_state attribution}\label{sec:s4}

@@ -79,8 +79,14 @@ OVERFLOW_TOLERANCE_PT = 5.0
 #     was trimmed as the OBSOLETE rule requires. The lesson is recorded rather
 #     than the entry: "measured and judged harmless" was a judgement about a
 #     warning, not about the page.
+#   * ONE ENTRY WAS REMOVED, 2026-09-02, per the OBSOLETE rule above. The
+#     paper's "overfull box, 11.89064pt too wide" stopped firing in the commit
+#     that trimmed Table 1 from seven glossary rows to three; the overfull line
+#     is no longer emitted in paper.log. The association is temporal, not a
+#     verified cause: the earlier log that would have named the offending line
+#     was overwritten by the rebuild. Recorded as such rather than as a
+#     diagnosis.
 KNOWN_RESIDUES = frozenset({
-    "paper: overfull box, 11.89064pt too wide (tolerance 5pt)",
     "supplement: overfull box, 19.30798pt too wide (tolerance 5pt)",
     "supplement: float too large for page by 31.26459pt (tolerance 5pt)",
 })

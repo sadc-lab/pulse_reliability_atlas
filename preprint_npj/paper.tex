@@ -149,7 +149,7 @@ The objective of this study was therefore to build the first open reliability at
 
 \begin{table}[!h]
 \centering
-\caption{\textbf{Terms used in this paper, with section references to where they are operationalised.}}
+\caption{\textbf{Terms used in this paper, with section references to where they are operationalised.} Morris terminology --- trajectory, elementary effect, $\mu^{*}$ and clean pair --- is defined in Supplement~\S\,\ref{sec:s3-terms}.}
 \label{tab:terms}
 \begin{tabular}{lp{0.70\textwidth}}
 \toprule
@@ -160,14 +160,6 @@ Term & Definition \\
 \textbf{Cell} & A single (scenario, sex) slice of the atlas: one severity scenario combined with one reference patient body (\textbf{M} male, \textbf{F} female), i.e.\ one scenario--sex block of the atlas (a row of the curation map, Figure~\ref{fig:traffic_light}). The four scenarios crossed with the two bodies give $4 \times 2 = 8$ cells, each containing 160 simulations (runs). \\
 \addlinespace
 \textbf{Simulation (run)} & One Pulse run at a single point in the seven-dimensional input space (the 7 swept inputs: HR, SBP, DBP, RR, Vt, FiO$_2$, PEEP), executed for 120~s with the six steady-state outputs (HR, MAP, Vt delivered, SpO$_2$, PaO$_2$, PaCO$_2$) sampled every 5~s (Methods \S\ref{sec:methods-sweep}). \\
-\addlinespace
-\textbf{Trajectory} & One Morris path through the seven-dimensional input space, walked one step at a time. From a random starting point, each step changes exactly one input by one fixed Morris step (two-thirds of that input's swept range) until all seven inputs have each been changed once. A trajectory therefore visits $7+1 = 8$ points (the start point plus seven one-input steps), and each two \emph{consecutive} points differ in a single input, apart from the pulse-pressure clip quantified in Supplement~\S\,\ref{sec:s3-clip-cost}. 20 trajectories per cell yield $20 \times 8 = 160$ simulations per cell. \\
-\addlinespace
-\textbf{Elementary effect (EE)} & A finite-difference estimate of one input's influence on one output: the change in the steady-state output divided by the size of the step that produced it, measured as a fraction of that input's swept range. Every step here is the same fixed jump: two-thirds of that range (Morris grid, 4 levels). Each elementary effect comes from one consecutive pair of simulations in a trajectory: the run just before the step and the run just after. For each (cell, input, output) combination, these elementary effects are then reduced across trajectories into the $\mu^{*}$ importance metric (next row). \\
-\addlinespace
-\textbf{$\mu^{*}$} & Mean of the absolute elementary effects of one input on one output across all trajectories in a cell. The Morris input-importance metric reported in Figure~\ref{fig:morris}; large $\mu^{*}$ indicates strong influence of the input on the output in that cell. \\
-\addlinespace
-\textbf{Clean pair} & The two simulations either side of one Morris step (the run before the step and the run after it) when \emph{both} are flag-clean, i.e.\ neither fired any of the four failure flags (\S\ref{sec:methods-detector}). An elementary effect is the difference between those two endpoints, so it is computed only from clean pairs: if either run is flagged, the pair contributes nothing. \\
 \bottomrule
 \end{tabular}
 \end{table}
