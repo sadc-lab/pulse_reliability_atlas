@@ -1885,3 +1885,59 @@ rather than patch literals.
 - **Removing a table row saves less than its share of the table's pages.** The
   glossary's 493 words cost 3 pages; removing 53 % of its rows returned 2, not
   1.6, because a table carries fixed overhead that scales with neither.
+
+### 24.8 ELEVEN CITATIONS LEFT THE CORPUS -- the first thing to do next session
+
+Found at the very end of the session, while checking an invariant recorded in
+the handoff card rather than copying it forward. That card states the rule the
+pass was supposed to obey:
+
+> Aucune citation n'est supprimée : elle voyage avec la phrase qu'elle soutient.
+> **Invariant à vérifier après chaque section** : l'union des clés bib sur
+> `paper.tex ∪ supplement.tex` reste à **45**.
+
+**Nothing ran that invariant during any of the passes.** Measured now:
+
+| | sent `613f2a6` | now `850951c` |
+|---|---|---|
+| `\cite` keys, paper ∪ supplement | **45** | **34** |
+| resolved `\bibitem` in `paper.bbl` | 40 | 17 |
+| resolved `\bibitem` in `supplement.bbl` | 24 | 27 |
+
+Eleven keys are gone from both documents. **Eight of them exist nowhere in the
+manuscript corpus at all** -- not in the monograph either -- and survive only as
+unused entries in `paper.bib`:
+
+| key | in monograph | topic |
+|---|---|---|
+| `akoumianaki2014` | no | patient--ventilator dyssynchrony |
+| `blanch2015` | no | patient--ventilator dyssynchrony |
+| `sinderby1999` | no | patient--ventilator dyssynchrony |
+| `thille2006` | no | patient--ventilator dyssynchrony |
+| `nadler1962` | no | blood-volume equations |
+| `atls2018` | no | ATLS |
+| `hennigs2026validation` | no | validation |
+| `viceconti2021insilico` | no | in-silico trials |
+| `emeriaud2023` | **yes (2)** | PALICC-2 |
+| `munafo2017` | **yes (3)** | reproducibility |
+| `wilkinson2016` | **yes (2)** | FAIR |
+
+**This is not automatically a defect, and must not be reported as one before it
+is checked key by key.** A citation that left with the sentence it supported is
+correct behaviour; a citation that left while its claim survived is an
+unsupported claim. The four dyssynchrony references are the ones to look at
+first: Section 2.3 still asserts that Vt oscillation "is the in-silico signature
+of patient--ventilator dyssynchrony, well documented clinically in
+volume-control ventilation", and it now carries **one** citation where the sent
+version carried more.
+
+Also to settle: npj caps an Article at 60 references and the paper is now at 17,
+so nothing forces the loss. And the reference numbering the four supervisors are
+reading has shifted by more than the handoff card predicted (it foresaw 40 to
+37, the reality is 40 to 17), which they must be told.
+
+**Method for next session.** `git show 613f2a6:preprint_npj/paper.tex` and diff
+the `\cite` sites against the current file, one key at a time: for each lost
+key, find the sentence that carried it in the sent version and ask whether that
+sentence, or a claim equivalent to it, still stands. Do not restore a citation
+without restoring or locating its claim.
