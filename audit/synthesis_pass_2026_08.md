@@ -1941,3 +1941,45 @@ the `\cite` sites against the current file, one key at a time: for each lost
 key, find the sentence that carried it in the sent version and ask whether that
 sentence, or a claim equivalent to it, still stands. Do not restore a citation
 without restoring or locating its claim.
+
+#### 24.8b Correction and sharpening, same session
+
+The paragraph above says the four dyssynchrony references are "the ones to look
+at first" because "Section 2.3 still asserts the dyssynchrony reading ... and it
+now carries one citation where the sent version carried more". **That is wrong**,
+and was written without opening the sent version. Checked afterwards:
+
+- at `613f2a6` the Section 2.3 sentence carried **no citation at all** --
+  "in-silico signature of *patient--ventilator dyssynchrony*---a mismatch between
+  the patient's own breathing effort and the breaths the ventilator delivers";
+- **today it carries one**, `figueroacasas2016`. That sentence gained support.
+
+The four references lived in a different passage, which migrated to the
+supplement without them.
+
+**The sharper finding.** Each lost key was traced to the sentence it supported at
+`613f2a6`, and that sentence looked for in the current corpus:
+
+| key | the claim it supported | claim today | verdict |
+|---|---|---|---|
+| `nadler1962` | "essentially the same blood volume per kilogram ($\approx$71~mL\,kg$^{-1}$), within standard clinical estimates" | **survives in paper 2.5**, unquantified and unsourced | **unsupported claim** |
+| `blanch2015` | dyssynchrony "clinically undesirable" | **survives in the supplement** | **unsupported claim** |
+| `akoumianaki2014` | confirmed by esophageal pressure | **survives in the supplement** | **unsupported claim** |
+| `sinderby1999` | confirmed by diaphragm electrical activity | **survives in the supplement** | **unsupported claim** |
+| `thille2006` | "a form of patient--ventilator dyssynchrony" | attribution survives in both documents | **to re-read** |
+| `atls2018` | Class I hemorrhage comparison | gone from the corpus | citation left with its claim |
+| `hennigs2026validation` | prior sensitivity work on Pulse submodels | gone | citation left with its claim |
+| `viceconti2021insilico` | "validation itself requires comparator data" | gone | citation left with its claim |
+
+So the population to repair is **four or five sentences, not eleven citations**.
+Three of the eight departures are correct behaviour.
+
+The `nadler1962` case is the one to own: that sentence was **written during this
+pass**, in the section 2.5 cross-body caveat restored in `d88a1ca`. The
+restoration kept the claim and dropped both the figure and the source.
+
+**Method that produced this table, worth reusing.** For each lost key, run
+`git show 613f2a6:preprint_npj/paper.tex` and the same on `supplement.tex`,
+extract the sentence around the key, then grep the current corpus for that
+sentence's distinctive phrase. A key whose phrase is gone took its claim with
+it; a key whose phrase survives left a claim standing without support.
