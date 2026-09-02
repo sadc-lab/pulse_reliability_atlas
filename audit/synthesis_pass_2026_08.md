@@ -1485,3 +1485,140 @@ The limitations tabulated above are Pulse's, verified against its source and its
 \textbf{(vi) A non-rectangular input domain.} Pulse enforces DBP/SBP $\leq$ 0.75, which makes the sampled SBP--DBP domain non-rectangular. Configuration-time clipping shortened 9 of 20 DBP steps and caused applied DBP to co-vary in 8 of 20 SBP steps, so those effects are not strict fixed-step, one-at-a-time Morris estimates. Nevertheless, SBP remained rank 1 for MAP in all eight cells under six sensitivity estimators (\S\ref{sec:s3-clip-cost}), which isolates the clipping contribution. Shunt fraction was not recorded in the atlas, so shunt-mediated interpretations throughout this work remain physiologically motivated rather than directly tested mechanistic explanations.
 ```
 
+
+## 22. Steps 3-5 applied: Results, Methods, Discussion, 2026-09-02
+
+The twelve drafts of sections 19 and 21 were applied to `paper.tex` by a script
+that replaces prose block by block and re-emits every float line untouched, so
+no table, figure or caption moved: 4 tables, 5 figures, 10 `includegraphics` and
+15 captions before, the same 15 after. The two supplement additions of section
+20 landed first, so no anchor was ever homeless.
+
+Both gates then ran on a **freshly rebuilt** paper. That qualifier is not
+decoration: see 22.4.
+
+### 22.1 Seven guard-pinned claims the drafts had dropped
+
+`check_draft.py` gained its guard-literal check *after* the Results drafts were
+written, and was never re-run on them. Re-running it found six losses in the
+section 2.1 draft and one in 2.4. All seven guards read `paper.tex` only, so
+none could be satisfied from the supplement.
+
+| literal | guard | where it went |
+|---|---|---|
+| `found exact agreement for all 10{,}160 input contracts that reached ingestion` | setup-input instantiation | absent from both documents |
+| `The remaining 80 ventilator contracts belong to 20 runs that failed during patient stabilisation before the ventilator action was submitted` | setup-input instantiation | absent from both |
+| `caps the inspired oxygen fraction at 0.9996` | FiO2 adjustment provenance | absent from both |
+| `with a logged error on all 195 runs concerned` | FiO2 adjustment provenance | absent from both |
+| `the triggered design exceeded its locked compute budget` | Sobol framing | absent from both |
+| `$t = 240$--$300$~s` | S021 clock | present 3x in the supplement, 0x in the paper |
+| `exceeds the 0.05 threshold on 139 of 320 runs` | Vt-CV scenario split | absent from both |
+
+Each guard states its own reason in a comment, and both reasons describe exactly
+what happened here: *"Pinned so a rewrite cannot quietly drop the scope that
+makes them true"*, and *"A guard that only forbids is satisfied by deleting the
+passage, so each document must still carry the current reason."* No guard was
+modified. The claims were restored to the paper, compressed.
+
+### 22.2 One of the seven was an over-claim, not a compression
+
+The 2.1 draft read: *"the `clamped` category remained empty at setup (0 / 1,280
+across every cell), so Pulse either accepts a submitted value or rejects it
+loudly."*
+
+The pre-rewrite paragraph says the opposite of what that "so" asserts: the
+preregistered detector *"reads the setup log, so it identifies explicit
+rejection and cannot by itself establish the absence of a silent substitution"*.
+The 10,160-contract audit is what closes that gap, and the draft had deleted it
+while keeping the conclusion it supports. The same draft also deleted the one
+downstream adjustment Pulse does make -- the FiO2 cap at 0.9996 -- leaving a
+reader to conclude the engine never modifies anything.
+
+Restored with the epistemology intact: the log detector, its limit, the
+independent audit, the 80/20 scope that bounds its denominator, and the sampled
+envelope beyond which neither result speaks.
+
+Two further deletions of the same kind were found while checking the crosswalk
+rather than the guards, so nothing mechanical would have caught them:
+
+- **Section 2.2** kept *"the two findings cannot appear on the same runs"* and
+  dropped its consequence -- the flagged runs leave the clean subset the
+  elementary-effect estimator uses, so the non-linearity map is bounded by run
+  survival. Without it a reader over-reads Figure 2. Restored with both counts.
+- **Section 2.5** lost the entire cross-body caveat paragraph: unequal clean-run
+  subsets, the ventilation-dose difference (19.8 % per kg actual weight, 36.1 %
+  per kg ideal weight), and the fact that Pulse's sex flag switches many setup
+  parameters at once, so no cross-body distance is attributable to a single
+  pathway. That paragraph is the guard against the paper's most likely
+  misreading. Restored at about 130 words against about 220.
+
+### 22.3 Crosswalk: nine decrements and four repointings
+
+Each row was judged on content before arithmetic. For every drifted literal the
+pre-rewrite sentences were diffed against the current ones; a decrement was
+accepted only where the lost occurrence restated a fact the paper still makes,
+or where a result's method travelled with the result into the supplement.
+
+- **Decrements.** `1{,}280` 47 to 44; `1.6~\%` 2 to 1; `663 of 1{,}280` 2 to 1;
+  `51.8~\%` 4 to 3; `$-2$~cmH$_2$O` 13 to 10; `4{,}803~mL` 3 to 2;
+  `4{,}082~mL` 4 to 3; `3{,}996~mL` 3 to 2; `2{,}000` 9 to 8.
+- The `2{,}000` case is the clearest: the paper now reports **no numeric
+  Spearman rho** at all, so the paired-input bootstrap CI method has no result
+  left in the paper to describe, and follows it into Supplement S6.
+- **Repointings.** The four compensatory-tachycardia figures moved to the
+  Supplement S15 table, which writes them as `73.8 \pm 20.4`, `155.7 \pm 34.7`,
+  `147.1 \pm 31.8`. Each form was counted in the live documents before the row
+  was rewritten: one occurrence each, zero in `paper.tex`. The sync checker
+  counts across the combined paper + supplement corpus, so repointing is
+  mechanically sound; deleting the rows would not have been.
+- Three blood-volume claims carry two rows each, a rounded-mL form and an
+  exact-precision form. Only the rounded rows lost occurrences. Keying the edit
+  on the claim id alone matched both and aborted the script; the id plus the
+  format string identifies the row.
+
+### 22.4 A stale build reported a passing gate
+
+`check_render.py` does not rebuild. Run against a build that predated the
+edits, it reported "36 pages" and PASSED. `paper.docxsrc.tex` still contained
+the pre-rewrite text -- detectable because it carried *"Three features of
+Table"*, deleted hours earlier, and lacked the caveat added minutes earlier.
+
+Re-run after `build_npj.ps1`, the same gate FAILED with seven new problems: an
+undefined `??` in the paper PDF and six supplement cross-references to
+`sec:results-secondary`, the label of section 2.6, whose heading the apply
+script had deliberately dropped.
+
+One of the six was worse than a broken link. Supplement line 975 reads
+*"Section 2.6 of the main manuscript **reports that** ... Pulse's output heart
+rate decouples from the user-specified input HR baseline"*, and section 2.6 had
+become a pointer to the supplement: a circular reference. Restoring the heading
+and its label fixes all six and the `??`, costs one line, and changes no claim,
+because the pointer paragraph does report the decoupling qualitatively while the
+supplement provides the per-scenario breakdown -- which is the division of
+labour supplement line 975 itself describes.
+
+**Rule for the rest of this pass: rebuild, then check. A render gate run on a
+stale build measures the previous manuscript.**
+
+### 22.5 Measured state
+
+Both gates green on a fresh build: `audit_claims.py --check-paper-sync`
+exit 0, 382/382 anchors and 94/94 crosswalk entries; `check_render.py` exit 0,
+3 accepted residues and 0 new.
+
+| measure | before | now | target |
+|---|---|---|---|
+| paper PDF | 38 pages | **24 pages** | -- |
+| body prose, `paper.tex`, floats stripped | 12,764 words | **7,162 words** | 5,314 |
+| body prose, Word, double-spaced | 50 pages | **29 pages** | 22 |
+| full submission `.docx`, Word, double-spaced | not measured | 45 pages | -- |
+
+The "before" row for double-spaced pagination was measured on the stale
+`docxsrc`, which is precisely the pre-rewrite paper, so it is a valid control
+rather than a recollection. The recorded baseline of 47 pages was taken on a
+slightly earlier build; 50 is this build's own control and the two are not
+interchangeable.
+
+**Still 7 pages over.** About 1,850 words of body prose remain to cut, and the
+legends -- 1,653 words, untouched by this pass and excluded from the body-prose
+measure -- are the largest single reserve.
