@@ -128,3 +128,7 @@ preprint_npj/pre_submission_inquiry.txt
 
 # Internal working audit — not for publication until its findings are resolved
 audit/monograph_comprehensibility_audit.md
+
+# Reviewer documents: supervisor feedback files stay local, never committed
+*_PJdocx.docx
+Adult Pulse model *.docx
