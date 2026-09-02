@@ -1636,9 +1636,9 @@ so is a faithful control:
 |---|---|---|
 | full `.docx`, images embedded, double-spaced | **71** | **44** |
 | figures as separate files, double-spaced | 68 | 40 |
-| + glossary table moved to the supplement | -- | 38 |
+| + glossary table moved to the supplement | -- | 37 |
 | paper PDF | 38 | 23 |
-| body-prose words, floats stripped | 13,386 | 6,452 |
+| body-prose words, floats stripped | 13,386 | 7,164 |
 
 Only 71 satisfies "more than 60". The `.docx` he was sent is **single-spaced at 39
 pages**, so he was reading it converted to the double spacing he asks for.
@@ -1648,7 +1648,9 @@ pages**, so he was reading it converted to the double spacing he asks for.
 
 Body prose per block, floats excluded, at 236 words per double-spaced page:
 
-| block | words | pages |
+| block | words | pages |  <!-- section sums; they exclude title, authors,
+abstract and keywords, so they do not add up to the 7,164 of 23.1, which
+measures the whole file with floats stripped. Do not mix the two. -->
 |---|---|---|
 | Introduction | 789 | 3.3 |
 | Results, six subsections | 1,563 | 6.7 |
@@ -1657,7 +1659,7 @@ Body prose per block, floats excluded, at 236 words per double-spaced page:
 | mandatory npj closing sections | 800 | 3.4 |
 
 Methods is the largest block, and halving the Methods is P.J.'s own directive,
-but section 22 of the npj rules read at source sets a floor against it: Methods
+but section 11 of the npj rules read at source sets a floor against it: Methods
 "should contain all elements necessary to allow interpretation and replication
 of the results". What remains in those seven subsections is the hard
 physiological bounds, the flatline rule, the flag priority order, the seven
@@ -1670,7 +1672,7 @@ Acknowledgements, Author contributions, Competing interests, Ethics, Consent,
 Materials availability) are 800 words of npj policy and are not cuttable.
 
 **Floor without touching Results, the Discussion P.J. liked, or replication
-material: 38 pages** in the submission frame. Reaching 30-33 needs a further
+material: 37 pages** in the submission frame. Reaching 30-33 needs a further
 1,150 to 1,850 words out of Results or Discussion.
 
 ### 23.3 Two measuring instruments that lied, and the method that replaced them
@@ -1680,7 +1682,7 @@ material: 38 pages** in the submission frame. Reaching 30-33 needs a further
 it produced were missing part of the reference list: 388 words short and **2
 pages optimistic**. The figure-less frames were first reported as 63 and 36;
 measured through `scripts/tex_to_docx.py`, the converter the build actually
-calls, they are 68 and 38. The check that settles it: every frame of one
+calls, they are 68 and 40, i.e. 5 and 4 pages more. The check that settles it: every frame of one
 revision must carry an identical word count, because removing an image removes
 no words.
 
