@@ -963,9 +963,14 @@ add(
 add(
     claim_id="T1.24",
     section="§3.8 L1965 + L1962",
-    manuscript_text="S021 S1 frac converged 93.2% (41/44)",
+    # 93.2 % (41/44) until 2026-09-01: the S021 window selection dropped the
+    # first sample of [240, 300] s, so drift was fitted on 12 points instead of
+    # the 13 the preregistration fixes, and one run (S1_F_0106_long, drift
+    # -14.11 on 12 points, -15.34 on 13) sat on the wrong side of the 15 mmHg
+    # threshold. See audit/synthesis_pass_2026_08.md section 15.
+    manuscript_text="S021 S1 frac converged 90.9% (40/44)",
     source_file="data/runs/s021_hyperoxia_convergence/summary.json",
-    manuscript_value=93.2,
+    manuscript_value=90.9,
     computed_value=100.0 * float(s21_sum["S1_frac_converged"]),
     tolerance_rule="pct_1dp",
 )
@@ -974,9 +979,9 @@ n_s1_converged = int(s21_plat[(s21_plat["scenario"] == "S1") & s21_plat["converg
 add(
     claim_id="T1.24b",
     section="§3.8 L1965",
-    manuscript_text="S1 converged: 41 / 44 runs",
+    manuscript_text="S1 converged: 40 / 44 runs",  # 41 until 2026-09-01, see T1.24
     source_file="data/runs/s021_hyperoxia_convergence/plateau_stats.parquet",
-    manuscript_value=41,
+    manuscript_value=40,
     computed_value=n_s1_converged,
     tolerance_rule="exact_int",
 )
@@ -4087,11 +4092,18 @@ n_s021_fail = check_s021_clock()
 # published rounding, and the prose that ties them together must agree. Any one
 # of them alone is satisfiable by the wrong quantity.
 # -----------------------------------------------------------------------------
-S021_CONVERGED_N = 41
-S021_PHYSIO_CONVERGED = 38
+# 41 and 38 until 2026-09-01. The S021 window selection used a strict comparison
+# on a drifting time grid, so the drift was fitted on 12 samples where the
+# preregistration fixes 13, and S1_F_0106_long sat on the wrong side of the
+# 15 mmHg/60 s threshold. Repairing the selection moved it out of the converged
+# set. A fourth category appears with it: that run is non-converged and is NOT a
+# runaway, so the partition below gained a term. See
+# audit/synthesis_pass_2026_08.md sections 15 and 16.
+S021_CONVERGED_N = 40
+S021_PHYSIO_CONVERGED = 37
 S021_CONVERGED_PUBLISHED_MMHG = 643
 S021_CONVERGED_CONTEXT: tuple[tuple[str, str], ...] = (
-    ("preprint_npj/supplement.tex", "over all 41 drift-converged runs"),
+    ("preprint_npj/supplement.tex", "over all 40 drift-converged runs"),
     ("preprint_npj/paper.tex", "the converged S1 plateau median was 643~mmHg"),
 )
 
@@ -4155,11 +4167,17 @@ def check_s021_converged_plateau() -> int:
                  f"{len(physio)} (published {S021_PHYSIO_CONVERGED})",
                  "PASS" if ok else "**FAIL**"))
 
-    parts = (len(physio), len(runaway_conv), len(runaway) - len(runaway_conv))
+    # Fourth term added 2026-09-01: a run that is neither converged nor a
+    # runaway. Before the window fix every non-converged S1 rerun was a runaway,
+    # so three terms closed the partition; S1_F_0106_long is now non-converged
+    # with a plateau of 559 mmHg and belongs to none of the first three.
+    other = s1_all[~s1_all["converged"] & (s1_all["PaO2_plateau_mmHg"] <= 700)]
+    parts = (len(physio), len(runaway_conv), len(runaway) - len(runaway_conv), len(other))
     ok = sum(parts) == len(s1_all) == 44 and len(physio) + len(runaway_conv) == S021_CONVERGED_N
     n_bad += 0 if ok else 1
-    rows.append(("the 44 S1 reruns partition, and 38 + runaway-converged = 41",
-                 f"{parts[0]} + {parts[1]} + {parts[2]} = {sum(parts)}; "
+    rows.append(("the 44 S1 reruns partition, and physio + runaway-converged = "
+                 f"{S021_CONVERGED_N}",
+                 f"{parts[0]} + {parts[1]} + {parts[2]} + {parts[3]} = {sum(parts)}; "
                  f"{parts[0]} + {parts[1]} = {parts[0] + parts[1]}",
                  "PASS" if ok else "**FAIL**"))
 
@@ -4167,7 +4185,8 @@ def check_s021_converged_plateau() -> int:
     # sentence in §2.4 could quote either one and still look right.
     ok = len(physio) != S021_CONVERGED_N
     n_bad += 0 if ok else 1
-    rows.append(("the 38-run and 41-run populations stay distinct",
+    rows.append((f"the {S021_PHYSIO_CONVERGED}-run and {S021_CONVERGED_N}-run "
+                 "populations stay distinct",
                  f"{len(physio)} vs {S021_CONVERGED_N}",
                  "PASS" if ok else "**FAIL**"))
 
@@ -6207,6 +6226,95 @@ n_abstract_fail = check_abstract_extent()
 
 n_s021_conv_fail = check_s021_converged_plateau()
 
+def check_window_tolerance() -> int:
+    """No analysis script may select a time window with a strict comparison.
+
+    Added 2026-09-01, after the defect it detects was found for the second time.
+    The recorded time grid drifts: a nominal t = 120 s is stored as
+    120.0000000000557 and a nominal t = 240 s as 239.99999999996928. A strict
+    `lo <= t <= hi` therefore silently drops one sample, so a window documented
+    as 60 s carries 12 samples instead of the 13 the preregistration fixes at
+    L58, L83, L84, L116 and L135, and makes an explicit failure condition at
+    L191.
+
+    It has bitten twice. `scripts/analyze_s030.py` first, diagnosed 2026-08-13,
+    when the same nominal window held 12 samples in S030 and 13 in the main
+    sweep; the epsilon was then adopted as the atlas rule but only S030 was
+    migrated. Then S021, found 2026-09-01: the drift fit ran on 12 points, one
+    run crossed the 15 mmHg/60 s threshold, and two published anchors were wrong
+    (T1.24 93.2 % and T1.24b 41 of 44, corrected to 90.9 % and 40 of 44).
+    `scripts/provenance_check.py` carried it too, and reported FAIL on faithful
+    reproductions in 98 % of runs on the I:E ratio.
+
+    A one-off repair does not stop a third occurrence; this does.
+    """
+    print("\n## Window-tolerance guard (no strict time-window comparison)\n")
+    rows: list[tuple[str, str, str]] = []
+    n_bad = 0
+
+    # A comparison of time_s against a bound, capturing what follows the operator
+    # up to the closing bracket, so the tolerance term is visible if present.
+    cmp_re = re.compile(r"time_s\"?\]?\s*(>=|<=)\s*([^)&\]]+)")
+    tol_tokens = ("1e-6", "1e-9", "TIME_SLACK", "slack", "SLACK", "EPS", "eps")
+
+    # This file is excluded: it is the guard, and the strings it matches on are
+    # its own pattern and its own negative control, not a window selection.
+    files = sorted(
+        [p for p in (REPO / "scripts").glob("*.py") if p.name != "audit_claims.py"]
+        + [p for p in (REPO / "src").glob("*.py")]
+    )
+    scanned, with_window = 0, 0
+    for path in files:
+        text = path.read_text(encoding="utf-8")
+        scanned += 1
+        hits = list(cmp_re.finditer(text))
+        if not hits:
+            continue
+        with_window += 1
+        strict = [m for m in hits if not any(t in m.group(2) for t in tol_tokens)]
+        rel = path.relative_to(REPO).as_posix()
+        if strict:
+            n_bad += 1
+            sample = strict[0].group(0).strip()[:60]
+            rows.append((f"`{rel}`",
+                         f"**{len(strict)} strict of {len(hits)}** e.g. `{sample}`",
+                         "**FAIL**"))
+        else:
+            rows.append((f"`{rel}`", f"{len(hits)} comparison(s), all tolerant",
+                         "PASS"))
+
+    # Calibration. A finder that matches nothing would report a clean sweep, so
+    # the instrument is checked on a file known to carry the pattern, and on a
+    # synthetic strict line that it must reject.
+    det = (REPO / "src" / "detector.py").read_text(encoding="utf-8")
+    pos_ok = len(list(cmp_re.finditer(det))) > 0
+    n_bad += 0 if pos_ok else 1
+    rows.append(("positive control: the finder sees `src/detector.py`",
+                 f"{len(list(cmp_re.finditer(det)))} comparison(s) found",
+                 "PASS" if pos_ok else "**FAIL**"))
+    probe = 'df[(df["time_s"] >= lo) & (df["time_s"] <= hi)]'
+    probe_hits = list(cmp_re.finditer(probe))
+    neg_ok = len(probe_hits) == 2 and all(
+        not any(t in m.group(2) for t in tol_tokens) for m in probe_hits)
+    n_bad += 0 if neg_ok else 1
+    rows.append(("negative control: a synthetic strict line is rejected",
+                 "flagged" if neg_ok else "**missed**",
+                 "PASS" if neg_ok else "**FAIL**"))
+
+    print("| check | observed | verdict |")
+    print("|---|---|---|")
+    for label, observed, verdict in rows:
+        print(f"| {label} | {observed} | {verdict} |")
+    print(
+        f"\n**Window-tolerance guard:** {len(rows)} checks, "
+        f"{len(rows) - n_bad} PASS, {n_bad} FAIL. "
+        f"{scanned} files scanned, {with_window} carry a time-window comparison.\n"
+    )
+    return n_bad
+
+
+n_windowtol_fail = check_window_tolerance()
+
 n_sobolframe_fail = check_sobol_framing()
 
 n_counter_fail = 0
@@ -6226,6 +6334,7 @@ sys.exit(
         + n_sexdiv_fail + n_inst_fail + n_cliprt_fail + n_s030prov_fail + n_figts_fail
         + n_fio2adj_fail + n_sobolframe_fail + n_s011_fail + n_abstract_fail
         + n_vtcv_split_fail + n_shap_unit_fail + n_detvocab_fail + n_cdcprov_fail + n_pubgate_fail
+        + n_windowtol_fail
     ) > 0
     else 0
 )

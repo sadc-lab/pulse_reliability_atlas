@@ -112,6 +112,7 @@ lock = prep(lock)
 # cannot. This is the guard for the defect that produced the earlier
 # version of this figure.
 WINDOW_LO, WINDOW_HI = 60.0, 120.0
+TIME_SLACK_S = 1e-6  # atlas window rule, see src/detector.py::_steady_state_window
 VALUE_TOL_ML = 1e-6
 
 
@@ -123,7 +124,12 @@ def settle_offset(run_dir: Path) -> float:
     if offset < 0:
         raise AssertionError(f"{run_dir.name}: native clock trails the recorded one")
 
-    probes = rec[(rec["time_s"] >= WINDOW_LO) & (rec["time_s"] <= WINDOW_HI)]
+    # Atlas window rule (src/detector.py::_steady_state_window). Without the slack
+    # the drifting grid -- a nominal t = 120 s stored as 120.0000000000557 -- drops
+    # the last sample, so this loop verified 12 probes while the message below, the
+    # comment above and commit 82a652b all claimed 13. Aligned 2026-09-01.
+    probes = rec[(rec["time_s"] >= WINDOW_LO - TIME_SLACK_S)
+                 & (rec["time_s"] <= WINDOW_HI + TIME_SLACK_S)]
     if probes.empty:
         raise AssertionError(f"{run_dir.name}: no recorded samples in the window")
     for _, row in probes.iterrows():
@@ -146,10 +152,10 @@ print(f"  settle offset: orig {off_orig:.2f} s, lock {off_lock:.2f} s "
 # Slice on the absolute clock, then re-express the x-axis in recording-
 # relative time so the panel reads 60-120 s, the window the caption and
 # the classifier both name.
-orig_win = orig[(orig["time_s"] >= WINDOW_LO + off_orig)
-                & (orig["time_s"] <= WINDOW_HI + off_orig)].copy()
-lock_win = lock[(lock["time_s"] >= WINDOW_LO + off_lock)
-                & (lock["time_s"] <= WINDOW_HI + off_lock)].copy()
+orig_win = orig[(orig["time_s"] >= WINDOW_LO + off_orig - TIME_SLACK_S)
+                & (orig["time_s"] <= WINDOW_HI + off_orig + TIME_SLACK_S)].copy()
+lock_win = lock[(lock["time_s"] >= WINDOW_LO + off_lock - TIME_SLACK_S)
+                & (lock["time_s"] <= WINDOW_HI + off_lock + TIME_SLACK_S)].copy()
 orig_win["time_s"] -= off_orig
 lock_win["time_s"] -= off_lock
 

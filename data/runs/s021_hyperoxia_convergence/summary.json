@@ -1,8 +1,8 @@
 {
   "n_runs": 60,
-  "S1_frac_converged": 0.9318181818181818,
-  "S1_plateau_median_mmHg": 643.3063280389815,
-  "S1_converged_plateau_median_mmHg": 642.8715636969404,
+  "S1_frac_converged": 0.9090909090909091,
+  "S1_plateau_median_mmHg": 643.2457645725224,
+  "S1_converged_plateau_median_mmHg": 642.8703527464863,
   "decision": "HYPOTHESIS_II_TRANSIENT_REGIME_SUPPORTED",
   "thresholds": {
     "drift_threshold_mmHg_per_60s": 15.0,
@@ -23,25 +23,25 @@
     {
       "scenario": "S1",
       "n": 44,
-      "plateau_median_mmHg": 643.3063280389815,
-      "plateau_p25_mmHg": 592.2079540324289,
-      "plateau_p75_mmHg": 668.219489342544,
-      "frac_converged": 0.9318181818181818
+      "plateau_median_mmHg": 643.2457645725224,
+      "plateau_p25_mmHg": 592.1671941532518,
+      "plateau_p75_mmHg": 668.0844173626118,
+      "frac_converged": 0.9090909090909091
     },
     {
       "scenario": "S3",
       "n": 8,
-      "plateau_median_mmHg": 143.5782514475698,
-      "plateau_p25_mmHg": 93.03309603494385,
-      "plateau_p75_mmHg": 218.48964254559152,
+      "plateau_median_mmHg": 143.59461045883248,
+      "plateau_p25_mmHg": 92.93004494267824,
+      "plateau_p75_mmHg": 218.47853346448747,
       "frac_converged": 1.0
     },
     {
       "scenario": "S4",
       "n": 8,
-      "plateau_median_mmHg": 72.56336695696001,
-      "plateau_p25_mmHg": 70.82872862052565,
-      "plateau_p75_mmHg": 75.56120586930557,
+      "plateau_median_mmHg": 72.55546570161917,
+      "plateau_p25_mmHg": 70.78313875950313,
+      "plateau_p75_mmHg": 75.5090352494332,
       "frac_converged": 1.0
     }
   ]

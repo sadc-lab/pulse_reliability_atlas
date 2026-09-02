@@ -50,7 +50,15 @@ FLAG_COLS: tuple[str, ...] = (
 def steady_state_mean(
     df: pd.DataFrame, col: str, window_lo: float, window_hi: float
 ) -> float:
-    sub = df[(df["time_s"] >= window_lo) & (df["time_s"] <= window_hi)]
+    # Atlas window rule (src/detector.py::_steady_state_window): the recorded grid
+    # drifts, a nominal t = 120 s is stored as 120.0000000000557, so a strict
+    # comparison drops the last sample and compares a 12-sample mean against an
+    # aggregate built from 13. Measured on 160 runs across the eight cells before
+    # this fix, that mismatch exceeded the 1e-3 default tolerance on the I:E ratio
+    # in 98 % of runs and on respiratory rate in 69 %, i.e. this checker reported
+    # FAIL on faithful reproductions. Aligned 2026-09-01.
+    slack = 1e-6
+    sub = df[(df["time_s"] >= window_lo - slack) & (df["time_s"] <= window_hi + slack)]
     if sub.empty:
         raise RuntimeError(
             f"fresh output.csv has no samples in window [{window_lo}, "

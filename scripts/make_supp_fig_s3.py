@@ -13,11 +13,14 @@ so one rerun spans 420 s of Pulse-internal time. The figure therefore
 visualises the LATE-PHASE CONVERGENCE of PaO2 toward its true plateau, not a
 fresh wash-in from an atmospheric-air baseline.
 
-Visualises the 41 drift-converged S1 (healthy) S021 reruns as overlapping
-thin trajectories. Three of those 41 are drift-converged but relax to
+Visualises the 40 drift-converged S1 (healthy) S021 reruns as overlapping
+thin trajectories. Three of those 40 are drift-converged but relax to
 unphysical >700 mmHg plateaus (numerical runaways); they are plotted but
-EXCLUDED from the highlighted median, which is taken over the remaining 38
+EXCLUDED from the highlighted median, which is taken over the remaining 37
 physiological-converged runs (Supplement Pass C corrections SP-C.D2 / C1).
+Counts were 41 and 38 until 2026-09-01, when the S021 window-selection fix
+moved one run across the drift threshold; see audit/synthesis_pass_2026_08.md
+section 15.
 Horizontal references mark the locked classifier upper bound (600 mmHg)
 and the alveolar-gas-equation sea-level prediction (alveolar PAO2,
 ~663 mmHg). The vertical axis is limited to [350, 760] mmHg; the runaway

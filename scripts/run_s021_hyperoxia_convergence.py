@@ -91,6 +91,7 @@ SHUNT_N_INDICES_PER_CELL: int = 4  # 4 common indices on S3, S4
 # Pre-registered decision thresholds (committed before any S021 run)
 DRIFT_THRESHOLD_MMHG_PER_60S: float = 15.0  # matches atlas DRIFT_MAX_DELTA_60S["PaO2"]
 PLATEAU_WINDOW_S: tuple[float, float] = (240.0, 300.0)
+TIME_SLACK_S: float = 1e-6  # atlas window rule, see src/detector.py and plateau_stats()
 HYP2_FRAC_CONVERGED_MIN: float = 0.75
 HYP2_PLATEAU_BAND_MMHG: tuple[float, float] = (580.0, 680.0)
 HYP1_PLATEAU_OVER_MMHG: float = 700.0
@@ -177,7 +178,14 @@ def plateau_stats(trj: pd.DataFrame) -> tuple[float, float]:
     if trj.empty:
         return (float("nan"), float("nan"))
     lo, hi = PLATEAU_WINDOW_S
-    win = trj[(trj["time_s"] >= lo) & (trj["time_s"] <= hi)]
+    # Window membership uses the atlas rule (src/detector.py::_steady_state_window):
+    # `t >= lo - 1e-6` and `t <= hi + 1e-6`. The recorded grid drifts -- a nominal
+    # t = 240 s is stored as 239.99999999996928 -- so a strict comparison silently
+    # dropped the first sample and evaluated a 55-second window while every
+    # document, and this function's own docstring, named 60 s. Aligned 2026-09-01;
+    # the convention itself was adopted repository-wide on 2026-08-13, see
+    # scripts/audit_s030_provenance.py.
+    win = trj[(trj["time_s"] >= lo - TIME_SLACK_S) & (trj["time_s"] <= hi + TIME_SLACK_S)]
     if len(win) < 3:
         return (float("nan"), float("nan"))
     pao2 = win["PaO2_mmHg"].astype(float)

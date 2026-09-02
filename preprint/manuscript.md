@@ -143,7 +143,7 @@ below; this section is the exhaustive findings digest.*
 * Longer reruns ([S021](#s021); the same configurations re-executed at 300 s of recorded simulation instead of the locked 120 s) resolve it: S1 plateau
   **median 643 mmHg**, ~20 mmHg *below* the alveolar-gas-equation sea-level
   ceiling (≈663 mmHg) — consistent with Pulse's modelled A-a gradient, i.e. a
-  window-length artefact, not an oxygenation overshoot. 41/44 S1 reruns
+  window-length artefact, not an oxygenation overshoot. 40/44 S1 reruns
   converged; 6 develop an off-scale numerical runaway (up to ≈1,408 mmHg).
 * **Practical rule:** simulate hyperoxia for ≥ 300 s of total simulated time before extracting a PaO2
   plateau; on healthy lungs at FiO2 = 1.0, screen each PaO2 trajectory
@@ -2736,8 +2736,8 @@ corrected by setting trigger pressure to −2 cmH2O.*
   ∈ [580, 680] mmHg* (alveolar-gas-equation prediction ± 75 mmHg).
   Both were met by very large margins:
 
-    * **S1 (n = 44):** plateau median 643.3 mmHg (decision band
-      [580, 680] mmHg); 41 / 44 runs (93.2 %) converged.
+    * **S1 (n = 44):** plateau median 643.2 mmHg (decision band
+      [580, 680] mmHg); 40 / 44 runs (90.9 %) converged.
     * Plateau median of 643 mmHg sits ~20 mmHg below the simple
       alveolar-gas-equation prediction: alveolar
       $P_AO_2 = \mathrm{FiO}_2 \cdot (P_{\mathrm{atm}} - P_{\mathrm{H_2O}}) - P_aCO_2 / \mathrm{RQ}$
@@ -2756,7 +2756,7 @@ corrected by setting trigger pressure to −2 cmH2O.*
 
   | Scenario | n | Plateau median (mmHg) | Plateau IQR (mmHg) | Converged |
   |----------|---|------------------------|---------------------|-----------|
-  | S1       | 44 |  643.3 | [592, 668] | 41 / 44 (93 %) |
+  | S1       | 44 |  643.2 | [592, 668] | 40 / 44 (91 %) |
   | S3       |  8 |  143.6 | [ 93, 218] |  8 /  8 (100 %) |
   | S4       |  8 |   72.6 | [ 71,  76] |  8 /  8 (100 %) |
 
