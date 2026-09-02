@@ -1622,3 +1622,112 @@ interchangeable.
 **Still 7 pages over.** About 1,850 words of body prose remain to cut, and the
 legends -- 1,653 words, untouched by this pass and excluded from the body-prose
 measure -- are the largest single reserve.
+
+## 23. The page target: which frame, and where the floor is, 2026-09-02
+
+### 23.1 P.J. counts the whole .docx in double spacing
+
+His brief asks for at most 20 pages double-spaced, against more than 60 at
+present. Four candidate frames were measured on 613f2a6 rebuilt in
+isolation outside the repository, which reproduced its recorded 38 PDF pages and
+so is a faithful control:
+
+| frame | sent 613f2a6 | now 0949d6d |
+|---|---|---|
+| full `.docx`, images embedded, double-spaced | **71** | **44** |
+| figures as separate files, double-spaced | 68 | 40 |
+| + glossary table moved to the supplement | -- | 38 |
+| paper PDF | 38 | 23 |
+| body-prose words, floats stripped | 13,386 | 6,452 |
+
+Only 71 satisfies "more than 60". The `.docx` he was sent is **single-spaced at 39
+pages**, so he was reading it converted to the double spacing he asks for.
+`dispatch_log.md` records the format: ".docx; .pdf twins from the same run".
+
+### 23.2 The floor, and why 20 pages is not reachable
+
+Body prose per block, floats excluded, at 236 words per double-spaced page:
+
+| block | words | pages |
+|---|---|---|
+| Introduction | 789 | 3.3 |
+| Results, six subsections | 1,563 | 6.7 |
+| Discussion | 1,132 | 4.8 |
+| Methods, seven subsections | 2,168 | 9.3 |
+| mandatory npj closing sections | 800 | 3.4 |
+
+Methods is the largest block, and halving the Methods is P.J.'s own directive,
+but section 22 of the npj rules read at source sets a floor against it: Methods
+"should contain all elements necessary to allow interpretation and replication
+of the results". What remains in those seven subsections is the hard
+physiological bounds, the flatline rule, the flag priority order, the seven
+swept ranges and the handling of Pulse's four setup constraints. Cutting the
+~670 words that would reach this register's ~1,500-word Methods target removes
+replication material. **Not done without an explicit instruction.**
+
+The mandatory closing sections (Data availability, Code availability,
+Acknowledgements, Author contributions, Competing interests, Ethics, Consent,
+Materials availability) are 800 words of npj policy and are not cuttable.
+
+**Floor without touching Results, the Discussion P.J. liked, or replication
+material: 38 pages** in the submission frame. Reaching 30-33 needs a further
+1,150 to 1,850 words out of Results or Discussion.
+
+### 23.3 Two measuring instruments that lied, and the method that replaced them
+
+**A bare `pandoc file.tex -o file.docx`** omits the
+`--citeproc --bibliography --csl` flags `build_npj.ps1` passes, so the documents
+it produced were missing part of the reference list: 388 words short and **2
+pages optimistic**. The figure-less frames were first reported as 63 and 36;
+measured through `scripts/tex_to_docx.py`, the converter the build actually
+calls, they are 68 and 38. The check that settles it: every frame of one
+revision must carry an identical word count, because removing an image removes
+no words.
+
+**`check_render.py` does not rebuild.** Run against a build predating the edits
+it reported "36 pages" and PASSED, on a `docxsrc` that still carried text
+deleted hours earlier. Re-run after `build_npj.ps1` the same gate FAILED with
+seven new problems. Rebuild, then check.
+
+**Deciding whether a literal is required: mutation, not inspection.** A
+heuristic that treated every long quoted string in `audit_claims.py` as a pin
+misclassified ledger-anchor `manuscript_text=` descriptions, which never read
+`paper.tex`. Replace the string, run the gate, watch the exit code, with a known
+required string and a known free string as controls. Results for the captions:
+
+| literal | verdict |
+|---|---|
+| `median 0.928` | REQUIRED (crosswalk, sole home is the Figure 3 caption) |
+| `7 green / 29 yellow / 12 red` | REQUIRED (crosswalk, x2) |
+| `hard flags only`, `deviation only` | free -- anchor descriptions, not pins |
+
+Note the flag: `--check-paper-sync` must be passed, or crosswalk pins read as
+free.
+
+### 23.4 The abstract cap has zero headroom
+
+The guard measures the abstract at **exactly 150** against npj's 150-word cap.
+Its counter turns `~` into a space, so `93~\%` is two words as a word processor
+reads it; a `.tex`-side counter that splits `$-2$~cmH$_2$O` into four tokens
+reads 154 and is wrong. Any word added to the abstract must be paid for in the
+same edit. The guard's second invariant also rejects a token such as `%).` as a
+mangled macro, which a first attempt produced.
+
+The abstract is additionally the portal block in
+`preprint_npj/submission_metadata.txt`; the pre-commit hook refuses the commit
+until `scripts/sync_submission_metadata.py` regenerates it.
+
+### 23.5 A traceability gap, untouched
+
+`dispatch_log.md` stops at 2026-08-20. **The 2026-08-25 send to the four
+supervisors has no entry**, so the version they are reviewing is untraced. Not
+written here: it is a dated record, and this session knows neither the
+recipients nor the hour. The build is 613f2a6, paper 38 pages, supplement 52.
+
+### 23.6 Still open
+
+- The reply to P.J. carrying the arithmetic of 23.1 and 23.2.
+- Section 4.7 must declare the second supervisor-review phase; "the
+  supervisor-review phase" and "the final rounds" become false when it does.
+- Whether to spend the two structural levers of 23.1 (figures as separate files
+  is free; the glossary table costs the reader a page-2 reference).
