@@ -148,6 +148,34 @@ if [ -n "$AUDIT_CMD" ]; then
     fi
 fi
 
+# ---- 2b-bis. Citation manifest (npj submission) ----------------------------
+#
+# Added 2026-09-03. During the 2026-08/09 synthesis pass eleven bibliography
+# keys left paper.tex + supplement.tex unnoticed; three took their sentence with
+# them (correct), six left a claim standing with no source, one of those a
+# clinical over-claim that a reference we cite contradicts. Every gate in this
+# hook stayed green throughout, because none of them measures the citation set.
+#
+# The rule the pass was supposed to obey lived in prose on a handoff card.
+# Prose does not run. Dropping the last citation of a key now costs one line in
+# audit/citation_manifest.txt saying why -- which is the whole point.
+if [ -n "$AUDIT_CMD" ]; then
+    if ! $AUDIT_CMD scripts/check_citations.py >/dev/null; then
+        echo ""
+        echo "pre-commit: citation gate FAILED — commit aborted."
+        echo ""
+        echo "  A citation was added, removed, or points at no bibliography entry."
+        echo "  See which, and why it matters:"
+        echo "    uv run python scripts/check_citations.py"
+        echo "  If a key legitimately left with the sentence it supported, record"
+        echo "  the reason under [RETIRED] in audit/citation_manifest.txt."
+        echo "  If a citation was added, refresh the manifest:"
+        echo "    uv run python scripts/check_citations.py --update"
+        echo ""
+        exit 1
+    fi
+fi
+
 # ---- 2c. Publication-gate anchors (content, not line numbers) --------------
 #
 # Eight statements in the package assert in the PRESENT TENSE that the code and

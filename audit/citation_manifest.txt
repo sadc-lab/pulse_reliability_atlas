@@ -1,0 +1,59 @@
+# Citation manifest for the npj submission -- gated by scripts/check_citations.py
+#
+# [ACTIVE]  <key>  <documents that cite it>
+# [RETIRED] <key>  <why it no longer appears -- a real reason, never a placeholder>
+#
+# Regenerate with:  python scripts/check_citations.py --update
+# A key that leaves the corpus lands in [RETIRED] with a placeholder that keeps
+# failing the gate until the reason is written by hand.
+
+[ACTIVE]
+akoumianaki2014  supplement
+ards2012  supplement
+blanch2015  paper+supplement
+bray2019  paper+supplement
+brower2000  supplement
+campolongo2007  paper
+cornish2023  paper+supplement
+evans2021sepsis  supplement
+figueroacasas2016  paper+supplement
+herman2017salib  paper
+hester2011hummod  paper
+iwanaga2022  paper
+katsoulakis2024digitaltwins  paper
+kuczmarski2002cdc  paper+supplement
+lundberg2017  supplement
+lundberg2020tree  supplement
+mancia2023esh  supplement
+marini2018critical  supplement
+marino2013icu  supplement
+morris1991  paper
+nadler1962  paper+supplement
+nin2017  supplement
+pulseabout  supplement
+pulsecardiomethod  supplement
+pulsecircuit  supplement
+pulsefaq  paper+supplement
+pulseinaction  paper
+pulsepatientmethod  supplement
+pulserespmethod  paper+supplement
+pulsesystem  supplement
+pulsevent  supplement
+roza1984metabolic  supplement
+severinghaus1979  supplement
+sinderby1999  supplement
+singer2016  supplement
+sinnige2026active  paper
+thille2006  paper+supplement
+ward2024ventilator  paper+supplement
+webb2020  paper
+webb2022vent  paper+supplement
+west2020respiratory  supplement
+
+[RETIRED]
+atls2018  Class I hemorrhage comparison deleted with its sentence in the 2026-09-02 compression; ATLS / Class I / trauma verified absent from paper, supplement and monograph on 2026-09-03.
+emeriaud2023  PALICC-2 pediatric-severity contrast left the npj submission with its sentence; claim and citation both still stand in the monograph, which carries its own bibliography.
+hennigs2026validation  Prior-work comparison to a ventilation patient-device credibility assessment deleted with its sentence; verified absent from all three documents on 2026-09-03.
+munafo2017  Normative gloss on preregistration. The surviving sentences state only our own preregistration facts, which need no external source. Still cited in the monograph.
+viceconti2021insilico  DEFECT KNOWN AND LEFT: the claim survives reworded at paper.tex:317 (credibility frameworks ... validation itself requires comparison against measured data) and therefore stands with no source. Author decided on 2026-09-03 not to restore the citation. See audit/synthesis_pass_2026_08.md section 25.2.
+wilkinson2016  FAIR gloss; no FAIR claim survives in the submission (zero occurrences in paper.tex and supplement.tex). Still cited in the monograph.

@@ -97,3 +97,11 @@ jobs:
       # identically on a clean checkout and on the authors' full tree.
       - name: Monograph anchor-map audit (fail on any FAIL)
         run: uv run python scripts/audit_claims.py --check-monograph
+
+      # Fourth layer, added 2026-09-03 after eleven bibliography keys left
+      # paper.tex + supplement.tex unnoticed during the synthesis pass: six of
+      # them left a claim standing with no source. Every gate above stayed
+      # green throughout, because none of them measures the citation set.
+      # Invariants and manifest: audit/citation_manifest.txt.
+      - name: Citation manifest gate (fail on any violation)
+        run: uv run python scripts/check_citations.py
