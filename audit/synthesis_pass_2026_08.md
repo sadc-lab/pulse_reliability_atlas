@@ -1983,3 +1983,133 @@ restoration kept the claim and dropped both the figure and the source.
 extract the sentence around the key, then grep the current corpus for that
 sentence's distinctive phrase. A key whose phrase is gone took its claim with
 it; a key whose phrase survives left a claim standing without support.
+
+## 25. The citation loss re-measured from scratch, 2026-09-03
+
+Section 24.8b was re-derived rather than trusted. Two of its conclusions do not
+survive, and the counting instrument it used was defective. Nothing in the
+manuscript was modified.
+
+### 25.1 The counts were understated: the union is 47 -> 36, not 45 -> 34
+
+The regex used in 24.8 (and reproduced at the start of this session) was
+`\cite[tp]*{...}`. It is blind to `\cite[<locator>]{<key>}`. Five such sites
+exist in the supplement, carrying three keys, of which **two are cited nowhere
+else**: `marini2018critical` and `marino2013icu`.
+
+Corrected, with two independent extractors (BRE and ERE) agreeing key for key:
+
+| | sent `613f2a6` | now `9468681` |
+|---|---|---|
+| distinct keys, paper $\cup$ supplement | **47** | **36** |
+| paper.tex alone | 40 | **17** |
+| supplement.tex alone | 24 | 27 |
+
+Third, independent cross-check: `paper.bib` holds **47** entries, exactly **36**
+are cited today, and the **11** uncited entries are byte-for-byte the eleven
+lost keys. No dangling citation exists in either direction. The set of lost keys
+in 24.8 is therefore right; only its totals were wrong.
+
+Also verified: no citation spans a line break (179 raw occurrences of the string
+`\cite` against 173 complete commands; the six-way gap is the English word
+"cited" matched by a degenerate backslash pattern in this shell's `grep`).
+
+### 25.2 `viceconti2021insilico` is NOT a legitimate departure
+
+24.8b listed it under "citation left with its claim". That verdict came from
+grepping the sent sentence's phrase *comparator data*, which the rewrite
+reworded. The claim survives, compressed, at `paper.tex:317` (Discussion):
+
+> It is a curation and review-priority instrument, not a general physiological
+> validation of the engine: credibility frameworks in biomedical modelling treat
+> sensitivity analysis and a bounded domain of applicability as components of
+> assessment, while validation itself requires comparison against measured data
+> this work does not perform.
+
+Sent form, `613f2a6:paper.tex:368`, same clause with the source attached:
+"Frameworks for credibility assessment in biomedical modelling treat
+verification, sensitivity analysis, uncertainty quantification and a bounded
+domain of applicability as components of model assessment; validation itself
+requires comparator data~\cite{viceconti2021insilico}."
+
+This is an attribution to the literature standing with no source. **Sixth
+unsupported claim, and the population is five or six sentences, not four or
+five.**
+
+### 25.3 The three dyssynchrony claims live in TWO documents, not one
+
+24.8b located them "in the supplement". They are also in the monograph, at
+`preprint/manuscript.md:3084`, in the same words. Both loci are **byte-identical
+to `613f2a6`** (verified by `diff`, with a negative control on a line that did
+change). So the synthesis pass did not create them: the supplement and the
+monograph always carried these clinical claims bare, and the paper's twin
+paragraph -- the one that carried `thille2006`, `blanch2015`, `akoumianaki2014`
+and `sinderby1999` -- is what the compression removed.
+
+### 25.4 An over-claim, now demonstrable from a source read in session
+
+Both bare loci read: "clinically undesirable, and **visible only with
+specialised monitoring** such as esophageal pressure or diaphragm electrical
+activity."
+
+The sent paper said the opposite at the same point: "detectable on ventilator
+flow/pressure waveforms, though most directly confirmed with specialised
+monitoring". The two documents contradicted each other at dispatch; the
+compression deleted the accurate one.
+
+`thille2006`, fetched today from NCBI E-utilities (PMID 16896854), Methods:
+*"Gross asynchrony detected visually on 30-min recordings of flow and airway
+pressure was quantified using an asynchrony index."* `blanch2015` (PMID
+25693449) likewise detected 8,731,981 breaths of asynchrony over 7,027 h with
+bedside software and no esophageal or EMG monitoring. **"Only" is false against
+a reference this manuscript itself cites.** `audit/reference_audit.md:798-802`
+already carries the standing warning not to strengthen this wording.
+
+### 25.5 Corrected verdict on all eleven keys
+
+| key | claim today | verdict |
+|---|---|---|
+| `viceconti2021insilico` | survives, reworded, `paper.tex:317` | **unsupported** |
+| `nadler1962` | "same blood volume per kilogram" survives at `paper.tex:298`, unquantified | **unsupported** |
+| `blanch2015` | "clinically undesirable", supp + monograph | **unsupported** |
+| `akoumianaki2014` | "esophageal pressure", supp + monograph | **unsupported** |
+| `sinderby1999` | "diaphragm electrical activity", supp + monograph | **unsupported** |
+| `thille2006` | sub-threshold efforts "unrewarded", supp + monograph | **unsupported** |
+| `atls2018` | ATLS / Class I / trauma: zero occurrences in all three documents | left with its claim |
+| `hennigs2026validation` | credibility assessment of a ventilation model: zero | left with its claim |
+| `emeriaud2023` | PALICC absent from paper and supplement; 7 occurrences in the monograph, **cited there** from `references.bib` | no defect |
+| `munafo2017` | surviving sentences state our own preregistration facts; cited in the monograph | no defect |
+| `wilkinson2016` | no FAIR claim survives in paper or supplement; cited in the monograph | no defect |
+
+What `nadler1962` took with it is a finding, not only a source: that Pulse's
+sex-independent formula does not reproduce the clinically reported male--female
+difference in mL/kg (Nadler p. 226: 64--79.3 mL/kg overall, average 75 for men
+and 66 for women). Absent from paper, supplement and monograph alike. That
+sentence was written during this pass, in the caveat restored at `d88a1ca`.
+
+All five candidate sources were verified at primary-source depth in
+`audit/reference_audit.md` (`akoumianaki2014` at abstract depth only, AJRCCM
+paywall) and all five entries are still in `paper.bib`, which the supplement
+also draws from (`\bibliography{paper}` in both files). `preprint/references.bib`
+never held the four dyssynchrony keys; it would need them only if the monograph
+is repaired too.
+
+### 25.6 Instrument lessons, both paid for today
+
+- **`cut -c1-200` on a LaTeX or Markdown paragraph line hides the match.** Both
+  wrong verdicts in this session's first pass came from reading a truncated
+  prefix and concluding. Read the whole line, or `grep -o` a window around the
+  match.
+- **A phrase search inherits the wording of the version that is gone.** The
+  rewrite renamed "comparator data" to "comparison against measured data", and
+  the claim became invisible to its own audit. Search the *concept* with several
+  wordings, and count occurrences per document before reading.
+- **The `\cite` extractor must accept a locator argument.** `\cite[Ch.~1]{key}`
+  is silently dropped by `\cite[tp]*{`.
+
+### 25.7 Scope of what was checked
+
+Only the eleven keys that left the corpus. The reverse direction -- a key that
+stayed while the sentence around it changed meaning -- was **not** audited, and
+neither was any claim that never carried a citation. Nothing here licenses a
+statement that the corpus is fully supported.
