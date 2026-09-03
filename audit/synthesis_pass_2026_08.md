@@ -2672,3 +2672,75 @@ following one of its promises into Results and comparing the result against
 `preregistration.md`. Reading a section against the section it announces is what
 exposed it -- reading the Introduction alone would have found only the three
 losses in 31.2.
+
+## 32. Section 31 applied, 2026-09-03
+
+Four decisions, all approved on the recommendation given. Three lines of
+`paper.tex`; nothing else in the manuscript.
+
+### 32.1 The four edits
+
+**Methods \S4.6 -- the hypotheses are now stated once.** Inserted before
+"Hypothesis~1 was evaluated...", transcribed from `preregistration.md` (read
+only, never edited):
+
+> Four hypotheses were preregistered before data collection: H1, the top-three
+> inputs account for at least half of the summed $\mu^{*}$ for each output; H2,
+> at least 5~\% of the Morris sample hits at least one silent clamp; H3, at least
+> one solver-divergence zone exists outside the previously characterised
+> 0.91--0.945 band within the seven-input adult envelope; H4, the male and female
+> reference bodies differ in clamping, divergence or $\mu^{*}$ ranking on at
+> least one output, with no direction prespecified.
+
+The trailing sentence also gains H3: it said "hypotheses 2 and 4 are resolved in
+\S2.1" and now says "hypotheses 2, 3 and 4", which is what \S2.1 actually does.
+
+Wording note, deliberate: the preregistration says "Male and female **Pulse
+standard patients**". The paper says "reference bodies" throughout, and must:
+`CLAUDE.md` records that the male surrogate is **not** Pulse's source-code
+standard male (height 180 cm against `heightStandardMale_cm = 177.0`). Copying
+the preregistration's phrase verbatim would have asserted something false.
+
+**Results \S2.1 -- H4 restated.** "H4 is supported: failure modes are
+cell-dependent rather than uniform" becomes "H4 is supported: its preregistered
+criterion is a sex difference in clamping, divergence or $\mu^{*}$ ranking, and
+that divergence asymmetry alone satisfies it." The verdict is unchanged; the
+proposition is now H4's.
+
+**Introduction -- both losses restored in one sentence.** The defining
+parenthetical returns ("which inputs dominate which outputs, where inputs are
+silently clamped, and where the solver diverges"), as does the clause that makes
+room for Cornish ("or, in one external study, falsifying intervention--outcome
+behaviour on a real cohort").
+
+### 32.2 A qualifier I dropped and put back
+
+The first draft of the H3 statement ended at "the 0.91--0.945 band", losing the
+preregistration's "within the 7-input adult envelope". Caught on re-reading my
+own text against the source: it is precisely the failure this whole day has been
+about, committed while repairing it. Restored before the build.
+
+### 32.3 Cost, stated plainly
+
+The paper goes from **23 to 24 pages**. About 110 words were added, and they
+crossed a page boundary. That is real against P.J.'s compression brief, though
+the paper remains far below the 38 pages dispatched. The double-spaced `.docx`
+frame (43 pages at the last measurement) was **not** re-measured.
+
+### 32.4 Verified after
+
+All gates green on a rebuilt package: `audit_claims.py` three modes exit 0,
+`check_render.py` PASSED with the same two accepted residues and zero new,
+`sync_submission_metadata.py --check` PASS, `check_citations.py` PASSED at 41
+keys, citations unchanged (the edits add none).
+
+In the rendered PDF: the four hypotheses, the restored H4 criterion, the
+Introduction parenthetical and the Cornish clause are each present once; "failure
+modes are cell-dependent" is gone.
+
+**A fifth extraction artefact.** The check on the H4 sentence first returned
+zero: the sentence spans a page break, and `pdftotext` had interleaved a form
+feed and the page number "4" inside it. Stripping `\f` and the interleaved
+number showed it immediately. Today's tally is five -- a dehyphenated DOI, a
+dehyphenated "sea-level", a line-truncating `cut`, a multi-byte `\S`, and now a
+page break. Not one was a document defect.
