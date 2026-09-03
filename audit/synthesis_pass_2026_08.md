@@ -2177,3 +2177,122 @@ is a second instrument on the same quantity.
   verified against a recorded checksum rather than assumed. Use an exact-string
   editor for anything containing a backslash; `[\]` is the form that works in
   this shell's `sed`.
+
+## 27. The reverse audit, 2026-09-03: keys that stayed while their sentence moved
+
+Section 25 asked which citations left. This asks the opposite question, which no
+gate covers: of the citations that **stayed**, does each still support the
+sentence it is attached to?
+
+### 27.1 Population and method
+
+80 citation commands in the npj submission: **27 in `paper.tex`, 53 in
+`supplement.tex`** (counted with the locator-aware extractor; the naive one
+under-reports).
+
+Three filters, cheapest first:
+
+1. **Paragraph identity.** A paragraph byte-identical to `613f2a6` cannot have
+   drifted. Paper: **0 of 14** citation-bearing paragraphs survive unchanged --
+   the compression rewrote all of them. Supplement: **24 of 30** unchanged.
+2. **Immediate-context identity**, a 130-character window ending at each
+   citation. Paper 9 of 27 identical, supplement 44 of 52.
+3. **Individual reading** of everything the first two filters did not clear,
+   against the dispatched wording of the same key.
+
+A fourth measurement, orthogonal to the three: **19 citation sites disappeared
+across 14 keys that themselves stayed in the corpus.** The citation gate of
+section 26 cannot see these -- the key is still cited elsewhere, so no entry
+becomes an orphan.
+
+**A limit of filter 2, found by testing it rather than trusting it.** Widening
+the window from 130 to 300 characters drops the paper's "identical" count from 9
+to 4: five sites whose immediate context was untouched sit in sentences that
+changed further back. Those five were read individually. A window test proves
+only what the window covers.
+
+### 27.2 One defect
+
+**`west2020respiratory`.** The alveolar-gas-equation sea-level prediction of
+approximately 663 mmHg is asserted **twice in the paper with no source**: in the
+Section 2.4 body ("approximately 20~mmHg *below* the alveolar-gas-equation
+prediction") and in the Figure 4 caption ("the dash-dotted line at
+663~mmHg the alveolar-gas-equation sea-level prediction"). Both carried
+`\cite{west2020respiratory}` at dispatch. The key is still cited four times in
+the supplement, which is why nothing flagged it. This is an external physiology
+value, not one of our measurements.
+
+### 27.3 Two claims that widened while keeping their citation
+
+- **`hester2011hummod`** -- dispatched: "no comparable publicly available
+  reliability atlas **combining Morris screening with explicit clamping
+  analysis** has been published for either BioGears (Pulse's predecessor) or
+  HumMod". Today: "To our knowledge no comparable publicly available reliability
+  atlas has been published for either BioGears or HumMod". The qualifier that
+  bounded the novelty claim is gone; "To our knowledge" is a partial hedge, not
+  an equivalent. The citation supports HumMod's existence, not the absence of an
+  atlas -- that half rests on the S020 novelty audit, which was run against the
+  **narrow** claim.
+- **`sinnige2026active`** -- dispatched: "showed no difference in
+  **ventilator-free days or mortality**". Today: "showed no difference in
+  **patient-centred outcomes**". The trial's own title names ventilator-free
+  days as the endpoint; the new wording generalises to a category the trial does
+  not report on. Restoring the two named endpoints is a four-word fix.
+
+### 27.4 Two where both readings are defensible
+
+- **`ward2024ventilator`.** The dispatched sentence "Downstream users, including
+  the machine-learning and clinical-AI pipelines that draw on synthetic patient
+  cohorts~\cite{ward2024ventilator}" survives as "For machine-learning pipelines
+  that train on Pulse-generated synthetic patient cohorts, the four-flag
+  classifier doubles as a run-level data filter", uncited. Read as a conditional
+  it needs no source; read as an existence claim about such pipelines it does.
+- **`kuczmarski2002cdc`.** The paper's "The female height matches the CDC 50th
+  percentile" lost its own citation, but the same source is cited one sentence
+  earlier in the same paragraph, on the weight claim.
+
+### 27.5 Verified legitimate, with the reason
+
+- **Seven of the nineteen lost sites are one deleted sentence**: the Methods
+  enumeration of bound provenance, which carried `brower2000`,
+  `severinghaus1979`, `singer2016`, `evans2021sepsis`, `nin2017`,
+  `west2020respiratory` and `mancia2023esh` in a single list. It was replaced by
+  a pointer to Supplement S3, where each source is cited on its own bound.
+- `ward2024ventilator` (2 of 3): both claims deleted outright.
+- `cornish2023`: a list item deleted with its claim; the four substantive sites
+  remain.
+- `bray2019`: dropped from the co-citation `{pulsesystem,bray2019}` on the
+  0.02 s time step; `pulsesystem` still carries that claim.
+- `lundberg2017`: "corroborated by a secondary SHAP analysis" became "The
+  ranking is cross-verified against a SHAP surrogate in Supplement S13", where
+  the citation lives.
+- `pulserespmethod`: a duplicated 5-compartment description consolidated.
+- `ards2012`: the "open-ended below and therefore has no centre" claim sits on
+  `supplement.tex:462`, which cites `ards2012` on the same line.
+- `severinghaus1979` (the second): the claim moved to the supplement, cited.
+
+### 27.6 New text written during the pass, and its sources
+
+Filter 3 surfaced a category the audit had not planned for: **citation-bearing
+text that has no counterpart at dispatch**, so there is nothing to compare it
+to. The Supplement S1 paragraph "Four further implementation choices..." and the
+verbatim Pulse quotation are both of this kind. Checked at source rather than
+assumed:
+
+- the verbatim quote ("a low fidelity clinical approach" / "not necessarily for
+  high fidelity predictive purposes") was re-read during the pass in the local
+  clone, `docs/Methodology/SystemMethodology.md` L261, and the spurious hyphen in
+  "low-fidelity" corrected (section 6 above);
+- `pulsepatientmethod`'s allometric-baseline-with-hard-limits claim is verified
+  at `audit/reference_audit.md:1323`;
+- `pulsecircuit` **does not appear in `reference_audit.md` at all**. Its
+  verification lives in its `paper.bib` `internal_note`, which quotes
+  `docs/Methodology/CircuitMethodology.md` L55 and L99 verbatim and records the
+  deliberate choice to name three element types rather than all seven. Supported,
+  but the register has a gap where a reader would look first.
+
+### 27.7 Scope
+
+The npj submission only. The monograph needed no reverse audit: two commits have
+touched it since dispatch -- `da5bd97`, whose four changed lines carry no
+citation (they are the S021 window-fix numbers), and today's repair.
