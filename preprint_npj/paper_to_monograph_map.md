@@ -751,8 +751,8 @@ caught equally.*
 ## 'MAP [30, 180]~mmHg', 'Vt [50, 1{,}500]~mL', 'SpO$_2$ [50, 100]~\%',
 ## 'PaO$_2$ [20, 600]~mmHg' and 'PaCO$_2$ [10, 120]~mmHg' each occur exactly
 ## once in paper.tex and once in supplement.tex. The values are additionally
-## regex-extracted from src/detector.py HARD_BOUNDS by the 289-anchor layer,
-## which this deletion does not touch.
+## regex-extracted from src/detector.py HARD_BOUNDS by the monograph
+## anchor-map layer, which this deletion does not touch.
 ##
 ## These six were NOT replaced by a literal built from the ledger-anchor names.
 ## Such a literal would have kept the entry count at 98 while guarding no

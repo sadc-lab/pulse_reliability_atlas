@@ -2,7 +2,7 @@
 
 **Purpose.** Verify that one row of `data/runs/full_sweep/aggregated.parquet`
 faithfully represents what the Pulse Physiology Engine v4.3.1 would produce
-*today* for the same inputs. The 247-anchor `scripts/audit_claims.py` ledger
+*today* for the same inputs. The `scripts/audit_claims.py` claims ledger
 guarantees that the manuscript text matches the frozen parquet; this protocol
 closes the "garbage-in" gap from the **other** end -- parquet vs a fresh
 Pulse run.

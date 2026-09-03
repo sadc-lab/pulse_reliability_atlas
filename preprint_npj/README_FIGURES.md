@@ -117,8 +117,8 @@ recipe is:
    the figure automatically on every run.
 
 6. **Re-run `uv run python scripts/verify.py`** and confirm green: figures
-   regenerate, PDFs rebuild, 247-anchor monograph audit + 85-row crosswalk
-   sync remain PASS.
+   regenerate, PDFs rebuild, the monograph audit and the crosswalk sync
+   remain PASS.
 
 ## Why this is a README, not three generator scripts
 

@@ -176,6 +176,31 @@ if [ -n "$AUDIT_CMD" ]; then
     fi
 fi
 
+# ---- 2b-ter. No hard-coded ledger counts in live files ---------------------
+#
+# Added 2026-09-03. Four live files advertised a stale ledger anchor count and a
+# stale crosswalk row count, months after both had grown past them; one of the
+# four, scripts/provenance_check.py, was not even in the register that tracked
+# the other three. Nothing re-measured any of them.
+#
+# audit_claims.py already refuses to hard-code its own total, and says so above
+# the line that prints it. This applies the same rule to live prose: drop the
+# number, or point at the audit output. Dated records under audit/, audits/ and
+# experiments_log/ keep their historical figures and are exempt.
+if [ -n "$AUDIT_CMD" ]; then
+    if ! $AUDIT_CMD scripts/check_stale_counts.py >/dev/null; then
+        echo ""
+        echo "pre-commit: a live file hard-codes a ledger count — commit aborted."
+        echo ""
+        echo "  These rot silently. See which, and why it matters:"
+        echo "    uv run python scripts/check_stale_counts.py"
+        echo "  Drop the number ('the claims-ledger audit'), or point at the audit"
+        echo "  output. Registers under audit/ and experiments_log/ are exempt."
+        echo ""
+        exit 1
+    fi
+fi
+
 # ---- 2c. Publication-gate anchors (content, not line numbers) --------------
 #
 # Eight statements in the package assert in the PRESENT TENSE that the code and

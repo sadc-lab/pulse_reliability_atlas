@@ -1,7 +1,7 @@
 """Provenance spot-check: verify one cell's aggregated.parquet row against a
 fresh Pulse Docker output.csv.
 
-The 247-anchor claims-ledger audit (scripts/audit_claims.py) guarantees that
+The claims-ledger audit (scripts/audit_claims.py) guarantees that
 the manuscript text matches the frozen parquet artefacts; this script closes
 the "garbage-in" gap from the *other* end: parquet vs fresh Pulse engine.
 

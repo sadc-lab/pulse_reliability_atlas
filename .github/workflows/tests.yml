@@ -105,3 +105,11 @@ jobs:
       # Invariants and manifest: audit/citation_manifest.txt.
       - name: Citation manifest gate (fail on any violation)
         run: uv run python scripts/check_citations.py
+
+      # Fifth layer, added 2026-09-03. Four live files advertised a stale
+      # ledger anchor count and a stale crosswalk row count, months after both
+      # had grown past them; one of the four was not even in the register that
+      # tracked the other three. audit_claims.py already refuses to hard-code
+      # its own total; this extends that rule to live prose.
+      - name: No hard-coded ledger counts in live files
+        run: uv run python scripts/check_stale_counts.py
