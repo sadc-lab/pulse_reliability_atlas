@@ -48,7 +48,7 @@ thille2006  paper+supplement
 ward2024ventilator  paper+supplement
 webb2020  paper
 webb2022vent  paper+supplement
-west2020respiratory  supplement
+west2020respiratory  paper+supplement
 
 [RETIRED]
 atls2018  Class I hemorrhage comparison deleted with its sentence in the 2026-09-02 compression; ATLS / Class I / trauma verified absent from paper, supplement and monograph on 2026-09-03.

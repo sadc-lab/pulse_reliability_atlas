@@ -2356,3 +2356,41 @@ version has been opened at that exact locus.**
 The nineteen lost sites of section 27.1 are pairs, not commands, and were
 re-derived with a second, independent extractor: 14 keys, 19 pairs, identical to
 the first count key for key.
+
+## 28. The two decisions of section 27, applied 2026-09-03
+
+Both approved by the author on the recommendation given; three edits to
+`paper.tex`, nothing else in the manuscript touched.
+
+| locus | before | after |
+|---|---|---|
+| `paper.tex:282` (Section 2.4) | "below the alveolar-gas-equation prediction rather than above it" | citation restored: "...prediction~\cite{west2020respiratory} rather than above it" |
+| `paper.tex:290` (Figure 4 caption) | "the alveolar-gas-equation sea-level prediction." -- uncited since before dispatch | same citation added |
+| `paper.tex:323` (Discussion) | "no comparable publicly available reliability atlas has been published" | qualifier restored: "...reliability atlas **combining Morris screening with explicit clamping analysis** has been published" |
+
+The caption was fixed in the same edit although it is not a regression from the
+pass: it names the same external value and had never carried a source.
+
+**Measured after.** `paper.tex` 20 -> **21** cited keys; supplement unchanged at
+32; union unchanged at **41**, because `west2020respiratory` was already cited in
+the supplement. `paper.bbl` 21 bibitems, `supplement.bbl` 32, both matching the
+gate. Pages unchanged at 23 / 56. `audit/citation_manifest.txt` refreshed on one
+line, `west2020respiratory` moving from `supplement` to `paper+supplement`.
+
+**Numbering moved.** Adding a key to the paper renumbers everything after its
+first citation: `[14]` was Nadler in the previous build and is West now, with
+Nadler at `[15]` and Hester at `[16]`. Verified in the rendered PDF that every
+in-text marker still resolves to the intended entry -- `[12]` Thille and `[13]`
+Blanch on the dyssynchrony clause, `[15]` on "within standard clinical
+estimates", `[14]` on both alveolar-gas-equation loci, no unresolved `[?]`.
+
+**An extraction artefact, the second of the day.** The caption check first
+reported the new citation missing, because `pdftotext` dehyphenates a line-broken
+"sea-level" into "sealevel" and the search pattern no longer matched. The same
+class of artefact produced a false missing DOI this morning. When a string search
+fails on a PDF, suspect the extractor before the document.
+
+All gates green after a rebuild: `audit_claims.py` in three modes exit 0,
+`check_render.py` PASSED with the same two accepted residues and zero new,
+`sync_submission_metadata.py --check` PASS, `check_citations.py` PASSED at 41
+keys.
