@@ -2113,3 +2113,67 @@ Only the eleven keys that left the corpus. The reverse direction -- a key that
 stayed while the sentence around it changed meaning -- was **not** audited, and
 neither was any claim that never carried a citation. Nothing here licenses a
 statement that the corpus is fully supported.
+
+## 26. Applied, 2026-09-03: five citations back, one over-claim retracted, one guard wired
+
+Commits `20ea152` (manuscript) and `23ca521` (guard). Working tree clean, all
+gates green: `audit_claims.py` in its three modes exit 0, `check_render.py`
+PASSED on a **rebuilt** package with the same two accepted residues and zero
+new, `sync_submission_metadata.py --check` PASS, `ruff` clean,
+`check_citations.py` PASSED at 41 keys.
+
+### 26.1 What the author decided
+
+| item | decision |
+|---|---|
+| R1/R2 dyssynchrony, supplement + monograph | apply |
+| R3 `viceconti2021insilico` at `paper.tex:317` | **do not restore** -- the claim stays unsupported, knowingly |
+| R4 `nadler1962` in `paper.tex:298` | apply |
+| R5 the Nadler finding in S10, with the parenthesis narrowed | apply |
+| the guard | write it **before** the repairs, so it observes them |
+| the third trap | reduce to "two traps" |
+| clinical cost of the lever in `paper.tex` 2.3 | **add it**, one clause, `thille2006` + `blanch2015` |
+
+### 26.2 Measured, before and after
+
+| | before | after |
+|---|---|---|
+| cited keys, `paper.tex` | 17 | **20** |
+| cited keys, `supplement.tex` | 27 | **32** |
+| distinct, union | 36 | **41** |
+| `paper.bbl` / `supplement.bbl` bibitems | 17 / 27 | **20 / 32** |
+| orphan entries in `paper.bib` | 11, unexplained | **6, each with a recorded reason** |
+| pages, paper / supplement | 23 / 56 | 23 / 56 (unchanged) |
+
+The `.bbl` counts come from the real BibTeX run and agree with the gate's, which
+is a second instrument on the same quantity.
+
+### 26.3 Still open, unchanged in substance
+
+1. `viceconti2021insilico` -- known defect, left by decision, recorded under
+   [RETIRED] in `audit/citation_manifest.txt` so it cannot be forgotten silently.
+2. **The reverse audit.** 41 keys now stay in place; nothing has checked that
+   each still supports the sentence it is attached to after the pass rewrote
+   Results, Methods and Discussion. Same method as section 25, population known.
+3. The semantic cross-reference sweep: 34 pointers, content verified for five.
+4. Re-read the Introduction against the current Results.
+5. The stale anchor counts in `PROVENANCE_CHECK.md:5`,
+   `preprint_npj/README_FIGURES.md:120`, `paper_to_monograph_map.md:754`.
+6. `dispatch_log.md` still stops at 2026-08-20.
+7. The letter to P.J.: the four supervisors read a reference list of 40
+   entries; the paper now renders **20**, so every "ref. [n]" in their copy is
+   void. The handoff card had predicted 40 -> 37.
+
+### 26.4 Two more instrument lessons, both paid for today
+
+- **A mutation test must assert that the mutation landed.** The first attempt at
+  the invariant-B test ran `sed` with a pattern this shell collapses (`\cite`
+  becomes `\cite`, which then fails to match a literal backslash); nothing was
+  substituted, the gate ran on an unmutated file and printed PASSED. A passing
+  mutation test and a test that never ran are indistinguishable from the exit
+  code alone. Count the occurrences after mutating, before reading the result.
+- **The same collapse corrupts a restore.** The inverse `sed` wrote a literal TAB
+  into `paper.tex` in place of `\c`. It was caught because the restore was
+  verified against a recorded checksum rather than assumed. Use an exact-string
+  editor for anything containing a backslash; `[\]` is the form that works in
+  this shell's `sed`.
