@@ -29,6 +29,14 @@ Dated records under audit/, audits/ and experiments_log/ are exempt: a register
 that says "247 anchors on 2026-07-14" is correct as history and must not be
 rewritten. tests/ and attic/ are exempt too.
 
+Known limitation, written down rather than discovered later:
+`preprint_npj/dispatch_log.md` is a dated record of the same kind, but it lives
+in a scanned directory. Its 2026-08-25 entry states the gate state at dispatch
+as "382 anchors, 94 crosswalk rows" -- prose with a space, which this pattern
+does not match, so it passes today. A future entry that wrote "382-anchor"
+would be blocked for stating a historical fact correctly. If that happens, the
+fix is to exempt that one file by path, not to reword the history.
+
 Usage
 -----
     python scripts/check_stale_counts.py        # exit 1 if any live file carries one
