@@ -2580,3 +2580,95 @@ the multi-byte `$\S$` in a UTF-8 locale; `LC_ALL=C` showed "(Methods S4.6)"
 immediately. Today's tally: a dehyphenated DOI, a dehyphenated "sea-level", a
 line-truncating `cut`, and now a multi-byte character. Every one of them looked
 like a document defect and was an instrument defect.
+
+## 31. The Introduction re-read against the current Results, 2026-09-03
+
+The Introduction was halved in `da5bd97` **before** Results, Methods and
+Discussion were rewritten, so it could be announcing a paper that has since
+changed. Nothing checks that coherence. Nothing was modified.
+
+### 31.1 What holds
+
+Every design figure the Introduction states is consistent with Methods and
+Results: seven swept inputs (HR, SBP, DBP, RR, Vt, FiO$_2$, PEEP) against the
+same seven in Methods~\S4.3; six steady-state outputs; four scenarios crossed
+with two reference bodies giving 1{,}280 simulations, matching Results~\S2.1's
+"1{,}280 simulations spanning eight cells of 160 runs each"; the four flags,
+each glossed in the Introduction exactly as Methods~\S4.4 defines it.
+
+The promise "where that influence turns non-linear" is delivered: \S2.2 reports
+23 of the 144 elementary-effect combinations, spread over 17 of the 48
+cell $\times$ output combinations, "so non-linearity is common rather than
+localised".
+
+The Cornish framing is coherent across sections: the Introduction's "largely
+outside the present atlas's six-output cardio-respiratory panel" against the
+Discussion's "82 of 85 fall outside the four-channel overlap ... only 3 of 85
+fall inside it".
+
+**Checked and found NOT to be drift:** the Introduction claims "the first open
+reliability atlas across Pulse's adult critical-care operational **envelope**"
+while the Discussion claims it "across several adult critical-care operational
+**scenarios**". Both formulations are byte-identical to `613f2a6`. The asymmetry
+predates the halving and is recorded, not attributed to it.
+
+### 31.2 Three losses inside the Introduction
+
+1. **The novelty claim lost the parenthetical that defined it.** Dispatched:
+   "no public map of how the engine responds across its user-facing *input*
+   envelope **(which inputs dominate which outputs, where inputs are silently
+   clamped, and where the solver diverges)** has been published". Today the
+   parenthetical is gone. This is the same shape as the `hester2011hummod`
+   qualifier repaired this morning: a novelty claim whose scope was stated, then
+   was not.
+2. **A clause that made room for Cornish is gone.** Dispatched: "Most of that
+   work probes Pulse's *outputs*: validating them against reference data, **or,
+   in one external study, falsifying intervention--outcome behaviour on a real
+   cohort**." Today: "most of that work probes Pulse's *outputs*, validating them
+   against reference data." Three sentences later the same paragraph describes
+   Cornish's causal-falsification framework, which is not validation against
+   reference data.
+3. **Signposting, no factual issue.** Dispatched: "Morris screening answers the
+   first question (input influence and non-linearity), while the four-flag
+   classifier answers the other two: input handling and solver stability." Gone.
+   The reader now maps questions to instruments unaided.
+
+### 31.3 What the re-read surfaced elsewhere, and it is worse
+
+The Introduction is organised around **three questions** and never mentions
+hypotheses -- and that was already true at dispatch, so it is not drift. But
+Results~\S2.1 opens on "**the four preregistered hypotheses**" and the paper
+never states them. Checked against `preregistration.md`, which is a dated record
+and was only read:
+
+| | preregistration.md | paper today |
+|---|---|---|
+| H1 | top-3 inputs account for $\geq 50~\%$ of summed $\mu^{*}$ for each of the six outputs | never stated; "H1 is settled in \S2.2", then \S2.2 gives the result only |
+| H2 | $\geq 5~\%$ of the Morris sample hits at least one silent clamp | "H2, silent input clamping, is *not supported*" -- label right, preregistered threshold gone |
+| H3 | at least one divergence zone outside 0.91--0.945 | correctly stated; the band survives once, in Methods |
+| H4 | "**Male and female** Pulse standard patients differ in reliability behavior (clamping, divergence, or Morris $\mu^{*}$ ranking) on at least one output" | "**H4 is supported: failure modes are cell-dependent rather than uniform**" |
+
+**H4 is misstated.** The proposition the paper attributes to it is not the
+preregistered hypothesis: cell-dependence of failure modes is not a sex
+difference, and no preregistered hypothesis in `preregistration.md` says
+anything about cell-dependence. The **verdict** is right -- H4 is supported, by
+the all-male divergence cluster and by the five surviving sex Wasserstein
+distances restored today -- but a reader checking the paper against the
+preregistration finds a hypothesis reported under the wrong statement.
+
+At dispatch the passage read: "That same asymmetry settles H4, **whose
+preregistered criterion is a sex difference in clamping, divergence *or*
+$\mu^{*}$ ranking**: divergence alone satisfies it". The compression replaced
+that with a different proposition.
+
+**Open for the author, nothing applied:** restore H4's actual criterion, and
+decide whether the paper should state all four hypotheses once rather than
+referring to "the four preregistered hypotheses" it never lists.
+
+### 31.4 Method note
+
+The Introduction itself was largely sound; the serious defect was found by
+following one of its promises into Results and comparing the result against
+`preregistration.md`. Reading a section against the section it announces is what
+exposed it -- reading the Introduction alone would have found only the three
+losses in 31.2.
