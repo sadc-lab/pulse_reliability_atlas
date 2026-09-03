@@ -2720,12 +2720,32 @@ preregistration's "within the 7-input adult envelope". Caught on re-reading my
 own text against the source: it is precisely the failure this whole day has been
 about, committed while repairing it. Restored before the build.
 
+One wording difference remains, recorded rather than repaired: the
+preregistration says "outside the previously characterized **ARDS zone**
+(0.91--0.945)" and the paper's new statement says "outside the previously
+characterised **0.91--0.945 band**". Methods~\S4.3 identifies that band two
+subsections earlier as "the 0.91--0.945 solver-instability zone", so the referent
+is unambiguous; the word "ARDS" is the only loss and it changes no scope.
+
 ### 32.3 Cost, stated plainly
 
-The paper goes from **23 to 24 pages**. About 110 words were added, and they
-crossed a page boundary. That is real against P.J.'s compression brief, though
-the paper remains far below the 38 pages dispatched. The double-spaced `.docx`
-frame (43 pages at the last measurement) was **not** re-measured.
+The paper goes from **23 to 24 pages**. Measured rather than estimated: this
+commit adds **+119 words net** to `paper.tex` (676 added, 557 removed across the
+three edited lines), and the three manuscript commits of the day together take
+the built `paper.docx` from **8{,}368 to 8{,}579 words**, +211. The source deltas
+are +7 (`25bb58f`), +61 (`f3ca3b2`) and +119 (`da65f29`) = +187; the remaining
++24 is the reference list, which gained the `west2020respiratory` entry.
+
+A first draft of this section said "about 110 words", an estimate. It was wrong
+by nine on the one commit and said nothing about the day's total.
+
+That is real against P.J.'s compression brief, though the paper remains far
+below the 38 pages dispatched. The double-spaced `.docx` frame (43 pages at the
+last measurement) was **not** re-measured.
+
+Float placement shifted, all still passing: Figure 1's call-to-render delta went
+from 1 to 2 pages, Figure 3 from 4 to 5, Figure 4 from 4 to 3. `check_render.py`
+gates these and reports PASS on all five.
 
 ### 32.4 Verified after
 
