@@ -2733,8 +2733,13 @@ The paper goes from **23 to 24 pages**. Measured rather than estimated: this
 commit adds **+119 words net** to `paper.tex` (676 added, 557 removed across the
 three edited lines), and the three manuscript commits of the day together take
 the built `paper.docx` from **8{,}368 to 8{,}579 words**, +211. The source deltas
-are +7 (`25bb58f`), +61 (`f3ca3b2`) and +119 (`da65f29`) = +187; the remaining
-+24 is the reference list, which gained the `west2020respiratory` entry.
+are +7 (`25bb58f`), +61 (`f3ca3b2`) and +119 (`da65f29`) = +187, leaving +24 in
+the built artefact. The `west2020respiratory` bibliography entry accounts for
+**20** of those, measured in the rendered `.docx` ("West, J. B. \& Luks, A. M.
+West's Respiratory Physiology: The Essentials. (Wolters Kluwer Health /
+Lippincott, Philadelphia, PA, 2020).") -- **the remaining 4 are not attributed**.
+A first version of this paragraph attributed all 24 to that entry, which was an
+inference, not a measurement.
 
 A first draft of this section said "about 110 words", an estimate. It was wrong
 by nine on the one commit and said nothing about the day's total.
