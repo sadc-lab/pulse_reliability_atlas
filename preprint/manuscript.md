@@ -3081,7 +3081,7 @@ always set `InspirationPatientTriggerPressure` or
 causes Pulse to enable a respiratory-model-driven patient trigger
 (`SEMechanicalVentilatorVolumeControl.cpp` lines 120–128), which
 produces realistic patient-ventilator dyssynchrony but renders
-delivered tidal volume non-steady at extreme input combinations. For sensitivity-analysis-style sweeps that require deterministic, steady-state-interpretable tidal volume, setting `InspirationPatientTriggerPressure = −2 cmH2O` collapses that variability (validated by [S014](#s014): median Vt_cv 0.351 to 0.016, a 96 % reduction; 78.1 % of locked runs below the 0.05 steady-state threshold). This is best read as a data-generation / exploration lever, not a clinical recommendation: locking the trigger to a fixed threshold leaves simulated inspiratory efforts below −2 cmH2O unrewarded, corresponding in a real patient to a shift from patient-responsive assist-control toward controlled ventilation — clinically undesirable, and visible only with specialised monitoring such as esophageal pressure or diaphragm electrical activity. The −2 cmH2O lock is therefore an instrument for controlled software exploration and deterministic synthetic-data generation, not guidance for clinically realistic ventilation.
+delivered tidal volume non-steady at extreme input combinations. For sensitivity-analysis-style sweeps that require deterministic, steady-state-interpretable tidal volume, setting `InspirationPatientTriggerPressure = −2 cmH2O` collapses that variability (validated by [S014](#s014): median Vt_cv 0.351 to 0.016, a 96 % reduction; 78.1 % of locked runs below the 0.05 steady-state threshold). This is best read as a data-generation / exploration lever, not a clinical recommendation: locking the trigger to a fixed threshold leaves simulated inspiratory efforts below −2 cmH2O unrewarded, a form of patient-ventilator dyssynchrony [@thille2006], corresponding in a real patient to a shift from patient-responsive assist-control toward controlled ventilation — clinically undesirable [@blanch2015], and detectable on ventilator flow/pressure waveforms, though most directly confirmed with specialised monitoring such as esophageal pressure [@akoumianaki2014] or diaphragm electrical activity [@sinderby1999]. The −2 cmH2O lock is therefore an instrument for controlled software exploration and deterministic synthetic-data generation, not guidance for clinically realistic ventilation.
 
 ### 4.3 Implications for machine-learning pipelines using Pulse
 
@@ -4038,6 +4038,36 @@ during the literature-review pass logged in
   esummary during the 2026-05-15 novelty audit ([S020](#s020)); the atlas's
   contribution is the Pulse-engine manifestation and the corrective
   trigger setting (−2 cmH2O), not the discovery of dyssynchrony.
+* []{#ref-thille2006} Thille AW, Rodriguez P, Cabello B, Lellouche F, Brochard L.
+  *Patient-ventilator asynchrony during assisted mechanical ventilation.*
+  Intensive Care Medicine 32(10):1515-1522 (2006). DOI:
+  [10.1007/s00134-006-0301-8](https://doi.org/10.1007/s00134-006-0301-8).
+  PMID: 16896854. Cited in §4.2: sub-threshold inspiratory efforts left
+  unrewarded are a form of patient-ventilator dyssynchrony. Its Measurements
+  section also records that asynchrony was "detected visually on 30-min
+  recordings of flow and airway pressure", which is why §4.2 no longer says
+  specialised monitoring is the only way to see it.
+* []{#ref-blanch2015} Blanch L, Villagra A, Sales B, et al. *Asynchronies during
+  mechanical ventilation are associated with mortality.* Intensive Care
+  Medicine 41(4):633-641 (2015). DOI:
+  [10.1007/s00134-015-3692-6](https://doi.org/10.1007/s00134-015-3692-6).
+  PMID: 25693449. Cited in §4.2 for "clinically undesirable". The study stops
+  short of causation — its own conclusions call for further work on whether
+  asynchrony is a marker or a cause — so this wording must not be strengthened
+  into a mortality claim.
+* []{#ref-akoumianaki2014} Akoumianaki E, Maggiore SM, Valenza F, et al. (PLUG
+  Working Group, ESICM). *The application of esophageal pressure measurement in
+  patients with respiratory failure.* American Journal of Respiratory and
+  Critical Care Medicine 189(5):520-531 (2014). DOI:
+  [10.1164/rccm.201312-2193CI](https://doi.org/10.1164/rccm.201312-2193CI).
+  PMID: 24467647. Cited in §4.2: esophageal pressure as a specialised
+  confirmation of inspiratory effort. Verified at abstract depth only
+  (journal paywall).
+* []{#ref-sinderby1999} Sinderby C, Navalesi P, Beck J, et al. *Neural control of
+  mechanical ventilation in respiratory failure.* Nature Medicine
+  5(12):1433-1436 (1999). DOI: [10.1038/71012](https://doi.org/10.1038/71012).
+  PMID: 10581089. Cited in §4.2: diaphragm electrical activity (EAdi) as the
+  other specialised confirmation.
 
 **Reproducibility / methods-paper integrity**
 
