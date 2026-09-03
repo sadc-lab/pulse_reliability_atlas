@@ -2394,3 +2394,110 @@ All gates green after a rebuild: `audit_claims.py` in three modes exit 0,
 `check_render.py` PASSED with the same two accepted residues and zero new,
 `sync_submission_metadata.py --check` PASS, `check_citations.py` PASSED at 41
 keys.
+
+## 29. The semantic cross-reference sweep, 2026-09-03 -- and a decision it reverses
+
+### 29.1 Population, and what was already gated
+
+**32 pointers** from `paper.tex` into supplement labels, **26 distinct labels**,
+**zero dangling**: every target exists. (The handoff card said 34 and 27; the
+corpus has changed since, and this count is the measured one.)
+
+`check_render.py`'s `crossdoc` check already gates the **other** direction --
+`\mainref{label}{number}` from the supplement into the paper -- and only the
+**number**. Nothing in the repository has ever checked whether a target section
+delivers what the pointing sentence promises. That is what this sweep did.
+
+Method: extract each target section by label, test it for the items its pointing
+sentence names, then **read every apparent failure** rather than reporting it.
+Four of the five keyword failures dissolved on reading:
+
+- `sec:s1` -- "lumped", "real-time" and "pharmacological" are absent as words but
+  present as content ("network of coupled electrical-circuit analogues", "about
+  5--10$\times$ real time", "drug sub-models").
+- `sec:s3-decomposition` -- 97 words of prose, but its four promised items are
+  delivered by the four panels of its figure, as a previous reading also found.
+- `sec:s2` -- "acceptance" is absent as a word; the bands are there ("Heart-rate
+  initialisation accepted only in the range 50--110~bpm; respiratory-rate ... 8--20").
+- `sec:s10` -- half the promise is delivered (see below).
+
+**25 of 26 labels deliver what is promised.**
+
+### 29.2 The one broken promise, and what it uncovered
+
+`paper.tex:298` (Section 2.5) ends: "the per-output comparison against its
+within-sex null, and the full override protocol, are in
+Supplement~\S\ref{sec:s10}."
+
+Section S10 delivers the **override protocol** (`BloodVolumeBaseline` three
+times, the 4,400 mL bracket, 20 / 20 to 0 / 20). It delivers **no per-output
+comparison and no null**: "within-sex", "Wasserstein", "null" and "per-output"
+all occur zero times in it. The phrase "within-sex null" occurs **once in the
+whole corpus** -- in that sentence, which was written during this pass.
+
+Pulling that thread found the cause, which is larger than the pointer.
+
+**The compression deleted a Results finding.** At `613f2a6` the Discussion read:
+
+> A third trap survives flag-based curation. Sex-conditioned distributional
+> differences remain detectable even among clean runs: five of the 24
+> sex-stratified Wasserstein comparisons survive Benjamini--Hochberg correction,
+> all on gas-exchange outputs --- PaCO$_2$ in S1--S3, and SpO$_2$ and PaO$_2$ in
+> S4 (\S\ref{sec:results-sex}). The affected outputs therefore vary by scenario.
+> These comparisons establish a sex-conditioned distributional signal without
+> identifying a single physiological mechanism or a scenario-independent
+> direction of effect.
+
+None of that is in the current paper, under any wording tested. Three
+consequences, each verified:
+
+1. **The Methods describe an analysis the paper never reports.** `paper.tex`
+   still specifies the per-(scenario $\times$ output) Wasserstein distances, the
+   permutation null of 2,000 relabellings, and Benjamini--Hochberg at $q = 0.05$
+   over the 24-test family. No result for that family appears anywhere in the
+   paper.
+2. **A supplement cross-reference now points at nothing.** Section S6-rho states
+   that "PaCO$_2$ carries three of the five surviving Wasserstein distances
+   **reported in Section 2.5 of the main manuscript**". Section 2.5 reports no
+   such thing today. `crossdoc` cannot see this: the section number is still
+   correct, only its content is gone.
+3. **The finding survives in the monograph**, which reports "5 of 24 cell $\times$
+   output Wasserstein distances survive the permutation null". So the npj
+   submission alone lost it. (An earlier search for "five of the 24" returned
+   zero there; the monograph writes "5 of 24". Wording-dependent search, again.)
+
+### 29.3 This reverses the "two traps" decision taken this morning
+
+Section 24.5 recorded, and this morning's work repeated, that "the third trap was
+**never named anywhere**". **That is false.** It was named and fully stated in
+the dispatched Discussion, in the passage quoted above. What neither the register
+nor this morning's check did was open the **dispatched paper** at that locus: the
+verification looked at the current paper, at the supplement, and at S17, and
+concluded from three absences.
+
+On that false premise the author approved reducing "Three traps" to "two" and
+deleting the deferral sentence, applied in `25bb58f`. The deferral sentence was
+indeed an invention of the compression -- at dispatch the paper's single S17
+pointer sits in a different sentence, about "further analyses ... each fully
+documented in Supplement S17" -- so removing **it** was right. Reducing the count
+to two was right only if the third trap is genuinely gone for good, which is now
+a live question rather than a settled fact.
+
+**Open for the author, nothing applied:** restore the third trap with its result,
+which simultaneously repairs the orphaned Methods paragraph, the S6-rho pointer
+and the S10 promise; or accept the loss and additionally repair the two pointers
+that still advertise it.
+
+### 29.4 A smaller terminology point in the same sentence
+
+"its **within-sex** null" does not match the Methods, which describe "a
+permutation null of 2,000 random relabellings" -- a permutation of the sex labels
+is a **between-sex** null of no sex effect. The phrase entered during this pass
+and appears nowhere else.
+
+### 29.5 Method note
+
+Every failure in this sweep was a false alarm except one, and the one real defect
+was found by a keyword test whose other four hits were noise. A sweep like this
+is only as good as the reading that follows it: reporting the keyword output
+would have produced four false defects and buried the true one among them.
