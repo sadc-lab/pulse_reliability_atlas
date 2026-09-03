@@ -436,3 +436,39 @@ dispatch and is not hashed here.
 §2 and §2.1-§2.6, §4.1-§4.5, and the closing Discussion paragraphs, with their
 tables, figures and legends. NOT read line by line: §4.6 onward, and the
 Supplement body. Reviewer comments there are expected rather than duplicates.
+
+## 2026-08-25 — co-author review round (paper + supplement + monograph, PDF + DOCX)
+
+Supersedes every entry above. This is the dispatch the co-authors are reading.
+
+| Field | Value |
+|---|---|
+| Sent | 2026-08-25, 19:18 France time, from Paris |
+| Recipients | the four supervising co-authors |
+| Source commit | `613f2a621803489f1b7ffa157a5e33eec48d864c` |
+| Format sent | `.pdf` and `.docx` |
+| Artefacts | paper, supplement, and the companion technical monograph |
+| Pages at dispatch | 38 (paper) / 52 (supplement) / 119 (monograph) |
+| Gate state at dispatch | green: 382 anchors, 94 crosswalk rows |
+
+**No SHA-256 hashes for this dispatch, and they cannot be recovered.** Every
+earlier entry pins the artefacts by hash; this one cannot. `preprint_npj/build/`
+and `preprint/build/` are gitignored, so no commit carries a built file, and both
+directories have since been overwritten by later rebuilds. Rebuilding `613f2a6`
+today would produce hashes of a *reproduction*, not of the files that were sent,
+and recording those in this column would assert something false. The source
+commit is pinned instead, which is what identifies the content; the bytes that
+left the machine are no longer identifiable.
+
+**Entry written 2026-09-03**, from the author's own record of the send, nine days
+after the fact. The delay is itself the reason the hashes are gone: the log was
+not filled at dispatch time, and the build directories did not survive the wait.
+Later dispatches should be logged before the next build runs.
+
+**The manuscript has moved since.** Anything in the copies the co-authors hold is
+pinned to `613f2a6` and no longer matches the working tree: as of 2026-09-03 the
+paper renders 24 pages against 38, and its reference list 21 entries against the
+40 distinct keys the dispatched source cites. Every numbered citation in their
+copy therefore points at a different work than the same number does in the
+current build. The 40 is counted from `613f2a6:preprint_npj/paper.tex`, not read
+off the dispatched PDF, which is gone with the hashes.
