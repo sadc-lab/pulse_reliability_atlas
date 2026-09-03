@@ -2213,43 +2213,67 @@ only what the window covers.
 
 ### 27.2 One defect
 
-**`west2020respiratory`.** The alveolar-gas-equation sea-level prediction of
-approximately 663 mmHg is asserted **twice in the paper with no source**: in the
-Section 2.4 body ("approximately 20~mmHg *below* the alveolar-gas-equation
-prediction") and in the Figure 4 caption ("the dash-dotted line at
-663~mmHg the alveolar-gas-equation sea-level prediction"). Both carried
-`\cite{west2020respiratory}` at dispatch. The key is still cited four times in
-the supplement, which is why nothing flagged it. This is an external physiology
-value, not one of our measurements.
+**`west2020respiratory`.** The Section 2.4 sentence "the converged S1 plateau
+median was 643~mmHg, sitting approximately 20~mmHg *below* the
+alveolar-gas-equation prediction rather than above it" carries **no citation**.
+At dispatch the same sentence read "...below the simple alveolar-gas-equation
+prediction at sea level of $\approx$663~mmHg (FiO$_2$ = 1.0, $P_B$ = 760,
+$P_{\mathrm{H_2O}}$ = 47, PaCO$_2$ = 40, $R$ = 0.8)~\cite{west2020respiratory}".
+The compression removed the value, the parameters and the source together,
+keeping the comparison. The key is still cited four times in the supplement,
+which is why nothing flagged it. This is an external physiology value, not one
+of our measurements.
 
-### 27.3 Two claims that widened while keeping their citation
+**One locus, not two — corrected on re-check.** The Figure 4 caption also names
+"the dash-dotted line at $\approx$~663~mmHg the alveolar-gas-equation sea-level
+prediction", and it too is uncited; but that caption sentence is **byte-identical
+to the dispatched version and was uncited there as well**. It is a pre-existing
+state in the copy the supervisors are reading, not a regression from this pass.
+Worth fixing in the same edit as the body sentence, and worth not reporting as
+something the pass broke.
+
+### 27.3 One claim that widened while keeping its citation
 
 - **`hester2011hummod`** -- dispatched: "no comparable publicly available
   reliability atlas **combining Morris screening with explicit clamping
   analysis** has been published for either BioGears (Pulse's predecessor) or
   HumMod". Today: "To our knowledge no comparable publicly available reliability
   atlas has been published for either BioGears or HumMod". The qualifier that
-  bounded the novelty claim is gone; "To our knowledge" is a partial hedge, not
-  an equivalent. The citation supports HumMod's existence, not the absence of an
-  atlas -- that half rests on the S020 novelty audit, which was run against the
-  **narrow** claim.
-- **`sinnige2026active`** -- dispatched: "showed no difference in
-  **ventilator-free days or mortality**". Today: "showed no difference in
-  **patient-centred outcomes**". The trial's own title names ventilator-free
-  days as the endpoint; the new wording generalises to a category the trial does
-  not report on. Restoring the two named endpoints is a four-word fix.
+  bounded the novelty claim is gone. **"To our knowledge" was already there at
+  dispatch** -- it is not a hedge added in compensation, and nothing else was
+  added in the qualifier's place. The citation supports HumMod's existence, not
+  the absence of an atlas; that half rests on the S020 novelty audit, which was
+  run against the **narrow** claim.
 
-### 27.4 Two where both readings are defensible
+### 27.4 Three flagged on inspection, all three dissolved by reading the source
 
-- **`ward2024ventilator`.** The dispatched sentence "Downstream users, including
-  the machine-learning and clinical-AI pipelines that draw on synthetic patient
-  cohorts~\cite{ward2024ventilator}" survives as "For machine-learning pipelines
-  that train on Pulse-generated synthetic patient cohorts, the four-flag
-  classifier doubles as a run-level data filter", uncited. Read as a conditional
-  it needs no source; read as an existence claim about such pipelines it does.
-- **`kuczmarski2002cdc`.** The paper's "The female height matches the CDC 50th
-  percentile" lost its own citation, but the same source is cited one sentence
-  earlier in the same paragraph, on the weight claim.
+Recorded because a reader of the first three sections would otherwise inherit
+them as open items.
+
+- **`sinnige2026active` -- NOT a defect.** The wording moved from "no difference
+  in ventilator-free days or mortality" to "no difference in patient-centred
+  outcomes", which looked like a generalisation past the trial's endpoint. The
+  abstract, fetched from NCBI (PMID 41361939), settles it the other way: the
+  trial's own IMPORTANCE sentence frames the question as the effect "on
+  **patient-centered outcomes**", and its RESULTS read "There were no differences
+  in secondary outcomes **except for ventilation quality**" -- the secondary
+  outcomes being mortality, duration of ventilation in survivors, and ICU and
+  hospital length of stay. The compressed wording is supported, and closer to the
+  trial's own framing than the dispatched one. Reasoning from the article title
+  alone would have produced a false correction.
+- **`ward2024ventilator` -- NOT a defect.** The dispatched appositive "the
+  machine-learning and clinical-AI pipelines that draw on synthetic patient
+  cohorts~\cite{ward2024ventilator}" asserted that such pipelines exist, which is
+  why it carried a citation. Today's sentence is a conditional -- "For
+  machine-learning pipelines that train on Pulse-generated synthetic patient
+  cohorts, the four-flag classifier doubles as a run-level data-quality contract"
+  -- and asserts nothing about their existence. The existence claim still stands
+  elsewhere in the paper, cited to the same key.
+- **`kuczmarski2002cdc` -- NOT a defect.** "The female height matches the CDC
+  50th percentile" is the sentence immediately after "Both weights are ... CDC
+  growth-chart 50th-percentile weight-for-age values for each
+  sex~\cite{kuczmarski2002cdc}", and the paragraph closes with a pointer to
+  Supplement S3-bodies, which carries the same citation on the height claim.
 
 ### 27.5 Verified legitimate, with the reason
 
@@ -2296,3 +2320,39 @@ assumed:
 The npj submission only. The monograph needed no reverse audit: two commits have
 touched it since dispatch -- `da5bd97`, whose four changed lines carry no
 citation (they are the S021 window-fix numbers), and today's repair.
+
+### 27.8 Correction, same day: three of the four flags did not survive checking
+
+Sections 27.2 to 27.4 above are the corrected text. What they originally said,
+and why it was wrong, is recorded here so the wrong version cannot be copied
+forward the way section 24.8's error nearly was this morning.
+
+| first written | after checking |
+|---|---|
+| the 663 mmHg value is uncited **twice** in the paper, both cited at dispatch | **once**. The Figure 4 caption is byte-identical to the dispatched version and was uncited there too -- pre-existing, not a regression |
+| `sinnige2026active` widened past the trial's endpoint | **not a defect.** The trial's own abstract frames its question as the effect on "patient-centered outcomes" and reports no difference in any secondary outcome except ventilation quality |
+| `hester2011hummod` lost its qualifier, with "To our knowledge" added as a partial hedge | the qualifier loss is real; **"To our knowledge" was already in the dispatched sentence** |
+| `ward2024ventilator`: two defensible readings | **not a defect.** The dispatched appositive asserted such pipelines exist; today's conditional asserts nothing, and the existence claim survives elsewhere in the paper, cited to the same key |
+| `kuczmarski2002cdc`: two defensible readings | **not a defect.** The citation sits on the previous sentence and the paragraph points at Supplement S3-bodies, which cites it on the height claim |
+
+**What actually remains open: one defect and one widened claim.**
+
+**The lesson, and it is the same one twice in one day.** Both false flags came
+from reasoning about a source instead of opening it. `sinnige2026active` was
+judged from the article *title*, which names ventilator-free days; the abstract's
+own framing is broader and supports the compressed wording. The 663 mmHg count
+came from a sentence-splitting grep whose windows were truncated at the periods
+inside "0.8" and "1.0", so a caption that had never carried a citation looked
+like one that had lost it. **A regression is only a regression once the earlier
+version has been opened at that exact locus.**
+
+### 27.9 Two counts, two units -- do not merge them
+
+- **80 citation commands** in the current submission (27 `paper.tex`, 53
+  `supplement.tex`). This is the population section 27.1 audits.
+- **84 (key, site) pairs**, because a multi-key `\cite{a,b}` is one command and
+  two pairs. The dispatched submission held **108** such pairs.
+
+The nineteen lost sites of section 27.1 are pairs, not commands, and were
+re-derived with a second, independent extractor: 14 keys, 19 pairs, identical to
+the first count key for key.
