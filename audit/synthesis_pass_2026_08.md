@@ -2488,12 +2488,22 @@ which simultaneously repairs the orphaned Methods paragraph, the S6-rho pointer
 and the S10 promise; or accept the loss and additionally repair the two pointers
 that still advertise it.
 
-### 29.4 A smaller terminology point in the same sentence
+### 29.4 A terminology point that turned out to be wrong -- retracted
 
-"its **within-sex** null" does not match the Methods, which describe "a
-permutation null of 2,000 random relabellings" -- a permutation of the sex labels
-is a **between-sex** null of no sex effect. The phrase entered during this pass
-and appears nowhere else.
+First written here: *"its **within-sex** null" does not match the Methods, which
+describe a permutation null of 2,000 random relabellings -- a permutation of the
+sex labels is a between-sex null. The phrase entered during this pass and appears
+nowhere else.*
+
+**Both halves are false, and checking the repository rather than reasoning showed
+it.** `preprint_npj/paper_to_monograph_map.md` describes the pinned N = 2,000 as
+covering the "Wasserstein **within-sex** permutation null", and
+`scripts/audit_claims.py:2511` carries the same phrase, deriving the value from
+`src/analysis_compare.py`'s `wasserstein_per_output()` default. The term is the
+codebase's own, predating this pass by months. The monograph and the paper's
+Methods say "the permutation null" without the qualifier, which is why the
+restored sentence in section 30 uses that shorter form -- a choice of the
+corpus's dominant wording, **not** a correction of an error.
 
 ### 29.5 Method note
 
@@ -2501,3 +2511,72 @@ Every failure in this sweep was a false alarm except one, and the one real defec
 was found by a keyword test whose other four hits were noise. A sweep like this
 is only as good as the reading that follows it: reporting the keyword output
 would have produced four false defects and buried the true one among them.
+
+## 30. The third trap and its result, restored 2026-09-03
+
+Both decisions of section 29 approved on the recommendation given. Two lines of
+`paper.tex`, nothing else in the manuscript.
+
+**Results, Section 2.5.** The pointer that promised what Supplement S10 does not
+hold is replaced by the result itself, in the corpus's own wording:
+
+> Divergence is one axis of sex-stratified behaviour; the steady-state values
+> separate far less. Across the 24 (scenario $\times$ output) comparisons, the
+> Wasserstein distance between the male and female clean-run distributions
+> exceeds its permutation null on six, of which five survive Benjamini--Hochberg
+> correction (Methods~\S\ref{sec:methods-stats}); all five are gas-exchange
+> channels --- PaCO$_2$ in S1--S3, with SpO$_2$ and PaO$_2$ in S4. The full
+> override protocol is in Supplement~\S\,\ref{sec:s10}.
+
+The pointer now promises only the override protocol, which S10 does hold. The
+dispatched sentence's "(the latter two at $p < 0.001$)" is not restored --
+compression, no claim changed.
+
+**Discussion.** "Two traps" returns to "Three traps", and the third is named in
+one clause instead of the dispatched paragraph:
+
+> The third survives flag-based curation altogether: sex-conditioned
+> distributional differences remain detectable even among clean runs
+> (\S\ref{sec:results-sex}), without a single mechanism or a scenario-independent
+> direction of effect.
+
+The invented deferral to Supplement S17 stays deleted; it never had a referent.
+
+### 30.1 What this repaired, checked one by one
+
+- The Methods' 24-test Wasserstein family now has a reported result.
+- Supplement S6-rho's "PaCO$_2$ carries three of the five surviving Wasserstein
+  distances reported in Section 2.5" is true again: the paper states five
+  survivors, of which PaCO$_2$ in S1, S2 and S3 are three.
+- The Section 2.5 pointer no longer promises content S10 does not carry.
+
+### 30.2 Anchoring, checked rather than assumed
+
+The claim is not orphaned: `scripts/audit_claims.py` carries the anchor "H4: 5/24
+Wasserstein survive BH-FDR" with `manuscript_text="5 of 24 cell x output
+Wasserstein survive BH-FDR q=0.05"`, and `--check-monograph` verifies it. That
+anchor matches the **monograph's** wording, not the paper's, and the crosswalk
+has no row pinning the paper-side "six" and "five". That gap is pre-existing --
+it was the same at dispatch -- and is recorded here rather than closed, because
+adding a crosswalk row is a change to gated machinery.
+
+### 30.3 Verified after
+
+`paper.tex` 21 cited keys, union 41, unchanged: the restoration adds no citation.
+Pages unchanged at 23 / 56. All gates green on a rebuilt package --
+`audit_claims.py` three modes exit 0, `check_render.py` PASSED with the same two
+accepted residues and zero new, `sync_submission_metadata.py --check` PASS,
+`check_citations.py` PASSED.
+
+In the rendered PDF: "exceeds its permutation null on six", "five survive
+Benjamini", "Three traps documented" and "The third survives flag-based
+curation" all present once; "within-sex null" gone; no unresolved `[?]`; and
+`Methods~\S\ref{sec:methods-stats}` resolves to "Methods $\S$4.6", which is
+"Statistical analyses", the sixth Methods subsection.
+
+**A fourth extraction artefact, same family as the day's others.** The check on
+that cross-reference first came back empty because `grep`'s `.` would not cross
+the multi-byte `$\S$` in a UTF-8 locale; `LC_ALL=C` showed "(Methods S4.6)"
+immediately. Today's tally: a dehyphenated DOI, a dehyphenated "sea-level", a
+line-truncating `cut`, and now a multi-byte character. Every one of them looked
+like a document defect and was an instrument defect.
