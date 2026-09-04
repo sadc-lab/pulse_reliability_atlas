@@ -1,0 +1,31 @@
+# Back-reference manifest -- assertions in supplement.tex about what paper.tex says.
+#
+# Format:  <clause key><TAB><probe>
+#   clause key : the matched clause, exactly as scripts/check_backrefs.py --list prints it
+#   probe      : a literal string that must remain present in paper.tex, or POINTER
+#                for a clause that only points at a section and asserts no content.
+#
+# Written 2026-09-04, after an audit found that supplement S6 still opened with
+# "The Discussion of the main manuscript reports that the cross-sex Spearman
+# rank correlation ..." months after the September condensation pass had deleted
+# that result from the paper. check_render's crossdoc gate verifies only the
+# NUMBER in \mainref{}{}; audit_claims verifies numeric literals against
+# artefacts; neither measures whether the paper still carries what the
+# supplement says it carries.
+#
+# When a probe fails: either restore the claim in paper.tex, or reword the
+# supplement and update the probe here. Do not weaken a probe to make the gate
+# pass -- that is the failure this file exists to catch.
+
+main manuscript states the constants the atlas runs on: the hard physiological bounds and th	HR [20, 220]~bpm
+main manuscript records a post hoc deviation between the preregistered traffic-light rule and	Post hoc deviation from the preregistered traffic-light rule
+main manuscript keeps the three terms needed to read its figures	Terms used in this paper
+main manuscript reports per-cell counts under the locked four-flag classifier	Per-cell flag breakdown across the eight scenario
+main manuscript reports the cross-sex Spearman rank correlation $\rho$ on Morris $\mu^{*}$ in	Spearman $\rho$ point estimates of 0.75--1.00
+main manuscript reports that setting Pulse's \texttt{InspirationPatientTriggerPressure} to $-	collapses the median Vt CV from 0.351 to 0.016
+main manuscript reports that the locked 120-second simulation window is insufficient for arte	40 of 44 reruns (90.9~\%)
+main manuscript reports that all 20 of 1{,}280 input-extreme-regime divergences fall on the m	all 20 fell on the male reference body
+main manuscript carries a forward-looking note on engine-side infrastructure suggestions for	the atlas also serves the engine's maintainers
+main manuscript); a one-line note in the patient-baseline reference table would have saved the investig	POINTER
+main manuscript reports that, under increasing ARDS severity, Pulse's output heart rate decou	a compensatory tachycardia that decouples output from input heart rate under hypoxemia
+main manuscript), which keeps the assumption auditable	POINTER

@@ -113,3 +113,13 @@ jobs:
       # its own total; this extends that rule to live prose.
       - name: No hard-coded ledger counts in live files
         run: uv run python scripts/check_stale_counts.py
+
+      # Sixth layer, added 2026-09-04. Supplement S6 still opened with "The
+      # Discussion of the main manuscript reports that the cross-sex Spearman
+      # rank correlation ..." after the September condensation pass had deleted
+      # that result from the paper. Nothing measured it: check_render's crossdoc
+      # check verifies only the NUMBER in \mainref{}{}, audit_claims verifies
+      # numeric literals, and a pointer-following sweep cannot see a pointer
+      # that was removed. Manifest: audit/backref_manifest.txt.
+      - name: Supplement back-references still hold in the paper
+        run: uv run python scripts/check_backrefs.py

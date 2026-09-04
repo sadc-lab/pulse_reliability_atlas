@@ -201,6 +201,32 @@ if [ -n "$AUDIT_CMD" ]; then
     fi
 fi
 
+# ---- 2b-bis. Supplement back-references to the paper -----------------------
+#
+# Added 2026-09-04. supplement.tex tells the reader what the main manuscript
+# says ("Section 2.5 of the main manuscript reports that ..."). Those are claims
+# about another document and nothing measured them. Supplement S6 kept asserting
+# that the paper reported the cross-sex Spearman result for months after the
+# September condensation pass deleted it. check_render's crossdoc check reads
+# only the NUMBER in \mainref{}{}; a sweep that follows the paper's pointers
+# cannot see a pointer the paper no longer carries.
+if [ -n "$AUDIT_CMD" ]; then
+    if ! $AUDIT_CMD scripts/check_backrefs.py >/dev/null; then
+        echo ""
+        echo "pre-commit: the supplement asserts something about the paper that no"
+        echo "longer holds, or carries an unregistered back-reference — commit aborted."
+        echo ""
+        echo "  See which, and why:"
+        echo "    uv run python scripts/check_backrefs.py"
+        echo "    uv run python scripts/check_backrefs.py --list"
+        echo "  Restore the claim in paper.tex, or reword the supplement and update"
+        echo "  its probe in audit/backref_manifest.txt. Never weaken a probe to"
+        echo "  make this pass — that is the failure the gate exists to catch."
+        echo ""
+        exit 1
+    fi
+fi
+
 # ---- 2c. Publication-gate anchors (content, not line numbers) --------------
 #
 # Eight statements in the package assert in the PRESENT TENSE that the code and
