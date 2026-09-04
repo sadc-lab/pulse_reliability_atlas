@@ -1640,9 +1640,13 @@ so is a faithful control:
 | paper PDF | 38 | 23 |
 | body-prose words, floats stripped | 13,386 | 7,164 |
 
-Only 71 satisfies "more than 60". The `.docx` he was sent is **single-spaced at 39
-pages**, so he was reading it converted to the double spacing he asks for.
-`dispatch_log.md` records the format: ".docx; .pdf twins from the same run".
+**The inference that followed here was wrong, and section 33 replaces it.** It
+read: "Only 71 satisfies 'more than 60'. The `.docx` he was sent is single-spaced
+at 39 pages, so he was reading it converted to the double spacing he asks for."
+Measured on 2026-09-04 from the file he actually annotated, which had been on
+disk since 2026-08-27: **Word recorded 43 pages**, not 71 and not 39. The
+double-spacing reconstruction is unsupported. `dispatch_log.md` records the
+format: ".docx; .pdf twins from the same run".
 
 ### 23.2 The floor, and why 20 pages is not reachable
 
@@ -2769,3 +2773,76 @@ feed and the page number "4" inside it. Stripping `\f` and the interleaved
 number showed it immediately. Today's tally is five -- a dehyphenated DOI, a
 dehyphenated "sea-level", a line-truncating `cut`, a multi-byte `\S`, and now a
 page break. Not one was a document defect.
+
+## 33. The page frame, measured on the file P.J. actually held, 2026-09-04
+
+Sections 23.1 and 23.2 reconstructed how P.J. counted pages. The
+reconstruction was unnecessary: the file he annotated has been on disk since
+2026-08-27, in the repository root and in `~/Downloads`, and nobody opened it.
+The author asked the obvious question -- "he saw the PDF and the DOCX, so those
+are the reference" -- and the measurement settles it.
+
+### 33.1 What Word recorded for his file
+
+`Adult Pulse model 2026-08-25_PJdocx.docx`, `docProps/app.xml`, written by
+Microsoft Word when he saved it:
+
+| field | value |
+|---|---|
+| Pages | **43** |
+| Words | 18,178 |
+| Characters | 99,982 |
+| Lines | 833 |
+| Application | Microsoft Office Word |
+
+His tracked changes are minimal -- 59 insertions, 59 deletions, **109 words
+deleted in total** -- so 43 is essentially the document as it reached him, not
+the result of his own cuts.
+
+### 33.2 What that overturns
+
+- **"Only 71 satisfies 'more than 60'"** (section 23.1) is wrong. He had 43 pages
+  in Word. The 71 came from re-spacing a rebuild to double spacing outside the
+  repository; it measures a document nobody ever saw.
+- **"He was reading it converted to double spacing"** is unsupported. Nothing in
+  the artefact indicates it, and neither the paper nor the supplement is
+  double-spaced: `paper.tex` passes no spacing option and sets no
+  `\linespread`; the built `.docx` carries `w:line="240"` (single) in its default
+  style with no override in the body.
+- **The floor analysis of section 23.2 rests on the same frame.** Its arithmetic
+  is not wrong, but the frame it converts into pages -- 236 words per
+  double-spaced page -- is not the frame the reader used.
+
+### 33.3 "More than 60" is not reproducible, and reconstruction stops here
+
+No measurable artefact yields it: his Word file says 43, the dispatched PDF 38.
+Two hypotheses clear the bar and neither is verifiable now -- Word's review view
+with markup and comment balloons displayed (43 x ~1.4 = 60-65, the closest fit),
+or paper and supplement counted together (38 + 52 = 90). Recorded as unresolved
+rather than resolved by the more flattering guess.
+
+### 33.4 The comparison that does hold, measured at both dates
+
+| frame, same instrument both dates | dispatched | now |
+|---|---|---|
+| paper, PDF pages (`pdfinfo`) | 38 | **24** (-37 %) |
+| supplement, PDF pages | 52 | **56** (+8 %) |
+| package, PDF pages | 90 | **80** (-11 %) |
+
+**The uncomfortable number is the package.** The paper lost a third of its
+length, but most of that material was displaced into the supplement rather than
+deleted, and the supplement grew. Against a reader whose complaint was
+[text of a private message removed from the public history; see HISTORY.md], a package that shrank 11 % is the
+honest figure to give him, alongside the 37 % that describes the article alone.
+
+Word-count caveat: 18,178 is Word's count on his file and 8,579 is pandoc's on
+today's `paper.docx`. **Different instruments; do not compute a percentage from
+that pair.** The PDF page counts above are the like-for-like comparison.
+
+### 33.5 The lesson
+
+The evidence was a file on disk, and three sessions reasoned about what the
+reader might have done instead of opening it. A reconstruction that survives
+because it is internally consistent is still a reconstruction. **When the
+question is "what did the reader see", the artefact the reader held is the
+instrument -- not a rebuild of the commit behind it.**
