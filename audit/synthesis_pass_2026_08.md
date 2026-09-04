@@ -2846,3 +2846,163 @@ reader might have done instead of opening it. A reconstruction that survives
 because it is internally consistent is still a reconstruction. **When the
 question is "what did the reader see", the artefact the reader held is the
 instrument -- not a rebuild of the commit behind it.**
+
+## 34. Full re-audit of the September rewrite, 2026-09-04
+
+Author's instruction: audit everything the rewrite did, be critical, look for
+errors, omissions and paper/supplement contradictions, check the citations, the
+README and the code, and read the commit messages. What follows is what the
+sweep measured, including two failures of my own audits.
+
+### 34.1 Population and instruments
+
+`paper.tex` and `supplement.tex` read end to end. The 98 deleted lines of
+`613f2a6..HEAD` on `paper.tex` extracted and traced one by one into the
+supplement. The three artefacts (paper, supplement, monograph) cross-checked
+against `preregistration.md`, which was read, never written. The rendered PDFs
+used as the second instrument throughout, because a claim about what a reader
+sees is settled by the page, not by the source.
+
+Gates re-run before and after: `audit_claims.py` (382/382), `--check-paper-sync`,
+`--check-monograph`, `check_citations.py` (41 keys), `check_stale_counts.py`,
+`check_render.py`, `sync_submission_metadata.py --check`, `ruff`, 80 pytest.
+All green at both ends.
+
+### 34.2 What held
+
+Migration quality is good. `sec:s2-scope` carries all six scope limits **in
+full**, including the Ward et al. transfer bound the paper dropped;
+`sec:s3-terms` carries all four Morris terms; the four secondary observations
+are each indexed in `sec:s17-summary` with their numbers intact.
+
+Arithmetic re-derived rather than trusted: Tables 2-4 are mutually consistent
+(663 clean, 20 diverged, 126 implausible, 1,134 hard-failure-free, and the two
+screens remove disjoint sets); the traffic-light closes at 48 on all three
+splits; the Cornish figures reconstruct exactly from the S7 table, 80 + 2 + 3 =
+85, with all four bootstrap percentages correct; the alveolar-gas equation gives
+663 mmHg, hence the 20 mmHg gap.
+
+**No invention.** All six sentences added during the rewrite trace to a source
+read in session. Nadler p. 226 reports 64-79.3 mL/kg, so "approximately 71,
+within standard clinical estimates" is exact. Every citation site respects the
+scope boundary recorded in its own `internal_note`, including the CAUTION on
+`katsoulakis2024digitaltwins` and the HARD LIMIT on `hester2011hummod`.
+
+Repository: no reviewer file is tracked (8 checked, all ignored); both September
+guards are wired into CI **and** the pre-commit hook; all 12 scripts the README
+names exist; the README's "381/382 with 1 SKIPPED on a clean checkout" is
+accurate.
+
+### 34.3 The verdict contradiction, and it was mine to catch
+
+`preregistration.md` H3 is a pure existence claim with no sex clause. The paper
+states it verbatim and concludes **supported**. The README says PASS. The
+monograph graded it "partially supported" on the question *are solver divergences
+sex-stratified?* -- which H3 does not ask. `manuscript.md` contained its own
+refutation: "H3 is therefore **partially supported** with a *stronger*
+qualifier: a divergence regime exists ... *and* the regime is sex-conditioned."
+Getting more than the hypothesis asked for is not partial support. Its own data
+puts divergence at impairment fractions 0.00, 0.26, 0.60 and 0.95, none inside
+[0.91, 0.945].
+
+H4 is the same shape. Its criterion is "clamping, divergence, or Morris mu*
+ranking"; the 20/0 divergence asymmetry satisfies it outright. README and
+monograph graded it on the Wasserstein distances, which are none of the three
+named channels. Here two readings are defensible -- the analysis plan does tie
+Wasserstein and Spearman to H4 -- so the repair keeps the Wasserstein result in
+full and reframes it as *how far* the difference extends, not as the verdict.
+
+**Section 31.3 found the H4 defect on 2026-09-03 and fixed it in one document.**
+Its own table had a single column headed "paper today". The README and the
+monograph were never opened, so the defect stood in two of three public
+artefacts for another day, and the H3 defect was never seen at all.
+
+### 34.4 Defects the rewrite introduced
+
+1. **A declared analysis with no reported result.** Methods 4.6 describes the
+   cross-sex Spearman; no Results section reported it. The dispatch version gave
+   rho 0.75-1.00 over 12 computable cells, the one CI including zero, the
+   negative result on HR/MAP/Vt, and the synthesis "sex moves where the solver
+   fails far more than it moves which inputs dominate". Methods still explained
+   the p < 0.001 convention for a result the paper no longer carried.
+   Commit `f3ca3b2` restored the Wasserstein half on 2026-09-03 and stopped
+   there.
+2. **A paper/supplement contradiction on the blank FiO2 entries.** Limitation
+   (iv) read "the healthy and severe-ARDS *female* cells", i.e. two. Measured on
+   the rendered heatmaps, the FiO2 row carries 5 values of 8 in every panel,
+   so **three** cells are blank. Three internal texts name them S1_M, S1_F and
+   S4_F, and the 12-row S6 table forces that set: if only two cells were blank,
+   S2 and S3 could not both be fully computable.
+3. **A broken back-reference.** `sec:s6-rho` opened "The Discussion of the main
+   manuscript reports that the cross-sex Spearman ... is computable only for S2
+   and S3". It no longer did.
+4. **Two finite verbs, no conjunction** at the Section 2.6 pointer. The
+   register's own draft in 19.6 was grammatical; the applied form was not.
+5. **Six supplement pointers dropped**: S7, S11, S15, S16-window, S6-rho,
+   S3-resample. Five survive one hop through the S17 index. `sec:s3-resample`
+   was in no index and referenced from nowhere at all, including from inside the
+   supplement, so the seed-44 result -- S2_M divergence moving 4/160 to 7/160 --
+   was unreachable.
+6. **Precision lost**: "six concrete infrastructure recommendations
+   (Supplement S11)" and their enumeration became "further engine-level
+   observations"; H3's evidential justification ("spread across all four
+   scenarios") was compressed away.
+
+### 34.5 Defects that predate the rewrite
+
+- `sec:s4` said "Table 1 of the main manuscript reports per-cell counts". The
+  rendered PDF puts those counts in **Table 3**. The section title carried the
+  same error. Dates to `df821f3`. Two other "Table 1" references in the
+  supplement were checked and are **correct** (they point at the terms table).
+- "43 **cells** at 11,008 runs" in four loci: 43 counts cell x output
+  combinations and there are eight cells. The number is right, the noun is not,
+  and the supplement writes "8 cells, 2,048 runs" two clauses later. Fixed
+  locus by locus, because "per cell" is *correct* in the neighbouring
+  demonstrator sentences (six real cells, 13,824 runs) and a global replace
+  would have broken them.
+- `sec:s11` said the Discussion "closes with" the infrastructure note; it sits
+  in the middle, followed by the scope limits and the closing paragraph.
+- `sec:s3` intro says Methods "states ... the drift thresholds". Methods names
+  them and points to `sec:s3-drift` for the values. Loose, defensible, left.
+
+### 34.6 The instrument lesson, paid twice in one pass
+
+Both of my audits failed the same way: **the population was too narrow, and the
+execution was correct.**
+
+The semantic cross-reference sweep (section 29) walked the 32 pointers
+`paper.tex` carries into the supplement. A pointer the rewrite *removed* cannot
+appear in that population, so six dropped pointers and one back-reference gone
+false were invisible to it by construction. The hypothesis check (31.3) compared
+`preregistration.md` against one column named "paper today".
+
+A sweep defined by what an artefact still points at cannot find what it stopped
+pointing at. When the change under audit is a **deletion**, the population must
+be the state *before* the deletion, not after -- which is why this pass began by
+extracting the 98 deleted lines and tracing each one forward.
+
+`scripts/check_backrefs.py` closes the half of this that is mechanisable. Its
+extraction found **12** back-references where a manual grep had found 8.
+
+### 34.7 A trap that cost two attempts, already on record
+
+The first mutation test of the new guard reported that its probe was absent from
+`paper.tex`, while `grep -F` found it. Neither the file nor the guard was at
+fault: a quoted Git Bash heredoc collapsed the doubled backslash in the Python
+literal, so Python read `\r` as a carriage return and searched for a string that
+never existed. This is the same backslash-collapse that silently no-opped a
+mutation test on 2026-09-03. The test was redone on a backslash-free probe, and
+both files were restored from a scratchpad copy and verified by md5 against the
+pre-mutation checksum. The manifest itself was checked with `cat -A` and is
+clean, because its keys came from a file rather than from a shell argument.
+
+### 34.8 Verified after
+
+All eight gates green, 80 tests, ruff clean. Paper **24 pages**, supplement
+**56** -- unchanged, so the repairs cost nothing against P.J.'s brief.
+Monograph 121 pages, one more than before. The restored Spearman sentence and
+its `Supplement S6.1` cross-reference verified on the rendered page.
+
+The guard was calibrated on the defect that motivated it: with the Spearman
+result removed from `paper.tex` it fails on `supplement.tex:576` by name, and it
+fails again on an unregistered back-reference injected into the supplement.
