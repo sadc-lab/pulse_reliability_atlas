@@ -74,8 +74,11 @@ to a plateau (median 643 mmHg in S1) that sits ~ 20 mmHg *below* the
 simple alveolar-gas-equation prediction (≈ 663 mmHg) — consistent
 with Pulse's modelled A-a gradient — supporting a transient-regime
 explanation rather than a Pulse oxygenation overshoot. H4 (sex-specific
-reliability) is partially supported under Benjamini–Hochberg FDR
-control (q = 0.05): 5 of 24 cell × output Wasserstein distances
+reliability) is supported: its preregistered criterion is a male–female
+difference in clamping, divergence, or Morris μ\* ranking, and the
+all-male divergence cluster satisfies it. The difference extends only
+partially into the steady-state distributions, under Benjamini–Hochberg
+FDR control (q = 0.05): 5 of 24 cell × output Wasserstein distances
 survive the permutation null — all five are gas-exchange (PaCO2 ×3,
 SpO2 ×1, PaO2 ×1). Cardiovascular and Vt sex effects do not exceed
 the permutation null; input-importance rankings are largely
@@ -721,9 +724,24 @@ belongs beside it, not inside it.
 
 The numeric criteria are unchanged by the erratum. Outcomes, stated in
 full in the sections named above: H1 **PASS** (48 / 48), H2 **not
-supported** (0 / 1,280), H3 **partially supported** (divergence exists;
-the sex-stratification is regime-dependent), H4 **partially supported**
-(gas-exchange channels only).
+supported** (0 / 1,280), H3 **supported** (a divergence regime exists
+outside 0.91 – 0.945; that it is also sex-conditioned is a finding
+beyond what H3 asked), H4 **supported** (the all-male divergence
+asymmetry satisfies the preregistered criterion on its own; the
+gas-exchange Wasserstein result characterises how much further the
+difference extends).
+
+Each verdict is read against the hypothesis exactly as preregistered
+and quoted above. H3 asks only whether a divergence zone exists outside
+0.91 – 0.945; it says nothing about sex, so the sex-stratification
+reported in §3.5 is an additional result and not a reason to qualify
+the verdict. H4 asks for a male–female difference in **clamping,
+divergence, or Morris μ\* ranking**; divergence answers it outright at
+20 / 0. The Wasserstein distances on steady-state distributions, which
+§3.6 reports in full, are the preregistered analysis plan's measurement
+of *how far* the difference reaches — they are not the criterion the
+hypothesis names, and a partial result there does not make H4 partially
+supported.
 
 ### 2.1 Engine and atlas wrapper
 
@@ -1864,7 +1882,8 @@ combinations. The same preregistration capped the bolt-on at 1,500
 additional runs. A Sobol sample cannot be shared across cells, because
 each scenario–sex cell is a different model, so even the narrowest
 reading of the preregistered cost formula — one promoted input at a
-base sample of 64, or 256 runs per cell — puts 43 cells at 11,008 runs.
+base sample of 64, or 256 runs per promoted combination — puts those
+43 triggered combinations at 11,008 runs.
 The bolt-on exceeded its own preregistered envelope by more than
 sevenfold, and is therefore reported rather than executed.
 
@@ -1894,7 +1913,8 @@ dominant-input reading of the trigger, and its scope follows from that
 reading: 6 Group-B cells selected on the dominant input, all seven swept
 inputs, N = 256 with first-order indices only — 256 × (7 + 2) = 2,304
 rows per cell, 13,824 runs in total. The preregistered design is a
-different one, 43 cells at a base sample of 64 on the promoted inputs,
+different one, 43 triggered cell × output combinations at a base sample
+of 64 on the promoted inputs,
 and the 11,008-run figure above is its cost, not the demonstrator's. The
 two totals are close by coincidence, not because they are the same
 design.
@@ -2008,10 +2028,14 @@ HR." Users running Pulse for ARDS device-validation should treat
 output HR as the engine's scenario-dependent steady-state response,
 not a setpoint.
 
-### 3.5 H3 — solver divergence exists; sex-stratification is regime-dependent (partially supported)
+### 3.5 H3 — a divergence regime exists outside the documented ARDS zone (supported); its sex-stratification is regime-dependent
 
-*The third hypothesis test: are solver divergences sex-stratified?
-Answer — partially. In the [S006](#s006) input-extreme regime, all 20 / 20
+*The third hypothesis test: does at least one solver-divergence zone
+exist outside the documented 0.91 – 0.945 ARDS zone? Answer — yes.
+Divergence occurs at impairment fractions 0.00, 0.26, 0.60 and 0.95,
+none of them inside that band, so H3 is supported outright. A second
+question, which H3 does not ask, is whether those divergences are
+sex-stratified: partially. In the [S006](#s006) input-extreme regime, all 20 / 20
 divergences are male and zero female, with the asymmetry
 mechanistically confirmed ([S018](#s018)) to be mediated by Pulse's
 `BloodVolumeBaseline` gap on the two surrogates — male default
@@ -2214,9 +2238,10 @@ diverged-run input combinations are catalogued in
 `results/diverged_grid.parquet` (a 2-D heatmap of divergence rate
 per input-pair × cell).
 
-H3 is therefore **partially supported** with a stronger qualifier:
+H3 is therefore **supported**, and with more than it asked for:
 a divergence regime exists outside the documented 0.91 – 0.945 ARDS
-zone *and* the regime is sex-conditioned.
+zone *and* the regime is sex-conditioned. The second half is a finding
+in addition to the hypothesis, not a qualification of it.
 
 ### 3.5.1 Continuous-severity divergence regime (Tier-2 follow-up)
 
@@ -2284,15 +2309,17 @@ The atlas therefore distinguishes **two separate divergence regimes**:
   stability; the atlas did not record solver-conditioning metrics or isolate
   a compliance-edge mechanism.
 
-Together these regimes give a more honest H3 picture: divergence
-exists, it is partially sex-conditional, but the sex effect varies
-by *what is varying* (Morris-extreme inputs vs ARDS severity), not
-sex per se.
+Together these regimes give a more honest picture of what surrounds
+H3: the divergence zone H3 predicted exists, and beyond that, the sex
+effect varies by *what is varying* (Morris-extreme inputs vs ARDS
+severity) rather than by sex per se.
 
-### 3.6 H4 — sex-specific reliability (partially supported, gas-exchange only)
+### 3.6 H4 — sex-specific reliability (supported by divergence; the distributional difference is gas-exchange only)
 
-*The fourth hypothesis test: do male and female trajectories differ
-at the cell level? Answer — partially. Under Benjamini–Hochberg FDR
+*The fourth hypothesis test: do the male and female bodies differ in
+clamping, divergence, or Morris μ\* ranking? Answer — yes, outright:
+divergence is 20 / 0. How far does the difference extend into the
+steady-state distributions? Partially. Under Benjamini–Hochberg FDR
 control (q = 0.05), 5 of 24 cell × output Wasserstein distances
 survive — *all five on gas-exchange channels* (PaCO2 × 3, SpO2 × 1,
 PaO2 × 1). Cardiovascular and Vt distances fall within the permutation-based
@@ -2494,8 +2521,12 @@ driving Vt is not clearly preserved across sex.
 
 **Combined H4 picture:**
 
-* H4 is **partially supported**, with the strong signal concentrated
-  on gas-exchange outputs.
+* H4 is **supported**: its preregistered criterion is a male–female
+  difference in clamping, divergence, or Morris μ\* ranking, and the
+  20 / 0 divergence asymmetry satisfies it on its own.
+* Beyond that criterion, the **distributional** difference is
+  **partial**, with the strong signal concentrated on gas-exchange
+  outputs.
 * **Sex effect is real on PaCO2 (S1, S2, S3), SpO2 (S4), and PaO2 (S4)** —
   these survive the permutation null under BH-FDR control at q = 0.05.
 * **Sex effect on HR, MAP, Vt is not distinguishable from
