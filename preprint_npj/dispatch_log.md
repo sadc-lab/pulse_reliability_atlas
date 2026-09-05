@@ -514,13 +514,30 @@ counts were read from):
 | `supplement.pdf` | `778e1dcde47f833d73e5696f4bb4f580cb97c58d566c22e123498e7945c90c8f` |
 | `manuscript.pdf` | `98cf53555ea4d9926d8aa296a85b5ad7b657ed35e13353d60ff6d3d7366f63b4` |
 
-**After the post-send rebuild** (same commit, same content, current on disk):
+**After the post-send rebuild** (same commit, same content, superseded within
+the hour by the repair below):
 
 | artefact | SHA-256 |
 |---|---|
 | `paper.pdf` | `99c931a4ca93ea32d627befe6915567a6458c4498998de4fc4ff270c7c807bb4` |
 | `supplement.pdf` | `c2f5d428ceedbe8d20762f69825130753aa2fb343b7465d38b3b6e504e55a821` |
 | `manuscript.pdf` | `5ec6ae3435ba7921c43de655f38bd8c93a9d633131120d36bbd1e366544187d1` |
+
+**Current on disk**, after one cross-reference repair in `supplement.tex`:
+`the table above` became `Table~\ref{tab:limits}`, because the table it named
+renders on page 45 while the sentence renders on page 5 — forty pages forward,
+not above. Content of the paper is unchanged; its hash moves only because the
+rebuild restamps every PDF. Page counts are identical throughout: 24 / 56 / 121.
+
+| artefact | SHA-256 |
+|---|---|
+| `paper.pdf` | `fce29dca8e8d9d05abfe50882e51721fdc71da007ae84616e97047b5ec361af9` |
+| `supplement.pdf` | `81fa5a7a831107c0daf5eec6f9e07423ae48cbc38e1a5796713c405431662199` |
+| `manuscript.pdf` | `5ec6ae3435ba7921c43de655f38bd8c93a9d633131120d36bbd1e366544187d1` |
+
+Three hash states in one day is churn, and it is recorded rather than tidied:
+only the first block describes the bytes the quoted page counts were read from,
+and that is the one this entry exists to preserve.
 
 **Written the same day, 15 minutes after the send** — the discipline the
 2026-08-25 entry could not follow, and the reason its hashes are gone for good.
