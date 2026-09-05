@@ -3006,3 +3006,137 @@ its `Supplement S6.1` cross-reference verified on the rendered page.
 The guard was calibrated on the defect that motivated it: with the Spearman
 result removed from `paper.tex` it fails on `supplement.tex:576` by name, and it
 fails again on an unregistered back-reference injected into the supplement.
+
+## 35. Statistics glosses, the AI disclosure, and a guard that never ran, 2026-09-05
+
+Author's questions: are the statistical tests explained anywhere; can the AI
+disclosure be shortened without loss; and can the AI-tooling competence be
+surfaced for a professional profile without overclaiming.
+
+### 35.1 The statistics gap, measured in both directions
+
+Morris is well covered on three levels: Table 1 keeps the three terms the
+figures need, `sec:s3-terms` defines trajectory, elementary effect, mu* and
+clean pair in full, and Methods 4.3 gives the design.
+
+Everything else is named and defined nowhere in the submission. Wasserstein,
+the permutation null, Benjamini-Hochberg, Spearman and SHAP appear with no
+gloss. The three inline glosses existed in `613f2a6`, the version the
+supervisors read, and the September compression deleted them; checked in both
+directions, they are absent from `paper.tex` AND `supplement.tex`, so they were
+removed rather than migrated. The supplement has no statistics section at all
+(60 section titles enumerated; only "Morris terminology" and "Methodology:
+epistemological scope" come close).
+
+The complete plain-language glossary exists -- monograph section 2.10, covering
+Morris EE, block bootstrap, Sobol, 1-Wasserstein, the permutation null,
+Spearman, BH-FDR and Hoeffding/Holm-Bonferroni -- but the monograph ships to
+Zenodo, not with the submission.
+
+The asymmetry settled the decision: the paper explained the `p < 0.001`
+convention, a niche point, while leaving FDR undefined, the broad one. Repair:
+three parentheses restored verbatim from `613f2a6`, each checked for
+CORRECTNESS and not merely for provenance. Fifteen words, no page cost.
+
+### 35.2 Two false negatives from my own instruments, in one hour
+
+**A grep on a single wording.** I reported that the deleted glosses "survive
+only in the monograph". The probe was `reshape one probability`; the monograph
+writes `transport one histogram onto the other`. The count was zero and the
+conclusion was wrong -- and it hid the better fact, that the monograph carries a
+dedicated glossary section.
+
+**A backslash collapse, third time this session.** A pattern for section titles
+returned zero matches on a file with 60 of them. Git Bash folded the doubled
+backslash. Re-run without backslashes, the instrument worked and the conclusion
+(no statistics section in the supplement) held.
+
+Both are the same failure the register has recorded before: an occurrence count
+taken on one formulation, and a shell that silently rewrites a pattern. The
+defence that worked both times was a positive control on a known-present case.
+
+### 35.3 A discrepancy the shortening exposed
+
+Section 4.7 credited the global clinical review to four authors (A.W., C.S.,
+P.J., M.S.); Author contributions credits three (C.S., M.S., P.J.) and gives
+A.W. clinical supervision and manuscript review instead. Two sections of one
+paper attributed the same act to different people. Cutting the 4.7 clause as a
+duplication also removes the discrepancy and leaves Author contributions, whose
+job this is, as the single authority.
+
+Section 4.7 went 437 -> 391 words. Each cut was measured against where the
+information survives; the model roster, the two-model loop and S.N.'s
+responsibility paragraph were deliberately left, because they are what npj
+policy expects.
+
+### 35.4 The AI-competence question, and where the answer belongs
+
+The author asked to surface the AI-tooling work for future employability. The
+recommendation given, and taken: not in 4.7. That section is a disclosure read
+by reviewers looking for risk, not for talent, and CV vocabulary there would
+attract the wrong kind of attention.
+
+The substance worth crediting is real and is not "using AI well": it is the
+verification architecture built around a fallible drafting process -- the
+382-anchor ledger, guards each written after a specific defect, and guards
+calibrated by mutation before being trusted. That belongs in the README, which
+no editorial policy constrains and which is what a reader evaluating the work
+opens first.
+
+One proposal was withdrawn on measurement: adding a clause to the paper naming
+the verification architecture. The paper already says it twice -- Methods 4.6
+("the audit ledger was developed afterwards, to re-derive the computed claims
+in this paper from the canonical output artefacts") and 4.7 (claims traceable
+to "entries in the open audit ledger"). A third formulation would have been the
+redundancy P.J. complained about.
+
+Also withdrawn: "prompt engineering" as a named skill. The demonstrable artefact
+is not a prompt collection but `CLAUDE.md` -- a versioned instruction protocol
+with trigger conditions and prohibitions. Stronger, and true.
+
+### 35.5 A guard that had never run, found by refusing two readings
+
+The side finding was that README.md hard-codes 382 / 94 / 26 with no guard,
+since `check_stale_counts.py` only recognises the `N-anchor` / `N-row` forms.
+The author approved extending it.
+
+Reading the code refuted that: `check_audit_counters` has existed since
+2026-08-03, its file list begins with `README.md`, and it carries the exact
+pattern `Re-derives \*\*(\d+)\*\* numerical claims`. The extension would have
+been redundant.
+
+A mutation test refuted the refutation. With `README.md` edited to 383,
+`audit_claims.py` exits **0**, in silence. The guard is gated on
+
+    if _ARGS.check_paper_sync and _ARGS.check_monograph:
+
+which is logically necessary -- it needs both totals -- and the CI workflow
+passes those flags in three SEPARATE invocations. **The guard had never once
+executed in CI.** The pre-commit hook does run the combination, so exposure was
+limited to hook-bypassing paths: `--no-verify`, an edit through the GitHub web
+UI, a clone where `core.hooksPath` is unset.
+
+Proof in both directions on the same mutated file: bare audit exits 0 with no
+counter section printed; with both flags it exits 1 on
+
+    | `README.md:297` | ledger total | 383 | FAIL -- expected 382 |
+
+`README.md` restored and verified by md5 against its pre-mutation checksum.
+Checked that the defect is isolated: this is the only invocation in
+`audit_claims.py` conditioned on a flag combination.
+
+Repair: one line of YAML, a fourth CI invocation, kept separate from the
+`--check-monograph` step so a failure still names the layer that broke.
+
+**The lesson.** Two plausible readings were each refuted by the next
+measurement: "there is no guard" (there was) and "then it is covered" (it was
+not running). A guard's existence, its correctness and its execution are three
+separate facts, and reading the source establishes only the first two. This is
+what the calibration rule means in practice -- the mutation test was not
+ceremony, it was the only step that found the defect.
+
+### 35.6 Verified after
+
+Nine gate invocations green, including the newly wired combination, plus 80
+tests and ruff. Paper 24 pages, supplement 56 -- unchanged. The restored glosses
+and the `Supplement S6.1` cross-reference confirmed on the rendered page.
