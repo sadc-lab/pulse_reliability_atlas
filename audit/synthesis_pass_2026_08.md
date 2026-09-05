@@ -3153,3 +3153,149 @@ or BH-FDR, which carry a result. And `sec:s13` cites it to its canonical source
 
 Author's decision, 2026-09-05. If a reviewer asks, the cheapest repair is a
 six-word gloss in `sec:s13`, not in the paper.
+
+## 36. P.J.'s two criteria, and the second full audit, 2026-09-05
+
+P.J. replied the same day: [text of a private message removed from the public history; see HISTORY.md].
+Both criteria were measured before anything was rewritten, and a second full
+audit followed at the author's request before the dispatch.
+
+### 36.1 Redite, measured
+
+Zero repeated 8-grams and zero repeated 12-grams across 8,065 words of paper
+prose, captions excluded. Nothing is repeated verbatim; the September
+compression had already removed what he complained about in August.
+
+Counting each headline figure by section, with captions held apart from body
+text, left exactly **one** body-to-body repetition: H1. Section 2.2 states
+"48 of 48 ... median top-3 fraction of 0.928" and the Discussion restated the
+same result with both figures rather than interpreting it. The Discussion now
+carries the finding without the numbers and points to 2.2.
+
+Deliberately NOT called repetition, and recorded so the decision is not
+relitigated: captions restate body numbers heavily -- Figure 1, 8 of 8;
+Table 3, 4 of 4; Figure 4, 12 of 15 -- but Nature-family captions must stand
+alone, so that overlap is required rather than redundant.
+
+Left open by decision: several supplement sections open with an 86-to-100-word
+recap of a paper result. That is standard practice for a document meant to be
+readable on its own, but a reader taking both documents in sequence may read it
+as repetition. Not touched; if P.J. raises it, his remark will be better
+evidence than a guess about what he would think.
+
+### 36.2 Fluidite, measured
+
+230 sentences in the paper, median 28 words. Six ran to 70 words or more.
+**Three of those six are enumerations** -- the four hypotheses, Pulse's four
+applications, the three findings -- which read as lists and were left alone;
+splitting them would manufacture the repetition 36.1 had just removed.
+
+Two of the remaining three were split, along with the densest paragraph:
+
+- Section 2.4, **101 words**, the worst in the paper: protocol,
+  defect-versus-artefact discrimination, the 40/44 result, the 643 median, the
+  comparison to the alveolar-gas prediction, and the conclusion, in one breath.
+  Now four sentences, same facts, same length.
+- Supplement S6.1, **94 words** -- written the previous day by me. Repairing
+  that back-reference had taken it from 73 to 94 words, measured with the same
+  instrument on both: the sentence became true and less readable.
+- The Introduction's 298-word paragraph, split in two after the Webb sentence,
+  where the subject changes. Honest side effect: the first half is 142 words in
+  2 sentences, so its words-per-sentence RISES even though the paragraph is
+  easier, because it isolates the 83-word Webb sentence that was left intact by
+  decision.
+
+### 36.3 A guard caught one of these edits, which is what it is for
+
+The S021 converged-plateau anchor pinned "the converged S1 plateau median was
+643~mmHg". The 2.4 split moved that clause to the head of a sentence,
+capitalising its article, and the gate failed. The anchor now omits the leading
+article, because capitalisation carries no meaning here while the POPULATION
+does -- the 40 drift-converged reruns, not the 37 physiologically converged ones
+the same check holds apart.
+
+Relaxing a guard without a witness is not allowed, so it was mutation-tested
+after the change: removing the word "converged" still fails the gate by name,
+and `paper.tex` was restored and verified by md5 against its pre-mutation
+checksum.
+
+### 36.4 The second full audit: citations verified at source
+
+The author asked, before the dispatch, that every citation be checked to exist,
+to be correctly placed, and to support what it is made to say.
+
+**Existence, complete.** All **28 DOIs** in `paper.bib` resolve at Crossref, and
+title, journal, volume and year were compared to the entry for each. All agree.
+`morris1991` first returned 301 and resolves following the redirect: "Factorial
+Sampling Plans for Preliminary Computational Experiments", Technometrics 33,
+1991. All **12 URLs** return 200, including the nine Kitware documentation pages.
+
+**Content, for the four most exposed.**
+
+- The **verbatim Pulse FAQ quote**, which is the paper's founding motivation, is
+  still on the live page word for word, in context under "What kind of
+  uncertainty quantification do you perform in your physiology model?".
+- **Cornish's 85 rejections.** His arXiv PDF was downloaded and his Table 1 read.
+  Once the two-column extraction is realigned, its nine non-zero values --
+  Chloride 24/94, Sodium 21/94, Potassium 13/94, Skin Temp 10/86, Calcium 5/88,
+  Glucose 5/96, paCO2 3/70, HCO3 2/90, SysBP 2/154 -- match Supplement S7 exactly
+  and sum to 85.
+- **Sinnige 2026 (ACTiVE).** The PubMed abstract says "no differences in
+  secondary outcomes except for ventilation quality, which was higher with
+  closed-loop ventilation" and "no differences between groups in components of
+  the primary outcome". The paper's plural, "no difference in patient-centred
+  outcomes", is therefore justified.
+- **Viceconti 2021**, restored the same evening: full text re-opened, four
+  clauses of four matched, including the word "bound" that licenses "bounded
+  domain of applicability".
+
+**The boundary, stated rather than blurred:** existence and metadata were
+verified for all 42 cited keys; CONTENT was verified for four. The other 34
+carry verification notes from earlier sessions that were NOT re-read at content
+level. Calling them verified would repeat a claim rather than report a
+measurement. The full two-axis audit remains deferred to the proof.
+
+**Bibliography closes exactly**: 47 entries = 42 cited + 5 retired, each retired
+key with a written reason.
+
+### 36.5 Repository and reproducibility
+
+The 17 science claims in `README.md` are each bound to a ledger anchor
+re-derived from the data, all PASS. The four reproduction scripts the README
+names exist; `engine/Dockerfile` pins `FROM kitware/pulse:4.3.1`; the sampler
+seed defaults to 42; dependencies are declared with their reasons, including
+`pymupdf`, which was undeclared until 2026-08-14 and would have broken the
+render check on a clean clone.
+
+### 36.6 What this audit found in the manuscript: nothing new
+
+That is the result, and it means something only by contrast: section 34, at the
+same depth the day before, found seven real defects including two contradictory
+hypothesis verdicts across three public documents and a result declared in
+Methods and reported nowhere.
+
+### 36.7 Instruments, again
+
+Roughly a dozen false results across the two days, none of which reached a commit
+because each contradicted something read directly. Worth recording by kind, since
+the kinds repeat: a reference count taken three times and wrong twice (11, then
+19, against 21) because entries 1-9 are indented and page breaks interleave; a
+table declared missing that was present with an indented caption; a section
+pattern returning zero on a file carrying sixty, from a Git Bash backslash
+collapse; a bibliography field extractor reporting "no verification note" for all
+42 entries when 34 carry one, defeated by nested braces; a "BibTeX warning"
+alarm that was the function-usage statistics table, where the neighbouring line
+reads `warning$ -- 0`.
+
+Two reasoning errors mattered more than any of these, and both were stopped by
+the author's standing request to re-check rather than by my own vigilance. The
+first drafted an email telling four supervisors that two hypothesis verdicts had
+changed; their copy of the PAPER already said "H3 is supported" -- the "partially
+supported" wording lived in the monograph and the README, neither of which was
+sent. The second would have sent two figures that were an hour stale: restoring
+`viceconti2021insilico` moved the paper's reference count from 21 to 22 and the
+net loss from six references to five.
+
+**The shared root: describing the work's trajectory instead of the difference
+between two states.** What a reader receives is the delta from their copy, not
+the path taken to produce it.
