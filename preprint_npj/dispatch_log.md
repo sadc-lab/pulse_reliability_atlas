@@ -590,10 +590,10 @@ date is filled in when the author confirms it.
 
 | artefact | SHA-256 | bytes |
 |---|---|---|
-| `preprint_npj/build/paper.pdf` | `32405a04047ca1f88a5cf61c171b81246630beb2b3901a20faf5c7dfeb71f393` | 608,187 |
-| `preprint_npj/build/paper.docx` | `bdacdad1475f9dc6ddd2a0c6f18df8aea9526dd66a88a4fb36cca7ee6fbede69` | 947,124 |
-| `preprint_npj/build/supplement.pdf` | `3992860ac6b61fcd138d648fce8a00bb26f4efd83767365497517b8158033215` | 700,782 |
-| `preprint_npj/build/supplement.docx` | `0385d5d81ba693c91a6df3038de94773858ea4081f984fb874c2b87b38bed80b` | 735,540 |
+| `preprint_npj/build/paper.pdf` | `af242625dccefbfeee5d59321dd97d78eddb1ccd7c09c6fc4bf61d6d66f2a5b5` | 608,570 |
+| `preprint_npj/build/paper.docx` | `0d6eddcd403d6f0565ba59c7ce661f4279e460c8b45a29dcc90f172a6b0b8993` | 947,320 |
+| `preprint_npj/build/supplement.pdf` | `ca2dfe3090749ad799fe35efe7ff1e628d58c62268e405ed7ae9d86a74886970` | 700,782 |
+| `preprint_npj/build/supplement.docx` | `6988f99ea52543d7ef5c7464b36202b9810e58bce6f128fa41064dd8f7e257c6` | 735,540 |
 
 The monograph was rebuilt at the same commit but **is not part of this
 dispatch**. Its hashes are recorded below so that build stays identifiable if it
@@ -608,7 +608,20 @@ left the machine.
 All six artefacts were rebuilt at the author's request immediately before this
 hashing, so that the four that are sent carry the same clock as the send, and
 every one of the six was then verified to postdate its source. **No build has run since these hashes
-were taken, and none may run before the files leave.** The rebuild changed no
+were taken, and none may run before the files leave.**
+
+**One content change since**, made before the send and re-hashed with it: the
+Discussion's credibility-framework sentence had lost its source in the
+compression and stood as an attribution to the literature with none. The
+citation is restored, so the paper cites 22 references rather than 21 and
+`paper.pdf` grew by 383 bytes. `supplement.pdf` and `supplement.docx` came back
+at identical sizes, their hashes moving on the timestamp alone; the monograph
+was not rebuilt and its two hashes are unchanged. Pages did not move: 24 / 56.
+The source was re-opened in session to check this rather than trusted from its
+own note -- Europe PMC PMC7883933, HTTP 200 -- and each clause of the sentence
+matched to text in it, including "there is no validation in the absence of
+comparator data" and "Applicability refers to the range for the model input
+parameters that characterize or bound the validation activities". The rebuild changed no
 content: `paper.pdf`, `paper.docx`, `supplement.pdf` and `supplement.docx` came
 back byte-for-byte the same SIZE as the previous build, only their embedded
 timestamps differing, which is why every hash above moved while 24 / 56 / 121
