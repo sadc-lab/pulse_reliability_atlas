@@ -472,3 +472,71 @@ paper renders 24 pages against 38, and its reference list 21 entries against the
 copy therefore points at a different work than the same number does in the
 current build. The 40 is counted from `613f2a6:preprint_npj/paper.tex`, not read
 off the dispatched PDF, which is gone with the hashes.
+
+---
+
+## 2026-09-05 — note to P.J., no artefacts attached
+
+| | |
+|---|---|
+| Sent | 2026-09-05, 15:30 France time |
+| Recipient | P.J. only |
+| Content | a question on extent; **no files were attached** |
+| Figures quoted | 43 → ~24 pages (paper), 52 → 56 (supplement) |
+| Source commit | `06e0149` |
+| Build the figures describe | paper 24 p. / supplement 56 p. / monograph 121 p. |
+
+**This is not a dispatch.** No artefact left the machine; the note asks P.J.
+whether 24 pages is acceptable before the version itself is sent. The hashes
+below are recorded anyway, because the note quotes page counts that describe
+specific files: if the build changes before he replies, the figures he was given
+stop describing what would be sent.
+
+**Provenance of the two figures quoted.** The `43` is not a measurement made in
+this repository — it is Word's own count, stored in the `.docx` P.J. returned on
+2026-08-27, and it is quoted as his number rather than ours. The `~24` is the
+`pdfinfo` page count of `preprint_npj/build/paper.pdf`, measured here.
+
+### Hashes, in two states
+
+The artefacts were rebuilt after the send, at the author's request. Page counts
+are unchanged — 24 / 56 / 121 before and after — because no source changed; only
+the embedded creation timestamps differ, since the build does not set
+`FORCE_SOURCE_DATE=1`. Both states are recorded so neither is mistaken for the
+other.
+
+**At the moment of the send** (build of 15:16–15:17, the bytes the quoted page
+counts were read from):
+
+| artefact | SHA-256 |
+|---|---|
+| `paper.pdf` | `74b1de8144ffa04f6a1f9566d3f501c14e872beb5dc6fe1334dc39b0d84f0357` |
+| `supplement.pdf` | `778e1dcde47f833d73e5696f4bb4f580cb97c58d566c22e123498e7945c90c8f` |
+| `manuscript.pdf` | `98cf53555ea4d9926d8aa296a85b5ad7b657ed35e13353d60ff6d3d7366f63b4` |
+
+**After the post-send rebuild** (same commit, same content, current on disk):
+
+| artefact | SHA-256 |
+|---|---|
+| `paper.pdf` | `99c931a4ca93ea32d627befe6915567a6458c4498998de4fc4ff270c7c807bb4` |
+| `supplement.pdf` | `c2f5d428ceedbe8d20762f69825130753aa2fb343b7465d38b3b6e504e55a821` |
+| `manuscript.pdf` | `5ec6ae3435ba7921c43de655f38bd8c93a9d633131120d36bbd1e366544187d1` |
+
+**Written the same day, 15 minutes after the send** — the discipline the
+2026-08-25 entry could not follow, and the reason its hashes are gone for good.
+
+### Structural verification of the build, same day
+
+`scripts/check_render.py` PASSED (2 accepted residues, 0 new).
+`scripts/check_docx_structure.py` PASSED, self-calibrated: paper 10 of 10
+`\includegraphics` present as media files, 9 captions with 0 missing;
+supplement 5 of 5 images, 21 captions with 0 missing; both in source order.
+Paper renders 5 figures and 4 tables in order, section order 1–4 intact, back
+matter complete, and the reference list numbers 1–21 with no gap, matching the
+21 distinct keys `paper.tex` cites.
+
+**The `.docx` page counts cannot be read here.** `docProps/app.xml` reports
+`<Pages>1</Pages>` and `<Words>83</Words>` identically for both files: a pandoc
+placeholder, not a measurement. Word computes pagination when it opens the file,
+which is why P.J.'s `43` exists at all and why no `.docx` page count is claimed
+in this entry.
