@@ -98,6 +98,21 @@ jobs:
       - name: Monograph anchor-map audit (fail on any FAIL)
         run: uv run python scripts/audit_claims.py --check-monograph
 
+      # The head-line counter guard (audit_claims.py, 2026-08-03) verifies the
+      # audit's OWN counters -- ledger anchors, crosswalk entries, monograph
+      # anchors -- wherever the corpus quotes them, README.md included. It needs
+      # both totals, so it runs only under `--check-paper-sync --check-monograph`
+      # TOGETHER. The three steps above pass those flags SEPARATELY, so the guard
+      # had never once executed in CI. Found 2026-09-05 by mutation: with
+      # README.md edited to 383, the bare audit exits 0 in silence; with both
+      # flags it exits 1 on `README.md:297 | ledger total | 383 | expected 382`.
+      # The pre-commit hook already runs the combination, so only hook-bypassing
+      # paths were exposed (--no-verify, a GitHub web edit, a clone without
+      # core.hooksPath). Kept as a fourth invocation rather than folded into the
+      # step above, so a failure still names which layer broke.
+      - name: Head-line counter guard (needs both flags together)
+        run: uv run python scripts/audit_claims.py --check-paper-sync --check-monograph
+
       # Fourth layer, added 2026-09-03 after eleven bibliography keys left
       # paper.tex + supplement.tex unnoticed during the synthesis pass: six of
       # them left a claim standing with no source. Every gate above stayed
