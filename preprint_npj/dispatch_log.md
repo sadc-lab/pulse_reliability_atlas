@@ -582,8 +582,9 @@ date is filled in when the author confirms it.
 | Recipients | the four supervising co-authors (A.W., C.S., P.J., M.S.) |
 | Source commit | `0f275e00493c65271799334a91c0bbb6854e9cf2` |
 | Format | `.pdf` and `.docx` |
-| Artefacts | paper, supplement, and the companion technical monograph |
-| Pages | 24 (paper) / 56 (supplement) / 121 (monograph) |
+| Artefacts sent | paper and supplement only |
+| Pages | 24 (paper) / 56 (supplement) |
+| Not sent | the companion technical monograph, by author's decision of 2026-09-05 |
 
 ### Hashes, frozen before any further build
 
@@ -593,12 +594,20 @@ date is filled in when the author confirms it.
 | `preprint_npj/build/paper.docx` | `bdacdad1475f9dc6ddd2a0c6f18df8aea9526dd66a88a4fb36cca7ee6fbede69` | 947,124 |
 | `preprint_npj/build/supplement.pdf` | `3992860ac6b61fcd138d648fce8a00bb26f4efd83767365497517b8158033215` | 700,782 |
 | `preprint_npj/build/supplement.docx` | `0385d5d81ba693c91a6df3038de94773858ea4081f984fb874c2b87b38bed80b` | 735,540 |
+
+The monograph was rebuilt at the same commit but **is not part of this
+dispatch**. Its hashes are recorded below so that build stays identifiable if it
+is sent later, and are kept out of the table above so that table lists only what
+left the machine.
+
+| built, not sent | SHA-256 | bytes |
+|---|---|---|
 | `preprint/build/manuscript.pdf` | `cb76f635013bb353d09d0c9704b27cefd2ceac8b14bd8d1903afe615758259c5` | 1,353,957 |
 | `preprint/build/manuscript.docx` | `de64954f111ba1f32fedb89a0b81e12cd080cd3dfa5c50cb7227c10f6803b338` | 1,014,894 |
 
 All six artefacts were rebuilt at the author's request immediately before this
-hashing, so that the files sent carry the same clock as the send, and every one
-was then verified to postdate its source. **No build has run since these hashes
+hashing, so that the four that are sent carry the same clock as the send, and
+every one of the six was then verified to postdate its source. **No build has run since these hashes
 were taken, and none may run before the files leave.** The rebuild changed no
 content: `paper.pdf`, `paper.docx`, `supplement.pdf` and `supplement.docx` came
 back byte-for-byte the same SIZE as the previous build, only their embedded
@@ -608,7 +617,8 @@ pages did not.
 ### What changed since the version the four last received (`613f2a6`, 2026-08-25)
 
 The paper went from 38 to 24 rendered pages, the supplement from 52 to 56, and
-the monograph from 119 to 121. **Their copies are pinned to `613f2a6` and no
+the monograph, which they received in August but which is not resent here, from
+119 to 121. **Their copies are pinned to `613f2a6` and no
 longer match**: the reference list is 21 entries against the 40 distinct keys
 the dispatched source cited, so every citation number in their copy points at a
 different work than the same number does here.
