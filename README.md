@@ -310,6 +310,55 @@ machine.
 
 ---
 
+## How this repository verifies itself
+
+Much of this repository's prose and code was drafted with AI assistance,
+and every quantitative claim in the manuscript is checked by a machine
+rather than by care. The two facts are connected: the checks exist
+because the drafting is fallible, and each was written **after** a
+specific defect had already slipped through.
+
+**Verification is executable.** The claims ledger re-derives 382
+numerical claims from the canonical data artifacts and compares each
+against the value printed in the manuscript. It runs on every push. A
+number that drifts from its source fails the build.
+
+**Each guard has an incident behind it.** Six gates run in CI on every
+push, and the pre-commit hook runs a wider set locally. None was
+designed up front:
+
+- [`check_citations.py`](scripts/check_citations.py) — after eleven
+  bibliography keys left the manuscript unnoticed during a rewrite,
+  **six of them leaving a claim with no source**.
+- [`check_stale_counts.py`](scripts/check_stale_counts.py) — after four
+  files advertised a ledger count that had grown past them months
+  earlier.
+- [`check_backrefs.py`](scripts/check_backrefs.py) — after the
+  supplement kept asserting that the paper reported a result the paper
+  no longer contained.
+- [`check_render.py`](scripts/check_render.py) — after every layer
+  reported green while a figure was cut off mid-diagram and its caption
+  never reached the PDF. **A clean log is not evidence of a correct
+  page.**
+
+**A guard is calibrated before it is trusted.** Each one is shown to
+*fail* on the exact defect that motivated it, then restored. A check
+that has never been observed to fail is an assumption, not a test.
+
+**The AI use is bounded by artifacts, not by intention.** Two models in
+separate sessions, one critiquing the other's output; the standing rules
+and verification protocol are versioned in [`CLAUDE.md`](CLAUDE.md); the
+preregistration was locked before data collection; every change was
+reviewed and committed by the author. Methods §4.7 of the manuscript
+carries the full disclosure.
+
+**What this does not establish.** These gates detect drift between a
+claim and its source. They do not make a claim true, they do not
+validate the physiology, and they cannot see a defect nobody has yet
+met.
+
+---
+
 ## Repository layout
 
 ```
