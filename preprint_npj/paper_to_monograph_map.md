@@ -231,8 +231,8 @@ caught equally.*
   monograph_claim_id: 'T1.07'
   expected_value: 48
   format_in_paper: '48 of 48'
-  expected_occurrences: 4
-  notes: 'Appears three times: once in §2.2 prose ("the data support this on 48 of 48 cell $\times$ output combinations"), once in Figure 3 caption ("48 of 48 cell $\times$ output combinations"), and (bumped 2 -> 3, 2026-07-05) once in the §4 Discussion, where the H1 skewed-sensitivity result is surfaced at the FAQ-gap sentence. Bumped 3 -> 4 (2026-07-24): the new Supplement §S3.3 subsection on the pulse-pressure-clip cost states that H1 "holds in 48 of 48 cell--output combinations under either estimator", adding a fourth occurrence.'
+  expected_occurrences: 3
+  notes: 'Appears three times: once in §2.2 prose ("the data support this on 48 of 48 cell $\times$ output combinations"), once in Figure 3 caption ("48 of 48 cell $\times$ output combinations"), and once in Supplement §S3.3 on the pulse-pressure-clip cost, which states that H1 "holds in 48 of 48 cell--output combinations under either estimator". History: bumped 2 -> 3 (2026-07-05) when the Discussion surfaced the result at the FAQ-gap sentence, 3 -> 4 (2026-07-24) when the Supplement §S3.3 subsection was added, and back 4 -> 3 (2026-09-05) when the Discussion occurrence was removed. That removal answers P.J.''s request for the absence of repetition: the Discussion was restating §2.2''s sentence with both of its figures rather than interpreting it, and now carries the finding without the numbers, pointing to §2.2 instead.'
 
 - paper_section: '§2.2 Morris (prose)'
   paper_context: 'H1 median top-3 fraction (prose form)'
@@ -250,13 +250,13 @@ caught equally.*
   expected_occurrences: 1
   notes: 'Appears once in Figure 3 caption as ", median 0.928".'
 
-- paper_section: 'Abstract + §3 Discussion'
+- paper_section: 'Abstract'
   paper_context: 'H1 median top-3 fraction (rounded-percentage display form)'
   monograph_claim_id: 'T1.08'
   expected_value: 0.928
   format_in_paper: 'median 93~\%'
-  expected_occurrences: 2
-  notes: 'Added 2026-08-01 (finding F-1 of the step-wise fact-check). Same underlying value as the two rows above, in its rounded-percentage display form: T1.08 = 0.9277 -> 92.77 % -> 93 %. Appears twice, both in paper.tex: the Abstract ("median 93~\% of total sensitivity") and the Discussion ("a median 93~\% of summed $\mu^{*}$"). Before this row, a future correction to 0.928 would have updated the two guarded loci and silently left these two behind, because the crosswalk guards the fraction and not its percentage form.'
+  expected_occurrences: 1
+  notes: 'Added 2026-08-01 (finding F-1 of the step-wise fact-check). Same underlying value as the two rows above, in its rounded-percentage display form: T1.08 = 0.9277 -> 92.77 % -> 93 %. Appeared twice, both in paper.tex, until 2026-09-05; now once, in the Abstract only. The Discussion occurrence was removed answering P.J.'s request for the absence of repetition: it restated the H1 figures that §2.2 had just given, and now points to §2.2 instead. Before this row, a future correction to 0.928 would have updated the two guarded loci and silently left these two behind, because the crosswalk guards the fraction and not its percentage form.'
 
 - paper_section: '§2.2 Morris (prose)'
   paper_context: 'H1 top-3 fraction range across cells'

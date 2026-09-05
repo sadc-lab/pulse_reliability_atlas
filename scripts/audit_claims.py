@@ -4102,9 +4102,18 @@ n_s021_fail = check_s021_clock()
 S021_CONVERGED_N = 40
 S021_PHYSIO_CONVERGED = 37
 S021_CONVERGED_PUBLISHED_MMHG = 643
+# The paper-side literal deliberately omits the leading article. On 2026-09-05
+# the sentence carrying it was split for readability, at P.J.'s request for
+# fluidity, and "the converged S1 plateau median" became "The converged S1
+# plateau median" at the head of its own sentence. The claim did not change --
+# only its position in the sentence did -- so the anchor drops the article
+# rather than pinning a capitalisation that carries no meaning. What the anchor
+# must keep pinning is the POPULATION: "converged S1 plateau", the 40
+# drift-converged reruns, which is not the 37 physiologically converged ones
+# that the checks above hold apart.
 S021_CONVERGED_CONTEXT: tuple[tuple[str, str], ...] = (
     ("preprint_npj/supplement.tex", "over all 40 drift-converged runs"),
-    ("preprint_npj/paper.tex", "the converged S1 plateau median was 643~mmHg"),
+    ("preprint_npj/paper.tex", "converged S1 plateau median was 643~mmHg"),
 )
 
 
