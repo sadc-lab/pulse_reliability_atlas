@@ -565,3 +565,66 @@ matter complete, and the reference list numbers 1–21 with no gap, matching the
 placeholder, not a measurement. Word computes pagination when it opens the file,
 which is why P.J.'s `43` exists at all and why no `.docx` page count is claimed
 in this entry.
+
+---
+
+## 2026-09-05 — package prepared for the four supervisors
+
+**Status: hashes frozen, send not yet confirmed.** This entry is written before
+the files leave the machine, which is the whole point. The 2026-08-25 entry was
+written nine days late, by which time `preprint_npj/build/` had been overwritten
+and its hashes were unrecoverable. Here the hashes are taken first and the send
+date is filled in when the author confirms it.
+
+| | |
+|---|---|
+| Sent | _to be confirmed by the author_ |
+| Recipients | the four supervising co-authors (A.W., C.S., P.J., M.S.) |
+| Source commit | `0f275e00493c65271799334a91c0bbb6854e9cf2` |
+| Format | `.pdf` and `.docx` |
+| Artefacts | paper, supplement, and the companion technical monograph |
+| Pages | 24 (paper) / 56 (supplement) / 121 (monograph) |
+
+### Hashes, frozen before any further build
+
+| artefact | SHA-256 | bytes |
+|---|---|---|
+| `preprint_npj/build/paper.pdf` | `50f24e8ae7c6487c08215ae6e03cee965804cd9bdda4be82ccdeac614dd7e0a8` | 608,187 |
+| `preprint_npj/build/paper.docx` | `14c2bb4f67a7dbeec01926db3a74bbd43a6670c8e2632c6053df1960d6ee0ba8` | 947,124 |
+| `preprint_npj/build/supplement.pdf` | `17182375a9ad190cd0ac88d9efaf9372274b4de54bf452bebe7944d633d8cee5` | 700,782 |
+| `preprint_npj/build/supplement.docx` | `8fd44afcd208ff83080bb77318ecf7896649ff7958491d9fea3bdde8f974a3f0` | 735,540 |
+| `preprint/build/manuscript.pdf` | `5ec6ae3435ba7921c43de655f38bd8c93a9d633131120d36bbd1e366544187d1` | 1,353,961 |
+| `preprint/build/manuscript.docx` | `5680af69384075e04545948d82646fcf02ceb48412171c93a8f61365be10f529` | 1,014,893 |
+
+Every artefact was verified to postdate its source before hashing: `paper.tex`
+17:31, `paper.pdf` 17:33; `supplement.tex` 17:28, `supplement.pdf` 17:33;
+`manuscript.md` 2026-09-04 23:40, `manuscript.pdf` 15:34. No build has run since.
+
+### What changed since the version the four last received (`613f2a6`, 2026-08-25)
+
+The paper went from 38 to 24 rendered pages, the supplement from 52 to 56, and
+the monograph from 119 to 121. **Their copies are pinned to `613f2a6` and no
+longer match**: the reference list is 21 entries against the 40 distinct keys
+the dispatched source cited, so every citation number in their copy points at a
+different work than the same number does here.
+
+Substantively, since their copy: the September condensation pass and the audits
+that followed it; five citations restored to claims that had outlived them and a
+citation-manifest gate wired to stop that recurring; the cross-sex Spearman
+result restored to Results after the compression left it declared in Methods and
+reported nowhere; H3 and H4 regraded against the hypotheses as preregistered,
+across the paper, the README and the monograph, which had carried three
+different verdicts; and, answering P.J.'s reply of this afternoon, three of the
+densest sentences split and the Discussion's restatement of H1 removed.
+
+### Gate state at dispatch
+
+Nine invocations green: `audit_claims.py` bare, `--check-paper-sync`,
+`--check-monograph`, and both flags together (382 / 382 anchors on the authors'
+full tree; 381 / 382 with 1 SKIPPED on a clean checkout, `T1.06u` reading
+gitignored raw trajectories); `check_citations.py` (41 keys); `check_backrefs.py`
+(12 back-references, 10 probed, 2 pointers); `check_stale_counts.py`;
+`check_render.py` (2 accepted residues, 0 new); `check_docx_structure.py`
+(self-calibrated: paper 10 of 10 images, supplement 5 of 5, all captions in
+source order). Plus 80 pytest and `ruff`. CI green on this exact commit, `0f275e0`, run `33980343328`, with all seven
+gate steps individually confirmed executed rather than inferred from a green job.
