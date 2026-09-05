@@ -3140,3 +3140,16 @@ ceremony, it was the only step that found the defect.
 Nine gate invocations green, including the newly wired combination, plus 80
 tests and ruff. Paper 24 pages, supplement 56 -- unchanged. The restored glosses
 and the `Supplement S6.1` cross-reference confirmed on the rendered page.
+
+### 35.7 SHAP left unglossed, deliberately
+
+Recorded so the omission is not mistaken for an oversight. SHAP is the one
+named method of section 35.1 that keeps no plain-language gloss. Two reasons,
+both measured. In `paper.tex` it appears exactly once, as a pointer -- "the
+ranking is cross-verified against a SHAP surrogate in Supplement S13" -- so no
+argument in the paper depends on the reader understanding it, unlike Wasserstein
+or BH-FDR, which carry a result. And `sec:s13` cites it to its canonical source
+(`lundberg2017`) and states its epistemological scope in a dedicated subsection.
+
+Author's decision, 2026-09-05. If a reviewer asks, the cheapest repair is a
+six-word gloss in `sec:s13`, not in the paper.
