@@ -568,17 +568,18 @@ in this entry.
 
 ---
 
-## 2026-09-05 — package prepared for the four supervisors
+## 2026-09-05 — sent to the four supervisors (paper + supplement)
 
-**Status: hashes frozen, send not yet confirmed.** This entry is written before
-the files leave the machine, which is the whole point. The 2026-08-25 entry was
+**Status: SENT.** 2026-09-05, 22:08 France time, four attachments. The entry was
+written before the files left the machine and dated afterwards, which is the whole
+point. The 2026-08-25 entry was
 written nine days late, by which time `preprint_npj/build/` had been overwritten
 and its hashes were unrecoverable. Here the hashes are taken first and the send
 date is filled in when the author confirms it.
 
 | | |
 |---|---|
-| Sent | _to be confirmed by the author_ |
+| Sent | 2026-09-05, 22:08 France time |
 | Recipients | the four supervising co-authors (A.W., C.S., P.J., M.S.) |
 | Source commit | `0f275e00493c65271799334a91c0bbb6854e9cf2` |
 | Format | `.pdf` and `.docx` |
@@ -626,6 +627,30 @@ content: `paper.pdf`, `paper.docx`, `supplement.pdf` and `supplement.docx` came
 back byte-for-byte the same SIZE as the previous build, only their embedded
 timestamps differing, which is why every hash above moved while 24 / 56 / 121
 pages did not.
+
+### The accompanying message, as sent
+
+Recorded verbatim, because a returning annotation is read against what its
+reader was told:
+
+> [Text of a private message removed from the public history; see HISTORY.md.]
+
+**Two paragraphs of the drafted message were not sent**, by the author's choice,
+and the omission is recorded because it changes what the recipients know:
+
+1. **The citation-numbering warning.** The draft said the paper now cites 22
+   references against 40 in their copy, and the supplement 32 against 24, so the
+   same bracketed number no longer points at the same work, and asked them to
+   annotate on the new files. Without it, an annotation of the form "reference
+   [12] is wrong" may be reporting the numbering of the August copy rather than
+   a defect in this one. Both counts were re-derived immediately before the send.
+2. **The list of what is new**: the clinical cost of the -2 cmH2O trigger lock,
+   the sentence on Pulse's teaching use, and the two claims that now carry a
+   source (blood volume per kilogram, and the alveolar-gas-equation prediction).
+
+Nothing in either omitted paragraph was inaccurate; they were dropped for
+brevity. A one-line follow-up can restore the numbering warning if a returning
+comment suggests it is needed.
 
 ### What changed since the version the four last received (`613f2a6`, 2026-08-25)
 
