@@ -589,16 +589,21 @@ date is filled in when the author confirms it.
 
 | artefact | SHA-256 | bytes |
 |---|---|---|
-| `preprint_npj/build/paper.pdf` | `50f24e8ae7c6487c08215ae6e03cee965804cd9bdda4be82ccdeac614dd7e0a8` | 608,187 |
-| `preprint_npj/build/paper.docx` | `14c2bb4f67a7dbeec01926db3a74bbd43a6670c8e2632c6053df1960d6ee0ba8` | 947,124 |
-| `preprint_npj/build/supplement.pdf` | `17182375a9ad190cd0ac88d9efaf9372274b4de54bf452bebe7944d633d8cee5` | 700,782 |
-| `preprint_npj/build/supplement.docx` | `8fd44afcd208ff83080bb77318ecf7896649ff7958491d9fea3bdde8f974a3f0` | 735,540 |
-| `preprint/build/manuscript.pdf` | `5ec6ae3435ba7921c43de655f38bd8c93a9d633131120d36bbd1e366544187d1` | 1,353,961 |
-| `preprint/build/manuscript.docx` | `5680af69384075e04545948d82646fcf02ceb48412171c93a8f61365be10f529` | 1,014,893 |
+| `preprint_npj/build/paper.pdf` | `32405a04047ca1f88a5cf61c171b81246630beb2b3901a20faf5c7dfeb71f393` | 608,187 |
+| `preprint_npj/build/paper.docx` | `bdacdad1475f9dc6ddd2a0c6f18df8aea9526dd66a88a4fb36cca7ee6fbede69` | 947,124 |
+| `preprint_npj/build/supplement.pdf` | `3992860ac6b61fcd138d648fce8a00bb26f4efd83767365497517b8158033215` | 700,782 |
+| `preprint_npj/build/supplement.docx` | `0385d5d81ba693c91a6df3038de94773858ea4081f984fb874c2b87b38bed80b` | 735,540 |
+| `preprint/build/manuscript.pdf` | `cb76f635013bb353d09d0c9704b27cefd2ceac8b14bd8d1903afe615758259c5` | 1,353,957 |
+| `preprint/build/manuscript.docx` | `de64954f111ba1f32fedb89a0b81e12cd080cd3dfa5c50cb7227c10f6803b338` | 1,014,894 |
 
-Every artefact was verified to postdate its source before hashing: `paper.tex`
-17:31, `paper.pdf` 17:33; `supplement.tex` 17:28, `supplement.pdf` 17:33;
-`manuscript.md` 2026-09-04 23:40, `manuscript.pdf` 15:34. No build has run since.
+All six artefacts were rebuilt at the author's request immediately before this
+hashing, so that the files sent carry the same clock as the send, and every one
+was then verified to postdate its source. **No build has run since these hashes
+were taken, and none may run before the files leave.** The rebuild changed no
+content: `paper.pdf`, `paper.docx`, `supplement.pdf` and `supplement.docx` came
+back byte-for-byte the same SIZE as the previous build, only their embedded
+timestamps differing, which is why every hash above moved while 24 / 56 / 121
+pages did not.
 
 ### What changed since the version the four last received (`613f2a6`, 2026-08-25)
 
