@@ -523,7 +523,7 @@ the hour by the repair below):
 | `supplement.pdf` | `c2f5d428ceedbe8d20762f69825130753aa2fb343b7465d38b3b6e504e55a821` |
 | `manuscript.pdf` | `5ec6ae3435ba7921c43de655f38bd8c93a9d633131120d36bbd1e366544187d1` |
 
-**Current on disk**, after one cross-reference repair in `supplement.tex`:
+**After the cross-reference repair in `supplement.tex`**, the same afternoon:
 `the table above` became `Table~\ref{tab:limits}`, because the table it named
 renders on page 45 while the sentence renders on page 5 — forty pages forward,
 not above. Content of the paper is unchanged; its hash moves only because the
@@ -538,6 +538,14 @@ rebuild restamps every PDF. Page counts are identical throughout: 24 / 56 / 121.
 Three hash states in one day is churn, and it is recorded rather than tidied:
 only the first block describes the bytes the quoted page counts were read from,
 and that is the one this entry exists to preserve.
+
+**No block here claims to be current.** Later the same day, answering P.J.'s
+reply asking for fluidity and the absence of repetition, three long sentences
+were split and the Discussion's restatement of H1 removed, so the artefacts were
+rebuilt again and every hash above moved once more. Page counts did not: 24 / 56
+/ 121 throughout. Hashes for the version actually sent to the four supervisors
+will be taken at that dispatch and recorded in its own entry, before the next
+build runs.
 
 **Written the same day, 15 minutes after the send** — the discipline the
 2026-08-25 entry could not follow, and the reason its hashes are gone for good.
