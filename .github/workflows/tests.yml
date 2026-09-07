@@ -155,5 +155,12 @@ jobs:
       # Five ledger anchors were written first and rejected: one added anchor
       # changes the ledger total, which 25 places across README, supplement and
       # monograph quote, so it cascades. A guard carries its own counter.
-      - name: Manuscript pair counts still match results/sobol_ci_buckets.csv
+      # Widened the same day to the rest of the paragraph, which had drifted
+      # from the code in two ways: the trigger written "> 0.6" where the
+      # preregistration and both implementations use ">= 0.6", and "in all five
+      # bootstrap draws" where there are N_BOOTSTRAP draws per seed and five
+      # seeds. The second is the same conflation 83da8a2 had already fixed in
+      # Methods 4.6 hours earlier: that sweep found one locus, the population
+      # was two.
+      - name: Results 2.2 non-linearity paragraph still matches its sources
         run: uv run python scripts/check_pair_counts.py

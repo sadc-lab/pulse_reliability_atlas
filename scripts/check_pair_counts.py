@@ -1,11 +1,28 @@
-"""Measure the manuscript's elementary-effect pair counts against the artefact.
+"""Measure the paper's non-linearity paragraph (2.2) against what produced it.
 
-WHY THIS EXISTS. Section 2.2 of the paper states how much data each published
-Morris index actually rests on: how many of the 144 top-three entries are
-computed from a single elementary-effect pair, how many from three or fewer,
-and what the median is. Those five numbers are re-derived from
+WHY THIS EXISTS. Section 2.2 states how much data each published Morris index
+actually rests on: how many of the 144 top-three entries are computed from a
+single elementary-effect pair, how many from three or fewer, and what the
+median is. Those five numbers are re-derived from
 ``results/sobol_ci_buckets.csv``. Nothing re-measured them against that file,
 so they were an assumption the moment they were typed.
+
+The same paragraph also states the preregistered non-linearity trigger and the
+resampling design, and both had drifted from the code by the time this guard
+was written (fixed 2026-09-07):
+
+  * it said the threshold was ``sigma/mu* > 0.6`` while the preregistration,
+    Methods 4.6, Supplement S3 and BOTH implementations use ``>= 0.6``. Four
+    statements of one trigger and this was the only one excluding equality.
+  * it said "in all five bootstrap draws". There are N_BOOTSTRAP draws per
+    seed and five SEEDS. The identical conflation had already been corrected
+    in Methods 4.6 by 83da8a2 earlier the same day -- that sweep found one
+    locus and the population was two, which is exactly the failure a guard
+    exists to stop repeating.
+
+Those two are therefore checked here against ``scripts/sobol_ci_buckets.py``,
+read as text rather than imported, so that running this guard never executes
+the bootstrap.
 
 WHY A GUARD AND NOT A LEDGER ANCHOR. Both were tried. Five ledger anchors were
 written first and the audit went green at 387/387 -- and then failed, because
@@ -29,6 +46,10 @@ WHAT IT CHECKS.
   satisfy it.
   CHECK C: n_total_pairs is 20 on every row. "7 of the 20 possible" is one
   number only while the denominator is uniform.
+  CHECK D: the trigger sentence states the threshold and the seed count that
+  scripts/sobol_ci_buckets.py actually uses. The seed count is cross-checked
+  against the CSV's own per-seed ra_lo_* columns, so two instruments have to
+  agree before the paper is judged.
 
 Usage:
       python scripts/check_pair_counts.py              (measure)
@@ -39,6 +60,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import re
 import sys
 from pathlib import Path
 
@@ -48,9 +70,16 @@ REPO = Path(__file__).resolve().parents[1]
 PAPER = REPO / "preprint_npj" / "paper.tex"
 BUCKETS = REPO / "results" / "sobol_ci_buckets.csv"
 
-# The sentence under guard, delimited rather than pattern-matched.
+# The sentences under guard, delimited rather than pattern-matched.
 SENTENCE_OPEN = "The same mechanism sets how much data each index rests on"
 SENTENCE_CLOSE = "The ranking is cross-verified"
+
+TRIGGER_OPEN = "Influence is not proportionality"
+TRIGGER_CLOSE = "The map of non-linearity"
+
+BUCKETS_SRC = REPO / "scripts" / "sobol_ci_buckets.py"
+THRESHOLD_RE = re.compile(r"^PROMOTE_THRESHOLD\s*=\s*([\d.]+)", re.M)
+SEEDS_RE = re.compile(r"^SEEDS\s*=\s*\(([^)]*)\)", re.M)
 
 # The manuscript spells this one count as a word, so the guard must too.
 NUM_WORDS = {
@@ -78,6 +107,30 @@ def measure(df: pd.DataFrame) -> dict[str, int]:
     }
 
 
+def read_trigger_design(src_text: str, df: pd.DataFrame) -> dict[str, object]:
+    """Parse the trigger constants from source text; never import the module.
+
+    Importing scripts/sobol_ci_buckets.py would run a bootstrap. The seed count
+    is cross-checked against the CSV's own per-seed columns so the number rests
+    on two instruments rather than on one regex.
+    """
+    thr = THRESHOLD_RE.search(src_text)
+    seeds = SEEDS_RE.search(src_text)
+    if not thr or not seeds:
+        raise LookupError(
+            "PROMOTE_THRESHOLD or SEEDS no longer parse out of "
+            "scripts/sobol_ci_buckets.py; re-register this guard"
+        )
+    n_seeds = len([s for s in seeds.group(1).split(",") if s.strip()])
+    n_seed_cols = len([c for c in df.columns if c.startswith("ra_lo_")])
+    if n_seeds != n_seed_cols:
+        raise LookupError(
+            f"seed count disagrees between the script ({n_seeds}) and the "
+            f"CSV's ra_lo_* columns ({n_seed_cols}); one of them is stale"
+        )
+    return {"threshold": thr.group(1), "n_seeds": n_seeds}
+
+
 def expected_phrases(m: dict[str, int]) -> list[tuple[str, str]]:
     """(label, phrase) the sentence must contain, built from the measurement."""
     return [
@@ -96,19 +149,23 @@ def expected_phrases(m: dict[str, int]) -> list[tuple[str, str]]:
     ]
 
 
-def extract_sentence(paper_text: str) -> str:
+def extract_sentence(
+    paper_text: str,
+    opener: str = SENTENCE_OPEN,
+    closer: str = SENTENCE_CLOSE,
+) -> str:
     """CHECK A. A missing delimiter FAILS; it never yields an empty passage."""
-    start = paper_text.find(SENTENCE_OPEN)
+    start = paper_text.find(opener)
     if start == -1:
         raise LookupError(
-            f"opening delimiter not found: {SENTENCE_OPEN!r}. The guarded "
+            f"opening delimiter not found: {opener!r}. The guarded "
             f"sentence was rewritten or removed; re-register it here."
         )
-    end = paper_text.find(SENTENCE_CLOSE, start)
+    end = paper_text.find(closer, start)
     if end == -1:
         raise LookupError(
             f"closing delimiter not found after the opening one: "
-            f"{SENTENCE_CLOSE!r}. Re-register the passage."
+            f"{closer!r}. Re-register the passage."
         )
     return paper_text[start:end]
 
@@ -136,6 +193,25 @@ def check(paper_text: str, df: pd.DataFrame) -> list[str]:
 
     for label, phrase in expected_phrases(m):
         if phrase not in sentence:
+            problems.append(f"{label}: paper does not state {phrase!r}")
+
+    # CHECK D: the trigger sentence, against the code that applies the trigger.
+    try:
+        design = read_trigger_design(BUCKETS_SRC.read_text(encoding="utf-8"), df)
+        trigger = extract_sentence(paper_text, TRIGGER_OPEN, TRIGGER_CLOSE)
+    except LookupError as exc:
+        problems.append(str(exc))
+        return problems
+
+    threshold_phrase = (
+        rf"$\sigma / \mu^{{*}} \geq {design['threshold']}$ threshold"
+    )
+    seeds_phrase = f"{NUM_WORDS[design['n_seeds']]} independent seeds"
+    for label, phrase in [
+        ("threshold", threshold_phrase),
+        ("seeds", seeds_phrase),
+    ]:
+        if phrase not in trigger:
             problems.append(f"{label}: paper does not state {phrase!r}")
     return problems
 
@@ -168,12 +244,35 @@ def self_test(paper_text: str, df: pd.DataFrame) -> int:
         else:
             print(f"  ok    catches a wrong {label}")
 
+    # CHECK D calibrated on the two defects that were live in this paragraph
+    # until 2026-09-07, reproduced verbatim rather than by a plausible stand-in.
+    historical = [
+        (r"$\sigma / \mu^{*} \geq 0.6$", r"$\sigma / \mu^{*} > 0.6$",
+         "the threshold written as a strict inequality"),
+        ("in every draw under each of five independent seeds",
+         "in all five bootstrap draws",
+         "a seed count passed off as a draw count"),
+    ]
+    for old, new, label in historical:
+        if old not in paper_text:
+            failures.append(f"historical defect target absent: {old!r}")
+            continue
+        if not check(paper_text.replace(old, new, 1), df):
+            failures.append(f"guard did NOT catch {label}")
+        else:
+            print(f"  ok    catches {label}")
+
     # A removed delimiter must FAIL, not silently pass on an empty passage.
-    gutted = paper_text.replace(SENTENCE_OPEN, "The same mechanism sets how", 1)
-    if not check(gutted, df):
-        failures.append("guard passed with its opening delimiter removed")
-    else:
-        print("  ok    fails loudly when the sentence is rewritten away")
+    for opener, stub, which in [
+        (SENTENCE_OPEN, "The same mechanism sets how", "pair-count"),
+        (TRIGGER_OPEN, "Influence is not", "trigger"),
+    ]:
+        if not check(paper_text.replace(opener, stub, 1), df):
+            failures.append(
+                f"guard passed with the {which} opening delimiter removed"
+            )
+        else:
+            print(f"  ok    fails loudly if the {which} sentence is rewritten away")
 
     # Negative controls.
     if check(paper_text, df):
@@ -239,9 +338,14 @@ def main() -> int:
         print("  rests on. Re-derive them from the artefact rather than editing")
         print("  the prose to match:  python scripts/check_pair_counts.py --list")
         return 1
+    design = read_trigger_design(BUCKETS_SRC.read_text(encoding="utf-8"), df)
     print(f"  ok    {len(expected_phrases(m))} counts agree with the artefact")
     print(f"  ok    n_total_pairs uniform at {m['total_pairs']} on "
           f"{m['population']} entries")
+    print(f"  ok    trigger stated as >= {design['threshold']}, matching "
+          f"sobol_ci_buckets.PROMOTE_THRESHOLD")
+    print(f"  ok    {design['n_seeds']} seeds in the paper, in the script and "
+          f"in the CSV's ra_lo_* columns")
     print("\n  PASSED.")
     return 0
 

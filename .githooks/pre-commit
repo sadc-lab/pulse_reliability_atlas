@@ -253,7 +253,7 @@ if [ -n "$AUDIT_CMD" ]; then
     fi
 fi
 
-# ---- 2b-ter. Manuscript pair counts against results/sobol_ci_buckets.csv --
+# ---- 2b-ter. Results 2.2 non-linearity paragraph against its sources ------
 #
 # Added 2026-09-07. Section 2.2 now says how much data each published Morris
 # index rests on: across the 144 top-three entries the median comes from 7 of
@@ -265,11 +265,19 @@ fi
 # added anchor moves the ledger total, and 25 places across README.md,
 # supplement.tex and manuscript.md quote that total, so it cascades into all of
 # them. A guard carries its own counter and cascades nowhere.
+#
+# Widened the same day to the rest of the paragraph. It stated the trigger as
+# "> 0.6" while the preregistration, Methods 4.6, Supplement S3 and both
+# implementations use ">= 0.6", and said "in all five bootstrap draws" where
+# there are N_BOOTSTRAP draws per seed and five seeds — the same conflation
+# 83da8a2 had fixed in Methods 4.6 hours earlier, whose sweep found one locus
+# when the population was two. Both are now measured against
+# scripts/sobol_ci_buckets.py, read as text so the hook never runs a bootstrap.
 if [ -n "$AUDIT_CMD" ]; then
     if ! $AUDIT_CMD scripts/check_pair_counts.py >/dev/null; then
         echo ""
-        echo "pre-commit: a pair count in Results 2.2 disagrees with"
-        echo "results/sobol_ci_buckets.csv — commit aborted."
+        echo "pre-commit: Results 2.2 disagrees with the artefact or the code"
+        echo "that produced it — commit aborted."
         echo ""
         echo "  See which, and why:"
         echo "    uv run python scripts/check_pair_counts.py"
