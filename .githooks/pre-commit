@@ -253,6 +253,34 @@ if [ -n "$AUDIT_CMD" ]; then
     fi
 fi
 
+# ---- 2b-ter. Manuscript pair counts against results/sobol_ci_buckets.csv --
+#
+# Added 2026-09-07. Section 2.2 now says how much data each published Morris
+# index rests on: across the 144 top-three entries the median comes from 7 of
+# the 20 possible elementary-effect pairs, 25 from three or fewer, and 9 from a
+# single pair — five of those nine being their combination's rank-1 input, with
+# sigma zero by construction and no estimable bootstrap interval. A reviewer
+# holding the released CSV can re-derive all five in minutes, so they must not
+# drift. Five ledger anchors were written for this first and then reverted: an
+# added anchor moves the ledger total, and 25 places across README.md,
+# supplement.tex and manuscript.md quote that total, so it cascades into all of
+# them. A guard carries its own counter and cascades nowhere.
+if [ -n "$AUDIT_CMD" ]; then
+    if ! $AUDIT_CMD scripts/check_pair_counts.py >/dev/null; then
+        echo ""
+        echo "pre-commit: a pair count in Results 2.2 disagrees with"
+        echo "results/sobol_ci_buckets.csv — commit aborted."
+        echo ""
+        echo "  See which, and why:"
+        echo "    uv run python scripts/check_pair_counts.py"
+        echo "    uv run python scripts/check_pair_counts.py --list"
+        echo "  Re-derive the numbers from the artefact; do not edit the prose"
+        echo "  to match a guess."
+        echo ""
+        exit 1
+    fi
+fi
+
 # ---- 2c. Publication-gate anchors (content, not line numbers) --------------
 #
 # Eight statements in the package assert in the PRESENT TENSE that the code and

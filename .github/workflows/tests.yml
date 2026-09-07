@@ -148,3 +148,12 @@ jobs:
       # blind here because "700" and "15" already occurred elsewhere.
       - name: Manuscript input ranges still match src/sampler.py
         run: uv run python scripts/check_input_ranges.py
+
+      # Added 2026-09-07. Section 2.2 now states how much data each published
+      # Morris index rests on: 9 of the 144 top-three entries come from a
+      # single elementary-effect pair, 25 from three or fewer, median 7 of 20.
+      # Five ledger anchors were written first and rejected: one added anchor
+      # changes the ledger total, which 25 places across README, supplement and
+      # monograph quote, so it cascades. A guard carries its own counter.
+      - name: Manuscript pair counts still match results/sobol_ci_buckets.csv
+        run: uv run python scripts/check_pair_counts.py
