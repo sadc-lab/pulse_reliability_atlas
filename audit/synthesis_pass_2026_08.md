@@ -3299,3 +3299,166 @@ net loss from six references to five.
 **The shared root: describing the work's trajectory instead of the difference
 between two states.** What a reader receives is the delta from their copy, not
 the path taken to produce it.
+
+## 37. An external review finds a range corruption the September pass introduced, 2026-09-07
+
+A review of the mailed PDFs raised two points. The first was correct and worse
+than it claimed. The second was arithmetically correct but rested on an
+assertion about the abstract that is false.
+
+### 37.1 The defect: Vt and PEEP, stated wrongly in Methods 4.3
+
+`paper.tex` stated the swept ranges as Vt 300--700 mL and PEEP 0--15 cmH2O.
+The sweep ran on 300--800 and 0--20. Four sources agree against the manuscript:
+
+  * `src/sampler.py` InputSpec rows,
+  * `preregistration.md`, which locks the ranges as a commitment,
+  * `supplement.tex`, at three loci,
+  * and decisively `results/input_instantiation_long.csv`, which records the
+    values actually submitted to the engine: Vt in {300, 466.67, 633.33, 800},
+    PEEP in {0, 6.67, 13.33, 20}.
+
+Those are the four levels of a 4-level Morris grid. On [300, 700] the third
+level would be 566.7, not 633.3; on [0, 15] the levels would be 0/5/10/15 and
+13.33 could not occur. The supplement's own S9 analysis turns on the Vt = 633.3
+level, so the arithmetic is load-bearing rather than incidental.
+
+**Origin: commit d88a1ca, the September synthesis pass, while SHORTENING that
+sentence.** `git show 613f2a6:preprint_npj/paper.tex` -- the version mailed to
+the four supervisors in August -- carries 300--800 and 0--20. The corruption was
+introduced by a prose-compression edit and mailed to the co-authors on
+2026-09-05. Five of the seven ranges in the same sentence stayed correct.
+
+Scope, measured rather than assumed: ONE locus. A sweep of both manuscripts and
+the monograph for the wrong forms returns `paper.tex:353` and nothing else.
+
+The review's remediation advice overstated the fix -- it asked for the figures,
+the relative units and the conclusions on domain extent to be corrected too.
+They need nothing: mu*, the normalisation and every figure derive from
+`src/sampler.py`, never from the prose. One sentence, no recomputation.
+
+### 37.2 Why every gate stayed green, and the guard that now closes it
+
+`audit_claims.py` DOES parse the InputSpec bounds out of `src/sampler.py` -- the
+T5.clip block reads them so the clip analysis normalises against the real
+domain. But it uses them only to compute; no anchor ever compared them to the
+sentence that states them. A constant transcribed into prose, never re-measured
+against its source, is an assumption.
+
+`scripts/check_input_ranges.py` makes it a measurement again.
+
+  CHECK A: the set of numeric ranges inside the Methods 4.3 enumeration must
+  equal the set of InputSpec bounds exactly. The passage is delimited by two
+  literals, and if either stops matching the guard FAILS rather than silently
+  checking nothing -- a rewrite forces re-registration.
+
+  CHECK B: each swept input is keyed by its (low bound, LaTeX unit) pair. Those
+  pairs were verified collision-free against the corpus before the guard was
+  written: other mL and bpm ranges exist (64--79.3 mL, 145--160 bpm, 10--15 mL,
+  0.7--0.9 mL, 5.4--14.5 mL) and none shares a low bound AND a unit with a
+  swept input. 11 unit-bearing occurrences across both documents are watched.
+
+Calibrated on the defect itself, not on a plausible substitute: the self-test
+rewrites Vt 800->700 and PEEP 20->15 and requires both checks to fail (they
+raise 4 and 2), mutates a supplement locus and requires CHECK B to fail, and
+holds two negative controls -- an unrelated 10--15 mL range must stay ignored,
+and the unmodified corpus must pass. Re-run after the file was later edited for
+ruff, because a guard edited after its calibration is uncalibrated.
+
+Wired into `.github/workflows/tests.yml` and `.githooks/pre-commit`.
+
+**One instrument honestly bounded.** A numeric diff of the August and September
+papers found only two new tokens (90.9, verified as 40/44; and a `sec:s10`
+fragment). That is reassuring and nearly worthless here: "700" and "15" already
+occurred elsewhere in the document, so this corruption introduced no new token
+and the diff is structurally blind to it. It cannot be claimed that no other
+defect of this class survives.
+
+### 37.3 The targeted Methods re-verification, and two further defects
+
+Every constant in Section 4 was re-derived from its source. All agree except
+the two recorded below.
+
+They are listed, not counted. The first draft of this paragraph asserted
+"twenty-four" without enumerating; enumerating gave a different number, and
+trying to fix THAT number showed why neither is defensible -- the total runs
+from about nineteen to about forty-six depending on whether a bound pair, a
+severity level or a whole enumeration counts as one constant. No unit was ever
+defined, so no total is reportable. The list is the evidence:
+the six hard bounds against `src/detector.py`; 20 trajectories / 4 levels /
+seed 42 against `src/sampler.py`; Morris bootstrap 1,000 against
+`scripts/analyze_sweep.py:79`; permutation null 2,000 against
+`src/analysis_compare.py:32`; the reference bodies and the CDC Agemos 216.5
+anchor; severities 0 / 0.26 / 0.60 / 0.95; the widened band [0.879, 0.945];
+7+1=8, 160 per cell, 1,280; the [60, 120] s window at 5 s giving 13 samples;
+the 22-run pilot and its five gating criteria (preregistration Pilot gate,
+items 1--5); the 10 %/30 % bands; 7/29/12 and 7/3/38 against the supplement's
+three-reading table; 72/144, 43/48, 1,500, 11,008; 23/144 and 17/48, with the
+supplement's 12 female + 11 male summing to 23.
+
+The Sobol trigger in the paper (sigma/mu* reaching 0.6) is CORRECT against
+`preregistration.md` line 180. It was `CLAUDE.md` that carried a stale 0.5 --
+the project's own instruction file briefly made a correct manuscript look
+wrong. Corrected there, with the preregistration named as the authority.
+
+**Defect 2 -- the clamp-pattern count.** The paper said the `clamped` flag
+matches "any of 4 documented input-rejection patterns"; `src/detector.py` now
+carries 5. The count was accurate when written: at 96782db the list held
+exactly four regexes. Commit 708efb1 (2026-07-26) added `minimum [\w\s]+
+baseline allowed is` and widened the first pattern to accept Pulse's unit-less
+form, closing a false negative on heart-rate lower-bound rejection -- and
+touched ONLY `src/detector.py`.
+
+This one had two defensible readings and was not resolved alone. The sweep was
+committed 2026-04-26, three months before that widening -- the exact date it
+executed is not recorded here, and does not matter, because 708efb1 itself
+establishes the ordering: it replayed BOTH pattern sets, which only makes sense
+if the published classification predates it. So "4" is true of the sweep and
+false of the shipped code; that commit measured its own retroactive safety over
+all 3,348 recorded logs, flipping exactly one run -- the s030b HR-49 probe,
+which is outside the sweep. On the author's decision the sentence now
+states both: five patterns, four in force when the sweep ran, and the explicit
+statement that replaying both sets reclassifies no run of this sweep.
+
+**Defect 3 -- "all five draws".** Methods 4.6 defined a draw as one of 1,000
+bootstrap resamples, then two clauses later required a bound to clear 0.6 "in
+all five draws". There are a thousand draws, not five. The supplement carries
+the correct referent: "Under five independent seeds ... in every draw". The
+paper was the only document saying "five draws", the supplement the only one
+saying "five independent seeds", so neither could be checked against the other
+by a count. Now "in every draw, under each of five independent seeds".
+
+Both predate September: both were already in the August package the four
+supervisors hold. Neither changes a result.
+
+### 37.4 The second review point, measured
+
+The review's figures are right: 76 runs contributed by the SpO2-saturation
+sub-mode, the clean count moving from 663 to 1,008 when that and the Vt CV
+sub-mode are excluded together, 51.8 %. All three are in supplement S4.
+
+Its central charge is not. It states that "the abstract still gives these rates
+too general a scope". The abstract carries NO clean-run rate -- not 51.8 %, not
+663. And Results 2.2 opens on precisely the reviewer's concern: "Retention is
+strongly cell-dependent and depends on which screen is applied", then reports
+both screens (663/1,280 and 1,134/1,280) with "Neither subset is
+distribution-neutral" in the table caption.
+
+What survives is a naming point worth recording: `diverged` bundles NaN/Inf, a
+missing CSV and a non-zero exit code, and Table 2 glosses that as "Pulse's
+numerical solver failed", which is an interpretation of the third case rather
+than an observation. The proposed multi-layer redesign -- technical integrity,
+then parameter-conditional plausibility, then dynamics, with per-output status
+-- is sound as design and collides with the preregistration lock: the
+classifier and its thresholds were fixed before collection, and rebuilding it
+post hoc would forfeit the argument that protects every other number.
+
+### 37.5 State
+
+Nine gates, 80 pytest, ruff on the CI scope: all green. Rebuilt to 24 and 56
+pages, unchanged from the mailed version, so the supervisors' page and section
+references still resolve. The three corrections were verified in the RENDERED
+PDF, not only in the sources.
+
+The clamp-pattern count remains unguarded by explicit decision; the next
+widening of the detector can make that sentence stale again in silence.
