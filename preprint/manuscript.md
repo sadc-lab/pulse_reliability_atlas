@@ -2832,7 +2832,7 @@ corrected by setting trigger pressure to −2 cmH2O.*
   Vt = 633.3 mL with RR ≥ 16 form five male/female pairs, verified
   input-identical on all seven Morris inputs. The female body ran away
   in **5 of 5**, the male in **1 of 5**, and the single male case
-  plateaus at 779 mmHg against 1,169 – 1,408 mmHg across the five
+  plateaus at 770 mmHg against 1,126 – 1,408 mmHg across the five
   female cases. This is the opposite direction to the all-male
   input-extreme divergence cluster of §3.5, and a third instance of the
   regime-dependence that section establishes. It is consistent with the
