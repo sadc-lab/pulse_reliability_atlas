@@ -3722,6 +3722,9 @@ Research Agency under France 2030 via the ENACT AI Cluster
 This work also relies on the financial support provided by the Région
 Grand Est, France, for which we express our gratitude.
 
+We thank the BIOSE Doctoral School of the Université de Lorraine for
+its support.
+
 We gratefully acknowledge the support of the CHU Sainte-Justine
 Foundation in Montreal and the Artificial Intelligence Applied to
 Pediatric Acute Care Research Group (R-SADC) in Montreal, Canada.

@@ -149,7 +149,15 @@ def make_panel(df: pd.DataFrame, channel: str) -> None:
     # to compact LaTeX scientific (never matplotlib's 'E+0X' style).
     annot_strs = pivot.map(smart_fmt)
 
-    fig, ax = plt.subplots(figsize=(5.2, 2.8))
+    # Width 6.6 in, height 2.8 in. The HEIGHT is the constrained dimension and
+    # must not change: 5b3b54b cut it from 3.0 to 2.8 because the caption's last
+    # line collided with the sn-jnl page number, and 82a652b left the float
+    # 2.50 pt overfull inside a 5 pt tolerance. Widening only trades the 25 % of
+    # \textwidth that the old 0.375 layout wasted in the inter-column gutter for
+    # panel area, at constant rendered height: 0.375 x (192.5/361) = 0.480 x
+    # (192.5/462). Change the width and paper.tex's subfigure fraction together
+    # or the figure will grow vertically and the float will be deferred.
+    fig, ax = plt.subplots(figsize=(6.6, 2.8))
     sns.heatmap(
         pivot,
         annot=annot_strs,
