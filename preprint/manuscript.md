@@ -2572,9 +2572,13 @@ is Figure 6).
 is one of the 6 atlas outputs; the cell value is the preregistered
 classification (green / yellow / red — definitions in the Figure 6
 W/H/T block).
-**Key takeaway:** the (S2_F, S3_F) cluster is the most reliable region;
-(S4, M) is red on every output — the worst single cell in the atlas —
-and HR + PaO2 turn red across both sexes from S3 onwards.
+**Key takeaway:** all seven green classifications fall in the
+(S2_F, S3_F) cluster, the only two cells carrying no diverged and no
+implausible run; (S4, M) is the only cell red on every output; and
+HR + PaO2 turn red across both sexes from S3 onwards. Red marks a cell
+for review, not a defect in the engine: six of the twelve are red on
+the deviation criterion alone, in scenarios where a departure from the
+healthy-male baseline is what the pathophysiology predicts.
 
 Distribution: **7 green, 29 yellow, 12 red** out of 48 cells.
 
@@ -3033,16 +3037,21 @@ cluster in the input-extreme regime.*
 The traffic-light curation map (Figure 6) is the most actionable
 artifact:
 
-* **Pulse is most reliable in moderate ARDS on the female surrogate
-  (S2_F, S3_F).** Most outputs are green, divergence is zero, and Vt
-  delivery is well-behaved. Researchers running cohort-style validation
-  studies should prefer this configuration when it suits their
-  scientific question.
-* **Pulse is least reliable in severe ARDS on the male surrogate
-  (S4_M).** Every output is red; divergence rate is doubled relative to
-  other male cells (8 / 160 vs 4 / 160); 46 / 160 runs are
-  implausible. Users should not interpret S4_M outputs as
-  ground-truth physiology without careful per-input validation. Note
+* **Every green classification in the atlas falls in moderate ARDS on
+  the female surrogate (S2_F, S3_F).** Four of the six outputs are green
+  in S2_F and three of six in S3_F; these are the only two cells with no
+  diverged and no implausible run, and delivered Vt is green in both.
+  Researchers running cohort-style validation studies may prefer this
+  configuration when it suits their scientific question, subject to the
+  use-case-specific validation that meeting the green criterion does not
+  supply.
+* **Severe ARDS on the male surrogate (S4_M) is the only cell red on
+  every output.** Its divergence rate is doubled relative to the other
+  male cells (8 / 160 vs 4 / 160) and 46 / 160 runs are implausible, so
+  its 54 / 160 combined hard-failure rate is the only one in the atlas
+  above the 30 % that makes a cell red on flags alone. Users should not
+  interpret S4_M outputs as ground-truth physiology without careful
+  per-input validation. Note
   that the male-divergence clustering reported here is specific to the
   [S006](#s006) input-extreme regime; the complementary continuous-severity
   sweep (§3.5.1) at midrange inputs produced balanced female / male
