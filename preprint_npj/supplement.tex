@@ -899,8 +899,8 @@ uv run python scripts/analyze_sweep.py
 
 # 4. Re-derive the computed quantitative claims in the
 #    manuscript + supplement from the canonical artefacts; expect
-#    382/382 PASS (exit 0) with the authors' full data tree,
-#    or 381/382 on a public clone (T1.06u auto-skipped).
+#    384/384 PASS (exit 0) with the authors' full data tree,
+#    or 383/384 on a public clone (T1.06u auto-skipped).
 uv run python scripts/audit_claims.py
 
 # 5. Optional: verify paper.tex + supplement.tex remain
@@ -919,7 +919,7 @@ Bit-exact reproduction of the canonical sweep output is verified at three indepe
 \item \textbf{Derived statistical artefacts.} The Morris $\mu^{*}$ indices, bootstrap confidence intervals, Wasserstein distances, Spearman correlations, and BH-FDR survivors all regenerate bit-equivalently from the canonical aggregated parquets; this is what the audit ledger (\texttt{scripts/audit\_claims.py}) re-derives at every run.
 \end{enumerate}
 
-The audit ledger is the primary reproducibility instrument: a green ledger run confirms that the computed quantitative claims in the main manuscript and supplement are consistent with the canonical artefacts. The ledger reports a target of 382 anchors; on the authors' full data tree all 382 are evaluated (382/382 PASS), whereas on a public clone one anchor (T1.06u, the S021 time-to-95\%-plateau, which requires the heavy raw per-run trajectories that are gitignored) is automatically skipped, giving 381/382 PASS with one explicitly-reported SKIPPED. A failed claim is a structured triage item (Type A transcription drift, Type B orphaned number, Type C derivation mismatch) with a precise file:line pointer for forensic tracing.
+The audit ledger is the primary reproducibility instrument: a green ledger run confirms that the computed quantitative claims in the main manuscript and supplement are consistent with the canonical artefacts. The ledger reports a target of 384 anchors; on the authors' full data tree all 384 are evaluated (384/384 PASS), whereas on a public clone one anchor (T1.06u, the S021 time-to-95\%-plateau, which requires the heavy raw per-run trajectories that are gitignored) is automatically skipped, giving 383/384 PASS with one explicitly-reported SKIPPED. A failed claim is a structured triage item (Type A transcription drift, Type B orphaned number, Type C derivation mismatch) with a precise file:line pointer for forensic tracing.
 
 \subsection{Independent reproduction on separate hardware}\label{sec:s12-independent}
 

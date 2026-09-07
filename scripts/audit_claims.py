@@ -1673,6 +1673,39 @@ add(
     tolerance_rule="exact_int",
 )
 
+# 46b-46c. The two ends of the same S9 sentence, anchored 2026-09-07 because
+# they were the ONLY numbers in it that were not. Both were correct when written
+# on 2026-07-25 (779.20 and 1168.94 in the data of the day) and were falsified
+# on 2026-09-02 by da5bd97's window repair, which recomputed the window-dependent
+# columns of this parquet. Nothing re-derived them, so the audit stayed green
+# and the stale pair shipped to the co-authors on 2026-09-05. The maximum of the
+# same sentence IS anchored (T1.24d.s021_s1_max_runaway_plateau) and came
+# through the repair correctly,
+# which is the whole argument for anchoring rather than guarding: a guard
+# pinning the literal 770 would go stale identically at the next repair, while
+# a re-derived claim cannot.
+_s21_runaway = s21_plat[
+    (s21_plat["scenario"] == "S1") & (s21_plat["PaO2_plateau_mmHg"] > 700)
+]
+add(
+    claim_id="T2.f003.runaway_male_plateau",
+    section="Supplement S9 + monograph 3.8",
+    manuscript_text="the single male S1 runaway case plateaus at 770 mmHg",
+    source_file="data/runs/s021_hyperoxia_convergence/plateau_stats.parquet",
+    manuscript_value=770,
+    computed_value=float(_s21_runaway[_s21_runaway["sex"] == "M"]["PaO2_plateau_mmHg"].min()),
+    tolerance_rule="whole_unit",
+)
+add(
+    claim_id="T2.f003.runaway_female_low",
+    section="Supplement S9 + monograph 3.8",
+    manuscript_text="female S1 runaway range lower end 1,126 mmHg",
+    source_file="data/runs/s021_hyperoxia_convergence/plateau_stats.parquet",
+    manuscript_value=1126,
+    computed_value=float(_s21_runaway[_s21_runaway["sex"] == "F"]["PaO2_plateau_mmHg"].min()),
+    tolerance_rule="whole_unit",
+)
+
 # 54-55. Appendix C NSS decomposition totals.
 total_row = nss[nss["cell"] == "Total"].iloc[0]
 add(
