@@ -227,6 +227,32 @@ if [ -n "$AUDIT_CMD" ]; then
     fi
 fi
 
+# ---- 2b-bis. Manuscript input ranges against src/sampler.py ---------------
+#
+# Added 2026-09-07. An external review found Methods 4.3 stating Vt 300-700 mL
+# and PEEP 0-15 cmH2O; the sweep ran on 300-800 and 0-20, as src/sampler.py,
+# preregistration.md, supplement.tex and the instantiated inputs all record.
+# The wrong literals were introduced by a prose-COMPRESSION edit (d88a1ca) and
+# shipped to the co-authors. Nothing measured that sentence: audit_claims parses
+# the InputSpec bounds but only to normalise the clip computation, and a numeric
+# diff of the two drafts is blind here, because "700" and "15" already occurred
+# elsewhere in the document. The swept domain defines what every mu* means.
+if [ -n "$AUDIT_CMD" ]; then
+    if ! $AUDIT_CMD scripts/check_input_ranges.py >/dev/null; then
+        echo ""
+        echo "pre-commit: the manuscript states an input range that disagrees with"
+        echo "src/sampler.py — commit aborted."
+        echo ""
+        echo "  See which, and why:"
+        echo "    uv run python scripts/check_input_ranges.py"
+        echo "    uv run python scripts/check_input_ranges.py --list"
+        echo "  Fix the prose. If src/sampler.py itself changed, stop: that"
+        echo "  invalidates the sweep, not the sentence."
+        echo ""
+        exit 1
+    fi
+fi
+
 # ---- 2c. Publication-gate anchors (content, not line numbers) --------------
 #
 # Eight statements in the package assert in the PRESENT TENSE that the code and

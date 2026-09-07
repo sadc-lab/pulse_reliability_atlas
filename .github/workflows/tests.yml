@@ -138,3 +138,13 @@ jobs:
       # that was removed. Manifest: audit/backref_manifest.txt.
       - name: Supplement back-references still hold in the paper
         run: uv run python scripts/check_backrefs.py
+
+      # Added 2026-09-07 after an external review found Methods 4.3 stating
+      # Vt 300-700 mL and PEEP 0-15 cmH2O while the sweep ran on 300-800 and
+      # 0-20. The wrong literals were introduced by a prose-COMPRESSION edit
+      # (d88a1ca) and shipped to the co-authors. Nothing measured the sentence
+      # against src/sampler.py: audit_claims parses those bounds but only to
+      # normalise the clip computation, and a numeric diff of the two drafts is
+      # blind here because "700" and "15" already occurred elsewhere.
+      - name: Manuscript input ranges still match src/sampler.py
+        run: uv run python scripts/check_input_ranges.py
