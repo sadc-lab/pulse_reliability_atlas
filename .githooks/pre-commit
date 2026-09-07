@@ -229,7 +229,7 @@ fi
 
 # ---- 2b-bis. Manuscript input ranges against src/sampler.py ---------------
 #
-# Added 2026-09-07. An external review found Methods 4.3 stating Vt 300-700 mL
+# Added 2026-09-07. The author, re-reading the mailed PDFs, found Methods 4.3 stating Vt 300-700 mL
 # and PEEP 0-15 cmH2O; the sweep ran on 300-800 and 0-20, as src/sampler.py,
 # preregistration.md, supplement.tex and the instantiated inputs all record.
 # The wrong literals were introduced by a prose-COMPRESSION edit (d88a1ca) and

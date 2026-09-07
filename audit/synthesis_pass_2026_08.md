@@ -3300,9 +3300,9 @@ net loss from six references to five.
 between two states.** What a reader receives is the delta from their copy, not
 the path taken to produce it.
 
-## 37. An external review finds a range corruption the September pass introduced, 2026-09-07
+## 37. The author's own re-reading finds a range corruption the September pass introduced, 2026-09-07
 
-A review of the mailed PDFs raised two points. The first was correct and worse
+Re-reading the mailed PDFs, the author raised two points. The first was correct and worse
 than it claimed. The second was arithmetically correct but rested on an
 assertion about the abstract that is false.
 
@@ -3332,7 +3332,7 @@ introduced by a prose-compression edit and mailed to the co-authors on
 Scope, measured rather than assumed: ONE locus. A sweep of both manuscripts and
 the monograph for the wrong forms returns `paper.tex:353` and nothing else.
 
-The review's remediation advice overstated the fix -- it asked for the figures,
+The remediation advice in that note overstated the fix -- it asked for the figures,
 the relative units and the conclusions on domain extent to be corrected too.
 They need nothing: mu*, the normalisation and every figure derive from
 `src/sampler.py`, never from the prose. One sentence, no recomputation.
@@ -3446,9 +3446,9 @@ Neither changes a result. The correction is recorded rather than quietly
 applied, because attributing one's own regression to a predecessor is the
 comfortable direction of error and the one least likely to be re-checked.
 
-### 37.4 The second review point, measured
+### 37.4 The second point, measured
 
-The review's figures are right: 76 runs contributed by the SpO2-saturation
+The second point's figures are right: 76 runs contributed by the SpO2-saturation
 sub-mode, the clean count moving from 663 to 1,008 when that and the Vt CV
 sub-mode are excluded together, 51.8 %. All three are in supplement S4.
 
@@ -3521,7 +3521,7 @@ the document is invisible to every count-based test used here.
 
 ### 37.7 What `diverged` actually was in this sweep
 
-The review's surviving point was that `diverged` bundles NaN/Inf, a missing CSV
+The surviving point was that `diverged` bundles NaN/Inf, a missing CSV
 and a non-zero exit code, and that a non-zero exit does not by itself prove the
 solver diverged. True as a statement about the category. Measured on this sweep,
 it does not describe what happened.
@@ -3547,6 +3547,6 @@ non-zero with no CSV, so `diverged` fires instead" -- but none occurred here,
 consistent with `clamped` being empty at 0 of 1,280.
 
 Neither document currently states this, and `divergence_timeline.csv` is cited
-in neither. Adding it would answer the review by strengthening the claim rather
+in neither. Adding it would answer that point by strengthening the claim rather
 than hedging it, and would rest on a measurement with a clean negative control.
 Held for the author's decision: it is an addition to a scientific claim.

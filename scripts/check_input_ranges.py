@@ -3,7 +3,7 @@
 
 Why this exists
 ---------------
-On 2026-09-07 an external review found that Methods 4.3 of `paper.tex` stated
+On 2026-09-07 the author, re-reading the mailed PDFs, found that Methods 4.3 of `paper.tex` stated
 
     tidal volume (Vt, 300--700~mL) ... PEEP, 0--15~cmH$_2$O
 
