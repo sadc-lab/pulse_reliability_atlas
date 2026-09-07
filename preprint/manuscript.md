@@ -176,8 +176,12 @@ below; this section is the exhaustive findings digest.*
 
 **Sensitivity structure (H1) — skewed and predominantly linear.**
 
-* Top-3 inputs explain ≥ 50 % of summed μ\* on **48 / 48** cell × output
+* Top-3 inputs account for ≥ 50 % of summed μ\* on **48 / 48** cell × output
   combinations (median **0.928**, range 0.658–0.998; point-estimate top-3 fraction).
+  That sum runs over the inputs carrying at least one clean pair, so it covers
+  six inputs rather than seven in the 18 combinations where FiO2 carries none
+  (S1_M, S1_F, S4_F); the fractions do not share a common denominator across
+  cells.
   Lowest fractions in severe-ARDS gas-exchange (S4_F SpO2 0.658, S4_M 0.703).
 * Cardiovascular outputs are cardio-input-driven (output HR ← input HR,
   MAP ← SBP in every cell, no ventilator cross-talk); gas-exchange outputs are
@@ -2537,7 +2541,7 @@ driving Vt is not clearly preserved across sex.
   point estimates 0.75 – 1.00 in S2 / S3) but the CIs are wide —
   the ranking-similarity claim is qualitative, not high-precision.
 
-### 3.7 Reliability traffic-light (Figure 6)
+### 3.7 Traffic-light curation map (Figure 6)
 
 *The user-facing summary of the entire atlas: per cell × output, one
 of {green, yellow, red}, anchored to preregistered baseline-percentage
@@ -3026,7 +3030,7 @@ F-003 transient hyperoxia regime, F-004 trigger dyssynchrony,
 severe-ARDS solver behaviour, and the sex-stratified divergence
 cluster in the input-extreme regime.*
 
-The reliability traffic-light (Figure 6) is the most actionable
+The traffic-light curation map (Figure 6) is the most actionable
 artifact:
 
 * **Pulse is most reliable in moderate ARDS on the female surrogate
@@ -3456,7 +3460,7 @@ bounded.*
 pediatric translation layer (Paper 1, in preparation; validation
 underway with the Sainte-Justine PICU cohort) and the native pediatric
 Pulse fork (Paper 2, planned). Both depend on the atlas's μ\* rankings
-and reliability traffic-light grid as the backdrop for what scope they
+and traffic-light curation map as the backdrop for what scope they
 can target.*
 
 This atlas is positioned as foundational infrastructure for two
@@ -3465,7 +3469,7 @@ downstream lines of work, both currently in preparation:
 * **Pediatric translation layer (Paper 1, in preparation; validation
   underway with the Sainte-Justine PICU cohort).** Maps pediatric
   vital signs onto Pulse's adult engine via quantile matching, and
-  uses the atlas's μ\* rankings and reliability traffic-light grid as
+  uses the atlas's μ\* rankings and traffic-light curation map as
   the backdrop for what the translation layer is allowed to do —
   explicitly, the translation layer must keep its output baselines
   inside the green / yellow cells of Figure 6. The present
