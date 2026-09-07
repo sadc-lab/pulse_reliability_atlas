@@ -27,6 +27,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
+from matplotlib.patches import Rectangle
 
 
 def smart_fmt(v: float) -> str:
@@ -149,6 +150,16 @@ def make_panel(df: pd.DataFrame, channel: str) -> None:
     # to compact LaTeX scientific (never matplotlib's 'E+0X' style).
     annot_strs = pivot.map(smart_fmt)
 
+    # Which cells rest on a SINGLE elementary-effect pair. Their mu* is one
+    # finite difference: sigma is 0 by construction rather than by measurement
+    # and no bootstrap interval exists, yet nothing in the heatmap told them
+    # apart from an index averaged over eighteen pairs. Twelve of the 318
+    # entries qualify, and they fall in exactly two (cell, input) positions.
+    pairs = (
+        sub.pivot_table(index="input", columns="cell", values="n_clean_pairs", aggfunc="first")
+        .reindex(index=input_keys, columns=CELL_ORDER)
+    )
+
     # Width 6.6 in, height 2.8 in. The HEIGHT is the constrained dimension and
     # must not change: 5b3b54b cut it from 3.0 to 2.8 because the caption's last
     # line collided with the sn-jnl page number, and 82a652b left the float
@@ -169,6 +180,34 @@ def make_panel(df: pd.DataFrame, channel: str) -> None:
         linecolor="white",
         ax=ax,
     )
+    # Box the single-pair cells. The edge colour is READ BACK from the cell's
+    # own annotation, which seaborn already picks light or dark from the
+    # background luminance, so the box carries exactly the contrast the number
+    # carries -- legible on dark violet and on bright yellow alike, and it
+    # survives greyscale for the same reason the digits do. Texts are matched
+    # by POSITION, never by their order in ax.texts, because NaN cells make
+    # that order depend on how seaborn skips them.
+    text_colour = {
+        (int(round(t.get_position()[0] - 0.5)), int(round(t.get_position()[1] - 0.5))): t.get_color()
+        for t in ax.texts
+    }
+    for row, input_label in enumerate(pivot.index):
+        for col, cell_label in enumerate(pivot.columns):
+            n = pairs.iat[row, col]
+            if pd.isna(n) or n > 1:
+                continue
+            ax.add_patch(
+                Rectangle(
+                    (col, row),
+                    1,
+                    1,
+                    fill=False,
+                    edgecolor=text_colour.get((col, row), "white"),
+                    linewidth=1.4,
+                    zorder=5,
+                )
+            )
+
     # No in-figure title -- the LaTeX subfigure caption already labels each panel
     # (HR, MAP, Vt, SpO2, PaO2, PaCO2). Skipping the title gives the heatmap area
     # the full panel for legibility once the 3x2 LaTeX grid scales the panel to

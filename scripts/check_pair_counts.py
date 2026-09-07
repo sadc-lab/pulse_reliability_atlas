@@ -24,12 +24,23 @@ Those two are therefore checked here against ``scripts/sobol_ci_buckets.py``,
 read as text rather than imported, so that running this guard never executes
 the bootstrap.
 
-WHY A GUARD AND NOT A LEDGER ANCHOR. Both were tried. Five ledger anchors were
-written first and the audit went green at 387/387 -- and then failed, because
-25 places across README.md, supplement.tex and manuscript.md quote the ledger's
-own total. One added anchor cascades into all of them; a guard carries its own
-counter and cascades nowhere. See audit/ and the project rule: guard by default
-as soon as more than one number is involved.
+WHY A GUARD AND NOT A LEDGER ANCHOR, and where the line actually falls. Five
+ledger anchors were written first and the audit went green -- then failed,
+because 25 places across README.md, supplement.tex and manuscript.md quote the
+ledger's own total. One added anchor cascades into all of them; a guard carries
+its own counter and cascades nowhere.
+
+That is the cost side. The correctness side decides first, and it was learned
+the hard way the same day: a guard pins a LITERAL, so it can only catch a
+number that was typed wrong. It cannot catch a number that was typed RIGHT and
+was later falsified when its source moved -- which is exactly what happened to
+Supplement S9's "779 mmHg" when da5bd97 repaired the S021 window 39 days after
+it was written. Only re-derivation survives a moving source, so those two
+numbers got ledger anchors and the cascade was paid.
+
+The numbers guarded here have no upstream that can move independently of them:
+they describe the shape of a fixed sweep. A guard is the right instrument for
+that, an anchor for the other.
 
 THE UNIT, stated before any count. One entry = one (cell, output, input) row
 among the 144 top-three entries, i.e. 48 cell x output combinations x 3 ranked
@@ -50,6 +61,11 @@ WHAT IT CHECKS.
   scripts/sobol_ci_buckets.py actually uses. The seed count is cross-checked
   against the CSV's own per-seed ra_lo_* columns, so two instruments have to
   agree before the paper is judged.
+  CHECK E: Figure 3's caption states how many cells it outlines, measured
+  against results/morris_indices.parquet. That is a DIFFERENT population from
+  the sentence above -- the figure draws every entry, the sentence counts
+  inside the top three only -- so the two legitimately disagree, and each is
+  measured on its own table.
 
 Usage:
       python scripts/check_pair_counts.py              (measure)
@@ -78,13 +94,20 @@ TRIGGER_OPEN = "Influence is not proportionality"
 TRIGGER_CLOSE = "The map of non-linearity"
 
 BUCKETS_SRC = REPO / "scripts" / "sobol_ci_buckets.py"
+
+# CHECK E's source. The Results sentence counts inside the 144 top-three
+# entries; Figure 3 draws every entry, so its outlined-cell count is a DIFFERENT
+# population and must be measured on the full table, not on the top-three one.
+MORRIS = REPO / "results" / "morris_indices.parquet"
+CAPTION_OPEN = "White cells mark combinations with no estimable"
+CAPTION_CLOSE = "Cell-label key"
 THRESHOLD_RE = re.compile(r"^PROMOTE_THRESHOLD\s*=\s*([\d.]+)", re.M)
 SEEDS_RE = re.compile(r"^SEEDS\s*=\s*\(([^)]*)\)", re.M)
 
 # The manuscript spells this one count as a word, so the guard must too.
 NUM_WORDS = {
-    1: "one", 2: "two", 3: "three", 4: "four", 5: "five",
-    6: "six", 7: "seven", 8: "eight", 9: "nine", 10: "ten",
+    1: "one", 2: "two", 3: "three", 4: "four", 5: "five", 6: "six",
+    7: "seven", 8: "eight", 9: "nine", 10: "ten", 11: "eleven", 12: "twelve",
 }
 
 
@@ -213,6 +236,26 @@ def check(paper_text: str, df: pd.DataFrame) -> list[str]:
     ]:
         if phrase not in trigger:
             problems.append(f"{label}: paper does not state {phrase!r}")
+
+    # CHECK E: Figure 3's caption counts the outlined cells, and it counts them
+    # over EVERY entry, not only the top-three ones the sentence above uses. Nine
+    # twelve are top-three entries; the other three are not, and marking only
+    # those nine would have left three single-pair cells looking solid.
+    if not MORRIS.exists():
+        problems.append(f"artefact missing: {MORRIS.relative_to(REPO)}")
+        return problems
+    n_outlined = int((pd.read_parquet(MORRIS)["n_clean_pairs"] == 1).sum())
+    if n_outlined not in NUM_WORDS:
+        problems.append(f"outlined-cell count {n_outlined} has no word form here")
+        return problems
+    try:
+        caption = extract_sentence(paper_text, CAPTION_OPEN, CAPTION_CLOSE)
+    except LookupError as exc:
+        problems.append(str(exc))
+        return problems
+    outlined_phrase = f"{NUM_WORDS[n_outlined].capitalize()} cells are outlined"
+    if outlined_phrase not in caption:
+        problems.append(f"outlined: Figure 3 caption does not state {outlined_phrase!r}")
     return problems
 
 
@@ -262,10 +305,23 @@ def self_test(paper_text: str, df: pd.DataFrame) -> int:
         else:
             print(f"  ok    catches {label}")
 
+    # CHECK E calibrated on its own count, measured from the full table
+    # rather than assumed from the 144 the sentence above uses.
+    n_out = int((pd.read_parquet(MORRIS)["n_clean_pairs"] == 1).sum())
+    old_out = f"{NUM_WORDS[n_out].capitalize()} cells are outlined"
+    new_out = f"{NUM_WORDS[n_out - 1].capitalize()} cells are outlined"
+    if old_out not in paper_text:
+        failures.append(f"outlined-count target absent, cannot calibrate: {old_out!r}")
+    elif not check(paper_text.replace(old_out, new_out, 1), df):
+        failures.append("guard did NOT catch a wrong outlined-cell count")
+    else:
+        print("  ok    catches a wrong outlined-cell count")
+
     # A removed delimiter must FAIL, not silently pass on an empty passage.
     for opener, stub, which in [
         (SENTENCE_OPEN, "The same mechanism sets how", "pair-count"),
         (TRIGGER_OPEN, "Influence is not", "trigger"),
+        (CAPTION_OPEN, "White cells mark combinations with no", "caption"),
     ]:
         if not check(paper_text.replace(opener, stub, 1), df):
             failures.append(
@@ -346,6 +402,10 @@ def main() -> int:
           f"sobol_ci_buckets.PROMOTE_THRESHOLD")
     print(f"  ok    {design['n_seeds']} seeds in the paper, in the script and "
           f"in the CSV's ra_lo_* columns")
+    morris = pd.read_parquet(MORRIS)
+    n_out = int((morris["n_clean_pairs"] == 1).sum())
+    print(f"  ok    Figure 3 caption outlines {n_out} cells, matching the "
+          f"single-pair rows of morris_indices.parquet ({len(morris)} entries)")
     print("\n  PASSED.")
     return 0
 
