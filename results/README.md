@@ -10,7 +10,7 @@ edited.
 | File | Source | Description |
 |------|--------|-------------|
 | `cell_flag_summary.csv`        | `analysis_compare.cell_flag_summary` | Per-cell counts of `clamped`, `diverged`, `implausible`, `not_steady_state`, `clean`. Candidate for the paper's Table 1. |
-| `morris_indices.parquet`       | `analysis_morris.morris_indices`    | (μ, μ\*, σ, μ\* 95 % bootstrap CI) per cell × output × input, computed on clean runs only. |
+| `morris_indices.parquet`       | `analysis_morris.morris_indices`    | (μ, μ\*, σ, μ\* 95 % bootstrap CI) per cell × output × input, computed on clean runs only. Also carries `n_clean_pairs`, `n_total_pairs` and `n_trajectories`: how many of the 20 elementary-effect pairs actually entered each index. |
 | `h1_top3_fraction.csv`         | `analysis_morris.evaluate_h1`       | Per cell × output: fraction of summed μ\* concentrated in the top-3 ranked inputs; H1 pass / fail. |
 | `sobol_promotion.csv`          | `analysis_morris.sobol_promotion`   | Top-3 Morris inputs per cell × output with σ/μ\* ratio and promote / skip / gray decision. |
 | `wasserstein_male_vs_female.csv` | `analysis_compare.wasserstein_per_output` | H4 — Wasserstein distance between M and F clean-run output distributions per scenario × output. |
@@ -24,6 +24,11 @@ edited.
 
 * The atomic unit is one row of `morris_indices.parquet`: a single
   `(scenario, sex, output, input)` tuple with its μ\*, σ, and CI.
+* Read `n_clean_pairs` before reading μ\*. An input whose runs are mostly
+  flagged contributes few pairs, and a row with `n_clean_pairs == 1` is one
+  finite difference: its σ is 0 by construction, not by measurement, and no
+  bootstrap CI exists for it. A row is absent entirely when the input has no
+  clean pair at all in that cell.
 * `top3_fraction` in `h1_top3_fraction.csv` is the formal H1 measurement;
   the pre-registered threshold is 0.5.
 * `decision == "promote"` in `sobol_promotion.csv` selects the
