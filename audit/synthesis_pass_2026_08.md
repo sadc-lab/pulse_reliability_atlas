@@ -3428,8 +3428,23 @@ paper was the only document saying "five draws", the supplement the only one
 saying "five independent seeds", so neither could be checked against the other
 by a count. Now "in every draw, under each of five independent seeds".
 
-Both predate September: both were already in the August package the four
-supervisors hold. Neither changes a result.
+**Correction, made after this section was first written and after the claim had
+already gone into a commit message.** The first draft of this paragraph, and
+commit 83da8a2, both stated that defects 2 and 3 "predate September". That was
+asserted, not checked, and it is false for defect 3.
+
+  * Defect 2 genuinely predates it. `git log -S'4 documented'` puts it at
+    96782db, where it was CORRECT (the list held four regexes); it went stale on
+    2026-07-26 at 708efb1, and 613f2a6 -- the August package -- carries it.
+
+  * Defect 3 is partly September's. 613f2a6 reads "in all five **independent**
+    draws"; d88a1ca dropped "independent". The draw/seed conflation predates the
+    rewrite, but the flat self-contradiction -- five, two clauses after a
+    thousand were defined -- is the compression pass's.
+
+Neither changes a result. The correction is recorded rather than quietly
+applied, because attributing one's own regression to a predecessor is the
+comfortable direction of error and the one least likely to be re-checked.
 
 ### 37.4 The second review point, measured
 
@@ -3462,3 +3477,76 @@ PDF, not only in the sources.
 
 The clamp-pattern count remains unguarded by explicit decision; the next
 widening of the detector can make that sentence stale again in silence.
+
+### 37.6 Did the rewrite cause this? The exposure surface, measured
+
+The question the author asked, and the right one: of the defects found, which
+came from P.J.'s compression pass and which were already there.
+
+  * **The ranges: entirely September's.** d88a1ca, in the act of shortening the
+    sentence. 613f2a6 is correct.
+  * **The clamp-pattern count: entirely pre-September.** Correct when written at
+    96782db, stale from 708efb1 on 2026-07-26, and shipped in the August package.
+  * **"five draws": September degraded an existing imprecision.** August said
+    "five independent draws" -- already conflating a seed with a draw, but the
+    word "independent" signalled a different level. Dropping it produced a flat
+    contradiction with the thousand draws defined two clauses earlier.
+
+**Why the pass could do this silently.** d88a1ca's own message records that
+`check_draft.py` gained its guard-literal check after the Results drafts were
+written, that re-running it found seven guard-pinned claims gone, and that "all
+seven guards read paper.tex only". Those guards work by PINNED LITERAL. The
+ledger works by RE-DERIVED COMPUTED CLAIM. A Methods constant transcribed from
+`src/` is neither: not computed from an artefact, and not pinned by any guard.
+That is precisely where both September defects landed, and it is the same hole
+`check_input_ranges.py` now closes for the seven input ranges only.
+
+**The sweep, and the instrument lesson inside it.** d88a1ca inserted 40 lines
+into `paper.tex` carrying 128 distinct numeric tokens. A first pass asked which
+of them appear nowhere in `audit_claims.py` and returned 30 -- an alarming
+number, and almost entirely an artefact of the test. Calibrating on values known
+to be anchored showed why: the paper writes `1{,}280` and the ledger writes
+`1280`. Under the plain form, 1280, 1134, 3996, 4082, 4400, 11008, 1500, 2000
+and 1000 are all present. What survived calibration was then checked by hand and
+holds: 4,803 mL is the rounding of the supplement's 4,802.63; the 1 % and 0.1 %
+flatline thresholds are `FLATLINE_STD_RATIO = 0.01` and `FLATLINE_BOUND_TOL =
+0.001` in `src/detector.py`, and on the fractional SpO2 scale the 1.00 ceiling
+gives the paper's 99.9 %; 0.879 is the low edge the continuous-severity
+micro-sweep extends the band to; 0.21 is the sampler's FiO2 low bound; the rest
+are citation years and LaTeX label fragments.
+
+No further September regression was found. That is a result about this
+instrument, not a guarantee: a corruption that reuses a token already present in
+the document is invisible to every count-based test used here.
+
+### 37.7 What `diverged` actually was in this sweep
+
+The review's surviving point was that `diverged` bundles NaN/Inf, a missing CSV
+and a non-zero exit code, and that a non-zero exit does not by itself prove the
+solver diverged. True as a statement about the category. Measured on this sweep,
+it does not describe what happened.
+
+`results/divergence_timeline.csv`, produced by `scripts/audit_divergence_timeline.py`,
+reads every run's Pulse log and records which failure strings it carries. Of the
+three markers, two are Pulse's own words -- "Could not converge to provided
+Convergence" and "Pulse needs stabilization criteria" -- and one, "failed to
+stabilise for case", is our wrapper's.
+
+  * All 20 diverged runs carry all three. All are male, all exit 1, all stop at
+    the same stage (`vent_setup_begun`).
+  * All 1,260 non-diverged runs carry none of the three.
+
+Re-derived independently of that CSV, straight from the logs: 1,280 sweep logs
+on disk, exactly 20 contain "Could not converge to provided Convergence", and a
+named non-diverged male control contains zero. Two instruments, same number.
+
+So in this sweep every `diverged` event is a convergence failure Pulse itself
+declared, not an exit code we interpreted. The category COULD absorb a setup
+rejection -- supplement S2 already says so explicitly, "a setup rejection exits
+non-zero with no CSV, so `diverged` fires instead" -- but none occurred here,
+consistent with `clamped` being empty at 0 of 1,280.
+
+Neither document currently states this, and `divergence_timeline.csv` is cited
+in neither. Adding it would answer the review by strengthening the claim rather
+than hedging it, and would rest on a measurement with a clean negative control.
+Held for the author's decision: it is an addition to a scientific claim.
