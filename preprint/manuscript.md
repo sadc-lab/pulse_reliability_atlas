@@ -146,9 +146,10 @@ below; this section is the exhaustive findings digest.*
   **median 643 mmHg**, ~20 mmHg *below* the alveolar-gas-equation sea-level
   ceiling (≈663 mmHg) — i.e. a window-length artefact, not an oxygenation
   overshoot. 40/44 S1 reruns met
-  the drift criterion, but 3 of those 40 stabilise above 700 mmHg; 6 runs in
-  all develop an off-scale numerical runaway (up to ≈1,408 mmHg), so 37/44
-  (84.1 %) converge to a plateau below 700 mmHg.
+  the drift criterion, but 3 of those 40 plateau above 1,400 mmHg, beyond
+  the 760 mmHg sea-level barometric pressure; 6 runs in all develop an
+  off-scale numerical runaway, so 37/44 (84.1 %) converge below the
+  physiology-anchored 700 mmHg ceiling, distinct from the locked 600 mmHg bound.
 * **Practical rule:** simulate hyperoxia for ≥ 300 s of total simulated time before extracting a PaO2
   plateau; on healthy lungs at FiO2 = 1.0, screen each PaO2 trajectory
   individually — no input-side ventilation setting predicts the
