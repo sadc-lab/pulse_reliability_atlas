@@ -2891,8 +2891,8 @@ corrected by setting trigger pressure to −2 cmH2O.*
   FiO2 ≥ 0.95, treat PaO2 as a transient — the steady-state
   detector is correctly flagging an unfinished trajectory. Under an
   extended window of ≥ 300 s total simulated time, use a plateau window in the final 60 s of
-  the simulation; expect a physiological plateau in healthy lungs
-  (~ 640 mmHg) and graded oxygenation depression in ARDS (~ 144 mmHg at
+  the simulation; expect a plateau near 640 mmHg in healthy lungs
+  and graded oxygenation depression in ARDS (~ 144 mmHg at
   60 % severity, ~ 73 mmHg at 95 % severity). On healthy lungs at
   FiO2 = 1.0, screen each run's PaO2 trajectory individually:
   extended-window simulations can enter a separate
