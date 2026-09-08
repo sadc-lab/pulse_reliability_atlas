@@ -289,6 +289,33 @@ if [ -n "$AUDIT_CMD" ]; then
     fi
 fi
 
+# ---- 2b-quater. Tracked figures against the data they draw ----------------
+#
+# Added 2026-09-08. On 2026-09-02 da5bd97 repaired the S021 window and
+# regenerated two of the three figures reading plateau_stats.parquet. The third,
+# fig03_actionable_corrections, computes its in-plot annotation from that file
+# at generation time and kept printing 779 mmHg where the repaired data gives
+# 770. It shipped to the four co-authors on 2026-09-05 and was found two days
+# later by accident. Nothing could have seen it: the figure-timestamp guard
+# checks the PINNED SOURCE_DATE_EPOCH, identical for an August build and a
+# today build, and verify.py -- whose invariant is that regenerating leaves a
+# clean tree -- runs neither here nor in CI. This checks git ancestry instead.
+if [ -n "$AUDIT_CMD" ]; then
+    if ! $AUDIT_CMD scripts/check_figure_freshness.py >/dev/null; then
+        echo ""
+        echo "pre-commit: a tracked figure is older than the data it draws —"
+        echo "commit aborted."
+        echo ""
+        echo "  See which, and why:"
+        echo "    uv run python scripts/check_figure_freshness.py"
+        echo "    uv run python scripts/check_figure_freshness.py --list"
+        echo "  Regenerate through the canonical path:"
+        echo "    uv run python scripts/verify.py"
+        echo ""
+        exit 1
+    fi
+fi
+
 # ---- 2c. Publication-gate anchors (content, not line numbers) --------------
 #
 # Eight statements in the package assert in the PRESENT TENSE that the code and

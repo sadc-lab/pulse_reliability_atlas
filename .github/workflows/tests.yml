@@ -164,3 +164,15 @@ jobs:
       # was two.
       - name: Results 2.2 non-linearity paragraph still matches its sources
         run: uv run python scripts/check_pair_counts.py
+
+      # Added 2026-09-08. da5bd97 repaired plateau_stats.parquet on 2026-09-02
+      # and regenerated two of the three figures that read it; the third kept
+      # printing a minimum of 779 mmHg where the repaired data gives 770, and
+      # shipped to the co-authors on 2026-09-05. The existing figure-timestamp
+      # guard passed 29/29 throughout, because it checks the PINNED epoch, which
+      # is identical whether a figure was built in August or today. This one
+      # compares git ancestry instead: the data a figure reads must not have
+      # moved after the figure was last built. No regeneration, so it gives the
+      # same answer on ubuntu-latest as on the Windows machine that builds them.
+      - name: Tracked figures are not older than the data they draw
+        run: uv run python scripts/check_figure_freshness.py
