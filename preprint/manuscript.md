@@ -148,7 +148,7 @@ below; this section is the exhaustive findings digest.*
   overshoot. 40/44 S1 reruns met
   the drift criterion, but 3 of those 40 stabilise above 700 mmHg; 6 runs in
   all develop an off-scale numerical runaway (up to ≈1,408 mmHg), so 37/44
-  (84.1 %) converge to a *physiological* plateau.
+  (84.1 %) converge to a plateau below 700 mmHg.
 * **Practical rule:** simulate hyperoxia for ≥ 300 s of total simulated time before extracting a PaO2
   plateau; on healthy lungs at FiO2 = 1.0, screen each PaO2 trajectory
   individually — no input-side ventilation setting predicts the
