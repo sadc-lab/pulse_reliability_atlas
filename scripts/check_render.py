@@ -443,6 +443,11 @@ def check_hardcoded_refs() -> list[str]:
 THIN_PAGE_MIN_WORDS = 150
 FIGURE_MAX_PAGES_AFTER_CALL = 10
 BIBLIOGRAPHY_ONLY_MAX_LEAD_WORDS = 0
+# Ceiling on the lead words of a page that OPENS with the tail of a reference
+# entry wrapped from the previous page. Sits between the 10 words measured on
+# supplement p46 and the 60 measured on the thinnest mixed page, so it admits a
+# wrapped entry and still rejects a closing paragraph.
+CONTINUATION_MAX_LEAD_WORDS = 30
 
 
 def _lead_words(t: str) -> int:
@@ -457,14 +462,31 @@ def _lead_words(t: str) -> int:
     return len([w for w in t[:m.start()].split() if re.search(r"[A-Za-z0-9]", w)])
 
 
-def _is_bibliography_only(p: dict) -> bool:
+def _is_bibliography_only(p: dict, prev: dict | None = None) -> bool:
     """True when the page's whole content is the reference list.
 
     At least one entry, and nothing before it. See the calibration note above
     for why the entry COUNT is deliberately not part of this predicate.
+
+    The `prev` arm covers a reference entry that WRAPS across a page break, so
+    the page opens with the tail of an entry begun on the previous page and its
+    lead-word count is not zero. Found 2026-09-08: supplement p46 is four
+    reference entries plus the last line of [28], measured at 10 lead words, and
+    was reported as a 100-word thin page. Two conditions are required together,
+    because the supplement continues with tables AFTER its reference list, so
+    "the previous page had entries" alone would exempt a genuinely thin table
+    page: the previous page must already be in the reference list, AND the lead
+    must be short enough to be a wrapped entry rather than prose. The measured
+    values it separates are 10 (the wrapped tail) against 60 and 316 (the two
+    pages that close a section and open the reference list).
     """
-    return (p["bibentries"] >= 1
-            and p["leadwords"] == BIBLIOGRAPHY_ONLY_MAX_LEAD_WORDS)
+    if p["bibentries"] < 1:
+        return False
+    if p["leadwords"] == BIBLIOGRAPHY_ONLY_MAX_LEAD_WORDS:
+        return True
+    return (prev is not None
+            and prev["bibentries"] >= 1
+            and 0 <= p["leadwords"] <= CONTINUATION_MAX_LEAD_WORDS)
 
 
 def _selftest_exemption() -> None:
@@ -485,6 +507,21 @@ def _selftest_exemption() -> None:
     # The entry count is no longer the protected property.
     for k in (1, 2, 3, 4, 13):
         assert _is_bibliography_only({"bibentries": k, "leadwords": 0})
+    # The 2026-09-08 case: supplement p46, four entries plus the wrapped tail of
+    # [28] from p45, measured at 10 lead words. Exempt ONLY because the previous
+    # page was already in the reference list.
+    inbib = {"bibentries": 14, "leadwords": 0}
+    assert _is_bibliography_only({"bibentries": 4, "leadwords": 10}, inbib)
+    # Same page, but the reference list had not started: 10 words of prose then
+    # an entry is a thin page opening the list, not a continuation.
+    assert not _is_bibliography_only({"bibentries": 4, "leadwords": 10},
+                                     {"bibentries": 0, "leadwords": -1})
+    # The blind spot the second condition closes: a page deep in the document
+    # may follow the reference list (the supplement ends with tables), so a long
+    # lead is never a wrapped entry however the previous page looked.
+    assert not _is_bibliography_only({"bibentries": 1, "leadwords": 60}, inbib)
+    assert not _is_bibliography_only({"bibentries": 1, "leadwords": 31}, inbib)
+    assert _is_bibliography_only({"bibentries": 1, "leadwords": 30}, inbib)
 
 
 def _page_facts(pdf: pathlib.Path) -> list[dict]:
@@ -537,11 +574,12 @@ def check_pagination(name: str, pdf: pathlib.Path) -> list[str]:
         return ["%s pagination: %s does not exist -- run the build first" % (name, pdf.name)]
 
     pages = _page_facts(pdf)
-    body = pages[1:-1]          # the title page and the final page are short by design
 
     qualifying = []
-    for p in body:
-        if p["captions"] or _is_bibliography_only(p):
+    for i, p in enumerate(pages):
+        if i == 0 or i == len(pages) - 1:
+            continue            # the title page and the final page are short by design
+        if p["captions"] or _is_bibliography_only(p, pages[i - 1]):
             continue
         qualifying.append(p)
         if p["words"] < THIN_PAGE_MIN_WORDS:
