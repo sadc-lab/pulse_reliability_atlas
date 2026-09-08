@@ -2356,15 +2356,6 @@ the M-vs-F distance on clean runs. The reference null is built by
 repeatedly splitting the *combined* M+F clean runs randomly into
 halves of the original sizes (n_null = 2,000 splits).
 
-That null relabels individual runs, treating them as exchangeable. Morris
-runs are not independent: they are organised into trajectories of eight
-whose consecutive members differ in one input only. Because both bodies ran
-the same input grid, that clustering is crossed with the sex factor rather
-than nested within it, so the direction of the resulting bias is not
-established here, and no trajectory-level permutation was performed. The
-p-values below should be read as approximate; the smallest margin among the
-five survivors is S1 PaCO2, p = 0.0090 against a BH threshold of 0.0104.
-
 ```{=latex}
 \begin{center}
 \begin{tabular}{llrrrrc}
