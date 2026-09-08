@@ -146,8 +146,10 @@ below; this section is the exhaustive findings digest.*
 * Longer reruns ([S021](#s021); the same configurations re-executed at 300 s of recorded simulation instead of the locked 120 s) resolve it: S1 plateau
   **median 643 mmHg**, ~20 mmHg *below* the alveolar-gas-equation sea-level
   ceiling (≈663 mmHg) — consistent with Pulse's modelled A-a gradient, i.e. a
-  window-length artefact, not an oxygenation overshoot. 40/44 S1 reruns
-  converged; 6 develop an off-scale numerical runaway (up to ≈1,408 mmHg).
+  window-length artefact, not an oxygenation overshoot. 40/44 S1 reruns met
+  the drift criterion, but 3 of those 40 stabilise above 700 mmHg; 6 runs in
+  all develop an off-scale numerical runaway (up to ≈1,408 mmHg), so 37/44
+  (84.1 %) converge to a *physiological* plateau.
 * **Practical rule:** simulate hyperoxia for ≥ 300 s of total simulated time before extracting a PaO2
   plateau; on healthy lungs at FiO2 = 1.0, screen each PaO2 trajectory
   individually — no input-side ventilation setting predicts the
@@ -2130,7 +2132,7 @@ stabilisation directly, and shifts the operating-point neighborhood
 between the two bodies — but it does so as a body-mass difference,
 not as a sex difference.
 
-**Mechanism confirmed ([S018](#s018), 2026-05-13).** *In one sentence:
+**Causal lever identified ([S018](#s018), 2026-05-13).** *In one sentence:
 forcing the male surrogate's BV down to the female-equivalent range
 eliminates the divergence cluster.* We re-executed the 20
 originally-diverged male inputs, this time injecting an explicit
@@ -2155,13 +2157,17 @@ Pulse-stated floor on this surrogate).
 **How to read it:** each row is one BV override level; columns count
 the four detector outcomes plus `Clean` across the 20 reruns.
 **Key takeaway:** divergence is eliminated by BV
-reduction — 20 / 20 → 0 / 20 at both brackets — mechanistically confirming
-that the all-male divergence cluster is mediated by Pulse's
-blood-volume baseline.
+reduction — 20 / 20 → 0 / 20 at both brackets — establishing that lowering
+Pulse's blood-volume baseline is sufficient to eliminate the all-male
+divergence cluster.
 
-The divergence cluster is eliminated by any BV reduction tested. The
-mechanism is therefore confirmed: the all-male divergence cluster is
-mediated by the engine's blood-volume baseline.
+The divergence cluster is eliminated by any BV reduction tested.
+Lowering the baseline is therefore sufficient to eliminate it; the
+experiment does not identify the numerical pathway by which the solver
+fails at the default value, nor establish that the baseline is necessary
+for the failure. Note also that removing the divergence does not make the
+runs clean: 12 of 20 are clean at both brackets and 8 retain a flag, as
+the dose-response table above records.
 
 All 20 inputs are already cleared at the 4,400 mL bracket (8.4 %
 reduction); none requires deeper reduction. (An earlier internal
@@ -2350,6 +2356,15 @@ sample size would overstate precision.
 the M-vs-F distance on clean runs. The reference null is built by
 repeatedly splitting the *combined* M+F clean runs randomly into
 halves of the original sizes (n_null = 2,000 splits).
+
+That null relabels individual runs, treating them as exchangeable. Morris
+runs are not independent: they are organised into trajectories of eight
+whose consecutive members differ in one input only. Because both bodies ran
+the same input grid, that clustering is crossed with the sex factor rather
+than nested within it, so the direction of the resulting bias is not
+established here, and no trajectory-level permutation was performed. The
+p-values below should be read as approximate; the smallest margin among the
+five survivors is S1 PaCO2, p = 0.0090 against a BH threshold of 0.0104.
 
 ```{=latex}
 \begin{center}

@@ -4146,12 +4146,21 @@ S021_CONVERGED_PUBLISHED_MMHG = 643
 # that the checks above hold apart.
 S021_CONVERGED_CONTEXT: tuple[tuple[str, str], ...] = (
     ("preprint_npj/supplement.tex", "over all 40 drift-converged runs"),
-    ("preprint_npj/paper.tex", "converged S1 plateau median was 643~mmHg"),
+    ("preprint_npj/paper.tex", "over all 40 drift-converged runs was 643~mmHg"),
 )
+# 2026-09-08, reviewer point 3.6: the paper-side literal was strengthened rather
+# than merely repaired. It used to read "converged S1 plateau median was
+# 643~mmHg", which named the population only by the adjective "converged" and
+# left a reader to infer which of the two populations was meant. Section 2.4 now
+# states the partition outright -- three of the 40 drift-converged reruns
+# stabilise above 700 mmHg, so 37 of 44 reach a physiological plateau -- and the
+# median sentence names its own denominator: "over all 40 drift-converged runs".
+# The anchor pins that phrase together with the value, so the two populations
+# cannot be silently swapped under the number in either direction.
 
 
 def check_s021_converged_plateau() -> int:
-    """Verify the 41-run converged plateau median behind the published 643 mmHg."""
+    """Verify the 40-run converged plateau median behind the published 643 mmHg."""
     print("\n## S021 converged-plateau claim\n")
     rows: list[tuple[str, str, str]] = []
     n_bad = 0

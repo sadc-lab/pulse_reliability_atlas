@@ -469,8 +469,8 @@ caught equally.*
   monograph_claim_id: 'T3.s027.bv_floor'
   expected_value: 4082.24
   format_in_paper: '4{,}082.24'
-  expected_occurrences: 5
-  notes: 'Appears 4 times as of Step 5: abstract sentence 5 "4{,}082.24~mL floor" (1), §2.5 prose ¶2 "the engine''s setup-time minimum for this body (4{,}082.24~mL, a 15.0~\% reduction)" (1), §2.5 prose ¶3 "4{,}082.24~mL on this male body" (1), Figure 4 caption "4{,}082.24~mL Pulse setup-time floor on this body" (1). Bumped from 1 (Step 1, abstract-only format "4{,}082.24~mL") to 4 (Step 5). Format simplified to just "4{,}082.24" to match all four occurrences regardless of trailing unit/context.'
+  expected_occurrences: 6
+  notes: 'Appears 4 times as of Step 5: abstract sentence 5 "4{,}082.24~mL floor" (1), §2.5 prose ¶2 "the engine''s setup-time minimum for this body (4{,}082.24~mL, a 15.0~\% reduction)" (1), §2.5 prose ¶3 "4{,}082.24~mL on this male body" (1), Figure 4 caption "4{,}082.24~mL Pulse setup-time floor on this body" (1). Bumped from 1 (Step 1, abstract-only format "4{,}082.24~mL") to 4 (Step 5). Format simplified to just "4{,}082.24" to match all four occurrences regardless of trailing unit/context. 5 -> 6 (2026-09-08, reviewer point 3.7): the new supplement §S10 subsection on the output quality of the rescued runs names the floor once when reporting that the same 12 of 20 runs are clean at both override levels.'
 
 - paper_section: '§2.5 + Figure 5 + supplement S3.6'
   paper_context: 'Female reference body BloodVolumeBaseline default (Pulse allometric for 56.2 kg)'
@@ -485,8 +485,8 @@ caught equally.*
   monograph_claim_id: 'T2.bv.bracket.diverged'
   expected_value: 0
   format_in_paper: '4{,}400'
-  expected_occurrences: 4
-  notes: 'Appears twice: §2.5 prose "an intermediate bracket (4{,}400~mL, a 8.4~\% reduction)" (1), Figure 5 caption "4{,}400~mL intermediate bracket" (1). Anchored on T2.bv.bracket.diverged (value corrected 2026-06-16 to 0 diverged at this BV setting; the "4400" value itself is the experimental BV override, declared in scripts/s018_bv_falsification.py as BV_BRACKETS["bracket"]).'
+  expected_occurrences: 5
+  notes: 'Appears twice: §2.5 prose "an intermediate bracket (4{,}400~mL, a 8.4~\% reduction)" (1), Figure 5 caption "4{,}400~mL intermediate bracket" (1). 4 -> 5 (2026-09-08, reviewer point 3.7): the new supplement §S10 subsection on the output quality of the rescued runs names the bracket once when reporting the 12-of-20 clean count at both override levels. Anchored on T2.bv.bracket.diverged (value corrected 2026-06-16 to 0 diverged at this BV setting; the "4400" value itself is the experimental BV override, declared in scripts/s018_bv_falsification.py as BV_BRACKETS["bracket"]).'
 
 ## Step 5 — Results §2.6 secondary observations narrative block
 
