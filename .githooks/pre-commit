@@ -404,6 +404,46 @@ else
     echo "            the render check (build the PDFs to enable it)." >&2
 fi
 
+# The .docx twins are what the co-author review round is actually dispatched as,
+# and the render check above reads only the PDFs. scripts/check_docx_structure.py
+# was written to close that gap and then, exactly like check_render before its
+# 2026-08-10 wiring, ran NOWHERE: a guard inventory on 2026-09-08 found it to be
+# the only scripts/check_*.py invoked by neither CI nor this hook, while four
+# co-authors were reading the artefact it guards. This is that wiring.
+#
+# Same placement reasoning as the render check: it reads preprint_npj/build/*.docx,
+# that directory is gitignored, so GitHub Actions has nothing to look at and the
+# hook is the only place with real artefacts on disk. It needs no third-party
+# package -- zipfile and re from the standard library -- so a plain `uv run
+# python` suffices where the render check needs `--with pymupdf`.
+#
+# Skipped, not failed, when the .docx or uv are absent, for the same reason as
+# above: a contributor without a pandoc toolchain must still be able to commit.
+if command -v uv >/dev/null 2>&1 && [ -f preprint_npj/build/paper.docx ]; then
+    for src in preprint_npj/paper.tex preprint_npj/supplement.tex; do
+        docx="preprint_npj/build/$(basename "${src%.tex}").docx"
+        if [ -f "$docx" ] && [ "$src" -nt "$docx" ]; then
+            echo "pre-commit: note -- $src is newer than $docx; the .docx check" >&2
+            echo "            below reads the twin as last built, not your edit." >&2
+        fi
+    done
+    if ! uv run python scripts/check_docx_structure.py; then
+        echo ""
+        echo "pre-commit: .docx structure check FAILED — commit aborted."
+        echo ""
+        echo "  A figure, table or caption declared in the LaTeX source did not"
+        echo "  survive the pandoc conversion, or came out in the wrong order."
+        echo "  The co-authors read the .docx, so this is what they would see."
+        echo "  Inspect:"
+        echo "    uv run python scripts/check_docx_structure.py"
+        echo ""
+        exit 1
+    fi
+else
+    echo "pre-commit: no uv, or preprint_npj/build/paper.docx absent — skipping" >&2
+    echo "            the .docx structure check (build the twins to enable it)." >&2
+fi
+
 # ---- 4. Ruff lint (mirrors GitHub Actions tests workflow) -------------------
 
 # Prefer `uv run ruff` to match CI exactly; fall back to a plain `ruff`
