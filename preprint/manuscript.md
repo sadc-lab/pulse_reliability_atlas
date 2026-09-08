@@ -71,9 +71,8 @@ preregistered 120 s window, Pulse PaO2 exceeds the locked classifier
 upper bound of 600 mmHg at FiO2 = 1.0 in 34 of 126 implausibly-flagged
 runs; an extended 300 s rerun ([S021](#s021)) shows PaO2 converges
 to a plateau (median 643 mmHg in S1) that sits ~ 20 mmHg *below* the
-simple alveolar-gas-equation prediction (≈ 663 mmHg) — consistent
-with Pulse's modelled A-a gradient — supporting a transient-regime
-explanation rather than a Pulse oxygenation overshoot. H4 (sex-specific
+simple alveolar-gas-equation prediction (≈ 663 mmHg) — supporting a
+transient-regime explanation rather than a Pulse oxygenation overshoot. H4 (sex-specific
 reliability) is supported: its preregistered criterion is a male–female
 difference in clamping, divergence, or Morris μ\* ranking, and the
 all-male divergence cluster satisfies it. The difference extends only
@@ -145,8 +144,8 @@ below; this section is the exhaustive findings digest.*
   FiO2 ≥ 0.95.
 * Longer reruns ([S021](#s021); the same configurations re-executed at 300 s of recorded simulation instead of the locked 120 s) resolve it: S1 plateau
   **median 643 mmHg**, ~20 mmHg *below* the alveolar-gas-equation sea-level
-  ceiling (≈663 mmHg) — consistent with Pulse's modelled A-a gradient, i.e. a
-  window-length artefact, not an oxygenation overshoot. 40/44 S1 reruns met
+  ceiling (≈663 mmHg) — i.e. a window-length artefact, not an oxygenation
+  overshoot. 40/44 S1 reruns met
   the drift criterion, but 3 of those 40 stabilise above 700 mmHg; 6 runs in
   all develop an off-scale numerical runaway (up to ≈1,408 mmHg), so 37/44
   (84.1 %) converge to a *physiological* plateau.
@@ -334,7 +333,7 @@ sweep.*
   FiO2 ≥ 0.95). An extended 300 s rerun ([S021](#s021)) shows PaO2
   converges to a plateau ~ 20 mmHg *below* the simple
   alveolar-gas-equation prediction (S1 median 643 mmHg vs ≈ 663 mmHg
-  predicted) — consistent with Pulse's modelled A-a gradient. The
+  predicted). The
   original flag therefore reflects (a) the locked 120 s window being
   insufficient for hyperoxia convergence and (b) the conservative
   classifier bound, not a Pulse oxygenation overshoot. A supplementary `HARD_BOUNDS_PHYSIOLOGICAL`
@@ -2796,9 +2795,8 @@ corrected by setting trigger pressure to −2 cmH2O.*
       alveolar-gas-equation prediction: alveolar
       $P_AO_2 = \mathrm{FiO}_2 \cdot (P_{\mathrm{atm}} - P_{\mathrm{H_2O}}) - P_aCO_2 / \mathrm{RQ}$
       $= 1.0 \cdot (760 - 47) - 40 / 0.8 \approx 663$ mmHg; the measured
-      arterial $P_aO_2$ of 643 mmHg therefore implies an A-a gradient
-      of ~20 mmHg, consistent with Pulse's modelled alveolar-arterial
-      difference rather than an oxygenation defect. Pulse *under-shoots*
+      arterial $P_aO_2$ of 643 mmHg therefore implies an A-a difference
+      of ~20 mmHg. Pulse *under-shoots*
       the alveolar prediction and does not overshoot. The pre-registered
       decision is `HYPOTHESIS_II_TRANSIENT_REGIME_SUPPORTED`.
 
@@ -3642,9 +3640,8 @@ dyssynchrony (F-004) via an explicit
 1.826 → 0.018) and reframing the apparent FiO2 = 1.0 PaO2 overshoot
 as a transient hyperoxia regime (F-003), with the 300 s plateau
 landing ~ 20 mmHg below the alveolar-gas-equation prediction
-([S021](#s021); median 643 mmHg vs ~ 663 mmHg predicted) —
-consistent with Pulse's modelled A-a gradient rather than an
-oxygenation defect. We also established patient sex as a
+([S021](#s021); median 643 mmHg vs ~ 663 mmHg predicted) — an
+undershoot rather than an oxygenation defect. We also established patient sex as a
 previously uncharacterized, *regime-dependent* reliability-sensitivity
 axis: concentrated on gas-exchange outputs under permutation-based BH-FDR
 control (5 of 24 cell × output Wasserstein survivors, §3.6) and on
