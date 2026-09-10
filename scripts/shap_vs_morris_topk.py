@@ -35,6 +35,7 @@ import numpy as np
 import pandas as pd
 import shap
 from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import GroupKFold, cross_val_score
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "results" / "s023"
@@ -52,6 +53,71 @@ OUTPUT_COLS = [f"{o}_mean" for o in OUTPUTS]
 RF_SEED = 42
 
 K = 3  # top-k overlap
+
+
+def attach_trajectory(df: pd.DataFrame, root: Path) -> pd.Series:
+    """Return the Morris trajectory id of every row of `df`, verified not assumed.
+
+    Why this is needed
+    ------------------
+    An out-of-bag score, or any random split, treats rows as exchangeable. Morris
+    rows are not: two consecutive points of a trajectory differ in exactly one
+    input out of seven, so a held-out row almost always has a near-twin in the
+    training set. That inflates the score. Grouping by trajectory is the fix.
+
+    Why the group is the trajectory ALONE, not (scenario, sex, trajectory)
+    ---------------------------------------------------------------------
+    The same 160-point design is replayed in all eight cells, so trajectory 0 of
+    S1_F carries the SAME seven operational input values as trajectory 0 of
+    S1_M. Grouping per cell would put identical input vectors on both sides of
+    the split. The 20 trajectories are therefore the groups, spanning all cells.
+
+    How the mapping is established
+    ------------------------------
+    `morris_sample.parquet` holds the 160-point design in sweep order, so the
+    numeric suffix of `case_id` indexes it directly. That is ASSERTED here
+    against the stored inputs rather than trusted: if the sample were ever
+    reordered or regenerated differently, this raises instead of silently
+    grouping the wrong rows.
+    """
+    sample = pd.read_parquet(root / "data" / "runs" / "full_sweep" / "morris_sample.parquet")
+    if len(sample) != 160:
+        raise SystemExit(f"morris_sample.parquet has {len(sample)} rows, expected 160")
+
+    idx = df["case_id"].str.rsplit("_", n=1).str[-1].astype(int)
+    if idx.min() < 0 or idx.max() > 159:
+        raise SystemExit(f"case_id index out of range: [{idx.min()}, {idx.max()}]")
+
+    # Verify the positional mapping on EVERY row. Six inputs must match exactly.
+    # DBP is the exception, and not a loophole: the preregistered pulse-pressure
+    # rule clips a requested DBP above 0.75 x SBP at configuration time, so the
+    # APPLIED value legitimately differs from the SAMPLED one. Supplement
+    # S3-clip-cost states that 35 of the 160 sampled points are clipped, and the
+    # clip is fixed by the sample alone, hence identical in all eight cells.
+    # That predicts exactly 35 x 8 = 280 disagreeing rows -- so the count is
+    # asserted rather than waived. Anything else means the mapping is wrong.
+    CLIPPED_INPUT = "dbp"
+    EXPECTED_CLIPPED_ROWS = 35 * 8
+
+    for feat, col in zip(INPUT_FEATURES, OPERATIONAL_INPUT_COLS):
+        expected = sample[feat].to_numpy()[idx.to_numpy()]
+        got = df[col].to_numpy(float)
+        n_bad = int((~np.isclose(expected, got, rtol=0, atol=1e-9)).sum())
+        if feat == CLIPPED_INPUT:
+            if n_bad != EXPECTED_CLIPPED_ROWS:
+                raise SystemExit(
+                    f"positional trajectory mapping: '{feat}' disagrees on "
+                    f"{n_bad} rows, expected exactly {EXPECTED_CLIPPED_ROWS} "
+                    f"(35 clipped sample points x 8 cells). Mapping is unsafe."
+                )
+            continue
+        if n_bad:
+            raise SystemExit(
+                f"positional trajectory mapping FAILED on '{feat}': "
+                f"{n_bad} of {len(df)} rows disagree. Do not group on this."
+            )
+
+    return pd.Series(sample["trajectory"].to_numpy()[idx.to_numpy()], index=df.index)
 
 
 def build_design_matrix(df: pd.DataFrame) -> tuple[pd.DataFrame, list[str]]:
@@ -90,6 +156,13 @@ def main() -> None:
     clean = df[df["clean"]].copy()
     print(f"Loaded {len(df)} total runs; {len(clean)} clean (selection bias warning).")
 
+    traj_all = attach_trajectory(df, ROOT)
+    groups = traj_all.loc[clean.index]
+    print(
+        f"Trajectory mapping verified against morris_sample.parquet on all "
+        f"{len(df)} rows; {groups.nunique()} distinct trajectories in the clean subset."
+    )
+
     # Coverage diagnostic on the clean subset
     cov = clean.groupby(["scenario", "sex"]).size().reset_index(name="n_clean")
     print("\nClean coverage per cell:")
@@ -116,9 +189,42 @@ def main() -> None:
         Xm = X.loc[mask]
         ym = y[mask]
 
-        rf = RandomForestRegressor(random_state=RF_SEED)  # defaults per user spec
+        # oob_score=True is the only out-of-sample signal available without
+        # changing the fit: RandomForestRegressor bootstraps by default, so each
+        # tree already holds out ~37 % of rows. r2_train alone is uninformative
+        # for a forest grown to purity -- it is near 1 by construction.
+        # CAVEAT, and it is not a small one: OOB treats rows as exchangeable.
+        # They are not. Two consecutive points of a Morris trajectory differ in
+        # a single input out of seven, so a held-out row usually has a near-twin
+        # in the bag. OOB therefore OVERSTATES generalisation here, and the
+        # trajectory-grouped evaluation is the one that answers the question.
+        rf = RandomForestRegressor(random_state=RF_SEED, oob_score=True)
         rf.fit(Xm, ym)
         r2_train = rf.score(Xm, ym)
+        r2_oob = float(getattr(rf, "oob_score_", float("nan")))
+
+        # The honest out-of-sample number: whole trajectories are held out, so no
+        # near-twin of a test row can sit in the training fold. Compare it with
+        # r2_oob -- the gap between the two IS the leakage that OOB hides.
+        gm = groups.to_numpy()[mask]
+        n_groups = len(np.unique(gm))
+        if n_groups >= 2:
+            n_splits = min(5, n_groups)
+            fold_scores = cross_val_score(
+                RandomForestRegressor(random_state=RF_SEED),
+                Xm,
+                ym,
+                groups=gm,
+                cv=GroupKFold(n_splits=n_splits),
+                scoring="r2",
+            )
+            # Report the spread too: a mean over five folds can hide one that
+            # collapses, and the worst fold is the honest floor.
+            r2_grouped = float(np.mean(fold_scores))
+            r2_grouped_sd = float(np.std(fold_scores, ddof=0))
+            r2_grouped_min = float(np.min(fold_scores))
+        else:
+            r2_grouped = r2_grouped_sd = r2_grouped_min = float("nan")
 
         # SHAP — TreeExplainer
         explainer = shap.TreeExplainer(rf)
@@ -198,6 +304,10 @@ def main() -> None:
                 "output": out_name,
                 "n_train": int(len(Xm)),
                 "r2_train": float(r2_train),
+                "r2_oob": r2_oob,
+                "r2_grouped_cv": r2_grouped,
+                "r2_grouped_sd": r2_grouped_sd,
+                "r2_grouped_min": r2_grouped_min,
                 "n_features": int(Xm.shape[1]),
                 "shap_top3_op": "|".join(shap_top_ranked[:3]),
                 "morris_top3_pooled": "|".join(morris_global_ranking[:3]),

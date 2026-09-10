@@ -554,6 +554,7 @@ rc = pd.read_csv(REPO / "results/reliability_classification.csv")
 nss = pd.read_csv(REPO / "results/s022/nss_decomposition.csv")
 s23_pooled = pd.read_csv(REPO / "results/s023/topk_overlap.csv")
 s23_cell = pd.read_csv(REPO / "results/s023/topk_overlap_per_cell.csv")
+s23_rf = pd.read_csv(REPO / "results/s023/rf_metrics.csv").set_index("output")
 f003 = json.loads((REPO / "results/f003_physiological_reclassification_summary.json").read_text())
 s14_pair = pd.read_parquet(REPO / "data/runs/s014_trigger_lockout/paired_comparison.parquet")
 s14_sum = json.loads((REPO / "data/runs/s014_trigger_lockout/summary.json").read_text())
@@ -1859,6 +1860,29 @@ add(
     tolerance_rule="pct_whole",  # corrected 2026-05-22 from 90% to 92% per S024 audit
 )
 
+# S013 out-of-sample table (added 2026-09-10). The trajectory-grouped R2 is the
+# only honest generalisation figure for this surrogate: an out-of-bag score
+# treats Morris rows as exchangeable, which they are not. Each mean is pinned
+# so the published table cannot drift from rf_metrics.csv unnoticed -- the
+# failure mode that produced 19 stale head-line counters in this same pass.
+for _out, _val in [
+    ("Vt", 0.9995),
+    ("HR", 0.9917),
+    ("MAP", 0.9402),
+    ("SpO2", 0.8736),
+    ("PaCO2", 0.8734),
+    ("PaO2", 0.8716),
+]:
+    add(
+        claim_id="T2.s023.r2_grouped_%s" % _out,
+        section="Supplement S13 Table (out-of-sample)",
+        manuscript_text="trajectory-grouped R2 for %s = %.4f" % (_out, _val),
+        source_file="results/s023/rf_metrics.csv",
+        manuscript_value=_val,
+        computed_value=float(s23_rf.loc[_out, "r2_grouped_cv"]),
+        tolerance_rule="displayed_3dp",
+    )
+
 # -----------------------------------------------------------------------------
 # TIER 3 -- S027 ADDITIONS: §1.1 'Pulse in a nutshell' + §4.7 engine-side
 # recommendations (added 2026-05-23).
@@ -2578,9 +2602,21 @@ for _cid, _text, _value, _key in [
     ("T2.sobol.cells_firing",
      "spanning 43 of the 48 cell x output combinations",
      43, "cells_firing_point_estimate"),
-    ("T2.sobol.runs_required",
-     "43 cells at 11,008 runs under the preregistered cost formula",
-     11008, "sobol_runs_required"),
+    ("T2.sobol.cells_firing_cells",
+     "the trigger fires in all 8 scenario x sex cells",
+     8, "sobol_cells_firing"),
+    ("T2.sobol.runs_reduced_second_order",
+     "8 firing cells at 6,144 runs under the preregistered 64x(2k+2) formula",
+     6144, "sobol_runs_reduced_second_order"),
+    ("T2.sobol.runs_reduced_first_total",
+     "3,584 runs if only S1 and ST are computed, i.e. 64x(k+2)",
+     3584, "sobol_runs_reduced_first_total"),
+    ("T2.sobol.runs_full_second_order",
+     "8,192 runs for a full seven-input design including second order",
+     8192, "sobol_runs_full_second_order"),
+    ("T2.sobol.runs_full_first_total",
+     "4,608 runs for a full seven-input S1/ST design",
+     4608, "sobol_runs_full_first_total"),
     ("T2.sobol.budget_preregistered",
      "preregistered compute envelope of 1,500 additional runs",
      1500, "sobol_budget_runs_preregistered"),
@@ -5408,8 +5444,11 @@ def check_figure_timestamps() -> int:
 # favour of the top-three rule the preregistration actually states. Under that
 # rule 23 of the 144 top-three inputs clear the threshold in every bootstrap
 # draw, spanning 17 of the 48 combinations, and the bolt-on was deferred on
-# compute budget (11,008 runs against a preregistered envelope of 1,500), not
-# on an absence of non-linearity to decompose.
+# compute budget (6,144 runs under the preregistered 64x(2k+2) formula, or
+# 3,584 for S1/ST alone, against a preregistered envelope of 1,500), not on an
+# absence of non-linearity to decompose. The earlier 11,008 figure billed one
+# sample per cell x output combination; it was withdrawn because every output
+# of a cell comes from the same Pulse run and shares one sample.
 #
 # Nothing measured that prose. It carries no numeral, and the ledger anchors
 # literals, so the wording survived six weeks in the paper and seven passages
@@ -5459,8 +5498,8 @@ SOBOL_RETIRED_PHRASES: tuple[tuple[str, str], ...] = (
     ("evidential redundancy", "bbd2cbf"),
     # scripts/s019_sobol_bolton.py is a restricted demonstrator built on the
     # withdrawn dominant-input reading: 6 cells, all 7 inputs, base sample 256,
-    # first-order only, 13,824 runs. The preregistered design is 43 cells,
-    # promoted inputs, base sample 64, 11,008 runs. Calling the script
+    # first-order only, 13,824 runs. The preregistered design is 8 firing
+    # cells, promoted inputs, base sample 64, 6,144 runs. Calling the script
     # "ready-to-fire" made the paper's cost argument read as its cost. If a
     # conforming implementation is ever written, this guard must fail once and
     # be revisited deliberately -- which is the point.

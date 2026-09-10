@@ -172,6 +172,17 @@ def summarise(top3: pd.DataFrame) -> dict:
     dom_hi = dominant[[f"ra_hi_{s}" for s in SEEDS]]
     dom_est = dominant["n_trajectories"] >= 2
 
+    # --- Cost of the preregistered Sobol bolt-on ---------------------------
+    # One Pulse run emits all six outputs, so a Sobol sample is shared by every
+    # output of a cell: the cost scales with cells (8), not with cell x output
+    # combinations (43). Four readings are reported because the preregistration
+    # writes the cost as 64*(2k+2) -- the Saltelli size that also yields S2 --
+    # while its analysis plan asks only for S1 and ST, which need 64*(k+2).
+    promoted = top3[fires]
+    k_per_cell = promoted.groupby(["scenario", "sex"])["input"].nunique()
+    n_cells_firing = int(len(k_per_cell))
+    BASE, K_FULL = 64, 7
+
     return {
         "n_top3_rows": int(len(top3)),
         "n_cells": int(top3.groupby(["scenario", "sex", "output"]).ngroups),
@@ -188,7 +199,23 @@ def summarise(top3: pd.DataFrame) -> dict:
         "dominant_no_estimable_ci": int((~dom_est).sum()),
         "sobol_budget_runs_preregistered": 1500,
         "sobol_base_sample": 64,
-        "sobol_runs_required": int(cells_firing * 64 * (2 * 1 + 2)),
+        "sobol_cells_firing": n_cells_firing,
+        "sobol_k_per_cell": {
+            f"{sc}_{sx}": int(k) for (sc, sx), k in k_per_cell.items()
+        },
+        "sobol_runs_reduced_second_order": int(
+            sum(BASE * (2 * k + 2) for k in k_per_cell)
+        ),
+        "sobol_runs_reduced_first_total": int(
+            sum(BASE * (k + 2) for k in k_per_cell)
+        ),
+        "sobol_runs_full_second_order": n_cells_firing * BASE * (2 * K_FULL + 2),
+        "sobol_runs_full_first_total": n_cells_firing * BASE * (K_FULL + 2),
+        # Provenance only. Withdrawn cost model: it billed one single-input
+        # Sobol sample per cell x output combination (43 x 256). Superseded
+        # because every output of a cell comes from the same Pulse run and
+        # therefore shares one sample. Not a defensible lower bound.
+        "sobol_runs_unshared_k1_withdrawn": int(cells_firing * 64 * (2 * 1 + 2)),
         "n_bootstrap": N_BOOTSTRAP,
         "seeds": list(SEEDS),
         "promote_threshold": PROMOTE_THRESHOLD,

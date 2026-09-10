@@ -196,8 +196,9 @@ below; this section is the exhaustive findings digest.*
   rule the preregistration actually states — the top-three inputs, not the
   dominant one alone — the trigger fires on 43 / 48 cells, and 23 of the 144
   top-three inputs hold a lower CI bound at or above 0.6 across five seeds. The
-  bolt-on is **closed by its own preregistered budget** ([S019](#s019)): 11,008
-  runs required against an envelope of 1,500. A restricted exploratory Sobol
+  bolt-on is **closed by its own preregistered budget** ([S019](#s019)): 6,144
+  runs required against an envelope of 1,500, or 3,584 for first-order and
+  total indices alone. A restricted exploratory Sobol
   demonstrator is preserved in the repository; it is not an implementation of
   that design.
 
@@ -240,10 +241,11 @@ below; this section is the exhaustive findings digest.*
   baroreflex/chemoreflex behaviour.
   ML pipelines will internalise this as a steady-state feature, not an active
   response.
-* **ML/SHAP cross-check of the Morris ranking** ([S023](#s023)): a
+* **ML/SHAP cross-check of the Morris top-three sets** ([S023](#s023)): a
   RandomForest + SHAP surrogate on the 663 clean runs recovers the Morris
-  top-3 in **17 / 18** pooled cases (mean per-cell overlap 2.40 / 3; 92 % of
-  48 comparisons ≥ 2/3) — supporting the robustness of the Morris ranking
+  top-3 **set** in **17 / 18** pooled cases (mean per-cell overlap 2.40 / 3; 92 % of
+  48 comparisons ≥ 2/3, a partial overlap rather than a preserved order) —
+  supporting the robustness of those sets
   to an alternative analysis route on the same Pulse-generated data.
   Supplementary only (training R² uninformative; clean-subset
   selection bias).
@@ -668,8 +670,8 @@ underlying files are in the repository.
 | S020 | Pre-submission novelty audit; verified that every "first" / "novel" claim in the manuscript survives a literature double-check (single citation added: Figueroa-Casas & Montoya 2016 for the F-004 clinical precedent). |
 | S021 | Hyperoxia convergence: 60-run pre-registered rerun at 300 s vs locked 120 s sweep window — tests whether F-003 PaO2 > 600 mmHg at FiO2 = 1.0 reflects oxygenation overshoot or transient non-convergence. |
 | S022 | No-compute failure-mode attribution audit of the locked `not_steady_state` count (Appendix C). |
-| S023 | Supplementary ML/SHAP cross-check of the Morris μ\* rankings on the clean subset (Supplementary §S13). |
-| S024 | Pre-submission claims-ledger audit — `scripts/audit_claims.py` re-derives every quantitative claim registered in the audit ledger from the canonical parquets/CSVs and verifies it against the manuscript text (384 / 384 PASS at the locked tolerance band on the authors' full data tree; 383 / 384 on a public clone, where the one anchor needing the gitignored raw S021 trajectories is auto-skipped). |
+| S023 | Supplementary ML/SHAP cross-check of the Morris μ\* top-three input sets on the clean subset (Supplementary §S13). |
+| S024 | Pre-submission claims-ledger audit — `scripts/audit_claims.py` re-derives every quantitative claim registered in the audit ledger from the canonical parquets/CSVs and verifies it against the manuscript text (394 / 394 PASS at the locked tolerance band on the authors' full data tree; 393 / 394 on a public clone, where the one anchor needing the gitignored raw S021 trajectories is auto-skipped). |
 
 ---
 
@@ -1391,12 +1393,12 @@ an explicit per-class tolerance band (`exact_int` for integer counts;
 `displayed_1dp` / `displayed_2dp` / `displayed_3dp` for floats at
 their displayed precision; a 1 × 10⁻⁹ IEEE-754 epsilon protects
 against half-precision rounding boundaries). The current report on
-the locked manuscript is **384 / 384 PASS, 0 WARN, 0 FAIL** on the
+the locked manuscript is **394 / 394 PASS, 0 WARN, 0 FAIL** on the
 authors' full data tree. On a public clone, one anchor — T1.06u, the
 S021 time-to-95%-plateau, which requires the heavy raw per-run
 trajectories that are gitignored — is automatically skipped, so the
-script reports **383 / 384 PASS** with one explicitly-flagged SKIPPED
-(the headline target of 384 is computed dynamically as anchors-run
+script reports **393 / 394 PASS** with one explicitly-flagged SKIPPED
+(the headline target of 394 is computed dynamically as anchors-run
 plus anchors-skipped, so it cannot go stale). The
 script exits non-zero on any FAIL and is therefore CI-ready: future
 manuscript edits that drift a quoted number against its source
@@ -1886,12 +1888,17 @@ cell, not the dominant one alone — the point-estimate trigger fires on
 72 of the 144 top-three inputs, spanning 43 of the 48 cell × output
 combinations. The same preregistration capped the bolt-on at 1,500
 additional runs. A Sobol sample cannot be shared across cells, because
-each scenario–sex cell is a different model, so even the narrowest
-reading of the preregistered cost formula — one promoted input at a
-base sample of 64, or 256 runs per promoted combination — puts those
-43 triggered combinations at 11,008 runs.
-The bolt-on exceeded its own preregistered envelope by more than
-sevenfold, and is therefore reported rather than executed.
+each scenario–sex cell is a different model; it is shared across the six
+outputs of one cell, because they all come from the same Pulse run. The
+43 triggered combinations therefore fall in eight cells, carrying between
+three and six distinct promoted inputs each, for 6,144 runs under the
+preregistered 64 × (2k + 2) formula. Computing only the first-order and
+total indices the analysis plan asks for, at 64 × (k + 2), lowers this to
+3,584; a full seven-input design in every firing cell would cost 8,192
+and 4,608 respectively.
+The bolt-on exceeded its own preregistered envelope under every one of
+these readings, by a factor of 2.4 to 5.5, and is therefore reported
+rather than executed.
 
 The reason is the budget, not an absence of non-linearity to decompose.
 The post-hoc ratio-aware bootstrap is the stricter test of the two, and
@@ -1919,11 +1926,11 @@ dominant-input reading of the trigger, and its scope follows from that
 reading: 6 Group-B cells selected on the dominant input, all seven swept
 inputs, N = 256 with first-order indices only — 256 × (7 + 2) = 2,304
 rows per cell, 13,824 runs in total. The preregistered design is a
-different one, 43 triggered cell × output combinations at a base sample
-of 64 on the promoted inputs,
-and the 11,008-run figure above is its cost, not the demonstrator's. The
-two totals are close by coincidence, not because they are the same
-design.
+different one, 43 triggered cell × output combinations spread over eight
+cells, at a base sample of 64 on the promoted inputs,
+and the 6,144-run figure above is its cost, not the demonstrator's. The
+two are not comparable: the demonstrator costs more than twice as much
+and answers a different question.
 
 What the demonstrator does share with the sweep is the locked
 input-space definition (`src.sampler.salib_problem()`) and RNG seed 42,
@@ -3447,10 +3454,11 @@ bounded.*
   exclusion the clean rate would rise from 51.8 % to 78.8 % — this is
   presented as a decomposition, not a re-classification.
 * **`not_steady_state` cross-validation by ML/SHAP surrogate.** A
-  supplementary RandomForest + SHAP ranking on the n = 663 clean
-  subset ([S023](#s023)) recovers the Morris μ\* top-3 in 17 / 18
+  supplementary RandomForest + SHAP attribution on the n = 663 clean
+  subset ([S023](#s023)) recovers the Morris μ\* top-3 **set** in 17 / 18
   pooled (output × top-3) cases and in 23 / 48 per-cell cases at full
-  3 / 3 agreement (92 % of per-cell comparisons at ≥ 2 / 3). The
+  3 / 3 set agreement (92 % of per-cell comparisons share at least
+  2 / 3 — a partial overlap, not a preserved order). The
   cross-check is reported in supplementary section S11 with the
   honest caveats it requires (clean-subset bias, OAT non-uniform
   design); see [`results/s023/`](../results/s023/) for artefacts.
@@ -3659,7 +3667,7 @@ repository. The raw per-run Pulse CSVs and setup logs are deliberately
 excluded from git (1,280 raw CSVs plus ~50 MB of engine logs belong in
 the Zenodo deposit, not in git history; see `.gitignore`) — which is
 why one ledger anchor (`T1.06u`) auto-skips on a public clone, giving
-383 / 384 there against 384 / 384 on the authors' full data tree.
+393 / 394 there against 394 / 394 on the authors' full data tree.
 
 Licensing follows the function of each artefact, not the folder it sits
 in: code and the per-experiment lab-notebook entries under Apache
@@ -3692,8 +3700,8 @@ documentation and source (Apache-2.0) — retain their original terms.
   [`scripts/audit_claims.py`](../scripts/audit_claims.py) — read-only
   Python script verifying that every quantitative
   claim registered in the ledger matches the canonical artifacts
-  under explicit per-class tolerance rules; current state 384 / 384
-  PASS on the authors' full data tree (383 / 384 on a public clone,
+  under explicit per-class tolerance rules; current state 394 / 394
+  PASS on the authors' full data tree (393 / 394 on a public clone,
   where the one anchor needing the gitignored raw S021 trajectories
   is auto-skipped) ([S024](#s024); see §2.8 for protocol).
 * **Pinned Docker image hashes (byte-level reproducibility):**
@@ -4054,7 +4062,7 @@ during the literature-review pass logged in
   Nair B, et al. *From local explanations to global understanding with
   explainable AI for trees.* Nature Machine Intelligence 2(1):56-67 (2020).
   DOI: [10.1038/s42256-019-0138-9](https://doi.org/10.1038/s42256-019-0138-9).
-  TreeExplainer, the estimator used by the SHAP cross-verification.
+  TreeExplainer, the estimator used by the SHAP cross-check.
 
 **Acute respiratory distress syndrome (clinical anchors)**
 
@@ -4239,8 +4247,8 @@ indexed here.*
 | []{#s020} S020 | Pre-submission novelty audit (literature double-check on every "first" claim; one citation added) |
 | []{#s021} S021 | Hyperoxia convergence (60-run rerun at 300 s vs locked 120 s window; F-003 mechanism test) |
 | []{#s022} S022 | No-compute failure-mode attribution audit of the locked `not_steady_state` count (see Appendix C) |
-| []{#s023} S023 | Supplementary ML/SHAP cross-check of Morris μ\* rankings on the clean subset (see Supplementary §S13) |
-| []{#s024} S024 | Pre-submission claims-ledger audit (programmatic verification of the quantitative claims registered in the audit ledger; 384 / 384 PASS on the authors' full data tree, 383 / 384 on a public clone with one auto-skipped anchor, see §2.8) |
+| []{#s023} S023 | Supplementary ML/SHAP cross-check of Morris μ\* top-three input sets on the clean subset (see Supplementary §S13) |
+| []{#s024} S024 | Pre-submission claims-ledger audit (programmatic verification of the quantitative claims registered in the audit ledger; 394 / 394 PASS on the authors' full data tree, 393 / 394 on a public clone with one auto-skipped anchor, see §2.8) |
 | []{#s025} S025 | Pre-release OSS code-hygiene audit and fixes |
 | []{#s026} S026 | Final pre-arXiv polish |
 

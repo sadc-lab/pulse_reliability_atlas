@@ -6,12 +6,13 @@ This file is rebuilt from the YAML frontmatter of every entry in
 `santino/` and `shared/`. To update it, edit the experiment
 and recommit — the pre-commit hook regenerates and stages this file.
 
-Total entries: **31**
+Total entries: **32**
 
 ## All experiments (newest first)
 
 | ID | Date | Author | Status | Title |
 |---|---|---|---|---|
+| `S033` | 2026-09-09 | santino | done | [S033 — Cycle-resolved check of the 5-second delivered-Vt CV](santino/S033_cycle_resolved_vtcv.md) |
 | `S032` | 2026-08-06 | santino | done | [S032 — Does the pulse-pressure clip hold up the SBP → MAP conclusion?](santino/S032_clip_robustness_and_transition_stratification.md) |
 | `S031` | 2026-07-29 | santino | done | [S031 — Sobol trigger reframe, systemic non-linearity, and the survivorship censoring on delivered Vt](santino/S031_sobol_reframe_and_nonlinearity.md) |
 | `S029` | 2026-05-28 | santino | done | [S029 — Cornish 2023 hypothesis-count forensics: reconciling the 1,442-vs-1,522 main-text-vs-appendix discrepancy](santino/S029_cornish_forensics.md) |
@@ -77,8 +78,12 @@ Total entries: **31**
 - `S029` (2026-05-28, done) — [S029 — Cornish 2023 hypothesis-count forensics: reconciling the 1,442-vs-1,522 main-text-vs-appendix discrepancy](santino/S029_cornish_forensics.md) — _cornish, falsification, forensics, value-recomputation, manuscript-discussion, audit_
 - `S031` (2026-07-29, done) — [S031 — Sobol trigger reframe, systemic non-linearity, and the survivorship censoring on delivered Vt](santino/S031_sobol_reframe_and_nonlinearity.md) — _statistics, sobol, bootstrap, preregistration-fidelity, non-linearity, survivorship-bias, manuscript-correction, ratio-aware-bootstrap, retraction_
 - `S032` (2026-08-06, done) — [S032 — Does the pulse-pressure clip hold up the SBP → MAP conclusion?](santino/S032_clip_robustness_and_transition_stratification.md) — _morris, pulse-pressure-clip, one-at-a-time-violation, robustness, sensitivity-estimators, transition-stratification, integrity-audit, ledger-expansion, deferred-analysis_
+- `S033` (2026-09-09, done) — [S033 — Cycle-resolved check of the 5-second delivered-Vt CV](santino/S033_cycle_resolved_vtcv.md) — _aliasing, steady-state-classifier, tidal-volume, trigger-lockout, reviewer-response, post-hoc, estimand-sensitivity_
 
 ## By tag
+
+### `aliasing`
+- `S033` — [S033 — Cycle-resolved check of the 5-second delivered-Vt CV](santino/S033_cycle_resolved_vtcv.md)
 
 ### `ards-instability`
 - `S011` — [S011 — Sex vs mass disentangling (controlled 2×2 design)](santino/S011_sex_vs_mass_disentangle.md)
@@ -195,6 +200,9 @@ Total entries: **31**
 
 ### `engine-recommendations`
 - `S027` — [S027 — §1.1 Pulse-in-a-nutshell explainer + §4.7 engine-side recommendations](santino/S027_pulse_intro_and_engine_recommendations.md)
+
+### `estimand-sensitivity`
+- `S033` — [S033 — Cycle-resolved check of the 5-second delivered-Vt CV](santino/S033_cycle_resolved_vtcv.md)
 
 ### `f-003`
 - `S012` — [S012 — Dual steady-state audit (F-003 hyperoxia + F-004 Vt oscillation)](santino/S012_steady_state_window_audit.md)
@@ -361,6 +369,9 @@ Total entries: **31**
 ### `post-arxiv-polish`
 - `S027` — [S027 — §1.1 Pulse-in-a-nutshell explainer + §4.7 engine-side recommendations](santino/S027_pulse_intro_and_engine_recommendations.md)
 
+### `post-hoc`
+- `S033` — [S033 — Cycle-resolved check of the 5-second delivered-Vt CV](santino/S033_cycle_resolved_vtcv.md)
+
 ### `pre-arxiv`
 - `S026` — [S026 — Final pre-arXiv polish](santino/S026_pre_arxiv_polish.md)
 
@@ -427,6 +438,9 @@ Total entries: **31**
 - `S024` — [S024 — Pre-submission claims-ledger audit](santino/S024_claims_ledger_audit.md)
 - `S025` — [S025 — Pre-release OSS code-hygiene audit and fixes](santino/S025_oss_release_hygiene.md)
 
+### `reviewer-response`
+- `S033` — [S033 — Cycle-resolved check of the 5-second delivered-Vt CV](santino/S033_cycle_resolved_vtcv.md)
+
 ### `robustness`
 - `S032` — [S032 — Does the pulse-pressure clip hold up the SBP → MAP conclusion?](santino/S032_clip_robustness_and_transition_stratification.md)
 
@@ -467,6 +481,9 @@ Total entries: **31**
 ### `steady-state-audit`
 - `S012` — [S012 — Dual steady-state audit (F-003 hyperoxia + F-004 Vt oscillation)](santino/S012_steady_state_window_audit.md)
 
+### `steady-state-classifier`
+- `S033` — [S033 — Cycle-resolved check of the 5-second delivered-Vt CV](santino/S033_cycle_resolved_vtcv.md)
+
 ### `supplementary`
 - `S023` — [S023 — Supplementary ML/SHAP cross-check of the Morris μ* rankings](santino/S023_shap_vs_morris_topk.md)
 
@@ -481,6 +498,9 @@ Total entries: **31**
 
 ### `taxonomy`
 - `S013` — [S013 — Lexical lockdown (solver-divergence vs implausible-output taxonomy)](santino/S013_lexical_lockdown.md)
+
+### `tidal-volume`
+- `S033` — [S033 — Cycle-resolved check of the 5-second delivered-Vt CV](santino/S033_cycle_resolved_vtcv.md)
 
 ### `tier-2`
 - `S009` — [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md)
@@ -498,6 +518,9 @@ Total entries: **31**
 
 ### `transition-stratification`
 - `S032` — [S032 — Does the pulse-pressure clip hold up the SBP → MAP conclusion?](santino/S032_clip_robustness_and_transition_stratification.md)
+
+### `trigger-lockout`
+- `S033` — [S033 — Cycle-resolved check of the 5-second delivered-Vt CV](santino/S033_cycle_resolved_vtcv.md)
 
 ### `trigger-pressure`
 - `S014` — [S014 — Trigger-pressure lockout: causal test of F-004 mechanism](santino/S014_trigger_pressure_lockout.md)

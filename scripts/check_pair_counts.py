@@ -88,10 +88,10 @@ BUCKETS = REPO / "results" / "sobol_ci_buckets.csv"
 
 # The sentences under guard, delimited rather than pattern-matched.
 SENTENCE_OPEN = "The same mechanism sets how much data each index rests on"
-SENTENCE_CLOSE = "The ranking is cross-verified"
+SENTENCE_CLOSE = "The top-three input sets are cross-checked"
 
 TRIGGER_OPEN = "Influence is not proportionality"
-TRIGGER_CLOSE = "The map of non-linearity"
+TRIGGER_CLOSE = "That map is therefore bounded"
 
 BUCKETS_SRC = REPO / "scripts" / "sobol_ci_buckets.py"
 

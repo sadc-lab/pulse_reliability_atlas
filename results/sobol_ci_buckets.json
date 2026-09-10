@@ -46,5 +46,20 @@
   "skip_threshold": 0.4,
   "sobol_base_sample": 64,
   "sobol_budget_runs_preregistered": 1500,
-  "sobol_runs_required": 11008
+  "sobol_cells_firing": 8,
+  "sobol_k_per_cell": {
+    "S1_F": 4,
+    "S1_M": 6,
+    "S2_F": 6,
+    "S2_M": 6,
+    "S3_F": 5,
+    "S3_M": 5,
+    "S4_F": 5,
+    "S4_M": 3
+  },
+  "sobol_runs_full_first_total": 4608,
+  "sobol_runs_full_second_order": 8192,
+  "sobol_runs_reduced_first_total": 3584,
+  "sobol_runs_reduced_second_order": 6144,
+  "sobol_runs_unshared_k1_withdrawn": 11008
 }
