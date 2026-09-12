@@ -6405,11 +6405,18 @@ def check_s033_cycle_resolved() -> int:
     pin("cycle-only below the 3x cut", "ten fall below a factor of 3",
         float(conf["cycle_only_below_substantial"]), 10)
 
+    # Three quantities, three comparisons. Packing them into one number the way
+    # an earlier version did (count x 1e6 + min x 1e3 + max) is NOT injective:
+    # min 4.0 with max 113.9 and min 4.1 with max 13.9 both give 4113.9, so a
+    # compensating drift in two of the three would have passed.
     subst = [f for f in conf["cycle_only_factors"] if f >= conf["substantial_factor_cut"]]
-    pin("substantial cycle-only crossings, and their range",
-        "five are substantial (factors of 4.0 to 113.9)",
-        float(len(subst)) * 1e6 + round(min(subst), 1) * 1e3 + round(max(subst), 1),
-        5e6 + 4.0e3 + 113.9)
+    add_row("substantial cycle-only crossings, and their range",
+            "`five are substantial (factors of 4.0 to 113.9)` -- artefact: "
+            f"{len(subst)} factors, {round(min(subst), 1)} to {round(max(subst), 1)}",
+            "five are substantial (factors of 4.0 to 113.9)" in supp
+            and len(subst) == 5
+            and round(min(subst), 1) == 4.0
+            and round(max(subst), 1) == 113.9)
     all_female = conf["cycle_only_substantial_sex"] == {"F": len(subst)}
     add_row("all substantial crossings on the female body",
             f"`all five fall on the female reference body` -- "
@@ -6451,10 +6458,14 @@ def check_s033_cycle_resolved() -> int:
     pin("estimand: median of paired differences, cycle", "0.3256 & 0.3275",
         round(float(est.loc["median_of_paired_differences", "cycle_resolved"]), 4), 0.3275)
 
+    # Two quantities, two comparisons -- see the note on injectivity above.
     gaps = est["relative_gap_pct"]
-    pin("relative-gap range", "relative gap ranges from 0.6~\\% to 8.6~\\%",
-        round(float(gaps.min()), 1) * 1e3 + round(float(gaps.max()), 1),
-        0.6e3 + 8.6)
+    add_row("relative-gap range",
+            "`relative gap ranges from 0.6~\\% to 8.6~\\%` -- artefact: "
+            f"{round(float(gaps.min()), 1)} to {round(float(gaps.max()), 1)}",
+            "relative gap ranges from 0.6~\\% to 8.6~\\%" in supp
+            and round(float(gaps.min()), 1) == 0.6
+            and round(float(gaps.max()), 1) == 8.6)
     n_over = int((est["cycle_resolved"] > est["five_second"]).sum())
     add_row("direction split is two against two",
             "`two summaries make the 5-second statistic overstate the effect, two make "
@@ -6547,24 +6558,47 @@ def check_s033_cycle_resolved() -> int:
         float(sa["n_disagree_with_cycle_estimator"]) * 1e5 + conf["n_runs_analysed"],
         9e5 + 1260)
     # The direction of the merging bias. The first draft of this subsection
-    # asserted that merging biases the statistic upward, from the reasoning
-    # that it under-weights stability. Measured, it does not: the split is
-    # 641 / 617 with a median ratio of 1.0004. These three pins exist because
-    # that sentence would otherwise have been published on an argument.
-    pin("bias direction: split of the run-by-run comparison",
-        "exceeds the all-sample value on 641 runs and falls below it on 617",
-        float(mb["n_cycle_above_native"]) * 1e4 + mb["n_cycle_below_native"],
-        641e4 + 617)
+    # asserted that merging biases the statistic upward, reasoning that it
+    # under-weights stability. Measured, it does not. These pins exist because
+    # that sentence would otherwise have been published on an argument -- and
+    # because the first de-noising filter written to measure it was itself
+    # wrong (relative-only, so blind to two values that are both noise).
+    mat = mb["material"]
+    pin("bias direction: runs entering the comparison",
+        "On the 1{,}250 runs whose two values differ by more than a relative $10^{-6}$",
+        float(mat["n_runs"]), 1250)
+    pin("bias direction: the larger side",
+        "the change-point value is the larger on 640",
+        float(mat["n_cycle_above_native"]), 640)
+    pin("bias direction: the smaller side",
+        "and the smaller on 610", float(mat["n_cycle_below_native"]), 610)
     pin("bias direction: median ratio of the two cycle-level estimators",
-        "with a median ratio of 1.0004",
-        round(mb["median_ratio_cycle_over_native"], 4), 1.0004)
-    add_row("bias direction: the three-way split accounts for every analysed run",
-            f"{mb['n_cycle_above_native']} + {mb['n_cycle_below_native']} + "
-            f"{mb['n_equal']} = "
-            f"{mb['n_cycle_above_native'] + mb['n_cycle_below_native'] + mb['n_equal']}"
-            f" vs {conf['n_runs_analysed']}",
-            mb["n_cycle_above_native"] + mb["n_cycle_below_native"] + mb["n_equal"]
-            == conf["n_runs_analysed"])
+        "at a median ratio of 1.0005",
+        round(mb["median_ratio_cycle_over_native_material"], 4), 1.0005)
+    pin("bias direction: runs excluded as numerically identical",
+        "the remaining ten are identical to the precision the trace carries, nine of "
+        "them the constant-volume runs",
+        float(mb["n_below_cut"]) * 1e3 + conf["n_constant_volume"], 10e3 + 9)
+    add_row("bias direction: the split accounts for every analysed run",
+            f"{mat['n_runs']} compared + {mb['n_below_cut']} indistinguishable = "
+            f"{mat['n_runs'] + mb['n_below_cut']} vs {conf['n_runs_analysed']}; "
+            f"{mat['n_cycle_above_native']} + {mat['n_cycle_below_native']} + "
+            f"{mat['n_tied']} = {mat['n_runs']}",
+            mat["n_runs"] + mb["n_below_cut"] == conf["n_runs_analysed"]
+            and mat["n_cycle_above_native"] + mat["n_cycle_below_native"]
+            + mat["n_tied"] == mat["n_runs"])
+    # Calibration of the de-noising filter, on the defect that motivated it:
+    # every constant-volume run must fall below the cut, because there the only
+    # difference between the two estimators is a ~1.8e-16 float residue. A
+    # relative-only filter scored that residue as a 100 % difference and
+    # excluded none of them.
+    add_row("bias direction: the filter excludes every constant-volume run",
+            f"{mb['n_constant_runs_excluded_by_cut']} of {mb['n_constant_runs']} "
+            f"excluded; largest residue on those runs "
+            f"{mb['max_float_residue_on_constant_runs']:.3g}",
+            mb["n_constant_runs_excluded_by_cut"] == mb["n_constant_runs"]
+            == conf["n_constant_volume"]
+            and mb["max_float_residue_on_constant_runs"] < 1e-12)
     pin("sensitivity: the all-sample counterfactual, against the published one",
         "from 530 to 533, against the 530 to 536 reported above",
         float(sa["nss_counterfactual"]) * 1e4 + conf["nss_counterfactual"],

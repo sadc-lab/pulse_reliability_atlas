@@ -189,11 +189,27 @@
     "max_abs_cv_5s_delta_vs_stored": 0.0,
     "max_cv_cycle_among_cycle_count_disagreement": 1.0,
     "merging_bias_direction": {
-      "median_ratio_cycle_over_native": 1.0003580248058421,
-      "n_cycle_above_native": 641,
-      "n_cycle_below_native": 617,
-      "n_equal": 2,
-      "pct_cycle_above_native": 50.87301587301587
+      "material": {
+        "n_cycle_above_native": 640,
+        "n_cycle_below_native": 610,
+        "n_runs": 1250,
+        "n_tied": 0,
+        "pct_cycle_above_native": 51.2
+      },
+      "material_abs_diff_cut": 1e-12,
+      "material_rel_diff_cut": 1e-06,
+      "max_float_residue_on_constant_runs": 2.7728499811937437e-16,
+      "median_ratio_cycle_over_native_material": 1.000523799156202,
+      "n_below_cut": 10,
+      "n_constant_runs": 9,
+      "n_constant_runs_excluded_by_cut": 9,
+      "raw": {
+        "n_cycle_above_native": 641,
+        "n_cycle_below_native": 617,
+        "n_runs": 1260,
+        "n_tied": 2,
+        "pct_cycle_above_native": 50.87301587301587
+      }
     },
     "n_agree": 1239,
     "n_analysed_by_sex": {

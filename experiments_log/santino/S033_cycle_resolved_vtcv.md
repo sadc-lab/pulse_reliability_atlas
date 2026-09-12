@@ -295,14 +295,26 @@ so this is checkable on every run rather than on three.
 
 > ⚠️ **An earlier version of this paragraph said that merging "biases the CV
 > upward", reasoning that it under-weights stability. That reasoning is wrong,
-> and it was on its way into the supplement before it was measured.** Against
-> the all-sample estimator the change-point value is higher on **641** runs and
-> lower on **617**, with a median ratio of **1.0004** — no systematic direction
-> at all. What merging moves is not the magnitude but which runs sit either
-> side of the threshold. Three ledger checks now pin 641 / 617 / 1.0004 so the
-> claim cannot drift back to the argument. The lesson is
-> [[feedback_verify_before_proposing]] applied to my own prose: a mechanism
-> that sounds right is not a measurement.
+> and it was already inside `supplement.tex` before it was measured.** On the
+> **1,250** runs whose two cycle-level values are materially different, the
+> change-point value is the larger on **640** and the smaller on **610**, at a
+> median ratio of **1.0005** — no systematic direction. What merging moves is
+> not the magnitude but which runs sit either side of the threshold. Seven
+> ledger checks now pin these figures so the claim cannot drift back to the
+> argument. The lesson is [[feedback_verify_before_proposing]] applied to my
+> own prose: a mechanism that sounds right is not a measurement.
+>
+> ⚠️⚠️ **And the filter written to measure it was wrong first.** A
+> relative-difference criterion removed nothing, because on a constant-volume
+> run the change-point estimator returns exactly 0 while the all-sample
+> estimator returns `np.std`'s two-pass residue of ~1.8e-16 — a *relative*
+> difference of 100 % on a difference of 1.8e-16. The raw sign test therefore
+> read 641 / 617 with seven of the nine constant runs scored as "cycle below
+> all-sample" on machine noise. The filter now needs an absolute floor as well
+> (`isclose` form, 1e-12 + 1e-6 x scale), and its calibration asserts the exact
+> defect that motivated it: all **9 of 9** constant-volume runs fall below the
+> cut. Both splits are kept in the artefact under `raw` and `material`; the
+> supplement quotes `material`.
 
 **126 runs** disagree by more than 20 %, and **4 of the 21** verdict
 disagreements fall on them (S1\_F\_0074, S1\_F\_0077, S2\_F\_0110,
@@ -332,7 +344,7 @@ argued.** +6 against +3, so the figure in the supplement overstates rather than
 understates what changing resolution would cost. That is the conservative
 direction for a subsection whose claim is that the effect is small. Note that
 this is *not* explained by a directional bias in the statistic, which does not
-exist (641 / 617 above); it comes from the threshold crossings alone.
+exist (640 / 610 above); it comes from the threshold crossings alone.
 
 **Published in Supplement S8 on 2026-09-12, by the maintainer's decision.** It
 had been held back here on the grounds that adding a third estimator to a

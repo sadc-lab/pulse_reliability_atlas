@@ -195,6 +195,69 @@ def cycle_cv(path: Path) -> tuple[float, int, int, float]:
     return _cv(vals), int(vals.size), int(vt.size), _cv(vt)
 
 
+# Two cycle-level CVs count as distinguishable only if they differ by more than
+# MATERIAL_ABS_DIFF + MATERIAL_REL_DIFF x scale, the `isclose` form.
+#
+# ⚠️ The absolute term is not decoration, and a relative-only test does not
+# work here -- that was the first version of this filter and it removed nothing.
+# On a constant-volume run the change-point estimator returns exactly 0 while
+# the all-sample estimator returns a ~1.8e-16 two-pass residue, so their
+# RELATIVE difference is 100 %: a relative criterion sees a decisive difference
+# where there is only machine noise. The absolute floor is set four orders of
+# magnitude above that residue and ten below the 0.05 decision threshold, so it
+# separates noise from signal without touching any verdict.
+MATERIAL_ABS_DIFF = 1e-12
+MATERIAL_REL_DIFF = 1e-6
+
+
+def _bias_direction(df: pd.DataFrame) -> dict:
+    """Sign test between the two cycle-level estimators, raw and de-noised.
+
+    Returns both, because the raw count is the one a reader would compute and
+    the material count is the one that means anything. See the call site for
+    why they differ.
+    """
+    a = df["cv_cycle"].to_numpy(dtype=float)
+    b = df["cv_native_all"].to_numpy(dtype=float)
+    scale = np.maximum(np.abs(a), np.abs(b))
+    material = np.abs(a - b) > (MATERIAL_ABS_DIFF + MATERIAL_REL_DIFF * scale)
+    ratio = np.where(b > 0, a / np.where(b > 0, b, 1.0), np.nan)
+
+    def split(mask: np.ndarray) -> dict:
+        above = int((mask & (a > b)).sum())
+        below = int((mask & (a < b)).sum())
+        n = int(mask.sum())
+        return {
+            "n_runs": n,
+            "n_cycle_above_native": above,
+            "n_cycle_below_native": below,
+            "n_tied": n - above - below,
+            "pct_cycle_above_native": (100.0 * above / n) if n else float("nan"),
+        }
+
+    all_mask = np.ones(len(df), dtype=bool)
+    out = {
+        "material_abs_diff_cut": MATERIAL_ABS_DIFF,
+        "material_rel_diff_cut": MATERIAL_REL_DIFF,
+        # Calibration of the filter itself: it must exclude every
+        # constant-volume run, where the only difference is the float residue.
+        "n_constant_runs_excluded_by_cut": int(
+            (~material & df["constant_volume"].to_numpy(dtype=bool)).sum()
+        ),
+        "n_constant_runs": int(df["constant_volume"].sum()),
+        "raw": split(all_mask),
+        "material": split(material),
+        "n_below_cut": int((~material).sum()),
+        "median_ratio_cycle_over_native_material": float(
+            np.nanmedian(ratio[material])
+        ),
+        "max_float_residue_on_constant_runs": float(
+            df.loc[df["constant_volume"], "cv_native_all"].max()
+        ),
+    }
+    return out
+
+
 def verify_time_offset(run_dir: Path) -> None:
     """Assert t_native = t_relative + 120 by value identity on two channels.
 
@@ -477,17 +540,18 @@ def analyse_sweep(strict: bool) -> tuple[pd.DataFrame, dict]:
         # repeated value is itself an outlier. So the published sentence
         # ("the bias is towards overstating variability") needs this number,
         # not the reasoning alone.
-        "merging_bias_direction": {
-            "n_cycle_above_native": int((df["cv_cycle"] > df["cv_native_all"]).sum()),
-            "n_cycle_below_native": int((df["cv_cycle"] < df["cv_native_all"]).sum()),
-            "n_equal": int((df["cv_cycle"] == df["cv_native_all"]).sum()),
-            "pct_cycle_above_native": 100.0
-            * float((df["cv_cycle"] > df["cv_native_all"]).mean()),
-            "median_ratio_cycle_over_native": float(
-                (df.loc[df["cv_native_all"] > 0, "cv_cycle"]
-                 / df.loc[df["cv_native_all"] > 0, "cv_native_all"]).median()
-            ),
-        },
+        #
+        # ⚠️ The raw sign test over all 1,260 runs is contaminated. `np.std`
+        # over 3,001 *identical* doubles does not return exactly 0 but a
+        # ~1.8e-16 two-pass residue, whereas the change-point estimator sees a
+        # single value and returns a true 0. So seven of the nine
+        # constant-volume runs register as "cycle below all-sample" on pure
+        # machine noise. The same objection applies, less visibly, to any run
+        # whose two CVs agree to more digits than the trace carries. The
+        # `material` block is therefore the one to quote: it keeps only pairs
+        # that differ by more than a relative 1e-6, a million times above the
+        # noise floor and still far below anything the 0.05 threshold can see.
+        "merging_bias_direction": _bias_direction(df),
         "sensitivity_native_all": {
             "flagged_by_both": int((df["flag_5s"] & df["flag_native_all"]).sum()),
             "flagged_by_neither": int((~df["flag_5s"] & ~df["flag_native_all"]).sum()),
