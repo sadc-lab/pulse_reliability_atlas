@@ -18,6 +18,19 @@ This script repays that debt.  It **re-derives** every number from
 `data/runs/`; it reads no value back from the supplement.  If a published
 figure is wrong, this script is what reveals it.
 
+What "reproducible" does and does not mean here
+-----------------------------------------------
+This script needs the raw per-run traces, `output.csv` and
+`output_pulse_native.csv`.  `.gitignore` L19-L20 excludes both: about 2 GB of
+them exist, and only the aggregate `aggregated.parquet` is versioned.  So
+`results/s033/` **cannot be regenerated on a clean clone** -- it can only be
+regenerated on a machine that holds the sweep outputs.  That is the standing
+situation for twenty scripts in this repository, not a new compromise, but it
+is the reason the two guards in `scripts/audit_claims.py` deliberately read
+only versioned files: `results/s033/*` and `aggregated.parquet`.  Those guards
+are what a clean clone and CI can check.  Re-running *this* script is the only
+thing that re-checks the cycle-resolved half, and it is not available to CI.
+
 Method (as recorded in the S033 notebook, reimplemented here)
 -------------------------------------------------------------
 * Time base.  The atlas classifier reads `output.csv`, whose `time_s` runs

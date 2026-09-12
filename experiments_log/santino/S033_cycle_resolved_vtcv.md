@@ -38,7 +38,10 @@ the sweep, and for all 64 trigger-lockout reruns of S014.
 - Cycle segmentation: the native `TidalVolume` channel is a **step function**
   (constant within a breath), so cycles are recovered as change points. The
   count was validated against the measured respiratory rate on three runs
-  (24 vs 25.7 /min; 26 vs 25.4; 22 vs 20.7 — within 7 %).
+  (24 vs 25.7 /min; 26 vs 25.4; 22 vs 20.7 — within 7 %). ⚠️ **Those three runs
+  are a favourable sample.** On all 1,251 non-constant runs the median
+  disagreement is 5.4 %, the 95th percentile 38 % and the maximum 95 %; see the
+  2026-09-12 addendum, which also measures whether any verdict rests on it.
 - Threshold: the locked `CV_THRESHOLD = 0.05`, strict `>`, unchanged. Float
   tolerance was applied **only** to the time-window comparison, never to the
   threshold. (Filtering on `t <= 120` excludes the last sample, stored as
@@ -119,6 +122,11 @@ blur that answer. Decision taken with the maintainer, 2026-09-09.
 - Cycle counting is a change-point method: on runs whose delivered volume is
   numerically constant it recovers one plateau, and on near-flat runs it can
   count numerical noise. Nine runs across the sweep are in the constant class.
+  ⚠️ **The nine are not the whole affected population.** Segmentation also
+  merges two consecutive breaths that deliver a numerically identical volume,
+  which under-counts cycles without the run being constant: 126 runs disagree
+  with the reported respiration rate by more than 20 %. The 2026-09-12 addendum
+  measures the consequence and finds the published split robust to it.
 - The classifier criteria were **recomputed** here, not read back from the
   stored flags in `aggregated.parquet`. The supplement records that this
   reconstruction reproduces the stored flag on 1,280 / 1,280 runs, which
@@ -251,10 +259,14 @@ premise it re-verifies every run.
 
 ### Two figures in this notebook were wrong, and are corrected above
 
-The "relative gap" column of the estimands table mixed two computations. Two of
-its four entries were derived from the unrounded values (5.81 %, 8.65 % —
-correct); two were derived from the *displayed* two- and four-decimal values,
-and are off:
+Two of the four entries in the "relative gap" column are wrong. That is the
+measured fact. The *mechanism* below is reconstructed, not observed — the awk
+pipelines are gone — but the arithmetic is consistent with only one story:
+recomputing each gap from the **displayed** two- and four-decimal values
+reproduces the published 3.75 % and 0.58 % exactly, while the unrounded values
+give 3.73 % and 0.59 %. Two of the four entries therefore appear to have been
+taken from the table's own display rather than from the data behind it, and the
+other two (5.81 %, 8.65 %) from the unrounded values:
 
 | summary | was | is |
 |---|---|---|
@@ -337,3 +349,23 @@ pandas' C parser is not correctly rounded and reads `8.79569357191e-12` back as
 `8.795693571910001e-12`, which made an earlier tolerance-based version of this
 check fail on two runs whose CV is numerically zero. Comparing the 12
 significant digits the artefact actually promises needs no tolerance at all.
+
+### Limite de reproductibilité, mesurée après coup le 2026-09-12
+
+`results/s033/` **n'est pas régénérable sur un clone propre.**
+`scripts/s033_cycle_resolved_vtcv.py` a besoin de `output.csv` et
+`output_pulse_native.csv`, que `.gitignore` L19-L20 exclut (≈ 2 Go ; seul
+`aggregated.parquet` est versionné). Vingt scripts du dépôt sont dans le même
+cas, donc ce n'est pas une régression — mais le mot « reproductible » doit
+porter cette borne.
+
+C'est précisément pourquoi les deux gardes ne lisent **que** du versionné
+(`results/s033/*`, `results/s023/rf_metrics.csv`, `aggregated.parquet`,
+`supplement.tex`) : vérifié par énumération des chemins, et les quatre
+invocations exactes de la CI sortent en 0. La moitié cycle-résolue n'est
+re-vérifiée que par une relance locale du script, jamais par la CI.
+
+⚠️ **Une différence avec `results/s023/`**, qui ne se lit pas sur la forme des
+deux dossiers : `s023` est régénérable depuis le seul `aggregated.parquet`,
+donc depuis le dépôt. `s033` ne l'est pas. Les deux dossiers se ressemblent et
+n'ont pas le même contrat.
