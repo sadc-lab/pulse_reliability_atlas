@@ -6642,7 +6642,215 @@ def check_s033_cycle_resolved() -> int:
     return n_bad
 
 
+def check_s023_oos_table() -> int:
+    """Every cell of Supplement S13's out-of-sample table, and its prose ranges.
+
+    Added 2026-09-12, alongside `check_s033_cycle_resolved`, for the same
+    reason: of the eighteen numbers in Table `tab:s13-oos`, only the six
+    trajectory-grouped means were registered (anchors `T2.s023.r2_grouped_*`).
+    The six training and six out-of-bag values, the six fold standard
+    deviations, and the four ranges quoted in the surrounding prose were
+    verified by nothing, and nothing said so.
+
+    Scope, stated because it is narrower than the S033 guard's. Every value
+    here comes from `results/s023/rf_metrics.csv`, which
+    `scripts/shap_vs_morris_topk.py` writes; there is no second producer to
+    compare against without retraining the forest. So this guard verifies that
+    **the prose reports what the script computed**, not that the script
+    implements the intended protocol -- the distinction that let the
+    traffic-light deviation through a green ledger
+    (`audit/preregistration_traffic_light_deviation.md` section 8.2).
+
+    Two checks do reach outside that chain. The surrogate's training-set size
+    is compared against the clean-subset count in
+    `data/runs/full_sweep/aggregated.parquet`, which the S023 script did not
+    write. And the six worst-fold values, which the notebook records as
+    deliberately unpublished because `GroupKFold` yields one deterministic
+    partition and so no bound, are checked to be absent from the supplement --
+    a guard on a decision, which an anchor cannot express.
+    """
+    print("\n## S023 out-of-sample table guard (Supplement S13)\n")
+    rows: list[tuple[str, str, str]] = []
+    n_bad = 0
+
+    def add_row(label: str, observed: str, ok: bool) -> None:
+        nonlocal n_bad
+        if not ok:
+            n_bad += 1
+        rows.append((label, observed, "PASS" if ok else "**FAIL**"))
+
+    rf_path = REPO / "results" / "s023" / "rf_metrics.csv"
+    if not rf_path.exists():
+        add_row(f"`{rf_path.relative_to(REPO).as_posix()}` present", "**absent**", False)
+        print("| check | observed | verdict |")
+        print("|---|---|---|")
+        for label, observed, verdict in rows:
+            print(f"| {label} | {observed} | {verdict} |")
+        print("\n**S023 out-of-sample guard:** 1 check, 0 PASS, 1 FAIL. Run "
+              "`uv run python scripts/shap_vs_morris_topk.py`.\n")
+        return 1
+
+    rf = pd.read_csv(rf_path).set_index("output")
+    supp = (REPO / "preprint_npj" / "supplement.tex").read_text(encoding="utf-8")
+
+    # The published table, row by row: output, then the literal of each cell
+    # exactly as `supplement.tex` renders it.
+    published = [
+        ("Vt", "Vt & 0.99997 & 0.9998 & 0.9995 $\\pm$ 0.0004", 0.99997, 0.9998, 0.9995, 0.0004),
+        ("HR", "HR & 0.9995 & 0.9964 & 0.9917 $\\pm$ 0.0024", 0.9995, 0.9964, 0.9917, 0.0024),
+        ("MAP", "MAP & 0.9993 & 0.9952 & 0.9402 $\\pm$ 0.0253", 0.9993, 0.9952, 0.9402, 0.0253),
+        ("SpO2", "SpO$_2$ & 0.9941 & 0.9578 & 0.8736 $\\pm$ 0.0532",
+         0.9941, 0.9578, 0.8736, 0.0532),
+        ("PaCO2", "PaCO$_2$ & 0.9942 & 0.9601 & 0.8734 $\\pm$ 0.0705",
+         0.9942, 0.9601, 0.8734, 0.0705),
+        ("PaO2", "PaO$_2$ & 0.9930 & 0.9494 & 0.8716 $\\pm$ 0.0562",
+         0.9930, 0.9494, 0.8716, 0.0562),
+    ]
+    for out, literal, p_train, p_oob, p_grp, p_sd in published:
+        got = rf.loc[out]
+        # Each cell is rendered at the precision the table uses, so the
+        # comparison is on the displayed value, not on a tolerance band.
+        mismatches = [
+            f"{name} {shown!r} vs {round(float(got[col]), len(str(shown).split('.')[1]))!r}"
+            for name, col, shown in (
+                ("training", "r2_train", p_train),
+                ("out-of-bag", "r2_oob", p_oob),
+                ("grouped", "r2_grouped_cv", p_grp),
+                ("sd", "r2_grouped_sd", p_sd),
+            )
+            if round(float(got[col]), len(str(shown).split(".")[1])) != shown
+        ]
+        found = literal in supp
+        observed = f"`{out}` row located" if found else "**row literal not in supplement.tex**"
+        if mismatches:
+            observed += " -- " + "; ".join(mismatches)
+        add_row(f"table row: {out}", observed, found and not mismatches)
+
+    # ---- prose ranges, each the min/max of a column ----------------------- #
+    def pin_range(label: str, literal: str, lo: float, hi: float,
+                  lo_dp: int, hi_dp: int, got_lo: float, got_hi: float) -> None:
+        found = literal in supp
+        ok = round(got_lo, lo_dp) == lo and round(got_hi, hi_dp) == hi
+        observed = f"`{literal}`" if found else "**not in supplement.tex**"
+        if not ok:
+            observed += (f" -- artefact gives {round(got_lo, lo_dp)!r} to "
+                         f"{round(got_hi, hi_dp)!r}")
+        add_row(label, observed, found and ok)
+
+    pin_range("prose: training range", "training $R^{2}$ (0.993 to 0.99997)",
+              0.993, 0.99997, 3, 5,
+              float(rf["r2_train"].min()), float(rf["r2_train"].max()))
+    pin_range("prose: out-of-bag range", "ranges from 0.949 to 0.9998",
+              0.949, 0.9998, 3, 4,
+              float(rf["r2_oob"].min()), float(rf["r2_oob"].max()))
+
+    optimism = rf["r2_oob"] - rf["r2_grouped_cv"]
+    gas = ["SpO2", "PaO2", "PaCO2"]
+    pin_range("prose: out-of-bag optimism on the blood-gas channels",
+              "most optimistic (0.078 to 0.087", 0.078, 0.087, 3, 3,
+              float(optimism[gas].min()), float(optimism[gas].max()))
+    add_row("prose: optimism on delivered Vt",
+            "`against 0.0003 for delivered Vt` -- artefact "
+            f"{round(float(optimism['Vt']), 4)!r}",
+            "against 0.0003 for delivered Vt" in supp
+            and round(float(optimism["Vt"]), 4) == 0.0003)
+    add_row("prose: blood-gas channels average 0.87",
+            f"artefact {round(float(rf.loc[gas, 'r2_grouped_cv'].mean()), 2)!r}",
+            "The three blood-gas channels average 0.87" in supp
+            and round(float(rf.loc[gas, "r2_grouped_cv"].mean()), 2) == 0.87)
+
+    # "a spread ten to thirty times larger" is a hedge, so it is checked for
+    # truth by containment, not pinned to an exact figure: the measured spread
+    # ratios against the tighter of the two well-determined channels must all
+    # fall inside the stated interval.
+    ratios = (rf.loc[gas, "r2_grouped_sd"] / rf.loc["HR", "r2_grouped_sd"]).tolist()
+    add_row("prose: spread `ten to thirty times larger` contains the measured ratios",
+            f"{[round(r, 1) for r in ratios]} against HR's sd, all within [10, 30]",
+            "a spread ten to thirty times larger" in supp
+            and all(10.0 <= r <= 30.0 for r in ratios))
+
+    # ---- ordering the prose asserts --------------------------------------- #
+    bad_order = [
+        o for o in rf.index
+        if not (rf.loc[o, "r2_train"] >= rf.loc[o, "r2_oob"] >= rf.loc[o, "r2_grouped_cv"])
+    ]
+    add_row("training >= out-of-bag >= trajectory-grouped, for every output",
+            f"{len(rf)} outputs checked, {len(bad_order)} out of order"
+            + (f": {bad_order}" if bad_order else ""),
+            not bad_order)
+    add_row("the table covers exactly the atlas's six output channels",
+            f"{sorted(rf.index.tolist())}",
+            sorted(rf.index.tolist()) == sorted(["HR", "MAP", "Vt", "SpO2", "PaO2", "PaCO2"]))
+
+    # ---- outside the S023 chain ------------------------------------------- #
+    agg = pd.read_parquet(REPO / "data" / "runs" / "full_sweep" / "aggregated.parquet")
+    n_clean = int(agg["clean"].sum())
+    n_train = sorted(set(int(v) for v in rf["n_train"]))
+    add_row("surrogate training size equals the sweep's clean subset",
+            f"rf_metrics n_train {n_train} vs aggregated.parquet clean {n_clean}",
+            n_train == [n_clean])
+
+    # ---- a guard on a decision, not on a number --------------------------- #
+    # Matched with digit boundaries, not as a bare substring. A plain
+    # `"0.999" in supp` is true inside `0.99997`, which made a first version of
+    # this check report a leak that does not exist -- the instrument has to be
+    # calibrated before its negative is believed.
+    # Checked at four decimals only -- the precision Table `tab:s13-oos` uses,
+    # and therefore the shape a leak would take. A first version also tested
+    # three decimals and reported a leak that does not exist: Vt's worst fold
+    # is 0.9989, which rounds to 0.999, and an unrelated SpO2 flatline
+    # threshold of 0.999 appears in the caption of Table `tab:s22-nss`. A
+    # coarser rendering than the one in use invents collisions.
+    def leak_re(shown: str) -> str:
+        return r"(?<![\d.])" + re.escape(shown) + r"(?![\d])"
+
+    leaked = [
+        f"{o} as `{v:.4f}`"
+        for o, v in rf["r2_grouped_min"].items()
+        if re.search(leak_re(f"{v:.4f}"), supp)
+    ]
+    add_row("the unpublished worst-fold column has not leaked into the supplement",
+            f"6 values checked at the table's four decimals, {len(leaked)} present"
+            + (f": {leaked}" if leaked else "")
+            + ". GroupKFold gives one deterministic partition, so the worst fold "
+              "is not a bound; recorded in the S033 notebook as deliberately withheld.",
+            not leaked)
+    # Calibration of that matcher, both directions, on this very document. The
+    # negative probe is a strict PREFIX of a number the supplement does carry,
+    # so a matcher without the digit boundary would wrongly accept it.
+    probe = f"{rf.loc['Vt', 'r2_grouped_cv']:.4f}"  # 0.9995, published
+    pos_leak = bool(re.search(leak_re(probe), supp))
+    neg_leak = not re.search(leak_re("0.9999"), supp) and "0.9999" in supp
+    add_row("leak matcher: finds a published value, and rejects a prefix of one",
+            f"`{probe}` located: {pos_leak}; `0.9999` present as a substring of "
+            f"`0.99997` yet correctly not matched: {neg_leak}",
+            pos_leak and neg_leak)
+
+    # ---- controls ---------------------------------------------------------- #
+    pos = "Vt & 0.99997 & 0.9998 & 0.9995 $\\pm$ 0.0004" in supp
+    add_row("positive control: the matcher finds a table row known to be present",
+            "located" if pos else "**not located**", pos)
+    neg = "Vt & 0.99997 & 0.9998 & 0.9995 $\\pm$ 0.0005" not in supp
+    add_row("negative control: a row with one altered digit is rejected",
+            "correctly absent" if neg else "**a wrong row matched**", neg)
+
+    print("| check | observed | verdict |")
+    print("|---|---|---|")
+    for label, observed, verdict in rows:
+        print(f"| {label} | {observed} | {verdict} |")
+    print(
+        f"\n**S023 out-of-sample guard:** {len(rows)} checks, "
+        f"{len(rows) - n_bad} PASS, {n_bad} FAIL. Transcription and internal "
+        f"consistency against `results/s023/rf_metrics.csv`; the training-set size "
+        f"and the withheld worst-fold column are the two checks that reach outside "
+        f"that producer.\n"
+    )
+    return n_bad
+
+
 n_s033_fail = check_s033_cycle_resolved()
+
+n_s023oos_fail = check_s023_oos_table()
 
 
 def check_window_tolerance() -> int:
@@ -6753,7 +6961,7 @@ sys.exit(
         + n_sexdiv_fail + n_inst_fail + n_cliprt_fail + n_s030prov_fail + n_figts_fail
         + n_fio2adj_fail + n_sobolframe_fail + n_s011_fail + n_abstract_fail
         + n_vtcv_split_fail + n_shap_unit_fail + n_detvocab_fail + n_cdcprov_fail + n_pubgate_fail
-        + n_windowtol_fail + n_s033_fail
+        + n_windowtol_fail + n_s033_fail + n_s023oos_fail
     ) > 0
     else 0
 )
