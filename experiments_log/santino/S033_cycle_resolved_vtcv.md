@@ -78,14 +78,20 @@ post-lockout cycle-level CV:
 
 | summary | 5-second | cycle-resolved | relative gap |
 |---|---|---|---|
-| ratio of group medians | 21.42 | 22.67 | 5.81 % |
+| ratio of group medians | 21.42 | 22.66 † | 5.81 % |
 | median of paired ratios | 27.84 | 25.63 | 8.65 % |
-| difference of group medians | 0.3345 | 0.3224 | 3.75 % |
-| median of paired differences | 0.3256 | 0.3275 | 0.58 % |
+| difference of group medians | 0.3345 | 0.3224 | 3.73 % |
+| median of paired differences | 0.3256 | 0.3275 | 0.59 % |
+
+† Re-derivation on 2026-09-12 gives 22.6648553684, which displays as **22.66**.
+Supplement Table S8 publishes **22.67**; that discrepancy is open and
+registered in `audit/s033_estimand_rounding_mismatch.md`. The two relative-gap
+figures in the last column that were corrected on the same date (3.75 → 3.73,
+0.58 → 0.59) are documented in the 2026-09-12 addendum below.
 
 **The direction is not consistent**: two summaries make the 5-second statistic
 overstate the intervention effect, two make it understate it. Reporting only
-the most concordant summary (0.58 %) would have been a post-hoc selection of
+the most concordant summary (0.59 %) would have been a post-hoc selection of
 the favourable estimand; all four are therefore reported.
 
 `S1_F_0016` is excluded from the **ratio** summaries only. After lockout its
@@ -192,3 +198,142 @@ crosswalk counts were bumped for the new subsection (`1{,}280` 43 -> 44,
 `20 trajectories` 6 -> 7), and the phrase "five-fold" was avoided because the
 sex-divergence guard bans that literal outright after a withdrawn fold-change
 claim.
+
+---
+
+## Addendum 2026-09-12 — the analysis is now reproducible, and one published digit is wrong
+
+The two blocks above were computed with `awk` pipelines in a session scratchpad
+that was not kept. On 2026-09-10 that was recorded as a reproducibility debt:
+twelve published values with no versioned producer, no artefact under
+`results/`, and no entry in the ledger. This addendum closes it.
+
+### What was built
+
+* `scripts/s033_cycle_resolved_vtcv.py` — re-derives everything from
+  `data/runs/`. It reads no value back from the supplement, so it can
+  contradict it.
+* `results/s033/` — five artefacts: `sweep_cycle_vt_cv.csv` (one row per
+  analysed run), `sweep_confusion.json`, `lockout_paired_cv.csv`,
+  `lockout_estimands.csv`, `s033_summary.json`.
+* `check_s033_cycle_resolved()` in `scripts/audit_claims.py` — **38 checks**,
+  in three layers: transcription against `supplement.tex`, internal arithmetic
+  of the artefact, and cross-instrument comparison against
+  `data/runs/full_sweep/aggregated.parquet`, which this script did not write.
+  A guard rather than ledger anchors, because the subsection carries more than
+  twenty numbers and each anchor forces a rewrite of the 25 head-line counters
+  in two documents.
+
+The script carries four calibration controls and aborts on any of them: the
+reconstructed four-flag classification equals the stored flags on all 1,280
+runs; the stored `not_steady_state` total is 530; the 20 runs without CSVs are
+exactly the stored `diverged` set; and the 64 lockout pairs reproduce the three
+published S014 headline values. The recomputed 5-second Vt CV also equals the
+stored `Vt_cv` on all 1,260 runs — two independent code paths agreeing, which
+is worth more than one careful path.
+
+### Everything published reproduces, except one digit
+
+Re-derived and identical to the published figures: 1,260 runs with both files;
+297 / 942 / 15 / 6; 1,239 of 1,260 = 98.3 %; the factor list, whose substantial
+five are 4.03, 6.69, 7.10, 15.77 and 113.93 and are all female; nine
+constant-volume runs; 6 already flagged otherwise and 3 that would lose the
+flag, so 530 → 536 (+1.13 %); 64/64 decreases at both resolutions; the 63/64
+split; S1\_F\_0016's 819.027985 mL; and seven of the eight table values.
+
+**The eighth is wrong.** The cycle-resolved ratio of group medians is
+0.337325 / 0.0148832 = **22.6648553684**, which displays as **22.66**, not the
+published 22.67. It sits 0.00015 below the 22.665 boundary, so rounding once to
+three decimals and again to two produces 22.67. Recorded in
+`audit/s033_estimand_rounding_mismatch.md`; `supplement.tex` is **unmodified**,
+pending the maintainer's decision, and the guard reports the row as OPEN with a
+premise it re-verifies every run.
+
+### Two figures in this notebook were wrong, and are corrected above
+
+The "relative gap" column of the estimands table mixed two computations. Two of
+its four entries were derived from the unrounded values (5.81 %, 8.65 % —
+correct); two were derived from the *displayed* two- and four-decimal values,
+and are off:
+
+| summary | was | is |
+|---|---|---|
+| difference of group medians | 3.75 % | **3.73 %** |
+| median of paired differences | 0.58 % | **0.59 %** |
+
+Both are corrected in the table above. Neither reaches the supplement, which
+states only the range: with the corrected values that range is 0.59 % to
+8.65 %, which still rounds to the published "0.6 % to 8.6 %".
+
+### The cycle-count validation was weaker than it reads
+
+The Method section above says the recovered cycle count "was validated against
+the measured respiratory rate on three runs (24 vs 25.7 /min; 26 vs 25.4;
+22 vs 20.7 — within 7 %)". Over all **1,251** non-constant runs the median
+relative disagreement is **5.4 %**, but the 95th percentile is **38 %** and the
+maximum **95 %**. Three runs within 7 % was a favourable sample, not a bound.
+
+The mechanism is not noise: change-point segmentation merges two consecutive
+breaths that deliver a numerically identical volume, so it recovers fewer
+values than there were breaths, and it under-weights a repeated — that is,
+stable — volume. That biases the CV **upward**. The per-run
+`rr_mean_5s` and `n_cycles` columns are now in the artefact, so this is
+checkable on every run rather than on three.
+
+**126 runs** disagree by more than 20 %, and **4 of the 21** verdict
+disagreements fall on them (S1\_F\_0074, S1\_F\_0077, S2\_F\_0110,
+S3\_F\_0118), all four cycle-only crossings.
+
+### Sensitivity analysis — the published split is not an artefact of merging
+
+Scoring the same window on **every** native 50 Hz sample weights each recorded
+volume by how long it persists, which at a fixed breath length is per-breath
+weighting and is immune to the merging bias above. Result:
+
+| | published (change-point) | sensitivity (all samples) |
+|---|---|---|
+| flagged by both | 297 | 295 |
+| flagged by neither | 942 | 945 |
+| cycle-only | 15 | 12 |
+| 5-second-only | 6 | 8 |
+| agreement | 98.33 % | **98.41 %** |
+
+The two cycle-level estimators disagree on **9 of 1,260 runs**. Had the
+published 15 / 6 split been manufactured by merging, this estimator would have
+collapsed it; it does not. The published conclusion is also conservative in the
+right direction: correcting the upward bias moves agreement *up* and the
+counterfactual delta *down*.
+
+Kept in `results/s033/` and here, **deliberately not carried into the
+supplement**: it answers a question the reviewer did not ask, and adding a
+third estimator to a subsection whose point is that the choice of estimand
+matters would need the maintainer's decision, not mine. The column is
+`cv_native_all` / `flag_native_all` in `sweep_cycle_vt_cv.csv`.
+
+### One phrasing to settle, not a number
+
+The caption of Table `tab:s8-estimands` says "The two rows built from ratios
+and the two built from differences disagree on which resolution overstates the
+effect". Read as group-against-group that is not what the data show: within the
+ratio pair the two rows already disagree with each other, and so do the two
+difference rows. Read as "each pair disagrees internally" it is exactly right.
+The body text is unambiguous and correct ("two summaries make the 5-second
+statistic overstate the effect, two make it understate it"). Left untouched —
+two readings are defensible, so it is the maintainer's call.
+
+### Guard calibration — proven by reinjection, not asserted
+
+1. Drifting a published count in `supplement.tex` (297 → 298) turns that row
+   into a FAIL. Reverted; MD5 identical.
+2. Correcting the disputed value to `22.66` turns the OPEN row into
+   `**stale OPEN exception**: the disputed literal is gone`, so the exception
+   cannot outlive its own motive. Reverted; MD5 identical.
+3. Altering one 5-second CV in the artefact (0.2947… → 0.1947…) is caught by
+   the cross-instrument layer, naming the run and both values. Restored; MD5
+   identical.
+
+The cross-instrument layer compares **decimal strings**, not parsed floats:
+pandas' C parser is not correctly rounded and reads `8.79569357191e-12` back as
+`8.795693571910001e-12`, which made an earlier tolerance-based version of this
+check fail on two runs whose CV is numerically zero. Comparing the 12
+significant digits the artefact actually promises needs no tolerance at all.

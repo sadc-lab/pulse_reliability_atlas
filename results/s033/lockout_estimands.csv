@@ -1,0 +1,5 @@
+summary,five_second,cycle_resolved,relative_gap_pct,cycle_overstates,n_configs
+ratio_of_group_medians,21.419527311,22.6648553684,5.8139847781,True,63
+median_of_paired_ratios,27.8442027231,25.6277109657,8.64880894088,False,63
+difference_of_group_medians,0.334459776579,0.322441791868,3.72717960706,False,63
+median_of_paired_differences,0.325592527566,0.327515090464,0.590481271854,True,63

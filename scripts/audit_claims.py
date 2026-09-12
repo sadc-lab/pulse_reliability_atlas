@@ -6316,6 +6316,335 @@ n_abstract_fail = check_abstract_extent()
 
 n_s021_conv_fail = check_s021_converged_plateau()
 
+
+def check_s033_cycle_resolved() -> int:
+    """Every number of Supplement S8's cycle-resolved subsection, re-derived.
+
+    Added 2026-09-12, to repay a reproducibility debt rather than a defect.
+    The subsection was written on 2026-09-09 from throwaway `awk` pipelines in
+    a session scratchpad; those pipelines were lost, so its figures had no
+    versioned producer, no artefact under `results/` and no entry here. Nothing
+    in the repository could have told anyone that.
+
+    `scripts/s033_cycle_resolved_vtcv.py` now re-derives them from
+    `data/runs/`, and this guard is what keeps the published prose tied to that
+    re-derivation. A guard rather than ledger anchors on purpose: the
+    subsection carries more than twenty numbers, and each ledger anchor forces
+    a rewrite of the 25 head-line counters in two documents.
+
+    Three layers, because transcription and staleness are different failures:
+
+      * transcription -- the literal in `supplement.tex` equals the artefact;
+      * arithmetic -- the artefact's own totals are internally consistent, so a
+        partial regeneration cannot pass unnoticed;
+      * cross-instrument -- the artefact's 5-second column and locked flags are
+        compared against `data/runs/full_sweep/aggregated.parquet`, which the
+        s033 script did not write. That is the layer that catches a stale
+        `results/s033/`, and the one that would survive a bug in the script.
+
+    The cycle-resolved half cannot be re-derived here (it needs 1,344 native
+    50 Hz traces, far too slow for a pre-commit hook); re-running the script is
+    what checks that half, and its own four calibration controls abort if the
+    reconstruction stops matching the stored classification.
+    """
+    print("\n## S033 cycle-resolved Vt CV guard (Supplement S8)\n")
+    rows: list[tuple[str, str, str]] = []
+    n_bad = 0
+
+    d = REPO / "results" / "s033"
+    needed = [
+        d / "sweep_confusion.json",
+        d / "lockout_estimands.csv",
+        d / "lockout_paired_cv.csv",
+        d / "sweep_cycle_vt_cv.csv",
+    ]
+    missing = [p for p in needed if not p.exists()]
+    if missing:
+        print("| check | observed | verdict |")
+        print("|---|---|---|")
+        for p in missing:
+            print(f"| `{p.relative_to(REPO).as_posix()}` present | **absent** | **FAIL** |")
+        print(
+            f"\n**S033 cycle-resolved guard:** {len(missing)} checks, 0 PASS, "
+            f"{len(missing)} FAIL. Run "
+            "`uv run python scripts/s033_cycle_resolved_vtcv.py`.\n"
+        )
+        return len(missing)
+
+    conf = json.loads(needed[0].read_text(encoding="utf-8"))
+    est = pd.read_csv(needed[1]).set_index("summary")
+    per_run = pd.read_csv(needed[3]).set_index("case_id")
+    supp = (REPO / "preprint_npj" / "supplement.tex").read_text(encoding="utf-8")
+
+    n_open = 0
+
+    def add_row(label: str, observed: str, ok: bool) -> None:
+        nonlocal n_bad
+        if not ok:
+            n_bad += 1
+        rows.append((label, observed, "PASS" if ok else "**FAIL**"))
+
+    def pin(label: str, literal: str, value: float, published: float) -> None:
+        """The literal must appear in supplement.tex AND equal the artefact."""
+        found = literal in supp
+        agrees = abs(value - published) <= 5e-10
+        observed = f"`{literal}`" + ("" if found else " **not in supplement.tex**")
+        if not agrees:
+            observed += f" -- artefact gives {value!r}, prose says {published!r}"
+        add_row(label, observed, found and agrees)
+
+    def open_mismatch(
+        label: str,
+        literal: str,
+        raw: float,
+        published: float,
+        correct_display: str,
+        register: str,
+        why: str,
+    ) -> None:
+        """Report a mismatch the maintainer has not yet ruled on, as OPEN.
+
+        This is NOT a dispensation with its motive parked in another file --
+        the pattern that let a stale figure through on 2026-09-02. The whole
+        motive is re-verified here, on every run:
+
+          * `supplement.tex` still carries the disputed literal, and does NOT
+            carry the corrected one (otherwise the ordinary check applies and
+            this block must be deleted);
+          * the artefact still yields `raw`, so the mismatch is still the one
+            described and not a new, larger drift.
+
+        If either premise stops holding, the row becomes a FAIL. An OPEN row
+        does not gate the commit, but it is printed in the summary line, so it
+        cannot become invisible.
+        """
+        nonlocal n_bad, n_open
+        still_published = literal in supp
+        not_yet_fixed = correct_display not in supp
+        premise_holds = still_published and not_yet_fixed and abs(raw - published) < 0.01
+        if premise_holds:
+            n_open += 1
+            rows.append(
+                (
+                    label,
+                    f"**OPEN** -- prose says `{literal}`; re-derived {raw!r} displays as "
+                    f"**{correct_display}**. {why} Registered in `{register}`; "
+                    f"a published table value is a scientific claim, so it is not "
+                    f"edited without the maintainer's decision.",
+                    "OPEN",
+                )
+            )
+        else:
+            n_bad += 1
+            reason = (
+                "the disputed literal is gone -- delete this block and restore the "
+                "ordinary check"
+                if not still_published
+                else "the corrected value is now present -- delete this block"
+                if not not_yet_fixed
+                else f"the artefact no longer yields the recorded value ({raw!r})"
+            )
+            rows.append((label, f"**stale OPEN exception**: {reason}", "**FAIL**"))
+
+    # ---- layer 1: transcription ------------------------------------------- #
+    pin("agreement numerator/denominator", "1{,}239 of 1{,}260 runs",
+        float(conf["n_agree"] * 1e4 + conf["n_runs_analysed"]), 1239e4 + 1260)
+    pin("agreement percentage", "98.3~\\%", round(conf["pct_agree"], 1), 98.3)
+    pin("flagged by both", "297 runs are flagged by both",
+        float(conf["flagged_by_both"]), 297)
+    pin("flagged by neither", "942 by neither", float(conf["flagged_by_neither"]), 942)
+    pin("cycle-only crossings", "15 cross the 0.05 threshold only at cycle resolution",
+        float(conf["cycle_only"]), 15)
+    pin("5-second-only crossings", "6 only under the 5-second statistic",
+        float(conf["five_second_only"]), 6)
+    pin("cycle-only below the 3x cut", "ten fall below a factor of 3",
+        float(conf["cycle_only_below_substantial"]), 10)
+
+    subst = [f for f in conf["cycle_only_factors"] if f >= conf["substantial_factor_cut"]]
+    pin("substantial cycle-only crossings, and their range",
+        "five are substantial (factors of 4.0 to 113.9)",
+        float(len(subst)) * 1e6 + round(min(subst), 1) * 1e3 + round(max(subst), 1),
+        5e6 + 4.0e3 + 113.9)
+    all_female = conf["cycle_only_substantial_sex"] == {"F": len(subst)}
+    add_row("all substantial crossings on the female body",
+            f"`all five fall on the female reference body` -- "
+            f"{conf['cycle_only_substantial_sex']}",
+            "all five fall on the female reference body" in supp and all_female)
+    pin("numerically constant-volume runs", "Nine runs deliver a numerically constant volume",
+        float(conf["n_constant_volume"]), 9)
+    pin("cycle-only already flagged otherwise",
+        "Six of the 15 cycle-only crossings are already flagged",
+        float(conf["cycle_only_already_flagged_otherwise"]), 6)
+    pin("5-second-only that would lose the flag",
+        "three of the six 5-second-only crossings would lose their flag entirely",
+        float(conf["five_second_only_would_lose_flag"]), 3)
+    pin("counterfactual not_steady_state total", "from 530 to 536",
+        float(conf["nss_locked"]) * 1e4 + conf["nss_counterfactual"], 530e4 + 536)
+    pin("counterfactual increase", "an increase of 1.1~\\%",
+        round(conf["nss_delta_pct"], 1), 1.1)
+
+    pin("estimand: ratio of group medians, 5-second", "Ratio of group medians & 21.42",
+        round(float(est.loc["ratio_of_group_medians", "five_second"]), 2), 21.42)
+    open_mismatch(
+        "estimand: ratio of group medians, cycle",
+        "21.42 & 22.67",
+        float(est.loc["ratio_of_group_medians", "cycle_resolved"]),
+        22.67,
+        "22.66",
+        "audit/s033_estimand_rounding_mismatch.md",
+        "The ratio is 0.337325 / 0.0148832 on the declared 63 configurations; "
+        "it sits 0.0002 below the 22.665 display boundary, so rounding it once "
+        "to three decimals (22.665) and again to two yields 22.67.",
+    )
+    pin("estimand: median of paired ratios, 5-second", "Median of paired ratios & 27.84",
+        round(float(est.loc["median_of_paired_ratios", "five_second"]), 2), 27.84)
+    pin("estimand: median of paired ratios, cycle", "27.84 & 25.63",
+        round(float(est.loc["median_of_paired_ratios", "cycle_resolved"]), 2), 25.63)
+    pin("estimand: difference of group medians, 5-second",
+        "Difference of group medians & 0.3345",
+        round(float(est.loc["difference_of_group_medians", "five_second"]), 4), 0.3345)
+    pin("estimand: difference of group medians, cycle", "0.3345 & 0.3224",
+        round(float(est.loc["difference_of_group_medians", "cycle_resolved"]), 4), 0.3224)
+    pin("estimand: median of paired differences, 5-second",
+        "Median of paired differences & 0.3256",
+        round(float(est.loc["median_of_paired_differences", "five_second"]), 4), 0.3256)
+    pin("estimand: median of paired differences, cycle", "0.3256 & 0.3275",
+        round(float(est.loc["median_of_paired_differences", "cycle_resolved"]), 4), 0.3275)
+
+    gaps = est["relative_gap_pct"]
+    pin("relative-gap range", "relative gap ranges from 0.6~\\% to 8.6~\\%",
+        round(float(gaps.min()), 1) * 1e3 + round(float(gaps.max()), 1),
+        0.6e3 + 8.6)
+    n_over = int((est["cycle_resolved"] > est["five_second"]).sum())
+    add_row("direction split is two against two",
+            "`two summaries make the 5-second statistic overstate the effect, two make "
+            f"it understate it` -- cycle-resolved is larger in {n_over} of {len(est)}",
+            ("two summaries make the 5-second statistic overstate the effect, two make "
+             "it understate it") in supp and n_over == 2 and len(est) == 4)
+
+    add_row("configurations entering the estimands",
+            f"`the same 63 configurations` -- artefact {est['n_configs'].unique().tolist()}",
+            "the same 63 configurations" in supp
+            and est["n_configs"].unique().tolist() == [63])
+    add_row("caption denominator",
+            "`the same 63 paired configurations (of 64)`",
+            "the same 63 paired configurations (of 64)" in supp)
+
+    # ---- layer 2: internal arithmetic ------------------------------------- #
+    cells_sum = (conf["flagged_by_both"] + conf["flagged_by_neither"]
+                 + conf["cycle_only"] + conf["five_second_only"])
+    add_row("2x2 cells sum to the analysed runs",
+            f"{cells_sum} vs {conf['n_runs_analysed']}",
+            cells_sum == conf["n_runs_analysed"])
+    add_row("agreement is the two concordant cells",
+            f"{conf['flagged_by_both']} + {conf['flagged_by_neither']} = {conf['n_agree']}",
+            conf["flagged_by_both"] + conf["flagged_by_neither"] == conf["n_agree"])
+    net = ((conf["cycle_only"] - conf["cycle_only_already_flagged_otherwise"])
+           - conf["five_second_only_would_lose_flag"])
+    add_row("counterfactual delta equals gains minus losses",
+            f"({conf['cycle_only']} - {conf['cycle_only_already_flagged_otherwise']}) - "
+            f"{conf['five_second_only_would_lose_flag']} = {net} vs {conf['nss_delta']}",
+            net == conf["nss_delta"]
+            and conf["nss_locked"] + net == conf["nss_counterfactual"])
+    add_row("analysed runs plus runs without a CSV account for the sweep",
+            f"{conf['n_runs_analysed']} + {conf['n_runs_without_csv']} = "
+            f"{conf['n_runs_analysed'] + conf['n_runs_without_csv']} vs {conf['n_runs_total']}",
+            conf["n_runs_analysed"] + conf["n_runs_without_csv"] == conf["n_runs_total"])
+    add_row("native traces are sampled at exactly 50 Hz",
+            f"{conf['native_sampling_hz_min']} to {conf['native_sampling_hz_max']} Hz; "
+            "prose says `0.02-second sampling interval (50~Hz)`",
+            conf["native_sampling_hz_min"] == 50.0
+            and conf["native_sampling_hz_max"] == 50.0
+            and "0.02-second sampling interval (50~Hz)" in supp)
+    add_row("the 200-fold oversample follows from 50 Hz over 0.25 Hz",
+            f"50 / 0.25 = {50.0 / 0.25:.0f}; prose says `200-fold oversample`",
+            abs(50.0 / 0.25 - 200.0) < 1e-9 and "200-fold oversample" in supp)
+
+    # ---- layer 3: cross-instrument, outside the s033 chain ---------------- #
+    agg = pd.read_parquet(
+        REPO / "data" / "runs" / "full_sweep" / "aggregated.parquet"
+    ).set_index("case_id")
+    joined = per_run.join(
+        agg[["Vt_cv", "not_steady_state", "diverged", "sex"]], rsuffix="_agg"
+    )
+    # The artefact is a text file written at 12 significant digits, so equality
+    # can only be asserted to that precision -- not to double precision. The
+    # comparison therefore puts the stored parquet value through the same
+    # formatting before comparing, which needs no epsilon at all. (Compared
+    # raw, the two differ by up to 4.7e-12 on the largest CV in the sweep,
+    # 1.8257, purely from the 13th significant digit the file does not carry.)
+    # Compared on the decimal strings, not on parsed floats. Two routes to a
+    # float cannot be required to agree bit-for-bit: pandas' C parser is not
+    # correctly rounded, and it reads `8.79569357191e-12` back as
+    # 8.795693571910001e-12 where `float()` gives 8.79569357191e-12 -- a
+    # difference in the 16th significant digit of a CV that is numerically
+    # zero. The string comparison needs no tolerance and tests exactly what
+    # the artefact promises: the same 12 significant digits.
+    cv_text = pd.read_csv(
+        needed[3], usecols=["case_id", "cv_5s"], dtype={"cv_5s": str}
+    ).set_index("case_id")["cv_5s"]
+    expected_text = agg["Vt_cv"].reindex(cv_text.index).map(lambda v: "%.12g" % v)
+    cv_bad = cv_text.index[cv_text != expected_text].tolist()
+    max_delta = float((joined["cv_5s"] - joined["Vt_cv"]).abs().max())
+    detail = ""
+    if cv_bad:
+        detail = " -- " + "; ".join(
+            f"{cid}: artefact `{cv_text[cid]}` vs parquet `{expected_text[cid]}`"
+            for cid in cv_bad[:4]
+        )
+    add_row("5-second column matches the stored `Vt_cv` (independent producer)",
+            f"{len(cv_bad)} disagreement(s) over {len(cv_text)} runs, compared as "
+            f"12-significant-digit decimals (parsed max |delta| = {max_delta:.3g})"
+            f"{detail}",
+            not cv_bad)
+    nss_bad = int((joined["nss_locked"].astype(bool)
+                   != joined["not_steady_state"].astype(bool)).sum())
+    add_row("locked flag column matches the stored classification",
+            f"{nss_bad} disagreement(s) over {len(joined)} runs",
+            nss_bad == 0 and int(agg["not_steady_state"].sum()) == conf["nss_locked"])
+    absent = sorted(set(agg.index) - set(per_run.index))
+    add_row("runs absent from the artefact are exactly the stored diverged runs",
+            f"{len(absent)} absent, {int(agg['diverged'].sum())} stored diverged",
+            absent == sorted(agg.index[agg["diverged"]].tolist()))
+    sex_counts = joined["sex_agg"].value_counts().to_dict()
+    add_row("sex split of the analysed runs matches the sweep",
+            f"{sex_counts} vs prose base of 640 female and 620 male",
+            sex_counts == {"F": 640, "M": 620})
+
+    # ---- controls ---------------------------------------------------------- #
+    probe_ok = "1{,}239 of 1{,}260 runs" in supp
+    add_row("positive control: the matcher finds a literal known to be present",
+            "`1{,}239 of 1{,}260 runs` located" if probe_ok else "**not located**",
+            probe_ok)
+    probe_bad = "1{,}238 of 1{,}260 runs" not in supp
+    add_row("negative control: an altered literal is rejected",
+            "`1{,}238 of 1{,}260 runs` correctly absent" if probe_bad
+            else "**a wrong literal matched**",
+            probe_bad)
+
+    print("| check | observed | verdict |")
+    print("|---|---|---|")
+    for label, observed, verdict in rows:
+        print(f"| {label} | {observed} | {verdict} |")
+    print(
+        f"\n**S033 cycle-resolved guard:** {len(rows)} checks, "
+        f"{len(rows) - n_bad - n_open} PASS, {n_bad} FAIL, {n_open} OPEN. "
+        f"Artefacts from `scripts/s033_cycle_resolved_vtcv.py`; the 5-second column "
+        f"and the locked flags are re-checked against `aggregated.parquet`."
+        + (
+            f" **{n_open} published value awaits a maintainer decision** -- see the "
+            f"OPEN row above and its register."
+            if n_open
+            else ""
+        )
+        + "\n"
+    )
+    return n_bad
+
+
+n_s033_fail = check_s033_cycle_resolved()
+
+
 def check_window_tolerance() -> int:
     """No analysis script may select a time window with a strict comparison.
 
@@ -6424,7 +6753,7 @@ sys.exit(
         + n_sexdiv_fail + n_inst_fail + n_cliprt_fail + n_s030prov_fail + n_figts_fail
         + n_fio2adj_fail + n_sobolframe_fail + n_s011_fail + n_abstract_fail
         + n_vtcv_split_fail + n_shap_unit_fail + n_detvocab_fail + n_cdcprov_fail + n_pubgate_fail
-        + n_windowtol_fail
+        + n_windowtol_fail + n_s033_fail
     ) > 0
     else 0
 )
