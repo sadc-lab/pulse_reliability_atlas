@@ -87,10 +87,12 @@ post-lockout cycle-level CV:
 | median of paired differences | 0.3256 | 0.3275 | 0.59 % |
 
 † Re-derivation on 2026-09-12 gives 22.6648553684, which displays as **22.66**.
-Supplement Table S8 publishes **22.67**; that discrepancy is open and
-registered in `audit/s033_estimand_rounding_mismatch.md`. The two relative-gap
-figures in the last column that were corrected on the same date (3.75 → 3.73,
-0.58 → 0.59) are documented in the 2026-09-12 addendum below.
+Supplement Table S8 published **22.67** until that date; the maintainer ruled to
+correct it the same day, so the supplement, the PDF and DOCX twins and the
+guard now all carry 22.66. Register (CLOSED):
+`audit/s033_estimand_rounding_mismatch.md`. The two relative-gap figures in the
+last column that were corrected on the same date (3.75 → 3.73, 0.58 → 0.59) are
+documented in the 2026-09-12 addendum below.
 
 **The direction is not consistent**: two summaries make the 5-second statistic
 overstate the intervention effect, two make it understate it. Reporting only
@@ -287,10 +289,20 @@ maximum **95 %**. Three runs within 7 % was a favourable sample, not a bound.
 
 The mechanism is not noise: change-point segmentation merges two consecutive
 breaths that deliver a numerically identical volume, so it recovers fewer
-values than there were breaths, and it under-weights a repeated — that is,
-stable — volume. That biases the CV **upward**. The per-run
-`rr_mean_5s` and `n_cycles` columns are now in the artefact, so this is
-checkable on every run rather than on three.
+values than there were breaths, and counts a repeated volume once rather than
+twice. The per-run `rr_mean_5s` and `n_cycles` columns are now in the artefact,
+so this is checkable on every run rather than on three.
+
+> ⚠️ **An earlier version of this paragraph said that merging "biases the CV
+> upward", reasoning that it under-weights stability. That reasoning is wrong,
+> and it was on its way into the supplement before it was measured.** Against
+> the all-sample estimator the change-point value is higher on **641** runs and
+> lower on **617**, with a median ratio of **1.0004** — no systematic direction
+> at all. What merging moves is not the magnitude but which runs sit either
+> side of the threshold. Three ledger checks now pin 641 / 617 / 1.0004 so the
+> claim cannot drift back to the argument. The lesson is
+> [[feedback_verify_before_proposing]] applied to my own prose: a mechanism
+> that sounds right is not a measurement.
 
 **126 runs** disagree by more than 20 %, and **4 of the 21** verdict
 disagreements fall on them (S1\_F\_0074, S1\_F\_0077, S2\_F\_0110,
@@ -300,7 +312,7 @@ S3\_F\_0118), all four cycle-only crossings.
 
 Scoring the same window on **every** native 50 Hz sample weights each recorded
 volume by how long it persists, which at a fixed breath length is per-breath
-weighting and is immune to the merging bias above. Result:
+weighting and is therefore unaffected by merging. Result:
 
 | | published (change-point) | sensitivity (all samples) |
 |---|---|---|
@@ -309,17 +321,26 @@ weighting and is immune to the merging bias above. Result:
 | cycle-only | 15 | 12 |
 | 5-second-only | 6 | 8 |
 | agreement | 98.33 % | **98.41 %** |
+| counterfactual `not_steady_state` | 530 → **536** (+6) | 530 → **533** (+3) |
 
 The two cycle-level estimators disagree on **9 of 1,260 runs**. Had the
 published 15 / 6 split been manufactured by merging, this estimator would have
-collapsed it; it does not. The published conclusion is also conservative in the
-right direction: correcting the upward bias moves agreement *up* and the
-counterfactual delta *down*.
+collapsed it; it does not.
 
-Kept in `results/s033/` and here, **deliberately not carried into the
-supplement**: it answers a question the reviewer did not ask, and adding a
-third estimator to a subsection whose point is that the choice of estimand
-matters would need the maintainer's decision, not mine. The column is
+**The published counterfactual is the larger of the two — measured, not
+argued.** +6 against +3, so the figure in the supplement overstates rather than
+understates what changing resolution would cost. That is the conservative
+direction for a subsection whose claim is that the effect is small. Note that
+this is *not* explained by a directional bias in the statistic, which does not
+exist (641 / 617 above); it comes from the threshold crossings alone.
+
+**Published in Supplement S8 on 2026-09-12, by the maintainer's decision.** It
+had been held back here on the grounds that adding a third estimator to a
+subsection about estimand choice was not the script's call; put to the
+maintainer, the ruling was that a weakness named and immediately bounded is
+stronger than a weakness left out. Both the segmentation limit above and this
+sensitivity analysis now appear in Section S8, and twelve further checks in
+`check_s033_cycle_resolved()` pin them to the artefact. The column is
 `cv_native_all` / `flag_native_all` in `sweep_cycle_vt_cv.csv`.
 
 ### One phrasing to settle, not a number
@@ -330,8 +351,15 @@ effect". Read as group-against-group that is not what the data show: within the
 ratio pair the two rows already disagree with each other, and so do the two
 difference rows. Read as "each pair disagrees internally" it is exactly right.
 The body text is unambiguous and correct ("two summaries make the 5-second
-statistic overstate the effect, two make it understate it"). Left untouched —
-two readings are defensible, so it is the maintainer's call.
+statistic overstate the effect, two make it understate it").
+
+**Settled 2026-09-12: reworded**, on the maintainer's decision, to "Within each
+pair --- the two rows built from ratios, and the two built from differences ---
+the summaries disagree on which resolution overstates the effect". That is
+exact on both sides: the ratio rows run cycle > 5-second then 5-second > cycle,
+and the difference rows 5-second > cycle then cycle > 5-second. A guard row now
+asserts the new wording is present and the old group-against-group wording
+absent, so the ambiguity cannot return by a later edit.
 
 ### Guard calibration — proven by reinjection, not asserted
 

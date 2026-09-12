@@ -188,6 +188,13 @@
     "flagged_by_neither": 942,
     "max_abs_cv_5s_delta_vs_stored": 0.0,
     "max_cv_cycle_among_cycle_count_disagreement": 1.0,
+    "merging_bias_direction": {
+      "median_ratio_cycle_over_native": 1.0003580248058421,
+      "n_cycle_above_native": 641,
+      "n_cycle_below_native": 617,
+      "n_equal": 2,
+      "pct_cycle_above_native": 50.87301587301587
+    },
     "n_agree": 1239,
     "n_analysed_by_sex": {
       "F": 640,
@@ -244,6 +251,8 @@
       "flagged_by_neither": 945,
       "n_disagree_with_cycle_estimator": 9,
       "native_only": 12,
+      "nss_counterfactual": 533,
+      "nss_delta": 3,
       "pct_agree": 98.4126984126984,
       "runs_where_cycle_and_native_disagree": [
         "S1_F_0067",

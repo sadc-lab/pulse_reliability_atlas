@@ -174,9 +174,13 @@ def cycle_cv(path: Path) -> tuple[float, int, int, float]:
     * `cv_cycle` -- one value per *distinct consecutive* recorded volume.  This
       is the estimator the supplement publishes.  Its known weakness is that
       two consecutive breaths delivering a numerically identical volume are
-      merged into one value, so a repeated (i.e. stable) volume is counted
-      once.  That under-weights stability and therefore tends to *inflate* the
-      CV on runs where volumes repeat.
+      merged into one value, so a repeated volume is counted once rather than
+      twice.  It is tempting to conclude that this inflates the CV, since it
+      under-weights stability.  Measured, it does not: see
+      `merging_bias_direction` in the confusion artefact, where the
+      change-point value is higher on 641 runs and lower on 617, at a median
+      ratio of 1.0004.  What merging moves is which runs cross the threshold,
+      not the magnitude of the statistic.
     * `cv_native_all` -- every native 50 Hz sample in the window, which weights
       each recorded volume by the time it persists.  At a fixed breath length
       that is per-breath weighting, so it is the natural robustness check on
@@ -288,6 +292,7 @@ def classify_run(run_dir: Path) -> dict | None:
         "implausible": bool(res.implausible.fired),
         "nss_locked": bool(res.not_steady_state.fired),
         "nss_counterfactual": counterfactual_nss(res, cvc),
+        "nss_counterfactual_native": counterfactual_nss(res, cv_native_all),
         "nss_without_vt_cv": nss_without_vt_cv(res),
     }
 
@@ -466,6 +471,23 @@ def analyse_sweep(strict: bool) -> tuple[pd.DataFrame, dict]:
         # change-point segmentation does not affect.  If the published 15 / 6
         # split were an artefact of merging, this estimator would show a
         # markedly smaller cycle-only count.
+        # Direction of the merging bias, measured rather than argued. Merging
+        # drops duplicates of a repeated volume, which usually leaves a sample
+        # more spread relative to its mean -- but not necessarily, if the
+        # repeated value is itself an outlier. So the published sentence
+        # ("the bias is towards overstating variability") needs this number,
+        # not the reasoning alone.
+        "merging_bias_direction": {
+            "n_cycle_above_native": int((df["cv_cycle"] > df["cv_native_all"]).sum()),
+            "n_cycle_below_native": int((df["cv_cycle"] < df["cv_native_all"]).sum()),
+            "n_equal": int((df["cv_cycle"] == df["cv_native_all"]).sum()),
+            "pct_cycle_above_native": 100.0
+            * float((df["cv_cycle"] > df["cv_native_all"]).mean()),
+            "median_ratio_cycle_over_native": float(
+                (df.loc[df["cv_native_all"] > 0, "cv_cycle"]
+                 / df.loc[df["cv_native_all"] > 0, "cv_native_all"]).median()
+            ),
+        },
         "sensitivity_native_all": {
             "flagged_by_both": int((df["flag_5s"] & df["flag_native_all"]).sum()),
             "flagged_by_neither": int((~df["flag_5s"] & ~df["flag_native_all"]).sum()),
@@ -476,6 +498,12 @@ def analyse_sweep(strict: bool) -> tuple[pd.DataFrame, dict]:
             "n_disagree_with_cycle_estimator": int(
                 (df["flag_cycle"] != df["flag_native_all"]).sum()
             ),
+            # The same counterfactual as the published one, but driven by the
+            # all-sample estimator. Claiming the published counterfactual is
+            # "conservative" requires this number, not an argument about which
+            # way the segmentation rule leans.
+            "nss_counterfactual": int(df["nss_counterfactual_native"].sum()),
+            "nss_delta": int(df["nss_counterfactual_native"].sum() - df["nss_locked"].sum()),
             "runs_where_cycle_and_native_disagree": sorted(
                 df.loc[df["flag_cycle"] != df["flag_native_all"], "case_id"].tolist()
             ),
@@ -686,6 +714,7 @@ def main() -> int:
         "implausible",
         "nss_locked",
         "nss_counterfactual",
+        "nss_counterfactual_native",
         "nss_without_vt_cv",
     ]
     write_csv(sweep_df[cols].sort_values("case_id"), OUT_DIR / "sweep_cycle_vt_cv.csv")

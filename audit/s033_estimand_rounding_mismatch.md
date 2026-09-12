@@ -1,8 +1,24 @@
-# Register — one published estimand is rounded up by 0.01 (Supplement Table S8)
+# Register — one published estimand was rounded up by 0.01 (Supplement Table S8)
 
-**Status: OPEN.** Recorded 2026-09-12. Nothing in `supplement.tex` has been
-modified. A published table value is a scientific claim, so the correction
-waits on the maintainer's decision.
+**Status: CLOSED 2026-09-12.** Found, registered, and corrected on the same
+day: the maintainer ruled to apply the fix, so `preprint_npj/supplement.tex`
+L705 now reads `21.42 & 22.66`, the PDF and DOCX twins were rebuilt, and the
+guard's OPEN exception was deleted in favour of the ordinary check. The record
+below is kept unchanged as the evidence for that decision.
+
+Three things followed from the correction, each verifiable:
+
+* `check_s033_cycle_resolved()` in `scripts/audit_claims.py` no longer carries
+  an OPEN row. It forced this: with the supplement corrected, the exception
+  reported `**stale OPEN exception**: the disputed literal is gone -- delete
+  this block and restore the ordinary check`, which is the self-invalidation
+  it was built for. The helper that implemented it was removed as dead code
+  rather than left as an unused mechanism; it is recoverable from `11bff77`.
+* The notebook's estimand table already carried `22.66` with a footnote; the
+  footnote now records the decision instead of an open question.
+* No occurrence count moved. The crosswalk
+  (`preprint_npj/paper_to_monograph_map.md`) matches whole literal strings and
+  holds none containing `22.67`, verified before and after.
 
 ---
 
@@ -78,13 +94,16 @@ instead of 22.67:
 
 The defect is confined to the displayed digit.
 
-## Decision required
+## Decision taken — 2026-09-12, correct it
 
-Replace `22.67` with `22.66` at `preprint_npj/supplement.tex` L705, rebuild the
-PDF and DOCX twins, or leave it. Four supervisors received the 2026-09-05 build
-(`preprint_npj/dispatch_log.md`), so a change alters a value they hold; the
-change is one digit in a supplementary table, in a row whose two other
-published figures are unaffected.
+Replace `22.67` with `22.66` at `preprint_npj/supplement.tex` L705 and rebuild
+the twins. What made it cheap: four supervisors received the 2026-09-05 build
+(`0f275e0`, 24 p. paper + 56 p. supplement, per
+`preprint_npj/dispatch_log.md`), and HEAD already renders 25 and 60 pages. Their
+copies were therefore **already** one and four pages out of step, from the
+2026-09-09/10 additions to Sections S8 and S13. Correcting one digit adds no
+desynchronisation that was not already there and will have to be announced
+regardless.
 
 ## What holds the line meanwhile
 

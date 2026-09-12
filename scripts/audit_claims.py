@@ -6376,8 +6376,6 @@ def check_s033_cycle_resolved() -> int:
     per_run = pd.read_csv(needed[3]).set_index("case_id")
     supp = (REPO / "preprint_npj" / "supplement.tex").read_text(encoding="utf-8")
 
-    n_open = 0
-
     def add_row(label: str, observed: str, ok: bool) -> None:
         nonlocal n_bad
         if not ok:
@@ -6392,59 +6390,6 @@ def check_s033_cycle_resolved() -> int:
         if not agrees:
             observed += f" -- artefact gives {value!r}, prose says {published!r}"
         add_row(label, observed, found and agrees)
-
-    def open_mismatch(
-        label: str,
-        literal: str,
-        raw: float,
-        published: float,
-        correct_display: str,
-        register: str,
-        why: str,
-    ) -> None:
-        """Report a mismatch the maintainer has not yet ruled on, as OPEN.
-
-        This is NOT a dispensation with its motive parked in another file --
-        the pattern that let a stale figure through on 2026-09-02. The whole
-        motive is re-verified here, on every run:
-
-          * `supplement.tex` still carries the disputed literal, and does NOT
-            carry the corrected one (otherwise the ordinary check applies and
-            this block must be deleted);
-          * the artefact still yields `raw`, so the mismatch is still the one
-            described and not a new, larger drift.
-
-        If either premise stops holding, the row becomes a FAIL. An OPEN row
-        does not gate the commit, but it is printed in the summary line, so it
-        cannot become invisible.
-        """
-        nonlocal n_bad, n_open
-        still_published = literal in supp
-        not_yet_fixed = correct_display not in supp
-        premise_holds = still_published and not_yet_fixed and abs(raw - published) < 0.01
-        if premise_holds:
-            n_open += 1
-            rows.append(
-                (
-                    label,
-                    f"**OPEN** -- prose says `{literal}`; re-derived {raw!r} displays as "
-                    f"**{correct_display}**. {why} Registered in `{register}`; "
-                    f"a published table value is a scientific claim, so it is not "
-                    f"edited without the maintainer's decision.",
-                    "OPEN",
-                )
-            )
-        else:
-            n_bad += 1
-            reason = (
-                "the disputed literal is gone -- delete this block and restore the "
-                "ordinary check"
-                if not still_published
-                else "the corrected value is now present -- delete this block"
-                if not not_yet_fixed
-                else f"the artefact no longer yields the recorded value ({raw!r})"
-            )
-            rows.append((label, f"**stale OPEN exception**: {reason}", "**FAIL**"))
 
     # ---- layer 1: transcription ------------------------------------------- #
     pin("agreement numerator/denominator", "1{,}239 of 1{,}260 runs",
@@ -6485,17 +6430,12 @@ def check_s033_cycle_resolved() -> int:
 
     pin("estimand: ratio of group medians, 5-second", "Ratio of group medians & 21.42",
         round(float(est.loc["ratio_of_group_medians", "five_second"]), 2), 21.42)
-    open_mismatch(
-        "estimand: ratio of group medians, cycle",
-        "21.42 & 22.67",
-        float(est.loc["ratio_of_group_medians", "cycle_resolved"]),
-        22.67,
-        "22.66",
-        "audit/s033_estimand_rounding_mismatch.md",
-        "The ratio is 0.337325 / 0.0148832 on the declared 63 configurations; "
-        "it sits 0.0002 below the 22.665 display boundary, so rounding it once "
-        "to three decimals (22.665) and again to two yields 22.67.",
-    )
+    # Corrected 2026-09-12 from the published 22.67. The re-derived ratio is
+    # 0.337324964932 / 0.0148831730646 = 22.66485537, which displays as 22.66;
+    # 22.67 came from rounding once to three decimals (22.665) and again to
+    # two. Register: audit/s033_estimand_rounding_mismatch.md (now CLOSED).
+    pin("estimand: ratio of group medians, cycle", "21.42 & 22.66",
+        round(float(est.loc["ratio_of_group_medians", "cycle_resolved"]), 2), 22.66)
     pin("estimand: median of paired ratios, 5-second", "Median of paired ratios & 27.84",
         round(float(est.loc["median_of_paired_ratios", "five_second"]), 2), 27.84)
     pin("estimand: median of paired ratios, cycle", "27.84 & 25.63",
@@ -6559,6 +6499,97 @@ def check_s033_cycle_resolved() -> int:
     add_row("the 200-fold oversample follows from 50 Hz over 0.25 Hz",
             f"50 / 0.25 = {50.0 / 0.25:.0f}; prose says `200-fold oversample`",
             abs(50.0 / 0.25 - 200.0) < 1e-9 and "200-fold oversample" in supp)
+
+    # ---- the segmentation limit and its sensitivity analysis -------------- #
+    # Published 2026-09-12, after the re-derivation measured that the notebook's
+    # "validated on three runs, within 7 %" was a favourable sample. Each figure
+    # is pinned to the artefact rather than to the prose that quotes it.
+    pin("limit: runs with a non-constant delivered volume",
+        "Across the 1{,}251 runs whose delivered volume is not numerically constant",
+        float(conf["cycle_count_vs_rr_n_runs"]), 1251)
+    pin("limit: median cycle-count / respiration-rate disagreement",
+        "agree to a median of 5.4~\\%",
+        round(100.0 * conf["cycle_count_vs_rr_median_rel_err"], 1), 5.4)
+    pin("limit: 95th percentile and maximum of that disagreement",
+        "the 95th percentile of that disagreement is 38~\\% and the maximum 95~\\%",
+        round(100.0 * conf["cycle_count_vs_rr_p95_rel_err"], 0) * 1e3
+        + round(100.0 * conf["cycle_count_vs_rr_max_rel_err"], 0),
+        38e3 + 95)
+    pin("limit: runs past the 20 % disagreement cut",
+        "Of the 126 runs that disagree by more than 20~\\%",
+        float(conf["n_cycle_count_disagreement"]) * 1e3
+        + round(100.0 * conf["rr_disagreement_cut"], 0),
+        126e3 + 20)
+    sa = conf["sensitivity_native_all"]
+    mb = conf["merging_bias_direction"]
+    add_row("limit: the four low-confidence verdict splits are all cycle-only",
+            "`four are cycle-only crossings, and none is a 5-second-only crossing` -- "
+            f"artefact: {conf['n_cycle_count_disagreement_with_verdict_split']} split(s), "
+            f"{conf['cycle_count_disagreement_verdict_split_runs']}",
+            ("four are cycle-only crossings, and none is a 5-second-only crossing" in supp)
+            and conf["n_cycle_count_disagreement_with_verdict_split"] == 4
+            and all(
+                bool(per_run.loc[r, "flag_cycle"]) and not bool(per_run.loc[r, "flag_5s"])
+                for r in conf["cycle_count_disagreement_verdict_split_runs"]
+            ))
+    pin("sensitivity: the 2x2 against the all-sample estimator",
+        "agrees on 295 flagged and 945 unflagged runs, crosses the threshold alone on 12, "
+        "and is crossed alone by the 5-second statistic on 8",
+        float(sa["flagged_by_both"]) * 1e9 + sa["flagged_by_neither"] * 1e6
+        + sa["native_only"] * 1e3 + sa["five_second_only"],
+        295e9 + 945e6 + 12e3 + 8)
+    pin("sensitivity: its agreement, against the published one",
+        "an agreement of 98.4~\\% against the 98.3~\\% reported above",
+        round(sa["pct_agree"], 1) * 1e3 + round(conf["pct_agree"], 1),
+        98.4e3 + 98.3)
+    pin("sensitivity: runs where the two cycle-level estimators differ",
+        "disagrees with the change-point estimator on 9 of the 1{,}260 runs",
+        float(sa["n_disagree_with_cycle_estimator"]) * 1e5 + conf["n_runs_analysed"],
+        9e5 + 1260)
+    # The direction of the merging bias. The first draft of this subsection
+    # asserted that merging biases the statistic upward, from the reasoning
+    # that it under-weights stability. Measured, it does not: the split is
+    # 641 / 617 with a median ratio of 1.0004. These three pins exist because
+    # that sentence would otherwise have been published on an argument.
+    pin("bias direction: split of the run-by-run comparison",
+        "exceeds the all-sample value on 641 runs and falls below it on 617",
+        float(mb["n_cycle_above_native"]) * 1e4 + mb["n_cycle_below_native"],
+        641e4 + 617)
+    pin("bias direction: median ratio of the two cycle-level estimators",
+        "with a median ratio of 1.0004",
+        round(mb["median_ratio_cycle_over_native"], 4), 1.0004)
+    add_row("bias direction: the three-way split accounts for every analysed run",
+            f"{mb['n_cycle_above_native']} + {mb['n_cycle_below_native']} + "
+            f"{mb['n_equal']} = "
+            f"{mb['n_cycle_above_native'] + mb['n_cycle_below_native'] + mb['n_equal']}"
+            f" vs {conf['n_runs_analysed']}",
+            mb["n_cycle_above_native"] + mb["n_cycle_below_native"] + mb["n_equal"]
+            == conf["n_runs_analysed"])
+    pin("sensitivity: the all-sample counterfactual, against the published one",
+        "from 530 to 533, against the 530 to 536 reported above",
+        float(sa["nss_counterfactual"]) * 1e4 + conf["nss_counterfactual"],
+        533e4 + 536)
+    add_row("sensitivity: the published counterfactual is the larger of the two",
+            f"change-point +{conf['nss_delta']} vs all-sample +{sa['nss_delta']}; "
+            "prose says it `overstates rather than understates`",
+            conf["nss_delta"] > sa["nss_delta"]
+            and "overstates rather than understates" in supp)
+    add_row("sensitivity: the four cells sum to the analysed runs",
+            f"{sa['flagged_by_both']} + {sa['flagged_by_neither']} + {sa['native_only']} + "
+            f"{sa['five_second_only']} = "
+            f"{sa['flagged_by_both'] + sa['flagged_by_neither'] + sa['native_only'] + sa['five_second_only']}"
+            f" vs {conf['n_runs_analysed']}",
+            sa["flagged_by_both"] + sa["flagged_by_neither"] + sa["native_only"]
+            + sa["five_second_only"] == conf["n_runs_analysed"])
+    add_row("the reworded caption no longer reads as group-against-group",
+            "`Within each pair --- the two rows built from ratios, and the two built from "
+            "differences --- the summaries disagree` present; the old group-against-group "
+            "wording absent",
+            ("Within each pair --- the two rows built from ratios, and the two built from "
+             "differences --- the summaries disagree on which resolution overstates the "
+             "effect") in supp
+            and "The two rows built from ratios and the two built from differences disagree"
+            not in supp)
 
     # ---- layer 3: cross-instrument, outside the s033 chain ---------------- #
     agg = pd.read_parquet(
@@ -6628,16 +6659,9 @@ def check_s033_cycle_resolved() -> int:
         print(f"| {label} | {observed} | {verdict} |")
     print(
         f"\n**S033 cycle-resolved guard:** {len(rows)} checks, "
-        f"{len(rows) - n_bad - n_open} PASS, {n_bad} FAIL, {n_open} OPEN. "
+        f"{len(rows) - n_bad} PASS, {n_bad} FAIL. "
         f"Artefacts from `scripts/s033_cycle_resolved_vtcv.py`; the 5-second column "
-        f"and the locked flags are re-checked against `aggregated.parquet`."
-        + (
-            f" **{n_open} published value awaits a maintainer decision** -- see the "
-            f"OPEN row above and its register."
-            if n_open
-            else ""
-        )
-        + "\n"
+        f"and the locked flags are re-checked against `aggregated.parquet`.\n"
     )
     return n_bad
 
