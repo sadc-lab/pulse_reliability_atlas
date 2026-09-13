@@ -36,10 +36,10 @@ being waved away one at a time.
 
 | artefact | retained | distinct | guard | ledger | ambiguous small | none | distinct none |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| paper | 525 | 142 | 159 | 18 | 305 | **43** | 31 |
+| paper | 527 | 142 | 159 | 18 | 307 | **43** | 31 |
 | supplement | 1846 | 478 | 419 | 31 | 940 | **456** | 214 |
 | monograph | 3339 | 560 | 606 | 28 | 1859 | **846** | 348 |
-| **all** | **5710** | **722** | | | **3104** | **1345** | **432** |
+| **all** | **5712** | **722** | | | **3106** | **1345** | **432** |
 
 ⚠️ **These buckets are coverage by VALUE, not by occurrence**, and they bound
 risk from below, never from above.
@@ -316,7 +316,34 @@ following, and the table names which.
 | external: 5-compartment lung; CDC 50th percentile | 341, 347 | S | Pulse `docs/Methodology/RespiratoryMethodology.md:116–118` in the local clone at `REL_4_3_2`, docs unchanged since `REL_4_3_1` (empty diff); CDC provenance guard |
 | scale and conversion: SpO$_2$ on 0–1, so 0.12 is 12 points; μ\* = 0 | 272 | S + X | `HARD_BOUNDS["SpO2"] = (0.50, 1.00)` |
 
-#### ⚠️ One finding: a correct number under a wrong label (L259). Author decision, nothing modified.
+#### 🟢 One finding: a correct number under a wrong label (L259). Corrected on the author's decision.
+
+> **Resolution, 2026-09-13.** Three wordings were put to the author, who chose
+> to align the sentence with the supplement. `paper.tex:259` now reads
+> *"… on 139 of 320 runs and none of those 8 falls there, against 36 of 320
+> runs and 3 of the 8 in S3."* "Those 8" is the "8 of the 23" earlier in the
+> same sentence. No number is new: 8 is anchored (`T2.sobol.core_output_vt`),
+> and 0 and 3 were re-counted from the CSV rows.
+>
+> The Vt-CV scenario-split guard in `scripts/audit_claims.py` now also pins
+> the figures (13 → 18 checks):
+> - the 8 is re-counted from the CSV rows and must equal the JSON value;
+> - the split 0 in S1 and 3 in S3 is pinned;
+> - a negative control requires that the single-seed criterion gives a
+>   different split, (1, 3);
+> - the new paper text is required.
+>
+> **Reinjection.** The old sentence and a wrong split (S3 = 2) were put back
+> temporarily. The guard failed on both, exit 1. MD5 of both files was
+> identical before and after.
+>
+> **Rebuild.** In `build/paper.pdf` (25 pages) and `paper.docx`, the new text
+> is on p. 7 and the old text is found nowhere.
+>
+> **Counts.** The sentence adds two `8` literals, both `ambiguous_small`, so
+> the paper's bucket goes from 305 to 307 and its retained total from 525 to
+> 527. §2 is updated from `summary.json`. The two new rows are the quantity
+> just described. The finding as recorded before the decision follows.
 
 > *"in S1 the delivered-Vt coefficient of variation exceeds the 0.05 threshold
 > on 139 of 320 runs and **no Vt combination is estimable**, against 36 of 320
@@ -345,8 +372,9 @@ repository's rules the wording is the author's call.
 occurrences are covered **by value**. §2 says that bounds risk from below only.
 A distinctive value can still carry a different meaning at a second locus. The
 paper is therefore **not closed**. What is now true: its `none` residue (43) and
-its `ambiguous_small` residue (305) have been read row by row, with one wording
-finding.
+its `ambiguous_small` residue have been read row by row. That residue was 305
+at the reading and is 307 after the correction, whose two new rows were read
+too. The one wording finding is corrected.
 
 ## 4. The supplement's residue — characterised, not cleared
 
@@ -376,7 +404,7 @@ levels), `686` (mean female PaO₂), `6.84` (the host-suspension wall-time gap).
 
 | artefact | `none` residue | `ambiguous_small` | status |
 |---|---:|---:|---|
-| paper | 43 / 31 values | 305 | **both read row by row** (§3, §3.2). `none`: no defect. `ambiguous_small`: 57 not quantities, 248 verified, **1 wording finding open** (L259, author decision). Not closed: `guard` and `ledger` are covered by value only |
+| paper | 43 / 31 values | 307 | **both read row by row** (§3, §3.2). `none`: no defect. `ambiguous_small`: 57 not quantities, 248 + 2 verified, **1 wording finding, corrected** (L259, author's choice, guarded). Not closed: `guard` and `ledger` are covered by value only |
 | supplement | 456 / 214 | 940 | characterised, four values verified, not cleared |
 | monograph | 846 / 348 | 1859 | not worked; inline code still costs 89 literals |
 
@@ -396,7 +424,8 @@ population is defined; that the instrument is calibrated in both directions,
 with every known defect reinjected and caught; that the paper's `none` residue
 has been examined row by row; and that nothing in that residue is a defect. The
 paper's `ambiguous_small` residue has also been read row by row (§3.2). Every
-quantity in it was checked against a named source, and one sentence carries a
-correct number under a wrong label. The paper's by-value `guard` and `ledger`
+quantity in it was checked against a named source. One sentence carried a
+correct number under a wrong label, and it was corrected on the author's
+decision. The paper's by-value `guard` and `ledger`
 occurrences are not read one by one. The supplement and monograph residues are
 listed, not cleared.

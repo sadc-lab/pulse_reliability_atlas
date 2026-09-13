@@ -5719,6 +5719,17 @@ VTCV_TEXT_LOCI = (
     ("preprint_npj/paper.tex", "exceeds the 0.05 threshold on 139 of 320 runs"),
     ("preprint_npj/supplement.tex", "above 0.05 on 139 of 320 runs, against 36 of 320 in S3"),
 )
+# The same sentence pairs each run count with how many of the 8 delivered-Vt
+# entries of the stable non-linear set fall in that scenario. Those two figures
+# had no anchor and were printed under a wrong label ("no Vt combination is
+# estimable ... 3 estimable combinations in S3") until the number audit of
+# 2026-09-13 (audit/number_inventory.md section 3.2). "Stable" means the lower
+# bound clears 0.6 in every draw under all five seeds: nonlinear_all_seeds.
+VTCV_STABLE_VT_SPLIT = {"S1": 0, "S3": 3}
+VTCV_STABLE_VT_TEXT = (
+    "preprint_npj/paper.tex",
+    "none of those 8 falls there, against 36 of 320 runs and 3 of the 8 in S3",
+)
 
 
 def check_vtcv_scenario_split() -> int:
@@ -5828,6 +5839,48 @@ def check_vtcv_scenario_split() -> int:
         n_bad += 1
         rows.append(("S014 paired columns resolve by name",
                      "**absent**", "**FAIL**"))
+
+    # 7. The stable-set half of the same sentence: how many of the 8 Vt entries
+    # fall in S1 and in S3, re-derived per row from the CSV rather than read
+    # from the JSON summary that T2.sobol.core_output_vt already uses.
+    buckets = pd.read_csv(REPO / "results/sobol_ci_buckets.csv")
+    need = ("scenario", "output", "nonlinear_all_seeds", "nonlinear_any_seed")
+    missing_b = [c for c in need if c not in buckets.columns]
+    if missing_b:
+        n_bad += 1
+        rows.append(("sobol_ci_buckets.csv columns resolve by name",
+                     f"**absent: {missing_b}**", "**FAIL**"))
+    else:
+        vt = buckets[buckets["output"] == "Vt"]
+        stable = vt[vt["nonlinear_all_seeds"].astype(bool)]
+        n_total = len(stable)
+        good = n_total == _sobol_ci["core_by_output"]["Vt"] == 8
+        n_bad += 0 if good else 1
+        rows.append(("Vt entries in the stable set, from the CSV rows (the quoted 8)",
+                     f"{n_total} (JSON {_sobol_ci['core_by_output']['Vt']}, published 8)",
+                     "PASS" if good else "**FAIL**"))
+        for sc, published in VTCV_STABLE_VT_SPLIT.items():
+            got = int((stable["scenario"] == sc).sum())
+            good = got == published
+            n_bad += 0 if good else 1
+            rows.append((f"{sc}: stable-set Vt entries",
+                         f"{got} (published {published})",
+                         "PASS" if good else "**FAIL**"))
+        # NEGATIVE CALIBRATION: a single seed must not reproduce the split, or
+        # "every draw under each of five seeds" would be doing no work here.
+        any_seed = vt[vt["nonlinear_any_seed"].astype(bool)]
+        decoy = tuple(int((any_seed["scenario"] == sc).sum()) for sc in VTCV_STABLE_VT_SPLIT)
+        good = decoy != tuple(VTCV_STABLE_VT_SPLIT.values())
+        n_bad += 0 if good else 1
+        rows.append(("negative control: any-seed criterion does NOT reproduce the S1/S3 split",
+                     f"{decoy} vs {tuple(VTCV_STABLE_VT_SPLIT.values())}",
+                     "PASS" if good else "**FAIL**"))
+        rel, needle = VTCV_STABLE_VT_TEXT
+        present = needle in (REPO / rel).read_text(encoding="utf-8")
+        n_bad += 0 if present else 1
+        rows.append((f"`{rel}` states the stable-set split",
+                     "present" if present else "**absent**",
+                     "PASS" if present else "**FAIL**"))
 
     # 5. The literals must still be present in both documents that carry them.
     for rel, needle in VTCV_TEXT_LOCI:
