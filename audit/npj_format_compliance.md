@@ -303,8 +303,8 @@ tokens after expansion: none). Both land on the same reading text.
 > the Université de Lorraine "for its support", placed between the Région
 > Grand Est and CHU Sainte-Justine sentences, so still before the no-role
 > sentence. The text does not call BIOSE a funder. The author's confirmation
-> predates this addition, so whether the no-role sentence also covers BIOSE was
-> not asked. Only the author can say.
+> predates this addition, so the question was put to the author on
+> 2026-09-13. **Answer: BIOSE gave support, not funding.** Nothing to change.
 >
 > The finding as originally recorded on 2026-07-29 follows. Its line
 > reference `paper.tex:372` is stale.
@@ -329,8 +329,21 @@ section ✓ (`CT` forbids one).
 choice.** It cannot be written without the author asserting it. Nothing
 modified.
 
-### 🟡 N-4 — Web-page references sit in the numbered reference list. **Author decision open.**
+### 🟡 N-4 — Web-page references sit in the numbered reference list. **Author decision 2026-09-13: kept as numbered entries.**
 
+> **Decision, 2026-09-13.** The author chose to change nothing, from three
+> options put to them on the facts below:
+>
+> - **A (chosen):** keep all 3 + 8 numbered entries;
+> - **B:** paper only, 5 cite sites to parenthetical URLs;
+> - **C:** paper and supplement, 20 sites.
+>
+> The rule stays breached as written. The risk accepted is an editor's request,
+> at the technical check or at proof, to move them. If that request comes, the
+> work is the 20 cite sites counted below. Re-grep them first, because line
+> numbers move. The yellow status marks a known
+> departure kept on purpose, not an open question.
+>
 > **Update 2026-09-13.** The count "six" and the key list below are stale.
 >
 > **The rule was re-read at source today** (`SG`, scraped 2026-09-13, page
