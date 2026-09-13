@@ -202,7 +202,9 @@ pattern's one other prose match, at L53, is inside a comment.
 register called the paper **closed**. That overstated it: only the `none` bucket
 was examined row by row. The paper's **305 `ambiguous_small` occurrences** —
 small values whose ledger match may be a coincidence — have **not** been
-verified one by one. The paper is not closed.
+verified one by one. The paper is not closed. *(Update: they were read row by
+row later the same day. See §3.2, which finds one wording defect and still
+does not close the paper.)*
 
 Every one of the 43 falls into one of four classes.
 
@@ -245,6 +247,106 @@ Counting `pulse.log` under `data/` gives **3,349**, against the published
 `data/clamp_probe/`, a gitignored probe directory that is not a sweep run.
 **My population was wrong, not the paper's.**
 
+### 3.2 The paper's `ambiguous_small` residue, read row by row — 305 occurrences (2026-09-13)
+
+**Population.** `inventory.csv`, `artefact = paper`, `bucket = ambiguous_small`:
+305 rows, extracted with `scripts/parquet_probe.py` and sorted by line. Every row
+was read with its context. `paper.tex` is unchanged since `063b122`.
+
+**57 rows are not quantities.** These are sieve precision failures: they
+overstate the residue and hide nothing. Counted per line with `parquet_probe`,
+not by hand.
+
+| what | lines | rows |
+|---|---|---:|
+| author and affiliation markers `\author[1,2,3]`, `\affil[n]` | 95–117 | 24 |
+| enumeration labels (1)–(4) | 140 | 4 |
+| licence and product versions: `Apache-2.0` ×6, `CC-BY-4.0` ×3, `claude-opus-4-7`/`4-8`/`5` ×5, Gemini `3.1`, Ryzen `5` | 140, 148, 341, 389, 404, 408 | 16 |
+| hypothesis labels ("Hypothesis~1" ×2, "Hypotheses 2, 3 and 4", "Hypothesis-4") | 272, 377, 408 | 6 |
+| notation: `SpO$_{2}$` subscript, `kg$^{-1}$` and `min$^{-1}$` exponents, the base of $10^{-14}$ | 272, 300, 353, 408 | 4 |
+| grant identifier `ANR-23-IACL-0004` | 412 | 2 |
+| the day in the date "3~August~2026" | 389 | 1 |
+| **total** | | **57** |
+
+The instrument is **not** modified for these rows. None of its nine exclusion
+rules catches hyphenated versions, bracketed author markers or braced
+subscripts. A
+rule change is guard code, and it would reach `main` only after review.
+Counting the rows here costs nothing and changes no conclusion.
+
+**248 rows are quantities, all verified.** "Verified" means one of the
+following, and the table names which.
+
+- **(S) Source.** `preregistration.md`, code under `src/` or `scripts/`, or
+  Pulse's own documentation, read this session.
+- **(A) Artefact.** A results file read directly this session.
+- **(L) Semantic anchor.** A ledger anchor or guard whose text names the
+  **same quantity in the same sentence**, not merely the same value, with the
+  paper literal read to equal it. Anchors compare their own literal with the
+  artefact, so reading the paper is the half that anchors do not do.
+- **(X) Arithmetic.**
+
+| family | lines | how | detail |
+|---|---|---|---|
+| Table 1, per-cell flag counts, and "42 of 160" quoted from it | 175, 204, 210–220 | A + L | every cell equals `results/cell_flag_summary.csv` (written by `analyze_sweep.py`); anchors `T1.T1-*` |
+| Table 2, retention | 238–248 | L + X | `T1.30r.clean.*` and `.hardfree.*` re-derived from `data/runs/full_sweep/aggregated.parquet`; hard-failure-free = 160 − diverged − implausible in all eight cells; sums 663 and 1,134 |
+| swept ranges, MAP $/3$ | 353 | S | preregistration L91, L95–101; `src/scenario.py:86` |
+| severities 0.00 / 0.26 / 0.60 / 0.95, band 0.91–0.945 | 160, 181, 355, 377 | S + L | preregistration L76, L109–112; `T1.06i–k` |
+| design: 20 trajectories, 4 levels, seed 42, $7+1=8$, 160, $4\times2=8$, 7 inputs, 5 s sampling, 120 s, final 60 s, $[60,120]$ | 162, 164, 181, 198, 278, 357, 365, 367 | S | preregistration L83–84, L170–171; `scripts/run_full_sweep.py:60` (`SWEEP_SEED = 42`) |
+| hard bounds; flatline 1 % and 0.1 %; CV 5 % | 292, 363, 365 | S | `src/detector.py:54–61`, `FLATLINE_STD_RATIO = 0.01`, `FLATLINE_BOUND_TOL = 0.001`, `CV_THRESHOLD = 0.05`; preregistration table |
+| 5 rejection patterns, 4 in force during the sweep | 361 | S | `CLAMP_PATTERNS` has 5; at `708efb1^`, the parent of the commit that added the "minimum" twin, it had 4 |
+| every diverged run carries "Could not converge…", no completed run does | 361 | A | `grep` over all 1,280 `pulse.log` under `data/runs/full_sweep/`: 20 files, the same 20 case IDs as `diverged = True` |
+| traffic light: bands 10 / 30 / 30 %; 7 / 29 / 12; drivers 7 / 23 / 9 / 9; red split 6 / 4 / 2; literal reading 7 / 3 / 38 | 227, 371, 373 | S + A + L | preregistration L205; `results/reliability_traffic_light.json`; `T1.25–27`, `T1.30d.*`, `T1.tl.literal_*` |
+| setup: 0 of 1,280 clamped; 80 ventilator contracts in 20 runs; FiO$_2$ = 1.0 as a setting, and "exactly 1.0 cannot be composed" | 128, 173, 204, 282, 286, 292, 319, 321 | S + L | `T1.11`; setup-input instantiation guard (10,160 and 80 recomputed); FiO$_2$ adjustment guard; FiO$_2$ upper bound 1.0 in preregistration L100 |
+| H1 48 of 48, top-3, "at least half"; H2 ≥ 5 % | 257, 272, 377 | S + L | preregistration L74–75; `T1.07` |
+| σ/μ\* 0.6; 23 of 144; 17 of 48; Vt 8 of 23; 72 of 144; 43 of 48; Sobol $64\times(2k+2)$ | 259, 381 | S + L | preregistration L180–183; `T2.sobol.*` |
+| cost factor "2.4 to 4.1" | 381 | X | 3,584 / 1,500 = 2.39 and 6,144 / 1,500 = 4.10, from anchors `T2.sobol.runs_reduced_*` and `.budget_preregistered`. ⚠️ The ledger's other 2.4 (`T5.clip.mustar_factor`) is a **different quantity**: exactly the by-value coincidence §2 warns about |
+| index support: median 7 of 20 pairs; 25 on ≤ 3; 9 on a single pair, 5 of them rank-1; all nine are $V_t$ in S1\_F or FiO$_2$ in S4\_M | 259 | A | `results/sobol_ci_buckets.csv` (144 rows): median `n_clean_pairs` 7, `n_total_pairs` 20, `le 3` → 25, `eq 1` → 9 rows, 5 at rank 1, σ = 0 |
+| S1 Vt CV > 0.05 on 139 of 320; S3 on 36 of 320 | 259 | L | Vt-CV scenario-split guard |
+| relaxed screen: H1 48 under both; 30 like-for-like; rank-1 kept in 30; 11 sets change; FiO$_2$ gained in S1\_M, S1\_F, S4\_F, rank-1 for PaO$_2$ and SpO$_2$ | 259, 272 | L | S034 guard (25 checks) |
+| trigger lockout: $-2$ cmH$_2$O, 64 reruns, 0.016 | 128, 276, 280, 292 | L | `T1.06d`, `T1.06b`, `T1.04` |
+| hyperoxia: 34 of 126, 91 %, FiO$_2 \geq 0.95$; 60 reruns (S1 44 + S3 8 + S4 8); plateau window 240–300 s; 40 of 44; 643; about 20 mmHg below the AGE prediction; axes $[0, 760]$ | 284, 292 | A + L | `data/runs/s021_hyperoxia_convergence/summary.json` (`n_runs` 60, per-scenario n, `plateau_window_s`); `T1.21–24`, `T1.23b`; S021 guards; `scripts/make_paper_fig03.py:75` (`PANEL_B_AXIS_HI = 760.0`) |
+| divergence: 20, 1.6 %, all male, 8 vectors; FiO$_2$ = 1.0 in 13 of 20 | 128, 173, 298, 308 | A + L | sex-stratified divergence guard; `aggregated.parquet`, `diverged = True`: 13 of 20 at `in_fio2` 1.0, 7 at 0.7367 |
+| blood-volume rescue: 20 / 20 → 0 / 20 at 4,400 mL and at the floor; 12 of 20 clean at both, 8 flagged; reductions 0 / 8.4 / 15.0 % | 300, 308 | L + X | `T2.bv.bracket.*`, `T2.bv.floor.*`; 8.4 and 15.0 in §3 (iv) |
+| sex comparison: 24 tests; ρ 0.75–1.00 over 12 cells; 1/2,000; two tests at zero; ±1 | 300, 379 | S + A + L | `T1.15`, `T1.19–20`, `T2.sp.*`; `src/analysis_compare.py` computes `np.mean(null >= w)`, so 1/2,000 is the smallest non-zero value; `results/wasserstein_male_vs_female.csv` has exactly 2 zeros |
+| Cornish: 85; 82 of 85 outside, 80 + 2; 3 of 85 inside | 327 | L | `T3.s028.cornish_*` |
+| limitation (vi): DBP/SBP ≤ 0.75; 9 of 20 DBP steps | 331 | S + L | preregistration L97; `T5.robust.paper_dbp_shortened` |
+| Morris step on $[0,1]$ | 377 | S | `src/analysis_morris.py:146`: elementary effect = Δy / `delta_normalized` |
+| external: 5-compartment lung; CDC 50th percentile | 341, 347 | S | Pulse `docs/Methodology/RespiratoryMethodology.md:116–118` in the local clone at `REL_4_3_2`, docs unchanged since `REL_4_3_1` (empty diff); CDC provenance guard |
+| scale and conversion: SpO$_2$ on 0–1, so 0.12 is 12 points; μ\* = 0 | 272 | S + X | `HARD_BOUNDS["SpO2"] = (0.50, 1.00)` |
+
+#### ⚠️ One finding: a correct number under a wrong label (L259). Author decision, nothing modified.
+
+> *"in S1 the delivered-Vt coefficient of variation exceeds the 0.05 threshold
+> on 139 of 320 runs and **no Vt combination is estimable**, against 36 of 320
+> runs and **3 estimable combinations in S3**."* (`paper.tex:259`, added in
+> `d88a1ca`)
+
+- **The numbers are right under one reading.** In `results/sobol_ci_buckets.csv`,
+  the $V_t$ top-three entries in the stable non-linear set
+  (`nonlinear_all_seeds`) number **0 of 6 in S1** and **3 of 6 in S3**
+  (S3\_F `peep`, S3\_M `fio2`, S3\_M `rr`).
+- **"Estimable" is the wrong word.** In S1, 5 of the 6 $V_t$ entries *have*
+  an estimable interval (`no_estimable_ci` = False); only S1\_F `vt` does not.
+  They are estimable, but not stably non-linear.
+- **"Combination" clashes with the paper's own unit.** Everywhere else a
+  combination is cell × output, 48 in total. S3 has only two $V_t$
+  combinations, so "3 estimable combinations in S3" cannot be read in that
+  unit.
+- **No anchor or guard covers the 0 or the 3.** The supplement's version of the
+  sentence (`supplement.tex:347`) says it differently: *"none of those 8 falls
+  in S1"*.
+
+This is the hedging of a scientific claim, not a typo, so under the
+repository's rules the wording is the author's call.
+
+**What this does not cover.** The paper's `guard` (159) and `ledger` (18)
+occurrences are covered **by value**. §2 says that bounds risk from below only.
+A distinctive value can still carry a different meaning at a second locus. The
+paper is therefore **not closed**. What is now true: its `none` residue (43) and
+its `ambiguous_small` residue (305) have been read row by row, with one wording
+finding.
+
 ## 4. The supplement's residue — characterised, not cleared
 
 456 occurrences over 214 values, **concentrated**: the ten most frequent
@@ -273,7 +375,7 @@ levels), `686` (mean female PaO₂), `6.84` (the host-suspension wall-time gap).
 
 | artefact | `none` residue | `ambiguous_small` | status |
 |---|---:|---:|---|
-| paper | 43 / 31 values | 305 | **`none` audited row by row, no defect**; small values not verified |
+| paper | 43 / 31 values | 305 | **both read row by row** (§3, §3.2). `none`: no defect. `ambiguous_small`: 57 not quantities, 248 verified, **1 wording finding open** (L259, author decision). Not closed: `guard` and `ledger` are covered by value only |
 | supplement | 456 / 214 | 940 | characterised, four values verified, not cleared |
 | monograph | 846 / 348 | 1859 | not worked; inline code still costs 89 literals |
 
@@ -292,5 +394,8 @@ It does not claim the published numbers are correct. It claims that the
 population is defined; that the instrument is calibrated in both directions,
 with every known defect reinjected and caught; that the paper's `none` residue
 has been examined row by row; and that nothing in that residue is a defect. The
-paper's small values, and the supplement and monograph residues, are listed,
-not cleared.
+paper's `ambiguous_small` residue has also been read row by row (§3.2). Every
+quantity in it was checked against a named source, and one sentence carries a
+correct number under a wrong label. The paper's by-value `guard` and `ledger`
+occurrences are not read one by one. The supplement and monograph residues are
+listed, not cleared.
