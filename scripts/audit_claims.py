@@ -6911,6 +6911,249 @@ n_s033_fail = check_s033_cycle_resolved()
 n_s023oos_fail = check_s023_oos_table()
 
 
+# Grid shape for the Morris comparison, fixed by the design rather than by the
+# artefact: 8 (scenario x sex) cells x 6 outputs = 48 rankings, and 318
+# estimable (cell, output, input) triples under the locked screen, which is
+# 6 inputs x 48 plus FiO2's 30. Both are asserted rather than read, so a
+# regenerated artefact of the wrong shape fails instead of redefining the grid.
+EXPECTED_S034_COMBINATIONS = 48
+EXPECTED_S034_PUBLISHED_ROWS = 318
+
+
+def check_s034_screen_sensitivity() -> int:
+    """Every number of Supplement S13's screen-sensitivity subsection.
+
+    Added 2026-09-12 with the subsection itself, so the figures are pinned from
+    the day they are published rather than after someone asks -- the omission
+    that produced the S033 debt two days earlier.
+
+    Three layers, as for `check_s033_cycle_resolved`:
+
+      * transcription -- the literal in `supplement.tex` or `paper.tex` equals
+        the artefact;
+      * arithmetic -- the artefact's own totals close, so a partial
+        regeneration cannot pass;
+      * cross-instrument -- the seed comparator is read from
+        `results/phase4b_top3_comparison_seed44.csv`, which S034 did not write,
+        and the calibration figures are checked against
+        `results/morris_indices.parquet`, the published artefact.
+
+    The strongest control is in the producer, not here: the S034 script aborts
+    unless recomputing under the locked screen reproduces the published mu* on
+    all 318 rows to double precision. This guard records that it did.
+    """
+    print("\n## S034 screen-sensitivity guard (Supplement S13, Morris ranks)\n")
+    rows: list[tuple[str, str, str]] = []
+    n_bad = 0
+
+    d = REPO / "results" / "s034"
+    needed = [d / "s034_summary.json", d / "rank_comparison.csv", d / "mu_star_by_screen.csv"]
+    missing = [p for p in needed if not p.exists()]
+    if missing:
+        print("| check | observed | verdict |")
+        print("|---|---|---|")
+        for p in missing:
+            print(f"| `{p.relative_to(REPO).as_posix()}` present | **absent** | **FAIL** |")
+        print(
+            f"\n**S034 screen-sensitivity guard:** {len(missing)} checks, 0 PASS, "
+            f"{len(missing)} FAIL. Run "
+            "`uv run python scripts/s034_morris_screen_sensitivity.py`.\n"
+        )
+        return len(missing)
+
+    s = json.loads(needed[0].read_text(encoding="utf-8"))
+    comp = pd.read_csv(needed[1])
+    supp = (REPO / "preprint_npj" / "supplement.tex").read_text(encoding="utf-8")
+    paper = (REPO / "preprint_npj" / "paper.tex").read_text(encoding="utf-8")
+
+    def add_row(label: str, observed: str, ok: bool) -> None:
+        nonlocal n_bad
+        if not ok:
+            n_bad += 1
+        rows.append((label, observed, "PASS" if ok else "**FAIL**"))
+
+    def pin(label: str, literal: str, value: float, published: float, doc: str = "supp") -> None:
+        text = supp if doc == "supp" else paper
+        found = literal in text
+        agrees = abs(value - published) <= 5e-10
+        observed = f"`{literal}`" + ("" if found else f" **not in {doc}**")
+        if not agrees:
+            observed += f" -- artefact gives {value!r}, prose says {published!r}"
+        add_row(label, observed, found and agrees)
+
+    # ---- layer 1: transcription, the two screens ------------------------- #
+    pin("runs and pairs under the locked screen",
+        "keeps 663 of the 1{,}280 runs and 454 of the 1{,}120 available pairs",
+        float(s["n_runs_clean_screen"]) * 1e10 + s["distinct_pairs_clean"] * 1e5
+        + s["distinct_pairs_ceiling"],
+        663e10 + 454e5 + 1120)
+    pin("runs and pairs under the relaxed screen",
+        "1{,}134 runs and 969 pairs",
+        float(s["n_runs_hard_failure_free"]) * 1e5 + s["distinct_pairs_hff"],
+        1134e5 + 969)
+    pin("elementary-effect observations gained, and the S1 share",
+        "of the 3{,}090 elementary-effect observations gained, 1{,}152 fall in S1",
+        float(s["ee_observation_gain"]) * 1e5 + s["ee_observation_gain_by_scenario"]["S1"],
+        3090e5 + 1152)
+
+    h1c, h1h = s["h1_by_screen"]["clean"], s["h1_by_screen"]["hff"]
+    add_row("H1 holds in all 48 combinations under both screens",
+            f"clean {h1c['n_pass']}/{h1c['n_combinations']}, "
+            f"relaxed {h1h['n_pass']}/{h1h['n_combinations']}; prose says "
+            "`holds in every one of the 48 cell $\\times$ output combinations under both screens`",
+            ("holds in every one of the 48 cell $\\times$ output combinations under "
+             "both screens") in supp
+            and h1c["n_pass"] == h1c["n_combinations"] == EXPECTED_S034_COMBINATIONS
+            and h1h["n_pass"] == h1h["n_combinations"] == EXPECTED_S034_COMBINATIONS)
+    pin("H1 range and median under the locked screen",
+        "0.658 to 0.998 of the summed $\\mu^{*}$ under the locked screen (median 0.928)",
+        round(h1c["fraction_min"], 3) * 1e8 + round(h1c["fraction_max"], 3) * 1e4
+        + round(h1c["fraction_median"], 3),
+        0.658e8 + 0.998e4 + 0.928)
+    pin("H1 range and median under the relaxed screen",
+        "0.695 to 0.994 under the relaxed one (median 0.901)",
+        round(h1h["fraction_min"], 3) * 1e8 + round(h1h["fraction_max"], 3) * 1e4
+        + round(h1h["fraction_median"], 3),
+        0.695e8 + 0.994e4 + 0.901)
+
+    same = s["criteria_identical_candidate_set_only"]
+    allc = s["criteria_all_combinations"]
+    pin("rank-1 unchanged on every like-for-like combination",
+        "unchanged in all 30 combinations whose candidate set is the same under both screens",
+        float(same["top1_preserved"]) * 1e4 + same["n"], 30e4 + 30)
+    pin("combinations that gain a seventh candidate",
+        "18 of the 48 combinations gain a seventh candidate",
+        float(s["n_combinations_total"] - s["n_combinations_candidate_set_identical"]) * 1e4
+        + s["n_combinations_total"],
+        18e4 + 48)
+    pin("top-three set and order on the like-for-like subset",
+        "the top-three \\emph{set} is preserved in 19 and its \\emph{order} in 15",
+        float(same["top3_set_preserved"]) * 1e4 + same["top3_order_preserved"],
+        19e4 + 15)
+    pin("the three criteria over all 48 combinations",
+        "the figures are 41, 26 and 21",
+        float(allc["top1_preserved"]) * 1e8 + allc["top3_set_preserved"] * 1e4
+        + allc["top3_order_preserved"],
+        41e8 + 26e4 + 21)
+
+    narrow = s["criteria_narrow_cut_margin"]
+    pin("the third/fourth gap, median and narrow count",
+        "39~\\% of the third under the locked screen, and only one of the 30 combinations "
+        "has a gap below 10~\\%",
+        round(100.0 * s["median_cut_margin_clean"], 0) * 1e4 + narrow["n"] * 1e2
+        + round(100.0 * s["narrow_cut"], 0),
+        39e4 + 1e2 + 10)
+
+    s2m = s["criteria_S2_M_only"]
+    pin("the screen's effect on S2_M, the seed comparator's cell",
+        "the screen change preserves 6, 2 and 2 on the same six outputs",
+        float(s2m["top1_preserved"]) * 1e8 + s2m["top3_set_preserved"] * 1e4
+        + s2m["top3_order_preserved"],
+        6e8 + 2e4 + 2)
+
+    # ---- layer 2: arithmetic --------------------------------------------- #
+    add_row("the like-for-like subset plus the candidate-changed ones is the whole grid",
+            f"{s['n_combinations_candidate_set_identical']} + "
+            f"{s['n_combinations_total'] - s['n_combinations_candidate_set_identical']} = "
+            f"{s['n_combinations_total']}",
+            s["n_combinations_total"] == EXPECTED_S034_COMBINATIONS
+            and len(comp) == EXPECTED_S034_COMBINATIONS)
+    add_row("every candidate change is FiO2 gained, in the three cells the paper names",
+            "gains: "
+            + ", ".join(sorted({r["cell"] for r in s["combinations_with_candidate_change"]}))
+            + "; inputs gained: "
+            + ", ".join(sorted({r["inputs_gained"] for r in s["combinations_with_candidate_change"]}))
+            + "; none lost"
+            if s["combinations_with_candidate_change"] else "none",
+            sorted({r["cell"] for r in s["combinations_with_candidate_change"]})
+            == ["S1_F", "S1_M", "S4_F"]
+            and {r["inputs_gained"] for r in s["combinations_with_candidate_change"]} == {"fio2"}
+            and all(not r["inputs_lost"] for r in s["combinations_with_candidate_change"]))
+    add_row("estimable triples grow by exactly the three cells times six outputs",
+            f"{s['estimable_triples_clean']} -> {s['estimable_triples_hff']} "
+            f"(+{s['estimable_triples_hff'] - s['estimable_triples_clean']}, expected +18)",
+            s["estimable_triples_hff"] - s["estimable_triples_clean"] == 18
+            and s["estimable_triples_clean"] == EXPECTED_S034_PUBLISHED_ROWS)
+    add_row("distinct pairs are the observation counts divided by the six outputs",
+            f"{s['ee_observations_clean']} / {s['n_outputs']} = {s['distinct_pairs_clean']}, "
+            f"{s['ee_observations_hff']} / {s['n_outputs']} = {s['distinct_pairs_hff']}",
+            s["ee_observations_clean"] == s["distinct_pairs_clean"] * s["n_outputs"]
+            and s["ee_observations_hff"] == s["distinct_pairs_hff"] * s["n_outputs"])
+    add_row("the relaxed screen is a superset: no combination loses pairs",
+            f"{int((comp['n_pairs_hff'] < comp['n_pairs_clean']).sum())} combination(s) lose pairs",
+            int((comp["n_pairs_hff"] < comp["n_pairs_clean"]).sum()) == 0)
+
+    # ---- layer 3: outside the S034 chain --------------------------------- #
+    seed_path = REPO / "results" / "phase4b_top3_comparison_seed44.csv"
+    if seed_path.exists():
+        seed = pd.read_csv(seed_path)
+        seed_set = int(seed["same_set"].sum())
+        seed_order = int(seed["same_order"].sum())
+        pin("the seed comparator, read from the S014/phase-4b artefact",
+            "preserves the rank-1 input in 6 of its 6 outputs, the top-three set in 4 "
+            "and its order in 3",
+            float(len(seed)) * 1e8 + seed_set * 1e4 + seed_order,
+            6e8 + 4e4 + 3)
+    else:
+        add_row("the seed comparator artefact is present",
+                f"`{seed_path.relative_to(REPO).as_posix()}` absent", False)
+
+    pub = pd.read_parquet(REPO / "results" / "morris_indices.parquet")
+    add_row("the calibration the producer ran: published rows reproduced, mu* identical",
+            f"{s['n_published_rows_reproduced']} of {len(pub)} rows, max |delta| = "
+            f"{s['calibration_max_abs_mu_star_delta_vs_published']:.3g}; "
+            f"producer reported {len(s['calibration_problems'])} problem(s)",
+            s["n_published_rows_reproduced"] == len(pub) == EXPECTED_S034_PUBLISHED_ROWS
+            and s["calibration_max_abs_mu_star_delta_vs_published"] == 0.0
+            and not s["calibration_problems"])
+
+    # ---- the paper's two sentences --------------------------------------- #
+    add_row("paper: the pointer and its summary of the result",
+            "`H1 holds in all 48 combinations under both screens and the rank-1 input is "
+            "unchanged wherever the candidate set is` present in paper.tex",
+            ("H1 holds in all 48 combinations under both screens and the rank-1 input is "
+             "unchanged wherever the candidate set is") in paper)
+    add_row("paper caption: FiO2 is rank-1 for PaO2 and SpO2 in all three white-cell cells",
+            "`it is then the rank-1 input for PaO$_2$ and SpO$_2$ in each` present; artefact: "
+            + ", ".join(
+                f"{r['cell']}/{r['output']}"
+                for r in comp[(~comp["top1_preserved"]) & (comp["top1_hff"] == "fio2")]
+                .to_dict(orient="records")
+            ),
+            ("it is then the rank-1 input for PaO$_2$ and SpO$_2$ in each") in paper
+            and sorted(
+                (r["cell"], r["output"])
+                for r in comp[(~comp["top1_preserved"]) & (comp["top1_hff"] == "fio2")]
+                .to_dict(orient="records")
+            )
+            == [("S1_F", "PaO2"), ("S1_F", "SpO2"), ("S1_M", "PaO2"),
+                ("S1_M", "SpO2"), ("S4_F", "PaO2"), ("S4_F", "SpO2")])
+
+    # ---- controls --------------------------------------------------------- #
+    probe_ok = "1{,}134 runs and 969 pairs" in supp
+    add_row("positive control: the matcher finds a literal known to be present",
+            "`1{,}134 runs and 969 pairs` located" if probe_ok else "**not located**", probe_ok)
+    probe_bad = "1{,}134 runs and 968 pairs" not in supp
+    add_row("negative control: an altered literal is rejected",
+            "`1{,}134 runs and 968 pairs` correctly absent" if probe_bad
+            else "**a wrong literal matched**", probe_bad)
+
+    print("| check | observed | verdict |")
+    print("|---|---|---|")
+    for label, observed, verdict in rows:
+        print(f"| {label} | {observed} | {verdict} |")
+    print(
+        f"\n**S034 screen-sensitivity guard:** {len(rows)} checks, "
+        f"{len(rows) - n_bad} PASS, {n_bad} FAIL. Artefacts from "
+        f"`scripts/s034_morris_screen_sensitivity.py`; the seed comparator and the "
+        f"published indices are read from artefacts it did not write.\n"
+    )
+    return n_bad
+
+
+n_s034_fail = check_s034_screen_sensitivity()
+
+
 def check_window_tolerance() -> int:
     """No analysis script may select a time window with a strict comparison.
 
@@ -7019,7 +7262,7 @@ sys.exit(
         + n_sexdiv_fail + n_inst_fail + n_cliprt_fail + n_s030prov_fail + n_figts_fail
         + n_fio2adj_fail + n_sobolframe_fail + n_s011_fail + n_abstract_fail
         + n_vtcv_split_fail + n_shap_unit_fail + n_detvocab_fail + n_cdcprov_fail + n_pubgate_fail
-        + n_windowtol_fail + n_s033_fail + n_s023oos_fail
+        + n_windowtol_fail + n_s033_fail + n_s023oos_fail + n_s034_fail
     ) > 0
     else 0
 )

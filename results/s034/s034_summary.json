@@ -1,0 +1,186 @@
+{
+  "calibration_max_abs_mu_star_delta_vs_published": 0.0,
+  "calibration_problems": [],
+  "combinations_with_candidate_change": [
+    {
+      "cell": "S1_F",
+      "inputs_gained": "fio2",
+      "inputs_lost": "",
+      "output": "HR"
+    },
+    {
+      "cell": "S1_F",
+      "inputs_gained": "fio2",
+      "inputs_lost": "",
+      "output": "MAP"
+    },
+    {
+      "cell": "S1_F",
+      "inputs_gained": "fio2",
+      "inputs_lost": "",
+      "output": "PaCO2"
+    },
+    {
+      "cell": "S1_F",
+      "inputs_gained": "fio2",
+      "inputs_lost": "",
+      "output": "PaO2"
+    },
+    {
+      "cell": "S1_F",
+      "inputs_gained": "fio2",
+      "inputs_lost": "",
+      "output": "SpO2"
+    },
+    {
+      "cell": "S1_F",
+      "inputs_gained": "fio2",
+      "inputs_lost": "",
+      "output": "Vt"
+    },
+    {
+      "cell": "S1_M",
+      "inputs_gained": "fio2",
+      "inputs_lost": "",
+      "output": "HR"
+    },
+    {
+      "cell": "S1_M",
+      "inputs_gained": "fio2",
+      "inputs_lost": "",
+      "output": "MAP"
+    },
+    {
+      "cell": "S1_M",
+      "inputs_gained": "fio2",
+      "inputs_lost": "",
+      "output": "PaCO2"
+    },
+    {
+      "cell": "S1_M",
+      "inputs_gained": "fio2",
+      "inputs_lost": "",
+      "output": "PaO2"
+    },
+    {
+      "cell": "S1_M",
+      "inputs_gained": "fio2",
+      "inputs_lost": "",
+      "output": "SpO2"
+    },
+    {
+      "cell": "S1_M",
+      "inputs_gained": "fio2",
+      "inputs_lost": "",
+      "output": "Vt"
+    },
+    {
+      "cell": "S4_F",
+      "inputs_gained": "fio2",
+      "inputs_lost": "",
+      "output": "HR"
+    },
+    {
+      "cell": "S4_F",
+      "inputs_gained": "fio2",
+      "inputs_lost": "",
+      "output": "MAP"
+    },
+    {
+      "cell": "S4_F",
+      "inputs_gained": "fio2",
+      "inputs_lost": "",
+      "output": "PaCO2"
+    },
+    {
+      "cell": "S4_F",
+      "inputs_gained": "fio2",
+      "inputs_lost": "",
+      "output": "PaO2"
+    },
+    {
+      "cell": "S4_F",
+      "inputs_gained": "fio2",
+      "inputs_lost": "",
+      "output": "SpO2"
+    },
+    {
+      "cell": "S4_F",
+      "inputs_gained": "fio2",
+      "inputs_lost": "",
+      "output": "Vt"
+    }
+  ],
+  "criteria_S2_M_only": {
+    "n": 6,
+    "top1_preserved": 6,
+    "top3_order_preserved": 2,
+    "top3_set_preserved": 2
+  },
+  "criteria_all_combinations": {
+    "n": 48,
+    "top1_preserved": 41,
+    "top3_order_preserved": 21,
+    "top3_set_preserved": 26
+  },
+  "criteria_identical_candidate_set_only": {
+    "n": 30,
+    "top1_preserved": 30,
+    "top3_order_preserved": 15,
+    "top3_set_preserved": 19
+  },
+  "criteria_narrow_cut_margin": {
+    "n": 1,
+    "top1_preserved": 1,
+    "top3_order_preserved": 0,
+    "top3_set_preserved": 0
+  },
+  "criteria_wide_cut_margin": {
+    "n": 29,
+    "top1_preserved": 29,
+    "top3_order_preserved": 15,
+    "top3_set_preserved": 19
+  },
+  "distinct_pair_gain": 515,
+  "distinct_pairs_ceiling": 1120,
+  "distinct_pairs_clean": 454,
+  "distinct_pairs_hff": 969,
+  "ee_observation_gain": 3090,
+  "ee_observation_gain_by_scenario": {
+    "S1": 1152,
+    "S2": 948,
+    "S3": 414,
+    "S4": 576
+  },
+  "ee_observations_clean": 2724,
+  "ee_observations_hff": 5814,
+  "estimable_triples_clean": 318,
+  "estimable_triples_hff": 336,
+  "framing": "Sensitivity of the Morris ranking to the treatment of non-stationary runs. The relaxed screen trades a selection bias for a measurement error; it is NOT a less-biased estimator and must not be reported as one.",
+  "h1_by_screen": {
+    "clean": {
+      "fraction_max": 0.9984529094525779,
+      "fraction_median": 0.92768802484645,
+      "fraction_min": 0.6580637848255388,
+      "n_combinations": 48,
+      "n_pass": 48
+    },
+    "hff": {
+      "fraction_max": 0.9936105962445453,
+      "fraction_median": 0.9008544740753719,
+      "fraction_min": 0.6947351225706248,
+      "n_combinations": 48,
+      "n_pass": 48
+    }
+  },
+  "median_cut_margin_clean": 0.39267705681013587,
+  "median_cut_margin_hff": 0.32384574713269343,
+  "n_combinations_candidate_set_identical": 30,
+  "n_combinations_total": 48,
+  "n_outputs": 6,
+  "n_published_rows_reproduced": 318,
+  "n_runs_clean_screen": 663,
+  "n_runs_hard_failure_free": 1134,
+  "narrow_cut": 0.1,
+  "script": "scripts/s034_morris_screen_sensitivity.py"
+}

@@ -6,12 +6,13 @@ This file is rebuilt from the YAML frontmatter of every entry in
 `santino/` and `shared/`. To update it, edit the experiment
 and recommit — the pre-commit hook regenerates and stages this file.
 
-Total entries: **32**
+Total entries: **33**
 
 ## All experiments (newest first)
 
 | ID | Date | Author | Status | Title |
 |---|---|---|---|---|
+| `S034` | 2026-09-12 | santino | done | [S034 — Do the Morris rankings depend on the clean-pair screen?](santino/S034_morris_screen_sensitivity.md) |
 | `S033` | 2026-09-09 | santino | done | [S033 — Cycle-resolved check of the 5-second delivered-Vt CV](santino/S033_cycle_resolved_vtcv.md) |
 | `S032` | 2026-08-06 | santino | done | [S032 — Does the pulse-pressure clip hold up the SBP → MAP conclusion?](santino/S032_clip_robustness_and_transition_stratification.md) |
 | `S031` | 2026-07-29 | santino | done | [S031 — Sobol trigger reframe, systemic non-linearity, and the survivorship censoring on delivered Vt](santino/S031_sobol_reframe_and_nonlinearity.md) |
@@ -79,6 +80,7 @@ Total entries: **32**
 - `S031` (2026-07-29, done) — [S031 — Sobol trigger reframe, systemic non-linearity, and the survivorship censoring on delivered Vt](santino/S031_sobol_reframe_and_nonlinearity.md) — _statistics, sobol, bootstrap, preregistration-fidelity, non-linearity, survivorship-bias, manuscript-correction, ratio-aware-bootstrap, retraction_
 - `S032` (2026-08-06, done) — [S032 — Does the pulse-pressure clip hold up the SBP → MAP conclusion?](santino/S032_clip_robustness_and_transition_stratification.md) — _morris, pulse-pressure-clip, one-at-a-time-violation, robustness, sensitivity-estimators, transition-stratification, integrity-audit, ledger-expansion, deferred-analysis_
 - `S033` (2026-09-09, done) — [S033 — Cycle-resolved check of the 5-second delivered-Vt CV](santino/S033_cycle_resolved_vtcv.md) — _aliasing, steady-state-classifier, tidal-volume, trigger-lockout, reviewer-response, post-hoc, estimand-sensitivity_
+- `S034` (2026-09-12, done) — [S034 — Do the Morris rankings depend on the clean-pair screen?](santino/S034_morris_screen_sensitivity.md) — _morris, screening, clean-pairs, rank-stability, reviewer-response, post-hoc, sensitivity_
 
 ## By tag
 
@@ -125,6 +127,9 @@ Total entries: **32**
 
 ### `classifier-bound`
 - `S021` — [S021 — Hyperoxia convergence: testing the F-003 transient-regime hypothesis](santino/S021_hyperoxia_convergence.md)
+
+### `clean-pairs`
+- `S034` — [S034 — Do the Morris rankings depend on the clean-pair screen?](santino/S034_morris_screen_sensitivity.md)
 
 ### `confounding`
 - `S011` — [S011 — Sex vs mass disentangling (controlled 2×2 design)](santino/S011_sex_vs_mass_disentangle.md)
@@ -333,6 +338,7 @@ Total entries: **32**
 - `S006` — [S006 — Full 1,280-run Morris sweep + post-sweep analysis](santino/S006_full_morris_sweep.md)
 - `S023` — [S023 — Supplementary ML/SHAP cross-check of the Morris μ* rankings](santino/S023_shap_vs_morris_topk.md)
 - `S032` — [S032 — Does the pulse-pressure clip hold up the SBP → MAP conclusion?](santino/S032_clip_robustness_and_transition_stratification.md)
+- `S034` — [S034 — Do the Morris rankings depend on the clean-pair screen?](santino/S034_morris_screen_sensitivity.md)
 
 ### `no-compute`
 - `S022` — [S022 — No-compute failure-mode diagnostic for the top-3 unstable cells](santino/S022_nss_failure_mode_diagnostic.md)
@@ -371,6 +377,7 @@ Total entries: **32**
 
 ### `post-hoc`
 - `S033` — [S033 — Cycle-resolved check of the 5-second delivered-Vt CV](santino/S033_cycle_resolved_vtcv.md)
+- `S034` — [S034 — Do the Morris rankings depend on the clean-pair screen?](santino/S034_morris_screen_sensitivity.md)
 
 ### `pre-arxiv`
 - `S026` — [S026 — Final pre-arXiv polish](santino/S026_pre_arxiv_polish.md)
@@ -402,6 +409,9 @@ Total entries: **32**
 
 ### `pytest`
 - `S009` — [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md)
+
+### `rank-stability`
+- `S034` — [S034 — Do the Morris rankings depend on the clean-pair screen?](santino/S034_morris_screen_sensitivity.md)
 
 ### `ratio-aware-bootstrap`
 - `S031` — [S031 — Sobol trigger reframe, systemic non-linearity, and the survivorship censoring on delivered Vt](santino/S031_sobol_reframe_and_nonlinearity.md)
@@ -440,12 +450,19 @@ Total entries: **32**
 
 ### `reviewer-response`
 - `S033` — [S033 — Cycle-resolved check of the 5-second delivered-Vt CV](santino/S033_cycle_resolved_vtcv.md)
+- `S034` — [S034 — Do the Morris rankings depend on the clean-pair screen?](santino/S034_morris_screen_sensitivity.md)
 
 ### `robustness`
 - `S032` — [S032 — Does the pulse-pressure clip hold up the SBP → MAP conclusion?](santino/S032_clip_robustness_and_transition_stratification.md)
 
+### `screening`
+- `S034` — [S034 — Do the Morris rankings depend on the clean-pair screen?](santino/S034_morris_screen_sensitivity.md)
+
 ### `seed-stability`
 - `S009` — [S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI](santino/S009_tier2_seed_stability_continuous_ards.md)
+
+### `sensitivity`
+- `S034` — [S034 — Do the Morris rankings depend on the clean-pair screen?](santino/S034_morris_screen_sensitivity.md)
 
 ### `sensitivity-analysis`
 - `S016` — [S016 — Pulse GitLab + literature re-audit (May 2026): version state, V&V infrastructure, and the 2020 sensitivity-analysis study tag](santino/S016_pulse_gitlab_audit_may2026.md)
