@@ -35,8 +35,10 @@ Excluded, in this order:
   3. URLs, DOIs and file paths, including ``name.py:123`` code locations.
   4. Version strings: three-part dotted numbers such as 4.3.1, and ``v``-prefixed
      versions.
-  5. Typesetting lengths: a number immediately followed by pt, cm, mm, em, ex,
-     in, \\textwidth, \\linewidth, \\columnwidth.
+  5. Typesetting lengths: a number with its unit GLUED to it (0.5cm, 2em, 12pt),
+     or a fraction of \\textwidth / \\linewidth / \\columnwidth. A space between
+     number and unit is prose, not a length: "163 cm" is a body height, and
+     "160 in moderate ARDS" is a count. (Corrected 2026-09-13; see RE_LENGTH.)
   6. Source line references: ``line 41``, ``lines 120--128``, ``L41``.
   7. Year-like integers, 1900-2100 inclusive, standing alone.
 
@@ -114,7 +116,19 @@ RE_REF_CMD = re.compile(r"\\(?:" + _REF_CMDS + r")\s*(?:\[[^\]]*\])?(?:\{[^{}]*\
 RE_URL = re.compile(r"(?:https?://|doi:|10\.\d{4,})\S+")
 RE_PATH = re.compile(r"[\w./\\-]+\.(?:py|tex|md|csv|json|parquet|cpp|h|ps1|bib|pdf|docx)(?::\d+)?")
 RE_VERSION = re.compile(r"\bv?\d+\.\d+\.\d+\b")
-RE_LENGTH = re.compile(r"\d+(?:\.\d+)?\s*(?:pt|cm|mm|em|ex|in)\b|\d*\.?\d+\s*\\(?:text|line|column)width")
+# ⚠️ Corrected 2026-09-13 after an ultrareview finding. The first version let
+# whitespace sit between the number and the unit and listed the English word
+# "in" as a unit, so it masked prose: "144 of 160 in moderate", "0.6 in every
+# draw", and body heights "163 cm", "176.2 cm". 110 literals were dropped, some
+# of them from the paper, whose row-by-row audit was therefore run on an
+# incomplete population. A typesetting length is now matched only when the
+# unit is glued to the number, which is how LaTeX writes one (0.5cm, 2em); a
+# number kept by mistake shows up in the residue, a number dropped by mistake
+# never shows up anywhere, so the rule errs towards keeping.
+RE_LENGTH = re.compile(
+    r"(?<![\w.])\d*\.?\d+(?:pt|cm|mm|em|ex|in|bp|pc)\b"
+    r"|\d*\.?\d+\s*\\(?:text|line|column)(?:width|height)"
+)
 RE_LINEREF = re.compile(r"\b(?:lines?|L)\s*\d+(?:\s*(?:--|-|–|,)\s*\d+)*", re.IGNORECASE)
 RE_TEX_COMMENT = re.compile(r"(?<!\\)%.*$", re.MULTILINE)
 # ⚠️ A fence is not automatically code. The monograph renders several published
@@ -127,6 +141,20 @@ RE_MD_FENCE = re.compile(r"```(?P<info>[^\n]*)\n(?P<body>.*?)```", re.DOTALL)
 RAW_BLOCK_INFO = re.compile(r"^\s*\{=")
 
 
+def _blank(s: str) -> str:
+    """Replace every character with a space EXCEPT newlines.
+
+    ⚠️ Corrected 2026-09-13 after an ultrareview finding. Masks used to replace
+    a whole match with spaces, newlines included, so every multi-line mask
+    removed lines from the text and every line number reported after it was
+    wrong -- measured at +36 by line 1577 of the monograph and +58 by line 4591.
+    A line-number column that silently drifts is worse than none: it sends the
+    reader to the wrong sentence. Keeping the newlines keeps both the offsets
+    and the line numbers exact.
+    """
+    return re.sub(r"[^\n]", " ", s)
+
+
 def _mask_code_fence(m: re.Match) -> str:
     """Blank a code fence; keep a raw-format block's body, never its markers.
 
@@ -134,23 +162,32 @@ def _mask_code_fence(m: re.Match) -> str:
     calibration probe caught it: the ``` delimiters would survive, and the
     inline-code rule that runs next pairs backticks left to right, so it would
     span the block and mask the body anyway. The markers are therefore blanked
-    and only the body kept. Lengths are preserved so context offsets stay valid.
+    and only the body kept. Lengths AND newlines are preserved.
     """
     if RAW_BLOCK_INFO.match(m.group("info")):
-        head = " " * (3 + len(m.group("info")) + 1)
+        head = _blank("```" + m.group("info")) + "\n"
         return head + m.group("body") + "   "
-    return " " * len(m.group(0))
+    return _blank(m.group(0))
 RE_MD_CODE = re.compile(r"`[^`]*`")
 RE_MD_LINK = re.compile(r"\]\([^)]*\)")
 
 # A numeric literal: optional sign, digits with LaTeX or plain thousands
 # separators, optional decimal part, optional exponent.
+# ⚠️ The trailing guard used to be a bare (?![\w]), which rejects a number glued
+# to letters -- so "the 95th percentile", "50th-percentile weight" and
+# "5--10x real time" produced NO literal at all. That loss is invisible to the
+# closed recall accounting, because the same pattern counts both the raw and
+# the masked text: a literal this pattern cannot see disappears from both sides
+# and the books still close. Found 2026-09-13 by reading, not by a check. An
+# ordinal suffix (st, nd, rd, th) or a multiplier (x) is now allowed to follow;
+# other glued letters -- hashes like 3b18bdc, CPU models, figure panels like
+# 4a -- are still rejected, and those are not quantities.
 RE_NUMBER = re.compile(
     r"(?<![\w.])"
     r"(\d{1,3}(?:(?:\{,\}|,)\d{3})+(?:\.\d+)?"
     r"|\d+\.\d+(?:[eE][-+]?\d+)?"
     r"|\d+(?:[eE][-+]?\d+)?)"
-    r"(?![\w])"
+    r"(?=(?:st|nd|rd|th|x)\b|[^\w]|$)"
 )
 
 # Rule 8, added 2026-09-13 after inspecting the paper's residue: an
@@ -182,8 +219,8 @@ MASKS = [
 ]
 
 
-def mask_out(text: str, is_tex: bool, literal_cost: dict[str, int] | None = None
-             ) -> tuple[str, dict[str, int]]:
+def mask_out(text: str, is_tex: bool, literal_cost: dict[str, int] | None = None,
+             removed: list[dict] | None = None) -> tuple[str, dict[str, int]]:
     """Blank every excluded construct, keeping offsets stable for context.
 
     `literal_cost`, when supplied, receives how many numeric literals each rule
@@ -197,14 +234,26 @@ def mask_out(text: str, is_tex: bool, literal_cost: dict[str, int] | None = None
     def apply(name: str, rx: re.Pattern, s: str) -> str:
         n = len(rx.findall(s))
         counts[name] = counts.get(name, 0) + n
-        before = len(RE_NUMBER.findall(s))
+        spans_before = {m.start(): m.group(1) for m in RE_NUMBER.finditer(s)}
         repl = _mask_code_fence if name == "md_fence" else (
-            lambda m: " " * len(m.group(0)))
-        s = rx.sub(repl, s)
+            lambda m: _blank(m.group(0)))
+        new = rx.sub(repl, s)
+        spans_after = {m.start() for m in RE_NUMBER.finditer(new)}
+        lost = sorted(set(spans_before) - spans_after)
         if literal_cost is not None:
-            literal_cost[name] = (literal_cost.get(name, 0)
-                                  + before - len(RE_NUMBER.findall(s)))
-        return s
+            literal_cost[name] = literal_cost.get(name, 0) + len(lost)
+        # Which literals, not just how many. Offsets are preserved by _blank, so
+        # a literal is lost exactly when its start offset no longer begins a
+        # number. The context is taken from the text BEFORE this rule ran.
+        if removed is not None:
+            for pos in lost:
+                removed.append({
+                    "rule": name,
+                    "literal": spans_before[pos],
+                    "line": s.count("\n", 0, pos) + 1,
+                    "context": re.sub(r"\s+", " ", s[max(0, pos - 60): pos + 60]).strip(),
+                })
+        return new
 
     if is_tex:
         text = apply("tex_comment", RE_TEX_COMMENT, text)
@@ -269,7 +318,8 @@ def recall_accounting(path: Path) -> dict:
     raw = path.read_text(encoding="utf-8")
     is_tex = path.suffix == ".tex"
     cost: dict[str, int] = {}
-    masked, _ = mask_out(raw, is_tex, literal_cost=cost)
+    removed: list[dict] = []
+    masked, _ = mask_out(raw, is_tex, literal_cost=cost, removed=removed)
     n_raw = len(RE_NUMBER.findall(raw))
     n_masked = len(RE_NUMBER.findall(masked))
     return {
@@ -277,12 +327,27 @@ def recall_accounting(path: Path) -> dict:
         "literals_after_masking": n_masked,
         "removed_by_masks": n_raw - n_masked,
         "literals_removed_per_rule": dict(sorted(cost.items(), key=lambda kv: -kv[1])),
+        "removed_literals": removed,
     }
 
 
+def is_year_like(lit: str, val: float) -> bool:
+    """Rule 7: a bare integer in [1900, 2100] is set aside as year-like.
+
+    A function of its own so the calibration probe calls the rule the
+    inventory actually applies. ⚠️ The first probe did not: it compared two
+    constants (`1900 <= 2026 <= 2100`) and never exercised this path, so it
+    could not fail whatever the extractor did -- an ultrareview finding.
+    """
+    return float(val).is_integer() and YEAR_LO <= val <= YEAR_HI and "." not in lit
+
+
 def extract(path: Path) -> tuple[list[dict], dict[str, int]]:
-    raw = path.read_text(encoding="utf-8")
-    is_tex = path.suffix == ".tex"
+    return extract_text(path.read_text(encoding="utf-8"), path.suffix == ".tex")
+
+
+def extract_text(raw: str, is_tex: bool) -> tuple[list[dict], dict[str, int]]:
+    """The whole extraction on a string, so probes run the real code path."""
     masked, excl = mask_out(raw, is_tex)
     line_starts = [m.start() for m in re.finditer(r"^", masked, re.MULTILINE)]
 
@@ -303,7 +368,7 @@ def extract(path: Path) -> tuple[list[dict], dict[str, int]]:
         val = to_value(lit)
         if val is None:
             continue
-        if float(val).is_integer() and YEAR_LO <= val <= YEAR_HI and "." not in lit:
+        if is_year_like(lit, val):
             n_year += 1
             rows.append({"literal": lit, "value": val, "line": line_of(m.start()),
                          "context": "", "bucket": "year_like"})
@@ -322,6 +387,7 @@ def ledger_values() -> set[float]:
         capture_output=True, text=True, cwd=str(REPO),
     )
     vals: set[float] = set()
+    n_claim_rows = 0
     in_table = False
     for line in proc.stdout.splitlines():
         if line.startswith("## All claims"):
@@ -332,10 +398,31 @@ def ledger_values() -> set[float]:
                 in_table = False
                 continue
             parts = [p.strip() for p in line.split("|")]
-            if len(parts) >= 7:
+            if len(parts) >= 7 and parts[1] not in ("claim_id", "") \
+                    and not parts[1].startswith("---"):
+                n_claim_rows += 1
                 v = to_value(parts[5])
                 if v is not None:
                     vals.add(v)
+
+    # ⚠️ Corrected 2026-09-13 after an ultrareview finding. The return code was
+    # never read, so a crash in audit_claims.py left `vals` empty and every
+    # covered number fell silently into the working list -- with this script
+    # still exiting 0. The exit code alone cannot separate a crash from a
+    # legitimate FAIL (audit_claims exits 1 for both), so the check is on what
+    # was parsed: the claims table must hold exactly as many rows as the
+    # ledger's own "Anchors verified: N / N" line announces.
+    m = re.search(r"\*\*Anchors verified:\*\*\s*\d+\s*/\s*(\d+)", proc.stdout)
+    expected = int(m.group(1)) if m else None
+    if "Traceback (most recent call last)" in proc.stderr or expected is None \
+            or n_claim_rows != expected or not vals:
+        tail = "\n".join(proc.stderr.strip().splitlines()[-5:])
+        raise SystemExit(
+            "ledger parse FAILED -- refusing to classify against an incomplete "
+            f"ledger (parsed {n_claim_rows} claim rows, announced {expected}, "
+            f"{len(vals)} values, audit_claims exit {proc.returncode})"
+            + (f"\n{tail}" if tail else "")
+        )
     return vals
 
 
@@ -360,71 +447,97 @@ def guard_literals() -> set[str]:
     return lits
 
 
-SELF_TEST_KEEP = [
-    ("1{,}280 simulations", "1{,}280"),
-    ("median 0.928", "0.928"),
-    ("21.42 & 22.66", "22.66"),
-    ("98.3~\\% agreement", "98.3"),
-    ("663 of the 1{,}280 runs", "663"),
-]
-# Markdown probes. The first is the rule that cost 301 monograph literals: a
-# pandoc raw-LaTeX block is content and its numbers must survive, while a real
-# code fence is masked.
-SELF_TEST_KEEP_MD = [
-    ("```{=latex}\n\\begin{center} S1 & 160 & 0 \\\\ ```", "160"),
-]
-SELF_TEST_DROP_MD = [
-    ("```python\nthreshold = 4242\n```", "4242"),
-]
-SELF_TEST_DROP = [
-    ("\\affil[5]{\\orgdiv{UR 3450 DevAH}}", "3450"),
-    ("INSERM UMR\\_S 1256, Nutrition", "1256"),
-    ("Claude Opus 4.7 for the drafting", "4.7"),
-    ("OpenAI ChatGPT (GPT-5.6 Sol)", "5.6"),
-    ("Pulse v4.3.1 pinned", "4.3.1"),
-    ("see Table~\\ref{tab:s8-estimands}", "8"),
-    ("\\includegraphics[width=0.9\\textwidth]{figures/fig03.pdf}", "0.9"),
-    ("lines 120--128 of the source", "120"),
-    ("% a comment mentioning 4242", "4242"),
-    ("scripts/detector.py:139", "139"),
-    ("published in 2026", "2026"),
+# Calibration probes. Every probe runs the REAL extraction path, extract_text,
+# and asserts where one literal lands: "kept" (inventoried), "dropped" (never
+# inventoried), "year" (set aside by rule 7), or ("line", N) for the line number
+# it is reported on.
+#
+# ⚠️ Rewritten 2026-09-13 after an ultrareview returned five defects in this
+# instrument. The old probes called `mask_out` directly and tested only
+# precision -- that machinery is not mistaken for a claim. They could not see a
+# claim number dropped by an over-broad mask, a drifting line number, or a year
+# rule that was never exercised (the old "2026" probe compared two constants).
+# Each of those defects now has a probe that reproduces it and must fail if it
+# returns.
+SELF_TEST = [
+    # -- claim numbers that must be inventoried ------------------------------
+    ("tex", "1{,}280 simulations", "1{,}280", "kept"),
+    ("tex", "median 0.928", "0.928", "kept"),
+    ("tex", "21.42 & 22.66", "22.66", "kept"),
+    ("tex", "98.3~\\% agreement", "98.3", "kept"),
+    ("tex", "663 of the 1{,}280 runs", "663", "kept"),
+    # the RE_LENGTH defect: prose "N in <word>" and "N cm" were masked
+    # The literal watched is 160, not 144: the old rule masked the number
+    # IMMEDIATELY before "in". A first version of this probe watched 144 and
+    # passed against the reinjected defect -- a probe that cannot fail.
+    ("tex", "from 144 of 160 in moderate ARDS", "160", "kept"),
+    ("tex", "lower bound clears 0.6 in every draw", "0.6", "kept"),
+    ("md", "the female body is 163 cm tall", "163", "kept"),
+    ("md", "the CDC P50 stature of 176.2 cm", "176.2", "kept"),
+    ("tex", "a count of 2150 runs", "2150", "kept"),
+    # numbers glued to an ordinal or a multiplier were invisible to BOTH sides
+    # of the recall accounting, so the books closed while they were lost
+    ("tex", "placed the 95th percentile at 70~mmHg", "95", "kept"),
+    ("tex", "runs at about 5--10x real time", "10", "kept"),
+    ("md", "exceeding it by 2.4x the budget", "2.4", "kept"),
+    ("md", "commit 3b18bdc08660 produced it", "3", "dropped"),
+    ("tex", "see Figure~4a of the main text", "4", "dropped"),
+    # the fence defect: a pandoc raw-LaTeX block is content
+    ("md", "```{=latex}\n\\begin{center} S1 & 160 & 0 \\\\\n```", "160", "kept"),
+    # -- machinery that must never be inventoried ----------------------------
+    ("md", "```python\nthreshold = 4242\n```", "4242", "dropped"),
+    ("tex", "\\affil[5]{\\orgdiv{UR 3450 DevAH}}", "3450", "dropped"),
+    ("tex", "INSERM UMR\\_S 1256, Nutrition", "1256", "dropped"),
+    ("tex", "Claude Opus 4.7 for the drafting", "4.7", "dropped"),
+    ("tex", "OpenAI ChatGPT (GPT-5.6 Sol)", "5.6", "dropped"),
+    ("tex", "Pulse v4.3.1 pinned", "4.3.1", "dropped"),
+    ("tex", "see Table~\\ref{tab:s8-estimands}", "8", "dropped"),
+    ("tex", "\\includegraphics[width=0.9\\textwidth]{figures/fig03.pdf}", "0.9", "dropped"),
+    ("tex", "\\vspace{0.5cm} then text", "0.5", "dropped"),
+    ("tex", "\\hspace{2em} then text", "2", "dropped"),
+    ("tex", "lines 120--128 of the source", "120", "dropped"),
+    ("tex", "% a comment mentioning 4242", "4242", "dropped"),
+    ("tex", "scripts/detector.py:139", "139", "dropped"),
+    # -- the year rule, through the function the inventory applies -----------
+    ("tex", "published in 2026", "2026", "year"),
+    # -- line numbers after multi-line masks (the newline defect) ------------
+    ("md", "line one\n```python\na = 1\nb = 2\n```\nvalue 777 here", "777", ("line", 6)),
+    ("md", "intro\n```{=latex}\nrow & 5\n```\nafter 888", "888", ("line", 5)),
+    ("tex", "% comment 1\n% comment 2\nnumber 999", "999", ("line", 3)),
 ]
 
 
-def self_test() -> int:
+def self_test() -> tuple[int, int]:
+    """Run every probe through extract_text. Returns (failures, probes)."""
     bad = 0
     print("## Extractor calibration\n")
-    print("| probe | expectation | verdict |")
-    print("|---|---|---|")
-    for text, lit in SELF_TEST_KEEP:
-        masked, _ = mask_out(text, True)
-        ok = lit in [m.group(1) for m in RE_NUMBER.finditer(masked)]
+    print("| probe | expectation | observed | verdict |")
+    print("|---|---|---|---|")
+    for kind, text, lit, expect in SELF_TEST:
+        rows, _ = extract_text(text, is_tex=(kind == "tex"))
+        hits = [r for r in rows if r["literal"] == lit]
+        if expect == "kept":
+            observed = "inventoried" if any(r["bucket"] != "year_like" for r in hits) else "absent"
+            ok = observed == "inventoried"
+        elif expect == "dropped":
+            observed = "absent" if not hits else "inventoried"
+            ok = not hits
+        elif expect == "year":
+            observed = "year_like" if any(r["bucket"] == "year_like" for r in hits) else (
+                "inventoried" if hits else "absent")
+            ok = observed == "year_like"
+        else:
+            want = expect[1]
+            got = hits[0]["line"] if hits else None
+            observed = f"line {got}"
+            ok = got == want
         bad += 0 if ok else 1
-        print(f"| `{text}` | keeps `{lit}` | {'PASS' if ok else '**FAIL**'} |")
-    for text, lit in SELF_TEST_KEEP_MD:
-        masked, _ = mask_out(text, False)
-        ok = lit in [m.group(1) for m in RE_NUMBER.finditer(masked)]
-        bad += 0 if ok else 1
-        print(f"| raw-LaTeX fence (markdown) | keeps `{lit}` | "
+        shown = text.replace("\n", "\\n")
+        exp = expect if isinstance(expect, str) else f"line {expect[1]}"
+        print(f"| `{shown}` ({kind}) | `{lit}` {exp} | {observed} | "
               f"{'PASS' if ok else '**FAIL**'} |")
-    for text, lit in SELF_TEST_DROP_MD:
-        masked, _ = mask_out(text, False)
-        ok = lit not in [m.group(1) for m in RE_NUMBER.finditer(masked)]
-        bad += 0 if ok else 1
-        print(f"| real code fence (markdown) | drops `{lit}` | "
-              f"{'PASS' if ok else '**FAIL**'} |")
-    for text, lit in SELF_TEST_DROP:
-        masked, _ = mask_out(text, True)
-        found = [m.group(1) for m in RE_NUMBER.finditer(masked)]
-        ok = lit not in found
-        if lit == "2026":
-            v = to_value("2026")
-            ok = YEAR_LO <= v <= YEAR_HI
-        bad += 0 if ok else 1
-        print(f"| `{text}` | drops `{lit}` | {'PASS' if ok else '**FAIL**'} |")
-    print(f"\n**Calibration:** {len(SELF_TEST_KEEP) + len(SELF_TEST_DROP) + len(SELF_TEST_KEEP_MD) + len(SELF_TEST_DROP_MD)} probes, "
-          f"{bad} FAIL.\n")
-    return bad
+    print(f"\n**Calibration:** {len(SELF_TEST)} probes, {bad} FAIL.\n")
+    return bad, len(SELF_TEST)
 
 
 def main() -> int:
@@ -432,10 +545,13 @@ def main() -> int:
     ap.add_argument("--self-test", action="store_true", help="run the extractor calibration only")
     args = ap.parse_args()
 
+    # self_test returns (failures, probes). A tuple is always truthy, so the
+    # failure count must be unpacked -- testing the tuple itself would abort
+    # every run, or, written the other way, pass every run.
+    n_fail, n_probes = self_test()
     if args.self_test:
-        return 1 if self_test() else 0
-
-    if self_test():
+        return 1 if n_fail else 0
+    if n_fail:
         print("extractor calibration FAILED -- inventory not produced", file=sys.stderr)
         return 1
 
@@ -444,10 +560,13 @@ def main() -> int:
     guards = guard_literals()
 
     all_rows: list[dict] = []
+    masked_rows: list[dict] = []
     per_doc: dict[str, dict] = {}
     for name, path in ARTEFACTS.items():
         rows, excl = extract(path)
         rec = recall_accounting(path)
+        for r in rec.pop("removed_literals"):
+            masked_rows.append({"artefact": name, **r})
         kept = [r for r in rows if r["bucket"] != "year_like"]
         # The books must close: everything the masks left is either retained or
         # set aside as year-like. A mismatch means a literal vanished.
@@ -497,6 +616,9 @@ def main() -> int:
 
     summary = {
         "population_rule": "see the module docstring; exclusions are counted per artefact",
+        # The register quotes this rather than a hand-written number: its "16
+        # probes" went stale when two were added, an ultrareview finding.
+        "calibration": {"probes": n_probes, "failures": n_fail},
         "coverage_is_by_value_not_by_occurrence": True,
         "ledger_distinct_values": len(led),
         "guard_pinned_literals": len(guards),
@@ -573,6 +695,15 @@ def main() -> int:
                            and r["literal"] == lit)
             residue_rows.append({"artefact": name, "literal": lit, "occurrences": n,
                                  "example_context": example})
+    # Every literal a mask removed, with its rule and context. The per-rule COUNT
+    # was already printed when RE_LENGTH was dropping 110 claim literals; nobody
+    # looked at WHICH ones. This file is what makes that loss readable.
+    with (OUT_DIR / "masked_by_rule.csv").open("w", encoding="utf-8", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=["artefact", "rule", "line", "literal", "context"])
+        w.writeheader()
+        for r in sorted(masked_rows, key=lambda r: (r["artefact"], r["rule"], r["line"])):
+            w.writerow({k: r[k] for k in w.fieldnames})
+
     with (OUT_DIR / "residue_by_literal.csv").open("w", encoding="utf-8", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=["artefact", "literal", "occurrences",
                                            "example_context"])

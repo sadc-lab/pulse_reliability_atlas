@@ -1,9 +1,14 @@
 # Register — exhaustive inventory of the published numbers
 
-**Opened 2026-09-13.** Producer: `scripts/audit_number_inventory.py`
-(calibrated, 16 probes, 0 FAIL). Artefacts: `results/number_audit/inventory.csv`
-and `summary.json`. This file carries the judgement the script cannot: what each
-residual number is, and what it was checked against.
+**Opened 2026-09-13.** Producer: `scripts/audit_number_inventory.py`. Artefacts
+under `results/number_audit/`: `inventory.csv`, `summary.json`,
+`residue_by_literal.csv`, `masked_by_rule.csv`. This file carries the judgement
+the script cannot: what each residual number is, and what it was checked against.
+
+**Calibration** is not written here by hand — read
+`summary.json` → `calibration` (probes and failures). A hand-written "16 probes"
+went stale in this very register when two probes were added, which an
+ultrareview caught.
 
 **Why.** The ledger re-derives the numbers written *into* it. A published number
 that was never registered is verified by nothing, and nothing reports its
@@ -17,8 +22,8 @@ the question stops depending on someone asking.
 
 The exclusion rule is in the producer's docstring and is applied mechanically;
 every exclusion is counted per artefact so the denominator is auditable rather
-than trusted. Nine rules: comments, cross-reference machinery, URLs and file
-paths, three-part versions, typesetting lengths, source line references,
+than trusted. Nine rules: comments and code, cross-reference machinery, URLs and
+file paths, three-part versions, typesetting lengths, source line references,
 year-like integers, organisation identifiers, product versions.
 
 ⚠️ **Rules 8 and 9 were added after the first inventory, not before it.** The
@@ -31,76 +36,123 @@ being waved away one at a time.
 
 | artefact | retained | distinct | guard | ledger | ambiguous small | none | distinct none |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| paper | 514 | 141 | 155 | 15 | 301 | **43** | 31 |
-| supplement | 1820 | 475 | 417 | 26 | 928 | **449** | 213 |
-| monograph | 3242 | 552 | 586 | 21 | 1817 | **818** | 342 |
-| **all** | **5576** | **715** | | | **3046** | **1310** | **427** |
+| paper | 522 | 141 | 159 | 15 | 305 | **43** | 31 |
+| supplement | 1841 | 477 | 419 | 26 | 940 | **456** | 214 |
+| monograph | 3333 | 559 | 606 | 22 | 1859 | **846** | 348 |
+| **all** | **5696** | **721** | | | **3104** | **1345** | **432** |
+
+⚠️ **These buckets are coverage by VALUE, not by occurrence**, and they bound
+risk from below, never from above.
+
+* **`ambiguous_small` is not coverage.** A bare by-value match is meaningless for
+  a small integer: in the first version, 3,764 occurrences landed in `ledger`, of
+  which **3,171 had a value under 100**, median 8. A match now counts only for a
+  distinctive literal (three significant digits, or ≥ 1000); the rest go to
+  `ambiguous_small`. `summary.json` counts them under
+  `not_demonstrably_covered_occurrences` together with `none`, and that is the
+  honest reading.
+* **A guard match was a substring test.** `"8" in guard_string` put 2,561 of the
+  monograph's 2,954 occurrences in `guard`. Matching is now on digit boundaries.
+* **In the other direction**, a number pinned as a Python float rather than a
+  quoted string is invisible to the sieve: `check_input_ranges.py` holds the
+  swept input bounds that way, which is why `0.21` and `110` sit in `none`
+  although they are gated. A `none` row is a candidate, not an accusation.
 
 ### 2.1 Recall is accounted for, not assumed
 
-The calibration probes test **precision** — that machinery is not mistaken for
-a claim. They say nothing about **recall**, and a literal that never enters the
-inventory is the worse failure: it cannot appear in any residue, so it is
-invisible rather than uncovered. The producer therefore closes the books per
-artefact — literals in the raw text = removed by masks + inventoried — and
-reports how many literals **each rule** removes, because a span count cannot
-tell an over-broad rule from a harmless one.
+The first calibration probes tested only **precision** — that machinery is not
+mistaken for a claim. **Recall** is the worse failure: a literal that never
+enters the inventory cannot appear in any residue. The producer closes the
+books per artefact, and since 2026-09-13 also writes **every** removed literal,
+with its rule and context, to `masked_by_rule.csv`.
 
 | artefact | in raw text | removed by masks | inventoried | closes |
 |---|---:|---:|---:|---|
-| paper | 578 | 57 | 521 | yes |
-| supplement | 1940 | 99 | 1841 | yes |
-| monograph | 3725 | 327 | 3398 | yes |
+| paper | 580 | 51 | 529 | yes |
+| supplement | 1948 | 86 | 1862 | yes |
+| monograph | 3745 | 255 | 3490 | yes |
 
-🔴 **That per-rule count found a material defect, and the monograph's figures
-above are its correction.** The fence rule masked every ```` ``` ```` block as
-code. Five of the monograph's nine fenced blocks are not code: they are pandoc
-**raw-LaTeX blocks holding published tables**, among them the per-cell flag
-breakdown (`S1\_M & 160 & 0 & 4 & 11 & 107 & 49`) — the atlas's core
-reliability table. **301 literals were being dropped silently.** Raw blocks are
-now kept.
+Literals removed per rule now: paper — comments 27, typesetting lengths 11
+(all `\textwidth` fractions and `[-0.6em]` spacings, read), product versions 7,
+machinery 4, organisation identifiers 2. Supplement — machinery 54, comments 12,
+versions 7, typesetting lengths 6 (all column widths, read), line references 2
+(`lines 120--128`, read). Monograph — inline code 89, versions 55, link targets
+42, URLs 42, line references 13, product versions 7, code fences 3.
 
-⚠️ And keeping the block was not enough, which the calibration probe caught
-before the rule was believed: leaving the ```` ``` ```` delimiters in place
-lets the inline-code rule pair backticks across the block and mask the body
-anyway. Only the delimiters are blanked.
+⚠️ **Open:** inline code still costs the monograph 89 literals, some of them
+real values rendered in backticks (`[0.879, 0.945]`, `0.02`, `0.425`). To be
+settled when the monograph is worked.
 
-**An earlier version of this register reported the monograph at 2,945 retained
-and 699 residual.** Those were the pre-fix figures and are wrong; the paper and
-supplement rows are unaffected, being LaTeX with no fences.
+### 2.2 Defects found in this instrument, and what each one cost
 
-⚠️ **These buckets are coverage by VALUE, not by occurrence**, and they bound
-risk from below, never from above. Two known distortions, both measured rather
-than suspected:
+Recorded in order, because each was a false negative on risk and several were
+found only by reading, not by any check.
 
-* **A bare by-value match is meaningless for a small integer.** In the first
-  version, 3,764 occurrences landed in `ledger`; **3,171 of them had a value
-  under 100**, median 8. A match now counts only for a distinctive literal
-  (three significant digits, or ≥ 1000); the rest go to `ambiguous_small` so the
-  ambiguity is visible instead of being counted as coverage.
-* **A guard match was a substring test.** `"8" in guard_string` put 2,561 of the
-  monograph's 2,954 occurrences in `guard` — a document the guards barely touch.
-  Matching is now on digit boundaries.
+1. **Fence rule** (commit `56ad746`). Every ```` ``` ```` block was masked as
+   code, but five of the monograph's nine are pandoc raw-LaTeX blocks holding
+   published tables, among them the per-cell flag breakdown
+   (`S1\_M & 160 & 0 & 4 & 11 & 107 & 49`). **301 literals dropped silently.**
+2. **Typesetting-length rule** (ultrareview, 2026-09-13). Whitespace was allowed
+   between number and unit, and the English word "in" was a unit, so prose was
+   masked: "144 of 160 **in** moderate", "0.6 **in** every draw", body heights
+   "163 cm", "176.2 cm". **110 literals dropped, 8 of them from the paper**, whose
+   row-by-row audit had therefore run on an incomplete population. Now only a
+   glued unit (`0.5cm`, `2em`) is a length.
+3. **Newlines erased by masks** (ultrareview). Every multi-line mask removed
+   lines, so line numbers drifted: **+36 by monograph line 1577, +58 by line
+   4591**. Masks now keep newlines.
+4. **Ledger parse unchecked** (ultrareview). A crash in `audit_claims.py` would
+   have emptied the ledger set silently and still exited 0. The parse now
+   requires exactly as many claim rows as "Anchors verified: N / N" announces,
+   and refuses to classify otherwise.
+5. **Tautological year probe** (ultrareview). It compared two constants and never
+   exercised the year rule. Probes now run the real extraction path.
+6. **Numbers glued to an ordinal or a multiplier** (found by reading, same day).
+   "the 95**th** percentile", "50**th**-percentile", "5--10**x** real time"
+   produced no literal at all. ⚠️ **This one was invisible to the closed
+   accounting**, because the same number pattern counts both the raw and the
+   masked text: a literal it cannot see vanishes from both sides and the books
+   still close. Ordinals and `x` are now allowed; hashes (`3b18bdc`), CPU models
+   and figure panels (`4a`) are still rejected.
 
-And one distortion in the opposite direction, stated so a `none` row is read as
-a candidate and not as an accusation: a number pinned as a Python float rather
-than a quoted string is invisible to the sieve. `check_input_ranges.py` holds
-the swept input bounds that way, which is why `0.21` and `110` sit in `none`
-although they are gated.
+**Every fix was calibrated by reinjecting the original defect** and confirming
+its probe fails: 4 failures for rule 2, 1 for rule 3 (a literal reported on line
+3 instead of 6), 1 for rule 5, 3 for rule 6, and an explicit refusal (exit 1) for
+rule 4. Three of those reinjections first **failed to apply** — a `sed` or `perl`
+pattern that matched nothing — and were caught only because the MD5 was checked
+after injection; they were redone with an exact editor. And one probe was itself
+wrong: it watched `144` in "144 of 160 in moderate", but the old rule masked
+`160`, the number right before "in", so the probe could not fail. It now
+watches `160`.
 
-## 3. The paper's residue, audited row by row — 43 occurrences, 31 values
+## 3. The paper's `none` residue, audited row by row — 43 occurrences, 31 values
 
-**No defect found.** Every row falls into one of four classes.
+**No defect found in these 43.** After the corrections above the paper's `none`
+residue is the **same multiset** as before them. The 8 literals the corrections
+recovered — `160` ×4 (L175 ×2, L204, L302, each "… of 160 in …"), `20` (L357),
+`0.6` (L381), and `50` ×2 (L347, "50th-percentile") — all landed in `guard` or
+`ambiguous_small`, not in `none`. The count is 514 → 522 retained, and the list
+was checked against the old pattern's matches rather than recalled: the
+neighbouring `144`, `122` and `42` were already inventoried, and the old
+pattern's one other prose match, at L53, is inside a comment.
+
+⚠️ **What "audited" does and does not cover.** An earlier version of this
+register called the paper **closed**. That overstated it: only the `none` bucket
+was examined row by row. The paper's **305 `ambiguous_small` occurrences** —
+small values whose ledger match may be a coincidence — have **not** been
+verified one by one. The paper is not closed.
+
+Every one of the 43 falls into one of four classes.
 
 **(i) Locked constants, derivable from `src/detector.py` or the preregistration.**
-`0.05` ×4 (the CV threshold, L198/259/280/292), `0.1` and `99.9` (the flatline
-tolerance, L365), `13` (samples in the window, L357), `0.21` and `110` (swept
-bounds, L353, gated by `check_input_ranges.py`), `95` (bootstrap CI level),
-`0.001` (the `p <` reporting convention), `14` (the exponent in $10^{-14}$).
+`0.05` (the CV threshold), `0.1` and `99.9` (the flatline tolerance), `13`
+(samples in the window), `0.21` and `110` (swept bounds, gated by
+`check_input_ranges.py`), `95` (bootstrap CI level), `0.001` (the `p <`
+reporting convention), `14` (the exponent in $10^{-14}$).
 
-⚠️ Note that the `0.05` at L379 is **not** the CV threshold: it is the
-Benjamini–Hochberg level *q*. Same value, different quantity — a reminder in
-one document of why by-value coverage proves nothing.
+⚠️ One of the `0.05` occurrences is **not** the CV threshold: it is the
+Benjamini–Hochberg level *q*. Same value, different quantity — a reminder in one
+document of why by-value coverage proves nothing.
 
 **(ii) Externally sourced.** `12{,}642` and `70` (the cited ventilator-sharing
 study), `71` mL kg⁻¹ (cited clinical estimate), `18` and `163` (CDC P50 body
@@ -110,8 +162,7 @@ dimensions, additionally gated by `check_cdc_weight_provenance`).
 `37`, `84.1`, `13`, `4{,}400` ×2, `8.4`, `86`, `0.879`, `0.945` ×4, `22`, `18`,
 `4.1`, `5.5`, `93`, `0.625`, `0.12`, `3{,}348`.
 
-**(iv) Checked arithmetically in this pass**, because they are cheap to settle
-and a claim that can be checked should be:
+**(iv) Checked arithmetically**, because they are cheap to settle:
 
 | claim | derivation | verdict |
 |---|---|---|
@@ -128,33 +179,20 @@ and a claim that can be checked should be:
 ### 3.1 The one apparent discrepancy, and why the paper is right
 
 Counting `pulse.log` under `data/` gives **3,349**, against the published
-**3,348**. Characterised before being called a defect:
-
-* `data/runs/` holds **exactly 3,348** — the published number.
-* The 3,349th is in `data/clamp_probe/`, a probe directory that `.gitignore`
-  excludes and that is not a sweep run.
-
-**My population was wrong, not the paper's.** The claim says "all 3,348 recorded
-setup logs", and the recorded setup logs are those under `data/runs/`. Recorded
-because this is the fourth over-broad instrument in this work to raise a false
-alarm, and the only reason it did not become a "correction" is that the
-directory breakdown was looked at before the conclusion was drawn.
+**3,348**. `data/runs/` holds exactly 3,348; the 3,349th is in
+`data/clamp_probe/`, a gitignored probe directory that is not a sweep run.
+**My population was wrong, not the paper's.**
 
 ## 4. The supplement's residue — characterised, not cleared
 
-449 occurrences over 213 values, and it is **concentrated**: the ten most
-frequent literals account for 125 of the 449. The frequency table is written by
-the producer to `results/number_audit/residue_by_literal.csv`.
+456 occurrences over 214 values, **concentrated**: the ten most frequent
+literals account for 128 of them (`residue_by_literal.csv`). The bulk belongs to
+families already settled for the paper — the ARDS instability band (`0.945` ×24,
+`0.879` ×10), the swept input bounds (`110` ×16), the CV threshold (`0.05` ×14),
+the bootstrap level (`95` ×17), and the ledger's own head-line count (`394` ×8,
+gated by `check_audit_counters`, invisible to the sieve because it is computed).
 
-The bulk belongs to the same families the paper's audit already settled — the
-ARDS instability band (`0.945` ×24, `0.879` ×10), the swept input bounds
-(`110` ×16, `0.21`, `0.25`, `0.20`, `0.4`), the CV threshold (`0.05` ×14), the
-bootstrap level (`95` ×14), and the ledger's own head-line count (`394` ×8,
-gated by `check_audit_counters`, invisible to the sieve because it is computed
-rather than quoted).
-
-The tail was inspected and classified, and four of its members were settled
-arithmetically in this pass:
+Four tail values settled arithmetically:
 
 | claim | derivation | verdict |
 |---|---|---|
@@ -163,44 +201,34 @@ arithmetically in this pass:
 | sex BV gap `16.8 %` | (4802.63 − 3996.09) / 4802.63 | 16.79 ✓ |
 | DBP clip ceiling `75` mmHg | 0.75 × 100, the pulse-pressure rule | 75 ✓ |
 
-Others identified but not re-derived here: `94` (a Cornish et al. 2023
-denominator, external), `96` (P/F at severity 0.95, from `results/s030_pf_by_arm.csv`),
-`633.3` and `0.737` (design levels from the Morris sample), `686` (mean female
-PaO₂), `6.84` (the host-suspension wall-time gap).
+Identified but not re-derived: `94` (a Cornish et al. 2023 denominator,
+external), `96` (P/F at severity 0.95), `633.3` and `0.737` (Morris design
+levels), `686` (mean female PaO₂), `6.84` (the host-suspension wall-time gap).
 
-⚠️ **This is characterisation, not clearance.** Roughly half the occurrences map
-to a settled family; the rest are identified but unverified. The supplement is
-**not** closed.
+⚠️ **Characterisation, not clearance.** The supplement is **not** closed.
 
 ## 5. What remains
 
-| artefact | residue | status |
-|---|---:|---|
-| paper | 43 occurrences / 31 values | **audited row by row, no defect** |
-| supplement | 449 / 213 | **characterised, four values verified, not cleared** |
-| monograph | 818 / 342 | not worked — and **larger than first reported**, see §2.1 |
+| artefact | `none` residue | `ambiguous_small` | status |
+|---|---:|---:|---|
+| paper | 43 / 31 values | 305 | **`none` audited row by row, no defect**; small values not verified |
+| supplement | 456 / 214 | 940 | characterised, four values verified, not cleared |
+| monograph | 846 / 348 | 1859 | not worked; inline code still costs 89 literals |
 
-⚠️ **A lesson about this register's own numbers.** Three successive hand-rolled
-`grep | cut | uniq` passes over `inventory.csv` each miscounted the supplement's
-residue — 413, then 450, against the true 449 — because the `context` column
-carries commas, so field positions are not what a line-oriented tool assumes.
-The frequency table is now produced by the versioned script. **No count in this
-register may come from an ad-hoc pipeline.**
+⚠️ **No count in this register may come from an ad-hoc pipeline.** Three
+successive `grep | cut | uniq` passes over `inventory.csv` each miscounted the
+supplement's residue, because the `context` column carries commas. Every figure
+above was read from the producer's own output.
 
-The supplement and the monograph are the outstanding work. Two things are worth
-knowing before starting them:
-
-* The monograph is Markdown, so a LaTeX pattern returns zero on it by
-  construction (`1{,}280` against `1,280`). The producer handles this, but any
-  hand search must test both syntaxes.
-* The monograph's residue is the largest and it is the artefact **not** sent to
-  the supervisors, so it is the lowest-urgency column — but it is public, and
-  the rule that three public artefacts are three columns applies.
+Before working the monograph: it is Markdown, so a LaTeX pattern returns zero on
+it by construction (`1{,}280` against `1,280`); any hand search must test both
+syntaxes.
 
 ## 6. What this register does not claim
 
 It does not claim the published numbers are correct. It claims that the
-population is defined, that the instrument is calibrated in both directions,
-that the paper's residue has been examined row by row, and that nothing in that
-residue is a defect. The supplement and monograph residues are listed, not
-cleared.
+population is defined; that the instrument is calibrated in both directions,
+with every known defect reinjected and caught; that the paper's `none` residue
+has been examined row by row; and that nothing in that residue is a defect. The
+paper's small values, and the supplement and monograph residues, are listed,
+not cleared.
