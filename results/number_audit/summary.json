@@ -1,0 +1,90 @@
+{
+  "coverage_is_by_value_not_by_occurrence": true,
+  "guard_pinned_literals": 860,
+  "ledger_distinct_values": 197,
+  "per_artefact": {
+    "monograph": {
+      "buckets": {
+        "ambiguous_small": 1690,
+        "guard": 543,
+        "ledger": 13,
+        "none": 699
+      },
+      "distinct_unbucketed_values": 259,
+      "distinct_values": 457,
+      "excluded": {
+        "file_path": 4,
+        "line_reference": 10,
+        "md_fence": 9,
+        "md_inline_code": 457,
+        "md_link_target": 203,
+        "org_identifier": 2,
+        "product_version": 7,
+        "ref_or_machinery": 4,
+        "typeset_length": 91,
+        "url_or_doi": 35,
+        "version": 71,
+        "year_like": 155
+      },
+      "path": "preprint/manuscript.md",
+      "retained_occurrences": 2945
+    },
+    "paper": {
+      "buckets": {
+        "ambiguous_small": 301,
+        "guard": 155,
+        "ledger": 15,
+        "none": 43
+      },
+      "distinct_unbucketed_values": 31,
+      "distinct_values": 141,
+      "excluded": {
+        "file_path": 3,
+        "line_reference": 0,
+        "org_identifier": 12,
+        "product_version": 7,
+        "ref_or_machinery": 219,
+        "tex_comment": 99,
+        "typeset_length": 17,
+        "url_or_doi": 0,
+        "version": 3,
+        "year_like": 7
+      },
+      "path": "preprint_npj/paper.tex",
+      "retained_occurrences": 514
+    },
+    "supplement": {
+      "buckets": {
+        "ambiguous_small": 928,
+        "guard": 417,
+        "ledger": 26,
+        "none": 449
+      },
+      "distinct_unbucketed_values": 213,
+      "distinct_values": 475,
+      "excluded": {
+        "file_path": 46,
+        "line_reference": 1,
+        "org_identifier": 12,
+        "product_version": 1,
+        "ref_or_machinery": 408,
+        "tex_comment": 120,
+        "typeset_length": 27,
+        "url_or_doi": 0,
+        "version": 20,
+        "year_like": 21
+      },
+      "path": "preprint_npj/supplement.tex",
+      "retained_occurrences": 1820
+    }
+  },
+  "population_rule": "see the module docstring; exclusions are counted per artefact",
+  "totals": {
+    "ambiguous_small_occurrences": 2919,
+    "distinct_values": 638,
+    "not_demonstrably_covered_occurrences": 4110,
+    "retained_occurrences": 5279,
+    "unbucketed_distinct_values": 350,
+    "unbucketed_occurrences": 1191
+  }
+}
