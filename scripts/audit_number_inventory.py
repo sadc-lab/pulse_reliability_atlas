@@ -40,11 +40,14 @@ Excluded, in this order:
      number and unit is prose, not a length: "163 cm" is a body height, and
      "160 in moderate ARDS" is a count. (Corrected 2026-09-13; see RE_LENGTH.)
   6. Source line references: ``line 41``, ``lines 120--128``, ``L41``.
-  7. Year-like integers, 1900-2100 inclusive, standing alone.
+  7. Year-like integers: exactly four bare digits, 1900-2100 inclusive. A
+     thousands-separated count ("2{,}000", "2,000") is NOT a year.
 
-⚠️ Rule 7 is the only lossy one: a genuine quantity that happens to fall in
-[1900, 2100] is dropped with the years. They are therefore written out
-separately, under ``year_like``, so the loss is inspectable instead of silent.
+⚠️ Rule 7 is the only lossy one: a genuine quantity written as four bare digits
+in [1900, 2100] is dropped with the years. Every such row is therefore written
+to ``masked_by_rule.csv`` under rule ``year_like``, with its context, so the
+loss is inspectable instead of silent. (Until 2026-09-13 this paragraph claimed
+that already, while the rows were only counted and written nowhere.)
 
 THE CLASSIFICATION, AND WHAT IT DOES NOT MEAN
 ----------------------------------------------
@@ -338,8 +341,16 @@ def is_year_like(lit: str, val: float) -> bool:
     inventory actually applies. ⚠️ The first probe did not: it compared two
     constants (`1900 <= 2026 <= 2100`) and never exercised this path, so it
     could not fail whatever the extractor did -- an ultrareview finding.
+
+    ⚠️ Corrected again the same day, after a second ultrareview finding: the rule
+    checked the VALUE, so a thousands-separated count such as "2{,}000" or
+    "2,000" -- the bootstrap and permutation sizes in all three artefacts,
+    including paper.tex:379 "2{,}000 relabellings" -- was read as 2000 and
+    discarded as a year. A year is written as four bare digits; nobody writes
+    "2,026". The literal must now be exactly that shape.
     """
-    return float(val).is_integer() and YEAR_LO <= val <= YEAR_HI and "." not in lit
+    return (re.fullmatch(r"\d{4}", lit) is not None
+            and YEAR_LO <= val <= YEAR_HI)
 
 
 def extract(path: Path) -> tuple[list[dict], dict[str, int]]:
@@ -370,8 +381,14 @@ def extract_text(raw: str, is_tex: bool) -> tuple[list[dict], dict[str, int]]:
             continue
         if is_year_like(lit, val):
             n_year += 1
+            # Context is kept: rule 7 is the one lossy rule, and its rows are
+            # written to masked_by_rule.csv so a quantity dropped as a "year"
+            # can be seen. They used to carry an empty context and be written
+            # nowhere, although the docstring promised otherwise.
+            yctx = masked[max(0, m.start() - 70): m.end() + 70].replace("\n", " ")
             rows.append({"literal": lit, "value": val, "line": line_of(m.start()),
-                         "context": "", "bucket": "year_like"})
+                         "context": re.sub(r"\s+", " ", yctx).strip(),
+                         "bucket": "year_like"})
             continue
         ctx = masked[max(0, m.start() - 70): m.end() + 70].replace("\n", " ")
         rows.append({"literal": lit, "value": val, "line": line_of(m.start()),
@@ -418,33 +435,65 @@ def parse_claims_table(stdout: str) -> tuple[set[float], int]:
     return vals, n_claim_rows
 
 
-def ledger_values() -> set[float]:
+def validate_ledger_parse(stdout: str, stderr: str, returncode: int
+                          ) -> tuple[set[float], dict]:
+    """Parse the ledger output and refuse it if the parse is not the ledger.
+
+    ⚠️ Corrected twice on 2026-09-13.
+
+    First, after an ultrareview finding: the return code was never read, so a
+    crash in audit_claims.py left the value set empty and every covered number
+    fell silently into the working list, with this script still exiting 0. The
+    exit code alone cannot separate a crash from a legitimate FAIL (audit_claims
+    exits 1 for both), so the check is on what was parsed.
+
+    Second, after a SECOND ultrareview finding against that fix: it compared the
+    parsed row count with the DENOMINATOR of "Anchors verified: N / M". But
+    audit_claims computes M = N + skipped (audit_claims.py:3857) and its
+    "All claims" table prints only the N claims that ran (line 3905). On a clean
+    public clone, where the gitignored raw S021 trajectories are absent and one
+    anchor is documented as SKIPPED, the headline reads 393 / 394, the table
+    holds 393 rows, and the fix refused to produce any inventory at all -- the
+    exact supported case it should have accepted. The row count is now compared
+    with N. Skipped anchors are not an error, but their values are missing from
+    the ledger set, so their count is returned and written to summary.json
+    rather than hidden: an inventory built with skipped anchors is labelled so.
+    """
+    vals, n_claim_rows = parse_claims_table(stdout)
+    m = re.search(r"\*\*Anchors verified:\*\*\s*(\d+)\s*/\s*(\d+)", stdout)
+    n_run = int(m.group(1)) if m else None
+    n_expected = int(m.group(2)) if m else None
+    if "Traceback (most recent call last)" in stderr or n_run is None \
+            or n_claim_rows != n_run or not vals:
+        tail = "\n".join(stderr.strip().splitlines()[-5:])
+        raise SystemExit(
+            "ledger parse FAILED -- refusing to classify against an incomplete "
+            f"ledger (parsed {n_claim_rows} claim rows, headline {n_run} / "
+            f"{n_expected}, {len(vals)} values, audit_claims exit {returncode})"
+            + (f"\n{tail}" if tail else "")
+        )
+    info = {
+        "anchors_run": n_run,
+        "anchors_expected": n_expected,
+        "anchors_skipped": n_expected - n_run,
+        "claim_rows_parsed": n_claim_rows,
+    }
+    return vals, info
+
+
+def ledger_values() -> tuple[set[float], dict]:
     """Manuscript values the ledger re-derives, read from its own output."""
     proc = subprocess.run(
         [sys.executable, str(REPO / "scripts" / "audit_claims.py")],
         capture_output=True, text=True, cwd=str(REPO),
     )
-    vals, n_claim_rows = parse_claims_table(proc.stdout)
-
-    # ⚠️ Corrected 2026-09-13 after an ultrareview finding. The return code was
-    # never read, so a crash in audit_claims.py left `vals` empty and every
-    # covered number fell silently into the working list -- with this script
-    # still exiting 0. The exit code alone cannot separate a crash from a
-    # legitimate FAIL (audit_claims exits 1 for both), so the check is on what
-    # was parsed: the claims table must hold exactly as many rows as the
-    # ledger's own "Anchors verified: N / N" line announces.
-    m = re.search(r"\*\*Anchors verified:\*\*\s*\d+\s*/\s*(\d+)", proc.stdout)
-    expected = int(m.group(1)) if m else None
-    if "Traceback (most recent call last)" in proc.stderr or expected is None \
-            or n_claim_rows != expected or not vals:
-        tail = "\n".join(proc.stderr.strip().splitlines()[-5:])
-        raise SystemExit(
-            "ledger parse FAILED -- refusing to classify against an incomplete "
-            f"ledger (parsed {n_claim_rows} claim rows, announced {expected}, "
-            f"{len(vals)} values, audit_claims exit {proc.returncode})"
-            + (f"\n{tail}" if tail else "")
-        )
-    return vals
+    vals, info = validate_ledger_parse(proc.stdout, proc.stderr, proc.returncode)
+    if info["anchors_skipped"]:
+        print(f"WARNING: {info['anchors_skipped']} ledger anchor(s) SKIPPED in this "
+              "checkout; their values are absent from the ledger set, so this "
+              "inventory may differ from one built with every anchor running.",
+              file=sys.stderr)
+    return vals, info
 
 
 def guard_literals() -> set[str]:
@@ -521,6 +570,9 @@ SELF_TEST = [
     ("tex", "scripts/detector.py:139", "139", "dropped"),
     # -- the year rule, through the function the inventory applies -----------
     ("tex", "published in 2026", "2026", "year"),
+    # a thousands-separated count is not a year (second ultrareview finding)
+    ("tex", "with 2{,}000 relabellings the smallest tail", "2{,}000", "kept"),
+    ("md", "sub-sampling null (n_null = 2,000 splits)", "2,000", "kept"),
     # -- line numbers after multi-line masks (the newline defect) ------------
     ("md", "line one\n```python\na = 1\nb = 2\n```\nvalue 777 here", "777", ("line", 6)),
     ("md", "intro\n```{=latex}\nrow & 5\n```\nafter 888", "888", ("line", 5)),
@@ -573,7 +625,38 @@ def self_test() -> tuple[int, int]:
     print(f"| ledger table with `|EE|` in a claim text | 2 rows, values {{663, 20.44}} | "
           f"{n_rows} rows, values {sorted(vals)} | {'PASS' if ok else '**FAIL**'} |")
 
-    n = len(SELF_TEST) + 1
+    # The acceptance rule on the ledger headline, three cases. The first is the
+    # one the second ultrareview found refused: a clean clone reports
+    # "Anchors verified: N / M" with M > N because an anchor is SKIPPED, and
+    # the table then holds N rows. It must be accepted, and labelled.
+    def _ledger_case(headline: str, rows: int, stderr: str = "") -> str:
+        body = "".join(f"| T.{i} | PASS | S | text | {600 + i} | {600 + i} |\n"
+                       for i in range(rows))
+        out = ("## All claims\n\n| claim_id | status | section | text | manuscript "
+               "| computed |\n|---|---|---|---|---:|---:|\n" + body
+               + f"\n**Anchors verified:** {headline}\n")
+        try:
+            _, info = validate_ledger_parse(out, stderr, 0)
+            return f"accepted, skipped={info['anchors_skipped']}"
+        except SystemExit:
+            return "refused"
+
+    ledger_cases = [
+        ("clean clone: headline 2 / 3, 2 rows (one anchor skipped)", "2 / 3", 2, "",
+         "accepted, skipped=1"),
+        ("table shorter than the headline's run count: 2 / 2, 1 row", "2 / 2", 1, "",
+         "refused"),
+        ("audit_claims crashed: traceback on stderr", "2 / 2", 2,
+         "Traceback (most recent call last):\n  boom", "refused"),
+    ]
+    for label, headline, rows, err, want in ledger_cases:
+        got = _ledger_case(headline, rows, err)
+        ok = got == want
+        bad += 0 if ok else 1
+        print(f"| ledger headline -- {label} | {want} | {got} | "
+              f"{'PASS' if ok else '**FAIL**'} |")
+
+    n = len(SELF_TEST) + 1 + len(ledger_cases)
     print(f"\n**Calibration:** {n} probes, {bad} FAIL.\n")
     return bad, n
 
@@ -594,7 +677,7 @@ def main() -> int:
         return 1
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    led = ledger_values()
+    led, ledger_info = ledger_values()
     guards = guard_literals()
 
     all_rows: list[dict] = []
@@ -605,6 +688,11 @@ def main() -> int:
         rec = recall_accounting(path)
         for r in rec.pop("removed_literals"):
             masked_rows.append({"artefact": name, **r})
+        for r in rows:
+            if r["bucket"] == "year_like":
+                masked_rows.append({"artefact": name, "rule": "year_like",
+                                    "literal": r["literal"], "line": r["line"],
+                                    "context": r["context"]})
         kept = [r for r in rows if r["bucket"] != "year_like"]
         # The books must close: everything the masks left is either retained or
         # set aside as year-like. A mismatch means a literal vanished.
@@ -659,6 +747,10 @@ def main() -> int:
         "calibration": {"probes": n_probes, "failures": n_fail},
         "coverage_is_by_value_not_by_occurrence": True,
         "ledger_distinct_values": len(led),
+        # Anchors that did not run in this checkout (e.g. a clean clone without
+        # the gitignored raw S021 trajectories). Non-zero means the ledger set is
+        # incomplete and the buckets may differ from a full checkout.
+        "ledger": ledger_info,
         "guard_pinned_literals": len(guards),
         "per_artefact": per_doc,
         "totals": {

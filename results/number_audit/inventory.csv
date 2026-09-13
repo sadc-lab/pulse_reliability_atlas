@@ -1060,6 +1060,7 @@ monograph,1487,97.5,97.5,none,"te the statistic on each resample (1,000 resample
 monograph,1487,95,95.0,none,ere). The 2.5 / 97.5 percentiles of the resampled statistics give a 95 % CI. Used in § to put a CI on σ / μ\* and decide whether ap
 monograph,1501,1,1.0,ambiguous_small,"ute envelope, so the bolt-on is reported rather than executed. * **1-Wasserstein distance.** A distance between two probability *distrib"
 monograph,1506,3.6,3.6,ambiguous_small,eparation; zero means the two distributions are identical. Used in §3.6 to quantify how different male vs female clean-run output distribut
+monograph,1512,"2,000",2000.0,ledger,"ups, then computing the same Wasserstein distance on the split (n = 2,000 splits). The empirical p-value p_emp is the fraction of nulls that"
 monograph,1520,1,1.0,ambiguous_small,nk correlation ρ.** Measures whether two paired rankings agree (ρ = 1: identical ordering; ρ = 0: no monotonic relationship; ρ = −1: reve
 monograph,1520,0,0.0,ambiguous_small,s whether two paired rankings agree (ρ = 1: identical ordering; ρ = 0: no monotonic relationship; ρ = −1: reversed ordering). Used in §3.
 monograph,1521,1,1.0,ambiguous_small,(ρ = 1: identical ordering; ρ = 0: no monotonic relationship; ρ = −1: reversed ordering). Used in §3.6 on the M and F vectors of μ\* val
@@ -1657,6 +1658,7 @@ monograph,2344,1.00,1.0,guard,"rtance rankings are largely preserved across sexe
 monograph,2349,1,1.0,ambiguous_small,ferent question. *How different are the output distributions?* The **1-Wasserstein distance** quantifies the absolute magnitude of the M-vs-
 monograph,2355,1,1.0,ambiguous_small,)** is a rank correlation between the M and F Morris μ\* vectors. ρ = 1 means identical input ordering; ρ = −1 means inverted; intermediate v
 monograph,2356,1,1.0,ambiguous_small,and F Morris μ\* vectors. ρ = 1 means identical input ordering; ρ = −1 means inverted; intermediate values mean partial agreement. Both sta
+monograph,2365,"2,000",2000.0,ledger,"* M+F clean runs randomly into halves of the original sizes (n_null = 2,000 splits). \toprul"
 monograph,2373,5.02,5.02,none,ull p50 & null p95 & p\_emp & Sig.? (BH-FDR) \\ \midrule S1 & HR & 5.02 & 3.91 & 8.56 & 0.305 & \\ S1 & MAP & 0.58 & 1.38 & 2.78 &
 monograph,2373,3.91,3.91,none,& null p95 & p\_emp & Sig.? (BH-FDR) \\ \midrule S1 & HR & 5.02 & 3.91 & 8.56 & 0.305 & \\ S1 & MAP & 0.58 & 1.38 & 2.78 & 0.995 &
 monograph,2373,8.56,8.56,none,95 & p\_emp & Sig.? (BH-FDR) \\ \midrule S1 & HR & 5.02 & 3.91 & 8.56 & 0.305 & \\ S1 & MAP & 0.58 & 1.38 & 2.78 & 0.995 & \\ S1
@@ -1791,6 +1793,7 @@ monograph,2457,5,5.0,ambiguous_small,"he same magnitude §2.6 anchors as ""clini
 monograph,2457,60,60.0,ambiguous_small,"agnitude §2.6 anchors as ""clinically meaningful CO2 change"" (5 mmHg / 60 s drift threshold). The sex separation is therefore *detectable at th"
 monograph,2461,4,4.0,ambiguous_small,t survival-defining under typical ICU monitoring tolerances. *Figure 4 ( ) — at a glance.* **What:** 1-Wasserstein dist
 monograph,2462,1,1.0,ambiguous_small,rances. *Figure 4 ( ) — at a glance.* **What:** 1-Wasserstein distance between male and female clean-run output distrib
+monograph,2467,"2,000",2000.0,ledger,"stance is compared against a permutation-based sub-sampling null (n = 2,000 random splits of the combined M+F clean runs); cells flagged with"
 monograph,2468,95,95.0,none,ts of the combined M+F clean runs); cells flagged with exceed the 95th-percentile of the null. **Key takeaway:** 5 of 24 cells survive BH-
 monograph,2469,5,5.0,ambiguous_small,ed with exceed the 95th-percentile of the null. **Key takeaway:** 5 of 24 cells survive BH-FDR control at q = 0.05 — *all five on gas-exc
 monograph,2469,24,24.0,ambiguous_small,th exceed the 95th-percentile of the null. **Key takeaway:** 5 of 24 cells survive BH-FDR control at q = 0.05 — *all five on gas-exchange
@@ -1800,6 +1803,7 @@ monograph,2470,1,1.0,ambiguous_small,"at q = 0.05 — *all five on gas-exchange 
 monograph,2470,1,1.0,ambiguous_small,"05 — *all five on gas-exchange channels* (PaCO2 × 3, SpO2 × 1, PaO2 × 1). Cardiovascular and Vt distances fall within the permutation-null ba"
 monograph,2474,4,4.0,ambiguous_small,"l within the permutation-null baseline at this sample size. ![Figure 4. H4 — 1-Wasserstein distance, M vs F clean-run outputs, per scenario"
 monograph,2474,1,1.0,ambiguous_small,"the permutation-null baseline at this sample size. ![Figure 4. H4 — 1-Wasserstein distance, M vs F clean-run outputs, per scenario × output"
+monograph,2474,"2,000",2000.0,ledger,"tput's native units. Bars marked exceed the permutation null (n = 2,000 splits) at the 95th percentile; under BH-FDR control at q = 0.05, **5"
 monograph,2474,95,95.0,none,"Bars marked exceed the permutation null (n = 2,000 splits) at the 95th percentile; under BH-FDR control at q = 0.05, **5 of 24** survive —"
 monograph,2474,0.05,0.05,none,"n = 2,000 splits) at the 95th percentile; under BH-FDR control at q = 0.05, **5 of 24** survive — all 5 on gas-exchange channels (PaCO2 × 3, SpO"
 monograph,2474,5,5.0,ambiguous_small,"0 splits) at the 95th percentile; under BH-FDR control at q = 0.05, **5 of 24** survive — all 5 on gas-exchange channels (PaCO2 × 3, SpO2 × 1"
@@ -1854,6 +1858,7 @@ monograph,2510,0.06,0.06,none,"tions). The bootstrap CI on ρ is wide for output
 monograph,2512,0.34,0.34,none,"erved across sex. For the other outputs, the lower CI bound sits at ≥ 0.34 — qualitative support for ""rankings preserved across sex"", though not"
 monograph,2524,5,5.0,ambiguous_small,"physiology, not miscalibration of the female patient model. *Figure 5 ( ) — at a glance.* **What:** Spearman rank"
 monograph,2526,95,95.0,none,"orris μ\* vectors, per scenario × output, with paired-input bootstrap 95 % CI (n = 2,000 input-resamples). **How to read it:** ρ = 1 means ide"
+monograph,2527,"2,000",2000.0,ledger,"tors, per scenario × output, with paired-input bootstrap 95 % CI (n = 2,000 input-resamples). **How to read it:** ρ = 1 means identical input ran"
 monograph,2528,1,1.0,ambiguous_small,"ootstrap 95 % CI (n = 2,000 input-resamples). **How to read it:** ρ = 1 means identical input ranking across sexes; ρ = 0 no monotonic relati"
 monograph,2529,0,0.0,ambiguous_small,w to read it:** ρ = 1 means identical input ranking across sexes; ρ = 0 no monotonic relationship; ρ = −1 inverted. Computed only for S2 and
 monograph,2529,1,1.0,ambiguous_small,cal input ranking across sexes; ρ = 0 no monotonic relationship; ρ = −1 inverted. Computed only for S2 and S3 — S1 and S4_F have no clean FiO
@@ -1863,6 +1868,7 @@ monograph,2534,0.06,0.06,none,"re qualitatively preserved across sexes. Vt is th
 monograph,2534,1.00,1.0,guard,"litatively preserved across sexes. Vt is the exception (S2 CI [−0.06, 1.00]), reflecting that the input ranking driving Vt is not clearly preser"
 monograph,2537,5,5.0,ambiguous_small,"put ranking driving Vt is not clearly preserved across sex. ![Figure 5. H4 — Spearman ρ on Morris μ\* rankings, M vs F, per scenario × outpu"
 monograph,2537,95,95.0,none,"rankings, M vs F, per scenario × output, with paired-input bootstrap 95 % CI (n = 2,000 input-resamples). Computed only for S2 and S3; S1 and"
+monograph,2537,"2,000",2000.0,ledger,"vs F, per scenario × output, with paired-input bootstrap 95 % CI (n = 2,000 input-resamples). Computed only for S2 and S3; S1 and S4_F have no cl"
 monograph,2537,4.5,4.5,ambiguous_small,r S2 and S3; S1 and S4_F have no clean FiO2 elementary-effect pairs (§4.5 limitations). Source: (S006 / S008).
 monograph,2543,20,20.0,ambiguous_small,"difference in clamping, divergence, or Morris μ\* ranking, and the 20 / 0 divergence asymmetry satisfies it on its own. * Beyond that crite"
 monograph,2543,0,0.0,ambiguous_small,"erence in clamping, divergence, or Morris μ\* ranking, and the 20 / 0 divergence asymmetry satisfies it on its own. * Beyond that criterion"
@@ -3811,9 +3817,12 @@ paper,377,18,18.0,none,"mentary-effect pair, so it covers six inputs rather than
 paper,377,2,2.0,ambiguous_small,"nsequently do not share a common denominator across cells. Hypotheses 2, 3 and 4 are resolved in \S . Sex differenc"
 paper,377,3,3.0,ambiguous_small,"quently do not share a common denominator across cells. Hypotheses 2, 3 and 4 are resolved in \S . Sex differences"
 paper,377,4,4.0,ambiguous_small,"y do not share a common denominator across cells. Hypotheses 2, 3 and 4 are resolved in \S . Sex differences in the"
+paper,379,"2{,}000",2000.0,ledger,"female clean-run distributions, tested against a permutation null of 2{,}000 random relabellings at the two original group sizes. The resulting 24"
 paper,379,24,24.0,ambiguous_small,00 random relabellings at the two original group sizes. The resulting 24-test family was corrected by Benjamini--Hochberg control of the false
 paper,379,0.05,0.05,none,"xpected fraction of false positives among the rejected tests) at $q = 0.05$; with 2{,}000 relabellings the smallest non-zero empirical tail prop"
+paper,379,"2{,}000",2000.0,ledger,"tion of false positives among the rejected tests) at $q = 0.05$; with 2{,}000 relabellings the smallest non-zero empirical tail proportion is 1/2{,"
 paper,379,1,1.0,ambiguous_small,",}000 relabellings the smallest non-zero empirical tail proportion is 1/2{,}000, and two tests reaching zero are reported conservatively as $"
+paper,379,"2{,}000",2000.0,ledger,"000 relabellings the smallest non-zero empirical tail proportion is 1/2{,}000, and two tests reaching zero are reported conservatively as $p < 0.00"
 paper,379,0.001,0.001,none,"}000, and two tests reaching zero are reported conservatively as $p < 0.001$. Cross-sex agreement of input-importance rankings was quantified by"
 paper,379,1,1.0,ambiguous_small,"mportance rankings was quantified by the Spearman rank correlation ($+1$ when the two orderings agree, $-1$ when they are reversed) between m"
 paper,379,1,1.0,ambiguous_small,"y the Spearman rank correlation ($+1$ when the two orderings agree, $-1$ when they are reversed) between male and female $\mu^{*}$ vectors pe"
@@ -4295,6 +4304,7 @@ supplement,345,"1{,}000",1000.0,ledger,"ensitivity analysis, and label it as suc
 supplement,345,23,23.0,ambiguous_small,"interval in an uncontrolled direction. Under five independent seeds, 23 of the 144 top-three inputs keep a lower bound at or above 0.6 in eve"
 supplement,345,144,144.0,guard,"in an uncontrolled direction. Under five independent seeds, 23 of the 144 top-three inputs keep a lower bound at or above 0.6 in every draw. Re"
 supplement,345,0.6,0.6,ambiguous_small,"seeds, 23 of the 144 top-three inputs keep a lower bound at or above 0.6 in every draw. Repeating the whole procedure at 2{,}000 and at 4{,}00"
+supplement,345,"2{,}000",2000.0,ledger,"bound at or above 0.6 in every draw. Repeating the whole procedure at 2{,}000 and at 4{,}000 resamples returns the same 23 combinations, and at 500"
 supplement,345,"4{,}000",4000.0,none,"ve 0.6 in every draw. Repeating the whole procedure at 2{,}000 and at 4{,}000 resamples returns the same 23 combinations, and at 500 one combinatio"
 supplement,345,23,23.0,ambiguous_small,"whole procedure at 2{,}000 and at 4{,}000 resamples returns the same 23 combinations, and at 500 one combination is lost, so the stable set d"
 supplement,345,500,500.0,guard,"000 and at 4{,}000 resamples returns the same 23 combinations, and at 500 one combination is lost, so the stable set does not depend on the res"
@@ -4797,8 +4807,11 @@ supplement,576,12,12.0,ambiguous_small,"on Morris $\mu^{*}$ input-importance vec
 supplement,576,0.21,0.21,none,entary-effect pairs: every Morris OAT step that flips FiO$_2$ between 0.21 and 1.0 has at least one endpoint flagged by SpO$_2$-saturation pinni
 supplement,576,1.0,1.0,ambiguous_small,"fect pairs: every Morris OAT step that flips FiO$_2$ between 0.21 and 1.0 has at least one endpoint flagged by SpO$_2$-saturation pinning, tran"
 supplement,576,95,95.0,none,"ull $\rho$ table (Table~ ) with paired-input bootstrap 95~\% confidence intervals from 2{,}000 input-resamples. ["
+supplement,576,"2{,}000",2000.0,ledger,") with paired-input bootstrap 95~\% confidence intervals from 2{,}000 input-resamples. [h] \centering \caption{\textbf{Spearm"
 supplement,580,95,95.0,none,"ven entries per (scenario, output) cell), with paired-input bootstrap 95~\% confidence intervals from 2{,}000 input-resamples.} Computed only"
+supplement,580,"2{,}000",2000.0,ledger,"t) cell), with paired-input bootstrap 95~\% confidence intervals from 2{,}000 input-resamples.} Computed only for S2 and S3; cells in S1 and S4\_F"
 supplement,584,95,95.0,none,"\toprule Scenario & Output & $\rho$ & 95\% CI (paired-input bootstrap, $n = 2{,}000$) \\ \midrule S2 & HR &"
+supplement,584,"2{,}000",2000.0,ledger,"le Scenario & Output & $\rho$ & 95\% CI (paired-input bootstrap, $n = 2{,}000$) \\ \midrule S2 & HR & 0.96 & $[0.70, 1.00]$ \\ S2 & MAP & 1.00"
 supplement,586,0.96,0.96,ambiguous_small,"% CI (paired-input bootstrap, $n = 2{,}000$) \\ \midrule S2 & HR & 0.96 & $[0.70, 1.00]$ \\ S2 & MAP & 1.00 & $[1.00, 1.00]$ \\ S2 & Vt"
 supplement,586,0.70,0.7,ambiguous_small,"red-input bootstrap, $n = 2{,}000$) \\ \midrule S2 & HR & 0.96 & $[0.70, 1.00]$ \\ S2 & MAP & 1.00 & $[1.00, 1.00]$ \\ S2 & Vt & 0.75 &"
 supplement,586,1.00,1.0,guard,"put bootstrap, $n = 2{,}000$) \\ \midrule S2 & HR & 0.96 & $[0.70, 1.00]$ \\ S2 & MAP & 1.00 & $[1.00, 1.00]$ \\ S2 & Vt & 0.75 & $[-0.0"
@@ -4840,6 +4853,7 @@ supplement,603,1.00,1.0,guard,"ttomrule Point estimates fall in the 0.75--1.00 r
 supplement,603,12,12.0,ambiguous_small,"Point estimates fall in the 0.75--1.00 range across the 12 (scenario, output) cells, qualitatively supporting the claim that inp"
 supplement,603,0.06,0.06,none,he Vt output is the conspicuous exception: the S2 lower CI bound at $-0.06$ means the cross-sex agreement on what drives delivered tidal volume
 supplement,608,95,95.0,none,"$\mu^{*}$ vectors per (scenario, output), with paired-input bootstrap 95~\% confidence intervals ($n = 2{,}000$ input-resamples).} Reproduced"
+supplement,608,"2{,}000",2000.0,ledger,"output), with paired-input bootstrap 95~\% confidence intervals ($n = 2{,}000$ input-resamples).} Reproduced verbatim from the companion technical"
 supplement,608,5,5.0,ambiguous_small,.} Reproduced verbatim from the companion technical monograph (Figure~5 of the monograph). Computed only for S2 and S3; S1 and S4\_F are blan
 supplement,608,1,1.0,ambiguous_small,"ary-effect pairs in those cells. Cell-label key (see main paper Table~1 for full definitions): S1 healthy baseline, S2 mild ARDS, S3 moderate"
 supplement,614,300,300.0,guard,"The sweep varies tidal volume in absolute millilitres, over the same 300--800~mL range on both reference bodies. A matched input vector theref"

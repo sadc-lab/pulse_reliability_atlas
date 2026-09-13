@@ -36,10 +36,10 @@ being waved away one at a time.
 
 | artefact | retained | distinct | guard | ledger | ambiguous small | none | distinct none |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| paper | 522 | 141 | 159 | 15 | 305 | **43** | 31 |
-| supplement | 1841 | 477 | 419 | 26 | 940 | **456** | 214 |
-| monograph | 3333 | 559 | 606 | 22 | 1859 | **846** | 348 |
-| **all** | **5696** | **721** | | | **3104** | **1345** | **432** |
+| paper | 525 | 142 | 159 | 18 | 305 | **43** | 31 |
+| supplement | 1846 | 478 | 419 | 31 | 940 | **456** | 214 |
+| monograph | 3339 | 560 | 606 | 28 | 1859 | **846** | 348 |
+| **all** | **5710** | **722** | | | **3104** | **1345** | **432** |
 
 ⚠️ **These buckets are coverage by VALUE, not by occurrence**, and they bound
 risk from below, never from above.
@@ -124,10 +124,50 @@ found only by reading, not by any check.
    the first ledger-only value with a `|` in its text. The value is now read
    from the right of the row.
 
+8. **The ledger check refused the supported clean-clone case** (third
+   ultrareview, run on `review-part3` against `review-part2`). The fix for
+   defect 4 compared the parsed row count with the **denominator** of
+   "Anchors verified: N / M", but audit_claims computes M = N + skipped
+   (`audit_claims.py:3857`) and prints only the N claims that ran
+   (`audit_claims.py:3905`). On a clean public clone — S021 raw trajectories
+   gitignored, one anchor documented as SKIPPED, "393 / 394" — the inventory
+   refused to run at all. It now compares with N, and records the skipped count
+   in `summary.json` → `ledger`. **Measured, not assumed:** the one anchor that
+   skips there, `T1.06u`, has the value 180, which `T1.06p.map_high` also
+   carries, and all 25 occurrences of 180 are in `guard`; a clean-clone
+   inventory would classify identically.
+9. **Thousands-separated counts were discarded as years** (same review,
+   classed pre-existing). The year rule tested the value, so "2{,}000" and
+   "2,000" — bootstrap and permutation sizes in **all three** artefacts, the
+   paper included (L379, "2{,}000 relabellings") — were read as 2000 and
+   dropped. A year is now exactly four bare digits. **And the docstring's promise
+   that dropped years are "written out separately" was false**: they were only
+   counted. They now go to `masked_by_rule.csv` under rule `year_like`, with
+   context. **All 171 rows were read one by one** (paper 4, supplement 16,
+   monograph 151): 168 years or dates (publication years, "2000 CDC Growth
+   Charts", the "1919" Harris–Benedict originals, "Severinghaus 1979",
+   2026-MM-DD audit dates), 2 occurrences of the programme name "France 2030",
+   and 1 page number ("1874-2071", ESH bibliography entry). No quantity is
+   dropped. *(A first version of this paragraph claimed the full reading on the
+   strength of the suspicious values alone; the row-by-row reading was done
+   afterwards, before the commit was pushed.)*
+
 **Every fix was calibrated by reinjecting the original defect** and confirming
 its probe fails: 4 failures for rule 2, 1 for rule 3 (a literal reported on line
 3 instead of 6), 1 for rule 5, 3 for rule 6, 1 for rule 7 (a synthetic table with
-`|EE|` in a claim text), and an explicit refusal (exit 1) for rule 4.
+`|EE|` in a claim text), 1 for rule 8 (a synthetic "2 / 3" headline with two
+rows, refused by the old check), 2 for rule 9, and an explicit refusal (exit 1)
+for rule 4.
+
+**Two review findings deliberately not applied**, both graded nit: running the
+masks twice per artefact, and compiling a regex per literal in `_pinned`.
+Measured: the whole inventory takes 5.3 s, of which 3.2 s is audit_claims
+itself, so both together cost about two seconds. Refactoring an instrument that
+has just been reviewed, to save two seconds, would add unreviewed code for no
+measurable gain.
+
+**The third review was incomplete** — it hit its 29-minute limit after four
+findings. Its silence on the rest of the diff is not a certificate.
 
 ⚠️ **One claim was withdrawn before it shipped.** Rule 7 was first described,
 in the code comment, as having made those anchored numbers "reported as
@@ -146,8 +186,10 @@ watches `160`.
 residue is the **same multiset** as before them. The 8 literals the corrections
 recovered — `160` ×4 (L175 ×2, L204, L302, each "… of 160 in …"), `20` (L357),
 `0.6` (L381), and `50` ×2 (L347, "50th-percentile") — all landed in `guard` or
-`ambiguous_small`, not in `none`. The count is 514 → 522 retained, and the list
-was checked against the old pattern's matches rather than recalled: the
+`ambiguous_small`, not in `none`. The count is 514 → 522 retained. The later
+year-rule fix (defect 9) recovered three more, all `2{,}000` on L379, all in
+`ledger`: 522 → 525, `none` still 43. The list was checked against the old
+pattern's matches rather than recalled: the
 neighbouring `144`, `122` and `42` were already inventoried, and the old
 pattern's one other prose match, at L53, is inside a comment.
 
