@@ -85,8 +85,13 @@ settled when the monograph is worked.
 
 ### 2.2 Defects found in this instrument, and what each one cost
 
-Recorded in order, because each was a false negative on risk and several were
-found only by reading, not by any check.
+Recorded in order, because several were found only by reading, not by any
+check. They are not all of one kind. Four dropped published numbers silently,
+the worst case, since a literal that never enters the inventory cannot appear in
+any residue (1, 2, 6, 9). Two would have emptied part of the ledger set, which
+overstates the residue rather than hiding it (4, 7). One misplaced literals on
+the wrong line (3), one made a probe unable to fail (5), and one refused a
+supported run outright (8).
 
 1. **Fence rule** (commit `56ad746`). Every ```` ``` ```` block was masked as
    code, but five of the monograph's nine are pandoc raw-LaTeX blocks holding
