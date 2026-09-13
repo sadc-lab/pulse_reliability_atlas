@@ -138,7 +138,8 @@ observations are in S1, the scenario whose delivered-volume oscillation is worst
 
 ## Guard
 
-`check_s034_screen_sensitivity()` in `scripts/audit_claims.py`, **23 checks**,
+`check_s034_screen_sensitivity()` in `scripts/audit_claims.py`, **24 checks**
+(23 on 2026-09-12, plus one added the next day with the addendum below),
 in three layers: transcription against both documents; the artefact's own
 arithmetic (the 30 + 18 = 48 split, the 318 → 336 growth being exactly 3 cells
 × 6 outputs, observations = distinct pairs × 6 outputs, and no combination
@@ -179,3 +180,48 @@ found by measurement before execution:
 - The relaxed screen is not the only alternative one could choose. Nothing here
   claims it is the right screen — only that the ranking's rank-1 level survives
   it and the finer ordering does not.
+
+## Addendum 2026-09-13 — un défaut dans ma propre phrase du paper
+
+Trouvé en re-auditant le commit `d46dfdf`, pas par un garde.
+
+The sentence appended to §2.2 ended: *"…the rank-1 input is unchanged wherever
+the candidate set is, while the identity of ranks two and three changes in
+**about a third of them**."*
+
+**The nearest plural antecedent of "them" is "all 48 combinations"**, from the
+same sentence's opening clause. Under that reading the fraction is wrong:
+22 of 48 change, which is **45.8 %**, not a third. The intended antecedent was
+the 30 like-for-like combinations, where 11 of 30 change — **36.7 %**, "about a
+third" ✓. So the sentence was true only under the reading that is *not* the
+grammatically nearest one.
+
+Corrected by naming the denominator and giving the raw count rather than a
+fraction, which is also what this repository's discipline asks for:
+
+> "H1 holds in all 48 combinations under both screens, and on the 30
+> combinations whose candidate set is unchanged too, the rank-1 input is
+> preserved in all 30 while the identity of ranks two and three changes in 11."
+
+⚠️ The supplement's own sentence never had this defect — it names the
+denominator in place ("On the 30 combinations whose candidate set is
+unchanged…"). **The paper sentence was the condensed one, and condensing is
+where the denominator was dropped.**
+
+Two guard rows added (S034 goes 23 → 24 checks): one pins the new wording *and*
+re-derives its three counts from the artefact, the other asserts the vague
+phrasing is absent. Calibrated by reinjecting the exact ambiguity: both rows
+fail, MD5 restored.
+
+### Also checked in the same pass, and clean
+
+- **Exact μ\* ties**: zero, across all 654 (cell, output, screen, input) rows.
+  `top_k_inputs` breaks ties alphabetically, so a tie would have made an "order
+  preserved" verdict arbitrary rather than measured. None fires. The 654 is
+  itself a positive control on the counter: 318 + 336.
+- **`clean` ⊆ `hard-failure-free`**: asserted at run time inside the producer,
+  per cell; zero violations. A pair passing the locked screen that failed the
+  relaxed one would be impossible by definition, and is checked rather than
+  assumed.
+- **The S1 pair-gain split** uses `cell.str.startswith("S1")`, which matches
+  S1_M and S1_F only in this naming scheme.

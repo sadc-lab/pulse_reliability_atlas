@@ -7108,11 +7108,28 @@ def check_s034_screen_sensitivity() -> int:
             and not s["calibration_problems"])
 
     # ---- the paper's two sentences --------------------------------------- #
-    add_row("paper: the pointer and its summary of the result",
-            "`H1 holds in all 48 combinations under both screens and the rank-1 input is "
-            "unchanged wherever the candidate set is` present in paper.tex",
-            ("H1 holds in all 48 combinations under both screens and the rank-1 input is "
-             "unchanged wherever the candidate set is") in paper)
+    # The denominator is named in the sentence on purpose. Its first version
+    # read "changes in about a third of them", whose nearest plural antecedent
+    # is "all 48 combinations" -- a reading under which the fraction is wrong
+    # (22 of 48 is 46 %, not a third). Naming the 30 and giving the raw count
+    # removes the ambiguity instead of relying on the intended reading.
+    _paper_claim = (
+        "H1 holds in all 48 combinations under both screens, and on the 30 combinations "
+        "whose candidate set is unchanged too, the rank-1 input is preserved in all 30 "
+        "while the identity of ranks two and three changes in 11"
+    )
+    add_row("paper: the pointer, its denominator and its raw counts",
+            f"`{_paper_claim[:60]}...` present in paper.tex; artefact: "
+            f"{same['n']} like-for-like, {same['top1_preserved']} rank-1 preserved, "
+            f"{same['n'] - same['top3_set_preserved']} sets changed",
+            _paper_claim in paper
+            and same["n"] == 30
+            and same["top1_preserved"] == 30
+            and same["n"] - same["top3_set_preserved"] == 11)
+    add_row("paper: the vague fraction it replaced is gone",
+            "`changes in about a third of them` correctly absent -- its nearest "
+            "antecedent was the 48, where the true figure is 22 of 48",
+            "changes in about a third of them" not in paper)
     add_row("paper caption: FiO2 is rank-1 for PaO2 and SpO2 in all three white-cell cells",
             "`it is then the rank-1 input for PaO$_2$ and SpO$_2$ in each` present; artefact: "
             + ", ".join(
