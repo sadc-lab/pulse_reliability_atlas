@@ -23,7 +23,12 @@ can be audited rather than trusted.
 Excluded, in this order:
 
   1. Comments. LaTeX ``%`` to end of line (``\\%`` is a literal percent sign and
-     is kept), and fenced or inline code in the Markdown monograph.
+     is kept), and code in the Markdown monograph -- fenced or inline.
+     ⚠️ A pandoc RAW block, ```` ```{=latex} ````, is **content, not code**: the
+     monograph renders several published tables that way, and masking them cost
+     301 literals including the atlas's per-cell flag breakdown. Raw blocks are
+     kept; only their delimiters are blanked, because leaving the backticks in
+     place lets the inline-code rule pair across the block and mask it anyway.
   2. Cross-references and machinery: the arguments of \\label, \\ref, \\eqref,
      \\mainref, \\cite*, \\includegraphics, \\input, \\usepackage,
      \\begin/\\end, \\pageref, \\autoref.
@@ -112,7 +117,29 @@ RE_VERSION = re.compile(r"\bv?\d+\.\d+\.\d+\b")
 RE_LENGTH = re.compile(r"\d+(?:\.\d+)?\s*(?:pt|cm|mm|em|ex|in)\b|\d*\.?\d+\s*\\(?:text|line|column)width")
 RE_LINEREF = re.compile(r"\b(?:lines?|L)\s*\d+(?:\s*(?:--|-|–|,)\s*\d+)*", re.IGNORECASE)
 RE_TEX_COMMENT = re.compile(r"(?<!\\)%.*$", re.MULTILINE)
-RE_MD_FENCE = re.compile(r"```.*?```", re.DOTALL)
+# ⚠️ A fence is not automatically code. The monograph renders several published
+# tables as pandoc RAW blocks, ```{=latex} ... ```, and the first version of
+# this rule masked them wholesale: 301 literals vanished from the monograph's
+# inventory, including the per-cell flag breakdown ("S1\_M & 160 & 0 & 4 & 11 &
+# 107 & 49"), which is the atlas's core reliability table. Only a real code
+# fence is masked; a raw-format block is content and stays.
+RE_MD_FENCE = re.compile(r"```(?P<info>[^\n]*)\n(?P<body>.*?)```", re.DOTALL)
+RAW_BLOCK_INFO = re.compile(r"^\s*\{=")
+
+
+def _mask_code_fence(m: re.Match) -> str:
+    """Blank a code fence; keep a raw-format block's body, never its markers.
+
+    ⚠️ Keeping the whole match for a raw block is not enough, and the
+    calibration probe caught it: the ``` delimiters would survive, and the
+    inline-code rule that runs next pairs backticks left to right, so it would
+    span the block and mask the body anyway. The markers are therefore blanked
+    and only the body kept. Lengths are preserved so context offsets stay valid.
+    """
+    if RAW_BLOCK_INFO.match(m.group("info")):
+        head = " " * (3 + len(m.group("info")) + 1)
+        return head + m.group("body") + "   "
+    return " " * len(m.group(0))
 RE_MD_CODE = re.compile(r"`[^`]*`")
 RE_MD_LINK = re.compile(r"\]\([^)]*\)")
 
@@ -155,23 +182,38 @@ MASKS = [
 ]
 
 
-def mask_out(text: str, is_tex: bool) -> tuple[str, dict[str, int]]:
-    """Blank every excluded construct, keeping offsets stable for context."""
+def mask_out(text: str, is_tex: bool, literal_cost: dict[str, int] | None = None
+             ) -> tuple[str, dict[str, int]]:
+    """Blank every excluded construct, keeping offsets stable for context.
+
+    `literal_cost`, when supplied, receives how many numeric literals each rule
+    removes. ⚠️ That is the number that matters, not the span count: a rule can
+    match hundreds of spans and cost nothing, or match nine and swallow a
+    paragraph of claims. The span count alone cannot tell the two apart, and
+    reading it as if it could is how an over-broad rule stays invisible.
+    """
     counts: dict[str, int] = {}
+
+    def apply(name: str, rx: re.Pattern, s: str) -> str:
+        n = len(rx.findall(s))
+        counts[name] = counts.get(name, 0) + n
+        before = len(RE_NUMBER.findall(s))
+        repl = _mask_code_fence if name == "md_fence" else (
+            lambda m: " " * len(m.group(0)))
+        s = rx.sub(repl, s)
+        if literal_cost is not None:
+            literal_cost[name] = (literal_cost.get(name, 0)
+                                  + before - len(RE_NUMBER.findall(s)))
+        return s
+
     if is_tex:
-        n = len(RE_TEX_COMMENT.findall(text))
-        counts["tex_comment"] = n
-        text = RE_TEX_COMMENT.sub(lambda m: " " * len(m.group(0)), text)
+        text = apply("tex_comment", RE_TEX_COMMENT, text)
     else:
         for name, rx in (("md_fence", RE_MD_FENCE), ("md_inline_code", RE_MD_CODE),
                          ("md_link_target", RE_MD_LINK)):
-            n = len(rx.findall(text))
-            counts[name] = n
-            text = rx.sub(lambda m: " " * len(m.group(0)), text)
+            text = apply(name, rx, text)
     for name, rx in MASKS:
-        n = len(rx.findall(text))
-        counts[name] = counts.get(name, 0) + n
-        text = rx.sub(lambda m: " " * len(m.group(0)), text)
+        text = apply(name, rx, text)
     return text, counts
 
 
@@ -209,6 +251,33 @@ def _pinned(lit: str, guards: set[str]) -> bool:
     """Whether a guard pins this exact literal, matched on digit boundaries."""
     rx = re.compile(r"(?<![\d.])" + re.escape(lit) + r"(?![\d])")
     return any(rx.search(g) for g in guards)
+
+
+def recall_accounting(path: Path) -> dict:
+    """Closed accounting: every literal in the raw text lands somewhere.
+
+    ⚠️ Why this exists. The calibration probes test PRECISION -- that machinery
+    is not mistaken for a claim. They say nothing about RECALL, and a literal
+    that never enters the inventory at all is the dangerous failure: it cannot
+    appear in any residue, so it is invisible rather than uncovered.
+
+    This counts the literals in the raw text, then the literals that survive
+    masking, and requires the difference to equal what the masks removed. If
+    the two sides do not close, a literal is disappearing somewhere the
+    exclusion table does not describe.
+    """
+    raw = path.read_text(encoding="utf-8")
+    is_tex = path.suffix == ".tex"
+    cost: dict[str, int] = {}
+    masked, _ = mask_out(raw, is_tex, literal_cost=cost)
+    n_raw = len(RE_NUMBER.findall(raw))
+    n_masked = len(RE_NUMBER.findall(masked))
+    return {
+        "literals_in_raw_text": n_raw,
+        "literals_after_masking": n_masked,
+        "removed_by_masks": n_raw - n_masked,
+        "literals_removed_per_rule": dict(sorted(cost.items(), key=lambda kv: -kv[1])),
+    }
 
 
 def extract(path: Path) -> tuple[list[dict], dict[str, int]]:
@@ -298,9 +367,18 @@ SELF_TEST_KEEP = [
     ("98.3~\\% agreement", "98.3"),
     ("663 of the 1{,}280 runs", "663"),
 ]
+# Markdown probes. The first is the rule that cost 301 monograph literals: a
+# pandoc raw-LaTeX block is content and its numbers must survive, while a real
+# code fence is masked.
+SELF_TEST_KEEP_MD = [
+    ("```{=latex}\n\\begin{center} S1 & 160 & 0 \\\\ ```", "160"),
+]
+SELF_TEST_DROP_MD = [
+    ("```python\nthreshold = 4242\n```", "4242"),
+]
 SELF_TEST_DROP = [
-    ("\affil[5]{\orgdiv{UR 3450 DevAH}}", "3450"),
-    ("INSERM UMR\_S 1256, Nutrition", "1256"),
+    ("\\affil[5]{\\orgdiv{UR 3450 DevAH}}", "3450"),
+    ("INSERM UMR\\_S 1256, Nutrition", "1256"),
     ("Claude Opus 4.7 for the drafting", "4.7"),
     ("OpenAI ChatGPT (GPT-5.6 Sol)", "5.6"),
     ("Pulse v4.3.1 pinned", "4.3.1"),
@@ -323,6 +401,18 @@ def self_test() -> int:
         ok = lit in [m.group(1) for m in RE_NUMBER.finditer(masked)]
         bad += 0 if ok else 1
         print(f"| `{text}` | keeps `{lit}` | {'PASS' if ok else '**FAIL**'} |")
+    for text, lit in SELF_TEST_KEEP_MD:
+        masked, _ = mask_out(text, False)
+        ok = lit in [m.group(1) for m in RE_NUMBER.finditer(masked)]
+        bad += 0 if ok else 1
+        print(f"| raw-LaTeX fence (markdown) | keeps `{lit}` | "
+              f"{'PASS' if ok else '**FAIL**'} |")
+    for text, lit in SELF_TEST_DROP_MD:
+        masked, _ = mask_out(text, False)
+        ok = lit not in [m.group(1) for m in RE_NUMBER.finditer(masked)]
+        bad += 0 if ok else 1
+        print(f"| real code fence (markdown) | drops `{lit}` | "
+              f"{'PASS' if ok else '**FAIL**'} |")
     for text, lit in SELF_TEST_DROP:
         masked, _ = mask_out(text, True)
         found = [m.group(1) for m in RE_NUMBER.finditer(masked)]
@@ -332,7 +422,7 @@ def self_test() -> int:
             ok = YEAR_LO <= v <= YEAR_HI
         bad += 0 if ok else 1
         print(f"| `{text}` | drops `{lit}` | {'PASS' if ok else '**FAIL**'} |")
-    print(f"\n**Calibration:** {len(SELF_TEST_KEEP) + len(SELF_TEST_DROP)} probes, "
+    print(f"\n**Calibration:** {len(SELF_TEST_KEEP) + len(SELF_TEST_DROP) + len(SELF_TEST_KEEP_MD) + len(SELF_TEST_DROP_MD)} probes, "
           f"{bad} FAIL.\n")
     return bad
 
@@ -357,7 +447,12 @@ def main() -> int:
     per_doc: dict[str, dict] = {}
     for name, path in ARTEFACTS.items():
         rows, excl = extract(path)
+        rec = recall_accounting(path)
         kept = [r for r in rows if r["bucket"] != "year_like"]
+        # The books must close: everything the masks left is either retained or
+        # set aside as year-like. A mismatch means a literal vanished.
+        rec["retained_plus_year_like"] = len(rows)
+        rec["accounting_closes"] = rec["literals_after_masking"] == len(rows)
         for r in kept:
             # ⚠️ Both membership tests below were over-broad in the first
             # version, in the same way and in the dangerous direction. A bare
@@ -380,6 +475,7 @@ def main() -> int:
             "retained_occurrences": len(kept),
             "distinct_values": len({r["value"] for r in kept}),
             "excluded": excl,
+            "recall": rec,
             "buckets": {
                 b: sum(1 for r in kept if r["bucket"] == b)
                 for b in ("ledger", "guard", "ambiguous_small", "none")
@@ -436,6 +532,21 @@ def main() -> int:
     print(f"| **all** | **{t['retained_occurrences']}** | **{t['distinct_values']}** | | | "
           f"**{t['ambiguous_small_occurrences']}** | **{t['unbucketed_occurrences']}** | "
           f"**{t['unbucketed_distinct_values']}** |")
+
+    print("\n## Recall accounting -- every literal must land somewhere\n")
+    print("| artefact | in raw text | removed by masks | after masking | inventoried | closes |")
+    print("|---|---:|---:|---:|---:|---|")
+    for name, d in per_doc.items():
+        r = d["recall"]
+        print(f"| {name} | {r['literals_in_raw_text']} | {r['removed_by_masks']} | "
+              f"{r['literals_after_masking']} | {r['retained_plus_year_like']} | "
+              f"{'yes' if r['accounting_closes'] else '**NO**'} |")
+    print("\nLiterals removed **per rule** -- the span count cannot tell an "
+          "over-broad rule from a harmless one:\n")
+    for name, d in per_doc.items():
+        c = {k: v for k, v in d["recall"]["literals_removed_per_rule"].items() if v}
+        print(f"* **{name}** -- " + (", ".join(f"`{k}` {v}" for k, v in c.items())
+                                     if c else "nothing removed"))
 
     print("\n## Exclusions, per artefact (the denominator is auditable)\n")
     keys = sorted({k for d in per_doc.values() for k in d["excluded"]})

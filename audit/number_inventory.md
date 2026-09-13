@@ -33,8 +33,41 @@ being waved away one at a time.
 |---|---:|---:|---:|---:|---:|---:|---:|
 | paper | 514 | 141 | 155 | 15 | 301 | **43** | 31 |
 | supplement | 1820 | 475 | 417 | 26 | 928 | **449** | 213 |
-| monograph | 2945 | 457 | 543 | 13 | 1690 | **699** | 259 |
-| **all** | **5279** | **638** | | | **2919** | **1191** | **350** |
+| monograph | 3242 | 552 | 586 | 21 | 1817 | **818** | 342 |
+| **all** | **5576** | **715** | | | **3046** | **1310** | **427** |
+
+### 2.1 Recall is accounted for, not assumed
+
+The calibration probes test **precision** — that machinery is not mistaken for
+a claim. They say nothing about **recall**, and a literal that never enters the
+inventory is the worse failure: it cannot appear in any residue, so it is
+invisible rather than uncovered. The producer therefore closes the books per
+artefact — literals in the raw text = removed by masks + inventoried — and
+reports how many literals **each rule** removes, because a span count cannot
+tell an over-broad rule from a harmless one.
+
+| artefact | in raw text | removed by masks | inventoried | closes |
+|---|---:|---:|---:|---|
+| paper | 578 | 57 | 521 | yes |
+| supplement | 1940 | 99 | 1841 | yes |
+| monograph | 3725 | 327 | 3398 | yes |
+
+🔴 **That per-rule count found a material defect, and the monograph's figures
+above are its correction.** The fence rule masked every ```` ``` ```` block as
+code. Five of the monograph's nine fenced blocks are not code: they are pandoc
+**raw-LaTeX blocks holding published tables**, among them the per-cell flag
+breakdown (`S1\_M & 160 & 0 & 4 & 11 & 107 & 49`) — the atlas's core
+reliability table. **301 literals were being dropped silently.** Raw blocks are
+now kept.
+
+⚠️ And keeping the block was not enough, which the calibration probe caught
+before the rule was believed: leaving the ```` ``` ```` delimiters in place
+lets the inline-code rule pair backticks across the block and mask the body
+anyway. Only the delimiters are blanked.
+
+**An earlier version of this register reported the monograph at 2,945 retained
+and 699 residual.** Those were the pre-fix figures and are wrong; the paper and
+supplement rows are unaffected, being LaTeX with no fences.
 
 ⚠️ **These buckets are coverage by VALUE, not by occurrence**, and they bound
 risk from below, never from above. Two known distortions, both measured rather
@@ -145,7 +178,7 @@ to a settled family; the rest are identified but unverified. The supplement is
 |---|---:|---|
 | paper | 43 occurrences / 31 values | **audited row by row, no defect** |
 | supplement | 449 / 213 | **characterised, four values verified, not cleared** |
-| monograph | 699 / 259 | not worked |
+| monograph | 818 / 342 | not worked — and **larger than first reported**, see §2.1 |
 
 ⚠️ **A lesson about this register's own numbers.** Three successive hand-rolled
 `grep | cut | uniq` passes over `inventory.csv` each miscounted the supplement's
