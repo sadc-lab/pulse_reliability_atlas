@@ -282,8 +282,9 @@ following, and the table names which.
 - **(A) Artefact.** A results file read directly this session.
 - **(L) Semantic anchor.** A ledger anchor or guard whose text names the
   **same quantity in the same sentence**, not merely the same value, with the
-  paper literal read to equal it. Anchors compare their own literal with the
-  artefact, so reading the paper is the half that anchors do not do.
+  paper literal read to equal it. A ledger anchor compares its own literal with
+  the artefact. Only some anchors are also tied to the paper's text, through
+  the sync map. For the rest, reading the paper supplies the missing half.
 - **(X) Arithmetic.**
 
 | family | lines | how | detail |
