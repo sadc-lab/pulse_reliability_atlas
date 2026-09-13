@@ -7087,13 +7087,41 @@ def check_s034_screen_sensitivity() -> int:
     seed_path = REPO / "results" / "phase4b_top3_comparison_seed44.csv"
     if seed_path.exists():
         seed = pd.read_csv(seed_path)
-        seed_set = int(seed["same_set"].sum())
-        seed_order = int(seed["same_order"].sum())
-        pin("the seed comparator, read from the S014/phase-4b artefact",
-            "preserves the rank-1 input in 6 of its 6 outputs, the top-three set in 4 "
-            "and its order in 3",
-            float(len(seed)) * 1e8 + seed_set * 1e4 + seed_order,
-            6e8 + 4e4 + 3)
+        # ⚠️ Corrected 2026-09-13 after an ultrareview finding. The first version
+        # pinned `len(seed)` -- the number of ROWS, 6 -- against "preserves the
+        # rank-1 input in 6 of its 6 outputs". That counts outputs, not rank-1
+        # agreements: a regenerated artefact with a moved rank-1 input would have
+        # kept the guard green as long as it kept six rows. It also trusted the
+        # precomputed same_set / same_order columns. All three counts are now
+        # re-derived from the top-three lists themselves, compared one quantity
+        # at a time, and the precomputed columns are checked against them.
+        def _top3(cell: str) -> list[str]:
+            return re.findall(r"'([^']+)'", str(cell))
+
+        canon = seed["canon_top3"].map(_top3)
+        new = seed["new_top3"].map(_top3)
+        n_out = len(seed)
+        rank1 = sum(1 for a, b in zip(canon, new) if a[:1] == b[:1] and a)
+        same_set_re = [set(a) == set(b) for a, b in zip(canon, new)]
+        same_order_re = [a == b for a, b in zip(canon, new)]
+        lit = ("preserves the rank-1 input in 6 of its 6 outputs, the top-three set "
+               "in 4 and its order in 3")
+        found = lit in supp
+        add_row("the seed comparator, read from the phase-4b artefact",
+                f"`{lit}`" + ("" if found else " **not in supp**")
+                + f" -- artefact: rank-1 {rank1} of {n_out}, set {sum(same_set_re)}, "
+                  f"order {sum(same_order_re)}",
+                found and n_out == 6 and rank1 == 6
+                and sum(same_set_re) == 4 and sum(same_order_re) == 3)
+        cols_agree = (
+            [bool(x) for x in seed["same_set"]] == same_set_re
+            and [bool(x) for x in seed["same_order"]] == same_order_re
+            and all(len(a) == 3 and len(b) == 3 for a, b in zip(canon, new))
+        )
+        add_row("the artefact's precomputed same_set / same_order match its own lists",
+                "recomputed from canon_top3 and new_top3, each list of length 3: "
+                + ("agree" if cols_agree else "**disagree**"),
+                cols_agree)
     else:
         add_row("the seed comparator artefact is present",
                 f"`{seed_path.relative_to(REPO).as_posix()}` absent", False)
