@@ -444,7 +444,42 @@ def main() -> int:
     for name, d in per_doc.items():
         print(f"| {name} | " + " | ".join(str(d["excluded"].get(k, 0)) for k in keys) + " |")
 
-    print(f"\nWrote {OUT_DIR.relative_to(REPO)}/inventory.csv and summary.json")
+    # The residue, as a frequency table per artefact. It lives here rather than
+    # in a shell pipeline because three successive hand-rolled `grep | sort |
+    # uniq` passes over the CSV each miscounted it -- by one, then by eight --
+    # the `context` column carries commas and quoted newlines, so field
+    # positions are not what a line-oriented tool assumes.
+    residue_rows: list[dict] = []
+    for name in ARTEFACTS:
+        vals = [r["literal"] for r in all_rows
+                if r["artefact"] == name and r["bucket"] == "none"]
+        freq: dict[str, int] = {}
+        for v in vals:
+            freq[v] = freq.get(v, 0) + 1
+        for lit, n in sorted(freq.items(), key=lambda kv: (-kv[1], kv[0])):
+            example = next(r["context"] for r in all_rows
+                           if r["artefact"] == name and r["bucket"] == "none"
+                           and r["literal"] == lit)
+            residue_rows.append({"artefact": name, "literal": lit, "occurrences": n,
+                                 "example_context": example})
+    with (OUT_DIR / "residue_by_literal.csv").open("w", encoding="utf-8", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=["artefact", "literal", "occurrences",
+                                           "example_context"])
+        w.writeheader()
+        w.writerows(residue_rows)
+
+    print("\n## Residue, top literals per artefact (full table in "
+          "results/number_audit/residue_by_literal.csv)\n")
+    for name in ARTEFACTS:
+        top = [r for r in residue_rows if r["artefact"] == name][:10]
+        tot = sum(r["occurrences"] for r in residue_rows if r["artefact"] == name)
+        shown = sum(r["occurrences"] for r in top)
+        print(f"* **{name}** -- {tot} occurrences; the ten most frequent literals "
+              f"account for {shown} of them: "
+              + ", ".join(f"`{r['literal']}`x{r['occurrences']}" for r in top))
+
+    print(f"\nWrote {OUT_DIR.relative_to(REPO)}/inventory.csv, summary.json and "
+          "residue_by_literal.csv")
     return 0
 
 

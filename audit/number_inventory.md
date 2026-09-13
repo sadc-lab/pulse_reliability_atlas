@@ -107,13 +107,52 @@ because this is the fourth over-broad instrument in this work to raise a false
 alarm, and the only reason it did not become a "correction" is that the
 directory breakdown was looked at before the conclusion was drawn.
 
-## 4. What remains
+## 4. The supplement's residue — characterised, not cleared
+
+449 occurrences over 213 values, and it is **concentrated**: the ten most
+frequent literals account for 125 of the 449. The frequency table is written by
+the producer to `results/number_audit/residue_by_literal.csv`.
+
+The bulk belongs to the same families the paper's audit already settled — the
+ARDS instability band (`0.945` ×24, `0.879` ×10), the swept input bounds
+(`110` ×16, `0.21`, `0.25`, `0.20`, `0.4`), the CV threshold (`0.05` ×14), the
+bootstrap level (`95` ×14), and the ledger's own head-line count (`394` ×8,
+gated by `check_audit_counters`, invisible to the sieve because it is computed
+rather than quoted).
+
+The tail was inspected and classified, and four of its members were settled
+arithmetically in this pass:
+
+| claim | derivation | verdict |
+|---|---|---|
+| BV male `4{,}802.63` mL | 65.6 × 67.3^1.02, Pulse's own allometric relation | 4802.63 ✓ |
+| BV female `3{,}996.09` mL | 65.6 × 56.2^1.02 | 3996.09 ✓ |
+| sex BV gap `16.8 %` | (4802.63 − 3996.09) / 4802.63 | 16.79 ✓ |
+| DBP clip ceiling `75` mmHg | 0.75 × 100, the pulse-pressure rule | 75 ✓ |
+
+Others identified but not re-derived here: `94` (a Cornish et al. 2023
+denominator, external), `96` (P/F at severity 0.95, from `results/s030_pf_by_arm.csv`),
+`633.3` and `0.737` (design levels from the Morris sample), `686` (mean female
+PaO₂), `6.84` (the host-suspension wall-time gap).
+
+⚠️ **This is characterisation, not clearance.** Roughly half the occurrences map
+to a settled family; the rest are identified but unverified. The supplement is
+**not** closed.
+
+## 5. What remains
 
 | artefact | residue | status |
 |---|---:|---|
-| paper | 43 occurrences / 31 values | **audited, no defect** |
-| supplement | 449 / 213 | not yet worked |
-| monograph | 699 / 259 | not yet worked |
+| paper | 43 occurrences / 31 values | **audited row by row, no defect** |
+| supplement | 449 / 213 | **characterised, four values verified, not cleared** |
+| monograph | 699 / 259 | not worked |
+
+⚠️ **A lesson about this register's own numbers.** Three successive hand-rolled
+`grep | cut | uniq` passes over `inventory.csv` each miscounted the supplement's
+residue — 413, then 450, against the true 449 — because the `context` column
+carries commas, so field positions are not what a line-oriented tool assumes.
+The frequency table is now produced by the versioned script. **No count in this
+register may come from an ad-hoc pipeline.**
 
 The supplement and the monograph are the outstanding work. Two things are worth
 knowing before starting them:
@@ -125,7 +164,7 @@ knowing before starting them:
   the supervisors, so it is the lowest-urgency column — but it is public, and
   the rule that three public artefacts are three columns applies.
 
-## 5. What this register does not claim
+## 6. What this register does not claim
 
 It does not claim the published numbers are correct. It claims that the
 population is defined, that the instrument is calibrated in both directions,
