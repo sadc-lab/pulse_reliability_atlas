@@ -380,16 +380,27 @@ def extract_text(raw: str, is_tex: bool) -> tuple[list[dict], dict[str, int]]:
     return rows, excl
 
 
-def ledger_values() -> set[float]:
-    """Manuscript values the ledger re-derives, read from its own output."""
-    proc = subprocess.run(
-        [sys.executable, str(REPO / "scripts" / "audit_claims.py")],
-        capture_output=True, text=True, cwd=str(REPO),
-    )
+def parse_claims_table(stdout: str) -> tuple[set[float], int]:
+    """Manuscript values and claim-row count from audit_claims' "All claims" table.
+
+    ⚠️ Corrected 2026-09-13. The value was read at a fixed position from the
+    left, parts[5]. Seven claim texts contain a literal "|" -- "median |EE|
+    20.44 ..." in the S3.7 stratification table -- which shifts every column to
+    their right, so the parse read "EE" as the value and 20.44, 15.74, 24.94,
+    17.26, 20.32, 16.74 and 3 never entered the ledger set.
+
+    The defect was LATENT, and that was measured, not assumed: every one of
+    those values is also pinned by a guard, so each was already classified
+    `guard` and the residue was identical before and after the fix (1,345
+    either way). It would have bitten on the first value covered by the ledger
+    alone whose claim text holds a "|". The row still ends
+    "| manuscript | computed |", so the value is now read from the RIGHT, where
+    its position does not depend on the free-text column.
+    """
     vals: set[float] = set()
     n_claim_rows = 0
     in_table = False
-    for line in proc.stdout.splitlines():
+    for line in stdout.splitlines():
         if line.startswith("## All claims"):
             in_table = True
             continue
@@ -401,9 +412,19 @@ def ledger_values() -> set[float]:
             if len(parts) >= 7 and parts[1] not in ("claim_id", "") \
                     and not parts[1].startswith("---"):
                 n_claim_rows += 1
-                v = to_value(parts[5])
+                v = to_value(parts[-3])
                 if v is not None:
                     vals.add(v)
+    return vals, n_claim_rows
+
+
+def ledger_values() -> set[float]:
+    """Manuscript values the ledger re-derives, read from its own output."""
+    proc = subprocess.run(
+        [sys.executable, str(REPO / "scripts" / "audit_claims.py")],
+        capture_output=True, text=True, cwd=str(REPO),
+    )
+    vals, n_claim_rows = parse_claims_table(proc.stdout)
 
     # ⚠️ Corrected 2026-09-13 after an ultrareview finding. The return code was
     # never read, so a crash in audit_claims.py left `vals` empty and every
@@ -536,8 +557,25 @@ def self_test() -> tuple[int, int]:
         exp = expect if isinstance(expect, str) else f"line {expect[1]}"
         print(f"| `{shown}` ({kind}) | `{lit}` {exp} | {observed} | "
               f"{'PASS' if ok else '**FAIL**'} |")
-    print(f"\n**Calibration:** {len(SELF_TEST)} probes, {bad} FAIL.\n")
-    return bad, len(SELF_TEST)
+    # The ledger parse, on a synthetic table whose second row carries a "|" in
+    # its free text -- the exact shape that shifted the columns in the real one.
+    table = (
+        "## All claims (sorted)\n\n"
+        "| claim_id | status | section | text | manuscript | computed |\n"
+        "|---|---|---|---|---:|---:|\n"
+        "| T.a | PASS | S1 | plain text | 663 | 663 |\n"
+        "| T.b | PASS | S3.7 | median |EE| 20.44 for steps | 20.44 | 20.44 |\n"
+        "\n**Anchors verified:** 2 / 2\n"
+    )
+    vals, n_rows = parse_claims_table(table)
+    ok = n_rows == 2 and vals == {663.0, 20.44}
+    bad += 0 if ok else 1
+    print(f"| ledger table with `|EE|` in a claim text | 2 rows, values {{663, 20.44}} | "
+          f"{n_rows} rows, values {sorted(vals)} | {'PASS' if ok else '**FAIL**'} |")
+
+    n = len(SELF_TEST) + 1
+    print(f"\n**Calibration:** {n} probes, {bad} FAIL.\n")
+    return bad, n
 
 
 def main() -> int:

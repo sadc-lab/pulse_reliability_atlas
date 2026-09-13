@@ -115,10 +115,25 @@ found only by reading, not by any check.
    still close. Ordinals and `x` are now allowed; hashes (`3b18bdc`), CPU models
    and figure panels (`4a`) are still rejected.
 
+7. **Ledger values read at a fixed column** (found by a column-integrity check,
+   same day). Seven claim texts contain a literal `|` ("median |EE| 20.44 …" in
+   the S3.7 stratification table), which shifted the columns, so 20.44, 15.74,
+   24.94, 17.26, 20.32, 16.74 and 3 never entered the ledger set. **Latent, and
+   measured as such**: every one is also guard-pinned, so each was already in
+   `guard` and the residue was 1,345 before and after. It would have bitten on
+   the first ledger-only value with a `|` in its text. The value is now read
+   from the right of the row.
+
 **Every fix was calibrated by reinjecting the original defect** and confirming
 its probe fails: 4 failures for rule 2, 1 for rule 3 (a literal reported on line
-3 instead of 6), 1 for rule 5, 3 for rule 6, and an explicit refusal (exit 1) for
-rule 4. Three of those reinjections first **failed to apply** — a `sed` or `perl`
+3 instead of 6), 1 for rule 5, 3 for rule 6, 1 for rule 7 (a synthetic table with
+`|EE|` in a claim text), and an explicit refusal (exit 1) for rule 4.
+
+⚠️ **One claim was withdrawn before it shipped.** Rule 7 was first described,
+in the code comment, as having made those anchored numbers "reported as
+uncovered". Checking their buckets in the previous commit showed they never
+were. A defect that is real is not thereby consequential; the comment now says
+latent. Three of those reinjections first **failed to apply** — a `sed` or `perl`
 pattern that matched nothing — and were caught only because the MD5 was checked
 after injection; they were redone with an exact editor. And one probe was itself
 wrong: it watched `144` in "144 of 160 in moderate", but the old rule masked

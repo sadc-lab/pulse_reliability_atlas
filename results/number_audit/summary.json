@@ -1,11 +1,11 @@
 {
   "calibration": {
     "failures": 0,
-    "probes": 33
+    "probes": 34
   },
   "coverage_is_by_value_not_by_occurrence": true,
   "guard_pinned_literals": 866,
-  "ledger_distinct_values": 197,
+  "ledger_distinct_values": 203,
   "per_artefact": {
     "monograph": {
       "buckets": {
