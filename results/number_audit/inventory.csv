@@ -3560,7 +3560,7 @@ paper,257,3,3.0,ambiguous_small,"s account for 0.658--0.998 of the summed $\mu^{
 paper,257,0.928,0.928,guard,"0.658--0.998 of the summed $\mu^{*}$, with a median top-3 fraction of 0.928. The lowest values, from 0.658 to 0.727, all fall in severe-ARDS gas-"
 paper,257,0.658,0.658,guard,"^{*}$, with a median top-3 fraction of 0.928. The lowest values, from 0.658 to 0.727, all fall in severe-ARDS gas-exchange cells, where shunt phy"
 paper,257,0.727,0.727,ledger,"th a median top-3 fraction of 0.928. The lowest values, from 0.658 to 0.727, all fall in severe-ARDS gas-exchange cells, where shunt physiology b"
-paper,259,0.6,0.6,ambiguous_small,"ot proportionality. Applying the preregistered $\sigma / \mu^{*} \geq 0.6$ threshold to each cell's top-three inputs, and retaining only combin"
+paper,259,0.6,0.6,ambiguous_small,"ot proportionality. Applying the preregistered $\sigma / \mu^{*} \geq 0.6$ threshold to each cell's top-three inputs, and retaining only those"
 paper,259,23,23.0,ambiguous_small,"t clear it in every draw under each of five independent seeds, leaves 23 of the 144, spread over 17 of the 48 combinations; all seven inputs a"
 paper,259,144,144.0,guard,"in every draw under each of five independent seeds, leaves 23 of the 144, spread over 17 of the 48 combinations; all seven inputs and all four"
 paper,259,17,17.0,ambiguous_small,"der each of five independent seeds, leaves 23 of the 144, spread over 17 of the 48 combinations; all seven inputs and all four scenarios appea"

@@ -343,7 +343,18 @@ following, and the table names which.
 > **Counts.** The sentence adds two `8` literals, both `ambiguous_small`, so
 > the paper's bucket goes from 305 to 307 and its retained total from 525 to
 > 527. §2 is updated from `summary.json`. The two new rows are the quantity
-> just described. The finding as recorded before the decision follows.
+> just described.
+>
+> **The same paragraph, a second wording, also the author's choice
+> (2026-09-13).** *"retaining only combinations that clear it … leaves 23 of
+> the 144, spread over 17 of the 48 combinations"* used "combinations" for two
+> units in one sentence. It now reads *"retaining only those that clear it"*.
+> "Those" refers to the cell's top-three inputs, the unit the supplement
+> (L345) and the monograph (L1905) already name: "23 of the 144 top-three
+> inputs". No digit changes. `summary.json` is unchanged, and `inventory.csv`
+> differs by one context string.
+>
+> The finding as recorded before the decision follows.
 
 > *"in S1 the delivered-Vt coefficient of variation exceeds the 0.05 threshold
 > on 139 of 320 runs and **no Vt combination is estimable**, against 36 of 320
