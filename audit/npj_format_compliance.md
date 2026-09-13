@@ -329,7 +329,70 @@ section ✓ (`CT` forbids one).
 choice.** It cannot be written without the author asserting it. Nothing
 modified.
 
-### 🟡 N-4 — Six web-page references sit in the numbered reference list.
+### 🟡 N-4 — Web-page references sit in the numbered reference list. **Author decision open.**
+
+> **Update 2026-09-13.** The count "six" and the key list below are stale.
+>
+> **The rule was re-read at source today** (`SG`, scraped 2026-09-13, page
+> identity checked). Its wording is unchanged. The sentence just before it is
+> stricter: *"Only papers that have been published or accepted by a named
+> publication or recognized preprint server should be in the numbered list."*
+> The *Online material* example format (a blog post, a figshare dataset) is
+> also unchanged.
+>
+> **Current state**, from the built `.bbl` files and counted by `\bibitem`:
+>
+> - **Paper:** 3 of 22 entries are web pages. They are `pulsefaq` (the FAQ
+>   statement that motivates the paper, cited at `paper.tex:144` and `:325`),
+>   `pulseinaction` (`:140`, `:321`) and `pulserespmethod` (`:341`).
+> - **Supplement:** 8 of 32 entries are web pages, cited at 15 sites. The
+>   sites per key are `pulseabout` 2, `pulsecardiomethod` 1, `pulsecircuit` 1,
+>   `pulsefaq` 2, `pulsepatientmethod` 2, `pulserespmethod` 3, `pulsesystem` 2,
+>   `pulsevent` 2.
+> - **Positive control:** "Accessed" occurs 3 and 8 times in the two `.bbl`
+>   files, one per web entry.
+>
+> No script depends on these cite keys. `scripts/audit_claims.py` carries the
+> Kitware URLs only inside provenance strings.
+>
+> **Supplementary Information.** `SG` says nothing about references cited in
+> the SI. It does say that SI *"is not edited, typeset or proofed"* and that
+> *"The journal does not edit Supplementary Information files"*. Whether the
+> reference rule is meant to apply there is not stated.
+>
+> **The journal's own practice was measured.**
+>
+> - **Sample.** The first 40 hits, in default order, for the Europe PMC query
+>   `JOURNAL:"NPJ Digit Med" AND PUB_YEAR:2026 AND OPEN_ACCESS:y AND
+>   PUB_TYPE:"research-article"` (480 hits in total), retrieved 2026-09-13.
+>   This is a convenience sample, not a random one.
+> - **Unit.** One numbered reference entry (a JATS `<ref>`). There are 2,371
+>   across the 40 articles, and the parsed row count matches the tag count.
+>   The JATS heading gives the content type "Article" for 20 papers and is
+>   absent for the other 20.
+> - **Result.** An entry whose citation string has an `http(s)://` or `www.`
+>   URL other than `doi.org` occurs 161 times, in 23 of the 40 articles. Among
+>   the 20 confirmed Articles, 8 carry such an entry once arXiv links are
+>   excluded:
+>   - 4 carry plain web pages: PMC13282478 (FDA web pages, formatted *"Accessed
+>     May 6, 2025"*), PMC13332067 (model cards on llama.com and Hugging
+>     Face), PMC13338390 (a GitHub repository and two blog posts), and
+>     PMC13493897 (OpenAI blog posts, and web pages of a charity, WHO and the
+>     FDA);
+>   - the other 4 are an OpenReview, a ResearchGate or a workshop link, and a
+>     clinical guideline.
+> - **Checked on nature.com**, not only on the mirror. Article
+>   `10.1038/s41746-026-02692-5` is labelled "Article", published 17 June 2026,
+>   and its reference 1 reads *"US Food and Drug Administration. FDA Launches
+>   the Digital Health Center of Excellence. FDA. September 22, 2020. Accessed
+>   May 6, 2025."* with the URL.
+>
+> **What this does and does not show.** Web-page references do reach print in
+> npj Digital Medicine Articles, in our own format. It does not show whether
+> editors asked other authors to remove theirs, or whether the technical check
+> at submission looks for them. That part is not known.
+>
+> The finding as originally recorded on 2026-07-29 follows.
 
 > "URLs for web sites should be cited parenthetically in the text, not in the
 > reference list; articles in formal, peer-reviewed online journals should be
