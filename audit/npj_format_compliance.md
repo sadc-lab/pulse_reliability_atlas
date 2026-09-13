@@ -290,7 +290,24 @@ tokens after expansion: none). Both land on the same reading text.
 > **Author decision, reopened.** The abstract has zero margin. Any future edit
 > that adds a word puts it over on both readings.
 
-### 🟠 N-3 — The funder's role is not declared.
+### 🟢 N-3 — The funder's role is not declared. **Fixed in `91d705d` (2026-08-02).**
+
+> **Resolution, recorded 2026-09-13.** `paper.tex:412` now ends the
+> acknowledgements with *"The funders played no role in study design, data
+> collection, analysis and interpretation of data, or the writing of this
+> manuscript."* This is npj's sentence, verbatim except for the plural. It was
+> added in `91d705d`, whose message records that the author confirmed the
+> institutions held no review right. It sits after all four funders.
+>
+> One later change. `bc34f0b` (2026-09-07) thanks the BIOSE Doctoral School of
+> the Université de Lorraine "for its support", placed between the Région
+> Grand Est and CHU Sainte-Justine sentences, so still before the no-role
+> sentence. The text does not call BIOSE a funder. The author's confirmation
+> predates this addition, so whether the no-role sentence also covers BIOSE was
+> not asked. Only the author can say.
+>
+> The finding as originally recorded on 2026-07-29 follows. Its line
+> reference `paper.tex:372` is stale.
 
 > "The role of the funding body in the design of the study and collection,
 > analysis, and interpretation of data and in writing the manuscript should
