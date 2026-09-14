@@ -84,9 +84,11 @@ versions 1; machinery was 54 until the F-S8 correction removed
 `\mainref{sec:results-vcac}{2.3}`. Monograph — inline code 89, versions 55, link targets
 42, URLs 42, line references 13, product versions 7, code fences 3.
 
-⚠️ **Open:** inline code still costs the monograph 89 literals, some of them
-real values rendered in backticks (`[0.879, 0.946]` since the F-S5 correction, `0.02`, `0.425`). To be
-settled when the monograph is worked.
+✅ **Settled 2026-09-14, on the author's decision:** inline code cost the
+monograph 89 literals, some of them real values rendered in backticks
+(`[0.879, 0.946]` since the F-S5 correction, `0.02`, `0.425`). The instrument is
+unchanged; the 89 were read apart, from `masked_by_rule.csv`, as a third
+population (§5).
 
 ### 2.2 Defects found in this instrument, and what each one cost
 
@@ -939,24 +941,369 @@ script that aborts unless each target occurs exactly once.
 
 **Not covered.** The supplement's by-value `guard` / `ledger` occurrences.
 
-## 5. What remains
+## 5. The monograph's residue, read row by row — 803 + 1,864 occurrences and 89 inline-code literals (2026-09-14)
+
+**Populations.** `inventory.csv`, `artefact = monograph`:
+- `none`: 803 rows over 537 source lines;
+- `ambiguous_small`: 1,864 rows over 1,086 lines;
+- inline code: the 89 literals that `masked_by_rule.csv` removes under
+  `md_inline_code`, read apart on the author's decision (§2.1).
+
+`manuscript.md` is unchanged since `828ef84`. The inventory was re-run before
+counting and produced no diff. Every row was read with its context. Hand
+searches tested both `1,280` and `1{,}280`, since the monograph is Markdown.
+
+**Line coverage is mechanical.** A read-only scratchpad script attributes every
+row to exactly one `##` / `###` section, rows before the first heading going to
+the front matter. The per-section totals add back to the population: 803 rows
+over 53 sections, 1,864 over 56.
+
+| part of the monograph | lines holding rows | `none` | `ambiguous_small` |
+|---|---|---:|---:|
+| front matter, abstract, key findings, roadmap, contributions, notation | 3–419 | 47 | 245 |
+| §1 introduction | 426–674 | 28 | 59 |
+| §2 methods | 678–1550 | 161 | 313 |
+| §3 results | 1555–3030 | 288 | 649 |
+| §4 discussion | 3039–3618 | 65 | 190 |
+| §5–§9 conclusion, data, acknowledgements, AI, references | 3623–4221 | 133 | 228 |
+| appendices A–C | 4239–4656 | 81 | 180 |
+| **total** | | **803** | **1,864** |
+
+**Quantities against non-quantities: not counted, and why.** In §3.2 and §4.2
+the non-quantities were counted by hand, as a multiset. Here a rule-based first
+pass split them: 192 non-quantities in `none`, 513 in `ambiguous_small`. A
+precision pass then printed every row the rules had called a non-quantity. The
+rules were wrong in both directions:
+- all 7 `none` rows filed as list numbers are quantities that end a sentence
+  ("… below 0.05. Use", "… as 3.397. The");
+- "95th percentile" and "CDC 50th-percentile" were filed as editions;
+- "5 · 0.05 / 24" and "5 of 24 cells" were filed as journal issue numbers.
+
+The quantity side was not re-read for the opposite error. So no split is
+reported. What this section claims rests on every row having been read, not on
+a count of quantities.
+
+The non-quantities met are:
+- heading and section numbers;
+- bibliographic volume, issue, page, PMID, ISBN, chapter and edition numbers;
+- dates;
+- author and affiliation markers;
+- F-003 / F-004;
+- figure, table, Paper, Tier, Phase, quadrant and item numbers, and list
+  numbers;
+- names: Apache-2.0, CC-BY-4.0, PALICC-2, COVID-19, Sepsis-3, IEEE-754,
+  ASL 5000, ANR-23-IACL-0004, Gemini Pro 3.1, 1-Wasserstein, 2-D;
+- notation: R², powers of ten, "0-dimensional".
+
+They were checked anyway, because a wrong pointer or date misleads just as a
+wrong number does:
+- **Section pointers.** All 180 internal `§` and "Appendix" pointers were
+  listed, each with the words announcing it and the heading it lands on. All
+  resolve, and each was read against its target. **Four are wrong: MF-16,
+  MF-17.**
+  - The pointers into other documents hold. Paper §2.1 carries the FiO₂ 0.9996
+    cap (`paper.tex:173`). Paper Methods §4.5 carries the post hoc traffic-light
+    declaration (`paper.tex:373`). Supplement §S3.3 carries the same cap
+    (`supplement.tex:288`).
+  - The supplement pointers §S3.4, §S3.7, §S3.11, §S3.12, §S12 and §S13 land on
+    the sections they name.
+  - Two further pointers are wrong: **MF-19** and **O-11**.
+- **"Cited in §X" in the reference entries.** Each claim was checked by locating
+  the key's `[@key]` occurrences by section. Control: `figueroacasas2016`, found
+  in monograph §3.8 and §4.1. The nine keyed claims hold. The SA-tag entry has no key and
+  was read against §1.1 L495–496.
+- **Reference metadata.** All 34 entries' volume, issue, page, PMID, ISBN and
+  year tokens are present in both `references.bib` and `paper.bib`. The
+  comparison script caught two errors injected as a positive control (179,
+  22797453). **O-6** records what a token comparison cannot see.
+- **Dates.**
+  - The Pulse clone gives the `STUDY_SENSITIVITY_ANALYSIS_1_0_0` tag as
+    2020-07-20 and its last functional commit, `4fafaf715`, as 2020-08-24.
+  - The arXiv v4 page says "revised 2 Nov 2023".
+  - `REL_4_3_2` is dated 2025-08-12 (§4.2).
+  - The AI-tool dates in monograph §7 and §8 are the author's record and were
+    **not** verified.
+- **Other numbered pointers.**
+  - "preregistration.md §Analysis plan item 7" is preregistration L205 (§4.2).
+  - "Validation Tables 3 / 5 / 10 / 12 / 17 / 19" are the VC-AC and PC-AC tables
+    of Pulse's ventilator page.
+  - "Cornish Appendix Tables 4 and 5" hold in arXiv v4, arXiv v5 and the JMLR
+    version.
+  - "entry 6" is the numbered reference list's Webb 2022.
+  - "items 1–6" are the six recommendations of monograph §4.7.
+
+**Sources, by part.** Codes as in §4.1: S source, A artefact, L ledger or guard,
+X arithmetic, P companion or secondary record. The table names what was opened
+in this pass. A quantity not named here repeats one verified in §3.2, §4.1 or
+§4.2, or a guard / ledger value.
+
+| part | how | opened this pass |
+|---|---|---|
+| front matter to notation | A + L + X + S | `sobol_ci_buckets.csv`, dominant input (rank 1): 40 of 48 point estimates below 0.6, 31 CI-robustly linear, 1 CI-robustly non-linear, 5 without a CI (**MF-3**). S014 `paired_comparison.parquet`: median CV 0.35087 → 0.01563, a 95.5 % reduction printed as "96 %"; 78.1 % of locked reruns below 0.05. S021 `plateau_stats.parquet`: the three converged runaways plateau at 1,408.1 / 1,408.1 / 1,402.5 mmHg. 37 / 44 = 84.1 %. FiO₂ = 1.0 in 13 of 20 divergences against a 208 / 1,280 base rate, 4.0 times. HR 50, SBP 90 and RR 20 hold in 32 runs, and all 16 male ones diverged. 4,082.24 − 3,996.09 = 86 mL. S023 mean overlap 2.3958. Webb 2020 340 / 130 / 50 mmHg (PMC7688119, full text re-read). L6 1.35 is `\arraystretch`. **O-8** |
+| §1 introduction | S + A + L | Pulse ventilator tables as re-scraped in §4.1: 0.07–2.25 % and 11.3–25.3 %, engine against expected 935.217 / 1,047, 409.439 / 528 and 490.087 / 571 mL. Companion log L870, L1025, L1558: PC-AC 594.5 mL (+24.0 %) and 635.3 mL (+58.9 %) against VC-AC **(P)**. Age 18 and HR 110 (§4.1); S005 22-run pilot, five gates; 394 / 394 and 393 / 394 (head-line guard); §1.4 table, 24 rows (**O-9**); the §1.2 pointers (**MF-16**) |
+| §2 methods | S + A + L + X | Input ranges 0.21 and 110 (preregistration; `check_input_ranges.py`, §2). The S032 clip values and the stratified table, as in supplement S3.7 (§4.1, `T5.clip.*`, `T5.strat.*`). S034 318 / 318 (guard). Median −10.4 % in 8 of 8 cells: `T5.robust.mu_drop_median_pct`, and all eight `delta_pct` in `results/s032/sbp_map_dominance.csv` are negative, median (−10.80 − 10.01) / 2. 202 = 220 − 18. SpO₂ 0.40 ↔ PaO₂ 22.98. `FLOAT_EPS` 1e-9. Phase 4a `sha_compare.json`: 1,260 `BIT_EXACT`, 20 `BOTH_DIVERGED` with exit code 1 on both sides, 0 in the four other counters (**O-10**). Phase 4b seed 44: 1 h 34 m 14 s; 7 divergences, all HR 50 and SBP 90 (**MF-9**). S015 40 / 40 = 38 bit-exact + 2 diverged. S006 went from 3 to 2 workers mid-sweep. Hardware queried read-only (**MF-4**). **MF-5, MF-7, MF-15** |
+| §3 results | A + L + X + S | Table 1 = `cell_flag_summary.csv`. `morris_indices.parquet`: HR←HR μ* 55.3–55.8, rising to 94.0 / 95.1; MAP←SBP 17.2–20.2; SpO₂ maximum 0.1247; PaO₂←FiO₂ S2 133.1 / 146.7, S3 84.5 / 93.2, S4_M 30.7; Vt←Vt 488.6–503.1; top-three summed μ* via `src.analysis_morris`. σ / μ*: 0.0037 / 0.0068; 0.028 / 0.023 (σ = 0.02348); ratios 0.637–0.942, 0.873, 0.655. Divergence input pattern (`aggregated.parquet`). The 24-row Wasserstein table (`wasserstein_male_vs_female.csv`, half-up rounding). Clean HR means in S3 / S4 146.5–157.9 against 76.08. Greens S2_F ×4 + S3_F ×3; 471 + 20 + 126 = 617. "Nine of the sixteen" = 4 ties at 1 dp + 5 at 2 dp (rationale of `baad15f`). S012: Vt 17 / 195 = 8.72 %, median 0.087; PaO₂ 38 / 195 = 19.49 %, median 4.31, p95 40.18; 93.3 % positive slope; intersection 33. S014: median delta +0.326, 8.1 times 0.04; the 64 pairs are the top 64 by Vt CV. 303 − 264 = 39. S018 S4_M clean at both BV levels. **MF-2, MF-12, O-1, O-2, O-4, O-7**; prose-sweep #38 at L2316 |
+| §4 discussion | S + A + P | Cornish Table 2 against arXiv v4 Tables 4–5: 80 / 85 and 240 / 281 on the seven non-cardiorespiratory channels. Companion E4: 74 runs, elasticity 1.32 → 0.26. S012 arm drift rates (**MF-11**). **MF-18, MF-19** |
+| §5–§9 | A + S | tree and file sizes (**MF-13, O-5**); the 34 reference entries against both `.bib` (see above); Pulse validation tables; **O-6** |
+| appendices | S + A + P + X | Pulse clone at `REL_4_3_2`: `SetupPatient.cpp:771` 13.397 and `:752` 0.425; ν = 4 × `ResponseSlope` 12 = 48 (`NervousModel.cpp:320`, `PulseConfiguration.cpp:596`); BMI below 16 or above 30 is an Error; heights 163–190. Pulse web methodology: BMR "3.397", exponent 0.45, "ν to 4". Pulse scenarios 0.3 → 0.6 → 0.9, 0.6 and 0.8. Companion March sweep 9 + 11 + 8 = 28. FiO₂ probe, 9 runs, ≈ 7.8 mmHg per 0.01. 0.756 = 68 / 90. CDC `statage.csv` (**MF-6**). Appendix C table = `nss_decomposition.csv` (**MF-1, MF-14**). **O-3** |
+
+**The 89 inline-code literals.** 21 are not quantities: `kitware/pulse:4.3.1`
+×4, seven `file:line` references and ten `claude-opus-*` tokens. The 68
+quantities all hold, apart from one stale pointer:
+- `heightStandardMale_cm = 177.0` (`SetupPatient.cpp` L72) and
+  `heightStandardFemale_cm = 163.0` (L75);
+- `exit_code = 1`;
+- the Morris calls, seeds, trajectories and levels (`sampler.py` L99–101; S009
+  seed 43 with 10 trajectories; Phase 4b seed 44);
+- `CV_THRESHOLD = 0.05`, `ddof=0`, the window 60–120 s, `std/|mean| < 0.01`,
+  `0.02`;
+- the FiO₂ messages 1.0 and 0.9996;
+- `65.6 × weight^1.02` (`computedBloodVolume_mL`, `SetupPatient.cpp:534`);
+- `[0.879, 0.946]` (guard), `[0.91, 0.945]` and `[0.91, 0.946]`;
+- `5 · 0.05 / 24 ≈ 0.0104`;
+- `HARD_BOUNDS_PHYSIOLOGICAL` PaO₂ (20, 700);
+- −2 cmH₂O;
+- 13.397, 0.425 and `4 × ResponseSlope`.
+
+The code pointers `RespiratoryModel.cpp:3774`, `:4388` and `:4503`,
+`SetupPatient.cpp:771` and `:752`, and `NervousModel.cpp:320` land on the named
+code. `src/detector.py:338` does not (**MF-15**).
+
+#### Findings — nothing modified; all brought to the author
+
+L-numbers and section numbers in a finding refer to `manuscript.md`. §4.1 and
+§4.2 with an F-S identifier refer to this register.
+
+MF-1 to MF-15 were each re-derived a second time before being written here.
+Where the second derivation used a different instrument, it is named in the
+entry; otherwise it was a second read of the same source. MF-16 to MF-19 come
+from this pass's pointer check, and each was confirmed in git history or in a
+second file.
+
+Numbering is kept from the working notes: MF-8 was the second locus of MF-4 and
+is merged into it; MF-10 was downgraded to O-7 by its second reading.
+
+- **MF-1 — L4643, Appendix C.** *"Dominated by S4 (104 / 185 of the
+  residual)"*. The `excl. both` column gives S4 39 + 52 = **91**, S1 53, S2 30
+  and S3 11, total 185. S1's "53 / 185" in the same sentence is right. Second
+  instrument: the monograph's own Appendix C LaTeX table, parsed and checked
+  equal to `nss_decomposition.csv`. The parse first matched Table 1 as well; its
+  row-count control (16 against 8) caught that before any number was read.
+- **MF-2 — L4309 and L2768–2769.** *"over the full FiO₂ ∈ [0.21, 1.0] range"*
+  and *"multi-input averaged across [0.21, 1.0]"*.
+  - The clean S1 runs sit at only two FiO₂ levels: 0.21 (47) and 0.4733 (44). L2761
+    says "[0.21, 0.47]" itself.
+  - Fit: slope 505.45, intercept −25.07, R² 0.902.
+  - Minor: L2771 "≈ 481 at FiO₂ = 1.0" against 480.4 from the fit and "≈480"
+    at `supplement.tex:781`. 481 is 228 + 0.5 × 505.5, from the rounded 228.
+  - Second instrument: `scipy.stats.linregress` instead of `polyfit`.
+- **MF-3 — L61–62, abstract.** *"the remaining 17 cells have either bootstrap
+  CI straddling 0.6 (12) or insufficient clean trajectories for a CI (5;
+  FiO2-edge cells in S1 and S4_F)"*. Two defects:
+  - **The 12.** It is 11 straddling cells plus the 1 CI-robustly non-linear
+    cell, (S3, M, PaO₂, FiO₂). The monograph's own note (L1852–1853 and L1877–1879)
+    says a "straddling count of twelve" was wrong and gives 31 / 1.
+  - **The 5.** They are S1_F × {PaCO₂, PaO₂, Vt}, where the dominant input is
+    Vt, and S4_M × {PaO₂, SpO₂}, where it is FiO₂. They are neither "FiO₂-edge
+    cells in S1" nor in S4_F, as L1858–1862 itself says. The wording matches the
+    Spearman gap of L3370 (S1 and S4_F), a different statistic.
+  - The second defect was found by the second instrument, a direct read of
+    `linear_all_seeds`, `nonlinear_all_seeds` and `no_estimable_ci` on the 48
+    rank-1 rows, with no overlap between the three.
+  - Monograph only.
+- **MF-4 — L1299 and L1307.** *"8 GB RAM, no GPU"*. The machine carries Intel
+  UHD Graphics and an NVIDIA RTX 3050 Laptop GPU with 4 GB. Neither is used,
+  which is how `supplement.tex:886` puts it. Second instrument:
+  `Win32_VideoController` queried again, read-only, alongside
+  `TotalPhysicalMemory` 8,277,110,784 and the i5-11400H.
+- **MF-5 — L1051–1054.** *"NHANES P50 anchors … median HR 70 / 74, SBP
+  118 / 113, DBP 70 / 69"*.
+  - The companion's `lookup_tables_literature_validation.md` attributes HR
+    70 / 74 to NHANES (Ostchega 2011). It attributes SBP 118 / DBP 70 (M) and
+    113 / 69 (F) to the AAP 2017 age-17 tables at the 50th height percentile
+    (L196, L405, L524, L526).
+  - **(P):** read through the companion's record; AAP 2017 and Ostchega 2011 were
+    not opened.
+  - Monograph only.
+- **MF-6 — L4531, B.5.** *"CDC P50 ≈ 177 cm"* for male stature at 18 years.
+  CDC `statage.csv` (Firecrawl, 2026-09-14) gives P50 176.13 at Agemos 215.5
+  and 176.19 at 216.5. L722 and L1045 say 176.2, which is right. 177 is Pulse's
+  `heightStandardMale_cm`, quoted in the next line.
+- **MF-7 — L1300, L1312, L1316, L1323.** *"eleven independent verification
+  points (Pulse determinism, …) detailed in Supplementary S10"*.
+  - The linked `preprint/supplementary.md` S10 table has **12** rows: S005 G5,
+    S006 V1–V8 and S007 1–3.
+  - S007's "eleven" counts 8 + 3 and does not include S005 G5. The monograph's
+    parenthetical names "Pulse determinism", which is S005 G5.
+  - Two readings: eleven without G5, or twelve with it. The parenthetical makes
+    the first inconsistent.
+  - `supplementary.md` is outside this register's population.
+- **MF-9 — L1351.** Phase 4b *"was run on the moderate-ARDS male cell"*, while
+  the same paragraph names cell (S2, M). S2 is mild ARDS, 0.26
+  (`src/scenario.py:59`). The directory is `phase4b_seed44_S2M`.
+- **MF-11 — L3383, §4.5.** *"HR, MAP, and PaCO2 drift rates stay below 3 % in
+  both vulnerable populations"*.
+  - Hyperoxia arm: PaCO₂ 7 / 195 = **3.59 %**. L3009 says 3.6 % itself.
+  - The other rates: hyperoxia HR 2.56 %, MAP 0; Vt arm HR 2.31 %, MAP 0.66 %,
+    PaCO₂ 1.98 %; intersection HR 3.03 %.
+  - L3024 "below 4 %" is right. The paper was corrected for exactly this upper
+    bound (`T5.window` comment).
+  - Second instrument: thresholds imported from `src.detector`, not parsed by
+    regex.
+- **MF-12 — L2942.** *"the worst-CV run S1_F_0008"* in the full-sweep F-004
+  paragraph.
+  - Before the lock S1_F_0008 has CV 0.759, **rank 6**. The worst are S1_F_0117
+    and S1_F_0118, tied at 1.826 (§4.2 F-S8). S1_F_0008 is the worst **after**
+    the lock (0.112).
+  - Compliance 0.090003 with a half-range of 1.3 × 10⁻⁶ fits the stated
+    ± 5 × 10⁻⁶ on the 5-s CSV. RR 20 → 46.9 fits "~46 bpm".
+- **MF-13 — L3674.** *"1,280 raw CSVs plus ~50 MB of engine logs"*.
+  - The 1,280 full-sweep `pulse.log` files total **105.1 MB** (100.2 MiB). All
+    1,280 carry a modification date of 2026-04-26.
+  - The sentence entered in `6eeced5` on 2026-08-17, so it was wrong when
+    written; this is not a staleness defect.
+  - Second instrument: `os.walk`, with the 1,280 `config.json` as control.
+- **MF-14 — L4627, Appendix C.** *"Concentrated in S1/S2 (74 / 76 of those
+  runs; 30 in S1_F, 16 in S1_M, 16 in S2_F, 9 in S2_M, plus 5 trickle in S3)"*.
+  The four values it lists sum to **71**. S3 1 + 4 = 5 and the total of 76 are
+  right. Second instrument: the Appendix C table (locked − excl. SpO₂ per cell).
+- **MF-15 — L1449.** *"`src/detector.py:338`"* for the `std(ddof=0)` line. It is
+  at L413 now, and L338 is `lo, hi = HARD_BOUNDS[name]`. At `4771e9b`, L338 was
+  the std line. The method described is right.
+- **MF-16 — L599, L1864, L2515: three pointers to "§4.3" for limitations.**
+  Limitations is §4.5; §4.3 is the machine-learning implications section.
+  - At `be4c671` (2026-05-08) §4.3 *was* "Limitations". By `4a1a0bc`
+    (2026-05-13), the commit that added §4.4, Limitations had become §4.5.
+  - L1864 has "§4.3 / §4.5 limitations", only half stale.
+  - Mechanical.
+- **MF-17 — L415, notation table.** *"BV = 65.6 · weight^1.02 (§3.6)"*. The
+  formula is at L2098 and L2111, in §3.5. §3.6 does not mention blood volume.
+  Mechanical.
+- **MF-18 — L3348, §4.4 quadrant 2.** *"Cornish, with PaCO2 as the only flagged
+  channel (3 / 70 Hoeffding, 13 / 70 bootstrap)"*.
+  - The monograph's own Table 2 (L3250–3256) gives non-zero bootstrap rejections
+    on three more direct-overlap channels: PaO₂ 4 / 78, MeanBP 3 / 92 and
+    HR 1 / 162. `supplement.tex:668` ranks exactly those four channels.
+  - The claim holds only for Hoeffding, and only among the four overlap
+    channels: SysBP carries 2 / 154 Hoeffding rejections.
+  - Entered in `4a1a0bc`. Found while reading §4.4's numbers, which are
+    ledger-pinned; the sentence itself carries no residue number.
+  - Monograph only.
+- **MF-19 — L3581, §4.7.** *"documented in our preregistration limitations
+  table (entry #4)"*.
+  - No version of `preregistration.md` has ever contained the word
+    "limitation"; every commit touching the file was searched.
+  - The twelve-row limitations table, with the instability zone at entry 4, is
+    monograph §1.2 and Supplement S2.
+  - The preregistration does document the zone, in its scenario table (L112,
+    row S4, "E6 + E10") and in H3 (L76).
+  - Entered in `93e87b8`, 2026-05-23.
+
+#### Observations — low, recorded
+
+- **O-1 — L2877–2880.** The runaway trajectory described is exactly
+  S1_F_0130 / 0131: plateau about 690, onset 195 s, 95 % reached at 220 s,
+  PaCO₂ minimum 16.0 / 16.9. The other runaways start at 175, 140, 245 and
+  285 s. The text describes one case as if it were the pattern.
+- **O-2 — L1823.** "SpO₂ in the healthy respiratory envelope sits at
+  ≈ 0.997". In clean S1 runs this holds at FiO₂ 0.4733 (0.9976 F, 0.9966 M),
+  not at 0.21 (0.9702 F, 0.9556 M).
+- **O-3 — L4439, B.4.** "3,304 files / 23 MB" describes two different sets.
+  - 3,304 is every file, including `.git` (353 MB).
+  - 23 MB is the text files only: 23.3–23.4 MB, about 2,900–3,000 files
+    depending on the binary heuristic (NUL in the first 8 kB, or `grep -I`).
+  - Without `.git` the tree holds 3,225 files and 110 MB.
+  - The term counts are line counts; the zeros hold.
+- **O-4 — L2795.** "[580, 680] mmHg (alveolar-gas-equation prediction
+  ± 75 mmHg)" reproduces the dated S021 rule verbatim (log L139–140). But
+  [580, 680] has centre 630 and half-width 50, so it is "± 75" around no single
+  prediction. The band is what was committed and applied; the rule is not to be
+  edited.
+- **O-5 — L3730.** "~ 2.2 GB total" is attached to "output.csv / pulse.log /
+  config.json / run_meta.json".
+  - Those four file types weigh 0.13–0.14 GB, depending on whether the two S018
+    reproduction directories count.
+  - The mass is `output_pulse_native.csv`: 2.21–2.29 GB, which the sentence does
+    not name.
+  - The total is 2.34–2.43 GB. The sentence is dated "measured 2026-07-29".
+- **O-6 — `cornish2023` is now a journal article.**
+  - arXiv v5 was posted 2026-08-08. Its header reads "Journal of Machine
+    Learning Research 27 (2026) 1-52 … Published 8/26".
+  - `jmlr.org/papers/v27/24-1752.html` (Firecrawl, 2026-09-14) and its BibTeX
+    give JMLR 27(152):1–52, 2026. The JMLR page shows no DOI, and a Crossref
+    bibliographic query returned no match.
+  - The JMLR PDF was downloaded and compared with v5, whitespace-normalised:
+    74 diff lines, all section-number punctuation and math glyph extraction.
+    Against v4 the control gives 3,210. Tables 4–5 "Ours" are unchanged from v4
+    (85 / 281), the text still says 1,442, and v5 adds Manski columns.
+  - So every number the atlas takes from Cornish holds. But the citation form
+    is stale:
+    - both `.bib` files say `arXiv preprint`, year 2023;
+    - the monograph gives "arXiv:2301.07210 (November 2023)" at L3862 and
+      "(November 2023, v4)" at L4034;
+    - the labels read "Cornish et al. 2023";
+    - `reference_audit.md` M-2 says "still a preprint".
+  - Citation-audit rule: recorded in `audit/reference_audit.md`, nothing
+    modified.
+- **O-7 (was MF-10) — L2305–2311.** "The `Pulse_translation_new` E6 audit
+  reported an instability zone at [0.91, 0.945] … about 90 % of the original E6
+  width".
+  - E6's own severe sweep covered 0.930–0.970; only 0.930–0.945 failed. The 0.91
+    edge is E10's (companion log L1952).
+  - E6's text does state the combined zone ("Combined with E10 … 0.91–0.945"),
+    so the sentence is defensible. The monograph's own B.3, L991 and L3588
+    attribute the zone to E10 and E6 jointly.
+  - 0.031 / 0.035 = 88.6 %.
+- **O-8 — L118.** "8 cells (4 ARDS severities S1/S2/S3/S4 × 2 …)": S1 is
+  healthy. Same class as prose-sweep #48.
+- **O-9 — §1.4.** "24 experiment-log entries cited throughout", while S025 and
+  S026 are cited elsewhere in the monograph.
+- **O-10 — L1337.** "1,260 / 1,280 bit-identical clean runs": "clean" there
+  means "completed" (exit code 0). The atlas's `clean` class, unflagged runs,
+  holds 663. The count is right; the word collides with a defined term.
+- **O-11 — L421, notation table.** "§S1 – §S16" for the npj supplement's
+  sections. The supplement has 17 numbered sections: S17 is the summary,
+  rendered as such, and there were 17 already when the row was written
+  (`7b2049e`).
+
+**Second derivation, and what it changed.** The second pass over MF-1 to MF-15
+changed the record four times:
+- it downgraded MF-10 to O-7;
+- it found MF-3's second defect;
+- it raised O-6 from "v5 exists" to "published";
+- it caught its own Appendix C parse matching Table 1.
+
+It also started the pointer pass, which found MF-16, MF-17, MF-19 and O-11.
+Instruments that failed and were caught:
+- the rule-based quantity split (above);
+- the Appendix C regex;
+- `grep -c "^\\section{"` returned 0 on both the old and the current supplement,
+  while the fixed-string count gave 17 on both, matching the `Grep` tool.
+
+**Not covered.**
+- The monograph's by-value `guard` / `ledger` occurrences.
+- Qualitative sentences that carry no number: MF-18 was found in passing, so the
+  monograph's prose is not claimed clean.
+- The AI-tool dates.
+- The primary sources behind MF-5.
+
+## 6. What remains
 
 | artefact | `none` residue | `ambiguous_small` | status |
 |---|---:|---:|---|
 | paper | 37 / 29 (43 / 31 when read) | 307 | **both read row by row** (§3, §3.2). `none`: no defect. `ambiguous_small`: 57 not quantities, 248 + 2 verified, **1 wording finding, corrected** (L259, author's choice, guarded). Not closed: `guard` and `ledger` are covered by value only |
 | supplement | 431 / 218 (456 when read) | 957 | **`none` read row by row** (§4.1): 6 not quantities, 450 verified; **all six findings corrected** on the author's decisions (F-S1 to F-S6, 2026-09-14). **`ambiguous_small` read row by row** (§4.2): 134 not quantities, 823 verified; **3 findings, 1 mechanical pointer and prose-sweep #15 all corrected** on the author's decisions (2026-09-14), guarded (22 checks). Counts now 432 / 960 after the corrections. Not closed: `guard` and `ledger` by value only |
-| monograph | 803 / 344 | 1864 | not worked; inline code still costs 89 literals |
+| monograph | 803 / 344 | 1864 | **both read row by row, plus the 89 inline-code literals** (§5); section pointers and "Cited in §X" checked. **17 findings (MF-1 … MF-19, MF-8 merged, MF-10 downgraded) and 11 observations, nothing modified**, all awaiting the author. Quantities against non-quantities not counted: the rule-based split failed its precision pass. Not closed: `guard` and `ledger` by value only; prose without numbers not audited |
 
 ⚠️ **No count in this register may come from an ad-hoc pipeline.** Three
 successive `grep | cut | uniq` passes over `inventory.csv` each miscounted the
 supplement's residue, because the `context` column carries commas. Every figure
 above was read from the producer's own output.
 
-Before working the monograph: it is Markdown, so a LaTeX pattern returns zero on
-it by construction (`1{,}280` against `1,280`); any hand search must test both
-syntaxes.
+The monograph is Markdown, so a LaTeX pattern returns zero on it by construction
+(`1{,}280` against `1,280`); any hand search must test both syntaxes.
 
-## 6. What this register does not claim
+## 7. What this register does not claim
 
 It does not claim the published numbers are correct. It claims that the
 population is defined; that the instrument is calibrated in both directions,
@@ -972,4 +1319,10 @@ a band edge that the paper also states; all six are corrected on the author's
 decisions. The supplement's `ambiguous_small` residue has been read row by row
 (§4.2): three findings, one wrong pointer and one loose bound were found, and
 all are corrected on the author's decisions and guarded.
-The monograph residues are listed, not cleared.
+The monograph's `none` and `ambiguous_small` residues and its 89 inline-code
+literals have been read row by row (§5). Seventeen findings and eleven
+observations are recorded there; none is corrected yet, and every finding
+awaits the author's decision. The monograph's by-value `guard` and `ledger`
+occurrences are not read one by one. Neither are its sentences that carry no
+number: one such defect (MF-18) was found in passing, so its prose is not
+claimed clean.

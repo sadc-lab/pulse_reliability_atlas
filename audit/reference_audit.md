@@ -1886,3 +1886,61 @@ citation-audit rule.
 now reads *"averaging 75 overall and 66 in women"*, which follows the verbatim
 p. 226 quotation above. Nothing else in the sentence changed.
 **Status: RESOLVED.**
+
+## Addendum 2026-09-14 (evening) — `cornish2023` has been published in JMLR; the citation form is stale
+
+Found during the monograph number audit (`audit/number_inventory.md` §5, O-6).
+Everything below was opened **in this session**.
+
+**What changed at the source.**
+- arXiv posted **v5** on 2026-08-08, after this register's v4 verification. The
+  v4 abstract page (Firecrawl, 2026-09-14) reads "revised 2 Nov 2023 (this
+  version, v4), latest version 8 Aug 2026 (v5)".
+- The v5 PDF's first line reads *"Journal of Machine Learning Research 27 (2026)
+  1-52 Submitted 10/24; Revised 4/26; Published 8/26"*, with editor Ilya Shpitser
+  and a CC-BY 4.0 licence pointing to `jmlr.org/papers/v27/24-1752.html`.
+- That JMLR page (Firecrawl, `.firecrawl/jmlr_v27_24-1752_2026-09-14.md`) lists
+  *Causal Falsification of Digital Twins*, Rob Cornish, Muhammad Faaiz Taufiq,
+  Arnaud Doucet, Chris Holmes, **27(152):1−52, 2026**.
+- Its BibTeX (`jmlr.org/papers/v27/24-1752.bib`): `journal = {Journal of Machine
+  Learning Research}`, `year = {2026}`, `volume = {27}`, `number = {152}`,
+  `pages = {1--52}`.
+- The page shows no DOI, and a Crossref bibliographic query returned no match.
+  The arXiv API answered "Rate exceeded" and was not read.
+
+**What did not change.**
+- The JMLR PDF was downloaded (HTTP 200, `application/pdf`) and compared with
+  arXiv v5 after whitespace normalisation: 74 differing lines, all section-number
+  punctuation ("1 Introduction" / "1. Introduction") and math-glyph extraction.
+  Control, v4 against JMLR: 3,210 lines.
+- The "Ours" columns of Tables 4 and 5 are identical in v4, v5 and JMLR.
+  Hoeffding 24, 21, 13, 10, 5, 5, 3, 2, 2, 0, 0, 0, 0, 0, 0 sums to 85.
+  Bootstrap 47, 46, 33, 43, 44, 19, 13, 8, 8, 4, 0, 0, 3, 12, 1 sums to 281.
+  Hypotheses sum to 1,522.
+- v5 and JMLR add "Manski" columns, 46 hypotheses per quantity, which the atlas
+  does not use.
+- The main text still reads "1,442" (JMLR text, L898).
+- The appendix tables are still Tables 4 and 5; v5 says "Appendix" where v4 said
+  "Supplement".
+
+**So every number the atlas takes from Cornish still holds; the citation form
+does not.**
+- `paper.bib` and `references.bib` both give `journal = {arXiv preprint}`,
+  `volume = {arXiv:2301.07210}`, `year = {2023}`. The rendered paper (ref. 8) and
+  supplement (ref. 24) both read "arXiv preprint arXiv:2301.07210 (2023)".
+- The monograph gives "arXiv:2301.07210 (November 2023)" (L3862) and
+  "(November 2023, v4)" (L4034).
+- The prose labels read "Cornish et al. 2023": supplement §S7 title and Table S7
+  caption, monograph §4.4 title and Table 2.
+- This register's **M-2**, *"`cornish2023`: still a preprint, so the citation
+  form is right"*, was true on its date and is now stale.
+- `paper.bib`'s `hennigs2026validation` note says it is "cited as a preprint
+  deliberately, on the same footing as cornish2023". That footing no longer
+  holds.
+
+**Status: STALE CITATION FORM — nothing modified.** Brought to the author, per
+the citation-audit rule. The options are:
+- cite the JMLR article, keeping the arXiv version as a note or dropping it;
+- keep the arXiv citation, pinned to v4, the version read.
+
+Either option touches both `.bib` files, and possibly the "2023" labels.
