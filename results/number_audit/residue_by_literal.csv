@@ -37,13 +37,13 @@ supplement,394,8,"manuscript + supplement from the canonical artefacts; expect #
 supplement,"4{,}802.63",8,"n $\text{BV} = 65.6 \cdot \text{weight}_{\text{kg}}^{1.02}$, yielding 4{,}802.63~mL for the male body and 3{,}996.09~mL for the female body --- the 17"
 supplement,70,8,"ative outer bound. \\ MAP [30, 180]~mmHg & Lower: well below both the 70~mmHg at which the Sepsis-3 SOFA cardiovascular score first registers"
 supplement,94,8,ulticolumn{4}{l}{\textit{Electrolytes}} \\ Chloride & 24 / 94 & 47 / 94 & No (electrolyte) \\ Sodium & 21 / 94 & 46 /
+supplement,75,7,"on: structurally for the 100-to-120 and 120-to-100 transitions, whose 75~mmHg ceiling no lower grid level can exceed, and as an artefact of th"
 supplement,0.4,6,l $\times$ output against their $\sigma / \mu^{*}$ ratio. At or below 0.4 the response is treated as linear and no Sobol is run; at or above 0.
 supplement,0.85,6,"he per-bin sex pattern crosses over: female divergence dominates the (0.85, 0.91] bin while male divergence dominates the (0.91, 0.945] bin. Bol"
 supplement,1.02,6,"llometric relation $\text{BV} = 65.6 \cdot \text{weight}_{\text{kg}}^{1.02}$, yielding 4{,}802.63~mL for the male body and 3{,}996.09~mL for the"
 supplement,13,6,"drift. Drift is estimated by ordinary least-squares regression on the 13 sample points in the [60, 120]~s window (5-second sample interval); t"
 supplement,14,6,"s inputs at their midrange values (HR = 80, SBP = 105, DBP = 70, RR = 14, Vt = 550, FiO$_2$ = 0.6, PEEP = 10) extends the picture in two ways:"
 supplement,"4{,}082.24",6,"ing the male reference body's \texttt{BloodVolumeBaseline} toward its 4{,}082.24~mL setup-time floor eliminates the divergence cluster (20 / 20 at the"
-supplement,75,6,"on: structurally for the 100-to-120 and 120-to-100 transitions, whose 75~mmHg ceiling no lower grid level can exceed, and as an artefact of th"
 supplement,0.21,5,"pies is not fixed across the sweep, whose operational inputs (FiO$_2$ 0.21--1.0, PEEP 0--20~cmH$_2$O, Vt 300--800~mL) vary the ventilation setti"
 supplement,163,5,"le body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both weights are U.S.\ Centers for Disease Control and Preventio"
 supplement,"3{,}996.09",5,"ht}_{\text{kg}}^{1.02}$, yielding 4{,}802.63~mL for the male body and 3{,}996.09~mL for the female body --- the 17~\% sex gap whose mechanism on the i"
@@ -57,6 +57,7 @@ supplement,0.41,3,"\\ S2 & SpO$_2$ & 0.96 & $[0.70, 1.00]$ \\ S2 & PaO$_2$ & 0.9
 supplement,0.737,3,"ecific one; the exception is a single healthy-female run at FiO$_2$ = 0.737, whose 679~mmHg steady-state mean stands well above the $0.737 \times"
 supplement,16.8,3,"67.3~kg male body versus 3{,}996.09~mL for the 56.2~kg female body (a 16.8~\% absolute-mL sex gap), and that reducing the male reference body's"
 supplement,25,3,"n category (b), the exact numerical choice (e.g., PaO$_2$ lower 20 vs 25~mmHg) is a defensible judgment call within the cited literature rathe"
+supplement,28,3,"companion translation project's original ARDS severity calibration, a 28-run impairment sweep of 2026-03 (full log in the companion technical"
 supplement,37,3,"), so the thick blue line is the median over the remaining 37 \emph{physiological}-converged runs. The dotted purple horizontal at"
 supplement,"4{,}400",3,"ence cluster (20 / 20 at the default $\rightarrow$ 0 / 20 at both the 4{,}400 and 4{,}082.24~mL reductions). This supplement section disentangles t"
 supplement,0.001,2,he locked flatline rule (\texttt{std/|mean| $<$ 0.01} and mean within 0.001 of a hard bound) catches as ``pinned at the ceiling''. The rule was d
@@ -69,6 +70,7 @@ supplement,0.83,2,"~mmHg range, or 13.33~mmHg; five of the nine fall to 6.25~\% 
 supplement,0.92,2,eference ventilation setting of \S found fractions 0.92 and 0.94 failing to stabilise. A 10-run high-resolution boundary prob
 supplement,0.94,2,ventilation setting of \S found fractions 0.92 and 0.94 failing to stabilise. A 10-run high-resolution boundary probe at 0.90
 supplement,0.97,2,"n either side). A complementary 9-run calibration refinement at 0.93--0.97 in 0.005 steps (four failures across 0.93--0.945, five passes across"
+supplement,108,2,"ne result no longer depends on an external project. Evaluated over a [108, 168]~s window derived from the timing recorded with E6 (a 60-s settl"
 supplement,13.33,2,"The nominal Morris step in DBP is two-thirds of the 20~mmHg range, or 13.33~mmHg; five of the nine fall to 6.25~\% of that (0.83~mmHg), one to 56"
 supplement,140,2,"nd three to 62.5~\%, and none is reduced to zero. Second, in 8 of the 140 steps the flipped input is SBP, whose change moves the $0.75 \times \"
 supplement,154,2,} & \textbf{Yes ($\approx$ atlas MAP)} \\ SysBP & 2 / 154 & 8 / 154 & Partial (MAP input) \\ DiaBP & 0 / 72 & 0
@@ -76,7 +78,6 @@ supplement,162,2,n{4}{l}{\textit{Cardiovascular}} \\ \textbf{HR} & \textbf{0 / 1
 supplement,172,2,"textbf{4 / 78} & \textbf{Yes (direct)} \\ RR & 0 / 172 & 12 / 172 & Atlas input, not output \\ \midrule \textbf{Total} & \te"
 supplement,"1{,}400",2,"limited to $[350, 760]$~mmHg; these three traces continue to $\approx$1{,}400~mmHg, see Section~ ), so the thick blue line is t"
 supplement,27,2,lobin dissociation curve P50 places SpO$_2$ = 50~\% at PaO$_2 \approx 27$~mmHg~ . Upper: hemoglobin saturation ceiling (
-supplement,28,2,"xttt{Pulse\_translation\_new} original ARDS severity calibration, the 28-run impairment sweep of 2026-03; its later \texttt{E6} experiment is"
 supplement,3.8,2,he cited literature rather than a unique biological constant. Section~3.8 of the companion technical monograph demonstrates the sensitivity-ana
 supplement,393,2,"# 394/394 PASS (exit 0) with the authors' full data tree, # or 393/394 on a public clone (T1.06u auto-skipped). uv run python"
 supplement,4.3,2,"ibration, a different parameter class, and has not been ported to the 4.3.x release line. & Pulse FAQ~ + upstream repo audit (mo"
@@ -152,6 +153,7 @@ supplement,15.4,1,"cludes it, and its $\mu^{*}$ rises by a median factor of 2.4 
 supplement,16.2,1,Hg steady-state mean stands well above the $0.737 \times (760 - 47) - 16.2 / 0.8 \approx 505$~mmHg its own inspired fraction and PaCO$_2$ permit
 supplement,16.5,1,"lmost entirely driven by the body-mass difference (67.3 vs 56.2~kg, a 16.5~\% gap) rather than by an intrinsic per-kg sex difference in Pulse's"
 supplement,163.0,1,and Pulse's own \texttt{heightStandardFemale\_cm = 163.0} reference constant in \texttt{ }; the male height is
+supplement,168,1,"sult no longer depends on an external project. Evaluated over a [108, 168]~s window derived from the timing recorded with E6 (a 60-s settle, th"
 supplement,175.5,1,"thetic 180~cm female exceeds Pulse's nominal female height ceiling of 175.5~cm and carries the engine's own model-validity warning. The smaller,"
 supplement,177.0,1,"20.8 (it is not Pulse's source-code \texttt{heightStandardMale\_cm = 177.0} reference, which would have yielded a near-CDC-P50 BMI). Pulse compu"
 supplement,18.6,1,"nnel overlap rank ordering on Cornish's bootstrap counts (PaCO$_2$ at 18.6~\%, PaO$_2$ at 5.1~\%, MeanBP at 3.3~\%, HR at 0.6~\%) mirrors the re"
@@ -171,6 +173,7 @@ supplement,216.99,1,"anding for the whole month, so \texttt{Agemos}~=~216.5 deno
 supplement,22.5,1,(distal) resistance & increases & $8.8\times$ & $15\times$ & $22.5\times$ \\ Alveolar compliance & decreases & $0.70\time
 supplement,228,1,ry & 309 / 282 / 287 \\ S3 (0.60) & 192 & 184 [139--231] & moderate & 228 / 163 / 160 \\ S4 (0.95) & 91 & 75 [69--83] & severe & --- / 99
 supplement,25.3,1,"delivered tidal volume deviates from the physical reference by 11.3--25.3~\% across healthy, restrictive, and obstructive lung profiles, agains"
+supplement,252,1,"the same ventilator mode, tidal volume, PEEP and FiO$_2$ and obtained 252, 148 and 75~mmHg: lower values, in the same three Berlin bands. This"
 supplement,27.4,1,eas excluding the two contaminated timing records gives approximately 27.4~h. After subtracting the same approximately 6.84~h suspension once fr
 supplement,28.75,1,"d on that criterion alone (54 / 160 = 33.75~\%); S4\_F, at 46 / 160 = 28.75~\%, sits just below it. \textbf{(b)} \texttt{not\_steady\_state} trig"
 supplement,282,1,\\ S2 (0.26) & 114 & 304 [264--337] & mild/not-ARDS boundary & 309 / 282 / 287 \\ S3 (0.60) & 192 & 184 [139--231] & moderate & 228 / 163 / 16

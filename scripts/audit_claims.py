@@ -3014,7 +3014,7 @@ if _n_expected > 0 and _n_found == _n_expected:
     add(
         claim_id="T1.06u.s021_time_to_95pct_plateau",
         section="Supplement S9 (extended hyperoxia convergence)",
-        manuscript_text="95% of the late-plateau gain reached by t=180 s of recorded simulation (38 physiological-converged S1 runs)",
+        manuscript_text="95% of the late-plateau gain reached by t=180 s of recorded simulation (37 physiological-converged S1 runs)",
         source_file="derived from data/runs/s021_hyperoxia_convergence/<S1 runs>/output.csv",
         manuscript_value=180.0,
         computed_value=_t_95,
@@ -5110,8 +5110,11 @@ def check_clip_pair_retention() -> int:
 S030_PROV_SOURCE = "results/s030_published_value_provenance.csv"
 S030_PROV_TOLERANCE = 0.05
 
-# Companion anchors (Pulse_translation_new E6), transcribed in
-# audit/S030_recalibration_plan.md, behind the two published tolerance bounds.
+# Companion anchors, transcribed in audit/S030_recalibration_plan.md, behind the
+# two published tolerance bounds. They are the ORIGINAL March 2026 28-run
+# calibration (Pulse_translation_new/experiments_log.md), not E6: the April E6
+# refinement gave 251.9 / 148.2 / 74.8 at 0.26 / 0.60 / 0.95. Attribution
+# corrected 2026-09-14 (audit/number_inventory.md section 4.1, F-S1).
 S030_COMPANION_PF = {0.26: 256.0, 0.30: 199.3, 0.60: 150.1, 0.90: 118.7, 0.95: 96.1}
 
 # (arm, severity, window, column, published literal, phrase pinned in

@@ -76,9 +76,14 @@ WINDOWS: dict[str, tuple[float, float]] = {
     "late_240_300": (240.0, 300.0),
 }
 
-# Companion anchors, transcribed from audit/S030_recalibration_plan.md, which
-# retrieved them verbatim from
-# Pulse_translation_new/data/engine_runs/e6_ards_calibration/results.json.
+# Companion anchors, transcribed from audit/S030_recalibration_plan.md. They are
+# the ORIGINAL March 2026 28-run calibration, recorded in
+# Pulse_translation_new/experiments_log.md ("ARDS Severity Calibration --
+# Impairment Fraction Sweep (March 2026)"). They are NOT in
+# data/engine_runs/e6_ards_calibration/results.json: that file is the April E6
+# refinement, which gave 251.9 / 148.2 / 74.8 at 0.26 / 0.60 / 0.95 and is only
+# the source of the settle/duration timing used for the [108, 168] s window.
+# Corrected 2026-09-14 (audit/number_inventory.md section 4.1, F-S1).
 COMPANION_PF: dict[float, float] = {
     0.26: 256.0,
     0.30: 199.3,

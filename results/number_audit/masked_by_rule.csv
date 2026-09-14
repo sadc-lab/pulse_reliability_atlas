@@ -555,6 +555,8 @@ supplement,year_like,166,1919,"f the Harris--Benedict equations~ --- not the 191
 supplement,year_like,210,2023,"aign initial MAP target of 65~mmHg~ . Upper: ESH 2023 hypertensive emergency, i.e.\ grade~3 hypertension (SBP $\geq$ 180 an"
 supplement,year_like,286,2026,"tive elimination from the original regex. \noindent \textbf{Patch of 2026-07-26, applied after the sweep.} Two changes produce the five-pattern"
 supplement,year_like,357,2026,"shold has been adjusted post-hoc; the only preregistration amendment (2026-04-22-b, flatline tolerance 1~\% $\rightarrow$ 0.1~\%) was made befor"
+supplement,year_like,462,2026,"ct's original ARDS severity calibration, a 28-run impairment sweep of 2026-03 (full log in the companion technical monograph, Appendix~B.3), on"
+supplement,year_like,462,2026,"low and therefore has no centre. The companion's later E6 experiment (2026-04) re-ran the three fractions with the same ventilator mode, tidal v"
 supplement,year_like,464,2026,"calibration has since been reproduced inside the present repository (2026-07-26, 40 runs on the atlas's own engine image), so a headline result"
 supplement,year_like,468,2026,"w} original ARDS severity calibration, the 28-run impairment sweep of 2026-03; its later \texttt{E6} experiment is an April refinement that re-c"
 supplement,year_like,626,2023,\section{Cornish et al.\ 2023 per-channel cross-mapping} The Discussion of the main

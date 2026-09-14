@@ -37,9 +37,9 @@ being waved away one at a time.
 | artefact | retained | distinct | guard | ledger | ambiguous small | none | distinct none |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | paper | 527 | 143 | 165 | 18 | 307 | **37** | 29 |
-| supplement | 1860 | 481 | 455 | 31 | 951 | **423** | 214 |
+| supplement | 1873 | 484 | 456 | 32 | 956 | **429** | 217 |
 | monograph | 3341 | 560 | 643 | 28 | 1864 | **806** | 344 |
-| **all** | **5728** | **722** | | | **3122** | **1266** | **428** |
+| **all** | **5741** | **724** | | | **3127** | **1272** | **430** |
 
 ⚠️ **These buckets are coverage by VALUE, not by occurrence**, and they bound
 risk from below, never from above.
@@ -69,7 +69,7 @@ with its rule and context, to `masked_by_rule.csv`.
 | artefact | in raw text | removed by masks | inventoried | closes |
 |---|---:|---:|---:|---|
 | paper | 582 | 51 | 531 | yes |
-| supplement | 1962 | 86 | 1876 | yes |
+| supplement | 1977 | 86 | 1891 | yes |
 | monograph | 3747 | 255 | 3492 | yes |
 
 Literals removed per rule now: paper — comments 27, typesetting lengths 11
@@ -500,6 +500,29 @@ breathing "approximately 0.25 Hz"; a minute-ventilation "physiological norm of
   - Two code comments misattribute the provenance: `audit_claims.py:5112` and
     `audit_s030_provenance.py`, which says the values were "retrieved verbatim
     from … e6_ards_calibration/results.json"; they are not in that file.
+  - ✅ **Corrected on the author's decision, 2026-09-14** (option B, correct
+    and qualify).
+    - **L462** now credits "the original ARDS severity calibration, a 28-run
+      impairment sweep of 2026-03" (monograph Appendix B.3 was re-read and
+      documents that campaign: 120 s settle, 10 s sampling, 5 min runs). It
+      adds that E6 (2026-04) re-ran the three fractions and obtained 252, 148
+      and 75 mmHg, in the same three bands.
+    - **L464** now states the replication window as "a [108, 168] s window
+      derived from the timing recorded with E6". It says that E6 averaged its
+      last five 10-s samples, which was **read in
+      `Pulse_translation_new/pipeline/tests/test_e4_e6.py` L61–63 and
+      L143–144**. A first draft said "whose final 60 s are averaged", and it
+      was corrected before commit. The sentence also states that the agreement
+      is empirical, not a protocol match.
+    - **Code:** both provenance comments are corrected, and `T1.06u`'s label
+      now says 37 runs.
+    - **Guards:** the S030 provenance guard (34/34) still finds every pinned
+      phrase; `audit_s030_provenance.py` passes 16/16.
+    - **New supplement literals:** 252, 148 and 75 (E6), 28 (runs), 108 ×2
+      and 168 (the window), 120, 60, 10 and 5 (timings), and the date fragments
+      03 and 04 (2026-03, 2026-04). Each was read in the companion log, the E6
+      code or the monograph. `148` lands in `ledger` by value coincidence
+      only.
 - **F-S2 — L212, and monograph L1213: "6 mL/kg PBW ≈ 400 mL on the atlas
   reference bodies".**
   - PBW is 74.99 kg (male), giving 450 mL, and 55.10 kg (female), giving
@@ -597,7 +620,7 @@ closed**.
 | artefact | `none` residue | `ambiguous_small` | status |
 |---|---:|---:|---|
 | paper | 37 / 29 (43 / 31 when read) | 307 | **both read row by row** (§3, §3.2). `none`: no defect. `ambiguous_small`: 57 not quantities, 248 + 2 verified, **1 wording finding, corrected** (L259, author's choice, guarded). Not closed: `guard` and `ledger` are covered by value only |
-| supplement | 423 / 214 (456 when read) | 951 | **`none` read row by row** (§4.1): 6 not quantities, 450 verified; F-S5 corrected, F-S1–F-S4 and F-S6 decided by the author; `ambiguous_small` not yet read |
+| supplement | 429 / 217 (456 when read) | 956 | **`none` read row by row** (§4.1): 6 not quantities, 450 verified; F-S5 corrected, F-S1–F-S4 and F-S6 decided by the author; `ambiguous_small` not yet read |
 | monograph | 806 / 344 | 1864 | not worked; inline code still costs 89 literals |
 
 ⚠️ **No count in this register may come from an ad-hoc pipeline.** Three
