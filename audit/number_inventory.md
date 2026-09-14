@@ -37,9 +37,12 @@ being waved away one at a time.
 | artefact | retained | distinct | guard | ledger | ambiguous small | none | distinct none |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | paper | 527 | 143 | 165 | 18 | 307 | **37** | 29 |
-| supplement | 1876 | 485 | 456 | 32 | 957 | **431** | 218 |
-| monograph | 3343 | 561 | 643 | 28 | 1865 | **807** | 345 |
-| **all** | **5746** | **725** | | | **3129** | **1275** | **431** |
+| supplement | 1887 | 490 | 463 | 32 | 960 | **432** | 219 |
+| monograph | 3343 | 561 | 648 | 28 | 1864 | **803** | 344 |
+| **all** | **5757** | **728** | | | **3131** | **1272** | **431** |
+
+(Re-read from `summary.json` after the §4.2 corrections of 2026-09-14; the
+movement is explained there.)
 
 ⚠️ **These buckets are coverage by VALUE, not by occurrence**, and they bound
 risk from below, never from above.
@@ -69,14 +72,16 @@ with its rule and context, to `masked_by_rule.csv`.
 | artefact | in raw text | removed by masks | inventoried | closes |
 |---|---:|---:|---:|---|
 | paper | 582 | 51 | 531 | yes |
-| supplement | 1980 | 86 | 1894 | yes |
+| supplement | 1990 | 85 | 1905 | yes |
 | monograph | 3749 | 255 | 3494 | yes |
 
 Literals removed per rule now: paper — comments 27, typesetting lengths 11
 (all `\textwidth` fractions and `[-0.6em]` spacings, read), product versions 7,
-machinery 4, organisation identifiers 2. Supplement — machinery 54, comments 12,
-versions 7, typesetting lengths 6 (all column widths, read), line references 2
-(`lines 120--128`, read). Monograph — inline code 89, versions 55, link targets
+machinery 4, organisation identifiers 2. Supplement — machinery 53, comments 12,
+versions 7, typesetting lengths 6 (all column widths, read), file paths 2, line
+references 2 (`lines 120--128`, read), organisation identifiers 2, product
+versions 1; machinery was 54 until the F-S8 correction removed
+`\mainref{sec:results-vcac}{2.3}`. Monograph — inline code 89, versions 55, link targets
 42, URLs 42, line references 13, product versions 7, code fences 3.
 
 ⚠️ **Open:** inline code still costs the monograph 89 literals, some of them
@@ -746,6 +751,17 @@ re-derived. What was newly opened this session is named.
     - the replay over all Pulse logs reported at L286.
   - **Options:** (A) delete the sentence in both artefacts; (B) replace it with
     the probe and smoke evidence above.
+  - ✅ **Corrected on the author's decision, 2026-09-14** (option B).
+    - **Re-verified before editing with a second instrument.** The four patterns
+      as they stood at `708efb1^` were replayed over the logs themselves: they
+      fire on S1_M_9900 and S1_M_9901, and on none of the 8 `scenario_smoke`
+      logs. Both probes are recorded in S005 (pilot) and the smoke set in S004.
+    - **Supplement L284:** *"On the calibration runs, the four-pattern set fired
+      on both deliberate-clamp probes of the pilot (SBP = 140 and DBP = 85 mmHg,
+      each rejected at setup with exit code 1) and on none of the eight
+      smoke-test runs; its behaviour on every Pulse log on disk is replayed in
+      the note below."*
+    - **Monograph:** the same sentence, linked to [S005] and [S004].
 - **F-S8 — L681 and L726: a tie, and two pointers.**
   - **The tie.** *"Its effect on the single worst-affected configuration
     (S1_F_0117 …) is to take the delivered Vt CV from 1.826 to 0.018."*
@@ -767,6 +783,31 @@ re-derived. What was newly opened this session is named.
   - **Options:** name the criterion ("the configuration with the largest
     reduction; S1_F_0118 shares its pre-lock value and falls to 0.024"), or
     drop "single"; and repoint both references.
+  - ✅ **Corrected on the author's decision, 2026-09-14** ("name both").
+    - **Re-verified before editing.** The window of both tied runs, read in
+      `output.csv`, holds 3 non-zero Vt samples and 10 zero respiratory-rate
+      samples out of 13, so the population CV is exactly √(10/3). Their locked
+      reruns hold Vt 818.6–873.6 and 818.6–893.4 mL. Both configurations are
+      S1_F with Vt 800, RR 20, PEEP 13.3, differing only in FiO₂ (0.21 against
+      0.737).
+    - **Supplement L681:** *"(26 and 19 of the 64)"* replaces the Table 1
+      pointer. *"Two configurations share the highest pre-lock delivered Vt
+      coefficient of variation, 1.826 (S1_F_0117 and S1_F_0118 …); the lock
+      takes them to 0.018 and 0.024."*
+    - **Supplement L726:** *"The two worst-affected configurations, named
+      earlier in this section and forming the two rightmost points of
+      Figure 4a …"*. "Rightmost" was written instead of the proposed
+      "extreme": on Figure 4a's other axis the extreme is S1_F_0008 (locked CV
+      0.112), so "extreme" was ambiguous.
+    - **Paper L280:** "the worst-affected configuration" becomes "the two
+      worst-affected configurations", so the pointer still matches its target.
+    - **Left as they are, as the author chose:** the monograph ×5 and README
+      "worst-case 1.826 → 0.018". They are true of one of the two runs.
+    - ⚠️ **For the author, not written anywhere:** both tied runs reach a CV of
+      1.826 because ventilation stops in the window, not because tidal volume
+      oscillates. `make_supp_fig_s4.py` already says so of S1_F_0117; this
+      reading confirms it for both. The headline "worst-case" is therefore a
+      different failure mode from the dyssynchrony it illustrates.
 - **F-S9 — L155: "approximately 7 % above literature values per Pulse's own
   validation table".** Both Pulse pages were scraped 2026-09-14.
   - The 7 % is in Pulse's **methodology prose**, not a validation table:
@@ -779,6 +820,18 @@ re-derived. What was newly opened this session is named.
   - Supplement only; not in the paper, the monograph, the README or the
     preregistration. It is a citation-attribution mismatch, so nothing was
     modified. (`CLAUDE.md` limitation #10 carries the same attribution.)
+  - ✅ **Corrected on the author's decision, 2026-09-14** ("attribute and give
+    both values").
+    - **Re-verified:** the prose "VC=4.93 L … around 4.6 L" is also in the
+      local clone at `REL_4_3_2` (`RespiratoryMethodology.md:655`), so it is not
+      web-only. 4.93 / 4.6 = +7.17 % and 4,819.2 / 4,600 = +4.77 %.
+    - **L155** now reads: *"Pulse's respiratory methodology reports a
+      standard-patient vital capacity of 4.93 L against a literature value of
+      about 4.6 L (about 7 % higher); its current patient validation table lists
+      4,819 mL for the standard male (about 5 % higher)."*
+    - **Not changed:** `CLAUDE.md` limitation #10. It is a project instruction
+      file, outside this audit's write scope, and it still says "Pulse's own
+      validation table".
 - **M-1 — L178, a mechanical pointer.** *"the FiO₂ rows of Figure 2 of the main
   manuscript are left blank"*. The blank FiO₂ entries are in the Morris heatmaps,
   Figure 3 (`paper.tex:331` uses `\ref{fig:morris}`). The sentence entered in
@@ -788,6 +841,7 @@ re-derived. What was newly opened this session is named.
   - Held back only so that it goes in the same supplement edit and rebuild as
     F-S7 and F-S8. The alternative, a separate commit now, was rejected because
     it costs a second rebuild and the push needs a go either way.
+  - ✅ **Applied 2026-09-14** with the three findings above.
 
 **Two items already recorded in `audit/supplement_prose_sweep.md`**, re-measured
 here:
@@ -795,10 +849,22 @@ here:
   where "asymptote" is the last observed value at t = 300 s (`audit_claims.py`
   comment). Re-measured on the 37 physiological-converged runs, the earlier
   record having used 38:
-  - the median trajectory's [240, 300] s mean is 0.09 % from it;
-  - per run, the median is 0.12 % and the maximum 1.48 %.
-  - The claim is true but loose: about 55 times the median trajectory's
+  - ~~the median trajectory's [240, 300] s mean is 0.09 % from it; per run,
+    the median is 0.12 % and the maximum 1.48 %~~ — **wrong: that script's
+    `time_s >= 240` dropped the t = 240 s sample (239.99999…)**. That is the same
+    defect the S021 window fix of 2026-09-01 removed.
+  - With the atlas window slack of 1e-6, 13 samples per run: **median
+    trajectory 0.105 %; per run, median 0.130 % and maximum 1.565 %.**
+  - The claim is true but loose: about 50 times the median trajectory's
     deviation, and about 3 times the worst single run's.
+  - The wording put to the author ("within 0.1 % … within 1.5 %") was drafted on
+    the wrong figures and **would have been false**. The error was caught by the
+    pre-edit re-verification, before anything was written.
+  - ✅ **Corrected on the author's decision, 2026-09-14** ("measured figures"),
+    with the corrected figures. **L758** now reads: *"puts the PaO₂ estimate
+    within about 0.1 % of the value reached at t = 300 s on the median trajectory
+    of those runs, and within 1.6 % for any one of them."* "Asymptote" is gone:
+    the reference is the last recorded value.
 - **#7, L464, closed by F-S1.** The sentence now says "March anchors", and the
   S030 guard compares against those at 1 dp (worst 0.52 %).
 
@@ -809,6 +875,67 @@ here:
 - `supplement_prose_sweep.md` still lists #11, #21 and #27 as OPEN, although
   the current text no longer carries those defects ("seven of the eight",
   "160-point Morris design", "four-level Morris grid").
+- `make_supp_fig_s4.py`'s docstring still says the worst case is "the extreme
+  dot in paper Figure 3a" and that "Section 2.3 still quotes it by name". Both
+  are stale. It is left unchanged, because editing the producer would disturb
+  the figure-freshness check for no rendered change.
+- **The crosswalk counts by literal substring.** `0 / 20` had been counting the
+  "20 / 20" of the removed F-S7 sentence. Two entries go 9 → 8 and T1.13
+  (`1.6~\%`) goes 1 → 2, a coincidence with the #15 wording. Each entry carries
+  a dated note.
+
+**Guard.** `check_supplement_small_audit` in `scripts/audit_claims.py`, wired
+into the exit status, 22 checks:
+- it re-derives the pilot probes, the smoke set, the S014 tie with both locked
+  values, the rerun split, and the two vital-capacity percentages;
+- for #15, it re-derives the median and per-run deviations from the S021
+  traces, and skips cleanly when those gitignored traces are absent;
+- it requires the nine corrected wordings and bans the eleven old ones.
+
+**Reinjection.** The old sentences were written back into supplement, paper and
+monograph at once:
+- the guard failed **8** checks and the audit exited 1;
+- all three files were restored and their MD5 checked identical.
+
+A first `sed`-based reinjection silently failed to apply one of its three
+substitutions (a `\%` escape); it was redone with a literal-replacement
+script that aborts unless each target occurs exactly once.
+
+**Bucket movement caused by these corrections** (multiset diff of
+`inventory.csv` against `921a8b6`):
+- **Supplement:** 1,876 → 1,887 retained.
+  - New: `4.93`, `4{,}819`, `118`, `300`, `140` (guard); `4.6`, `0.024`, `0.1`
+    (none); `26`, `19`, `64`, `85`, `1.6`, `3` (ambiguous_small).
+  - Gone: `20` ×2, `2` (ambiguous_small).
+  - The rows `1` (exit code for Table 1) and `5` (L155 for L758) swap one for
+    one.
+  - Every new value is one verified above.
+- **Monograph:** `20` ×3 gone; `140`, `85` and `1` new.
+- **Guard pinning.** The guard pins the string "140", so every other
+  occurrence of 140 moved from `none` to `guard` by value: supplement 2,
+  monograph 4. This is the §2 by-value limit again, as in F-S5.
+- **Masks.** Supplement masks 86 → 85: the only removed mask is
+  `\mainref{sec:results-vcac}{2.3}` (diff of `masked_by_rule.csv`).
+- **Rebuilt:** paper 25 p., supplement 63 p., monograph; PDF and DOCX.
+  - New wording found and old wording absent in the rendered PDFs.
+  - The only remaining "own validation table" hit is row 7's "tables" (PC-AC),
+    verified in §4.1.
+  - `\_` extracts as a space, so "S1 F 0118" is the rendered form.
+- **A render regression, caught by the pre-commit hook, which refused the first
+  commit.** The longer row 10 (F-S9) grew Table S1's accepted overflow from
+  31.26 pt to 53.26 pt.
+  - The alternatives were rejected: accepting 53 pt would hide a real
+    degradation, and shortening row 10 would drop values the author chose.
+  - Fix: a local `\footnotesize` on `tab:limits`, as on 2026-08-25. The overflow
+    is gone.
+  - The table's overfull hbox moved from 19.31 to 17.39 pt. Measured before the
+    baseline entry was replaced: its rules stay inside the caption's full text
+    width, as they did at HEAD (rebuilt in a clean worktree). The page was also
+    read as an image.
+  - `scripts/check_render.py` `KNOWN_RESIDUES` is amended with that judgement
+    written beside it, per its own amendment rule.
+  - The table already floated far from Section S2 at HEAD (p. 51); it is now on
+    p. 48, still 63 pages.
 
 **Not covered.** The supplement's by-value `guard` / `ledger` occurrences.
 
@@ -817,8 +944,8 @@ here:
 | artefact | `none` residue | `ambiguous_small` | status |
 |---|---:|---:|---|
 | paper | 37 / 29 (43 / 31 when read) | 307 | **both read row by row** (§3, §3.2). `none`: no defect. `ambiguous_small`: 57 not quantities, 248 + 2 verified, **1 wording finding, corrected** (L259, author's choice, guarded). Not closed: `guard` and `ledger` are covered by value only |
-| supplement | 431 / 218 (456 when read) | 957 | **`none` read row by row** (§4.1): 6 not quantities, 450 verified; **all six findings corrected** on the author's decisions (F-S1 to F-S6, 2026-09-14). **`ambiguous_small` read row by row** (§4.2): 134 not quantities, 823 verified; **3 findings open for the author** (F-S7 validation claim, F-S8 tie and pointers, F-S9 VC attribution), 1 mechanical pointer ready (M-1), prose-sweep #15 still open. Not closed: `guard` and `ledger` by value only |
-| monograph | 807 / 345 | 1865 | not worked; inline code still costs 89 literals |
+| supplement | 431 / 218 (456 when read) | 957 | **`none` read row by row** (§4.1): 6 not quantities, 450 verified; **all six findings corrected** on the author's decisions (F-S1 to F-S6, 2026-09-14). **`ambiguous_small` read row by row** (§4.2): 134 not quantities, 823 verified; **3 findings, 1 mechanical pointer and prose-sweep #15 all corrected** on the author's decisions (2026-09-14), guarded (22 checks). Counts now 432 / 960 after the corrections. Not closed: `guard` and `ledger` by value only |
+| monograph | 803 / 344 | 1864 | not worked; inline code still costs 89 literals |
 
 ⚠️ **No count in this register may come from an ad-hoc pipeline.** Three
 successive `grep | cut | uniq` passes over `inventory.csv` each miscounted the
@@ -843,5 +970,6 @@ occurrences are not read one by one. The supplement's `none` residue has been
 read row by row (§4.1). It carried six findings, one of which (F-S5) moved
 a band edge that the paper also states; all six are corrected on the author's
 decisions. The supplement's `ambiguous_small` residue has been read row by row
-(§4.2): three findings await the author, and one mechanical pointer is ready.
+(§4.2): three findings, one wrong pointer and one loose bound were found, and
+all are corrected on the author's decisions and guarded.
 The monograph residues are listed, not cleared.

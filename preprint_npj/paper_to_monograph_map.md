@@ -129,8 +129,8 @@ caught equally.*
   monograph_claim_id: 'T1.13'
   expected_value: 1.6
   format_in_paper: '1.6~\%'
-  expected_occurrences: 1
-  notes: 'Appears twice as of Step 5: §2.1 prose "20 / 1{,}280 runs (1.6~\%)" (1), §2.5 prose "20 runs (1.6~\%) failed to complete with finite output" (1). Bumped from 1 (Step 3) to 2 (Step 5). 2 -> 1 (2026-09-02, P.J. synthesis pass): the 'Second, solver divergence is sex-specific' restatement in §2.1 was dropped; §2.5 keeps the figure with its full per-cell breakdown, and §2.1 now states the 20/1{,}280 fraction and defers the sex stratification to §2.5.'
+  expected_occurrences: 2
+  notes: 'Bumped 1 -> 2 on 2026-09-14: supplement S9 now says the final-60-s recipe lands "within 1.6~\%" of the t = 300 s value for any single run (number audit, prose-sweep #15, author''s decision). That is a by-string coincidence, not this quantity; the divergence rate itself still appears once, in paper §2.5. Earlier history: appears twice as of Step 5: §2.1 prose "20 / 1{,}280 runs (1.6~\%)" (1), §2.5 prose "20 runs (1.6~\%) failed to complete with finite output" (1). Bumped from 1 (Step 3) to 2 (Step 5). 2 -> 1 (2026-09-02, P.J. synthesis pass): the 'Second, solver divergence is sex-specific' restatement in §2.1 was dropped; §2.5 keeps the figure with its full per-cell breakdown, and §2.1 now states the 20/1{,}280 fraction and defers the sex stratification to §2.5.'
 
 - paper_section: '§2.1 Overview (prose)'
   paper_context: 'Total clean simulations across full sweep'
@@ -306,7 +306,7 @@ caught equally.*
   expected_value: 1.826
   format_in_paper: '1.826'
   expected_occurrences: 1
-  notes: 'Appears in §2.3 prose ("reduces the worst-case Vt CV from 1.826 to 0.018"). Dropped 2 -> 1 on 2026-08-22: the Supplement S8 waveform figure used to illustrate this same worst-case run and quoted the value in its caption, but that run is worst because ventilation stops rather than oscillates, so the figure moved to a deterministically median-selected run. The worst case is unchanged and still quoted in §2.3, and remains visible as the extreme point of paper Figure 4a.'
+  notes: 'Appears in §2.3 prose ("reduces the worst-case Vt CV from 1.826 to 0.018"). Dropped 2 -> 1 on 2026-08-22: the Supplement S8 waveform figure used to illustrate this same worst-case run and quoted the value in its caption, but that run is worst because ventilation stops rather than oscillates, so the figure moved to a deterministically median-selected run. The worst case is unchanged and still quoted in §2.3, and remains visible as the extreme point of paper Figure 4a. Correction 2026-09-14 (number audit F-S8): the one occurrence is supplement S8 (paper §2.3 no longer quotes it and points to S8), and the maximum is a tie, S1_F_0117 and S1_F_0118 both at 1.825741858351; S8 now names both.'
 
 - paper_section: '§2.3 VC-AC (prose)'
   paper_context: 'Worst-case Vt CV after lock (paired same-run S1_F_0117)'
@@ -314,7 +314,7 @@ caught equally.*
   expected_value: 0.018
   format_in_paper: '0.018'
   expected_occurrences: 1
-  notes: 'Paired same-run worst-case (S1_F_0117): 1.826 -> 0.018. Appears in §2.3 prose. Dropped 2 -> 1 on 2026-08-22 for the same reason as T1.05: the Supplement S8 waveform figure no longer illustrates the worst-case run. The value itself is unchanged and independently reproduced from data/runs/full_sweep/S1_F/S1_F_0117/output.csv.'
+  notes: 'Paired same-run worst-case (S1_F_0117): 1.826 -> 0.018. Appears in §2.3 prose. Dropped 2 -> 1 on 2026-08-22 for the same reason as T1.05: the Supplement S8 waveform figure no longer illustrates the worst-case run. The value itself is unchanged and independently reproduced from data/runs/full_sweep/S1_F/S1_F_0117/output.csv. Correction 2026-09-14 (number audit F-S8): the one occurrence is supplement S8, not paper §2.3; S1_F_0118 ties S1_F_0117 on the pre-lock maximum and locks to 0.024, which S8 now states beside 0.018.'
 
 - paper_section: '§2.3 VC-AC (prose)'
   paper_context: 'S014 paired-rerun sample size'
@@ -413,24 +413,24 @@ caught equally.*
   monograph_claim_id: 'T1.12'
   expected_value: 20
   format_in_paper: '20 / 20'
-  expected_occurrences: 4
-  notes: 'paper §2.5 prose dose-response chain (1) + supplement S2 limitations-table closing prose "20 / 20 clean with this regex set" (1). Bumped 1 -> 2 in Phase 9.A.'
+  expected_occurrences: 3
+  notes: 'paper §2.5 prose dose-response chain (1) + supplement S2 limitations-table closing prose "20 / 20 clean with this regex set" (1). Bumped 1 -> 2 in Phase 9.A. Dropped 4 -> 3 on 2026-09-14: the supplement S3 sentence "20 / 20 clean with the four-pattern set" (a by-string coincidence, not this quantity) was replaced on the author''s decision (number audit F-S7), because the validation it cited passed an empty log. The three remaining occurrences are paper §2.5 (1) and supplement S10 blood-volume text (2).'
 
 - paper_section: '§2.5 prose (BV-rescue dose-response)'
   paper_context: 'Bracket BV (4400 mL) dose-response: 0 diverged out of 20 (corrected 2026-06-16; the prior "2" was a classification-time race artifact on the two slowest runs, now re-classified clean)'
   monograph_claim_id: 'T2.bv.bracket.diverged'
   expected_value: 0
   format_in_paper: '0 / 20'
-  expected_occurrences: 9
-  notes: 'Bracket now clears to 0 / 20 (same as floor). The corrected §2.5 prose reads "20 / 20 ... to 0 / 20 at both reductions"; "0 / 20" total across paper+supplement = 9 (string shared with T2.bv.floor.diverged, which expects the same count).'
+  expected_occurrences: 8
+  notes: 'Dropped 9 -> 8 on 2026-09-14: the count is a literal substring match, so the supplement S3 sentence "20 / 20 clean with the four-pattern set" was being counted as a "0 / 20"; that sentence was replaced on the author''s decision (number audit F-S7). No "0 / 20" of this quantity changed. Earlier history: Bracket now clears to 0 / 20 (same as floor). The corrected §2.5 prose reads "20 / 20 ... to 0 / 20 at both reductions"; "0 / 20" total across paper+supplement = 9 (string shared with T2.bv.floor.diverged, which expects the same count).'
 
 - paper_section: '§2.5 + supplement S3/S5'
   paper_context: 'Floor BV (4082.24 mL) dose-response: 0 diverged out of 20'
   monograph_claim_id: 'T2.bv.floor.diverged'
   expected_value: 0
   format_in_paper: '0 / 20'
-  expected_occurrences: 9
-  notes: 'paper §2.5 (2) + supplement S3.7 (1) + supplement S5 continuous-severity table "0 / 20" rows (the (0.5, 0.85] bin counts) (2). Bumped 3 -> 5 in Phase 9.B.'
+  expected_occurrences: 8
+  notes: 'Dropped 9 -> 8 on 2026-09-14, for the same substring reason as T2.bv.bracket.diverged: the replaced supplement S3 "20 / 20 clean" sentence (number audit F-S7) had been counted as a "0 / 20". Earlier history: paper §2.5 (2) + supplement S3.7 (1) + supplement S5 continuous-severity table "0 / 20" rows (the (0.5, 0.85] bin counts) (2). Bumped 3 -> 5 in Phase 9.B.'
 
 - paper_section: 'paper.tex prose, rounded mL (Tier 3 id8/54): §2.5 (x2) + Figure 5 caption'
   paper_context: 'Male reference body BloodVolumeBaseline default, rounded to whole mL in the paper'

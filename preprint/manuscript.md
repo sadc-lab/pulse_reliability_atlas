@@ -1168,8 +1168,11 @@ r"is outside the valid range"
 The previous regex set generated 100 % false-positive `clamped` flags by
 matching Pulse's normal solver convergence text (`Resetting the target for
 X to Y`); this would have made the `clamped` flag useless across the entire
-sweep. Detector validation on 20 reference runs in `Pulse_translation_new/`
-remains 20 / 20 clean with the new regex set.
+sweep. On the calibration runs, the four-pattern set fired on both
+deliberate-clamp probes of the [S005](#s005) pilot (SBP = 140 and
+DBP = 85 mmHg, each rejected at setup with exit code 1) and on none of the
+eight [S004](#s004) smoke-test runs; the patch note below replays both
+pattern sets over every Pulse log on disk.
 
 **Patch of 2026-07-26, applied after the sweep.** The four patterns above
 are the set that classified all 1,280 published runs, and are left as

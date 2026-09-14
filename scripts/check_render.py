@@ -86,9 +86,23 @@ OVERFLOW_TOLERANCE_PT = 5.0
 #     verified cause: the earlier log that would have named the offending line
 #     was overwritten by the rebuild. Recorded as such rather than as a
 #     diagnosis.
+#   * TWO ENTRIES CHANGED, 2026-09-14, both on the supplement's Table S1
+#     (`tab:limits`, lines 130--162). The number audit's F-S9 correction
+#     lengthened row 10, and the float, already too large by 31.26459pt, grew to
+#     53.26459pt. That growth was NOT accepted. As on 2026-08-25, a local
+#     \footnotesize on the table removed the overflow entirely, so the 31.26459pt
+#     entry is deleted as OBSOLETE.
+#     The same change narrowed the table's overfull hbox from 19.30798pt to
+#     17.39146pt, which is the same warning on the same paragraph. Its ink was
+#     measured before this entry was replaced. On the rendered page (p. 48) the
+#     table's rules run x = 124.60--512.53pt against its full-width caption at
+#     124.60--512.56pt, so nothing protrudes. HEAD, rebuilt in a clean worktree,
+#     measured 100.07--489.92 against 100.07--489.95 (p. 51, other margin
+#     parity). The page was also read as an image: folio clear, no collision.
+#     The HEAD rebuild also showed the table already floated far from Section S2
+#     (p. 51 of 63); it now sits on p. 48, still 63 pages.
 KNOWN_RESIDUES = frozenset({
-    "supplement: overfull box, 19.30798pt too wide (tolerance 5pt)",
-    "supplement: float too large for page by 31.26459pt (tolerance 5pt)",
+    "supplement: overfull box, 17.39146pt too wide (tolerance 5pt)",
 })
 
 DOCS = [

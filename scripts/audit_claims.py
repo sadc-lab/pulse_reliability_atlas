@@ -6482,6 +6482,168 @@ def check_continuous_severity_band() -> int:
 n_contband_fail = check_continuous_severity_band()
 
 
+# -----------------------------------------------------------------------------
+# Supplement small-number audit guard (2026-09-14).
+#
+# The row-by-row reading of the supplement's ambiguous_small residue
+# (audit/number_inventory.md section 4.2) found, and the author corrected:
+#   F-S7  "20 / 20 clean with the four-pattern set" cited a validation script
+#         that passes an empty log, so no pattern was ever evaluated; replaced
+#         by the runs that did exercise the patterns (pilot probes, smoke set).
+#   F-S8  "the single worst-affected configuration": S1_F_0117 and S1_F_0118
+#         tie exactly at the maximum pre-lock Vt CV; plus two wrong pointers.
+#   F-S9  the vital-capacity 7 % came from Pulse's methodology prose, not its
+#         validation table, whose current StandardMale value gives about 5 %.
+#   #15   "within approximately 5 % of the asymptote" measured about 0.1 % on
+#         the median trajectory and at most 1.6 % per run, against the value
+#         at t = 300 s. A first measurement dropped the t = 240 s sample.
+#   M-1   the blank FiO2 rows are in paper Figure 3, not Figure 2.
+# -----------------------------------------------------------------------------
+SMALL_AUDIT_TEXT_REQUIRED = (
+    ("preprint_npj/supplement.tex",
+     "Pulse's respiratory methodology reports a standard-patient vital capacity of 4.93~L "
+     "against a literature value of about 4.6~L (about 7~\\% higher); its current patient "
+     "validation table lists 4{,}819~mL for the standard male (about 5~\\% higher).", 1),
+    ("preprint_npj/supplement.tex",
+     "the FiO$_2$ rows of Figure~3 of the main manuscript are left blank", 1),
+    ("preprint_npj/supplement.tex",
+     "fired on both deliberate-clamp probes of the pilot (SBP = 140 and DBP = 85~mmHg, each "
+     "rejected at setup with exit code 1) and on none of the eight smoke-test runs", 1),
+    ("preprint/manuscript.md", "eight [S004](#s004) smoke-test runs", 1),
+    ("preprint_npj/supplement.tex", "(26 and 19 of the 64)", 1),
+    ("preprint_npj/supplement.tex",
+     "1.826 (S1\\_F\\_0117 and S1\\_F\\_0118, run indices 117 and 118 in the healthy-female "
+     "cell); the lock takes them to 0.018 and 0.024", 1),
+    ("preprint_npj/supplement.tex",
+     "The two worst-affected configurations, named earlier in this section", 1),
+    ("preprint_npj/paper.tex", "the two worst-affected configurations and the per-run values", 1),
+    ("preprint_npj/supplement.tex",
+     "within about 0.1~\\% of the value reached at $t = 300$~s on the median trajectory of "
+     "those runs, and within 1.6~\\% for any one of them", 1),
+)
+SMALL_AUDIT_TEXT_BANNED = {
+    "preprint_npj/supplement.tex": (
+        "Detector validation on twenty reference runs",
+        "20 / 20 clean with the four-pattern set",
+        "single worst-affected configuration",
+        "named in Section~\\mainref{sec:results-vcac}{2.3}",
+        "(Table~1 of the main manuscript)",
+        "of the asymptote",
+        "rows of Figure~2 of the main manuscript",
+        "per Pulse's own validation table.",
+    ),
+    "preprint/manuscript.md": (
+        "Detector validation on 20 reference runs",
+        "20 / 20 clean with the new regex set",
+    ),
+    "preprint_npj/paper.tex": ("the worst-affected configuration and the per-run values",),
+}
+# External values, read on pulse.kitware.com on 2026-09-14: respiratory
+# methodology prose (VC 4.93 L, literature about 4.6 L) and the patient
+# methodology StandardMale validation table (VitalCapacity 4819.2 mL).
+SMALL_AUDIT_VC = {"prose_L": 4.93, "literature_L": 4.6, "table_mL": 4819.2}
+
+
+def check_supplement_small_audit() -> int:
+    """Pin the five corrections of the supplement's small-number audit."""
+    print("\n## Supplement small-number audit guard (F-S7, F-S8, F-S9, #15, M-1)\n")
+    rows: list[tuple[str, str, str]] = []
+    n_bad = 0
+
+    def record(label: str, observed: str, ok: bool) -> None:
+        nonlocal n_bad
+        n_bad += 0 if ok else 1
+        rows.append((label, observed, "PASS" if ok else "**FAIL**"))
+
+    # F-S7: the runs the new sentence names.
+    pilot = pd.read_parquet(REPO / "data" / "runs" / "pilot_S1_M" / "aggregated.parquet").set_index("case_id")
+    for cid, col, val in (("S1_M_9900", "in_sbp", 140.0), ("S1_M_9901", "in_dbp", 85.0)):
+        ok = (cid in pilot.index and float(pilot.loc[cid, col]) == val
+              and bool(pilot.loc[cid, "clamped"]) and int(pilot.loc[cid, "exit_code"]) == 1)
+        observed = (f"{col} {pilot.loc[cid, col]}, clamped {pilot.loc[cid, 'clamped']}, "
+                    f"exit {pilot.loc[cid, 'exit_code']}") if cid in pilot.index else "absent"
+        record(f"F-S7 pilot probe {cid} fired clamped at setup", observed, ok)
+    smoke = pd.read_parquet(REPO / "data" / "runs" / "scenario_smoke" / "aggregated.parquet")
+    record("F-S7 smoke set: eight runs, none clamped",
+           f"{len(smoke)} runs, {int(smoke['clamped'].sum())} clamped",
+           len(smoke) == 8 and int(smoke["clamped"].sum()) == 0)
+
+    # F-S8: the tie, the locked values and the rerun distribution.
+    pc = pd.read_parquet(REPO / "data" / "runs" / "s014_trigger_lockout" / "paired_comparison.parquet")
+    top = pc.sort_values(["Vt_cv_orig", "case_id"], ascending=[False, True]).reset_index(drop=True)
+    tie = (abs(float(top.loc[0, "Vt_cv_orig"]) - float(top.loc[1, "Vt_cv_orig"])) < 1e-12
+           and float(top.loc[2, "Vt_cv_orig"]) < float(top.loc[1, "Vt_cv_orig"]) - 1e-6)
+    record("F-S8 exactly two runs share the maximum pre-lock Vt CV",
+           f"{top.loc[0, 'case_id']} {top.loc[0, 'Vt_cv_orig']:.12f}, {top.loc[1, 'case_id']} "
+           f"{top.loc[1, 'Vt_cv_orig']:.12f}, next {top.loc[2, 'Vt_cv_orig']:.6f}",
+           tie and list(top.loc[:1, "case_id"]) == ["S1_F_0117", "S1_F_0118"]
+           and round(float(top.loc[0, "Vt_cv_orig"]), 3) == 1.826)
+    locked = dict(zip(top.loc[:1, "case_id"], top.loc[:1, "Vt_cv_lock"].round(3)))
+    record("F-S8 locked CVs of the two", f"{locked}",
+           locked == {"S1_F_0117": 0.018, "S1_F_0118": 0.024})
+    per_sc = pc["scenario"].value_counts().to_dict()
+    cells = set(pc["case_id"].str.extract(r"^(S\d_[MF])")[0])
+    record("F-S8 reruns per scenario: S1 26, S2 19 of 64; seven cells, S3_M absent",
+           f"{per_sc}, {len(pc)} pairs, cells {sorted(cells)}",
+           per_sc.get("S1") == 26 and per_sc.get("S2") == 19 and len(pc) == 64
+           and len(cells) == 7 and "S3_M" not in cells)
+
+    # F-S9: the two published percentages from the two Pulse pages.
+    vc = SMALL_AUDIT_VC
+    p_prose = 100.0 * (vc["prose_L"] / vc["literature_L"] - 1.0)
+    p_table = 100.0 * (vc["table_mL"] / (1000.0 * vc["literature_L"]) - 1.0)
+    record("F-S9 about 7 % (prose) and about 5 % (validation table)",
+           f"{p_prose:.2f} %, {p_table:.2f} %", round(p_prose) == 7 and round(p_table) == 5)
+
+    # #15: the recipe's deviation, re-derived from the S021 per-run traces.
+    s21 = REPO / "data" / "runs" / "s021_hyperoxia_convergence"
+    plat = pd.read_parquet(s21 / "plateau_stats.parquet")
+    phys = plat[(plat["scenario"] == "S1") & plat["converged"] & (plat["PaO2_plateau_mmHg"] <= 700)]
+    csvs = [s21 / cid / "output.csv" for cid in phys["case_id_long"]]
+    present = [p for p in csvs if p.exists()]
+    if len(phys) and len(present) == len(csvs):
+        frames, per_run = [], []
+        for p in present:
+            df = pd.read_csv(p)[["time_s", "ArterialOxygenPressure"]]
+            win = df[(df["time_s"] >= 240.0 - 1e-6) & (df["time_s"] <= 300.0 + 1e-6)]
+            last = float(df["ArterialOxygenPressure"].iloc[-1])
+            per_run.append((len(win), 100.0 * abs(float(win["ArterialOxygenPressure"].mean()) - last) / last))
+            frames.append(df.assign(t=df["time_s"].round(6)))
+        med = pd.concat(frames).groupby("t")["ArterialOxygenPressure"].median()
+        wm = med[(med.index >= 240.0) & (med.index <= 300.0)]
+        dev_med = 100.0 * abs(float(wm.mean()) - float(med.iloc[-1])) / float(med.iloc[-1])
+        dev_max = max(d for _, d in per_run)
+        n_win = {n for n, _ in per_run}
+        record("#15 recipe window holds 13 samples per run (t = 240 s included)",
+               f"{sorted(n_win)} over {len(per_run)} runs", n_win == {13} and len(per_run) == 37)
+        record("#15 median trajectory: about 0.1 %", f"{dev_med:.3f} %", round(dev_med, 1) == 0.1)
+        record("#15 any single run: within 1.6 %, and the bound is tight to 0.1",
+               f"max {dev_max:.3f} %", dev_max <= 1.6 and dev_max > 1.5)
+    elif len(phys) and not present:
+        record("#15 S021 per-run traces absent (clean checkout): re-derivation skipped",
+               f"0 of {len(csvs)} output.csv present", True)
+    else:
+        record("#15 S021 per-run traces partially present", f"{len(present)} of {len(csvs)}", False)
+
+    for rel, needle, expected in SMALL_AUDIT_TEXT_REQUIRED:
+        got = (REPO / rel).read_text(encoding="utf-8").count(needle)
+        record(f"`{rel}` carries `{needle[:48]}`", f"{got} (expected {expected})", got == expected)
+    for rel, banned in SMALL_AUDIT_TEXT_BANNED.items():
+        text = (REPO / rel).read_text(encoding="utf-8")
+        hits = [b for b in banned if b in text]
+        record(f"`{rel}` free of the corrected wordings", "clean" if not hits else f"found {hits}", not hits)
+
+    print("| check | observed | verdict |")
+    print("|---|---|---|")
+    for label, observed, verdict in rows:
+        print(f"| {label} | {observed} | {verdict} |")
+    print(f"\n**Supplement small-number audit guard:** {len(rows)} checks, {len(rows) - n_bad} PASS, {n_bad} FAIL.\n")
+    return n_bad
+
+
+n_smallaudit_fail = check_supplement_small_audit()
+
+
 def check_s033_cycle_resolved() -> int:
     """Every number of Supplement S8's cycle-resolved subsection, re-derived.
 
@@ -7473,6 +7635,7 @@ sys.exit(
         + n_fio2adj_fail + n_sobolframe_fail + n_s011_fail + n_abstract_fail
         + n_vtcv_split_fail + n_shap_unit_fail + n_detvocab_fail + n_cdcprov_fail + n_pubgate_fail
         + n_windowtol_fail + n_s033_fail + n_s023oos_fail + n_s034_fail + n_contband_fail
+        + n_smallaudit_fail
     ) > 0
     else 0
 )

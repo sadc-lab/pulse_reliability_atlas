@@ -4,7 +4,7 @@
     "probes": 39
   },
   "coverage_is_by_value_not_by_occurrence": true,
-  "guard_pinned_literals": 892,
+  "guard_pinned_literals": 927,
   "ledger": {
     "anchors_expected": 394,
     "anchors_run": 394,
@@ -15,19 +15,19 @@
   "per_artefact": {
     "monograph": {
       "buckets": {
-        "ambiguous_small": 1865,
-        "guard": 643,
+        "ambiguous_small": 1864,
+        "guard": 648,
         "ledger": 28,
-        "none": 807
+        "none": 803
       },
-      "distinct_unbucketed_values": 345,
+      "distinct_unbucketed_values": 344,
       "distinct_values": 561,
       "excluded": {
         "file_path": 4,
         "line_reference": 10,
         "md_fence": 9,
-        "md_inline_code": 457,
-        "md_link_target": 203,
+        "md_inline_code": 456,
+        "md_link_target": 205,
         "org_identifier": 2,
         "product_version": 7,
         "ref_or_machinery": 24,
@@ -103,19 +103,19 @@
     },
     "supplement": {
       "buckets": {
-        "ambiguous_small": 957,
-        "guard": 456,
+        "ambiguous_small": 960,
+        "guard": 463,
         "ledger": 32,
-        "none": 431
+        "none": 432
       },
-      "distinct_unbucketed_values": 218,
-      "distinct_values": 485,
+      "distinct_unbucketed_values": 219,
+      "distinct_values": 490,
       "excluded": {
         "file_path": 46,
         "line_reference": 1,
         "org_identifier": 12,
         "product_version": 1,
-        "ref_or_machinery": 408,
+        "ref_or_machinery": 407,
         "tex_comment": 120,
         "typeset_length": 13,
         "url_or_doi": 0,
@@ -125,32 +125,32 @@
       "path": "preprint_npj/supplement.tex",
       "recall": {
         "accounting_closes": true,
-        "literals_after_masking": 1894,
-        "literals_in_raw_text": 1980,
+        "literals_after_masking": 1905,
+        "literals_in_raw_text": 1990,
         "literals_removed_per_rule": {
           "file_path": 2,
           "line_reference": 2,
           "org_identifier": 2,
           "product_version": 1,
-          "ref_or_machinery": 54,
+          "ref_or_machinery": 53,
           "tex_comment": 12,
           "typeset_length": 6,
           "url_or_doi": 0,
           "version": 7
         },
-        "removed_by_masks": 86,
-        "retained_plus_year_like": 1894
+        "removed_by_masks": 85,
+        "retained_plus_year_like": 1905
       },
-      "retained_occurrences": 1876
+      "retained_occurrences": 1887
     }
   },
   "population_rule": "see the module docstring; exclusions are counted per artefact",
   "totals": {
-    "ambiguous_small_occurrences": 3129,
-    "distinct_values": 725,
-    "not_demonstrably_covered_occurrences": 4404,
-    "retained_occurrences": 5746,
+    "ambiguous_small_occurrences": 3131,
+    "distinct_values": 728,
+    "not_demonstrably_covered_occurrences": 4403,
+    "retained_occurrences": 5757,
     "unbucketed_distinct_values": 431,
-    "unbucketed_occurrences": 1275
+    "unbucketed_occurrences": 1272
   }
 }
