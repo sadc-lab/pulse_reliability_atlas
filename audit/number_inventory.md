@@ -1076,9 +1076,15 @@ L-numbers and section numbers in a finding refer to `manuscript.md`. §4.1 and
 
 MF-1 to MF-15 were each re-derived a second time before being written here.
 Where the second derivation used a different instrument, it is named in the
-entry; otherwise it was a second read of the same source. MF-16 to MF-19 come
-from this pass's pointer check, and each was confirmed in git history or in a
-second file.
+entry; otherwise it was a second read of the same source. The later findings
+came from three other checks:
+- MF-16, MF-17 and MF-19 from this pass's pointer check;
+- MF-18 from reading §4.4's ledger-pinned numbers against Table 2;
+- MF-20 and MF-21 from measuring the elementary effects behind O-2 while
+  drafting the options for the author.
+
+Each was confirmed in git history, in a second file, or by a control that
+reproduces a published value.
 
 Numbering is kept from the working notes: MF-8 was the second locus of MF-4 and
 is merged into it; MF-10 was downgraded to O-7 by its second reading.
@@ -1217,6 +1223,38 @@ is merged into it; MF-10 was downgraded to O-7 by its second reading.
   - The preregistration does document the zone, in its scenario table (L112,
     row S4, "E6 + E10") and in H3 (L76).
   - Entered in `93e87b8`, 2026-05-23.
+- **MF-20 — L1818–1826, §3.3.1 "Group A — noise-dominated".** *"μ\* sits at
+  numerical-noise level because the output is pinned at physiological
+  saturation … SpO2 … sits at ≈ 0.997 … so the Morris elementary effects are
+  floating-point fluctuation"*, for (S1, F, SpO₂, PEEP) and (S1, M, SpO₂, Vt).
+  Found while turning O-2 into an option; O-2 is folded in here.
+  - Measured from the clean elementary-effect pairs, rebuilt with
+    `s032_uncontaminated_step_analysis.load_inputs` / `annotate_pairs`.
+    Control: the mean |EE| reproduces the published μ\* 0.028086 and 0.003702.
+  - **(S1, M, SpO₂, Vt), 3 pairs.** At FiO₂ 0.4733, 0.99664 → 0.99852 (EE
+    +0.0028). At FiO₂ 0.21, **0.96232 → 0.92950 (EE +0.0492)** and **0.96358 →
+    0.98505 (EE +0.0322)**.
+  - **(S1, F, SpO₂, PEEP), 4 pairs.** At FiO₂ 0.4733, changes of −3.6 × 10⁻⁴ and
+    −6.1 × 10⁻⁵. At FiO₂ 0.21, −3.9 × 10⁻⁴ and **0.95373 → 0.96279 (EE
+    +0.0136)**.
+  - So no pair is floating-point noise: the engine is deterministic, and even
+    the smallest change, 6 × 10⁻⁵, is far above round-off. The pairs at FiO₂ 0.21
+    are not at the saturation ceiling (SpO₂ 0.95–0.96), and they carry the
+    effect. The high σ / μ\* comes from mixing ceiling pairs with non-ceiling
+    pairs, i.e. an FiO₂-dependent effect measured on 3–4 clean pairs.
+  - Clean S1 SpO₂ is ≈ 0.997 only at FiO₂ 0.4733 (0.9976 F, 0.9966 M). At 0.21
+    it is 0.9702 F and 0.9556 M.
+  - Monograph only: the paper and the supplement carry no Group A text.
+- **MF-21 — L1677–1679, §3.2.** *"SpO2 is also ventilator-driven but at a tiny
+  absolute scale (μ\* ≤ 0.13) because the output sits at the hemoglobin
+  saturation ceiling"*.
+  - The largest SpO₂ μ\* are S3_F ← FiO₂ 0.1247, S3_M ← FiO₂ 0.1236 and
+    S4_M ← FiO₂ 0.1145.
+  - Clean SpO₂ in those cells spans 0.755–0.9985 (S3_F, mean 0.930), 0.698–0.999
+    (S3_M, mean 0.916) and 0.846–0.967 (S4_M, mean 0.906): not at the ceiling.
+  - The scale is small because SpO₂ is recorded as a fraction. μ\* 0.12 is 12
+    saturation points.
+  - Control: the maximum reproduces 0.1247. Monograph only.
 
 #### Observations — low, recorded
 
@@ -1224,9 +1262,10 @@ is merged into it; MF-10 was downgraded to O-7 by its second reading.
   S1_F_0130 / 0131: plateau about 690, onset 195 s, 95 % reached at 220 s,
   PaCO₂ minimum 16.0 / 16.9. The other runaways start at 175, 140, 245 and
   285 s. The text describes one case as if it were the pattern.
-- **O-2 — L1823.** "SpO₂ in the healthy respiratory envelope sits at
-  ≈ 0.997". In clean S1 runs this holds at FiO₂ 0.4733 (0.9976 F, 0.9966 M),
-  not at 0.21 (0.9702 F, 0.9556 M).
+- **O-2 — L1823, folded into MF-20.** "SpO₂ in the healthy respiratory
+  envelope sits at ≈ 0.997". In clean S1 runs this holds at FiO₂ 0.4733
+  (0.9976 F, 0.9966 M), not at 0.21 (0.9702 F, 0.9556 M). Measuring the
+  elementary effects behind it turned this into MF-20.
 - **O-3 — L4439, B.4.** "3,304 files / 23 MB" describes two different sets.
   - 3,304 is every file, including `.git` (353 MB).
   - 23 MB is the text files only: 23.3–23.4 MB, about 2,900–3,000 files
@@ -1245,6 +1284,14 @@ is merged into it; MF-10 was downgraded to O-7 by its second reading.
   - The mass is `output_pulse_native.csv`: 2.21–2.29 GB, which the sentence does
     not name.
   - The total is 2.34–2.43 GB. The sentence is dated "measured 2026-07-29".
+  - Re-measured over exactly the four named directories (`full_sweep`,
+    `s014_trigger_lockout`, `s018_blood_volume`, `s021_hyperoxia_convergence`):
+    the five file types total 2,343,583,972 bytes, of which the native CSV is
+    2,214,917,236. That is 2.34 GB, or **2.18 GiB**, which `du -h` prints as
+    "2.2G".
+  - So the total is right in binary units; the defect is only that the file list
+    omits the native CSV, which carries 95 % of it.
+  - MF-13's "~50 MB" is not a unit effect: 100.2 MiB.
 - **O-6 — `cornish2023` is now a journal article.**
   - arXiv v5 was posted 2026-08-08. Its header reads "Journal of Machine
     Learning Research 27 (2026) 1-52 … Published 8/26".
@@ -1301,8 +1348,8 @@ Instruments that failed and were caught:
 
 **Not covered.**
 - The monograph's by-value `guard` / `ledger` occurrences.
-- Qualitative sentences that carry no number: MF-18 was found in passing, so the
-  monograph's prose is not claimed clean.
+- Qualitative sentences that carry no number. MF-18, MF-20 and MF-21 were found
+  in passing, so the monograph's prose is not claimed clean.
 - The AI-tool dates.
 - For MF-5: Ostchega 2011, the Singapore study, and the AAP 2017 PDF. Only its
   HTML tables were read.
@@ -1313,7 +1360,7 @@ Instruments that failed and were caught:
 |---|---:|---:|---|
 | paper | 37 / 29 (43 / 31 when read) | 307 | **both read row by row** (§3, §3.2). `none`: no defect. `ambiguous_small`: 57 not quantities, 248 + 2 verified, **1 wording finding, corrected** (L259, author's choice, guarded). Not closed: `guard` and `ledger` are covered by value only |
 | supplement | 431 / 218 (456 when read) | 957 | **`none` read row by row** (§4.1): 6 not quantities, 450 verified; **all six findings corrected** on the author's decisions (F-S1 to F-S6, 2026-09-14). **`ambiguous_small` read row by row** (§4.2): 134 not quantities, 823 verified; **3 findings, 1 mechanical pointer and prose-sweep #15 all corrected** on the author's decisions (2026-09-14), guarded (22 checks). Counts now 432 / 960 after the corrections. Not closed: `guard` and `ledger` by value only |
-| monograph | 803 / 344 | 1864 | **both read row by row, plus the 89 inline-code literals** (§5); section pointers and "Cited in §X" checked. **17 findings (MF-1 … MF-19, MF-8 merged, MF-10 downgraded) and 11 observations, nothing modified**, all awaiting the author. Quantities against non-quantities not counted: the rule-based split failed its precision pass. Not closed: `guard` and `ledger` by value only; prose without numbers not audited |
+| monograph | 803 / 344 | 1864 | **both read row by row, plus the 89 inline-code literals** (§5); section pointers and "Cited in §X" checked. **19 findings (MF-1 … MF-21, MF-8 merged, MF-10 downgraded) and 11 observations, nothing modified yet**; decisions taken 2026-09-14 on MF-1/2/3/5/7/11/12/18 and Cornish, the rest pending. Quantities against non-quantities not counted: the rule-based split failed its precision pass. Not closed: `guard` and `ledger` by value only; prose without numbers not audited |
 
 ⚠️ **No count in this register may come from an ad-hoc pipeline.** Three
 successive `grep | cut | uniq` passes over `inventory.csv` each miscounted the
@@ -1340,9 +1387,8 @@ decisions. The supplement's `ambiguous_small` residue has been read row by row
 (§4.2): three findings, one wrong pointer and one loose bound were found, and
 all are corrected on the author's decisions and guarded.
 The monograph's `none` and `ambiguous_small` residues and its 89 inline-code
-literals have been read row by row (§5). Seventeen findings and eleven
-observations are recorded there; none is corrected yet, and every finding
-awaits the author's decision. The monograph's by-value `guard` and `ledger`
-occurrences are not read one by one. Neither are its sentences that carry no
-number: one such defect (MF-18) was found in passing, so its prose is not
-claimed clean.
+literals have been read row by row (§5). Nineteen findings and eleven
+observations are recorded there; none is corrected yet. The monograph's
+by-value `guard` and `ledger` occurrences are not read one by one. Neither are
+its sentences that carry no number: three such defects (MF-18, MF-20, MF-21)
+were found in passing, so its prose is not claimed clean.
