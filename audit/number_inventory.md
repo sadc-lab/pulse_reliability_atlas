@@ -1122,9 +1122,28 @@ is merged into it; MF-10 was downgraded to O-7 by its second reading.
     70 / 74 to NHANES (Ostchega 2011). It attributes SBP 118 / DBP 70 (M) and
     113 / 69 (F) to the AAP 2017 age-17 tables at the 50th height percentile
     (L196, L405, L524, L526).
-  - **(P):** read through the companion's record; AAP 2017 and Ostchega 2011 were
-    not opened.
-  - Monograph only.
+  - **(P):** read through the companion's record. Ostchega 2011 was not opened.
+  - Monograph only, and uncited: no reference entry names NHANES, Ostchega or
+    Flynn / AAP 2017.
+  - ⚠️ **Primary source opened after the first commit of this entry.**
+    - AAP 2017 (Flynn et al., *Pediatrics* 140(3):e20171904) is not in PMC.
+      Its publisher page was scraped with Firecrawl on 2026-09-14
+      (`.firecrawl/aap2017_flynn_2026-09-14.md`). Each table appears twice on
+      the page, with identical rows.
+    - Table 4, boys aged 17, 50th BP percentile, by height percentile 5–95 %:
+      SBP 114 / 115 / 116 / **117** / 117 / 118 / 118 and DBP 65 / 66 / 67 /
+      **68** / 69 / 70 / 70. At the 50th height percentile (175.8 cm) that is
+      **117 / 68**; 118 / 70 appears only at the 90th–95th height percentiles.
+    - Table 5, girls aged 17: SBP 107 / 108 / 109 / **110** / 110 / 110 / 111 and
+      DBP 64 / 64 / 65 / **66** / 66 / 66 / 67. At the 50th height percentile
+      (163.0 cm) that is **110 / 66**. The female **113 / 69** matches no
+      height-percentile column of the 50th-BP-percentile row.
+    - The companion also cites a Singapore screening study (PMC12331881, males
+      only) as cross-validation; it was not opened.
+    - So the BP half is neither NHANES, as the monograph says, nor the AAP 2017
+      cell the companion names. The discrepancy lies in `Pulse_translation_new`,
+      which is read-only for this repository.
+    - Not cross-checked against the guideline PDF.
 - **MF-6 — L4531, B.5.** *"CDC P50 ≈ 177 cm"* for male stature at 18 years.
   CDC `statage.csv` (Firecrawl, 2026-09-14) gives P50 176.13 at Agemos 215.5
   and 176.19 at 216.5. L722 and L1045 say 176.2, which is right. 177 is Pulse's
@@ -1285,7 +1304,8 @@ Instruments that failed and were caught:
 - Qualitative sentences that carry no number: MF-18 was found in passing, so the
   monograph's prose is not claimed clean.
 - The AI-tool dates.
-- The primary sources behind MF-5.
+- For MF-5: Ostchega 2011, the Singapore study, and the AAP 2017 PDF. Only its
+  HTML tables were read.
 
 ## 6. What remains
 
