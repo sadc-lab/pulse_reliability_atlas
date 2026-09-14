@@ -411,12 +411,145 @@ levels), `686` (mean female PaO₂), `6.84` (the host-suspension wall-time gap).
 
 ⚠️ **Characterisation, not clearance.** The supplement is **not** closed.
 
+> **Update 2026-09-14.** The paragraph above calls the ARDS instability band
+> (`0.945`, `0.879`) a family "already settled for the paper". §4.1 finding
+> **F-S5** shows it was not: the band edges come from truncated severity labels.
+> The characterisation is kept as the dated record.
+
+### 4.1 The supplement's `none` residue, read row by row — 456 occurrences (2026-09-14)
+
+**Population.** `inventory.csv`, `artefact = supplement`, `bucket = none`: 456
+rows over 161 source lines, extracted with `scripts/parquet_probe.py`.
+- Every row was read with its context. `supplement.tex` is unchanged since
+  `d46dfdf`.
+- The audited line set was compared mechanically with the population's line
+  set: 161 of 161, none missing, none extra.
+
+**6 rows are not quantities:**
+- `4.3` in the release name "4.3.x" (L139);
+- `5000` in the product name "ASL-5000" (L149);
+- `3050` in the product name "RTX 3050" (L886);
+- `13` in the archive path date `reproduction_macos_2026-06-13` (L976);
+- `22` in the amendment identifier "2026-04-22-b" (L357);
+- `3.8` in the section number "Section~3.8" (L357).
+
+**450 rows are quantities.** Each was checked against a named source. Unlike
+§3.2, many of the sources here are external or experimental, so the method is
+stated per family.
+- **(S)** A source read this session: code, preregistration, a primary
+  publication, or Pulse's own source or documentation.
+- **(A)** An artefact read or recomputed this session. Where a script was
+  needed it was written read-only in the session scratchpad and checked
+  against a known anchored value first.
+- **(L)** A ledger anchor or guard naming the same quantity.
+- **(X)** Arithmetic.
+- **(P)** A verification recorded in an earlier session and **not** repeated
+  here. It is labelled wherever it is the only support.
+
+| family | lines | how | detail |
+|---|---|---|---|
+| limitations table, bound probes | 139–164 | S + A | age gate `SetupPatient.cpp:43` (18.0); ranges preregistration L95, L98; PC-AC 11.3 / 25.3 / 15.3 % and VC-AC 0.0681 / 1.01 / 2.25 % **re-scraped** from pulse.kitware.com (mechanical-ventilator methodology, 2026-09-14), the printed % being a symmetric relative difference (111.783 / 991.1 = 11.28 %); S030b probes `hr49/hr111/rr7/rr21` exit 1 with no CSV and the rejection text in `pulse.log`, `hr50/hr110/rr8/rr20` exit 0 |
+| hard-bound justification table | 208–218, 257, 263 | S + X | Marini 2018 PDF p. 21, verbatim "(220 - age)/min", and p. 20 bradycardia; West 11th ed. p. 25/30 "about 150 ml"; Marino 2013 PDF p. 510 "10 to 15 mL/kg", in *Positive Pressure Ventilation* (Ch. 25); Sepsis-3 SOFA MAP < 70 (PMC4968574); SSC 2021 MAP 65 and "approximately 60 mm Hg … tracks linearly" (PMC8486643); ESH 2023 §16.2.1 grade 3 ≥ 180/110 with acute HMOD; Nin 2017 (PMC5630225) 1899 patients / 927 ICUs / 40 countries / 48 h / 70 mmHg ≈ 95th percentile; Severinghaus equation gives S = 0.5 at 26.86 mmHg and S = 0.3198 at 20 mmHg; 15 / 0.21 = 71 %. **F-S2** (below) |
+| detector wording | 225, 270, 306, 423, 427, 450, 458, 677 | S + L | `src/detector.py` constants; preregistration amendment 2026-04-22-b; SpO₂ ceiling 0.999 at `nss_decomposition_table.py:58`; 530 − 360 = 170 |
+| FiO₂ adjustment, bodies, CDC | 286–294 | L + S + X | FiO₂ guard (13, 0.04 %); the six CDC P50 decimals re-read in the official `wtage.csv` (Firecrawl, 2026-09-14), the CDC guard transcribes all six and exercises five in its checks (the female 218.5 value is transcribed but never compared); 67.3 / 1.8² = 20.77; Pulse height constants 177.0 / 163.0 / 175.5 / male floor 163.0 (`SetupPatient.cpp:70–75`) |
+| S032 clip | 312–334 | A + X | `results/s032/morris_step_contamination.csv`: 9 of 20 DBP steps shortened, 5 at 6.25 % (0.83 mmHg), 1 at 56.25 %, 3 at 62.5 %; 8 contaminated; 123/140; all 11 full steps at SBP ≥ 100; the transition table equals `transition_stratified_contrasts.csv`; the **max factor 15.4** was never anchored and is re-derived: median 2.3676 reproduces anchor `T5.clip.mustar_factor`, max 15.392 (S1_F, Vt) |
+| Sobol | 341–345 | S + A + X | k per cell 3–6 and costs from `sobol_ci_buckets.json`; 3,584 / 1,500 and 8,192 / 1,500; `s019_sobol_bolton.py` 6 cells × 256 × 9 = 13,824; resample robustness (1,000 / 2,000 / 4,000 equal, 22 at 500) **(P)** S031 log |
+| F-003 reclassification | 357 | A + X | `f003_physiological_reclassification.csv`: 34 → 32 reclassified, 31 at FiO₂ 1.0, 21 F / 11 M; exception S1_F_0056 (FiO₂ 0.737, 678.6 mmHg, PaCO₂ 16.2) gives 0.737 × 713 − 16.2 / 0.8 = 505; the two non-reclassified runs (Vt 800, RR 20) sit at 475–483 mmHg to t = 60–75 s, then about 1,000 in raw `output.csv` |
+| seed sample dependence | 404 | A | ratio 0.667 → 0.547 (seed-44 parquet); ra_lo 0.287–0.309; S2_M divergence 7/160 vs 4/160 |
+| S030 Berlin calibration | 462–496 | A + L | 40 runs, 0.910–0.945 exit 1 in both arms, 0.900 / 0.950 exit 0; trigger arms at [240, 300] s: 30.6 / 418 / 43.6 against 20.0 / 50.8 / 91.5; the Berlin sweep table equals `pf_berlin_by_scenario.csv` cell by cell, and the producer re-run gives a byte-identical file; the companion anchors are read in `Pulse_translation_new/experiments_log.md`. **F-S1** |
+| severity mapping table | 513–521 | S + X | `RespiratoryModel.cpp` nodes, linearly interpolated: 8.8 / 15 / 22.5, 0.70 / 0.55 / 0.45, 0.57 / 0.20 / 0.075, 0.22 / 0.20 / 0.125, in the four functions named in the caption |
+| companion instability probes | 527 | S | companion log: March 28-run sweep fails at 0.92 / 0.94; E10 fine subset of 10 runs, 8 consecutive failures; E6 severe fine sweep of 9 runs, 4 failures and 5 passes |
+| continuous severity sweep | 531–566 | A | midrange inputs read from the parquet; **F-S5** |
+| Spearman CI table | 576–608 | A + L | equals `spearman_mu_star.csv` in all 12 rows |
+| ventilation dose | 614–618 | S + X | Devine `SetupPatient.cpp:139/144`; 74.99 / 55.10 kg; 4.46–11.89, 5.34–14.23, 4.0–10.67, 5.44–14.52 mL/kg; +19.8 %, +36.1 % |
+| Cornish table | 639–668 | S + X | arXiv 2301.07210v4 Tables 4–5 (p. 47–48) re-read: all 15 rows in both columns, totals 85 / 281; 13/70, 4/78, 3/92, 1/162 |
+| S033 cycle resolution | 685–726 | A + L | `s033_summary.json`: 15 / 6 / 6 / 3, 530 → 536 (+1.13 %), gaps 0.59–8.65 % (2 each way), S1_F_0016 at 819.027985, 1,251 runs with median 5.38 %, p95 38.2 %, max 94.9 %, 126 above 20 %, 4 verdict-split runs all cycle-only; S4_F_0003 and S4_F_0089 are exactly equidistant from the median 0.350867 (the id breaks the tie), locked CV 0.0054, native Vt median 640.07 mL over native [180, 240] s |
+| S021 extended hyperoxia | 745–781 | A + L | six runaways of 44 (13.6 %), all at Vt 633.3 (6 of 20; 0 of 24 elsewhere), VE 12.67 ×5 and 10.13; 3 non-runaways at VE 12.67; pairs F 5/5 and M 1/5, male 770 against 1,126–1,408; 686.0 vs 662.6; table S4 72.6 [70.8, 75.5]; median trajectory over the 37 runs 530.2 → 641.1, 95 % at 180 s; clean-S1 OLS n 91, R² 0.902, 81.1 ± 11.0 / 214.2 ± 29.9, 505.5·FiO₂ − 25.1, 480 at 1.0; S011 guard |
+| blood volume and S018 | 789–827 | S + A + X | `SetupPatient.cpp:534–536` (65.6·w^1.02, ×0.85, ×1.15); all subtractions and ratios; Nadler equations give 72.96 / 63.78 (coefficients **(P)** from the register's verbatim scan quote); S018 parquets: the same 8 flagged cases at both levels, 656.99 / 686.42 mmHg, 0.737 ×3 and 1.0 ×5, SpO₂ flatline 7, PaO₂ drift 3. **F-S3**, **F-S4** |
+| sex-conditioned parameters | 836–848 | S + X | Pulse source: fat 0.21 / 0.28; Hb 15 / 14 so Hct = Hb/34 = 0.4412 / 0.4118; CO 5,600 / 4,900; dead space 0.002 × IBW with the 4.5 kg intercept gap = 9 mL; lung tissue 0.50·W/77.11 vs 0.42·W/58.97 gives +9.8 % at equal weight and −8.3 % native; BMR 88.632, where Roza–Shizgal's 88.362 is **(P)**, and 0.27 / 1,751.9 = 0.015 % |
+| compute effort | 886–890, 931 | A | canonical parquet 41.12 h naive, 27.39 h without S4_M_0123/0124; each of those runs minus the S4_M median = 6.838 h; `run_meta.json` mtime span 20.78 h; Intel re-execution 45.97 h, or 27.0 h without S3_M_0002/0003; independent host 45.96 h; `phase4a_run.log` 23h01m12s and `reproduction_check_2026-06-07.md` 23h01m21s |
+| reproductions | 962–976 | A + L | head-line guard; ThinkPad pilot max\|Δ\| = 0 with 22/22 flags and 20 CSVs; macOS max\|Δ\| = 2.9 × 10⁻⁹ with 0/110 flag cells; full-sweep H4 round-off 2.8 × 10⁻¹⁴ |
+| SHAP surrogate | 995–1044 | L + A | S023 and S034 guards; distinct top-3 sets per cell × output: Morris 25, SHAP **9**. **F-S6** |
+| HR decoupling | 1076–1092 | A | clean-run output HR per scenario re-derived: 73.8 ± 20.4, 87.3 ± 24.3, 155.7 ± 34.7, 147.1 ± 31.8; the ledger anchors only transcribe these from the monograph |
+| S012 window tolerance | 1109 | A | `s012_*` CSVs, plus the hyperoxia PaCO₂ row that no CSV carries, recomputed as 7/195 = 3.59 %, median 0.575 (HR 2.56 % reproduced as control) |
+| summary table | 1134–1140 | L | repeats of verified figures, and F-S5 |
+
+**Uncited general statements met on the way**, not number defects: adult
+breathing "approximately 0.25 Hz"; a minute-ventilation "physiological norm of
+6–8 L/min".
+
+#### Findings — nothing modified; all brought to the author
+
+- **F-S1 — L462 attributes the Berlin calibration to E6.** The numbers 256 /
+  150 / 96 and 199 / 150 / 119 come from the companion's **March 2026 28-run
+  sweep**, which has no E-number: 256.0 / 150.1 / 96.1 / 199.3 / 118.7 in
+  `Pulse_translation_new/experiments_log.md` L586ff.
+  - E6 (April), run with the protocol in its `results.json`, gave **251.9 /
+    148.2 / 74.8**.
+  - The table caption (L468) and the monograph (L4347) attribute the numbers
+    correctly.
+  - Unresolved: the in-repo replication adopted E6's protocol as "the
+    companion's measurement window" and reproduces the **March** values,
+    whereas E6 under that protocol gave 75 at 0.95. The "within 0.6 %" is
+    numerically true, but the window equivalence is not established.
+  - Two code comments misattribute the provenance: `audit_claims.py:5112` and
+    `audit_s030_provenance.py`, which says the values were "retrieved verbatim
+    from … e6_ards_calibration/results.json"; they are not in that file.
+- **F-S2 — L212, and monograph L1213: "6 mL/kg PBW ≈ 400 mL on the atlas
+  reference bodies".**
+  - PBW is 74.99 kg (male), giving 450 mL, and 55.10 kg (female), giving
+    331 mL; the supplement computes both weights itself at L618.
+  - 403.8 mL is 6 mL/kg of *actual* male weight. "~4×" then becomes 3.3× or
+    4.5×.
+  - The bound is unchanged. `brower2000` supports "6 mL/kg PBW" only.
+- **F-S3 — L827: "three of the eight on the delivered-Vt oscillation".** The
+  count is 3 at the 4,400 mL bracket and **4 at the floor**: S2_M_0119_floor
+  adds Vt CV 0.071. Every other count in that paragraph holds at both levels.
+  Introduced in `e93a750`; no anchor.
+- **F-S4 — L815, citation mismatch (`nadler1962`): "averaging 75 in men".** Per
+  the verbatim quote recorded in `reference_audit.md`, Nadler's 75 mL/kg is the
+  **overall** average and 66 is the women's. This wording exists in the
+  supplement only (`20ea152`). Recorded in `reference_audit.md`; nothing
+  modified, as the citation-audit rule requires.
+- **F-S5 — the continuous-severity band and bin table use truncated severity
+  labels.**
+  - Pulse ran the exact severity (`config.json`, e.g. 0.9458464400964033), but
+    the run directory is labelled `int(sev*1000)`
+    (`continuous_ards_sweep.py:118`), and `make_supp_fig_s1.py` parses severity
+    from that label.
+  - On the simulated values, divergence spans **0.87977–0.94585**. The
+    containing interval at 3 dp is **[0.879, 0.946]**, so the published upper
+    edge 0.945 excludes one male divergence.
+  - Bin counts per sex are **31 / 19 / 19 / 9 / 2 / 20**, against a published
+    31 / 20 / 18 / 10 / 2 / 19. Female / male divergences per bin are 14/19 vs
+    5/19, 5/9 vs 8/9, and **0/2 vs 1/2** in (0.945, 0.95], where 0/2 was
+    published for both. "0 / 51" becomes 0 / 50.
+  - Totals (19 F, 14 M) and the qualitative reading hold: no divergence ≤ 0.85
+    or > 0.95, female-dominated low band, male-dominated high band.
+  - The band appears in the paper (L329 contribution sentence, L355), in the
+    supplement ×7, the monograph ×9 and the README ×1. No anchor pins it. §3
+    above classed the paper's `0.879` as an artefact-traceable measurement, and
+    that artefact is the truncated one.
+- **F-S6 — L1030: "about a dozen" distinct SHAP top-three sets.** The measured
+  count is 9, in the unit that gives Morris its 25. `5a6b201` records 9–10
+  across forest seeds. The imprecision runs in the conservative direction.
+
+**Tooling notes.** Guard code, so not changed without review:
+- `T1.06u`'s `manuscript_text` says "38 physiological-converged S1 runs"; it
+  computes on 37, which is also what the supplement says.
+- The two provenance comments of F-S1.
+- F-S5's root cause is in `make_supp_fig_s1.py`.
+
+**Not covered.** The supplement's `ambiguous_small` (940) and its by-value
+`guard` / `ledger` occurrences are not read here. The supplement is **not
+closed**.
+
 ## 5. What remains
 
 | artefact | `none` residue | `ambiguous_small` | status |
 |---|---:|---:|---|
 | paper | 43 / 31 values | 307 | **both read row by row** (§3, §3.2). `none`: no defect. `ambiguous_small`: 57 not quantities, 248 + 2 verified, **1 wording finding, corrected** (L259, author's choice, guarded). Not closed: `guard` and `ledger` are covered by value only |
-| supplement | 456 / 214 | 940 | characterised, four values verified, not cleared |
+| supplement | 456 / 214 | 940 | **`none` read row by row** (§4.1): 6 not quantities, 450 verified, **6 findings open (F-S1–F-S6)** for the author; `ambiguous_small` not yet read |
 | monograph | 846 / 348 | 1859 | not worked; inline code still costs 89 literals |
 
 ⚠️ **No count in this register may come from an ad-hoc pipeline.** Three
@@ -438,5 +571,7 @@ paper's `ambiguous_small` residue has also been read row by row (§3.2). Every
 quantity in it was checked against a named source. One sentence carried a
 correct number under a wrong label, and it was corrected on the author's
 decision. The paper's by-value `guard` and `ledger`
-occurrences are not read one by one. The supplement and monograph residues are
-listed, not cleared.
+occurrences are not read one by one. The supplement's `none` residue has been
+read row by row (§4.1). It carries six open findings, one of which (F-S5) moves
+a band edge that the paper also states. The supplement's `ambiguous_small` and
+the monograph residues are listed, not cleared.

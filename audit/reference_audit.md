@@ -1814,3 +1814,70 @@ negatives. At the time of writing the file holds **61** raw `MATCH` strings =
 this file also contributes one occurrence of each verdict word as a *definition*,
 not as a finding, so every status count here is at least one too high unless the
 schema line is excluded.
+
+---
+
+## Addendum 2026-09-14 — sources re-read during the supplement number audit
+
+Recorded from `audit/number_inventory.md` §4.1, where each of these supports a
+published number. Everything below was opened **in this session**; nothing is
+carried over from an earlier row.
+
+### One status change: `marini2018critical` Ch. 1 — UNVERIFIABLE → **MATCH**
+
+The row at `[Ch.~1]{marini2018critical}` (HR + O2 extraction) was UNVERIFIABLE
+because the content was unreachable. A copy of the 2018 LWW edition is in the
+workspace at
+`C:\Users\santi\projets\BRAIN_BIOLOGY_ML\raw\John J Marini , David J Dries -
+Critical Care Medicine_ The Essentials and More (2018, LWW _ Wolters Kluwer)`.
+It was searched with `scripts/pdf_probe.py` (PDF page numbers).
+
+- PDF p. 21, verbatim: *"As a general rule, sinus heart rates exceeding (220 -
+  age)/min reduce cardiac output and myocardial perfusion, even in the absence
+  of ischemic disease or loss of atrial contraction."* It supports
+  `supplement.tex:208`, "sinus rates exceeding (220 − age) per minute reduce
+  cardiac output and myocardial perfusion".
+- PDF p. 20, verbatim: *"Pathological bradycardias often depress cardiac
+  output and O2 delivery"*. It supports the lower-bound clause of the same row.
+- PDF p. 77 repeats the rule as *"HRmax = 220 - age"*.
+
+The chapter is confirmed from the PDF outline: *Chapter 1 - Hemodynamics*
+starts at PDF p. 12 and runs 26 pages, which places pp. 20–21 inside Ch. 1.
+The pointer `[Ch.~1]` is therefore correct as well as the content.
+
+### Re-verified, status unchanged
+
+| key | what was re-read | result |
+|---|---|---|
+| `marino2013icu` Ch. 25 | 2013 copy in the same folder, PDF p. 510: *"Tidal volumes of 10 to 15 mL/kg (ideal body weight) became standard during mechanical ventilation"*; TOC: *Positive Pressure Ventilation* p. 503, *Conventional Modes of Ventilation* p. 521 (= Ch. 26) | MATCH, Ch. 25 correct |
+| `west2020respiratory` Ch. 2 | 11th-edition copy (`Wests-Respiratory-Physiology-11th-edition-2021.pdf`), p. 25 and p. 30: anatomic dead space *"about 150 ml"*; p. 44 opens Ch. 2 *Ventilation* with "Anatomic Dead Space" | MATCH |
+| `singer2016` | PMC4968574 (title *The Third International Consensus Definitions for Sepsis…*), SOFA table: cardiovascular *MAP ≥70 mm Hg* = 0, *MAP <70 mm Hg* = 1 | MATCH |
+| `evans2021sepsis` | PMC8486643: *"we recommend an initial target mean arterial pressure (MAP) of 65 mm Hg"*; *"MAPs below a threshold, usually understood to be approximately 60 mm Hg, are associated with decreased organ perfusion, which tracks linearly with MAP"* | MATCH |
+| `mancia2023esh` | journals.lww.com full text (Firecrawl): §16.2.1 *"Hypertension emergencies are conditions in which severe hypertension (grade 3) is associated with acute symptomatic HMOD"*; table: Grade 3 ≥180 and/or ≥110 | MATCH |
+| `nin2017` | PMC5630225: 1,899 ARDS patients, 927 ICUs, 40 countries; maximum PaCO2 in the first 48 h; *"the cutoffs corresponded approximately to the 5th, 35th, 70th, 85th, and 95th percentiles"* | MATCH |
+| `pulsevent` | mechanical-ventilator methodology page re-scraped: the six tidal-volume rows 0.0681 / 11.3 / 1.01 / 25.3 / 2.25 / 15.3 % with their Expected and Engine cells | MATCH; the printed % is a symmetric relative difference |
+| `cornish2023` | arXiv 2301.07210v4, Tables 4 and 5 (PDF p. 47–48): all 15 quantities, both columns, totals 85 / 281 | MATCH |
+| `kuczmarski2002cdc` | official `wtage.csv` (Firecrawl; a plain request returns "Access Denied"), P50 column at Agemos 214.5 / 216.5 / 218.5 for both sexes: 66.91783563, 67.28992603, 67.64281378, 56.05304601, 56.22969564, 56.40963105 | MATCH |
+
+**Not re-read this session**, so each stays on its earlier record:
+- `nadler1962`, the PTAB-exhibit scan (no local copy was found);
+- Roza & Shizgal 1984, Eq. 3, recorded in `audit/pulse_sex_conditioned_parameters.md`.
+
+### New MISMATCH, recorded and not acted on — `nadler1962` at `supplement.tex:815`
+
+**Our claim** (supplement §S9, added in `20ea152`, 2026-09-03): *"against a
+clinically reported range of 64--79.3~mL\,kg$^{-1}$ averaging **75 in men** and
+66 in women~\cite{nadler1962}"*.
+
+**Source, as quoted verbatim in this register's `nadler1962` entry above
+(p. 226):** *"range from 64 to 79.3 ml. per kilogram of body weight with an
+average of 75 ml. per kilogram. Women have smaller volumes than men with an
+average of 66 ml. per kilogram."*
+
+75 is Nadler's **overall** average, not the men's; the women's figure (66) is
+correctly attributed. The paper and the monograph do not carry the "in men"
+wording. The claim that Pulse does not reproduce the clinically reported
+per-kilogram sex difference is unaffected.
+
+**Status: MISMATCH — nothing modified.** Brought to the author, per the
+citation-audit rule.
