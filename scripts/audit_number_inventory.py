@@ -482,10 +482,19 @@ def validate_ledger_parse(stdout: str, stderr: str, returncode: int
 
 
 def ledger_values() -> tuple[set[float], dict]:
-    """Manuscript values the ledger re-derives, read from its own output."""
+    """Manuscript values the ledger re-derives, read from its own output.
+
+    audit_claims.py reconfigures its stdout to UTF-8, so the pipe is decoded as
+    UTF-8. With text=True alone it was decoded in the Windows locale (cp1252):
+    non-ASCII came through as mojibake, and any UTF-8 byte cp1252 leaves
+    undefined (0x81 0x8D 0x8F 0x90 0x9D) crashed the reader -- "←" (E2 86 90)
+    in a guard label did so on 2026-09-14. Measured on that output: 394 claim
+    rows and the same 203 values under both decodings, no value cell holding
+    non-ASCII, so the fix moves nothing.
+    """
     proc = subprocess.run(
         [sys.executable, str(REPO / "scripts" / "audit_claims.py")],
-        capture_output=True, text=True, cwd=str(REPO),
+        capture_output=True, text=True, encoding="utf-8", cwd=str(REPO),
     )
     vals, info = validate_ledger_parse(proc.stdout, proc.stderr, proc.returncode)
     if info["anchors_skipped"]:
