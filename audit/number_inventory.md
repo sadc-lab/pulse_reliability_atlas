@@ -632,12 +632,192 @@ breathing "approximately 0.25 Hz"; a minute-ventilation "physiological norm of
 `guard` / `ledger` occurrences are not read here. The supplement is **not
 closed**.
 
+> **Update 2026-09-14.** `ambiguous_small` is now read row by row in §4.2. The
+> by-value `guard` / `ledger` occurrences are still not read.
+
+### 4.2 The supplement's `ambiguous_small` residue, read row by row — 957 occurrences (2026-09-14)
+
+**Population.** `inventory.csv`, `artefact = supplement`, `bucket =
+ambiguous_small`: 957 rows over 289 source lines, extracted with
+`scripts/parquet_probe.py`.
+- `supplement.tex` is unchanged since `32bdea7`. The inventory was re-run before
+  counting and produced no diff.
+- Every row was read with its context.
+- **Line coverage is mechanical.** A read-only scratchpad script over
+  `inventory.csv` attributes each of the 289 lines to exactly one family below
+  or to a line holding only non-quantities: 919 + 38 = 957 rows.
+- The script's first run failed on its own mapping: one line (388) had no
+  owner, and five (752, 957, 958, 1008, 1133) had two, from overlapping line
+  ranges. The ranges were corrected before anything was counted.
+
+**134 rows are not quantities.** Each (line, literal) pair was checked against
+the population as a multiset: every claimed pair is present, and none is
+claimed more often than it occurs.
+
+| what | rows |
+|---|---:|
+| LaTeX macro arguments `\numberline[1]`, `\mainref[2]` (L48, L72) | 4 |
+| author and affiliation markers (L78–100) | 24 |
+| figure, table, section, item and layer references | 24 |
+| notation: $R^2$, unit exponents $^{-1}$, bases of powers of ten | 19 |
+| date fragments: release, commit and archive-path dates | 17 |
+| limitations-table row labels 1–12, and "rows 5–6", "row 4" | 15 |
+| LaTeX column spans `\multicolumn`, `\cmidrule` | 14 |
+| code-listing step numbers 1–5, and the `MSYS_NO_PATHCONV=1` switch | 7 |
+| licence and product versions: Apache-2.0 ×2, CC-BY-4.0 ×2, Windows 11, Ryzen 5 | 6 |
+| names and identifiers: Sepsis-3 ×2, F-003, "Hypothesis~1" | 4 |
+| **total** | **134** |
+
+These were checked anyway, because a wrong pointer or date misleads just as a
+wrong number does:
+- **Dates.** The `REL_4_3_2` tag is dated 2025-08-12. "2026-07-26" matches the
+  `run_meta.json` mtimes (S030 20:24–21:10, S030b 23:23–23:34) and commit
+  `708efb1`. The three archive directories exist.
+- **Pointers.** Paper figure numbers were read in the rendered `paper.pdf`: Fig. 2
+  is the curation map, Fig. 3 the Morris heatmaps, Fig. 4 the corrections. Table
+  numbers too: Table 1 is the terms, Table 3 the per-cell flags. Monograph
+  Figure 5 is the Spearman figure. "Item 7" is preregistration L205. "Items
+  1–6" count six `\item`. Three pointers are wrong: **M-1**, and the two in
+  **F-S8** below.
+
+**823 rows are quantities.** The method codes (S / A / L / X / P) are those of
+§4.1. Rows per family below include the 96 non-quantity rows that share a line
+with a quantity. Families already verified in §3.2 or §4.1 are cited, not
+re-derived. What was newly opened this session is named.
+
+| family | lines | rows | how | detail |
+|---|---|---:|---|---|
+| F01 engine description | 114–166 | 23 | S | Pulse clone at `REL_4_3_2`: 20 ms (`About.md:22`); 0.02 s / 50 Hz (`SystemMethodology.md:117`); "5 to 10 times real time" (`FAQ.md:31`); nodes 0.0/0.3/0.6/0.9/1.0 on $[0, 1]$ (`RespiratoryMethodology.md:1176`); `git diff --shortstat REL_4_3_1 REL_4_3_2` = 7 files, +46, −17; FiO₂ = 1.0 accepted (withdrawn claim; 195 runs complete at 1.0, FiO₂ guard) |
+| F02 limitations table, bound probes | 141–164 | 26 | S + A | SBP 120 / DBP 80 / pulse factor 0.75 (`SetupPatient.cpp:354–358`); 0.91 / 0.95 and 50–110 / 8–20 (preregistration); 5 compartments (§3.2); S030b probes (§4.1). **F-S9** on the 7 % |
+| F03 limitations (v)–(vi) | 178–182 | 11 | L + A | seed 44, 4/160 → 7/160 (§4.1); 9 of 20 DBP and 8 of 20 SBP steps (`T5.clip.dbp_shortened`, `.oat_violations`); SBP rank 1 under six estimators (`T5.robust.*`). **M-1** |
+| F04 hard bounds, drift thresholds | 194–270 | 67 | S + X + L | §4.1 hard-bound table; `DRIFT_MAX_DELTA_60S` = 5 / 5 / 50 / 0.02 / 15 / 5 (`src/detector.py:102–108`), row by row; 13 samples on [60, 120] s at 5 s; 0.02 = 2 points; 50 / 74.99 = 0.67 and 50 / 55.10 = 0.91 mL/kg IBW ("≈ 0.7–0.9"); 70 − 65 = 65 − 60 = 5 mmHg; CV 5 %, 64 reruns, 0.016 (`T1.06b`, `T1.04`) |
+| F05 clamp patterns, FiO₂ adjustment, bodies | 284–294 | 21 | S + A + X | HR floor 50 and range [50, 110]; ambient CO₂ 4 × 10⁻⁴ = 1 − 0.9996, since the logged maximum is FiO₂ + N₂ + (1 − Σ fractions) (`MechanicalVentilatorModel.cpp:268–282`; Pulse HowTo files set CO₂ 4.0E-4); Agemos 214.5 = 17 y 10 m and 218.5 = 18 y 2 m; 17 % = 16.79 %. **F-S7** on L284 |
+| F06 design constants | 302, 306, 409, 411, 957, 958, 1008 | 18 | S + X | 20 / 4 / 42 (§3.2); $7+1=8$, $20\times8=160$; the 8 per-cell `aggregated.parquet` files exist |
+| F07 S032 clip | 312–334 | 58 | L + A | `T5.clip.*` (35, 9, 8, 123, 78 / 41, 68 / 19, 11, 90, 100, 2.4, 9 of 48, 48 of 48); per-cell retained 4, 4, 7, 6, 10, 9, 4, 5 in the printed cell order equals `CLIP_RETAINED_EXPECTED` (sum 49); 12 of 20 (`T5.robust.matched_trajectories`); table: §4.1 |
+| F08 Sobol trigger | 341–347 | 25 | L + A | `T2.sobol.*` (72, 43, 23, 17, PEEP 8, RR 5, Vt 8); from `sobol_ci_buckets.csv`: sex split **12 F / 11 M**; Vt stable-set rows S2 3, S3 3, S4 2 (none in S1); **median top-three input 3 clean trajectories in S1 and 16 in S3** (`n_trajectories`, 36 rows per scenario, control: 144 top-three rows). This closes the note left open at supplement.tex:347 |
+| F09 curation map | 351–392, 668, 752 | 43 | S + L + A | 10 / 30 % (preregistration L205); 7/29/12 and 7/3/38 (§3.2); 0/0/48 and 26 (`T1.tl.literal_four_red`, `T1.tl.yellow_to_red`); minimum 12 not-steady-state runs in S3_M (`cell_flag_summary.csv`); red cells: PaO₂ and HR 4 each (S3 and S4, both sexes), MAP, PaCO₂, SpO₂ and Vt 1 each (S4_M); 54 / 160 (8 diverged + 46 implausible, overlap 0) and 46 / 160; 918, 133, 3 (`T1.30n.*`); 130 = drift-exceeding Vt channels with CV > 0.05, re-counted (control 133). **"0 of 24"**: `baseline_robustness_check.py` re-run gives 0; that script has no positive control, so one was added in the scratchpad: the S1_M baseline reproduces all 48 published colours; ×1.25 baseline changes 11 (negative control) |
+| F10 F-003 | 357 | 17 | A | §4.1 |
+| F11 seed resampling | 400–404, 1133 | 14 | A | `phase4b_top3_comparison_seed44.csv`: rank 1 kept on 6 of 6; order changed on HR (ranks 2–3), PaO₂ (2↔3), Vt (rank 3), so "confined to ranks 2 and 3" holds; 4/160 → 7/160 (§4.1) |
+| F12 NSS attribution table | 427–450 | 36 | L + X | the 48 printed cell values (8 rows × 6 columns) equal `nss_man_table` (`T2.nssC.*`), and the column order equals `col_map`; 76 = 530 − 454 = Σ(n_nss − excl. SpO₂) |
+| F13 Berlin calibration S030 | 458–496 | 51 | A + L | §4.1; S030 config RR 16, FiO₂ 0.4, PEEP 10; "within 0.6 %" and "within 2 %" re-checked by the S030 guard against the March anchors at 1 dp; `BERLIN_PEEP_MIN = 5.0` (`pf_berlin_analysis.py:39`); Berlin PEEP ≥ 5 definition **(P)**, not re-read this session |
+| F14 severity mapping, probes | 503–531 | 29 | S | §4.1; $[0, 1]$ in Pulse docs |
+| F15 continuous severity | 535–566 | 73 | L + X | `check_continuous_severity_band` (21 checks, F-S5); Wilson 95 % for 1/2 = [0.0945, 0.9055] and for 0/2 = [0, 0.6576]; 20 events vs 0 of 640 (sex-divergence guard) |
+| F16 Spearman | 576–608 | 23 | A | §4.1 |
+| F17 ventilation dose | 616–618 | 12 | S + X | §4.1 |
+| F18 Cornish | 628–663 | 59 | S | §4.1 (arXiv Tables 4–5 re-read this session) |
+| F19 S014, S033 | 677–726 | 54 | L + A | `T1.04`, `T1.06d`; `paired_comparison.parquet`: S1_F_0117 1.825742 → 0.017750; 64 pairs over seven cells, S3_M none (S1 26, S2 19, S4 14, S3 5); S033 guard pins L715 (295 / 945 / 12 / 8, 98.4 %, 9 of 1,260, 533); rest §4.1. **F-S8** |
+| F20 S021 | 736–781 | 82 | A + L | §4.1; 40/44 = 90.9 %; 663 − 643 = 20; **all 60 reruns byte-identical to their 120-s runs over t = 0–120 s**: the 120-s file is an exact byte prefix of the 300-s file (60 of 60; negative control with a different case: not a prefix). A first text-level comparison gave 0 of 60, because it excluded the last sample at t = 120.0000000000557 s; this was an instrument error, not a data finding. The 163 cm female 50th-percentile standard is also the male 3rd-percentile floor (`SetupPatient.cpp:68–75`). Known open item on L758 below |
+| F21 blood volume, S018, sex parameters | 789–848 | 36 | S + A + X | §4.1 |
+| F22 recommendations | 867–874 | 6 | S | band row 4; six items |
+| F23 licences, hardware, compute, recipe | 882–948 | 31 | S + A + X | the machine running this session (an MSI GF63 Thin 11UC, assumed to be the canonical laptop that `CLAUDE.md` describes), queried read-only: i5-11400H with 6 cores / 12 threads, 8.28 GB, RTX 3050 Laptop 4 GB, 25H2; `DOCKER_MEMORY = "1g"`, `DOCKER_CPUS = "3"` (`src/runner.py:43–44`) and `reference/pulse_run_template.md`; ~14 h / ~9 h = 27.4 h ÷ 2 and ÷ 3 (§4.1); ~23 h = 23 h 01 m; 46 h (§4.1); 394/394 and 94/94 (head-line guard, sync map) |
+| F24 reproductions | 954–976 | 19 | L + A | §4.1 |
+| F25 SHAP, screen sensitivity | 984–1042 | 44 | L + A | `T2.s023.*`; clean runs per cell min 42 (S1_F) and max 144 (S3_M) (`cell_flag_summary.csv`); the S034 guard pins every number at L1038–1042, including seed 6/4/3 and screen 6/2/2 |
+| F26 HR decoupling | 1054–1092 | 16 | A + X | §4.1; Morris HR grid 50/70/90/110; 74 ≈ 73.8; 155.7 − 80 = 75.7 and 147.1 − 80 = 67.1 ("≈ 70") |
+| F27 window drift | 1105–1111 | 16 | L | `T5.window.*` (2.6 / 0.0 / 3.6 and 2.3 / 0.7 / 2.0); 5 bpm and 15 mmHg from `detector.py` |
+| F28 summary table | 1131–1147 | 9 | L | repeats of verified figures |
+
+#### Findings — nothing modified; all brought to the author
+
+- **F-S7 — L284: a validation that did not exercise what it is cited for.** The
+  sentence: *"Detector validation on twenty reference runs in the companion
+  translation repository was 20 / 20 clean with the four-pattern set, which is
+  the surface that survives the false-positive elimination from the original
+  regex."* The monograph says the same at L1170–1172.
+  - `scripts/validate_detector_on_existing_runs.py` calls
+    `d.classify(csv, pulse_log="", …)`, unchanged since `19945f6`.
+    `check_clamped` returns False on an empty log before any pattern is tried
+    (`src/detector.py:280–281`). **The pattern set was never evaluated.**
+  - Its output, `results/detector_validation_summary.csv`, has 20 rows, all
+    `clean` and none `clamped`. Counted over all six channels:
+    - 12 rows have no window statistic at all;
+    - 7 report a CV of 0 on every channel that has a value;
+    - only 1 (`f_s4_toddler_spontaneous`) carries non-zero statistics.
+  - The runs are Paper 1 runs (neonate, infant, child and toddler scenarios,
+    HR/RR boundary probes, smoke and output tests), not adult references.
+  - A first draft of this entry said 11 and 8, read off the HR columns alone;
+    it was re-counted before commit.
+  - Our own log already says so. `experiments_log/santino/S005_pilot_S1_male.md`
+    L75–79: *"The '20/20 clean' pass was a false positive on the entire window."*
+  - **What did test the patterns**, re-read in the artefacts:
+    - the two pilot clamp probes S1_M_9900 (SBP 140) and S1_M_9901 (DBP 85) are
+      `clamped = True`, exit 1, with the rejection text in `pulse.log`;
+    - the 8 `scenario_smoke` runs, with non-empty logs of 25–177 kB, are all
+      `clamped = False`;
+    - the replay over all Pulse logs reported at L286.
+  - **Options:** (A) delete the sentence in both artefacts; (B) replace it with
+    the probe and smoke evidence above.
+- **F-S8 — L681 and L726: a tie, and two pointers.**
+  - **The tie.** *"Its effect on the single worst-affected configuration
+    (S1_F_0117 …) is to take the delivered Vt CV from 1.826 to 0.018."*
+    S1_F_0117 and S1_F_0118 share the maximum pre-lock CV exactly,
+    1.825741858351 (= √(10/3)). Locked, they reach 0.0178 and 0.0242. S1_F_0117
+    is unique only as the **largest reduction** (1.808 against 1.802).
+  - `T1.05` pins only the maximum value, which the tie does not affect. The
+    anchors `T1.s014.worstcase_*` take the `idxmax` row, so the tie is broken by
+    parquet row order, while the label says "largest before/after delta".
+  - The same pairing, "worst-case 1.826 → 0.018", appears in the monograph ×5
+    (L55, L135, L332, L2981, L3644) and the README (L176).
+  - **L726 pointer.** *"The worst-affected configuration, named in
+    Section 2.3 … of the main manuscript"*. `paper.tex` §2.3 names no
+    configuration; its L280 points back to Supplement §S8.
+  - **L681 pointer.** *"most reruns occurring in the healthy (S1) and mild-ARDS
+    (S2) cells (Table 1 of the main manuscript)"*. Table 1 is the terms table,
+    and no paper table gives the rerun distribution. This is the half of
+    `supplement_prose_sweep.md` signal #5 that is still open.
+  - **Options:** name the criterion ("the configuration with the largest
+    reduction; S1_F_0118 shares its pre-lock value and falls to 0.024"), or
+    drop "single"; and repoint both references.
+- **F-S9 — L155: "approximately 7 % above literature values per Pulse's own
+  validation table".** Both Pulse pages were scraped 2026-09-14.
+  - The 7 % is in Pulse's **methodology prose**, not a validation table:
+    "VC = 4.93 L … Typical values of VC reported in the literature are around
+    4.6 L". 4.93 / 4.6 = +7.2 %.
+  - Pulse's patient **validation tables** compare the engine with its own
+    computed expectation, VC error ≈ 0 %. They list StandardMale VC 4,819.2 mL
+    and TLC 6,024 mL, against the prose's TLC 6.16 L. That gives **+4.8 %**
+    against 4.6 L.
+  - Supplement only; not in the paper, the monograph, the README or the
+    preregistration. It is a citation-attribution mismatch, so nothing was
+    modified. (`CLAUDE.md` limitation #10 carries the same attribution.)
+- **M-1 — L178, a mechanical pointer.** *"the FiO₂ rows of Figure 2 of the main
+  manuscript are left blank"*. The blank FiO₂ entries are in the Morris heatmaps,
+  Figure 3 (`paper.tex:331` uses `\ref{fig:morris}`). The sentence entered in
+  `d88a1ca`, when the numbering was already this one. The monograph's own
+  Figure 2 is its Morris figure, which is the likely source of the slip.
+  - Ready: "Figure~2" → "Figure~3".
+  - Held back only so that it goes in the same supplement edit and rebuild as
+    F-S7 and F-S8. The alternative, a separate commit now, was rejected because
+    it costs a second rebuild and the push needs a go either way.
+
+**Two items already recorded in `audit/supplement_prose_sweep.md`**, re-measured
+here:
+- **#15, L758, still open.** *"within approximately 5 % of the asymptote"*,
+  where "asymptote" is the last observed value at t = 300 s (`audit_claims.py`
+  comment). Re-measured on the 37 physiological-converged runs, the earlier
+  record having used 38:
+  - the median trajectory's [240, 300] s mean is 0.09 % from it;
+  - per run, the median is 0.12 % and the maximum 1.48 %.
+  - The claim is true but loose: about 55 times the median trajectory's
+    deviation, and about 3 times the worst single run's.
+- **#7, L464, closed by F-S1.** The sentence now says "March anchors", and the
+  S030 guard compares against those at 1 dp (worst 0.52 %).
+
+**Tooling notes.** Guard or script code, so not changed without review:
+- `validate_detector_on_existing_runs.py` passes an empty log (F-S7);
+- `baseline_robustness_check.py` has no positive control;
+- the S014 worst-case anchors break a tie by row order (F-S8);
+- `supplement_prose_sweep.md` still lists #11, #21 and #27 as OPEN, although
+  the current text no longer carries those defects ("seven of the eight",
+  "160-point Morris design", "four-level Morris grid").
+
+**Not covered.** The supplement's by-value `guard` / `ledger` occurrences.
+
 ## 5. What remains
 
 | artefact | `none` residue | `ambiguous_small` | status |
 |---|---:|---:|---|
 | paper | 37 / 29 (43 / 31 when read) | 307 | **both read row by row** (§3, §3.2). `none`: no defect. `ambiguous_small`: 57 not quantities, 248 + 2 verified, **1 wording finding, corrected** (L259, author's choice, guarded). Not closed: `guard` and `ledger` are covered by value only |
-| supplement | 431 / 218 (456 when read) | 957 | **`none` read row by row** (§4.1): 6 not quantities, 450 verified; **all six findings corrected** on the author's decisions (F-S1 to F-S6, 2026-09-14); `ambiguous_small` not yet read |
+| supplement | 431 / 218 (456 when read) | 957 | **`none` read row by row** (§4.1): 6 not quantities, 450 verified; **all six findings corrected** on the author's decisions (F-S1 to F-S6, 2026-09-14). **`ambiguous_small` read row by row** (§4.2): 134 not quantities, 823 verified; **3 findings open for the author** (F-S7 validation claim, F-S8 tie and pointers, F-S9 VC attribution), 1 mechanical pointer ready (M-1), prose-sweep #15 still open. Not closed: `guard` and `ledger` by value only |
 | monograph | 807 / 345 | 1865 | not worked; inline code still costs 89 literals |
 
 ⚠️ **No count in this register may come from an ad-hoc pipeline.** Three
@@ -660,6 +840,8 @@ quantity in it was checked against a named source. One sentence carried a
 correct number under a wrong label, and it was corrected on the author's
 decision. The paper's by-value `guard` and `ledger`
 occurrences are not read one by one. The supplement's `none` residue has been
-read row by row (§4.1). It carries six open findings, one of which (F-S5) moves
-a band edge that the paper also states. The supplement's `ambiguous_small` and
-the monograph residues are listed, not cleared.
+read row by row (§4.1). It carried six findings, one of which (F-S5) moved
+a band edge that the paper also states; all six are corrected on the author's
+decisions. The supplement's `ambiguous_small` residue has been read row by row
+(§4.2): three findings await the author, and one mechanical pointer is ready.
+The monograph residues are listed, not cleared.
