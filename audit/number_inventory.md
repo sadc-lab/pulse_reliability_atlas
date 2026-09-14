@@ -1069,10 +1069,13 @@ The code pointers `RespiratoryModel.cpp:3774`, `:4388` and `:4503`,
 `SetupPatient.cpp:771` and `:752`, and `NervousModel.cpp:320` land on the named
 code. `src/detector.py:338` does not (**MF-15**).
 
-#### Findings — nothing modified; all brought to the author
+#### Findings — all brought to the author; nothing was modified while they were recorded
 
-L-numbers and section numbers in a finding refer to `manuscript.md`. §4.1 and
-§4.2 with an F-S identifier refer to this register.
+L-numbers and section numbers in a finding refer to `manuscript.md` **as it was
+read, before the corrections**; the corrections shifted later lines by up to 11.
+§4.1 and §4.2 with an F-S identifier refer to this register. What was done with
+each finding, and the current line numbers, are in "Resolution" at the end of
+this section. MF-22 was found during that resolution and is still open.
 
 MF-1 to MF-15 were each re-derived a second time before being written here.
 Where the second derivation used a different instrument, it is named in the
@@ -1255,6 +1258,32 @@ is merged into it; MF-10 was downgraded to O-7 by its second reading.
   - The scale is small because SpO₂ is recorded as a fraction. μ\* 0.12 is 12
     saturation points.
   - Control: the maximum reproduces 0.1247. Monograph only.
+- **MF-22 — L1052–1055 after the corrections, §2.3. Found 2026-09-14 while
+  resolving MF-5; 🔴 OPEN, nothing modified.** *"NHANES resting heart-rate
+  anchors (Ostchega 2011, as tabulated in the companion `Pulse_translation_new`
+  reference tables) further confirm the surrogates' vital-sign profile … is
+  representative of healthy adults: median HR 70 bpm (M) / 74 bpm (F)."*
+  - This is the half of MF-5 that the author kept when the BP half was removed.
+    At that point Ostchega 2011 had not been opened.
+  - Ostchega et al., *National Health Statistics Reports* 41 (2011), opened in
+    this session (Firecrawl, `.firecrawl/ostchega2011_nhsr041_2026-09-14.md`).
+    Tables 2 (males) and 3 (females), 50th percentile:
+    - males: 16–19 years **69** (mean 72); 20–39 years **69** (mean 71);
+    - females: 16–19 years **77** (mean 79); 20–39 years **74** (mean 76).
+  - So the male 70 is neither median nor mean of either male band that covers
+    ages 18 to 39. The female 74 is the 20–39 median; the band that contains
+    18-year-olds gives 77.
+  - The companion records the same quantity three ways:
+    - "Ostchega mean ~70 for 18–39 yr" (`lookup_tables_literature_validation.md`
+      L109);
+    - "Age 16–19 yr: mean ≈ 72 bpm" (L91);
+    - "female P50 = 74 bpm vs male P50 = 70 bpm" (L510).
+  - The sentence never states the surrogates' own heart rate, so "confirm" has
+    nothing to be compared against.
+  - Monograph only. Searched for "NHANES" and "Ostchega": `paper.tex`,
+    `supplement.tex`, both `.bib` files, `supplementary.md` and `README.md` give
+    nothing. Control: "Cornish" is found 3 times in `paper.tex`.
+  - It is a scientific claim, so the decision is the author's.
 
 #### Observations — low, recorded
 
@@ -1266,7 +1295,9 @@ is merged into it; MF-10 was downgraded to O-7 by its second reading.
   envelope sits at ≈ 0.997". In clean S1 runs this holds at FiO₂ 0.4733
   (0.9976 F, 0.9966 M), not at 0.21 (0.9702 F, 0.9556 M). Measuring the
   elementary effects behind it turned this into MF-20.
-- **O-3 — L4439, B.4.** "3,304 files / 23 MB" describes two different sets.
+- **O-3 — L4439, B.3** (first written "B.4"; corrected 2026-09-14 against the
+  headings, B.3 runs from L4326 to L4490 after the corrections). "3,304 files /
+  23 MB" describes two different sets.
   - 3,304 is every file, including `.git` (353 MB).
   - 23 MB is the text files only: 23.3–23.4 MB, about 2,900–3,000 files
     depending on the binary heuristic (NUL in the first 8 kB, or `grep -I`).
@@ -1351,8 +1382,179 @@ Instruments that failed and were caught:
 - Qualitative sentences that carry no number. MF-18, MF-20 and MF-21 were found
   in passing, so the monograph's prose is not claimed clean.
 - The AI-tool dates.
-- For MF-5: Ostchega 2011, the Singapore study, and the AAP 2017 PDF. Only its
-  HTML tables were read.
+- For MF-5: the Singapore study and the AAP 2017 PDF; only its HTML tables were
+  read. Ostchega 2011 was opened on 2026-09-14, during the resolution (MF-22).
+
+#### Resolution — 2026-09-14 (night)
+
+**Who decided.**
+- **The author, in two rounds of questions:**
+  - MF-1, MF-2, MF-3, MF-11, MF-12 and MF-18, as proposed;
+  - MF-5: remove the BP half;
+  - MF-7: "twelve";
+  - Cornish: cite JMLR;
+  - MF-20 and MF-21: rewrite to the measurement;
+  - O-7: attribute to E10 + E6;
+  - O-3, O-5, O-8, O-9 and O-10.
+- **Not selected:** O-1. **Not to be edited:** O-4, a dated rule.
+- **Applied as mechanical under the autonomy pact, without a question:** MF-4,
+  MF-6, MF-9, MF-13, MF-14, MF-15, MF-16, MF-17, MF-19 and O-11. Each is a
+  literal or a pointer that drifted from its own artefact, and none changes a
+  claim.
+
+**What the monograph now reads.** L-numbers are current.
+
+| finding | now reads | re-derived by the guard |
+|---|---|---|
+| MF-1 | L4654 "Largest in S4 (91 / 185 of the residual)" | `nss_decomposition.csv`: S4 91, S1 53, total 185 |
+| MF-2 | L2773 "[0.21, 0.47] vs single-input"; L2775 "PaO2 ≈ 480 mmHg"; L4320 "S1 clean runs, whose FiO2 spans only [0.21, 0.47], gives a flatter slope" | clean S1 FiO₂ levels are exactly 0.21 and 0.4733; the OLS fit at 1.0 rounds to 480 |
+| MF-3 | L61–64 "of the remaining 17 cells, 11 have a bootstrap CI straddling 0.6, 1 is CI-robustly non-linear (S3_M, PaO2 ← FiO2), and 5 have too few clean trajectories for a CI (S1_F where Vt dominates, S4_M where FiO2 dominates)" | `sobol_ci_buckets.csv` rank 1: 31 / 11 / 1 / 5, the six cells named |
+| MF-4 | L1301 "(i5-11400H, 8 GB RAM, CPU-only)"; L1308–1309 "Pulse is CPU-only, so neither of the laptop's two GPUs (Intel UHD, NVIDIA RTX 3050) is used" | text |
+| MF-5 | L1052–1055: the SBP / DBP values are gone; "NHANES resting heart-rate anchors (Ostchega 2011, as tabulated in the companion `Pulse_translation_new` reference tables) … median HR 70 bpm (M) / 74 bpm (F)". **See MF-22** | text |
+| MF-6 | L4542 "(CDC P50 ≈ 176.2 cm)" | text |
+| MF-7 | "twelve" at L1302, L1315, L1319, L1326; `supplementary.md` S10 heading "(twelve independent layers)" and "12 independent verification points" | the S10 table has 12 rows |
+| MF-9 | L1354 "mild-ARDS male cell" | `src/scenario.py`: S2 is Mild ARDS, 0.26 |
+| MF-11 | L3389–3390 "HR and MAP drift rates stay below 3 % and PaCO2 below 4 %" | per-arm rates against `_WIN_TH`; hyperoxia PaCO₂ is at least 3 % (3.59 %) |
+| MF-12 | L2946 "for run S1_F_0008" | rank 6 before the lock; worst after it |
+| MF-13 | L3681 "~105 MB of engine logs" | the 1,280 `pulse.log` total 105.1 MB, rounding to 105; skips when the logs are absent, fails when partial |
+| MF-14 | L4638 "(71 / 76 of those runs" | S1 + S2 = 71 of 76 |
+| MF-15 | L1452 "`src/detector.py:413`" | line 413 holds `std(ddof=0)` |
+| MF-16 | L600 "discussed in §4.5."; L1868 "in the §4.5 limitations"; L2519 "(§4.5 limitations)" | §4.5 is Limitations; no §4.3 is |
+| MF-17 | L416 "(§3.5)" | the blood-volume formula sits under §3.5 |
+| MF-18 | L3352–3355 "of the four channels shared with the atlas, PaCO2 is the only one flagged under Hoeffding (3 / 70) and the most flagged under the bootstrap (13 / 70, against PaO2 4 / 78, MeanBP 3 / 92, HR 1 / 162)" | the four overlap rows of Table 2 |
+| MF-19 | L3587–3589 "documented in our preregistration (scenario table and H3) and in the §1.2 limitations list (entry 4)" | text |
+| MF-20 | L1821–1830, "Group A — saturation-boundary cells": 3–4 clean pairs; at FiO2 ≈ 0.47, SpO2 0.997–0.999 and effects of at most 0.003; at FiO2 = 0.21, SpO2 0.95–0.96 and \|EE\| 0.014–0.049; "one Vt step moves SpO2 from 0.962 to 0.929"; "not floating-point noise" | 3 + 4 pairs; max \|EE\| at 0.47 is 0.0028, SpO₂ 0.99664–0.99891; at 0.21 the effects are 0.0006, 0.0136, 0.0322 and 0.0492, from SpO₂ 0.95373–0.96358; one step rounds exactly to 0.962 → 0.929 |
+| MF-21 | L1680–1682 "on a small numerical scale (μ\* ≤ 0.13) because it is recorded as a fraction: the largest value, 0.12 in S3, would read 12 in percentage points" | the largest SpO₂ μ\* rounds to 0.12, in S3; clean SpO₂ there falls below 0.8 |
+| O-3 | L4451 "3,304 files, 23 MB of them text" | text |
+| O-5 | L3735 the file list names `output_pulse_native.csv` | text |
+| O-7 | L2309 "E10 boundary probe, confirmed by E6, reported an instability zone"; L2313 "of the original width" | text |
+| O-8 | L119 "8 cells (4 scenarios, healthy S1 and ARDS S2/S3/S4, × 2 reference bodies M/F)" | text |
+| O-9 | L634–635 "24 core experiment-log entries (S001–S024)" | text |
+| O-10 | L1341 "completed runs and 20 / 20" | `sha_compare.json`: BIT_EXACT 1,260, BOTH_DIVERGED 20 |
+| O-11 | L422 "§S1 – §S17" | `supplement.tex` has 17 `\section` |
+| Cornish | both `.bib` files cite JMLR 27(152):1–52, 2026; labels read 2026; reference 4 (L3870) and §9.7 (L4042–4045). Details in `audit/reference_audit.md`, "Resolution 2026-09-14 (night)" | the JMLR fields in both `.bib` files |
+
+Every row also has its new wording required and its old wording banned, on
+whitespace-normalised text. The bans for O-5 and O-9 were missing from the
+first guard and were added before the commit.
+
+**Kept on purpose:**
+- the S017 title "Cornish 2023 cross-mapping" at L668, L4262 and
+  `README.md:468`;
+- the six `source_file` strings "Cornish et al. 2023" in
+  `scripts/audit_claims.py`.
+
+**Defects in my own application, caught before the commit.**
+- **MF-2's third locus was missing from the edit list.** It was then at L4309.
+  It was found while writing the banned list.
+- **Two Cornish labels wrap across a line break.** They are "Cornish\n2023" and
+  "Cornish\net al. 2023". The line-based search missed both, and so did the
+  first guard. The rendered-PDF check found them. Banned wordings are now
+  matched on whitespace-normalised text; a targeted reinjection gave 2 FAIL.
+- **MF-20 first read "from 0.962 to 0.930".** The endpoint is 0.9294957, which
+  prints as 0.92950 at five decimals (this register, MF-20 above) and was then
+  rounded a second time. The first guard compared with a tolerance of 6 × 10⁻⁴
+  and passed it. A full-precision re-read during the gate found it.
+  - The wording now reads 0.929.
+  - The guard now uses exact rounding. It also tests what its label claimed but
+    did not check: the 3 + 4 split, SpO₂ 0.997–0.999 at 0.47, and 0.95–0.96 at
+    0.21.
+  - Reinjection of text and constant: 3 FAIL.
+- **§9.7 first said Cornish's "Tables 4 and 5 are unchanged in the published
+  version".** Both tables gain Manski columns in JMLR (pp. 39–40), which
+  `reference_audit.md` had already recorded. It now reads "keep the same counts
+  and add Manski-bound columns". The 15 "Ours" rows of both tables were
+  re-checked against v4. Reinjection: 2 FAIL.
+- **The MF-13 check first rounded to the nearest 5 MB.** It now rounds to 1 MB
+  (105.1).
+- **Two labels in this register and in `reference_audit.md` were wrong.** O-3
+  said "B.4"; it is B.3. The Cornish addendum said "Table S7"; the table renders
+  as S13. Both are corrected in place with a note.
+
+**An open nuance for the author, not a defect.** MF-20's "the pairs taken at
+FiO2 = 0.21 … carry the large ones" is true of where the large effects sit. But
+one of the four pairs at 0.21 is small (\|EE\| 0.0006, S1_F, trajectory 11).
+The approved option described the effects the same way.
+
+**Instrument defects.**
+- **`audit_number_inventory.py` decoded the ledger's output in the Windows
+  locale.** `audit_claims.py` writes UTF-8, but the inventory read it with
+  `text=True` and no encoding, so as cp1252.
+  - Non-ASCII came through as mojibake, and "←" (E2 86 90) in a new guard label
+    crashed the reader.
+  - Fixed with `encoding="utf-8"`.
+  - Measured on the same bytes under both decodings: 394 claim rows and the same
+    203 values, with no value cell holding non-ASCII. The fix moves nothing.
+  - Committed separately.
+- **`grep -c $'\r'` in Git Bash counted 0 on files that carry CRLF.**
+  - Python byte counts showed CRLF in the working copies of
+    `supplementary.md`, `paper.bib` and `references.bib`.
+  - They were normalised to LF, as `.gitattributes` requires; the index was
+    already LF.
+  - The npj pair was rebuilt after that normalisation: identical text, 25 and
+    63 pages.
+
+**Guard.** `check_monograph_number_audit` in `scripts/audit_claims.py`: 62
+checks, wired into the exit status.
+
+| reinjection | FAIL |
+|---|---:|
+| all old wordings (61 checks at that time) | 43 |
+| again at the end: the five source files restored to HEAD `cf67974`, 62 checks; the new O-5 and O-9 bans both fire | 44 |
+| the two wrapped labels | 2 |
+| 0.930 | 3 |
+| "Tables 4 and 5 are unchanged" | 2 |
+
+The MD5 was restored after each one.
+
+**Gate.**
+- `audit_claims.py --check-paper-sync --check-monograph`:
+  - 394 / 394 anchors;
+  - 26 / 26 monograph anchors;
+  - 25 / 25 headline counters;
+  - 62 / 62 guard checks;
+  - 0 FAIL in either form.
+- pytest: 80 passed.
+- Inventory: 39 probes, 0 FAIL.
+- `check_render.py`: PASS, with 1 accepted residue.
+- **Rebuilt:** monograph 121 pages; paper 25; supplement 63; PDF and DOCX.
+- **Rendered monograph, checked on whitespace-normalised `pdftotext` output:**
+  - 31 new wordings present;
+  - 26 old ones absent, including 0.930 and "unchanged". Two of the 26
+    ("§4.3 limitations", "§S1 – §S16") hold glyphs that `pdftotext` mangles,
+    so their absence proves nothing; the source-text guard covers them.
+
+**Bucket movement.** Occurrences, HEAD `cf67974` → now, read from
+`summary.json` and `inventory.csv`.
+
+| artefact | `none` | `ambiguous_small` | `guard` | `ledger` | retained |
+|---|---|---|---|---|---|
+| paper | 37 | 307 | 165 | 18 | 527 |
+| supplement | 432 → 412 | 960 | 463 → 484 | 32 → 31 | 1,887 |
+| monograph | 803 → 795 | 1,864 → 1,879 | 648 → 670 | 28 | 3,343 → 3,372 |
+
+- **Paper:** unchanged.
+- **Supplement:** no number in its text changed.
+  - All 21 moves are the by-value limit of §2: the new guard strings pin 65.6,
+    1.02, 480, 481, 105, 162, 3050, 0.930 and 0.999.
+  - 481 and 0.930 are held by the guard only as banned wordings.
+  - The supplement's own 481 (L493, a table range) is unrelated, and was read
+    in §4.1 as `none`.
+  - Its 0.930 (L464) is unrelated too. It was `ledger`, covered by value only,
+    and is still not read one by one.
+- **Monograph:** the literal sequences, aligned in document order, give 16
+  literals removed and 45 added. Each falls on an intended edit.
+  - 14 unchanged occurrences moved by value, into `guard`.
+  - The new `none` literals are each re-derived by a guard check or read from
+    the source:
+    - 0.47 ×3, 0.21, 0.003, 0.014 and 0.049 (MF-2, MF-20);
+    - 0.12 (MF-21), 3.5 (MF-17), 1.2 (MF-19), 71 (MF-14);
+    - 27 ×2 (JMLR volume).
+  - They stay `none` because `guard` needs a distinctive literal.
+- **Totals:**
+  - retained 5,757 → 5,786;
+  - distinct values 728 → 730;
+  - guard-pinned literals 927 → 1,031.
 
 ## 6. What remains
 
@@ -1360,7 +1562,7 @@ Instruments that failed and were caught:
 |---|---:|---:|---|
 | paper | 37 / 29 (43 / 31 when read) | 307 | **both read row by row** (§3, §3.2). `none`: no defect. `ambiguous_small`: 57 not quantities, 248 + 2 verified, **1 wording finding, corrected** (L259, author's choice, guarded). Not closed: `guard` and `ledger` are covered by value only |
 | supplement | 431 / 218 (456 when read) | 957 | **`none` read row by row** (§4.1): 6 not quantities, 450 verified; **all six findings corrected** on the author's decisions (F-S1 to F-S6, 2026-09-14). **`ambiguous_small` read row by row** (§4.2): 134 not quantities, 823 verified; **3 findings, 1 mechanical pointer and prose-sweep #15 all corrected** on the author's decisions (2026-09-14), guarded (22 checks). Counts now 432 / 960 after the corrections. Not closed: `guard` and `ledger` by value only |
-| monograph | 803 / 344 | 1864 | **both read row by row, plus the 89 inline-code literals** (§5); section pointers and "Cited in §X" checked. **19 findings (MF-1 … MF-21, MF-8 merged, MF-10 downgraded) and 11 observations, nothing modified yet**; decisions taken 2026-09-14 on MF-1/2/3/5/7/11/12/18 and Cornish, the rest pending. Quantities against non-quantities not counted: the rule-based split failed its precision pass. Not closed: `guard` and `ledger` by value only; prose without numbers not audited |
+| monograph | 803 / 344 when read; 795 / 334 after the corrections | 1864 when read; 1879 after | **both read row by row, plus the 89 inline-code literals** (§5); section pointers and "Cited in §X" checked. **19 findings (MF-1 … MF-21, MF-8 merged, MF-10 downgraded) and 11 observations. All 19 findings, O-3/5/7/8/9/10/11 and the Cornish citation corrected 2026-09-14** (author's decisions, or mechanical under the pact), guarded (62 checks). O-1 not selected, O-4 not to be edited. **🔴 MF-22 open** (HR anchors against Ostchega 2011), plus one optional nuance on MF-20. Quantities against non-quantities not counted: the rule-based split failed its precision pass. Not closed: `guard` and `ledger` by value only; prose without numbers not audited |
 
 ⚠️ **No count in this register may come from an ad-hoc pipeline.** Three
 successive `grep | cut | uniq` passes over `inventory.csv` each miscounted the
@@ -1388,7 +1590,10 @@ decisions. The supplement's `ambiguous_small` residue has been read row by row
 all are corrected on the author's decisions and guarded.
 The monograph's `none` and `ambiguous_small` residues and its 89 inline-code
 literals have been read row by row (§5). Nineteen findings and eleven
-observations are recorded there; none is corrected yet. The monograph's
+observations are recorded there. All nineteen findings, seven observations and
+the Cornish citation are corrected, on the author's decisions or as mechanical
+fixes, and guarded. A twentieth finding, MF-22, came up while resolving MF-5 and
+is open. The monograph's
 by-value `guard` and `ledger` occurrences are not read one by one. Neither are
 its sentences that carry no number: three such defects (MF-18, MF-20, MF-21)
 were found in passing, so its prose is not claimed clean.

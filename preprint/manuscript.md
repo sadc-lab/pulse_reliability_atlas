@@ -58,9 +58,10 @@ summed μ\* in their top-3 inputs (median 0.928), and the engine is
 **predominantly linear** for these dominant parameters — point-estimate
 σ/μ\* < 0.6 in 40 of 48 cells, and under trajectory-level bootstrap
 31 of 48 cells (65 %) are CI-robustly linear (upper bootstrap CI
-< 0.6); the remaining 17 cells have either bootstrap CI straddling
-0.6 (12) or insufficient clean trajectories for a CI (5; FiO2-edge
-cells in S1 and S4_F). The preregistered `clamped` category stayed
+< 0.6); of the remaining 17 cells, 11 have a bootstrap CI straddling
+0.6, 1 is CI-robustly non-linear (S3_M, PaO2 ← FiO2), and 5 have too few
+clean trajectories for a CI (S1_F where Vt dominates, S4_M where FiO2
+dominates). The preregistered `clamped` category stayed
 empty: 0 of 1,280 runs, and the setup rejections Pulse does perform are
 explicit; one explicit downstream adjustment (FiO2 1.0 → 0.9996, 195
 runs) is documented in §3.4. Solver divergence is
@@ -115,8 +116,8 @@ below; this section is the exhaustive findings digest.*
   Engine v4.3.1** (Kitware, Apache-2.0), VC-AC ventilation, adult
   critical-care envelope. Results apply identically to the build-only v4.3.2
   release.
-* **1,280 simulations** = 8 cells (4 ARDS severities S1/S2/S3/S4 × 2 reference
-  bodies M/F) × 160 runs. Seven swept operational inputs (HR, SBP, DBP, RR,
+* **1,280 simulations** = 8 cells (4 scenarios, healthy S1 and ARDS S2/S3/S4,
+  × 2 reference bodies M/F) × 160 runs. Seven swept operational inputs (HR, SBP, DBP, RR,
   Vt, FiO2, PEEP); six steady-state outputs (HR, MAP, Vt, SpO2, PaO2, PaCO2);
   four-flag detector (`clamped` / `diverged` / `implausible` /
   `not_steady_state`).
@@ -255,7 +256,7 @@ below; this section is the exhaustive findings digest.*
   upper boundary, which is open-ended below and has no centre) under VC-AC + Vt 6 mL/kg + PEEP 10 + FiO2 0.4; Pulse's
   documented {0.3, 0.6, 0.9} defaults give 199 / 150 / 119 mmHg at the same
   settings.
-* **Complementarity with Cornish et al. 2023** ([S017](#s017)): their
+* **Complementarity with Cornish et al. 2026** ([S017](#s017)): their
   causal-falsification on MIMIC-III reported **85 Hoeffding rejections** across
   15 channels; **82 / 85 fall outside** this atlas's four-channel
   cardio-respiratory overlap (only 3 / 85 overlap, all PaCO2). The two failure
@@ -293,7 +294,7 @@ each can be entered independently.*
   traffic-light curation map (Figure 6).
 * **§4 — Discussion.** Practical user guidance, implications for
   machine-learning pipelines that train on Pulse synthetic cohorts, a
-  side-by-side mapping against Cornish et al. 2023 causal falsification
+  side-by-side mapping against Cornish et al. 2026 causal falsification
   (Table 2), explicit limitations (§4.5), downstream research hooks
   (§4.6), and a short, evidence-anchored list of engine-side
   infrastructure enhancements offered back to the Pulse maintainers
@@ -412,13 +413,13 @@ need to chase definitions through the prose.*
 | Tier-1 / Tier-2 | Claim classes in the audit ledger. Tier-1 are headline claims of the main results; Tier-2 are follow-up and supplementary claims. |
 | Sobol bolt-on | The preregistered option to escalate from Morris screening to a full Sobol variance decomposition if non-linearity warranted it. Evaluated and closed in §3.3.1. |
 | Runaway | A run whose PaO2 keeps climbing past the plausibility ceiling instead of settling — the numerically unstable tail of the hyperoxia regime (§3.8). |
-| Allometric | Scaling a physiological quantity by body size. Pulse sets blood volume allometrically as BV = 65.6 · weight^1.02 (§3.6). |
+| Allometric | Scaling a physiological quantity by body size. Pulse sets blood volume allometrically as BV = 65.6 · weight^1.02 (§3.5). |
 | **Identifier families** | |
 | S001 – S026 | Atlas lab-notebook entries, one per experiment, in `experiments_log/santino/`. Indexed in Appendix A. |
 | F-003 / F-004 | The two named boundary findings the atlas carried from pilot to full sweep: F-003 the transient hyperoxia regime at FiO2 = 1.0 (§3.8), F-004 the VC-AC tidal-volume dyssynchrony (§3.8). No other F-numbers are in use. |
 | H1 – H4 | The four preregistered hypotheses, quoted verbatim in §2.0 and evaluated in §§3.3 – 3.6. |
 | T1.\* / T2.\* / T3.\* / T5.\* | Anchor identifiers in the audit ledger (`scripts/audit_claims.py`). Each re-derives one manuscript number from the canonical data. |
-| §S1 – §S16 | Sections of the *npj* submission's Supplementary Information, a separate document from this monograph. |
+| §S1 – §S17 | Sections of the *npj* submission's Supplementary Information, a separate document from this monograph. |
 | `Pulse_translation_new` | The companion pediatric-translation project. Its own experiments are labelled E1 – E10; experiments of that project without an E-number are cited here by name. |
 
 ---
@@ -596,7 +597,7 @@ This atlas adds quantitative coverage to those:
 5–6. HR init acceptance 50–110 / RR init acceptance 8–20 — sampler ranges
    match.
 7. PC-AC delivered Vt deviates from the physical reference by 11.3 – 25.3 % across healthy / restrictive / obstructive lung profiles, against 0.07 – 2.25 % for VC-AC, per Pulse's own validation tables [@pulsevent]; the surrounding validation framework is described in [@webb2022vent]. Those tables print **unsigned** percentage errors, but their paired columns show Pulse delivering *less* than the physical reference in all three PC-AC profiles (935 vs 1,047 mL; 409 vs 528 mL; 490 vs 571 mL) — consistent with [@webb2022vent], which reports that the physical ventilator produces the higher tidal volumes. Companion experiments in `Pulse_translation_new` (the female-surrogate engine tests and the male/female side-by-side verification) measure a **different comparison**: PC-AC against *VC-AC within Pulse* at PIP = 20 cmH2O, where PC-AC delivers more (female +58.9 %, male +24.0 %; see §2.3). The two are not in conflict — one compares Pulse against physical hardware, the other compares two Pulse modes against each other. The atlas restricts to VC-AC.
-8–12. Structural lumped-parameter limits — discussed in §4.3.
+8–12. Structural lumped-parameter limits — discussed in §4.5.
 
 The two previously asserted but unverified claims (FiO2 solver-divergence at 1.0 and
 absence of sex-specific physiology) were withdrawn before the
@@ -630,8 +631,8 @@ paper, which highlights the same work as reusable deliverables.)*
 
 ### 1.4 Experiment log nomenclature ([S001](#s001) – [S024](#s024))
 
-*A one-line description of each of the 24 experiment-log entries
-cited throughout the paper. Skim this table once to make every later
+*A one-line description of each of the 24 core experiment-log entries
+(S001–S024) cited throughout the paper. Skim this table once to make every later
 'S0xx' reference interpretable on first encounter; the full audit
 trail lives in Appendix A and the underlying notebooks in the
 repository.*
@@ -1048,10 +1049,11 @@ rather than retro-fitted to a citation. The full engine-source comparison — in
 own internal `heightStandardMale_cm` / `heightStandardFemale_cm`
 constants — is in Appendix B.5.
 
-NHANES P50 anchors further confirm the surrogates' *vital-sign* profile
-(not their body dimensions) is representative of healthy adults: median
-HR 70 bpm (M) / 74 bpm (F), SBP 118 mmHg (M) / 113 mmHg (F), DBP 70
-mmHg (M) / 69 mmHg (F). Companion verification
+NHANES resting heart-rate anchors (Ostchega 2011, as tabulated in the
+companion `Pulse_translation_new` reference tables) further confirm the
+surrogates' *vital-sign* profile (not their body dimensions) is
+representative of healthy adults: median HR 70 bpm (M) / 74 bpm (F).
+Companion verification
 (`Pulse_translation_new` female-surrogate engine tests and the
 male/female side-by-side verification) established that the female
 surrogate produces physiologically plausible engine output across all
@@ -1296,31 +1298,32 @@ origin, case_id collision, G4 unreachability from locked Morris ranges)
 
 ### 2.8 Hardware and reproducibility
 
-*The laptop hardware envelope (i5-11400H, 8 GB RAM, no GPU), the 2–3
-parallel Docker throughput verified in [S001](#s001), and the eleven
+*The laptop hardware envelope (i5-11400H, 8 GB RAM, CPU-only), the 2–3
+parallel Docker throughput verified in [S001](#s001), and the twelve
 independent verification points that make the published numbers
 reproducible bit-exactly. A pre-submission Phase-4 re-execution
 (1,280 / 1,280 runs) extends bit-exact reproduction from the
 [S015](#s015) 40-run audit to the full envelope.*
 
-i5-11400H (6 physical / 12 logical cores), 8 GB RAM, no GPU. Docker
+i5-11400H (6 physical / 12 logical cores), 8 GB RAM; Pulse is CPU-only, so
+neither of the laptop's two GPUs (Intel UHD, NVIDIA RTX 3050) is used. Docker
 allocation 3.95 GB / 12 CPU. Two-to-three parallel containers per the
 verified [S001](#s001) budget. Pulse is bit-exact deterministic for fixed
 inputs ([S005](#s005) G5). The full sweep required approximately 14 h of
 active elapsed time on this hardware (Supplement §S12).
 
-The atlas's published numbers have eleven independent verification
+The atlas's published numbers have twelve independent verification
 points (Pulse determinism, pipeline + analysis correctness, and
 independent reproducibility layers) detailed in
 [Supplementary S10](../preprint/supplementary.md#s10);
-all eleven passed with zero violations. [S007](#s007) deliberately rejected a
+all twelve passed with zero violations. [S007](#s007) deliberately rejected a
 full 1,280-simulation re-execution because re-running the same code
 gives identical CSVs by construction and cannot detect bugs in the
 code being re-run; the independent-layer approach catches strictly
 more error classes at ~ 1 % of the compute cost.
 
 **Phase-4 audit-driven re-execution (2026-05-16 → 2026-05-18).** As a
-pre-submission belt-and-braces check on top of the eleven verification
+pre-submission belt-and-braces check on top of the twelve verification
 points above, two complementary re-executions were performed under the
 current `pulse-atlas-engine` image (hash `b2e0e807803d`, the
 post-[S014](#s014)-patch rebuild — a different image hash than the
@@ -1335,7 +1338,7 @@ post-[S014](#s014)-patch rebuild — a different image hash than the
   maintainer's i5-11400H laptop at 2 parallel Docker workers (the
   verified-safe hardware cap, §2.8). SHA-256 comparison of every
   `output.csv` against canonical gave **1,260 / 1,280 bit-identical
-  clean runs and 20 / 20 originally-diverged runs reproducing
+  completed runs and 20 / 20 originally-diverged runs reproducing
   divergence with `exit_code = 1`** (i.e. the same 20-run male-extreme
   cluster that §3.5 attributes to the blood-volume mechanism). **Zero
   deviations, zero clean-↔-diverged asymmetries, zero missing files.**
@@ -1348,7 +1351,7 @@ post-[S014](#s014)-patch rebuild — a different image hash than the
   fresh Morris sample at `seed=44`, `trajectories=20`, `levels=4` (160
   unique points, matching canonical sample size; different seed from
   both canonical `seed=42` and the prior [S009](#s009) stability check at
-  `seed=43, trajectories=10`) was run on the moderate-ARDS male cell.
+  `seed=43, trajectories=10`) was run on the mild-ARDS male cell.
   Wall time: 1 h 34 m. **The dominant input by μ\* was preserved for
   all 6 outputs**, and top-3 input sets matched canonical in 4 / 6
   outputs (top-3 orders in 3 / 6); disagreements were confined to the
@@ -1446,7 +1449,7 @@ print(result.primary_flag)
 Hard physiological bounds (`HARD_BOUNDS`), drift thresholds
 (`DRIFT_MAX_DELTA_60S`), the CV threshold (`CV_THRESHOLD = 0.05`,
 computed as `numpy.std(ddof=0) / |mean|` — population-std divisor on
-the 13-point steady-state window; `src/detector.py:338`), and the
+the 13-point steady-state window; `src/detector.py:413`), and the
 steady-state window (`STEADY_STATE_T_LO = 60 s`, `STEADY_STATE_T_HI
 = 120 s`) are module-level constants exposed at the top of
 `src/detector.py` and locked in `preregistration.md` §Flags. To apply
@@ -1464,7 +1467,7 @@ instrument.
 (preregistered but deferred on compute budget; see §3.3.1), 1-Wasserstein
 distance, the permutation null, Spearman ρ, BH-FDR
 control, and Hoeffding / Holm–Bonferroni (external; used by Cornish
-2023, §4.4). First appearance of each test in §3 is therefore
+2026, §4.4). First appearance of each test in §3 is therefore
 immediately interpretable.*
 
 Several distinct statistical tools are used in §3 (Results) and §4
@@ -1539,7 +1542,7 @@ are in §9.
   in physiology-simulation work.
 
 * **Hoeffding's inequality and Holm–Bonferroni (external; Cornish
-  2023).** Used by [@cornish2023] in their causal-falsification
+  2026).** Used by [@cornish2023] in their causal-falsification
   framework. *Hoeffding's inequality* gives a distribution-free
   confidence interval for the mean of a bounded random variable from a
   finite sample; the interval is wide but assumption-light. *Holm–
@@ -1674,9 +1677,9 @@ visual patterns dominate:
   (where $\dot{V}_A$ is alveolar minute ventilation, RR is set
   respiratory rate, $V_T$ is delivered tidal volume, and $V_D$ is
   the anatomical dead-space volume; West *Respiratory Physiology*
-  Ch. 2 convention). SpO2 is also ventilator-driven but at a tiny
-  absolute scale (μ\* ≤ 0.13) because the output sits at the
-  hemoglobin saturation ceiling.
+  Ch. 2 convention). SpO2 is also ventilator-driven but on a small
+  numerical scale (μ\* ≤ 0.13) because it is recorded as a fraction:
+  the largest value, 0.12 in S3, would read 12 in percentage points.
 * **The ARDS gradient is visible.** PaO2's FiO2 sensitivity peaks in
   S2 (μ\* = 133 – 147 mmHg), remains substantial in S3 (μ\* = 84 – 93
   mmHg), and *collapses* in severe ARDS (μ\* = 31 in (S4, M)). Pulse
@@ -1815,15 +1818,16 @@ Applying this rule to the dominant input per (scenario, sex, output)
 cell, **8 of 48 cells fire the trigger.** Manual inspection separates
 these into two regimes:
 
-* **Group A — noise-dominated (2 of 8 cells).** The dominant input's
-  μ\* sits at numerical-noise level because the output is pinned at
-  physiological saturation. Both are SpO2 in healthy patients: (S1, F,
-  SpO2, PEEP) with μ\* = 0.0037 and σ = 0.0068, and (S1, M, SpO2, Vt)
-  with μ\* = 0.028 and σ = 0.023. SpO2 in the healthy respiratory
-  envelope sits at ≈ 0.997 — the hemoglobin saturation ceiling — so
-  the Morris elementary effects are floating-point fluctuation, not
-  physiological signal. The σ / μ\* ratio is mathematically high but
-  physiologically empty.
+* **Group A — saturation-boundary cells (2 of 8 cells).** Both are SpO2
+  in healthy patients: (S1, F, SpO2, PEEP) with μ\* = 0.0037 and
+  σ = 0.0068, and (S1, M, SpO2, Vt) with μ\* = 0.028 and σ = 0.023, each
+  estimated from only 3–4 clean elementary-effect pairs. The pairs taken
+  at FiO2 ≈ 0.47 sit at the hemoglobin saturation ceiling (SpO2
+  0.997–0.999) and carry effects of at most 0.003; the pairs taken at
+  FiO2 = 0.21, where SpO2 is 0.95–0.96, carry the large ones (|EE|
+  0.014–0.049; one Vt step moves SpO2 from 0.962 to 0.929). The high
+  σ / μ\* therefore reflects an effect that depends on FiO2, measured on
+  very few pairs — not floating-point noise.
 
 * **Group B — known nonlinear physiology (6 of 8 cells).** Four of
   these are the FiO2 → PaO2 cells in ARDS scenarios: (S2 / S3, M / F,
@@ -1861,7 +1865,7 @@ trajectory pair (S1_F × {PaCO2, PaO2, Vt}). Two lie in S4_M where the
 dominant input is FiO2 — the FiO2 OAT step has only one clean
 trajectory pair (S4_M × {PaO2, SpO2}). The *which-input-lacks-pairs*
 differs between the two groups (Vt in S1_F vs FiO2 in S4_M); per-input
-gaps are summarised at cell level in §4.3 / §4.5 limitations.
+gaps are summarised at cell level in the §4.5 limitations.
 
 *Methodological note (σ / μ\* CI formula).* Two formulas are available once a
 confidence interval is put on σ / μ\*, and they do not agree. The first divides
@@ -2302,12 +2306,12 @@ in (0.85, 0.91], male-dominated in (0.91, 0.945]). The original
 Two refinements of the literature picture:
 
 1. **The instability band is wider than previously reported.** The
-   `Pulse_translation_new` E6 audit reported an instability zone at
-   `[0.91, 0.945]`. Our continuous sweep at midrange inputs places
+   `Pulse_translation_new` E10 boundary probe, confirmed by E6, reported an
+   instability zone at `[0.91, 0.945]`. Our continuous sweep at midrange inputs places
    the band at `[0.879, 0.946]` — the lower edge moves down by 0.031
    and the upper edge up by 0.001, extending the band on the low side
    by about 90 % of the original
-   E6 width. The discrepancy is consistent with input dependence: E6
+   width. The discrepancy is consistent with input dependence: E6
    used ventilator settings tailored to ARDS calibration; the atlas's
    midrange settings reach instability earlier.
 
@@ -2512,7 +2516,7 @@ S1 and S4_F have no computable ρ. FiO2 has zero clean
 elementary-effect pairs in those cells: every Morris trajectory step
 that flips FiO2 between 0.21 and 1.0 has at least one endpoint
 flagged — predominantly by SpO2 ceiling pinning at high FiO2. This
-non-computability is itself a finding (§4.3 limitations).
+non-computability is itself a finding (§4.5 limitations).
 
 The bootstrap CI on ρ is wide for output Vt (S2 lower bound −0.06),
 meaning the input-importance ranking for Vt is not clearly preserved
@@ -2766,9 +2770,9 @@ corrected by setting trigger pressure to −2 cmH2O.*
   a steeper ~7.8 mmHg / 0.01
   slope on a focused single-input probe at FiO2 0.95 – 1.0; the two
   figures reflect different regimes — multi-input averaged across
-  [0.21, 1.0] vs single-input near the FiO2 = 1.0 boundary).
+  [0.21, 0.47] vs single-input near the FiO2 = 1.0 boundary).
   Linear extrapolation from FiO2 = 0.5 (PaO2 ≈ 228 mmHg) predicts
-  PaO2 ≈ 481 mmHg at FiO2 = 1.0; the locked 120 s S1 means at
+  PaO2 ≈ 480 mmHg at FiO2 = 1.0; the locked 120 s S1 means at
   FiO2 = 1.0 sit higher than this linear extrapolation, but this
   deviation is the *physiologically expected non-linearity* in the
   FiO2 → PaO2 relationship (hemoglobin saturation maxes out and
@@ -2939,7 +2943,7 @@ corrected by setting trigger pressure to −2 cmH2O.*
   rate during these episodes alternates between the set rate
   (e.g. 20 bpm) and roughly twice the set rate (~46 bpm). Lung
   compliance is constant within numerical precision throughout the
-  window (e.g. 0.0900 ± 5×10⁻⁶ L/cmH2O for the worst-CV run S1_F_0008),
+  window (e.g. 0.0900 ± 5×10⁻⁶ L/cmH2O for run S1_F_0008),
   excluding dynamic hyperinflation as a contributor.
 
   Source audit of `SEMechanicalVentilatorVolumeControl::ToSettings`
@@ -3041,7 +3045,7 @@ two per-arm files in `results/`.
 *This section places the atlas's numerical findings in their
 clinical, machine-learning, and Pulse-development context, compares
 the atlas to the only prior external falsification study (Cornish
-et al. 2023; Table 2), and consolidates the structural limitations of
+et al. 2026; Table 2), and consolidates the structural limitations of
 the work in §4.5.*
 
 ### 4.1 What the atlas tells Pulse users
@@ -3210,7 +3214,7 @@ without re-running the atlas — and the traffic-light map is portable
 to other operational envelopes once a sweep at the new envelope is
 completed.
 
-### 4.4 Relationship to Cornish et al. 2023 (causal falsification) — Table 2
+### 4.4 Relationship to Cornish et al. 2026 (causal falsification) — Table 2
 
 *A side-by-side mapping of the atlas's six-output reliability panel
 against Cornish et al.'s causal-falsification rejection counts on
@@ -3236,7 +3240,7 @@ this atlas's 6-output panel.
 \begin{center}
 \begin{tabular}{lllc}
 \toprule
-Cornish-2023 channel & Hoeffding rejections / hypotheses & Bootstrap (Cornish Appendix Table 5) & Maps to atlas output? \\
+Cornish-2026 channel & Hoeffding rejections / hypotheses & Bootstrap (Cornish Appendix Table 5) & Maps to atlas output? \\
 \midrule
 Chloride            & 24 / 94 & 47 / 94 & No (electrolyte) \\
 Sodium              & 21 / 94 & 46 / 94 & No (electrolyte) \\
@@ -3259,13 +3263,13 @@ RR                  & 0 / 172 & 12 / 172 & Atlas input, not output \\
 \end{center}
 ```
 
-*Table 2.* Cornish 2023 Table 4 (Hoeffding's inequality; the complete per-quantity
+*Table 2.* Cornish 2026 Table 4 (Hoeffding's inequality; the complete per-quantity
 table listing all 15 assessed quantities) and Table 5 (reverse-percentile
 bootstrap) re-tabulated against this atlas's six-output panel. Bold rows mark the four channels
 that overlap directly with HR / MAP / PaO2 / PaCO2.
 
 *Table 2 — at a glance.*
-**What:** Cornish et al. (2023) per-channel rejection counts from
+**What:** Cornish et al. (2026) per-channel rejection counts from
 their causal-falsification framework on MIMIC-III sepsis trajectories,
 re-tabulated against this atlas's six-output panel.
 **How to read it:** each row is one Cornish quantity; the first
@@ -3345,8 +3349,10 @@ picture:
 1. *Cardio–respiratory outputs under operational sweeps* — the
    atlas (§3.7 traffic-light).
 2. *Cardio–respiratory outputs under clinical-intervention
-   sequences* — Cornish, with PaCO2 as the only flagged channel
-   (3 / 70 Hoeffding, 13 / 70 bootstrap).
+   sequences* — Cornish: of the four channels shared with the atlas,
+   PaCO2 is the only one flagged under Hoeffding (3 / 70) and the most
+   flagged under the bootstrap (13 / 70, against PaO2 4 / 78, MeanBP
+   3 / 92, HR 1 / 162).
 3. *Electrolyte / metabolic / dermal outputs under operational
    sweeps* — not assessed by either paper.
 4. *Electrolyte / metabolic / dermal / acid–base outputs under
@@ -3380,8 +3386,8 @@ bounded.*
   We do not extend simulation length post hoc — the locked window IS the
   paper's measurement; longer windows are explicit future work. The
   [S012](#s012) cross-output audit (§3.8.1) bounds this limitation to PaO2 and
-  Vt at FiO2 ≥ 0.95: HR, MAP, and PaCO2 drift rates stay below 3 % in
-  both vulnerable populations, so the [60, 120] s steady-state window
+  Vt at FiO2 ≥ 0.95: HR and MAP drift rates stay below 3 % and PaCO2
+  below 4 % in both vulnerable populations, so the [60, 120] s steady-state window
   remains reliable for the cardiovascular and ventilation channels.
 * MAP derived, not sampled; if Pulse's response to MAP differs from the
   derived value, our atlas could miss it. We argue against re-introducing
@@ -3578,8 +3584,9 @@ documentation / validation layer rather than the physiology layer.
 
 4. **A setup-time warning for the ARDS impairment-fraction
    instability zone (~0.91–0.945).** This instability zone is
-   documented in our preregistration limitations table (entry #4)
-   and corroborated by three independent sources, but Pulse does not
+   documented in our preregistration (scenario table and H3) and in the
+   §1.2 limitations list (entry 4), and corroborated by three independent
+   sources, but Pulse does not
    currently emit a setup-time warning when an ARDS action lands in
    the zone. A single console notice — "impairment fraction in
    reported instability band, results may not be reliable" — would
@@ -3671,7 +3678,7 @@ layer (Paper 1, in preparation) and a native pediatric Pulse fork
 All **derived** data, code, and lab notebooks needed to reproduce the
 numbers, figures, and tables in this paper are openly available in the
 repository. The raw per-run Pulse CSVs and setup logs are deliberately
-excluded from git (1,280 raw CSVs plus ~50 MB of engine logs belong in
+excluded from git (1,280 raw CSVs plus ~105 MB of engine logs belong in
 the Zenodo deposit, not in git history; see `.gitignore`) — which is
 why one ledger anchor (`T1.06u`) auto-skips on a public clone, giving
 393 / 394 there against 394 / 394 on the authors' full data tree.
@@ -3725,8 +3732,8 @@ documentation and source (Apache-2.0) — retain their original terms.
   release-hygiene entries S025 / S026; full audit trail in
   [`experiments_log/INDEX.md`](../experiments_log/INDEX.md).
 * **Zenodo deposit:** the raw per-run artifacts excluded from git
-  history by `.gitignore` (per-run output.csv / pulse.log /
-  config.json / run_meta.json across the 1,280-run sweep + S014 +
+  history by `.gitignore` (per-run output.csv / output_pulse_native.csv /
+  pulse.log / config.json / run_meta.json across the 1,280-run sweep + S014 +
   S018 + S021; ~ 2.2 GB total, measured 2026-07-29) will be uploaded to a public Zenodo
   archive upon acceptance; DOI added here on deposit.
 
@@ -3858,9 +3865,10 @@ the following or to an experiment-log entry in this repository.
     distinguish internal-calibration SA (their scope) from
     operational-input SA (this paper's scope). Audit logged in
     [S016](#s016) (2026-05-07).
-4. **Cornish R, Taufiq MF, Doucet A, Holmes C (Oxford, 2023).**
-    *Causal Falsification of Digital Twins.* arXiv:2301.07210
-    (November 2023). External statistical-falsification framework
+4. **Cornish R, Taufiq MF, Doucet A, Holmes C (Oxford, 2026).**
+    *Causal Falsification of Digital Twins.* Journal of Machine Learning
+    Research 27(152):1–52 (2026); preprint arXiv:2301.07210 (v4, November
+    2023). External statistical-falsification framework
     applied to Pulse on MIMIC-III sepsis trajectories;
     identifies specific intervention-outcome inaccuracies. Cited
     in §1.1 to distinguish prior external assessment
@@ -4031,8 +4039,11 @@ during the literature-review pass logged in
   carry this phrase) to the System Methodology page, where it appears
   verbatim.
 * []{#ref-cornish2023} Cornish R, Taufiq MF, Doucet A, Holmes C. *Causal Falsification
-  of Digital Twins.* arXiv:2301.07210 (November 2023, v4). Oxford
-  statistics group. External assessment of Pulse on MIMIC-III
+  of Digital Twins.* Journal of Machine Learning Research 27(152):1–52
+  (2026); first posted as arXiv:2301.07210 and read in its v4 (November
+  2023); the published Tables 4 and 5 keep the same counts and add
+  Manski-bound columns.
+  Oxford statistics group. External assessment of Pulse on MIMIC-III
   sepsis trajectories using a causal-inference / statistical-
   falsification framework with Holm–Bonferroni-adjusted Hoeffding's
   inequality confidence intervals (FWER 0.05) on 1,522 hypotheses
@@ -4306,7 +4317,7 @@ initialization failure prior to stabilization.
   FiO2 ∈ {0.95, …, 1.00} on a healthy male surrogate at fixed
   ventilation), PaO2 scales linearly by approximately 7.8 mmHg per
   0.01 increase in FiO2. The atlas's multi-input Morris fit on the
-  S1 clean runs over the full FiO2 ∈ [0.21, 1.0] range gives a flatter
+  S1 clean runs, whose FiO2 spans only [0.21, 0.47], gives a flatter
   slope of ~5 mmHg per 0.01 FiO2 (§3.8, F-003): the difference reflects
   the averaging across a wider FiO2 envelope and across the seven
   perturbed inputs rather than a per-step single-input perturbation
@@ -4437,7 +4448,7 @@ not flag this zone.
 **No surfactant model — multi-criteria audit (2026-06-11).** A direct
 re-verification confirms Pulse models no pulmonary surfactant under any
 name. A case-insensitive search of the complete engine tree — 3,304
-files / 23 MB, *including git-ignored and hidden files*, at tag
+files, 23 MB of them text, *including git-ignored and hidden files*, at tag
 `REL_4_3_2` (commit `e8a3649`) — returns zero occurrences of
 `surfactant`. Because such a model could hide behind other vocabulary,
 the search was widened to the terms it would necessarily surface under;
@@ -4528,7 +4539,7 @@ misnomer. The actual provenance, by dimension, is as follows:
 * **Male height (180 cm).** This is a researcher-fixed rounded value
   chosen by the maintainer of `Pulse_translation_new` to yield a clean
   healthy baseline BMI of 20.8 in combination with the 67.3 kg weight.
-  It is **not** the CDC P50 male stature at 18 years (CDC P50 ≈ 177
+  It is **not** the CDC P50 male stature at 18 years (CDC P50 ≈ 176.2
   cm) and it does **not** match Pulse's own internal
   `heightStandardMale_cm = 177.0` constant (`SetupPatient.cpp` L72).
   The 180 cm value sits inside Pulse's accepted male height envelope
@@ -4624,7 +4635,7 @@ not feed §3.1 Table 1 or any of the headline figures.
 **Reading the table.**
 
 * **SpO2 saturation contribution (locked − excl. SpO2 = 76 runs).**
-  Concentrated in S1/S2 (74 / 76 of those runs; 30 in S1_F, 16 in
+  Concentrated in S1/S2 (71 / 76 of those runs; 30 in S1_F, 16 in
   S1_M, 16 in S2_F, 9 in S2_M, plus 5 trickle in S3). Zero in S4 (in
   severe ARDS, SpO2 no longer saturates and this trigger never fires).
   This is the only *detector* edge case identified by [S022](#s022);
@@ -4640,7 +4651,7 @@ not feed §3.1 Table 1 or any of the headline figures.
   detector edge case — it reflects the documented Pulse-4.3.1
   patient-ventilator-trigger default behaviour, and the locked
   classifier is correctly flagging it.
-* **Residual (excl. both = 185 runs).** Dominated by S4 (104 / 185 of
+* **Residual (excl. both = 185 runs).** Largest in S4 (91 / 185 of
   the residual), and a smaller S1 contribution (53 / 185). The S4
   residual is the F-003-class slow-convergence phenomenon
   ([S012](#s012), [S021](#s021)): severe-ARDS oxygenation has not

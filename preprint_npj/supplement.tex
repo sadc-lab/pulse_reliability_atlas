@@ -623,17 +623,17 @@ This is an interpretive constraint, not a defect in the sweep: sweeping tidal vo
 %% S7 -- Cornish Table 2 expanded
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Cornish et al.\ 2023 per-channel cross-mapping}\label{sec:s7}
+\section{Cornish et al.\ 2026 per-channel cross-mapping}\label{sec:s7}
 
 The Discussion of the main manuscript summarises the complementarity between the present atlas and the Cornish et al.\ causal-falsification study~\cite{cornish2023} as ``80 of 85 Hoeffding rejections fall on channels the present atlas does not assess''. Table~\ref{tab:s7-cornish} provides the full 15-channel per-quantity cross-mapping, grouped by physiological system to make the data clinically scannable. Within each group, ``Hoeffding'' counts come from Cornish's Table~4 (their complete per-quantity Hoeffding table listing all 15 assessed physiological quantities, with family-wise-error-rate-controlled rejections under Holm--Bonferroni adjustment), ``Bootstrap'' counts come from their Appendix Table~5 (reverse-percentile bootstrap rejections at the same significance level), and the rightmost column maps each channel to an atlas output. Bold rows mark the four channels (HR, MeanBP $\approx$ atlas MAP, PaO$_2$, PaCO$_2$) of direct overlap.
 
 \begin{table}[h]
 \centering
-\caption{\textbf{Cornish et al.\ 2023 per-quantity rejection counts (Cornish Appendix Tables~4 and~5) re-tabulated against the present atlas's six-output panel and grouped by physiological system.} Bold rows are the four-channel direct overlap. Of Cornish's 85 total Hoeffding rejections, 82 fall outside the four-channel direct overlap --- 80 on the eight channels the atlas does not assess at all (electrolyte, metabolic, acid--base, dermal) plus 2 on the partial-overlap pressure channel SysBP --- and only 3 of 85 fall on the four-channel overlap (all 3 on PaCO$_2$). The two studies' failure surfaces are therefore complementary rather than redundant.}
+\caption{\textbf{Cornish et al.\ 2026 per-quantity rejection counts (Cornish Appendix Tables~4 and~5) re-tabulated against the present atlas's six-output panel and grouped by physiological system.} Bold rows are the four-channel direct overlap. Of Cornish's 85 total Hoeffding rejections, 82 fall outside the four-channel direct overlap --- 80 on the eight channels the atlas does not assess at all (electrolyte, metabolic, acid--base, dermal) plus 2 on the partial-overlap pressure channel SysBP --- and only 3 of 85 fall on the four-channel overlap (all 3 on PaCO$_2$). The two studies' failure surfaces are therefore complementary rather than redundant.}
 \label{tab:s7-cornish}
 \begin{tabular}{lrrl}
 \toprule
-Cornish 2023 channel & Hoeffding & Bootstrap & Maps to atlas output? \\
+Cornish 2026 channel & Hoeffding & Bootstrap & Maps to atlas output? \\
 \midrule
 \multicolumn{4}{l}{\textit{Electrolytes}} \\
 Chloride            & 24 / 94 & 47 / 94 & No (electrolyte) \\
@@ -1134,7 +1134,7 @@ Anchor & Finding / discovery \\
 \S\ref{sec:s4} & \textbf{\texttt{not\_steady\_state} attribution decomposition.} Per-cell breakdown of the locked \texttt{not\_steady\_state} count into three trigger sub-modes (SpO$_2$ flatline at ceiling; Vt CV $>$ 0.05; drift) without modifying the locked classifier. \\
 \S\ref{sec:s5} & \textbf{ARDS impairment-fraction instability band --- atlas-specific extension.} A 200-run continuous-severity sweep at midrange Morris inputs extends the empirical band to $[0.879, 0.946]$, almost entirely on the low edge, and distinguishes two divergence regimes (input-driven, severity-driven). Supports Section~\mainref{sec:results-secondary}{2.6} of the main paper. \\
 \S\ref{sec:s6} & \textbf{Sex-stratified comparisons.} Cross-sex agreement on Morris $\mu^{*}$ rankings, with paired-input bootstrap 95~\% CIs (\S\ref{sec:s6-rho}); ventilation-dose mismatch between the two bodies (\S\ref{sec:s6-dose}). Supports the Discussion and the Section~\mainref{sec:results-sex}{2.5} caveat. \\
-\S\ref{sec:s7} & \textbf{Cornish et al.\ 2023 per-channel cross-mapping.} Each of Cornish's 15 channels mapped against the atlas's six steady-state outputs, supporting the complementarity claim in the Discussion of the main paper. \\
+\S\ref{sec:s7} & \textbf{Cornish et al.\ 2026 per-channel cross-mapping.} Each of Cornish's 15 channels mapped against the atlas's six steady-state outputs, supporting the complementarity claim in the Discussion of the main paper. \\
 \S\ref{sec:s10} & \textbf{Blood-volume mechanism and sex-conditioned setup parameters.} Re-examines the 20-event male-only divergence cluster from Section~\mainref{sec:results-sex}{2.5} of the main paper under both an absolute-BV and a weight-normalised-BV lens, with implications for sex-balanced synthetic cohort design. \\
 \S\ref{sec:s11} & \textbf{Six engine-side infrastructure recommendations} addressed to the Pulse maintainers: structured input-rejection events; documentation of the male reference body's blood-volume floor; a reference sensitivity-analysis recipe for user-facing operational inputs; a setup-time warning for the ARDS impairment-fraction instability band; a per-channel steady-state convergence diagnostic in CSV output; field-attributed setup-error messages. \\
 \S\ref{sec:s13} & \textbf{SHAP cross-check of the Morris top-three input sets.} A RandomForest~+~SHAP analysis recovers those sets in 17 of 18 pooled cases on the same Pulse-generated data --- a set overlap, not an ordering, and not an independent replication. \\

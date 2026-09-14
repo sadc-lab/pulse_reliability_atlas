@@ -212,7 +212,7 @@ Distribution: 7 green, 29 yellow, 12 red.
 
 ---
 
-## S10 — Verification points (eleven independent layers)
+## S10 — Verification points (twelve independent layers)
 
 | ID  | Layer | Method | Result |
 |-----|-------|--------|--------|
@@ -229,7 +229,7 @@ Distribution: 7 green, 29 yellow, 12 red.
 | S007 2  | Independent numpy μ\* | (S2, M, HR) re-derived in raw numpy | 7 / 7 inputs exact |
 | S007 3  | Docker re-execution | 5 random clean runs, re-run | 5 / 5 bit-exact |
 
-11 independent verification points; 0 failures across all of them.
+12 independent verification points; 0 failures across all of them.
 
 ---
 

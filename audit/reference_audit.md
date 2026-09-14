@@ -1504,6 +1504,12 @@ pages **4765-4774**, authors Scott M. Lundberg and Su-In Lee. Our
 
 ### ✅ M-2 — `cornish2023`: still a preprint, so the citation form is right
 
+> **Superseded 2026-09-14.** The paper has since been published in the Journal
+> of Machine Learning Research, 27(152):1–52 (2026), and both `.bib` files now
+> cite it there. See the addendum "`cornish2023` has been published in JMLR" and
+> its resolution, at the end of this register. The finding below was true on
+> its date and is kept as written.
+
 arXiv API, entry `2301.07210`:
 
 - `id` = `http://arxiv.org/abs/2301.07210v4` — **v4**, the version the content
@@ -1930,8 +1936,10 @@ does not.**
   supplement (ref. 24) both read "arXiv preprint arXiv:2301.07210 (2023)".
 - The monograph gives "arXiv:2301.07210 (November 2023)" (L3862) and
   "(November 2023, v4)" (L4034).
-- The prose labels read "Cornish et al. 2023": supplement §S7 title and Table S7
-  caption, monograph §4.4 title and Table 2.
+- The prose labels read "Cornish et al. 2023": supplement §S7 title and Table S13
+  caption (first written "Table S7", corrected 2026-09-14 against the rendered
+  supplement: the section is S7, its table renders as S13), monograph §4.4 title
+  and Table 2.
 - This register's **M-2**, *"`cornish2023`: still a preprint, so the citation
   form is right"*, was true on its date and is now stale.
 - `paper.bib`'s `hennigs2026validation` note says it is "cited as a preprint
@@ -1944,3 +1952,63 @@ the citation-audit rule. The options are:
 - keep the arXiv citation, pinned to v4, the version read.
 
 Either option touches both `.bib` files, and possibly the "2023" labels.
+
+### Resolution 2026-09-14 (night) — author's decision: cite the JMLR article
+
+**Decision.** The author chose to cite the published article and to change the
+"2023" labels to 2026.
+
+**Applied.**
+- **Both `.bib` files.** `paper.bib` and `references.bib`, entry `cornish2023`:
+  - `journal = {Journal of Machine Learning Research}`, `volume = {27}`,
+    `number = {152}`, `pages = {1--52}`, `year = {2026}`;
+  - `url = {https://jmlr.org/papers/v27/24-1752.html}`;
+  - the `volume = {arXiv:2301.07210}` field is gone.
+- **The `hennigs2026validation` note** in `paper.bib` now reads "Cited as a
+  preprint deliberately, as cornish2023 also was until its 2026 publication in
+  the Journal of Machine Learning Research."
+- **Labels "2023" → "2026".**
+  - Supplement: §S7 title, Table S13 caption, "Cornish 2026 channel" column
+    header, and the S17 summary row.
+  - Monograph: "Key Findings at a Glance" bullet (L259), "Reader's roadmap"
+    (L297), two lines of §2.10 Statistical methods overview (L1470, L1545), the
+    §4 Discussion opening (L3048), the §4.4 title, Table 2 header and caption,
+    and "Cornish et al. (2026)".
+  - Two of those monograph labels wrap across a line break ("Cornish\n2023",
+    "Cornish\net al. 2023"). A line-based search missed both; the
+    rendered-PDF check found them.
+- **Monograph reference 4 and the §9.7 entry.**
+  - Both give JMLR 27(152):1–52 (2026).
+  - Both name arXiv:2301.07210 v4 (November 2023) as the version read.
+  - §9.7 adds that "the published Tables 4 and 5 keep the same counts and add
+    Manski-bound columns". The first draft said the tables were "unchanged". That
+    contradicted this addendum, which records the Manski columns. It was caught
+    by re-reading the JMLR PDF (pp. 39–40) before the commit: the 15 "Ours" rows
+    of both tables are identical to v4.
+
+**Kept deliberately.**
+- The BibTeX key `cornish2023`: renaming it would touch every citation call and
+  change nothing a reader sees.
+- The S017 experiment title "Cornish 2023 cross-mapping":
+  - monograph L668 and L4262, and `README.md:468`;
+  - it is a dated log title, not a citation label.
+- The `source_file` provenance strings in `scripts/audit_claims.py` (six
+  "Cornish et al. 2023" occurrences), which record the v4 read the ledger anchors
+  were taken from.
+
+**Rendered.**
+- Paper ref. [8] and supplement ref. [24] read "Journal of Machine Learning
+  Research 27, 1–52 (2026). URL https://jmlr.org/papers/v27/24-1752.html".
+- The monograph renders "(Cornish et al. 2026)".
+- The npj pair was rebuilt a second time after the line-ending normalisation of
+  the two source files: identical text, 25 and 63 pages.
+
+**Guarded.** `check_monograph_number_audit` in `scripts/audit_claims.py`:
+- pins the five JMLR fields in both `.bib` files and rejects "arXiv preprint"
+  there;
+- requires the new labels, including the two wrapped ones;
+- bans the 2023 labels on whitespace-normalised text.
+
+A targeted reinjection of the two wrapped labels gave 2 FAIL.
+
+**Status: RESOLVED (JMLR cited).** M-2 carries a superseded note.

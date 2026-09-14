@@ -6644,6 +6644,258 @@ def check_supplement_small_audit() -> int:
 n_smallaudit_fail = check_supplement_small_audit()
 
 
+# -----------------------------------------------------------------------------
+# Monograph number-audit guard (audit/number_inventory.md section 5), added
+# 2026-09-14 with the author's decisions on MF-1..MF-21, O-3/5/7/8/9/10/11 and
+# the Cornish citation (published in JMLR 27(152), 2026). Each check re-derives
+# the value the corrected wording states, so that a later data or code change
+# that falsifies it fails here; the text checks require the corrected wording
+# and ban the one it replaced. Gitignored raw logs skip cleanly when absent.
+# -----------------------------------------------------------------------------
+MONO_AUDIT_TEXT_REQUIRED = (
+    ("preprint/manuscript.md", "of the remaining 17 cells, 11 have a bootstrap CI straddling", 1),
+    ("preprint/manuscript.md", "1 is CI-robustly non-linear (S3_M, PaO2 ← FiO2), and 5 have too few", 1),
+    ("preprint/manuscript.md", "Largest in S4 (91 / 185 of", 1),
+    ("preprint/manuscript.md", "(71 / 76 of those runs;", 1),
+    ("preprint/manuscript.md", "S1 clean runs, whose FiO2 spans only [0.21, 0.47], gives a flatter", 1),
+    ("preprint/manuscript.md", "[0.21, 0.47] vs single-input near the FiO2 = 1.0 boundary)", 1),
+    ("preprint/manuscript.md", "PaO2 ≈ 480 mmHg at FiO2 = 1.0;", 1),
+    ("preprint/manuscript.md", "HR and MAP drift rates stay below 3 % and PaCO2", 1),
+    ("preprint/manuscript.md", "for run S1_F_0008),", 1),
+    ("preprint/manuscript.md", "PaCO2 is the only one flagged under Hoeffding (3 / 70) and the most", 1),
+    ("preprint/manuscript.md", "saturation-boundary cells (2 of 8 cells)", 1),
+    ("preprint/manuscript.md", "0.014–0.049; one Vt step moves SpO2 from 0.962 to 0.929", 1),
+    ("preprint/manuscript.md", "the largest value, 0.12 in S3, would read 12 in percentage points", 1),
+    ("preprint/manuscript.md", "median HR 70 bpm (M) / 74 bpm (F).", 1),
+    ("preprint/manuscript.md", "twelve independent verification", 1),
+    ("preprint/manuscript.md", "all twelve passed with zero violations", 1),
+    ("preprint/manuscript.md", "neither of the laptop's two GPUs (Intel UHD, NVIDIA RTX 3050) is used", 1),
+    ("preprint/manuscript.md", "was run on the mild-ARDS male cell", 1),
+    ("preprint/manuscript.md", "`src/detector.py:413`", 1),
+    ("preprint/manuscript.md", "8–12. Structural lumped-parameter limits — discussed in §4.5.", 1),
+    ("preprint/manuscript.md", "weight^1.02 (§3.5). |", 1),
+    ("preprint/manuscript.md", "§1.2 limitations list (entry 4)", 1),
+    ("preprint/manuscript.md", "~105 MB of engine logs", 1),
+    ("preprint/manuscript.md", "(CDC P50 ≈ 176.2", 1),
+    ("preprint/manuscript.md", "E10 boundary probe, confirmed by E6, reported an", 1),
+    ("preprint/manuscript.md", "output.csv / output_pulse_native.csv /", 1),
+    ("preprint/manuscript.md", "files, 23 MB of them text,", 1),
+    ("preprint/manuscript.md", "bit-identical\n  completed runs and 20 / 20", 1),
+    ("preprint/manuscript.md", "(4 scenarios, healthy S1 and ARDS S2/S3/S4,", 1),
+    ("preprint/manuscript.md", "24 core experiment-log entries\n(S001–S024)", 1),
+    ("preprint/manuscript.md", "| §S1 – §S17 |", 1),
+    ("preprint/manuscript.md", "Research 27(152):1–52 (2026)", 1),
+    ("preprint/manuscript.md", "Research 27(152):1–52\n  (2026); first posted as arXiv:2301.07210", 1),
+    ("preprint/manuscript.md", "the published Tables 4 and 5 keep the same counts and add\n  Manski-bound columns.", 1),
+    ("preprint/manuscript.md", "(external; used by Cornish\n2026, §4.4)", 1),
+    ("preprint/manuscript.md", "study (Cornish\net al. 2026; Table 2)", 1),
+    ("preprint_npj/supplement.tex", "Cornish et al.\\ 2026 per-channel cross-mapping", 2),
+    ("preprint/supplementary.md", "## S10 — Verification points (twelve independent layers)", 1),
+    ("preprint/supplementary.md", "12 independent verification points; 0 failures", 1),
+)
+MONO_AUDIT_TEXT_BANNED = {
+    "preprint/manuscript.md": (
+        "0.6 (12)", "cells in S1 and S4_F)", "104 / 185", "74 / 76 of those runs",
+        "[0.21, 1.0] range", "[0.21, 1.0] vs single-input", "PaO2 ≈ 481 mmHg",
+        "HR, MAP, and PaCO2 drift rates stay below 3 %", "worst-CV run", "only flagged channel",
+        "noise-dominated", "floating-point fluctuation", "because the output sits at the",
+        "NHANES P50 anchors", "SBP 118 mmHg (M)", "eleven independent verification", "all eleven passed",
+        "the eleven verification", "and the eleven\n", "8 GB RAM, no GPU", "moderate-ARDS male cell",
+        "detector.py:338", "discussed in §4.3.", "§4.3 / §4.5 limitations", "(§4.3 limitations)",
+        "weight^1.02 (§3.6)", "preregistration limitations table", "~50 MB of engine logs",
+        "CDC P50 ≈ 177", "E6 audit reported", "files / 23 MB", "bit-identical\n  clean runs",
+        "4 ARDS severities S1/S2/S3/S4", "§S1 – §S16", "Cornish et al. 2023", "Cornish et al. (2023)",
+        "Cornish-2023", "Cornish 2023 Table 4", "(Oxford, 2023)", "(November 2023, v4)",
+        "used by Cornish 2023", "(Cornish et al. 2023;", "from 0.962 to 0.930",
+        "Tables 4 and 5 are unchanged in the published version",
+        "per-run output.csv / pulse.log", "the 24 experiment-log entries cited",
+    ),
+    "preprint_npj/supplement.tex": ("Cornish et al.\\ 2023", "Cornish 2023 channel"),
+    "preprint/supplementary.md": ("eleven independent layers", "11 independent verification points"),
+}
+MONO_AUDIT_JMLR_FIELDS = (
+    ("journal", "Journal of Machine Learning Research"), ("volume", "27"), ("number", "152"),
+    ("pages", "1--52"), ("year", "2026"),
+)
+
+
+def check_monograph_number_audit() -> int:
+    """Pin the author-approved corrections of the monograph number audit."""
+    print("\n## Monograph number-audit guard (MF-1..MF-21, O-3..O-11, Cornish JMLR)\n")
+    rows: list[tuple[str, str, str]] = []
+    n_bad = 0
+
+    def record(label: str, observed: str, ok: bool) -> None:
+        nonlocal n_bad
+        n_bad += 0 if ok else 1
+        rows.append((label, observed, "PASS" if ok else "**FAIL**"))
+
+    mono = (REPO / "preprint" / "manuscript.md").read_text(encoding="utf-8")
+
+    # MF-1, MF-14: Appendix C attribution.
+    nss = pd.read_csv(REPO / "results" / "s022" / "nss_decomposition.csv")
+    body = nss[nss["cell"] != "Total"].assign(sc=lambda d: d["cell"].str[:2])
+    both = body.groupby("sc")["n_nss_excl_both"].sum().to_dict()
+    record("MF-1 excl.-both residual: S4 91 and S1 53 of 185",
+           f"{both}, total {int(body['n_nss_excl_both'].sum())}",
+           both.get("S4") == 91 and both.get("S1") == 53 and int(body["n_nss_excl_both"].sum()) == 185)
+    spo2 = (body["n_nss_locked"] - body["n_nss_excl_SpO2_saturation"]).groupby(body["sc"]).sum().to_dict()
+    record("MF-14 SpO2-saturation contribution: S1 + S2 = 71 of 76",
+           f"{spo2}", spo2.get("S1", 0) + spo2.get("S2", 0) == 71 and sum(spo2.values()) == 76)
+
+    # MF-2: clean S1 FiO2 support and the linear extrapolation.
+    flags = ["clamped", "diverged", "implausible", "not_steady_state"]
+    s1c = agg[(agg["scenario"] == "S1") & ~agg[flags].any(axis=1)]
+    levels = sorted(s1c["in_fio2"].round(4).unique())
+    slope = ((s1c["in_fio2"] - s1c["in_fio2"].mean()) * (s1c["PaO2_mean"] - s1c["PaO2_mean"].mean())).sum() / (
+        (s1c["in_fio2"] - s1c["in_fio2"].mean()) ** 2).sum()
+    at1 = float(s1c["PaO2_mean"].mean() + slope * (1.0 - s1c["in_fio2"].mean()))
+    record("MF-2 clean S1 FiO2 spans only [0.21, 0.47]; OLS at FiO2 = 1.0 ≈ 480",
+           f"levels {levels}, n {len(s1c)}, fit at 1.0 = {at1:.1f}",
+           levels == [0.21, 0.4733] and round(at1) == 480)
+
+    # MF-3: dominant-input CI buckets.
+    sb = pd.read_csv(REPO / "results" / "sobol_ci_buckets.csv")
+    dom = sb[sb["rank"] == 1]
+    lin, non, noci = (dom[c].astype(bool) for c in ("linear_all_seeds", "nonlinear_all_seeds", "no_estimable_ci"))
+    non_cells = sorted(map(tuple, dom[non][["scenario", "sex", "output", "input"]].values.tolist()))
+    noci_cells = sorted(map(tuple, dom[noci][["scenario", "sex", "output", "input"]].values.tolist()))
+    record("MF-3 buckets: 31 linear, 11 straddling, 1 non-linear (S3_M PaO2←FiO2), 5 without a CI",
+           f"{int(lin.sum())} / {int((~lin & ~non & ~noci).sum())} / {non_cells} / {len(noci_cells)}",
+           len(dom) == 48 and int(lin.sum()) == 31 and int((~lin & ~non & ~noci).sum()) == 11
+           and non_cells == [("S3", "M", "PaO2", "fio2")])
+    record("MF-3 the five no-CI cells are S1_F (Vt dominant) and S4_M (FiO2 dominant)", f"{noci_cells}",
+           noci_cells == [("S1", "F", "PaCO2", "vt"), ("S1", "F", "PaO2", "vt"), ("S1", "F", "Vt", "vt"),
+                          ("S4", "M", "PaO2", "fio2"), ("S4", "M", "SpO2", "fio2")])
+
+    # MF-11: per-arm drift exceedance against the detector thresholds.
+    valid = agg[agg["HR_delta_60s"].notna()]
+    arms = {"hyperoxia": valid[valid["in_fio2"] >= 0.95], "Vt oscillation": valid[valid["Vt_cv"] > 0.05]}
+    rates = {a: {ch: 100.0 * float((d[f"{ch}_delta_60s"].abs() > _WIN_TH[ch]).mean()) for ch in ("HR", "MAP", "PaCO2")}
+             for a, d in arms.items()}
+    record("MF-11 HR and MAP below 3 %, PaCO2 below 4 % in both arms (hyperoxia PaCO2 above 3 %)",
+           "; ".join(f"{a}: " + ", ".join(f"{k} {v:.2f} %" for k, v in r.items()) for a, r in rates.items()),
+           all(r["HR"] < 3 and r["MAP"] < 3 and r["PaCO2"] < 4 for r in rates.values())
+           and rates["hyperoxia"]["PaCO2"] >= 3)
+
+    # MF-12: S1_F_0008 is not the worst pre-lock CV, and is the worst locked one.
+    rk = agg[["case_id", "Vt_cv"]].dropna().assign(r=lambda d: d["Vt_cv"].rank(ascending=False, method="min"))
+    pc = pd.read_parquet(REPO / "data" / "runs" / "s014_trigger_lockout" / "paired_comparison.parquet")
+    r8 = int(rk.loc[rk["case_id"] == "S1_F_0008", "r"].iloc[0])
+    record("MF-12 S1_F_0008: rank 6 before the lock, highest CV after it",
+           f"rank {r8}, worst locked {pc.loc[pc['Vt_cv_lock'].idxmax(), 'case_id']}",
+           r8 == 6 and pc.loc[pc["Vt_cv_lock"].idxmax(), "case_id"] == "S1_F_0008")
+
+    # MF-13: engine-log volume (gitignored; skip when absent, fail when partial).
+    logs = [REPO / "data" / "runs" / "full_sweep" / f"{c[:4]}" / c / "pulse.log" for c in agg["case_id"]]
+    have = [p for p in logs if p.exists()]
+    if len(have) == len(logs):
+        mb = sum(p.stat().st_size for p in have) / 1e6
+        record("MF-13 the 1,280 full-sweep pulse.log files total ≈ 105 MB", f"{mb:.1f} MB", round(mb) == 105)
+    elif not have:
+        record("MF-13 full-sweep pulse.log absent (clean checkout): skipped", f"0 of {len(logs)}", True)
+    else:
+        record("MF-13 full-sweep pulse.log partially present", f"{len(have)} of {len(logs)}", False)
+
+    # MF-15, MF-16, MF-17, MF-9, O-11, MF-7: pointers and counts.
+    det = (REPO / "src" / "detector.py").read_text(encoding="utf-8").splitlines()
+    record("MF-15 src/detector.py:413 is the population-std line", det[412].strip() if len(det) > 412 else "short",
+           len(det) > 412 and "std(ddof=0)" in det[412])
+    record("MF-16 §4.5 is Limitations and §4.3 is not", "headings",
+           "\n### 4.5 Limitations\n" in mono and "\n### 4.3 Limitations" not in mono)
+    heads = [(m.start(), m.group(1)) for m in re.finditer(r"^### (\d+\.\d+(?:\.\d+)?) ", mono, re.M)]
+    pos = mono.find("computedBloodVolume_mL = 65.6")
+    sec = max((h for h in heads if h[0] < pos), default=(0, "?"))[1] if pos >= 0 else "absent"
+    record("MF-17 the blood-volume formula sits in §3.5", sec, sec.startswith("3.5"))
+    scen = (REPO / "src" / "scenario.py").read_text(encoding="utf-8")
+    record("MF-9 S2 is mild ARDS (0.26)", "src/scenario.py", '"S2": Scenario("S2", "Mild ARDS", 0.26)' in scen)
+    supp = (REPO / "preprint_npj" / "supplement.tex").read_text(encoding="utf-8")
+    n_sec = len(re.findall(r"^\\section\{", supp, re.M))
+    record("O-11 the npj supplement has 17 numbered sections", f"{n_sec}", n_sec == 17)
+    smd = (REPO / "preprint" / "supplementary.md").read_text(encoding="utf-8")
+    s10 = smd.split("## S10", 1)[1].split("\n## ", 1)[0] if "## S10" in smd else ""
+    n_rows = len(re.findall(r"^\| S0\d\d ", s10, re.M))
+    record("MF-7 the S10 verification table has 12 rows", f"{n_rows}", n_rows == 12)
+
+    # MF-18: the four direct-overlap rows of the monograph's Table 2.
+    t2 = {}
+    for ch in ("PaCO2", "PaO2", "MeanBP", "HR"):
+        m = re.search(r"\\textbf\{" + ch + r"\}\s*& \\textbf\{(\d+) / (\d+)\}\s*& \\textbf\{(\d+) / (\d+)\}", mono)
+        t2[ch] = tuple(int(x) for x in m.groups()) if m else None
+    record("MF-18 Table 2: PaCO2 only Hoeffding-flagged overlap channel; bootstrap PaO2 4, MeanBP 3, HR 1",
+           f"{t2}", t2 == {"PaCO2": (3, 70, 13, 70), "PaO2": (0, 78, 4, 78), "MeanBP": (0, 92, 3, 92), "HR": (0, 162, 1, 162)})
+
+    # MF-20: Group A elementary effects by FiO2 level (same pairs as the published index).
+    ee_rows = []
+    for (sk, xk, inp) in (("S1", "M", "vt"), ("S1", "F", "peep")):
+        cell = _s32_agg[(_s32_agg["scenario"] == sk) & (_s32_agg["sex"] == xk)].set_index("idx")
+        clean = set(cell[cell["clean"]].index)
+        for pr in _s32_pairs[_s32_pairs["flipped"] == inp].itertuples():
+            if pr.idx_lo in clean and pr.idx_hi in clean:
+                lo, hi = cell.loc[pr.idx_lo], cell.loc[pr.idx_hi]
+                ee_rows.append((sk + xk + inp, round(float(lo["in_fio2"]), 2), float(lo["SpO2_mean"]),
+                                float(hi["SpO2_mean"]), (float(hi["SpO2_mean"]) - float(lo["SpO2_mean"])) / pr.delta))
+    hi_f = [abs(r[4]) for r in ee_rows if r[1] >= 0.47]
+    lo_f = sorted(abs(r[4]) for r in ee_rows if r[1] <= 0.21)
+    per_cell = {k: sum(1 for r in ee_rows if r[0] == k) for k in ("S1Mvt", "S1Fpeep")}
+    sat = [v for r in ee_rows if r[1] >= 0.47 for v in (r[2], r[3])]
+    start21 = [r[2] for r in ee_rows if r[1] <= 0.21]
+    # Exact rounding, no tolerance: the step ends at 0.9294957, printed 0.92950 at
+    # five decimals and first written 0.930 -- a tolerance of 6e-4 let that pass.
+    step = [r for r in ee_rows if r[0] == "S1Mvt" and round(r[2], 3) == 0.962 and round(r[3], 3) == 0.929]
+    record("MF-20 Group A: 3 + 4 pairs; abs(EE) ≤ 0.003 at FiO2 0.47, SpO2 there 0.997–0.999; "
+           "large effects 0.014–0.049 at 0.21, from SpO2 0.95–0.96; one Vt step 0.962 to 0.929",
+           f"pairs {per_cell}, max at 0.47 {max(hi_f):.4f}, SpO2 {min(sat):.5f}–{max(sat):.5f}; "
+           f"at 0.21 {[round(x, 4) for x in lo_f]} from {min(start21):.5f}–{max(start21):.5f}; step {len(step)}",
+           per_cell == {"S1Mvt": 3, "S1Fpeep": 4} and max(hi_f) <= 0.003
+           and round(min(sat), 3) == 0.997 and round(max(sat), 3) == 0.999
+           and round(lo_f[-1], 3) == 0.049 and round(sorted(x for x in lo_f if x > 0.005)[0], 3) == 0.014
+           and round(min(start21), 2) == 0.95 and round(max(start21), 2) == 0.96 and len(step) == 1)
+
+    # MF-21: the largest SpO2 mu* and the clean SpO2 range where it sits.
+    mi = pd.read_parquet(REPO / "results" / "morris_indices.parquet")
+    top = mi[mi["output"] == "SpO2"].sort_values("mu_star", ascending=False).iloc[0]
+    cl = agg[(agg["scenario"] == top["scenario"]) & (agg["sex"] == top["sex"]) & ~agg[flags].any(axis=1)]["SpO2_mean"]
+    record("MF-21 largest SpO2 mu* ≈ 0.12 in S3, where clean SpO2 is far below the ceiling",
+           f"{top['scenario']}_{top['sex']} {top['mu_star']:.4f}; clean SpO2 {cl.min():.3f}–{cl.max():.3f}",
+           top["scenario"] == "S3" and round(float(top["mu_star"]), 2) == 0.12 and float(cl.min()) < 0.8)
+
+    # O-10: Phase 4a counters.
+    sha = json.loads((REPO / "data" / "runs" / "full_sweep_repro" / "sha_compare.json").read_text(encoding="utf-8"))
+    record("O-10 Phase 4a: 1,260 bit-exact completed runs, 20 both diverged",
+           f"{sha['counters']}", sha["counters"].get("BIT_EXACT") == 1260 and sha["counters"].get("BOTH_DIVERGED") == 20)
+
+    # Cornish: both bibliographies carry the JMLR record.
+    for rel in ("preprint_npj/paper.bib", "preprint/references.bib"):
+        bib = (REPO / rel).read_text(encoding="utf-8")
+        m = re.search(r"@article\{cornish2023,(.*?)\n\}", bib, re.S)
+        entry = m.group(1) if m else ""
+        ok = bool(m) and all(re.search(rf"{f}\s*=\s*\{{{re.escape(v)}\}}", entry) for f, v in MONO_AUDIT_JMLR_FIELDS) \
+            and "arXiv preprint" not in entry
+        record(f"Cornish `{rel}` entry is JMLR 27(152):1--52, 2026", "entry found" if m else "absent", ok)
+
+    for rel, needle, expected in MONO_AUDIT_TEXT_REQUIRED:
+        got = (REPO / rel).read_text(encoding="utf-8").count(needle)
+        record(f"`{rel}` carries `{needle[:48]!r}`", f"{got} (expected {expected})", got == expected)
+    # Banned wordings are matched on whitespace-normalised text: two Cornish year
+    # labels wrapped across a line break escaped a line-based search on 2026-09-14.
+    for rel, banned in MONO_AUDIT_TEXT_BANNED.items():
+        text = re.sub(r"\s+", " ", (REPO / rel).read_text(encoding="utf-8"))
+        hits = [b for b in banned if re.sub(r"\s+", " ", b) in text]
+        record(f"`{rel}` free of the corrected wordings (whitespace-normalised)",
+               "clean" if not hits else f"found {hits}", not hits)
+
+    print("| check | observed | verdict |")
+    print("|---|---|---|")
+    for label, observed, verdict in rows:
+        print(f"| {label} | {observed.replace('|', '/')} | {verdict} |")
+    print(f"\n**Monograph number-audit guard:** {len(rows)} checks, {len(rows) - n_bad} PASS, {n_bad} FAIL.\n")
+    return n_bad
+
+
+n_monoaudit_fail = check_monograph_number_audit()
+
+
 def check_s033_cycle_resolved() -> int:
     """Every number of Supplement S8's cycle-resolved subsection, re-derived.
 
@@ -7635,7 +7887,7 @@ sys.exit(
         + n_fio2adj_fail + n_sobolframe_fail + n_s011_fail + n_abstract_fail
         + n_vtcv_split_fail + n_shap_unit_fail + n_detvocab_fail + n_cdcprov_fail + n_pubgate_fail
         + n_windowtol_fail + n_s033_fail + n_s023oos_fail + n_s034_fail + n_contband_fail
-        + n_smallaudit_fail
+        + n_smallaudit_fail + n_monoaudit_fail
     ) > 0
     else 0
 )
