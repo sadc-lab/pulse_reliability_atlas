@@ -1049,10 +1049,6 @@ rather than retro-fitted to a citation. The full engine-source comparison — in
 own internal `heightStandardMale_cm` / `heightStandardFemale_cm`
 constants — is in Appendix B.5.
 
-NHANES resting heart-rate anchors (Ostchega 2011, as tabulated in the
-companion `Pulse_translation_new` reference tables) further confirm the
-surrogates' *vital-sign* profile (not their body dimensions) is
-representative of healthy adults: median HR 70 bpm (M) / 74 bpm (F).
 Companion verification
 (`Pulse_translation_new` female-surrogate engine tests and the
 male/female side-by-side verification) established that the female
@@ -1823,9 +1819,10 @@ these into two regimes:
   σ = 0.0068, and (S1, M, SpO2, Vt) with μ\* = 0.028 and σ = 0.023, each
   estimated from only 3–4 clean elementary-effect pairs. The pairs taken
   at FiO2 ≈ 0.47 sit at the hemoglobin saturation ceiling (SpO2
-  0.997–0.999) and carry effects of at most 0.003; the pairs taken at
-  FiO2 = 0.21, where SpO2 is 0.95–0.96, carry the large ones (|EE|
-  0.014–0.049; one Vt step moves SpO2 from 0.962 to 0.929). The high
+  0.997–0.999) and carry effects of at most 0.003; the large effects
+  (|EE| 0.014–0.049) all come from pairs taken at FiO2 = 0.21, where SpO2
+  is 0.95–0.96 — three of the four pairs there (one Vt step moves SpO2
+  from 0.962 to 0.929). The high
   σ / μ\* therefore reflects an effect that depends on FiO2, measured on
   very few pairs — not floating-point noise.
 

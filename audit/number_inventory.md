@@ -1075,7 +1075,8 @@ L-numbers and section numbers in a finding refer to `manuscript.md` **as it was
 read, before the corrections**; the corrections shifted later lines by up to 11.
 §4.1 and §4.2 with an F-S identifier refer to this register. What was done with
 each finding, and the current line numbers, are in "Resolution" at the end of
-this section. MF-22 was found during that resolution and is still open.
+this section. MF-22 was found during that resolution and was then corrected
+too, on the author's decision.
 
 MF-1 to MF-15 were each re-derived a second time before being written here.
 Where the second derivation used a different instrument, it is named in the
@@ -1258,8 +1259,8 @@ is merged into it; MF-10 was downgraded to O-7 by its second reading.
   - The scale is small because SpO₂ is recorded as a fraction. μ\* 0.12 is 12
     saturation points.
   - Control: the maximum reproduces 0.1247. Monograph only.
-- **MF-22 — L1052–1055 after the corrections, §2.3. Found 2026-09-14 while
-  resolving MF-5; 🔴 OPEN, nothing modified.** *"NHANES resting heart-rate
+- **MF-22 — L1052–1055 as of `d9201de`, §2.3. Found 2026-09-14 while
+  resolving MF-5. ✅ Removed on the author's decision, 2026-09-14.** *"NHANES resting heart-rate
   anchors (Ostchega 2011, as tabulated in the companion `Pulse_translation_new`
   reference tables) further confirm the surrogates' vital-sign profile … is
   representative of healthy adults: median HR 70 bpm (M) / 74 bpm (F)."*
@@ -1283,7 +1284,12 @@ is merged into it; MF-10 was downgraded to O-7 by its second reading.
   - Monograph only. Searched for "NHANES" and "Ostchega": `paper.tex`,
     `supplement.tex`, both `.bib` files, `supplementary.md` and `README.md` give
     nothing. Control: "Cornish" is found 3 times in `paper.tex`.
-  - It is a scientific claim, so the decision is the author's.
+  - It is a scientific claim, so the decision was the author's. The author
+    chose to remove the sentence: it confirms nothing measurable, and no other
+    passage relies on it. The monograph's other "70 bpm" and "74 bpm"
+    (L2022, L2030, L2032, L3084) are engine output heart rates, unrelated.
+    The paragraph now runs from Appendix B.5 straight to "Companion
+    verification" (L1050–1052).
 
 #### Observations — low, recorded
 
@@ -1388,58 +1394,60 @@ Instruments that failed and were caught:
 #### Resolution — 2026-09-14 (night)
 
 **Who decided.**
-- **The author, in two rounds of questions:**
+- **The author, in three rounds of questions:**
   - MF-1, MF-2, MF-3, MF-11, MF-12 and MF-18, as proposed;
   - MF-5: remove the BP half;
   - MF-7: "twelve";
   - Cornish: cite JMLR;
   - MF-20 and MF-21: rewrite to the measurement;
   - O-7: attribute to E10 + E6;
-  - O-3, O-5, O-8, O-9 and O-10.
+  - O-3, O-5, O-8, O-9 and O-10;
+  - third round: MF-22, remove the heart-rate sentence; MF-20, say that the
+    large effects are three of the four pairs at FiO₂ 0.21.
 - **Not selected:** O-1. **Not to be edited:** O-4, a dated rule.
 - **Applied as mechanical under the autonomy pact, without a question:** MF-4,
   MF-6, MF-9, MF-13, MF-14, MF-15, MF-16, MF-17, MF-19 and O-11. Each is a
   literal or a pointer that drifted from its own artefact, and none changes a
   claim.
 
-**What the monograph now reads.** L-numbers are current.
+**What the monograph now reads.** L-numbers are current as of the MF-22 commit.
 
 | finding | now reads | re-derived by the guard |
 |---|---|---|
-| MF-1 | L4654 "Largest in S4 (91 / 185 of the residual)" | `nss_decomposition.csv`: S4 91, S1 53, total 185 |
-| MF-2 | L2773 "[0.21, 0.47] vs single-input"; L2775 "PaO2 ≈ 480 mmHg"; L4320 "S1 clean runs, whose FiO2 spans only [0.21, 0.47], gives a flatter slope" | clean S1 FiO₂ levels are exactly 0.21 and 0.4733; the OLS fit at 1.0 rounds to 480 |
+| MF-1 | L4651 "Largest in S4 (91 / 185 of the residual)" | `nss_decomposition.csv`: S4 91, S1 53, total 185 |
+| MF-2 | L2770 "[0.21, 0.47] vs single-input"; L2772 "PaO2 ≈ 480 mmHg"; L4317 "S1 clean runs, whose FiO2 spans only [0.21, 0.47], gives a flatter slope" | clean S1 FiO₂ levels are exactly 0.21 and 0.4733; the OLS fit at 1.0 rounds to 480 |
 | MF-3 | L61–64 "of the remaining 17 cells, 11 have a bootstrap CI straddling 0.6, 1 is CI-robustly non-linear (S3_M, PaO2 ← FiO2), and 5 have too few clean trajectories for a CI (S1_F where Vt dominates, S4_M where FiO2 dominates)" | `sobol_ci_buckets.csv` rank 1: 31 / 11 / 1 / 5, the six cells named |
-| MF-4 | L1301 "(i5-11400H, 8 GB RAM, CPU-only)"; L1308–1309 "Pulse is CPU-only, so neither of the laptop's two GPUs (Intel UHD, NVIDIA RTX 3050) is used" | text |
-| MF-5 | L1052–1055: the SBP / DBP values are gone; "NHANES resting heart-rate anchors (Ostchega 2011, as tabulated in the companion `Pulse_translation_new` reference tables) … median HR 70 bpm (M) / 74 bpm (F)". **See MF-22** | text |
-| MF-6 | L4542 "(CDC P50 ≈ 176.2 cm)" | text |
-| MF-7 | "twelve" at L1302, L1315, L1319, L1326; `supplementary.md` S10 heading "(twelve independent layers)" and "12 independent verification points" | the S10 table has 12 rows |
-| MF-9 | L1354 "mild-ARDS male cell" | `src/scenario.py`: S2 is Mild ARDS, 0.26 |
-| MF-11 | L3389–3390 "HR and MAP drift rates stay below 3 % and PaCO2 below 4 %" | per-arm rates against `_WIN_TH`; hyperoxia PaCO₂ is at least 3 % (3.59 %) |
-| MF-12 | L2946 "for run S1_F_0008" | rank 6 before the lock; worst after it |
-| MF-13 | L3681 "~105 MB of engine logs" | the 1,280 `pulse.log` total 105.1 MB, rounding to 105; skips when the logs are absent, fails when partial |
-| MF-14 | L4638 "(71 / 76 of those runs" | S1 + S2 = 71 of 76 |
-| MF-15 | L1452 "`src/detector.py:413`" | line 413 holds `std(ddof=0)` |
-| MF-16 | L600 "discussed in §4.5."; L1868 "in the §4.5 limitations"; L2519 "(§4.5 limitations)" | §4.5 is Limitations; no §4.3 is |
+| MF-4 | L1297 "(i5-11400H, 8 GB RAM, CPU-only)"; L1304–1305 "Pulse is CPU-only, so neither of the laptop's two GPUs (Intel UHD, NVIDIA RTX 3050) is used" | text |
+| MF-5 | L1050–1052: the SBP / DBP values were removed first; the heart-rate sentence left behind was removed too, under MF-22. The paragraph goes from Appendix B.5 straight to "Companion verification" | text: that junction is required; "SBP 118 mmHg (M)", "NHANES P50 anchors", "NHANES resting heart-rate anchors" and "median HR 70 bpm (M) / 74 bpm (F)" are banned |
+| MF-6 | L4539 "(CDC P50 ≈ 176.2 cm)" | text |
+| MF-7 | "twelve" at L1298, L1311, L1315, L1322; `supplementary.md` S10 heading "(twelve independent layers)" and "12 independent verification points" | the S10 table has 12 rows |
+| MF-9 | L1350 "mild-ARDS male cell" | `src/scenario.py`: S2 is Mild ARDS, 0.26 |
+| MF-11 | L3386–3387 "HR and MAP drift rates stay below 3 % and PaCO2 below 4 %" | per-arm rates against `_WIN_TH`; hyperoxia PaCO₂ is at least 3 % (3.59 %) |
+| MF-12 | L2943 "for run S1_F_0008" | rank 6 before the lock; worst after it |
+| MF-13 | L3678 "~105 MB of engine logs" | the 1,280 `pulse.log` total 105.1 MB, rounding to 105; skips when the logs are absent, fails when partial |
+| MF-14 | L4635 "(71 / 76 of those runs" | S1 + S2 = 71 of 76 |
+| MF-15 | L1448 "`src/detector.py:413`" | line 413 holds `std(ddof=0)` |
+| MF-16 | L600 "discussed in §4.5."; L1865 "in the §4.5 limitations"; L2516 "(§4.5 limitations)" | §4.5 is Limitations; no §4.3 is |
 | MF-17 | L416 "(§3.5)" | the blood-volume formula sits under §3.5 |
-| MF-18 | L3352–3355 "of the four channels shared with the atlas, PaCO2 is the only one flagged under Hoeffding (3 / 70) and the most flagged under the bootstrap (13 / 70, against PaO2 4 / 78, MeanBP 3 / 92, HR 1 / 162)" | the four overlap rows of Table 2 |
-| MF-19 | L3587–3589 "documented in our preregistration (scenario table and H3) and in the §1.2 limitations list (entry 4)" | text |
-| MF-20 | L1821–1830, "Group A — saturation-boundary cells": 3–4 clean pairs; at FiO2 ≈ 0.47, SpO2 0.997–0.999 and effects of at most 0.003; at FiO2 = 0.21, SpO2 0.95–0.96 and \|EE\| 0.014–0.049; "one Vt step moves SpO2 from 0.962 to 0.929"; "not floating-point noise" | 3 + 4 pairs; max \|EE\| at 0.47 is 0.0028, SpO₂ 0.99664–0.99891; at 0.21 the effects are 0.0006, 0.0136, 0.0322 and 0.0492, from SpO₂ 0.95373–0.96358; one step rounds exactly to 0.962 → 0.929 |
-| MF-21 | L1680–1682 "on a small numerical scale (μ\* ≤ 0.13) because it is recorded as a fraction: the largest value, 0.12 in S3, would read 12 in percentage points" | the largest SpO₂ μ\* rounds to 0.12, in S3; clean SpO₂ there falls below 0.8 |
-| O-3 | L4451 "3,304 files, 23 MB of them text" | text |
-| O-5 | L3735 the file list names `output_pulse_native.csv` | text |
-| O-7 | L2309 "E10 boundary probe, confirmed by E6, reported an instability zone"; L2313 "of the original width" | text |
+| MF-18 | L3349–3352 "of the four channels shared with the atlas, PaCO2 is the only one flagged under Hoeffding (3 / 70) and the most flagged under the bootstrap (13 / 70, against PaO2 4 / 78, MeanBP 3 / 92, HR 1 / 162)" | the four overlap rows of Table 2 |
+| MF-19 | L3584–3585 "documented in our preregistration (scenario table and H3) and in the §1.2 limitations list (entry 4)" | text |
+| MF-20 | L1817–1827, "Group A — saturation-boundary cells": 3–4 clean pairs; at FiO2 ≈ 0.47, SpO2 0.997–0.999 and effects of at most 0.003; "the large effects (\|EE\| 0.014–0.049) all come from pairs taken at FiO2 = 0.21, where SpO2 is 0.95–0.96 — three of the four pairs there (one Vt step moves SpO2 from 0.962 to 0.929)"; "not floating-point noise" | 3 + 4 pairs; max \|EE\| at 0.47 is 0.0028, SpO₂ 0.99664–0.99891; at 0.21 the effects are 0.0006, 0.0136, 0.0322 and 0.0492 (4 pairs, 3 above 0.005), from SpO₂ 0.95373–0.96358; one step rounds exactly to 0.962 → 0.929 |
+| MF-21 | L1676–1678 "on a small numerical scale (μ\* ≤ 0.13) because it is recorded as a fraction: the largest value, 0.12 in S3, would read 12 in percentage points" | the largest SpO₂ μ\* rounds to 0.12, in S3; clean SpO₂ there falls below 0.8 |
+| O-3 | L4448 "3,304 files, 23 MB of them text" | text |
+| O-5 | L3732 the file list names `output_pulse_native.csv` | text |
+| O-7 | L2306 "E10 boundary probe, confirmed by E6, reported an instability zone"; L2310 "of the original width" | text |
 | O-8 | L119 "8 cells (4 scenarios, healthy S1 and ARDS S2/S3/S4, × 2 reference bodies M/F)" | text |
 | O-9 | L634–635 "24 core experiment-log entries (S001–S024)" | text |
-| O-10 | L1341 "completed runs and 20 / 20" | `sha_compare.json`: BIT_EXACT 1,260, BOTH_DIVERGED 20 |
+| O-10 | L1337 "completed runs and 20 / 20" | `sha_compare.json`: BIT_EXACT 1,260, BOTH_DIVERGED 20 |
 | O-11 | L422 "§S1 – §S17" | `supplement.tex` has 17 `\section` |
-| Cornish | both `.bib` files cite JMLR 27(152):1–52, 2026; labels read 2026; reference 4 (L3870) and §9.7 (L4042–4045). Details in `audit/reference_audit.md`, "Resolution 2026-09-14 (night)" | the JMLR fields in both `.bib` files |
+| Cornish | both `.bib` files cite JMLR 27(152):1–52, 2026; labels read 2026; reference 4 (L3867) and §9.7 (L4039–4042). Details in `audit/reference_audit.md`, "Resolution 2026-09-14 (night)" | the JMLR fields in both `.bib` files |
 
 Every row also has its new wording required and its old wording banned, on
 whitespace-normalised text. The bans for O-5 and O-9 were missing from the
 first guard and were added before the commit.
 
 **Kept on purpose:**
-- the S017 title "Cornish 2023 cross-mapping" at L668, L4262 and
+- the S017 title "Cornish 2023 cross-mapping" at L668, L4259 and
   `README.md:468`;
 - the six `source_file` strings "Cornish et al. 2023" in
   `scripts/audit_claims.py`.
@@ -1471,10 +1479,13 @@ first guard and were added before the commit.
   said "B.4"; it is B.3. The Cornish addendum said "Table S7"; the table renders
   as S13. Both are corrected in place with a note.
 
-**An open nuance for the author, not a defect.** MF-20's "the pairs taken at
-FiO2 = 0.21 … carry the large ones" is true of where the large effects sit. But
-one of the four pairs at 0.21 is small (\|EE\| 0.0006, S1_F, trajectory 11).
-The approved option described the effects the same way.
+**A nuance on MF-20, resolved on the author's decision.** The first rewrite,
+"the pairs taken at FiO2 = 0.21 … carry the large ones", was true of where the
+large effects sit. But one of the four pairs at 0.21 is small (\|EE\| 0.0006,
+S1_F, trajectory 11), and the approved option had described the effects the
+same way. It now reads "the large effects (\|EE\| 0.014–0.049) all come from
+pairs taken at FiO2 = 0.21, where SpO2 is 0.95–0.96 — three of the four pairs
+there". The guard counts the pairs: 4 at 0.21, 3 of them above 0.005.
 
 **Instrument defects.**
 - **`audit_number_inventory.py` decoded the ledger's output in the Windows
@@ -1504,6 +1515,8 @@ checks, wired into the exit status.
 | the two wrapped labels | 2 |
 | 0.930 | 3 |
 | "Tables 4 and 5 are unchanged" | 2 |
+| MF-22 and the MF-20 precision: the monograph restored to `d9201de` | 3 |
+| the MF-20 large-pair count faked to 4 in the check | 1 |
 
 The MD5 was restored after each one.
 
@@ -1520,7 +1533,8 @@ The MD5 was restored after each one.
 - **Rebuilt:** monograph 121 pages; paper 25; supplement 63; PDF and DOCX.
 - **Rendered monograph, checked on whitespace-normalised `pdftotext` output:**
   - 31 new wordings present;
-  - 26 old ones absent, including 0.930 and "unchanged". Two of the 26
+  - 29 old ones absent, including 0.930, "unchanged", the NHANES sentence and
+    "carry the large ones". Two of the 29
     ("§4.3 limitations", "§S1 – §S16") hold glyphs that `pdftotext` mangles,
     so their absence proves nothing; the source-text guard covers them.
 
@@ -1555,6 +1569,13 @@ The MD5 was restored after each one.
   - retained 5,757 → 5,786;
   - distinct values 728 → 730;
   - guard-pinned literals 927 → 1,031.
+- **Then MF-22 and the MF-20 precision (`d9201de` → the next commit):**
+  - monograph `none` 795 → 794 and `ambiguous_small` 1,879 → 1,878: the
+    removed 70 and 74. Its 2011 leaves the year-like set;
+  - retained 3,372 → 3,370, and 5,786 → 5,784 in total;
+  - guard-pinned literals 1,031 → 1,034;
+  - 0.014 and 0.049 only move within the rewritten sentence;
+  - paper and supplement unchanged; no occurrence changed bucket by value.
 
 ## 6. What remains
 
@@ -1562,7 +1583,7 @@ The MD5 was restored after each one.
 |---|---:|---:|---|
 | paper | 37 / 29 (43 / 31 when read) | 307 | **both read row by row** (§3, §3.2). `none`: no defect. `ambiguous_small`: 57 not quantities, 248 + 2 verified, **1 wording finding, corrected** (L259, author's choice, guarded). Not closed: `guard` and `ledger` are covered by value only |
 | supplement | 431 / 218 (456 when read) | 957 | **`none` read row by row** (§4.1): 6 not quantities, 450 verified; **all six findings corrected** on the author's decisions (F-S1 to F-S6, 2026-09-14). **`ambiguous_small` read row by row** (§4.2): 134 not quantities, 823 verified; **3 findings, 1 mechanical pointer and prose-sweep #15 all corrected** on the author's decisions (2026-09-14), guarded (22 checks). Counts now 432 / 960 after the corrections. Not closed: `guard` and `ledger` by value only |
-| monograph | 803 / 344 when read; 795 / 334 after the corrections | 1864 when read; 1879 after | **both read row by row, plus the 89 inline-code literals** (§5); section pointers and "Cited in §X" checked. **19 findings (MF-1 … MF-21, MF-8 merged, MF-10 downgraded) and 11 observations. All 19 findings, O-3/5/7/8/9/10/11 and the Cornish citation corrected 2026-09-14** (author's decisions, or mechanical under the pact), guarded (62 checks). O-1 not selected, O-4 not to be edited. **🔴 MF-22 open** (HR anchors against Ostchega 2011), plus one optional nuance on MF-20. Quantities against non-quantities not counted: the rule-based split failed its precision pass. Not closed: `guard` and `ledger` by value only; prose without numbers not audited |
+| monograph | 803 / 344 when read; 794 / 334 after the corrections | 1864 when read; 1878 after | **both read row by row, plus the 89 inline-code literals** (§5); section pointers and "Cited in §X" checked. **19 findings (MF-1 … MF-21, MF-8 merged, MF-10 downgraded) and 11 observations. All 19 findings, O-3/5/7/8/9/10/11 and the Cornish citation corrected 2026-09-14** (author's decisions, or mechanical under the pact), guarded (62 checks). O-1 not selected, O-4 not to be edited. MF-22 (HR anchors against Ostchega 2011), found during the resolution, removed on the author's decision, together with a precision on MF-20. Quantities against non-quantities not counted: the rule-based split failed its precision pass. Not closed: `guard` and `ledger` by value only; prose without numbers not audited |
 
 ⚠️ **No count in this register may come from an ad-hoc pipeline.** Three
 successive `grep | cut | uniq` passes over `inventory.csv` each miscounted the
@@ -1592,8 +1613,8 @@ The monograph's `none` and `ambiguous_small` residues and its 89 inline-code
 literals have been read row by row (§5). Nineteen findings and eleven
 observations are recorded there. All nineteen findings, seven observations and
 the Cornish citation are corrected, on the author's decisions or as mechanical
-fixes, and guarded. A twentieth finding, MF-22, came up while resolving MF-5 and
-is open. The monograph's
+fixes, and guarded. A twentieth finding, MF-22, came up while resolving MF-5; it
+is corrected too. The monograph's
 by-value `guard` and `ledger` occurrences are not read one by one. Neither are
 its sentences that carry no number: three such defects (MF-18, MF-20, MF-21)
 were found in passing, so its prose is not claimed clean.

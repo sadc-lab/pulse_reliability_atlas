@@ -1971,8 +1971,8 @@ Either option touches both `.bib` files, and possibly the "2023" labels.
   - Supplement: §S7 title, Table S13 caption, "Cornish 2026 channel" column
     header, and the S17 summary row.
   - Monograph: "Key Findings at a Glance" bullet (L259), "Reader's roadmap"
-    (L297), two lines of §2.10 Statistical methods overview (L1470, L1545), the
-    §4 Discussion opening (L3048), the §4.4 title, Table 2 header and caption,
+    (L297), two lines of §2.10 Statistical methods overview (L1466, L1541), the
+    §4 Discussion opening (L3045), the §4.4 title, Table 2 header and caption,
     and "Cornish et al. (2026)".
   - Two of those monograph labels wrap across a line break ("Cornish\n2023",
     "Cornish\net al. 2023"). A line-based search missed both; the
@@ -1990,7 +1990,7 @@ Either option touches both `.bib` files, and possibly the "2023" labels.
 - The BibTeX key `cornish2023`: renaming it would touch every citation call and
   change nothing a reader sees.
 - The S017 experiment title "Cornish 2023 cross-mapping":
-  - monograph L668 and L4262, and `README.md:468`;
+  - monograph L668 and L4259, and `README.md:468`;
   - it is a dated log title, not a citation label.
 - The `source_file` provenance strings in `scripts/audit_claims.py` (six
   "Cornish et al. 2023" occurrences), which record the v4 read the ledger anchors

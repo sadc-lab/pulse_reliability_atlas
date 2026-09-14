@@ -6664,9 +6664,11 @@ MONO_AUDIT_TEXT_REQUIRED = (
     ("preprint/manuscript.md", "for run S1_F_0008),", 1),
     ("preprint/manuscript.md", "PaCO2 is the only one flagged under Hoeffding (3 / 70) and the most", 1),
     ("preprint/manuscript.md", "saturation-boundary cells (2 of 8 cells)", 1),
-    ("preprint/manuscript.md", "0.014–0.049; one Vt step moves SpO2 from 0.962 to 0.929", 1),
+    ("preprint/manuscript.md", "the large effects\n  (|EE| 0.014–0.049) all come from pairs taken at FiO2 = 0.21, where SpO2\n"
+     "  is 0.95–0.96 — three of the four pairs there (one Vt step moves SpO2\n  from 0.962 to 0.929)", 1),
     ("preprint/manuscript.md", "the largest value, 0.12 in S3, would read 12 in percentage points", 1),
-    ("preprint/manuscript.md", "median HR 70 bpm (M) / 74 bpm (F).", 1),
+    ("preprint/manuscript.md", "constants — is in Appendix B.5.\n\nCompanion verification\n"
+     "(`Pulse_translation_new` female-surrogate engine tests", 1),
     ("preprint/manuscript.md", "twelve independent verification", 1),
     ("preprint/manuscript.md", "all twelve passed with zero violations", 1),
     ("preprint/manuscript.md", "neither of the laptop's two GPUs (Intel UHD, NVIDIA RTX 3050) is used", 1),
@@ -6707,6 +6709,8 @@ MONO_AUDIT_TEXT_BANNED = {
         "4 ARDS severities S1/S2/S3/S4", "§S1 – §S16", "Cornish et al. 2023", "Cornish et al. (2023)",
         "Cornish-2023", "Cornish 2023 Table 4", "(Oxford, 2023)", "(November 2023, v4)",
         "used by Cornish 2023", "(Cornish et al. 2023;", "from 0.962 to 0.930",
+        "NHANES resting heart-rate anchors", "median HR 70 bpm (M) / 74 bpm (F)",
+        "FiO2 = 0.21, where SpO2 is 0.95–0.96, carry the large ones",
         "Tables 4 and 5 are unchanged in the published version",
         "per-run output.csv / pulse.log", "the 24 experiment-log entries cited",
     ),
@@ -6843,11 +6847,15 @@ def check_monograph_number_audit() -> int:
     # Exact rounding, no tolerance: the step ends at 0.9294957, printed 0.92950 at
     # five decimals and first written 0.930 -- a tolerance of 6e-4 let that pass.
     step = [r for r in ee_rows if r[0] == "S1Mvt" and round(r[2], 3) == 0.962 and round(r[3], 3) == 0.929]
+    n_large21 = sum(1 for x in lo_f if x > 0.005)
     record("MF-20 Group A: 3 + 4 pairs; abs(EE) ≤ 0.003 at FiO2 0.47, SpO2 there 0.997–0.999; "
-           "large effects 0.014–0.049 at 0.21, from SpO2 0.95–0.96; one Vt step 0.962 to 0.929",
+           "large effects 0.014–0.049 at 0.21 (three of its four pairs), from SpO2 0.95–0.96; "
+           "one Vt step 0.962 to 0.929",
            f"pairs {per_cell}, max at 0.47 {max(hi_f):.4f}, SpO2 {min(sat):.5f}–{max(sat):.5f}; "
-           f"at 0.21 {[round(x, 4) for x in lo_f]} from {min(start21):.5f}–{max(start21):.5f}; step {len(step)}",
+           f"at 0.21 {[round(x, 4) for x in lo_f]} ({n_large21} above 0.005) "
+           f"from {min(start21):.5f}–{max(start21):.5f}; step {len(step)}",
            per_cell == {"S1Mvt": 3, "S1Fpeep": 4} and max(hi_f) <= 0.003
+           and len(lo_f) == 4 and n_large21 == 3
            and round(min(sat), 3) == 0.997 and round(max(sat), 3) == 0.999
            and round(lo_f[-1], 3) == 0.049 and round(sorted(x for x in lo_f if x > 0.005)[0], 3) == 0.014
            and round(min(start21), 2) == 0.95 and round(max(start21), 2) == 0.96 and len(step) == 1)
