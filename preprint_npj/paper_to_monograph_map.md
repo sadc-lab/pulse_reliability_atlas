@@ -485,8 +485,8 @@ caught equally.*
   monograph_claim_id: 'T2.bv.bracket.diverged'
   expected_value: 0
   format_in_paper: '4{,}400'
-  expected_occurrences: 5
-  notes: 'Appears twice: §2.5 prose "an intermediate bracket (4{,}400~mL, a 8.4~\% reduction)" (1), Figure 5 caption "4{,}400~mL intermediate bracket" (1). 4 -> 5 (2026-09-08, reviewer point 3.7): the new supplement §S10 subsection on the output quality of the rescued runs names the bracket once when reporting the 12-of-20 clean count at both override levels. Anchored on T2.bv.bracket.diverged (value corrected 2026-06-16 to 0 diverged at this BV setting; the "4400" value itself is the experimental BV override, declared in scripts/s018_bv_falsification.py as BV_BRACKETS["bracket"]).'
+  expected_occurrences: 6
+  notes: 'Appears twice: §2.5 prose "an intermediate bracket (4{,}400~mL, a 8.4~\% reduction)" (1), Figure 5 caption "4{,}400~mL intermediate bracket" (1). 4 -> 5 (2026-09-08, reviewer point 3.7): the new supplement §S10 subsection on the output quality of the rescued runs names the bracket once when reporting the 12-of-20 clean count at both override levels. 5 -> 6 (2026-09-14, number-audit F-S3): the same §S10 paragraph now scopes the Vt-oscillation count by override level, "three of the eight at the 4{,}400~mL bracket (four at the floor)". Measured: paper 2 + supplement 4 = 6. Anchored on T2.bv.bracket.diverged (value corrected 2026-06-16 to 0 diverged at this BV setting; the "4400" value itself is the experimental BV override, declared in scripts/s018_bv_falsification.py as BV_BRACKETS["bracket"]).'
 
 ## Step 5 — Results §2.6 secondary observations narrative block
 

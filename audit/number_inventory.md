@@ -37,9 +37,9 @@ being waved away one at a time.
 | artefact | retained | distinct | guard | ledger | ambiguous small | none | distinct none |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | paper | 527 | 143 | 165 | 18 | 307 | **37** | 29 |
-| supplement | 1873 | 484 | 456 | 32 | 956 | **429** | 217 |
-| monograph | 3341 | 560 | 643 | 28 | 1864 | **806** | 344 |
-| **all** | **5741** | **724** | | | **3127** | **1272** | **430** |
+| supplement | 1876 | 485 | 456 | 32 | 957 | **431** | 218 |
+| monograph | 3343 | 561 | 643 | 28 | 1865 | **807** | 345 |
+| **all** | **5746** | **725** | | | **3129** | **1275** | **431** |
 
 ⚠️ **These buckets are coverage by VALUE, not by occurrence**, and they bound
 risk from below, never from above.
@@ -69,8 +69,8 @@ with its rule and context, to `masked_by_rule.csv`.
 | artefact | in raw text | removed by masks | inventoried | closes |
 |---|---:|---:|---:|---|
 | paper | 582 | 51 | 531 | yes |
-| supplement | 1977 | 86 | 1891 | yes |
-| monograph | 3747 | 255 | 3492 | yes |
+| supplement | 1980 | 86 | 1894 | yes |
+| monograph | 3749 | 255 | 3494 | yes |
 
 Literals removed per rule now: paper — comments 27, typesetting lengths 11
 (all `\textwidth` fractions and `[-0.6em]` spacings, read), product versions 7,
@@ -530,15 +530,27 @@ breathing "approximately 0.25 Hz"; a minute-ventilation "physiological norm of
   - 403.8 mL is 6 mL/kg of *actual* male weight. "~4×" then becomes 3.3× or
     4.5×.
   - The bound is unchanged. `brower2000` supports "6 mL/kg PBW" only.
+  - ✅ **Corrected, author's choice 2026-09-14.** Re-verified with both PBW
+    formulas before editing: ARDSnet gives 75.12 / 55.15 kg, i.e. 450.7 /
+    330.9 mL; Devine gives 74.99 / 55.10 kg, i.e. 450.0 / 330.6 mL;
+    1500 / 450 = 3.33 and 1500 / 331 = 4.53. Supplement L212 and monograph
+    L1213 now read "~3–4.5×" and "≈ 450 and 330 mL on the male and female
+    reference bodies / surrogates".
 - **F-S3 — L827: "three of the eight on the delivered-Vt oscillation".** The
   count is 3 at the 4,400 mL bracket and **4 at the floor**: S2_M_0119_floor
   adds Vt CV 0.071. Every other count in that paragraph holds at both levels.
   Introduced in `e93a750`; no anchor.
+  - ✅ **Corrected, author's choice 2026-09-14.** Re-counted with a second
+    script over both classified parquets (bracket 3, floor 4; SpO₂ flatline 7,
+    PaO₂ drift 3 and implausible 1 at both levels). The sentence now reads
+    "three of the eight at the 4,400 mL bracket (four at the floor)".
 - **F-S4 — L815, citation mismatch (`nadler1962`): "averaging 75 in men".** Per
   the verbatim quote recorded in `reference_audit.md`, Nadler's 75 mL/kg is the
   **overall** average and 66 is the women's. This wording exists in the
   supplement only (`20ea152`). Recorded in `reference_audit.md`; nothing
   modified, as the citation-audit rule requires.
+  - ✅ **Corrected on the author's decision, 2026-09-14:** "averaging 75
+    overall and 66 in women". `reference_audit.md` is marked RESOLVED.
 - **F-S5 — the continuous-severity band and bin table use truncated severity
   labels.**
   - Pulse ran the exact severity (`config.json`, e.g. 0.9458464400964033), but
@@ -598,6 +610,11 @@ breathing "approximately 0.25 Hz"; a minute-ventilation "physiological norm of
 - **F-S6 — L1030: "about a dozen" distinct SHAP top-three sets.** The measured
   count is 9, in the unit that gives Morris its 25. `5a6b201` records 9–10
   across forest seeds. The imprecision runs in the conservative direction.
+  - ✅ **Corrected, author's choice 2026-09-14.** Re-counted with pandas, a
+    second instrument after the first awk pass: 9 distinct (output, SHAP set)
+    against 25 for Morris, full-set agreement 23/48. The 9–10 seed range lives
+    in a commit message only and no artefact records it, so the text states
+    the verifiable value: "take nine distinct values in total".
 
 **Tooling notes.** Guard code, so not changed without review:
 - `T1.06u`'s `manuscript_text` says "38 physiological-converged S1 runs"; it
@@ -620,8 +637,8 @@ closed**.
 | artefact | `none` residue | `ambiguous_small` | status |
 |---|---:|---:|---|
 | paper | 37 / 29 (43 / 31 when read) | 307 | **both read row by row** (§3, §3.2). `none`: no defect. `ambiguous_small`: 57 not quantities, 248 + 2 verified, **1 wording finding, corrected** (L259, author's choice, guarded). Not closed: `guard` and `ledger` are covered by value only |
-| supplement | 429 / 217 (456 when read) | 956 | **`none` read row by row** (§4.1): 6 not quantities, 450 verified; F-S5 corrected, F-S1–F-S4 and F-S6 decided by the author; `ambiguous_small` not yet read |
-| monograph | 806 / 344 | 1864 | not worked; inline code still costs 89 literals |
+| supplement | 431 / 218 (456 when read) | 957 | **`none` read row by row** (§4.1): 6 not quantities, 450 verified; **all six findings corrected** on the author's decisions (F-S1 to F-S6, 2026-09-14); `ambiguous_small` not yet read |
+| monograph | 807 / 345 | 1865 | not worked; inline code still costs 89 literals |
 
 ⚠️ **No count in this register may come from an ad-hoc pipeline.** Three
 successive `grep | cut | uniq` passes over `inventory.csv` each miscounted the

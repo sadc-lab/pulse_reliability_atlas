@@ -1881,3 +1881,8 @@ per-kilogram sex difference is unaffected.
 
 **Status: MISMATCH — nothing modified.** Brought to the author, per the
 citation-audit rule.
+
+**Resolution, 2026-09-14.** The author chose to correct it. `supplement.tex:815`
+now reads *"averaging 75 overall and 66 in women"*, which follows the verbatim
+p. 226 quotation above. Nothing else in the sentence changed.
+**Status: RESOLVED.**

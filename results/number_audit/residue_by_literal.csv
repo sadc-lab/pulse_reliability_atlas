@@ -51,6 +51,7 @@ supplement,65.6,5,"ulting blood-volume baseline via the allometric relation $\te
 supplement,96,5,"rts the result: impairment 0.26, 0.60, and 0.95 land at 256, 150, and 96~mmHg --- near the mild and moderate band centres, and just inside the"
 supplement,0.01,4,"an. The flatline-at-bound criterion fires when \texttt{std / |mean| < 0.01} AND the mean is within 0.1~\% of a hard bound, intended to flag nume"
 supplement,0.25,4,"ampling interval (50~Hz). At adult respiratory rates of approximately 0.25~Hz (one breath every four seconds), 50~Hz sampling is a 200-fold over"
+supplement,"4{,}400",4,"ence cluster (20 / 20 at the default $\rightarrow$ 0 / 20 at both the 4{,}400 and 4{,}082.24~mL reductions). This supplement section disentangles t"
 supplement,0.1,3,"terion fires when \texttt{std / |mean| < 0.01} AND the mean is within 0.1~\% of a hard bound, intended to flag numerical pinning at a bound, al"
 supplement,0.20,3,$ \\ Alveolar diffusion surface area & decreases & $0.57\times$ & $0.20\times$ & $0.075\times$ \\ Pulmonary-shunt path resistance & decreas
 supplement,0.41,3,"\\ S2 & SpO$_2$ & 0.96 & $[0.70, 1.00]$ \\ S2 & PaO$_2$ & 0.93 & $[0.41, 1.00]$ \\ S2 & PaCO$_2$ & 0.89 & $[0.35, 1.00]$ \\ \midrule S3 & HR"
@@ -59,7 +60,6 @@ supplement,16.8,3,"67.3~kg male body versus 3{,}996.09~mL for the 56.2~kg female
 supplement,25,3,"n category (b), the exact numerical choice (e.g., PaO$_2$ lower 20 vs 25~mmHg) is a defensible judgment call within the cited literature rathe"
 supplement,28,3,"companion translation project's original ARDS severity calibration, a 28-run impairment sweep of 2026-03 (full log in the companion technical"
 supplement,37,3,"), so the thick blue line is the median over the remaining 37 \emph{physiological}-converged runs. The dotted purple horizontal at"
-supplement,"4{,}400",3,"ence cluster (20 / 20 at the default $\rightarrow$ 0 / 20 at both the 4{,}400 and 4{,}082.24~mL reductions). This supplement section disentangles t"
 supplement,0.001,2,he locked flatline rule (\texttt{std/|mean| $<$ 0.01} and mean within 0.001 of a hard bound) catches as ``pinned at the ceiling''. The rule was d
 supplement,0.005,2,"side). A complementary 9-run calibration refinement at 0.93--0.97 in 0.005 steps (four failures across 0.93--0.945, five passes across 0.95--0.9"
 supplement,0.06,2,".00]$ \\ S2 & MAP & 1.00 & $[1.00, 1.00]$ \\ S2 & Vt & 0.75 & $[-0.06, 1.00]$ \\ S2 & SpO$_2$ & 0.96 & $[0.70, 1.00]$ \\ S2 & PaO$_2$ & 0"
@@ -187,6 +187,7 @@ supplement,309,1,/ --- \\ S2 (0.26) & 114 & 304 [264--337] & mild/not-ARDS bound
 supplement,318,1,"e locked screen reproduces the published indices exactly --- the same 318 (cell, output, input) rows with $\mu^{*}$ identical to double precisi"
 supplement,33,1,/ 94 & 46 / 94 & No (electrolyte) \\ Potassium & 13 / 94 & 33 / 94 & No (electrolyte) \\ Calcium & 5 / 88 & 44 / 88 &
 supplement,33.75,1,"30~\% rate that makes a cell red on that criterion alone (54 / 160 = 33.75~\%); S4\_F, at 46 / 160 = 28.75~\%, sits just below it. \textbf{(b)}"
+supplement,330,1,"S Network lung-protective tidal volume (6~mL/kg PBW $\approx$ 450 and 330~mL on the male and female reference bodies)~ , and ab"
 supplement,337,1,388--481] & not-ARDS & 390 / 481 / --- \\ S2 (0.26) & 114 & 304 [264--337] & mild/not-ARDS boundary & 309 / 282 / 287 \\ S3 (0.60) & 192 & 184
 supplement,36,1,"ed-Vt coefficient of variation above 0.05 on 139 of 320 runs, against 36 of 320 in S3. The median top-three input retains 3 clean trajectories"
 supplement,388,1,P/F by FiO$_2$ (low / mid / high) \\ \midrule S1 (0.00) & 61 & 431 [388--481] & not-ARDS & 390 / 481 / --- \\ S2 (0.26) & 114 & 304 [264--337
@@ -195,12 +196,12 @@ supplement,"3{,}090",1,"the extra data is most abundant where it is least trustw
 supplement,"3{,}348",1,"did not raise \texttt{clamped}. Replaying both pattern sets over all 3{,}348 Pulse logs on disk flips exactly one run --- the probe written to exp"
 supplement,4.70,1,& path & midpoint \\ \midrule 100-to-120 & 3 & 9 & 20.44 & 15.74 & $+4.70$ & $75 \to 80$ & 77.5 \\ 110-to-90 & 15 & 16 & 24.94 & 17.26 & $+7.68
 supplement,40.2,1,"5~mmHg threshold on 19.5~\% of runs (median 4.3~mmHg, 95th percentile 40.2~mmHg) and delivered Vt on 8.7~\%. In the tidal-volume-oscillation arm"
-supplement,400,1,"the ARDS Network lung-protective tidal volume (6~mL/kg PBW $\approx$ 400~mL on the atlas reference bodies)~ , and above the 10"
 supplement,41.1,1,"ll 1{,}280 records in \texttt{ } gives approximately 41.1~h, whereas excluding the two contaminated timing records gives approx"
 supplement,418,1,"triggered breath is still ventilator-delivered, measured tidal volume 418~mL against a set 403.8~mL), which holds PaCO$_2$ at 43.6~mmHg. Lockin"
 supplement,43.6,1,"tidal volume 418~mL against a set 403.8~mL), which holds PaCO$_2$ at 43.6~mmHg. Locking the inspiration trigger at $-2$~cmH$_2$O lowers the rat"
 supplement,431,1,an) & P/F by FiO$_2$ (low / mid / high) \\ \midrule S1 (0.00) & 61 & 431 [388--481] & not-ARDS & 390 / 481 / --- \\ S2 (0.26) & 114 & 304 [264
 supplement,45.5,1,"$50.0 + 2.3\,(\text{height in inches} - 60)$~kg for a male body and $45.5 + 2.3\,(\text{height in inches} - 60)$~kg for a female body --- givin"
+supplement,450,1,the ARDS Network lung-protective tidal volume (6~mL/kg PBW $\approx$ 450 and 330~mL on the male and female reference bodies)~
 supplement,"4{,}000",1,"ve 0.6 in every draw. Repeating the whole procedure at 2{,}000 and at 4{,}000 resamples returns the same 23 combinations, and at 500 one combinatio"
 supplement,"4{,}595.50",1,"loor. For the published 56.2~kg female reference body that ceiling is 4{,}595.50~mL, which ends 207.13~mL below the 4{,}802.63~mL male default at whic"
 supplement,5.1,1,"dering on Cornish's bootstrap counts (PaCO$_2$ at 18.6~\%, PaO$_2$ at 5.1~\%, MeanBP at 3.3~\%, HR at 0.6~\%) mirrors the red-cell density of t"
@@ -221,7 +222,7 @@ supplement,62.5,1,"ine fall to 6.25~\% of that (0.83~mmHg), one to 56.25~\% and 
 supplement,641,1,jectory rises from approximately 530~mmHg at $t = 0$ to approximately 641~mmHg at $t = 300$~s; 95~\% of that late-plateau gain is reached at $t
 supplement,643.2,1,"(mmHg) & Final-60-s IQR (mmHg) \\ \midrule S1 (healthy) & 44 & 643.2 & [592, 668] \\ S3 (moderate ARDS) & 8 & 143.6 & [93, 218] \\ S4 ("
 supplement,657,1,"n is S1\_M\_0159 at FiO$_2$ = 1.0, whose steady-state mean PaO$_2$ of 657~mmHg at the bracket and 686~mmHg at the floor exceeds the locked 600~"
-supplement,66,1,"ally reported range of 64--79.3~mL\,kg$^{-1}$ averaging 75 in men and 66 in women~ . Pulse therefore does not reproduce the mo"
+supplement,66,1,"lly reported range of 64--79.3~mL\,kg$^{-1}$ averaging 75 overall and 66 in women~ . Pulse therefore does not reproduce the mo"
 supplement,66.9,1,"14.5 row in fact holds 66.91783563 and 56.05304601~kg, which round to 66.9 and 56.1~kg and are not the values used anywhere in this work. There"
 supplement,66.91783563,1,"s earlier and acquires a 214-month label. The 214.5 row in fact holds 66.91783563 and 56.05304601~kg, which round to 66.9 and 56.1~kg and are not the v"
 supplement,668,1,"-60-s IQR (mmHg) \\ \midrule S1 (healthy) & 44 & 643.2 & [592, 668] \\ S3 (moderate ARDS) & 8 & 143.6 & [93, 218] \\ S4 (severe ARDS)"
@@ -235,7 +236,7 @@ supplement,7.68,1,4.70$ & $75 \to 80$ & 77.5 \\ 110-to-90 & 15 & 16 & 24.94 & 17
 supplement,71.1,1,"$4{,}802.63 / 67.3 = 71.4$~mL/kg. \item Female: $3{,}996.09 / 56.2 = 71.1$~mL/kg. \item Weight-normalised difference: $0.3$~mL/kg, or $\approx"
 supplement,71.4,1,"ological component: \item Male: $4{,}802.63 / 67.3 = 71.4$~mL/kg. \item Female: $3{,}996.09 / 56.2 = 71.1$~mL/kg. \item Weight-"
 supplement,720.39,1,ulse requires hypovolemia to be modelled by an explicit condition --- 720.39~mL below the male default and 86.15~mL above the female default. The
-supplement,79.3,1,".0 and 63.8~mL\,kg$^{-1}$, against a clinically reported range of 64--79.3~mL\,kg$^{-1}$ averaging 75 in men and 66 in women~ ."
+supplement,79.3,1,".0 and 63.8~mL\,kg$^{-1}$, against a clinically reported range of 64--79.3~mL\,kg$^{-1}$ averaging 75 overall and 66 in women~ ."
 supplement,8.3,1,"ordering; at the two bodies' native masses the same quantity is about 8.3~\% lower; and wherever that mass enters as its reciprocal, in the vas"
 supplement,8.6,1,"tions depends on the estimand: the relative gap ranges from 0.6~\% to 8.6~\%, and its direction is not consistent --- two summaries make the 5-"
 supplement,8.7,1,"runs (median 4.3~mmHg, 95th percentile 40.2~mmHg) and delivered Vt on 8.7~\%. In the tidal-volume-oscillation arm (delivered-Vt CV $>$ 0.05; 30"
@@ -525,6 +526,7 @@ monograph,3.95,1,"(6 physical / 12 logical cores), 8 GB RAM, no GPU. Docker allo
 monograph,307,1,Acute respiratory distress syndrome: the Berlin Definition.* JAMA 307(23):2526-2533 (2012). DOI: [
 monograph,315,1,Consensus Definitions for Sepsis and Septic Shock (Sepsis-3).* JAMA 315(8):801-810 (2016). DOI: [
 monograph,33.75,1,"t is the only cell whose hard-failure rate exceeds 30 % (54 / 160 = 33.75 %), and it corresponds to severe ARDS on the larger male body habit"
+monograph,330,1,× ARDSnet protective ventilation (6 mL/kg PBW [@brower2000] ≈ 450 and 330 mL on the male and female surrogates) and above the 10–15 mL/kg tidal
 monograph,33237927,1,". PMID: 33237927. * []{#ref-webb2022vent} Webb JB, Bray A, Scheirich H, VanPelt J, Ger"
 monograph,34.4,1,1 & MAP & 0.58 & 1.38 & 2.78 & 0.995 & \\ S1 & Vt & 21.4 & 34.4 & 76.6 & 0.798 & \\ S1 & SpO2 & 0.008 & 0.004 & 0.010 & 0.123 &
 monograph,342,1,ute respiratory distress syndrome.* New England Journal of Medicine 342(18):1301-1308 (2000). DOI: [
@@ -543,11 +545,11 @@ monograph,4.73,1,0.75 & 1.33 & \textbf{$<$ 0.001} & * \\ \midrule S4 & HR & 1.38
 monograph,4.77,1,5.12} & 1.07 & 2.13 & \textbf{$<$ 0.001} & * \\ \midrule S3 & HR & 4.77 & 3.86 & 8.61 & 0.333 & \\ S3 & MAP & 0.94 & 0.98 & 2.02 &
 monograph,4.8,1,"rge language models under direct supervision by S.N.: Claude /4.8, and from 24 July 2026 Claude (Anthropic), used locally throug"
 monograph,40.2,1,"19.5 %** exceed the 15 mmHg drift threshold (median 4.3 mmHg, p95 = 40.2 mmHg). *Interpretation: the cardiovascular loop is steady at FiO2 ="
-monograph,400,1,pper: ~4× ARDSnet protective ventilation (6 mL/kg PBW [@brower2000] ≈ 400 mL for atlas surrogates) and above the 10–15 mL/kg tidal volumes that
 monograph,403.8,1,runs: * Mode: VC-AC (volume-control assist-control). * Tidal volume: 403.8 mL = 6 mL/kg of **actual** body weight on the 67.3 kg male standard
 monograph,409,1,"the physical reference in all three PC-AC profiles (935 vs 1,047 mL; 409 vs 528 mL; 490 vs 571 mL) — consistent with [@webb2022vent], which re"
 monograph,45.5,1,"parameters are: ideal-body-weight (Devine formula coefficient 50.0 vs 45.5), fat-fraction standard (0.21 vs 0.28), height bounds (151 – 175.5 cm"
 monograph,45.9,1,& 0.94 & 0.98 & 2.02 & 0.538 & \\ S3 & Vt & 36.3 & 20.8 & 45.9 & 0.129 & \\ S3 & SpO2 & 0.014 & 0.009 & 0.017 & 0.119 & \\ S3
+monograph,450,1,: ~3–4.5× ARDSnet protective ventilation (6 mL/kg PBW [@brower2000] ≈ 450 and 330 mL on the male and female surrogates) and above the 10–15 mL/
 monograph,4511,1,"Lippincott Williams & Wilkins / Wolters Kluwer (2013). ISBN: 978-1-4511-2118-6. Pre-lung-protective tidal volumes of 10-15 mL/kg (Ch. 25),"
 monograph,48.2,1,"on Pulse synthetic cohorts: 51.8 % of runs are clean, but the flagged 48.2 % follow non-random patterns that can leak into supervised labels and"
 monograph,481,1,ear extrapolation from FiO2 = 0.5 (PaO2 ≈ 228 mmHg) predicts PaO2 ≈ 481 mmHg at FiO2 = 1.0; the locked 120 s S1 means at FiO2 = 1.0 sit hig

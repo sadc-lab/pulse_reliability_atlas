@@ -876,11 +876,13 @@ monograph,1212,110,110.0,none,"rtensive emergency, i.e. grade 3 hypertension (SB
 monograph,1213,50,50.0,ambiguous_small,th acute symptomatic organ damage [@mancia2023esh] | | Vt (mL) | 50 | 1500 | Lower: below anatomical dead space (~150 mL adult) [@west202
 monograph,1213,1500,1500.0,guard,ute symptomatic organ damage [@mancia2023esh] | | Vt (mL) | 50 | 1500 | Lower: below anatomical dead space (~150 mL adult) [@west2020respir
 monograph,1213,150,150.0,guard,] | | Vt (mL) | 50 | 1500 | Lower: below anatomical dead space (~150 mL adult) [@west2020respiratory Ch.2] — alveolar ventilation impossib
-monograph,1213,4,4.0,ambiguous_small,@west2020respiratory Ch.2] — alveolar ventilation impossible; upper: ~4× ARDSnet protective ventilation (6 mL/kg PBW [@brower2000] ≈ 400 mL f
-monograph,1213,6,6.0,ambiguous_small,ar ventilation impossible; upper: ~4× ARDSnet protective ventilation (6 mL/kg PBW [@brower2000] ≈ 400 mL for atlas surrogates) and above the
-monograph,1213,400,400.0,none,pper: ~4× ARDSnet protective ventilation (6 mL/kg PBW [@brower2000] ≈ 400 mL for atlas surrogates) and above the 10–15 mL/kg tidal volumes that
-monograph,1213,10,10.0,ambiguous_small,mL/kg PBW [@brower2000] ≈ 400 mL for atlas surrogates) and above the 10–15 mL/kg tidal volumes that were standard practice before lung-protec
-monograph,1213,15,15.0,ambiguous_small,/kg PBW [@brower2000] ≈ 400 mL for atlas surrogates) and above the 10–15 mL/kg tidal volumes that were standard practice before lung-protectiv
+monograph,1213,3,3.0,ambiguous_small,@west2020respiratory Ch.2] — alveolar ventilation impossible; upper: ~3–4.5× ARDSnet protective ventilation (6 mL/kg PBW [@brower2000] ≈ 450
+monograph,1213,4.5,4.5,ambiguous_small,est2020respiratory Ch.2] — alveolar ventilation impossible; upper: ~3–4.5× ARDSnet protective ventilation (6 mL/kg PBW [@brower2000] ≈ 450 and
+monograph,1213,6,6.0,ambiguous_small,entilation impossible; upper: ~3–4.5× ARDSnet protective ventilation (6 mL/kg PBW [@brower2000] ≈ 450 and 330 mL on the male and female surro
+monograph,1213,450,450.0,none,: ~3–4.5× ARDSnet protective ventilation (6 mL/kg PBW [@brower2000] ≈ 450 and 330 mL on the male and female surrogates) and above the 10–15 mL/
+monograph,1213,330,330.0,none,× ARDSnet protective ventilation (6 mL/kg PBW [@brower2000] ≈ 450 and 330 mL on the male and female surrogates) and above the 10–15 mL/kg tidal
+monograph,1213,10,10.0,ambiguous_small,00] ≈ 450 and 330 mL on the male and female surrogates) and above the 10–15 mL/kg tidal volumes that were standard practice before lung-protec
+monograph,1213,15,15.0,ambiguous_small,≈ 450 and 330 mL on the male and female surrogates) and above the 10–15 mL/kg tidal volumes that were standard practice before lung-protectiv
 monograph,1214,50,50.0,ambiguous_small,lung-protective ventilation [@marino2013icu Ch.25] | | SpO2 (%) | 50 | 100 | Lower: oxyhemoglobin dissociation curve P50 (SpO2 = 50 % ↔ P
 monograph,1214,100,100.0,guard,rotective ventilation [@marino2013icu Ch.25] | | SpO2 (%) | 50 | 100 | Lower: oxyhemoglobin dissociation curve P50 (SpO2 = 50 % ↔ PaO2 ≈ 2
 monograph,1214,50,50.0,ambiguous_small,| 50 | 100 | Lower: oxyhemoglobin dissociation curve P50 (SpO2 = 50 % ↔ PaO2 ≈ 27 mmHg [@severinghaus1979]); upper: hemoglobin saturation
@@ -4007,11 +4009,13 @@ supplement,210,110,110.0,none,"ergency, i.e.\ grade~3 hypertension (SBP $\geq$ 1
 supplement,211,50,50.0,ambiguous_small,"mHg) with acute symptomatic organ damage~ . \\ Vt [50, 1{,}500]~mL & Lower: below adult anatomical dead space ($\sim$~150~m"
 supplement,211,"1{,}500",1500.0,ledger,"with acute symptomatic organ damage~ . \\ Vt [50, 1{,}500]~mL & Lower: below adult anatomical dead space ($\sim$~150~mL), imply"
 supplement,212,150,150.0,guard,"t [50, 1{,}500]~mL & Lower: below adult anatomical dead space ($\sim$~150~mL), implying zero alveolar ventilation~"
-supplement,212,4,4.0,ambiguous_small,alveolar ventilation~ . Upper: $\sim 4\times$ the ARDS Network lung-protective tidal volume (6~mL/kg PBW $\a
-supplement,212,6,6.0,ambiguous_small,Upper: $\sim 4\times$ the ARDS Network lung-protective tidal volume (6~mL/kg PBW $\approx$ 400~mL on the atlas reference bodies)~
-supplement,212,400,400.0,none,"the ARDS Network lung-protective tidal volume (6~mL/kg PBW $\approx$ 400~mL on the atlas reference bodies)~ , and above the 10"
-supplement,212,10,10.0,ambiguous_small,"00~mL on the atlas reference bodies)~ , and above the 10--15~mL/kg tidal volumes that were standard practice before lung-prote"
-supplement,212,15,15.0,ambiguous_small,"L on the atlas reference bodies)~ , and above the 10--15~mL/kg tidal volumes that were standard practice before lung-protectiv"
+supplement,212,3,3.0,ambiguous_small,alveolar ventilation~ . Upper: $\sim 3$--$4.5\times$ the ARDS Network lung-protective tidal volume (6~mL/kg
+supplement,212,4.5,4.5,ambiguous_small,olar ventilation~ . Upper: $\sim 3$--$4.5\times$ the ARDS Network lung-protective tidal volume (6~mL/kg PBW $\a
+supplement,212,6,6.0,ambiguous_small,$\sim 3$--$4.5\times$ the ARDS Network lung-protective tidal volume (6~mL/kg PBW $\approx$ 450 and 330~mL on the male and female reference b
+supplement,212,450,450.0,none,the ARDS Network lung-protective tidal volume (6~mL/kg PBW $\approx$ 450 and 330~mL on the male and female reference bodies)~
+supplement,212,330,330.0,none,"S Network lung-protective tidal volume (6~mL/kg PBW $\approx$ 450 and 330~mL on the male and female reference bodies)~ , and ab"
+supplement,212,10,10.0,ambiguous_small,"he male and female reference bodies)~ , and above the 10--15~mL/kg tidal volumes that were standard practice before lung-prote"
+supplement,212,15,15.0,ambiguous_small,"ale and female reference bodies)~ , and above the 10--15~mL/kg tidal volumes that were standard practice before lung-protectiv"
 supplement,213,50,50.0,ambiguous_small,"lung-protective ventilation~ . \\ SpO$_2$ [50, 100]~\% & Lower: oxyhemoglobin dissociation curve P50 places SpO$_2$"
 supplement,213,100,100.0,guard,"-protective ventilation~ . \\ SpO$_2$ [50, 100]~\% & Lower: oxyhemoglobin dissociation curve P50 places SpO$_2$ = 50"
 supplement,214,50,50.0,ambiguous_small,00]~\% & Lower: oxyhemoglobin dissociation curve P50 places SpO$_2$ = 50~\% at PaO$_2 \approx 27$~mmHg~ . Upper: hemoglo
@@ -5363,11 +5367,11 @@ supplement,815,1.0,1.0,ambiguous_small,"ood volume nearly linearly with weight (
 supplement,815,73.0,73.0,guard,"pplied to these same two bodies, Nadler's sex-specific equations give 73.0 and 63.8~mL\,kg$^{-1}$, against a clinically reported range of 64--79"
 supplement,815,63.8,63.8,guard,"these same two bodies, Nadler's sex-specific equations give 73.0 and 63.8~mL\,kg$^{-1}$, against a clinically reported range of 64--79.3~mL\,kg"
 supplement,815,1,1.0,ambiguous_small,"bodies, Nadler's sex-specific equations give 73.0 and 63.8~mL\,kg$^{-1}$, against a clinically reported range of 64--79.3~mL\,kg$^{-1}$ aver"
-supplement,815,64,64.0,ambiguous_small,"e 73.0 and 63.8~mL\,kg$^{-1}$, against a clinically reported range of 64--79.3~mL\,kg$^{-1}$ averaging 75 in men and 66 in women~"
-supplement,815,79.3,79.3,none,".0 and 63.8~mL\,kg$^{-1}$, against a clinically reported range of 64--79.3~mL\,kg$^{-1}$ averaging 75 in men and 66 in women~ ."
-supplement,815,1,1.0,ambiguous_small,",kg$^{-1}$, against a clinically reported range of 64--79.3~mL\,kg$^{-1}$ averaging 75 in men and 66 in women~ . Pulse theref"
-supplement,815,75,75.0,none,"ainst a clinically reported range of 64--79.3~mL\,kg$^{-1}$ averaging 75 in men and 66 in women~ . Pulse therefore does not re"
-supplement,815,66,66.0,none,"ally reported range of 64--79.3~mL\,kg$^{-1}$ averaging 75 in men and 66 in women~ . Pulse therefore does not reproduce the mo"
+supplement,815,64,64.0,ambiguous_small,"e 73.0 and 63.8~mL\,kg$^{-1}$, against a clinically reported range of 64--79.3~mL\,kg$^{-1}$ averaging 75 overall and 66 in women~"
+supplement,815,79.3,79.3,none,".0 and 63.8~mL\,kg$^{-1}$, against a clinically reported range of 64--79.3~mL\,kg$^{-1}$ averaging 75 overall and 66 in women~ ."
+supplement,815,1,1.0,ambiguous_small,",kg$^{-1}$, against a clinically reported range of 64--79.3~mL\,kg$^{-1}$ averaging 75 overall and 66 in women~ . Pulse there"
+supplement,815,75,75.0,none,"ainst a clinically reported range of 64--79.3~mL\,kg$^{-1}$ averaging 75 overall and 66 in women~ . Pulse therefore does not r"
+supplement,815,66,66.0,none,"lly reported range of 64--79.3~mL\,kg$^{-1}$ averaging 75 overall and 66 in women~ . Pulse therefore does not reproduce the mo"
 supplement,819,20,20.0,ambiguous_small,"ised on absolute mL, not on mL/kg. The divergence-rate reduction from 20 / 20 at the default to 0 / 20 at both the 4{,}400 and 4{,}082.24~mL r"
 supplement,819,20,20.0,ambiguous_small,"on absolute mL, not on mL/kg. The divergence-rate reduction from 20 / 20 at the default to 0 / 20 at both the 4{,}400 and 4{,}082.24~mL reduct"
 supplement,819,0,0.0,ambiguous_small,"n mL/kg. The divergence-rate reduction from 20 / 20 at the default to 0 / 20 at both the 4{,}400 and 4{,}082.24~mL reductions is an absolute-"
@@ -5384,6 +5388,7 @@ supplement,825,8,8.0,ambiguous_small,"t the 4{,}082.24~mL floor, on an identical
 supplement,825,8,8.0,ambiguous_small,"e independent presence counts, not mutually exclusive categories: all 8 fire \texttt{not\_steady\_state} and one of them additionally fires \"
 supplement,827,15,15.0,ambiguous_small,"), three of those seven jointly on a PaO$_2$ drift beyond the 15~mmHg tolerance over the final 60~s (the window-length artefact of \S"
 supplement,827,60,60.0,ambiguous_small,"ointly on a PaO$_2$ drift beyond the 15~mmHg tolerance over the final 60~s (the window-length artefact of \S ), and three of the ei"
+supplement,827,"4{,}400",4400.0,none,"dow-length artefact of \S ), and three of the eight at the 4{,}400~mL bracket (four at the floor) on the delivered-Vt oscillation of \S"
 supplement,827,1.0,1.0,ambiguous_small,". The \texttt{implausible} run is S1\_M\_0159 at FiO$_2$ = 1.0, whose steady-state mean PaO$_2$ of 657~mmHg at the bracket and 686~m"
 supplement,827,657,657.0,none,"n is S1\_M\_0159 at FiO$_2$ = 1.0, whose steady-state mean PaO$_2$ of 657~mmHg at the bracket and 686~mmHg at the floor exceeds the locked 600~"
 supplement,827,686,686.0,none,"= 1.0, whose steady-state mean PaO$_2$ of 657~mmHg at the bracket and 686~mmHg at the floor exceeds the locked 600~mmHg ceiling for that same h"
@@ -5599,7 +5604,7 @@ supplement,1028,0.87,0.87,none,"single input nearly determines. The three blood-
 supplement,1028,0.078,0.078,none,", and they are also where the out-of-bag estimate is most optimistic (0.078 to 0.087, against 0.0003 for delivered Vt). Both measures point the s"
 supplement,1028,0.087,0.087,none,"y are also where the out-of-bag estimate is most optimistic (0.078 to 0.087, against 0.0003 for delivered Vt). Both measures point the same way:"
 supplement,1028,0.0003,0.0003,none,"e the out-of-bag estimate is most optimistic (0.078 to 0.087, against 0.0003 for delivered Vt). Both measures point the same way: gas exchange dep"
-supplement,1030,25,25.0,none,"P top-three sets take about a dozen distinct values in total, against 25 for Morris, and for three of the six outputs --- MAP, SpO$_2$ and PaC"
+supplement,1030,25,25.0,none,"s the SHAP top-three sets take nine distinct values in total, against 25 for Morris, and for three of the six outputs --- MAP, SpO$_2$ and PaC"
 supplement,1030,17,17.0,ambiguous_small,"sely the other stays to that invariant answer. The pooled comparison (17 of 18) does not carry this defect, being computed once per output rat"
 supplement,1030,18,18.0,none,"he other stays to that invariant answer. The pooled comparison (17 of 18) does not carry this defect, being computed once per output rather th"
 supplement,1030,23,23.0,ambiguous_small,"this defect, being computed once per output rather than per cell. The 23 of 48 full-set agreement is stable across three independent forest se"

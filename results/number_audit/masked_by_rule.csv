@@ -474,7 +474,7 @@ supplement,ref_or_machinery,178,4.4,ther run is flagged (Section~\mainref{sec:me
 supplement,ref_or_machinery,194,4.4,} flag are stated in Section~\mainref{sec:methods-detector}{4.4} of the main manuscript and are held in the \texttt{HARD
 supplement,ref_or_machinery,208,1,"te reduce cardiac output and myocardial perfusion~\cite[Ch.~1]{marini2018critical}, which gives 202~bpm on the 18-year-o"
 supplement,ref_or_machinery,208,1,"rdia depresses cardiac output and oxygen delivery~\cite[Ch.~1]{marini2018critical}, but no numeric floor is asserted the"
-supplement,ref_or_machinery,212,2,"\sim$~150~mL), implying zero alveolar ventilation~\cite[Ch.~2]{west2020respiratory}. Upper: $\sim 4\times$ the ARDS Netw"
+supplement,ref_or_machinery,212,2,"\sim$~150~mL), implying zero alveolar ventilation~\cite[Ch.~2]{west2020respiratory}. Upper: $\sim 3$--$4.5\times$ the AR"
 supplement,ref_or_machinery,212,25,"ndard practice before lung-protective ventilation~\cite[Ch.~25]{marino2013icu}. \\ SpO$_2$ [50, 100]~\% & Lower: oxyhemo"
 supplement,ref_or_machinery,216,5,el ceiling of $\approx$~663~mmHg on FiO$_2$ = 1.0~\cite[Ch.~5]{west2020respiratory}; the supplementary \texttt{HARD\_BOU
 supplement,ref_or_machinery,288,2.5,ator action is submitted (Section~\mainref{sec:results-sex}{2.5} of the main manuscript). No requested FiO$_2$ below 1.0
