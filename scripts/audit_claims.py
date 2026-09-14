@@ -6692,6 +6692,9 @@ MONO_AUDIT_TEXT_REQUIRED = (
     ("preprint/manuscript.md", "(external; used by Cornish\n2026, §4.4)", 1),
     ("preprint/manuscript.md", "study (Cornish\net al. 2026; Table 2)", 1),
     ("preprint_npj/supplement.tex", "Cornish et al.\\ 2026 per-channel cross-mapping", 2),
+    # GL-S1 (guard/ledger read-through, 2026-09-15): the supplement's copy of MF-19.
+    ("preprint_npj/supplement.tex", "was documented in our preregistration (scenario table and hypothesis H3) "
+     "and in the verified-limitations table (Supplement~\\S\\,\\ref{sec:s2}, row 4)", 1),
     ("preprint/supplementary.md", "## S10 — Verification points (twelve independent layers)", 1),
     ("preprint/supplementary.md", "12 independent verification points; 0 failures", 1),
 )
@@ -6714,7 +6717,7 @@ MONO_AUDIT_TEXT_BANNED = {
         "Tables 4 and 5 are unchanged in the published version",
         "per-run output.csv / pulse.log", "the 24 experiment-log entries cited",
     ),
-    "preprint_npj/supplement.tex": ("Cornish et al.\\ 2023", "Cornish 2023 channel"),
+    "preprint_npj/supplement.tex": ("Cornish et al.\\ 2023", "Cornish 2023 channel", "preregistration limitations table"),
     "preprint/supplementary.md": ("eleven independent layers", "11 independent verification points"),
 }
 MONO_AUDIT_JMLR_FIELDS = (

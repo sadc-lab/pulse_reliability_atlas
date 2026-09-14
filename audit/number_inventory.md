@@ -37,12 +37,14 @@ being waved away one at a time.
 | artefact | retained | distinct | guard | ledger | ambiguous small | none | distinct none |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | paper | 527 | 143 | 165 | 18 | 307 | **37** | 29 |
-| supplement | 1887 | 490 | 463 | 32 | 960 | **432** | 219 |
-| monograph | 3343 | 561 | 648 | 28 | 1864 | **803** | 344 |
-| **all** | **5757** | **728** | | | **3131** | **1272** | **431** |
+| supplement | 1887 | 490 | 484 | 31 | 960 | **412** | 211 |
+| monograph | 3370 | 564 | 670 | 28 | 1878 | **794** | 334 |
+| **all** | **5784** | **730** | | | **3145** | **1243** | **419** |
 
-(Re-read from `summary.json` after the §4.2 corrections of 2026-09-14; the
-movement is explained there.)
+(Re-read from `summary.json` on 2026-09-15, after the monograph corrections
+(`d9201de`, `441355e`) and GL-S1 (§6). The table first read 5,757 / 728 after
+the §4.2 corrections; every movement since is explained in §5 "Resolution" and
+§6.)
 
 ⚠️ **These buckets are coverage by VALUE, not by occurrence**, and they bound
 risk from below, never from above.
@@ -73,7 +75,11 @@ with its rule and context, to `masked_by_rule.csv`.
 |---|---:|---:|---:|---|
 | paper | 582 | 51 | 531 | yes |
 | supplement | 1990 | 85 | 1905 | yes |
-| monograph | 3749 | 255 | 3494 | yes |
+| monograph | 3778 | 255 | 3523 | yes |
+
+(Monograph row re-read 2026-09-15; it read 3,749 / 3,494 before the §5
+corrections added and removed wording. The paper and supplement rows are
+unchanged.)
 
 Literals removed per rule now: paper — comments 27, typesetting lengths 11
 (all `\textwidth` fractions and `[-0.6em]` spacings, read), product versions 7,
@@ -1577,13 +1583,213 @@ The MD5 was restored after each one.
   - 0.014 and 0.049 only move within the rewritten sentence;
   - paper and supplement unchanged; no occurrence changed bucket by value.
 
-## 6. What remains
+## 6. The `guard` and `ledger` occurrences, read one by one — 1,396 occurrences (2026-09-15)
+
+**Why.** `guard` and `ledger` are coverage by *value* (§2). An occurrence lands
+there when some gating string or ledger anchor holds the same literal or value,
+whether or not that source is about this occurrence. A published "160" that
+means 160 bpm is "covered" by the 160 runs per cell. Until now these rows were
+counted as covered and never read.
+
+**Population, unit, denominator.** Every `inventory.csv` row whose bucket is
+`guard` or `ledger`, at HEAD `441355e`. Unit: one retained literal occurrence.
+
+| artefact | guard | ledger | read |
+|---|---:|---:|---:|
+| paper | 165 | 18 | 183 |
+| supplement | 484 | 31 | 515 |
+| monograph | 670 | 28 | 698 |
+| **all** | **1,319** | **77** | **1,396** |
+
+These equal `summary.json`, which is the positive control on the population.
+
+**Instrument** (scratchpad, session `2b7e8306`).
+- **`gl_worksheet.py` builds one worksheet per artefact, grouped by literal.**
+  For each literal it lists:
+  - the ledger claims with the same value (394 claims parsed);
+  - every quoted string in `audit_claims.py` and `check_*.py` holding the
+    literal, 1,091 in all, each with the enclosing constant or function;
+  - the 94 crosswalk rows and the 26 monograph anchors;
+  - every occurrence with its context.
+- **The locus tag is only a hint.** An occurrence is tagged LOCUS when a
+  non-banned, non-label pinning string holding the literal matches the
+  whitespace-normalised text across that occurrence's line.
+  - Calibrated on 8 known cases, 8 PASS (`gl_calibrate.py`): 176.2 at L4539 and
+    L723, 480, 3050 and 0.929 in the monograph; 0.930, 481 and 3050 in the
+    supplement.
+  - Tags: paper 90 / 183, supplement 185 / 515, monograph 63 / 698.
+- **Verdicts come from reading every row's context.** Each occurrence is
+  either the quantity its bucket source pins (SAME), or a different quantity (or
+  a non-quantity) checked against its own source (EXCEPTION).
+- **`gl_completeness.py` accounts for every row exactly once**, and every listed
+  exception must match a real row:
+  - 1,396 = 264 exceptions + 1,132 SAME;
+  - paper 16 + 167, supplement 122 + 393, monograph 126 + 572;
+  - 0 bad keys;
+  - negative control: a line number shifted by one gives BAD.
+
+**What the by-value buckets were hiding.** 264 occurrences, 19 %, are a
+different quantity from the one that "covers" them. Examples:
+- **"160":** runs per cell, but also 145–160 bpm output HR.
+- **"454":** the excl-SpO₂ total, and 454 of 1,120 clean pairs.
+- **"120":** simulation length, the BP gate, and the 120-s settle of the March
+  calibration.
+- **"640":** female runs, and 640 mL delivered volume on one waveform.
+- **"256":** a companion P/F, a Sobol base sample, and SHA-256.
+- **"100":** "over 100 pages".
+- **"2301.07210":** an arXiv identifier.
+
+Each was checked; none of these particular collisions was wrong.
+
+**Re-derived today, in memory, nothing written to the repository.**
+- **P/F table `tab:s5-berlin-sweep`** (26 numeric cells): recomputed with
+  `pf_berlin_analysis`'s own functions from `aggregated.parquet`, 0 differences
+  from `results/pf_berlin_by_scenario.csv`.
+- **S021.** As `make_supp_fig_s3.py` computes them:
+  - median trajectory 530.2 at t = 0 and 641.1 at t = 300 s;
+  - final-60-s medians S3 143.6 [93, 218], S4 72.6 [71, 76];
+  - converged S1 40 / 44, S3 8 / 8, S4 8 / 8;
+  - locked-window PaO₂ over the four input-identical RR = 20 pairs: male 662.6,
+    female 686.0;
+  - runaway trajectories of S1_F_0130 / 0131: ≈ 690 → 1,358–1,380 at 220 s →
+    1,404 at 240 s;
+  - the two remaining F-003 runaways S1_F_0118 / 0119: 475–482 mmHg to 60 s,
+    then 1,000–1,008.
+- **Clean S1 PaO₂:** 81.1 ± 11.0 at FiO₂ 0.21 (n 47) and 214.2 ± 29.9 at
+  0.4733 (n 44).
+- **Clean HR_mean per cell:** S4_M 146.515, S4_F 147.658, S3_F 153.173, S3_M
+  157.880, against S1_M 76.083. The text says "147 – 158 vs 76".
+- **Waveform S4_F_0003, pre-lock.**
+  - Classifier CV 0.35084. The median 0.350867 is the midpoint of S4_F_0003 and
+    S4_F_0089, an exact tie broken on case id, as the caption says. Lock CV
+    0.00544.
+  - Native delivered Vt over the classifier window, using the figure script's
+    120 s clock offset: median 640.1, IQR 637.6–643.6.
+- **μ\*:** Vt←Vt 488.6–503.1 across cells; PaO₂←FiO₂ S2 133.1 / 146.7.
+  Diverged male run indices: S1 = S2 = S3 = {119, 157, 158, 159}; S4_M adds
+  {24, 82, 137, 138}.
+- **S030** (`s030_run_index.csv`, `s030_pf_by_arm.csv`):
+  - fractions 0.910–0.945 exit 1 in both arms; 0.900 and 0.950 exit 0;
+  - locked M 0.95: RR 19.95, PaCO₂ 50.78, P/F 91.49;
+  - free M 0.95: RR 30.57, Vt 418.2, PaCO₂ 43.57.
+- **Wasserstein table rows:** S1 PaO₂ 11.02 / 12.57 / 28.38; S2 HR null p50
+  3.596; S4 Vt null p50 28.958.
+- **Spearman table:** all 12 CI upper bounds 1.0.
+- **Sobol stable set at 500 / 1,000 / 2,000 / 4,000 resamples: GL-S2 below.**
+
+**Primary sources opened today.**
+- Berlin Definition, JAMA 2012: PubMed 22797452 abstract, bands 200–300 /
+  100–200 / ≤ 100. The PEEP ≥ 5 criterion sits in the full-text table, not
+  opened.
+- Pulse `SetupPatient.cpp` L139 / L144: the Devine relation 45.5 / 50.0 + 2.3 ×
+  (in − 60).
+- The companion `experiments_log.md`:
+  - L612 (5 min, 120 s settle);
+  - E10 table L1950–1970 (0.90 pass, eight failures 0.91–0.945, 0.95 pass);
+  - E6 severe sweep L2309–2326;
+  - E6 calibrated fractions L2279 / L2299 / L2348 (252 / 148 / 75);
+  - coarse sweep L618–632 (199.3 / 150.1 / 118.7);
+  - FiO₂ = 1.0 crash probe L1790–1815 (nine runs, all in 0.95–1.00).
+- `src/detector.py` L120–121 (flatline tolerance 0.001) and S004 L96–100 (8 / 8
+  false-positive `clamped`, SBP 140 message).
+
+**Relied on as recorded in this repository's registers, not re-opened today.**
+- `reference_audit.md`:
+  - ESH grade 3 ≥ 180 / ≥ 110 (full text 2026-09-14);
+  - Marini Ch. 1 (MATCH 2026-09-14);
+  - West Ch. 2 chapter (OK; the "~150 mL" value itself not re-read);
+  - page ranges of `nin2017`, `emeriaud2023`, `sinderby1999`, `bray2019`
+    (field by field).
+- §5 O-1 (runaway timing), MF-4 (GPU), MF-6 (CDC 176.2).
+- `pulse_sex_conditioned_parameters.md` (Hb 15.0 / 14.0, Hct Hb / 34).
+- The companion PC-AC figures behind +24.0 % / +58.9 %: 594.5 / 479.6 and
+  635.3 / 399.7.
+
+**Findings.**
+- **GL-S1 — `supplement.tex` L867.**
+  - It read: *"The narrower 0.91--0.945 zone was recorded in our preregistration
+    limitations table (Supplement §S2 row 4)"*.
+  - `preregistration.md` has never contained the word "limitation"
+    (`git log -S`: 0 commits). The zone is in its scenario table (L112) and in
+    H3 (L76), and the twelve-row table is Supplement §S2, row 4.
+  - Same defect as monograph MF-19. The paper, `supplementary.md` and README
+    carry no such wording.
+  - ✅ **Corrected as a mechanical pointer fix**, under the autonomy pact, as
+    MF-19 was. It now reads *"was documented in our preregistration (scenario
+    table and hypothesis H3) and in the verified-limitations table (Supplement
+    §S2, row 4)"*.
+  - Guarded: new wording required, old one banned in `supplement.tex`. Guard 63
+    checks. Reinjection with the supplement restored to HEAD: 2 FAIL.
+  - Rebuilt: supplement 63 pages. Dehyphenated render: new wording 1, old 0.
+    DOCX carries the new wording.
+- **GL-S2 — `supplement.tex` L345, and the `scripts/sobol_ci_buckets.py`
+  L73–74 comment. 🔴 OPEN, author's decision.**
+  - It reads: *"Repeating the whole procedure at 2,000 and at 4,000 resamples
+    returns the same 23 combinations, and at 500 one combination is lost"*.
+  - Re-measured with the versioned generator (`build_table()`, module
+    `N_BOOTSTRAP` set to 500, 1,000, 2,000 and 4,000), in memory: 23 / 23 / 23 /
+    23, identical sets.
+  - N = 1,000 equals the committed `sobol_ci_buckets.csv`; runtime scales with N
+    (11 / 20 / 38 / 75 s).
+  - Since `d639747` the script changed only in `summarise()`'s cost model
+    (`5a6b201`), and its tracked inputs (`results/morris_indices.parquet`,
+    `src/analysis_morris.py`) did not change. The raw per-run `output.csv` it
+    also reads are git-ignored, so git cannot vouch for them; the N = 1,000 run
+    reproducing the committed CSV exactly is the evidence that they give the same
+    result. A first draft of this entry said "the code and its inputs are
+    unchanged", which git could not show for the ignored files.
+  - The "22 at 500" of S031 (decision 6, 2026-07-28) predates the versioned
+    generator; S031 swept 32 RNG / threshold conventions.
+  - Direction: conservative. The set does not lose a combination at 500 either.
+  - Only locus: supplement L345.
+
+**Observations.**
+- **GL-O1.** `tab:s5-berlin-sweep` (26 numeric cells) has no ledger anchor and
+  no guard. Recomputed today with 0 differences, but nothing would catch a
+  future drift.
+- **GL-O2 — instrument.** `guard_literals()`'s quoted-string regex also captures
+  the code between two string literals. Examples are `'): (160, 0, 4, 11, 107,
+  49),\n    ('` and `manuscript_value=51.8, computed_value=100.0 * …`.
+  - `guard` therefore holds pinned code constants, which is intended, but also
+    incidental ones: `100.0 *`, `663e10` in an arithmetic encoding of several
+    values for one comparison, "530d281" in a commit id.
+  - The inventory also splits "4 802.63" (thin space) into two literals. The
+    value was verified.
+- **GL-O3.** L867 "corroborated by three independent boundary probes" against
+  §S5-prov "within the same companion project rather than independent
+  third-party replications".
+  - The companion's own log says "3 independent sources"; §S5-prov says
+    "run-by-run independent execution".
+  - Two senses, both defensible. No change.
+
+**Defects in my own instruments, caught before any conclusion.**
+- **Two calibration cases carried stale line numbers** (722 / 1826 for 723 /
+  1825). The instrument was right.
+- **A C14 filter used `case_id` where `plateau_stats` has `case_id_orig`.** It
+  first pooled all 21 S1 pairs instead of the S021 cohort's 4.
+- **The first waveform measure (median 666.4 mL) read the native file on its own
+  clock**, which is the settling phase. Corrected by reading
+  `make_supp_fig_s4.py`'s offset rule.
+- **Three fixed-string counts returned 0** because of shell escaping; re-run
+  with `grep -F`.
+- **A `sed` turned `\n` into a real newline in a scratch script.** It failed to
+  parse and ran nothing.
+
+**Not covered by this section.**
+- **Year-like literals, set aside by rule 7:** paper 4, supplement 18,
+  monograph 153. The Cornish "2023" label in §5 was one of them.
+- **Literals masked as non-quantities by the other rules** (§2.1 counts): tex
+  comments, versions, link targets, URLs, machinery, file paths, organisation
+  identifiers.
+- **Prose that carries no number.**
+
+## 7. What remains
 
 | artefact | `none` residue | `ambiguous_small` | status |
 |---|---:|---:|---|
-| paper | 37 / 29 (43 / 31 when read) | 307 | **both read row by row** (§3, §3.2). `none`: no defect. `ambiguous_small`: 57 not quantities, 248 + 2 verified, **1 wording finding, corrected** (L259, author's choice, guarded). Not closed: `guard` and `ledger` are covered by value only |
-| supplement | 431 / 218 (456 when read) | 957 | **`none` read row by row** (§4.1): 6 not quantities, 450 verified; **all six findings corrected** on the author's decisions (F-S1 to F-S6, 2026-09-14). **`ambiguous_small` read row by row** (§4.2): 134 not quantities, 823 verified; **3 findings, 1 mechanical pointer and prose-sweep #15 all corrected** on the author's decisions (2026-09-14), guarded (22 checks). Counts now 432 / 960 after the corrections. Not closed: `guard` and `ledger` by value only |
-| monograph | 803 / 344 when read; 794 / 334 after the corrections | 1864 when read; 1878 after | **both read row by row, plus the 89 inline-code literals** (§5); section pointers and "Cited in §X" checked. **19 findings (MF-1 … MF-21, MF-8 merged, MF-10 downgraded) and 11 observations. All 19 findings, O-3/5/7/8/9/10/11 and the Cornish citation corrected 2026-09-14** (author's decisions, or mechanical under the pact), guarded (62 checks). O-1 not selected, O-4 not to be edited. MF-22 (HR anchors against Ostchega 2011), found during the resolution, removed on the author's decision, together with a precision on MF-20. Quantities against non-quantities not counted: the rule-based split failed its precision pass. Not closed: `guard` and `ledger` by value only; prose without numbers not audited |
+| paper | 37 / 29 (43 / 31 when read) | 307 | **both read row by row** (§3, §3.2). `none`: no defect. `ambiguous_small`: 57 not quantities, 248 + 2 verified, **1 wording finding, corrected** (L259, author's choice, guarded). **`guard` and `ledger` read one by one** (§6): 183 occurrences, 16 of them a different quantity, all verified, no defect |
+| supplement | 431 / 218 (456 when read) | 957 | **`none` read row by row** (§4.1): 6 not quantities, 450 verified; **all six findings corrected** on the author's decisions (F-S1 to F-S6, 2026-09-14). **`ambiguous_small` read row by row** (§4.2): 134 not quantities, 823 verified; **3 findings, 1 mechanical pointer and prose-sweep #15 all corrected** on the author's decisions (2026-09-14), guarded (22 checks). Counts now 412 / 960 (432 → 412 is by value only, §5 Resolution). **`guard` and `ledger` read one by one** (§6): 515 occurrences, 122 a different quantity; **GL-S1 corrected** (mechanical pointer, guarded), **🔴 GL-S2 open** (author's decision) |
+| monograph | 803 / 344 when read; 794 / 334 after the corrections | 1864 when read; 1878 after | **both read row by row, plus the 89 inline-code literals** (§5); section pointers and "Cited in §X" checked. **19 findings (MF-1 … MF-21, MF-8 merged, MF-10 downgraded) and 11 observations. All 19 findings, O-3/5/7/8/9/10/11 and the Cornish citation corrected 2026-09-14** (author's decisions, or mechanical under the pact), guarded (63 checks, one of them GL-S1's). O-1 not selected, O-4 not to be edited. MF-22 (HR anchors against Ostchega 2011), found during the resolution, removed on the author's decision, together with a precision on MF-20. Quantities against non-quantities not counted: the rule-based split failed its precision pass. **`guard` and `ledger` read one by one** (§6): 698 occurrences, 126 a different quantity, all verified, no defect. Prose without numbers not audited |
 
 ⚠️ **No count in this register may come from an ad-hoc pipeline.** Three
 successive `grep | cut | uniq` passes over `inventory.csv` each miscounted the
@@ -1593,7 +1799,16 @@ above was read from the producer's own output.
 The monograph is Markdown, so a LaTeX pattern returns zero on it by construction
 (`1{,}280` against `1,280`); any hand search must test both syntaxes.
 
-## 7. What this register does not claim
+**Still unread, in all three artefacts (2026-09-15):**
+- **year-like literals** set aside by rule 7: paper 4, supplement 18,
+  monograph 153 (`summary.json`: inventoried minus retained). They include
+  citation years and dated records; §5's stale "Cornish 2023" label was one;
+- **literals masked as non-quantities** by the other rules (§2.1), apart from
+  those §2.1 records as read: typesetting lengths, line references and the
+  monograph's 89 inline-code literals;
+- **prose that carries no number.**
+
+## 8. What this register does not claim
 
 It does not claim the published numbers are correct. It claims that the
 population is defined; that the instrument is calibrated in both directions,
@@ -1602,19 +1817,26 @@ has been examined row by row; and that nothing in that residue is a defect. The
 paper's `ambiguous_small` residue has also been read row by row (§3.2). Every
 quantity in it was checked against a named source. One sentence carried a
 correct number under a wrong label, and it was corrected on the author's
-decision. The paper's by-value `guard` and `ledger`
-occurrences are not read one by one. The supplement's `none` residue has been
+decision. The paper's `guard` and `ledger` occurrences were then read one by one
+(§6) and carry no defect. The supplement's `none` residue has been
 read row by row (§4.1). It carried six findings, one of which (F-S5) moved
 a band edge that the paper also states; all six are corrected on the author's
 decisions. The supplement's `ambiguous_small` residue has been read row by row
 (§4.2): three findings, one wrong pointer and one loose bound were found, and
-all are corrected on the author's decisions and guarded.
+all are corrected on the author's decisions and guarded. Its `guard` and
+`ledger` occurrences were then read one by one (§6): one wrong pointer (GL-S1)
+is corrected and guarded, and one resample-count statement that the versioned
+generator does not reproduce (GL-S2) awaits the author's decision.
 The monograph's `none` and `ambiguous_small` residues and its 89 inline-code
 literals have been read row by row (§5). Nineteen findings and eleven
 observations are recorded there. All nineteen findings, seven observations and
 the Cornish citation are corrected, on the author's decisions or as mechanical
 fixes, and guarded. A twentieth finding, MF-22, came up while resolving MF-5; it
-is corrected too. The monograph's
-by-value `guard` and `ledger` occurrences are not read one by one. Neither are
-its sentences that carry no number: three such defects (MF-18, MF-20, MF-21)
+is corrected too. The monograph's `guard` and `ledger` occurrences were then
+read one by one (§6) and carry no defect. Its sentences that carry no number
+are not audited: three such defects (MF-18, MF-20, MF-21)
 were found in passing, so its prose is not claimed clean.
+
+Nor does it claim anything about the year-like literals, the masked
+non-quantities or the prose without numbers listed at the end of §7, which have
+not been read (§2.1 records the masked literals that were).
