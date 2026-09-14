@@ -36,10 +36,10 @@ being waved away one at a time.
 
 | artefact | retained | distinct | guard | ledger | ambiguous small | none | distinct none |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| paper | 527 | 142 | 159 | 18 | 307 | **43** | 31 |
-| supplement | 1846 | 478 | 419 | 31 | 940 | **456** | 214 |
-| monograph | 3339 | 560 | 606 | 28 | 1859 | **846** | 348 |
-| **all** | **5712** | **722** | | | **3106** | **1345** | **432** |
+| paper | 527 | 143 | 165 | 18 | 307 | **37** | 29 |
+| supplement | 1860 | 481 | 455 | 31 | 951 | **423** | 214 |
+| monograph | 3341 | 560 | 643 | 28 | 1864 | **806** | 344 |
+| **all** | **5728** | **722** | | | **3122** | **1266** | **428** |
 
 ⚠️ **These buckets are coverage by VALUE, not by occurrence**, and they bound
 risk from below, never from above.
@@ -68,9 +68,9 @@ with its rule and context, to `masked_by_rule.csv`.
 
 | artefact | in raw text | removed by masks | inventoried | closes |
 |---|---:|---:|---:|---|
-| paper | 580 | 51 | 529 | yes |
-| supplement | 1948 | 86 | 1862 | yes |
-| monograph | 3745 | 255 | 3490 | yes |
+| paper | 582 | 51 | 531 | yes |
+| supplement | 1962 | 86 | 1876 | yes |
+| monograph | 3747 | 255 | 3492 | yes |
 
 Literals removed per rule now: paper — comments 27, typesetting lengths 11
 (all `\textwidth` fractions and `[-0.6em]` spacings, read), product versions 7,
@@ -80,7 +80,7 @@ versions 7, typesetting lengths 6 (all column widths, read), line references 2
 42, URLs 42, line references 13, product versions 7, code fences 3.
 
 ⚠️ **Open:** inline code still costs the monograph 89 literals, some of them
-real values rendered in backticks (`[0.879, 0.945]`, `0.02`, `0.425`). To be
+real values rendered in backticks (`[0.879, 0.946]` since the F-S5 correction, `0.02`, `0.425`). To be
 settled when the monograph is worked.
 
 ### 2.2 Defects found in this instrument, and what each one cost
@@ -225,6 +225,11 @@ dimensions, additionally gated by `check_cdc_weight_provenance`).
 **(iii) Our own measurements, traceable to an artefact.** `36`, `25`, `1{,}400`,
 `37`, `84.1`, `13`, `4{,}400` ×2, `8.4`, `86`, `0.879`, `0.945` ×4, `22`, `18`,
 `4.1`, `5.5`, `93`, `0.625`, `0.12`, `3{,}348`.
+
+*(Update 2026-09-14: `0.879` and two of the four `0.945` are the edges of the
+continuous-severity band. Their artefact was computed on truncated severity
+labels, so "traceable to an artefact" was true of the wrong artefact. The paper
+now reads $[0.879, 0.946]$; see §4.1, F-S5.)*
 
 **(iv) Checked arithmetically**, because they are cheap to settle:
 
@@ -530,6 +535,43 @@ breathing "approximately 0.25 Hz"; a minute-ventilation "physiological norm of
     supplement ×7, the monograph ×9 and the README ×1. No anchor pins it. §3
     above classed the paper's `0.879` as an artefact-traceable measurement, and
     that artefact is the truncated one.
+  - ✅ **Corrected on the author's decision, 2026-09-14.** Option A, recompute
+    on the simulated severity, was chosen.
+    - **Re-verified first with a second instrument**, from the 200 raw run
+      directories (`config.json`, `run_meta.json`, `output.csv`) without the
+      parquet. The label equals `floor(sev·1000)/1000` for all 200 runs; the
+      raw data and the parquet agree run by run. Binning on the truncated
+      label reproduces the published table exactly, which is the positive
+      control that pins the cause. Exactly six runs change bin, three per sex
+      (0.85018, 0.94585, 0.95064).
+    - **Figure S1** is regenerated from `config.json` severities by the fixed
+      `make_supp_fig_s1.py`, under the pinned `SOURCE_DATE_EPOCH`; two
+      successive runs are byte-identical.
+    - **Text:** paper ×2, supplement (L145, table caption, table, reading
+      guides, figure caption, "0 / 50", regimes, L867, L1135), monograph ×11
+      including the per-sex ranges 0.879–0.928 and 0.899–0.946, the README,
+      and the cover letter. The S009 notebook gets a dated correction note.
+    - **New guard `check_continuous_severity_band`** (21 checks) re-derives the
+      band, the per-sex ranges and both bin tables from the parquet's
+      simulated column. It requires the corrected text and bans the truncated
+      figures in five files. A negative control requires the truncated column
+      to give a different band and table.
+    - **Reinjection:** the old band put back into `paper.tex` → 2 FAIL, exit 1;
+      MD5 restored.
+    - **Rebuilt:** paper 25 p., supplement **62 p.**, and the monograph, all
+      PDF + DOCX, with no old figure rendered.
+  - **Bucket movement caused by this correction** (the register's §2 is
+    re-read from `summary.json`):
+    - The new guard pins `0.879`, `0.945`, `0.946`, `0.899` and `0.928` as
+      literals, so every occurrence of those values now lands in `guard`. That
+      includes the *documented* 0.91–0.945 zone, which the guard does not
+      check. This is the by-value limit of §2, made larger by a guard's
+      banned-string list: paper `none` 43 → 37, supplement 456 → 423,
+      monograph 846 → 806.
+    - The rows audited above were audited as `none` and stay audited.
+    - New `none` literals, each verified in the re-derivation: `0.001` and
+      `0.031` (edge gaps 0.946 − 0.945 and 0.91 − 0.879), `0.09` ×2 (Wilson
+      lower bound for 1/2), and `0.9458` (the male divergence).
 - **F-S6 — L1030: "about a dozen" distinct SHAP top-three sets.** The measured
   count is 9, in the unit that gives Morris its 25. `5a6b201` records 9–10
   across forest seeds. The imprecision runs in the conservative direction.
@@ -538,7 +580,13 @@ breathing "approximately 0.25 Hz"; a minute-ventilation "physiological norm of
 - `T1.06u`'s `manuscript_text` says "38 physiological-converged S1 runs"; it
   computes on 37, which is also what the supplement says.
 - The two provenance comments of F-S1.
-- F-S5's root cause is in `make_supp_fig_s1.py`.
+- F-S5's root cause was in `make_supp_fig_s1.py`; it is fixed with the
+  correction above.
+- `continuous_ards_sweep.py` still writes a parquet column named
+  `ards_severity_continuous` that holds the **truncated** label, because it is
+  rebuilt from the directory name. The producer was not changed and not
+  re-run: the column is left as recorded, and the new guard documents and
+  exercises the trap.
 
 **Not covered.** The supplement's `ambiguous_small` (940) and its by-value
 `guard` / `ledger` occurrences are not read here. The supplement is **not
@@ -548,9 +596,9 @@ closed**.
 
 | artefact | `none` residue | `ambiguous_small` | status |
 |---|---:|---:|---|
-| paper | 43 / 31 values | 307 | **both read row by row** (§3, §3.2). `none`: no defect. `ambiguous_small`: 57 not quantities, 248 + 2 verified, **1 wording finding, corrected** (L259, author's choice, guarded). Not closed: `guard` and `ledger` are covered by value only |
-| supplement | 456 / 214 | 940 | **`none` read row by row** (§4.1): 6 not quantities, 450 verified, **6 findings open (F-S1–F-S6)** for the author; `ambiguous_small` not yet read |
-| monograph | 846 / 348 | 1859 | not worked; inline code still costs 89 literals |
+| paper | 37 / 29 (43 / 31 when read) | 307 | **both read row by row** (§3, §3.2). `none`: no defect. `ambiguous_small`: 57 not quantities, 248 + 2 verified, **1 wording finding, corrected** (L259, author's choice, guarded). Not closed: `guard` and `ledger` are covered by value only |
+| supplement | 423 / 214 (456 when read) | 951 | **`none` read row by row** (§4.1): 6 not quantities, 450 verified; F-S5 corrected, F-S1–F-S4 and F-S6 decided by the author; `ambiguous_small` not yet read |
+| monograph | 806 / 344 | 1864 | not worked; inline code still costs 89 literals |
 
 ⚠️ **No count in this register may come from an ad-hoc pipeline.** Three
 successive `grep | cut | uniq` passes over `inventory.csv` each miscounted the

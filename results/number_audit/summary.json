@@ -4,7 +4,7 @@
     "probes": 39
   },
   "coverage_is_by_value_not_by_occurrence": true,
-  "guard_pinned_literals": 873,
+  "guard_pinned_literals": 892,
   "ledger": {
     "anchors_expected": 394,
     "anchors_run": 394,
@@ -15,12 +15,12 @@
   "per_artefact": {
     "monograph": {
       "buckets": {
-        "ambiguous_small": 1859,
-        "guard": 606,
+        "ambiguous_small": 1864,
+        "guard": 643,
         "ledger": 28,
-        "none": 846
+        "none": 806
       },
-      "distinct_unbucketed_values": 348,
+      "distinct_unbucketed_values": 344,
       "distinct_values": 560,
       "excluded": {
         "file_path": 4,
@@ -39,8 +39,8 @@
       "path": "preprint/manuscript.md",
       "recall": {
         "accounting_closes": true,
-        "literals_after_masking": 3490,
-        "literals_in_raw_text": 3745,
+        "literals_after_masking": 3492,
+        "literals_in_raw_text": 3747,
         "literals_removed_per_rule": {
           "file_path": 0,
           "line_reference": 13,
@@ -55,19 +55,19 @@
           "version": 55
         },
         "removed_by_masks": 255,
-        "retained_plus_year_like": 3490
+        "retained_plus_year_like": 3492
       },
-      "retained_occurrences": 3339
+      "retained_occurrences": 3341
     },
     "paper": {
       "buckets": {
         "ambiguous_small": 307,
-        "guard": 159,
+        "guard": 165,
         "ledger": 18,
-        "none": 43
+        "none": 37
       },
-      "distinct_unbucketed_values": 31,
-      "distinct_values": 142,
+      "distinct_unbucketed_values": 29,
+      "distinct_values": 143,
       "excluded": {
         "file_path": 3,
         "line_reference": 0,
@@ -103,13 +103,13 @@
     },
     "supplement": {
       "buckets": {
-        "ambiguous_small": 940,
-        "guard": 419,
+        "ambiguous_small": 951,
+        "guard": 455,
         "ledger": 31,
-        "none": 456
+        "none": 423
       },
       "distinct_unbucketed_values": 214,
-      "distinct_values": 478,
+      "distinct_values": 481,
       "excluded": {
         "file_path": 46,
         "line_reference": 1,
@@ -125,8 +125,8 @@
       "path": "preprint_npj/supplement.tex",
       "recall": {
         "accounting_closes": true,
-        "literals_after_masking": 1862,
-        "literals_in_raw_text": 1948,
+        "literals_after_masking": 1876,
+        "literals_in_raw_text": 1962,
         "literals_removed_per_rule": {
           "file_path": 2,
           "line_reference": 2,
@@ -139,18 +139,18 @@
           "version": 7
         },
         "removed_by_masks": 86,
-        "retained_plus_year_like": 1862
+        "retained_plus_year_like": 1876
       },
-      "retained_occurrences": 1846
+      "retained_occurrences": 1860
     }
   },
   "population_rule": "see the module docstring; exclusions are counted per artefact",
   "totals": {
-    "ambiguous_small_occurrences": 3106,
+    "ambiguous_small_occurrences": 3122,
     "distinct_values": 722,
-    "not_demonstrably_covered_occurrences": 4451,
-    "retained_occurrences": 5712,
-    "unbucketed_distinct_values": 432,
-    "unbucketed_occurrences": 1345
+    "not_demonstrably_covered_occurrences": 4388,
+    "retained_occurrences": 5728,
+    "unbucketed_distinct_values": 428,
+    "unbucketed_occurrences": 1266
   }
 }

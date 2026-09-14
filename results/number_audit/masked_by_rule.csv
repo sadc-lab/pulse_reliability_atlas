@@ -1,17 +1,17 @@
 artefact,rule,line,literal,context
 monograph,line_reference,713,9,"ying so ( , erratum of 2026-05-19, lines 9–34). The two bodies used here — male 18 yr / 67.3 kg / 180"
 monograph,line_reference,713,34,"ng so ( , erratum of 2026-05-19, lines 9–34). The two bodies used here — male 18 yr / 67.3 kg / 180 c"
-monograph,line_reference,2939,120,"( lines 120–128, Pulse ) identifies the mechanism. Pulse's VC"
-monograph,line_reference,2939,128,"( lines 120–128, Pulse ) identifies the mechanism. Pulse's VC-AC"
-monograph,line_reference,2963,810,event ( lines 810–818). At extreme ventilator settings — high Vt on a smal
-monograph,line_reference,2963,818,event ( lines 810–818). At extreme ventilator settings — high Vt on a small
-monograph,line_reference,3138,120,"nt trigger ( lines 120–128), which produces realistic patient-ventilator dyssyn"
-monograph,line_reference,3138,128,"rigger ( lines 120–128), which produces realistic patient-ventilator dyssynchro"
-monograph,line_reference,3866,41,"— referenced for adult age gate (lines 41 – 64), BMI bounds (lines 179 – 200), blood-volume form"
-monograph,line_reference,3866,64,"— referenced for adult age gate (lines 41 – 64), BMI bounds (lines 179 – 200), blood-volume formula ("
-monograph,line_reference,3867,179,"ed for adult age gate (lines 41 – 64), BMI bounds (lines 179 – 200), blood-volume formula (line 534), HR / SBP / DBP"
-monograph,line_reference,3867,200,"adult age gate (lines 41 – 64), BMI bounds (lines 179 – 200), blood-volume formula (line 534), HR / SBP / DBP acc"
-monograph,line_reference,3867,534,"BMI bounds (lines 179 – 200), blood-volume formula (line 534), HR / SBP / DBP acceptance bounds (verified by the c"
+monograph,line_reference,2943,120,"( lines 120–128, Pulse ) identifies the mechanism. Pulse's VC"
+monograph,line_reference,2943,128,"( lines 120–128, Pulse ) identifies the mechanism. Pulse's VC-AC"
+monograph,line_reference,2967,810,event ( lines 810–818). At extreme ventilator settings — high Vt on a smal
+monograph,line_reference,2967,818,event ( lines 810–818). At extreme ventilator settings — high Vt on a small
+monograph,line_reference,3142,120,"nt trigger ( lines 120–128), which produces realistic patient-ventilator dyssyn"
+monograph,line_reference,3142,128,"rigger ( lines 120–128), which produces realistic patient-ventilator dyssynchro"
+monograph,line_reference,3870,41,"— referenced for adult age gate (lines 41 – 64), BMI bounds (lines 179 – 200), blood-volume form"
+monograph,line_reference,3870,64,"— referenced for adult age gate (lines 41 – 64), BMI bounds (lines 179 – 200), blood-volume formula ("
+monograph,line_reference,3871,179,"ed for adult age gate (lines 41 – 64), BMI bounds (lines 179 – 200), blood-volume formula (line 534), HR / SBP / DBP"
+monograph,line_reference,3871,200,"adult age gate (lines 41 – 64), BMI bounds (lines 179 – 200), blood-volume formula (line 534), HR / SBP / DBP acc"
+monograph,line_reference,3871,534,"BMI bounds (lines 179 – 200), blood-volume formula (line 534), HR / SBP / DBP acceptance bounds (verified by the c"
 monograph,md_fence,1423,2.6,tector.py`: ```python # Public API; thresholds locked per §2.6. from src.detector import classify result = classify(
 monograph,md_fence,1427,5,"classify( csv_path=""path/to/pulse_output.csv"", # Pulse 5 s-sampled CSV pulse_log=open(""pulse.log"").read(), #"
 monograph,md_fence,1429,0,"""pulse.log"").read(), # stdout + stderr text exit_code=0, # container exit code ) # resul"
@@ -55,150 +55,150 @@ monograph,md_inline_code,2095,65.6,computes blood-volume baseline as `computedBl
 monograph,md_inline_code,2095,1.02,lume baseline as `computedBloodVolume_mL = 65.6 × weight_kg^1.02`. Verified against the engine's setup log on the atlas
 monograph,md_inline_code,2108,65.6,female (a ~0.4 % per-kg gap). The allometric formula `BV = 65.6 × weight_kg^1.02` scales blood volume nearly linearly w
 monograph,md_inline_code,2108,1.02,per-kg gap). The allometric formula `BV = 65.6 × weight_kg^1.02` scales blood volume nearly linearly with weight (the 1
-monograph,md_inline_code,2288,0.879,"severities). **Key takeaway:** divergences concentrate in `[0.879, 0.945]` — wider than the previously reported `[0.91,"
-monograph,md_inline_code,2288,0.945,"ies). **Key takeaway:** divergences concentrate in `[0.879, 0.945]` — wider than the previously reported `[0.91, 0.945]`"
-monograph,md_inline_code,2289,0.91,"in `[0.879, 0.945]` — wider than the previously reported `[0.91, 0.945]` zone — and are approximately sex-balanced in a"
-monograph,md_inline_code,2289,0.945,"0.879, 0.945]` — wider than the previously reported `[0.91, 0.945]` zone — and are approximately sex-balanced in aggrega"
-monograph,md_inline_code,2300,0.91,"nslation_new` E6 audit reported an instability zone at `[0.91, 0.945]`. Our continuous sweep at midrange inputs place"
-monograph,md_inline_code,2300,0.945,"on_new` E6 audit reported an instability zone at `[0.91, 0.945]`. Our continuous sweep at midrange inputs places t"
-monograph,md_inline_code,2301,0.879,"continuous sweep at midrange inputs places the band at `[0.879, 0.945]` — the lower edge moves down by 0.031, exte"
-monograph,md_inline_code,2301,0.945,"ous sweep at midrange inputs places the band at `[0.879, 0.945]` — the lower edge moves down by 0.031, extending t"
-monograph,md_inline_code,2311,0.91,"ower* severities (0.879 onwards) and M continuing into `[0.91, 0.945]`. So the original [S006](#s006) claim ""all 20 m"
-monograph,md_inline_code,2311,0.945,"severities (0.879 onwards) and M continuing into `[0.91, 0.945]`. So the original [S006](#s006) claim ""all 20 male"
-monograph,md_inline_code,2323,0.879,"09)): both sexes, midrange inputs, severity in the band `[0.879, 0.945]`. F slightly higher overall; F earlier in th"
-monograph,md_inline_code,2323,0.945,"oth sexes, midrange inputs, severity in the band `[0.879, 0.945]`. F slightly higher overall; F earlier in the band,"
-monograph,md_inline_code,2407,5,tests. The BH critical value for the 5th-ranked p-value is `5 · 0.05 / 24 ≈ 0.0104`; the 5 rows marked above all have p_
-monograph,md_inline_code,2407,0.05,s. The BH critical value for the 5th-ranked p-value is `5 · 0.05 / 24 ≈ 0.0104`; the 5 rows marked above all have p_emp
-monograph,md_inline_code,2407,24,BH critical value for the 5th-ranked p-value is `5 · 0.05 / 24 ≈ 0.0104`; the 5 rows marked above all have p_emp ≤ 0.009
-monograph,md_inline_code,2407,0.0104,itical value for the 5th-ranked p-value is `5 · 0.05 / 24 ≈ 0.0104`; the 5 rows marked above all have p_emp ≤ 0.009. The
-monograph,md_inline_code,2424,5,SpO2** (p_emp = 0.022) sits above the BH critical value of `5 · 0.05 / 24 ≈ 0.0104` for the 5th-ranked test. The correct
-monograph,md_inline_code,2424,0.05,** (p_emp = 0.022) sits above the BH critical value of `5 · 0.05 / 24 ≈ 0.0104` for the 5th-ranked test. The corrected s
-monograph,md_inline_code,2424,24,mp = 0.022) sits above the BH critical value of `5 · 0.05 / 24 ≈ 0.0104` for the 5th-ranked test. The corrected survivor
-monograph,md_inline_code,2424,0.0104,0.022) sits above the BH critical value of `5 · 0.05 / 24 ≈ 0.0104` for the 5th-ranked test. The corrected survivor coun
-monograph,md_inline_code,2887,20,"ogy-anchored bound, `HARD_BOUNDS_PHYSIOLOGICAL[""PaO2""] = (20, 700)` (anchored to the alveolar-gas-equation ceiling a"
-monograph,md_inline_code,2887,700,"anchored bound, `HARD_BOUNDS_PHYSIOLOGICAL[""PaO2""] = (20, 700)` (anchored to the alveolar-gas-equation ceiling at se"
-monograph,md_inline_code,2919,5,"sweep, 303 / 1,280 (23.7 %) Morris runs satisfy `Vt_cv > 5 %` in the [60, 120] s window. Of those, 264 / 1,280 (20."
-monograph,md_inline_code,2971,2,ut with an explicit `InspirationPatientTriggerPressure = −2 cmH2O`. Setting any explicit trigger threshold disables
-monograph,md_inline_code,3102,4.3,The default configuration in the upstream `kitware/pulse:4.3.1` image and in the `pulse-pediatric-engine` wrapper a
-monograph,md_inline_code,3140,2,"tidal volume, setting `InspirationPatientTriggerPressure = −2 cmH2O` collapses that variability (validated by [S014](#s0"
-monograph,md_inline_code,3638,2,-004) via an explicit `InspirationPatientTriggerPressure = −2 cmH2O` setting ([S014](#s014); median Vt CV collapses 0.35
-monograph,md_inline_code,3710,4.3,"s014) rebuild, 2026-04-28). Upstream base: `kitware/pulse:4.3.1`. Outputs are bit-exact across rebuilds for fixed in"
-monograph,md_inline_code,3759,4,"ed the final version. AI tooling (Claude Code, `claude-opus-4-7` for the original drafting/refactoring, `claude-opus-4-8"
-monograph,md_inline_code,3759,7,"the final version. AI tooling (Claude Code, `claude-opus-4-7` for the original drafting/refactoring, `claude-opus-4-8`,"
-monograph,md_inline_code,3759,4,"us-4-7` for the original drafting/refactoring, `claude-opus-4-8`, released 28 May 2026 and coinciding with the superviso"
-monograph,md_inline_code,3759,8,"-4-7` for the original drafting/refactoring, `claude-opus-4-8`, released 28 May 2026 and coinciding with the supervisor-"
-monograph,md_inline_code,3759,5,"he subsequent supervisor-review revisions, and `claude-opus-5` from 24 July 2026 for the in-repository calibration repli"
-monograph,md_inline_code,3788,4,"g loop described above (**Claude Code** with `claude-opus-4-7` / `claude-opus-4-8` / `claude-opus-5`, and as second"
-monograph,md_inline_code,3788,7,"loop described above (**Claude Code** with `claude-opus-4-7` / `claude-opus-4-8` / `claude-opus-5`, and as second mo"
-monograph,md_inline_code,3788,4,"ve (**Claude Code** with `claude-opus-4-7` / `claude-opus-4-8` / `claude-opus-5`, and as second model **Gemini Pro 3"
-monograph,md_inline_code,3788,8,"(**Claude Code** with `claude-opus-4-7` / `claude-opus-4-8` / `claude-opus-5`, and as second model **Gemini Pro 3.1"
-monograph,md_inline_code,3789,5,"with `claude-opus-4-7` / `claude-opus-4-8` / `claude-opus-5`, and as second model **Gemini Pro 3.1** to 2 August 202"
-monograph,md_inline_code,4461,4388,"ratoryModel::UpdatePulmonaryShunt()` (`RespiratoryModel.cpp:4388`, piecewise-linear interpolation at `:4503`), combined"
-monograph,md_inline_code,4461,4503,"iratoryModel.cpp:4388`, piecewise-linear interpolation at `:4503`), combined by a `MIN` with the ARDS damage term — not"
-monograph,md_inline_code,4466,3774,"yModel::UpdateAlveolarCompliances()` (`RespiratoryModel.cpp:3774`), with no surface-tension dependence. The consequence"
-monograph,md_inline_code,4481,13.397,"le weight coefficient as 3.397. The codebase implements `13.397` (`SetupPatient.cpp:771`), correctly aligning with"
-monograph,md_inline_code,4481,771,"397. The codebase implements `13.397` (`SetupPatient.cpp:771`), correctly aligning with the Harris-Benedict equati"
-monograph,md_inline_code,4484,0.425,"ts the weight exponent as 0.45. The codebase implements `0.425` (`SetupPatient.cpp:752`), aligning with the Du Boi"
-monograph,md_inline_code,4485,752,"0.45. The codebase implements `0.425` (`SetupPatient.cpp:752`), aligning with the Du Bois formula. 3. **Baroreceptor"
-monograph,md_inline_code,4488,320,"debase implements an effective ν = 48 (`NervousModel.cpp:320`), calculated as `4 × ResponseSlope` (where slope = 1"
-monograph,md_inline_code,4488,4,"ffective ν = 48 (`NervousModel.cpp:320`), calculated as `4 × ResponseSlope` (where slope = 12). ### B.5 Reference"
-monograph,md_inline_code,4517,163.0,ntical to Pulse's own internal `heightStandardFemale_cm = 163.0` constant (`SetupPatient.cpp` L75; cited internally
-monograph,md_inline_code,4526,177.0,not** match Pulse's own internal `heightStandardMale_cm = 177.0` constant (`SetupPatient.cpp` L72). The 180 cm value
-monograph,md_link_target,3934,10.1007,(2019). DOI: [10.1007/s42399-019-00053-w](https://doi.org/10.1007/s42399-019-00053-w). *(Author list and issue numbe
-monograph,md_link_target,3934,019,[10.1007/s42399-019-00053-w](https://doi.org/10.1007/s42399-019-00053-w). *(Author list and issue number corrected 202
-monograph,md_link_target,3934,00053,1007/s42399-019-00053-w](https://doi.org/10.1007/s42399-019-00053-w). *(Author list and issue number corrected 2026-05
-monograph,md_link_target,3944,10.1371,020). DOI: [10.1371/journal.pone.0242532](https://doi.org/10.1371/journal.pone.0242532). PMID: 33237927. * []{#ref-w
-monograph,md_link_target,4047,10.2307,2):161-174 (1991). DOI: [10.2307/1269043](https://doi.org/10.2307/1269043) / [10.1080/00401706.1991.10484804](https:
-monograph,md_link_target,4047,1269043,74 (1991). DOI: [10.2307/1269043](https://doi.org/10.2307/1269043) / [10.1080/00401706.1991.10484804](https://doi.or
-monograph,md_link_target,4048,10.1080,69043) / [10.1080/00401706.1991.10484804](https://doi.org/10.1080/00401706.1991.10484804). * []{#ref-campolongo2007} C
-monograph,md_link_target,4048,00401706.1991,[10.1080/00401706.1991.10484804](https://doi.org/10.1080/00401706.1991.10484804). * []{#ref-campolongo2007} Campolong
-monograph,md_link_target,4052,10.1016,07). DOI: [10.1016/j.envsoft.2006.10.004](https://doi.org/10.1016/j.envsoft.2006.10.004). * []{#ref-iwanaga2022} Iwana
-monograph,md_link_target,4056,10.18174,"18155 (2022). DOI: [10.18174/sesmo.18155](https://doi.org/10.18174/sesmo.18155). * []{#ref-herman2017salib} Herman J,"
-monograph,md_link_target,4059,10.21105,(9):97 (2017). DOI: [10.21105/joss.00097](https://doi.org/10.21105/joss.00097). SALib's documentation asks for both
-monograph,md_link_target,4064,10.1038,"(2020). DOI: [10.1038/s42256-019-0138-9](https://doi.org/10.1038/s42256-019-0138-9). TreeExplainer, the estimator u"
-monograph,md_link_target,4064,019,"[10.1038/s42256-019-0138-9](https://doi.org/10.1038/s42256-019-0138-9). TreeExplainer, the estimator used by the SHAP"
-monograph,md_link_target,4064,0138,".1038/s42256-019-0138-9](https://doi.org/10.1038/s42256-019-0138-9). TreeExplainer, the estimator used by the SHAP cro"
-monograph,md_link_target,4064,9,"/s42256-019-0138-9](https://doi.org/10.1038/s42256-019-0138-9). TreeExplainer, the estimator used by the SHAP cross-ch"
-monograph,md_link_target,4073,10.1001,533 (2012). DOI: [10.1001/jama.2012.5669](https://doi.org/10.1001/jama.2012.5669). PMID: 22797452. * []{#ref-emeriau
-monograph,md_link_target,4080,10.1097,023). DOI: [10.1097/PCC.0000000000003147](https://doi.org/10.1097/PCC.0000000000003147). PMID: 36661420. * []{#ref-b
-monograph,md_link_target,4088,10.1056,2000). DOI: [10.1056/NEJM200005043421801](https://doi.org/10.1056/NEJM200005043421801). PMID: 10793162. * []{#ref-fi
-monograph,md_link_target,4093,10.1513,6). DOI: [10.1513/AnnalsATS.201605-362OC](https://doi.org/10.1513/AnnalsATS.201605-362OC). PMID: 27598383. Cited in
-monograph,md_link_target,4103,10.1007,(2006). DOI: [10.1007/s00134-006-0301-8](https://doi.org/10.1007/s00134-006-0301-8). PMID: 16896854. Cited in §4.2:
-monograph,md_link_target,4103,006,[10.1007/s00134-006-0301-8](https://doi.org/10.1007/s00134-006-0301-8). PMID: 16896854. Cited in §4.2: sub-threshold
-monograph,md_link_target,4103,0301,.1007/s00134-006-0301-8](https://doi.org/10.1007/s00134-006-0301-8). PMID: 16896854. Cited in §4.2: sub-threshold insp
-monograph,md_link_target,4103,8,/s00134-006-0301-8](https://doi.org/10.1007/s00134-006-0301-8). PMID: 16896854. Cited in §4.2: sub-threshold inspirato
-monograph,md_link_target,4112,10.1007,(2015). DOI: [10.1007/s00134-015-3692-6](https://doi.org/10.1007/s00134-015-3692-6). PMID: 25693449. Cited in §4.2
-monograph,md_link_target,4112,015,"[10.1007/s00134-015-3692-6](https://doi.org/10.1007/s00134-015-3692-6). PMID: 25693449. Cited in §4.2 for ""clinically"
-monograph,md_link_target,4112,3692,".1007/s00134-015-3692-6](https://doi.org/10.1007/s00134-015-3692-6). PMID: 25693449. Cited in §4.2 for ""clinically und"
-monograph,md_link_target,4112,6,"/s00134-015-3692-6](https://doi.org/10.1007/s00134-015-3692-6). PMID: 25693449. Cited in §4.2 for ""clinically undesira"
-monograph,md_link_target,4121,10.1164,(2014). DOI: [10.1164/rccm.201312-2193CI](https://doi.org/10.1164/rccm.201312-2193CI). PMID: 24467647. Cited in §4.2
-monograph,md_link_target,4127,10.1038,(12):1433-1436 (1999). DOI: [10.1038/71012](https://doi.org/10.1038/71012). PMID: 10581089. Cited in §4.2: diaphragm e
-monograph,md_link_target,4127,71012,3-1436 (1999). DOI: [10.1038/71012](https://doi.org/10.1038/71012). PMID: 10581089. Cited in §4.2: diaphragm electrica
-monograph,md_link_target,4136,10.1038,0018 (2016). DOI: [10.1038/sdata.2016.18](https://doi.org/10.1038/sdata.2016.18). PMID: 26978244. * []{#ref-munafo20
-monograph,md_link_target,4142,10.1038,21 (2017). DOI: [10.1038/s41562-016-0021](https://doi.org/10.1038/s41562-016-0021). **Critical-care and respiratory-p
-monograph,md_link_target,4142,016,[10.1038/s41562-016-0021](https://doi.org/10.1038/s41562-016-0021). **Critical-care and respiratory-physiology refer
-monograph,md_link_target,4142,0021,10.1038/s41562-016-0021](https://doi.org/10.1038/s41562-016-0021). **Critical-care and respiratory-physiology reference
-monograph,md_link_target,4150,10.1152,1979). DOI: [10.1152/jappl.1979.46.3.599](https://doi.org/10.1152/jappl.1979.46.3.599). PMID: 35496. Oxyhemoglobin d
-monograph,md_link_target,4157,10.1001,810 (2016). DOI: [10.1001/jama.2016.0287](https://doi.org/10.1001/jama.2016.0287). PMID: 26903338. Vasopressor-depen
-monograph,md_link_target,4164,10.1097,021). DOI: [10.1097/CCM.0000000000005337](https://doi.org/10.1097/CCM.0000000000005337). PMID: 34605781. Internation
-monograph,md_link_target,4171,10.1097,023). DOI: [10.1097/HJH.0000000000003480](https://doi.org/10.1097/HJH.0000000000003480). PMID: 37345492. Hypertensiv
-monograph,md_link_target,4179,10.1007,(2017). DOI: [10.1007/s00134-016-4611-1](https://doi.org/10.1007/s00134-016-4611-1). PMID: 28108768. Maximum-PaCO2
-monograph,md_link_target,4179,016,[10.1007/s00134-016-4611-1](https://doi.org/10.1007/s00134-016-4611-1). PMID: 28108768. Maximum-PaCO2 distribution in
-monograph,md_link_target,4179,4611,".1007/s00134-016-4611-1](https://doi.org/10.1007/s00134-016-4611-1). PMID: 28108768. Maximum-PaCO2 distribution in 1,8"
-monograph,md_link_target,4179,1,"/s00134-016-4611-1](https://doi.org/10.1007/s00134-016-4611-1). PMID: 28108768. Maximum-PaCO2 distribution in 1,899 AR"
+monograph,md_inline_code,2290,0.879,"nfiguration. **Key takeaway:** divergences concentrate in `[0.879, 0.946]`, the smallest 3-decimal interval containing e"
+monograph,md_inline_code,2290,0.946,"tion. **Key takeaway:** divergences concentrate in `[0.879, 0.946]`, the smallest 3-decimal interval containing every di"
+monograph,md_inline_code,2292,0.91,"g every diverged run — wider than the previously reported `[0.91, 0.945]` zone — and are approximately sex-balanced in a"
+monograph,md_inline_code,2292,0.945,"y diverged run — wider than the previously reported `[0.91, 0.945]` zone — and are approximately sex-balanced in aggrega"
+monograph,md_inline_code,2303,0.91,"nslation_new` E6 audit reported an instability zone at `[0.91, 0.945]`. Our continuous sweep at midrange inputs place"
+monograph,md_inline_code,2303,0.945,"on_new` E6 audit reported an instability zone at `[0.91, 0.945]`. Our continuous sweep at midrange inputs places t"
+monograph,md_inline_code,2304,0.879,"continuous sweep at midrange inputs places the band at `[0.879, 0.946]` — the lower edge moves down by 0.031 and t"
+monograph,md_inline_code,2304,0.946,"ous sweep at midrange inputs places the band at `[0.879, 0.946]` — the lower edge moves down by 0.031 and the uppe"
+monograph,md_inline_code,2315,0.91,"r* severities (0.879 onwards) and M continuing through `[0.91, 0.946]`. So the original [S006](#s006) claim ""all 20 m"
+monograph,md_inline_code,2315,0.946,"erities (0.879 onwards) and M continuing through `[0.91, 0.946]`. So the original [S006](#s006) claim ""all 20 male"
+monograph,md_inline_code,2327,0.879,"09)): both sexes, midrange inputs, severity in the band `[0.879, 0.946]`. F slightly higher overall; F earlier in th"
+monograph,md_inline_code,2327,0.946,"oth sexes, midrange inputs, severity in the band `[0.879, 0.946]`. F slightly higher overall; F earlier in the band,"
+monograph,md_inline_code,2411,5,tests. The BH critical value for the 5th-ranked p-value is `5 · 0.05 / 24 ≈ 0.0104`; the 5 rows marked above all have p_
+monograph,md_inline_code,2411,0.05,s. The BH critical value for the 5th-ranked p-value is `5 · 0.05 / 24 ≈ 0.0104`; the 5 rows marked above all have p_emp
+monograph,md_inline_code,2411,24,BH critical value for the 5th-ranked p-value is `5 · 0.05 / 24 ≈ 0.0104`; the 5 rows marked above all have p_emp ≤ 0.009
+monograph,md_inline_code,2411,0.0104,itical value for the 5th-ranked p-value is `5 · 0.05 / 24 ≈ 0.0104`; the 5 rows marked above all have p_emp ≤ 0.009. The
+monograph,md_inline_code,2428,5,SpO2** (p_emp = 0.022) sits above the BH critical value of `5 · 0.05 / 24 ≈ 0.0104` for the 5th-ranked test. The correct
+monograph,md_inline_code,2428,0.05,** (p_emp = 0.022) sits above the BH critical value of `5 · 0.05 / 24 ≈ 0.0104` for the 5th-ranked test. The corrected s
+monograph,md_inline_code,2428,24,mp = 0.022) sits above the BH critical value of `5 · 0.05 / 24 ≈ 0.0104` for the 5th-ranked test. The corrected survivor
+monograph,md_inline_code,2428,0.0104,0.022) sits above the BH critical value of `5 · 0.05 / 24 ≈ 0.0104` for the 5th-ranked test. The corrected survivor coun
+monograph,md_inline_code,2891,20,"ogy-anchored bound, `HARD_BOUNDS_PHYSIOLOGICAL[""PaO2""] = (20, 700)` (anchored to the alveolar-gas-equation ceiling a"
+monograph,md_inline_code,2891,700,"anchored bound, `HARD_BOUNDS_PHYSIOLOGICAL[""PaO2""] = (20, 700)` (anchored to the alveolar-gas-equation ceiling at se"
+monograph,md_inline_code,2923,5,"sweep, 303 / 1,280 (23.7 %) Morris runs satisfy `Vt_cv > 5 %` in the [60, 120] s window. Of those, 264 / 1,280 (20."
+monograph,md_inline_code,2975,2,ut with an explicit `InspirationPatientTriggerPressure = −2 cmH2O`. Setting any explicit trigger threshold disables
+monograph,md_inline_code,3106,4.3,The default configuration in the upstream `kitware/pulse:4.3.1` image and in the `pulse-pediatric-engine` wrapper a
+monograph,md_inline_code,3144,2,"tidal volume, setting `InspirationPatientTriggerPressure = −2 cmH2O` collapses that variability (validated by [S014](#s0"
+monograph,md_inline_code,3642,2,-004) via an explicit `InspirationPatientTriggerPressure = −2 cmH2O` setting ([S014](#s014); median Vt CV collapses 0.35
+monograph,md_inline_code,3714,4.3,"s014) rebuild, 2026-04-28). Upstream base: `kitware/pulse:4.3.1`. Outputs are bit-exact across rebuilds for fixed in"
+monograph,md_inline_code,3763,4,"ed the final version. AI tooling (Claude Code, `claude-opus-4-7` for the original drafting/refactoring, `claude-opus-4-8"
+monograph,md_inline_code,3763,7,"the final version. AI tooling (Claude Code, `claude-opus-4-7` for the original drafting/refactoring, `claude-opus-4-8`,"
+monograph,md_inline_code,3763,4,"us-4-7` for the original drafting/refactoring, `claude-opus-4-8`, released 28 May 2026 and coinciding with the superviso"
+monograph,md_inline_code,3763,8,"-4-7` for the original drafting/refactoring, `claude-opus-4-8`, released 28 May 2026 and coinciding with the supervisor-"
+monograph,md_inline_code,3763,5,"he subsequent supervisor-review revisions, and `claude-opus-5` from 24 July 2026 for the in-repository calibration repli"
+monograph,md_inline_code,3792,4,"g loop described above (**Claude Code** with `claude-opus-4-7` / `claude-opus-4-8` / `claude-opus-5`, and as second"
+monograph,md_inline_code,3792,7,"loop described above (**Claude Code** with `claude-opus-4-7` / `claude-opus-4-8` / `claude-opus-5`, and as second mo"
+monograph,md_inline_code,3792,4,"ve (**Claude Code** with `claude-opus-4-7` / `claude-opus-4-8` / `claude-opus-5`, and as second model **Gemini Pro 3"
+monograph,md_inline_code,3792,8,"(**Claude Code** with `claude-opus-4-7` / `claude-opus-4-8` / `claude-opus-5`, and as second model **Gemini Pro 3.1"
+monograph,md_inline_code,3793,5,"with `claude-opus-4-7` / `claude-opus-4-8` / `claude-opus-5`, and as second model **Gemini Pro 3.1** to 2 August 202"
+monograph,md_inline_code,4465,4388,"ratoryModel::UpdatePulmonaryShunt()` (`RespiratoryModel.cpp:4388`, piecewise-linear interpolation at `:4503`), combined"
+monograph,md_inline_code,4465,4503,"iratoryModel.cpp:4388`, piecewise-linear interpolation at `:4503`), combined by a `MIN` with the ARDS damage term — not"
+monograph,md_inline_code,4470,3774,"yModel::UpdateAlveolarCompliances()` (`RespiratoryModel.cpp:3774`), with no surface-tension dependence. The consequence"
+monograph,md_inline_code,4485,13.397,"le weight coefficient as 3.397. The codebase implements `13.397` (`SetupPatient.cpp:771`), correctly aligning with"
+monograph,md_inline_code,4485,771,"397. The codebase implements `13.397` (`SetupPatient.cpp:771`), correctly aligning with the Harris-Benedict equati"
+monograph,md_inline_code,4488,0.425,"ts the weight exponent as 0.45. The codebase implements `0.425` (`SetupPatient.cpp:752`), aligning with the Du Boi"
+monograph,md_inline_code,4489,752,"0.45. The codebase implements `0.425` (`SetupPatient.cpp:752`), aligning with the Du Bois formula. 3. **Baroreceptor"
+monograph,md_inline_code,4492,320,"debase implements an effective ν = 48 (`NervousModel.cpp:320`), calculated as `4 × ResponseSlope` (where slope = 1"
+monograph,md_inline_code,4492,4,"ffective ν = 48 (`NervousModel.cpp:320`), calculated as `4 × ResponseSlope` (where slope = 12). ### B.5 Reference"
+monograph,md_inline_code,4521,163.0,ntical to Pulse's own internal `heightStandardFemale_cm = 163.0` constant (`SetupPatient.cpp` L75; cited internally
+monograph,md_inline_code,4530,177.0,not** match Pulse's own internal `heightStandardMale_cm = 177.0` constant (`SetupPatient.cpp` L72). The 180 cm value
+monograph,md_link_target,3938,10.1007,(2019). DOI: [10.1007/s42399-019-00053-w](https://doi.org/10.1007/s42399-019-00053-w). *(Author list and issue numbe
+monograph,md_link_target,3938,019,[10.1007/s42399-019-00053-w](https://doi.org/10.1007/s42399-019-00053-w). *(Author list and issue number corrected 202
+monograph,md_link_target,3938,00053,1007/s42399-019-00053-w](https://doi.org/10.1007/s42399-019-00053-w). *(Author list and issue number corrected 2026-05
+monograph,md_link_target,3948,10.1371,020). DOI: [10.1371/journal.pone.0242532](https://doi.org/10.1371/journal.pone.0242532). PMID: 33237927. * []{#ref-w
+monograph,md_link_target,4051,10.2307,2):161-174 (1991). DOI: [10.2307/1269043](https://doi.org/10.2307/1269043) / [10.1080/00401706.1991.10484804](https:
+monograph,md_link_target,4051,1269043,74 (1991). DOI: [10.2307/1269043](https://doi.org/10.2307/1269043) / [10.1080/00401706.1991.10484804](https://doi.or
+monograph,md_link_target,4052,10.1080,69043) / [10.1080/00401706.1991.10484804](https://doi.org/10.1080/00401706.1991.10484804). * []{#ref-campolongo2007} C
+monograph,md_link_target,4052,00401706.1991,[10.1080/00401706.1991.10484804](https://doi.org/10.1080/00401706.1991.10484804). * []{#ref-campolongo2007} Campolong
+monograph,md_link_target,4056,10.1016,07). DOI: [10.1016/j.envsoft.2006.10.004](https://doi.org/10.1016/j.envsoft.2006.10.004). * []{#ref-iwanaga2022} Iwana
+monograph,md_link_target,4060,10.18174,"18155 (2022). DOI: [10.18174/sesmo.18155](https://doi.org/10.18174/sesmo.18155). * []{#ref-herman2017salib} Herman J,"
+monograph,md_link_target,4063,10.21105,(9):97 (2017). DOI: [10.21105/joss.00097](https://doi.org/10.21105/joss.00097). SALib's documentation asks for both
+monograph,md_link_target,4068,10.1038,"(2020). DOI: [10.1038/s42256-019-0138-9](https://doi.org/10.1038/s42256-019-0138-9). TreeExplainer, the estimator u"
+monograph,md_link_target,4068,019,"[10.1038/s42256-019-0138-9](https://doi.org/10.1038/s42256-019-0138-9). TreeExplainer, the estimator used by the SHAP"
+monograph,md_link_target,4068,0138,".1038/s42256-019-0138-9](https://doi.org/10.1038/s42256-019-0138-9). TreeExplainer, the estimator used by the SHAP cro"
+monograph,md_link_target,4068,9,"/s42256-019-0138-9](https://doi.org/10.1038/s42256-019-0138-9). TreeExplainer, the estimator used by the SHAP cross-ch"
+monograph,md_link_target,4077,10.1001,533 (2012). DOI: [10.1001/jama.2012.5669](https://doi.org/10.1001/jama.2012.5669). PMID: 22797452. * []{#ref-emeriau
+monograph,md_link_target,4084,10.1097,023). DOI: [10.1097/PCC.0000000000003147](https://doi.org/10.1097/PCC.0000000000003147). PMID: 36661420. * []{#ref-b
+monograph,md_link_target,4092,10.1056,2000). DOI: [10.1056/NEJM200005043421801](https://doi.org/10.1056/NEJM200005043421801). PMID: 10793162. * []{#ref-fi
+monograph,md_link_target,4097,10.1513,6). DOI: [10.1513/AnnalsATS.201605-362OC](https://doi.org/10.1513/AnnalsATS.201605-362OC). PMID: 27598383. Cited in
+monograph,md_link_target,4107,10.1007,(2006). DOI: [10.1007/s00134-006-0301-8](https://doi.org/10.1007/s00134-006-0301-8). PMID: 16896854. Cited in §4.2:
+monograph,md_link_target,4107,006,[10.1007/s00134-006-0301-8](https://doi.org/10.1007/s00134-006-0301-8). PMID: 16896854. Cited in §4.2: sub-threshold
+monograph,md_link_target,4107,0301,.1007/s00134-006-0301-8](https://doi.org/10.1007/s00134-006-0301-8). PMID: 16896854. Cited in §4.2: sub-threshold insp
+monograph,md_link_target,4107,8,/s00134-006-0301-8](https://doi.org/10.1007/s00134-006-0301-8). PMID: 16896854. Cited in §4.2: sub-threshold inspirato
+monograph,md_link_target,4116,10.1007,(2015). DOI: [10.1007/s00134-015-3692-6](https://doi.org/10.1007/s00134-015-3692-6). PMID: 25693449. Cited in §4.2
+monograph,md_link_target,4116,015,"[10.1007/s00134-015-3692-6](https://doi.org/10.1007/s00134-015-3692-6). PMID: 25693449. Cited in §4.2 for ""clinically"
+monograph,md_link_target,4116,3692,".1007/s00134-015-3692-6](https://doi.org/10.1007/s00134-015-3692-6). PMID: 25693449. Cited in §4.2 for ""clinically und"
+monograph,md_link_target,4116,6,"/s00134-015-3692-6](https://doi.org/10.1007/s00134-015-3692-6). PMID: 25693449. Cited in §4.2 for ""clinically undesira"
+monograph,md_link_target,4125,10.1164,(2014). DOI: [10.1164/rccm.201312-2193CI](https://doi.org/10.1164/rccm.201312-2193CI). PMID: 24467647. Cited in §4.2
+monograph,md_link_target,4131,10.1038,(12):1433-1436 (1999). DOI: [10.1038/71012](https://doi.org/10.1038/71012). PMID: 10581089. Cited in §4.2: diaphragm e
+monograph,md_link_target,4131,71012,3-1436 (1999). DOI: [10.1038/71012](https://doi.org/10.1038/71012). PMID: 10581089. Cited in §4.2: diaphragm electrica
+monograph,md_link_target,4140,10.1038,0018 (2016). DOI: [10.1038/sdata.2016.18](https://doi.org/10.1038/sdata.2016.18). PMID: 26978244. * []{#ref-munafo20
+monograph,md_link_target,4146,10.1038,21 (2017). DOI: [10.1038/s41562-016-0021](https://doi.org/10.1038/s41562-016-0021). **Critical-care and respiratory-p
+monograph,md_link_target,4146,016,[10.1038/s41562-016-0021](https://doi.org/10.1038/s41562-016-0021). **Critical-care and respiratory-physiology refer
+monograph,md_link_target,4146,0021,10.1038/s41562-016-0021](https://doi.org/10.1038/s41562-016-0021). **Critical-care and respiratory-physiology reference
+monograph,md_link_target,4154,10.1152,1979). DOI: [10.1152/jappl.1979.46.3.599](https://doi.org/10.1152/jappl.1979.46.3.599). PMID: 35496. Oxyhemoglobin d
+monograph,md_link_target,4161,10.1001,810 (2016). DOI: [10.1001/jama.2016.0287](https://doi.org/10.1001/jama.2016.0287). PMID: 26903338. Vasopressor-depen
+monograph,md_link_target,4168,10.1097,021). DOI: [10.1097/CCM.0000000000005337](https://doi.org/10.1097/CCM.0000000000005337). PMID: 34605781. Internation
+monograph,md_link_target,4175,10.1097,023). DOI: [10.1097/HJH.0000000000003480](https://doi.org/10.1097/HJH.0000000000003480). PMID: 37345492. Hypertensiv
+monograph,md_link_target,4183,10.1007,(2017). DOI: [10.1007/s00134-016-4611-1](https://doi.org/10.1007/s00134-016-4611-1). PMID: 28108768. Maximum-PaCO2
+monograph,md_link_target,4183,016,[10.1007/s00134-016-4611-1](https://doi.org/10.1007/s00134-016-4611-1). PMID: 28108768. Maximum-PaCO2 distribution in
+monograph,md_link_target,4183,4611,".1007/s00134-016-4611-1](https://doi.org/10.1007/s00134-016-4611-1). PMID: 28108768. Maximum-PaCO2 distribution in 1,8"
+monograph,md_link_target,4183,1,"/s00134-016-4611-1](https://doi.org/10.1007/s00134-016-4611-1). PMID: 28108768. Maximum-PaCO2 distribution in 1,899 AR"
 monograph,org_identifier,20,3450,"rics, Children Hospital, CHRU Nancy, Nancy, France. ^5^ UR 3450 DevAH, Université de Lorraine, Nancy, France. ^6^ Univ"
 monograph,org_identifier,22,1256,"e, Nancy, France. ^6^ Université de Lorraine, INSERM UMR_S 1256, Nutrition-Génétique et Exposition aux Risques Environn"
-monograph,product_version,3759,5.6,"Pro 3.1 up to 2 August 2026 and against OpenAI ChatGPT (GPT-5.6 Sol, High reasoning level) from 3 August 2026) provided"
-monograph,product_version,3773,4.7,"nguage models under direct supervision by S.N.: Claude Opus 4.7/4.8, and from 24 July 2026 Claude Opus 5 (Anthropic), us"
-monograph,product_version,3774,5,".N.: Claude Opus 4.7/4.8, and from 24 July 2026 Claude Opus 5 (Anthropic), used locally through the Claude Code agent at"
-monograph,product_version,3779,5.6,"st 2026, replaced from 3 August 2026 by OpenAI ChatGPT (GPT-5.6 Sol, High reasoning level, browser session), with no fur"
-monograph,product_version,3790,5.6,"Pro 3.1** to 2 August 2026, then **OpenAI ChatGPT** (GPT-5.6 Sol, High reasoning level)). Every AI-assisted code ch"
-monograph,product_version,3800,5.6,"as second model to 2 August 2026 and OpenAI ChatGPT (GPT-5.6 Sol, High reasoning level) thereafter). All scientific"
-monograph,product_version,4053,2.0,"ef-iwanaga2022} Iwanaga T, Usher W, Herman J. *Toward SALib 2.0: Advancing the accessibility and interpretability of g"
+monograph,product_version,3763,5.6,"Pro 3.1 up to 2 August 2026 and against OpenAI ChatGPT (GPT-5.6 Sol, High reasoning level) from 3 August 2026) provided"
+monograph,product_version,3777,4.7,"nguage models under direct supervision by S.N.: Claude Opus 4.7/4.8, and from 24 July 2026 Claude Opus 5 (Anthropic), us"
+monograph,product_version,3778,5,".N.: Claude Opus 4.7/4.8, and from 24 July 2026 Claude Opus 5 (Anthropic), used locally through the Claude Code agent at"
+monograph,product_version,3783,5.6,"st 2026, replaced from 3 August 2026 by OpenAI ChatGPT (GPT-5.6 Sol, High reasoning level, browser session), with no fur"
+monograph,product_version,3794,5.6,"Pro 3.1** to 2 August 2026, then **OpenAI ChatGPT** (GPT-5.6 Sol, High reasoning level)). Every AI-assisted code ch"
+monograph,product_version,3804,5.6,"as second model to 2 August 2026 and OpenAI ChatGPT (GPT-5.6 Sol, High reasoning level) thereafter). All scientific"
+monograph,product_version,4057,2.0,"ef-iwanaga2022} Iwanaga T, Usher W, Herman J. *Toward SALib 2.0: Advancing the accessibility and interpretability of g"
 monograph,ref_or_machinery,7,0.92,hanks{\LARGE\@title\par}\vskip 1.5em{\large\begin{minipage}{0.92\textwidth}\centering\@author\end{minipage}\par}\vskip 1
 monograph,typeset_length,7,1,\let\footnote\thanks{\LARGE\@title\par}\vskip 1.5em{\large \centering\@auth
-monograph,url_or_doi,3934,10.1007,prehensive Clinical Medicine 1(5):362-377 (2019). DOI: [10.1007/s42399-019-00053-w
-monograph,url_or_doi,3934,019,ical Medicine 1(5):362-377 (2019). DOI: [10.1007/s42399-019-00053-w .
-monograph,url_or_doi,3934,00053,Medicine 1(5):362-377 (2019). DOI: [10.1007/s42399-019-00053-w . *(Au
-monograph,url_or_doi,3944,10.1371,hysiology Engine.* PLoS One 15(11):e0242532 (2020). DOI: [10.1371/journal.pone.0242532
-monograph,url_or_doi,4047,10.2307,experiments.* Technometrics 33(2):161-174 (1991). DOI: [10.2307/1269043 / [10.10
-monograph,url_or_doi,4047,1269043,ments.* Technometrics 33(2):161-174 (1991). DOI: [10.2307/1269043 / [10.1080/00401
-monograph,url_or_doi,4048,10.1080,: [10.2307/1269043 / [10.1080/00401706.1991.10484804
-monograph,url_or_doi,4048,00401706.1991,2307/1269043 / [10.1080/00401706.1991.10484804
-monograph,url_or_doi,4052,10.1016,tal Modelling & Software 22(10):1509-1518 (2007). DOI: [10.1016/j.envsoft.2006.10.004
-monograph,url_or_doi,4056,10.18174,cio-Environmental Systems Modelling 4:18155 (2022). DOI: [10.18174/sesmo.18155 .
-monograph,url_or_doi,4059,10.21105,s.* Journal of Open Source Software 2(9):97 (2017). DOI: [10.21105/joss.00097 .
-monograph,url_or_doi,4064,10.1038,es.* Nature Machine Intelligence 2(1):56-67 (2020). DOI: [10.1038/s42256-019-0138-9
-monograph,url_or_doi,4064,019,hine Intelligence 2(1):56-67 (2020). DOI: [10.1038/s42256-019-0138-9 . Tr
-monograph,url_or_doi,4064,0138,Intelligence 2(1):56-67 (2020). DOI: [10.1038/s42256-019-0138-9 . TreeEx
-monograph,url_or_doi,4064,9,lligence 2(1):56-67 (2020). DOI: [10.1038/s42256-019-0138-9 . TreeExplain
-monograph,url_or_doi,4073,10.1001,erlin Definition.* JAMA 307(23):2526-2533 (2012). DOI: [10.1001/jama.2012.5669
-monograph,url_or_doi,4080,10.1097,tric Critical Care Medicine 24(2):143-168 (2023). DOI: [10.1097/PCC.0000000000003147
-monograph,url_or_doi,4088,10.1056,and Journal of Medicine 342(18):1301-1308 (2000). DOI: [10.1056/NEJM200005043421801
-monograph,url_or_doi,4093,10.1513,American Thoracic Society 13(12):2207-2214 (2016). DOI: [10.1513/AnnalsATS.201605-362OC
-monograph,url_or_doi,4103,10.1007,Intensive Care Medicine 32(10):1515-1522 (2006). DOI: [10.1007/s00134-006-0301-8
-monograph,url_or_doi,4103,006,re Medicine 32(10):1515-1522 (2006). DOI: [10.1007/s00134-006-0301-8 . PM
-monograph,url_or_doi,4103,0301,edicine 32(10):1515-1522 (2006). DOI: [10.1007/s00134-006-0301-8 . PMID:
-monograph,url_or_doi,4103,8,ne 32(10):1515-1522 (2006). DOI: [10.1007/s00134-006-0301-8 . PMID: 16896
-monograph,url_or_doi,4112,10.1007,y.* Intensive Care Medicine 41(4):633-641 (2015). DOI: [10.1007/s00134-015-3692-6
-monograph,url_or_doi,4112,015,are Medicine 41(4):633-641 (2015). DOI: [10.1007/s00134-015-3692-6 . PM
-monograph,url_or_doi,4112,3692,Medicine 41(4):633-641 (2015). DOI: [10.1007/s00134-015-3692-6 . PMID:
-monograph,url_or_doi,4112,6,icine 41(4):633-641 (2015). DOI: [10.1007/s00134-015-3692-6 . PMID: 25693
-monograph,url_or_doi,4121,10.1164,and Critical Care Medicine 189(5):520-531 (2014). DOI: [10.1164/rccm.201312-2193CI
-monograph,url_or_doi,4127,10.1038,y failure.* Nature Medicine 5(12):1433-1436 (1999). DOI: [10.1038/71012 . PMID: 10581
-monograph,url_or_doi,4127,71012,e.* Nature Medicine 5(12):1433-1436 (1999). DOI: [10.1038/71012 . PMID: 10581089. Cit
-monograph,url_or_doi,4136,10.1038,nd stewardship.* Scientific Data 3:160018 (2016). DOI: [10.1038/sdata.2016.18
-monograph,url_or_doi,4142,10.1038,cience.* Nature Human Behaviour 1(1):0021 (2017). DOI: [10.1038/s41562-016-0021
-monograph,url_or_doi,4142,016,Human Behaviour 1(1):0021 (2017). DOI: [10.1038/s41562-016-0021 . **Criti
-monograph,url_or_doi,4142,0021,an Behaviour 1(1):0021 (2017). DOI: [10.1038/s41562-016-0021 . **Critical-
-monograph,url_or_doi,4150,10.1152,tal and Exercise Physiology 46(3):599-602 (1979). DOI: [10.1152/jappl.1979.46.3.599
-monograph,url_or_doi,4157,10.1001,ptic Shock (Sepsis-3).* JAMA 315(8):801-810 (2016). DOI: [10.1001/jama.2016.0287
-monograph,url_or_doi,4164,10.1097,Critical Care Medicine 49(11):e1063-e1143 (2021). DOI: [10.1097/CCM.0000000000005337
-monograph,url_or_doi,4171,10.1097,Journal of Hypertension 41(12):1874-2071 (2023). DOI: [10.1097/HJH.0000000000003480
-monograph,url_or_doi,4179,10.1007,ome.* Intensive Care Medicine 43(2):200-208 (2017). DOI: [10.1007/s00134-016-4611-1
-monograph,url_or_doi,4179,016,Care Medicine 43(2):200-208 (2017). DOI: [10.1007/s00134-016-4611-1 . PM
-monograph,url_or_doi,4179,4611,e Medicine 43(2):200-208 (2017). DOI: [10.1007/s00134-016-4611-1 . PMID:
-monograph,url_or_doi,4179,1,icine 43(2):200-208 (2017). DOI: [10.1007/s00134-016-4611-1 . PMID: 28108
+monograph,url_or_doi,3938,10.1007,prehensive Clinical Medicine 1(5):362-377 (2019). DOI: [10.1007/s42399-019-00053-w
+monograph,url_or_doi,3938,019,ical Medicine 1(5):362-377 (2019). DOI: [10.1007/s42399-019-00053-w .
+monograph,url_or_doi,3938,00053,Medicine 1(5):362-377 (2019). DOI: [10.1007/s42399-019-00053-w . *(Au
+monograph,url_or_doi,3948,10.1371,hysiology Engine.* PLoS One 15(11):e0242532 (2020). DOI: [10.1371/journal.pone.0242532
+monograph,url_or_doi,4051,10.2307,experiments.* Technometrics 33(2):161-174 (1991). DOI: [10.2307/1269043 / [10.10
+monograph,url_or_doi,4051,1269043,ments.* Technometrics 33(2):161-174 (1991). DOI: [10.2307/1269043 / [10.1080/00401
+monograph,url_or_doi,4052,10.1080,: [10.2307/1269043 / [10.1080/00401706.1991.10484804
+monograph,url_or_doi,4052,00401706.1991,2307/1269043 / [10.1080/00401706.1991.10484804
+monograph,url_or_doi,4056,10.1016,tal Modelling & Software 22(10):1509-1518 (2007). DOI: [10.1016/j.envsoft.2006.10.004
+monograph,url_or_doi,4060,10.18174,cio-Environmental Systems Modelling 4:18155 (2022). DOI: [10.18174/sesmo.18155 .
+monograph,url_or_doi,4063,10.21105,s.* Journal of Open Source Software 2(9):97 (2017). DOI: [10.21105/joss.00097 .
+monograph,url_or_doi,4068,10.1038,es.* Nature Machine Intelligence 2(1):56-67 (2020). DOI: [10.1038/s42256-019-0138-9
+monograph,url_or_doi,4068,019,hine Intelligence 2(1):56-67 (2020). DOI: [10.1038/s42256-019-0138-9 . Tr
+monograph,url_or_doi,4068,0138,Intelligence 2(1):56-67 (2020). DOI: [10.1038/s42256-019-0138-9 . TreeEx
+monograph,url_or_doi,4068,9,lligence 2(1):56-67 (2020). DOI: [10.1038/s42256-019-0138-9 . TreeExplain
+monograph,url_or_doi,4077,10.1001,erlin Definition.* JAMA 307(23):2526-2533 (2012). DOI: [10.1001/jama.2012.5669
+monograph,url_or_doi,4084,10.1097,tric Critical Care Medicine 24(2):143-168 (2023). DOI: [10.1097/PCC.0000000000003147
+monograph,url_or_doi,4092,10.1056,and Journal of Medicine 342(18):1301-1308 (2000). DOI: [10.1056/NEJM200005043421801
+monograph,url_or_doi,4097,10.1513,American Thoracic Society 13(12):2207-2214 (2016). DOI: [10.1513/AnnalsATS.201605-362OC
+monograph,url_or_doi,4107,10.1007,Intensive Care Medicine 32(10):1515-1522 (2006). DOI: [10.1007/s00134-006-0301-8
+monograph,url_or_doi,4107,006,re Medicine 32(10):1515-1522 (2006). DOI: [10.1007/s00134-006-0301-8 . PM
+monograph,url_or_doi,4107,0301,edicine 32(10):1515-1522 (2006). DOI: [10.1007/s00134-006-0301-8 . PMID:
+monograph,url_or_doi,4107,8,ne 32(10):1515-1522 (2006). DOI: [10.1007/s00134-006-0301-8 . PMID: 16896
+monograph,url_or_doi,4116,10.1007,y.* Intensive Care Medicine 41(4):633-641 (2015). DOI: [10.1007/s00134-015-3692-6
+monograph,url_or_doi,4116,015,are Medicine 41(4):633-641 (2015). DOI: [10.1007/s00134-015-3692-6 . PM
+monograph,url_or_doi,4116,3692,Medicine 41(4):633-641 (2015). DOI: [10.1007/s00134-015-3692-6 . PMID:
+monograph,url_or_doi,4116,6,icine 41(4):633-641 (2015). DOI: [10.1007/s00134-015-3692-6 . PMID: 25693
+monograph,url_or_doi,4125,10.1164,and Critical Care Medicine 189(5):520-531 (2014). DOI: [10.1164/rccm.201312-2193CI
+monograph,url_or_doi,4131,10.1038,y failure.* Nature Medicine 5(12):1433-1436 (1999). DOI: [10.1038/71012 . PMID: 10581
+monograph,url_or_doi,4131,71012,e.* Nature Medicine 5(12):1433-1436 (1999). DOI: [10.1038/71012 . PMID: 10581089. Cit
+monograph,url_or_doi,4140,10.1038,nd stewardship.* Scientific Data 3:160018 (2016). DOI: [10.1038/sdata.2016.18
+monograph,url_or_doi,4146,10.1038,cience.* Nature Human Behaviour 1(1):0021 (2017). DOI: [10.1038/s41562-016-0021
+monograph,url_or_doi,4146,016,Human Behaviour 1(1):0021 (2017). DOI: [10.1038/s41562-016-0021 . **Criti
+monograph,url_or_doi,4146,0021,an Behaviour 1(1):0021 (2017). DOI: [10.1038/s41562-016-0021 . **Critical-
+monograph,url_or_doi,4154,10.1152,tal and Exercise Physiology 46(3):599-602 (1979). DOI: [10.1152/jappl.1979.46.3.599
+monograph,url_or_doi,4161,10.1001,ptic Shock (Sepsis-3).* JAMA 315(8):801-810 (2016). DOI: [10.1001/jama.2016.0287
+monograph,url_or_doi,4168,10.1097,Critical Care Medicine 49(11):e1063-e1143 (2021). DOI: [10.1097/CCM.0000000000005337
+monograph,url_or_doi,4175,10.1097,Journal of Hypertension 41(12):1874-2071 (2023). DOI: [10.1097/HJH.0000000000003480
+monograph,url_or_doi,4183,10.1007,ome.* Intensive Care Medicine 43(2):200-208 (2017). DOI: [10.1007/s00134-016-4611-1
+monograph,url_or_doi,4183,016,Care Medicine 43(2):200-208 (2017). DOI: [10.1007/s00134-016-4611-1 . PM
+monograph,url_or_doi,4183,4611,e Medicine 43(2):200-208 (2017). DOI: [10.1007/s00134-016-4611-1 . PMID:
+monograph,url_or_doi,4183,1,icine 43(2):200-208 (2017). DOI: [10.1007/s00134-016-4611-1 . PMID: 28108
 monograph,version,69,3.5,-extreme regime** (sex-stratification is regime-dependent; §3.5.1). A second boundary finding (**F-003**): under the pre
 monograph,version,87,4.3,"es a per-cell traffic-light reliability map for adult Pulse 4.3.1, identifies sex as a previously uncharacterized reliab"
 monograph,version,283,4.3,"tion.** Why an open reliability atlas is needed for Pulse 4.3.1, the twelve verified engine limitations the atlas buil"
@@ -232,28 +232,28 @@ monograph,version,2058,3.5,"far the gap can be closed by a one-way transplant. I
 monograph,version,2238,4.3,rst quantitative sex-specific reliability finding for Pulse 4.3.1. The same 160 Morris input points were submitted to b
 monograph,version,2250,4.3,"rst quantitative sex-specific reliability finding for Pulse 4.3.1, and is consequential for any device-validation pipeli"
 monograph,version,2263,3.5,"addition to the hypothesis, not a qualification of it. ### 3.5.1 Continuous-severity divergence regime (Tier-2 follow-u"
-monograph,version,2647,3.7,"006). ### 3.7.1 What the colour does not say, and what each screen cos"
-monograph,version,2753,3.8,exceed the 15 mmHg / 60 s drift threshold (full audit in §3.8.1). In the *clean* S1 healthy runs (N = 91; clean FiO2
-monograph,version,2924,3.8,§2.6). The 303-run population is the one analysed by the §3.8.1 cross-output drift audit; the 264-run subset is the
-monograph,version,2939,4.3,"lines 120–128, Pulse 4.3.1) identifies the mechanism. Pulse's VC-AC mode sets"
-monograph,version,2985,3.8,raw artefacts in . ### 3.8.1 Steady-state window cross-output audit ([S012 )
-monograph,version,3069,3.5,eme regime; the complementary continuous-severity sweep (§3.5.1) at midrange inputs produced balanced female / male
-monograph,version,3077,3.4,from the pooled S1 output-HR mean of ~74 bpm reported in §3.4.1). This is physiologically expected (tachycardic comp
-monograph,version,3133,4.3,s most.* **VC-AC trigger configuration.** When using Pulse 4.3.1's action in *Ass
-monograph,version,3172,3.4,chycardia decoupling input HR from output HR in S3 / S4 (§3.4.1) is a particularly insidious feature-engineering tra
-monograph,version,3375,3.8,licit future work. The [S012 cross-output audit (§3.8.1) bounds this limitation to PaO2 and Vt at FiO2 ≥ 0.9
-monograph,version,3403,3.3,"n §Sampling method) was evaluated and formally closed in §3.3.1; if future work re-opens it on the Group B cells, la"
-monograph,version,3582,3.5,ndary probes and the atlas's continuous-severity sweep (§3.5.1). 5. **Per-channel steady-state convergence diagnosti
-monograph,version,3650,3.5,"8 ; 20 / 20 → 0 / 20 BV dose-response across §3.5 / §3.5.1). Ultimately, this atlas transforms adult Pulse from"
-monograph,version,3713,4.3,se 4a). * **Atlas-version compatibility:** results on Pulse 4.3.1 apply identically to (2025-08-12); the u
-monograph,version,3836,4.3,"patient-setup, or solver code changed. Atlas results on 4.3.1 apply identically to 4.3.2. 2. **Pulse FAQ.** *Have"
-monograph,version,3837,4.3,ode changed. Atlas results on 4.3.1 apply identically to 4.3.2. 2. **Pulse FAQ.** *Have you done UQ / SA?* <
-monograph,version,3907,4.3,"epo layout, licensing. * **[S003 ** — Verified Pulse 4.3.1 limitations from primary sources. * **[S004 **"
-monograph,version,4230,4.3,002 | Project bootstrap | | []{#s003} S003 | Verified Pulse 4.3.1 limitations | | []{#s004} S004 | Atlas image + scenari
-monograph,version,4278,4.3,is published). ### B.2 Hard input acceptance gates Pulse 4.3.1 enforces strict patient-initialization boundaries. Con
-monograph,version,4447,4.3,checkout but applies identically to the atlas's 4.3.1 pin: touches no respira
-monograph,version,4475,4.3,ndings and discrepancies A source-level audit of the Pulse 4.3.1 C++ repository identified three discrepancies between
-monograph,version,4633,4.3,"t a detector edge case — it reflects the documented Pulse-4.3.1 patient-ventilator-trigger default behaviour, and th"
+monograph,version,2651,3.7,"006). ### 3.7.1 What the colour does not say, and what each screen cos"
+monograph,version,2757,3.8,exceed the 15 mmHg / 60 s drift threshold (full audit in §3.8.1). In the *clean* S1 healthy runs (N = 91; clean FiO2
+monograph,version,2928,3.8,§2.6). The 303-run population is the one analysed by the §3.8.1 cross-output drift audit; the 264-run subset is the
+monograph,version,2943,4.3,"lines 120–128, Pulse 4.3.1) identifies the mechanism. Pulse's VC-AC mode sets"
+monograph,version,2989,3.8,raw artefacts in . ### 3.8.1 Steady-state window cross-output audit ([S012 )
+monograph,version,3073,3.5,eme regime; the complementary continuous-severity sweep (§3.5.1) at midrange inputs produced balanced female / male
+monograph,version,3081,3.4,from the pooled S1 output-HR mean of ~74 bpm reported in §3.4.1). This is physiologically expected (tachycardic comp
+monograph,version,3137,4.3,s most.* **VC-AC trigger configuration.** When using Pulse 4.3.1's action in *Ass
+monograph,version,3176,3.4,chycardia decoupling input HR from output HR in S3 / S4 (§3.4.1) is a particularly insidious feature-engineering tra
+monograph,version,3379,3.8,licit future work. The [S012 cross-output audit (§3.8.1) bounds this limitation to PaO2 and Vt at FiO2 ≥ 0.9
+monograph,version,3407,3.3,"n §Sampling method) was evaluated and formally closed in §3.3.1; if future work re-opens it on the Group B cells, la"
+monograph,version,3586,3.5,ndary probes and the atlas's continuous-severity sweep (§3.5.1). 5. **Per-channel steady-state convergence diagnosti
+monograph,version,3654,3.5,"8 ; 20 / 20 → 0 / 20 BV dose-response across §3.5 / §3.5.1). Ultimately, this atlas transforms adult Pulse from"
+monograph,version,3717,4.3,se 4a). * **Atlas-version compatibility:** results on Pulse 4.3.1 apply identically to (2025-08-12); the u
+monograph,version,3840,4.3,"patient-setup, or solver code changed. Atlas results on 4.3.1 apply identically to 4.3.2. 2. **Pulse FAQ.** *Have"
+monograph,version,3841,4.3,ode changed. Atlas results on 4.3.1 apply identically to 4.3.2. 2. **Pulse FAQ.** *Have you done UQ / SA?* <
+monograph,version,3911,4.3,"epo layout, licensing. * **[S003 ** — Verified Pulse 4.3.1 limitations from primary sources. * **[S004 **"
+monograph,version,4234,4.3,002 | Project bootstrap | | []{#s003} S003 | Verified Pulse 4.3.1 limitations | | []{#s004} S004 | Atlas image + scenari
+monograph,version,4282,4.3,is published). ### B.2 Hard input acceptance gates Pulse 4.3.1 enforces strict patient-initialization boundaries. Con
+monograph,version,4451,4.3,checkout but applies identically to the atlas's 4.3.1 pin: touches no respira
+monograph,version,4479,4.3,ndings and discrepancies A source-level audit of the Pulse 4.3.1 C++ repository identified three discrepancies between
+monograph,version,4637,4.3,"t a detector edge case — it reflects the documented Pulse-4.3.1 patient-ventilator-trigger default behaviour, and th"
 monograph,year_like,4,2026,"weitzer^4,5^, Philippe Jouvet^1,2,3^, Michael Sauthier^1,2,3^"" date: ""2026-05-26"" header-includes: - \renewcommand{\arraystretch}{1.35} - \m"
 monograph,year_like,258,2023,mmHg at the same settings. * **Complementarity with Cornish et al. 2023** ([S017 ): their causal-falsification on MIMIC-III reported
 monograph,year_like,296,2023,"se synthetic cohorts, a side-by-side mapping against Cornish et al. 2023 causal falsification (Table 2), explicit limitations (§4.5), downst"
@@ -291,120 +291,120 @@ monograph,year_like,1464,2023,"R control, and Hoeffding / Holm–Bonferroni (ext
 monograph,year_like,1539,2023,* **Hoeffding's inequality and Holm–Bonferroni (external; Cornish 2023).** Used by [@cornish2023] in their causal-falsification framework.
 monograph,year_like,1976,2026,l instrumentation. **One explicit downstream adjustment (measured 2026-08-13).** Inside the swept envelope Pulse does make one deterministic
 monograph,year_like,2142,2026,", not as a sex difference. **Causal lever identified ([S018 , 2026-05-13).** *In one sentence: forcing the male surrogate's BV down to t"
-monograph,year_like,3003,2026,".05 mmHg); PaCO2 in **3.6 %** (7 / 195, median 0.58 mmHg — computed 2026-07-24; the original S012 pass did not tabulate PaCO2 for this arm)."
-monograph,year_like,3037,2023,"atlas to the only prior external falsification study (Cornish et al. 2023; Table 2), and consolidates the structural limitations of the work in"
-monograph,year_like,3206,2023,he new envelope is completed. ### 4.4 Relationship to Cornish et al. 2023 (causal falsification) — Table 2 *A side-by-side mapping of the atla
-monograph,year_like,3232,2023,l. \toprule Cornish-2023 channel & Hoeffding rejections / hypotheses & Bootstrap (Cornish Appe
-monograph,year_like,3255,2023,put \\ \bottomrule *Table 2.* Cornish 2023 Table 4 (Hoeffding's inequality; the complete per-quantity table list
-monograph,year_like,3261,2023,P / PaO2 / PaCO2. *Table 2 — at a glance.* **What:** Cornish et al. (2023) per-channel rejection counts from their causal-falsification framewo
-monograph,year_like,3558,2020,-facing operational inputs.** Pulse's repository already carries a 2020 tag that performs Sobol sens
-monograph,year_like,3708,2026,"oducibility):** (canonical sweep, 2026-04-26) and (post-[S014 re"
-monograph,year_like,3710,2026,"and (post-[S014 rebuild, 2026-04-28). Upstream base: . Outputs are bit-exact"
-monograph,year_like,3714,2025,"ibility:** results on Pulse apply identically to (2025-08-12); the upstream diff is build-system-only, no physiology chang"
-monograph,year_like,3723,2026,"the 1,280-run sweep + S014 + S018 + S021; ~ 2.2 GB total, measured 2026-07-29) will be uploaded to a public Zenodo archive upon acceptance;"
-monograph,year_like,3731,2030,vernment funding managed by the National Research Agency under France 2030 via the ENACT AI Cluster (ANR-23-IACL-0004). This work also relies o
-monograph,year_like,3759,2026,"the original drafting/refactoring, , released 28 May 2026 and coinciding with the supervisor-review phase, for the subsequent s"
-monograph,year_like,3759,2026,"sequent supervisor-review revisions, and from 24 July 2026 for the in-repository calibration replication and the primary-source"
-monograph,year_like,3759,2026,"reference audit, cross-checked against Gemini Pro 3.1 up to 2 August 2026 and against OpenAI ChatGPT ( Sol, High reasoning level) from 3"
-monograph,year_like,3759,2026,"inst OpenAI ChatGPT ( Sol, High reasoning level) from 3 August 2026) provided drafting / refactoring / reviewer-style critique assistance"
-monograph,year_like,3773,2026,"der direct supervision by S.N.: Claude /4.8, and from 24 July 2026 Claude (Anthropic), used locally through the Claude Code agent"
-monograph,year_like,3778,2026,"ing mode) through a separate web session up to and including 2 August 2026, replaced from 3 August 2026 by OpenAI ChatGPT ( Sol, High rea"
-monograph,year_like,3778,2026,"web session up to and including 2 August 2026, replaced from 3 August 2026 by OpenAI ChatGPT ( Sol, High reasoning level, browser session"
-monograph,year_like,3790,2026,", and as second model **Gemini Pro 3.1** to 2 August 2026, then **OpenAI ChatGPT** ( Sol, High reasoning level)). Ever"
-monograph,year_like,3800,2026,"loop (Claude Code, with Gemini Pro 3.1 as second model to 2 August 2026 and OpenAI ChatGPT ( Sol, High reasoning level) thereafter). A"
-monograph,year_like,3806,2026,vidually verified against their DOI / PMID in [S010 and the 2026-05-12 pre-submission audit. * **What AI tools were *not* used for.**
-monograph,year_like,3831,2026,"(locally cloned for read-only audit on 2026-04-07; GitLab re-audit 2026-05-07, [S016 ). The current"
-monograph,year_like,3831,2026,"(locally cloned for read-only audit on 2026-04-07; GitLab re-audit 2026-05-07, [S016 ). The current head is"
-monograph,year_like,3833,2025,"5-07, [S016 ). The current head is (2025-08-12), whose full diff vs is 7 files / +46 −17 lines"
-monograph,year_like,3840,2026,"A?* < — verified verbatim 2026-04-19, still current at the May 2026 re-audit; paragraph quoted in"
-monograph,year_like,3840,2026,"— verified verbatim 2026-04-19, still current at the May 2026 re-audit; paragraph quoted in §1.1 (recorded in [S003 / [S"
-monograph,year_like,3842,2020,"). 3. **Pulse tag (Kitware, 2020-07-20).** Code at and"
-monograph,year_like,3850,2020,"roved lumped parameter optimization.""* Last functional commit 2020-08-24; not ported to Pulse 4.3.x. Cited in §1.1 to distinguish in"
-monograph,year_like,3853,2026,"nal-input SA (this paper's scope). Audit logged in [S016 (2026-05-07). 4. **Cornish R, Taufiq MF, Doucet A, Holmes C (Oxford, 2023)."
-monograph,year_like,3854,2023,"(2026-05-07). 4. **Cornish R, Taufiq MF, Doucet A, Holmes C (Oxford, 2023).** *Causal Falsification of Digital Twins.* arXiv:2301.07210"
-monograph,year_like,3856,2023,ausal Falsification of Digital Twins.* arXiv:2301.07210 (November 2023). External statistical-falsification framework applied to Pulse o
-monograph,year_like,3863,2026,reliability across the adult ICU envelope). Identified in the May 2026 audit logged in [S016 . 5. **Pulse Setup audit.**
-monograph,year_like,3870,2022,ary probe and its HR / RR initialisation probes). 6. **Webb et al. 2022 (ANNSIM).** *Implementation of a dynamic and extensible mechanical
-monograph,year_like,3876,2026,"; reports qualitative waveform agreement. (Pre-submission audit 2026-05-12: a previous draft cited this paper as ""Webb et al. 2023"" wit"
-monograph,year_like,3877,2023,"t 2026-05-12: a previous draft cited this paper as ""Webb et al. 2023"" with an invented ""PulseExt"" title and an incorrect author list; c"
-monograph,year_like,3887,2022,the surrounding validation framework is in entry 6 (Webb et al. 2022 ANNSIM). 8. **Bray et al. 2019.** Cardiovascular limitations of the
-monograph,year_like,3888,2019,amework is in entry 6 (Webb et al. 2022 ANNSIM). 8. **Bray et al. 2019.** Cardiovascular limitations of the lumped-parameter model — refe
-monograph,year_like,3898,2022,"pendix B.3) — not on PALICC-2. 10. **SALib (Iwanaga, Usher, Herman 2022).** Socio-Environmental Systems Modelling. Morris and Sobol imple"
-monograph,year_like,3933,2019,dical Simulation.* SN Comprehensive Clinical Medicine 1(5):362-377 (2019). DOI: [
-monograph,year_like,3935,2026,. *(Author list and issue number corrected 2026-05-12 in pre-submission audit; the previous draft listed a four-aut
-monograph,year_like,3943,2020,aring using the Pulse Physiology Engine.* PLoS One 15(11):e0242532 (2020). DOI: [
-monograph,year_like,3949,2022,r Model for Real-Time Physiological Simulation.* Proceedings of the 2022 Annual Modeling and Simulation Conference (ANNSIM). PubMed Central:
-monograph,year_like,3952,2026,. *(Bibliographic entry corrected 2026-05-12 in pre-submission audit; the previous draft cited this paper
-monograph,year_like,3953,2023,"bmission audit; the previous draft cited this paper as ""Webb et al. 2023, PulseExt: validation of the Pulse Physiology Engine ventilator aga"
-monograph,year_like,3957,2022,author list were all incorrect. The actual PMC10224749 paper is the 2022 ANNSIM mechanical-ventilator implementation paper with the seven-au
-monograph,year_like,3968,2026,"% PC-AC tidal-volume error numbers cited in §1.1 and §2.3. Verified 2026-05-12. * []{#ref-pulserespmethod} Kitware, Inc. *Respiratory Methodol"
-monograph,year_like,3975,2020,"alues (340 / 130 / 50 mmHg); those come from the peer-reviewed Webb 2020 Pulse-team COVID-19 paper (Webb 2020 entry above), to which §2.3 an"
-monograph,year_like,3976,2020,"me from the peer-reviewed Webb 2020 Pulse-team COVID-19 paper (Webb 2020 entry above), to which §2.3 and Appendix B.3 correctly attribute th"
-monograph,year_like,3981,2026,"that appendix's reference ventilation setting. Verified verbatim 2026-05-15. Also, from 2026-07-26, the source of the 5-compartment lung"
-monograph,year_like,3982,2026,"nce ventilation setting. Verified verbatim 2026-05-15. Also, from 2026-07-26, the source of the 5-compartment lung description (carina, ri"
-monograph,year_like,3985,2019,"verified verbatim; those two claims had been mis-attributed to Bray 2019, which contains neither. * []{#ref-pulseabout} Kitware, Inc. *About"
-monograph,year_like,3994,2023,"appear only in the changelog (iOS build support, , October 2023) — and are therefore no longer claimed. Previously mis-attributed t"
-monograph,year_like,3995,2019,"are therefore no longer claimed. Previously mis-attributed to Bray 2019. Verified verbatim 2026-07-26. * []{#ref-pulseinaction} Kitware, Inc."
-monograph,year_like,3995,2026,"claimed. Previously mis-attributed to Bray 2019. Verified verbatim 2026-07-26. * []{#ref-pulseinaction} Kitware, Inc. *Pulse in Action — Puls"
-monograph,year_like,4006,2026,"training); only the named integrations are cited. Verified verbatim 2026-08-25. * []{#ref-pulsefaq} Kitware, Inc. *Pulse FAQ.* <"
-monograph,year_like,4008,2026,Pulse FAQ.* < Accessed April 2026; re-verified 2026-07-27. Source of Pulse's own statement that it ha
-monograph,year_like,4009,2026,Accessed April 2026; re-verified 2026-07-27. Source of Pulse's own statement that it has performed no forma
-monograph,year_like,4010,2026,"rmal sensitivity analysis or uncertainty quantification, and — from 2026-07-27 — of the engine's documented execution speed, verbatim: *""The"
-monograph,year_like,4014,2026,"This entry was cited in the body but missing from this list before 2026-07-27. * []{#ref-pulsesystem} Kitware, Inc. *System Methodology — Pul"
-monograph,year_like,4023,2026,that frames the present reliability mapping. Citation re-pointed 2026-06-05 from the Nervous System Methodology page (which does not carr
-monograph,year_like,4027,2023,"*Causal Falsification of Digital Twins.* arXiv:2301.07210 (November 2023, v4). Oxford statistics group. External assessment of Pulse on MIMI"
-monograph,year_like,4040,2026,-output panel is presented in §4.4 (Table 2). Identified in the May 2026 audit logged in [S016 and verified against the v4 PDF in [S
-monograph,year_like,4041,2026,in [S016 and verified against the v4 PDF in [S017 (2026-05-13). **Sensitivity-analysis methods** * []{#ref-morris1991} Morr
-monograph,year_like,4046,1991,reliminary computational experiments.* Technometrics 33(2):161-174 (1991). DOI: [ / [
-monograph,year_like,4051,2007,large models.* Environmental Modelling & Software 22(10):1509-1518 (2007). DOI: [
-monograph,year_like,4055,2022,nsitivity analyses.* Socio-Environmental Systems Modelling 4:18155 (2022). DOI: [
-monograph,year_like,4059,2017,for Sensitivity Analysis.* Journal of Open Source Software 2(9):97 (2017). DOI: [ .
-monograph,year_like,4060,2022,". SALib's documentation asks for both this paper and Iwanaga et al. 2022. * []{#ref-lundberg2020tree} Lundberg SM, Erion G, Chen H, DeGrave A,"
-monograph,year_like,4063,2020,explainable AI for trees.* Nature Machine Intelligence 2(1):56-67 (2020). DOI: [
-monograph,year_like,4072,2012,distress syndrome: the Berlin Definition.* JAMA 307(23):2526-2533 (2012). DOI: [
-monograph,year_like,4079,2023,ndrome (PALICC-2).* Pediatric Critical Care Medicine 24(2):143-168 (2023). DOI: [
-monograph,year_like,4087,2000,ess syndrome.* New England Journal of Medicine 342(18):1301-1308 (2000). DOI: [
-monograph,year_like,4092,2016,nchrony.* Annals of the American Thoracic Society 13(12):2207-2214 (2016). DOI: [
-monograph,year_like,4097,2026,nside Pulse. Identified and verified via PubMed esummary during the 2026-05-15 novelty audit ([S020 ); the atlas's contribution is th
-monograph,year_like,4102,2006,mechanical ventilation.* Intensive Care Medicine 32(10):1515-1522 (2006). DOI: [
-monograph,year_like,4111,2015,associated with mortality.* Intensive Care Medicine 41(4):633-641 (2015). DOI: [
-monograph,year_like,4120,2014,n Journal of Respiratory and Critical Care Medicine 189(5):520-531 (2014). DOI: [
-monograph,year_like,4127,1999,ntilation in respiratory failure.* Nature Medicine 5(12):1433-1436 (1999). DOI: [ . PMID: 105810
-monograph,year_like,4135,2016,entific data management and stewardship.* Scientific Data 3:160018 (2016). DOI: [
-monograph,year_like,4141,2017,ifesto for reproducible science.* Nature Human Behaviour 1(1):0021 (2017). DOI: [
-monograph,year_like,4149,1979,"Respiratory, Environmental and Exercise Physiology 46(3):599-602 (1979). DOI: ["
-monograph,year_like,4153,2000,"Strawn LM, Flegal KM, Mei Z, Wei R, Curtin LR, Roche AF, Johnson CL. *2000 CDC Growth Charts for the United States: Methods and Development.* Vi"
-monograph,year_like,4153,2002,"Development.* Vital and Health Statistics, Series 11, No. 246:1-190 (2002). PMID: 12043359. National Center for Health Statistics; source of th"
-monograph,year_like,4156,2016,tions for Sepsis and Septic Shock (Sepsis-3).* JAMA 315(8):801-810 (2016). DOI: [
-monograph,year_like,4162,2021,International Guidelines for Management of Sepsis and Septic Shock 2021.* Critical Care Medicine 49(11):e1063-e1143 (2021). DOI: [
-monograph,year_like,4163,2021,and Septic Shock 2021.* Critical Care Medicine 49(11):e1063-e1143 (2021). DOI: [
-monograph,year_like,4168,2023,"Kreutz R, Brunström M, Burnier M, Grassi G, Januszewicz A, et al. *2023 ESH Guidelines for the management of arterial hypertension.* Journa"
-monograph,year_like,4169,2071,ment of arterial hypertension.* Journal of Hypertension 41(12):1874-2071 (2023). DOI: [
-monograph,year_like,4170,2023,arterial hypertension.* Journal of Hypertension 41(12):1874-2071 (2023). DOI: [
-monograph,year_like,4178,2017,piratory distress syndrome.* Intensive Care Medicine 43(2):200-208 (2017). DOI: [
-monograph,year_like,4184,2020,"ls.* 11th ed. Philadelphia, PA: Wolters Kluwer Health / Lippincott (2020). ISBN: 978-1-9751-3918-6. Anatomical dead space (Ch. 2) and the al"
-monograph,year_like,4187,2026,"). Both chapter pointers were verified against the cited edition on 2026-07-27. The work is also cited, without a chapter pointer, for the P"
-monograph,year_like,4191,2026,"eference. The former ""acid-base ranges"" annotation was withdrawn on 2026-07-28: no locus in this monograph cites the work for one, and the"
-monograph,year_like,4194,2026,"the CO2-narcosis justification it once supported was withdrawn on 2026-07-27 after the 9th, 10th and 11th editions were searched and found"
-monograph,year_like,4197,2013,". Philadelphia, PA: Lippincott Williams & Wilkins / Wolters Kluwer (2013). ISBN: 978-1-4511-2118-6. Pre-lung-protective tidal volumes of 10-"
-monograph,year_like,4201,2026,now carries. Its former HR and PaCO2 annotations were withdrawn on 2026-07-27 after a full-text search of the cited edition: it states no e
-monograph,year_like,4206,2018,". Philadelphia, PA: Wolters Kluwer (Lippincott Williams & Wilkins) (2018). ISBN: 978-1-4963-0291-5. Upper heart-rate bound (Ch. 1: sinus rat"
-monograph,year_like,4209,2026,myocardial perfusion). The former SpO2 annotation was withdrawn on 2026-07-27: the critical-oxygen-delivery concept does appear in the cite
-monograph,year_like,4212,2018,ther than saturation. (5th edition; LWW publisher date confirmed as 2018 in the 2026-06-05 re-audit — bib key updated to marini2018critical
-monograph,year_like,4212,2026,turation. (5th edition; LWW publisher date confirmed as 2018 in the 2026-06-05 re-audit — bib key updated to marini2018critical accordingly.
-monograph,year_like,4213,2019,"updated to marini2018critical accordingly. The copyright page reads 2019; see , OPEN-3.) --- ## Appendix A — Exper"
-monograph,year_like,4243,2026,ication) | | []{#s016} S016 | Pulse GitLab + literature re-audit (May 2026) | | []{#s017} S017 | Cornish 2023 cross-mapping (Phase B item B1) |
-monograph,year_like,4244,2023,GitLab + literature re-audit (May 2026) | | []{#s017} S017 | Cornish 2023 cross-mapping (Phase B item B1) | | []{#s018} S018 | Blood-volume mec
-monograph,year_like,4339,2020,independent prior sources (the Respiratory Methodology page and Webb 2020) therefore converge on the same documented mapping and the same P/F c
-monograph,year_like,4346,2026,"eep ( , the original ARDS severity calibration, 2026-03; the full log is the canonical record of the calibration — the lat"
-monograph,year_like,4408,2026,"nal ARDS severity calibration** (the 28-run impairment sweep above, 2026-03): fractions 0.92 and 0.94 fail to stabilise at the reference ven"
-monograph,year_like,4410,2026,"tilation setting. * **E10** (a 10-run high-resolution boundary probe, 2026-04, testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0."
-monograph,year_like,4415,2026,"**. * **E6 calibration refinement** (a 9-run high-resolution sweep, 2026-04, testing 0.93 – 0.97 in 0.005 steps): 0.93 – 0.945 all FAIL (4 r"
-monograph,year_like,4430,2026,es not flag this zone. **No surfactant model — multi-criteria audit (2026-06-11).** A direct re-verification confirms Pulse models no pulmonary
-monograph,year_like,4482,1984,rrectly aligning with the Harris-Benedict equation (Roza & Shizgal 1984). 2. **Skin surface-area exponent.** The documentation lists the weig
-monograph,year_like,4495,2026,"belled ""Pulse standard male / female"" in early drafts of this work. A 2026-05-19 source-level audit established that this label is technically a"
-monograph,year_like,4502,2026,", < re-read 2026-08-20 with columns resolved by name). CDC lists age at the half-mon"
-monograph,year_like,4513,2026,"recorded in that project's experiments log (CDC weight audit step, 2026-03). * **Female height (163 cm).** Matches the CDC P50 stature for"
+monograph,year_like,3007,2026,".05 mmHg); PaCO2 in **3.6 %** (7 / 195, median 0.58 mmHg — computed 2026-07-24; the original S012 pass did not tabulate PaCO2 for this arm)."
+monograph,year_like,3041,2023,"atlas to the only prior external falsification study (Cornish et al. 2023; Table 2), and consolidates the structural limitations of the work in"
+monograph,year_like,3210,2023,he new envelope is completed. ### 4.4 Relationship to Cornish et al. 2023 (causal falsification) — Table 2 *A side-by-side mapping of the atla
+monograph,year_like,3236,2023,l. \toprule Cornish-2023 channel & Hoeffding rejections / hypotheses & Bootstrap (Cornish Appe
+monograph,year_like,3259,2023,put \\ \bottomrule *Table 2.* Cornish 2023 Table 4 (Hoeffding's inequality; the complete per-quantity table list
+monograph,year_like,3265,2023,P / PaO2 / PaCO2. *Table 2 — at a glance.* **What:** Cornish et al. (2023) per-channel rejection counts from their causal-falsification framewo
+monograph,year_like,3562,2020,-facing operational inputs.** Pulse's repository already carries a 2020 tag that performs Sobol sens
+monograph,year_like,3712,2026,"oducibility):** (canonical sweep, 2026-04-26) and (post-[S014 re"
+monograph,year_like,3714,2026,"and (post-[S014 rebuild, 2026-04-28). Upstream base: . Outputs are bit-exact"
+monograph,year_like,3718,2025,"ibility:** results on Pulse apply identically to (2025-08-12); the upstream diff is build-system-only, no physiology chang"
+monograph,year_like,3727,2026,"the 1,280-run sweep + S014 + S018 + S021; ~ 2.2 GB total, measured 2026-07-29) will be uploaded to a public Zenodo archive upon acceptance;"
+monograph,year_like,3735,2030,vernment funding managed by the National Research Agency under France 2030 via the ENACT AI Cluster (ANR-23-IACL-0004). This work also relies o
+monograph,year_like,3763,2026,"the original drafting/refactoring, , released 28 May 2026 and coinciding with the supervisor-review phase, for the subsequent s"
+monograph,year_like,3763,2026,"sequent supervisor-review revisions, and from 24 July 2026 for the in-repository calibration replication and the primary-source"
+monograph,year_like,3763,2026,"reference audit, cross-checked against Gemini Pro 3.1 up to 2 August 2026 and against OpenAI ChatGPT ( Sol, High reasoning level) from 3"
+monograph,year_like,3763,2026,"inst OpenAI ChatGPT ( Sol, High reasoning level) from 3 August 2026) provided drafting / refactoring / reviewer-style critique assistance"
+monograph,year_like,3777,2026,"der direct supervision by S.N.: Claude /4.8, and from 24 July 2026 Claude (Anthropic), used locally through the Claude Code agent"
+monograph,year_like,3782,2026,"ing mode) through a separate web session up to and including 2 August 2026, replaced from 3 August 2026 by OpenAI ChatGPT ( Sol, High rea"
+monograph,year_like,3782,2026,"web session up to and including 2 August 2026, replaced from 3 August 2026 by OpenAI ChatGPT ( Sol, High reasoning level, browser session"
+monograph,year_like,3794,2026,", and as second model **Gemini Pro 3.1** to 2 August 2026, then **OpenAI ChatGPT** ( Sol, High reasoning level)). Ever"
+monograph,year_like,3804,2026,"loop (Claude Code, with Gemini Pro 3.1 as second model to 2 August 2026 and OpenAI ChatGPT ( Sol, High reasoning level) thereafter). A"
+monograph,year_like,3810,2026,vidually verified against their DOI / PMID in [S010 and the 2026-05-12 pre-submission audit. * **What AI tools were *not* used for.**
+monograph,year_like,3835,2026,"(locally cloned for read-only audit on 2026-04-07; GitLab re-audit 2026-05-07, [S016 ). The current"
+monograph,year_like,3835,2026,"(locally cloned for read-only audit on 2026-04-07; GitLab re-audit 2026-05-07, [S016 ). The current head is"
+monograph,year_like,3837,2025,"5-07, [S016 ). The current head is (2025-08-12), whose full diff vs is 7 files / +46 −17 lines"
+monograph,year_like,3844,2026,"A?* < — verified verbatim 2026-04-19, still current at the May 2026 re-audit; paragraph quoted in"
+monograph,year_like,3844,2026,"— verified verbatim 2026-04-19, still current at the May 2026 re-audit; paragraph quoted in §1.1 (recorded in [S003 / [S"
+monograph,year_like,3846,2020,"). 3. **Pulse tag (Kitware, 2020-07-20).** Code at and"
+monograph,year_like,3854,2020,"roved lumped parameter optimization.""* Last functional commit 2020-08-24; not ported to Pulse 4.3.x. Cited in §1.1 to distinguish in"
+monograph,year_like,3857,2026,"nal-input SA (this paper's scope). Audit logged in [S016 (2026-05-07). 4. **Cornish R, Taufiq MF, Doucet A, Holmes C (Oxford, 2023)."
+monograph,year_like,3858,2023,"(2026-05-07). 4. **Cornish R, Taufiq MF, Doucet A, Holmes C (Oxford, 2023).** *Causal Falsification of Digital Twins.* arXiv:2301.07210"
+monograph,year_like,3860,2023,ausal Falsification of Digital Twins.* arXiv:2301.07210 (November 2023). External statistical-falsification framework applied to Pulse o
+monograph,year_like,3867,2026,reliability across the adult ICU envelope). Identified in the May 2026 audit logged in [S016 . 5. **Pulse Setup audit.**
+monograph,year_like,3874,2022,ary probe and its HR / RR initialisation probes). 6. **Webb et al. 2022 (ANNSIM).** *Implementation of a dynamic and extensible mechanical
+monograph,year_like,3880,2026,"; reports qualitative waveform agreement. (Pre-submission audit 2026-05-12: a previous draft cited this paper as ""Webb et al. 2023"" wit"
+monograph,year_like,3881,2023,"t 2026-05-12: a previous draft cited this paper as ""Webb et al. 2023"" with an invented ""PulseExt"" title and an incorrect author list; c"
+monograph,year_like,3891,2022,the surrounding validation framework is in entry 6 (Webb et al. 2022 ANNSIM). 8. **Bray et al. 2019.** Cardiovascular limitations of the
+monograph,year_like,3892,2019,amework is in entry 6 (Webb et al. 2022 ANNSIM). 8. **Bray et al. 2019.** Cardiovascular limitations of the lumped-parameter model — refe
+monograph,year_like,3902,2022,"pendix B.3) — not on PALICC-2. 10. **SALib (Iwanaga, Usher, Herman 2022).** Socio-Environmental Systems Modelling. Morris and Sobol imple"
+monograph,year_like,3937,2019,dical Simulation.* SN Comprehensive Clinical Medicine 1(5):362-377 (2019). DOI: [
+monograph,year_like,3939,2026,. *(Author list and issue number corrected 2026-05-12 in pre-submission audit; the previous draft listed a four-aut
+monograph,year_like,3947,2020,aring using the Pulse Physiology Engine.* PLoS One 15(11):e0242532 (2020). DOI: [
+monograph,year_like,3953,2022,r Model for Real-Time Physiological Simulation.* Proceedings of the 2022 Annual Modeling and Simulation Conference (ANNSIM). PubMed Central:
+monograph,year_like,3956,2026,. *(Bibliographic entry corrected 2026-05-12 in pre-submission audit; the previous draft cited this paper
+monograph,year_like,3957,2023,"bmission audit; the previous draft cited this paper as ""Webb et al. 2023, PulseExt: validation of the Pulse Physiology Engine ventilator aga"
+monograph,year_like,3961,2022,author list were all incorrect. The actual PMC10224749 paper is the 2022 ANNSIM mechanical-ventilator implementation paper with the seven-au
+monograph,year_like,3972,2026,"% PC-AC tidal-volume error numbers cited in §1.1 and §2.3. Verified 2026-05-12. * []{#ref-pulserespmethod} Kitware, Inc. *Respiratory Methodol"
+monograph,year_like,3979,2020,"alues (340 / 130 / 50 mmHg); those come from the peer-reviewed Webb 2020 Pulse-team COVID-19 paper (Webb 2020 entry above), to which §2.3 an"
+monograph,year_like,3980,2020,"me from the peer-reviewed Webb 2020 Pulse-team COVID-19 paper (Webb 2020 entry above), to which §2.3 and Appendix B.3 correctly attribute th"
+monograph,year_like,3985,2026,"that appendix's reference ventilation setting. Verified verbatim 2026-05-15. Also, from 2026-07-26, the source of the 5-compartment lung"
+monograph,year_like,3986,2026,"nce ventilation setting. Verified verbatim 2026-05-15. Also, from 2026-07-26, the source of the 5-compartment lung description (carina, ri"
+monograph,year_like,3989,2019,"verified verbatim; those two claims had been mis-attributed to Bray 2019, which contains neither. * []{#ref-pulseabout} Kitware, Inc. *About"
+monograph,year_like,3998,2023,"appear only in the changelog (iOS build support, , October 2023) — and are therefore no longer claimed. Previously mis-attributed t"
+monograph,year_like,3999,2019,"are therefore no longer claimed. Previously mis-attributed to Bray 2019. Verified verbatim 2026-07-26. * []{#ref-pulseinaction} Kitware, Inc."
+monograph,year_like,3999,2026,"claimed. Previously mis-attributed to Bray 2019. Verified verbatim 2026-07-26. * []{#ref-pulseinaction} Kitware, Inc. *Pulse in Action — Puls"
+monograph,year_like,4010,2026,"training); only the named integrations are cited. Verified verbatim 2026-08-25. * []{#ref-pulsefaq} Kitware, Inc. *Pulse FAQ.* <"
+monograph,year_like,4012,2026,Pulse FAQ.* < Accessed April 2026; re-verified 2026-07-27. Source of Pulse's own statement that it ha
+monograph,year_like,4013,2026,Accessed April 2026; re-verified 2026-07-27. Source of Pulse's own statement that it has performed no forma
+monograph,year_like,4014,2026,"rmal sensitivity analysis or uncertainty quantification, and — from 2026-07-27 — of the engine's documented execution speed, verbatim: *""The"
+monograph,year_like,4018,2026,"This entry was cited in the body but missing from this list before 2026-07-27. * []{#ref-pulsesystem} Kitware, Inc. *System Methodology — Pul"
+monograph,year_like,4027,2026,that frames the present reliability mapping. Citation re-pointed 2026-06-05 from the Nervous System Methodology page (which does not carr
+monograph,year_like,4031,2023,"*Causal Falsification of Digital Twins.* arXiv:2301.07210 (November 2023, v4). Oxford statistics group. External assessment of Pulse on MIMI"
+monograph,year_like,4044,2026,-output panel is presented in §4.4 (Table 2). Identified in the May 2026 audit logged in [S016 and verified against the v4 PDF in [S
+monograph,year_like,4045,2026,in [S016 and verified against the v4 PDF in [S017 (2026-05-13). **Sensitivity-analysis methods** * []{#ref-morris1991} Morr
+monograph,year_like,4050,1991,reliminary computational experiments.* Technometrics 33(2):161-174 (1991). DOI: [ / [
+monograph,year_like,4055,2007,large models.* Environmental Modelling & Software 22(10):1509-1518 (2007). DOI: [
+monograph,year_like,4059,2022,nsitivity analyses.* Socio-Environmental Systems Modelling 4:18155 (2022). DOI: [
+monograph,year_like,4063,2017,for Sensitivity Analysis.* Journal of Open Source Software 2(9):97 (2017). DOI: [ .
+monograph,year_like,4064,2022,". SALib's documentation asks for both this paper and Iwanaga et al. 2022. * []{#ref-lundberg2020tree} Lundberg SM, Erion G, Chen H, DeGrave A,"
+monograph,year_like,4067,2020,explainable AI for trees.* Nature Machine Intelligence 2(1):56-67 (2020). DOI: [
+monograph,year_like,4076,2012,distress syndrome: the Berlin Definition.* JAMA 307(23):2526-2533 (2012). DOI: [
+monograph,year_like,4083,2023,ndrome (PALICC-2).* Pediatric Critical Care Medicine 24(2):143-168 (2023). DOI: [
+monograph,year_like,4091,2000,ess syndrome.* New England Journal of Medicine 342(18):1301-1308 (2000). DOI: [
+monograph,year_like,4096,2016,nchrony.* Annals of the American Thoracic Society 13(12):2207-2214 (2016). DOI: [
+monograph,year_like,4101,2026,nside Pulse. Identified and verified via PubMed esummary during the 2026-05-15 novelty audit ([S020 ); the atlas's contribution is th
+monograph,year_like,4106,2006,mechanical ventilation.* Intensive Care Medicine 32(10):1515-1522 (2006). DOI: [
+monograph,year_like,4115,2015,associated with mortality.* Intensive Care Medicine 41(4):633-641 (2015). DOI: [
+monograph,year_like,4124,2014,n Journal of Respiratory and Critical Care Medicine 189(5):520-531 (2014). DOI: [
+monograph,year_like,4131,1999,ntilation in respiratory failure.* Nature Medicine 5(12):1433-1436 (1999). DOI: [ . PMID: 105810
+monograph,year_like,4139,2016,entific data management and stewardship.* Scientific Data 3:160018 (2016). DOI: [
+monograph,year_like,4145,2017,ifesto for reproducible science.* Nature Human Behaviour 1(1):0021 (2017). DOI: [
+monograph,year_like,4153,1979,"Respiratory, Environmental and Exercise Physiology 46(3):599-602 (1979). DOI: ["
+monograph,year_like,4157,2000,"Strawn LM, Flegal KM, Mei Z, Wei R, Curtin LR, Roche AF, Johnson CL. *2000 CDC Growth Charts for the United States: Methods and Development.* Vi"
+monograph,year_like,4157,2002,"Development.* Vital and Health Statistics, Series 11, No. 246:1-190 (2002). PMID: 12043359. National Center for Health Statistics; source of th"
+monograph,year_like,4160,2016,tions for Sepsis and Septic Shock (Sepsis-3).* JAMA 315(8):801-810 (2016). DOI: [
+monograph,year_like,4166,2021,International Guidelines for Management of Sepsis and Septic Shock 2021.* Critical Care Medicine 49(11):e1063-e1143 (2021). DOI: [
+monograph,year_like,4167,2021,and Septic Shock 2021.* Critical Care Medicine 49(11):e1063-e1143 (2021). DOI: [
+monograph,year_like,4172,2023,"Kreutz R, Brunström M, Burnier M, Grassi G, Januszewicz A, et al. *2023 ESH Guidelines for the management of arterial hypertension.* Journa"
+monograph,year_like,4173,2071,ment of arterial hypertension.* Journal of Hypertension 41(12):1874-2071 (2023). DOI: [
+monograph,year_like,4174,2023,arterial hypertension.* Journal of Hypertension 41(12):1874-2071 (2023). DOI: [
+monograph,year_like,4182,2017,piratory distress syndrome.* Intensive Care Medicine 43(2):200-208 (2017). DOI: [
+monograph,year_like,4188,2020,"ls.* 11th ed. Philadelphia, PA: Wolters Kluwer Health / Lippincott (2020). ISBN: 978-1-9751-3918-6. Anatomical dead space (Ch. 2) and the al"
+monograph,year_like,4191,2026,"). Both chapter pointers were verified against the cited edition on 2026-07-27. The work is also cited, without a chapter pointer, for the P"
+monograph,year_like,4195,2026,"eference. The former ""acid-base ranges"" annotation was withdrawn on 2026-07-28: no locus in this monograph cites the work for one, and the"
+monograph,year_like,4198,2026,"the CO2-narcosis justification it once supported was withdrawn on 2026-07-27 after the 9th, 10th and 11th editions were searched and found"
+monograph,year_like,4201,2013,". Philadelphia, PA: Lippincott Williams & Wilkins / Wolters Kluwer (2013). ISBN: 978-1-4511-2118-6. Pre-lung-protective tidal volumes of 10-"
+monograph,year_like,4205,2026,now carries. Its former HR and PaCO2 annotations were withdrawn on 2026-07-27 after a full-text search of the cited edition: it states no e
+monograph,year_like,4210,2018,". Philadelphia, PA: Wolters Kluwer (Lippincott Williams & Wilkins) (2018). ISBN: 978-1-4963-0291-5. Upper heart-rate bound (Ch. 1: sinus rat"
+monograph,year_like,4213,2026,myocardial perfusion). The former SpO2 annotation was withdrawn on 2026-07-27: the critical-oxygen-delivery concept does appear in the cite
+monograph,year_like,4216,2018,ther than saturation. (5th edition; LWW publisher date confirmed as 2018 in the 2026-06-05 re-audit — bib key updated to marini2018critical
+monograph,year_like,4216,2026,turation. (5th edition; LWW publisher date confirmed as 2018 in the 2026-06-05 re-audit — bib key updated to marini2018critical accordingly.
+monograph,year_like,4217,2019,"updated to marini2018critical accordingly. The copyright page reads 2019; see , OPEN-3.) --- ## Appendix A — Exper"
+monograph,year_like,4247,2026,ication) | | []{#s016} S016 | Pulse GitLab + literature re-audit (May 2026) | | []{#s017} S017 | Cornish 2023 cross-mapping (Phase B item B1) |
+monograph,year_like,4248,2023,GitLab + literature re-audit (May 2026) | | []{#s017} S017 | Cornish 2023 cross-mapping (Phase B item B1) | | []{#s018} S018 | Blood-volume mec
+monograph,year_like,4343,2020,independent prior sources (the Respiratory Methodology page and Webb 2020) therefore converge on the same documented mapping and the same P/F c
+monograph,year_like,4350,2026,"eep ( , the original ARDS severity calibration, 2026-03; the full log is the canonical record of the calibration — the lat"
+monograph,year_like,4412,2026,"nal ARDS severity calibration** (the 28-run impairment sweep above, 2026-03): fractions 0.92 and 0.94 fail to stabilise at the reference ven"
+monograph,year_like,4414,2026,"tilation setting. * **E10** (a 10-run high-resolution boundary probe, 2026-04, testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0."
+monograph,year_like,4419,2026,"**. * **E6 calibration refinement** (a 9-run high-resolution sweep, 2026-04, testing 0.93 – 0.97 in 0.005 steps): 0.93 – 0.945 all FAIL (4 r"
+monograph,year_like,4434,2026,es not flag this zone. **No surfactant model — multi-criteria audit (2026-06-11).** A direct re-verification confirms Pulse models no pulmonary
+monograph,year_like,4486,1984,rrectly aligning with the Harris-Benedict equation (Roza & Shizgal 1984). 2. **Skin surface-area exponent.** The documentation lists the weig
+monograph,year_like,4499,2026,"belled ""Pulse standard male / female"" in early drafts of this work. A 2026-05-19 source-level audit established that this label is technically a"
+monograph,year_like,4506,2026,", < re-read 2026-08-20 with columns resolved by name). CDC lists age at the half-mon"
+monograph,year_like,4517,2026,"recorded in that project's experiments log (CDC weight audit step, 2026-03). * **Female height (163 cm).** Matches the CDC P50 stature for"
 paper,org_identifier,115,3450,"ress{\city{Nancy}, \country{France}}} \affil[5]{\orgdiv{UR 3450 DevAH}, \orgname{Universit\'e de Lorraine}, \orgaddress"
 paper,org_identifier,117,1256,"Nancy}, \country{France}}} \affil[6]{\orgdiv{INSERM UMR\_S 1256, Nutrition-G\'en\'etique et Exposition aux Risques Envi"
 paper,product_version,389,4.7,"at the \texttt{xhigh} thinking-effort default: Claude Opus 4.7 (\texttt{claude-opus-4-7}) for the initial drafting, Opu"

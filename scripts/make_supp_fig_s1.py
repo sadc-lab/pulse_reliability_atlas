@@ -71,7 +71,14 @@ def wilson_ci(successes: int, n: int, z: float = 1.96) -> tuple[float, float]:
 def load_divergence() -> pd.DataFrame:
     """Parse every continuous_ards run: (sex, impairment fraction, diverged).
 
-    Severity is encoded in the directory name as ``...sevXXXX`` (XXXX / 1000).
+    Severity is read from the run's own config.json -- the value Pulse was
+    actually given -- and NOT from the directory name. The name carries
+    ``sevXXXX`` = int(sev * 1000), a truncation: CONT_M_078_sev0945 ran at
+    0.9458464..., so binning on the name moved six runs across a bin edge
+    (three per sex, at 0.85018, 0.94585 and 0.95064) -- among them that male
+    divergence, from (0.945, 0.95] into (0.91, 0.945] -- and cut the
+    empirical band's upper edge to 0.945. Found by the
+    number audit of 2026-09-14 (audit/number_inventory.md section 4.1, F-S5).
     Divergence follows the locked atlas definition: exit code != 0, missing
     output.csv, or any non-finite numeric value in output.csv.
     """
@@ -79,7 +86,10 @@ def load_divergence() -> pd.DataFrame:
     for d in sorted(glob.glob(str(CONT_DIR / "CONT_*"))):
         parts = os.path.basename(d).split("_")
         sex = parts[1]
-        sev = int(parts[3].replace("sev", "")) / 1000.0
+        cfg = json.loads((Path(d) / "config.json").read_text())
+        sev = float(cfg["ards_severity"]["left"])
+        if sev != float(cfg["ards_severity"]["right"]):
+            raise ValueError(f"{d}: left/right ARDS severity differ; the bins assume one value per run")
         meta = json.loads((Path(d) / "run_meta.json").read_text())
         diverged = meta.get("exit_code", 1) != 0
         csv = Path(d) / "output.csv"
@@ -120,12 +130,15 @@ def build_bins(df: pd.DataFrame) -> list[dict]:
 _df = load_divergence()
 BINS = build_bins(_df)
 _dv = _df[_df["diverged"]]
-_band_lo = float(_dv["sev"].min()) if len(_dv) else float("nan")
-_band_hi = float(_dv["sev"].max()) if len(_dv) else float("nan")
+# The published band is the smallest 3-decimal interval that CONTAINS every
+# diverged severity: floor the minimum, ceil the maximum. Rounding would
+# exclude the lowest divergence (0.87977 -> 0.880).
+_band_lo = math.floor(float(_dv["sev"].min()) * 1000) / 1000 if len(_dv) else float("nan")
+_band_hi = math.ceil(float(_dv["sev"].max()) * 1000) / 1000 if len(_dv) else float("nan")
 print(f"continuous_ards: {len(_df)} runs; "
       f"F diverged = {int(_df[_df['sex'] == 'F']['diverged'].sum())}, "
       f"M diverged = {int(_df[_df['sex'] == 'M']['diverged'].sum())}")
-print(f"empirical instability band (min/max diverged severity) = [{_band_lo:.3f}, {_band_hi:.3f}]")
+print(f"empirical instability band (smallest 3-dp interval containing every diverged severity) = [{_band_lo:.3f}, {_band_hi:.3f}]")
 
 fig, ax = plt.subplots(1, 1, figsize=(11.0, 5.4))
 
@@ -161,7 +174,7 @@ ax.errorbar(
 )
 
 # Reference shading for the documented 0.91-0.945 instability zone (from
-# the literature; the atlas extends the empirical band to [0.879, 0.945]).
+# the literature; the atlas extends the empirical band to [0.879, 0.946]).
 ax.axvspan(0.91, 0.945, color="#C44E52", alpha=0.10, zorder=0,
            label="Documented 0.91–0.945 instability zone")
 

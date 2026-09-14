@@ -24,6 +24,36 @@ related: [S005, S006, S008]
 
 # S009 — Tier-2 polish: seed stability, continuous-ARDS regime, pytest, CI
 
+> **Correction note, 2026-09-14 — the continuous-ARDS bins and band below were
+> computed on truncated severity labels.** Kept as written, because this entry
+> is a dated record.
+>
+> **What was wrong.**
+> - Each run directory is named `sev{int(sev * 1000):04d}` (truncation), and
+>   the parquet column `ards_severity_continuous` is rebuilt from that name;
+>   despite its name, it is the truncated value.
+> - Pulse itself ran the exact value, which is in `config.json` and in the
+>   parquet column `ards_severity`: `CONT_M_078_sev0945` ran at 0.9458464.
+> - Binning on the label moved six runs across a bin edge, three per sex, at
+>   simulated severities 0.85018, 0.94585 and 0.95064. One of them is the
+>   male divergence, moved from (0.945, 0.95] into (0.91, 0.945].
+> - It also cut the band's upper edge to 0.945.
+>
+> **On the simulated severity.** Re-derived from the 200 raw run directories
+> and identical in the parquet.
+> - Diverged runs span 0.8797709–0.9458464, so the smallest 3-decimal
+>   interval containing all of them is **[0.879, 0.946]**; per sex, female
+>   [0.879, 0.928] and male [0.899, 0.946].
+> - Per-sex bin sizes are 31 / 19 / 19 / 9 / 2 / 20.
+> - Divergences are F 14/19 vs M 5/19 in (0.85, 0.91], F 5/9 vs M 8/9 in
+>   (0.91, 0.945], and F 0/2 vs **M 1/2** in (0.945, 0.95].
+> - Totals are unchanged (19 F, 14 M), as is the qualitative reading.
+>
+> **Found by** the number audit, `audit/number_inventory.md` §4.1 (F-S5).
+> Corrected in the paper, supplement, monograph, README, cover letter,
+> `scripts/make_supp_fig_s1.py` and Figure S1. Any figure below that disagrees
+> with these is the pre-correction value.
+
 ## Hypothesis
 
 Three Tier-2 questions, each one tested independently of the published

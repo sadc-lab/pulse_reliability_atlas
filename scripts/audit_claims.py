@@ -49,6 +49,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import re
 import sys
 from dataclasses import dataclass
@@ -6370,6 +6371,114 @@ n_abstract_fail = check_abstract_extent()
 n_s021_conv_fail = check_s021_converged_plateau()
 
 
+# -----------------------------------------------------------------------------
+# Continuous-severity band guard (2026-09-14).
+#
+# The supplement's continuous-severity table, the empirical instability band
+# and Figure S1 were computed on the run DIRECTORY label sev{int(sev*1000)} --
+# a truncation -- instead of the severity Pulse was given. CONT_M_078 ran at
+# 0.9458464, so the published band [0.879, 0.945] excluded one male
+# divergence, six runs sat in the wrong bin, and "0 / 51" should have been
+# 0 / 50. The parquet column named `ards_severity_continuous` is that
+# truncated label; `ards_severity` is the simulated value. Found by the number
+# audit (audit/number_inventory.md section 4.1, F-S5).
+#
+# The band is published as the smallest 3-decimal interval CONTAINING every
+# diverged severity (floor the minimum, ceil the maximum): rounding would drop
+# the lowest divergence, 0.87977, out of [0.880, ...].
+# -----------------------------------------------------------------------------
+CONT_SWEEP_SOURCE = "results/continuous_ards_severity_sweep.parquet"
+CONT_BAND = (0.879, 0.946)
+CONT_BAND_BY_SEX = {"F": (0.879, 0.928), "M": (0.899, 0.946)}
+CONT_BIN_EDGES = (0.0, 0.5, 0.85, 0.91, 0.945, 0.95, 1.0)
+# per bin, per sex: (n, diverged)
+CONT_BIN_TABLE = {
+    "F": ((31, 0), (19, 0), (19, 14), (9, 5), (2, 0), (20, 0)),
+    "M": ((31, 0), (19, 0), (19, 5), (9, 8), (2, 1), (20, 0)),
+}
+CONT_TEXT_REQUIRED = (
+    ("preprint_npj/paper.tex", "$[0.879, 0.946]$", 2),
+    ("preprint_npj/supplement.tex", "$(0.945, 0.95]$    & 2  & 0 / 2   & \\textbf{1 / 2}", 1),
+    ("preprint_npj/supplement.tex", "$(0.91, 0.945]$    & 9  & 5 / 9   & \\textbf{8 / 9}", 1),
+    ("preprint_npj/supplement.tex", "0 / 50 divergence on each sex", 1),
+    ("preprint/manuscript.md", "| (0.945, 0.95]    | 0 / 2      | **1 / 2**  |", 1),
+    ("preprint/manuscript.md", "0.879–0.928, male 0.899–0.946", 1),
+    ("README.md", "female 14/19 vs male 5/19 in (0.85, 0.91], female 5/9 vs male 8/9", 1),
+)
+CONT_TEXT_BANNED = ("0.879, 0.945", "0.879--0.945", "0.879–0.945", "0 / 51 divergence", "14/18", "14 / 18")
+CONT_TEXT_FILES = ("preprint_npj/paper.tex", "preprint_npj/supplement.tex",
+                   "preprint/manuscript.md", "README.md", "preprint_npj/cover_letter.md")
+
+
+def _cont_bins(sev: pd.Series, div: pd.Series) -> tuple[tuple[int, int], ...]:
+    out = []
+    for lo, hi in zip(CONT_BIN_EDGES[:-1], CONT_BIN_EDGES[1:]):
+        mask = ((sev >= lo) if lo == 0.0 else (sev > lo)) & (sev <= hi)
+        out.append((int(mask.sum()), int((mask & div).sum())))
+    return tuple(out)
+
+
+def check_continuous_severity_band() -> int:
+    """Re-derive the continuous-severity band, per-sex ranges and bin table."""
+    print("\n## Continuous-severity band guard (Supplement S5, Figure S1)\n")
+    rows: list[tuple[str, str, str]] = []
+    n_bad = 0
+
+    def record(label: str, observed: str, ok: bool) -> None:
+        nonlocal n_bad
+        n_bad += 0 if ok else 1
+        rows.append((label, observed, "PASS" if ok else "**FAIL**"))
+
+    cont = pd.read_parquet(REPO / CONT_SWEEP_SOURCE)
+    need = {"case_id", "ards_severity", "ards_severity_continuous", "diverged"}
+    missing = need - set(cont.columns)
+    record("columns resolve by name", "all present" if not missing else f"absent: {sorted(missing)}", not missing)
+    if not missing:
+        sex = cont["case_id"].str.split("_").str[1]
+        sev = cont["ards_severity"].astype(float)
+        div = cont["diverged"].astype(bool)
+        record("200 runs, 100 per sex", f"{len(cont)} ({sex.value_counts().to_dict()})",
+               len(cont) == 200 and set(sex.value_counts().to_dict().values()) == {100})
+        dv = sev[div]
+        band = (math.floor(dv.min() * 1000) / 1000, math.ceil(dv.max() * 1000) / 1000)
+        record("containing band of diverged simulated severities", f"[{band[0]:.3f}, {band[1]:.3f}] (published {CONT_BAND})",
+               band == CONT_BAND)
+        for sx, pub in CONT_BAND_BY_SEX.items():
+            s = sev[div & (sex == sx)]
+            got = (math.floor(s.min() * 1000) / 1000, math.ceil(s.max() * 1000) / 1000)
+            record(f"{sx} containing range", f"[{got[0]:.3f}, {got[1]:.3f}] (published {pub})", got == pub)
+        for sx, pub in CONT_BIN_TABLE.items():
+            got = _cont_bins(sev[sex == sx], div[sex == sx])
+            record(f"{sx} bin table (n, diverged)", f"{got}", got == pub)
+        # NEGATIVE CALIBRATION: the truncated label must NOT reproduce the published
+        # table or band, or this guard would pass on a regression to label binning.
+        lab = cont["ards_severity_continuous"].astype(float)
+        trunc_ok = bool((lab == (sev * 1000).apply(math.floor) / 1000).all())
+        record("negative-control column is the int(sev*1000) truncation", str(trunc_ok), trunc_ok)
+        lab_band = (math.floor(lab[div].min() * 1000) / 1000, math.ceil(lab[div].max() * 1000) / 1000)
+        lab_tab = _cont_bins(lab[sex == "M"], div[sex == "M"])
+        record("negative control: the truncated label gives a different band and male table",
+               f"{lab_band}, {lab_tab}", lab_band != CONT_BAND and lab_tab != CONT_BIN_TABLE["M"])
+
+    for rel, needle, expected in CONT_TEXT_REQUIRED:
+        got = (REPO / rel).read_text(encoding="utf-8").count(needle)
+        record(f"`{rel}` carries `{needle[:48]}`", f"{got} (expected {expected})", got == expected)
+    for rel in CONT_TEXT_FILES:
+        text = (REPO / rel).read_text(encoding="utf-8")
+        hits = [b for b in CONT_TEXT_BANNED if b in text]
+        record(f"`{rel}` free of the truncated-label figures", "clean" if not hits else f"found {hits}", not hits)
+
+    print("| check | observed | verdict |")
+    print("|---|---|---|")
+    for label, observed, verdict in rows:
+        print(f"| {label} | {observed} | {verdict} |")
+    print(f"\n**Continuous-severity band guard:** {len(rows)} checks, {len(rows) - n_bad} PASS, {n_bad} FAIL.\n")
+    return n_bad
+
+
+n_contband_fail = check_continuous_severity_band()
+
+
 def check_s033_cycle_resolved() -> int:
     """Every number of Supplement S8's cycle-resolved subsection, re-derived.
 
@@ -7360,7 +7469,7 @@ sys.exit(
         + n_sexdiv_fail + n_inst_fail + n_cliprt_fail + n_s030prov_fail + n_figts_fail
         + n_fio2adj_fail + n_sobolframe_fail + n_s011_fail + n_abstract_fail
         + n_vtcv_split_fail + n_shap_unit_fail + n_detvocab_fail + n_cdcprov_fail + n_pubgate_fail
-        + n_windowtol_fail + n_s033_fail + n_s023oos_fail + n_s034_fail
+        + n_windowtol_fail + n_s033_fail + n_s023oos_fail + n_s034_fail + n_contband_fail
     ) > 0
     else 0
 )

@@ -166,8 +166,8 @@ below; this section is the exhaustive findings digest.*
       13 / 20** (enriched ~4× vs base rate) but is **not necessary** — the
       compound diverges at FiO2 = 0.737 as well.
     * *Severity-driven* ([S009](#s009)): at midrange inputs **both sexes
-      diverge across the [0.879, 0.945]** ARDS-impairment band (union; female
-      0.879–0.927, male 0.899–0.945).
+      diverge across the [0.879, 0.946]** ARDS-impairment band (union; female
+      0.879–0.928, male 0.899–0.946).
 * **Mechanism** ([S018](#s018)): Pulse's allometric `BloodVolumeBaseline`
   (male default **4,802.63 mL** vs female **3,996.09 mL**, ~17 % gap).
   Reducing male BV eliminates divergence:
@@ -231,8 +231,8 @@ below; this section is the exhaustive findings digest.*
 * **ARDS-impairment instability band — to our knowledge, the first systematic characterisation.** Three
   converging boundary probes first flagged 0.91–0.945; the 200-run
   continuous-severity sweep extends the empirical divergence band to
-  **[0.879, 0.945]**. The locked sweep places S4 at 0.95, deliberately above
-  it. Avoid [0.879, 0.945] when stable steady-state outputs are required.
+  **[0.879, 0.946]**. The locked sweep places S4 at 0.95, deliberately above
+  it. Avoid [0.879, 0.946] when stable steady-state outputs are required.
 * **Compensatory tachycardia decouples input HR from output HR under
   hypoxemia.** Output HR settles at **73.8 ± 20.4 bpm** in S1 but rises to
   **155.7 (S3)** and **147.1 (S4)** bpm despite the same [50, 110] input
@@ -351,9 +351,9 @@ sweep.*
   20 of 1,280 runs (1.6 %) diverge, *all 20 on the male surrogate in the
   Morris input-extreme regime*; the complementary continuous-severity
   sweep at midrange inputs (§3.5.1) shows divergence approximately
-  sex-balanced in aggregate inside the [0.879, 0.945] band, but with the
-  sex asymmetry reversed between the two severity bands (female 14/18 vs
-  male 5/18 in (0.85, 0.91]; female 5/10 vs male 9/10 in (0.91, 0.945])
+  sex-balanced in aggregate inside the [0.879, 0.946] band, but with the
+  sex asymmetry reversed between the two severity bands (female 14/19 vs
+  male 5/19 in (0.85, 0.91]; female 5/9 vs male 8/9 in (0.91, 0.945])
   — the sex effect is regime-dependent. The [S006](#s006) cluster is
   mechanistically confirmed ([S018](#s018)) to be mediated by Pulse's
   `BloodVolumeBaseline` (male default 4,802.63 mL vs female default
@@ -2057,7 +2057,7 @@ with a separate F-S018-A side-finding that Pulse enforces a
 per-surrogate BV floor (4,082.24 mL on this male body) which bounds
 how far the gap can be closed by a one-way transplant. In the §3.5.1
 continuous-severity regime at midrange inputs, divergence is
-approximately sex-balanced in aggregate inside the [0.879, 0.945] band,
+approximately sex-balanced in aggregate inside the [0.879, 0.946] band,
 though the sex asymmetry reverses between its two severity bands — so
 the original sex effect varies with *what is varying*, not sex per se.*
 
@@ -2272,11 +2272,11 @@ all 7 Morris inputs at midrange (HR = 80, SBP = 105, DBP = 70, RR =
 | Severity range  | F diverged | M diverged |
 |------------------|------------|------------|
 | [0, 0.5]         | 0 / 31     | 0 / 31     |
-| (0.5, 0.85]      | 0 / 20     | 0 / 20     |
-| (0.85, 0.91]     | **14 / 18**| 5 / 18     |
-| (0.91, 0.945]    | 5 / 10     | **9 / 10** |
-| (0.945, 0.95]    | 0 / 2      | 0 / 2      |
-| (0.95, 1.0]      | 0 / 19     | 0 / 19     |
+| (0.5, 0.85]      | 0 / 19     | 0 / 19     |
+| (0.85, 0.91]     | **14 / 19**| 5 / 19     |
+| (0.91, 0.945]    | 5 / 9      | **8 / 9**  |
+| (0.945, 0.95]    | 0 / 2      | **1 / 2**  |
+| (0.95, 1.0]      | 0 / 20     | 0 / 20     |
 
 *Continuous-severity divergence table — at a glance.*
 **What:** divergence counts per ARDS-severity bin in a 200-run
@@ -2284,8 +2284,11 @@ continuous-severity micro-sweep at midrange inputs (HR 80, SBP 105,
 DBP 70, RR 14, Vt 550, FiO2 0.6, PEEP 10).
 **How to read it:** each row is one severity bin; F-diverged and
 M-diverged columns show divergences per sex (denominators differ
-because runs distribute non-uniformly across severities).
-**Key takeaway:** divergences concentrate in `[0.879, 0.945]` —
+because runs distribute non-uniformly across severities). Each run is
+binned on the impairment fraction it was simulated at, read from its
+configuration.
+**Key takeaway:** divergences concentrate in `[0.879, 0.946]`, the
+smallest 3-decimal interval containing every diverged run —
 wider than the previously reported `[0.91, 0.945]` zone — and are
 approximately sex-balanced in aggregate at midrange inputs, though the
 sex asymmetry reverses between the two bands above (female-dominated
@@ -2298,8 +2301,9 @@ Two refinements of the literature picture:
 1. **The instability band is wider than previously reported.** The
    `Pulse_translation_new` E6 audit reported an instability zone at
    `[0.91, 0.945]`. Our continuous sweep at midrange inputs places
-   the band at `[0.879, 0.945]` — the lower edge moves down by 0.031,
-   extending the band on the low side by about 90 % of the original
+   the band at `[0.879, 0.946]` — the lower edge moves down by 0.031
+   and the upper edge up by 0.001, extending the band on the low side
+   by about 90 % of the original
    E6 width. The discrepancy is consistent with input dependence: E6
    used ventilator settings tailored to ARDS calibration; the atlas's
    midrange settings reach instability earlier.
@@ -2307,8 +2311,8 @@ Two refinements of the literature picture:
 2. **The [S006](#s006) sex-stratification is regime-dependent.** In the
    continuous-severity sweep (midrange inputs), the divergences are
    approximately balanced (F = 19, M = 14), with F diverging at
-   *lower* severities (0.879 onwards) and M continuing into
-   `[0.91, 0.945]`. So the original [S006](#s006) claim "all 20 male
+   *lower* severities (0.879 onwards) and M continuing through
+   `[0.91, 0.946]`. So the original [S006](#s006) claim "all 20 male
    divergences" is a property of the *input-extreme + 4-scenario*
    combination, not a global sex effect on solver reliability.
 
@@ -2320,7 +2324,7 @@ The atlas therefore distinguishes **two separate divergence regimes**:
   Mechanism candidate: ~17 % blood-volume difference (§3.5, computed
   as (4 802.63 − 3 996.09) / 4 802.63 against the male default).
 * **Severity-driven regime** ([S009](#s009)): both sexes, midrange inputs,
-  severity in the band `[0.879, 0.945]`. F slightly higher overall;
+  severity in the band `[0.879, 0.946]`. F slightly higher overall;
   F earlier in the band, M later. Interpretation: the sex asymmetry shifts
   across the high-impairment band, consistent with a change in solver
   stability; the atlas did not record solver-conditioning metrics or isolate
@@ -3067,7 +3071,7 @@ artifact:
   that the male-divergence clustering reported here is specific to the
   [S006](#s006) input-extreme regime; the complementary continuous-severity
   sweep (§3.5.1) at midrange inputs produced balanced female / male
-  divergence in the [0.879, 0.945] band, with the sex effect varying
+  divergence in the [0.879, 0.946] band, with the sex effect varying
   with what is varying (Morris-extreme inputs vs ARDS severity).
 * **Cardiovascular outputs (HR, MAP) become red at and below moderate
   ARDS regardless of sex.** The S3_M, S3_F, S4_M, S4_F cells all show

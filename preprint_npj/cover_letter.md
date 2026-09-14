@@ -57,7 +57,7 @@ readership:
    a spurious sex covariate into any downstream model.
 
 3. **To our knowledge, the first systematic characterisation of an ARDS
-   impairment-fraction solver-instability band ([0.879, 0.945]).** Published
+   impairment-fraction solver-instability band ([0.879, 0.946]).** Published
    Pulse validation work and HowTo examples sample at most up to severity 0.9
    and do not examine impairment fractions inside 0.91–0.945. Our
    continuous-severity sweep resolves two distinct divergence regimes — an

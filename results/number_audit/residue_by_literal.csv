@@ -1,8 +1,6 @@
 artefact,literal,occurrences,example_context
 paper,0.05,5,"h near-zero variation), varies too much (coefficient of variation $>$ 0.05; most often tidal volume), or drifts past its locked per-channel limi"
-paper,0.945,4,"tion of an ARDS impairment-fraction solver-instability band ($[0.879, 0.945]$), together with further engine-level observations that target tooli"
 paper,18,3,"Two adult reference bodies were used: a male body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both w"
-paper,0.879,2,"cterisation of an ARDS impairment-fraction solver-instability band ($[0.879, 0.945]$), together with further engine-level observations that targe"
 paper,13,2,"nct operational-input vectors, and FiO$_2$ sat at its 1.0 boundary in 13 of the 20. A preregistered follow-up experiment isolated the mechani"
 paper,"4{,}400",2,"e count from 20 / 20 at the default to 0 / 20 at both an intermediate 4{,}400~mL bracket and the engine's own setup floor of 4{,}082~mL (Figure~"
 paper,0.001,1,"}000, and two tests reaching zero are reported conservatively as $p < 0.001$. Cross-sex agreement of input-importance rankings was quantified by"
@@ -30,12 +28,10 @@ paper,86,1,"utes 3{,}996~mL for the female reference body (dashed vertical line)
 paper,93,1,}280 simulations). Sensitivity is skewed: three inputs carry a median 93~\% of each output's total. A four-flag classifier surfaces failure mo
 paper,95,1,"change per full-range move of its input. Indices carry non-parametric 95~\% bootstrap confidence intervals from 1{,}000 trajectory-level resam"
 paper,99.9,1,f the mean \emph{and} a mean within 0.1~\% of a hard bound --- $\geq$~99.9~\% for the SpO$_2$ ceiling --- a rule written to catch a solver that
-supplement,0.945,24,ule 4 & ARDS solver instability in the impairment-fraction band 0.91--0.945. The locked S4 scenario at 0.95 is intentionally above this band; a c
 supplement,95,17,in the first 48~h of ventilation; its cutoffs place approximately the 95th percentile at 70~mmHg~ . A 120~mmHg ceiling therefore
 supplement,110,16,drule 5--6 & Heart-rate initialisation accepted only in the range 50--110~bpm; respiratory-rate initialisation accepted only in the range 8--20
-supplement,18,15,berate-clamp probes \\ \midrule 3 & Adult-only restriction: age $\geq 18$ years hard-gated in \texttt{ }. & Source audit (monog
 supplement,0.05,14,check. The coefficient-of-variation threshold \texttt{CV\_THRESHOLD = 0.05} fires when the standard deviation of any output across the steady-st
-supplement,0.879,10,"ntinuous-severity micro-sweep confirms it and extends the low edge to 0.879 (Supplement~\S\, ). & Three independent sources (monograph"
+supplement,18,12,berate-clamp probes \\ \midrule 3 & Adult-only restriction: age $\geq 18$ years hard-gated in \texttt{ }. & Source audit (monog
 supplement,22,8,"s been adjusted post-hoc; the only preregistration amendment (2026-04-22-b, flatline tolerance 1~\% $\rightarrow$ 0.1~\%) was made before the"
 supplement,394,8,"manuscript + supplement from the canonical artefacts; expect # 394/394 PASS (exit 0) with the authors' full data tree, # or 393/394 o"
 supplement,"4{,}802.63",8,"n $\text{BV} = 65.6 \cdot \text{weight}_{\text{kg}}^{1.02}$, yielding 4{,}802.63~mL for the male body and 3{,}996.09~mL for the female body --- the 17"
@@ -63,10 +59,12 @@ supplement,16.8,3,"67.3~kg male body versus 3{,}996.09~mL for the 56.2~kg female
 supplement,25,3,"n category (b), the exact numerical choice (e.g., PaO$_2$ lower 20 vs 25~mmHg) is a defensible judgment call within the cited literature rathe"
 supplement,37,3,"), so the thick blue line is the median over the remaining 37 \emph{physiological}-converged runs. The dotted purple horizontal at"
 supplement,"4{,}400",3,"ence cluster (20 / 20 at the default $\rightarrow$ 0 / 20 at both the 4{,}400 and 4{,}082.24~mL reductions). This supplement section disentangles t"
+supplement,0.001,2,he locked flatline rule (\texttt{std/|mean| $<$ 0.01} and mean within 0.001 of a hard bound) catches as ``pinned at the ceiling''. The rule was d
 supplement,0.005,2,"side). A complementary 9-run calibration refinement at 0.93--0.97 in 0.005 steps (four failures across 0.93--0.945, five passes across 0.95--0.9"
 supplement,0.06,2,".00]$ \\ S2 & MAP & 1.00 & $[1.00, 1.00]$ \\ S2 & Vt & 0.75 & $[-0.06, 1.00]$ \\ S2 & SpO$_2$ & 0.96 & $[0.70, 1.00]$ \\ S2 & PaO$_2$ & 0"
+supplement,0.09,2,"neither female run does, so the Wilson 95~\% CIs are approximately $[0.09, 0.91]$ for $1 / 2$ and $[0, 0.66]$ for $0 / 2$. They are honestly sh"
 supplement,0.40,2,"an runs with PEEP $\geq 5$~cmH$_2$O, stratified by FiO$_2$ (low 0.21--0.40, mid 0.40--0.70, high 0.70--1.00).} This is \emph{not} the reference"
-supplement,0.66,2,"two runs each; the Wilson 95~\% CI for $0 / 2$ is approximately $[0, 0.66]$, which is honestly shown rather than suppressed because hiding an u"
+supplement,0.66,2,"ilson 95~\% CIs are approximately $[0.09, 0.91]$ for $1 / 2$ and $[0, 0.66]$ for $0 / 2$. They are honestly shown rather than suppressed because"
 supplement,0.83,2,"~mmHg range, or 13.33~mmHg; five of the nine fall to 6.25~\% of that (0.83~mmHg), one to 56.25~\% and three to 62.5~\%, and none is reduced to z"
 supplement,0.92,2,eference ventilation setting of \S found fractions 0.92 and 0.94 failing to stabilise. A 10-run high-resolution boundary prob
 supplement,0.94,2,ventilation setting of \S found fractions 0.92 and 0.94 failing to stabilise. A 10-run high-resolution boundary probe at 0.90
@@ -98,10 +96,10 @@ supplement,71,2,the cited critical-care sources. \\ PaO$_2$ (15 mmHg / 60~s) & A
 supplement,86,2,ule \multicolumn{4}{l}{\textit{Dermal}} \\ Skin Temperature & 10 / 86 & 43 / 86 & No (dermal) \\ \midrule \multicolumn{4}{l}{\textit{Cardio
 supplement,0.0003,1,"e the out-of-bag estimate is most optimistic (0.078 to 0.087, against 0.0003 for delivered Vt). Both measures point the same way: gas exchange dep"
 supplement,0.0004,1,& Trajectory-grouped \\ \midrule Vt & 0.99997 & 0.9998 & 0.9995 $\pm$ 0.0004 \\ HR & 0.9995 & 0.9964 & 0.9917 $\pm$ 0.0024 \\ MAP & 0.9993 & 0.995
-supplement,0.001,1,he locked flatline rule (\texttt{std/|mean| $<$ 0.01} and mean within 0.001 of a hard bound) catches as ``pinned at the ceiling''. The rule was d
 supplement,0.002,1,"xtbf{Anatomic dead space.} No sex branch of its own, but computed as $0.002 \times$ ideal body weight, and Pulse's Devine ideal-body-weight relat"
 supplement,0.0024,1,& 0.9998 & 0.9995 $\pm$ 0.0004 \\ HR & 0.9995 & 0.9964 & 0.9917 $\pm$ 0.0024 \\ MAP & 0.9993 & 0.9952 & 0.9402 $\pm$ 0.0253 \\ SpO$_2$ & 0.9941 &
 supplement,0.015,1,"reference body the resulting difference is 0.27~kcal\,day$^{-1}$, or 0.015~\%."
+supplement,0.031,1,every diverged run --- wider than the documented 0.91--0.945 band by 0.031 on the low edge and 0.001 on the high edge --- and the per-bin sex pa
 supplement,0.04,1,bstituted value is identical in every affected run. The adjustment is 0.04~\% in relative terms; it moves the sea-level alveolar-gas ceiling fro
 supplement,0.07,1,"% across healthy, restrictive, and obstructive lung profiles, against 0.07--2.25~\% for VC-AC, per Pulse's own validation tables~"
 supplement,0.075,1,diffusion surface area & decreases & $0.57\times$ & $0.20\times$ & $0.075\times$ \\ Pulmonary-shunt path resistance & decreases & $\approx 0.
@@ -134,6 +132,7 @@ supplement,0.920,1,"erive the instability band independently: impairment fractio
 supplement,0.925,1,10-run high-resolution boundary probe at 0.90 / 0.91 / 0.915 / 0.92 / 0.925 / 0.93 / 0.935 / 0.94 / 0.945 / 0.95 narrowed the failure range to 0.
 supplement,0.935,1,olution boundary probe at 0.90 / 0.91 / 0.915 / 0.92 / 0.925 / 0.93 / 0.935 / 0.94 / 0.945 / 0.95 narrowed the failure range to 0.91--0.945 inclu
 supplement,0.940,1,"ability band independently: impairment fractions 0.910, 0.920, 0.930, 0.940 and 0.945 all failed to complete, while 0.900 and 0.950 completed."
+supplement,0.9458,1,"bin holds only two runs per sex: one male run diverges, at impairment 0.9458, and neither female run does, so the Wilson 95~\% CIs are approximate"
 supplement,0.99,1,ologically coherent. Delivered tidal volume and heart rate stay above 0.99 with almost no fold-to-fold spread; these are the channels a single i
 supplement,0.999,1,audited explicitly: SpO$_2$ ``flatline at ceiling'' with mean $\geq$ 0.999 (a detector edge case in which a healthy or well-oxygenated patient's
 supplement,1.1,1,"the \texttt{not\_steady\_state} total from 530 to 536, an increase of 1.1~\%. The locked classification and every count reported elsewhere in t"
@@ -205,7 +204,6 @@ supplement,5.1,1,"dering on Cornish's bootstrap counts (PaCO$_2$ at 18.6~\%, PaO
 supplement,5.5,1,"se readings exceeds the preregistered envelope, by a factor of 2.4 to 5.5. It is therefore reported rather than executed. The released code bas"
 supplement,50.8,1,"to 20.0~min$^{-1}$ --- still above the set rate --- PaCO$_2$ rises to 50.8~mmHg, and P/F falls to 91.5~mmHg, keeping the run severe across all t"
 supplement,5000,1,"described in~ ; that paper reports qualitative ASL-5000 waveform agreement, not these quantitative percentages). The atlas re"
-supplement,51,1,"he $(0, 0.85]$ zero-divergence regime of Table~ (0 / 51 divergence on each sex across the two lowest non-trivial bins combine"
 supplement,54,1,"exceeds the 30~\% rate that makes a cell red on that criterion alone (54 / 160 = 33.75~\%); S4\_F, at 46 / 160 = 28.75~\%, sits just below it."
 supplement,550,1,"at their midrange values (HR = 80, SBP = 105, DBP = 70, RR = 14, Vt = 550, FiO$_2$ = 0.6, PEEP = 10) extends the picture in two ways: it refine"
 supplement,56.05304601,1,"quires a 214-month label. The 214.5 row in fact holds 66.91783563 and 56.05304601~kg, which round to 66.9 and 56.1~kg and are not the values used anywh"
@@ -251,8 +249,7 @@ supplement,9.8,1,onsumer: at equal body mass the female reference body ends with
 supplement,927,1,"n clinical. One multinational ARDS cohort --- 1{,}899 patients across 927 ICUs in 40 countries --- categorised the maximum PaCO$_2$ recorded in"
 supplement,93,1,"& 44 & 643.2 & [592, 668] \\ S3 (moderate ARDS) & 8 & 143.6 & [93, 218] \\ S4 (severe ARDS) & 8 & 72.6 & [71, 76] \\ \bottomrul"
 supplement,99,1,28 / 163 / 160 \\ S4 (0.95) & 91 & 75 [69--83] & severe & --- / 99 / 74 \\ \bottomrule \subsection{Severity-t
-monograph,18,32,"st one clean pair, so it covers six inputs rather than seven in the 18 combinations where FiO2 carries none (S1_M, S1_F, S4_F); the fracti"
-monograph,0.945,27,ing the Berlin Definition's mild–severe bands and bracketing the 0.91–0.945 solver-instability zone) across two adult surrogates (CDC weight-anch
+monograph,18,28,"st one clean pair, so it covers six inputs rather than seven in the 18 combinations where FiO2 carries none (S1_M, S1_F, S4_F); the fracti"
 monograph,0.05,23,"steady-state distributions, under Benjamini–Hochberg FDR control (q = 0.05): 5 of 24 cell × output Wasserstein distances survive the permutation"
 monograph,13,23,every male run matching it diverges). **FiO2 = 1.0 co-occurs in 13 / 20** (enriched ~4× vs base rate) but is **not necessary** — the
 monograph,3.8,23,ion (PaO2 upper 700 mmHg) is reported as a sensitivity analysis in §3.8. * **Sex as a reliability-sensitivity axis** — the first sex-stratifi
@@ -264,11 +261,10 @@ monograph,22,12,"he detector clamp regex against real Pulse rejection logs. | | 
 monograph,3.5,11,"tus built to answer them; each is evaluated in §3.3 (H1), §3.4 (H2), §3.5 (H3) and §3.6 (H4).* > - **H1.** A small subset of inputs dominates"
 monograph,163,10,"sed here — male 18 yr / 67.3 kg / 180 cm and female 18 yr / 56.2 kg / 163 cm — are **not** Pulse's source-code ""Standard"" patients: the weights"
 monograph,0.21,9,mL | ARDSnet 6 mL/kg [@brower2000] to pre-ARDSnet 10 mL/kg | | FiO2 | 0.21–1.0 | fraction | room air → pure O2 (companion FiO2 = 1.0 crash probe
-monograph,14,9,"h the sex asymmetry reversed between the two severity bands (female 14/18 vs male 5/18 in (0.85, 0.91]; female 5/10 vs male 9/10 in (0.91,"
+monograph,14,9,"h the sex asymmetry reversed between the two severity bands (female 14/19 vs male 5/19 in (0.85, 0.91]; female 5/9 vs male 8/9 in (0.91, 0"
 monograph,28,9,"sed-patch ( fall-through guard, 2026-04-28). [S015 Phase 2 verified 40 / 40 reproduction-consistent CSV"
 monograph,4.3,9,"values, not user-facing operational inputs) and was not ported to the 4.3.x release line. Prior external work [@cornish2023] addressed interven"
 monograph,96,9,"dependent): impairment {0.26, 0.60, 0.95} lands P/F ≈ **256 / 150 / 96 mmHg** (near the Berlin mild and moderate band centres; just inside"
-monograph,0.879,8,"9 ): at midrange inputs **both sexes diverge across the [0.879, 0.945]** ARDS-impairment band (union; female 0.879–0.927, male"
 monograph,27,8,0 | Lower: oxyhemoglobin dissociation curve P50 (SpO2 = 50 % ↔ PaO2 ≈ 27 mmHg [@severinghaus1979]); upper: hemoglobin saturation ceiling (defi
 monograph,4.2,8,the ventilator-stress points where validation matters most. Section 4.2 details the −2 cmH2O setting validated by [S014 as a data-gen
 monograph,1.1,7,log tag system ([S001 – [S024 ) used throughout.* ### 1.1 Motivation *Why this paper exists. Pulse is used in clinical researc
@@ -296,14 +292,14 @@ monograph,340,5,"ults yield 199 / 150 / 119 mmHg at the same settings (vs. publi
 monograph,393,5,"394 PASS at the locked tolerance band on the authors' full data tree; 393 / 394 on a public clone, where the one anchor needing the gitignored"
 monograph,65,5,"40 of 48 cells, and under trajectory-level bootstrap 31 of 48 cells (65 %) are CI-robustly linear (upper bootstrap CI < 0.6); the remaining 1"
 monograph,86,5,"): a hard per-patient BV floor at **4,082.24 mL** on the male body, 86 mL above the female default — the two bodies cannot be made BV-equi"
-monograph,0.85,4,"ersed between the two severity bands (female 14/18 vs male 5/18 in (0.85, 0.91]; female 5/10 vs male 9/10 in (0.91, 0.945]) — the sex effect"
+monograph,0.001,4,"— the lower edge moves down by 0.031 and the upper edge up by 0.001, extending the band on the low side by about 90 % of the original"
+monograph,0.85,4,"ersed between the two severity bands (female 14/19 vs male 5/19 in (0.85, 0.91]; female 5/9 vs male 8/9 in (0.91, 0.945]) — the sex effect i"
 monograph,0.94,4,"), with μ\* in the 84 – 147 mmHg range and σ / μ\* between 0.64 and 0.94. This is the regime where venous admixture caps oxygenation gain pe"
 monograph,140,4,.8333 / 13.3333 = 0.0625. * **One-at-a-time violations.** In 8 of the 140 steps the flipped input is SBP. Moving SBP moves the 0.75 x SBP cap
 monograph,190,4,"ction standard (0.21 vs 0.28), height bounds (151 – 175.5 cm vs 163 – 190 cm), and the Harris–Benedict basal metabolic rate, which the engine's"
 monograph,199,4,"EEP 10 + FiO2 0.4; Pulse's documented {0.3, 0.6, 0.9} defaults give 199 / 150 / 119 mmHg at the same settings. * **Complementarity with Cor"
 monograph,4.4,4,"ol, and Hoeffding / Holm–Bonferroni (external; used by Cornish 2023, §4.4). First appearance of each test in §3 is therefore immediately interp"
 monograph,4.7,4,e infrastructure recommendations offered to the Pulse maintainers (§4.7). --- ## Reader's roadmap *This paper is written for a cross-disci
-monograph,0.001,3,\\ S2 & \textbf{PaCO2} & \textbf{5.12} & 1.07 & 2.13 & \textbf{$<$ 0.001} & * \\ \midrule S3 & HR & 4.77 & 3.86 & 8.61 & 0.333 & \\ S3
 monograph,0.005,3,"t** (a 9-run high-resolution sweep, 2026-04, testing 0.93 – 0.97 in 0.005 steps): 0.93 – 0.945 all FAIL (4 runs), 0.95 – 0.97 all PASS (5 run"
 monograph,0.009,3,98 & \\ S1 & \textbf{PaCO2} & \textbf{4.69} & 1.65 & 3.56 & \textbf{0.009} & * \\ \midrule S2 & HR & 1.91 & 3.60 & 7.72 & 0.958 & \\ S2
 monograph,0.06,3,"0, 1.00] \\ S2 & MAP & 1.00 & [1.00, 1.00] \\ S2 & Vt & 0.75 & [−0.06, 1.00] \\ S2 & SpO2 & 0.96 & [0.70, 1.00] \\ S2 & PaO2 & 0.93 & [0."
@@ -382,7 +378,7 @@ monograph,0.014,1,& \\ S3 & Vt & 36.3 & 20.8 & 45.9 & 0.129 & \\ S3 & SpO2 & 0.0
 monograph,0.017,1,& 36.3 & 20.8 & 45.9 & 0.129 & \\ S3 & SpO2 & 0.014 & 0.009 & 0.017 & 0.119 & \\ S3 & PaO2 & 8.82 & 6.57 & 12.8 & 0.245 & \\ S3 &
 monograph,0.023,1,"0037 and σ = 0.0068, and (S1, M, SpO2, Vt) with μ\* = 0.028 and σ = 0.023. SpO2 in the healthy respiratory envelope sits at ≈ 0.997 — the hem"
 monograph,0.028,1,"with μ\* = 0.0037 and σ = 0.0068, and (S1, M, SpO2, Vt) with μ\* = 0.028 and σ = 0.023. SpO2 in the healthy respiratory envelope sits at ≈ 0"
-monograph,0.031,1,"places the band at — the lower edge moves down by 0.031, extending the band on the low side by about 90 % of the original"
+monograph,0.031,1,"places the band at — the lower edge moves down by 0.031 and the upper edge up by 0.001, extending the band on the low side"
 monograph,0.0625,1,"tep of 13.3333 mmHg executes as 0.8333 mmHg, and 0.8333 / 13.3333 = 0.0625. * **One-at-a-time violations.** In 8 of the 140 steps the flipped in"
 monograph,0.073,1,2 & 0.006 & 0.011 & 0.022 & \\ S2 & PaO2 & 16.1 & 8.90 & 17.2 & 0.073 & \\ S2 & \textbf{PaCO2} & \textbf{5.12} & 1.07 & 2.13 & \textbf{$<
 monograph,0.083,1,1 & 3.38 & \textbf{0.003} & * \\ S4 & PaCO2 & 1.05 & 0.61 & 1.13 & 0.083 & \\ \bottomrule \* survives Benjam
@@ -419,10 +415,8 @@ monograph,0.840,1,& 1.03 & 2.11 & 0.652 & \\ S2 & Vt & 13.8 & 25.1 & 55.4 & 0.84
 monograph,0.87,1,"coupling on PaCO2: RR → PaCO2 in healthy males ((S1, M), σ / μ\* = 0.87), and Vt → PaCO2 in severe-ARDS females ((S4, F), σ / μ\* = 0.66)."
 monograph,0.88,1,idrule S2 & HR & 1.91 & 3.60 & 7.72 & 0.958 & \\ S2 & MAP & 0.88 & 1.03 & 2.11 & 0.652 & \\ S2 & Vt & 13.8 & 25.1 & 55.4 &
 monograph,0.897,1,& 1.44 & 2.82 & 0.460 & \\ S4 & Vt & 14.1 & 29.0 & 64.1 & 0.897 & \\ S4 & \textbf{SpO2} & \textbf{0.016} & 0.006 & 0.011 & \textbf{
-monograph,0.899,1,"0.945]** ARDS-impairment band (union; female 0.879–0.927, male 0.899–0.945). * **Mechanism** ([S018 ): Pulse's allometric"
 monograph,0.915,1,"10-run high-resolution boundary probe, 2026-04, testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PASS, 0.91 – 0."
 monograph,0.925,1,"esolution boundary probe, 2026-04, testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PASS, 0.91 – 0.945 all FAIL"
-monograph,0.927,1,"the [0.879, 0.945]** ARDS-impairment band (union; female 0.879–0.927, male 0.899–0.945). * **Mechanism** ([S018 ): Pulse's allometr"
 monograph,0.935,1,"ndary probe, 2026-04, testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PASS, 0.91 – 0.945 all FAIL (8 consecutiv"
 monograph,0.953,1,extbf{$<$ 0.001} & * \\ \midrule S4 & HR & 1.38 & 4.73 & 11.2 & 0.953 & \\ S4 & MAP & 1.50 & 1.44 & 2.82 & 0.460 & \\ S4 & Vt &
 monograph,0.958,1,& \textbf{0.009} & * \\ \midrule S2 & HR & 1.91 & 3.60 & 7.72 & 0.958 & \\ S2 & MAP & 0.88 & 1.03 & 2.11 & 0.652 & \\ S2 & Vt &
