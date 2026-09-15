@@ -6896,6 +6896,15 @@ def check_monograph_number_audit() -> int:
            f"cited {got}, erratum lines {(start, end) if start else 'absent'}",
            start is not None and got == (start, end))
 
+    # YL-M1 (author's decision 2026-09-15: the title page carries the revision date). The
+    # invariant is the defect itself, a title date earlier than the document's own dated
+    # entries; a fixed day is not pinned, so a later revision date passes. ISO dates only.
+    head = re.match(r'---\n.*?\ndate: "(\d{4}-\d{2}-\d{2})"\n', mono, re.S)
+    body_dates = re.findall(r"\b20\d{2}-[01]\d-[0-3]\d\b", mono[head.end():] if head else "")
+    record("YL-M1 the title-page date is not earlier than the latest ISO date in the monograph body",
+           f"title {head.group(1) if head else 'absent'}, latest in body {max(body_dates) if body_dates else 'none'}",
+           bool(head) and bool(body_dates) and head.group(1) >= max(body_dates))
+
     # O-10: Phase 4a counters.
     sha = json.loads((REPO / "data" / "runs" / "full_sweep_repro" / "sha_compare.json").read_text(encoding="utf-8"))
     record("O-10 Phase 4a: 1,260 bit-exact completed runs, 20 both diverged",

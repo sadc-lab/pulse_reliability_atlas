@@ -1890,8 +1890,8 @@ control. Unit: one literal occurrence.
     own source): it now reads "2026-04".
   - Guarded: new wording required, old banned (66 checks). Reinjection: 2 FAIL.
   - Monograph rebuilt, 121 pages. Dehyphenated render: new date 1, old 0.
-- **YL-M1 — `manuscript.md` L4, the title-page date. 🔴 OPEN, author's
-  decision.**
+- **YL-M1 — `manuscript.md` L4, the title-page date. ✅ Corrected on the
+  author's decision (2026-09-15; resolution at the end of this item).**
   - The YAML header reads `date: "2026-05-26"`. It was set by `65097a1` on
     2026-05-26 and has not changed since, and it renders on the PDF title page.
   - The same document was last revised on 2026-09-15. It carries dated entries
@@ -1902,6 +1902,23 @@ control. Unit: one literal occurrence.
   - Which date belongs there (release date, last revision, or first version plus
     a revision line) is a presentation choice with more than one defensible
     answer, so it is brought to the author.
+  - **Resolution.** The author chose the revision date, to be updated at each
+    deposit. The header now reads `date: "2026-09-15"`.
+    - Nothing else depends on it: `git grep 2026-05-26` outside `audit/` and
+      `experiments_log/` finds only this line and an unrelated dated sentence in
+      `preprint_npj/README.md` (L210). `CITATION.cff` carries its own
+      `date-released: 2026-05-22` for software v0.1.0, left to its
+      deposit-time update.
+    - Guarded in `check_monograph_number_audit` (68 → 69 checks). The check is
+      the defect itself, not a pinned day: the title date must not be earlier
+      than the latest ISO date in the body (2026-08-25, L4018), so a later
+      revision date still passes. Dates written in words are not compared.
+    - Reinjection of the previous monograph: 1 FAIL (title 2026-05-26, latest in
+      body 2026-08-25). MD5 restored.
+    - Monograph rebuilt, 121 pages. PDF page 1: new date 1, old 0, title
+      present; whole PDF: old 0. DOCX: new 1, old 0.
+    - Inventory: 39 probes, 0 FAIL, `summary.json` unchanged. The title-date
+      tokens stay in `ambiguous_small` (L4 "05" → "09", "26" → "15").
 
 **Movement.**
 - Inventory: 39 probes, 0 FAIL. Buckets are unchanged.
@@ -2006,7 +2023,7 @@ four groups §2.1 records as read. Unit: one literal occurrence.
 |---|---:|---:|---|
 | paper | 37 / 29 (43 / 31 when read) | 307 | **both read row by row** (§3, §3.2). `none`: no defect. `ambiguous_small`: 57 not quantities, 248 + 2 verified, **1 wording finding, corrected** (L259, author's choice, guarded). **`guard` and `ledger` read one by one** (§6): 183 occurrences, 16 of them a different quantity, all verified, no defect. **Year-like and masked literals read** (§7: 4; §8: 40), no defect |
 | supplement | 431 / 218 (456 when read) | 957 | **`none` read row by row** (§4.1): 6 not quantities, 450 verified; **all six findings corrected** on the author's decisions (F-S1 to F-S6, 2026-09-14). **`ambiguous_small` read row by row** (§4.2): 134 not quantities, 823 verified; **3 findings, 1 mechanical pointer and prose-sweep #15 all corrected** on the author's decisions (2026-09-14), guarded (22 checks). Counts now 411 / 960 (432 → 411 is by value only: §5 Resolution, §6 GL-S2). **`guard` and `ledger` read one by one** (§6): 515 occurrences, 122 a different quantity; **GL-S1 corrected** (mechanical pointer, guarded), **GL-S2 corrected** (author's decision, 2026-09-15, guarded). **Year-like and masked literals read** (§7: 18; §8: 77, the five chapter locators re-opened in the cited editions), no defect |
-| monograph | 803 / 344 when read; 794 / 334 after the corrections | 1864 when read; 1878 after | **both read row by row, plus the 89 inline-code literals** (§5); section pointers and "Cited in §X" checked. **19 findings (MF-1 … MF-21, MF-8 merged, MF-10 downgraded) and 11 observations. All 19 findings, O-3/5/7/8/9/10/11 and the Cornish citation corrected 2026-09-14** (author's decisions, or mechanical under the pact), guarded (63 checks, one of them GL-S1's; 66 after GL-S2 and YL-M2). O-1 not selected, O-4 not to be edited. MF-22 (HR anchors against Ostchega 2011), found during the resolution, removed on the author's decision, together with a precision on MF-20. Quantities against non-quantities not counted: the rule-based split failed its precision pass. **`guard` and `ledger` read one by one** (§6): 698 occurrences, 126 a different quantity, all verified, no defect. **Year-like literals read one by one** (§7): 153 occurrences; **YL-M2 corrected** (mechanical pointer, guarded), 🔴 **YL-M1 open** (title-page date, author's decision). **Masked literals read one by one** (§8): 166 occurrences; **MK-M1 corrected** (line-range pointer, mechanical, guarded; the guard now has 68 checks). Numbers written in words and prose without numbers not audited |
+| monograph | 803 / 344 when read; 794 / 334 after the corrections | 1864 when read; 1878 after | **both read row by row, plus the 89 inline-code literals** (§5); section pointers and "Cited in §X" checked. **19 findings (MF-1 … MF-21, MF-8 merged, MF-10 downgraded) and 11 observations. All 19 findings, O-3/5/7/8/9/10/11 and the Cornish citation corrected 2026-09-14** (author's decisions, or mechanical under the pact), guarded (63 checks, one of them GL-S1's; 66 after GL-S2 and YL-M2). O-1 not selected, O-4 not to be edited. MF-22 (HR anchors against Ostchega 2011), found during the resolution, removed on the author's decision, together with a precision on MF-20. Quantities against non-quantities not counted: the rule-based split failed its precision pass. **`guard` and `ledger` read one by one** (§6): 698 occurrences, 126 a different quantity, all verified, no defect. **Year-like literals read one by one** (§7): 153 occurrences; **YL-M2 corrected** (mechanical pointer, guarded), **YL-M1 corrected** (title-page date = revision date, author's decision, guarded). **Masked literals read one by one** (§8): 166 occurrences; **MK-M1 corrected** (line-range pointer, mechanical, guarded; the guard has 68 checks after MK-M1, 69 after YL-M1). Numbers written in words and prose without numbers not audited |
 
 ⚠️ **No count in this register may come from an ad-hoc pipeline.** Three
 successive `grep | cut | uniq` passes over `inventory.csv` each miscounted the
@@ -2017,7 +2034,8 @@ The monograph is Markdown, so a LaTeX pattern returns zero on it by construction
 (`1{,}280` against `1,280`); any hand search must test both syntaxes.
 
 **Year-like literals: read one by one** (§7, 175 occurrences). YL-M2 is
-corrected; 🔴 **YL-M1**, the monograph's title-page date, awaits the author.
+corrected, and **YL-M1**, the monograph's title-page date, is corrected on the
+author's decision.
 
 **Masked literals: read one by one** (§8, 283 occurrences). MK-M1 is corrected.
 With §2.1, §5 and §7, all 566 rows of `masked_by_rule.csv` have now been read:
@@ -2063,7 +2081,8 @@ are not audited: three such defects (MF-18, MF-20, MF-21)
 were found in passing, so its prose is not claimed clean.
 
 The year-like literals were then read one by one (§7). One date pointer is
-corrected, and the monograph's title-page date is with the author. The other
+corrected, and the monograph's title-page date is corrected on the author's
+decision. The other
 masked literals were then read one by one (§8), and one line-range pointer is
 corrected. The content of the LaTeX comments, which does not render, was not
 verified.
