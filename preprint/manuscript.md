@@ -711,7 +711,7 @@ built to answer them; each is evaluated in §3.3 (H1), §3.4 (H2),
 The phrase "Pulse standard patients" in H4 is quoted exactly as it was
 registered, but it is a misnomer, and the preregistration carries its own
 erratum saying so (`preregistration.md`, erratum of 2026-05-19, lines
-9–34). The two bodies used here — male 18 yr / 67.3 kg / 180 cm and
+9–36). The two bodies used here — male 18 yr / 67.3 kg / 180 cm and
 female 18 yr / 56.2 kg / 163 cm — are **not** Pulse's source-code
 "Standard" patients: the weights are CDC 50th-percentile
 weight-for-age values at `Agemos` = 216.5, the row beginning at exactly

@@ -32,6 +32,10 @@ paper's residue contained `3450` ("UR 3450 DevAH"), `1256` ("INSERM UMR\_S
 rule was extended and the calibration extended with it, rather than the rows
 being waved away one at a time.
 
+⚠️ **The unit is a run of digits** (noted 2026-09-15). A number written in words
+("three of the four pairs", "eleven") is not in this population at all, so no
+bucket, residue or mask ever shows it. See §9.
+
 ## 2. What the instrument measures
 
 | artefact | retained | distinct | guard | ledger | ambiguous small | none | distinct none |
@@ -1905,13 +1909,104 @@ control. Unit: one literal occurrence.
   (monograph "03" 3 → 2, "04" 13 → 14).
 - Guard-pinned literals 1,039 → 1,042.
 
-## 8. What remains
+## 8. The remaining masked literals, read one by one — 283 occurrences (2026-09-15)
+
+**Why.** A mask removes a literal before any bucket sees it, so a masked quantity
+could never appear in a residue. §2.1 had read some masked groups: the paper's and
+the supplement's typesetting lengths, the supplement's two line references and
+the monograph's 89 inline-code literals. §7 read the year-like literals. This
+section reads everything else.
+
+**Population.** Every `masked_by_rule.csv` row except `year_like` (§7) and the
+four groups §2.1 records as read. Unit: one literal occurrence.
+- Paper 40: comments 27, product versions 7, machinery 4, organisation
+  identifiers 2.
+- Supplement 77: machinery 53, comments 12, versions 7, file paths 2,
+  organisation identifiers 2, product versions 1.
+- Monograph 166: versions 55, link targets 42, URLs and DOIs 42, line references
+  13, product versions 7, code fences 3, organisation identifiers 2, machinery 1,
+  typesetting lengths 1.
+- Positive control: per artefact, `summary.json` → `literals_removed_per_rule`
+  minus the groups already read gives 51 − 11 = 40, 85 − 8 = 77 and
+  255 − 89 = 166.
+
+**Instrument** (scratchpad, session `04199c63`, not committed).
+- **`mk_worksheet.py`** prints each row with its full source line, not the
+  producer's snippet. It also checks that the literal occurs on the stated line:
+  283 of 283 do.
+- **`mk_mono_checks.py`** resolves the monograph's three-part section pointers to
+  their headings. It compares each DOI link's text with its target, and with the
+  `doi` field of the `references.bib` entry the line belongs to. Positive control:
+  an altered DOI is flagged.
+- **`mk_completeness.py`** gives every row exactly one verdict class, and each
+  class carries a structural test on the row's own source line.
+  - Result: 283 classified, 0 unclassified, 0 test failures, 0 bad keys.
+  - Negative controls: a bogus line key is reported, and forcing a wrong class on
+    the version rows fails 62 tests.
+  - Its first run failed 48 rows. The fault was in my tests, not in the
+    documents. The DOI pattern consumed the "10." prefix before looking for the
+    literal. The line-range pattern accepted only the first number of a range
+    split by a line break ("810–818" at the start of a line). Both were fixed and
+    the run repeated.
+
+**What each class was checked against.**
+
+| class | rows | checked against |
+|---|---:|---|
+| LaTeX comments | 39 (paper 27, supplement 12) | Not rendered. Each sits after an unescaped `%`. Their content was not verified, for instance the word counts in the paper's title and abstract comment banners. |
+| `\mainref` section numbers | 43 (supplement) | The 11 distinct labels, resolved by hand in `preprint_npj/build/paper.aux`: every typed number agrees. Second instrument: `check_render.py`, crossdoc OK. |
+| Chapter locators | 5 (supplement L208 ×2, L212 ×2, L216) | The cited editions, opened this session: Marini & Dries Ch. 1, West & Luks Ch. 2 and Ch. 5, Marino Ch. 25. All MATCH. Quotations, pages and one precision on the 2026-09-14 page evidence are in `audit/reference_audit.md`, addendum 2026-09-15. |
+| Figure widths, title-block layout | 11 (paper 4, supplement 5, monograph 2) | `\includegraphics[width=…]`, and the monograph's `minipage` and `\vskip`: not quantities. |
+| Organisation identifiers | 6 | UR 3450 and INSERM UMR_S 1256, identical in the three affiliation lists. |
+| AI product versions | 13 (paper 7, monograph 6) | Claude Opus 4.7, 4.8 and 5, and GPT-5.6: the same in the paper (L389, L391) and the monograph (L3770–L3811). At paper L389 each Claude version sits next to its model id (L391 names the versions without ids). The dates are the author's record (§7). |
+| Other versions | 3 | Python 3.12+ (supplement L886) against `pyproject.toml`, `requires-python = ">=3.12"`. "SALib 2.0" (monograph L4068) is part of the Iwanaga et al. 2022 title. macOS 26.5.1 (supplement L976) against the `sw_vers` row of `audits/reproduction_macos_2026-06-13/README.md` (L48), the record from co-author Y.M.'s host. |
+| Pulse 4.3.1 / 4.3.2 | 30 (supplement 6, monograph 24) | The pinned version. In the local Pulse clone, `git diff --stat REL_4_3_1 REL_4_3_2` gives 7 files, +46 −17, as monograph L807 states. |
+| File paths | 2 (supplement L972) | `audits/reproduction_2026-06-07/`, `audits/reproduction_check_2026-06-07.md` and `audits/reproduction_thinkpad_2026-06-10/` exist. |
+| Three-part section pointers | 26 (monograph) | Each resolves to exactly one heading (§3.3.1, §3.4.1, §3.5.1 or §3.8.1). The words announcing each were read against its target. |
+| Three-part headings | 5 (monograph) | The headings themselves, L1801, L2002, L2267, L2655 and L2993. |
+| Code fence | 3 (monograph L1425–L1431) | "thresholds locked per §2.6" lands on "### 2.6 Detector". `csv_path`, `pulse_log` and `exit_code` match `classify()` in `src/detector.py` (L432–436). "5 s-sampled" is the CSV interval of `preregistration.md` (L58, L84). `exit_code=0` is an argument value. |
+| DOIs | 84 (42 link texts + 42 link targets, monograph) | 23 DOI links on 23 lines, for 22 reference entries. Every link text equals its target, and 22 equal the `doi` of their `references.bib` entry. The 23rd is Morris 1991's second DOI, `10.1080/00401706.1991.10484804`, which the bib does not carry. Crossref gives it as Morris, "Factorial Sampling Plans for Preliminary Computational Experiments", Technometrics 33(2):161–174. The doi.org handle record of the bib's `10.2307/1269043` lists it as its `HS_ALIAS`. One article under two DOIs, not a defect. |
+| Source line references | 11 (monograph) | Pulse `REL_4_3_1` in the local clone (`git show REL_4_3_1:…`). `SEMechanicalVentilatorVolumeControl.cpp` L120–128, inside `ToSettings` (L64): the respiratory-model trigger is switched off, then on when neither trigger flow nor trigger pressure is set. `MechanicalVentilatorModel.cpp` L810–818: with that trigger on, a `StartOfInhale` event cycles the ventilator. `SetupPatient.cpp`: L41–64 age gate, L179–200 BMI bounds, L534 `65.6 * pow(weight_kg, 1.02)`. The supplement's `lines 120--128` (L721), read in §2.1 as a non-quantity, holds on the same source. |
+| Preregistration line range | 2 (monograph L714) | **MK-M1**, below. |
+
+**Finding.**
+- **MK-M1 — `manuscript.md` L713–714.**
+  - It read: *"(`preregistration.md`, erratum of 2026-05-19, lines 9–34)"*.
+  - The erratum is the blockquote on lines 9–36 of `preregistration.md`. Line
+    34 ends mid-sentence ("… Appendix B.5. The"), and lines 35–36 finish it
+    ("original wording below is preserved verbatim for preregistration
+    integrity.").
+  - The extent was the same at `219a13a` (2026-07-25), the commit that
+    introduced the pointer. `git blame` gives lines 30–36 to `2487cf7`
+    (2026-05-19), which wrote the erratum.
+  - The paper, the supplement and `README.md` carry no line range for it.
+  - ✅ **Corrected as a mechanical pointer fix** (precedent YL-M2): it now reads
+    "lines 9–36".
+  - Guarded in `check_monograph_number_audit`, 66 → 68 checks. The text check
+    requires the new range and bans the old one. A second check re-reads the
+    erratum's extent in `preregistration.md` (read only) and compares it with the
+    cited range.
+  - Reinjection of the previous monograph: 3 FAIL (extent, required, banned),
+    MD5 restored.
+  - Monograph rebuilt, 121 pages. Rendered PDF: new range 1, old 0. DOCX: new 1,
+    old 0. `check_render.py` PASSED (1 accepted residue, 0 new).
+  - ⚠️ `pdftotext` wrote this en dash as the byte 0xAD, so a UTF-8 "9–36"
+    pattern returned 0 for the new range **and** the old one. The count was
+    redone byte-wise, with "lines 9.3x" as a positive control (1 hit).
+
+**Movement.**
+- Inventory: 39 probes, 0 FAIL.
+- `inventory.csv` is unchanged, so no bucket moves.
+- `masked_by_rule.csv`: the L714 row's literal is now 36 instead of 34.
+- Guard-pinned literals: 1,042 → 1,047.
+
+## 9. What remains
 
 | artefact | `none` residue | `ambiguous_small` | status |
 |---|---:|---:|---|
-| paper | 37 / 29 (43 / 31 when read) | 307 | **both read row by row** (§3, §3.2). `none`: no defect. `ambiguous_small`: 57 not quantities, 248 + 2 verified, **1 wording finding, corrected** (L259, author's choice, guarded). **`guard` and `ledger` read one by one** (§6): 183 occurrences, 16 of them a different quantity, all verified, no defect |
-| supplement | 431 / 218 (456 when read) | 957 | **`none` read row by row** (§4.1): 6 not quantities, 450 verified; **all six findings corrected** on the author's decisions (F-S1 to F-S6, 2026-09-14). **`ambiguous_small` read row by row** (§4.2): 134 not quantities, 823 verified; **3 findings, 1 mechanical pointer and prose-sweep #15 all corrected** on the author's decisions (2026-09-14), guarded (22 checks). Counts now 411 / 960 (432 → 411 is by value only: §5 Resolution, §6 GL-S2). **`guard` and `ledger` read one by one** (§6): 515 occurrences, 122 a different quantity; **GL-S1 corrected** (mechanical pointer, guarded), **GL-S2 corrected** (author's decision, 2026-09-15, guarded) |
-| monograph | 803 / 344 when read; 794 / 334 after the corrections | 1864 when read; 1878 after | **both read row by row, plus the 89 inline-code literals** (§5); section pointers and "Cited in §X" checked. **19 findings (MF-1 … MF-21, MF-8 merged, MF-10 downgraded) and 11 observations. All 19 findings, O-3/5/7/8/9/10/11 and the Cornish citation corrected 2026-09-14** (author's decisions, or mechanical under the pact), guarded (63 checks, one of them GL-S1's; 66 after GL-S2 and YL-M2). O-1 not selected, O-4 not to be edited. MF-22 (HR anchors against Ostchega 2011), found during the resolution, removed on the author's decision, together with a precision on MF-20. Quantities against non-quantities not counted: the rule-based split failed its precision pass. **`guard` and `ledger` read one by one** (§6): 698 occurrences, 126 a different quantity, all verified, no defect. **Year-like literals read one by one** (§7): 153 occurrences; **YL-M2 corrected** (mechanical pointer, guarded), 🔴 **YL-M1 open** (title-page date, author's decision). Prose without numbers not audited |
+| paper | 37 / 29 (43 / 31 when read) | 307 | **both read row by row** (§3, §3.2). `none`: no defect. `ambiguous_small`: 57 not quantities, 248 + 2 verified, **1 wording finding, corrected** (L259, author's choice, guarded). **`guard` and `ledger` read one by one** (§6): 183 occurrences, 16 of them a different quantity, all verified, no defect. **Year-like and masked literals read** (§7: 4; §8: 40), no defect |
+| supplement | 431 / 218 (456 when read) | 957 | **`none` read row by row** (§4.1): 6 not quantities, 450 verified; **all six findings corrected** on the author's decisions (F-S1 to F-S6, 2026-09-14). **`ambiguous_small` read row by row** (§4.2): 134 not quantities, 823 verified; **3 findings, 1 mechanical pointer and prose-sweep #15 all corrected** on the author's decisions (2026-09-14), guarded (22 checks). Counts now 411 / 960 (432 → 411 is by value only: §5 Resolution, §6 GL-S2). **`guard` and `ledger` read one by one** (§6): 515 occurrences, 122 a different quantity; **GL-S1 corrected** (mechanical pointer, guarded), **GL-S2 corrected** (author's decision, 2026-09-15, guarded). **Year-like and masked literals read** (§7: 18; §8: 77, the five chapter locators re-opened in the cited editions), no defect |
+| monograph | 803 / 344 when read; 794 / 334 after the corrections | 1864 when read; 1878 after | **both read row by row, plus the 89 inline-code literals** (§5); section pointers and "Cited in §X" checked. **19 findings (MF-1 … MF-21, MF-8 merged, MF-10 downgraded) and 11 observations. All 19 findings, O-3/5/7/8/9/10/11 and the Cornish citation corrected 2026-09-14** (author's decisions, or mechanical under the pact), guarded (63 checks, one of them GL-S1's; 66 after GL-S2 and YL-M2). O-1 not selected, O-4 not to be edited. MF-22 (HR anchors against Ostchega 2011), found during the resolution, removed on the author's decision, together with a precision on MF-20. Quantities against non-quantities not counted: the rule-based split failed its precision pass. **`guard` and `ledger` read one by one** (§6): 698 occurrences, 126 a different quantity, all verified, no defect. **Year-like literals read one by one** (§7): 153 occurrences; **YL-M2 corrected** (mechanical pointer, guarded), 🔴 **YL-M1 open** (title-page date, author's decision). **Masked literals read one by one** (§8): 166 occurrences; **MK-M1 corrected** (line-range pointer, mechanical, guarded; the guard now has 68 checks). Numbers written in words and prose without numbers not audited |
 
 ⚠️ **No count in this register may come from an ad-hoc pipeline.** Three
 successive `grep | cut | uniq` passes over `inventory.csv` each miscounted the
@@ -1924,13 +2019,20 @@ The monograph is Markdown, so a LaTeX pattern returns zero on it by construction
 **Year-like literals: read one by one** (§7, 175 occurrences). YL-M2 is
 corrected; 🔴 **YL-M1**, the monograph's title-page date, awaits the author.
 
+**Masked literals: read one by one** (§8, 283 occurrences). MK-M1 is corrected.
+With §2.1, §5 and §7, all 566 rows of `masked_by_rule.csv` have now been read:
+`summary.json` gives 51 + 85 + 255 = 391 literals removed by masks, plus
+4 + 18 + 153 = 175 year-like.
+
 **Still unread, in all three artefacts (2026-09-15):**
-- **literals masked as non-quantities** by the other rules (§2.1), apart from
-  those §2.1 records as read: typesetting lengths, line references and the
-  monograph's 89 inline-code literals;
+- **numbers written in words.** The instrument's unit is a run of digits (§1).
+  "Three of the four pairs" (MF-20) and "eleven" (MF-7) never entered any
+  bucket. Both were found only because they sat in a sentence being read for a
+  digit. They have not been enumerated, and this register gives no count of
+  them.
 - **prose that carries no number.**
 
-## 9. What this register does not claim
+## 10. What this register does not claim
 
 It does not claim the published numbers are correct. It claims that the
 population is defined; that the instrument is calibrated in both directions,
@@ -1961,8 +2063,10 @@ are not audited: three such defects (MF-18, MF-20, MF-21)
 were found in passing, so its prose is not claimed clean.
 
 The year-like literals were then read one by one (§7). One date pointer is
-corrected, and the monograph's title-page date is with the author.
+corrected, and the monograph's title-page date is with the author. The other
+masked literals were then read one by one (§8), and one line-range pointer is
+corrected. The content of the LaTeX comments, which does not render, was not
+verified.
 
-Nor does it claim anything about the masked non-quantities or the prose
-without numbers listed at the end of §8, which have not been read (§2.1
-records the masked literals that were).
+Nor does it claim anything about numbers written in words, or about prose
+without numbers. Both are listed at the end of §9, and neither has been read.

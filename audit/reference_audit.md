@@ -2012,3 +2012,27 @@ Either option touches both `.bib` files, and possibly the "2023" labels.
 A targeted reinjection of the two wrapped labels gave 2 FAIL.
 
 **Status: RESOLVED (JMLR cited).** M-2 carries a superseded note.
+
+## Addendum 2026-09-15 — the five chapter locators of `supplement.tex`, re-opened
+
+**Why.** The number inventory masks `\cite[Ch.~N]{key}` as reference machinery,
+so the chapter numbers never reached a residue. They were read one by one in
+`audit/number_inventory.md` §8, against the cited editions opened this session
+with `scripts/pdf_probe.py` (PDF page numbers, chapter ranges from the PDF
+outline).
+
+| locus | locator | what the edition shows | verdict |
+|---|---|---|---|
+| `supplement.tex:208` (upper bound) | `[Ch.~1]{marini2018critical}` | Ch. 1 *Hemodynamics* spans PDF pp. 12–37; p. 21: *"sinus heart rates exceeding (220 - age)/min reduce cardiac output and myocardial perfusion"* | MATCH |
+| `supplement.tex:208` (lower bound) | `[Ch.~1]{marini2018critical}` | p. 20: *"Pathological bradycardias often depress cardiac output and O2 delivery"* | MATCH |
+| `supplement.tex:212` | `[Ch.~2]{west2020respiratory}` | 11th edition: Ch. 2 *Ventilation* opens on p. 44, Ch. 1 on p. 18; p. 57: *"ANATOMIC DEAD SPACE This is the volume of the conducting airways … The normal value is about 150 ml"* | MATCH |
+| `supplement.tex:212` | `[Ch.~25]{marino2013icu}` | p. 503 heading *"Chapter25 … POSITIVE PRESSURE VENTILATION"*, next chapter p. 521; p. 510: *"Tidal volumes of 10 to 15 mL/kg (ideal body weight) became standard during mechanical ventilation"* | MATCH |
+| `supplement.tex:216` | `[Ch.~5]{west2020respiratory}` | Ch. 5 *Ventilation-Perfusion Relationships* runs from outline p. 142 to p. 187; pp. 148–149: *"A simplified form of the alveolar gas equation is …"* | MATCH |
+
+**One precision on the 2026-09-14 addendum, verdict unchanged.** Its
+`west2020respiratory` Ch. 2 row cites "p. 25 and p. 30" for *"about 150 ml"*.
+Both pages fall in Chapter 1 (*Structure and Function*, pp. 18–43 by the running
+text). The Chapter 2 statement that supports the pointer is on p. 57, quoted
+above. The pointer and the MATCH stand; only the page evidence was imprecise.
+
+Nothing was modified in the manuscripts.

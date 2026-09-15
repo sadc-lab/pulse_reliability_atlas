@@ -6698,6 +6698,9 @@ MONO_AUDIT_TEXT_REQUIRED = (
     # YL-M2 (year-like read-through, 2026-09-15): the companion's CDC weight audit step sits in its
     # "Female Pediatric Population -- Implementation (April 2026)" section (commit a7fa508, 2026-04-01).
     ("preprint/manuscript.md", "(CDC weight audit step,\n  2026-04)", 1),
+    # MK-M1 (masked-literal read-through, 2026-09-15): the preregistration erratum is a
+    # blockquote on lines 9-36, both today and when the pointer was written (219a13a).
+    ("preprint/manuscript.md", "erratum of 2026-05-19, lines\n9–36).", 1),
     # GL-S2 (2026-09-15, author's decision): the resample-count sensitivity as re-measured.
     ("preprint_npj/supplement.tex", "Repeating the whole procedure at 500, 2{,}000 and 4{,}000 resamples returns "
      "the same 23 combinations, so the stable set does not depend on the resample count.", 1),
@@ -6722,7 +6725,7 @@ MONO_AUDIT_TEXT_BANNED = {
         "FiO2 = 0.21, where SpO2 is 0.95–0.96, carry the large ones",
         "Tables 4 and 5 are unchanged in the published version",
         "per-run output.csv / pulse.log", "the 24 experiment-log entries cited",
-        "CDC weight audit step, 2026-03",
+        "CDC weight audit step, 2026-03", "erratum of 2026-05-19, lines 9–34",
     ),
     "preprint_npj/supplement.tex": ("Cornish et al.\\ 2023", "Cornish 2023 channel", "preregistration limitations table",
                                     "and at 500 one combination is lost"),
@@ -6879,6 +6882,19 @@ def check_monograph_number_audit() -> int:
     record("MF-21 largest SpO2 mu* ≈ 0.12 in S3, where clean SpO2 is far below the ceiling",
            f"{top['scenario']}_{top['sex']} {top['mu_star']:.4f}; clean SpO2 {cl.min():.3f}–{cl.max():.3f}",
            top["scenario"] == "S3" and round(float(top["mu_star"]), 2) == 0.12 and float(cl.min()) < 0.8)
+
+    # MK-M1: the line range the monograph gives for the preregistration erratum is the
+    # erratum's own extent, re-read from preregistration.md (a dated record, read only).
+    prereg = (REPO / "preregistration.md").read_text(encoding="utf-8").split("\n")
+    start = next((i for i, ln in enumerate(prereg, 1) if ln.startswith("> **ERRATUM — 2026-05-19")), None)
+    end = start
+    while start is not None and end < len(prereg) and prereg[end].startswith(">"):
+        end += 1
+    cited = re.search(r"erratum of 2026-05-19, lines (\d+)–(\d+)\)", re.sub(r"\s+", " ", mono))
+    got = (int(cited.group(1)), int(cited.group(2))) if cited else None
+    record("MK-M1 the monograph's line range is the 2026-05-19 erratum's extent in preregistration.md",
+           f"cited {got}, erratum lines {(start, end) if start else 'absent'}",
+           start is not None and got == (start, end))
 
     # O-10: Phase 4a counters.
     sha = json.loads((REPO / "data" / "runs" / "full_sweep_repro" / "sha_compare.json").read_text(encoding="utf-8"))
