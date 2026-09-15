@@ -6706,8 +6706,10 @@ MONO_AUDIT_TEXT_REQUIRED = (
     # W-P1: the tie count is true only at one or two decimals (4 + 5), the qualifier restored.
     ("preprint_npj/paper.tex", "fall on an exact rounding tie at one or two decimals, and their last digit", 1),
     ("preprint/manuscript.md", "fall on an exact rounding tie at one or two decimals.", 1),
-    # W-P2: the condensation pass measured part by part (f2ac374 -> e361c2a).
-    ("preprint_npj/paper.tex", "the Introduction, Discussion and Methods were rewritten to about half their length "
+    # W-P2: the condensation pass measured part by part (f2ac374 -> e361c2a). The Methods ratio
+    # (0.54) excludes this AI-disclosure subsection, which the pass left unchanged (0.59 with it).
+    ("preprint_npj/paper.tex", "the Introduction, the Discussion and the Methods other than this disclosure were "
+     "rewritten to about half their length "
      "and the Results to about a third, the figure legends were shortened by about a quarter and the abstract "
      "was revised within its 150-word cap", 1),
     # W-S2: the out-of-sample estimates follow in their own subsection.
@@ -6751,7 +6753,8 @@ MONO_AUDIT_TEXT_BANNED = {
         "values fall on an exact rounding tie.", "pattern-matching the four-pattern regex set",
     ),
     "preprint_npj/paper.tex": ("exact rounding tie whose last digit",
-                               "figure legends and abstract were rewritten to about half their length"),
+                               "figure legends and abstract were rewritten to about half their length",
+                               "the Introduction, Discussion and Methods were rewritten"),
     "preprint_npj/supplement.tex": ("Cornish et al.\\ 2023", "Cornish 2023 channel", "preregistration limitations table",
                                     "and at 500 one combination is lost", "carries no out-of-sample evaluation",
                                     "combine it as a ratio of total to basal metabolic rate"),

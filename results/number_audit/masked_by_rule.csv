@@ -460,7 +460,7 @@ paper,typeset_length,270,0.467,\\[-0.6em] [b]{0.467\textwidth}
 paper,typeset_length,271,0.467,\hfill [b]{0.467\textwidth}
 paper,year_like,144,2020,"alysis''~ . The upstream repository does carry a single 2020 sensitivity study in its source tree, tagged \texttt{STUDY\_SENSITIVI"
 paper,year_like,389,2026,"rst Google Gemini Pro 3.1 (extended-thinking mode) and, from 3~August~2026, OpenAI ChatGPT ( Sol, High reasoning level); in that role the"
-paper,year_like,391,2026,"rsioned the script that generates it. They also covered the September 2026 condensation pass, in which the Introduction, Discussion and Methods"
+paper,year_like,391,2026,"rsioned the script that generates it. They also covered the September 2026 condensation pass, in which the Introduction, the Discussion and the"
 paper,year_like,412,2030,vernment funding managed by the National Research Agency under France 2030 via the ENACT AI Cluster (ANR-23-IACL-0004). This work also relies on
 supplement,file_path,972,06,erical comparison report (\texttt{reproduction\_check\_2026-06-07.md}); \texttt{reproduction\_thinkpad\_2026-06-10/} car
 supplement,file_path,972,07,cal comparison report (\texttt{reproduction\_check\_2026-06-07.md}); \texttt{reproduction\_thinkpad\_2026-06-10/} carrie

@@ -2242,7 +2242,14 @@ decisions).**
     `\hypertarget{tgt:data-avail}{}\bmhead{Data availability}`, so it also
     swallowed Data and Code availability. Its Results figure (0.34) is not
     affected, and the 791 was never used.
-  - Brought back to the author.
+  - Brought back to the author, who chose to state the scope.
+  - The paper now reads "the Introduction, the Discussion and the Methods other
+    than this disclosure were rewritten to about half their length" (0.55,
+    0.52, 0.54).
+  - The guard requires the new wording and bans "the Introduction, Discussion
+    and Methods were rewritten" (79 checks). Reinjection: 2 FAIL, MD5 restored.
+  - Paper rebuilt, 25 pages. PDF and DOCX: new wording 1, old 0.
+    `check_render.py` PASSED. No number word added (1,345 kept).
 - **Applied wordings.**
   - W-P1, paper: "… fall on an exact rounding tie at one or two decimals, and
     their last digit would be set by a convention …". Monograph: "… fall on an
