@@ -3242,9 +3242,9 @@ monograph,4526,18,18.0,none,of the CDC progression used for its pediatric strata
 monograph,4526,5,5.0,ambiguous_small,DC progression used for its pediatric strata (1 mo / 6 mo / 18 mo / 5 yr / 10 yr / 18 yr). The audit trail is recorded in that project's
 monograph,4526,10,10.0,ambiguous_small,ression used for its pediatric strata (1 mo / 6 mo / 18 mo / 5 yr / 10 yr / 18 yr). The audit trail is recorded in that project's experime
 monograph,4526,18,18.0,none,used for its pediatric strata (1 mo / 6 mo / 18 mo / 5 yr / 10 yr / 18 yr). The audit trail is recorded in that project's experiments log
-monograph,4528,03,3.0,ambiguous_small,"rded in that project's experiments log (CDC weight audit step, 2026-03). * **Female height (163 cm).** Matches the CDC P50 stature for 18"
-monograph,4530,163,163.0,none,"periments log (CDC weight audit step, 2026-03). * **Female height (163 cm).** Matches the CDC P50 stature for 18-year-old girls. By coinci"
-monograph,4531,18,18.0,none,03). * **Female height (163 cm).** Matches the CDC P50 stature for 18-year-old girls. By coincidence it is also identical to Pulse's own
+monograph,4528,04,4.0,ambiguous_small,"rded in that project's experiments log (CDC weight audit step, 2026-04). * **Female height (163 cm).** Matches the CDC P50 stature for 18"
+monograph,4530,163,163.0,none,"periments log (CDC weight audit step, 2026-04). * **Female height (163 cm).** Matches the CDC P50 stature for 18-year-old girls. By coinci"
+monograph,4531,18,18.0,none,04). * **Female height (163 cm).** Matches the CDC P50 stature for 18-year-old girls. By coincidence it is also identical to Pulse's own
 monograph,4536,180,180.0,guard,cal). Both anchors therefore agree on this value. * **Male height (180 cm).** This is a researcher-fixed rounded value chosen by the maint
 monograph,4538,20.8,20.8,none,of to yield a clean healthy baseline BMI of 20.8 in combination with the 67.3 kg weight. It is **not** the CDC P50 m
 monograph,4538,67.3,67.3,guard,yield a clean healthy baseline BMI of 20.8 in combination with the 67.3 kg weight. It is **not** the CDC P50 male stature at 18 years (CDC

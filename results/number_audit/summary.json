@@ -4,7 +4,7 @@
     "probes": 39
   },
   "coverage_is_by_value_not_by_occurrence": true,
-  "guard_pinned_literals": 1039,
+  "guard_pinned_literals": 1042,
   "ledger": {
     "anchors_expected": 394,
     "anchors_run": 394,

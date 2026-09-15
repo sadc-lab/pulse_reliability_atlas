@@ -4525,7 +4525,7 @@ misnomer. The actual provenance, by dimension, is as follows:
   endpoint of the CDC progression used for its pediatric strata
   (1 mo / 6 mo / 18 mo / 5 yr / 10 yr / 18 yr). The audit trail is
   recorded in that project's experiments log (CDC weight audit step,
-  2026-03).
+  2026-04).
 
 * **Female height (163 cm).** Matches the CDC P50 stature for
   18-year-old girls. By coincidence it is also identical to Pulse's

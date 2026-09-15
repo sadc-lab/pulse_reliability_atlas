@@ -406,7 +406,7 @@ monograph,year_like,4445,2026,es not flag this zone. **No surfactant model — m
 monograph,year_like,4497,1984,rrectly aligning with the Harris-Benedict equation (Roza & Shizgal 1984). 2. **Skin surface-area exponent.** The documentation lists the weig
 monograph,year_like,4510,2026,"belled ""Pulse standard male / female"" in early drafts of this work. A 2026-05-19 source-level audit established that this label is technically a"
 monograph,year_like,4517,2026,", < re-read 2026-08-20 with columns resolved by name). CDC lists age at the half-mon"
-monograph,year_like,4528,2026,"recorded in that project's experiments log (CDC weight audit step, 2026-03). * **Female height (163 cm).** Matches the CDC P50 stature for"
+monograph,year_like,4528,2026,"recorded in that project's experiments log (CDC weight audit step, 2026-04). * **Female height (163 cm).** Matches the CDC P50 stature for"
 paper,org_identifier,115,3450,"ress{\city{Nancy}, \country{France}}} \affil[5]{\orgdiv{UR 3450 DevAH}, \orgname{Universit\'e de Lorraine}, \orgaddress"
 paper,org_identifier,117,1256,"Nancy}, \country{France}}} \affil[6]{\orgdiv{INSERM UMR\_S 1256, Nutrition-G\'en\'etique et Exposition aux Risques Envi"
 paper,product_version,389,4.7,"at the \texttt{xhigh} thinking-effort default: Claude Opus 4.7 (\texttt{claude-opus-4-7}) for the initial drafting, Opu"

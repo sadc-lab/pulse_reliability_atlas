@@ -6695,6 +6695,9 @@ MONO_AUDIT_TEXT_REQUIRED = (
     # GL-S1 (guard/ledger read-through, 2026-09-15): the supplement's copy of MF-19.
     ("preprint_npj/supplement.tex", "was documented in our preregistration (scenario table and hypothesis H3) "
      "and in the verified-limitations table (Supplement~\\S\\,\\ref{sec:s2}, row 4)", 1),
+    # YL-M2 (year-like read-through, 2026-09-15): the companion's CDC weight audit step sits in its
+    # "Female Pediatric Population -- Implementation (April 2026)" section (commit a7fa508, 2026-04-01).
+    ("preprint/manuscript.md", "(CDC weight audit step,\n  2026-04)", 1),
     # GL-S2 (2026-09-15, author's decision): the resample-count sensitivity as re-measured.
     ("preprint_npj/supplement.tex", "Repeating the whole procedure at 500, 2{,}000 and 4{,}000 resamples returns "
      "the same 23 combinations, so the stable set does not depend on the resample count.", 1),
@@ -6719,6 +6722,7 @@ MONO_AUDIT_TEXT_BANNED = {
         "FiO2 = 0.21, where SpO2 is 0.95–0.96, carry the large ones",
         "Tables 4 and 5 are unchanged in the published version",
         "per-run output.csv / pulse.log", "the 24 experiment-log entries cited",
+        "CDC weight audit step, 2026-03",
     ),
     "preprint_npj/supplement.tex": ("Cornish et al.\\ 2023", "Cornish 2023 channel", "preregistration limitations table",
                                     "and at 500 one combination is lost"),

@@ -1804,19 +1804,114 @@ Each was checked; none of these particular collisions was wrong.
 
 **Not covered by this section.**
 - **Year-like literals, set aside by rule 7:** paper 4, supplement 18,
-  monograph 153. The Cornish "2023" label in §5 was one of them.
+  monograph 153. The Cornish "2023" label in §5 was one of them. Read in §7.
 - **Literals masked as non-quantities by the other rules** (§2.1 counts): tex
   comments, versions, link targets, URLs, machinery, file paths, organisation
   identifiers.
 - **Prose that carries no number.**
 
-## 7. What remains
+## 7. The year-like literals, read one by one — 175 occurrences (2026-09-15)
+
+**Why.** Rule 7 sets year-like integers aside, so no residue ever showed them. §5's
+stale "Cornish 2023" citation label was one of them.
+
+**Population.** Every `masked_by_rule.csv` row with rule `year_like`: paper 4,
+supplement 18, monograph 153, for 175 occurrences on 163 lines. These equal
+`summary.json` (inventoried minus retained, per artefact), which is the positive
+control. Unit: one literal occurrence.
+
+**Instrument** (scratchpad, session `2b7e8306`).
+- **`yl_worksheet.py` builds one worksheet per artefact**, grouped by literal,
+  with each occurrence's own context.
+  - A first version cut its snippet around a literal's first match on the line,
+    so the supplement's second "2017" on L118 and second "2026" on L462 printed
+    as copies of the first.
+  - It was rebuilt on each row's own context before any verdict. The `sed` edit
+    of that fix first broke the script with a syntax error, so nothing ran on
+    the broken version.
+- **`yl_refyears.py` compares the monograph's 34 reference-list entries with
+  `references.bib`**: the final "(YYYY)" and the page range. Result: 0
+  differences. Title-embedded years ("2000 CDC Growth Charts", "… Septic Shock
+  2021", "2023 ESH Guidelines") were checked against the bib titles.
+- **`yl_completeness.py` gives every line holding a year-like row exactly one
+  verdict** and rejects any verdict key without a row.
+  - Result: 175 classified; 0 unclassified, 0 bad keys.
+  - A wrong key (L4105 for an entry whose year sits on L4107) was caught by the
+    checker itself.
+
+**What the years were checked against.**
+- **Citation years and author-year labels:** `references.bib` (reference-audited)
+  and the JMLR record for Cornish.
+- **Pulse history:**
+  - the GitLab API gives `physiology/engine` a `created_at` of 2017-05-02 (the
+    "forked in 2017" statement);
+  - tag dates: `STUDY_SENSITIVITY_ANALYSIS_1_0_0` is 2020-07-20, `REL_4_3_2` is
+    2025-08-12;
+  - `docs/Markdown/Versioning.md`: "Pulse v4.2.0 (October 2023) … iOS build
+    support";
+  - S016 L123 records the study's last functional commit, 2020-08-24.
+- **Harris–Benedict "1919 originals":** the record "Carnegie Institution of
+  Washington; 1919. Publication No. 279". It was seen only as a search-result
+  citation next to the J Am Diet Assoc article on those studies
+  (`S0002-8223(98)00100-X`); the 1919 monograph itself was not opened.
+  - Pulse `SetupPatient.cpp` L771–774 carries the Roza–Shizgal constants
+    (88.632 + 13.397 W + 4.799 H − 5.677 A), not the originals.
+- **Dated records:**
+  - experiment-log headers: S003, S006, S014, S016, S017, S018, S020, S024;
+  - `preregistration.md`: the 2026-04-22 amendment with MAP removed, the
+    2026-04-22-b amendment, and the 2026-05-19 erratum;
+  - `reference_audit.md` entries dated 2026-07-26, 07-27 and 07-28;
+  - the companion log's section headings: calibration March 2026, E6 / E10 April
+    2026, crash probe April 2026;
+  - the companion internals file (2026-04-07);
+  - the commit that introduced each dated sentence, which matched its date in
+    every case. Examples: "added 2026-08-06" is `ffdd5c8` of 2026-08-06; the
+    re-execution "2026-05-16 → 2026-05-18" is `4771e9b` of 2026-05-18; "re-pointed
+    2026-06-05" is `8a5411f` at 2026-06-06 00:15.
+- **AI-tool dates** (monograph §7 and §8, paper L389): the author's record, not
+  verifiable here. They are consistent between the two documents.
+- **"France 2030":** a programme name, not a quantity.
+
+**Findings.**
+- **YL-M2 — `manuscript.md` L4527–4528.**
+  - It read: *"The audit trail is recorded in that project's experiments log (CDC
+    weight audit step, 2026-03)"*.
+  - The only CDC weight audit step in the companion log ("Step 1: CDC Weight
+    Audit", L721) sits in the section "Female Pediatric Population —
+    Implementation (April 2026)". The commit that added it is `a7fa508`, dated
+    2026-04-01, in the read-only companion repository.
+  - The sentence entered this repository in `2487cf7` (2026-05-19). The
+    supplement and the paper carry no such date.
+  - ✅ **Corrected as a mechanical pointer fix** (a literal that drifted from its
+    own source): it now reads "2026-04".
+  - Guarded: new wording required, old banned (66 checks). Reinjection: 2 FAIL.
+  - Monograph rebuilt, 121 pages. Dehyphenated render: new date 1, old 0.
+- **YL-M1 — `manuscript.md` L4, the title-page date. 🔴 OPEN, author's
+  decision.**
+  - The YAML header reads `date: "2026-05-26"`. It was set by `65097a1` on
+    2026-05-26 and has not changed since, and it renders on the PDF title page.
+  - The same document was last revised on 2026-09-15. It carries dated entries
+    up to "Verified verbatim 2026-08-25", "measured 2026-08-13" and "re-read
+    2026-08-20", so the displayed date precedes the document's own content.
+  - The paper and the supplement set no `\date`. Their rendered first page
+    (`pdftotext`, 42 and 41 lines) shows no year, so they display no date.
+  - Which date belongs there (release date, last revision, or first version plus
+    a revision line) is a presentation choice with more than one defensible
+    answer, so it is brought to the author.
+
+**Movement.**
+- Inventory: 39 probes, 0 FAIL. Buckets are unchanged.
+- The month token of the corrected date moves inside `ambiguous_small`
+  (monograph "03" 3 → 2, "04" 13 → 14).
+- Guard-pinned literals 1,039 → 1,042.
+
+## 8. What remains
 
 | artefact | `none` residue | `ambiguous_small` | status |
 |---|---:|---:|---|
 | paper | 37 / 29 (43 / 31 when read) | 307 | **both read row by row** (§3, §3.2). `none`: no defect. `ambiguous_small`: 57 not quantities, 248 + 2 verified, **1 wording finding, corrected** (L259, author's choice, guarded). **`guard` and `ledger` read one by one** (§6): 183 occurrences, 16 of them a different quantity, all verified, no defect |
 | supplement | 431 / 218 (456 when read) | 957 | **`none` read row by row** (§4.1): 6 not quantities, 450 verified; **all six findings corrected** on the author's decisions (F-S1 to F-S6, 2026-09-14). **`ambiguous_small` read row by row** (§4.2): 134 not quantities, 823 verified; **3 findings, 1 mechanical pointer and prose-sweep #15 all corrected** on the author's decisions (2026-09-14), guarded (22 checks). Counts now 411 / 960 (432 → 411 is by value only: §5 Resolution, §6 GL-S2). **`guard` and `ledger` read one by one** (§6): 515 occurrences, 122 a different quantity; **GL-S1 corrected** (mechanical pointer, guarded), **GL-S2 corrected** (author's decision, 2026-09-15, guarded) |
-| monograph | 803 / 344 when read; 794 / 334 after the corrections | 1864 when read; 1878 after | **both read row by row, plus the 89 inline-code literals** (§5); section pointers and "Cited in §X" checked. **19 findings (MF-1 … MF-21, MF-8 merged, MF-10 downgraded) and 11 observations. All 19 findings, O-3/5/7/8/9/10/11 and the Cornish citation corrected 2026-09-14** (author's decisions, or mechanical under the pact), guarded (63 checks, one of them GL-S1's). O-1 not selected, O-4 not to be edited. MF-22 (HR anchors against Ostchega 2011), found during the resolution, removed on the author's decision, together with a precision on MF-20. Quantities against non-quantities not counted: the rule-based split failed its precision pass. **`guard` and `ledger` read one by one** (§6): 698 occurrences, 126 a different quantity, all verified, no defect. Prose without numbers not audited |
+| monograph | 803 / 344 when read; 794 / 334 after the corrections | 1864 when read; 1878 after | **both read row by row, plus the 89 inline-code literals** (§5); section pointers and "Cited in §X" checked. **19 findings (MF-1 … MF-21, MF-8 merged, MF-10 downgraded) and 11 observations. All 19 findings, O-3/5/7/8/9/10/11 and the Cornish citation corrected 2026-09-14** (author's decisions, or mechanical under the pact), guarded (63 checks, one of them GL-S1's; 66 after GL-S2 and YL-M2). O-1 not selected, O-4 not to be edited. MF-22 (HR anchors against Ostchega 2011), found during the resolution, removed on the author's decision, together with a precision on MF-20. Quantities against non-quantities not counted: the rule-based split failed its precision pass. **`guard` and `ledger` read one by one** (§6): 698 occurrences, 126 a different quantity, all verified, no defect. **Year-like literals read one by one** (§7): 153 occurrences; **YL-M2 corrected** (mechanical pointer, guarded), 🔴 **YL-M1 open** (title-page date, author's decision). Prose without numbers not audited |
 
 ⚠️ **No count in this register may come from an ad-hoc pipeline.** Three
 successive `grep | cut | uniq` passes over `inventory.csv` each miscounted the
@@ -1826,16 +1921,16 @@ above was read from the producer's own output.
 The monograph is Markdown, so a LaTeX pattern returns zero on it by construction
 (`1{,}280` against `1,280`); any hand search must test both syntaxes.
 
+**Year-like literals: read one by one** (§7, 175 occurrences). YL-M2 is
+corrected; 🔴 **YL-M1**, the monograph's title-page date, awaits the author.
+
 **Still unread, in all three artefacts (2026-09-15):**
-- **year-like literals** set aside by rule 7: paper 4, supplement 18,
-  monograph 153 (`summary.json`: inventoried minus retained). They include
-  citation years and dated records; §5's stale "Cornish 2023" label was one;
 - **literals masked as non-quantities** by the other rules (§2.1), apart from
   those §2.1 records as read: typesetting lengths, line references and the
   monograph's 89 inline-code literals;
 - **prose that carries no number.**
 
-## 8. What this register does not claim
+## 9. What this register does not claim
 
 It does not claim the published numbers are correct. It claims that the
 population is defined; that the instrument is calibrated in both directions,
@@ -1865,6 +1960,9 @@ read one by one (§6) and carry no defect. Its sentences that carry no number
 are not audited: three such defects (MF-18, MF-20, MF-21)
 were found in passing, so its prose is not claimed clean.
 
-Nor does it claim anything about the year-like literals, the masked
-non-quantities or the prose without numbers listed at the end of §7, which have
-not been read (§2.1 records the masked literals that were).
+The year-like literals were then read one by one (§7). One date pointer is
+corrected, and the monograph's title-page date is with the author.
+
+Nor does it claim anything about the masked non-quantities or the prose
+without numbers listed at the end of §8, which have not been read (§2.1
+records the masked literals that were).
