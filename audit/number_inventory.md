@@ -2017,13 +2017,260 @@ four groups §2.1 records as read. Unit: one literal occurrence.
 - `masked_by_rule.csv`: the L714 row's literal is now 36 instead of 34.
 - Guard-pinned literals: 1,042 → 1,047.
 
-## 9. What remains
+## 9. Numbers written in words, read one by one — 1,350 tokens (2026-09-15)
+
+**Why.** The digit inventory's unit is a run of digits (§1). A number written
+in words never entered any bucket, residue or mask. Three defects already
+corrected in this audit had that shape: MF-7 "eleven", MF-20 "three of the four
+pairs" and F-S3 "three of the eight". Each was found only because it sat in a
+sentence being read for a digit. The author decided on 2026-09-15 to read them
+all.
+
+**Population, fixed before counting** (producer docstring).
+- **Words counted**, case-insensitive, whole word:
+  - cardinals: zero to nineteen, the tens, hundred(s), thousand(s), million(s),
+    billion(s); a hyphenated compound such as "twenty-four" is one token;
+  - ordinals: first to twentieth, the tens, hundredth, thousandth, and plural
+    fractions ("thirds"). "second" is kept even as a unit of time; reading
+    decides;
+  - multiplicatives: half, twice, thrice, double, triple, quadruple, dozen,
+    quarter and their inflections; a number word glued to "fold"; a hyphenated
+    fraction ("two-thirds"). Each is one token, never also counted as its
+    cardinal.
+- **Excluded, stated so the boundary is explicit:** quantifiers and determiners
+  (no, none, both, all, each, every, several, few, many, most, single, sole,
+  once, pair).
+- **Masks:** the digit inventory's own `mask_out`, reused unchanged. Every
+  masked token is written to `number_words_masked.csv`, and the books close per
+  artefact (raw = kept + masked).
+- **Counts at read time** (`number_words_summary.json`, unit = one token):
+
+  | artefact | raw | kept | masked | lines with a kept token | cardinal / ordinal / multiplicative |
+  |---|---:|---:|---:|---:|---|
+  | paper | 238 | 233 | 5 (comments) | 65 | 195 / 33 / 5 |
+  | supplement | 565 | 559 | 6 (comments) | 180 | 465 / 83 / 11 |
+  | monograph | 547 | 546 | 1 (code fence) | 476 | 468 / 65 / 13 |
+  | **all** | **1,350** | **1,338** | **12** | **721** | **1,128 / 181 / 29** |
+
+  After W-M2 (below), the monograph reads 470 / 65 / 11; the totals do not
+  move.
+
+**Instrument.**
+- **`scripts/audit_number_words.py`** (versioned) writes `number_words.csv`,
+  `number_words_masked.csv` and `number_words_summary.json`. Calibration: 19
+  probes, 0 FAIL.
+  - They cover recall (the MF-7 and MF-20 shapes, "top-three", raw LaTeX blocks,
+    text after `\%`) and precision ("someone", "alone", "tone", comments, inline
+    code, link targets, `\label` and `\cite` arguments, "S1_two_cells").
+  - They also cover single-token forms (five-fold, twenty-four, two-thirds) and
+    the line number after a masked comment.
+- **The calibration caught a defect in my own first version.** The pattern
+  refused a word preceded by a hyphen, so "120-second" was missing, and
+  "top-three" would have been dropped silently with it.
+  - Fixed, then reinjected: 2 FAIL (top-three, 120-second), MD5 restored.
+  - ⚠️ The first reinjection, by `sed`, did not apply; the line was unchanged
+    and the probes passed on an unmodified file. It was caught by printing the
+    line and redone with the exact editor.
+- **`mask_out` gained a `token_rx` parameter**, defaulting to the numeric
+  literal, so both instruments apply the same masks. The digit inventory
+  re-ran byte-identical: MD5 of its four outputs unchanged, 39 probes, 0 FAIL.
+- **Reading** (scratchpad, session `04199c63`).
+  - `nw_worksheet.py` prints each source line holding a kept token, with its
+    tokens.
+  - Every line of the three worksheets was read: 65 + 180 + 476.
+  - Claims that needed more than their own sentence were re-derived by
+    `nw_verify_paper.py`, `nw_verify_supp.py`, `nw_verify_supp2.py`,
+    `nw_verify_mono.py` and `nw_condense_len.py`.
+  - ⚠️ **No per-token verdict table was kept**, unlike §7 and §8. Most tokens
+    count a list given in the same sentence ("Seven … inputs" followed by the
+    seven) or a design constant (7 inputs, 6 outputs, 4 scenarios, 2 bodies, 8
+    cells, 4 flags). Those were checked in place and are not listed one by one.
+
+**What the other claims were checked against** (loci are source lines at read
+time).
+- **Artefacts.**
+  - `sobol_ci_buckets.csv` / `SEEDS`: five seeds; the stable 23 span all seven
+    inputs, all four scenarios and 17 combinations.
+  - Pair counts over the 144: median 7, 25 at three or fewer, 9 single-pair
+    (only Vt in S1_F and FiO2 in S4_M), five of them rank 1.
+  - `sobol_promotion.csv`: 72 fires, 43 combinations, eight cells, three to six
+    promoted inputs per cell.
+  - `morris_indices.parquet`: twelve single-pair entries.
+  - `s034/`: FiO2 estimable and rank 1 for PaO2 and SpO2 in S1_M, S1_F, S4_F
+    under the relaxed screen; 30 / 19 / 15; median third-to-fourth gap 39 %,
+    one gap below 10 %; S2_M 6 / 2 / 2.
+  - Seed-44 comparison: rank 1 in six of six, set in four, order in three.
+  - S021 `plateau_stats`: six runaways above 760 mmHg, three drift-converged;
+    three converged above 1,400; 37 converged below 700. By Vt level: six of 20
+    at 633.3 mL, none of the 24 at the other three. Five of the six at RR = 20,
+    with three non-runaways at the same level. Female 5 of 5, male 1 of 5 in
+    the five RR ≥ 16 pairs.
+  - H4: six raw, five BH survivors, two empirical p = 0; Spearman CI including
+    zero only for S2 Vt.
+  - `s032/`: shortened DBP steps five, one and three; eight of 140 SBP steps;
+    three evaluable transitions, the contaminated median higher in each.
+    SBP rank 1 for MAP in all eight cells under the nominal, uncontaminated,
+    paired, hybrid and matched-combined columns, and derived for applied-step.
+    DBP runner-up in all eight under the hybrid combined estimator.
+  - S014: seven of eight cells (S3_M none); S1 26, S2 19. S4_F_0003 and
+    S4_F_0089 tie on distance to the median pre-lock CV; the id breaks the tie.
+  - S018 at both levels: 12 clean (the same 12), 8 flagged, one implausible
+    (S1_M_0159), seven SpO2 flatline, three of those also on PaO2 drift, Vt CV
+    three (bracket) and four (floor), FiO2 0.737 three times and 1.0 five
+    times. The four S4_M-only divergent inputs run clean at both.
+  - F-003 reclassification: 21 S1_F + 11 S1_M; the remaining two are both
+    healthy-female.
+  - Traffic light: red HR and PaO2 in four cells each, MAP and PaCO2 only in
+    S4_M; green 4 in S2_F and 3 in S3_F; only S2_F and S3_F carry no hard flag.
+  - Retention table, continuous-severity bins (31 + 19 = 50 per sex), Cornish
+    Table S7 (eight unassessed channels, 80 rejections), SHAP (9 sets against
+    25; MAP, PaCO2, SpO2 invariant), S033 summary (ten below the cut, nine of
+    them constant).
+  - `sha_compare.json`: DIFFERS, ASYMMETRY and both MISSING counters 0.
+- **Pulse `REL_4_3_1` source.**
+  - `SetupPatient.cpp` builds ten "allowed is" rejection strings. Nine write
+    the unit after the value; the heart-rate lower bound (L311) is the sole
+    exception.
+  - BMR consumers: see W-S3.
+  - At `REL_4_3_2` the tree has zero "surfactant", "surface tension",
+    "derecruit", "alveolar stability" and "opening/closing pressure" matches.
+- **Registers and records.**
+  - `preregistration.md`: H1–H4 (L74–77) and the five pilot gates.
+  - `audit/pulse_sex_conditioned_parameters.md`: seven flow fractions, thirteen
+    tissue masses, ten normalised masses.
+  - `reference_audit.md` (webb2020) and the `paper.bib` note (Ward 2024,
+    six-setting action vector, full text read 2026-08-10).
+  - S006 (workers three to two); the phase-4a log ("23h01m12s") and
+    `reproduction_check_2026-06-07.md` ("23h01m21s").
+  - `audits/reproduction_2026-06-07/README.md` (AMD Ryzen 5 PRO 4650U).
+  - S014 (RR alternating 20 and ~46).
+  - Monograph reference list: nine authors (Bray 2019), seven (Webb 2022).
+  - Ledger anchors for "the same seven green / twelve red".
+
+**Not verified here.**
+- DBP as runner-up under the matched-combined estimator: no artefact records
+  that ranking.
+- "Stable across three independent forest seeds" (supplement L1030): the
+  artefact holds one seed; the record is the `5a6b201` commit message.
+- "Two to three smaller assist breaths" (monograph L2938): S014 records the
+  ~46-per-minute assist rate, not the count.
+- The content of the eleven LaTeX-comment tokens, which do not render.
+
+**Findings.**
+- **W-P1 — `paper.tex` L232 and monograph L2689–2690. 🔴 Author's decision.**
+  - The text says "nine of the sixteen values below fall on an exact rounding
+    tie".
+  - With the 16 counts k, each percentage is 0.625k. Ties at one decimal
+    (k ≡ 2 mod 4): 4. At two decimals (k odd): 5. At the integer (k ≡ 4 mod 8):
+    4.
+  - `baad15f` (2026-08-05) wrote "at one or two decimals", and 4 + 5 = 9 was
+    true. The legend compression `7e1a1ff` (2026-09-02) dropped that qualifier.
+  - Without it, "nine" is not determined: 4, 4 or 5 at any single precision,
+    13 across all three. The monograph sentence never carried the qualifier.
+  - The ledger's code comment said "multiple of 0.125". That was corrected in
+    the manuscripts by `bfc3de5` but not in the comment; the comment is now
+    corrected (a comment, no claim).
+- **W-P2 — `paper.tex` L391 (AI disclosure). 🔴 Author's decision.**
+  - The text says the condensation pass rewrote the "Introduction, Results,
+    Discussion, Methods, figure legends and abstract … to about half their
+    length".
+  - Measured from `f2ac374` to `e361c2a` with two instruments:
+    - instrument 1 (prose tokens, floats removed, captions apart): abstract 154
+      → 154 (1.00); legends 0.73; Introduction 0.55; Results 0.35; Discussion
+      0.52; Methods without the AI section 0.54; total 13,676 → 6,834 (0.50);
+    - instrument 2 (`wc -w` by line range): abstract 143 → 143; Introduction,
+      Discussion and Methods 0.52–0.55; Results 0.52 with its tables; captions
+      0.73.
+  - Taken together the parts halve. Taken one by one, the abstract (already at
+    the 150-word cap) and the legends do not.
+- **W-S2 — supplement L1004. 🔴 Author's decision.**
+  - "Two limits … The surrogate … carries no out-of-sample evaluation, so its
+    predictive accuracy is not established here" is followed by the
+    subsection `sec:s13-oos`, which computes two out-of-sample estimates.
+  - Both came in the same commit, `5a6b201`.
+  - Reading A: "here" means this paragraph's SHAP fit. Reading B: a
+    contradiction.
+- **W-S3 — supplement L844. 🔴 Author's decision.**
+  - The text says "three of the four runtime consumers of basal metabolic rate
+    combine it as a ratio of total to basal metabolic rate that equals one at
+    rest".
+  - In `REL_4_3_1`, `RespiratoryModel.cpp` L4894 and `CardiovascularModel.cpp`
+    L2558 form that ratio. `EndocrineModel.cpp` L164 instead tests
+    `currentMetabolicRate_W > basalMetabolicRate_W`, which is false at rest.
+  - The sex term drops out of all three, but "as a ratio" holds for two. The
+    register's §D says the same.
+- **W-M1 — monograph L3551. 🔴 Author's decision.**
+  - Recommendation 1 says "instead of pattern-matching the four-pattern regex
+    set. Anchored in the atlas's `src/detector.py` clamp-pattern catalogue".
+  - That catalogue holds five patterns since the 2026-07-26 patch. `1865fd4`
+    separated the published four-pattern set from the patched five-pattern one
+    elsewhere but not here; the sentence dates from `28ef9a7` (2026-06-15).
+  - The supplement's copy (L861) names no count. Reading A: the sweep's
+    historical set, still four. Reading B: the current catalogue, five.
+- **W-M2 — monograph L1512–1514 and L2372–2373. ✅ Corrected (mechanical).**
+  - The permutation null was described as splitting the pooled runs "into
+    halves the same size as the original M and F groups" and "into halves of
+    the original sizes".
+  - `src/analysis_compare.py` L72–73 shuffles and cuts at `n_m` (for example
+    49 against 42), so the groups are not halves, and the sentence contradicted
+    its own qualifier. It now reads "two groups". The paper already said "at
+    the two original group sizes".
+  - Guarded (69 → 71 checks). Reinjection: 3 FAIL, MD5 restored.
+  - Monograph rebuilt, 121 pages. PDF: both new wordings 1, "halves" 0. DOCX:
+    new 1, "halves" 0. `check_render.py` PASSED (1 accepted residue, 0 new).
+
+**Observations** (no correction proposed unless the author asks).
+- **O-P3** (paper L408, supplement L968) "three derived Hypothesis-4
+  statistics". The reproduction record says exactly that, but its table lists
+  three files and four distinct columns (three Wasserstein columns at 2.8e-14,
+  `spearman_p` at 9.7e-17).
+- **O-S1** (supplement L462, L562) "the four scenario impairment fractions were
+  assigned by forward calibration" / "four discrete scenario calibration
+  points". Only S2–S4 were calibrated against Berlin bands; S1 = 0 is the
+  healthy baseline.
+- **O-S2** (supplement L968, L970, L976) "five run-level flags" / "five-flag
+  concordance" counts `clean` as a fifth flag, against "four flags" everywhere
+  else. The reproduction records use five.
+- **O-S3** (supplement L523, monograph L4452) "zero … Laplace": one match in the
+  tree, inside the third-party binary `src/java/jar/commons-math3-3.6.1.jar`;
+  zero in text files.
+- **O-S4** (supplement L265, monograph L1256, L2462) "one alveolar-ventilation
+  step … per minute" has no defined quantity to check it against. The
+  `west2020respiratory` citation without a chapter is already listed as
+  outstanding in the monograph's reference list.
+- **O-S5, found in passing** (supplement L357 "the only preregistration
+  amendment (2026-04-22-b …)"; monograph L1152–1153 "only one amendment").
+  `preregistration.md` records two 2026-04-22 amendments, a 2026-05-21
+  documentation amendment and a 2026-08-04 post hoc deviation record. Read as
+  "the only threshold amendment", both are true; read literally, the
+  supplement's is not.
+- **O-M1, found in passing** (monograph L59, L60, L195, L198, L1814, L2570,
+  L2604, L2649, L2653, L2673): "48 cells" for the 48 cell × output combinations,
+  while the monograph's own notation table defines a cell as a (scenario, sex)
+  slice, of which there are eight.
+- **O-M4** (monograph L1880) "occasional further cells appearing in individual
+  draws but none surviving all five": one further dominant-input cell (S3_F,
+  PaO2 ← FiO2) clears 0.6 in two of five seeds.
+
+**Code comments corrected in the same pass** (no claim, no output change):
+- `scripts/s032_uncontaminated_step_analysis.py` said "eight" S3.7 counts in
+  three comments, while its `CALIBRATION` gate has held nine since it was
+  written (`9c5cc50`). The monograph's "nine S3.7 counts" (L972) is right.
+- The ledger comment of W-P1.
+
+**Movement.**
+- Digit inventory: 39 probes, 0 FAIL, `summary.json` unchanged; one
+  `inventory.csv` context string moves.
+- Number-word inventory: 1,338 kept and 12 masked before and after; the
+  monograph's classes move as stated above.
+
+## 10. What remains
 
 | artefact | `none` residue | `ambiguous_small` | status |
 |---|---:|---:|---|
 | paper | 37 / 29 (43 / 31 when read) | 307 | **both read row by row** (§3, §3.2). `none`: no defect. `ambiguous_small`: 57 not quantities, 248 + 2 verified, **1 wording finding, corrected** (L259, author's choice, guarded). **`guard` and `ledger` read one by one** (§6): 183 occurrences, 16 of them a different quantity, all verified, no defect. **Year-like and masked literals read** (§7: 4; §8: 40), no defect |
 | supplement | 431 / 218 (456 when read) | 957 | **`none` read row by row** (§4.1): 6 not quantities, 450 verified; **all six findings corrected** on the author's decisions (F-S1 to F-S6, 2026-09-14). **`ambiguous_small` read row by row** (§4.2): 134 not quantities, 823 verified; **3 findings, 1 mechanical pointer and prose-sweep #15 all corrected** on the author's decisions (2026-09-14), guarded (22 checks). Counts now 411 / 960 (432 → 411 is by value only: §5 Resolution, §6 GL-S2). **`guard` and `ledger` read one by one** (§6): 515 occurrences, 122 a different quantity; **GL-S1 corrected** (mechanical pointer, guarded), **GL-S2 corrected** (author's decision, 2026-09-15, guarded). **Year-like and masked literals read** (§7: 18; §8: 77, the five chapter locators re-opened in the cited editions), no defect |
-| monograph | 803 / 344 when read; 794 / 334 after the corrections | 1864 when read; 1878 after | **both read row by row, plus the 89 inline-code literals** (§5); section pointers and "Cited in §X" checked. **19 findings (MF-1 … MF-21, MF-8 merged, MF-10 downgraded) and 11 observations. All 19 findings, O-3/5/7/8/9/10/11 and the Cornish citation corrected 2026-09-14** (author's decisions, or mechanical under the pact), guarded (63 checks, one of them GL-S1's; 66 after GL-S2 and YL-M2). O-1 not selected, O-4 not to be edited. MF-22 (HR anchors against Ostchega 2011), found during the resolution, removed on the author's decision, together with a precision on MF-20. Quantities against non-quantities not counted: the rule-based split failed its precision pass. **`guard` and `ledger` read one by one** (§6): 698 occurrences, 126 a different quantity, all verified, no defect. **Year-like literals read one by one** (§7): 153 occurrences; **YL-M2 corrected** (mechanical pointer, guarded), **YL-M1 corrected** (title-page date = revision date, author's decision, guarded). **Masked literals read one by one** (§8): 166 occurrences; **MK-M1 corrected** (line-range pointer, mechanical, guarded; the guard has 68 checks after MK-M1, 69 after YL-M1). Numbers written in words and prose without numbers not audited |
+| monograph | 803 / 344 when read; 794 / 334 after the corrections | 1864 when read; 1878 after | **both read row by row, plus the 89 inline-code literals** (§5); section pointers and "Cited in §X" checked. **19 findings (MF-1 … MF-21, MF-8 merged, MF-10 downgraded) and 11 observations. All 19 findings, O-3/5/7/8/9/10/11 and the Cornish citation corrected 2026-09-14** (author's decisions, or mechanical under the pact), guarded (63 checks, one of them GL-S1's; 66 after GL-S2 and YL-M2). O-1 not selected, O-4 not to be edited. MF-22 (HR anchors against Ostchega 2011), found during the resolution, removed on the author's decision, together with a precision on MF-20. Quantities against non-quantities not counted: the rule-based split failed its precision pass. **`guard` and `ledger` read one by one** (§6): 698 occurrences, 126 a different quantity, all verified, no defect. **Year-like literals read one by one** (§7): 153 occurrences; **YL-M2 corrected** (mechanical pointer, guarded), **YL-M1 corrected** (title-page date = revision date, author's decision, guarded). **Masked literals read one by one** (§8): 166 occurrences; **MK-M1 corrected** (line-range pointer, mechanical, guarded; the guard has 68 checks after MK-M1, 69 after YL-M1). **Numbers written in words read** (§9, all three artefacts: 233 / 559 / 546 kept, 12 masked): **W-M2 corrected** (mechanical, guarded, 71 checks); 🔴 **W-P1, W-P2, W-S2, W-S3, W-M1 with the author**. Prose without numbers not audited |
 
 ⚠️ **No count in this register may come from an ad-hoc pipeline.** Three
 successive `grep | cut | uniq` passes over `inventory.csv` each miscounted the
@@ -2042,15 +2289,15 @@ With §2.1, §5 and §7, all 566 rows of `masked_by_rule.csv` have now been read
 `summary.json` gives 51 + 85 + 255 = 391 literals removed by masks, plus
 4 + 18 + 153 = 175 year-like.
 
-**Still unread, in all three artefacts (2026-09-15):**
-- **numbers written in words.** The instrument's unit is a run of digits (§1).
-  "Three of the four pairs" (MF-20) and "eleven" (MF-7) never entered any
-  bucket. Both were found only because they sat in a sentence being read for a
-  digit. They have not been enumerated, and this register gives no count of
-  them.
-- **prose that carries no number.**
+**Numbers written in words: read** (§9, 1,350 tokens, second producer
+`scripts/audit_number_words.py`). W-M2 is corrected; 🔴 **W-P1, W-P2, W-S2, W-S3
+and W-M1 await the author**.
 
-## 10. What this register does not claim
+**Still unread, in all three artefacts (2026-09-15):**
+- **prose that carries no number.** Quantifiers ("only", "none", "both", "all")
+  are part of it: O-S5 and O-M1 were found in passing, not by enumeration.
+
+## 11. What this register does not claim
 
 It does not claim the published numbers are correct. It claims that the
 population is defined; that the instrument is calibrated in both directions,
@@ -2087,5 +2334,9 @@ masked literals were then read one by one (§8), and one line-range pointer is
 corrected. The content of the LaTeX comments, which does not render, was not
 verified.
 
-Nor does it claim anything about numbers written in words, or about prose
-without numbers. Both are listed at the end of §9, and neither has been read.
+The numbers written in words were then read line by line (§9). One wording is
+corrected as mechanical, five findings are with the author, and no per-token
+verdict table was kept for that population.
+
+Nor does it claim anything about prose without numbers, quantifiers included,
+listed at the end of §10: it has not been read.

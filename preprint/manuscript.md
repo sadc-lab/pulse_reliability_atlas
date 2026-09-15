@@ -1510,7 +1510,7 @@ are in §9.
 
 * **Permutation null (pooled and re-split).** A reference
   distribution built by randomly splitting the *combined* M + F clean
-  runs into halves the same size as the original M and F groups, then
+  runs into two groups the same size as the original M and F groups, then
   computing the same Wasserstein distance on the split (n = 2,000
   splits). The empirical p-value p_emp is the fraction of nulls that
   exceed the observed M-vs-F distance. The logic: if sex actually
@@ -2370,7 +2370,7 @@ sample size would overstate precision.
 **Wasserstein distance with permutation null.** The observed value is
 the M-vs-F distance on clean runs. The reference null is built by
 repeatedly splitting the *combined* M+F clean runs randomly into
-halves of the original sizes (n_null = 2,000 splits).
+two groups of the original sizes (n_null = 2,000 splits).
 
 ```{=latex}
 \begin{center}

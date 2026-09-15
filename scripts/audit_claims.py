@@ -1205,8 +1205,9 @@ add(
     tolerance_rule="exact_int",
 )
 # Spreads are quoted from the counts, never from rounded percentages: with
-# n = 160 a per-cell percentage is a multiple of 0.125 and nine of the sixteen
-# values fall on an exact rounding tie.
+# n = 160 a per-cell percentage is a multiple of 0.625, and nine of the sixteen
+# values fall on an exact rounding tie at one or two decimals (four at one, five
+# at two; four more tie at the integer).
 add(
     claim_id="T1.30r.spread_four_flag",
     section="npj §2.1",
@@ -6701,6 +6702,10 @@ MONO_AUDIT_TEXT_REQUIRED = (
     # MK-M1 (masked-literal read-through, 2026-09-15): the preregistration erratum is a
     # blockquote on lines 9-36, both today and when the pointer was written (219a13a).
     ("preprint/manuscript.md", "erratum of 2026-05-19, lines\n9–36).", 1),
+    # W-M2 (number-word read-through, 2026-09-15): the permutation null splits the pooled runs
+    # at the original M and F group sizes (src/analysis_compare.py, pool[:n_m]), not in halves.
+    ("preprint/manuscript.md", "runs into two groups the same size as the original M and F groups", 1),
+    ("preprint/manuscript.md", "randomly into\ntwo groups of the original sizes", 1),
     # GL-S2 (2026-09-15, author's decision): the resample-count sensitivity as re-measured.
     ("preprint_npj/supplement.tex", "Repeating the whole procedure at 500, 2{,}000 and 4{,}000 resamples returns "
      "the same 23 combinations, so the stable set does not depend on the resample count.", 1),
@@ -6726,6 +6731,7 @@ MONO_AUDIT_TEXT_BANNED = {
         "Tables 4 and 5 are unchanged in the published version",
         "per-run output.csv / pulse.log", "the 24 experiment-log entries cited",
         "CDC weight audit step, 2026-03", "erratum of 2026-05-19, lines 9–34",
+        "runs into halves the same size", "randomly into halves of the original sizes",
     ),
     "preprint_npj/supplement.tex": ("Cornish et al.\\ 2023", "Cornish 2023 channel", "preregistration limitations table",
                                     "and at 500 one combination is lost"),

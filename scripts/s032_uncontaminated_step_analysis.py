@@ -17,8 +17,8 @@ the bridge probes (S032 step 4) and is not attempted here.
 
 How
 ---
-1. Calibration gate. Re-derive the eight published S3.7 counts from the
-   canonical sample + master aggregate and abort unless all eight match. A
+1. Calibration gate. Re-derive the nine published S3.7 counts from the
+   canonical sample + master aggregate and abort unless all nine match. A
    silent disagreement here would mean this script and the audited ledger
    disagree about what "contaminated" means, and every number below would be
    plausible and wrong.
@@ -65,7 +65,7 @@ FLAGS = ["clamped", "diverged", "implausible", "not_steady_state"]
 HARD_FLAGS = ["diverged", "implausible"]
 
 # Published in Supplement S3.7, each one audited by a T5.clip.* ledger anchor.
-# This script must reproduce all eight before any of its own numbers are read.
+# This script must reproduce all nine before any of its own numbers are read.
 CALIBRATION = {
     "clipped_points": 35,
     "dbp_steps_shortened": 9,
@@ -139,7 +139,7 @@ def annotate_pairs(smp: pd.DataFrame) -> pd.DataFrame:
 
 
 def calibrate(agg: pd.DataFrame, smp: pd.DataFrame, pairs: pd.DataFrame) -> bool:
-    """Reproduce the eight audited S3.7 counts. Print measured beside expected."""
+    """Reproduce the nine audited S3.7 counts. Print measured beside expected."""
     dbp_steps = pairs[pairs["flipped"] == "dbp"]
     sbp_steps = pairs[pairs["flipped"] == "sbp"]
 

@@ -1671,7 +1671,7 @@ monograph,2352,1.00,1.0,guard,"rtance rankings are largely preserved across sexe
 monograph,2357,1,1.0,ambiguous_small,ferent question. *How different are the output distributions?* The **1-Wasserstein distance** quantifies the absolute magnitude of the M-vs-
 monograph,2363,1,1.0,ambiguous_small,)** is a rank correlation between the M and F Morris μ\* vectors. ρ = 1 means identical input ordering; ρ = −1 means inverted; intermediate v
 monograph,2364,1,1.0,ambiguous_small,and F Morris μ\* vectors. ρ = 1 means identical input ordering; ρ = −1 means inverted; intermediate values mean partial agreement. Both sta
-monograph,2373,"2,000",2000.0,guard,"* M+F clean runs randomly into halves of the original sizes (n_null = 2,000 splits). \toprul"
+monograph,2373,"2,000",2000.0,guard,"F clean runs randomly into two groups of the original sizes (n_null = 2,000 splits). \toprul"
 monograph,2381,5.02,5.02,none,ull p50 & null p95 & p\_emp & Sig.? (BH-FDR) \\ \midrule S1 & HR & 5.02 & 3.91 & 8.56 & 0.305 & \\ S1 & MAP & 0.58 & 1.38 & 2.78 &
 monograph,2381,3.91,3.91,none,& null p95 & p\_emp & Sig.? (BH-FDR) \\ \midrule S1 & HR & 5.02 & 3.91 & 8.56 & 0.305 & \\ S1 & MAP & 0.58 & 1.38 & 2.78 & 0.995 &
 monograph,2381,8.56,8.56,none,95 & p\_emp & Sig.? (BH-FDR) \\ \midrule S1 & HR & 5.02 & 3.91 & 8.56 & 0.305 & \\ S1 & MAP & 0.58 & 1.38 & 2.78 & 0.995 & \\ S1

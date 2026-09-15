@@ -223,7 +223,8 @@ MASKS = [
 
 
 def mask_out(text: str, is_tex: bool, literal_cost: dict[str, int] | None = None,
-             removed: list[dict] | None = None) -> tuple[str, dict[str, int]]:
+             removed: list[dict] | None = None,
+             token_rx: re.Pattern = RE_NUMBER) -> tuple[str, dict[str, int]]:
     """Blank every excluded construct, keeping offsets stable for context.
 
     `literal_cost`, when supplied, receives how many numeric literals each rule
@@ -231,17 +232,21 @@ def mask_out(text: str, is_tex: bool, literal_cost: dict[str, int] | None = None
     match hundreds of spans and cost nothing, or match nine and swallow a
     paragraph of claims. The span count alone cannot tell the two apart, and
     reading it as if it could is how an over-broad rule stays invisible.
+
+    `token_rx` is what a "literal" is (group 1 = the token). It defaults to a
+    numeric literal; `scripts/audit_number_words.py` passes its number-word
+    pattern, so both instruments apply exactly the same masks.
     """
     counts: dict[str, int] = {}
 
     def apply(name: str, rx: re.Pattern, s: str) -> str:
         n = len(rx.findall(s))
         counts[name] = counts.get(name, 0) + n
-        spans_before = {m.start(): m.group(1) for m in RE_NUMBER.finditer(s)}
+        spans_before = {m.start(): m.group(1) for m in token_rx.finditer(s)}
         repl = _mask_code_fence if name == "md_fence" else (
             lambda m: _blank(m.group(0)))
         new = rx.sub(repl, s)
-        spans_after = {m.start() for m in RE_NUMBER.finditer(new)}
+        spans_after = {m.start() for m in token_rx.finditer(new)}
         lost = sorted(set(spans_before) - spans_after)
         if literal_cost is not None:
             literal_cost[name] = literal_cost.get(name, 0) + len(lost)
