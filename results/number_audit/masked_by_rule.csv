@@ -544,8 +544,8 @@ supplement,version,126,4.3,\section{Verified Pulse 4.3.1 limitations} The atlas 
 supplement,version,523,4.3,"mmit \texttt{e8a3649}) --- physiologically identical to the 4.3.1 pin, the only delta being seven build-system files wit"
 supplement,version,976,26.5,".'s Apple Silicon host (MacBook Air, Apple~M2, ARM64; macOS~26.5.1; archived under \texttt{audits/reproduction\_macos\_2"
 supplement,version,976,4.3,"ive-ARM64 test: the pinned base image \texttt{kitware/pulse:4.3.1} is published for \texttt{linux/amd64} only, so on App"
-supplement,version,1052,4.3,"eriment forensic chains that established the verified Pulse 4.3.1 limitations table (Supplement~\S\, ); and t"
-supplement,version,1052,4.3,"S\, ); and the full source-code map of the Pulse 4.3.1 audit on which the methodological framing of this work"
+supplement,version,1052,4.3,"s own reference list; the sources behind the verified Pulse 4.3.1 limitations table (Supplement~\S\, ), with"
+supplement,version,1052,4.3,cceptance gates; and the findings of its audit of the Pulse 4.3.1 source code. The companion monograph is the source of
 supplement,version,1131,4.3,\\ \midrule \S & \textbf{Twelve verified Pulse 4.3.1 limitations} that the atlas is calibrated against. Two
 supplement,year_like,118,2017,"is a separate, targeted experiment. Pulse was forked in 2017 from the U.S.\ Department of Defense--funded BioGears engine by the o"
 supplement,year_like,118,2017,jects still exist independently but have diverged substantially since 2017; Pulse models mechanoreceptor feedback and lung recruitment; w

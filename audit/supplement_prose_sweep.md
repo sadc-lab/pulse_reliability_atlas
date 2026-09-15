@@ -51,7 +51,7 @@ findings and must not be reported as such.
 | 23 | §S12 ¶903 | "`kitware/pulse:4.3.1` … `linux/amd64` **only**" and "**no** prebuilt ARM64 image exists" | ✅ **SUPPORTED 2026-08-23** — registry queried; recommend **bounding** the second clause |
 | 24 | §S13 ¶931 | "The SHAP cross-verification works **because the underlying physiology is real**, not the other way round" — two readings, one of which contradicts the Figure S5 disclaimer | OPEN — ambiguous epistemic premise |
 | 25 | §S13 ¶931 | "input dependencies that **any reasonable statistical method** would identify on the same data" — an unbounded universal from **two** methods | OPEN — **downgraded**: wording only; the "undercut by its own numbers" reading was mine and is withdrawn |
-| 26 | §S14 ¶939 | Of eight claims about what the monograph **contains**, two overclaim: "the **full preregistration document** with its amendment history" (§2.0 reproduces only §Primary hypotheses) and "the **complete experiment-log entries**" (Appendix A is a 43-line index) | **OPEN — checkable by anyone who downloads the Zenodo deposit** |
+| 26 | §S14 ¶939 | Of eight claims about what the monograph **contains**, two overclaim: "the **full preregistration document** with its amendment history" (§2.0 reproduces only §Primary hypotheses) and "the **complete experiment-log entries**" (Appendix A is a 43-line index) | **RESOLVED 2026-09-15** — sentence rewritten on the author's decision; reading the sections added two more overclaims (bibliography, source-code map), see the resolution under §26 |
 | 27 | §S15 table caption ¶963 | "Input HR is sampled **uniformly** from $[50, 110]$~bpm" — it takes exactly **four** values, 50/70/90/110, the Morris grid | OPEN — contradicts §S12's own `levels = 4` |
 | 28 | §S15 ¶979 | The S3→S4 dip attributed to "incipient cardiovascular decompensation" with no mention of the **survivorship confound**: clean survival is 83.1 % in S3 against 39.7 % in S4 | **OPEN — scientific, an available alternative is unaddressed** |
 | 29 | §S15 ¶959 | Names "the **four**-flag steady-state classifier" then lists **three** flags, omitting `clamped` | OPEN — zero numerical impact (`clamped` = 0/1,280) |
@@ -1104,6 +1104,51 @@ overclaims*. It was wrong. The section headings, read afterwards, located §2.10
 missed. **For a claim of the form "document X contains Y", the table of contents
 is the instrument; a keyword search is not.** Absence of a phrase is not absence
 of a section.
+
+**Resolution 2026-09-15 — the §S14 sentence is rewritten on the author's decision,
+and two ✅ above are revised.** The table of contents shows that a section exists;
+it does not show what the section holds. Reading the sections, four of the five
+things the sentence said the monograph "carries" were larger than what it
+contains:
+- "the full preregistration document with its amendment history": §2.0 reproduces
+  the hypotheses verbatim; amendments appear as in-text notes (monograph L626,
+  L851, L1154, L1232). As found above.
+- "the complete experiment-log entries": Appendix A indexes S001–S026. The
+  monograph cites no later entry ("S030b" at L1193 names a probe, and no
+  `experiments_log/santino/S030*` file exists). As found above.
+- "the full bibliography" (row 3, ✅ above, **revised**): §9 is the monograph's own
+  list. At least 10 of the 46 references cited by the paper and supplement are
+  absent from it, counted by first-author surname over monograph L3833–4233:
+  `deepseek2026v41flash`, `hester2011hummod`, `hwang2025sim2real`,
+  `katsoulakis2024digitaltwins`, `nadler1962`, `roza1984metabolic`,
+  `sinnige2026active`, `vanbreugel2024synthetic`, `viceconti2021insilico`,
+  `victoriano2026sim2real`. A surname search can report a false presence, so 10
+  is a floor.
+- "the full source-code map of the Pulse 4.3.1 audit" (row 5, ✅ above,
+  **revised**): §B.4 is 18 lines reporting three documentation-versus-code
+  discrepancies. The monograph has no source-code map; its `.cpp` pointers are
+  scattered.
+- "the per-experiment forensic chains" (row 4, ✅): kept in substance but
+  restated. §1.2 ties each limitation to a primary source, and Appendix B
+  summarises the boundary probes. B.1 states that the complete experimental logs
+  of those probes live in the companion `Pulse_translation_new` repository.
+
+New sentence (`supplement.tex:1052`): *"It carries a more detailed technical
+record: the preregistered hypotheses, reproduced verbatim, with notes on the
+amendments to the preregistration; an index of the experiment-log entries it
+cites; its own reference list; the sources behind the verified Pulse 4.3.1
+limitations table (Supplement~§S2), with a summary of the boundary probes that
+established the engine's acceptance gates; and the findings of its audit of the
+Pulse 4.3.1 source code."* "Over 100 pages" still holds: the monograph build has
+122 pages. The next paragraph (`supplement.tex:1054`) and rows 6–8 are unchanged.
+None of the removed phrasings appears in `paper.tex`, `supplement.tex`,
+`manuscript.md`, `README.md` or the cover letters, and `sec:s14` is referenced
+nowhere.
+
+**Left open, recorded here.** `paper.tex:406` and `supplement.tex:1054` describe
+the code repository as openly available and public. On 2026-09-15 the GitHub
+repository is private (`gh repo view`: `PRIVATE`). Those sentences become true
+only when the repository is made public, which must happen before submission.
 
 
 ### 27 — "sampled uniformly from [50, 110] bpm" (§S15 caption)
