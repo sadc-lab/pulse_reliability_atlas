@@ -88,15 +88,21 @@ def captions(tex: str) -> list[tuple[str, str]]:
 SREF = re.compile(r"\\S(?:\\,|~)?\\ref\s*\{([^{}]+)\}")
 
 
-def section_ref_numbers(tex: str, labels: dict[str, tuple[str, str]]) -> Counter:
-    """How many times each section number is announced with a section sign."""
+def section_ref_numbers(tex: str, labels: dict[str, tuple[str, str]]) -> tuple[Counter, list[str]]:
+    """How many times each section number is announced with a section sign, and
+    the labels that did not resolve. ⚠️ An unresolved label must fail, not be
+    skipped: the first version skipped it, so a build without its .aux passed
+    this check with nothing checked."""
     tex = re.sub(r"(?<!\\)%.*", "", tex)
     wanted: Counter = Counter()
+    unresolved: list[str] = []
     for m in SREF.finditer(tex):
         hit = labels.get(m.group(1).strip())
         if hit and hit[0]:
             wanted[hit[0]] += 1
-    return wanted
+        else:
+            unresolved.append(m.group(1).strip())
+    return wanted, unresolved
 
 
 def section_sign_count(raw: str, number: str) -> int:
@@ -151,15 +157,18 @@ def main() -> int:
 
         with zipfile.ZipFile(docx_path) as z:
             raw = re.sub(r"<[^>]+>", "", z.read("word/document.xml").decode("utf-8"))
-        wanted = section_ref_numbers(tex, labels)
+        wanted, unresolved = section_ref_numbers(tex, labels)
         short = {n: (k, section_sign_count(raw, n)) for n, k in wanted.items()
                  if section_sign_count(raw, n) < k}
-        print(f"  section-sign refs: {sum(wanted.values())} in .tex to {len(wanted)} numbers, "
-              f"{len(short)} number(s) printed fewer times than announced "
-              f"{'OK' if not short else '*** MISSING ***'}")
+        print(f"  section-sign refs: {sum(wanted.values())} resolved in .tex to {len(wanted)} numbers, "
+              f"{len(short)} number(s) printed fewer times than announced, "
+              f"{len(unresolved)} label(s) unresolved in the build's .aux "
+              f"{'OK' if not short and not unresolved else '*** MISSING ***'}")
         for n, (k, got) in sorted(short.items()):
             print(f"  *** '§{n}': {k} in .tex, {got} in .docx")
-        fails += len(short)
+        for lab in sorted(set(unresolved)):
+            print(f"  *** unresolved label: {lab}")
+        fails += len(short) + len(unresolved)
 
     print("\n--- CALIBRATION ---")
     probe = docx_text(NPJ / "build/paper.docx")

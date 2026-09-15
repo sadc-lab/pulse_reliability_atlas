@@ -2346,6 +2346,11 @@ decisions).**
       - After the rebuild: 0 and 0.
       - Limit: the count is per number, so a number printed elsewhere can mask
         one lost call site.
+      - ⚠️ Its first version skipped a label missing from the `.aux`, so a
+        build without its `.aux` would have passed with nothing checked. Found
+        in the double-check the same day. An unresolved label now fails.
+        Calibrated by moving both `.aux` files out of the build directory: 122
+        problems (62 + 60 unresolved); files restored: PASS.
     - Measured on the twins: accolated "§S" references went from 0 to 3 (paper)
       and from 0 to 46 (supplement). A word-level diff of the DOCX text before
       and after shows only those numbers replacing the empty "()" or "."; the
