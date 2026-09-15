@@ -199,6 +199,14 @@ def resolve_refs(tex: str, labels: dict[str, tuple[str, str]]) -> str:
     # strip 25 section numbers from the Word twin.
     tex = re.sub(r"\\mainref\s*\{[^{}]+\}\s*\{([^{}]+)\}", r"\1", tex)
 
+    # \S\ref{...} to a SUPPLEMENT section resolves to "\SS3.13": the number starts
+    # with a letter, so pandoc reads "\SS" as one unknown control word and drops it
+    # together with the number. The PDF printed "§S3.13" and the Word twin printed
+    # nothing, in 28 paper and 46 supplement call sites of that form (found
+    # 2026-09-15, audit/number_inventory.md section 9, O-D1). An empty group ends
+    # the control word without adding a space, so the twin now prints "§S3.13".
+    tex = re.sub(r"\\S(?=\\(?:ref|autoref|cref|Cref)\s*\{)", r"\\S{}", tex)
+
     tex = re.sub(r"\\pageref\s*\{([^{}]+)\}", repl_page, tex)
     tex = re.sub(r"\\eqref\s*\{([^{}]+)\}", repl_eq, tex)
     tex = re.sub(r"\\(?:ref|autoref|cref|Cref)\s*\{([^{}]+)\}", repl_num, tex)

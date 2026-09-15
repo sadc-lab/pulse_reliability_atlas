@@ -2318,8 +2318,9 @@ decisions).**
   *npj* SI for the same analysis. Both pointers land. Two documents with
   different numbering are cited for one analysis without saying which is which
   at L3472.
-- **O-D1, found while checking these corrections in the Word twins. 🔴 Open, a
-  rendering defect, not a claim.**
+- **O-D1, found while checking these corrections in the Word twins. ✅ Fixed
+  (converter and guard; resolution at the end of this item). A rendering
+  defect, not a claim.**
   - In both *npj* DOCX files, a `\S\ref{…}` to a supplement section prints
     nothing. Examples: the supplement DOCX reads "sample-dependent ()" where the
     PDF reads "(§S3.13)"; the paper DOCX reads "tables are in Supplement and ."
@@ -2331,7 +2332,31 @@ decisions).**
   - References to paper sections ("Methods §4.4") print correctly. The source
     holds 28 `\S\ref{` in the paper and 46 in the supplement, of all targets.
   - The `\S\,\ref{` form (34 and 14) separates the two tokens.
-  - Treated in a separate commit.
+  - **Resolution.**
+    - Mechanism reproduced on a minimal file with the build's pandoc 3.9.0.2:
+      `(\SS3.13)` → "()"; `(\S{}S3.13)` → "(§S3.13)"; `(\S4.4)` → "(§4.4)".
+    - `resolve_refs` now writes `\S{}` before a `\ref`-family command. The
+      empty group ends the control word without adding a space.
+    - `scripts/check_docx_structure.py` gained a section-sign check. For every
+      `\S\ref`, `\S\,\ref` or `\S~\ref` in the source, it resolves the label in
+      the build's `.aux` and requires "§" + that number at least as many times
+      in the DOCX text.
+      - Calibrated on the defective build before rebuilding: FAIL, with 2
+        numbers short in the paper twin and 30 in the supplement twin.
+      - After the rebuild: 0 and 0.
+      - Limit: the count is per number, so a number printed elsewhere can mask
+        one lost call site.
+    - Measured on the twins: accolated "§S" references went from 0 to 3 (paper)
+      and from 0 to 46 (supplement). A word-level diff of the DOCX text before
+      and after shows only those numbers replacing the empty "()" or "."; the
+      spaced `§ S…` form was never affected.
+    - PDFs unchanged in content: 25 and 63 pages.
+    - ⚠️ The four supervisors received `.pdf` and `.docx` on 2026-09-05, 22:08
+      (`preprint_npj/dispatch_log.md` L571–L590, source commit `0f275e0`). At
+      that commit the converter had no such fix, and `supplement.tex` carried
+      `\S\ref{sec:s…` on 29 lines. Their Word copies therefore most likely lack
+      these numbers. The dispatched files themselves were not re-read; only
+      their hashes are recorded.
 
 **Code comments corrected in the same pass** (no claim, no output change):
 - `scripts/s032_uncontaminated_step_analysis.py` said "eight" S3.7 counts in
@@ -2357,7 +2382,7 @@ decisions).**
 |---|---:|---:|---|
 | paper | 37 / 29 (43 / 31 when read) | 307 | **both read row by row** (§3, §3.2). `none`: no defect. `ambiguous_small`: 57 not quantities, 248 + 2 verified, **1 wording finding, corrected** (L259, author's choice, guarded). **`guard` and `ledger` read one by one** (§6): 183 occurrences, 16 of them a different quantity, all verified, no defect. **Year-like and masked literals read** (§7: 4; §8: 40), no defect |
 | supplement | 431 / 218 (456 when read) | 957 | **`none` read row by row** (§4.1): 6 not quantities, 450 verified; **all six findings corrected** on the author's decisions (F-S1 to F-S6, 2026-09-14). **`ambiguous_small` read row by row** (§4.2): 134 not quantities, 823 verified; **3 findings, 1 mechanical pointer and prose-sweep #15 all corrected** on the author's decisions (2026-09-14), guarded (22 checks). Counts now 411 / 960 (432 → 411 is by value only: §5 Resolution, §6 GL-S2). **`guard` and `ledger` read one by one** (§6): 515 occurrences, 122 a different quantity; **GL-S1 corrected** (mechanical pointer, guarded), **GL-S2 corrected** (author's decision, 2026-09-15, guarded). **Year-like and masked literals read** (§7: 18; §8: 77, the five chapter locators re-opened in the cited editions), no defect |
-| monograph | 803 / 344 when read; 794 / 334 after the corrections | 1864 when read; 1878 after | **both read row by row, plus the 89 inline-code literals** (§5); section pointers and "Cited in §X" checked. **19 findings (MF-1 … MF-21, MF-8 merged, MF-10 downgraded) and 11 observations. All 19 findings, O-3/5/7/8/9/10/11 and the Cornish citation corrected 2026-09-14** (author's decisions, or mechanical under the pact), guarded (63 checks, one of them GL-S1's; 66 after GL-S2 and YL-M2). O-1 not selected, O-4 not to be edited. MF-22 (HR anchors against Ostchega 2011), found during the resolution, removed on the author's decision, together with a precision on MF-20. Quantities against non-quantities not counted: the rule-based split failed its precision pass. **`guard` and `ledger` read one by one** (§6): 698 occurrences, 126 a different quantity, all verified, no defect. **Year-like literals read one by one** (§7): 153 occurrences; **YL-M2 corrected** (mechanical pointer, guarded), **YL-M1 corrected** (title-page date = revision date, author's decision, guarded). **Masked literals read one by one** (§8): 166 occurrences; **MK-M1 corrected** (line-range pointer, mechanical, guarded; the guard has 68 checks after MK-M1, 69 after YL-M1). **Numbers written in words read** (§9, all three artefacts: 233 / 559 / 546 kept when read, 12 masked): **W-M2 corrected** (mechanical), **W-P1, W-P2, W-S2, W-S3 and W-M1 corrected on the author's decisions**, all guarded (79 checks); monograph 122 pages. 🔴 O-D1 (DOCX section numbers) open. Prose without numbers not audited |
+| monograph | 803 / 344 when read; 794 / 334 after the corrections | 1864 when read; 1878 after | **both read row by row, plus the 89 inline-code literals** (§5); section pointers and "Cited in §X" checked. **19 findings (MF-1 … MF-21, MF-8 merged, MF-10 downgraded) and 11 observations. All 19 findings, O-3/5/7/8/9/10/11 and the Cornish citation corrected 2026-09-14** (author's decisions, or mechanical under the pact), guarded (63 checks, one of them GL-S1's; 66 after GL-S2 and YL-M2). O-1 not selected, O-4 not to be edited. MF-22 (HR anchors against Ostchega 2011), found during the resolution, removed on the author's decision, together with a precision on MF-20. Quantities against non-quantities not counted: the rule-based split failed its precision pass. **`guard` and `ledger` read one by one** (§6): 698 occurrences, 126 a different quantity, all verified, no defect. **Year-like literals read one by one** (§7): 153 occurrences; **YL-M2 corrected** (mechanical pointer, guarded), **YL-M1 corrected** (title-page date = revision date, author's decision, guarded). **Masked literals read one by one** (§8): 166 occurrences; **MK-M1 corrected** (line-range pointer, mechanical, guarded; the guard has 68 checks after MK-M1, 69 after YL-M1). **Numbers written in words read** (§9, all three artefacts: 233 / 559 / 546 kept when read, 12 masked): **W-M2 corrected** (mechanical), **W-P1, W-P2, W-S2, W-S3 and W-M1 corrected on the author's decisions**, all guarded (79 checks); monograph 122 pages. O-D1 (supplement section numbers missing from both DOCX twins) fixed in the converter and guarded. Prose without numbers not audited |
 
 ⚠️ **No count in this register may come from an ad-hoc pipeline.** Three
 successive `grep | cut | uniq` passes over `inventory.csv` each miscounted the
@@ -2378,8 +2403,9 @@ With §2.1, §5 and §7, all 566 rows of `masked_by_rule.csv` have now been read
 
 **Numbers written in words: read** (§9, 1,350 tokens, second producer
 `scripts/audit_number_words.py`). W-M2 is corrected as mechanical; W-P1, W-P2,
-W-S2, W-S3 and W-M1 are corrected on the author's decisions. 🔴 **O-D1**, the
-supplement section numbers missing from both DOCX twins, is open.
+W-S2, W-S3 and W-M1 are corrected on the author's decisions. **O-D1**, the
+supplement section numbers missing from both DOCX twins, is fixed in
+`scripts/tex_to_docx.py` and guarded in `scripts/check_docx_structure.py`.
 
 **Still unread, in all three artefacts (2026-09-15):**
 - **prose that carries no number.** Quantifiers ("only", "none", "both", "all")
@@ -2424,8 +2450,9 @@ verified.
 
 The numbers written in words were then read line by line (§9). Six wordings are
 corrected (one mechanical, five on the author's decisions), and no per-token
-verdict table was kept for that population. The Word twins are checked only
-for the corrected wordings; O-D1 shows they can lose numbers the PDFs carry.
+verdict table was kept for that population. The Word twins were checked for the corrected
+wordings and, after O-D1, for section-sign references; nothing else in them was
+compared number by number with the PDFs.
 
 Nor does it claim anything about prose without numbers, quantifiers included,
 listed at the end of §10: it has not been read.
