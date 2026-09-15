@@ -36,13 +36,13 @@ being waved away one at a time.
 
 | artefact | retained | distinct | guard | ledger | ambiguous small | none | distinct none |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| paper | 527 | 143 | 165 | 18 | 307 | **37** | 29 |
-| supplement | 1887 | 490 | 484 | 31 | 960 | **412** | 211 |
-| monograph | 3370 | 564 | 670 | 28 | 1878 | **794** | 334 |
-| **all** | **5784** | **730** | | | **3145** | **1243** | **419** |
+| paper | 527 | 143 | 168 | 15 | 307 | **37** | 29 |
+| supplement | 1887 | 490 | 490 | 26 | 960 | **411** | 210 |
+| monograph | 3370 | 564 | 676 | 22 | 1878 | **794** | 334 |
+| **all** | **5784** | **730** | | | **3145** | **1242** | **418** |
 
 (Re-read from `summary.json` on 2026-09-15, after the monograph corrections
-(`d9201de`, `441355e`) and GL-S1 (§6). The table first read 5,757 / 728 after
+(`d9201de`, `441355e`), GL-S1 and GL-S2 (§6). The table first read 5,757 / 728 after
 the §4.2 corrections; every movement since is explained in §5 "Resolution" and
 §6.)
 
@@ -1723,7 +1723,7 @@ Each was checked; none of these particular collisions was wrong.
   - Rebuilt: supplement 63 pages. Dehyphenated render: new wording 1, old 0.
     DOCX carries the new wording.
 - **GL-S2 — `supplement.tex` L345, and the `scripts/sobol_ci_buckets.py`
-  L73–74 comment. 🔴 OPEN, author's decision.**
+  L73–74 comment. ✅ Corrected on the author's decision, 2026-09-15.**
   - It reads: *"Repeating the whole procedure at 2,000 and at 4,000 resamples
     returns the same 23 combinations, and at 500 one combination is lost"*.
   - Re-measured with the versioned generator (`build_table()`, module
@@ -1738,10 +1738,37 @@ Each was checked; none of these particular collisions was wrong.
     reproducing the committed CSV exactly is the evidence that they give the same
     result. A first draft of this entry said "the code and its inputs are
     unchanged", which git could not show for the ignored files.
-  - The "22 at 500" of S031 (decision 6, 2026-07-28) predates the versioned
-    generator; S031 swept 32 RNG / threshold conventions.
+  - The "22 at 500" of S031 (decision 6, 2026-07-28) does not reproduce with the
+    versioned generator, and how it was obtained is not recorded. S031's
+    32-convention sweep (Finding 3) concerns a different count. A first draft
+    here said it "predates the versioned generator", which the record does not
+    show: `d639747` already carries the sentence.
   - Direction: conservative. The set does not lose a combination at 500 either.
   - Only locus: supplement L345.
+  - **Resolution.** The author chose to state the measurement.
+    - L345 now reads *"Repeating the whole procedure at 500, 2{,}000 and 4{,}000
+      resamples returns the same 23 combinations, so the stable set does not
+      depend on the resample count."*
+    - The script comment now says the set is identical at 500 / 1,000 / 2,000 /
+      4,000, re-measured 2026-09-15, and that the earlier statement does not
+      reproduce.
+    - S031 gains a dated correction note; decision 6 is kept as written.
+    - Guard: the new supplement wording is required; the old clause is banned
+      in `supplement.tex`, and "one combination is lost at 500" in
+      `scripts/sobol_ci_buckets.py`.
+    - No data check re-runs the bootstrap, which takes about two minutes. The
+      measurement is recorded here and reproducible with
+      `sobol_nboot_sensitivity.py`.
+    - Checks: gate 394 / 394, sync 94 / 94, 26 / 26, guards 22 / 22 and 65 / 65,
+      0 FAIL. Reinjection of both files at `ba214ec`: 3 FAIL. Supplement 63
+      pages. Dehyphenated render: new sentence 1, old clause 0. The DOCX carries
+      the new sentence.
+    - Inventory: 39 probes, 0 FAIL. One `500` moves within L345. The new
+      required string holds "2{,}000" and "4{,}000", so every occurrence of
+      those values moves by value alone: paper `2{,}000` ×3 and supplement ×5
+      ledger → guard, monograph `2,000` ×6 ledger → guard, supplement
+      `4{,}000` ×1 none → guard. This is GL-O2's by-value effect; all were
+      read above as the same quantity.
 
 **Observations.**
 - **GL-O1.** `tab:s5-berlin-sweep` (26 numeric cells) has no ledger anchor and
@@ -1788,7 +1815,7 @@ Each was checked; none of these particular collisions was wrong.
 | artefact | `none` residue | `ambiguous_small` | status |
 |---|---:|---:|---|
 | paper | 37 / 29 (43 / 31 when read) | 307 | **both read row by row** (§3, §3.2). `none`: no defect. `ambiguous_small`: 57 not quantities, 248 + 2 verified, **1 wording finding, corrected** (L259, author's choice, guarded). **`guard` and `ledger` read one by one** (§6): 183 occurrences, 16 of them a different quantity, all verified, no defect |
-| supplement | 431 / 218 (456 when read) | 957 | **`none` read row by row** (§4.1): 6 not quantities, 450 verified; **all six findings corrected** on the author's decisions (F-S1 to F-S6, 2026-09-14). **`ambiguous_small` read row by row** (§4.2): 134 not quantities, 823 verified; **3 findings, 1 mechanical pointer and prose-sweep #15 all corrected** on the author's decisions (2026-09-14), guarded (22 checks). Counts now 412 / 960 (432 → 412 is by value only, §5 Resolution). **`guard` and `ledger` read one by one** (§6): 515 occurrences, 122 a different quantity; **GL-S1 corrected** (mechanical pointer, guarded), **🔴 GL-S2 open** (author's decision) |
+| supplement | 431 / 218 (456 when read) | 957 | **`none` read row by row** (§4.1): 6 not quantities, 450 verified; **all six findings corrected** on the author's decisions (F-S1 to F-S6, 2026-09-14). **`ambiguous_small` read row by row** (§4.2): 134 not quantities, 823 verified; **3 findings, 1 mechanical pointer and prose-sweep #15 all corrected** on the author's decisions (2026-09-14), guarded (22 checks). Counts now 411 / 960 (432 → 411 is by value only: §5 Resolution, §6 GL-S2). **`guard` and `ledger` read one by one** (§6): 515 occurrences, 122 a different quantity; **GL-S1 corrected** (mechanical pointer, guarded), **GL-S2 corrected** (author's decision, 2026-09-15, guarded) |
 | monograph | 803 / 344 when read; 794 / 334 after the corrections | 1864 when read; 1878 after | **both read row by row, plus the 89 inline-code literals** (§5); section pointers and "Cited in §X" checked. **19 findings (MF-1 … MF-21, MF-8 merged, MF-10 downgraded) and 11 observations. All 19 findings, O-3/5/7/8/9/10/11 and the Cornish citation corrected 2026-09-14** (author's decisions, or mechanical under the pact), guarded (63 checks, one of them GL-S1's). O-1 not selected, O-4 not to be edited. MF-22 (HR anchors against Ostchega 2011), found during the resolution, removed on the author's decision, together with a precision on MF-20. Quantities against non-quantities not counted: the rule-based split failed its precision pass. **`guard` and `ledger` read one by one** (§6): 698 occurrences, 126 a different quantity, all verified, no defect. Prose without numbers not audited |
 
 ⚠️ **No count in this register may come from an ad-hoc pipeline.** Three
@@ -1826,7 +1853,8 @@ decisions. The supplement's `ambiguous_small` residue has been read row by row
 all are corrected on the author's decisions and guarded. Its `guard` and
 `ledger` occurrences were then read one by one (§6): one wrong pointer (GL-S1)
 is corrected and guarded, and one resample-count statement that the versioned
-generator does not reproduce (GL-S2) awaits the author's decision.
+generator does not reproduce (GL-S2) is restated to the measurement on the
+author's decision.
 The monograph's `none` and `ambiguous_small` residues and its 89 inline-code
 literals have been read row by row (§5). Nineteen findings and eleven
 observations are recorded there. All nineteen findings, seven observations and

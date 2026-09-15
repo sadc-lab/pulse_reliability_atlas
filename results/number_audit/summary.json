@@ -4,7 +4,7 @@
     "probes": 39
   },
   "coverage_is_by_value_not_by_occurrence": true,
-  "guard_pinned_literals": 1035,
+  "guard_pinned_literals": 1039,
   "ledger": {
     "anchors_expected": 394,
     "anchors_run": 394,
@@ -16,8 +16,8 @@
     "monograph": {
       "buckets": {
         "ambiguous_small": 1878,
-        "guard": 670,
-        "ledger": 28,
+        "guard": 676,
+        "ledger": 22,
         "none": 794
       },
       "distinct_unbucketed_values": 334,
@@ -62,8 +62,8 @@
     "paper": {
       "buckets": {
         "ambiguous_small": 307,
-        "guard": 165,
-        "ledger": 18,
+        "guard": 168,
+        "ledger": 15,
         "none": 37
       },
       "distinct_unbucketed_values": 29,
@@ -104,11 +104,11 @@
     "supplement": {
       "buckets": {
         "ambiguous_small": 960,
-        "guard": 484,
-        "ledger": 31,
-        "none": 412
+        "guard": 490,
+        "ledger": 26,
+        "none": 411
       },
-      "distinct_unbucketed_values": 211,
+      "distinct_unbucketed_values": 210,
       "distinct_values": 490,
       "excluded": {
         "file_path": 46,
@@ -148,9 +148,9 @@
   "totals": {
     "ambiguous_small_occurrences": 3145,
     "distinct_values": 730,
-    "not_demonstrably_covered_occurrences": 4388,
+    "not_demonstrably_covered_occurrences": 4387,
     "retained_occurrences": 5784,
-    "unbucketed_distinct_values": 419,
-    "unbucketed_occurrences": 1243
+    "unbucketed_distinct_values": 418,
+    "unbucketed_occurrences": 1242
   }
 }

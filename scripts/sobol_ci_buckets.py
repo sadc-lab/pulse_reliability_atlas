@@ -70,8 +70,11 @@ TOP_K = 3
 
 # Post-hoc bootstrap settings. N_BOOTSTRAP matches the mu*-CI setting used by
 # morris_indices() so a single resample count appears throughout the manuscript.
-# The stable set is identical at 1,000 / 2,000 / 4,000 (one combination is lost
-# at 500); see the sensitivity clause in Supplement Sec. S3-sobol.
+# The stable set is identical at 500 / 1,000 / 2,000 / 4,000: re-measured on
+# 2026-09-15 with this generator (audit/number_inventory.md section 6, GL-S2).
+# The earlier "one combination is lost at 500" (S031 decision 6, and this
+# comment until then) does not reproduce with this generator; how it was
+# obtained is not recorded. See the sensitivity clause in Supplement Sec. S3-sobol.
 N_BOOTSTRAP = 1000
 SEEDS = (12345, 999, 7, 555, 20260729)
 ALPHA = 0.05

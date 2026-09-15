@@ -195,7 +195,6 @@ supplement,43.6,1,"tidal volume 418~mL against a set 403.8~mL), which holds PaCO
 supplement,431,1,an) & P/F by FiO$_2$ (low / mid / high) \\ \midrule S1 (0.00) & 61 & 431 [388--481] & not-ARDS & 390 / 481 / --- \\ S2 (0.26) & 114 & 304 [264
 supplement,45.5,1,"$50.0 + 2.3\,(\text{height in inches} - 60)$~kg for a male body and $45.5 + 2.3\,(\text{height in inches} - 60)$~kg for a female body --- givin"
 supplement,450,1,the ARDS Network lung-protective tidal volume (6~mL/kg PBW $\approx$ 450 and 330~mL on the male and female reference bodies)~
-supplement,"4{,}000",1,"ve 0.6 in every draw. Repeating the whole procedure at 2{,}000 and at 4{,}000 resamples returns the same 23 combinations, and at 500 one combinatio"
 supplement,"4{,}595.50",1,"loor. For the published 56.2~kg female reference body that ceiling is 4{,}595.50~mL, which ends 207.13~mL below the 4{,}802.63~mL male default at whic"
 supplement,5.1,1,"dering on Cornish's bootstrap counts (PaCO$_2$ at 18.6~\%, PaO$_2$ at 5.1~\%, MeanBP at 3.3~\%, HR at 0.6~\%) mirrors the red-cell density of t"
 supplement,5.5,1,"se readings exceeds the preregistered envelope, by a factor of 2.4 to 5.5. It is therefore reported rather than executed. The released code bas"

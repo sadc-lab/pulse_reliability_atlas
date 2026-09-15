@@ -6695,6 +6695,9 @@ MONO_AUDIT_TEXT_REQUIRED = (
     # GL-S1 (guard/ledger read-through, 2026-09-15): the supplement's copy of MF-19.
     ("preprint_npj/supplement.tex", "was documented in our preregistration (scenario table and hypothesis H3) "
      "and in the verified-limitations table (Supplement~\\S\\,\\ref{sec:s2}, row 4)", 1),
+    # GL-S2 (2026-09-15, author's decision): the resample-count sensitivity as re-measured.
+    ("preprint_npj/supplement.tex", "Repeating the whole procedure at 500, 2{,}000 and 4{,}000 resamples returns "
+     "the same 23 combinations, so the stable set does not depend on the resample count.", 1),
     ("preprint/supplementary.md", "## S10 — Verification points (twelve independent layers)", 1),
     ("preprint/supplementary.md", "12 independent verification points; 0 failures", 1),
 )
@@ -6717,7 +6720,9 @@ MONO_AUDIT_TEXT_BANNED = {
         "Tables 4 and 5 are unchanged in the published version",
         "per-run output.csv / pulse.log", "the 24 experiment-log entries cited",
     ),
-    "preprint_npj/supplement.tex": ("Cornish et al.\\ 2023", "Cornish 2023 channel", "preregistration limitations table"),
+    "preprint_npj/supplement.tex": ("Cornish et al.\\ 2023", "Cornish 2023 channel", "preregistration limitations table",
+                                    "and at 500 one combination is lost"),
+    "scripts/sobol_ci_buckets.py": ("identical at 1,000 / 2,000 / 4,000 (one combination is lost",),
     "preprint/supplementary.md": ("eleven independent layers", "11 independent verification points"),
 }
 MONO_AUDIT_JMLR_FIELDS = (

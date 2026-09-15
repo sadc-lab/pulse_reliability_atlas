@@ -201,3 +201,17 @@ previous message.
 
 Nothing from this session. The remaining work is the publication logistics
 tracked in `TODO_publication_roadmap.md`.
+
+## Correction note — 2026-09-15 (decision 6, "22 at 500")
+
+Decision 6 records the stable set as identical at 1,000 / 2,000 / 4,000
+resamples and "22 at 500". On 2026-09-15 the versioned generator
+(`scripts/sobol_ci_buckets.py`, `d639747`) was re-run in memory with
+`N_BOOTSTRAP` set to 500, 1,000, 2,000 and 4,000. It returned the same
+23-entry set at all four, and the 1,000 run reproduced the committed
+`results/sobol_ci_buckets.csv` exactly. The "22 at 500" does not reproduce
+with the published generator, and how it was obtained is not recorded here: the
+32-convention sweep of Finding 3 concerns a different count. The entry above is
+kept as written. Supplement S3-sobol and the script comment now state the
+re-measured result, on the author's decision (`audit/number_inventory.md` §6,
+GL-S2).
