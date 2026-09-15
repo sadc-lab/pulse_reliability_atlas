@@ -15,10 +15,12 @@ bray2019  paper+supplement
 brower2000  supplement
 campolongo2007  paper
 cornish2023  paper+supplement
+deepseek2026v41flash  paper
 evans2021sepsis  supplement
 figueroacasas2016  paper+supplement
 herman2017salib  paper
 hester2011hummod  paper
+hwang2025sim2real  paper
 iwanaga2022  paper
 katsoulakis2024digitaltwins  paper
 kuczmarski2002cdc  paper+supplement
@@ -45,7 +47,9 @@ sinderby1999  supplement
 singer2016  supplement
 sinnige2026active  paper
 thille2006  paper+supplement
+vanbreugel2024synthetic  paper
 viceconti2021insilico  paper
+victoriano2026sim2real  paper
 ward2024ventilator  paper+supplement
 webb2020  paper
 webb2022vent  paper+supplement

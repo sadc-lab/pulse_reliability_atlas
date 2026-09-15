@@ -2404,6 +2404,39 @@ decisions).**
     are "150" of the 150-word cap and the "2.6" of §2.6.
   - Guard-pinned literals 1,047 → 1,049. Calibrations 39 / 0 and 19 / 0.
 
+**Addendum 2026-09-15 (evening) — four number words added with the
+synthetic-data framing.** On the author's decision of 2026-09-15, seven
+sentences were added to `paper.tex` (Introduction, Discussion) with four new
+references. They carry no digit and four number words, each read against its
+source:
+- "a five-stage validation scheme": Victoriano et al. 2026, Fig. 4, names five
+  stages (internal plausibility, downstream task utility, OOD generalization,
+  sim2real transfer, biological or clinical coupling). Full text read. Correct.
+- "only part of the first stage": stage 1 of that figure is internal
+  plausibility. The claim is restricted to part of it because stage 1 also
+  covers fidelity to real-world distributions, which the atlas does not test.
+  Correct.
+- "with one difference": the sentence states exactly one difference (the
+  classifier checks the simulator's behaviour, not agreement with patients).
+  Correct.
+- "one sim-to-real study": a single study is cited (`hwang2025sim2real`).
+  Correct.
+
+**Movement.**
+- Number words: 1,349 kept (paper 241, supplement 561, monograph 547), 12
+  masked. The paper's rows for "four-flag" and "doubles" change only their
+  context string.
+- Digit inventory: 5,786 retained (paper 528, supplement 1,887, monograph
+  3,371), unchanged. With the line field removed, `inventory.csv` is
+  row-for-row identical to the previous commit, and so is `masked_by_rule.csv`
+  once each pair is matched on literal and context: the paragraph split shifts
+  later paper lines by two. `summary.json` moves only the paper's `excluded`
+  span count for `ref_or_machinery`, 219 → 227: the eight new `\cite`
+  commands. Its literal cost for the paper stays at 4, since a year glued to
+  letters inside a key is not a numeric literal, so no row joins
+  `masked_by_rule.csv`.
+- Calibrations 39 / 0 and 19 / 0.
+
 ## 10. What remains
 
 | artefact | `none` residue | `ambiguous_small` | status |

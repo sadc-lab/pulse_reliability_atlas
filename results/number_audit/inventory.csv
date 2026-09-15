@@ -3405,499 +3405,499 @@ paper,128,643,643.0,guard,"stimate plateau PaO$_2$; 300-second healthy-lung reru
 paper,128,20,20.0,ambiguous_small,"a median 643~mmHg. Solver divergence fell entirely on the male body (20/1{,}280); reducing its blood-volume baseline to the 4{,}082~mL floor"
 paper,128,"1{,}280",1280.0,guard,"median 643~mmHg. Solver divergence fell entirely on the male body (20/1{,}280); reducing its blood-volume baseline to the 4{,}082~mL floor eliminat"
 paper,128,"4{,}082",4082.0,ledger,"the male body (20/1{,}280); reducing its blood-volume baseline to the 4{,}082~mL floor eliminated it. All runs and flags are released openly, so us"
-paper,140,2.0,2.0,ambiguous_small,"automatically reliable. The Pulse Physiology Engine (Kitware, Apache-2.0) is one such actively maintained open-source whole-body simulator~"
-paper,140,1,1.0,ambiguous_small,"simulation (Supplement~\S\, ). Pulse has been applied to (1)~ventilator-safety what-if analysis~ , (2)~validation o"
-paper,140,2,2.0,ambiguous_small,"n applied to (1)~ventilator-safety what-if analysis~ , (2)~validation of its own mechanical-ventilator model against a physical"
-paper,140,3,3.0,ambiguous_small,"or model against a physical reference simulator~ , (3)~medical education and simulation training on virtual-patient and eme"
-paper,140,4,4.0,ambiguous_small,"l-patient and emergency-medicine platforms~ , and (4)~general-purpose computational physiology~ ; its respir"
-paper,142,"12{,}642",12642.0,none,"et al.'s ventilator-sharing study~ does sweep inputs (12{,}642 unique patient and ventilator combinations spanning respiratory compl"
-paper,142,70,70.0,none,"ome correlation, but over the \emph{mismatch} between two equal-sized 70~kg bodies sharing one ventilator, scored against a single composite s"
-paper,148,"1{,}280",1280.0,guard,"rossed with two adult reference patient bodies, male and female, gave 1{,}280 simulations. Every run was then labelled by a four-flag steady-state"
-paper,148,2.0,2.0,ambiguous_small,"Docker image with a fixed seed, and released open-source under Apache-2.0. \section{Results} [!h] \centering"
-paper,160,0.00,0.0,ambiguous_small,"e and three ARDS severities: \textbf{S1} healthy baseline (impairment 0.00), \textbf{S2} mild (0.26), \textbf{S3} moderate (0.60), \textbf{S4} s"
-paper,160,0.26,0.26,ambiguous_small,"es: \textbf{S1} healthy baseline (impairment 0.00), \textbf{S2} mild (0.26), \textbf{S3} moderate (0.60), \textbf{S4} severe (0.95). The mild/mo"
-paper,160,0.60,0.6,ambiguous_small,"ine (impairment 0.00), \textbf{S2} mild (0.26), \textbf{S3} moderate (0.60), \textbf{S4} severe (0.95). The mild/moderate/severe labels are Berl"
-paper,160,0.95,0.95,ambiguous_small,"tbf{S2} mild (0.26), \textbf{S3} moderate (0.60), \textbf{S4} severe (0.95). The mild/moderate/severe labels are Berlin Definition bands, set by"
-paper,162,4,4.0,ambiguous_small,"). The four scenarios crossed with the two bodies give $4 \times 2 = 8$ cells, each containing 160 simulations (runs). \\ \addl"
-paper,162,2,2.0,ambiguous_small,"). The four scenarios crossed with the two bodies give $4 \times 2 = 8$ cells, each containing 160 simulations (runs). \\ \addlinespace"
-paper,162,8,8.0,ambiguous_small,"). The four scenarios crossed with the two bodies give $4 \times 2 = 8$ cells, each containing 160 simulations (runs). \\ \addlinespace \tex"
-paper,162,160,160.0,guard,"ssed with the two bodies give $4 \times 2 = 8$ cells, each containing 160 simulations (runs). \\ \addlinespace \textbf{Simulation (run)} & One"
-paper,164,7,7.0,ambiguous_small,"Pulse run at a single point in the seven-dimensional input space (the 7 swept inputs: HR, SBP, DBP, RR, Vt, FiO$_2$, PEEP), executed for 120~"
-paper,164,120,120.0,guard,"he 7 swept inputs: HR, SBP, DBP, RR, Vt, FiO$_2$, PEEP), executed for 120~s with the six steady-state outputs (HR, MAP, Vt delivered, SpO$_2$,"
-paper,164,5,5.0,ambiguous_small,"uts (HR, MAP, Vt delivered, SpO$_2$, PaO$_2$, PaCO$_2$) sampled every 5~s (Methods \S ). \\ \bottomrule"
-paper,171,"1{,}280",1280.0,guard,"e reliability atlas} The atlas comprises 1{,}280 simulations spanning eight cells of 160 runs each, one cell per clini"
-paper,171,160,160.0,guard,"The atlas comprises 1{,}280 simulations spanning eight cells of 160 runs each, one cell per clinical scenario (S1 healthy, S2 mild, S3 mo"
-paper,173,0,0.0,ambiguous_small,"the preregistered \texttt{clamped} category remained empty at setup (0 / 1{,}280 across every cell). That detector reads the setup log, so i"
-paper,173,"1{,}280",1280.0,guard,"preregistered \texttt{clamped} category remained empty at setup (0 / 1{,}280 across every cell). That detector reads the setup log, so it establis"
-paper,173,"10{,}160",10160.0,guard,"ue Pulse serialises after ingestion and found exact agreement for all 10{,}160 input contracts that reached ingestion. The remaining 80 ventilator c"
-paper,173,80,80.0,ambiguous_small,"or all 10{,}160 input contracts that reached ingestion. The remaining 80 ventilator contracts belong to 20 runs that failed during patient sta"
-paper,173,20,20.0,ambiguous_small,at reached ingestion. The remaining 80 ventilator contracts belong to 20 runs that failed during patient stabilisation before the ventilator a
-paper,173,1.0,1.0,ambiguous_small,". Pulse does make one explicit downstream adjustment: where FiO$_2$~=~1.0 was requested and the ventilator action was reached, the ventilator m"
-paper,173,0.9996,0.9996,guard,"as reached, the ventilator model caps the inspired oxygen fraction at 0.9996 --- the ambient mixture already carries CO$_2$, so exactly 1.0 cannot"
-paper,173,1.0,1.0,ambiguous_small,"at 0.9996 --- the ambient mixture already carries CO$_2$, so exactly 1.0 cannot be composed --- with a logged error on all 195 runs concerned"
-paper,173,195,195.0,guard,"_2$, so exactly 1.0 cannot be composed --- with a logged error on all 195 runs concerned (Supplement~\S\, ). H3 is supported:"
-paper,173,20,20.0,ambiguous_small,"ppears outside the previously characterised ARDS instability band, on 20 / 1{,}280 runs whose sex stratification is the subject of \S"
-paper,173,"1{,}280",1280.0,guard,"s outside the previously characterised ARDS instability band, on 20 / 1{,}280 runs whose sex stratification is the subject of \S"
-paper,175,663,663.0,guard,"t and depends on which screen is applied. Under the four-flag screen, 663 of 1{,}280 runs (51.8~\%) are clean, ranging 3.43-fold across cells,"
-paper,175,"1{,}280",1280.0,guard,"epends on which screen is applied. Under the four-flag screen, 663 of 1{,}280 runs (51.8~\%) are clean, ranging 3.43-fold across cells, from 144 of"
-paper,175,51.8,51.8,guard,"h screen is applied. Under the four-flag screen, 663 of 1{,}280 runs (51.8~\%) are clean, ranging 3.43-fold across cells, from 144 of 160 in mod"
-paper,175,3.43,3.43,guard,"he four-flag screen, 663 of 1{,}280 runs (51.8~\%) are clean, ranging 3.43-fold across cells, from 144 of 160 in moderate ARDS on the male body"
-paper,175,144,144.0,guard,"{,}280 runs (51.8~\%) are clean, ranging 3.43-fold across cells, from 144 of 160 in moderate ARDS on the male body down to 42 of 160 in the hea"
-paper,175,160,160.0,guard,"runs (51.8~\%) are clean, ranging 3.43-fold across cells, from 144 of 160 in moderate ARDS on the male body down to 42 of 160 in the healthy fe"
-paper,175,42,42.0,ambiguous_small,"ross cells, from 144 of 160 in moderate ARDS on the male body down to 42 of 160 in the healthy female cell. Under the hard-failure-free screen"
-paper,175,160,160.0,guard,"ells, from 144 of 160 in moderate ARDS on the male body down to 42 of 160 in the healthy female cell. Under the hard-failure-free screen, which"
-paper,175,"1{,}134",1134.0,guard,"e screen, which admits runs flagged only \texttt{not\_steady\_state}, 1{,}134 of 1{,}280 (88.6~\%) survive, a 1.51-fold spread; the two screens dep"
-paper,175,"1{,}280",1280.0,guard,"hich admits runs flagged only \texttt{not\_steady\_state}, 1{,}134 of 1{,}280 (88.6~\%) survive, a 1.51-fold spread; the two screens deplete opposi"
-paper,175,88.6,88.6,guard,"ts runs flagged only \texttt{not\_steady\_state}, 1{,}134 of 1{,}280 (88.6~\%) survive, a 1.51-fold spread; the two screens deplete opposite end"
-paper,175,1.51,1.51,guard,"\texttt{not\_steady\_state}, 1{,}134 of 1{,}280 (88.6~\%) survive, a 1.51-fold spread; the two screens deplete opposite ends of the severity ax"
-paper,181,"1{,}280",1280.0,guard,"\caption{\textbf{Study design of the 1{,}280-run sweep.} Seven user-facing operational inputs are screened with a"
-paper,181,20,20.0,ambiguous_small,"tional inputs are screened with a Morris elementary-effects design of 20 trajectories per cell, each visiting $7{+}1 = 8$ input points, i.e.\"
-paper,181,7,7.0,ambiguous_small,"elementary-effects design of 20 trajectories per cell, each visiting $7{+}1 = 8$ input points, i.e.\ 160 runs per cell. The same design is ex"
-paper,181,1,1.0,ambiguous_small,"entary-effects design of 20 trajectories per cell, each visiting $7{+}1 = 8$ input points, i.e.\ 160 runs per cell. The same design is execut"
-paper,181,8,8.0,ambiguous_small,"ry-effects design of 20 trajectories per cell, each visiting $7{+}1 = 8$ input points, i.e.\ 160 runs per cell. The same design is executed i"
-paper,181,160,160.0,guard,"trajectories per cell, each visiting $7{+}1 = 8$ input points, i.e.\ 160 runs per cell. The same design is executed in all eight cells --- fou"
-paper,181,0.00,0.0,ambiguous_small,in all eight cells --- four severity scenarios (impairment fractions 0.00 / 0.26 / 0.60 / 0.95) crossed with the male and female reference bodi
-paper,181,0.26,0.26,ambiguous_small,eight cells --- four severity scenarios (impairment fractions 0.00 / 0.26 / 0.60 / 0.95) crossed with the male and female reference bodies ---
-paper,181,0.60,0.6,ambiguous_small,cells --- four severity scenarios (impairment fractions 0.00 / 0.26 / 0.60 / 0.95) crossed with the male and female reference bodies --- for $8
-paper,181,0.95,0.95,ambiguous_small,-- four severity scenarios (impairment fractions 0.00 / 0.26 / 0.60 / 0.95) crossed with the male and female reference bodies --- for $8 \times
-paper,181,8,8.0,ambiguous_small,"60 / 0.95) crossed with the male and female reference bodies --- for $8 \times 160 = 1{,}280$ simulations, a fully balanced factorial. Differ"
-paper,181,160,160.0,guard,") crossed with the male and female reference bodies --- for $8 \times 160 = 1{,}280$ simulations, a fully balanced factorial. Differences betwe"
-paper,181,"1{,}280",1280.0,guard,"sed with the male and female reference bodies --- for $8 \times 160 = 1{,}280$ simulations, a fully balanced factorial. Differences between cells t"
-paper,196,600,600.0,guard,"nds outside the locked hard physiological bounds (e.g.\ PaO$_2$ above 600~mmHg) & the run completed, but a value is non-physiological under the"
-paper,198,60,60.0,ambiguous_small,"ted as-is \\ \addlinespace \texttt{not\_steady\_state} & in the final 60~s window, at least one tracked output flatlines at a hard bound (froz"
-paper,198,0.05,0.05,none,"h near-zero variation), varies too much (coefficient of variation $>$ 0.05; most often tidal volume), or drifts past its locked per-channel limi"
-paper,198,60,60.0,ambiguous_small,"n is physiological but never settled to a stable steady state, so its 60~s mean is not a reliable summary \\ \bottomrule"
-paper,204,0,0.0,ambiguous_small,"preregistered \texttt{clamped} category is empty in all eight cells, 0 of 1{,}280: no submitted setup input was refused. What varies between"
-paper,204,"1{,}280",1280.0,guard,"egistered \texttt{clamped} category is empty in all eight cells, 0 of 1{,}280: no submitted setup input was refused. What varies between cells is n"
-paper,204,144,144.0,guard,"not whether the engine fails but how much of the grid survives, from 144 of 160 clean runs in moderate ARDS on the male body down to 42 of 160"
-paper,204,160,160.0,guard,"ether the engine fails but how much of the grid survives, from 144 of 160 clean runs in moderate ARDS on the male body down to 42 of 160 in the"
-paper,204,42,42.0,ambiguous_small,from 144 of 160 clean runs in moderate ARDS on the male body down to 42 of 160 in the healthy female cell. Flag columns are independent prese
-paper,204,160,160.0,guard,144 of 160 clean runs in moderate ARDS on the male body down to 42 of 160 in the healthy female cell. Flag columns are independent presence cou
-paper,210,160,160.0,guard,verged & implausible & not\_steady\_state & clean \\ \midrule S1\_M & 160 & 0 & 4 & 11 & 107 & 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \mi
-paper,210,0,0.0,ambiguous_small,& implausible & not\_steady\_state & clean \\ \midrule S1\_M & 160 & 0 & 4 & 11 & 107 & 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrul
-paper,210,4,4.0,ambiguous_small,mplausible & not\_steady\_state & clean \\ \midrule S1\_M & 160 & 0 & 4 & 11 & 107 & 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2
-paper,210,11,11.0,ambiguous_small,usible & not\_steady\_state & clean \\ \midrule S1\_M & 160 & 0 & 4 & 11 & 107 & 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M &
-paper,210,107,107.0,guard,e & not\_steady\_state & clean \\ \midrule S1\_M & 160 & 0 & 4 & 11 & 107 & 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M & 160 &
-paper,210,49,49.0,ambiguous_small,t\_steady\_state & clean \\ \midrule S1\_M & 160 & 0 & 4 & 11 & 107 & 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M & 160 & 0 &
-paper,211,160,160.0,guard,te & clean \\ \midrule S1\_M & 160 & 0 & 4 & 11 & 107 & 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 &
-paper,211,0,0.0,ambiguous_small,lean \\ \midrule S1\_M & 160 & 0 & 4 & 11 & 107 & 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \
-paper,211,0,0.0,ambiguous_small,\\ \midrule S1\_M & 160 & 0 & 4 & 11 & 107 & 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2
-paper,211,23,23.0,ambiguous_small,\midrule S1\_M & 160 & 0 & 4 & 11 & 107 & 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F &
-paper,211,118,118.0,guard,ule S1\_M & 160 & 0 & 4 & 11 & 107 & 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F & 160 &
-paper,211,42,42.0,ambiguous_small,\_M & 160 & 0 & 4 & 11 & 107 & 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F & 160 & 0 &
-paper,213,160,160.0,guard,& 107 & 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \mi
-paper,213,0,0.0,ambiguous_small,& 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrul
-paper,213,4,4.0,ambiguous_small,\\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3
-paper,213,0,0.0,ambiguous_small,S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M
-paper,213,69,69.0,ambiguous_small,& 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M & 160
-paper,213,87,87.0,ambiguous_small,& 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M & 160 & 0 &
-paper,214,160,160.0,guard,& 118 & 42 \\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 &
-paper,214,0,0.0,ambiguous_small,& 42 \\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144
-paper,214,0,0.0,ambiguous_small,\\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S
-paper,214,0,0.0,ambiguous_small,\midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F
-paper,214,68,68.0,ambiguous_small,ule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F & 160
-paper,214,92,92.0,ambiguous_small,\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F & 160 & 0 &
-paper,216,160,160.0,guard,& 69 & 87 \\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \
-paper,216,0,0.0,ambiguous_small,& 87 \\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midr
-paper,216,4,4.0,ambiguous_small,\\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule
-paper,216,0,0.0,ambiguous_small,S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_
-paper,216,12,12.0,ambiguous_small,& 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_M & 16
-paper,216,144,144.0,guard,& 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_M & 160 & 0 &
-paper,217,160,160.0,guard,68 & 92 \\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 &
-paper,217,0,0.0,ambiguous_small,92 \\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67
-paper,217,0,0.0,ambiguous_small,\\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S
-paper,217,0,0.0,ambiguous_small,midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F
-paper,217,38,38.0,ambiguous_small,le S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160
-paper,217,122,122.0,guard,_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160 & 0 &
-paper,219,160,160.0,guard,12 & 144 \\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160 & 0 & 0 & 46 & 74 & 60 \\ \bo
-paper,219,0,0.0,ambiguous_small,144 \\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160 & 0 & 0 & 46 & 74 & 60 \\ \bottom
-paper,219,8,8.0,ambiguous_small,\\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160 & 0 & 0 & 46 & 74 & 60 \\ \bottomrule
-paper,219,46,46.0,ambiguous_small,3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160 & 0 & 0 & 46 & 74 & 60 \\ \bottomrule
-paper,219,44,44.0,ambiguous_small,& 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160 & 0 & 0 & 46 & 74 & 60 \\ \bottomrule
-paper,219,67,67.0,ambiguous_small,& 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160 & 0 & 0 & 46 & 74 & 60 \\ \bottomrule
-paper,220,160,160.0,guard,38 & 122 \\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160 & 0 & 0 & 46 & 74 & 60 \\ \bottomrule
-paper,220,0,0.0,ambiguous_small,122 \\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160 & 0 & 0 & 46 & 74 & 60 \\ \bottomrule
-paper,220,0,0.0,ambiguous_small,\\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160 & 0 & 0 & 46 & 74 & 60 \\ \bottomrule
-paper,220,46,46.0,ambiguous_small,\midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160 & 0 & 0 & 46 & 74 & 60 \\ \bottomrule [!h
-paper,220,74,74.0,ambiguous_small,ule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160 & 0 & 0 & 46 & 74 & 60 \\ \bottomrule [!htbp]
-paper,220,60,60.0,ambiguous_small,\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160 & 0 & 0 & 46 & 74 & 60 \\ \bottomrule [!htbp] \cente
-paper,227,10,10.0,ambiguous_small,"le flags (together the \emph{hard flags}) \emph{and} the mean within $10~\%$ of the (S1, M) baseline (the \emph{deviation} criterion). \textit"
-paper,227,10,10.0,ambiguous_small,viation} criterion). \textit{Yellow}: any hard flag \emph{or} a mean $10$--$30~\%$ off baseline. \textit{Red}: more than $30~\%$ off baseline
-paper,227,30,30.0,ambiguous_small,n} criterion). \textit{Yellow}: any hard flag \emph{or} a mean $10$--$30~\%$ off baseline. \textit{Red}: more than $30~\%$ off baseline \emph{
-paper,227,30,30.0,ambiguous_small,\emph{or} a mean $10$--$30~\%$ off baseline. \textit{Red}: more than $30~\%$ off baseline \emph{or} a diverged-plus-implausible rate above $30
-paper,227,30,30.0,ambiguous_small,30~\%$ off baseline \emph{or} a diverged-plus-implausible rate above $30~\%$. Across the 48 cell $\times$ output combinations the aggregate is
-paper,227,48,48.0,ambiguous_small,\emph{or} a diverged-plus-implausible rate above $30~\%$. Across the 48 cell $\times$ output combinations the aggregate is 7 green / 29 yello
-paper,227,7,7.0,ambiguous_small,\%$. Across the 48 cell $\times$ output combinations the aggregate is 7 green / 29 yellow / 12 red. \textbf{(b)} Which criterion produced eac
-paper,227,29,29.0,ambiguous_small,s the 48 cell $\times$ output combinations the aggregate is 7 green / 29 yellow / 12 red. \textbf{(b)} Which criterion produced each classific
-paper,227,12,12.0,ambiguous_small,l $\times$ output combinations the aggregate is 7 green / 29 yellow / 12 red. \textbf{(b)} Which criterion produced each classification: 7 \em
-paper,227,7,7.0,ambiguous_small,"/ 12 red. \textbf{(b)} Which criterion produced each classification: 7 \emph{neither} (the green set by construction), 23 \emph{hard flags o"
-paper,227,23,23.0,ambiguous_small,"ach classification: 7 \emph{neither} (the green set by construction), 23 \emph{hard flags only}, 9 \emph{deviation only}, 9 \emph{both}. The 1"
-paper,227,9,9.0,ambiguous_small,"{neither} (the green set by construction), 23 \emph{hard flags only}, 9 \emph{deviation only}, 9 \emph{both}. The 12 red cells split 6 deviat"
-paper,227,9,9.0,ambiguous_small,"by construction), 23 \emph{hard flags only}, 9 \emph{deviation only}, 9 \emph{both}. The 12 red cells split 6 deviation-only, 4 flag-only and"
-paper,227,12,12.0,ambiguous_small,"3 \emph{hard flags only}, 9 \emph{deviation only}, 9 \emph{both}. The 12 red cells split 6 deviation-only, 4 flag-only and 2 both, so half are"
-paper,227,6,6.0,ambiguous_small,"only}, 9 \emph{deviation only}, 9 \emph{both}. The 12 red cells split 6 deviation-only, 4 flag-only and 2 both, so half are red because the c"
-paper,227,4,4.0,ambiguous_small,"iation only}, 9 \emph{both}. The 12 red cells split 6 deviation-only, 4 flag-only and 2 both, so half are red because the clean-run mean sits"
-paper,227,2,2.0,ambiguous_small,"\emph{both}. The 12 red cells split 6 deviation-only, 4 flag-only and 2 both, so half are red because the clean-run mean sits far from a \emp"
-paper,232,160,160.0,guard,tion under the two screening definitions.} Retention is computed over 160 simulations per cell. \emph{Four-flag clean} keeps only runs firing n
-paper,232,160,160.0,guard,"his sweep, so including it changes no count). Counts are given out of 160 rather than as percentages on purpose: with $n = 160$ every percentag"
-paper,232,160,160.0,guard,"are given out of 160 rather than as percentages on purpose: with $n = 160$ every percentage is a multiple of $0.625$, so nine of the sixteen va"
-paper,232,0.625,0.625,none,"entages on purpose: with $n = 160$ every percentage is a multiple of $0.625$, so nine of the sixteen values below fall on an exact rounding tie a"
-paper,232,663,663.0,guard,"The two whole-sweep percentages are quoted because neither is a tie ($663/1{,}280$; $1{,}134/1{,}280$). Neither subset is distribution-neutral."
-paper,232,"1{,}280",1280.0,guard,"two whole-sweep percentages are quoted because neither is a tie ($663/1{,}280$; $1{,}134/1{,}280$). Neither subset is distribution-neutral. Cell-la"
-paper,232,"1{,}134",1134.0,guard,"weep percentages are quoted because neither is a tie ($663/1{,}280$; $1{,}134/1{,}280$). Neither subset is distribution-neutral. Cell-label key: Ta"
-paper,232,"1{,}280",1280.0,guard,"centages are quoted because neither is a tie ($663/1{,}280$; $1{,}134/1{,}280$). Neither subset is distribution-neutral. Cell-label key: Table~"
-paper,238,49,49.0,ambiguous_small,oprule Cell & Four-flag clean & Hard-failure-free \\ \midrule S1\_M & 49/160 & 145/160 \\ S1\_F & 42/160 & 137/160 \\ \midrule S2\_M & 87/160
-paper,238,160,160.0,guard,ule Cell & Four-flag clean & Hard-failure-free \\ \midrule S1\_M & 49/160 & 145/160 \\ S1\_F & 42/160 & 137/160 \\ \midrule S2\_M & 87/160 & 15
-paper,238,145,145.0,guard,ll & Four-flag clean & Hard-failure-free \\ \midrule S1\_M & 49/160 & 145/160 \\ S1\_F & 42/160 & 137/160 \\ \midrule S2\_M & 87/160 & 156/160
-paper,238,160,160.0,guard,Four-flag clean & Hard-failure-free \\ \midrule S1\_M & 49/160 & 145/160 \\ S1\_F & 42/160 & 137/160 \\ \midrule S2\_M & 87/160 & 156/160 \\ S
-paper,239,42,42.0,ambiguous_small,n & Hard-failure-free \\ \midrule S1\_M & 49/160 & 145/160 \\ S1\_F & 42/160 & 137/160 \\ \midrule S2\_M & 87/160 & 156/160 \\ S2\_F & 92/160
-paper,239,160,160.0,guard,Hard-failure-free \\ \midrule S1\_M & 49/160 & 145/160 \\ S1\_F & 42/160 & 137/160 \\ \midrule S2\_M & 87/160 & 156/160 \\ S2\_F & 92/160 & 16
-paper,239,137,137.0,guard,failure-free \\ \midrule S1\_M & 49/160 & 145/160 \\ S1\_F & 42/160 & 137/160 \\ \midrule S2\_M & 87/160 & 156/160 \\ S2\_F & 92/160 & 160/160
-paper,239,160,160.0,guard,ure-free \\ \midrule S1\_M & 49/160 & 145/160 \\ S1\_F & 42/160 & 137/160 \\ \midrule S2\_M & 87/160 & 156/160 \\ S2\_F & 92/160 & 160/160 \\ \
-paper,241,87,87.0,ambiguous_small,_M & 49/160 & 145/160 \\ S1\_F & 42/160 & 137/160 \\ \midrule S2\_M & 87/160 & 156/160 \\ S2\_F & 92/160 & 160/160 \\ \midrule S3\_M & 144/160
-paper,241,160,160.0,guard,& 49/160 & 145/160 \\ S1\_F & 42/160 & 137/160 \\ \midrule S2\_M & 87/160 & 156/160 \\ S2\_F & 92/160 & 160/160 \\ \midrule S3\_M & 144/160 & 1
-paper,241,156,156.0,guard,60 & 145/160 \\ S1\_F & 42/160 & 137/160 \\ \midrule S2\_M & 87/160 & 156/160 \\ S2\_F & 92/160 & 160/160 \\ \midrule S3\_M & 144/160 & 156/160
-paper,241,160,160.0,guard,145/160 \\ S1\_F & 42/160 & 137/160 \\ \midrule S2\_M & 87/160 & 156/160 \\ S2\_F & 92/160 & 160/160 \\ \midrule S3\_M & 144/160 & 156/160 \\
-paper,242,92,92.0,ambiguous_small,_F & 42/160 & 137/160 \\ \midrule S2\_M & 87/160 & 156/160 \\ S2\_F & 92/160 & 160/160 \\ \midrule S3\_M & 144/160 & 156/160 \\ S3\_F & 122/16
-paper,242,160,160.0,guard,& 42/160 & 137/160 \\ \midrule S2\_M & 87/160 & 156/160 \\ S2\_F & 92/160 & 160/160 \\ \midrule S3\_M & 144/160 & 156/160 \\ S3\_F & 122/160 &
-paper,242,160,160.0,guard,60 & 137/160 \\ \midrule S2\_M & 87/160 & 156/160 \\ S2\_F & 92/160 & 160/160 \\ \midrule S3\_M & 144/160 & 156/160 \\ S3\_F & 122/160 & 160/16
-paper,242,160,160.0,guard,137/160 \\ \midrule S2\_M & 87/160 & 156/160 \\ S2\_F & 92/160 & 160/160 \\ \midrule S3\_M & 144/160 & 156/160 \\ S3\_F & 122/160 & 160/160 \\
-paper,244,144,144.0,guard,_M & 87/160 & 156/160 \\ S2\_F & 92/160 & 160/160 \\ \midrule S3\_M & 144/160 & 156/160 \\ S3\_F & 122/160 & 160/160 \\ \midrule S4\_M & 67/160
-paper,244,160,160.0,guard,87/160 & 156/160 \\ S2\_F & 92/160 & 160/160 \\ \midrule S3\_M & 144/160 & 156/160 \\ S3\_F & 122/160 & 160/160 \\ \midrule S4\_M & 67/160 & 1
-paper,244,156,156.0,guard,0 & 156/160 \\ S2\_F & 92/160 & 160/160 \\ \midrule S3\_M & 144/160 & 156/160 \\ S3\_F & 122/160 & 160/160 \\ \midrule S4\_M & 67/160 & 106/160
-paper,244,160,160.0,guard,156/160 \\ S2\_F & 92/160 & 160/160 \\ \midrule S3\_M & 144/160 & 156/160 \\ S3\_F & 122/160 & 160/160 \\ \midrule S4\_M & 67/160 & 106/160 \\
-paper,245,122,122.0,guard,F & 92/160 & 160/160 \\ \midrule S3\_M & 144/160 & 156/160 \\ S3\_F & 122/160 & 160/160 \\ \midrule S4\_M & 67/160 & 106/160 \\ S4\_F & 60/160
-paper,245,160,160.0,guard,92/160 & 160/160 \\ \midrule S3\_M & 144/160 & 156/160 \\ S3\_F & 122/160 & 160/160 \\ \midrule S4\_M & 67/160 & 106/160 \\ S4\_F & 60/160 & 11
-paper,245,160,160.0,guard,& 160/160 \\ \midrule S3\_M & 144/160 & 156/160 \\ S3\_F & 122/160 & 160/160 \\ \midrule S4\_M & 67/160 & 106/160 \\ S4\_F & 60/160 & 114/160
-paper,245,160,160.0,guard,60/160 \\ \midrule S3\_M & 144/160 & 156/160 \\ S3\_F & 122/160 & 160/160 \\ \midrule S4\_M & 67/160 & 106/160 \\ S4\_F & 60/160 & 114/160 \\ \
-paper,247,67,67.0,ambiguous_small,& 144/160 & 156/160 \\ S3\_F & 122/160 & 160/160 \\ \midrule S4\_M & 67/160 & 106/160 \\ S4\_F & 60/160 & 114/160 \\ \midrule All cells & 663
-paper,247,160,160.0,guard,"144/160 & 156/160 \\ S3\_F & 122/160 & 160/160 \\ \midrule S4\_M & 67/160 & 106/160 \\ S4\_F & 60/160 & 114/160 \\ \midrule All cells & 663/1{,"
-paper,247,106,106.0,guard,"0 & 156/160 \\ S3\_F & 122/160 & 160/160 \\ \midrule S4\_M & 67/160 & 106/160 \\ S4\_F & 60/160 & 114/160 \\ \midrule All cells & 663/1{,}280 ("
-paper,247,160,160.0,guard,"156/160 \\ S3\_F & 122/160 & 160/160 \\ \midrule S4\_M & 67/160 & 106/160 \\ S4\_F & 60/160 & 114/160 \\ \midrule All cells & 663/1{,}280 (51.8"
-paper,248,60,60.0,ambiguous_small,"F & 122/160 & 160/160 \\ \midrule S4\_M & 67/160 & 106/160 \\ S4\_F & 60/160 & 114/160 \\ \midrule All cells & 663/1{,}280 (51.8~\%) & 1{,}134"
-paper,248,160,160.0,guard,"122/160 & 160/160 \\ \midrule S4\_M & 67/160 & 106/160 \\ S4\_F & 60/160 & 114/160 \\ \midrule All cells & 663/1{,}280 (51.8~\%) & 1{,}134/1{,"
-paper,248,114,114.0,guard,"60 & 160/160 \\ \midrule S4\_M & 67/160 & 106/160 \\ S4\_F & 60/160 & 114/160 \\ \midrule All cells & 663/1{,}280 (51.8~\%) & 1{,}134/1{,}280 ("
-paper,248,160,160.0,guard,"160/160 \\ \midrule S4\_M & 67/160 & 106/160 \\ S4\_F & 60/160 & 114/160 \\ \midrule All cells & 663/1{,}280 (51.8~\%) & 1{,}134/1{,}280 (88.6"
-paper,250,663,663.0,guard,"67/160 & 106/160 \\ S4\_F & 60/160 & 114/160 \\ \midrule All cells & 663/1{,}280 (51.8~\%) & 1{,}134/1{,}280 (88.6~\%) \\ \bottomrule"
-paper,250,"1{,}280",1280.0,guard,"160 & 106/160 \\ S4\_F & 60/160 & 114/160 \\ \midrule All cells & 663/1{,}280 (51.8~\%) & 1{,}134/1{,}280 (88.6~\%) \\ \bottomrule"
-paper,250,51.8,51.8,guard,"/160 \\ S4\_F & 60/160 & 114/160 \\ \midrule All cells & 663/1{,}280 (51.8~\%) & 1{,}134/1{,}280 (88.6~\%) \\ \bottomrule"
-paper,250,"1{,}134",1134.0,guard,"_F & 60/160 & 114/160 \\ \midrule All cells & 663/1{,}280 (51.8~\%) & 1{,}134/1{,}280 (88.6~\%) \\ \bottomrule \subsecti"
-paper,250,"1{,}280",1280.0,guard,"160 & 114/160 \\ \midrule All cells & 663/1{,}280 (51.8~\%) & 1{,}134/1{,}280 (88.6~\%) \\ \bottomrule \subsection{Prima"
-paper,250,88.6,88.6,guard,"/160 \\ \midrule All cells & 663/1{,}280 (51.8~\%) & 1{,}134/1{,}280 (88.6~\%) \\ \bottomrule \subsection{Primary inp"
-paper,257,48,48.0,ambiguous_small,uts across the eight cells and seven swept inputs. H1 is supported in 48 of 48 cell $\times$ output combinations: the top-three inputs account
-paper,257,48,48.0,ambiguous_small,ross the eight cells and seven swept inputs. H1 is supported in 48 of 48 cell $\times$ output combinations: the top-three inputs account for 0
-paper,257,0.658,0.658,guard,"8 cell $\times$ output combinations: the top-three inputs account for 0.658--0.998 of the summed $\mu^{*}$, with a median top-3 fraction of 0.928"
-paper,257,0.998,0.998,guard,"$\times$ output combinations: the top-three inputs account for 0.658--0.998 of the summed $\mu^{*}$, with a median top-3 fraction of 0.928. The l"
-paper,257,3,3.0,ambiguous_small,"s account for 0.658--0.998 of the summed $\mu^{*}$, with a median top-3 fraction of 0.928. The lowest values, from 0.658 to 0.727, all fall i"
-paper,257,0.928,0.928,guard,"0.658--0.998 of the summed $\mu^{*}$, with a median top-3 fraction of 0.928. The lowest values, from 0.658 to 0.727, all fall in severe-ARDS gas-"
-paper,257,0.658,0.658,guard,"^{*}$, with a median top-3 fraction of 0.928. The lowest values, from 0.658 to 0.727, all fall in severe-ARDS gas-exchange cells, where shunt phy"
-paper,257,0.727,0.727,ledger,"th a median top-3 fraction of 0.928. The lowest values, from 0.658 to 0.727, all fall in severe-ARDS gas-exchange cells, where shunt physiology b"
-paper,259,0.6,0.6,ambiguous_small,"ot proportionality. Applying the preregistered $\sigma / \mu^{*} \geq 0.6$ threshold to each cell's top-three inputs, and retaining only those"
-paper,259,23,23.0,ambiguous_small,"t clear it in every draw under each of five independent seeds, leaves 23 of the 144, spread over 17 of the 48 combinations; all seven inputs a"
-paper,259,144,144.0,guard,"in every draw under each of five independent seeds, leaves 23 of the 144, spread over 17 of the 48 combinations; all seven inputs and all four"
-paper,259,17,17.0,ambiguous_small,"der each of five independent seeds, leaves 23 of the 144, spread over 17 of the 48 combinations; all seven inputs and all four scenarios appea"
-paper,259,48,48.0,ambiguous_small,"f five independent seeds, leaves 23 of the 144, spread over 17 of the 48 combinations; all seven inputs and all four scenarios appear, so depa"
-paper,259,8,8.0,ambiguous_small,"ned footprint. Delivered tidal volume is the most affected output, in 8 of the 23, and is also the channel whose oscillation dominates the \t"
-paper,259,23,23.0,ambiguous_small,"rint. Delivered tidal volume is the most affected output, in 8 of the 23, and is also the channel whose oscillation dominates the \texttt{not\"
-paper,259,0.05,0.05,none,"ame runs: in S1 the delivered-Vt coefficient of variation exceeds the 0.05 threshold on 139 of 320 runs and none of those 8 falls there, against"
-paper,259,139,139.0,guard,"e delivered-Vt coefficient of variation exceeds the 0.05 threshold on 139 of 320 runs and none of those 8 falls there, against 36 of 320 runs a"
-paper,259,320,320.0,guard,"ered-Vt coefficient of variation exceeds the 0.05 threshold on 139 of 320 runs and none of those 8 falls there, against 36 of 320 runs and 3 of"
-paper,259,8,8.0,ambiguous_small,"ation exceeds the 0.05 threshold on 139 of 320 runs and none of those 8 falls there, against 36 of 320 runs and 3 of the 8 in S3. That map is"
-paper,259,36,36.0,none,"threshold on 139 of 320 runs and none of those 8 falls there, against 36 of 320 runs and 3 of the 8 in S3. That map is therefore bounded by ru"
-paper,259,320,320.0,guard,"old on 139 of 320 runs and none of those 8 falls there, against 36 of 320 runs and 3 of the 8 in S3. That map is therefore bounded by run survi"
-paper,259,3,3.0,ambiguous_small,"320 runs and none of those 8 falls there, against 36 of 320 runs and 3 of the 8 in S3. That map is therefore bounded by run survival --- the"
-paper,259,8,8.0,ambiguous_small,"and none of those 8 falls there, against 36 of 320 runs and 3 of the 8 in S3. That map is therefore bounded by run survival --- the regime t"
-paper,259,144,144.0,guard,The same mechanism sets how much data each index rests on: across the 144 top-three entries the median index is computed from 7 of the 20 possi
-paper,259,7,7.0,ambiguous_small,"n: across the 144 top-three entries the median index is computed from 7 of the 20 possible elementary-effect pairs, 25 rest on three or fewer"
-paper,259,20,20.0,ambiguous_small,"the 144 top-three entries the median index is computed from 7 of the 20 possible elementary-effect pairs, 25 rest on three or fewer, and 9 re"
-paper,259,25,25.0,none,"index is computed from 7 of the 20 possible elementary-effect pairs, 25 rest on three or fewer, and 9 rest on a single pair --- five of those"
-paper,259,9,9.0,ambiguous_small,"e 20 possible elementary-effect pairs, 25 rest on three or fewer, and 9 rest on a single pair --- five of those being their combination's ran"
-paper,259,1,1.0,ambiguous_small,est on a single pair --- five of those being their combination's rank-1 input --- so for those nine $\sigma$ is zero by construction rather t
-paper,259,48,48.0,ambiguous_small,"d pair screen in Supplement~\S\, : H1 holds in all 48 combinations under both screens, and on the 30 combinations whose can"
-paper,259,30,30.0,ambiguous_small,": H1 holds in all 48 combinations under both screens, and on the 30 combinations whose candidate set is unchanged too, the rank-1 input i"
-paper,259,1,1.0,ambiguous_small,"on the 30 combinations whose candidate set is unchanged too, the rank-1 input is preserved in all 30 while the identity of ranks two and thre"
-paper,259,30,30.0,ambiguous_small,"candidate set is unchanged too, the rank-1 input is preserved in all 30 while the identity of ranks two and three changes in 11 --- so rank 1"
-paper,259,11,11.0,ambiguous_small,served in all 30 while the identity of ranks two and three changes in 11 --- so rank 1 is resolved by this design and the ordering below it is
-paper,259,1,1.0,ambiguous_small,0 while the identity of ranks two and three changes in 11 --- so rank 1 is resolved by this design and the ordering below it is not.
-paper,272,1,1.0,ambiguous_small,"few rows rather than spreading across all seven, which is Hypothesis~1's ``skewed sensitivity'' in visual form: on 48 of 48 cell $\times$ ou"
-paper,272,48,48.0,ambiguous_small,"en, which is Hypothesis~1's ``skewed sensitivity'' in visual form: on 48 of 48 cell $\times$ output combinations the top three inputs carry at"
-paper,272,48,48.0,ambiguous_small,ich is Hypothesis~1's ``skewed sensitivity'' in visual form: on 48 of 48 cell $\times$ output combinations the top three inputs carry at least
-paper,272,0.928,0.928,guard,"top three inputs carry at least half of the summed $\mu^{*}$ (median 0.928). The top three differ from output to output, and for gas exchange al"
-paper,272,0,0.0,ambiguous_small,"e cells mark combinations with no estimable $\mu^{*}$, not $\mu^{*} = 0$; this occurs only for FiO$_2$ in S1\_M, S1\_F and S4\_F, where every"
-paper,272,1,1.0,ambiguous_small,"screen makes FiO$_2$ estimable in all three, and it is then the rank-1 input for PaO$_2$ and SpO$_2$ in each: what the white cells withhold"
-paper,272,2,2.0,ambiguous_small,"ero by construction and no bootstrap interval is estimable. For SpO$_{2}$, $\mu^{*}$ is expressed on the fractional scale Pulse reports (0--1"
-paper,272,0,0.0,ambiguous_small,"$_{2}$, $\mu^{*}$ is expressed on the fractional scale Pulse reports (0--1), so 0.12 corresponds to 12 percentage points. Cell-label key: Tab"
-paper,272,1,1.0,ambiguous_small,"2}$, $\mu^{*}$ is expressed on the fractional scale Pulse reports (0--1), so 0.12 corresponds to 12 percentage points. Cell-label key: Table~"
-paper,272,0.12,0.12,none,"mu^{*}$ is expressed on the fractional scale Pulse reports (0--1), so 0.12 corresponds to 12 percentage points. Cell-label key: Table~"
-paper,272,12,12.0,ambiguous_small,"on the fractional scale Pulse reports (0--1), so 0.12 corresponds to 12 percentage points. Cell-label key: Table~ .}"
-paper,276,2,2.0,ambiguous_small,\subsection{\texorpdfstring{VC-AC tidal-volume dyssynchrony and the $-2$~cmH$_2$O lever}{VC-AC tidal-volume dyssynchrony and the -2 cmH2O lev
-paper,276,2,2.0,ambiguous_small,"and the $-2$~cmH$_2$O lever}{VC-AC tidal-volume dyssynchrony and the -2 cmH2O lever}} Across the full sweep, the sin"
-paper,278,60,60.0,ambiguous_small,uantified as the delivered Vt coefficient of variation over the final 60~s of the 120~s simulation. Vt oscillation is the \emph{primary} such
-paper,278,120,120.0,guard,the delivered Vt coefficient of variation over the final 60~s of the 120~s simulation. Vt oscillation is the \emph{primary} such flag on 20.6~
-paper,278,20.6,20.6,guard,e 120~s simulation. Vt oscillation is the \emph{primary} such flag on 20.6~\% of runs: the delivered breath volume never settles to a single val
-paper,280,64,64.0,ambiguous_small,preregistered follow-up experiment isolated the mechanism. Re-running 64 of the affected configurations with Pulse's \texttt{InspirationPatien
-paper,280,2,2.0,ambiguous_small,"ions with Pulse's \texttt{InspirationPatientTriggerPressure} set to $-2$~cmH$_2$O collapses the median Vt CV from 0.351 to 0.016, and 78.1~\%"
-paper,280,0.351,0.351,guard,"TriggerPressure} set to $-2$~cmH$_2$O collapses the median Vt CV from 0.351 to 0.016, and 78.1~\% of the locked-trigger reruns drop below the 0.0"
-paper,280,0.016,0.016,ambiguous_small,"essure} set to $-2$~cmH$_2$O collapses the median Vt CV from 0.351 to 0.016, and 78.1~\% of the locked-trigger reruns drop below the 0.05 steady-"
-paper,280,78.1,78.1,guard,"to $-2$~cmH$_2$O collapses the median Vt CV from 0.351 to 0.016, and 78.1~\% of the locked-trigger reruns drop below the 0.05 steady-state thre"
-paper,280,0.05,0.05,none,"351 to 0.016, and 78.1~\% of the locked-trigger reruns drop below the 0.05 steady-state threshold (Figure~ a). The lock is a"
-paper,282,1.0,1.0,ambiguous_small,\subsection{\texorpdfstring{Transient hyperoxia regime at FiO$_2$~=~1.0}{Transient hyperoxia regime at FiO2 = 1.0}}
-paper,282,1.0,1.0,ambiguous_small,peroxia regime at FiO$_2$~=~1.0}{Transient hyperoxia regime at FiO2 = 1.0}} A second cluster of preregistered cla
-paper,284,120,120.0,guard,"ncentrates on the highest inspired-oxygen settings. Within the locked 120-second simulation window, Pulse's steady-state mean PaO$_2$ exceeds t"
-paper,284,600,600.0,guard,"e's steady-state mean PaO$_2$ exceeds the classifier's upper bound of 600~mmHg on 34 of the 126 \texttt{implausible}-flagged runs, and 91~\% of"
-paper,284,34,34.0,ambiguous_small,"tate mean PaO$_2$ exceeds the classifier's upper bound of 600~mmHg on 34 of the 126 \texttt{implausible}-flagged runs, and 91~\% of these excu"
-paper,284,126,126.0,guard,"PaO$_2$ exceeds the classifier's upper bound of 600~mmHg on 34 of the 126 \texttt{implausible}-flagged runs, and 91~\% of these excursions occu"
-paper,284,91,91.0,ambiguous_small,"d of 600~mmHg on 34 of the 126 \texttt{implausible}-flagged runs, and 91~\% of these excursions occur at FiO$_2 \geq 0.95$. A preregistered 60"
-paper,284,0.95,0.95,ambiguous_small,"ble}-flagged runs, and 91~\% of these excursions occur at FiO$_2 \geq 0.95$. A preregistered 60-run rerun separated an engine defect from a wind"
-paper,284,60,60.0,ambiguous_small,91~\% of these excursions occur at FiO$_2 \geq 0.95$. A preregistered 60-run rerun separated an engine defect from a window-length artefact. E
-paper,284,120,120.0,guard,"was re-executed from time zero with the recorded duration raised from 120 to 300 seconds, and the plateau taken over the final 60 seconds ($t ="
-paper,284,300,300.0,guard,"executed from time zero with the recorded duration raised from 120 to 300 seconds, and the plateau taken over the final 60 seconds ($t = 240$--"
-paper,284,60,60.0,ambiguous_small,"raised from 120 to 300 seconds, and the plateau taken over the final 60 seconds ($t = 240$--$300$~s). The result supports the artefact: in th"
-paper,284,240,240.0,guard,"to 300 seconds, and the plateau taken over the final 60 seconds ($t = 240$--$300$~s). The result supports the artefact: in the S1 (healthy) coh"
-paper,284,300,300.0,guard,"seconds, and the plateau taken over the final 60 seconds ($t = 240$--$300$~s). The result supports the artefact: in the S1 (healthy) cohort, 40"
-paper,284,40,40.0,ambiguous_small,"00$~s). The result supports the artefact: in the S1 (healthy) cohort, 40 of 44 reruns (90.9~\%) converged to a stable plateau under the prereg"
-paper,284,44,44.0,ambiguous_small,". The result supports the artefact: in the S1 (healthy) cohort, 40 of 44 reruns (90.9~\%) converged to a stable plateau under the preregistere"
-paper,284,90.9,90.9,guard,"t supports the artefact: in the S1 (healthy) cohort, 40 of 44 reruns (90.9~\%) converged to a stable plateau under the preregistered drift crite"
-paper,284,40,40.0,ambiguous_small,"tered drift criterion (Figure~ b). Three of those 40 plateau above 1{,}400~mmHg, beyond the sea-level barometric pressure"
-paper,284,"1{,}400",1400.0,none,"rion (Figure~ b). Three of those 40 plateau above 1{,}400~mmHg, beyond the sea-level barometric pressure of 760~mmHg and so phy"
-paper,284,760,760.0,guard,"ateau above 1{,}400~mmHg, beyond the sea-level barometric pressure of 760~mmHg and so physically impossible; they belong to a six-run solver-in"
-paper,284,37,37.0,none,"d below, three of whose members are drift-converged and three not, so 37 of 44 (84.1~\%) converge below the supplement's physiology-anchored 7"
-paper,284,44,44.0,ambiguous_small,"w, three of whose members are drift-converged and three not, so 37 of 44 (84.1~\%) converge below the supplement's physiology-anchored 700~mmH"
-paper,284,84.1,84.1,none,"hree of whose members are drift-converged and three not, so 37 of 44 (84.1~\%) converge below the supplement's physiology-anchored 700~mmHg ceil"
-paper,284,700,700.0,guard,"7 of 44 (84.1~\%) converge below the supplement's physiology-anchored 700~mmHg ceiling, which is distinct from the locked 600~mmHg bound above."
-paper,284,600,600.0,guard,"ysiology-anchored 700~mmHg ceiling, which is distinct from the locked 600~mmHg bound above. The S1 plateau median over all 40 drift-converged r"
-paper,284,40,40.0,ambiguous_small,"from the locked 600~mmHg bound above. The S1 plateau median over all 40 drift-converged runs was 643~mmHg, sitting approximately 20~mmHg \emp"
-paper,284,643,643.0,guard,"und above. The S1 plateau median over all 40 drift-converged runs was 643~mmHg, sitting approximately 20~mmHg \emph{below} the alveolar-gas-equ"
-paper,284,20,20.0,ambiguous_small,"over all 40 drift-converged runs was 643~mmHg, sitting approximately 20~mmHg \emph{below} the alveolar-gas-equation prediction~"
-paper,286,300,300.0,guard,sequence is direct: hyperoxia studies on Pulse should record at least 300 seconds of simulation before extracting a steady-state plateau. The 1
-paper,286,120,120.0,guard,0 seconds of simulation before extracting a steady-state plateau. The 120-second window remains adequate for cardiovascular and ventilation out
-paper,286,1.0,1.0,ambiguous_small,"ntilation outputs. Extended-window runs on healthy lungs at FiO$_2$ = 1.0 can additionally enter a separate solver-instability regime, affectin"
-paper,292,64,64.0,ambiguous_small,)} Trigger-lockout intervention on VC-AC tidal-volume stability ($n = 64$ paired reruns): breath-to-breath tidal-volume variability under Puls
-paper,292,2,2.0,ambiguous_small,"ability after locking \texttt{InspirationPatientTriggerPressure} at $-2$~cmH$_2$O ($y$), so a dot far below the diagonal is a configuration w"
-paper,292,0.05,0.05,none,"configuration whose oscillation the lock removed. The dotted line at $0.05$ is the classifier's steady-state threshold, a delivered-Vt coefficie"
-paper,292,5,5.0,ambiguous_small,"steady-state threshold, a delivered-Vt coefficient of variation above 5~\% of the mean. The lock collapses the median CV from 0.351 to 0.016"
-paper,292,0.351,0.351,guard,riation above 5~\% of the mean. The lock collapses the median CV from 0.351 to 0.016 and brings 78.1~\% of reruns below the threshold; it is a da
-paper,292,0.016,0.016,ambiguous_small,bove 5~\% of the mean. The lock collapses the median CV from 0.351 to 0.016 and brings 78.1~\% of reruns below the threshold; it is a data-genera
-paper,292,78.1,78.1,guard,mean. The lock collapses the median CV from 0.351 to 0.016 and brings 78.1~\% of reruns below the threshold; it is a data-generation lever for d
-paper,292,300,300.0,guard,"al volume, not a clinical ventilation setting. \textbf{(b)} Hyperoxia 300-second convergence ($n = 60$ reruns across S1, S3, S4 at FiO$_2 = 1.0"
-paper,292,60,60.0,ambiguous_small,"tilation setting. \textbf{(b)} Hyperoxia 300-second convergence ($n = 60$ reruns across S1, S3, S4 at FiO$_2 = 1.0$): PaO$_2$ averaged over th"
-paper,292,1.0,1.0,ambiguous_small,"300-second convergence ($n = 60$ reruns across S1, S3, S4 at FiO$_2 = 1.0$): PaO$_2$ averaged over the original 120-second window ($x$) against"
-paper,292,120,120.0,guard,"ross S1, S3, S4 at FiO$_2 = 1.0$): PaO$_2$ averaged over the original 120-second window ($x$) against the plateau after 300~seconds ($y$). The"
-paper,292,300,300.0,guard,d over the original 120-second window ($x$) against the plateau after 300~seconds ($y$). The dotted line at 600~mmHg is the locked classifier's
-paper,292,600,600.0,guard,($x$) against the plateau after 300~seconds ($y$). The dotted line at 600~mmHg is the locked classifier's upper bound and the dash-dotted line
-paper,292,663,663.0,guard,locked classifier's upper bound and the dash-dotted line at $\approx$~663~mmHg the alveolar-gas-equation sea-level prediction~
-paper,292,0,0.0,ambiguous_small,". Both axes are clamped to the physiological $[0, 760]$~mmHg range; six S1 reruns run off-scale into a numerical runaw"
-paper,292,760,760.0,guard,". Both axes are clamped to the physiological $[0, 760]$~mmHg range; six S1 reruns run off-scale into a numerical runaway (p"
-paper,292,"1{,}408",1408.0,ledger,"reruns run off-scale into a numerical runaway (plateau up to $\approx$1{,}408~mmHg; Supplement~\S\, ) and are omitted. Most S1 dots sit"
-paper,298,"1{,}280",1280.0,guard,"e and blood-volume mechanism} Across the full 1{,}280-run sweep, solver divergence is rare but strikingly sex-stratified. 2"
-paper,298,20,20.0,ambiguous_small,"0-run sweep, solver divergence is rare but strikingly sex-stratified. 20 runs (1.6~\%) failed to complete with finite output, and \emph{all 20"
-paper,298,1.6,1.6,ambiguous_small,"ep, solver divergence is rare but strikingly sex-stratified. 20 runs (1.6~\%) failed to complete with finite output, and \emph{all 20 fell on t"
-paper,298,20,20.0,ambiguous_small,"20 runs (1.6~\%) failed to complete with finite output, and \emph{all 20 fell on the male reference body}, against zero divergences across the"
-paper,298,640,640.0,guard,"fell on the male reference body}, against zero divergences across the 640 runs on the female reference body (Figure~ a). The 20"
-paper,298,20,20.0,ambiguous_small,640 runs on the female reference body (Figure~ a). The 20 divergence events are not spread uniformly through the input space: t
-paper,298,8,8.0,ambiguous_small,"ents are not spread uniformly through the input space: they span only 8 distinct operational-input vectors, and FiO$_2$ sat at its 1.0 bounda"
-paper,298,1.0,1.0,ambiguous_small,"pan only 8 distinct operational-input vectors, and FiO$_2$ sat at its 1.0 boundary in 13 of the 20. A preregistered follow-up experiment isola"
-paper,298,13,13.0,none,"nct operational-input vectors, and FiO$_2$ sat at its 1.0 boundary in 13 of the 20. A preregistered follow-up experiment isolated the mechani"
-paper,298,20,20.0,ambiguous_small,"ional-input vectors, and FiO$_2$ sat at its 1.0 boundary in 13 of the 20. A preregistered follow-up experiment isolated the mechanism. Pulse'"
-paper,300,"4{,}803",4803.0,ledger,"e from a sex-independent allometric relation on body weight, yielding 4{,}803~mL for the 67.3~kg male reference body and 3{,}996~mL for the 56.2~kg"
-paper,300,67.3,67.3,guard,"ndent allometric relation on body weight, yielding 4{,}803~mL for the 67.3~kg male reference body and 3{,}996~mL for the 56.2~kg female body. Th"
-paper,300,"3{,}996",3996.0,ledger,"y weight, yielding 4{,}803~mL for the 67.3~kg male reference body and 3{,}996~mL for the 56.2~kg female body. The two bodies therefore share essent"
-paper,300,56.2,56.2,guard,"4{,}803~mL for the 67.3~kg male reference body and 3{,}996~mL for the 56.2~kg female body. The two bodies therefore share essentially the same b"
-paper,300,71,71.0,none,"refore share essentially the same blood volume per kilogram ($\approx$71~mL\,kg$^{-1}$, within standard clinical estimates~ ),"
-paper,300,1,1.0,ambiguous_small,"essentially the same blood volume per kilogram ($\approx$71~mL\,kg$^{-1}$, within standard clinical estimates~ ), so what sep"
-paper,300,20,20.0,ambiguous_small,absolute volume rather than sex-specific physiology. Re-executing the 20 originally-diverged male inputs with an explicit \texttt{BloodVolumeB
-paper,300,20,20.0,ambiguous_small,"\texttt{BloodVolumeBaseline} override took the divergence count from 20 / 20 at the default to 0 / 20 at both an intermediate 4{,}400~mL brac"
-paper,300,20,20.0,ambiguous_small,"ttt{BloodVolumeBaseline} override took the divergence count from 20 / 20 at the default to 0 / 20 at both an intermediate 4{,}400~mL bracket a"
-paper,300,0,0.0,ambiguous_small,"ne} override took the divergence count from 20 / 20 at the default to 0 / 20 at both an intermediate 4{,}400~mL bracket and the engine's own"
-paper,300,20,20.0,ambiguous_small,"override took the divergence count from 20 / 20 at the default to 0 / 20 at both an intermediate 4{,}400~mL bracket and the engine's own setup"
-paper,300,"4{,}400",4400.0,none,"e count from 20 / 20 at the default to 0 / 20 at both an intermediate 4{,}400~mL bracket and the engine's own setup floor of 4{,}082~mL (Figure~"
-paper,300,"4{,}082",4082.0,ledger,"n intermediate 4{,}400~mL bracket and the engine's own setup floor of 4{,}082~mL (Figure~ b). Removing the divergence does not by it"
-paper,300,12,12.0,ambiguous_small,moving the divergence does not by itself make a configuration usable: 12 of the 20 are clean at both override levels while 8 retain a flag ---
-paper,300,20,20.0,ambiguous_small,divergence does not by itself make a configuration usable: 12 of the 20 are clean at both override levels while 8 retain a flag --- SpO$_2$ p
-paper,300,8,8.0,ambiguous_small,"guration usable: 12 of the 20 are clean at both override levels while 8 retain a flag --- SpO$_2$ pinned at saturation, the tidal-volume osci"
-paper,300,24,24.0,ambiguous_small,"fied behaviour; the steady-state values separate far less. Across the 24 (scenario $\times$ output) comparisons, the Wasserstein distance betw"
-paper,300,0.75,0.75,ambiguous_small,"the comparison is computable, with Spearman $\rho$ point estimates of 0.75--1.00 across the 12 (scenario, output) cells of S2 and S3, only the m"
-paper,300,1.00,1.0,guard,"mparison is computable, with Spearman $\rho$ point estimates of 0.75--1.00 across the 12 (scenario, output) cells of S2 and S3, only the mild-AR"
-paper,300,12,12.0,ambiguous_small,"utable, with Spearman $\rho$ point estimates of 0.75--1.00 across the 12 (scenario, output) cells of S2 and S3, only the mild-ARDS delivered-t"
-paper,302,144,144.0,guard,"on clean runs, and how many runs stay clean itself differs by sex --- 144 of 160 against 122 of 160 in S3, for instance --- so the two distribu"
-paper,302,160,160.0,guard,"n runs, and how many runs stay clean itself differs by sex --- 144 of 160 against 122 of 160 in S3, for instance --- so the two distributions a"
-paper,302,122,122.0,guard,"how many runs stay clean itself differs by sex --- 144 of 160 against 122 of 160 in S3, for instance --- so the two distributions are drawn fro"
-paper,302,160,160.0,guard,"y runs stay clean itself differs by sex --- 144 of 160 against 122 of 160 in S3, for instance --- so the two distributions are drawn from diffe"
-paper,302,19.8,19.8,guard,"hed absolute tidal-volume setting, the female reference body receives 19.8~\% more tidal volume per kilogram of actual body weight and 36.1~\% m"
-paper,302,36.1,36.1,guard,"ives 19.8~\% more tidal volume per kilogram of actual body weight and 36.1~\% more per kilogram of ideal body weight, computed using the sex-spe"
-paper,308,"1{,}280",1280.0,guard,"bf{(a)} Divergence counts per (scenario $\times$ sex) cell across the 1{,}280-run sweep: all 20 divergence events fall on the male reference body,"
-paper,308,20,20.0,ambiguous_small,"ts per (scenario $\times$ sex) cell across the 1{,}280-run sweep: all 20 divergence events fall on the male reference body, while the female b"
-paper,308,20,20.0,ambiguous_small,t a single one. \textbf{(b)} Blood-volume rescue dose-response on the 20 originally-diverged male inputs. The $x$-axis is the imposed \texttt{
-paper,308,"4{,}803",4803.0,ledger,"s. The $x$-axis is the imposed \texttt{BloodVolumeBaseline} override (4{,}803~mL default, 4{,}400~mL intermediate bracket, 4{,}082~mL Pulse setup-t"
-paper,308,"4{,}400",4400.0,none,"he imposed \texttt{BloodVolumeBaseline} override (4{,}803~mL default, 4{,}400~mL intermediate bracket, 4{,}082~mL Pulse setup-time floor on this bo"
-paper,308,"4{,}082",4082.0,ledger,"eline} override (4{,}803~mL default, 4{,}400~mL intermediate bracket, 4{,}082~mL Pulse setup-time floor on this body; reductions of 0, $8.4$ and $1"
-paper,308,0,0.0,ambiguous_small,"racket, 4{,}082~mL Pulse setup-time floor on this body; reductions of 0, $8.4$ and $15.0~\%$ beneath each tick), the $y$-axis the divergence"
-paper,308,8.4,8.4,none,"et, 4{,}082~mL Pulse setup-time floor on this body; reductions of 0, $8.4$ and $15.0~\%$ beneath each tick), the $y$-axis the divergence count"
-paper,308,15.0,15.0,guard,"2~mL Pulse setup-time floor on this body; reductions of 0, $8.4$ and $15.0~\%$ beneath each tick), the $y$-axis the divergence count out of 20."
-paper,308,20,20.0,ambiguous_small,"15.0~\%$ beneath each tick), the $y$-axis the divergence count out of 20. The collapse to zero at both reductions (20 $\rightarrow$ 0) establi"
-paper,308,20,20.0,ambiguous_small,divergence count out of 20. The collapse to zero at both reductions (20 $\rightarrow$ 0) establishes that lowering the blood-volume baseline
-paper,308,0,0.0,ambiguous_small,out of 20. The collapse to zero at both reductions (20 $\rightarrow$ 0) establishes that lowering the blood-volume baseline is sufficient to
-paper,308,"3{,}996",3996.0,ledger,"olver fails at the default value. Pulse's allometric formula computes 3{,}996~mL for the female reference body (dashed vertical line), 86~mL below"
-paper,308,86,86.0,none,"utes 3{,}996~mL for the female reference body (dashed vertical line), 86~mL below the male floor, so a one-way BV transplant cannot make the t"
-paper,319,"1{,}280",1280.0,guard,"nable corrections and a sex-specific reliability axis emerge from the 1{,}280-run sweep: a single configuration setting that makes VC-AC tidal-volu"
-paper,319,1.0,1.0,ambiguous_small,"a steady-state-window correction for hyperoxia simulation at FiO$_2 = 1.0$ (\S ); and, on a separate axis, a previous"
-paper,321,0,0.0,ambiguous_small,"tered at ingestion. The preregistered rejection-log detector fired on 0 of 1{,}280 runs, and the post hoc instantiation audit found exact agr"
-paper,321,"1{,}280",1280.0,guard,"at ingestion. The preregistered rejection-log detector fired on 0 of 1{,}280 runs, and the post hoc instantiation audit found exact agreement betw"
-paper,327,85,85.0,ambiguous_small,"tion framework to Pulse on MIMIC-III sepsis trajectories and reported 85 total Hoeffding-inequality rejections. Of these, 82 of 85 fall outsid"
-paper,327,82,82.0,ambiguous_small,"ries and reported 85 total Hoeffding-inequality rejections. Of these, 82 of 85 fall outside the four-channel overlap with this atlas (HR, MAP,"
-paper,327,85,85.0,ambiguous_small,"nd reported 85 total Hoeffding-inequality rejections. Of these, 82 of 85 fall outside the four-channel overlap with this atlas (HR, MAP, PaO$_"
-paper,327,80,80.0,ambiguous_small,"he four-channel overlap with this atlas (HR, MAP, PaO$_2$, PaCO$_2$): 80 on channels the present atlas does not assess, plus 2 on partial-over"
-paper,327,2,2.0,ambiguous_small,"2$, PaCO$_2$): 80 on channels the present atlas does not assess, plus 2 on partial-overlap pressure channels; only 3 of 85 fall inside it. Th"
-paper,327,3,3.0,ambiguous_small,"as does not assess, plus 2 on partial-overlap pressure channels; only 3 of 85 fall inside it. The two studies therefore expose different weak"
-paper,327,85,85.0,ambiguous_small,"es not assess, plus 2 on partial-overlap pressure channels; only 3 of 85 fall inside it. The two studies therefore expose different weaknesses"
-paper,329,0.879,0.879,guard,"cterisation of an ARDS impairment-fraction solver-instability band ($[0.879, 0.946]$), together with further engine-level observations that targe"
-paper,329,0.946,0.946,guard,"tion of an ARDS impairment-fraction solver-instability band ($[0.879, 0.946]$), together with further engine-level observations that target tooli"
-paper,331,0.75,0.75,ambiguous_small,"nical trajectories are impossible. (vi)~Pulse enforces DBP/SBP $\leq$ 0.75, and configuration-time clipping shortened 9 of 20 DBP steps, so some"
-paper,331,9,9.0,ambiguous_small,"forces DBP/SBP $\leq$ 0.75, and configuration-time clipping shortened 9 of 20 DBP steps, so some SBP and DBP effects are not strict fixed-ste"
-paper,331,20,20.0,ambiguous_small,"s DBP/SBP $\leq$ 0.75, and configuration-time clipping shortened 9 of 20 DBP steps, so some SBP and DBP effects are not strict fixed-step Morr"
-paper,341,2.0,2.0,ambiguous_small,"All simulations used Pulse (Kitware, Apache-2.0)~ , a real-time-capable lumped-parameter whole-body phy"
-paper,341,5,5.0,ambiguous_small,rameter whole-body physiology engine whose respiratory sub-model is a 5-compartment lung~ . The engine was executed insi
-paper,341,"1{,}280",1280.0,guard,"ingle \texttt{pulse-atlas-engine} Docker image, pinned for the entire 1{,}280-run sweep so that every simulation runs against bit-identical engine"
-paper,347,18,18.0,none,"Two adult reference bodies were used: a male body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both w"
-paper,347,67.3,67.3,guard,"Two adult reference bodies were used: a male body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both weights"
-paper,347,180,180.0,guard,"Two adult reference bodies were used: a male body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both weights are U.S"
-paper,347,18,18.0,none,"re used: a male body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both weights are U.S.\ Centers for Disease Control"
-paper,347,56.2,56.2,guard,"sed: a male body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both weights are U.S.\ Centers for Disease Control and P"
-paper,347,163,163.0,none,"le body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both weights are U.S.\ Centers for Disease Control and Preventio"
-paper,347,50,50.0,ambiguous_small,e U.S.\ Centers for Disease Control and Prevention (CDC) growth-chart 50th-percentile weight-for-age values for each sex~
-paper,347,216.5,216.5,guard,", taken from the CDC row at \texttt{Agemos}~=~216.5. The female height matches the CDC 50th percentile and Pulse's own st"
-paper,347,50,50.0,ambiguous_small,CDC row at \texttt{Agemos}~=~216.5. The female height matches the CDC 50th percentile and Pulse's own standard female height; the male height
-paper,353,50,50.0,ambiguous_small,"swept across their verified Pulse acceptance ranges: heart rate (HR, 50--110~bpm), systolic and diastolic blood pressure (SBP 90--120~mmHg, D"
-paper,353,110,110.0,none,"pt across their verified Pulse acceptance ranges: heart rate (HR, 50--110~bpm), systolic and diastolic blood pressure (SBP 90--120~mmHg, DBP 60"
-paper,353,90,90.0,ambiguous_small,"rt rate (HR, 50--110~bpm), systolic and diastolic blood pressure (SBP 90--120~mmHg, DBP 60--80~mmHg with the post-clip pulse-pressure constrai"
-paper,353,120,120.0,guard,"ate (HR, 50--110~bpm), systolic and diastolic blood pressure (SBP 90--120~mmHg, DBP 60--80~mmHg with the post-clip pulse-pressure constraint),"
-paper,353,60,60.0,ambiguous_small,"10~bpm), systolic and diastolic blood pressure (SBP 90--120~mmHg, DBP 60--80~mmHg with the post-clip pulse-pressure constraint), respiratory r"
-paper,353,80,80.0,ambiguous_small,"pm), systolic and diastolic blood pressure (SBP 90--120~mmHg, DBP 60--80~mmHg with the post-clip pulse-pressure constraint), respiratory rate"
-paper,353,8,8.0,ambiguous_small,"with the post-clip pulse-pressure constraint), respiratory rate (RR, 8--20~breaths\,min$^{-1}$), tidal volume (Vt, 300--800~mL), inspired ox"
-paper,353,20,20.0,ambiguous_small,"th the post-clip pulse-pressure constraint), respiratory rate (RR, 8--20~breaths\,min$^{-1}$), tidal volume (Vt, 300--800~mL), inspired oxygen"
-paper,353,1,1.0,ambiguous_small,"lse-pressure constraint), respiratory rate (RR, 8--20~breaths\,min$^{-1}$), tidal volume (Vt, 300--800~mL), inspired oxygen fraction (FiO$_2$"
-paper,353,300,300.0,guard,", respiratory rate (RR, 8--20~breaths\,min$^{-1}$), tidal volume (Vt, 300--800~mL), inspired oxygen fraction (FiO$_2$, 0.21--1.0) and positive"
-paper,353,800,800.0,guard,"piratory rate (RR, 8--20~breaths\,min$^{-1}$), tidal volume (Vt, 300--800~mL), inspired oxygen fraction (FiO$_2$, 0.21--1.0) and positive end-e"
-paper,353,0.21,0.21,none,"), tidal volume (Vt, 300--800~mL), inspired oxygen fraction (FiO$_2$, 0.21--1.0) and positive end-expiratory pressure (PEEP, 0--20~cmH$_2$O). Ea"
-paper,353,1.0,1.0,ambiguous_small,"al volume (Vt, 300--800~mL), inspired oxygen fraction (FiO$_2$, 0.21--1.0) and positive end-expiratory pressure (PEEP, 0--20~cmH$_2$O). Each ra"
-paper,353,0,0.0,ambiguous_small,"tion (FiO$_2$, 0.21--1.0) and positive end-expiratory pressure (PEEP, 0--20~cmH$_2$O). Each range is anchored to a primary verification sourc"
-paper,353,20,20.0,ambiguous_small,"n (FiO$_2$, 0.21--1.0) and positive end-expiratory pressure (PEEP, 0--20~cmH$_2$O). Each range is anchored to a primary verification source, t"
-paper,353,3,3.0,ambiguous_small,pressure was derived as $\mathrm{DBP} + (\mathrm{SBP} - \mathrm{DBP})/3$ rather than swept independently. The swept heart-rate and blood-pres
-paper,355,0,0.0,ambiguous_small,"re severity range: a healthy baseline (S1, ARDS impairment fraction = 0) and three ARDS severities (S2, mild, impairment = 0.26; S3, moderate"
-paper,355,0.26,0.26,ambiguous_small,"rment fraction = 0) and three ARDS severities (S2, mild, impairment = 0.26; S3, moderate, impairment = 0.60; S4, severe, impairment = 0.95). At"
-paper,355,0.60,0.6,ambiguous_small,"S severities (S2, mild, impairment = 0.26; S3, moderate, impairment = 0.60; S4, severe, impairment = 0.95). At a reference ventilation setting b"
-paper,355,0.95,0.95,ambiguous_small,"ent = 0.26; S3, moderate, impairment = 0.60; S4, severe, impairment = 0.95). At a reference ventilation setting based on the ARDSnet low-tidal-v"
-paper,355,0.91,0.91,ambiguous_small,to an arbitrary engine setting. The three severities also bracket the 0.91--0.945 solver-instability zone documented at design time (Supplement~
-paper,355,0.945,0.945,guard,"arbitrary engine setting. The three severities also bracket the 0.91--0.945 solver-instability zone documented at design time (Supplement~\S\,"
-paper,355,0.879,0.879,guard,"s's own continuous-severity sweep subsequently widened that band to $[0.879, 0.946]$ (\S ). Pulse represents severity a"
-paper,355,0.946,0.946,guard,"continuous-severity sweep subsequently widened that band to $[0.879, 0.946]$ (\S ). Pulse represents severity as a sin"
-paper,357,20,20.0,ambiguous_small,ple was generated with SALib~ using 20 trajectories at 4 grid levels per input and random seed 42. Each traj
-paper,357,4,4.0,ambiguous_small,ith SALib~ using 20 trajectories at 4 grid levels per input and random seed 42. Each trajectory contributes
-paper,357,42,42.0,ambiguous_small,"using 20 trajectories at 4 grid levels per input and random seed 42. Each trajectory contributes $7 + 1 = 8$ model evaluations, giving 16"
-paper,357,7,7.0,ambiguous_small,"rid levels per input and random seed 42. Each trajectory contributes $7 + 1 = 8$ model evaluations, giving 160 runs per (scenario $\times$ se"
-paper,357,1,1.0,ambiguous_small,"levels per input and random seed 42. Each trajectory contributes $7 + 1 = 8$ model evaluations, giving 160 runs per (scenario $\times$ sex) c"
-paper,357,8,8.0,ambiguous_small,"ls per input and random seed 42. Each trajectory contributes $7 + 1 = 8$ model evaluations, giving 160 runs per (scenario $\times$ sex) cell"
-paper,357,160,160.0,guard,"42. Each trajectory contributes $7 + 1 = 8$ model evaluations, giving 160 runs per (scenario $\times$ sex) cell and 1{,}280 runs across the ful"
-paper,357,"1{,}280",1280.0,guard,"del evaluations, giving 160 runs per (scenario $\times$ sex) cell and 1{,}280 runs across the full sweep. The trajectory count was fixed at 20 in p"
-paper,357,20,20.0,ambiguous_small,"1{,}280 runs across the full sweep. The trajectory count was fixed at 20 in preregistration as a computationally tractable design; it was not"
-paper,357,120,120.0,guard,"hrough a trajectory-count convergence analysis. Each run executed for 120 seconds of simulated time, with output channels sampled at 5-second i"
-paper,357,5,5.0,ambiguous_small,"ed for 120 seconds of simulated time, with output channels sampled at 5-second intervals (13 samples in the final 60-second steady-state wind"
-paper,357,13,13.0,none,"f simulated time, with output channels sampled at 5-second intervals (13 samples in the final 60-second steady-state window). \subsection{Ste"
-paper,357,60,60.0,ambiguous_small,utput channels sampled at 5-second intervals (13 samples in the final 60-second steady-state window). \subsection{Steady-state classifier}
-paper,361,5,5.0,ambiguous_small,he preregistered label for a run whose Pulse setup log matches any of 5 documented input-rejection patterns --- 4 of them in force when the s
-paper,361,4,4.0,ambiguous_small,"se setup log matches any of 5 documented input-rejection patterns --- 4 of them in force when the sweep ran, the fifth added afterwards to cl"
-paper,361,"3{,}348",3348.0,none,"'s lower-bound rejection format. Replaying both pattern sets over all 3{,}348 recorded setup logs reclassifies no run of this sweep. This log-based"
-paper,361,20,20.0,ambiguous_small,"exits non-zero, but in this sweep it holds nothing else: each of the 20 diverged runs carries Pulse's own \texttt{Could not converge to provi"
-paper,361,"1{,}260",1260.0,guard,"o provided Convergence} declaration in its setup log, and none of the 1{,}260 completed runs does (\texttt{ }). \te"
-paper,363,20,20.0,ambiguous_small,"y-state output mean exceeds the locked hard physiological bounds: HR [20, 220]~bpm, MAP [30, 180]~mmHg, Vt [50, 1{,}500]~mL, SpO$_2$ [50, 100]"
-paper,363,220,220.0,guard,"ate output mean exceeds the locked hard physiological bounds: HR [20, 220]~bpm, MAP [30, 180]~mmHg, Vt [50, 1{,}500]~mL, SpO$_2$ [50, 100]~\%,"
-paper,363,30,30.0,ambiguous_small,"exceeds the locked hard physiological bounds: HR [20, 220]~bpm, MAP [30, 180]~mmHg, Vt [50, 1{,}500]~mL, SpO$_2$ [50, 100]~\%, PaO$_2$ [20, 6"
-paper,363,180,180.0,guard,"eeds the locked hard physiological bounds: HR [20, 220]~bpm, MAP [30, 180]~mmHg, Vt [50, 1{,}500]~mL, SpO$_2$ [50, 100]~\%, PaO$_2$ [20, 600]~m"
-paper,363,50,50.0,ambiguous_small,"hard physiological bounds: HR [20, 220]~bpm, MAP [30, 180]~mmHg, Vt [50, 1{,}500]~mL, SpO$_2$ [50, 100]~\%, PaO$_2$ [20, 600]~mmHg, PaCO$_2$"
-paper,363,"1{,}500",1500.0,ledger,"d physiological bounds: HR [20, 220]~bpm, MAP [30, 180]~mmHg, Vt [50, 1{,}500]~mL, SpO$_2$ [50, 100]~\%, PaO$_2$ [20, 600]~mmHg, PaCO$_2$ [10, 120]"
-paper,363,50,50.0,ambiguous_small,": HR [20, 220]~bpm, MAP [30, 180]~mmHg, Vt [50, 1{,}500]~mL, SpO$_2$ [50, 100]~\%, PaO$_2$ [20, 600]~mmHg, PaCO$_2$ [10, 120]~mmHg. Unlike the"
-paper,363,100,100.0,guard,"[20, 220]~bpm, MAP [30, 180]~mmHg, Vt [50, 1{,}500]~mL, SpO$_2$ [50, 100]~\%, PaO$_2$ [20, 600]~mmHg, PaCO$_2$ [10, 120]~mmHg. Unlike the swep"
-paper,363,20,20.0,ambiguous_small,"P [30, 180]~mmHg, Vt [50, 1{,}500]~mL, SpO$_2$ [50, 100]~\%, PaO$_2$ [20, 600]~mmHg, PaCO$_2$ [10, 120]~mmHg. Unlike the swept inputs, the six"
-paper,363,600,600.0,guard,"0, 180]~mmHg, Vt [50, 1{,}500]~mL, SpO$_2$ [50, 100]~\%, PaO$_2$ [20, 600]~mmHg, PaCO$_2$ [10, 120]~mmHg. Unlike the swept inputs, the six trac"
-paper,363,10,10.0,ambiguous_small,"1{,}500]~mL, SpO$_2$ [50, 100]~\%, PaO$_2$ [20, 600]~mmHg, PaCO$_2$ [10, 120]~mmHg. Unlike the swept inputs, the six tracked outputs have no"
-paper,363,120,120.0,guard,"}500]~mL, SpO$_2$ [50, 100]~\%, PaO$_2$ [20, 600]~mmHg, PaCO$_2$ [10, 120]~mmHg. Unlike the swept inputs, the six tracked outputs have no accep"
-paper,365,60,60.0,ambiguous_small,". \texttt{not\_steady\_state} fires when, over the final 60-second window, any tracked output flatlines, drifts beyond its per-ch"
-paper,365,1,1.0,ambiguous_small,s coefficient-of-variation threshold. A flatline is variability below 1~\% of the mean \emph{and} a mean within 0.1~\% of a hard bound --- $\
-paper,365,0.1,0.1,none,atline is variability below 1~\% of the mean \emph{and} a mean within 0.1~\% of a hard bound --- $\geq$~99.9~\% for the SpO$_2$ ceiling --- a r
-paper,365,99.9,99.9,none,f the mean \emph{and} a mean within 0.1~\% of a hard bound --- $\geq$~99.9~\% for the SpO$_2$ ceiling --- a rule written to catch a solver that
-paper,367,60,60.0,ambiguous_small,"texttt{clean}, following the chronology of failure within a run. The [60, 120]~s window was preregistered before any sweep data was collected,"
-paper,367,120,120.0,guard,"tt{clean}, following the chronology of failure within a run. The [60, 120]~s window was preregistered before any sweep data was collected, and"
-paper,367,22,22.0,none,"s window was preregistered before any sweep data was collected, and a 22-run pilot on the healthy-male cell verified five preregistered gating"
-paper,371,10,10.0,ambiguous_small,"s mean over the clean runs of the healthy-male (S1, M) cell, and the $10~\%$ and $30~\%$ deviation bands were preregistered before any data we"
-paper,371,30,30.0,ambiguous_small,"the clean runs of the healthy-male (S1, M) cell, and the $10~\%$ and $30~\%$ deviation bands were preregistered before any data were collected"
-paper,373,30,30.0,ambiguous_small,stration stated that a cell would be red when its deviation exceeded $30~\%$ or when ``any flag'' was raised; the implemented rule treats \tex
-paper,373,30,30.0,ambiguous_small,"e exceeds zero, and reserves red for a combined hard-flag rate above $30~\%$. The repository establishes that this implementation was committe"
-paper,373,7,7.0,ambiguous_small,as a material deviation. Under the implemented rule the map contains 7 green / 29 yellow / 12 red combinations; under the literal reading it
-paper,373,29,29.0,ambiguous_small,rial deviation. Under the implemented rule the map contains 7 green / 29 yellow / 12 red combinations; under the literal reading it would cont
-paper,373,12,12.0,ambiguous_small,on. Under the implemented rule the map contains 7 green / 29 yellow / 12 red combinations; under the literal reading it would contain 7 green
-paper,373,7,7.0,ambiguous_small,"low / 12 red combinations; under the literal reading it would contain 7 green / 3 yellow / 38 red, with the same seven green and the same twe"
-paper,373,3,3.0,ambiguous_small,"ed combinations; under the literal reading it would contain 7 green / 3 yellow / 38 red, with the same seven green and the same twelve red. W"
-paper,373,38,38.0,ambiguous_small,"ions; under the literal reading it would contain 7 green / 3 yellow / 38 red, with the same seven green and the same twelve red. We retain the"
-paper,377,0,0.0,ambiguous_small,"e of the input step expressed on that input's swept range mapped to $[0,1]$, so a $\mu^{*}$ is an output change per full-range move of its in"
-paper,377,1,1.0,ambiguous_small,"of the input step expressed on that input's swept range mapped to $[0,1]$, so a $\mu^{*}$ is an output change per full-range move of its inpu"
-paper,377,95,95.0,none,"change per full-range move of its input. Indices carry non-parametric 95~\% bootstrap confidence intervals from 1{,}000 trajectory-level resam"
-paper,377,"1{,}000",1000.0,ledger,"ndices carry non-parametric 95~\% bootstrap confidence intervals from 1{,}000 trajectory-level resamples. Four hypotheses were preregistered before"
-paper,377,5,5.0,ambiguous_small,"r at least half of the summed $\mu^{*}$ for each output; H2, at least 5~\% of the Morris sample hits at least one silent clamp; H3, at least"
-paper,377,0.91,0.91,ambiguous_small,"ne solver-divergence zone exists outside the previously characterised 0.91--0.945 band within the seven-input adult envelope; H4, the male and f"
-paper,377,0.945,0.945,guard,"ver-divergence zone exists outside the previously characterised 0.91--0.945 band within the seven-input adult envelope; H4, the male and female r"
-paper,377,1,1.0,ambiguous_small,"ng on at least one output, with no direction prespecified. Hypothesis~1 was evaluated per cell $\times$ output on the point-estimate top-3 fr"
-paper,377,3,3.0,ambiguous_small,is~1 was evaluated per cell $\times$ output on the point-estimate top-3 fraction of summed $\mu^{*}$. That sum runs over the inputs carrying
-paper,377,18,18.0,none,"mentary-effect pair, so it covers six inputs rather than seven in the 18 combinations where FiO$_2$ carries none (Figure~ ); th"
-paper,377,2,2.0,ambiguous_small,"nsequently do not share a common denominator across cells. Hypotheses 2, 3 and 4 are resolved in \S . Sex differenc"
-paper,377,3,3.0,ambiguous_small,"quently do not share a common denominator across cells. Hypotheses 2, 3 and 4 are resolved in \S . Sex differences"
-paper,377,4,4.0,ambiguous_small,"y do not share a common denominator across cells. Hypotheses 2, 3 and 4 are resolved in \S . Sex differences in the"
-paper,379,"2{,}000",2000.0,guard,"female clean-run distributions, tested against a permutation null of 2{,}000 random relabellings at the two original group sizes. The resulting 24"
-paper,379,24,24.0,ambiguous_small,00 random relabellings at the two original group sizes. The resulting 24-test family was corrected by Benjamini--Hochberg control of the false
-paper,379,0.05,0.05,none,"xpected fraction of false positives among the rejected tests) at $q = 0.05$; with 2{,}000 relabellings the smallest non-zero empirical tail prop"
-paper,379,"2{,}000",2000.0,guard,"tion of false positives among the rejected tests) at $q = 0.05$; with 2{,}000 relabellings the smallest non-zero empirical tail proportion is 1/2{,"
-paper,379,1,1.0,ambiguous_small,",}000 relabellings the smallest non-zero empirical tail proportion is 1/2{,}000, and two tests reaching zero are reported conservatively as $"
-paper,379,"2{,}000",2000.0,guard,"000 relabellings the smallest non-zero empirical tail proportion is 1/2{,}000, and two tests reaching zero are reported conservatively as $p < 0.00"
-paper,379,0.001,0.001,none,"}000, and two tests reaching zero are reported conservatively as $p < 0.001$. Cross-sex agreement of input-importance rankings was quantified by"
-paper,379,1,1.0,ambiguous_small,"mportance rankings was quantified by the Spearman rank correlation ($+1$ when the two orderings agree, $-1$ when they are reversed) between m"
-paper,379,1,1.0,ambiguous_small,"y the Spearman rank correlation ($+1$ when the two orderings agree, $-1$ when they are reversed) between male and female $\mu^{*}$ vectors pe"
-paper,381,0.6,0.6,ambiguous_small,"alation on any top-three input whose $\sigma / \mu^{*}$ ratio reaches 0.6. Applied as preregistered, the trigger fires on 72 of the 144 top-thr"
-paper,381,72,72.0,ambiguous_small,"*}$ ratio reaches 0.6. Applied as preregistered, the trigger fires on 72 of the 144 top-three inputs, spanning 43 of the 48 combinations, whil"
-paper,381,144,144.0,guard,"reaches 0.6. Applied as preregistered, the trigger fires on 72 of the 144 top-three inputs, spanning 43 of the 48 combinations, while the same"
-paper,381,43,43.0,ambiguous_small,"stered, the trigger fires on 72 of the 144 top-three inputs, spanning 43 of the 48 combinations, while the same preregistration fixed the bolt"
-paper,381,48,48.0,ambiguous_small,"e trigger fires on 72 of the 144 top-three inputs, spanning 43 of the 48 combinations, while the same preregistration fixed the bolt-on's comp"
-paper,381,"1{,}500",1500.0,ledger,"hile the same preregistration fixed the bolt-on's compute envelope at 1{,}500 additional runs. Because every output of a cell comes from the same P"
-paper,381,43,43.0,ambiguous_small,", so the cost scales with the eight firing cells rather than with the 43 combinations: 6{,}144 runs under the preregistered $64 \times (2k + 2"
-paper,381,"6{,}144",6144.0,ledger,"les with the eight firing cells rather than with the 43 combinations: 6{,}144 runs under the preregistered $64 \times (2k + 2)$ formula, or 3{,}584"
-paper,381,64,64.0,ambiguous_small,"than with the 43 combinations: 6{,}144 runs under the preregistered $64 \times (2k + 2)$ formula, or 3{,}584 if only the first-order and tota"
-paper,381,2,2.0,ambiguous_small,"3 combinations: 6{,}144 runs under the preregistered $64 \times (2k + 2)$ formula, or 3{,}584 if only the first-order and total indices the p"
-paper,381,"3{,}584",3584.0,ledger,"6{,}144 runs under the preregistered $64 \times (2k + 2)$ formula, or 3{,}584 if only the first-order and total indices the protocol asks for are c"
-paper,381,2.4,2.4,ambiguous_small,"hin the budget its own protocol declared, exceeding it by a factor of 2.4 to 4.1 on these two readings, and up to 5.5 on the wider set in Suppl"
-paper,381,4.1,4.1,none,"budget its own protocol declared, exceeding it by a factor of 2.4 to 4.1 on these two readings, and up to 5.5 on the wider set in Supplement~\"
-paper,381,5.5,5.5,none,"ceeding it by a factor of 2.4 to 4.1 on these two readings, and up to 5.5 on the wider set in Supplement~\S\, , and is reporte"
-paper,381,"1{,}000",1000.0,ledger,"d a post hoc sensitivity analysis in which trajectories are resampled 1{,}000 times per combination and $\sigma / \mu^{*}$ is recomputed jointly on"
-paper,381,0.6,0.6,ambiguous_small,"ecomputed jointly on each draw; combinations whose lower bound clears 0.6 in every draw, under each of five independent seeds, are characterise"
-paper,389,4,4.0,ambiguous_small,"{xhigh} thinking-effort default: Claude (\texttt{claude-opus-4-7}) for the initial drafting, (\texttt{claude-opus-4-8}) thr"
-paper,389,7,7.0,ambiguous_small,"high} thinking-effort default: Claude (\texttt{claude-opus-4-7}) for the initial drafting, (\texttt{claude-opus-4-8}) throu"
-paper,389,4,4.0,ambiguous_small,"de-opus-4-7}) for the initial drafting, (\texttt{claude-opus-4-8}) through the first supervisor-review phase, and (\texttt{cl"
-paper,389,8,8.0,ambiguous_small,"-opus-4-7}) for the initial drafting, (\texttt{claude-opus-4-8}) through the first supervisor-review phase, and (\texttt{clau"
-paper,389,5,5.0,ambiguous_small,"gh the first supervisor-review phase, and (\texttt{claude-opus-5}) for the audit and synthesis rounds that followed. The other side wa"
-paper,389,3.1,3.1,ambiguous_small,"d. The other side was a separate web session, first Google Gemini Pro 3.1 (extended-thinking mode) and, from 3~August~2026, OpenAI ChatGPT ("
-paper,389,3,3.0,ambiguous_small,"ssion, first Google Gemini Pro 3.1 (extended-thinking mode) and, from 3~August~2026, OpenAI ChatGPT ( Sol, High reasoning level); in t"
-paper,391,150,150.0,guard,"shortened by about a quarter and the abstract was revised within its 150-word cap, with the displaced material migrated to the Supplementary I"
-paper,404,100,100.0,guard,. The companion technical monograph (over 100 pages) carrying the full audit traceability will be archived together
-paper,404,2.0,2.0,ambiguous_small,"the code and the per-experiment lab-notebook entries carry the Apache-2.0 licence stated under \hyperlink{tgt:code-avail}{Code availability}, w"
-paper,404,4.0,4.0,ambiguous_small,"monograph content are released under the Creative Commons Attribution 4.0 licence (CC-BY-4.0), whose version~4.0 covers sui generis database ri"
-paper,404,4.0,4.0,ambiguous_small,"re released under the Creative Commons Attribution 4.0 licence (CC-BY-4.0), whose version~4.0 covers sui generis database rights. Verbatim thir"
-paper,404,4.0,4.0,ambiguous_small,"e Creative Commons Attribution 4.0 licence (CC-BY-4.0), whose version~4.0 covers sui generis database rights. Verbatim third-party excerpts, no"
-paper,404,2.0,2.0,ambiguous_small,"rty excerpts, notably from the Pulse documentation and source (Apache-2.0), retain their original licensing terms. This paper and its Supplemen"
-paper,408,2.0,2.0,ambiguous_small,"dit ledger, and reproducibility scripts) is released under the Apache-2.0 license at ."
-paper,408,"1{,}280",1280.0,guard,"verification) is summarised in Supplement~\S\, . The full 1{,}280-run sweep and the S1\_M pilot were additionally reproduced by a co-au"
-paper,408,5,5.0,ambiguous_small,"ed by a co-author on a second, independent x86\_64 host: an AMD Ryzen~5 CPU running Linux under WSL2, a different CPU vendor and operating sy"
-paper,408,4,4.0,ambiguous_small,ag and steady-state value was bit-identical; three derived Hypothesis-4 statistics differed only at floating-point round-off ($\sim 10^{-14}$
-paper,408,10,10.0,ambiguous_small,"othesis-4 statistics differed only at floating-point round-off ($\sim 10^{-14}$), leaving the Benjamini--Hochberg survivor set unchanged. Thes"
-paper,408,14,14.0,none,"is-4 statistics differed only at floating-point round-off ($\sim 10^{-14}$), leaving the Benjamini--Hochberg survivor set unchanged. These cro"
-paper,412,23,23.0,ambiguous_small,ional Research Agency under France 2030 via the ENACT AI Cluster (ANR-23-IACL-0004). This work also relies on the financial support provided b
-paper,412,0004,4.0,ambiguous_small,search Agency under France 2030 via the ENACT AI Cluster (ANR-23-IACL-0004). This work also relies on the financial support provided by the R\'e
+paper,142,2.0,2.0,ambiguous_small,"automatically reliable. The Pulse Physiology Engine (Kitware, Apache-2.0) is one such actively maintained open-source whole-body simulator~"
+paper,142,1,1.0,ambiguous_small,"simulation (Supplement~\S\, ). Pulse has been applied to (1)~ventilator-safety what-if analysis~ , (2)~validation o"
+paper,142,2,2.0,ambiguous_small,"n applied to (1)~ventilator-safety what-if analysis~ , (2)~validation of its own mechanical-ventilator model against a physical"
+paper,142,3,3.0,ambiguous_small,"or model against a physical reference simulator~ , (3)~medical education and simulation training on virtual-patient and eme"
+paper,142,4,4.0,ambiguous_small,"l-patient and emergency-medicine platforms~ , and (4)~general-purpose computational physiology~ ; its respir"
+paper,144,"12{,}642",12642.0,none,"et al.'s ventilator-sharing study~ does sweep inputs (12{,}642 unique patient and ventilator combinations spanning respiratory compl"
+paper,144,70,70.0,none,"ome correlation, but over the \emph{mismatch} between two equal-sized 70~kg bodies sharing one ventilator, scored against a single composite s"
+paper,150,"1{,}280",1280.0,guard,"rossed with two adult reference patient bodies, male and female, gave 1{,}280 simulations. Every run was then labelled by a four-flag steady-state"
+paper,150,2.0,2.0,ambiguous_small,"Docker image with a fixed seed, and released open-source under Apache-2.0. \section{Results} [!h] \centering"
+paper,162,0.00,0.0,ambiguous_small,"e and three ARDS severities: \textbf{S1} healthy baseline (impairment 0.00), \textbf{S2} mild (0.26), \textbf{S3} moderate (0.60), \textbf{S4} s"
+paper,162,0.26,0.26,ambiguous_small,"es: \textbf{S1} healthy baseline (impairment 0.00), \textbf{S2} mild (0.26), \textbf{S3} moderate (0.60), \textbf{S4} severe (0.95). The mild/mo"
+paper,162,0.60,0.6,ambiguous_small,"ine (impairment 0.00), \textbf{S2} mild (0.26), \textbf{S3} moderate (0.60), \textbf{S4} severe (0.95). The mild/moderate/severe labels are Berl"
+paper,162,0.95,0.95,ambiguous_small,"tbf{S2} mild (0.26), \textbf{S3} moderate (0.60), \textbf{S4} severe (0.95). The mild/moderate/severe labels are Berlin Definition bands, set by"
+paper,164,4,4.0,ambiguous_small,"). The four scenarios crossed with the two bodies give $4 \times 2 = 8$ cells, each containing 160 simulations (runs). \\ \addl"
+paper,164,2,2.0,ambiguous_small,"). The four scenarios crossed with the two bodies give $4 \times 2 = 8$ cells, each containing 160 simulations (runs). \\ \addlinespace"
+paper,164,8,8.0,ambiguous_small,"). The four scenarios crossed with the two bodies give $4 \times 2 = 8$ cells, each containing 160 simulations (runs). \\ \addlinespace \tex"
+paper,164,160,160.0,guard,"ssed with the two bodies give $4 \times 2 = 8$ cells, each containing 160 simulations (runs). \\ \addlinespace \textbf{Simulation (run)} & One"
+paper,166,7,7.0,ambiguous_small,"Pulse run at a single point in the seven-dimensional input space (the 7 swept inputs: HR, SBP, DBP, RR, Vt, FiO$_2$, PEEP), executed for 120~"
+paper,166,120,120.0,guard,"he 7 swept inputs: HR, SBP, DBP, RR, Vt, FiO$_2$, PEEP), executed for 120~s with the six steady-state outputs (HR, MAP, Vt delivered, SpO$_2$,"
+paper,166,5,5.0,ambiguous_small,"uts (HR, MAP, Vt delivered, SpO$_2$, PaO$_2$, PaCO$_2$) sampled every 5~s (Methods \S ). \\ \bottomrule"
+paper,173,"1{,}280",1280.0,guard,"e reliability atlas} The atlas comprises 1{,}280 simulations spanning eight cells of 160 runs each, one cell per clini"
+paper,173,160,160.0,guard,"The atlas comprises 1{,}280 simulations spanning eight cells of 160 runs each, one cell per clinical scenario (S1 healthy, S2 mild, S3 mo"
+paper,175,0,0.0,ambiguous_small,"the preregistered \texttt{clamped} category remained empty at setup (0 / 1{,}280 across every cell). That detector reads the setup log, so i"
+paper,175,"1{,}280",1280.0,guard,"preregistered \texttt{clamped} category remained empty at setup (0 / 1{,}280 across every cell). That detector reads the setup log, so it establis"
+paper,175,"10{,}160",10160.0,guard,"ue Pulse serialises after ingestion and found exact agreement for all 10{,}160 input contracts that reached ingestion. The remaining 80 ventilator c"
+paper,175,80,80.0,ambiguous_small,"or all 10{,}160 input contracts that reached ingestion. The remaining 80 ventilator contracts belong to 20 runs that failed during patient sta"
+paper,175,20,20.0,ambiguous_small,at reached ingestion. The remaining 80 ventilator contracts belong to 20 runs that failed during patient stabilisation before the ventilator a
+paper,175,1.0,1.0,ambiguous_small,". Pulse does make one explicit downstream adjustment: where FiO$_2$~=~1.0 was requested and the ventilator action was reached, the ventilator m"
+paper,175,0.9996,0.9996,guard,"as reached, the ventilator model caps the inspired oxygen fraction at 0.9996 --- the ambient mixture already carries CO$_2$, so exactly 1.0 cannot"
+paper,175,1.0,1.0,ambiguous_small,"at 0.9996 --- the ambient mixture already carries CO$_2$, so exactly 1.0 cannot be composed --- with a logged error on all 195 runs concerned"
+paper,175,195,195.0,guard,"_2$, so exactly 1.0 cannot be composed --- with a logged error on all 195 runs concerned (Supplement~\S\, ). H3 is supported:"
+paper,175,20,20.0,ambiguous_small,"ppears outside the previously characterised ARDS instability band, on 20 / 1{,}280 runs whose sex stratification is the subject of \S"
+paper,175,"1{,}280",1280.0,guard,"s outside the previously characterised ARDS instability band, on 20 / 1{,}280 runs whose sex stratification is the subject of \S"
+paper,177,663,663.0,guard,"t and depends on which screen is applied. Under the four-flag screen, 663 of 1{,}280 runs (51.8~\%) are clean, ranging 3.43-fold across cells,"
+paper,177,"1{,}280",1280.0,guard,"epends on which screen is applied. Under the four-flag screen, 663 of 1{,}280 runs (51.8~\%) are clean, ranging 3.43-fold across cells, from 144 of"
+paper,177,51.8,51.8,guard,"h screen is applied. Under the four-flag screen, 663 of 1{,}280 runs (51.8~\%) are clean, ranging 3.43-fold across cells, from 144 of 160 in mod"
+paper,177,3.43,3.43,guard,"he four-flag screen, 663 of 1{,}280 runs (51.8~\%) are clean, ranging 3.43-fold across cells, from 144 of 160 in moderate ARDS on the male body"
+paper,177,144,144.0,guard,"{,}280 runs (51.8~\%) are clean, ranging 3.43-fold across cells, from 144 of 160 in moderate ARDS on the male body down to 42 of 160 in the hea"
+paper,177,160,160.0,guard,"runs (51.8~\%) are clean, ranging 3.43-fold across cells, from 144 of 160 in moderate ARDS on the male body down to 42 of 160 in the healthy fe"
+paper,177,42,42.0,ambiguous_small,"ross cells, from 144 of 160 in moderate ARDS on the male body down to 42 of 160 in the healthy female cell. Under the hard-failure-free screen"
+paper,177,160,160.0,guard,"ells, from 144 of 160 in moderate ARDS on the male body down to 42 of 160 in the healthy female cell. Under the hard-failure-free screen, which"
+paper,177,"1{,}134",1134.0,guard,"e screen, which admits runs flagged only \texttt{not\_steady\_state}, 1{,}134 of 1{,}280 (88.6~\%) survive, a 1.51-fold spread; the two screens dep"
+paper,177,"1{,}280",1280.0,guard,"hich admits runs flagged only \texttt{not\_steady\_state}, 1{,}134 of 1{,}280 (88.6~\%) survive, a 1.51-fold spread; the two screens deplete opposi"
+paper,177,88.6,88.6,guard,"ts runs flagged only \texttt{not\_steady\_state}, 1{,}134 of 1{,}280 (88.6~\%) survive, a 1.51-fold spread; the two screens deplete opposite end"
+paper,177,1.51,1.51,guard,"\texttt{not\_steady\_state}, 1{,}134 of 1{,}280 (88.6~\%) survive, a 1.51-fold spread; the two screens deplete opposite ends of the severity ax"
+paper,183,"1{,}280",1280.0,guard,"\caption{\textbf{Study design of the 1{,}280-run sweep.} Seven user-facing operational inputs are screened with a"
+paper,183,20,20.0,ambiguous_small,"tional inputs are screened with a Morris elementary-effects design of 20 trajectories per cell, each visiting $7{+}1 = 8$ input points, i.e.\"
+paper,183,7,7.0,ambiguous_small,"elementary-effects design of 20 trajectories per cell, each visiting $7{+}1 = 8$ input points, i.e.\ 160 runs per cell. The same design is ex"
+paper,183,1,1.0,ambiguous_small,"entary-effects design of 20 trajectories per cell, each visiting $7{+}1 = 8$ input points, i.e.\ 160 runs per cell. The same design is execut"
+paper,183,8,8.0,ambiguous_small,"ry-effects design of 20 trajectories per cell, each visiting $7{+}1 = 8$ input points, i.e.\ 160 runs per cell. The same design is executed i"
+paper,183,160,160.0,guard,"trajectories per cell, each visiting $7{+}1 = 8$ input points, i.e.\ 160 runs per cell. The same design is executed in all eight cells --- fou"
+paper,183,0.00,0.0,ambiguous_small,in all eight cells --- four severity scenarios (impairment fractions 0.00 / 0.26 / 0.60 / 0.95) crossed with the male and female reference bodi
+paper,183,0.26,0.26,ambiguous_small,eight cells --- four severity scenarios (impairment fractions 0.00 / 0.26 / 0.60 / 0.95) crossed with the male and female reference bodies ---
+paper,183,0.60,0.6,ambiguous_small,cells --- four severity scenarios (impairment fractions 0.00 / 0.26 / 0.60 / 0.95) crossed with the male and female reference bodies --- for $8
+paper,183,0.95,0.95,ambiguous_small,-- four severity scenarios (impairment fractions 0.00 / 0.26 / 0.60 / 0.95) crossed with the male and female reference bodies --- for $8 \times
+paper,183,8,8.0,ambiguous_small,"60 / 0.95) crossed with the male and female reference bodies --- for $8 \times 160 = 1{,}280$ simulations, a fully balanced factorial. Differ"
+paper,183,160,160.0,guard,") crossed with the male and female reference bodies --- for $8 \times 160 = 1{,}280$ simulations, a fully balanced factorial. Differences betwe"
+paper,183,"1{,}280",1280.0,guard,"sed with the male and female reference bodies --- for $8 \times 160 = 1{,}280$ simulations, a fully balanced factorial. Differences between cells t"
+paper,198,600,600.0,guard,"nds outside the locked hard physiological bounds (e.g.\ PaO$_2$ above 600~mmHg) & the run completed, but a value is non-physiological under the"
+paper,200,60,60.0,ambiguous_small,"ted as-is \\ \addlinespace \texttt{not\_steady\_state} & in the final 60~s window, at least one tracked output flatlines at a hard bound (froz"
+paper,200,0.05,0.05,none,"h near-zero variation), varies too much (coefficient of variation $>$ 0.05; most often tidal volume), or drifts past its locked per-channel limi"
+paper,200,60,60.0,ambiguous_small,"n is physiological but never settled to a stable steady state, so its 60~s mean is not a reliable summary \\ \bottomrule"
+paper,206,0,0.0,ambiguous_small,"preregistered \texttt{clamped} category is empty in all eight cells, 0 of 1{,}280: no submitted setup input was refused. What varies between"
+paper,206,"1{,}280",1280.0,guard,"egistered \texttt{clamped} category is empty in all eight cells, 0 of 1{,}280: no submitted setup input was refused. What varies between cells is n"
+paper,206,144,144.0,guard,"not whether the engine fails but how much of the grid survives, from 144 of 160 clean runs in moderate ARDS on the male body down to 42 of 160"
+paper,206,160,160.0,guard,"ether the engine fails but how much of the grid survives, from 144 of 160 clean runs in moderate ARDS on the male body down to 42 of 160 in the"
+paper,206,42,42.0,ambiguous_small,from 144 of 160 clean runs in moderate ARDS on the male body down to 42 of 160 in the healthy female cell. Flag columns are independent prese
+paper,206,160,160.0,guard,144 of 160 clean runs in moderate ARDS on the male body down to 42 of 160 in the healthy female cell. Flag columns are independent presence cou
+paper,212,160,160.0,guard,verged & implausible & not\_steady\_state & clean \\ \midrule S1\_M & 160 & 0 & 4 & 11 & 107 & 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \mi
+paper,212,0,0.0,ambiguous_small,& implausible & not\_steady\_state & clean \\ \midrule S1\_M & 160 & 0 & 4 & 11 & 107 & 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrul
+paper,212,4,4.0,ambiguous_small,mplausible & not\_steady\_state & clean \\ \midrule S1\_M & 160 & 0 & 4 & 11 & 107 & 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2
+paper,212,11,11.0,ambiguous_small,usible & not\_steady\_state & clean \\ \midrule S1\_M & 160 & 0 & 4 & 11 & 107 & 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M &
+paper,212,107,107.0,guard,e & not\_steady\_state & clean \\ \midrule S1\_M & 160 & 0 & 4 & 11 & 107 & 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M & 160 &
+paper,212,49,49.0,ambiguous_small,t\_steady\_state & clean \\ \midrule S1\_M & 160 & 0 & 4 & 11 & 107 & 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M & 160 & 0 &
+paper,213,160,160.0,guard,te & clean \\ \midrule S1\_M & 160 & 0 & 4 & 11 & 107 & 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 &
+paper,213,0,0.0,ambiguous_small,lean \\ \midrule S1\_M & 160 & 0 & 4 & 11 & 107 & 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \
+paper,213,0,0.0,ambiguous_small,\\ \midrule S1\_M & 160 & 0 & 4 & 11 & 107 & 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2
+paper,213,23,23.0,ambiguous_small,\midrule S1\_M & 160 & 0 & 4 & 11 & 107 & 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F &
+paper,213,118,118.0,guard,ule S1\_M & 160 & 0 & 4 & 11 & 107 & 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F & 160 &
+paper,213,42,42.0,ambiguous_small,\_M & 160 & 0 & 4 & 11 & 107 & 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F & 160 & 0 &
+paper,215,160,160.0,guard,& 107 & 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \mi
+paper,215,0,0.0,ambiguous_small,& 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrul
+paper,215,4,4.0,ambiguous_small,\\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3
+paper,215,0,0.0,ambiguous_small,S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M
+paper,215,69,69.0,ambiguous_small,& 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M & 160
+paper,215,87,87.0,ambiguous_small,& 0 & 0 & 23 & 118 & 42 \\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M & 160 & 0 &
+paper,216,160,160.0,guard,& 118 & 42 \\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 &
+paper,216,0,0.0,ambiguous_small,& 42 \\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144
+paper,216,0,0.0,ambiguous_small,\\ \midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S
+paper,216,0,0.0,ambiguous_small,\midrule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F
+paper,216,68,68.0,ambiguous_small,ule S2\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F & 160
+paper,216,92,92.0,ambiguous_small,\_M & 160 & 0 & 4 & 0 & 69 & 87 \\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F & 160 & 0 &
+paper,218,160,160.0,guard,& 69 & 87 \\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \
+paper,218,0,0.0,ambiguous_small,& 87 \\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midr
+paper,218,4,4.0,ambiguous_small,\\ S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule
+paper,218,0,0.0,ambiguous_small,S2\_F & 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_
+paper,218,12,12.0,ambiguous_small,& 160 & 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_M & 16
+paper,218,144,144.0,guard,& 0 & 0 & 0 & 68 & 92 \\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_M & 160 & 0 &
+paper,219,160,160.0,guard,68 & 92 \\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 &
+paper,219,0,0.0,ambiguous_small,92 \\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67
+paper,219,0,0.0,ambiguous_small,\\ \midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S
+paper,219,0,0.0,ambiguous_small,midrule S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F
+paper,219,38,38.0,ambiguous_small,le S3\_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160
+paper,219,122,122.0,guard,_M & 160 & 0 & 4 & 0 & 12 & 144 \\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160 & 0 &
+paper,221,160,160.0,guard,12 & 144 \\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160 & 0 & 0 & 46 & 74 & 60 \\ \bo
+paper,221,0,0.0,ambiguous_small,144 \\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160 & 0 & 0 & 46 & 74 & 60 \\ \bottom
+paper,221,8,8.0,ambiguous_small,\\ S3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160 & 0 & 0 & 46 & 74 & 60 \\ \bottomrule
+paper,221,46,46.0,ambiguous_small,3\_F & 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160 & 0 & 0 & 46 & 74 & 60 \\ \bottomrule
+paper,221,44,44.0,ambiguous_small,& 160 & 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160 & 0 & 0 & 46 & 74 & 60 \\ \bottomrule
+paper,221,67,67.0,ambiguous_small,& 0 & 0 & 0 & 38 & 122 \\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160 & 0 & 0 & 46 & 74 & 60 \\ \bottomrule
+paper,222,160,160.0,guard,38 & 122 \\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160 & 0 & 0 & 46 & 74 & 60 \\ \bottomrule
+paper,222,0,0.0,ambiguous_small,122 \\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160 & 0 & 0 & 46 & 74 & 60 \\ \bottomrule
+paper,222,0,0.0,ambiguous_small,\\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160 & 0 & 0 & 46 & 74 & 60 \\ \bottomrule
+paper,222,46,46.0,ambiguous_small,\midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160 & 0 & 0 & 46 & 74 & 60 \\ \bottomrule [!h
+paper,222,74,74.0,ambiguous_small,ule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160 & 0 & 0 & 46 & 74 & 60 \\ \bottomrule [!htbp]
+paper,222,60,60.0,ambiguous_small,\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160 & 0 & 0 & 46 & 74 & 60 \\ \bottomrule [!htbp] \cente
+paper,229,10,10.0,ambiguous_small,"le flags (together the \emph{hard flags}) \emph{and} the mean within $10~\%$ of the (S1, M) baseline (the \emph{deviation} criterion). \textit"
+paper,229,10,10.0,ambiguous_small,viation} criterion). \textit{Yellow}: any hard flag \emph{or} a mean $10$--$30~\%$ off baseline. \textit{Red}: more than $30~\%$ off baseline
+paper,229,30,30.0,ambiguous_small,n} criterion). \textit{Yellow}: any hard flag \emph{or} a mean $10$--$30~\%$ off baseline. \textit{Red}: more than $30~\%$ off baseline \emph{
+paper,229,30,30.0,ambiguous_small,\emph{or} a mean $10$--$30~\%$ off baseline. \textit{Red}: more than $30~\%$ off baseline \emph{or} a diverged-plus-implausible rate above $30
+paper,229,30,30.0,ambiguous_small,30~\%$ off baseline \emph{or} a diverged-plus-implausible rate above $30~\%$. Across the 48 cell $\times$ output combinations the aggregate is
+paper,229,48,48.0,ambiguous_small,\emph{or} a diverged-plus-implausible rate above $30~\%$. Across the 48 cell $\times$ output combinations the aggregate is 7 green / 29 yello
+paper,229,7,7.0,ambiguous_small,\%$. Across the 48 cell $\times$ output combinations the aggregate is 7 green / 29 yellow / 12 red. \textbf{(b)} Which criterion produced eac
+paper,229,29,29.0,ambiguous_small,s the 48 cell $\times$ output combinations the aggregate is 7 green / 29 yellow / 12 red. \textbf{(b)} Which criterion produced each classific
+paper,229,12,12.0,ambiguous_small,l $\times$ output combinations the aggregate is 7 green / 29 yellow / 12 red. \textbf{(b)} Which criterion produced each classification: 7 \em
+paper,229,7,7.0,ambiguous_small,"/ 12 red. \textbf{(b)} Which criterion produced each classification: 7 \emph{neither} (the green set by construction), 23 \emph{hard flags o"
+paper,229,23,23.0,ambiguous_small,"ach classification: 7 \emph{neither} (the green set by construction), 23 \emph{hard flags only}, 9 \emph{deviation only}, 9 \emph{both}. The 1"
+paper,229,9,9.0,ambiguous_small,"{neither} (the green set by construction), 23 \emph{hard flags only}, 9 \emph{deviation only}, 9 \emph{both}. The 12 red cells split 6 deviat"
+paper,229,9,9.0,ambiguous_small,"by construction), 23 \emph{hard flags only}, 9 \emph{deviation only}, 9 \emph{both}. The 12 red cells split 6 deviation-only, 4 flag-only and"
+paper,229,12,12.0,ambiguous_small,"3 \emph{hard flags only}, 9 \emph{deviation only}, 9 \emph{both}. The 12 red cells split 6 deviation-only, 4 flag-only and 2 both, so half are"
+paper,229,6,6.0,ambiguous_small,"only}, 9 \emph{deviation only}, 9 \emph{both}. The 12 red cells split 6 deviation-only, 4 flag-only and 2 both, so half are red because the c"
+paper,229,4,4.0,ambiguous_small,"iation only}, 9 \emph{both}. The 12 red cells split 6 deviation-only, 4 flag-only and 2 both, so half are red because the clean-run mean sits"
+paper,229,2,2.0,ambiguous_small,"\emph{both}. The 12 red cells split 6 deviation-only, 4 flag-only and 2 both, so half are red because the clean-run mean sits far from a \emp"
+paper,234,160,160.0,guard,tion under the two screening definitions.} Retention is computed over 160 simulations per cell. \emph{Four-flag clean} keeps only runs firing n
+paper,234,160,160.0,guard,"his sweep, so including it changes no count). Counts are given out of 160 rather than as percentages on purpose: with $n = 160$ every percentag"
+paper,234,160,160.0,guard,"are given out of 160 rather than as percentages on purpose: with $n = 160$ every percentage is a multiple of $0.625$, so nine of the sixteen va"
+paper,234,0.625,0.625,none,"entages on purpose: with $n = 160$ every percentage is a multiple of $0.625$, so nine of the sixteen values below fall on an exact rounding tie a"
+paper,234,663,663.0,guard,"The two whole-sweep percentages are quoted because neither is a tie ($663/1{,}280$; $1{,}134/1{,}280$). Neither subset is distribution-neutral."
+paper,234,"1{,}280",1280.0,guard,"two whole-sweep percentages are quoted because neither is a tie ($663/1{,}280$; $1{,}134/1{,}280$). Neither subset is distribution-neutral. Cell-la"
+paper,234,"1{,}134",1134.0,guard,"weep percentages are quoted because neither is a tie ($663/1{,}280$; $1{,}134/1{,}280$). Neither subset is distribution-neutral. Cell-label key: Ta"
+paper,234,"1{,}280",1280.0,guard,"centages are quoted because neither is a tie ($663/1{,}280$; $1{,}134/1{,}280$). Neither subset is distribution-neutral. Cell-label key: Table~"
+paper,240,49,49.0,ambiguous_small,oprule Cell & Four-flag clean & Hard-failure-free \\ \midrule S1\_M & 49/160 & 145/160 \\ S1\_F & 42/160 & 137/160 \\ \midrule S2\_M & 87/160
+paper,240,160,160.0,guard,ule Cell & Four-flag clean & Hard-failure-free \\ \midrule S1\_M & 49/160 & 145/160 \\ S1\_F & 42/160 & 137/160 \\ \midrule S2\_M & 87/160 & 15
+paper,240,145,145.0,guard,ll & Four-flag clean & Hard-failure-free \\ \midrule S1\_M & 49/160 & 145/160 \\ S1\_F & 42/160 & 137/160 \\ \midrule S2\_M & 87/160 & 156/160
+paper,240,160,160.0,guard,Four-flag clean & Hard-failure-free \\ \midrule S1\_M & 49/160 & 145/160 \\ S1\_F & 42/160 & 137/160 \\ \midrule S2\_M & 87/160 & 156/160 \\ S
+paper,241,42,42.0,ambiguous_small,n & Hard-failure-free \\ \midrule S1\_M & 49/160 & 145/160 \\ S1\_F & 42/160 & 137/160 \\ \midrule S2\_M & 87/160 & 156/160 \\ S2\_F & 92/160
+paper,241,160,160.0,guard,Hard-failure-free \\ \midrule S1\_M & 49/160 & 145/160 \\ S1\_F & 42/160 & 137/160 \\ \midrule S2\_M & 87/160 & 156/160 \\ S2\_F & 92/160 & 16
+paper,241,137,137.0,guard,failure-free \\ \midrule S1\_M & 49/160 & 145/160 \\ S1\_F & 42/160 & 137/160 \\ \midrule S2\_M & 87/160 & 156/160 \\ S2\_F & 92/160 & 160/160
+paper,241,160,160.0,guard,ure-free \\ \midrule S1\_M & 49/160 & 145/160 \\ S1\_F & 42/160 & 137/160 \\ \midrule S2\_M & 87/160 & 156/160 \\ S2\_F & 92/160 & 160/160 \\ \
+paper,243,87,87.0,ambiguous_small,_M & 49/160 & 145/160 \\ S1\_F & 42/160 & 137/160 \\ \midrule S2\_M & 87/160 & 156/160 \\ S2\_F & 92/160 & 160/160 \\ \midrule S3\_M & 144/160
+paper,243,160,160.0,guard,& 49/160 & 145/160 \\ S1\_F & 42/160 & 137/160 \\ \midrule S2\_M & 87/160 & 156/160 \\ S2\_F & 92/160 & 160/160 \\ \midrule S3\_M & 144/160 & 1
+paper,243,156,156.0,guard,60 & 145/160 \\ S1\_F & 42/160 & 137/160 \\ \midrule S2\_M & 87/160 & 156/160 \\ S2\_F & 92/160 & 160/160 \\ \midrule S3\_M & 144/160 & 156/160
+paper,243,160,160.0,guard,145/160 \\ S1\_F & 42/160 & 137/160 \\ \midrule S2\_M & 87/160 & 156/160 \\ S2\_F & 92/160 & 160/160 \\ \midrule S3\_M & 144/160 & 156/160 \\
+paper,244,92,92.0,ambiguous_small,_F & 42/160 & 137/160 \\ \midrule S2\_M & 87/160 & 156/160 \\ S2\_F & 92/160 & 160/160 \\ \midrule S3\_M & 144/160 & 156/160 \\ S3\_F & 122/16
+paper,244,160,160.0,guard,& 42/160 & 137/160 \\ \midrule S2\_M & 87/160 & 156/160 \\ S2\_F & 92/160 & 160/160 \\ \midrule S3\_M & 144/160 & 156/160 \\ S3\_F & 122/160 &
+paper,244,160,160.0,guard,60 & 137/160 \\ \midrule S2\_M & 87/160 & 156/160 \\ S2\_F & 92/160 & 160/160 \\ \midrule S3\_M & 144/160 & 156/160 \\ S3\_F & 122/160 & 160/16
+paper,244,160,160.0,guard,137/160 \\ \midrule S2\_M & 87/160 & 156/160 \\ S2\_F & 92/160 & 160/160 \\ \midrule S3\_M & 144/160 & 156/160 \\ S3\_F & 122/160 & 160/160 \\
+paper,246,144,144.0,guard,_M & 87/160 & 156/160 \\ S2\_F & 92/160 & 160/160 \\ \midrule S3\_M & 144/160 & 156/160 \\ S3\_F & 122/160 & 160/160 \\ \midrule S4\_M & 67/160
+paper,246,160,160.0,guard,87/160 & 156/160 \\ S2\_F & 92/160 & 160/160 \\ \midrule S3\_M & 144/160 & 156/160 \\ S3\_F & 122/160 & 160/160 \\ \midrule S4\_M & 67/160 & 1
+paper,246,156,156.0,guard,0 & 156/160 \\ S2\_F & 92/160 & 160/160 \\ \midrule S3\_M & 144/160 & 156/160 \\ S3\_F & 122/160 & 160/160 \\ \midrule S4\_M & 67/160 & 106/160
+paper,246,160,160.0,guard,156/160 \\ S2\_F & 92/160 & 160/160 \\ \midrule S3\_M & 144/160 & 156/160 \\ S3\_F & 122/160 & 160/160 \\ \midrule S4\_M & 67/160 & 106/160 \\
+paper,247,122,122.0,guard,F & 92/160 & 160/160 \\ \midrule S3\_M & 144/160 & 156/160 \\ S3\_F & 122/160 & 160/160 \\ \midrule S4\_M & 67/160 & 106/160 \\ S4\_F & 60/160
+paper,247,160,160.0,guard,92/160 & 160/160 \\ \midrule S3\_M & 144/160 & 156/160 \\ S3\_F & 122/160 & 160/160 \\ \midrule S4\_M & 67/160 & 106/160 \\ S4\_F & 60/160 & 11
+paper,247,160,160.0,guard,& 160/160 \\ \midrule S3\_M & 144/160 & 156/160 \\ S3\_F & 122/160 & 160/160 \\ \midrule S4\_M & 67/160 & 106/160 \\ S4\_F & 60/160 & 114/160
+paper,247,160,160.0,guard,60/160 \\ \midrule S3\_M & 144/160 & 156/160 \\ S3\_F & 122/160 & 160/160 \\ \midrule S4\_M & 67/160 & 106/160 \\ S4\_F & 60/160 & 114/160 \\ \
+paper,249,67,67.0,ambiguous_small,& 144/160 & 156/160 \\ S3\_F & 122/160 & 160/160 \\ \midrule S4\_M & 67/160 & 106/160 \\ S4\_F & 60/160 & 114/160 \\ \midrule All cells & 663
+paper,249,160,160.0,guard,"144/160 & 156/160 \\ S3\_F & 122/160 & 160/160 \\ \midrule S4\_M & 67/160 & 106/160 \\ S4\_F & 60/160 & 114/160 \\ \midrule All cells & 663/1{,"
+paper,249,106,106.0,guard,"0 & 156/160 \\ S3\_F & 122/160 & 160/160 \\ \midrule S4\_M & 67/160 & 106/160 \\ S4\_F & 60/160 & 114/160 \\ \midrule All cells & 663/1{,}280 ("
+paper,249,160,160.0,guard,"156/160 \\ S3\_F & 122/160 & 160/160 \\ \midrule S4\_M & 67/160 & 106/160 \\ S4\_F & 60/160 & 114/160 \\ \midrule All cells & 663/1{,}280 (51.8"
+paper,250,60,60.0,ambiguous_small,"F & 122/160 & 160/160 \\ \midrule S4\_M & 67/160 & 106/160 \\ S4\_F & 60/160 & 114/160 \\ \midrule All cells & 663/1{,}280 (51.8~\%) & 1{,}134"
+paper,250,160,160.0,guard,"122/160 & 160/160 \\ \midrule S4\_M & 67/160 & 106/160 \\ S4\_F & 60/160 & 114/160 \\ \midrule All cells & 663/1{,}280 (51.8~\%) & 1{,}134/1{,"
+paper,250,114,114.0,guard,"60 & 160/160 \\ \midrule S4\_M & 67/160 & 106/160 \\ S4\_F & 60/160 & 114/160 \\ \midrule All cells & 663/1{,}280 (51.8~\%) & 1{,}134/1{,}280 ("
+paper,250,160,160.0,guard,"160/160 \\ \midrule S4\_M & 67/160 & 106/160 \\ S4\_F & 60/160 & 114/160 \\ \midrule All cells & 663/1{,}280 (51.8~\%) & 1{,}134/1{,}280 (88.6"
+paper,252,663,663.0,guard,"67/160 & 106/160 \\ S4\_F & 60/160 & 114/160 \\ \midrule All cells & 663/1{,}280 (51.8~\%) & 1{,}134/1{,}280 (88.6~\%) \\ \bottomrule"
+paper,252,"1{,}280",1280.0,guard,"160 & 106/160 \\ S4\_F & 60/160 & 114/160 \\ \midrule All cells & 663/1{,}280 (51.8~\%) & 1{,}134/1{,}280 (88.6~\%) \\ \bottomrule"
+paper,252,51.8,51.8,guard,"/160 \\ S4\_F & 60/160 & 114/160 \\ \midrule All cells & 663/1{,}280 (51.8~\%) & 1{,}134/1{,}280 (88.6~\%) \\ \bottomrule"
+paper,252,"1{,}134",1134.0,guard,"_F & 60/160 & 114/160 \\ \midrule All cells & 663/1{,}280 (51.8~\%) & 1{,}134/1{,}280 (88.6~\%) \\ \bottomrule \subsecti"
+paper,252,"1{,}280",1280.0,guard,"160 & 114/160 \\ \midrule All cells & 663/1{,}280 (51.8~\%) & 1{,}134/1{,}280 (88.6~\%) \\ \bottomrule \subsection{Prima"
+paper,252,88.6,88.6,guard,"/160 \\ \midrule All cells & 663/1{,}280 (51.8~\%) & 1{,}134/1{,}280 (88.6~\%) \\ \bottomrule \subsection{Primary inp"
+paper,259,48,48.0,ambiguous_small,uts across the eight cells and seven swept inputs. H1 is supported in 48 of 48 cell $\times$ output combinations: the top-three inputs account
+paper,259,48,48.0,ambiguous_small,ross the eight cells and seven swept inputs. H1 is supported in 48 of 48 cell $\times$ output combinations: the top-three inputs account for 0
+paper,259,0.658,0.658,guard,"8 cell $\times$ output combinations: the top-three inputs account for 0.658--0.998 of the summed $\mu^{*}$, with a median top-3 fraction of 0.928"
+paper,259,0.998,0.998,guard,"$\times$ output combinations: the top-three inputs account for 0.658--0.998 of the summed $\mu^{*}$, with a median top-3 fraction of 0.928. The l"
+paper,259,3,3.0,ambiguous_small,"s account for 0.658--0.998 of the summed $\mu^{*}$, with a median top-3 fraction of 0.928. The lowest values, from 0.658 to 0.727, all fall i"
+paper,259,0.928,0.928,guard,"0.658--0.998 of the summed $\mu^{*}$, with a median top-3 fraction of 0.928. The lowest values, from 0.658 to 0.727, all fall in severe-ARDS gas-"
+paper,259,0.658,0.658,guard,"^{*}$, with a median top-3 fraction of 0.928. The lowest values, from 0.658 to 0.727, all fall in severe-ARDS gas-exchange cells, where shunt phy"
+paper,259,0.727,0.727,ledger,"th a median top-3 fraction of 0.928. The lowest values, from 0.658 to 0.727, all fall in severe-ARDS gas-exchange cells, where shunt physiology b"
+paper,261,0.6,0.6,ambiguous_small,"ot proportionality. Applying the preregistered $\sigma / \mu^{*} \geq 0.6$ threshold to each cell's top-three inputs, and retaining only those"
+paper,261,23,23.0,ambiguous_small,"t clear it in every draw under each of five independent seeds, leaves 23 of the 144, spread over 17 of the 48 combinations; all seven inputs a"
+paper,261,144,144.0,guard,"in every draw under each of five independent seeds, leaves 23 of the 144, spread over 17 of the 48 combinations; all seven inputs and all four"
+paper,261,17,17.0,ambiguous_small,"der each of five independent seeds, leaves 23 of the 144, spread over 17 of the 48 combinations; all seven inputs and all four scenarios appea"
+paper,261,48,48.0,ambiguous_small,"f five independent seeds, leaves 23 of the 144, spread over 17 of the 48 combinations; all seven inputs and all four scenarios appear, so depa"
+paper,261,8,8.0,ambiguous_small,"ned footprint. Delivered tidal volume is the most affected output, in 8 of the 23, and is also the channel whose oscillation dominates the \t"
+paper,261,23,23.0,ambiguous_small,"rint. Delivered tidal volume is the most affected output, in 8 of the 23, and is also the channel whose oscillation dominates the \texttt{not\"
+paper,261,0.05,0.05,none,"ame runs: in S1 the delivered-Vt coefficient of variation exceeds the 0.05 threshold on 139 of 320 runs and none of those 8 falls there, against"
+paper,261,139,139.0,guard,"e delivered-Vt coefficient of variation exceeds the 0.05 threshold on 139 of 320 runs and none of those 8 falls there, against 36 of 320 runs a"
+paper,261,320,320.0,guard,"ered-Vt coefficient of variation exceeds the 0.05 threshold on 139 of 320 runs and none of those 8 falls there, against 36 of 320 runs and 3 of"
+paper,261,8,8.0,ambiguous_small,"ation exceeds the 0.05 threshold on 139 of 320 runs and none of those 8 falls there, against 36 of 320 runs and 3 of the 8 in S3. That map is"
+paper,261,36,36.0,none,"threshold on 139 of 320 runs and none of those 8 falls there, against 36 of 320 runs and 3 of the 8 in S3. That map is therefore bounded by ru"
+paper,261,320,320.0,guard,"old on 139 of 320 runs and none of those 8 falls there, against 36 of 320 runs and 3 of the 8 in S3. That map is therefore bounded by run survi"
+paper,261,3,3.0,ambiguous_small,"320 runs and none of those 8 falls there, against 36 of 320 runs and 3 of the 8 in S3. That map is therefore bounded by run survival --- the"
+paper,261,8,8.0,ambiguous_small,"and none of those 8 falls there, against 36 of 320 runs and 3 of the 8 in S3. That map is therefore bounded by run survival --- the regime t"
+paper,261,144,144.0,guard,The same mechanism sets how much data each index rests on: across the 144 top-three entries the median index is computed from 7 of the 20 possi
+paper,261,7,7.0,ambiguous_small,"n: across the 144 top-three entries the median index is computed from 7 of the 20 possible elementary-effect pairs, 25 rest on three or fewer"
+paper,261,20,20.0,ambiguous_small,"the 144 top-three entries the median index is computed from 7 of the 20 possible elementary-effect pairs, 25 rest on three or fewer, and 9 re"
+paper,261,25,25.0,none,"index is computed from 7 of the 20 possible elementary-effect pairs, 25 rest on three or fewer, and 9 rest on a single pair --- five of those"
+paper,261,9,9.0,ambiguous_small,"e 20 possible elementary-effect pairs, 25 rest on three or fewer, and 9 rest on a single pair --- five of those being their combination's ran"
+paper,261,1,1.0,ambiguous_small,est on a single pair --- five of those being their combination's rank-1 input --- so for those nine $\sigma$ is zero by construction rather t
+paper,261,48,48.0,ambiguous_small,"d pair screen in Supplement~\S\, : H1 holds in all 48 combinations under both screens, and on the 30 combinations whose can"
+paper,261,30,30.0,ambiguous_small,": H1 holds in all 48 combinations under both screens, and on the 30 combinations whose candidate set is unchanged too, the rank-1 input i"
+paper,261,1,1.0,ambiguous_small,"on the 30 combinations whose candidate set is unchanged too, the rank-1 input is preserved in all 30 while the identity of ranks two and thre"
+paper,261,30,30.0,ambiguous_small,"candidate set is unchanged too, the rank-1 input is preserved in all 30 while the identity of ranks two and three changes in 11 --- so rank 1"
+paper,261,11,11.0,ambiguous_small,served in all 30 while the identity of ranks two and three changes in 11 --- so rank 1 is resolved by this design and the ordering below it is
+paper,261,1,1.0,ambiguous_small,0 while the identity of ranks two and three changes in 11 --- so rank 1 is resolved by this design and the ordering below it is not.
+paper,274,1,1.0,ambiguous_small,"few rows rather than spreading across all seven, which is Hypothesis~1's ``skewed sensitivity'' in visual form: on 48 of 48 cell $\times$ ou"
+paper,274,48,48.0,ambiguous_small,"en, which is Hypothesis~1's ``skewed sensitivity'' in visual form: on 48 of 48 cell $\times$ output combinations the top three inputs carry at"
+paper,274,48,48.0,ambiguous_small,ich is Hypothesis~1's ``skewed sensitivity'' in visual form: on 48 of 48 cell $\times$ output combinations the top three inputs carry at least
+paper,274,0.928,0.928,guard,"top three inputs carry at least half of the summed $\mu^{*}$ (median 0.928). The top three differ from output to output, and for gas exchange al"
+paper,274,0,0.0,ambiguous_small,"e cells mark combinations with no estimable $\mu^{*}$, not $\mu^{*} = 0$; this occurs only for FiO$_2$ in S1\_M, S1\_F and S4\_F, where every"
+paper,274,1,1.0,ambiguous_small,"screen makes FiO$_2$ estimable in all three, and it is then the rank-1 input for PaO$_2$ and SpO$_2$ in each: what the white cells withhold"
+paper,274,2,2.0,ambiguous_small,"ero by construction and no bootstrap interval is estimable. For SpO$_{2}$, $\mu^{*}$ is expressed on the fractional scale Pulse reports (0--1"
+paper,274,0,0.0,ambiguous_small,"$_{2}$, $\mu^{*}$ is expressed on the fractional scale Pulse reports (0--1), so 0.12 corresponds to 12 percentage points. Cell-label key: Tab"
+paper,274,1,1.0,ambiguous_small,"2}$, $\mu^{*}$ is expressed on the fractional scale Pulse reports (0--1), so 0.12 corresponds to 12 percentage points. Cell-label key: Table~"
+paper,274,0.12,0.12,none,"mu^{*}$ is expressed on the fractional scale Pulse reports (0--1), so 0.12 corresponds to 12 percentage points. Cell-label key: Table~"
+paper,274,12,12.0,ambiguous_small,"on the fractional scale Pulse reports (0--1), so 0.12 corresponds to 12 percentage points. Cell-label key: Table~ .}"
+paper,278,2,2.0,ambiguous_small,\subsection{\texorpdfstring{VC-AC tidal-volume dyssynchrony and the $-2$~cmH$_2$O lever}{VC-AC tidal-volume dyssynchrony and the -2 cmH2O lev
+paper,278,2,2.0,ambiguous_small,"and the $-2$~cmH$_2$O lever}{VC-AC tidal-volume dyssynchrony and the -2 cmH2O lever}} Across the full sweep, the sin"
+paper,280,60,60.0,ambiguous_small,uantified as the delivered Vt coefficient of variation over the final 60~s of the 120~s simulation. Vt oscillation is the \emph{primary} such
+paper,280,120,120.0,guard,the delivered Vt coefficient of variation over the final 60~s of the 120~s simulation. Vt oscillation is the \emph{primary} such flag on 20.6~
+paper,280,20.6,20.6,guard,e 120~s simulation. Vt oscillation is the \emph{primary} such flag on 20.6~\% of runs: the delivered breath volume never settles to a single val
+paper,282,64,64.0,ambiguous_small,preregistered follow-up experiment isolated the mechanism. Re-running 64 of the affected configurations with Pulse's \texttt{InspirationPatien
+paper,282,2,2.0,ambiguous_small,"ions with Pulse's \texttt{InspirationPatientTriggerPressure} set to $-2$~cmH$_2$O collapses the median Vt CV from 0.351 to 0.016, and 78.1~\%"
+paper,282,0.351,0.351,guard,"TriggerPressure} set to $-2$~cmH$_2$O collapses the median Vt CV from 0.351 to 0.016, and 78.1~\% of the locked-trigger reruns drop below the 0.0"
+paper,282,0.016,0.016,ambiguous_small,"essure} set to $-2$~cmH$_2$O collapses the median Vt CV from 0.351 to 0.016, and 78.1~\% of the locked-trigger reruns drop below the 0.05 steady-"
+paper,282,78.1,78.1,guard,"to $-2$~cmH$_2$O collapses the median Vt CV from 0.351 to 0.016, and 78.1~\% of the locked-trigger reruns drop below the 0.05 steady-state thre"
+paper,282,0.05,0.05,none,"351 to 0.016, and 78.1~\% of the locked-trigger reruns drop below the 0.05 steady-state threshold (Figure~ a). The lock is a"
+paper,284,1.0,1.0,ambiguous_small,\subsection{\texorpdfstring{Transient hyperoxia regime at FiO$_2$~=~1.0}{Transient hyperoxia regime at FiO2 = 1.0}}
+paper,284,1.0,1.0,ambiguous_small,peroxia regime at FiO$_2$~=~1.0}{Transient hyperoxia regime at FiO2 = 1.0}} A second cluster of preregistered cla
+paper,286,120,120.0,guard,"ncentrates on the highest inspired-oxygen settings. Within the locked 120-second simulation window, Pulse's steady-state mean PaO$_2$ exceeds t"
+paper,286,600,600.0,guard,"e's steady-state mean PaO$_2$ exceeds the classifier's upper bound of 600~mmHg on 34 of the 126 \texttt{implausible}-flagged runs, and 91~\% of"
+paper,286,34,34.0,ambiguous_small,"tate mean PaO$_2$ exceeds the classifier's upper bound of 600~mmHg on 34 of the 126 \texttt{implausible}-flagged runs, and 91~\% of these excu"
+paper,286,126,126.0,guard,"PaO$_2$ exceeds the classifier's upper bound of 600~mmHg on 34 of the 126 \texttt{implausible}-flagged runs, and 91~\% of these excursions occu"
+paper,286,91,91.0,ambiguous_small,"d of 600~mmHg on 34 of the 126 \texttt{implausible}-flagged runs, and 91~\% of these excursions occur at FiO$_2 \geq 0.95$. A preregistered 60"
+paper,286,0.95,0.95,ambiguous_small,"ble}-flagged runs, and 91~\% of these excursions occur at FiO$_2 \geq 0.95$. A preregistered 60-run rerun separated an engine defect from a wind"
+paper,286,60,60.0,ambiguous_small,91~\% of these excursions occur at FiO$_2 \geq 0.95$. A preregistered 60-run rerun separated an engine defect from a window-length artefact. E
+paper,286,120,120.0,guard,"was re-executed from time zero with the recorded duration raised from 120 to 300 seconds, and the plateau taken over the final 60 seconds ($t ="
+paper,286,300,300.0,guard,"executed from time zero with the recorded duration raised from 120 to 300 seconds, and the plateau taken over the final 60 seconds ($t = 240$--"
+paper,286,60,60.0,ambiguous_small,"raised from 120 to 300 seconds, and the plateau taken over the final 60 seconds ($t = 240$--$300$~s). The result supports the artefact: in th"
+paper,286,240,240.0,guard,"to 300 seconds, and the plateau taken over the final 60 seconds ($t = 240$--$300$~s). The result supports the artefact: in the S1 (healthy) coh"
+paper,286,300,300.0,guard,"seconds, and the plateau taken over the final 60 seconds ($t = 240$--$300$~s). The result supports the artefact: in the S1 (healthy) cohort, 40"
+paper,286,40,40.0,ambiguous_small,"00$~s). The result supports the artefact: in the S1 (healthy) cohort, 40 of 44 reruns (90.9~\%) converged to a stable plateau under the prereg"
+paper,286,44,44.0,ambiguous_small,". The result supports the artefact: in the S1 (healthy) cohort, 40 of 44 reruns (90.9~\%) converged to a stable plateau under the preregistere"
+paper,286,90.9,90.9,guard,"t supports the artefact: in the S1 (healthy) cohort, 40 of 44 reruns (90.9~\%) converged to a stable plateau under the preregistered drift crite"
+paper,286,40,40.0,ambiguous_small,"tered drift criterion (Figure~ b). Three of those 40 plateau above 1{,}400~mmHg, beyond the sea-level barometric pressure"
+paper,286,"1{,}400",1400.0,none,"rion (Figure~ b). Three of those 40 plateau above 1{,}400~mmHg, beyond the sea-level barometric pressure of 760~mmHg and so phy"
+paper,286,760,760.0,guard,"ateau above 1{,}400~mmHg, beyond the sea-level barometric pressure of 760~mmHg and so physically impossible; they belong to a six-run solver-in"
+paper,286,37,37.0,none,"d below, three of whose members are drift-converged and three not, so 37 of 44 (84.1~\%) converge below the supplement's physiology-anchored 7"
+paper,286,44,44.0,ambiguous_small,"w, three of whose members are drift-converged and three not, so 37 of 44 (84.1~\%) converge below the supplement's physiology-anchored 700~mmH"
+paper,286,84.1,84.1,none,"hree of whose members are drift-converged and three not, so 37 of 44 (84.1~\%) converge below the supplement's physiology-anchored 700~mmHg ceil"
+paper,286,700,700.0,guard,"7 of 44 (84.1~\%) converge below the supplement's physiology-anchored 700~mmHg ceiling, which is distinct from the locked 600~mmHg bound above."
+paper,286,600,600.0,guard,"ysiology-anchored 700~mmHg ceiling, which is distinct from the locked 600~mmHg bound above. The S1 plateau median over all 40 drift-converged r"
+paper,286,40,40.0,ambiguous_small,"from the locked 600~mmHg bound above. The S1 plateau median over all 40 drift-converged runs was 643~mmHg, sitting approximately 20~mmHg \emp"
+paper,286,643,643.0,guard,"und above. The S1 plateau median over all 40 drift-converged runs was 643~mmHg, sitting approximately 20~mmHg \emph{below} the alveolar-gas-equ"
+paper,286,20,20.0,ambiguous_small,"over all 40 drift-converged runs was 643~mmHg, sitting approximately 20~mmHg \emph{below} the alveolar-gas-equation prediction~"
+paper,288,300,300.0,guard,sequence is direct: hyperoxia studies on Pulse should record at least 300 seconds of simulation before extracting a steady-state plateau. The 1
+paper,288,120,120.0,guard,0 seconds of simulation before extracting a steady-state plateau. The 120-second window remains adequate for cardiovascular and ventilation out
+paper,288,1.0,1.0,ambiguous_small,"ntilation outputs. Extended-window runs on healthy lungs at FiO$_2$ = 1.0 can additionally enter a separate solver-instability regime, affectin"
+paper,294,64,64.0,ambiguous_small,)} Trigger-lockout intervention on VC-AC tidal-volume stability ($n = 64$ paired reruns): breath-to-breath tidal-volume variability under Puls
+paper,294,2,2.0,ambiguous_small,"ability after locking \texttt{InspirationPatientTriggerPressure} at $-2$~cmH$_2$O ($y$), so a dot far below the diagonal is a configuration w"
+paper,294,0.05,0.05,none,"configuration whose oscillation the lock removed. The dotted line at $0.05$ is the classifier's steady-state threshold, a delivered-Vt coefficie"
+paper,294,5,5.0,ambiguous_small,"steady-state threshold, a delivered-Vt coefficient of variation above 5~\% of the mean. The lock collapses the median CV from 0.351 to 0.016"
+paper,294,0.351,0.351,guard,riation above 5~\% of the mean. The lock collapses the median CV from 0.351 to 0.016 and brings 78.1~\% of reruns below the threshold; it is a da
+paper,294,0.016,0.016,ambiguous_small,bove 5~\% of the mean. The lock collapses the median CV from 0.351 to 0.016 and brings 78.1~\% of reruns below the threshold; it is a data-genera
+paper,294,78.1,78.1,guard,mean. The lock collapses the median CV from 0.351 to 0.016 and brings 78.1~\% of reruns below the threshold; it is a data-generation lever for d
+paper,294,300,300.0,guard,"al volume, not a clinical ventilation setting. \textbf{(b)} Hyperoxia 300-second convergence ($n = 60$ reruns across S1, S3, S4 at FiO$_2 = 1.0"
+paper,294,60,60.0,ambiguous_small,"tilation setting. \textbf{(b)} Hyperoxia 300-second convergence ($n = 60$ reruns across S1, S3, S4 at FiO$_2 = 1.0$): PaO$_2$ averaged over th"
+paper,294,1.0,1.0,ambiguous_small,"300-second convergence ($n = 60$ reruns across S1, S3, S4 at FiO$_2 = 1.0$): PaO$_2$ averaged over the original 120-second window ($x$) against"
+paper,294,120,120.0,guard,"ross S1, S3, S4 at FiO$_2 = 1.0$): PaO$_2$ averaged over the original 120-second window ($x$) against the plateau after 300~seconds ($y$). The"
+paper,294,300,300.0,guard,d over the original 120-second window ($x$) against the plateau after 300~seconds ($y$). The dotted line at 600~mmHg is the locked classifier's
+paper,294,600,600.0,guard,($x$) against the plateau after 300~seconds ($y$). The dotted line at 600~mmHg is the locked classifier's upper bound and the dash-dotted line
+paper,294,663,663.0,guard,locked classifier's upper bound and the dash-dotted line at $\approx$~663~mmHg the alveolar-gas-equation sea-level prediction~
+paper,294,0,0.0,ambiguous_small,". Both axes are clamped to the physiological $[0, 760]$~mmHg range; six S1 reruns run off-scale into a numerical runaw"
+paper,294,760,760.0,guard,". Both axes are clamped to the physiological $[0, 760]$~mmHg range; six S1 reruns run off-scale into a numerical runaway (p"
+paper,294,"1{,}408",1408.0,ledger,"reruns run off-scale into a numerical runaway (plateau up to $\approx$1{,}408~mmHg; Supplement~\S\, ) and are omitted. Most S1 dots sit"
+paper,300,"1{,}280",1280.0,guard,"e and blood-volume mechanism} Across the full 1{,}280-run sweep, solver divergence is rare but strikingly sex-stratified. 2"
+paper,300,20,20.0,ambiguous_small,"0-run sweep, solver divergence is rare but strikingly sex-stratified. 20 runs (1.6~\%) failed to complete with finite output, and \emph{all 20"
+paper,300,1.6,1.6,ambiguous_small,"ep, solver divergence is rare but strikingly sex-stratified. 20 runs (1.6~\%) failed to complete with finite output, and \emph{all 20 fell on t"
+paper,300,20,20.0,ambiguous_small,"20 runs (1.6~\%) failed to complete with finite output, and \emph{all 20 fell on the male reference body}, against zero divergences across the"
+paper,300,640,640.0,guard,"fell on the male reference body}, against zero divergences across the 640 runs on the female reference body (Figure~ a). The 20"
+paper,300,20,20.0,ambiguous_small,640 runs on the female reference body (Figure~ a). The 20 divergence events are not spread uniformly through the input space: t
+paper,300,8,8.0,ambiguous_small,"ents are not spread uniformly through the input space: they span only 8 distinct operational-input vectors, and FiO$_2$ sat at its 1.0 bounda"
+paper,300,1.0,1.0,ambiguous_small,"pan only 8 distinct operational-input vectors, and FiO$_2$ sat at its 1.0 boundary in 13 of the 20. A preregistered follow-up experiment isola"
+paper,300,13,13.0,none,"nct operational-input vectors, and FiO$_2$ sat at its 1.0 boundary in 13 of the 20. A preregistered follow-up experiment isolated the mechani"
+paper,300,20,20.0,ambiguous_small,"ional-input vectors, and FiO$_2$ sat at its 1.0 boundary in 13 of the 20. A preregistered follow-up experiment isolated the mechanism. Pulse'"
+paper,302,"4{,}803",4803.0,ledger,"e from a sex-independent allometric relation on body weight, yielding 4{,}803~mL for the 67.3~kg male reference body and 3{,}996~mL for the 56.2~kg"
+paper,302,67.3,67.3,guard,"ndent allometric relation on body weight, yielding 4{,}803~mL for the 67.3~kg male reference body and 3{,}996~mL for the 56.2~kg female body. Th"
+paper,302,"3{,}996",3996.0,ledger,"y weight, yielding 4{,}803~mL for the 67.3~kg male reference body and 3{,}996~mL for the 56.2~kg female body. The two bodies therefore share essent"
+paper,302,56.2,56.2,guard,"4{,}803~mL for the 67.3~kg male reference body and 3{,}996~mL for the 56.2~kg female body. The two bodies therefore share essentially the same b"
+paper,302,71,71.0,none,"refore share essentially the same blood volume per kilogram ($\approx$71~mL\,kg$^{-1}$, within standard clinical estimates~ ),"
+paper,302,1,1.0,ambiguous_small,"essentially the same blood volume per kilogram ($\approx$71~mL\,kg$^{-1}$, within standard clinical estimates~ ), so what sep"
+paper,302,20,20.0,ambiguous_small,absolute volume rather than sex-specific physiology. Re-executing the 20 originally-diverged male inputs with an explicit \texttt{BloodVolumeB
+paper,302,20,20.0,ambiguous_small,"\texttt{BloodVolumeBaseline} override took the divergence count from 20 / 20 at the default to 0 / 20 at both an intermediate 4{,}400~mL brac"
+paper,302,20,20.0,ambiguous_small,"ttt{BloodVolumeBaseline} override took the divergence count from 20 / 20 at the default to 0 / 20 at both an intermediate 4{,}400~mL bracket a"
+paper,302,0,0.0,ambiguous_small,"ne} override took the divergence count from 20 / 20 at the default to 0 / 20 at both an intermediate 4{,}400~mL bracket and the engine's own"
+paper,302,20,20.0,ambiguous_small,"override took the divergence count from 20 / 20 at the default to 0 / 20 at both an intermediate 4{,}400~mL bracket and the engine's own setup"
+paper,302,"4{,}400",4400.0,none,"e count from 20 / 20 at the default to 0 / 20 at both an intermediate 4{,}400~mL bracket and the engine's own setup floor of 4{,}082~mL (Figure~"
+paper,302,"4{,}082",4082.0,ledger,"n intermediate 4{,}400~mL bracket and the engine's own setup floor of 4{,}082~mL (Figure~ b). Removing the divergence does not by it"
+paper,302,12,12.0,ambiguous_small,moving the divergence does not by itself make a configuration usable: 12 of the 20 are clean at both override levels while 8 retain a flag ---
+paper,302,20,20.0,ambiguous_small,divergence does not by itself make a configuration usable: 12 of the 20 are clean at both override levels while 8 retain a flag --- SpO$_2$ p
+paper,302,8,8.0,ambiguous_small,"guration usable: 12 of the 20 are clean at both override levels while 8 retain a flag --- SpO$_2$ pinned at saturation, the tidal-volume osci"
+paper,302,24,24.0,ambiguous_small,"fied behaviour; the steady-state values separate far less. Across the 24 (scenario $\times$ output) comparisons, the Wasserstein distance betw"
+paper,302,0.75,0.75,ambiguous_small,"the comparison is computable, with Spearman $\rho$ point estimates of 0.75--1.00 across the 12 (scenario, output) cells of S2 and S3, only the m"
+paper,302,1.00,1.0,guard,"mparison is computable, with Spearman $\rho$ point estimates of 0.75--1.00 across the 12 (scenario, output) cells of S2 and S3, only the mild-AR"
+paper,302,12,12.0,ambiguous_small,"utable, with Spearman $\rho$ point estimates of 0.75--1.00 across the 12 (scenario, output) cells of S2 and S3, only the mild-ARDS delivered-t"
+paper,304,144,144.0,guard,"on clean runs, and how many runs stay clean itself differs by sex --- 144 of 160 against 122 of 160 in S3, for instance --- so the two distribu"
+paper,304,160,160.0,guard,"n runs, and how many runs stay clean itself differs by sex --- 144 of 160 against 122 of 160 in S3, for instance --- so the two distributions a"
+paper,304,122,122.0,guard,"how many runs stay clean itself differs by sex --- 144 of 160 against 122 of 160 in S3, for instance --- so the two distributions are drawn fro"
+paper,304,160,160.0,guard,"y runs stay clean itself differs by sex --- 144 of 160 against 122 of 160 in S3, for instance --- so the two distributions are drawn from diffe"
+paper,304,19.8,19.8,guard,"hed absolute tidal-volume setting, the female reference body receives 19.8~\% more tidal volume per kilogram of actual body weight and 36.1~\% m"
+paper,304,36.1,36.1,guard,"ives 19.8~\% more tidal volume per kilogram of actual body weight and 36.1~\% more per kilogram of ideal body weight, computed using the sex-spe"
+paper,310,"1{,}280",1280.0,guard,"bf{(a)} Divergence counts per (scenario $\times$ sex) cell across the 1{,}280-run sweep: all 20 divergence events fall on the male reference body,"
+paper,310,20,20.0,ambiguous_small,"ts per (scenario $\times$ sex) cell across the 1{,}280-run sweep: all 20 divergence events fall on the male reference body, while the female b"
+paper,310,20,20.0,ambiguous_small,t a single one. \textbf{(b)} Blood-volume rescue dose-response on the 20 originally-diverged male inputs. The $x$-axis is the imposed \texttt{
+paper,310,"4{,}803",4803.0,ledger,"s. The $x$-axis is the imposed \texttt{BloodVolumeBaseline} override (4{,}803~mL default, 4{,}400~mL intermediate bracket, 4{,}082~mL Pulse setup-t"
+paper,310,"4{,}400",4400.0,none,"he imposed \texttt{BloodVolumeBaseline} override (4{,}803~mL default, 4{,}400~mL intermediate bracket, 4{,}082~mL Pulse setup-time floor on this bo"
+paper,310,"4{,}082",4082.0,ledger,"eline} override (4{,}803~mL default, 4{,}400~mL intermediate bracket, 4{,}082~mL Pulse setup-time floor on this body; reductions of 0, $8.4$ and $1"
+paper,310,0,0.0,ambiguous_small,"racket, 4{,}082~mL Pulse setup-time floor on this body; reductions of 0, $8.4$ and $15.0~\%$ beneath each tick), the $y$-axis the divergence"
+paper,310,8.4,8.4,none,"et, 4{,}082~mL Pulse setup-time floor on this body; reductions of 0, $8.4$ and $15.0~\%$ beneath each tick), the $y$-axis the divergence count"
+paper,310,15.0,15.0,guard,"2~mL Pulse setup-time floor on this body; reductions of 0, $8.4$ and $15.0~\%$ beneath each tick), the $y$-axis the divergence count out of 20."
+paper,310,20,20.0,ambiguous_small,"15.0~\%$ beneath each tick), the $y$-axis the divergence count out of 20. The collapse to zero at both reductions (20 $\rightarrow$ 0) establi"
+paper,310,20,20.0,ambiguous_small,divergence count out of 20. The collapse to zero at both reductions (20 $\rightarrow$ 0) establishes that lowering the blood-volume baseline
+paper,310,0,0.0,ambiguous_small,out of 20. The collapse to zero at both reductions (20 $\rightarrow$ 0) establishes that lowering the blood-volume baseline is sufficient to
+paper,310,"3{,}996",3996.0,ledger,"olver fails at the default value. Pulse's allometric formula computes 3{,}996~mL for the female reference body (dashed vertical line), 86~mL below"
+paper,310,86,86.0,none,"utes 3{,}996~mL for the female reference body (dashed vertical line), 86~mL below the male floor, so a one-way BV transplant cannot make the t"
+paper,321,"1{,}280",1280.0,guard,"nable corrections and a sex-specific reliability axis emerge from the 1{,}280-run sweep: a single configuration setting that makes VC-AC tidal-volu"
+paper,321,1.0,1.0,ambiguous_small,"a steady-state-window correction for hyperoxia simulation at FiO$_2 = 1.0$ (\S ); and, on a separate axis, a previous"
+paper,323,0,0.0,ambiguous_small,"tered at ingestion. The preregistered rejection-log detector fired on 0 of 1{,}280 runs, and the post hoc instantiation audit found exact agr"
+paper,323,"1{,}280",1280.0,guard,"at ingestion. The preregistered rejection-log detector fired on 0 of 1{,}280 runs, and the post hoc instantiation audit found exact agreement betw"
+paper,329,85,85.0,ambiguous_small,"tion framework to Pulse on MIMIC-III sepsis trajectories and reported 85 total Hoeffding-inequality rejections. Of these, 82 of 85 fall outsid"
+paper,329,82,82.0,ambiguous_small,"ries and reported 85 total Hoeffding-inequality rejections. Of these, 82 of 85 fall outside the four-channel overlap with this atlas (HR, MAP,"
+paper,329,85,85.0,ambiguous_small,"nd reported 85 total Hoeffding-inequality rejections. Of these, 82 of 85 fall outside the four-channel overlap with this atlas (HR, MAP, PaO$_"
+paper,329,80,80.0,ambiguous_small,"he four-channel overlap with this atlas (HR, MAP, PaO$_2$, PaCO$_2$): 80 on channels the present atlas does not assess, plus 2 on partial-over"
+paper,329,2,2.0,ambiguous_small,"2$, PaCO$_2$): 80 on channels the present atlas does not assess, plus 2 on partial-overlap pressure channels; only 3 of 85 fall inside it. Th"
+paper,329,3,3.0,ambiguous_small,"as does not assess, plus 2 on partial-overlap pressure channels; only 3 of 85 fall inside it. The two studies therefore expose different weak"
+paper,329,85,85.0,ambiguous_small,"es not assess, plus 2 on partial-overlap pressure channels; only 3 of 85 fall inside it. The two studies therefore expose different weaknesses"
+paper,331,0.879,0.879,guard,"cterisation of an ARDS impairment-fraction solver-instability band ($[0.879, 0.946]$), together with further engine-level observations that targe"
+paper,331,0.946,0.946,guard,"tion of an ARDS impairment-fraction solver-instability band ($[0.879, 0.946]$), together with further engine-level observations that target tooli"
+paper,333,0.75,0.75,ambiguous_small,"nical trajectories are impossible. (vi)~Pulse enforces DBP/SBP $\leq$ 0.75, and configuration-time clipping shortened 9 of 20 DBP steps, so some"
+paper,333,9,9.0,ambiguous_small,"forces DBP/SBP $\leq$ 0.75, and configuration-time clipping shortened 9 of 20 DBP steps, so some SBP and DBP effects are not strict fixed-ste"
+paper,333,20,20.0,ambiguous_small,"s DBP/SBP $\leq$ 0.75, and configuration-time clipping shortened 9 of 20 DBP steps, so some SBP and DBP effects are not strict fixed-step Morr"
+paper,343,2.0,2.0,ambiguous_small,"All simulations used Pulse (Kitware, Apache-2.0)~ , a real-time-capable lumped-parameter whole-body phy"
+paper,343,5,5.0,ambiguous_small,rameter whole-body physiology engine whose respiratory sub-model is a 5-compartment lung~ . The engine was executed insi
+paper,343,"1{,}280",1280.0,guard,"ingle \texttt{pulse-atlas-engine} Docker image, pinned for the entire 1{,}280-run sweep so that every simulation runs against bit-identical engine"
+paper,349,18,18.0,none,"Two adult reference bodies were used: a male body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both w"
+paper,349,67.3,67.3,guard,"Two adult reference bodies were used: a male body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both weights"
+paper,349,180,180.0,guard,"Two adult reference bodies were used: a male body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both weights are U.S"
+paper,349,18,18.0,none,"re used: a male body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both weights are U.S.\ Centers for Disease Control"
+paper,349,56.2,56.2,guard,"sed: a male body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both weights are U.S.\ Centers for Disease Control and P"
+paper,349,163,163.0,none,"le body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both weights are U.S.\ Centers for Disease Control and Preventio"
+paper,349,50,50.0,ambiguous_small,e U.S.\ Centers for Disease Control and Prevention (CDC) growth-chart 50th-percentile weight-for-age values for each sex~
+paper,349,216.5,216.5,guard,", taken from the CDC row at \texttt{Agemos}~=~216.5. The female height matches the CDC 50th percentile and Pulse's own st"
+paper,349,50,50.0,ambiguous_small,CDC row at \texttt{Agemos}~=~216.5. The female height matches the CDC 50th percentile and Pulse's own standard female height; the male height
+paper,355,50,50.0,ambiguous_small,"swept across their verified Pulse acceptance ranges: heart rate (HR, 50--110~bpm), systolic and diastolic blood pressure (SBP 90--120~mmHg, D"
+paper,355,110,110.0,none,"pt across their verified Pulse acceptance ranges: heart rate (HR, 50--110~bpm), systolic and diastolic blood pressure (SBP 90--120~mmHg, DBP 60"
+paper,355,90,90.0,ambiguous_small,"rt rate (HR, 50--110~bpm), systolic and diastolic blood pressure (SBP 90--120~mmHg, DBP 60--80~mmHg with the post-clip pulse-pressure constrai"
+paper,355,120,120.0,guard,"ate (HR, 50--110~bpm), systolic and diastolic blood pressure (SBP 90--120~mmHg, DBP 60--80~mmHg with the post-clip pulse-pressure constraint),"
+paper,355,60,60.0,ambiguous_small,"10~bpm), systolic and diastolic blood pressure (SBP 90--120~mmHg, DBP 60--80~mmHg with the post-clip pulse-pressure constraint), respiratory r"
+paper,355,80,80.0,ambiguous_small,"pm), systolic and diastolic blood pressure (SBP 90--120~mmHg, DBP 60--80~mmHg with the post-clip pulse-pressure constraint), respiratory rate"
+paper,355,8,8.0,ambiguous_small,"with the post-clip pulse-pressure constraint), respiratory rate (RR, 8--20~breaths\,min$^{-1}$), tidal volume (Vt, 300--800~mL), inspired ox"
+paper,355,20,20.0,ambiguous_small,"th the post-clip pulse-pressure constraint), respiratory rate (RR, 8--20~breaths\,min$^{-1}$), tidal volume (Vt, 300--800~mL), inspired oxygen"
+paper,355,1,1.0,ambiguous_small,"lse-pressure constraint), respiratory rate (RR, 8--20~breaths\,min$^{-1}$), tidal volume (Vt, 300--800~mL), inspired oxygen fraction (FiO$_2$"
+paper,355,300,300.0,guard,", respiratory rate (RR, 8--20~breaths\,min$^{-1}$), tidal volume (Vt, 300--800~mL), inspired oxygen fraction (FiO$_2$, 0.21--1.0) and positive"
+paper,355,800,800.0,guard,"piratory rate (RR, 8--20~breaths\,min$^{-1}$), tidal volume (Vt, 300--800~mL), inspired oxygen fraction (FiO$_2$, 0.21--1.0) and positive end-e"
+paper,355,0.21,0.21,none,"), tidal volume (Vt, 300--800~mL), inspired oxygen fraction (FiO$_2$, 0.21--1.0) and positive end-expiratory pressure (PEEP, 0--20~cmH$_2$O). Ea"
+paper,355,1.0,1.0,ambiguous_small,"al volume (Vt, 300--800~mL), inspired oxygen fraction (FiO$_2$, 0.21--1.0) and positive end-expiratory pressure (PEEP, 0--20~cmH$_2$O). Each ra"
+paper,355,0,0.0,ambiguous_small,"tion (FiO$_2$, 0.21--1.0) and positive end-expiratory pressure (PEEP, 0--20~cmH$_2$O). Each range is anchored to a primary verification sourc"
+paper,355,20,20.0,ambiguous_small,"n (FiO$_2$, 0.21--1.0) and positive end-expiratory pressure (PEEP, 0--20~cmH$_2$O). Each range is anchored to a primary verification source, t"
+paper,355,3,3.0,ambiguous_small,pressure was derived as $\mathrm{DBP} + (\mathrm{SBP} - \mathrm{DBP})/3$ rather than swept independently. The swept heart-rate and blood-pres
+paper,357,0,0.0,ambiguous_small,"re severity range: a healthy baseline (S1, ARDS impairment fraction = 0) and three ARDS severities (S2, mild, impairment = 0.26; S3, moderate"
+paper,357,0.26,0.26,ambiguous_small,"rment fraction = 0) and three ARDS severities (S2, mild, impairment = 0.26; S3, moderate, impairment = 0.60; S4, severe, impairment = 0.95). At"
+paper,357,0.60,0.6,ambiguous_small,"S severities (S2, mild, impairment = 0.26; S3, moderate, impairment = 0.60; S4, severe, impairment = 0.95). At a reference ventilation setting b"
+paper,357,0.95,0.95,ambiguous_small,"ent = 0.26; S3, moderate, impairment = 0.60; S4, severe, impairment = 0.95). At a reference ventilation setting based on the ARDSnet low-tidal-v"
+paper,357,0.91,0.91,ambiguous_small,to an arbitrary engine setting. The three severities also bracket the 0.91--0.945 solver-instability zone documented at design time (Supplement~
+paper,357,0.945,0.945,guard,"arbitrary engine setting. The three severities also bracket the 0.91--0.945 solver-instability zone documented at design time (Supplement~\S\,"
+paper,357,0.879,0.879,guard,"s's own continuous-severity sweep subsequently widened that band to $[0.879, 0.946]$ (\S ). Pulse represents severity a"
+paper,357,0.946,0.946,guard,"continuous-severity sweep subsequently widened that band to $[0.879, 0.946]$ (\S ). Pulse represents severity as a sin"
+paper,359,20,20.0,ambiguous_small,ple was generated with SALib~ using 20 trajectories at 4 grid levels per input and random seed 42. Each traj
+paper,359,4,4.0,ambiguous_small,ith SALib~ using 20 trajectories at 4 grid levels per input and random seed 42. Each trajectory contributes
+paper,359,42,42.0,ambiguous_small,"using 20 trajectories at 4 grid levels per input and random seed 42. Each trajectory contributes $7 + 1 = 8$ model evaluations, giving 16"
+paper,359,7,7.0,ambiguous_small,"rid levels per input and random seed 42. Each trajectory contributes $7 + 1 = 8$ model evaluations, giving 160 runs per (scenario $\times$ se"
+paper,359,1,1.0,ambiguous_small,"levels per input and random seed 42. Each trajectory contributes $7 + 1 = 8$ model evaluations, giving 160 runs per (scenario $\times$ sex) c"
+paper,359,8,8.0,ambiguous_small,"ls per input and random seed 42. Each trajectory contributes $7 + 1 = 8$ model evaluations, giving 160 runs per (scenario $\times$ sex) cell"
+paper,359,160,160.0,guard,"42. Each trajectory contributes $7 + 1 = 8$ model evaluations, giving 160 runs per (scenario $\times$ sex) cell and 1{,}280 runs across the ful"
+paper,359,"1{,}280",1280.0,guard,"del evaluations, giving 160 runs per (scenario $\times$ sex) cell and 1{,}280 runs across the full sweep. The trajectory count was fixed at 20 in p"
+paper,359,20,20.0,ambiguous_small,"1{,}280 runs across the full sweep. The trajectory count was fixed at 20 in preregistration as a computationally tractable design; it was not"
+paper,359,120,120.0,guard,"hrough a trajectory-count convergence analysis. Each run executed for 120 seconds of simulated time, with output channels sampled at 5-second i"
+paper,359,5,5.0,ambiguous_small,"ed for 120 seconds of simulated time, with output channels sampled at 5-second intervals (13 samples in the final 60-second steady-state wind"
+paper,359,13,13.0,none,"f simulated time, with output channels sampled at 5-second intervals (13 samples in the final 60-second steady-state window). \subsection{Ste"
+paper,359,60,60.0,ambiguous_small,utput channels sampled at 5-second intervals (13 samples in the final 60-second steady-state window). \subsection{Steady-state classifier}
+paper,363,5,5.0,ambiguous_small,he preregistered label for a run whose Pulse setup log matches any of 5 documented input-rejection patterns --- 4 of them in force when the s
+paper,363,4,4.0,ambiguous_small,"se setup log matches any of 5 documented input-rejection patterns --- 4 of them in force when the sweep ran, the fifth added afterwards to cl"
+paper,363,"3{,}348",3348.0,none,"'s lower-bound rejection format. Replaying both pattern sets over all 3{,}348 recorded setup logs reclassifies no run of this sweep. This log-based"
+paper,363,20,20.0,ambiguous_small,"exits non-zero, but in this sweep it holds nothing else: each of the 20 diverged runs carries Pulse's own \texttt{Could not converge to provi"
+paper,363,"1{,}260",1260.0,guard,"o provided Convergence} declaration in its setup log, and none of the 1{,}260 completed runs does (\texttt{ }). \te"
+paper,365,20,20.0,ambiguous_small,"y-state output mean exceeds the locked hard physiological bounds: HR [20, 220]~bpm, MAP [30, 180]~mmHg, Vt [50, 1{,}500]~mL, SpO$_2$ [50, 100]"
+paper,365,220,220.0,guard,"ate output mean exceeds the locked hard physiological bounds: HR [20, 220]~bpm, MAP [30, 180]~mmHg, Vt [50, 1{,}500]~mL, SpO$_2$ [50, 100]~\%,"
+paper,365,30,30.0,ambiguous_small,"exceeds the locked hard physiological bounds: HR [20, 220]~bpm, MAP [30, 180]~mmHg, Vt [50, 1{,}500]~mL, SpO$_2$ [50, 100]~\%, PaO$_2$ [20, 6"
+paper,365,180,180.0,guard,"eeds the locked hard physiological bounds: HR [20, 220]~bpm, MAP [30, 180]~mmHg, Vt [50, 1{,}500]~mL, SpO$_2$ [50, 100]~\%, PaO$_2$ [20, 600]~m"
+paper,365,50,50.0,ambiguous_small,"hard physiological bounds: HR [20, 220]~bpm, MAP [30, 180]~mmHg, Vt [50, 1{,}500]~mL, SpO$_2$ [50, 100]~\%, PaO$_2$ [20, 600]~mmHg, PaCO$_2$"
+paper,365,"1{,}500",1500.0,ledger,"d physiological bounds: HR [20, 220]~bpm, MAP [30, 180]~mmHg, Vt [50, 1{,}500]~mL, SpO$_2$ [50, 100]~\%, PaO$_2$ [20, 600]~mmHg, PaCO$_2$ [10, 120]"
+paper,365,50,50.0,ambiguous_small,": HR [20, 220]~bpm, MAP [30, 180]~mmHg, Vt [50, 1{,}500]~mL, SpO$_2$ [50, 100]~\%, PaO$_2$ [20, 600]~mmHg, PaCO$_2$ [10, 120]~mmHg. Unlike the"
+paper,365,100,100.0,guard,"[20, 220]~bpm, MAP [30, 180]~mmHg, Vt [50, 1{,}500]~mL, SpO$_2$ [50, 100]~\%, PaO$_2$ [20, 600]~mmHg, PaCO$_2$ [10, 120]~mmHg. Unlike the swep"
+paper,365,20,20.0,ambiguous_small,"P [30, 180]~mmHg, Vt [50, 1{,}500]~mL, SpO$_2$ [50, 100]~\%, PaO$_2$ [20, 600]~mmHg, PaCO$_2$ [10, 120]~mmHg. Unlike the swept inputs, the six"
+paper,365,600,600.0,guard,"0, 180]~mmHg, Vt [50, 1{,}500]~mL, SpO$_2$ [50, 100]~\%, PaO$_2$ [20, 600]~mmHg, PaCO$_2$ [10, 120]~mmHg. Unlike the swept inputs, the six trac"
+paper,365,10,10.0,ambiguous_small,"1{,}500]~mL, SpO$_2$ [50, 100]~\%, PaO$_2$ [20, 600]~mmHg, PaCO$_2$ [10, 120]~mmHg. Unlike the swept inputs, the six tracked outputs have no"
+paper,365,120,120.0,guard,"}500]~mL, SpO$_2$ [50, 100]~\%, PaO$_2$ [20, 600]~mmHg, PaCO$_2$ [10, 120]~mmHg. Unlike the swept inputs, the six tracked outputs have no accep"
+paper,367,60,60.0,ambiguous_small,". \texttt{not\_steady\_state} fires when, over the final 60-second window, any tracked output flatlines, drifts beyond its per-ch"
+paper,367,1,1.0,ambiguous_small,s coefficient-of-variation threshold. A flatline is variability below 1~\% of the mean \emph{and} a mean within 0.1~\% of a hard bound --- $\
+paper,367,0.1,0.1,none,atline is variability below 1~\% of the mean \emph{and} a mean within 0.1~\% of a hard bound --- $\geq$~99.9~\% for the SpO$_2$ ceiling --- a r
+paper,367,99.9,99.9,none,f the mean \emph{and} a mean within 0.1~\% of a hard bound --- $\geq$~99.9~\% for the SpO$_2$ ceiling --- a rule written to catch a solver that
+paper,369,60,60.0,ambiguous_small,"texttt{clean}, following the chronology of failure within a run. The [60, 120]~s window was preregistered before any sweep data was collected,"
+paper,369,120,120.0,guard,"tt{clean}, following the chronology of failure within a run. The [60, 120]~s window was preregistered before any sweep data was collected, and"
+paper,369,22,22.0,none,"s window was preregistered before any sweep data was collected, and a 22-run pilot on the healthy-male cell verified five preregistered gating"
+paper,373,10,10.0,ambiguous_small,"s mean over the clean runs of the healthy-male (S1, M) cell, and the $10~\%$ and $30~\%$ deviation bands were preregistered before any data we"
+paper,373,30,30.0,ambiguous_small,"the clean runs of the healthy-male (S1, M) cell, and the $10~\%$ and $30~\%$ deviation bands were preregistered before any data were collected"
+paper,375,30,30.0,ambiguous_small,stration stated that a cell would be red when its deviation exceeded $30~\%$ or when ``any flag'' was raised; the implemented rule treats \tex
+paper,375,30,30.0,ambiguous_small,"e exceeds zero, and reserves red for a combined hard-flag rate above $30~\%$. The repository establishes that this implementation was committe"
+paper,375,7,7.0,ambiguous_small,as a material deviation. Under the implemented rule the map contains 7 green / 29 yellow / 12 red combinations; under the literal reading it
+paper,375,29,29.0,ambiguous_small,rial deviation. Under the implemented rule the map contains 7 green / 29 yellow / 12 red combinations; under the literal reading it would cont
+paper,375,12,12.0,ambiguous_small,on. Under the implemented rule the map contains 7 green / 29 yellow / 12 red combinations; under the literal reading it would contain 7 green
+paper,375,7,7.0,ambiguous_small,"low / 12 red combinations; under the literal reading it would contain 7 green / 3 yellow / 38 red, with the same seven green and the same twe"
+paper,375,3,3.0,ambiguous_small,"ed combinations; under the literal reading it would contain 7 green / 3 yellow / 38 red, with the same seven green and the same twelve red. W"
+paper,375,38,38.0,ambiguous_small,"ions; under the literal reading it would contain 7 green / 3 yellow / 38 red, with the same seven green and the same twelve red. We retain the"
+paper,379,0,0.0,ambiguous_small,"e of the input step expressed on that input's swept range mapped to $[0,1]$, so a $\mu^{*}$ is an output change per full-range move of its in"
+paper,379,1,1.0,ambiguous_small,"of the input step expressed on that input's swept range mapped to $[0,1]$, so a $\mu^{*}$ is an output change per full-range move of its inpu"
+paper,379,95,95.0,none,"change per full-range move of its input. Indices carry non-parametric 95~\% bootstrap confidence intervals from 1{,}000 trajectory-level resam"
+paper,379,"1{,}000",1000.0,ledger,"ndices carry non-parametric 95~\% bootstrap confidence intervals from 1{,}000 trajectory-level resamples. Four hypotheses were preregistered before"
+paper,379,5,5.0,ambiguous_small,"r at least half of the summed $\mu^{*}$ for each output; H2, at least 5~\% of the Morris sample hits at least one silent clamp; H3, at least"
+paper,379,0.91,0.91,ambiguous_small,"ne solver-divergence zone exists outside the previously characterised 0.91--0.945 band within the seven-input adult envelope; H4, the male and f"
+paper,379,0.945,0.945,guard,"ver-divergence zone exists outside the previously characterised 0.91--0.945 band within the seven-input adult envelope; H4, the male and female r"
+paper,379,1,1.0,ambiguous_small,"ng on at least one output, with no direction prespecified. Hypothesis~1 was evaluated per cell $\times$ output on the point-estimate top-3 fr"
+paper,379,3,3.0,ambiguous_small,is~1 was evaluated per cell $\times$ output on the point-estimate top-3 fraction of summed $\mu^{*}$. That sum runs over the inputs carrying
+paper,379,18,18.0,none,"mentary-effect pair, so it covers six inputs rather than seven in the 18 combinations where FiO$_2$ carries none (Figure~ ); th"
+paper,379,2,2.0,ambiguous_small,"nsequently do not share a common denominator across cells. Hypotheses 2, 3 and 4 are resolved in \S . Sex differenc"
+paper,379,3,3.0,ambiguous_small,"quently do not share a common denominator across cells. Hypotheses 2, 3 and 4 are resolved in \S . Sex differences"
+paper,379,4,4.0,ambiguous_small,"y do not share a common denominator across cells. Hypotheses 2, 3 and 4 are resolved in \S . Sex differences in the"
+paper,381,"2{,}000",2000.0,guard,"female clean-run distributions, tested against a permutation null of 2{,}000 random relabellings at the two original group sizes. The resulting 24"
+paper,381,24,24.0,ambiguous_small,00 random relabellings at the two original group sizes. The resulting 24-test family was corrected by Benjamini--Hochberg control of the false
+paper,381,0.05,0.05,none,"xpected fraction of false positives among the rejected tests) at $q = 0.05$; with 2{,}000 relabellings the smallest non-zero empirical tail prop"
+paper,381,"2{,}000",2000.0,guard,"tion of false positives among the rejected tests) at $q = 0.05$; with 2{,}000 relabellings the smallest non-zero empirical tail proportion is 1/2{,"
+paper,381,1,1.0,ambiguous_small,",}000 relabellings the smallest non-zero empirical tail proportion is 1/2{,}000, and two tests reaching zero are reported conservatively as $"
+paper,381,"2{,}000",2000.0,guard,"000 relabellings the smallest non-zero empirical tail proportion is 1/2{,}000, and two tests reaching zero are reported conservatively as $p < 0.00"
+paper,381,0.001,0.001,none,"}000, and two tests reaching zero are reported conservatively as $p < 0.001$. Cross-sex agreement of input-importance rankings was quantified by"
+paper,381,1,1.0,ambiguous_small,"mportance rankings was quantified by the Spearman rank correlation ($+1$ when the two orderings agree, $-1$ when they are reversed) between m"
+paper,381,1,1.0,ambiguous_small,"y the Spearman rank correlation ($+1$ when the two orderings agree, $-1$ when they are reversed) between male and female $\mu^{*}$ vectors pe"
+paper,383,0.6,0.6,ambiguous_small,"alation on any top-three input whose $\sigma / \mu^{*}$ ratio reaches 0.6. Applied as preregistered, the trigger fires on 72 of the 144 top-thr"
+paper,383,72,72.0,ambiguous_small,"*}$ ratio reaches 0.6. Applied as preregistered, the trigger fires on 72 of the 144 top-three inputs, spanning 43 of the 48 combinations, whil"
+paper,383,144,144.0,guard,"reaches 0.6. Applied as preregistered, the trigger fires on 72 of the 144 top-three inputs, spanning 43 of the 48 combinations, while the same"
+paper,383,43,43.0,ambiguous_small,"stered, the trigger fires on 72 of the 144 top-three inputs, spanning 43 of the 48 combinations, while the same preregistration fixed the bolt"
+paper,383,48,48.0,ambiguous_small,"e trigger fires on 72 of the 144 top-three inputs, spanning 43 of the 48 combinations, while the same preregistration fixed the bolt-on's comp"
+paper,383,"1{,}500",1500.0,ledger,"hile the same preregistration fixed the bolt-on's compute envelope at 1{,}500 additional runs. Because every output of a cell comes from the same P"
+paper,383,43,43.0,ambiguous_small,", so the cost scales with the eight firing cells rather than with the 43 combinations: 6{,}144 runs under the preregistered $64 \times (2k + 2"
+paper,383,"6{,}144",6144.0,ledger,"les with the eight firing cells rather than with the 43 combinations: 6{,}144 runs under the preregistered $64 \times (2k + 2)$ formula, or 3{,}584"
+paper,383,64,64.0,ambiguous_small,"than with the 43 combinations: 6{,}144 runs under the preregistered $64 \times (2k + 2)$ formula, or 3{,}584 if only the first-order and tota"
+paper,383,2,2.0,ambiguous_small,"3 combinations: 6{,}144 runs under the preregistered $64 \times (2k + 2)$ formula, or 3{,}584 if only the first-order and total indices the p"
+paper,383,"3{,}584",3584.0,ledger,"6{,}144 runs under the preregistered $64 \times (2k + 2)$ formula, or 3{,}584 if only the first-order and total indices the protocol asks for are c"
+paper,383,2.4,2.4,ambiguous_small,"hin the budget its own protocol declared, exceeding it by a factor of 2.4 to 4.1 on these two readings, and up to 5.5 on the wider set in Suppl"
+paper,383,4.1,4.1,none,"budget its own protocol declared, exceeding it by a factor of 2.4 to 4.1 on these two readings, and up to 5.5 on the wider set in Supplement~\"
+paper,383,5.5,5.5,none,"ceeding it by a factor of 2.4 to 4.1 on these two readings, and up to 5.5 on the wider set in Supplement~\S\, , and is reporte"
+paper,383,"1{,}000",1000.0,ledger,"d a post hoc sensitivity analysis in which trajectories are resampled 1{,}000 times per combination and $\sigma / \mu^{*}$ is recomputed jointly on"
+paper,383,0.6,0.6,ambiguous_small,"ecomputed jointly on each draw; combinations whose lower bound clears 0.6 in every draw, under each of five independent seeds, are characterise"
+paper,391,4,4.0,ambiguous_small,"{xhigh} thinking-effort default: Claude (\texttt{claude-opus-4-7}) for the initial drafting, (\texttt{claude-opus-4-8}) thr"
+paper,391,7,7.0,ambiguous_small,"high} thinking-effort default: Claude (\texttt{claude-opus-4-7}) for the initial drafting, (\texttt{claude-opus-4-8}) throu"
+paper,391,4,4.0,ambiguous_small,"de-opus-4-7}) for the initial drafting, (\texttt{claude-opus-4-8}) through the first supervisor-review phase, and (\texttt{cl"
+paper,391,8,8.0,ambiguous_small,"-opus-4-7}) for the initial drafting, (\texttt{claude-opus-4-8}) through the first supervisor-review phase, and (\texttt{clau"
+paper,391,5,5.0,ambiguous_small,"gh the first supervisor-review phase, and (\texttt{claude-opus-5}) for the audit and synthesis rounds that followed. The other side wa"
+paper,391,3.1,3.1,ambiguous_small,"d. The other side was a separate web session, first Google Gemini Pro 3.1 (extended-thinking mode) and, from 3~August~2026, OpenAI ChatGPT ("
+paper,391,3,3.0,ambiguous_small,"ssion, first Google Gemini Pro 3.1 (extended-thinking mode) and, from 3~August~2026, OpenAI ChatGPT ( Sol, High reasoning level); in t"
+paper,393,150,150.0,guard,"shortened by about a quarter and the abstract was revised within its 150-word cap, with the displaced material migrated to the Supplementary I"
+paper,406,100,100.0,guard,. The companion technical monograph (over 100 pages) carrying the full audit traceability will be archived together
+paper,406,2.0,2.0,ambiguous_small,"the code and the per-experiment lab-notebook entries carry the Apache-2.0 licence stated under \hyperlink{tgt:code-avail}{Code availability}, w"
+paper,406,4.0,4.0,ambiguous_small,"monograph content are released under the Creative Commons Attribution 4.0 licence (CC-BY-4.0), whose version~4.0 covers sui generis database ri"
+paper,406,4.0,4.0,ambiguous_small,"re released under the Creative Commons Attribution 4.0 licence (CC-BY-4.0), whose version~4.0 covers sui generis database rights. Verbatim thir"
+paper,406,4.0,4.0,ambiguous_small,"e Creative Commons Attribution 4.0 licence (CC-BY-4.0), whose version~4.0 covers sui generis database rights. Verbatim third-party excerpts, no"
+paper,406,2.0,2.0,ambiguous_small,"rty excerpts, notably from the Pulse documentation and source (Apache-2.0), retain their original licensing terms. This paper and its Supplemen"
+paper,410,2.0,2.0,ambiguous_small,"dit ledger, and reproducibility scripts) is released under the Apache-2.0 license at ."
+paper,410,"1{,}280",1280.0,guard,"verification) is summarised in Supplement~\S\, . The full 1{,}280-run sweep and the S1\_M pilot were additionally reproduced by a co-au"
+paper,410,5,5.0,ambiguous_small,"ed by a co-author on a second, independent x86\_64 host: an AMD Ryzen~5 CPU running Linux under WSL2, a different CPU vendor and operating sy"
+paper,410,4,4.0,ambiguous_small,ag and steady-state value was bit-identical; three derived Hypothesis-4 statistics differed only at floating-point round-off ($\sim 10^{-14}$
+paper,410,10,10.0,ambiguous_small,"othesis-4 statistics differed only at floating-point round-off ($\sim 10^{-14}$), leaving the Benjamini--Hochberg survivor set unchanged. Thes"
+paper,410,14,14.0,none,"is-4 statistics differed only at floating-point round-off ($\sim 10^{-14}$), leaving the Benjamini--Hochberg survivor set unchanged. These cro"
+paper,414,23,23.0,ambiguous_small,ional Research Agency under France 2030 via the ENACT AI Cluster (ANR-23-IACL-0004). This work also relies on the financial support provided b
+paper,414,0004,4.0,ambiguous_small,search Agency under France 2030 via the ENACT AI Cluster (ANR-23-IACL-0004). This work also relies on the financial support provided by the R\'e
 supplement,48,1,1.0,ambiguous_small,\makeatletter \renewcommand\numberline[1]{\hb@xt@ {#1\hfil}} \makeatother
 supplement,48,1,1.0,ambiguous_small,\makeatletter \renewcommand\numberline[1]{\hb@xt@ {#1\hfil}} \makeatother
 supplement,72,2,2.0,ambiguous_small,\newcommand{\mainref}[2]{#2} \title[Supplementary Information]{Supplementa

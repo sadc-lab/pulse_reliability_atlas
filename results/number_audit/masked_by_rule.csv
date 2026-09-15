@@ -409,17 +409,17 @@ monograph,year_like,4517,2026,", < re-read 2026-08-20 with columns resolved by n
 monograph,year_like,4528,2026,"recorded in that project's experiments log (CDC weight audit step, 2026-04). * **Female height (163 cm).** Matches the CDC P50 stature for"
 paper,org_identifier,115,3450,"ress{\city{Nancy}, \country{France}}} \affil[5]{\orgdiv{UR 3450 DevAH}, \orgname{Universit\'e de Lorraine}, \orgaddress"
 paper,org_identifier,117,1256,"Nancy}, \country{France}}} \affil[6]{\orgdiv{INSERM UMR\_S 1256, Nutrition-G\'en\'etique et Exposition aux Risques Envi"
-paper,product_version,389,4.7,"at the \texttt{xhigh} thinking-effort default: Claude Opus 4.7 (\texttt{claude-opus-4-7}) for the initial drafting, Opu"
-paper,product_version,389,4.8,"7 (\texttt{claude-opus-4-7}) for the initial drafting, Opus 4.8 (\texttt{claude-opus-4-8}) through the first supervisor-"
-paper,product_version,389,5,"s-4-8}) through the first supervisor-review phase, and Opus 5 (\texttt{claude-opus-5}) for the audit and synthesis round"
-paper,product_version,389,5.6,"thinking mode) and, from 3~August~2026, OpenAI ChatGPT (GPT-5.6 Sol, High reasoning level); in that role the second mode"
-paper,product_version,391,4.7,A manuscript-formatting pass was performed by Claude Opus 4.7. The Opus 4.8 revision rounds responded to the first rou
-paper,product_version,391,4.8,-formatting pass was performed by Claude Opus 4.7. The Opus 4.8 revision rounds responded to the first round of co-autho
-paper,product_version,391,5,d the associated text and reference modifications. The Opus 5 rounds covered in-repository replication of the ARDS-sever
-paper,ref_or_machinery,180,0.748,des. \begin{figure}[!t] \centering \includegraphics[width=0.748\textwidth]{figures/fig00_study_design.pdf} \caption{\t
-paper,ref_or_machinery,226,0.95,le} \begin{figure}[!htbp] \centering \includegraphics[width=0.95\textwidth]{figures/fig01_traffic_light.pdf} \caption{\t
-paper,ref_or_machinery,291,0.95,. \begin{figure}[!htbp] \centering \includegraphics[width=0.95\textwidth]{figures/fig03_actionable_corrections.pdf} \c
-paper,ref_or_machinery,307,0.95,. \begin{figure}[!htbp] \centering \includegraphics[width=0.95\textwidth]{figures/fig04_sex_bv_mechanism.pdf} \caption
+paper,product_version,391,4.7,"at the \texttt{xhigh} thinking-effort default: Claude Opus 4.7 (\texttt{claude-opus-4-7}) for the initial drafting, Opu"
+paper,product_version,391,4.8,"7 (\texttt{claude-opus-4-7}) for the initial drafting, Opus 4.8 (\texttt{claude-opus-4-8}) through the first supervisor-"
+paper,product_version,391,5,"s-4-8}) through the first supervisor-review phase, and Opus 5 (\texttt{claude-opus-5}) for the audit and synthesis round"
+paper,product_version,391,5.6,"thinking mode) and, from 3~August~2026, OpenAI ChatGPT (GPT-5.6 Sol, High reasoning level); in that role the second mode"
+paper,product_version,393,4.7,A manuscript-formatting pass was performed by Claude Opus 4.7. The Opus 4.8 revision rounds responded to the first rou
+paper,product_version,393,4.8,-formatting pass was performed by Claude Opus 4.7. The Opus 4.8 revision rounds responded to the first round of co-autho
+paper,product_version,393,5,d the associated text and reference modifications. The Opus 5 rounds covered in-repository replication of the ARDS-sever
+paper,ref_or_machinery,182,0.748,des. \begin{figure}[!t] \centering \includegraphics[width=0.748\textwidth]{figures/fig00_study_design.pdf} \caption{\t
+paper,ref_or_machinery,228,0.95,le} \begin{figure}[!htbp] \centering \includegraphics[width=0.95\textwidth]{figures/fig01_traffic_light.pdf} \caption{\t
+paper,ref_or_machinery,293,0.95,. \begin{figure}[!htbp] \centering \includegraphics[width=0.95\textwidth]{figures/fig03_actionable_corrections.pdf} \c
+paper,ref_or_machinery,309,0.95,. \begin{figure}[!htbp] \centering \includegraphics[width=0.95\textwidth]{figures/fig04_sex_bv_mechanism.pdf} \caption
 paper,tex_comment,31,2,ion}% 2x3 sub-figure layout for Morris mu* heatmaps (Figure 2) \usepackage{xr-hyper}% cross-document references to suppl
 paper,tex_comment,35,1,"{tab:s*} \usepackage{tikz}% Study-design flowchart (Figure 1) \usetikzlibrary{arrows.meta,positioning}% \usepackage{flo"
 paper,tex_comment,52,15,ation to satisfy npj's rule %% %% that a title be at most 15 words and free of punctuation. The %% %% active title
@@ -447,21 +447,21 @@ paper,tex_comment,122,2026,"+ 2026-06 retouch, %% %% + 6403787 sensitivity sente
 paper,tex_comment,122,08,"26-06 retouch, %% %% + 6403787 sensitivity sentence, + 2026-08-18 healthy-lung scope). %% %% refinement #3. Three headli"
 paper,tex_comment,122,18,"06 retouch, %% %% + 6403787 sensitivity sentence, + 2026-08-18 healthy-lung scope). %% %% refinement #3. Three headline"
 paper,tex_comment,123,3,"ntence, + 2026-08-18 healthy-lung scope). %% %% refinement #3. Three headline findings, one number each. Every %% %% n"
-paper,typeset_length,156,0.70,"\, .} {lp{0.70\textwidth}} \toprule Term & Definition \\ \midrule \tex"
-paper,typeset_length,188,0.38,.} {lp{0.38\textwidth}p{0.30\textwidth}} \toprule Flag & Fires when
-paper,typeset_length,188,0.30,} {lp{0.38\textwidth}p{0.30\textwidth}} \toprule Flag & Fires when & What it means
-paper,typeset_length,264,0.467,ot. [!htbp] \centering [b]{0.467\textwidth}
-paper,typeset_length,265,0.467,\hfill [b]{0.467\textwidth}
-paper,typeset_length,266,0,\caption{MAP} \\[-0.6em] [b]{0.467\textwidth}
-paper,typeset_length,267,0.467,\\[-0.6em] [b]{0.467\textwidth}
-paper,typeset_length,268,0.467,\hfill [b]{0.467\textwidth}
-paper,typeset_length,269,0,g{SpO$_2$}{SpO2}} \\[-0.6em] [b]{0.467\textwidth}
-paper,typeset_length,270,0.467,\\[-0.6em] [b]{0.467\textwidth}
-paper,typeset_length,271,0.467,\hfill [b]{0.467\textwidth}
-paper,year_like,144,2020,"alysis''~ . The upstream repository does carry a single 2020 sensitivity study in its source tree, tagged \texttt{STUDY\_SENSITIVI"
-paper,year_like,389,2026,"rst Google Gemini Pro 3.1 (extended-thinking mode) and, from 3~August~2026, OpenAI ChatGPT ( Sol, High reasoning level); in that role the"
-paper,year_like,391,2026,"rsioned the script that generates it. They also covered the September 2026 condensation pass, in which the Introduction, the Discussion and the"
-paper,year_like,412,2030,vernment funding managed by the National Research Agency under France 2030 via the ENACT AI Cluster (ANR-23-IACL-0004). This work also relies on
+paper,typeset_length,158,0.70,"\, .} {lp{0.70\textwidth}} \toprule Term & Definition \\ \midrule \tex"
+paper,typeset_length,190,0.38,.} {lp{0.38\textwidth}p{0.30\textwidth}} \toprule Flag & Fires when
+paper,typeset_length,190,0.30,} {lp{0.38\textwidth}p{0.30\textwidth}} \toprule Flag & Fires when & What it means
+paper,typeset_length,266,0.467,ot. [!htbp] \centering [b]{0.467\textwidth}
+paper,typeset_length,267,0.467,\hfill [b]{0.467\textwidth}
+paper,typeset_length,268,0,\caption{MAP} \\[-0.6em] [b]{0.467\textwidth}
+paper,typeset_length,269,0.467,\\[-0.6em] [b]{0.467\textwidth}
+paper,typeset_length,270,0.467,\hfill [b]{0.467\textwidth}
+paper,typeset_length,271,0,g{SpO$_2$}{SpO2}} \\[-0.6em] [b]{0.467\textwidth}
+paper,typeset_length,272,0.467,\\[-0.6em] [b]{0.467\textwidth}
+paper,typeset_length,273,0.467,\hfill [b]{0.467\textwidth}
+paper,year_like,146,2020,"alysis''~ . The upstream repository does carry a single 2020 sensitivity study in its source tree, tagged \texttt{STUDY\_SENSITIVI"
+paper,year_like,391,2026,"rst Google Gemini Pro 3.1 (extended-thinking mode) and, from 3~August~2026, OpenAI ChatGPT ( Sol, High reasoning level); in that role the"
+paper,year_like,393,2026,"rsioned the script that generates it. They also covered the September 2026 condensation pass, in which the Introduction, the Discussion and the"
+paper,year_like,414,2030,vernment funding managed by the National Research Agency under France 2030 via the ENACT AI Cluster (ANR-23-IACL-0004). This work also relies on
 supplement,file_path,972,06,erical comparison report (\texttt{reproduction\_check\_2026-06-07.md}); \texttt{reproduction\_thinkpad\_2026-06-10/} car
 supplement,file_path,972,07,cal comparison report (\texttt{reproduction\_check\_2026-06-07.md}); \texttt{reproduction\_thinkpad\_2026-06-10/} carrie
 supplement,line_reference,721,120,ied (\texttt{ } lines 120--128 in the upstream Pulse source). The spontaneous-driv
