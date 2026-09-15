@@ -2227,6 +2227,22 @@ decisions).**
   second float-removing instrument (`nw_results_len.py`) gave 4,653 → 1,583
   words (0.34). The first awk version of that instrument removed nothing and
   was discarded. The corrected wording was put to the author again.
+- **⚠️ Precision found in the double-check after the push (2026-09-15).**
+  - The applied W-P2 wording rests on the Methods WITHOUT the "Use of AI tools"
+    subsection, which the pass did not shorten (383 → 383 raw words; 384 → 384
+    tokens). That exclusion was stated here but not in the question put to the
+    author, nor in the `c3aeb0f` commit message ("Methods 0.54").
+  - With that subsection, Methods go from 3,679 to 2,177 raw words (0.59;
+    instrument 1: 3,762 → 2,212, 0.588). Without it: 3,296 → 1,794 (0.54;
+    instrument 1: 0.541). Line ranges: L398–L457 / L458–L474 at `f2ac374`, and
+    L343–L390 / L391–L407 at `e361c2a`.
+  - ⚠️ `nw_results_len.py` gave an AI subsection of 791 words. That value is
+    wrong: the script ended the subsection at the first line *starting* with
+    `\bmhead`, but the first one is
+    `\hypertarget{tgt:data-avail}{}\bmhead{Data availability}`, so it also
+    swallowed Data and Code availability. Its Results figure (0.34) is not
+    affected, and the 791 was never used.
+  - Brought back to the author.
 - **Applied wordings.**
   - W-P1, paper: "… fall on an exact rounding tie at one or two decimals, and
     their last digit would be set by a convention …". Monograph: "… fall on an
