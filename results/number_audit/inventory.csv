@@ -1992,7 +1992,7 @@ monograph,2687,160,160.0,guard,"ves 1,134 / 1,280 (88.6 %) hard-failure-free, fr
 monograph,2687,160,160.0,guard,"1,134 / 1,280 (88.6 %) hard-failure-free, from 106/160 in S4_M to 160/160 in S2_F and S3_F, a 1.51-fold spread. Retention is given as counts ra"
 monograph,2688,1.51,1.51,guard,"ard-failure-free, from 106/160 in S4_M to 160/160 in S2_F and S3_F, a 1.51-fold spread. Retention is given as counts rather than percentages bec"
 monograph,2689,160,160.0,guard,tention is given as counts rather than percentages because with *n* = 160 every per-cell percentage is a multiple of 0.625 and nine of the sixt
-monograph,2689,0.625,0.625,none,ges because with *n* = 160 every per-cell percentage is a multiple of 0.625 and nine of the sixteen values fall on an exact rounding tie. | cell
+monograph,2689,0.625,0.625,none,ges because with *n* = 160 every per-cell percentage is a multiple of 0.625 and nine of the sixteen values fall on an exact rounding tie at one o
 monograph,2694,49,49.0,ambiguous_small,cell | four-flag clean | hard-failure-free | |---|---:|---:| | S1_M | 49/160 | 145/160 | | S1_F | 42/160 | 137/160 | | S2_M | 87/160 | 156/160
 monograph,2694,160,160.0,guard,l | four-flag clean | hard-failure-free | |---|---:|---:| | S1_M | 49/160 | 145/160 | | S1_F | 42/160 | 137/160 | | S2_M | 87/160 | 156/160 | |
 monograph,2694,145,145.0,guard,ur-flag clean | hard-failure-free | |---|---:|---:| | S1_M | 49/160 | 145/160 | | S1_F | 42/160 | 137/160 | | S2_M | 87/160 | 156/160 | | S2_F
@@ -2614,6 +2614,7 @@ monograph,3526,"1,280",1280.0,guard,"se maintainers, derived from operating the 
 monograph,3533,"1,280",1280.0,guard,"which is the domain of the Kitware biomedical-engineering team.* The 1,280-run sweep ([S006 ) and the surrounding infrastructure work ([S"
 monograph,3544,1,1.0,ambiguous_small,/ documentation / validation layer rather than the physiology layer. 1. **Structured input-rejection events.** Pulse currently surfaces i
 monograph,3545,120,120.0,guard,"tion events.** Pulse currently surfaces input clamping (e.g. SBP > 120, DBP/SBP ratio out of range, HR / RR outside the initialization ba"
+monograph,3551,2.6,2.6,ambiguous_small,istically instead of pattern-matching the regex set documented in §2.6. Anchored in the atlas's clamp-pattern catalogue
 monograph,3556,2,2.0,ambiguous_small,"l-sweep experience ([S004 , [S005 , [S006 ). 2. **Surface the male-surrogate floor in user"
 monograph,3557,"4,082.24",4082.24,guard,"floor in user documentation.** Pulse hard-enforces a 4,082.24 mL blood-volume floor at setup on the 67.3 kg / 180 cm male refere"
 monograph,3558,67.3,67.3,guard,"lse hard-enforces a 4,082.24 mL blood-volume floor at setup on the 67.3 kg / 180 cm male reference body (default 4,802.63 mL), but this co"
@@ -3540,7 +3541,7 @@ paper,227,2,2.0,ambiguous_small,"\emph{both}. The 12 red cells split 6 deviation
 paper,232,160,160.0,guard,tion under the two screening definitions.} Retention is computed over 160 simulations per cell. \emph{Four-flag clean} keeps only runs firing n
 paper,232,160,160.0,guard,"his sweep, so including it changes no count). Counts are given out of 160 rather than as percentages on purpose: with $n = 160$ every percentag"
 paper,232,160,160.0,guard,"are given out of 160 rather than as percentages on purpose: with $n = 160$ every percentage is a multiple of $0.625$, so nine of the sixteen va"
-paper,232,0.625,0.625,none,"entages on purpose: with $n = 160$ every percentage is a multiple of $0.625$, so nine of the sixteen values below fall on an exact rounding tie w"
+paper,232,0.625,0.625,none,"entages on purpose: with $n = 160$ every percentage is a multiple of $0.625$, so nine of the sixteen values below fall on an exact rounding tie a"
 paper,232,663,663.0,guard,"The two whole-sweep percentages are quoted because neither is a tie ($663/1{,}280$; $1{,}134/1{,}280$). Neither subset is distribution-neutral."
 paper,232,"1{,}280",1280.0,guard,"two whole-sweep percentages are quoted because neither is a tie ($663/1{,}280$; $1{,}134/1{,}280$). Neither subset is distribution-neutral. Cell-la"
 paper,232,"1{,}134",1134.0,guard,"weep percentages are quoted because neither is a tie ($663/1{,}280$; $1{,}134/1{,}280$). Neither subset is distribution-neutral. Cell-label key: Ta"
@@ -3882,6 +3883,7 @@ paper,389,8,8.0,ambiguous_small,"-opus-4-7}) for the initial drafting, (\texttt{
 paper,389,5,5.0,ambiguous_small,"gh the first supervisor-review phase, and (\texttt{claude-opus-5}) for the audit and synthesis rounds that followed. The other side wa"
 paper,389,3.1,3.1,ambiguous_small,"d. The other side was a separate web session, first Google Gemini Pro 3.1 (extended-thinking mode) and, from 3~August~2026, OpenAI ChatGPT ("
 paper,389,3,3.0,ambiguous_small,"ssion, first Google Gemini Pro 3.1 (extended-thinking mode) and, from 3~August~2026, OpenAI ChatGPT ( Sol, High reasoning level); in t"
+paper,391,150,150.0,guard,"shortened by about a quarter and the abstract was revised within its 150-word cap, with the displaced material migrated to the Supplementary I"
 paper,404,100,100.0,guard,. The companion technical monograph (over 100 pages) carrying the full audit traceability will be archived together
 paper,404,2.0,2.0,ambiguous_small,"the code and the per-experiment lab-notebook entries carry the Apache-2.0 licence stated under \hyperlink{tgt:code-avail}{Code availability}, w"
 paper,404,4.0,4.0,ambiguous_small,"monograph content are released under the Creative Commons Attribution 4.0 licence (CC-BY-4.0), whose version~4.0 covers sui generis database ri"

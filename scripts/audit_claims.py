@@ -6702,6 +6702,22 @@ MONO_AUDIT_TEXT_REQUIRED = (
     # MK-M1 (masked-literal read-through, 2026-09-15): the preregistration erratum is a
     # blockquote on lines 9-36, both today and when the pointer was written (219a13a).
     ("preprint/manuscript.md", "erratum of 2026-05-19, lines\n9–36).", 1),
+    # Number-word findings resolved on the author's decisions (2026-09-15, register section 9).
+    # W-P1: the tie count is true only at one or two decimals (4 + 5), the qualifier restored.
+    ("preprint_npj/paper.tex", "fall on an exact rounding tie at one or two decimals, and their last digit", 1),
+    ("preprint/manuscript.md", "fall on an exact rounding tie at one or two decimals.", 1),
+    # W-P2: the condensation pass measured part by part (f2ac374 -> e361c2a).
+    ("preprint_npj/paper.tex", "the Introduction, Discussion and Methods were rewritten to about half their length "
+     "and the Results to about a third, the figure legends were shortened by about a quarter and the abstract "
+     "was revised within its 150-word cap", 1),
+    # W-S2: the out-of-sample estimates follow in their own subsection.
+    ("preprint_npj/supplement.tex", "so its training fit says nothing about predictive accuracy; out-of-sample "
+     "estimates follow in \\S\\ref{sec:s13-oos};", 1),
+    # W-S3: two BMR consumers form TMR/BMR, the third (EndocrineModel.cpp L164) tests TMR > BMR.
+    ("preprint_npj/supplement.tex", "cancel the sex term exactly at rest, where total metabolic rate equals basal "
+     "--- two divide one by the other, and the third acts only when total exceeds basal.", 1),
+    # W-M1: the clamp catalogue holds five patterns since the 2026-07-26 patch; no count, a pointer.
+    ("preprint/manuscript.md", "instead of pattern-matching the regex set documented in §2.6.", 1),
     # W-M2 (number-word read-through, 2026-09-15): the permutation null splits the pooled runs
     # at the original M and F group sizes (src/analysis_compare.py, pool[:n_m]), not in halves.
     ("preprint/manuscript.md", "runs into two groups the same size as the original M and F groups", 1),
@@ -6732,9 +6748,13 @@ MONO_AUDIT_TEXT_BANNED = {
         "per-run output.csv / pulse.log", "the 24 experiment-log entries cited",
         "CDC weight audit step, 2026-03", "erratum of 2026-05-19, lines 9–34",
         "runs into halves the same size", "randomly into halves of the original sizes",
+        "values fall on an exact rounding tie.", "pattern-matching the four-pattern regex set",
     ),
+    "preprint_npj/paper.tex": ("exact rounding tie whose last digit",
+                               "figure legends and abstract were rewritten to about half their length"),
     "preprint_npj/supplement.tex": ("Cornish et al.\\ 2023", "Cornish 2023 channel", "preregistration limitations table",
-                                    "and at 500 one combination is lost"),
+                                    "and at 500 one combination is lost", "carries no out-of-sample evaluation",
+                                    "combine it as a ratio of total to basal metabolic rate"),
     "scripts/sobol_ci_buckets.py": ("identical at 1,000 / 2,000 / 4,000 (one combination is lost",),
     "preprint/supplementary.md": ("eleven independent layers", "11 independent verification points"),
 }
@@ -6888,6 +6908,18 @@ def check_monograph_number_audit() -> int:
     record("MF-21 largest SpO2 mu* ≈ 0.12 in S3, where clean SpO2 is far below the ceiling",
            f"{top['scenario']}_{top['sex']} {top['mu_star']:.4f}; clean SpO2 {cl.min():.3f}–{cl.max():.3f}",
            top["scenario"] == "S3" and round(float(top["mu_star"]), 2) == 0.12 and float(cl.min()) < 0.8)
+
+    # W-P1: recount the rounding ties of the sixteen retention counts k (percentage 0.625 k).
+    # A tie at one decimal needs k = 2 mod 4, at two decimals k odd; the text says nine.
+    ks = [int(v) for v in list(_cell_clean.values) + list(_cell_hard_free.values)]
+    t1 = sum(1 for k in ks if k % 4 == 2)
+    t2 = sum(1 for k in ks if k % 2 == 1)
+    paper_tex = (REPO / "preprint_npj" / "paper.tex").read_text(encoding="utf-8")
+    record("W-P1 nine of the sixteen retention values tie at one or two decimals (paper and monograph)",
+           f"{len(ks)} values, {t1} at one decimal + {t2} at two = {t1 + t2}",
+           len(ks) == 16 and t1 + t2 == 9 and "nine of the sixteen values below fall on an exact rounding tie at one "
+           "or two decimals" in paper_tex and "nine of the sixteen values fall on an exact rounding tie at one or two "
+           "decimals" in mono)
 
     # MK-M1: the line range the monograph gives for the preregistration erratum is the
     # erratum's own extent, re-read from preregistration.md (a dated record, read only).

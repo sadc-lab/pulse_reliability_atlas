@@ -65,9 +65,11 @@ paper,227,half,multiplicative,"emph{both}. The 12 red cells split 6 deviation-on
 paper,232,two,cardinal,[!ht] \centering \caption{\textbf{Per-cell retention under the two screening definitions.} Retention is computed over 160 simulations per cell. \e
 paper,232,Four,cardinal,eening definitions.} Retention is computed over 160 simulations per cell. \emph{Four-flag clean} keeps only runs firing none of the four flags; \emph{hard-failure-f
 paper,232,four,cardinal,simulations per cell. \emph{Four-flag clean} keeps only runs firing none of the four flags; \emph{hard-failure-free} keeps every run firing neither \texttt{diverged
-paper,232,nine,cardinal,"ntages on purpose: with $n = 160$ every percentage is a multiple of $0.625$, so nine of the sixteen values below fall on an exact rounding tie whose last digit woul"
-paper,232,sixteen,cardinal,"rpose: with $n = 160$ every percentage is a multiple of $0.625$, so nine of the sixteen values below fall on an exact rounding tie whose last digit would be set by a c"
-paper,232,two,cardinal,"tie whose last digit would be set by a convention rather than by the data. The two whole-sweep percentages are quoted because neither is a tie ($663/1{,}280$; $1{"
+paper,232,nine,cardinal,"ntages on purpose: with $n = 160$ every percentage is a multiple of $0.625$, so nine of the sixteen values below fall on an exact rounding tie at one or two decimal"
+paper,232,sixteen,cardinal,"rpose: with $n = 160$ every percentage is a multiple of $0.625$, so nine of the sixteen values below fall on an exact rounding tie at one or two decimals, and their la"
+paper,232,one,cardinal,"f $0.625$, so nine of the sixteen values below fall on an exact rounding tie at one or two decimals, and their last digit would be set by a convention rather than"
+paper,232,two,cardinal,"5$, so nine of the sixteen values below fall on an exact rounding tie at one or two decimals, and their last digit would be set by a convention rather than by the"
+paper,232,two,cardinal,"and their last digit would be set by a convention rather than by the data. The two whole-sweep percentages are quoted because neither is a tie ($663/1{,}280$; $1{"
 paper,236,Four,cardinal,.} \toprule Cell & Four-flag clean & Hard-failure-free \\ \midrule S1\_M & 49/160 & 145/160 \\ S1\_F &
 paper,257,six,cardinal,"shows the Morris $\mu^{*}$, the input-importance metric, for the six outputs across the eight cells and seven swept inputs. H1 is supported in 48 of"
 paper,257,eight,cardinal,"e Morris $\mu^{*}$, the input-importance metric, for the six outputs across the eight cells and seven swept inputs. H1 is supported in 48 of 48 cell $\times$ output"
@@ -221,7 +223,9 @@ paper,389,first,ordinal,"and synthesis rounds that followed. The other side was 
 paper,389,second,ordinal,"gust~2026, OpenAI ChatGPT ( Sol, High reasoning level); in that role the second model provided editorial assistance, consistency checks, and methodological dis"
 paper,391,first,ordinal,"was performed by Claude . The revision rounds responded to the first round of co-author and supervisor review: manuscript re-reading, copy-editing,"
 paper,391,three,cardinal,"efacts; that work restored the Sobol promotion trigger to its preregistered top-three form, added the post-hoc ratio-aware bootstrap on $\sigma / \mu^{*}$, and versi"
-paper,391,half,multiplicative,"sults, Discussion, Methods, figure legends and abstract were rewritten to about half their length with the displaced material migrated to the Supplementary Informat"
+paper,391,half,multiplicative,"pass, in which the Introduction, Discussion and Methods were rewritten to about half their length and the Results to about a third, the figure legends were shortene"
+paper,391,third,ordinal,"nd Methods were rewritten to about half their length and the Results to about a third, the figure legends were shortened by about a quarter and the abstract was revi"
+paper,391,quarter,multiplicative,"and the Results to about a third, the figure legends were shortened by about a quarter and the abstract was revised within its 150-word cap, with the displaced materi"
 paper,404,third,ordinal,"nce (CC-BY-4.0), whose version~4.0 covers sui generis database rights. Verbatim third-party excerpts, notably from the Pulse documentation and source (Apache-2.0), r"
 paper,408,four,cardinal,"ilability} \noindent The atlas codebase (Morris sampler, Pulse Docker wrapper, four-flag steady-state classifier, statistical-analysis pipeline, audit ledger, and"
 paper,408,three,cardinal,". The reproducibility recipe (Docker image tag, random seed, three-layer bit-exact verification) is summarised in Supplement~\S\, . Th"
@@ -649,10 +653,12 @@ supplement,839,Seven,cardinal,"and, by Ohm's law, every branch resistance. \item
 supplement,840,Thirteen,cardinal,"values on top of that sex-conditioned total. \item \textbf{Tissue properties.} Thirteen sex-specific tissue masses, feeding tissue volumes, compartment masses, vascula"
 supplement,844,Two,cardinal,"pt 4.5~kg below male at any height, hence 9~mL less dead space). Two properties of this parameterisation govern how any cross-body contrast should b"
 supplement,844,First,ordinal,"ies of this parameterisation govern how any cross-body contrast should be read. First, a sex-conditioned setup constant does not automatically produce a difference i"
-supplement,844,three,cardinal,"mputed from stroke volume and heart rate at the end of every cardiac cycle, and three of the four runtime consumers of basal metabolic rate combine it as a ratio of"
-supplement,844,four,cardinal,"troke volume and heart rate at the end of every cardiac cycle, and three of the four runtime consumers of basal metabolic rate combine it as a ratio of total to bas"
-supplement,844,one,cardinal,"tabolic rate combine it as a ratio of total to basal metabolic rate that equals one at rest, cancelling the sex term exactly. Second, the direction of a surviving"
-supplement,844,Second,ordinal,"basal metabolic rate that equals one at rest, cancelling the sex term exactly. Second, the direction of a surviving difference is a joint property of the contrast an"
+supplement,844,three,cardinal,"mputed from stroke volume and heart rate at the end of every cardiac cycle, and three of the four runtime consumers of basal metabolic rate cancel the sex term exact"
+supplement,844,four,cardinal,"troke volume and heart rate at the end of every cardiac cycle, and three of the four runtime consumers of basal metabolic rate cancel the sex term exactly at rest,"
+supplement,844,two,cardinal,"ancel the sex term exactly at rest, where total metabolic rate equals basal --- two divide one by the other, and the third acts only when total exceeds basal. Seco"
+supplement,844,one,cardinal,"ex term exactly at rest, where total metabolic rate equals basal --- two divide one by the other, and the third acts only when total exceeds basal. Second, the dir"
+supplement,844,third,ordinal,"here total metabolic rate equals basal --- two divide one by the other, and the third acts only when total exceeds basal. Second, the direction of a surviving differ"
+supplement,844,Second,ordinal,"two divide one by the other, and the third acts only when total exceeds basal. Second, the direction of a surviving difference is a joint property of the contrast an"
 supplement,844,two,cardinal,"onstant, because the lean-body-mass normalisation reverses the ordering; at the two bodies' native masses the same quantity is about 8.3~\% lower; and wherever tha"
 supplement,844,one,cardinal,"ssue resistances, the sign inverts again. A statement of the form ``Pulse gives one sex more of quantity $X$'' is therefore not well formed unless it names the con"
 supplement,846,one,cardinal,tissue mass or dead space --- without a dedicated ablation experiment in which one pathway is held fixed while the others vary. No such experiment is reported her
@@ -1188,9 +1194,11 @@ monograph,2670,two,cardinal,"tract. **Why the colour alone is not a diagnosis.**
 monograph,2676,half,multiplicative,"ng the 12 red cells the split is **6 deviation-only, 4 flag-only, 2 both** — so half the red cells are red because the clean-run mean sits far from a *healthy male*"
 monograph,2682,two,cardinal,"a request for justification, not a verdict that the physiology is wrong. **The two screens, and what each removes.** Under the strict four-flag definition, 663 /"
 monograph,2682,four,cardinal,"siology is wrong. **The two screens, and what each removes.** Under the strict four-flag definition, 663 / 1,280 simulations (51.8 %) are clean, with per-cell rete"
-monograph,2690,nine,cardinal,ges because with *n* = 160 every per-cell percentage is a multiple of 0.625 and nine of the sixteen values fall on an exact rounding tie. | cell | four-flag clean
-monograph,2690,sixteen,cardinal,with *n* = 160 every per-cell percentage is a multiple of 0.625 and nine of the sixteen values fall on an exact rounding tie. | cell | four-flag clean | hard-failure-
-monograph,2692,four,cardinal,f 0.625 and nine of the sixteen values fall on an exact rounding tie. | cell | four-flag clean | hard-failure-free | |---|---:|---:| | S1_M | 49/160 | 145/160 | |
+monograph,2690,nine,cardinal,ges because with *n* = 160 every per-cell percentage is a multiple of 0.625 and nine of the sixteen values fall on an exact rounding tie at one or two decimals. |
+monograph,2690,sixteen,cardinal,with *n* = 160 every per-cell percentage is a multiple of 0.625 and nine of the sixteen values fall on an exact rounding tie at one or two decimals. | cell | four-fla
+monograph,2690,one,cardinal,ltiple of 0.625 and nine of the sixteen values fall on an exact rounding tie at one or two decimals. | cell | four-flag clean | hard-failure-free | |---|---:|---:
+monograph,2690,two,cardinal,of 0.625 and nine of the sixteen values fall on an exact rounding tie at one or two decimals. | cell | four-flag clean | hard-failure-free | |---|---:|---:| | S1_
+monograph,2692,four,cardinal,sixteen values fall on an exact rounding tie at one or two decimals. | cell | four-flag clean | hard-failure-free | |---|---:|---:| | S1_M | 49/160 | 145/160 | |
 monograph,2703,two,cardinal,/160 | 160/160 | | S4_M | 67/160 | 106/160 | | S4_F | 60/160 | 114/160 | **The two screens deplete opposite ends of the severity axis.** The four-flag screen is h
 monograph,2704,four,cardinal,"114/160 | **The two screens deplete opposite ends of the severity axis.** The four-flag screen is harshest on the *healthy* cells (S1_F, S1_M); the hard-failure-f"
 monograph,2722,first,ordinal,"ccurring mechanisms.** The detector stores, for each failing channel, only the *first* trigger its ordered checks reach (flatline, then CV, then drift). Re-applying"
@@ -1278,7 +1286,6 @@ monograph,3498,two,cardinal,"they can target.* This atlas is positioned as found
 monograph,3515,first,ordinal,"ns driving high-μ\* inputs (heart-rate baseline, FiO2 / PEEP, Vt) are patched first; equations driving low-μ\* inputs are deferred. Neither downstream paper is re"
 monograph,3535,six,cardinal,"4 , [S014 , [S017 , [S018 , [S021 ) surfaced six places where small additions to Pulse's existing tooling, documentation, or val"
 monograph,3548,one,cardinal,"es that downstream tools must regex-parse. A small structured-event API — one typed record per rejected field, with the offending value, the enforced boun"
-monograph,3551,four,cardinal,s wrappers detect clamping deterministically instead of pattern-matching the four-pattern regex set. Anchored in the atlas's clamp-pattern c
 monograph,3562,one,cardinal,cally while investigating the all-male divergence cluster ([S018 ); a one-line note in the patient-baseline reference table would have saved the inves
 monograph,3585,three,cardinal,"able and H3) and in the §1.2 limitations list (entry 4), and corroborated by three independent sources, but Pulse does not currently emit a setup-time warni"
 monograph,3610,one,cardinal,require some domain knowledge to map back to the offending input field. A one-token prefix indicating which input was rejected (

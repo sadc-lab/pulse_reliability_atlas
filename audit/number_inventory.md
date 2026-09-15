@@ -2157,7 +2157,7 @@ time).
 - The content of the eleven LaTeX-comment tokens, which do not render.
 
 **Findings.**
-- **W-P1 — `paper.tex` L232 and monograph L2689–2690. 🔴 Author's decision.**
+- **W-P1 — `paper.tex` L232 and monograph L2689–2690. ✅ Corrected on the author's decision (resolution below).**
   - The text says "nine of the sixteen values below fall on an exact rounding
     tie".
   - With the 16 counts k, each percentage is 0.625k. Ties at one decimal
@@ -2170,7 +2170,7 @@ time).
   - The ledger's code comment said "multiple of 0.125". That was corrected in
     the manuscripts by `bfc3de5` but not in the comment; the comment is now
     corrected (a comment, no claim).
-- **W-P2 — `paper.tex` L391 (AI disclosure). 🔴 Author's decision.**
+- **W-P2 — `paper.tex` L391 (AI disclosure). ✅ Corrected on the author's decision (resolution below).**
   - The text says the condensation pass rewrote the "Introduction, Results,
     Discussion, Methods, figure legends and abstract … to about half their
     length".
@@ -2183,14 +2183,14 @@ time).
       0.73.
   - Taken together the parts halve. Taken one by one, the abstract (already at
     the 150-word cap) and the legends do not.
-- **W-S2 — supplement L1004. 🔴 Author's decision.**
+- **W-S2 — supplement L1004. ✅ Corrected on the author's decision (resolution below).**
   - "Two limits … The surrogate … carries no out-of-sample evaluation, so its
     predictive accuracy is not established here" is followed by the
     subsection `sec:s13-oos`, which computes two out-of-sample estimates.
   - Both came in the same commit, `5a6b201`.
   - Reading A: "here" means this paragraph's SHAP fit. Reading B: a
     contradiction.
-- **W-S3 — supplement L844. 🔴 Author's decision.**
+- **W-S3 — supplement L844. ✅ Corrected on the author's decision (resolution below).**
   - The text says "three of the four runtime consumers of basal metabolic rate
     combine it as a ratio of total to basal metabolic rate that equals one at
     rest".
@@ -2199,7 +2199,7 @@ time).
     `currentMetabolicRate_W > basalMetabolicRate_W`, which is false at rest.
   - The sex term drops out of all three, but "as a ratio" holds for two. The
     register's §D says the same.
-- **W-M1 — monograph L3551. 🔴 Author's decision.**
+- **W-M1 — monograph L3551. ✅ Corrected on the author's decision (resolution below).**
   - Recommendation 1 says "instead of pattern-matching the four-pattern regex
     set. Anchored in the atlas's `src/detector.py` clamp-pattern catalogue".
   - That catalogue holds five patterns since the 2026-07-26 patch. `1865fd4`
@@ -2218,6 +2218,67 @@ time).
   - Guarded (69 → 71 checks). Reinjection: 3 FAIL, MD5 restored.
   - Monograph rebuilt, 121 pages. PDF: both new wordings 1, "halves" 0. DOCX:
     new 1, "halves" 0. `check_render.py` PASSED (1 accepted residue, 0 new).
+
+**Resolution of W-P1, W-P2, W-S2, W-S3 and W-M1 (2026-09-15, author's
+decisions).**
+- **⚠️ My first W-P2 proposal was wrong, and the re-verification the author
+  asked for caught it before anything was edited.** It put the Results among
+  the parts "rewritten to about half their length", against my own 0.35. A
+  second float-removing instrument (`nw_results_len.py`) gave 4,653 → 1,583
+  words (0.34). The first awk version of that instrument removed nothing and
+  was discarded. The corrected wording was put to the author again.
+- **Applied wordings.**
+  - W-P1, paper: "… fall on an exact rounding tie at one or two decimals, and
+    their last digit would be set by a convention …". Monograph: "… fall on an
+    exact rounding tie at one or two decimals." (kept on one line, so no
+    monograph line number moves).
+  - W-P2, paper: "… the Introduction, Discussion and Methods were rewritten to
+    about half their length and the Results to about a third, the figure
+    legends were shortened by about a quarter and the abstract was revised
+    within its 150-word cap, with the displaced material migrated …".
+  - W-S2, supplement: "The surrogate is fitted on all of the clean subset, so
+    its training fit says nothing about predictive accuracy; out-of-sample
+    estimates follow in §S13.4; and the comparison is of selected inputs, not
+    of their order." (`\S\ref{sec:s13-oos}`, which renders as §S13.4 in the
+    PDF.)
+  - W-S3, supplement: "… cancel the sex term exactly at rest, where total
+    metabolic rate equals basal --- two divide one by the other, and the third
+    acts only when total exceeds basal."
+    - The approved text had a colon. A dash was used because the sentence
+      already carries one (presentation; the alternative, a second colon, was
+      rejected).
+    - The condition "at rest" is kept as it was. The sex-conditioned register
+      notes that TMR = BMR is presumed, not verified on artefact, for the
+      hypothermia branch.
+  - W-M1, monograph: "… instead of pattern-matching the regex set documented in
+    §2.6." §2.6 documents both the four-pattern set used by the sweep and the
+    five-pattern patch.
+- **Scope checked before editing.** `git grep` outside `audit/`,
+  `experiments_log/` and `results/` found no other public copy of any of the
+  five sentences.
+  - Two dated notes in `preprint_npj/paper_to_monograph_map.md` (L81, L149)
+    mention the rounding ties. They are working notes, not public, and are left
+    as written.
+- **Guarded** in `check_monograph_number_audit`, 71 → 79 checks:
+  - six required wordings, and the replaced ones banned in the paper, the
+    supplement and the monograph;
+  - a dynamic W-P1 check that recounts the ties from the sixteen ledger
+    retention counts (4 at one decimal + 5 at two = 9) and requires the
+    qualified sentence in both documents.
+  - Reinjection of the three previous manuscripts: 10 FAIL, MD5 restored.
+- **Not dynamically guarded:** the W-P2 ratios. They come from two historical
+  commits, which a shallow CI checkout cannot read. The W-S3 source lines are
+  outside this repository.
+- **Built.** Paper 25 pages, supplement 63 pages, monograph 122 pages (121
+  before: the added words move a page break; the extra page is ordinary text,
+  and pages 49–51, 54 and 75 are figure or table pages).
+  - Every new wording is present once, and every replaced one absent, in the
+    three PDFs and the three DOCX.
+  - `check_render.py` PASSED (1 accepted residue, 0 new).
+- **The corrections themselves add seven number words** (paper 4, supplement 2,
+  monograph 1). Each was checked: "one or two decimals", "a third" (0.34–0.35),
+  "a quarter" (0.73), "two … one … the third" (Pulse source), and the "§2.6"
+  pointer (the Detector section).
 
 **Observations** (no correction proposed unless the author asks).
 - **O-P3** (paper L408, supplement L968) "three derived Hypothesis-4
@@ -2251,6 +2312,26 @@ time).
 - **O-M4** (monograph L1880) "occasional further cells appearing in individual
   draws but none surviving all five": one further dominant-input cell (S3_F,
   PaO2 ← FiO2) clears 0.6 in two of five seeds.
+- **O-M5, found in passing** (monograph L3472): "reported in supplementary
+  section S11" names section S11 of `preprint/supplementary.md` (the SHAP
+  cross-check is its S11), while L674 and L4265 name "Supplementary §S13" of the
+  *npj* SI for the same analysis. Both pointers land. Two documents with
+  different numbering are cited for one analysis without saying which is which
+  at L3472.
+- **O-D1, found while checking these corrections in the Word twins. 🔴 Open, a
+  rendering defect, not a claim.**
+  - In both *npj* DOCX files, a `\S\ref{…}` to a supplement section prints
+    nothing. Examples: the supplement DOCX reads "sample-dependent ()" where the
+    PDF reads "(§S3.13)"; the paper DOCX reads "tables are in Supplement and ."
+    where the PDF reads "§S3.1 and §S3.2".
+  - `scripts/tex_to_docx.py` `resolve_refs` replaces `\ref{…}` by the number
+    from the `.aux`. A supplement number begins with "S", so `\S\ref{sec:s3-…}`
+    becomes `\SS3.13`, which pandoc reads as an unknown command. That mechanism
+    is inferred from the output and not yet reproduced.
+  - References to paper sections ("Methods §4.4") print correctly. The source
+    holds 28 `\S\ref{` in the paper and 46 in the supplement, of all targets.
+  - The `\S\,\ref{` form (34 and 14) separates the two tokens.
+  - Treated in a separate commit.
 
 **Code comments corrected in the same pass** (no claim, no output change):
 - `scripts/s032_uncontaminated_step_analysis.py` said "eight" S3.7 counts in
@@ -2261,8 +2342,14 @@ time).
 **Movement.**
 - Digit inventory: 39 probes, 0 FAIL, `summary.json` unchanged; one
   `inventory.csv` context string moves.
-- Number-word inventory: 1,338 kept and 12 masked before and after; the
+- Number-word inventory: 1,338 kept and 12 masked before and after W-M2; the
   monograph's classes move as stated above.
+- After the five resolutions:
+  - Number words: 1,345 kept (paper 237, supplement 561, monograph 547), 12
+    masked.
+  - Digit inventory: 5,786 retained (paper 528, monograph 3,371). The additions
+    are "150" of the 150-word cap and the "2.6" of §2.6.
+  - Guard-pinned literals 1,047 → 1,049. Calibrations 39 / 0 and 19 / 0.
 
 ## 10. What remains
 
@@ -2270,7 +2357,7 @@ time).
 |---|---:|---:|---|
 | paper | 37 / 29 (43 / 31 when read) | 307 | **both read row by row** (§3, §3.2). `none`: no defect. `ambiguous_small`: 57 not quantities, 248 + 2 verified, **1 wording finding, corrected** (L259, author's choice, guarded). **`guard` and `ledger` read one by one** (§6): 183 occurrences, 16 of them a different quantity, all verified, no defect. **Year-like and masked literals read** (§7: 4; §8: 40), no defect |
 | supplement | 431 / 218 (456 when read) | 957 | **`none` read row by row** (§4.1): 6 not quantities, 450 verified; **all six findings corrected** on the author's decisions (F-S1 to F-S6, 2026-09-14). **`ambiguous_small` read row by row** (§4.2): 134 not quantities, 823 verified; **3 findings, 1 mechanical pointer and prose-sweep #15 all corrected** on the author's decisions (2026-09-14), guarded (22 checks). Counts now 411 / 960 (432 → 411 is by value only: §5 Resolution, §6 GL-S2). **`guard` and `ledger` read one by one** (§6): 515 occurrences, 122 a different quantity; **GL-S1 corrected** (mechanical pointer, guarded), **GL-S2 corrected** (author's decision, 2026-09-15, guarded). **Year-like and masked literals read** (§7: 18; §8: 77, the five chapter locators re-opened in the cited editions), no defect |
-| monograph | 803 / 344 when read; 794 / 334 after the corrections | 1864 when read; 1878 after | **both read row by row, plus the 89 inline-code literals** (§5); section pointers and "Cited in §X" checked. **19 findings (MF-1 … MF-21, MF-8 merged, MF-10 downgraded) and 11 observations. All 19 findings, O-3/5/7/8/9/10/11 and the Cornish citation corrected 2026-09-14** (author's decisions, or mechanical under the pact), guarded (63 checks, one of them GL-S1's; 66 after GL-S2 and YL-M2). O-1 not selected, O-4 not to be edited. MF-22 (HR anchors against Ostchega 2011), found during the resolution, removed on the author's decision, together with a precision on MF-20. Quantities against non-quantities not counted: the rule-based split failed its precision pass. **`guard` and `ledger` read one by one** (§6): 698 occurrences, 126 a different quantity, all verified, no defect. **Year-like literals read one by one** (§7): 153 occurrences; **YL-M2 corrected** (mechanical pointer, guarded), **YL-M1 corrected** (title-page date = revision date, author's decision, guarded). **Masked literals read one by one** (§8): 166 occurrences; **MK-M1 corrected** (line-range pointer, mechanical, guarded; the guard has 68 checks after MK-M1, 69 after YL-M1). **Numbers written in words read** (§9, all three artefacts: 233 / 559 / 546 kept, 12 masked): **W-M2 corrected** (mechanical, guarded, 71 checks); 🔴 **W-P1, W-P2, W-S2, W-S3, W-M1 with the author**. Prose without numbers not audited |
+| monograph | 803 / 344 when read; 794 / 334 after the corrections | 1864 when read; 1878 after | **both read row by row, plus the 89 inline-code literals** (§5); section pointers and "Cited in §X" checked. **19 findings (MF-1 … MF-21, MF-8 merged, MF-10 downgraded) and 11 observations. All 19 findings, O-3/5/7/8/9/10/11 and the Cornish citation corrected 2026-09-14** (author's decisions, or mechanical under the pact), guarded (63 checks, one of them GL-S1's; 66 after GL-S2 and YL-M2). O-1 not selected, O-4 not to be edited. MF-22 (HR anchors against Ostchega 2011), found during the resolution, removed on the author's decision, together with a precision on MF-20. Quantities against non-quantities not counted: the rule-based split failed its precision pass. **`guard` and `ledger` read one by one** (§6): 698 occurrences, 126 a different quantity, all verified, no defect. **Year-like literals read one by one** (§7): 153 occurrences; **YL-M2 corrected** (mechanical pointer, guarded), **YL-M1 corrected** (title-page date = revision date, author's decision, guarded). **Masked literals read one by one** (§8): 166 occurrences; **MK-M1 corrected** (line-range pointer, mechanical, guarded; the guard has 68 checks after MK-M1, 69 after YL-M1). **Numbers written in words read** (§9, all three artefacts: 233 / 559 / 546 kept when read, 12 masked): **W-M2 corrected** (mechanical), **W-P1, W-P2, W-S2, W-S3 and W-M1 corrected on the author's decisions**, all guarded (79 checks); monograph 122 pages. 🔴 O-D1 (DOCX section numbers) open. Prose without numbers not audited |
 
 ⚠️ **No count in this register may come from an ad-hoc pipeline.** Three
 successive `grep | cut | uniq` passes over `inventory.csv` each miscounted the
@@ -2290,8 +2377,9 @@ With §2.1, §5 and §7, all 566 rows of `masked_by_rule.csv` have now been read
 4 + 18 + 153 = 175 year-like.
 
 **Numbers written in words: read** (§9, 1,350 tokens, second producer
-`scripts/audit_number_words.py`). W-M2 is corrected; 🔴 **W-P1, W-P2, W-S2, W-S3
-and W-M1 await the author**.
+`scripts/audit_number_words.py`). W-M2 is corrected as mechanical; W-P1, W-P2,
+W-S2, W-S3 and W-M1 are corrected on the author's decisions. 🔴 **O-D1**, the
+supplement section numbers missing from both DOCX twins, is open.
 
 **Still unread, in all three artefacts (2026-09-15):**
 - **prose that carries no number.** Quantifiers ("only", "none", "both", "all")
@@ -2334,9 +2422,10 @@ masked literals were then read one by one (§8), and one line-range pointer is
 corrected. The content of the LaTeX comments, which does not render, was not
 verified.
 
-The numbers written in words were then read line by line (§9). One wording is
-corrected as mechanical, five findings are with the author, and no per-token
-verdict table was kept for that population.
+The numbers written in words were then read line by line (§9). Six wordings are
+corrected (one mechanical, five on the author's decisions), and no per-token
+verdict table was kept for that population. The Word twins are checked only
+for the corrected wordings; O-D1 shows they can lose numbers the PDFs carry.
 
 Nor does it claim anything about prose without numbers, quantifiers included,
 listed at the end of §10: it has not been read.

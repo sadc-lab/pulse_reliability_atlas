@@ -2687,7 +2687,7 @@ than an automatic exclusion instead leaves 1,134 / 1,280 (88.6 %)
 hard-failure-free, from 106/160 in S4_M to 160/160 in S2_F and S3_F, a
 1.51-fold spread. Retention is given as counts rather than percentages
 because with *n* = 160 every per-cell percentage is a multiple of 0.625
-and nine of the sixteen values fall on an exact rounding tie.
+and nine of the sixteen values fall on an exact rounding tie at one or two decimals.
 
 | cell | four-flag clean | hard-failure-free |
 |---|---:|---:|
@@ -3548,7 +3548,7 @@ documentation / validation layer rather than the physiology layer.
    API — one typed record per rejected field, with the offending
    value, the enforced bound, and the field name — would let
    sensitivity-analysis wrappers detect clamping deterministically
-   instead of pattern-matching the four-pattern regex set. Anchored in
+   instead of pattern-matching the regex set documented in §2.6. Anchored in
    the atlas's `src/detector.py` clamp-pattern catalogue and the
    pilot / full-sweep experience ([S004](#s004), [S005](#s005),
    [S006](#s006)).
