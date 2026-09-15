@@ -110,6 +110,39 @@ def section_sign_count(raw: str, number: str) -> int:
     return len(re.findall("§[\\s   ]*" + re.escape(number) + r"(?![\d.]\d)", raw))
 
 
+# Reference links and venues. Added 2026-09-15: every @misc entry of paper.bib
+# lost its `howpublished` field in both Word twins. The nine Kitware pages and the
+# DeepSeek report printed no URL, and three conference papers no venue, because
+# nature.csl prints a URL only for web pages and reports and pandoc maps @misc to
+# neither. The PDFs were right, so every check above passed.
+BIB = NPJ / "paper.bib"
+MISC_RE = re.compile(r"^@misc\{([^,]+),\n(.*?)^\}$", re.M | re.S)
+HOWPUB_RE = re.compile(r"^\s*howpublished\s*=\s*\{(.*)\},\s*$", re.M)
+URL_RE = re.compile(r"\\url\{([^{}]*)\}")
+# Same citation forms as scripts/check_citations.py, locator form included.
+CITE_RE = re.compile(r"\\cite[tp]?\*?(?:\[[^\]]*\]){0,2}\{([^}]*)\}")
+
+
+def misc_expectations(bib: str) -> dict[str, str]:
+    """For each @misc entry with a howpublished field, what its Word reference must
+    carry: the URL when howpublished holds one, otherwise the venue text."""
+    out: dict[str, str] = {}
+    for m in MISC_RE.finditer(bib):
+        hp = HOWPUB_RE.search(m.group(2))
+        if hp:
+            url = URL_RE.search(hp.group(1))
+            out[m.group(1)] = url.group(1) if url else hp.group(1)
+    return out
+
+
+def reference_entry(xml: str, key: str) -> str | None:
+    """Normalised text of the bibliography paragraph pandoc bookmarks as ref-<key>."""
+    for para in xml.split("</w:p>"):
+        if f'w:name="ref-{key}"' in para:
+            return norm(re.sub(r"<[^>]+>", " ", para))
+    return None
+
+
 def main() -> int:
     fails = 0
     labels = parse_aux_labels(NPJ / "build")
@@ -170,6 +203,24 @@ def main() -> int:
             print(f"  *** unresolved label: {lab}")
         fails += len(short) + len(unresolved)
 
+        with zipfile.ZipFile(docx_path) as z:
+            xml = z.read("word/document.xml").decode("utf-8")
+        cited = {k.strip() for m in CITE_RE.finditer(re.sub(r"(?<!\\)%.*", "", tex))
+                 for k in m.group(1).split(",")}
+        expected = {k: v for k, v in misc_expectations(BIB.read_text(encoding="utf-8")).items()
+                    if k in cited}
+        bad = []
+        for key, want in sorted(expected.items()):
+            entry = reference_entry(xml, key)
+            if entry is None or norm(want) not in entry:
+                bad.append((key, want, entry is None))
+        print(f"  reference links/venues: {len(expected)} cited @misc entries, "
+              f"{len(bad)} missing their URL or venue "
+              f"{'OK' if not bad else '*** MISSING ***'}")
+        for key, want, absent in bad:
+            print(f"  *** {key}: {'no reference entry' if absent else 'lacks'} {want[:70]!r}")
+        fails += len(bad)
+
     print("\n--- CALIBRATION ---")
     probe = docx_text(NPJ / "build/paper.docx")
     found_present = CONTROL_PRESENT in probe
@@ -179,6 +230,17 @@ def main() -> int:
     if not found_present or found_absent:
         print("  *** CALIBRATION FAILED -- the matching layer is broken, "
               "so no verdict above can be believed")
+        fails += 1
+
+    # The reference matcher must reject the exact defect it was written for (the
+    # Word entry as pandoc printed it before the fix) and accept the repaired one.
+    faq_url = misc_expectations(BIB.read_text(encoding="utf-8")).get("pulsefaq", "")
+    broken = norm("Kitware, Inc. Pulse FAQ: Have you done UQ / SA? (2026).")
+    repaired = norm(f"Kitware, Inc. Pulse FAQ: Have you done UQ / SA? {faq_url} (2026).")
+    ref_ok = bool(faq_url) and norm(faq_url) not in broken and norm(faq_url) in repaired
+    print(f"  reference matcher rejects the URL-less entry and accepts the repaired one: {ref_ok}")
+    if not ref_ok:
+        print("  *** CALIBRATION FAILED -- the reference-link check cannot be believed")
         fails += 1
 
     print(f"\nRESULT: "

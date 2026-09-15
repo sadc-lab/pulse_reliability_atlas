@@ -2090,3 +2090,16 @@ the PDF shows it.
 Only `paper.tex`, `paper.bib` and the citation manifest changed for these
 references. The supplement and the monograph are untouched, by the author's
 decision.
+
+**Follow-up, same day (night) — the Word-twin defect is fixed, on the author's decision.**
+`scripts/tex_to_docx.py` now hands pandoc a retyped copy of the bibliography
+(`build/*.docxsrc.bib`, gitignored). It turns 10 `@misc` into `@online`
+(`\url` moved to `url`) and 3 into `@inproceedings` (`howpublished` moved to a
+braced `booktitle`). `paper.bib` and both PDFs are unchanged: the text extracted
+from each PDF is byte-identical before and after. In `paper.docx` only the six
+`@misc` entries changed, with numbering intact. The new check in
+`scripts/check_docx_structure.py` failed on exactly the 17 cited
+entry-document pairs (6 paper, 11 supplement) before the fix and passes after
+it; its calibration rejects the URL-less entry. Word still omits the "Accessed"
+note and the "Technical report" label, which `nature.csl` does not print for
+these types.

@@ -28,6 +28,19 @@ Resolved with ``--citeproc`` against the paper ``.bib`` using the numbered
 Nature CSL (``nature.csl``, vendored next to the .tex sources) so the .docx
 in-text markers and reference list match the numbered PDF.
 
+pandoc does not read the ``.bib`` itself but a retyped copy,
+``*.docxsrc.bib`` in the build directory. ``nature.csl`` prints a URL only for
+web pages and reports, and pandoc maps ``@misc`` to neither, so every
+``@misc`` entry lost its ``howpublished`` field in Word: web pages printed no
+link and conference papers no venue (found 2026-09-15; guarded by
+``scripts/check_docx_structure.py``). ``paper.bib`` cannot be retyped itself,
+because ``sn-nature.bst`` needs ``@misc`` for the PDF. In the copy, an
+``@misc`` whose ``howpublished`` holds a ``\url`` becomes ``@online`` with that
+``url``; any other ``@misc`` with ``howpublished`` becomes ``@inproceedings``
+with it as a case-protected ``booktitle``. Word still omits what the CSL never
+prints for those types: the ``note`` ("Accessed ...") and the "Technical
+report" label.
+
 Cross-references
 ----------------
 pandoc cannot resolve ``xr-hyper`` *external*-document references (e.g. the
@@ -56,6 +69,39 @@ import re
 import subprocess
 import sys
 from pathlib import Path
+
+# Retyping of @misc entries for the Word build; see "Citations" in the docstring.
+MISC_ENTRY_RE = re.compile(r"^@misc\{([^,]+),\n(.*?)^\}$", re.M | re.S)
+HOWPUBLISHED_RE = re.compile(r"^([ \t]*)howpublished\s*=\s*\{(.*)\},[ \t]*$", re.M)
+URL_ARG_RE = re.compile(r"\\url\{([^{}]*)\}")
+
+
+def retype_misc_for_csl(bib: str) -> tuple[str, int, int]:
+    """Copy of ``bib`` with each ``@misc`` that has ``howpublished`` retyped for CSL.
+
+    A ``howpublished`` holding ``\\url{U}`` becomes ``@online`` with ``url = {U}``;
+    any other becomes ``@inproceedings`` with ``booktitle = {{...}}``, braced so the
+    style does not lower-case a conference name. Entries without ``howpublished``
+    and all non-``@misc`` entries are returned unchanged. Also returns the number of
+    entries retyped to each type.
+    """
+    counts = {"online": 0, "inproceedings": 0}
+
+    def fix(m: re.Match) -> str:
+        key, body = m.group(1), m.group(2)
+        hp = HOWPUBLISHED_RE.search(body)
+        if not hp:
+            return m.group(0)
+        indent, value = hp.group(1), hp.group(2)
+        url = URL_ARG_RE.search(value)
+        if url:
+            kind, line = "online", f"{indent}url = {{{url.group(1)}}},"
+        else:
+            kind, line = "inproceedings", f"{indent}booktitle = {{{{{value}}}}},"
+        counts[kind] += 1
+        return f"@{kind}{{{key},\n{body[:hp.start()]}{line}{body[hp.end():]}}}"
+
+    return MISC_ENTRY_RE.sub(fix, bib), counts["online"], counts["inproceedings"]
 
 
 def _braced(s: str, open_idx: int) -> tuple[str, int]:
@@ -345,12 +391,19 @@ def main() -> int:
     src_tex = out_path.parent / (tex_path.stem + ".docxsrc.tex")
     src_tex.write_text(munged, encoding="utf-8")
 
+    # Retyped bibliography copy for pandoc -> build dir (gitignored).
+    docx_bib_text, n_online, n_proc = retype_misc_for_csl(args.bib.read_text(encoding="utf-8"))
+    docx_bib = out_path.parent / (tex_path.stem + ".docxsrc.bib")
+    docx_bib.write_text(docx_bib_text, encoding="utf-8")
+    print(f"  bibliography for Word: {n_online} @misc -> @online, "
+          f"{n_proc} @misc -> @inproceedings ({docx_bib.name})")
+
     cmd = [
         args.pandoc,
         str(src_tex),
         "--citeproc",
         "--bibliography",
-        str(args.bib.resolve()),
+        str(docx_bib.resolve()),
         "--csl",
         str(args.csl.resolve()),
         "--lua-filter",
