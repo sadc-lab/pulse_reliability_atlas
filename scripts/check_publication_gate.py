@@ -82,6 +82,11 @@ CLAIMS: list[tuple[str, str, int, str]] = [
      "Data availability: the repository is public NOW, pre-deposit."),
     ("preprint_npj/paper.tex", "released under the Apache-2.0 license at", 1,
      "Code availability: a resolvable public URL is given."),
+    # Added 2026-09-16 with the sentence itself: Methods 4.7 now offers the commit
+    # history as the evidence trail behind the AI-assisted audits, which is one more
+    # present-tense claim that the repository is readable by anyone.
+    ("preprint_npj/paper.tex", "whose commit history records the audit findings", 1,
+     "Methods 4.7: the repository's commit history is public NOW."),
     ("preprint_npj/supplement.tex", "released under the Apache-2.0 license at", 1,
      "Supplement repeats the public URL claim."),
     ("preprint_npj/supplement.tex", "openly available under", 1,
