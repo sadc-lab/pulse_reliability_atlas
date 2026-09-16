@@ -1449,7 +1449,7 @@ Instruments that failed and were caught:
 | O-8 | L119 "8 cells (4 scenarios, healthy S1 and ARDS S2/S3/S4, × 2 reference bodies M/F)" | text |
 | O-9 | L634–635 "24 core experiment-log entries (S001–S024)" | text |
 | O-10 | L1337 "completed runs and 20 / 20" | `sha_compare.json`: BIT_EXACT 1,260, BOTH_DIVERGED 20 |
-| O-11 | L422 "§S1 – §S17" | `supplement.tex` has 17 `\section` |
+| O-11 | L422 "§S1 – §S18" (read "§S1 – §S17" until 2026-09-15, when Supplement §S18 received the AI-use detail moved out of Methods §4.7) | `supplement.tex` has 18 `\section` |
 | Cornish | both `.bib` files cite JMLR 27(152):1–52, 2026; labels read 2026; reference 4 (L3867) and §9.7 (L4039–4042). Details in `audit/reference_audit.md`, "Resolution 2026-09-14 (night)" | the JMLR fields in both `.bib` files |
 
 Every row also has its new wording required and its old wording banned, on
@@ -2437,12 +2437,46 @@ source:
   `masked_by_rule.csv`.
 - Calibrations 39 / 0 and 19 / 0.
 
+**Addendum 2026-09-16 — the lossless condensation pass (review comment: the
+AI-use disclosure is disproportionate).** The four closing statements and the
+AI-use subsection were shortened without dropping a fact, the phase-by-phase
+AI detail moved to the new Supplement §S18, and duplicated sentences were cut
+from the paper's body and from the supplement. Every literal, `\cite` and
+`\ref` was compared before and after on the two documents together; the digit
+inventory and the number-word inventory were re-run and every row that entered
+or left was read:
+
+- **Paper, `none` 37 → 38.** One row enters: `4.8` in "Opus 4.7, 4.8 and 5 in
+  succession". It is a model version, not a quantity — the `product_version`
+  mask covers "Opus 4.7" but not a bare "4.8" that follows a comma, so the
+  residue is conservative here rather than wrong. Claude Opus 4.8 is the model
+  named, identifier `claude-opus-4-8` in §S18.
+- **Paper, `ambiguous_small` 307 → 301 and `guard` 169 → 167.** Six occurrences
+  leave with the AI detail (the `150`-word cap, the date "3 August", the `3`,
+  `4`, `4`, `7`, `8` of the model identifiers and of Gemini Pro `3.1`), and two
+  leave with the Discussion duplicate cut in §3: `0` and `1{,}280` of "fired on
+  0 of 1{,}280 runs". §2.1 still states both, and the Table 2 caption still
+  carries "0 of 1{,}280"; crosswalk `1{,}280` bumped 45 → 44.
+- **Supplement, `none` 411 → 409, `ambiguous_small` 960 → 967, `guard` 490 →
+  491.** The AI occurrences above arrive in §S18; `0.05` and `0.01` leave §S3.2,
+  where one sentence restated the two detector conventions the preceding
+  sentence had already given.
+- **Number words:** paper 241 → 233, supplement 561 → 568, monograph unchanged;
+  total 1,349 → 1,348. The AI detail carries "first" ×3, "half", "quarter",
+  "third", "three" and "second" into §S18, while the paper gains one "first"
+  ("The first was always a Claude model") and one "second" ("the second Google
+  Gemini Pro 3.1"), and loses "One" ("One side of the loop"); the paper's "the two healthy cells" became "both healthy cells", and
+  the supplement's §S16 closing restatement took its own "two" with it.
+- **Movement.** Digit inventory 5,786 → 5,785 retained (paper 528 → 521,
+  supplement 1,887 → 1,893, monograph 3,371 unchanged). Calibrations 39 / 0 and
+  19 / 0, unchanged.
+
 ## 10. What remains
 
 | artefact | `none` residue | `ambiguous_small` | status |
 |---|---:|---:|---|
-| paper | 37 / 29 (43 / 31 when read) | 307 | **both read row by row** (§3, §3.2). `none`: no defect. `ambiguous_small`: 57 not quantities, 248 + 2 verified, **1 wording finding, corrected** (L259, author's choice, guarded). **`guard` and `ledger` read one by one** (§6): 183 occurrences, 16 of them a different quantity, all verified, no defect. **Year-like and masked literals read** (§7: 4; §8: 40), no defect |
-| supplement | 431 / 218 (456 when read) | 957 | **`none` read row by row** (§4.1): 6 not quantities, 450 verified; **all six findings corrected** on the author's decisions (F-S1 to F-S6, 2026-09-14). **`ambiguous_small` read row by row** (§4.2): 134 not quantities, 823 verified; **3 findings, 1 mechanical pointer and prose-sweep #15 all corrected** on the author's decisions (2026-09-14), guarded (22 checks). Counts now 411 / 960 (432 → 411 is by value only: §5 Resolution, §6 GL-S2). **`guard` and `ledger` read one by one** (§6): 515 occurrences, 122 a different quantity; **GL-S1 corrected** (mechanical pointer, guarded), **GL-S2 corrected** (author's decision, 2026-09-15, guarded). **Year-like and masked literals read** (§7: 18; §8: 77, the five chapter locators re-opened in the cited editions), no defect |
+| paper | 38 / 30 since the 2026-09-16 pass (37 / 29 when §3 was written; 43 / 31 when read) | 301 since that pass (307 when read) | **both read row by row** (§3, §3.2). `none`: no defect. `ambiguous_small`: 57 not quantities, 248 + 2 verified, **1 wording finding, corrected** (L259, author's choice, guarded). **`guard` and `ledger` read one by one** (§6): 183 occurrences, 16 of them a different quantity, all verified, no defect. **Year-like and masked literals read** (§7: 4; §8: 40), no defect |
+| supplement | 409 / 210 since the 2026-09-16 pass (431 / 218 after §4.1; 456 when read) | 967 since that pass (957 when read) | **`none` read row by row** (§4.1): 6 not quantities, 450 verified; **all six findings corrected** on the author's decisions (F-S1 to F-S6, 2026-09-14). **`ambiguous_small` read row by row** (§4.2): 134 not quantities, 823 verified; **3 findings, 1 mechanical pointer and prose-sweep #15 all corrected** on the author's decisions (2026-09-14), guarded (22 checks). Counts now 411 / 960 (432 → 411 is by value only: §5 Resolution, §6 GL-S2). **`guard` and `ledger` read one by one** (§6): 515 occurrences, 122 a different quantity; **GL-S1 corrected** (mechanical pointer, guarded), **GL-S2 corrected** (author's decision, 2026-09-15, guarded). **Year-like and masked literals read** (§7: 18; §8: 77, the five chapter locators re-opened in the cited editions), no defect |
 | monograph | 803 / 344 when read; 794 / 334 after the corrections | 1864 when read; 1878 after | **both read row by row, plus the 89 inline-code literals** (§5); section pointers and "Cited in §X" checked. **19 findings (MF-1 … MF-21, MF-8 merged, MF-10 downgraded) and 11 observations. All 19 findings, O-3/5/7/8/9/10/11 and the Cornish citation corrected 2026-09-14** (author's decisions, or mechanical under the pact), guarded (63 checks, one of them GL-S1's; 66 after GL-S2 and YL-M2). O-1 not selected, O-4 not to be edited. MF-22 (HR anchors against Ostchega 2011), found during the resolution, removed on the author's decision, together with a precision on MF-20. Quantities against non-quantities not counted: the rule-based split failed its precision pass. **`guard` and `ledger` read one by one** (§6): 698 occurrences, 126 a different quantity, all verified, no defect. **Year-like literals read one by one** (§7): 153 occurrences; **YL-M2 corrected** (mechanical pointer, guarded), **YL-M1 corrected** (title-page date = revision date, author's decision, guarded). **Masked literals read one by one** (§8): 166 occurrences; **MK-M1 corrected** (line-range pointer, mechanical, guarded; the guard has 68 checks after MK-M1, 69 after YL-M1). **Numbers written in words read** (§9, all three artefacts: 233 / 559 / 546 kept when read, 12 masked): **W-M2 corrected** (mechanical), **W-P1, W-P2, W-S2, W-S3 and W-M1 corrected on the author's decisions**, all guarded (79 checks); monograph 122 pages. O-D1 (supplement section numbers missing from both DOCX twins) fixed in the converter and guarded. Prose without numbers not audited |
 
 ⚠️ **No count in this register may come from an ad-hoc pipeline.** Three

@@ -350,7 +350,8 @@ separate sessions, one critiquing the other's output; the standing rules
 and verification protocol are versioned in [`CLAUDE.md`](CLAUDE.md); the
 preregistration was locked before data collection; every change was
 reviewed and committed by the author. Methods §4.7 of the manuscript
-carries the full disclosure.
+carries the disclosure, and Supplement §S18 the model identifiers,
+settings and phase-by-phase tasks.
 
 **What this does not establish.** These gates detect drift between a
 claim and its source. They do not make a claim true, they do not

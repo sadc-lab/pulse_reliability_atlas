@@ -8,36 +8,35 @@
     "paper": {
       "path": "preprint_npj/paper.tex",
       "kept_per_class": {
-        "cardinal": 200,
-        "multiplicative": 6,
-        "ordinal": 35
+        "cardinal": 197,
+        "multiplicative": 4,
+        "ordinal": 32
       },
       "kept_per_word": {
         "doubles": 1,
         "eight": 8,
         "fifth": 1,
-        "first": 13,
+        "first": 11,
         "five": 7,
         "four": 33,
         "fourth": 1,
-        "half": 4,
+        "half": 3,
         "nine": 3,
-        "one": 44,
-        "quarter": 1,
+        "one": 43,
         "second": 16,
         "seven": 13,
         "six": 13,
         "sixteen": 1,
-        "third": 4,
-        "three": 29,
+        "third": 3,
+        "three": 28,
         "twelve": 2,
-        "two": 34,
+        "two": 33,
         "zero": 13
       },
-      "lines_with_a_kept_token": 65,
+      "lines_with_a_kept_token": 63,
       "recall": {
-        "tokens_in_raw_text": 246,
-        "tokens_kept": 241,
+        "tokens_in_raw_text": 238,
+        "tokens_kept": 233,
         "tokens_masked": 5,
         "masked_per_rule": {
           "tex_comment": 5,
@@ -57,41 +56,42 @@
       "path": "preprint_npj/supplement.tex",
       "kept_per_class": {
         "cardinal": 466,
-        "multiplicative": 11,
-        "ordinal": 84
+        "multiplicative": 13,
+        "ordinal": 89
       },
       "kept_per_word": {
         "double": 2,
         "doubling": 1,
         "eight": 25,
-        "first": 20,
+        "first": 23,
         "five": 21,
         "four": 49,
         "fourth": 3,
-        "half": 1,
+        "half": 2,
         "nine": 6,
         "one": 99,
-        "second": 53,
+        "quarter": 1,
+        "second": 54,
         "seven": 16,
         "seventh": 1,
         "six": 30,
         "sixth": 1,
         "ten": 5,
-        "third": 6,
+        "third": 7,
         "thirteen": 1,
         "thirty": 1,
-        "three": 80,
+        "three": 81,
         "twelve": 4,
         "twenty": 1,
         "twice": 4,
-        "two": 107,
+        "two": 106,
         "two-thirds": 3,
         "zero": 21
       },
-      "lines_with_a_kept_token": 180,
+      "lines_with_a_kept_token": 182,
       "recall": {
-        "tokens_in_raw_text": 567,
-        "tokens_kept": 561,
+        "tokens_in_raw_text": 574,
+        "tokens_kept": 568,
         "tokens_masked": 6,
         "masked_per_rule": {
           "tex_comment": 6,
@@ -163,12 +163,12 @@
     }
   },
   "totals": {
-    "kept": 1349,
+    "kept": 1348,
     "masked": 12,
     "kept_per_class": {
-      "cardinal": 1137,
+      "cardinal": 1134,
       "multiplicative": 28,
-      "ordinal": 184
+      "ordinal": 186
     }
   }
 }

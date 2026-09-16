@@ -29,3 +29,4 @@ main manuscript carries a forward-looking note on engine-side infrastructure sug
 main manuscript); a one-line note in the patient-baseline reference table would have saved the investig	POINTER
 main manuscript reports that, under increasing ARDS severity, Pulse's output heart rate decou	a compensatory tachycardia that decouples output from input heart rate under hypoxemia
 main manuscript), which keeps the assumption auditable	POINTER
+main manuscript states how large language models were used and where responsibility rests; t	Large language models (LLMs) were used substantially

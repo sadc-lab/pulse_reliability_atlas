@@ -3577,7 +3577,7 @@ assert not (_s32_cmb["f_c"] > _s32_cmb["f_flip"]).any() and _s32_first[
 _lim_src = (REPO / "preprint_npj" / "paper.tex").read_text(encoding="utf-8")
 _lim_txt = _lim_src[
     _lim_src.index("scope limits bound the conclusions") : _lim_src.index(
-        "Together, these limitations define the scope"
+        "Two further caveats are of evidence rather than scope"
     )
 ]
 add(
@@ -5998,7 +5998,10 @@ def check_shap_pooled_unit() -> int:
 # only in three places where it means something else, and each has a reason:
 #
 #   - the log-based rejection detector, a narrower object that reads the setup
-#     log and can only see EXPLICIT refusal (§2.1, §4.4, Discussion);
+#     log and can only see EXPLICIT refusal (§2.1, §4.4; the Discussion copy,
+#     the only "rejection-log detector", was cut as a duplicate of §2.1 on
+#     2026-09-15, so that phrase is no longer required -- "log-based detector"
+#     still is);
 #   - "Detector self-consistent", the name of preregistered pilot gating
 #     criterion 2 (preregistration.md:178). That document says in the same
 #     breath: "Do not silently edit pilot criteria". It is quoted, not chosen;
@@ -6020,7 +6023,6 @@ DETECTOR_BANNED = (
 )
 DETECTOR_REQUIRED = (
     "log-based detector",
-    "rejection-log detector",
     "detector self-consistency",
 )
 
@@ -6686,7 +6688,8 @@ MONO_AUDIT_TEXT_REQUIRED = (
     ("preprint/manuscript.md", "bit-identical\n  completed runs and 20 / 20", 1),
     ("preprint/manuscript.md", "(4 scenarios, healthy S1 and ARDS S2/S3/S4,", 1),
     ("preprint/manuscript.md", "24 core experiment-log entries\n(S001–S024)", 1),
-    ("preprint/manuscript.md", "| §S1 – §S17 |", 1),
+    # O-11 again (2026-09-15): Supplement S18 (AI-use detail moved out of Methods 4.7) -> S1-S18.
+    ("preprint/manuscript.md", "| §S1 – §S18 |", 1),
     ("preprint/manuscript.md", "Research 27(152):1–52 (2026)", 1),
     ("preprint/manuscript.md", "Research 27(152):1–52\n  (2026); first posted as arXiv:2301.07210", 1),
     ("preprint/manuscript.md", "the published Tables 4 and 5 keep the same counts and add\n  Manski-bound columns.", 1),
@@ -6707,9 +6710,11 @@ MONO_AUDIT_TEXT_REQUIRED = (
     ("preprint_npj/paper.tex", "fall on an exact rounding tie at one or two decimals, and their last digit", 1),
     ("preprint/manuscript.md", "fall on an exact rounding tie at one or two decimals.", 1),
     # W-P2: the condensation pass measured part by part (f2ac374 -> e361c2a). The Methods ratio
-    # (0.54) excludes this AI-disclosure subsection, which the pass left unchanged (0.59 with it).
-    ("preprint_npj/paper.tex", "the Introduction, the Discussion and the Methods other than this disclosure were "
-     "rewritten to about half their length "
+    # (0.54) excludes the AI-disclosure subsection, which the pass left unchanged (0.59 with it).
+    # Since 2026-09-15 the phase-by-phase detail lives in Supplement S18, so the sentence moved
+    # there and "this disclosure" became "the AI-use subsection".
+    ("preprint_npj/supplement.tex", "the Introduction, the Discussion and the Methods other than the AI-use "
+     "subsection were rewritten to about half their length "
      "and the Results to about a third, the figure legends were shortened by about a quarter and the abstract "
      "was revised within its 150-word cap", 1),
     # W-S2: the out-of-sample estimates follow in their own subsection.
@@ -6741,7 +6746,7 @@ MONO_AUDIT_TEXT_BANNED = {
         "detector.py:338", "discussed in §4.3.", "§4.3 / §4.5 limitations", "(§4.3 limitations)",
         "weight^1.02 (§3.6)", "preregistration limitations table", "~50 MB of engine logs",
         "CDC P50 ≈ 177", "E6 audit reported", "files / 23 MB", "bit-identical\n  clean runs",
-        "4 ARDS severities S1/S2/S3/S4", "§S1 – §S16", "Cornish et al. 2023", "Cornish et al. (2023)",
+        "4 ARDS severities S1/S2/S3/S4", "§S1 – §S16", "§S1 – §S17", "Cornish et al. 2023", "Cornish et al. (2023)",
         "Cornish-2023", "Cornish 2023 Table 4", "(Oxford, 2023)", "(November 2023, v4)",
         "used by Cornish 2023", "(Cornish et al. 2023;", "from 0.962 to 0.930",
         "NHANES resting heart-rate anchors", "median HR 70 bpm (M) / 74 bpm (F)",
@@ -6859,7 +6864,7 @@ def check_monograph_number_audit() -> int:
     record("MF-9 S2 is mild ARDS (0.26)", "src/scenario.py", '"S2": Scenario("S2", "Mild ARDS", 0.26)' in scen)
     supp = (REPO / "preprint_npj" / "supplement.tex").read_text(encoding="utf-8")
     n_sec = len(re.findall(r"^\\section\{", supp, re.M))
-    record("O-11 the npj supplement has 17 numbered sections", f"{n_sec}", n_sec == 17)
+    record("O-11 the npj supplement has 18 numbered sections", f"{n_sec}", n_sec == 18)
     smd = (REPO / "preprint" / "supplementary.md").read_text(encoding="utf-8")
     s10 = smd.split("## S10", 1)[1].split("\n## ", 1)[0] if "## S10" in smd else ""
     n_rows = len(re.findall(r"^\| S0\d\d ", s10, re.M))

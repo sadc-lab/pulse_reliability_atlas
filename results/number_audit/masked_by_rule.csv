@@ -409,13 +409,8 @@ monograph,year_like,4517,2026,", < re-read 2026-08-20 with columns resolved by n
 monograph,year_like,4528,2026,"recorded in that project's experiments log (CDC weight audit step, 2026-04). * **Female height (163 cm).** Matches the CDC P50 stature for"
 paper,org_identifier,115,3450,"ress{\city{Nancy}, \country{France}}} \affil[5]{\orgdiv{UR 3450 DevAH}, \orgname{Universit\'e de Lorraine}, \orgaddress"
 paper,org_identifier,117,1256,"Nancy}, \country{France}}} \affil[6]{\orgdiv{INSERM UMR\_S 1256, Nutrition-G\'en\'etique et Exposition aux Risques Envi"
-paper,product_version,391,4.7,"at the \texttt{xhigh} thinking-effort default: Claude Opus 4.7 (\texttt{claude-opus-4-7}) for the initial drafting, Opu"
-paper,product_version,391,4.8,"7 (\texttt{claude-opus-4-7}) for the initial drafting, Opus 4.8 (\texttt{claude-opus-4-8}) through the first supervisor-"
-paper,product_version,391,5,"s-4-8}) through the first supervisor-review phase, and Opus 5 (\texttt{claude-opus-5}) for the audit and synthesis round"
-paper,product_version,391,5.6,"thinking mode) and, from 3~August~2026, OpenAI ChatGPT (GPT-5.6 Sol, High reasoning level); in that role the second mode"
-paper,product_version,393,4.7,A manuscript-formatting pass was performed by Claude Opus 4.7. The Opus 4.8 revision rounds responded to the first rou
-paper,product_version,393,4.8,-formatting pass was performed by Claude Opus 4.7. The Opus 4.8 revision rounds responded to the first round of co-autho
-paper,product_version,393,5,d the associated text and reference modifications. The Opus 5 rounds covered in-repository replication of the ARDS-sever
+paper,product_version,389,4.7,"code. The first was always a Claude model (Anthropic; Opus 4.7, 4.8 and 5 in succession), the second Google Gemini Pro"
+paper,product_version,389,5.6,"second Google Gemini Pro 3.1 and later OpenAI ChatGPT (GPT-5.6 Sol); Supplement~\S\,\ref{sec:s18} gives their identifie"
 paper,ref_or_machinery,182,0.748,des. \begin{figure}[!t] \centering \includegraphics[width=0.748\textwidth]{figures/fig00_study_design.pdf} \caption{\t
 paper,ref_or_machinery,228,0.95,le} \begin{figure}[!htbp] \centering \includegraphics[width=0.95\textwidth]{figures/fig01_traffic_light.pdf} \caption{\t
 paper,ref_or_machinery,293,0.95,. \begin{figure}[!htbp] \centering \includegraphics[width=0.95\textwidth]{figures/fig03_actionable_corrections.pdf} \c
@@ -459,9 +454,7 @@ paper,typeset_length,271,0,g{SpO$_2$}{SpO2}} \\[-0.6em] [b]{0.467\textwidth}
 paper,typeset_length,272,0.467,\\[-0.6em] [b]{0.467\textwidth}
 paper,typeset_length,273,0.467,\hfill [b]{0.467\textwidth}
 paper,year_like,146,2020,"alysis''~ . The upstream repository does carry a single 2020 sensitivity study in its source tree, tagged \texttt{STUDY\_SENSITIVI"
-paper,year_like,391,2026,"rst Google Gemini Pro 3.1 (extended-thinking mode) and, from 3~August~2026, OpenAI ChatGPT ( Sol, High reasoning level); in that role the"
-paper,year_like,393,2026,"rsioned the script that generates it. They also covered the September 2026 condensation pass, in which the Introduction, the Discussion and the"
-paper,year_like,414,2030,vernment funding managed by the National Research Agency under France 2030 via the ENACT AI Cluster (ANR-23-IACL-0004). This work also relies on
+paper,year_like,410,2030,vernment funding managed by the National Research Agency under France 2030 via the ENACT AI Cluster (ANR-23-IACL-0004). This work also relies on
 supplement,file_path,972,06,erical comparison report (\texttt{reproduction\_check\_2026-06-07.md}); \texttt{reproduction\_thinkpad\_2026-06-10/} car
 supplement,file_path,972,07,cal comparison report (\texttt{reproduction\_check\_2026-06-07.md}); \texttt{reproduction\_thinkpad\_2026-06-10/} carrie
 supplement,line_reference,721,120,ied (\texttt{ } lines 120--128 in the upstream Pulse source). The spontaneous-driv
@@ -469,6 +462,11 @@ supplement,line_reference,721,128,\texttt{ } lines 120--128 in the upstream Puls
 supplement,org_identifier,98,3450,"ress{\city{Nancy}, \country{France}}} \affil[5]{\orgdiv{UR 3450 DevAH}, \orgname{Universit\'e de Lorraine}, \orgaddress"
 supplement,org_identifier,100,1256,"Nancy}, \country{France}}} \affil[6]{\orgdiv{INSERM UMR\_S 1256, Nutrition-G\'en\'etique et Exposition aux Risques Envi"
 supplement,product_version,886,3.12,t-identical engine binaries. The host environment is Python 3.12+ managed via \texttt{uv} for deterministic dependency r
+supplement,product_version,1156,4.7,l agent at the \texttt{xhigh} thinking-effort default: Opus 4.7 (\texttt{claude-opus-4-7}) for the initial drafting and
+supplement,product_version,1156,4.8,the initial drafting and a manuscript-formatting pass; Opus 4.8 (\texttt{claude-opus-4-8}) through the first supervisor-
+supplement,product_version,1156,5,the associated text and reference modifications); and Opus 5 (\texttt{claude-opus-5}) for the audit and synthesis round
+supplement,product_version,1156,5.6,"inking mode), then, from 3~August~2026, OpenAI ChatGPT (GPT-5.6 Sol, High reasoning level). The Opus 5 rounds covered i"
+supplement,product_version,1158,5,"enAI ChatGPT (GPT-5.6 Sol, High reasoning level). The Opus 5 rounds covered in-repository replication of the ARDS-sever"
 supplement,ref_or_machinery,120,1,e present atlas's contribution (Section~\mainref{sec:intro}{1} of the main manuscript): a quantitative characterisation
 supplement,ref_or_machinery,166,2.4,"rised separately in Section~\mainref{sec:results-hyperoxia}{2.4} of the main manuscript and in Supplement~\S\,\ref{sec:s"
 supplement,ref_or_machinery,166,2.5,"e divergence mechanism of Section~\mainref{sec:results-sex}{2.5} of the main manuscript and Supplement~\S\,\ref{sec:s10}"
@@ -522,6 +520,7 @@ supplement,ref_or_machinery,1136,2.5,ts the Discussion and the Section~\mainref{
 supplement,ref_or_machinery,1138,2.5,y divergence cluster from Section~\mainref{sec:results-sex}{2.5} of the main paper under both an absolute-BV and a weigh
 supplement,ref_or_machinery,1141,2.6,hypoxemia. Supports Section~\mainref{sec:results-secondary}{2.6} of the main paper. \\ \S\ref{sec:s16-window} & \textbf{
 supplement,ref_or_machinery,1147,2,"mechanism) are summarised in Section~\mainref{sec:results}{2} of the main paper, with extended detail in supplement sec"
+supplement,ref_or_machinery,1156,4.7,nd phases}\label{sec:s18} Section~\mainref{sec:methods-ai}{4.7} of the main manuscript states how large language models
 supplement,tex_comment,57,2026,-manuscript section is a literal % number typed by hand. On 2026-08-05 a single new subsection inserted in the % paper's
 supplement,tex_comment,57,08,script section is a literal % number typed by hand. On 2026-08-05 a single new subsection inserted in the % paper's Resu
 supplement,tex_comment,57,05,ipt section is a literal % number typed by hand. On 2026-08-05 a single new subsection inserted in the % paper's Results
@@ -534,10 +533,11 @@ supplement,tex_comment,731,300,%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %% S9 --
 supplement,tex_comment,1059,7,rdia: input HR vs output HR under %% hypoxemia (Pass 7 D9 Option B follow-up to Manual %% Orthogonal Audit
 supplement,tex_comment,1062,2.6,tory-tachycardia secondary observation in %% Section 2.6 of the main manuscript; sourced from %% companion
 supplement,tex_comment,1063,3.4,uscript; sourced from %% companion monograph Section 3.4.1) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+supplement,tex_comment,1150,4.7,%%%%%% %% S18 -- Use of AI tools: detail moved from Methods 4.7 of the main %% %% manuscript (review comment: sho
 supplement,typeset_length,135,8,ation.} \footnotesize {rp{8.5cm}p{3.5cm}} \toprule \# & Limitation & Primary source \\
 supplement,typeset_length,135,3,\footnotesize {rp{8.5cm}p{3.5cm}} \toprule \# & Limitation & Primary source \\ \midrul
 supplement,typeset_length,203,0.66,tput.} {lp{0.66\textwidth}} \toprule Output & Primary-literature ration
-supplement,typeset_length,250,0.55,on choices.} {lp{0.55\textwidth}} \toprule Channel \& drift threshold & Clini
+supplement,typeset_length,250,0.55,(see text).} {lp{0.55\textwidth}} \toprule Channel \& drift threshold & Clini
 supplement,typeset_length,489,2,}.} {lrrlp{2.6cm}} \toprule Scenario & $n$ & Median P/F [IQR] & Band (m
 supplement,typeset_length,1127,0.62,ain-paper anchor.} {lp{0.62\textwidth}} \toprule Anchor & Finding / discovery \\ \m
 supplement,version,126,4.3,\section{Verified Pulse 4.3.1 limitations} The atlas is calibrated ag
@@ -557,7 +557,7 @@ supplement,year_like,210,2023,"aign initial MAP target of 65~mmHg~ . Upper: ESH 
 supplement,year_like,286,2026,"og on disk is replayed in the note below. \noindent \textbf{Patch of 2026-07-26, applied after the sweep.} Two changes produce the five-pattern"
 supplement,year_like,357,2026,"shold has been adjusted post-hoc; the only preregistration amendment (2026-04-22-b, flatline tolerance 1~\% $\rightarrow$ 0.1~\%) was made befor"
 supplement,year_like,462,2026,"ct's original ARDS severity calibration, a 28-run impairment sweep of 2026-03 (full log in the companion technical monograph, Appendix~B.3), on"
-supplement,year_like,462,2026,"low and therefore has no centre. The companion's later E6 experiment (2026-04) re-ran the three fractions with the same ventilator mode, tidal v"
+supplement,year_like,462,2026,"5 land at 256, 150, and 96~mmHg. The companion's later E6 experiment (2026-04) re-ran the three fractions with the same ventilator mode, tidal v"
 supplement,year_like,464,2026,"calibration has since been reproduced inside the present repository (2026-07-26, 40 runs on the atlas's own engine image), so a headline result"
 supplement,year_like,468,2026,"w} original ARDS severity calibration, the 28-run impairment sweep of 2026-03; its later \texttt{E6} experiment is an April refinement that re-c"
 supplement,year_like,626,2026,\section{Cornish et al.\ 2026 per-channel cross-mapping} The Discussion of the main
@@ -565,3 +565,5 @@ supplement,year_like,632,2026,verlap. [h] \centering \caption{\textbf{Cornish et
 supplement,year_like,636,2026,ndant.} \toprule Cornish 2026 channel & Hoeffding & Bootstrap & Maps to atlas output? \\ \midrule \
 supplement,year_like,865,2020,ipe for user-facing operational inputs.} Pulse's repository carries a 2020 \texttt{STUDY\_SENSITIVITY\_ANALYSIS\_1\_0\_0} tag that performs Sobo
 supplement,year_like,1137,2026,caveat. \\ \S & \textbf{Cornish et al.\ 2026 per-channel cross-mapping.} Each of Cornish's 15 channels mapped agai
+supplement,year_like,1156,2026,"t Google Gemini Pro 3.1 (extended-thinking mode), then, from 3~August~2026, OpenAI ChatGPT ( Sol, High reasoning level). The roun"
+supplement,year_like,1158,2026,and versioned its generating script. They also covered the September 2026 condensation pass and the ensuing audits and their corrections; in th

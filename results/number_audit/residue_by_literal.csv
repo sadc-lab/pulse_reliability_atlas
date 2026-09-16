@@ -10,7 +10,7 @@ paper,0.21,1,"), tidal volume (Vt, 300--800~mL), inspired oxygen fraction (FiO$_
 paper,0.625,1,"entages on purpose: with $n = 160$ every percentage is a multiple of $0.625$, so nine of the sixteen values below fall on an exact rounding tie a"
 paper,110,1,"pt across their verified Pulse acceptance ranges: heart rate (HR, 50--110~bpm), systolic and diastolic blood pressure (SBP 90--120~mmHg, DBP 60"
 paper,"12{,}642",1,"et al.'s ventilator-sharing study~ does sweep inputs (12{,}642 unique patient and ventilator combinations spanning respiratory compl"
-paper,14,1,"is-4 statistics differed only at floating-point round-off ($\sim 10^{-14}$), leaving the Benjamini--Hochberg survivor set unchanged. These cro"
+paper,14,1,"is-4 statistics differed only at floating-point round-off ($\sim 10^{-14}$), leaving the Benjamini--Hochberg survivor set unchanged. \bmhead{"
 paper,163,1,"le body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both weights are U.S.\ Centers for Disease Control and Preventio"
 paper,"1{,}400",1,"rion (Figure~ b). Three of those 40 plateau above 1{,}400~mmHg, beyond the sea-level barometric pressure of 760~mmHg and so phy"
 paper,22,1,"s window was preregistered before any sweep data was collected, and a 22-run pilot on the healthy-male cell verified five preregistered gating"
@@ -19,6 +19,7 @@ paper,36,1,"threshold on 139 of 320 runs and none of those 8 falls there, agains
 paper,37,1,"d below, three of whose members are drift-converged and three not, so 37 of 44 (84.1~\%) converge below the supplement's physiology-anchored 7"
 paper,"3{,}348",1,"'s lower-bound rejection format. Replaying both pattern sets over all 3{,}348 recorded setup logs reclassifies no run of this sweep. This log-based"
 paper,4.1,1,"budget its own protocol declared, exceeding it by a factor of 2.4 to 4.1 on these two readings, and up to 5.5 on the wider set in Supplement~\"
+paper,4.8,1,"t and code. The first was always a Claude model (Anthropic; , 4.8 and 5 in succession), the second Google Gemini Pro 3.1 and later Open"
 paper,5.5,1,"ceeding it by a factor of 2.4 to 4.1 on these two readings, and up to 5.5 on the wider set in Supplement~\S\, , and is reporte"
 paper,70,1,"ome correlation, but over the \emph{mismatch} between two equal-sized 70~kg bodies sharing one ventilator, scored against a single composite s"
 paper,71,1,"refore share essentially the same blood volume per kilogram ($\approx$71~mL\,kg$^{-1}$, within standard clinical estimates~ ),"
@@ -30,7 +31,7 @@ paper,95,1,"change per full-range move of its input. Indices carry non-parametri
 paper,99.9,1,f the mean \emph{and} a mean within 0.1~\% of a hard bound --- $\geq$~99.9~\% for the SpO$_2$ ceiling --- a rule written to catch a solver that
 supplement,95,17,in the first 48~h of ventilation; its cutoffs place approximately the 95th percentile at 70~mmHg~ . A 120~mmHg ceiling therefore
 supplement,110,16,drule 5--6 & Heart-rate initialisation accepted only in the range 50--110~bpm; respiratory-rate initialisation accepted only in the range 8--20
-supplement,0.05,14,check. The coefficient-of-variation threshold \texttt{CV\_THRESHOLD = 0.05} fires when the standard deviation of any output across the steady-st
+supplement,0.05,13,check. The coefficient-of-variation threshold \texttt{CV\_THRESHOLD = 0.05} fires when the standard deviation of any output across the steady-st
 supplement,18,12,berate-clamp probes \\ \midrule 3 & Adult-only restriction: age $\geq 18$ years hard-gated in \texttt{ }. & Source audit (monog
 supplement,22,8,"s been adjusted post-hoc; the only preregistration amendment (2026-04-22-b, flatline tolerance 1~\% $\rightarrow$ 0.1~\%) was made before the"
 supplement,394,8,"manuscript + supplement from the canonical artefacts; expect # 394/394 PASS (exit 0) with the authors' full data tree, # or 393/394 o"
@@ -46,11 +47,11 @@ supplement,"4{,}082.24",6,"ing the male reference body's \texttt{BloodVolumeBase
 supplement,0.21,5,"pies is not fixed across the sweep, whose operational inputs (FiO$_2$ 0.21--1.0, PEEP 0--20~cmH$_2$O, Vt 300--800~mL) vary the ventilation setti"
 supplement,163,5,"le body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both weights are U.S.\ Centers for Disease Control and Preventio"
 supplement,"3{,}996.09",5,"ht}_{\text{kg}}^{1.02}$, yielding 4{,}802.63~mL for the male body and 3{,}996.09~mL for the female body --- the 17~\% sex gap whose mechanism on the i"
-supplement,96,5,"rts the result: impairment 0.26, 0.60, and 0.95 land at 256, 150, and 96~mmHg --- near the mild and moderate band centres, and just inside the"
-supplement,0.01,4,"an. The flatline-at-bound criterion fires when \texttt{std / |mean| < 0.01} AND the mean is within 0.1~\% of a hard bound, intended to flag nume"
+supplement,96,5,"rts the result: impairment 0.26, 0.60, and 0.95 land at 256, 150, and 96~mmHg. The companion's later E6 experiment (2026-04) re-ran the three"
 supplement,0.1,4,"terion fires when \texttt{std / |mean| < 0.01} AND the mean is within 0.1~\% of a hard bound, intended to flag numerical pinning at a bound, al"
 supplement,0.25,4,"ampling interval (50~Hz). At adult respiratory rates of approximately 0.25~Hz (one breath every four seconds), 50~Hz sampling is a 200-fold over"
 supplement,"4{,}400",4,"ence cluster (20 / 20 at the default $\rightarrow$ 0 / 20 at both the 4{,}400 and 4{,}082.24~mL reductions). This supplement section disentangles t"
+supplement,0.01,3,"an. The flatline-at-bound criterion fires when \texttt{std / |mean| < 0.01} AND the mean is within 0.1~\% of a hard bound, intended to flag nume"
 supplement,0.20,3,$ \\ Alveolar diffusion surface area & decreases & $0.57\times$ & $0.20\times$ & $0.075\times$ \\ Pulmonary-shunt path resistance & decreas
 supplement,0.41,3,"\\ S2 & SpO$_2$ & 0.96 & $[0.70, 1.00]$ \\ S2 & PaO$_2$ & 0.93 & $[0.41, 1.00]$ \\ S2 & PaCO$_2$ & 0.89 & $[0.35, 1.00]$ \\ \midrule S3 & HR"
 supplement,0.737,3,"ecific one; the exception is a single healthy-female run at FiO$_2$ = 0.737, whose 679~mmHg steady-state mean stands well above the $0.737 \times"
@@ -61,9 +62,9 @@ supplement,37,3,"), so the thick blue line is the median over the remaining 37 \
 supplement,0.001,2,he locked flatline rule (\texttt{std/|mean| $<$ 0.01} and mean within 0.001 of a hard bound) catches as ``pinned at the ceiling''. The rule was d
 supplement,0.005,2,"side). A complementary 9-run calibration refinement at 0.93--0.97 in 0.005 steps (four failures across 0.93--0.945, five passes across 0.95--0.9"
 supplement,0.06,2,".00]$ \\ S2 & MAP & 1.00 & $[1.00, 1.00]$ \\ S2 & Vt & 0.75 & $[-0.06, 1.00]$ \\ S2 & SpO$_2$ & 0.96 & $[0.70, 1.00]$ \\ S2 & PaO$_2$ & 0"
-supplement,0.09,2,"neither female run does, so the Wilson 95~\% CIs are approximately $[0.09, 0.91]$ for $1 / 2$ and $[0, 0.66]$ for $0 / 2$. They are honestly sh"
+supplement,0.09,2,"neither female run does, so the Wilson 95~\% CIs are approximately $[0.09, 0.91]$ for $1 / 2$ and $[0, 0.66]$ for $0 / 2$. They are shown rathe"
 supplement,0.40,2,"an runs with PEEP $\geq 5$~cmH$_2$O, stratified by FiO$_2$ (low 0.21--0.40, mid 0.40--0.70, high 0.70--1.00).} This is \emph{not} the reference"
-supplement,0.66,2,"ilson 95~\% CIs are approximately $[0.09, 0.91]$ for $1 / 2$ and $[0, 0.66]$ for $0 / 2$. They are honestly shown rather than suppressed because"
+supplement,0.66,2,"ilson 95~\% CIs are approximately $[0.09, 0.91]$ for $1 / 2$ and $[0, 0.66]$ for $0 / 2$. They are shown rather than suppressed because hiding a"
 supplement,0.83,2,"~mmHg range, or 13.33~mmHg; five of the nine fall to 6.25~\% of that (0.83~mmHg), one to 56.25~\% and three to 62.5~\%, and none is reduced to z"
 supplement,0.92,2,eference ventilation setting of \S found fractions 0.92 and 0.94 failing to stabilise. A 10-run high-resolution boundary prob
 supplement,0.94,2,ventilation setting of \S found fractions 0.92 and 0.94 failing to stabilise. A 10-run high-resolution boundary probe at 0.90

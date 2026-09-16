@@ -3669,9 +3669,9 @@ paper,286,600,600.0,guard,"ysiology-anchored 700~mmHg ceiling, which is distinct
 paper,286,40,40.0,ambiguous_small,"from the locked 600~mmHg bound above. The S1 plateau median over all 40 drift-converged runs was 643~mmHg, sitting approximately 20~mmHg \emp"
 paper,286,643,643.0,guard,"und above. The S1 plateau median over all 40 drift-converged runs was 643~mmHg, sitting approximately 20~mmHg \emph{below} the alveolar-gas-equ"
 paper,286,20,20.0,ambiguous_small,"over all 40 drift-converged runs was 643~mmHg, sitting approximately 20~mmHg \emph{below} the alveolar-gas-equation prediction~"
-paper,288,300,300.0,guard,sequence is direct: hyperoxia studies on Pulse should record at least 300 seconds of simulation before extracting a steady-state plateau. The 1
-paper,288,120,120.0,guard,0 seconds of simulation before extracting a steady-state plateau. The 120-second window remains adequate for cardiovascular and ventilation out
-paper,288,1.0,1.0,ambiguous_small,"ntilation outputs. Extended-window runs on healthy lungs at FiO$_2$ = 1.0 can additionally enter a separate solver-instability regime, affectin"
+paper,288,300,300.0,guard,ion map. Hyperoxia studies on Pulse should therefore record at least 300 seconds of simulation before extracting a steady-state plateau; the 1
+paper,288,120,120.0,guard,0 seconds of simulation before extracting a steady-state plateau; the 120-second window remains adequate for cardiovascular and ventilation out
+paper,288,1.0,1.0,ambiguous_small,"ntilation outputs. Extended-window runs on healthy lungs at FiO$_2$ = 1.0 can additionally enter a separate solver-instability regime, far more"
 paper,294,64,64.0,ambiguous_small,)} Trigger-lockout intervention on VC-AC tidal-volume stability ($n = 64$ paired reruns): breath-to-breath tidal-volume variability under Puls
 paper,294,2,2.0,ambiguous_small,"ability after locking \texttt{InspirationPatientTriggerPressure} at $-2$~cmH$_2$O ($y$), so a dot far below the diagonal is a configuration w"
 paper,294,0.05,0.05,none,"configuration whose oscillation the lock removed. The dotted line at $0.05$ is the classifier's steady-state threshold, a delivered-Vt coefficie"
@@ -3741,8 +3741,6 @@ paper,310,"3{,}996",3996.0,ledger,"olver fails at the default value. Pulse's all
 paper,310,86,86.0,none,"utes 3{,}996~mL for the female reference body (dashed vertical line), 86~mL below the male floor, so a one-way BV transplant cannot make the t"
 paper,321,"1{,}280",1280.0,guard,"nable corrections and a sex-specific reliability axis emerge from the 1{,}280-run sweep: a single configuration setting that makes VC-AC tidal-volu"
 paper,321,1.0,1.0,ambiguous_small,"a steady-state-window correction for hyperoxia simulation at FiO$_2 = 1.0$ (\S ); and, on a separate axis, a previous"
-paper,323,0,0.0,ambiguous_small,"tered at ingestion. The preregistered rejection-log detector fired on 0 of 1{,}280 runs, and the post hoc instantiation audit found exact agr"
-paper,323,"1{,}280",1280.0,guard,"at ingestion. The preregistered rejection-log detector fired on 0 of 1{,}280 runs, and the post hoc instantiation audit found exact agreement betw"
 paper,329,85,85.0,ambiguous_small,"tion framework to Pulse on MIMIC-III sepsis trajectories and reported 85 total Hoeffding-inequality rejections. Of these, 82 of 85 fall outsid"
 paper,329,82,82.0,ambiguous_small,"ries and reported 85 total Hoeffding-inequality rejections. Of these, 82 of 85 fall outside the four-channel overlap with this atlas (HR, MAP,"
 paper,329,85,85.0,ambiguous_small,"nd reported 85 total Hoeffding-inequality rejections. Of these, 82 of 85 fall outside the four-channel overlap with this atlas (HR, MAP, PaO$_"
@@ -3756,8 +3754,8 @@ paper,333,0.75,0.75,ambiguous_small,"nical trajectories are impossible. (vi)~Pul
 paper,333,9,9.0,ambiguous_small,"forces DBP/SBP $\leq$ 0.75, and configuration-time clipping shortened 9 of 20 DBP steps, so some SBP and DBP effects are not strict fixed-ste"
 paper,333,20,20.0,ambiguous_small,"s DBP/SBP $\leq$ 0.75, and configuration-time clipping shortened 9 of 20 DBP steps, so some SBP and DBP effects are not strict fixed-step Morr"
 paper,343,2.0,2.0,ambiguous_small,"All simulations used Pulse (Kitware, Apache-2.0)~ , a real-time-capable lumped-parameter whole-body phy"
-paper,343,5,5.0,ambiguous_small,rameter whole-body physiology engine whose respiratory sub-model is a 5-compartment lung~ . The engine was executed insi
-paper,343,"1{,}280",1280.0,guard,"ingle \texttt{pulse-atlas-engine} Docker image, pinned for the entire 1{,}280-run sweep so that every simulation runs against bit-identical engine"
+paper,343,5,5.0,ambiguous_small,rameter whole-body physiology engine whose respiratory sub-model is a 5-compartment lung~ . The engine ran inside a sing
+paper,343,"1{,}280",1280.0,guard,"ide a single \texttt{pulse-atlas-engine} Docker image, pinned for the 1{,}280-run sweep so that every simulation runs against bit-identical engine"
 paper,349,18,18.0,none,"Two adult reference bodies were used: a male body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both w"
 paper,349,67.3,67.3,guard,"Two adult reference bodies were used: a male body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both weights"
 paper,349,180,180.0,guard,"Two adult reference bodies were used: a male body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both weights are U.S"
@@ -3876,28 +3874,23 @@ paper,383,4.1,4.1,none,"budget its own protocol declared, exceeding it by a fact
 paper,383,5.5,5.5,none,"ceeding it by a factor of 2.4 to 4.1 on these two readings, and up to 5.5 on the wider set in Supplement~\S\, , and is reporte"
 paper,383,"1{,}000",1000.0,ledger,"d a post hoc sensitivity analysis in which trajectories are resampled 1{,}000 times per combination and $\sigma / \mu^{*}$ is recomputed jointly on"
 paper,383,0.6,0.6,ambiguous_small,"ecomputed jointly on each draw; combinations whose lower bound clears 0.6 in every draw, under each of five independent seeds, are characterise"
-paper,391,4,4.0,ambiguous_small,"{xhigh} thinking-effort default: Claude (\texttt{claude-opus-4-7}) for the initial drafting, (\texttt{claude-opus-4-8}) thr"
-paper,391,7,7.0,ambiguous_small,"high} thinking-effort default: Claude (\texttt{claude-opus-4-7}) for the initial drafting, (\texttt{claude-opus-4-8}) throu"
-paper,391,4,4.0,ambiguous_small,"de-opus-4-7}) for the initial drafting, (\texttt{claude-opus-4-8}) through the first supervisor-review phase, and (\texttt{cl"
-paper,391,8,8.0,ambiguous_small,"-opus-4-7}) for the initial drafting, (\texttt{claude-opus-4-8}) through the first supervisor-review phase, and (\texttt{clau"
-paper,391,5,5.0,ambiguous_small,"gh the first supervisor-review phase, and (\texttt{claude-opus-5}) for the audit and synthesis rounds that followed. The other side wa"
-paper,391,3.1,3.1,ambiguous_small,"d. The other side was a separate web session, first Google Gemini Pro 3.1 (extended-thinking mode) and, from 3~August~2026, OpenAI ChatGPT ("
-paper,391,3,3.0,ambiguous_small,"ssion, first Google Gemini Pro 3.1 (extended-thinking mode) and, from 3~August~2026, OpenAI ChatGPT ( Sol, High reasoning level); in t"
-paper,393,150,150.0,guard,"shortened by about a quarter and the abstract was revised within its 150-word cap, with the displaced material migrated to the Supplementary I"
-paper,406,100,100.0,guard,. The companion technical monograph (over 100 pages) carrying the full audit traceability will be archived together
-paper,406,2.0,2.0,ambiguous_small,"the code and the per-experiment lab-notebook entries carry the Apache-2.0 licence stated under \hyperlink{tgt:code-avail}{Code availability}, w"
-paper,406,4.0,4.0,ambiguous_small,"monograph content are released under the Creative Commons Attribution 4.0 licence (CC-BY-4.0), whose version~4.0 covers sui generis database ri"
-paper,406,4.0,4.0,ambiguous_small,"re released under the Creative Commons Attribution 4.0 licence (CC-BY-4.0), whose version~4.0 covers sui generis database rights. Verbatim thir"
-paper,406,4.0,4.0,ambiguous_small,"e Creative Commons Attribution 4.0 licence (CC-BY-4.0), whose version~4.0 covers sui generis database rights. Verbatim third-party excerpts, no"
-paper,406,2.0,2.0,ambiguous_small,"rty excerpts, notably from the Pulse documentation and source (Apache-2.0), retain their original licensing terms. This paper and its Supplemen"
-paper,410,2.0,2.0,ambiguous_small,"dit ledger, and reproducibility scripts) is released under the Apache-2.0 license at ."
-paper,410,"1{,}280",1280.0,guard,"verification) is summarised in Supplement~\S\, . The full 1{,}280-run sweep and the S1\_M pilot were additionally reproduced by a co-au"
-paper,410,5,5.0,ambiguous_small,"ed by a co-author on a second, independent x86\_64 host: an AMD Ryzen~5 CPU running Linux under WSL2, a different CPU vendor and operating sy"
-paper,410,4,4.0,ambiguous_small,ag and steady-state value was bit-identical; three derived Hypothesis-4 statistics differed only at floating-point round-off ($\sim 10^{-14}$
-paper,410,10,10.0,ambiguous_small,"othesis-4 statistics differed only at floating-point round-off ($\sim 10^{-14}$), leaving the Benjamini--Hochberg survivor set unchanged. Thes"
-paper,410,14,14.0,none,"is-4 statistics differed only at floating-point round-off ($\sim 10^{-14}$), leaving the Benjamini--Hochberg survivor set unchanged. These cro"
-paper,414,23,23.0,ambiguous_small,ional Research Agency under France 2030 via the ENACT AI Cluster (ANR-23-IACL-0004). This work also relies on the financial support provided b
-paper,414,0004,4.0,ambiguous_small,search Agency under France 2030 via the ENACT AI Cluster (ANR-23-IACL-0004). This work also relies on the financial support provided by the R\'e
+paper,389,4.8,4.8,none,"t and code. The first was always a Claude model (Anthropic; , 4.8 and 5 in succession), the second Google Gemini Pro 3.1 and later Open"
+paper,389,5,5.0,ambiguous_small,"de. The first was always a Claude model (Anthropic; , 4.8 and 5 in succession), the second Google Gemini Pro 3.1 and later OpenAI Cha"
+paper,389,3.1,3.1,ambiguous_small,"pic; , 4.8 and 5 in succession), the second Google Gemini Pro 3.1 and later OpenAI ChatGPT ( Sol); Supplement~\S\,"
+paper,402,100,100.0,guard,"o, together with the code and the companion technical monograph (over 100 pages) carrying the full audit traceability; pre-deposit access is av"
+paper,402,2.0,2.0,ambiguous_small,"). Licensing follows each artefact's function: Apache-2.0 for the code and the lab-notebook entries, and Creative Commons Attri"
+paper,402,4.0,4.0,ambiguous_small,"e code and the lab-notebook entries, and Creative Commons Attribution 4.0 (CC-BY-4.0), whose version~4.0 covers sui generis database rights, fo"
+paper,402,4.0,4.0,ambiguous_small,"the lab-notebook entries, and Creative Commons Attribution 4.0 (CC-BY-4.0), whose version~4.0 covers sui generis database rights, for the depos"
+paper,402,4.0,4.0,ambiguous_small,"ries, and Creative Commons Attribution 4.0 (CC-BY-4.0), whose version~4.0 covers sui generis database rights, for the deposited data and the au"
+paper,402,2.0,2.0,ambiguous_small,"rty excerpts, notably from the Pulse documentation and source (Apache-2.0), retain their original licensing terms. \hypertarget{tgt:code-avail"
+paper,406,2.0,2.0,ambiguous_small,udit ledger and reproducibility scripts) is released under the Apache-2.0 license at .
+paper,406,"1{,}280",1280.0,guard,"xttt{audits/} in the code repository: a co-author reproduced the full 1{,}280-run sweep and the S1\_M pilot on a second, independent x86\_64 host,"
+paper,406,5,5.0,ambiguous_small,"d the S1\_M pilot on a second, independent x86\_64 host, an AMD Ryzen~5 CPU running Linux under WSL2, whose CPU vendor and operating system d"
+paper,406,4,4.0,ambiguous_small,ag and steady-state value was bit-identical; three derived Hypothesis-4 statistics differed only at floating-point round-off ($\sim 10^{-14}$
+paper,406,10,10.0,ambiguous_small,"othesis-4 statistics differed only at floating-point round-off ($\sim 10^{-14}$), leaving the Benjamini--Hochberg survivor set unchanged. \bm"
+paper,406,14,14.0,none,"is-4 statistics differed only at floating-point round-off ($\sim 10^{-14}$), leaving the Benjamini--Hochberg survivor set unchanged. \bmhead{"
+paper,410,23,23.0,ambiguous_small,ional Research Agency under France 2030 via the ENACT AI Cluster (ANR-23-IACL-0004). This work also relies on the financial support provided b
+paper,410,0004,4.0,ambiguous_small,search Agency under France 2030 via the ENACT AI Cluster (ANR-23-IACL-0004). This work also relies on the financial support provided by the R\'e
 supplement,48,1,1.0,ambiguous_small,\makeatletter \renewcommand\numberline[1]{\hb@xt@ {#1\hfil}} \makeatother
 supplement,48,1,1.0,ambiguous_small,\makeatletter \renewcommand\numberline[1]{\hb@xt@ {#1\hfil}} \makeatother
 supplement,72,2,2.0,ambiguous_small,\newcommand{\mainref}[2]{#2} \title[Supplementary Information]{Supplementa
@@ -4117,8 +4110,6 @@ supplement,270,0.05,0.05,none,check. The coefficient-of-variation threshold \tex
 supplement,270,5,5.0,ambiguous_small,andard deviation of any output across the steady-state window exceeds 5~\% of its mean. The flatline-at-bound criterion fires when \texttt{st
 supplement,270,0.01,0.01,none,"an. The flatline-at-bound criterion fires when \texttt{std / |mean| < 0.01} AND the mean is within 0.1~\% of a hard bound, intended to flag nume"
 supplement,270,0.1,0.1,none,"terion fires when \texttt{std / |mean| < 0.01} AND the mean is within 0.1~\% of a hard bound, intended to flag numerical pinning at a bound, al"
-supplement,270,0.05,0.05,none,ounds and drift thresholds. The coefficient-of-variation threshold of 0.05 and the flatline standard-deviation ratio of 0.01 are preregistered d
-supplement,270,0.01,0.01,none,"iation threshold of 0.05 and the flatline standard-deviation ratio of 0.01 are preregistered detector conventions; no derivation, source or empi"
 supplement,270,0.1,0.1,none,"epository or the accompanying audit documentation, in contrast to the 0.1~\% bound tolerance, which was calibrated against existing Pulse runs."
 supplement,270,64,64.0,ambiguous_small,"rion fired most often, the median coefficient of variation across the 64 paired reruns of \S fell from 0.351 before trigger lockin"
 supplement,270,0.351,0.351,guard,"of variation across the 64 paired reruns of \S fell from 0.351 before trigger locking to 0.016 afterwards, placing the 0.05 conventi"
@@ -4557,13 +4548,13 @@ supplement,462,6,6.0,ambiguous_small,"ndix~B.3), on the adult male reference bod
 supplement,462,403.8,403.8,none,"reference body under VC-AC, tidal volume 6~mL/kg actual body weight (403.8~mL), PEEP 10~cmH$_2$O, FiO$_2$ 0.4. Table~ r"
 supplement,462,10,10.0,ambiguous_small,"under VC-AC, tidal volume 6~mL/kg actual body weight (403.8~mL), PEEP 10~cmH$_2$O, FiO$_2$ 0.4. Table~ reports the re"
 supplement,462,0.4,0.4,none,"lume 6~mL/kg actual body weight (403.8~mL), PEEP 10~cmH$_2$O, FiO$_2$ 0.4. Table~ reports the result: impairment 0.26,"
-supplement,462,0.26,0.26,ambiguous_small,"$ 0.4. Table~ reports the result: impairment 0.26, 0.60, and 0.95 land at 256, 150, and 96~mmHg --- near the mild and m"
-supplement,462,0.60,0.6,ambiguous_small,"Table~ reports the result: impairment 0.26, 0.60, and 0.95 land at 256, 150, and 96~mmHg --- near the mild and moderat"
-supplement,462,0.95,0.95,ambiguous_small,"reports the result: impairment 0.26, 0.60, and 0.95 land at 256, 150, and 96~mmHg --- near the mild and moderate band cen"
-supplement,462,256,256.0,guard,"reports the result: impairment 0.26, 0.60, and 0.95 land at 256, 150, and 96~mmHg --- near the mild and moderate band centres, and ju"
-supplement,462,150,150.0,guard,"reports the result: impairment 0.26, 0.60, and 0.95 land at 256, 150, and 96~mmHg --- near the mild and moderate band centres, and just in"
-supplement,462,96,96.0,none,"rts the result: impairment 0.26, 0.60, and 0.95 land at 256, 150, and 96~mmHg --- near the mild and moderate band centres, and just inside the"
-supplement,462,04,4.0,ambiguous_small,"nd therefore has no centre. The companion's later E6 experiment (2026-04) re-ran the three fractions with the same ventilator mode, tidal volu"
+supplement,462,0.26,0.26,ambiguous_small,"$ 0.4. Table~ reports the result: impairment 0.26, 0.60, and 0.95 land at 256, 150, and 96~mmHg. The companion's later"
+supplement,462,0.60,0.6,ambiguous_small,"Table~ reports the result: impairment 0.26, 0.60, and 0.95 land at 256, 150, and 96~mmHg. The companion's later E6 exp"
+supplement,462,0.95,0.95,ambiguous_small,"reports the result: impairment 0.26, 0.60, and 0.95 land at 256, 150, and 96~mmHg. The companion's later E6 experiment (2"
+supplement,462,256,256.0,guard,"reports the result: impairment 0.26, 0.60, and 0.95 land at 256, 150, and 96~mmHg. The companion's later E6 experiment (2026-04) re-r"
+supplement,462,150,150.0,guard,"reports the result: impairment 0.26, 0.60, and 0.95 land at 256, 150, and 96~mmHg. The companion's later E6 experiment (2026-04) re-ran th"
+supplement,462,96,96.0,none,"rts the result: impairment 0.26, 0.60, and 0.95 land at 256, 150, and 96~mmHg. The companion's later E6 experiment (2026-04) re-ran the three"
+supplement,462,04,4.0,ambiguous_small,"d at 256, 150, and 96~mmHg. The companion's later E6 experiment (2026-04) re-ran the three fractions with the same ventilator mode, tidal volu"
 supplement,462,252,252.0,none,"the same ventilator mode, tidal volume, PEEP and FiO$_2$ and obtained 252, 148 and 75~mmHg: lower values, in the same three Berlin bands. This"
 supplement,462,148,148.0,ledger,"ame ventilator mode, tidal volume, PEEP and FiO$_2$ and obtained 252, 148 and 75~mmHg: lower values, in the same three Berlin bands. This cali"
 supplement,462,75,75.0,none,"ilator mode, tidal volume, PEEP and FiO$_2$ and obtained 252, 148 and 75~mmHg: lower values, in the same three Berlin bands. This calibration"
@@ -4817,14 +4808,14 @@ supplement,553,0.945,0.945,guard,"per-bin divergence proportion. Two reading gui
 supplement,553,0.95,0.95,ambiguous_small,"n divergence proportion. Two reading guides apply. First, the (0.945, 0.95] bin holds only two runs per sex: one male run diverges, at impairmen"
 supplement,553,0.9458,0.9458,none,"bin holds only two runs per sex: one male run diverges, at impairment 0.9458, and neither female run does, so the Wilson 95~\% CIs are approximate"
 supplement,553,95,95.0,none,"ges, at impairment 0.9458, and neither female run does, so the Wilson 95~\% CIs are approximately $[0.09, 0.91]$ for $1 / 2$ and $[0, 0.66]$ f"
-supplement,553,0.09,0.09,none,"neither female run does, so the Wilson 95~\% CIs are approximately $[0.09, 0.91]$ for $1 / 2$ and $[0, 0.66]$ for $0 / 2$. They are honestly sh"
-supplement,553,0.91,0.91,ambiguous_small,"er female run does, so the Wilson 95~\% CIs are approximately $[0.09, 0.91]$ for $1 / 2$ and $[0, 0.66]$ for $0 / 2$. They are honestly shown ra"
-supplement,553,1,1.0,ambiguous_small,"n does, so the Wilson 95~\% CIs are approximately $[0.09, 0.91]$ for $1 / 2$ and $[0, 0.66]$ for $0 / 2$. They are honestly shown rather than"
-supplement,553,2,2.0,ambiguous_small,"es, so the Wilson 95~\% CIs are approximately $[0.09, 0.91]$ for $1 / 2$ and $[0, 0.66]$ for $0 / 2$. They are honestly shown rather than sup"
-supplement,553,0,0.0,ambiguous_small,"e Wilson 95~\% CIs are approximately $[0.09, 0.91]$ for $1 / 2$ and $[0, 0.66]$ for $0 / 2$. They are honestly shown rather than suppressed b"
-supplement,553,0.66,0.66,none,"ilson 95~\% CIs are approximately $[0.09, 0.91]$ for $1 / 2$ and $[0, 0.66]$ for $0 / 2$. They are honestly shown rather than suppressed because"
-supplement,553,0,0.0,ambiguous_small,"CIs are approximately $[0.09, 0.91]$ for $1 / 2$ and $[0, 0.66]$ for $0 / 2$. They are honestly shown rather than suppressed because hiding a"
-supplement,553,2,2.0,ambiguous_small,"are approximately $[0.09, 0.91]$ for $1 / 2$ and $[0, 0.66]$ for $0 / 2$. They are honestly shown rather than suppressed because hiding an un"
+supplement,553,0.09,0.09,none,"neither female run does, so the Wilson 95~\% CIs are approximately $[0.09, 0.91]$ for $1 / 2$ and $[0, 0.66]$ for $0 / 2$. They are shown rathe"
+supplement,553,0.91,0.91,ambiguous_small,"er female run does, so the Wilson 95~\% CIs are approximately $[0.09, 0.91]$ for $1 / 2$ and $[0, 0.66]$ for $0 / 2$. They are shown rather than"
+supplement,553,1,1.0,ambiguous_small,"n does, so the Wilson 95~\% CIs are approximately $[0.09, 0.91]$ for $1 / 2$ and $[0, 0.66]$ for $0 / 2$. They are shown rather than suppress"
+supplement,553,2,2.0,ambiguous_small,"es, so the Wilson 95~\% CIs are approximately $[0.09, 0.91]$ for $1 / 2$ and $[0, 0.66]$ for $0 / 2$. They are shown rather than suppressed b"
+supplement,553,0,0.0,ambiguous_small,"e Wilson 95~\% CIs are approximately $[0.09, 0.91]$ for $1 / 2$ and $[0, 0.66]$ for $0 / 2$. They are shown rather than suppressed because hi"
+supplement,553,0.66,0.66,none,"ilson 95~\% CIs are approximately $[0.09, 0.91]$ for $1 / 2$ and $[0, 0.66]$ for $0 / 2$. They are shown rather than suppressed because hiding a"
+supplement,553,0,0.0,ambiguous_small,"CIs are approximately $[0.09, 0.91]$ for $1 / 2$ and $[0, 0.66]$ for $0 / 2$. They are shown rather than suppressed because hiding an underpo"
+supplement,553,2,2.0,ambiguous_small,"are approximately $[0.09, 0.91]$ for $1 / 2$ and $[0, 0.66]$ for $0 / 2$. They are shown rather than suppressed because hiding an underpowere"
 supplement,553,0.879,0.879,guard,"is continuous sweep --- nontrivial divergence beginning at impairment 0.879 (the low edge of the (0.85, 0.91] bin where the empirical signal firs"
 supplement,553,0.85,0.85,none,"rivial divergence beginning at impairment 0.879 (the low edge of the (0.85, 0.91] bin where the empirical signal first appears) and ending at 0."
 supplement,553,0.91,0.91,ambiguous_small,"divergence beginning at impairment 0.879 (the low edge of the (0.85, 0.91] bin where the empirical signal first appears) and ending at 0.946 --"
@@ -4837,14 +4828,14 @@ supplement,558,0.945,0.945,guard,"omial confidence intervals on the per-bin dive
 supplement,558,0.95,0.95,ambiguous_small,"onfidence intervals on the per-bin divergence proportion. The (0.945, 0.95] bin has only $n = 2$ per sex; its very wide Wilson 95~\% CIs ([0.09,"
 supplement,558,2,2.0,ambiguous_small,"he per-bin divergence proportion. The (0.945, 0.95] bin has only $n = 2$ per sex; its very wide Wilson 95~\% CIs ([0.09, 0.91] for the male $"
 supplement,558,95,95.0,none,"The (0.945, 0.95] bin has only $n = 2$ per sex; its very wide Wilson 95~\% CIs ([0.09, 0.91] for the male $1 / 2$, [0, 0.66] for the female $"
-supplement,558,0.09,0.09,none,"0.95] bin has only $n = 2$ per sex; its very wide Wilson 95~\% CIs ([0.09, 0.91] for the male $1 / 2$, [0, 0.66] for the female $0 / 2$) are ho"
-supplement,558,0.91,0.91,ambiguous_small,"bin has only $n = 2$ per sex; its very wide Wilson 95~\% CIs ([0.09, 0.91] for the male $1 / 2$, [0, 0.66] for the female $0 / 2$) are honestly"
-supplement,558,1,1.0,ambiguous_small,"$ per sex; its very wide Wilson 95~\% CIs ([0.09, 0.91] for the male $1 / 2$, [0, 0.66] for the female $0 / 2$) are honestly shown rather tha"
-supplement,558,2,2.0,ambiguous_small,"r sex; its very wide Wilson 95~\% CIs ([0.09, 0.91] for the male $1 / 2$, [0, 0.66] for the female $0 / 2$) are honestly shown rather than su"
-supplement,558,0,0.0,ambiguous_small,"; its very wide Wilson 95~\% CIs ([0.09, 0.91] for the male $1 / 2$, [0, 0.66] for the female $0 / 2$) are honestly shown rather than suppres"
-supplement,558,0.66,0.66,none,"ts very wide Wilson 95~\% CIs ([0.09, 0.91] for the male $1 / 2$, [0, 0.66] for the female $0 / 2$) are honestly shown rather than suppressed. T"
-supplement,558,0,0.0,ambiguous_small,"~\% CIs ([0.09, 0.91] for the male $1 / 2$, [0, 0.66] for the female $0 / 2$) are honestly shown rather than suppressed. The pink shaded regi"
-supplement,558,2,2.0,ambiguous_small,"CIs ([0.09, 0.91] for the male $1 / 2$, [0, 0.66] for the female $0 / 2$) are honestly shown rather than suppressed. The pink shaded region m"
+supplement,558,0.09,0.09,none,"0.95] bin has only $n = 2$ per sex; its very wide Wilson 95~\% CIs ([0.09, 0.91] for the male $1 / 2$, [0, 0.66] for the female $0 / 2$) are sh"
+supplement,558,0.91,0.91,ambiguous_small,"bin has only $n = 2$ per sex; its very wide Wilson 95~\% CIs ([0.09, 0.91] for the male $1 / 2$, [0, 0.66] for the female $0 / 2$) are shown ra"
+supplement,558,1,1.0,ambiguous_small,"$ per sex; its very wide Wilson 95~\% CIs ([0.09, 0.91] for the male $1 / 2$, [0, 0.66] for the female $0 / 2$) are shown rather than suppres"
+supplement,558,2,2.0,ambiguous_small,"r sex; its very wide Wilson 95~\% CIs ([0.09, 0.91] for the male $1 / 2$, [0, 0.66] for the female $0 / 2$) are shown rather than suppressed."
+supplement,558,0,0.0,ambiguous_small,"; its very wide Wilson 95~\% CIs ([0.09, 0.91] for the male $1 / 2$, [0, 0.66] for the female $0 / 2$) are shown rather than suppressed. The"
+supplement,558,0.66,0.66,none,"ts very wide Wilson 95~\% CIs ([0.09, 0.91] for the male $1 / 2$, [0, 0.66] for the female $0 / 2$) are shown rather than suppressed. The pink s"
+supplement,558,0,0.0,ambiguous_small,"~\% CIs ([0.09, 0.91] for the male $1 / 2$, [0, 0.66] for the female $0 / 2$) are shown rather than suppressed. The pink shaded region marks"
+supplement,558,2,2.0,ambiguous_small,"CIs ([0.09, 0.91] for the male $1 / 2$, [0, 0.66] for the female $0 / 2$) are shown rather than suppressed. The pink shaded region marks the"
 supplement,558,0.91,0.91,ambiguous_small,an suppressed. The pink shaded region marks the previously documented 0.91--0.945 instability zone; the continuous sweep extends the empirical b
 supplement,558,0.945,0.945,guard,pressed. The pink shaded region marks the previously documented 0.91--0.945 instability zone; the continuous sweep extends the empirical band to
 supplement,558,0.879,0.879,guard,"instability zone; the continuous sweep extends the empirical band to [0.879, 0.946], almost entirely on the low edge. Female divergence dominates"
@@ -4862,7 +4853,7 @@ supplement,562,50,50.0,ambiguous_small,"he $(0, 0.85]$ zero-divergence regime of
 supplement,562,0.05,0.05,none,ings in S2 and S3 are insensitive to small calibration shifts of $\pm 0.05$--$0.10$ around these values: any shift within that range lands in th
 supplement,562,0.10,0.1,none,S2 and S3 are insensitive to small calibration shifts of $\pm 0.05$--$0.10$ around these values: any shift within that range lands in the same z
 supplement,562,0.95,0.95,ambiguous_small,ontinuous in the impairment fraction across this stable interval. S4 (0.95) was preregistered specifically to sit just above the upper edge of t
-supplement,566,1.0,1.0,ambiguous_small,"on the male reference body at low HR, low SBP, high RR, and FiO$_2$ = 1.0 --- the hypotensive--tachypneic--fully-oxygenated input pattern --- a"
+supplement,566,1.0,1.0,ambiguous_small,"ipt headline) concentrates at low HR, low SBP, high RR, and FiO$_2$ = 1.0 --- the hypotensive--tachypneic--fully-oxygenated input pattern --- a"
 supplement,566,20,20.0,ambiguous_small,n --- and produces divergence exclusively on the male reference body: 20 events across the four male cells versus zero across the 640 runs on
 supplement,566,640,640.0,guard,nce body: 20 events across the four male cells versus zero across the 640 runs on the female reference body. The severity-driven regime (this c
 supplement,566,0.879,0.879,guard,"ffects both sexes at midrange inputs once impairment fraction enters [0.879, 0.946], with female divergence concentrated in the lower part of the"
@@ -5300,8 +5291,8 @@ supplement,764,60,60.0,ambiguous_small,"1.0, alongside the full 44-run healthy (
 supplement,764,240,240.0,guard,"y (S1) hyperoxia set. The final-60-s mean PaO$_2$ (per run, over $t = 240$--$300$~s of the 300~s rerun) falls monotonically with severity (Tabl"
 supplement,764,300,300.0,guard,"hyperoxia set. The final-60-s mean PaO$_2$ (per run, over $t = 240$--$300$~s of the 300~s rerun) falls monotonically with severity (Table~"
 supplement,764,300,300.0,guard,"The final-60-s mean PaO$_2$ (per run, over $t = 240$--$300$~s of the 300~s rerun) falls monotonically with severity (Table~ )"
-supplement,764,144,144.0,guard,"): an order-of-magnitude drop from the healthy S1 median to 144~mmHg at moderate and 73~mmHg at severe ARDS, an order-of-magnitude de"
-supplement,764,73,73.0,ambiguous_small,"magnitude drop from the healthy S1 median to 144~mmHg at moderate and 73~mmHg at severe ARDS, an order-of-magnitude decrease across severity."
+supplement,764,144,144.0,guard,"): an order-of-magnitude drop from the healthy S1 median to 144~mmHg at moderate and 73~mmHg at severe ARDS. Across the tested S1, S3"
+supplement,764,73,73.0,ambiguous_small,"magnitude drop from the healthy S1 median to 144~mmHg at moderate and 73~mmHg at severe ARDS. Across the tested S1, S3 and S4 configurations,"
 supplement,764,1.0,1.0,ambiguous_small,rresponding calculated alveolar oxygen tension at unchanged FiO$_2$ = 1.0. This supports interpreting the elevated S1 final-60-s oxygenation as
 supplement,764,60,60.0,ambiguous_small,anged FiO$_2$ = 1.0. This supports interpreting the elevated S1 final-60-s oxygenation as a property of the healthy-lung configuration in thes
 supplement,764,1.0,1.0,ambiguous_small,ng configuration in these simulations rather than a generic FiO$_2$ = 1.0 artefact. [h] \centering \caption{\textbf{Final-60-s Pa
@@ -5785,3 +5776,11 @@ supplement,1142,120,120.0,guard,"xtbf{Steady-state window cross-output drift aud
 supplement,1142,1.0,1.0,ambiguous_small,"only PaO$_2$ and delivered Vt are window-sensitive, at the FiO$_2$ = 1.0 and high-oscillation extremes. \\ \bottomrule"
 supplement,1147,1.0,1.0,ambiguous_small,"ction (VC-AC trigger-lockout, transient hyperoxia regime at FiO$_2$ = 1.0, sex-stratified solver divergence with blood-volume mechanism) are su"
 supplement,1147,300,300.0,guard,"tions \S (VC-AC full protocol), \S (hyperoxia 300-second convergence full protocol), and \S (sex-stratifie"
+supplement,1156,4,4.0,ambiguous_small,\texttt{xhigh} thinking-effort default: (\texttt{claude-opus-4-7}) for the initial drafting and a manuscript-formatting pass;
+supplement,1156,7,7.0,ambiguous_small,exttt{xhigh} thinking-effort default: (\texttt{claude-opus-4-7}) for the initial drafting and a manuscript-formatting pass;
+supplement,1156,4,4.0,ambiguous_small,"fting and a manuscript-formatting pass; (\texttt{claude-opus-4-8}) through the first supervisor-review phase, for the revision round"
+supplement,1156,8,8.0,ambiguous_small,"ing and a manuscript-formatting pass; (\texttt{claude-opus-4-8}) through the first supervisor-review phase, for the revision rounds"
+supplement,1156,5,5.0,ambiguous_small,"ed text and reference modifications); and (\texttt{claude-opus-5}) for the audit and synthesis rounds that followed. The second model,"
+supplement,1156,3.1,3.1,ambiguous_small,"istency checks and methodological discussion: first Google Gemini Pro 3.1 (extended-thinking mode), then, from 3~August~2026, OpenAI ChatGPT ("
+supplement,1156,3,3.0,ambiguous_small,"ion: first Google Gemini Pro 3.1 (extended-thinking mode), then, from 3~August~2026, OpenAI ChatGPT ( Sol, High reasoning level). The"
+supplement,1158,150,150.0,guard,"shortened by about a quarter and the abstract was revised within its 150-word cap, the displaced material moving to the Supplementary Informat"

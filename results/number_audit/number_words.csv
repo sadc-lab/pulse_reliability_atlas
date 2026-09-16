@@ -17,7 +17,7 @@ paper,146,six,cardinal,", metabolic, acid--base and dermal outputs, largely outs
 paper,148,two,cardinal,"envelope by trial and error. We centre this work on the ARDS severity axis for two reasons. First, ventilating an impaired lung is a main use of Pulse's respirato"
 paper,148,First,ordinal,"rial and error. We centre this work on the ARDS severity axis for two reasons. First, ventilating an impaired lung is a main use of Pulse's respiratory model, and a"
 paper,148,Second,ordinal,", and a regime whose downstream reliability remains incompletely characterised. Second, mapping the adult engine's sensitivity and failure modes is the prerequisite f"
-paper,150,first,ordinal,"ure modes are unmapped. The objective of this study was therefore to build the first open reliability atlas across Pulse's adult critical-care operational envelope,"
+paper,150,first,ordinal,"mapped adult substrate. The objective of this study was therefore to build the first open reliability atlas across Pulse's adult critical-care operational envelope,"
 paper,150,three,cardinal,"atlas across Pulse's adult critical-care operational envelope, organised around three questions: \emph{how} strongly each input drives each output and where that inf"
 paper,150,Seven,cardinal,"as given; and \emph{whether} the solver diverges or never reaches steady state. Seven user-facing operational inputs --- heart rate (HR), systolic and diastolic bloo"
 paper,150,one,cardinal,"ges with a Morris elementary-effects design~ , a one-at-a-time screening method; the resulting batch of runs is what we call the \em"
@@ -30,10 +30,9 @@ paper,162,One,cardinal,{lp{ }} \toprule Term & Definition \\ \midrule \textbf{Sc
 paper,162,four,cardinal,}} \toprule Term & Definition \\ \midrule \textbf{Scenario} & One of the four impairment-fraction settings spanning a healthy baseline and three ARDS severit
 paper,162,three,cardinal,"& One of the four impairment-fraction settings spanning a healthy baseline and three ARDS severities: \textbf{S1} healthy baseline (impairment 0.00), \textbf{S2} mi"
 paper,164,one,cardinal,". \\ \addlinespace \textbf{Cell} & A single (scenario, sex) slice of the atlas: one severity scenario combined with one reference patient body (\textbf{M} male, \t"
-paper,164,one,cardinal,"single (scenario, sex) slice of the atlas: one severity scenario combined with one reference patient body (\textbf{M} male, \textbf{F} female), i.e.\ one scenario"
-paper,164,one,cardinal,"ned with one reference patient body (\textbf{M} male, \textbf{F} female), i.e.\ one scenario--sex block of the atlas (a row of the curation map, Figure~"
-paper,164,four,cardinal,"k of the atlas (a row of the curation map, Figure~ ). The four scenarios crossed with the two bodies give $4 \times 2 = 8$ cells, each contain"
-paper,164,two,cardinal,"ation map, Figure~ ). The four scenarios crossed with the two bodies give $4 \times 2 = 8$ cells, each containing 160 simulations (runs). \\"
+paper,164,one,cardinal,"single (scenario, sex) slice of the atlas: one severity scenario combined with one reference patient body (\textbf{M} male, \textbf{F} female), i.e.\ a row of the"
+paper,164,four,cardinal,"female), i.e.\ a row of the curation map (Figure~ ). The four scenarios crossed with the two bodies give $4 \times 2 = 8$ cells, each contain"
+paper,164,two,cardinal,"ation map (Figure~ ). The four scenarios crossed with the two bodies give $4 \times 2 = 8$ cells, each containing 160 simulations (runs). \\"
 paper,166,One,cardinal,containing 160 simulations (runs). \\ \addlinespace \textbf{Simulation (run)} & One Pulse run at a single point in the seven-dimensional input space (the 7 swept i
 paper,166,seven,cardinal,"addlinespace \textbf{Simulation (run)} & One Pulse run at a single point in the seven-dimensional input space (the 7 swept inputs: HR, SBP, DBP, RR, Vt, FiO$_2$, PEE"
 paper,166,six,cardinal,"swept inputs: HR, SBP, DBP, RR, Vt, FiO$_2$, PEEP), executed for 120~s with the six steady-state outputs (HR, MAP, Vt delivered, SpO$_2$, PaO$_2$, PaCO$_2$) sample"
@@ -115,7 +114,7 @@ paper,286,Three,cardinal,"lateau under the preregistered drift criterion (Figure
 paper,286,six,cardinal,"barometric pressure of 760~mmHg and so physically impossible; they belong to a six-run solver-instability regime noted below, three of whose members are drift-con"
 paper,286,three,cardinal,"lly impossible; they belong to a six-run solver-instability regime noted below, three of whose members are drift-converged and three not, so 37 of 44 (84.1~\%) conve"
 paper,286,three,cardinal,"-instability regime noted below, three of whose members are drift-converged and three not, so 37 of 44 (84.1~\%) converge below the supplement's physiology-anchored"
-paper,288,second,ordinal,ast 300 seconds of simulation before extracting a steady-state plateau. The 120-second window remains adequate for cardiovascular and ventilation outputs. Extended-wi
+paper,288,second,ordinal,ast 300 seconds of simulation before extracting a steady-state plateau; the 120-second window remains adequate for cardiovascular and ventilation outputs. Extended-wi
 paper,294,Two,cardinal,\caption{\textbf{Two operator-actionable corrections surfaced by the atlas.} Each is a before/after
 paper,294,one,cardinal,corrections surfaced by the atlas.} Each is a before/after paired scatter with one dot per configuration; the dashed diagonal marks ``no change''. \textbf{(a)} Tr
 paper,294,second,ordinal,"ic tidal volume, not a clinical ventilation setting. \textbf{(b)} Hyperoxia 300-second convergence ($n = 60$ reruns across S1, S3, S4 at FiO$_2 = 1.0$): PaO$_2$ avera"
@@ -123,13 +122,13 @@ paper,294,second,ordinal,"uns across S1, S3, S4 at FiO$_2 = 1.0$): PaO$_2$ avera
 paper,294,six,cardinal,". Both axes are clamped to the physiological $[0, 760]$~mmHg range; six S1 reruns run off-scale into a numerical runaway (plateau up to $\approx$1{,}40"
 paper,300,zero,cardinal,"with finite output, and \emph{all 20 fell on the male reference body}, against zero divergences across the 640 runs on the female reference body (Figure~"
 paper,302,two,cardinal,"the 67.3~kg male reference body and 3{,}996~mL for the 56.2~kg female body. The two bodies therefore share essentially the same blood volume per kilogram ($\approx"
-paper,302,one,cardinal,"ier already defines, not new ones (Supplement~\S\, ). Divergence is one axis of sex-stratified behaviour; the steady-state values separate far less. Ac"
+paper,302,one,cardinal,"(Supplement~\S\, , with the full override protocol). Divergence is one axis of sex-stratified behaviour; the steady-state values separate far less. Ac"
 paper,302,six,cardinal,"een the male and female clean-run distributions exceeds its permutation null on six, of which five survive Benjamini--Hochberg correction (Methods~\S"
 paper,302,five,cardinal,"nd female clean-run distributions exceeds its permutation null on six, of which five survive Benjamini--Hochberg correction (Methods~\S ); all"
 paper,302,five,cardinal,"survive Benjamini--Hochberg correction (Methods~\S ); all five are gas-exchange channels --- PaCO$_2$ in S1--S3, with SpO$_2$ and PaO$_2$ in S"
 paper,302,two,cardinal,"ankings move less still: male and female Morris rankings stay concordant in the two scenarios where the comparison is computable, with Spearman $\rho$ point estima"
 paper,302,zero,cardinal,"ild-ARDS delivered-tidal-volume cell having a confidence interval that includes zero (Supplement~\S\, ). Sex therefore moves where the solver fails f"
-paper,304,One,cardinal,"nputs dominate. The full override protocol is in Supplement~\S\, . One caveat governs how any cross-body contrast should be read. The comparison is ma"
+paper,304,One,cardinal,ore moves where the solver fails far more than it moves which inputs dominate. One caveat governs how any cross-body contrast should be read. The comparison is ma
 paper,304,two,cardinal,"differs by sex --- 144 of 160 against 122 of 160 in S3, for instance --- so the two distributions are drawn from different subsets of the input grid, and a survivi"
 paper,310,one,cardinal,"ody, while the female body runs an identical Morris input grid without a single one. \textbf{(b)} Blood-volume rescue dose-response on the 20 originally-diverged m"
 paper,310,zero,cardinal,"eneath each tick), the $y$-axis the divergence count out of 20. The collapse to zero at both reductions (20 $\rightarrow$ 0) establishes that lowering the blood-vol"
@@ -157,13 +156,12 @@ paper,329,one,cardinal,two studies therefore expose different weaknesses of Puls
 paper,331,first,ordinal,"atlas also serves the engine's maintainers: it provides, to our knowledge, the first systematic characterisation of an ARDS impairment-fraction solver-instability b"
 paper,333,Six,cardinal,ation and validation infrastructure rather than Pulse's underlying physiology. Six scope limits bound the conclusions; each is set out with its evidence in Supple
 paper,333,two,cardinal,"results applying identically to the build-only . (ii)~Patient anatomy is two adult reference bodies, so mass and height variation within sex is uncharacteri"
-paper,333,two,cardinal,"pair containing a flagged run, which eliminates every clean FiO$_2$ pair in the two healthy cells (S1\_M, S1\_F) and in the severe-ARDS female cell (S4\_F), so tho"
 paper,333,Two,cardinal,"steps, so some SBP and DBP effects are not strict fixed-step Morris estimates. Two further caveats are of evidence rather than scope: no trajectory-count converge"
 paper,335,four,cardinal,intended as foundational infrastructure rather than a terminal deliverable. The four-flag classifier and the per-cell traffic-light are reusable instruments that do
-paper,335,first,ordinal,"roducible and openly licensed. By characterising the adult operational envelope first, the atlas provides the methodological basis a pediatric translation layer woul"
+paper,335,first,ordinal,"re-running the present sweep. By characterising the adult operational envelope first, the atlas provides the methodological basis a pediatric translation layer woul"
 paper,335,one,cardinal,"ned on simulated cohorts performs on recorded data is a further question, which one sim-to-real study addressed by quantifying the distributional mismatch between"
 paper,343,one,cardinal,"ated by a thin Python layer around Pulse's command-line interface, which writes one JSON configuration per Morris input vector --- reference body, ARDS scenario co"
-paper,343,seven,cardinal,"tor --- reference body, ARDS scenario condition, ventilator action set, and the seven operational inputs at their sampled values --- and spawns a container against t"
+paper,343,seven,cardinal,"tor --- reference body, ARDS scenario condition, ventilator action set, and the seven operational inputs at their sampled values --- and spawns a container from that"
 paper,345,three,cardinal,"image. Re-running the pipeline reproduces the canonical outputs bit-for-bit at three successive stages, each checked against its own committed artefact: the input s"
 paper,349,Two,cardinal,". \subsection{Patient reference bodies} Two adult reference bodies were used: a male body (age 18, 67.3~kg, 180~cm) and a f"
 paper,351,Two,cardinal,"carries the full provenance. Pulse also refuses some setup values outright. Two of those constraints act on inputs swept here, a gate on systolic and diastolic"
@@ -183,8 +181,9 @@ paper,363,zero,cardinal,"omplete with finite output, the CSV is missing, or the 
 paper,363,zero,cardinal,"than solver divergence by construction, since a setup rejection also exits non-zero, but in this sweep it holds nothing else: each of the 20 diverged runs carries"
 paper,365,six,cardinal,", PaO$_2$ [20, 600]~mmHg, PaCO$_2$ [10, 120]~mmHg. Unlike the swept inputs, the six tracked outputs have no acceptance envelope in Pulse: the engine reports whatev"
 paper,367,second,ordinal,". \texttt{not\_steady\_state} fires when, over the final 60-second window, any tracked output flatlines, drifts beyond its per-channel clinical th"
-paper,369,four,cardinal,"; the drift thresholds are tabulated in Supplement~\S\, . The four flags are independent presence counts, so a single simulation can fire several."
-paper,369,one,cardinal,"nt presence counts, so a single simulation can fire several. Analyses that need one category per run resolve it by a fixed priority order, \texttt{clamped} $>$ \te"
+paper,369,four,cardinal,"; the drift thresholds are tabulated in Supplement~\S\, . The four flags are independent presence counts, so one run can fire several. Analyses th"
+paper,369,one,cardinal,"ent~\S\, . The four flags are independent presence counts, so one run can fire several. Analyses that need one category per run resolve it by a f"
+paper,369,one,cardinal,"re independent presence counts, so one run can fire several. Analyses that need one category per run resolve it by a fixed priority order, \texttt{clamped} $>$ \te"
 paper,369,five,cardinal,"sweep data was collected, and a 22-run pilot on the healthy-male cell verified five preregistered gating criteria, among them detector self-consistency and Pulse d"
 paper,373,one,cardinal,"p (Figure~ ) reduces each (scenario, sex, output) cell to one green / yellow / red verdict, built from two locked ingredients: the cell's com"
 paper,373,two,cardinal,"ch (scenario, sex, output) cell to one green / yellow / red verdict, built from two locked ingredients: the cell's combined diverged-plus-implausible flag rate, an"
@@ -219,27 +218,20 @@ paper,383,two,cardinal,"dget its own protocol declared, exceeding it by a factor
 paper,383,five,cardinal,"ch draw; combinations whose lower bound clears 0.6 in every draw, under each of five independent seeds, are characterised in \S , and the ful"
 paper,385,four,cardinal,"ition is in Supplement~\S\, . The full sampler, sweep driver, four-flag classifier, statistical-analysis pipeline and audit ledger are released op"
 paper,385,four,cardinal,"dit ledger are released open-source. The sampling design, the input ranges, the four flags and their thresholds, and the analysis plan were preregistered before dat"
-paper,389,second,ordinal,"ysis-pipeline code and the manuscript prose, under direct supervision by S.N. A second LLM, in a separate session, was repeatedly prompted to critique the first model"
-paper,389,first,ordinal,"N. A second LLM, in a separate session, was repeatedly prompted to critique the first model's outputs during iterative review. That loop is reported as an additional"
-paper,391,One,cardinal,". That loop is reported as an additional source of challenge on text and code. One side of the loop was always a Claude model (Anthropic), used locally through th"
-paper,391,first,ordinal,"4-7}) for the initial drafting, (\texttt{claude-opus-4-8}) through the first supervisor-review phase, and (\texttt{claude-opus-5}) for the audit and"
-paper,391,first,ordinal,"and synthesis rounds that followed. The other side was a separate web session, first Google Gemini Pro 3.1 (extended-thinking mode) and, from 3~August~2026, OpenAI"
-paper,391,second,ordinal,"gust~2026, OpenAI ChatGPT ( Sol, High reasoning level); in that role the second model provided editorial assistance, consistency checks, and methodological dis"
-paper,393,first,ordinal,"was performed by Claude . The revision rounds responded to the first round of co-author and supervisor review: manuscript re-reading, copy-editing,"
-paper,393,three,cardinal,"efacts; that work restored the Sobol promotion trigger to its preregistered top-three form, added the post-hoc ratio-aware bootstrap on $\sigma / \mu^{*}$, and versi"
-paper,393,half,multiplicative,"e Discussion and the Methods other than this disclosure were rewritten to about half their length and the Results to about a third, the figure legends were shortene"
-paper,393,third,ordinal,"disclosure were rewritten to about half their length and the Results to about a third, the figure legends were shortened by about a quarter and the abstract was revi"
-paper,393,quarter,multiplicative,"and the Results to about a third, the figure legends were shortened by about a quarter and the abstract was revised within its 150-word cap, with the displaced materi"
-paper,406,third,ordinal,"nce (CC-BY-4.0), whose version~4.0 covers sui generis database rights. Verbatim third-party excerpts, notably from the Pulse documentation and source (Apache-2.0), r"
-paper,410,four,cardinal,"ilability} \noindent The atlas codebase (Morris sampler, Pulse Docker wrapper, four-flag steady-state classifier, statistical-analysis pipeline, audit ledger, and"
-paper,410,three,cardinal,". The reproducibility recipe (Docker image tag, random seed, three-layer bit-exact verification) is summarised in Supplement~\S\, . Th"
-paper,410,second,ordinal,"-run sweep and the S1\_M pilot were additionally reproduced by a co-author on a second, independent x86\_64 host: an AMD Ryzen~5 CPU running Linux under WSL2, a diffe"
-paper,410,three,cardinal,ndows reference. Every run-level flag and steady-state value was bit-identical; three derived Hypothesis-4 statistics differed only at floating-point round-off ($\si
-paper,414,one,cardinal,".\ dedicates this work to the memory of U.N.\ --- for the knock at the door, at one, at two, at three in the morning. \bmhead{Author contributions} \noindent S."
-paper,414,two,cardinal,"ates this work to the memory of U.N.\ --- for the knock at the door, at one, at two, at three in the morning. \bmhead{Author contributions} \noindent S.N.\ conc"
-paper,414,three,cardinal,"s work to the memory of U.N.\ --- for the knock at the door, at one, at two, at three in the morning. \bmhead{Author contributions} \noindent S.N.\ conceived and"
-paper,419,four,cardinal,"gh clinical discussions with M.S.\ and P.J.), designed the Morris sweep and the four-flag steady-state classifier, performed all computational runs and statistical"
-paper,419,two,cardinal,"fier, performed all computational runs and statistical analyses, supervised the two-model LLM cross-checking loop described in Methods~\S , and"
+paper,389,second,ordinal,"ions, primary-source audits and a condensation pass. During iterative review, a second LLM, in a separate session, was repeatedly prompted to critique the first model"
+paper,389,first,ordinal,"w, a second LLM, in a separate session, was repeatedly prompted to critique the first model's outputs, a loop reported as an additional source of challenge on text a"
+paper,389,first,ordinal,"uts, a loop reported as an additional source of challenge on text and code. The first was always a Claude model (Anthropic; , 4.8 and 5 in succession), the s"
+paper,389,second,ordinal,"t was always a Claude model (Anthropic; , 4.8 and 5 in succession), the second Google Gemini Pro 3.1 and later OpenAI ChatGPT ( Sol); Supplement~\S\,"
+paper,402,third,ordinal,"rights, for the deposited data and the authors' own monograph content. Verbatim third-party excerpts, notably from the Pulse documentation and source (Apache-2.0), r"
+paper,406,four,cardinal,"ilability} \noindent The atlas codebase (Morris sampler, Pulse Docker wrapper, four-flag steady-state classifier, statistical-analysis pipeline, audit ledger and r"
+paper,406,three,cardinal,"summarises the reproducibility recipe (Docker image tag, random seed, three-layer bit-exact verification) and documents the cross-platform, cross-vendor re"
+paper,406,second,ordinal,"ory: a co-author reproduced the full 1{,}280-run sweep and the S1\_M pilot on a second, independent x86\_64 host, an AMD Ryzen~5 CPU running Linux under WSL2, whose C"
+paper,406,three,cardinal,ndows reference. Every run-level flag and steady-state value was bit-identical; three derived Hypothesis-4 statistics differed only at floating-point round-off ($\si
+paper,410,one,cardinal,".\ dedicates this work to the memory of U.N.\ --- for the knock at the door, at one, at two, at three in the morning. \bmhead{Author contributions} \noindent S."
+paper,410,two,cardinal,"ates this work to the memory of U.N.\ --- for the knock at the door, at one, at two, at three in the morning. \bmhead{Author contributions} \noindent S.N.\ conc"
+paper,410,three,cardinal,"s work to the memory of U.N.\ --- for the knock at the door, at one, at two, at three in the morning. \bmhead{Author contributions} \noindent S.N.\ conceived and"
+paper,415,four,cardinal,ugh clinical discussions with M.S.\ and P.J.; designed the Morris sweep and the four-flag steady-state classifier; performed all computational runs and statistical
+paper,415,two,cardinal,fier; performed all computational runs and statistical analyses; supervised the two-model LLM cross-checking loop (Methods~\S ); and wrote the m
 supplement,116,Four,cardinal,", and deploys on Windows, Mac, Linux, and ARM~ . Four further implementation choices bear directly on how this atlas is read. First,"
 supplement,116,First,ordinal,". Four further implementation choices bear directly on how this atlas is read. First, those circuits are built from paths carrying idealised elements (resistances,"
 supplement,116,one,cardinal,"ces, capacitances, diodes), and the resulting non-linear networks are solved by one generic circuit solver shared across all systems~ . Second, t"
@@ -444,7 +436,7 @@ supplement,450,eight,cardinal,d \texttt{n\_nss} minus the ``excl.\ SpO$_2$ sat.'
 supplement,450,two,cardinal,"e rule was designed to detect solver-pinning, not physiological saturation; the two coincide numerically. Second, the Vt CV $>$ 0.05 contribution (530 minus 360 ="
 supplement,450,Second,ordinal,"ect solver-pinning, not physiological saturation; the two coincide numerically. Second, the Vt CV $>$ 0.05 contribution (530 minus 360 = 170 runs) is the dyssynchrony"
 supplement,462,four,cardinal,"ty} scalar rather than by the clinical PaO$_2$/FiO$_2$ (P/F) definition, so the four scenario impairment fractions were assigned by \emph{forward calibration}: Puls"
-supplement,462,three,cardinal,"erefore has no centre. The companion's later E6 experiment (2026-04) re-ran the three fractions with the same ventilator mode, tidal volume, PEEP and FiO$_2$ and obt"
+supplement,462,three,cardinal,"256, 150, and 96~mmHg. The companion's later E6 experiment (2026-04) re-ran the three fractions with the same ventilator mode, tidal volume, PEEP and FiO$_2$ and obt"
 supplement,462,three,cardinal,", PEEP and FiO$_2$ and obtained 252, 148 and 75~mmHg: lower values, in the same three Berlin bands. This calibration has since been reproduced inside the present re"
 supplement,464,five,cardinal,"ded with E6 (a 60-s settle, then a 108-s recording; E6 itself averaged its last five 10-s samples), the replication reproduces the March anchors to within 0.6~\% at"
 supplement,464,three,cardinal,"samples), the replication reproduces the March anchors to within 0.6~\% at the three scenario fractions (0.26 $\to$ 256.5, 0.60 $\to$ 150.5, 0.95 $\to$ 96.6~mmHg) a"
@@ -786,7 +778,6 @@ supplement,1105,one,cardinal,measurement window} Each run in the atlas is reduce
 supplement,1105,two,cardinal,"und is itself physiologically attainable, the classifier cannot distinguish the two (\S ). Runs failing any of these tests are therefore flagged rather"
 supplement,1107,Two,cardinal,"of the main manuscript), which keeps the assumption auditable. Two channels are unsettled at the edges of the operational envelope: PaO$_2$ drifts"
 supplement,1111,two,cardinal,"ng upstream of the cardiovascular and gas-exchange loops. The audit bounds the two disclosed instabilities to exactly the channels that disclose them: the [60, 12"
-supplement,1111,two,cardinal,"the conditions Sections~ and~ already characterise. The two edge-of-envelope findings are thus a bounded, explicitly scoped window-length l"
 supplement,1120,one,cardinal,"that a skim reader, or an automated indexing agent, can locate each finding in one place. The focus is on findings without a dedicated subsection in the main pape"
 supplement,1131,Twelve,cardinal,}} \toprule Anchor & Finding / discovery \\ \midrule \S & \textbf{Twelve verified Pulse limitations} that the atlas is calibrated against. Two ear
 supplement,1131,Two,cardinal,{Twelve verified Pulse limitations} that the atlas is calibrated against. Two earlier internal-probing assertions from the companion technical work (FiO$_2$
@@ -801,6 +792,14 @@ supplement,1137,six,cardinal,"hannel cross-mapping.} Each of Cornish's 15 channe
 supplement,1139,Six,cardinal,ications for sex-balanced synthetic cohort design. \\ \S & \textbf{Six engine-side infrastructure recommendations} addressed to the Pulse maintainers:
 supplement,1140,three,cardinal,error messages. \\ \S & \textbf{SHAP cross-check of the Morris top-three input sets.} A RandomForest~+~SHAP analysis recovers those sets in 17 of 18 poo
 supplement,1147,second,ordinal,"nt sections \S (VC-AC full protocol), \S (hyperoxia 300-second convergence full protocol), and \S (sex-stratified BV mechanism)."
+supplement,1156,first,ordinal,"d a manuscript-formatting pass; (\texttt{claude-opus-4-8}) through the first supervisor-review phase, for the revision rounds responding to the first round"
+supplement,1156,first,ordinal,"gh the first supervisor-review phase, for the revision rounds responding to the first round of co-author and supervisor review (manuscript re-reading, copy-editing,"
+supplement,1156,second,ordinal,"(\texttt{claude-opus-5}) for the audit and synthesis rounds that followed. The second model, in a web session, provided editorial assistance, consistency checks and"
+supplement,1156,first,ordinal,"rovided editorial assistance, consistency checks and methodological discussion: first Google Gemini Pro 3.1 (extended-thinking mode), then, from 3~August~2026, OpenA"
+supplement,1158,three,cardinal,"efacts; that work restored the Sobol promotion trigger to its preregistered top-three form, added the post-hoc ratio-aware bootstrap on $\sigma / \mu^{*}$, and versi"
+supplement,1158,half,multiplicative,"ussion and the Methods other than the AI-use subsection were rewritten to about half their length and the Results to about a third, the figure legends were shortene"
+supplement,1158,third,ordinal,"subsection were rewritten to about half their length and the Results to about a third, the figure legends were shortened by about a quarter and the abstract was revi"
+supplement,1158,quarter,multiplicative,"and the Results to about a third, the figure legends were shortened by about a quarter and the abstract was revised within its 150-word cap, the displaced material mo"
 monograph,2,first,ordinal,"--- title: ""Pulse Reliability Atlas: first sensitivity, clamping, and divergence map for the Pulse Physiology Engine"
 monograph,41,seven,cardinal,"nal-input reliability question has remained unaddressed. **Methods.** We swept seven user-facing inputs (HR, SBP, DBP, RR, Vt, FiO2, PEEP) from Pulse's verified acc"
 monograph,43,four,cardinal,"d acceptance ranges using Morris elementary-effects sampling. The sweep spanned four scenarios (healthy and three ARDS severities, spanning the Berlin Definition's"
@@ -866,7 +865,7 @@ monograph,411,one,cardinal,"| | When a run fires several flags, the single highe
 monograph,418,one,cardinal,"5). | | **Identifier families** | | | S001 – S026 | Atlas lab-notebook entries, one per experiment, in . Indexed in Appendix A. | | F-003"
 monograph,419,two,cardinal,", in . Indexed in Appendix A. | | F-003 / F-004 | The two named boundary findings the atlas carried from pilot to full sweep: F-003 the t"
 monograph,420,four,cardinal,"al-volume dyssynchrony (§3.8). No other F-numbers are in use. | | H1 – H4 | The four preregistered hypotheses, quoted verbatim in §2.0 and evaluated in §§3.3 – 3.6."
-monograph,421,one,cardinal,or identifiers in the audit ledger ( ). Each re-derives one manuscript number from the canonical data. | | §S1 – §S17 | Sections of the *np
+monograph,421,one,cardinal,or identifiers in the audit ledger ( ). Each re-derives one manuscript number from the canonical data. | | §S1 – §S18 | Sections of the *np
 monograph,432,twelve,cardinal,"s been performed; this paper produces that map. The introduction catalogues the twelve verified engine limitations the atlas builds on, summarises the contributions,"
 monograph,444,first,ordinal,"ection sources that gap directly from the Pulse FAQ and frames the atlas as the first open answer.* The Pulse Physiology Engine [@bray2019] (Kitware, Apache-2.0) is"
 monograph,471,three,cardinal,ates rather than contradicts the present reliability mapping. Pulse is used in three broad communities: * **Clinical research** — virtual-patient cohorts for hypot

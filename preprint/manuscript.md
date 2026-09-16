@@ -419,7 +419,7 @@ need to chase definitions through the prose.*
 | F-003 / F-004 | The two named boundary findings the atlas carried from pilot to full sweep: F-003 the transient hyperoxia regime at FiO2 = 1.0 (§3.8), F-004 the VC-AC tidal-volume dyssynchrony (§3.8). No other F-numbers are in use. |
 | H1 – H4 | The four preregistered hypotheses, quoted verbatim in §2.0 and evaluated in §§3.3 – 3.6. |
 | T1.\* / T2.\* / T3.\* / T5.\* | Anchor identifiers in the audit ledger (`scripts/audit_claims.py`). Each re-derives one manuscript number from the canonical data. |
-| §S1 – §S17 | Sections of the *npj* submission's Supplementary Information, a separate document from this monograph. |
+| §S1 – §S18 | Sections of the *npj* submission's Supplementary Information, a separate document from this monograph. |
 | `Pulse_translation_new` | The companion pediatric-translation project. Its own experiments are labelled E1 – E10; experiments of that project without an E-number are cited here by name. |
 
 ---
