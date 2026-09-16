@@ -50,6 +50,7 @@ supplement,"3{,}996.09",5,"ht}_{\text{kg}}^{1.02}$, yielding 4{,}802.63~mL for t
 supplement,96,5,"rts the result: impairment 0.26, 0.60, and 0.95 land at 256, 150, and 96~mmHg. The companion's later E6 experiment (2026-04) re-ran the three"
 supplement,0.1,4,"terion fires when \texttt{std / |mean| < 0.01} AND the mean is within 0.1~\% of a hard bound, intended to flag numerical pinning at a bound, al"
 supplement,0.25,4,"ampling interval (50~Hz). At adult respiratory rates of approximately 0.25~Hz (one breath every four seconds), 50~Hz sampling is a 200-fold over"
+supplement,37,4,"e 40 drift-converged S1 reruns; the thick line is the median over the 37 whose plateau stays physiological (the three runaways excluded, \S"
 supplement,"4{,}400",4,"ence cluster (20 / 20 at the default $\rightarrow$ 0 / 20 at both the 4{,}400 and 4{,}082.24~mL reductions). This supplement section disentangles t"
 supplement,0.01,3,"an. The flatline-at-bound criterion fires when \texttt{std / |mean| < 0.01} AND the mean is within 0.1~\% of a hard bound, intended to flag nume"
 supplement,0.20,3,$ \\ Alveolar diffusion surface area & decreases & $0.57\times$ & $0.20\times$ & $0.075\times$ \\ Pulmonary-shunt path resistance & decreas
@@ -58,7 +59,6 @@ supplement,0.737,3,"ecific one; the exception is a single healthy-female run at 
 supplement,16.8,3,"67.3~kg male body versus 3{,}996.09~mL for the 56.2~kg female body (a 16.8~\% absolute-mL sex gap), and that reducing the male reference body's"
 supplement,25,3,"n category (b), the exact numerical choice (e.g., PaO$_2$ lower 20 vs 25~mmHg) is a defensible judgment call within the cited literature rathe"
 supplement,28,3,"companion translation project's original ARDS severity calibration, a 28-run impairment sweep of 2026-03 (full log in the companion technical"
-supplement,37,3,"), so the thick blue line is the median over the remaining 37 \emph{physiological}-converged runs. The dotted purple horizontal at"
 supplement,0.001,2,he locked flatline rule (\texttt{std/|mean| $<$ 0.01} and mean within 0.001 of a hard bound) catches as ``pinned at the ceiling''. The rule was d
 supplement,0.005,2,"side). A complementary 9-run calibration refinement at 0.93--0.97 in 0.005 steps (four failures across 0.93--0.945, five passes across 0.95--0.9"
 supplement,0.06,2,".00]$ \\ S2 & MAP & 1.00 & $[1.00, 1.00]$ \\ S2 & Vt & 0.75 & $[-0.06, 1.00]$ \\ S2 & SpO$_2$ & 0.96 & $[0.70, 1.00]$ \\ S2 & PaO$_2$ & 0"

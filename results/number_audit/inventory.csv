@@ -4709,7 +4709,7 @@ supplement,521,45,45.0,ambiguous_small,"esistance by $\approx 22\times$, cuts al
 supplement,521,7.5,7.5,none,"f baseline, collapses the alveolar diffusion surface area to $\approx 7.5\,\%$ of baseline, and opens the intrapulmonary shunt. The diffusion-s"
 supplement,521,0.91,0.91,ambiguous_small,smaller restrictive terms. The four curves are themselves smooth; the 0.91--0.945 solver-instability band characterised below is an emergent num
 supplement,521,0.945,0.945,guard,r restrictive terms. The four curves are themselves smooth; the 0.91--0.945 solver-instability band characterised below is an emergent numerical
-supplement,523,18,18.0,none,"absolute consequences, which is one reason Pulse hard-gates age $\geq 18$ at patient setup. Separately, this absence was re-verified directly:"
+supplement,523,18,18.0,none,"absolute consequences, which is one reason Pulse hard-gates age $\geq 18$ at patient setup. Separately, the absence of any surfactant model wa"
 supplement,527,28,28.0,none,ise the same numerical-bifurcation range in the respiratory solver. A 28-run impairment sweep at the reference ventilation setting of \S
 supplement,527,0.92,0.92,none,eference ventilation setting of \S found fractions 0.92 and 0.94 failing to stabilise. A 10-run high-resolution boundary prob
 supplement,527,0.94,0.94,none,ventilation setting of \S found fractions 0.92 and 0.94 failing to stabilise. A 10-run high-resolution boundary probe at 0.90
@@ -4943,9 +4943,9 @@ supplement,618,5.4,5.4,ambiguous_small,"to 4.0--10.7~mL\,kg$^{-1}$ of ideal body
 supplement,618,14.5,14.5,guard,".0--10.7~mL\,kg$^{-1}$ of ideal body weight on the male body and 5.4--14.5~mL\,kg$^{-1}$ on the female, a 36.1~\% relative excess on the female"
 supplement,618,1,1.0,ambiguous_small,"$^{-1}$ of ideal body weight on the male body and 5.4--14.5~mL\,kg$^{-1}$ on the female, a 36.1~\% relative excess on the female body. This"
 supplement,618,36.1,36.1,guard,"weight on the male body and 5.4--14.5~mL\,kg$^{-1}$ on the female, a 36.1~\% relative excess on the female body. This is an interpretive const"
-supplement,628,80,80.0,ambiguous_small,he Cornish et al.\ causal-falsification study~ as ``80 of 85 Hoeffding rejections fall on channels the present atlas does no
-supplement,628,85,85.0,ambiguous_small,nish et al.\ causal-falsification study~ as ``80 of 85 Hoeffding rejections fall on channels the present atlas does not asse
-supplement,628,15,15.0,ambiguous_small,"atlas does not assess''. Table~ provides the full 15-channel per-quantity cross-mapping, grouped by physiological system t"
+supplement,628,80,80.0,ambiguous_small,al.\ causal-falsification study~ by reporting that 80 of 85 Hoeffding rejections fall on channels the present atlas does no
+supplement,628,85,85.0,ambiguous_small,causal-falsification study~ by reporting that 80 of 85 Hoeffding rejections fall on channels the present atlas does not asse
+supplement,628,15,15.0,ambiguous_small,"t atlas does not assess. Table~ provides the full 15-channel per-quantity cross-mapping, grouped by physiological system t"
 supplement,628,4,4.0,ambiguous_small,"le. Within each group, ``Hoeffding'' counts come from Cornish's Table~4 (their complete per-quantity Hoeffding table listing all 15 assessed"
 supplement,628,15,15.0,ambiguous_small,"sh's Table~4 (their complete per-quantity Hoeffding table listing all 15 assessed physiological quantities, with family-wise-error-rate-contro"
 supplement,628,5,5.0,ambiguous_small,"roni adjustment), ``Bootstrap'' counts come from their Appendix Table~5 (reverse-percentile bootstrap rejections at the same significance lev"
@@ -5170,7 +5170,8 @@ supplement,740,0,0.0,ambiguous_small,corresponding 120-second runs over the shar
 supplement,740,120,120.0,guard,esponding 120-second runs over the shared recorded interval $t = 0$--$120$~s: these are separate deterministic re-executions of the same config
 supplement,740,0,0.0,ambiguous_small,"tate continuations. PaO$_2$ is nevertheless already hyperoxic at $t = 0$ in this S1 cohort, because the configured FiO$_2$ of 1.0 applies thr"
 supplement,740,1.0,1.0,ambiguous_small,"roxic at $t = 0$ in this S1 cohort, because the configured FiO$_2$ of 1.0 applies throughout the preceding settling phase, so the figure visual"
-supplement,740,40,40.0,ambiguous_small,sh-in from an atmospheric-air baseline. Each thin trace is one of the 40 converged S1 reruns; the thick line is the median trajectory across t
+supplement,740,40,40.0,ambiguous_small,sh-in from an atmospheric-air baseline. Each thin trace is one of the 40 drift-converged S1 reruns; the thick line is the median over the 37 w
+supplement,740,37,37.0,none,"e 40 drift-converged S1 reruns; the thick line is the median over the 37 whose plateau stays physiological (the three runaways excluded, \S"
 supplement,745,300,300.0,guard,\caption{\textbf{Late-phase PaO$_2$ convergence in the S021 300-second reruns at FiO$_2$ = 1.0 in the healthy S1 cohort (40 of 44 con
 supplement,745,1.0,1.0,ambiguous_small,-phase PaO$_2$ convergence in the S021 300-second reruns at FiO$_2$ = 1.0 in the healthy S1 cohort (40 of 44 converged under the preregistered
 supplement,745,40,40.0,ambiguous_small,the S021 300-second reruns at FiO$_2$ = 1.0 in the healthy S1 cohort (40 of 44 converged under the preregistered drift criterion).} The figure

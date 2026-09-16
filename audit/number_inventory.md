@@ -2471,6 +2471,17 @@ or left was read:
   supplement 1,887 → 1,893, monograph 3,371 unchanged). Calibrations 39 / 0 and
   19 / 0, unchanged.
 
+**Two later commits of the same pass, re-inventoried.** The Methods 4.7 sentence
+offering the commit history carries no digit and no number word. The four
+supplement corrections (C-S1 … C-S4) add one digit occurrence and one number
+word, both read: `37` in "the median over the 37 whose plateau stays
+physiological" (supplement `none` 37×3 → ×4), verified against
+`scripts/make_supp_fig_s3.py`, which excludes the plateaus above
+`RUNAWAY_PLATEAU_MMHG = 700` and medians the remaining 37 of the 40
+drift-converged runs; and "three" in "the three runaways excluded" (supplement
+number words 568 → 569), the same three runs. Digit inventory 5,785 → 5,786
+retained; calibrations 39 / 0 and 19 / 0.
+
 ## 10. What remains
 
 | artefact | `none` residue | `ambiguous_small` | status |

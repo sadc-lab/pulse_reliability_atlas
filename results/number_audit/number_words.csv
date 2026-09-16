@@ -458,7 +458,7 @@ supplement,521,four,cardinal,20\times$ & $\approx 0.125\times$ \\ \bottomrule Th
 supplement,521,four,cardinal,~ . The shunt row is the least direct of the four: its damage term is non-monotonic across severity and is combined by a \texttt{
 supplement,521,four,cardinal,"es, and the inspiratory:expiratory ratio through smaller restrictive terms. The four curves are themselves smooth; the 0.91--0.945 solver-instability band character"
 supplement,523,three,cardinal,"o the adult standard patient, and the single-scalar design forbids retuning the three properties independently. Carrying these settings to pediatric mechanics would"
-supplement,523,one,cardinal,"ings to pediatric mechanics would mis-scale the absolute consequences, which is one reason Pulse hard-gates age $\geq 18$ at patient setup. Separately, this absenc"
+supplement,523,one,cardinal,"ings to pediatric mechanics would mis-scale the absolute consequences, which is one reason Pulse hard-gates age $\geq 18$ at patient setup. Separately, the absence"
 supplement,523,seven,cardinal,"{e8a3649}) --- physiologically identical to the pin, the only delta being seven build-system files with no respiratory-source change --- returns zero occurrenc"
 supplement,523,zero,cardinal,"ta being seven build-system files with no respiratory-source change --- returns zero occurrences of \texttt{surfactant}, and zero of the terms under which such a mo"
 supplement,523,zero,cardinal,"piratory-source change --- returns zero occurrences of \texttt{surfactant}, and zero of the terms under which such a model would otherwise surface (surface tension,"
@@ -575,7 +575,8 @@ supplement,740,second,ordinal,"tion raised from 120 to 300 seconds, sampled into
 supplement,740,second,ordinal,"atlas-aggregated CSV at 5-second intervals. Each run retains the unchanged 120-second ventilator-settling phase that precedes recording, so one rerun spans 420~s of"
 supplement,740,one,cardinal,"the unchanged 120-second ventilator-settling phase that precedes recording, so one rerun spans 420~s of Pulse-internal time in total; all reported times and figur"
 supplement,740,second,ordinal,the atlas-aggregated CSVs are byte-identical to those of the corresponding 120-second runs over the shared recorded interval $t = 0$--$120$~s: these are separate det
-supplement,740,one,cardinal,"ateau, not a fresh wash-in from an atmospheric-air baseline. Each thin trace is one of the 40 converged S1 reruns; the thick line is the median trajectory across t"
+supplement,740,one,cardinal,"ateau, not a fresh wash-in from an atmospheric-air baseline. Each thin trace is one of the 40 drift-converged S1 reruns; the thick line is the median over the 37 w"
+supplement,740,three,cardinal,"the thick line is the median over the 37 whose plateau stays physiological (the three runaways excluded, \S ). [h] \centering"
 supplement,745,second,ordinal,\caption{\textbf{Late-phase PaO$_2$ convergence in the S021 300-second reruns at FiO$_2$ = 1.0 in the healthy S1 cohort (40 of 44 converged under the
 supplement,745,zero,cardinal,"rom 0 to 300~s. The rerun is a re-execution of the same configuration from time zero, not a continuation of the original run; PaO$_2$ is nevertheless already hypero"
 supplement,745,second,ordinal,"$, because the configured FiO$_2$ of 1.0 is in effect through the unchanged 120-second ventilator-settling phase that precedes recording, so $t = 0$ is not an atmosph"
