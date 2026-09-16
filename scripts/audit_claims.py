@@ -6729,6 +6729,24 @@ MONO_AUDIT_TEXT_REQUIRED = (
     # at the original M and F group sizes (src/analysis_compare.py, pool[:n_m]), not in halves.
     ("preprint/manuscript.md", "runs into two groups the same size as the original M and F groups", 1),
     ("preprint/manuscript.md", "randomly into\ntwo groups of the original sizes", 1),
+    # Four defects found while reading the supplement for the 2026-09-16 condensation pass,
+    # corrected on the author's decision. Each is guarded in both directions: the corrected
+    # wording is required here, the wording it replaced is banned below.
+    # C-S1: scripts/make_supp_fig_s3.py takes the highlighted median over the physiological
+    # subset (plateau <= 700 mmHg), i.e. 37 runs, not over all 40 drift-converged ones; the
+    # figure caption and S9.3 already said 37.
+    ("preprint_npj/supplement.tex", "the thick line is the median over the 37 whose plateau "
+     "stays physiological", 1),
+    # C-S2: the rho table covers S2 (mild) and S3 (moderate), so the scope is both scenarios.
+    ("preprint_npj/supplement.tex", "preserved across sex in the mild- and moderate-ARDS scenarios, "
+     "S2 and S3", 1),
+    # C-S3: the quoted sentence was never in paper.tex verbatim (0 occurrences); it is now a
+    # paraphrase, and the paper's own wording is "80 on channels the present atlas does not assess".
+    # The literal "80 of 85" is kept because crosswalk T3.s028.cornish_non_overlap_hoeffding counts it.
+    ("preprint_npj/supplement.tex", "by reporting that 80 of 85 Hoeffding rejections fall on "
+     "channels the present atlas does not assess", 1),
+    # C-S4: "this absence" had no antecedent in the paragraph (it has had none since 48912f8).
+    ("preprint_npj/supplement.tex", "the absence of any surfactant model was re-verified directly", 1),
     # GL-S2 (2026-09-15, author's decision): the resample-count sensitivity as re-measured.
     ("preprint_npj/supplement.tex", "Repeating the whole procedure at 500, 2{,}000 and 4{,}000 resamples returns "
      "the same 23 combinations, so the stable set does not depend on the resample count.", 1),
@@ -6762,7 +6780,11 @@ MONO_AUDIT_TEXT_BANNED = {
                                "the Introduction, Discussion and Methods were rewritten"),
     "preprint_npj/supplement.tex": ("Cornish et al.\\ 2023", "Cornish 2023 channel", "preregistration limitations table",
                                     "and at 500 one combination is lost", "carries no out-of-sample evaluation",
-                                    "combine it as a ratio of total to basal metabolic rate"),
+                                    "combine it as a ratio of total to basal metabolic rate",
+                                    # C-S1 .. C-S4 (2026-09-16): the four wordings corrected in this pass.
+                                    # "80 of 85 Hoeffding" stays legitimate in the monograph, hence the file scope.
+                                    "median trajectory across that subset", "in the moderate-ARDS regime",
+                                    "``80 of 85 Hoeffding rejections", "Separately, this absence"),
     "scripts/sobol_ci_buckets.py": ("identical at 1,000 / 2,000 / 4,000 (one combination is lost",),
     "preprint/supplementary.md": ("eleven independent layers", "11 independent verification points"),
 }
