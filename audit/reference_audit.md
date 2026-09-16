@@ -2154,3 +2154,35 @@ other row alone; both files were then restored to a byte-identical sha256.
 the paper -- "variance" then occurred zero times in `paper.tex`. The
 pre-compression wording was put back, and `SOBOL_REQUIRED_PHRASES` now requires
 it; removing it again gives 1 FAIL.
+
+---
+
+## Addendum 2026-09-16 — `deepseek2026v41flash` re-opened in primary source, and the sentence moderated
+
+**Why.** The author asked to moderate the attribution and, separately, for a
+last check that the reference says what we claim. Both were re-measured in this
+session rather than read off the 2026-09-15 row.
+
+The pinned Hugging Face PDF was re-downloaded (HTTP 200) and its sha256 is
+`ba68e2e40408125ae6d2f63a9a241b61c73910691c74ec1a2a7023c851eac08d`, identical
+to the hash the `.bib` note recorded, so this is the same file.
+
+| locus | what the report says | verdict |
+|---|---|---|
+| `paper.tex:140` | §5.1, p. 25, verbatim: *"We find that, under a fixed and unremarkable optimization procedure, systematic improvements in the scale, diversity, and verifiability of synthesized data and environments account for essentially all of the observed gains."* | MATCH |
+| `paper.tex:323` | §5.1.1: *"We formalize each task as a triplet (problem, environment, verification system)"*, stated for agent tasks, which is the restriction the sentence carries | MATCH |
+
+The descriptor was re-checked too: pp. 1 and 5 call it *"a multimodal
+Mixture-of-Experts (MoE) model"*, which is what "large multimodal model" rests on.
+
+**Change made, author's decision.** "attributes essentially all of the gains"
+becomes "attributes **most** of the gains". The source says "essentially all",
+so "most" is strictly weaker than what the report claims for itself and cannot
+overstate it. The literal edit first proposed -- delete "all of" -- was not
+applied, because it leaves "attributes essentially the gains", which is
+ungrammatical; the author chose "most" from four options put to them.
+
+**Instrument note.** The first grep for the sentence returned zero hits:
+`pdftotext` wraps it across three lines. The zero was readable as an artefact
+only because a positive control ("synthesized", 5 hits) had been run on the same
+extraction first.
