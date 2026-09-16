@@ -5518,6 +5518,13 @@ SOBOL_REQUIRED_PHRASES: tuple[tuple[str, str], ...] = (
      "the triggered design exceeded its locked compute budget"),
     ("preprint_npj/supplement.tex", "reported rather than executed"),
     ("preprint/manuscript.md", "reported rather than executed"),
+    # Added 2026-09-16. "Sobol" first reaches a paper reader in 2.6, and the
+    # 2026-09-02 compression removed the gloss that stood there, leaving the
+    # term of art undefined in the main text -- "variance" then occurred zero
+    # times in paper.tex. The wording restored is the pre-compression one, not
+    # a new composition.
+    ("preprint_npj/paper.tex",
+     "apportions output variance among individual inputs and their interactions"),
 )
 
 
@@ -6410,6 +6417,20 @@ CONT_TEXT_REQUIRED = (
     ("preprint/manuscript.md", "| (0.945, 0.95]    | 0 / 2      | **1 / 2**  |", 1),
     ("preprint/manuscript.md", "0.879–0.928, male 0.899–0.946", 1),
     ("README.md", "female 14/19 vs male 5/19 in (0.85, 0.91], female 5/9 vs male 8/9", 1),
+    # Added 2026-09-16, in both files at once and deliberately so. The
+    # non-examination claim is the novelty argument the cover letter opens on,
+    # and the 2026-09-02 compression deleted the manuscript sentence that
+    # carried it while the letter kept asserting it -- an editor-facing claim
+    # with no locus in the submission for two weeks. Pairing the two loci makes
+    # either one going missing a FAIL. Re-verified 2026-09-16 in the local
+    # REL_4_3_2 clone (docs identical to 4.3.1): HowTo-IsoShuntAnalysis.cpp:60
+    # sweeps {0.0, 0.3, 0.6, 0.9}, HowTo-CreateAPatient.cpp:76 sets 0.9, the
+    # highest ARDS severity in any shipped adult scenario is 0.9
+    # (ARDSExacerbation.json), and RespiratoryMethodology.md:1746 reports the
+    # ARDS validation "against a moderate severity scenario". Nothing lands
+    # inside 0.91--0.945.
+    ("preprint_npj/supplement.tex", "sample at most up to severity 0.9", 1),
+    ("preprint_npj/cover_letter.md", "sample at most up to severity 0.9", 1),
 )
 CONT_TEXT_BANNED = ("0.879, 0.945", "0.879--0.945", "0.879–0.945", "0 / 51 divergence", "14/18", "14 / 18")
 CONT_TEXT_FILES = ("preprint_npj/paper.tex", "preprint_npj/supplement.tex",

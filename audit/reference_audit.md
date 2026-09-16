@@ -2103,3 +2103,54 @@ entry-document pairs (6 paper, 11 supplement) before the fix and passes after
 it; its calibration rejects the URL-less entry. Word still omits the "Accessed"
 note and the "Technical report" label, which `nature.csl` does not print for
 these types.
+
+---
+
+## Addendum 2026-09-16 — the ARDS non-examination claim, verified true and re-attached
+
+**The defect.** `paper.tex` §2.6 used to state that published Pulse validation
+work and HowTo examples sample at most up to severity 0.9 and do not examine
+impairment fractions inside 0.91--0.945. The 2026-09-02 compression (`d88a1ca`)
+deleted it with the paragraph. `cover_letter.md` kept asserting it, as the third
+of its novelty points, so for two weeks an editor-facing claim had no locus
+anywhere in the submission. The supplement carried only "Pulse's own
+documentation does not flag this zone", a weaker proposition.
+
+**Verified 2026-09-16** in the local clone `Pulse_engine_adults_Gitlab/engine`
+at `REL_4_3_2` (build-only release; docs identical to the pinned 4.3.1):
+
+| artefact | ARDS severities it uses | max |
+|---|---|---|
+| `src/cpp/howto/HowTo-IsoShuntAnalysis.cpp:60` | `ARDSSeverityList = { 0.0, 0.3, 0.6, 0.9 }` | 0.9 |
+| `src/cpp/howto/HowTo-CreateAPatient.cpp:76-77` | 0.9 both lungs | 0.9 |
+| `src/cpp/howto/HowTo-COVID19Ventilated.cpp:70-71` | 0.6 both lungs | 0.6 |
+| `src/cpp/howto/HowTo-VentilatorFeedbackLoop.cpp:111-112` | 0.6 both lungs | 0.6 |
+| every shipped adult scenario carrying an ARDS action | 0.0, 0.02, 0.13, 0.2, 0.3, 0.35, 0.6, 0.8, 0.9 | 0.9 (`ARDSExacerbation.json`) |
+| `docs/Methodology/RespiratoryMethodology.md:1746` | *"The ARDS condition was validated against a moderate severity scenario."* | -- |
+
+Nothing lands inside 0.91--0.945. **The claim is true.**
+
+**Action.** The wording this register's prose-sweep item 49 had already blessed
+as the "safe form" was restored verbatim into `supplement.tex` §S5.3, appended
+to the documentation sentence. Nothing was composed for the occasion.
+
+**Not restored, and why.** The same deleted passage also said Pulse's
+methodology "exemplifies the range with the round-tenths convention
+{0.0, 0.3, 0.6, 0.9, 1.0}". The `1.0` is not sourced: the HowTo sweep list is
+`{0.0, 0.3, 0.6, 0.9}`, the highest severity in any shipped scenario is 0.9, and
+the methodology text gives the range as 0 to 1 without exemplifying it.
+Restoring the sentence would have re-entered an unsourced element. Item 49 had
+already flagged the same attribution as ambiguous, on a different axis.
+
+**Guarded.** `CONT_TEXT_REQUIRED` in `scripts/audit_claims.py` now requires
+`sample at most up to severity 0.9` in `supplement.tex` **and** in
+`cover_letter.md`, one occurrence each. Pairing them is the point: what happened
+was the two drifting apart. Calibration: deleting the clause from the supplement
+gives 1 FAIL on that row alone; deleting it from the letter gives 1 FAIL on the
+other row alone; both files were then restored to a byte-identical sha256.
+
+**Second restoration, same pass.** The compression had also removed the gloss of
+"Sobol" from §2.6, leaving the term of art undefined on its first appearance in
+the paper -- "variance" then occurred zero times in `paper.tex`. The
+pre-compression wording was put back, and `SOBOL_REQUIRED_PHRASES` now requires
+it; removing it again gives 1 FAIL.

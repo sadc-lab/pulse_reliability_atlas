@@ -2567,3 +2567,27 @@ compared number by number with the PDFs.
 
 Nor does it claim anything about prose without numbers, quantifiers included,
 listed at the end of §10: it has not been read.
+
+---
+
+## Addendum 2026-09-16 (evening) — three literals enter with the restored ARDS sentence
+
+Both producers were re-run after the edit. `audit_number_inventory.py`: 39
+probes, 0 FAIL. `audit_number_words.py`: 19 probes, 0 FAIL.
+
+Retained occurrences go from **5,786 to 5,789**, entirely in the supplement
+(1,894 -> 1,897); the paper is unchanged at 521, the monograph at 3,371. The
+diff on `inventory.csv` is exactly three added rows, all at `supplement.tex:527`:
+
+| literal | bucket | what it is |
+|---|---|---|
+| `0.9` | ambiguous_small | the highest ARDS severity any Pulse HowTo example or shipped adult scenario uses |
+| `0.91` | ambiguous_small | lower edge of the documented instability band |
+| `0.945` | guard | upper edge of the documented band, already guarded elsewhere |
+
+All three were read against primary source the same day, in the local
+`REL_4_3_2` clone; the loci are tabulated in the 2026-09-16 addendum of
+`audit/reference_audit.md`. No row left. `number_words.csv`,
+`residue_by_literal.csv` and `masked_by_rule.csv` are unchanged in content: the
+paper edits of the same session ("essentially all of the gains" -> "most of the
+gains", and the restored Sobol gloss) carry no numeral and no number word.
