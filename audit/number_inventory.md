@@ -2452,15 +2452,20 @@ or left was read:
   residue is conservative here rather than wrong. Claude Opus 4.8 is the model
   named, identifier `claude-opus-4-8` in §S18.
 - **Paper, `ambiguous_small` 307 → 301 and `guard` 169 → 167.** Six occurrences
-  leave with the AI detail (the `150`-word cap, the date "3 August", the `3`,
-  `4`, `4`, `7`, `8` of the model identifiers and of Gemini Pro `3.1`), and two
-  leave with the Discussion duplicate cut in §3: `0` and `1{,}280` of "fired on
-  0 of 1{,}280 runs". §2.1 still states both, and the Table 2 caption still
-  carries "0 of 1{,}280"; crosswalk `1{,}280` bumped 45 → 44.
+  leave with the AI detail — the `150`-word cap (`guard`), the `3` of "3
+  August", and the `4`, `4`, `7`, `8` of the model identifiers — and two leave
+  with the Discussion duplicate cut in §3: `1{,}280` (`guard`) and `0`, of
+  "fired on 0 of 1{,}280 runs". §2.1 still states both, and the Table 2 caption
+  still carries "0 of 1{,}280"; crosswalk `1{,}280` bumped 45 → 44. Counted per
+  bucket: `ambiguous_small` loses `0`, `3`, `4`, `4`, `7`, `8`; `guard` loses
+  `150` and `1{,}280`.
 - **Supplement, `none` 411 → 409, `ambiguous_small` 960 → 967, `guard` 490 →
-  491.** The AI occurrences above arrive in §S18; `0.05` and `0.01` leave §S3.2,
-  where one sentence restated the two detector conventions the preceding
-  sentence had already given.
+  491.** The AI occurrences above arrive in §S18, and two more join them
+  because the two documents now each name the models: Gemini Pro `3.1` and
+  Opus `5` stay in Methods 4.7 **and** appear in §S18, so those two literals are
+  gains for the supplement without being losses for the paper. `0.05` and `0.01`
+  leave §S3.2, where one sentence restated the two detector conventions the
+  preceding sentence had already given.
 - **Number words:** paper 241 → 233, supplement 561 → 568, monograph unchanged;
   total 1,349 → 1,348. The AI detail carries "first" ×3, "half", "quarter",
   "third", "three" and "second" into §S18, while the paper gains one "first"
