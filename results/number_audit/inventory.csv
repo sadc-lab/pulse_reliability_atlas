@@ -4736,9 +4736,9 @@ supplement,527,0.93,0.93,ambiguous_small,"bration refinement at 0.93--0.97 in 0.
 supplement,527,0.945,0.945,guard,"n refinement at 0.93--0.97 in 0.005 steps (four failures across 0.93--0.945, five passes across 0.95--0.97) confirmed the upper edge. The three p"
 supplement,527,0.95,0.95,ambiguous_small,"in 0.005 steps (four failures across 0.93--0.945, five passes across 0.95--0.97) confirmed the upper edge. The three probes are within the same"
 supplement,527,0.97,0.97,none,"005 steps (four failures across 0.93--0.945, five passes across 0.95--0.97) confirmed the upper edge. The three probes are within the same compa"
-supplement,527,0.9,0.9,ambiguous_small,ulse validation work and HowTo examples sample at most up to severity 0.9 and do not examine impairment fractions inside 0.91--0.945. \subsect
-supplement,527,0.91,0.91,ambiguous_small,ost up to severity 0.9 and do not examine impairment fractions inside 0.91--0.945. \subsection{Continuous-severity micro-sweep at midrange inpu
-supplement,527,0.945,0.945,guard,to severity 0.9 and do not examine impairment fractions inside 0.91--0.945. \subsection{Continuous-severity micro-sweep at midrange inputs}
+supplement,527,0.9,0.9,ambiguous_small,ulse validation work and HowTo examples sample at most up to severity 0.9 (that maximum occurs in \texttt{ } and in \texttt
+supplement,527,0.91,0.91,ambiguous_small,}) and do not examine impairment fractions inside 0.91--0.945. \subsection{Continuous-severity micro-sweep at midrange inpu
+supplement,527,0.945,0.945,guard,}) and do not examine impairment fractions inside 0.91--0.945. \subsection{Continuous-severity micro-sweep at midrange inputs}
 supplement,531,200,200.0,guard,"inuous-severity micro-sweep at midrange inputs} A 200-run continuous-severity sweep (100 male, 100 female) varying only the"
 supplement,531,100,100.0,guard,"ange inputs} A 200-run continuous-severity sweep (100 male, 100 female) varying only the ARDS impairment fraction while hol"
 supplement,531,100,100.0,guard,"s} A 200-run continuous-severity sweep (100 male, 100 female) varying only the ARDS impairment fraction while holding all s"
