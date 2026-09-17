@@ -6441,6 +6441,17 @@ CONT_TEXT_REQUIRED = (
     # as general. Either locus going missing is a FAIL.
     ("preprint_npj/paper.tex", "dominating the lower part of the band", 1),
     ("preprint_npj/supplement.tex", "female divergence concentrated in the lower part", 1),
+    # Added 2026-09-17 by the prose audit, which found that the qualifier added
+    # above had landed on Results 2.5 ONLY: the abstract and the Figure 5 legend
+    # -- the two surfaces read most often on their own -- still stated the
+    # all-male result unbounded. Both now carry it, and both are pinned here
+    # because the abstract sits exactly at the npj 150-word cap (measured on the
+    # build: 150 whitespace tokens, 147 letter-or-digit tokens). A future
+    # condensation pass needing one word would delete this clause first, and
+    # nothing else in the gate would notice. Either locus going missing is a FAIL.
+    ("preprint_npj/paper.tex", "all-male in an input-extreme regime", 1),
+    ("preprint_npj/paper.tex",
+     "The asymmetry is specific to this input-extreme regime", 1),
 )
 CONT_TEXT_BANNED = ("0.879, 0.945", "0.879--0.945", "0.879–0.945", "0 / 51 divergence", "14/18", "14 / 18")
 CONT_TEXT_FILES = ("preprint_npj/paper.tex", "preprint_npj/supplement.tex",

@@ -437,10 +437,9 @@ contributions, and introduces the experiment-log tag system
 ### 1.1 Motivation
 
 *Why this paper exists. Pulse is used in clinical research,
-medical-device development, and education, yet no public sensitivity /
-clamping / divergence map of its user-facing operational envelope has
-been published — every user re-encounters the same limitations
-independently. This section sources that gap directly from the Pulse
+medical-device development, and education, yet to our knowledge no public
+sensitivity / clamping / divergence map of its user-facing operational
+envelope has been published. This section sources that gap directly from the Pulse
 FAQ and frames the atlas as the first open answer.*
 
 The Pulse Physiology Engine [@bray2019] (Kitware, Apache-2.0)
@@ -503,17 +502,16 @@ addressed intervention-outcome falsification — verifying whether
 Pulse accurately mimics how a real patient's trajectory changes after
 a medical intervention — on MIMIC-III sepsis trajectories, a different
 scope from the operational-input reliability question addressed here,
-applied to a different cohort and dataset. No systematic sensitivity
-analysis on **user-facing operational inputs** (HR, SBP, DBP, RR, Vt, FiO2,
-PEEP) has been published.
+applied to a different cohort and dataset. To our knowledge, no systematic
+sensitivity analysis on **user-facing operational inputs** (HR, SBP, DBP, RR,
+Vt, FiO2, PEEP) has been published.
 
 The corollary is operational: every Pulse user driving the engine
 from operational settings — clinical, industrial, educational — is
-operating *without a map* of how the engine behaves across its
+operating *without a published map* of how the engine behaves across its
 operational envelope, where it silently bends inputs out of acceptance,
-and which inputs dominate which outputs. Each user re-encounters the same limitations
-independently. Each medical-device validation pipeline re-derives its
-own working envelope by trial and error.
+and which inputs dominate which outputs. Users may therefore need to establish
+a use-case-specific working envelope independently.
 
 This paper closes that gap with the first open reliability atlas for
 Pulse v4.3.1 across the adult operational envelope relevant to
