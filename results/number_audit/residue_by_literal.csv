@@ -1,7 +1,7 @@
 artefact,literal,occurrences,example_context
 paper,0.05,5,"h near-zero variation), varies too much (coefficient of variation $>$ 0.05; most often tidal volume), or drifts past its locked per-channel limi"
 paper,18,3,"Two adult reference bodies were used: a male body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both w"
-paper,13,2,"nct operational-input vectors, and FiO$_2$ sat at its 1.0 boundary in 13 of the 20. A preregistered follow-up experiment isolated the mechani"
+paper,13,2,"nct operational-input vectors, and FiO$_2$ sat at its 1.0 boundary in 13 of the 20. The asymmetry belongs to those input extremes rather than"
 paper,"4{,}400",2,"e count from 20 / 20 at the default to 0 / 20 at both an intermediate 4{,}400~mL bracket and the engine's own setup floor of 4{,}082~mL (Figure~"
 paper,0.001,1,"}000, and two tests reaching zero are reported conservatively as $p < 0.001$. Cross-sex agreement of input-importance rankings was quantified by"
 paper,0.1,1,atline is variability below 1~\% of the mean \emph{and} a mean within 0.1~\% of a hard bound --- $\geq$~99.9~\% for the SpO$_2$ ceiling --- a r

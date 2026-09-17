@@ -3696,9 +3696,9 @@ paper,300,20,20.0,ambiguous_small,"20 runs (1.6~\%) failed to complete with fini
 paper,300,640,640.0,guard,"fell on the male reference body}, against zero divergences across the 640 runs on the female reference body (Figure~ a). The 20"
 paper,300,20,20.0,ambiguous_small,640 runs on the female reference body (Figure~ a). The 20 divergence events are not spread uniformly through the input space: t
 paper,300,8,8.0,ambiguous_small,"ents are not spread uniformly through the input space: they span only 8 distinct operational-input vectors, and FiO$_2$ sat at its 1.0 bounda"
-paper,300,1.0,1.0,ambiguous_small,"pan only 8 distinct operational-input vectors, and FiO$_2$ sat at its 1.0 boundary in 13 of the 20. A preregistered follow-up experiment isola"
-paper,300,13,13.0,none,"nct operational-input vectors, and FiO$_2$ sat at its 1.0 boundary in 13 of the 20. A preregistered follow-up experiment isolated the mechani"
-paper,300,20,20.0,ambiguous_small,"ional-input vectors, and FiO$_2$ sat at its 1.0 boundary in 13 of the 20. A preregistered follow-up experiment isolated the mechanism. Pulse'"
+paper,300,1.0,1.0,ambiguous_small,"pan only 8 distinct operational-input vectors, and FiO$_2$ sat at its 1.0 boundary in 13 of the 20. The asymmetry belongs to those input extrem"
+paper,300,13,13.0,none,"nct operational-input vectors, and FiO$_2$ sat at its 1.0 boundary in 13 of the 20. The asymmetry belongs to those input extremes rather than"
+paper,300,20,20.0,ambiguous_small,"ional-input vectors, and FiO$_2$ sat at its 1.0 boundary in 13 of the 20. The asymmetry belongs to those input extremes rather than to the eng"
 paper,302,"4{,}803",4803.0,ledger,"e from a sex-independent allometric relation on body weight, yielding 4{,}803~mL for the 67.3~kg male reference body and 3{,}996~mL for the 56.2~kg"
 paper,302,67.3,67.3,guard,"ndent allometric relation on body weight, yielding 4{,}803~mL for the 67.3~kg male reference body and 3{,}996~mL for the 56.2~kg female body. Th"
 paper,302,"3{,}996",3996.0,ledger,"y weight, yielding 4{,}803~mL for the 67.3~kg male reference body and 3{,}996~mL for the 56.2~kg female body. The two bodies therefore share essent"

@@ -6431,6 +6431,16 @@ CONT_TEXT_REQUIRED = (
     # inside 0.91--0.945.
     ("preprint_npj/supplement.tex", "sample at most up to severity 0.9", 1),
     ("preprint_npj/cover_letter.md", "sample at most up to severity 0.9", 1),
+    # Added 2026-09-17, on the author's decision, and paired for the same reason
+    # as the two rows above. Results 2.5 states that all 20 divergences fall on
+    # the male body; that is true of the Morris input extremes and false as a
+    # statement about the engine, because the midrange severity sweep reverses
+    # it in the lower part of the band (Supplement S5.5, Table S5.4: female
+    # 14/19 against male 5/19 in (0.85, 0.91]). The paper carried no such
+    # qualifier until now, so a reader of the paper alone could take "all-male"
+    # as general. Either locus going missing is a FAIL.
+    ("preprint_npj/paper.tex", "dominating the lower part of the band", 1),
+    ("preprint_npj/supplement.tex", "female divergence concentrated in the lower part", 1),
 )
 CONT_TEXT_BANNED = ("0.879, 0.945", "0.879--0.945", "0.879–0.945", "0 / 51 divergence", "14/18", "14 / 18")
 CONT_TEXT_FILES = ("preprint_npj/paper.tex", "preprint_npj/supplement.tex",
