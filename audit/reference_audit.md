@@ -2186,3 +2186,42 @@ ungrammatical; the author chose "most" from four options put to them.
 `pdftotext` wraps it across three lines. The zero was readable as an artefact
 only because a positive control ("synthesized", 5 hits) had been run on the same
 extraction first.
+
+---
+
+## Addendum 2026-09-17 — the round-tenths convention fails a second, stronger test
+
+**Why this exists.** The 2026-09-16 addendum declined to restore Pulse's alleged
+"round-tenths convention {0.0, 0.3, 0.6, 0.9, 1.0}" on the narrow ground that
+the `1.0` was unsourced. The author asked for a corrected four-value form. The
+check run before writing it refutes the four-value form as well, so nothing was
+written. Recorded here because a rejected restoration is a finding.
+
+**1. "Round tenths" is false as a description of Pulse's own usage.** The
+shipped `Comprehensive.json` scenario sets the ARDS condition to **0.2** (left
+lung) and **0.35** (right), then exacerbates to **0.13** and **0.02**. Four
+counter-examples in one file. Any sentence presenting a round-tenths grid as
+Pulse's convention would therefore be false whether or not it carries the `1.0`.
+
+**2. Only one artefact carries the four-value ARDS grid**, not two:
+`src/cpp/howto/HowTo-IsoShuntAnalysis.cpp:60`, `ARDSSeverityList = { 0.0, 0.3,
+0.6, 0.9 }`. A correction to this register's own working notes: the identical
+array at `src/cpp/study/patient_variability/PVGenerator.cpp:476` was briefly
+counted as a second ARDS source. It is not one -- `GenerateTriageInsults` feeds
+it to the hemorrhage, airway-obstruction and tension-pneumothorax actions, never
+to ARDS. Same grid, different subject.
+
+**3. The origin of the `1.0`, as far as the record supports.** The list first
+appears, unsourced, in the commit message of `8ebb7b9` (2026-05-31). A tempting
+explanation -- confusion with `FiO2List = { 0.21, 0.5, 1.0 }` on line 61 of the
+same HowTo file -- is **not supported**: `IsoShunt` enters this repository's
+history only with `4896fec` (2026-09-16), so that file had not been consulted
+here in May. The better-supported reconstruction is a merge of two things the
+project already held: the documented mapping `{0.3, 0.6, 0.9}` recorded in
+`f9f6168` (2026-05-15), and the bounds of the documented range,
+`docs/Methodology/RespiratoryMethodology.md:1176`, *"a severity index, ranging
+from 0 (no disease) to 1 (maximum severity)"*. Reconstruction, not proof.
+
+**What stands.** Only the bound: Pulse's own examples and validations do not go
+above 0.9 (maximum in `ARDSExacerbation.json`), and nothing lands inside
+0.91--0.945. That is what `supplement.tex` §S5.3 carries, and it is guarded.
