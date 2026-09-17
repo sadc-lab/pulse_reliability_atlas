@@ -30,8 +30,22 @@ ventilator-control policies for ARDS (Ward et al., *IEEE CBMS* 2024), and any
 model fitted to that output absorbs whatever artefacts the envelope contains as
 though they were physiology. **Our manuscript provides that map — the first
 open, preregistered reliability atlas of Pulse across the adult critical-care
-envelope (1,280 Morris elementary-effects simulations spanning seven
-operational inputs, four ARDS severities, and two patient reference bodies).**
+envelope (1,280 Morris elementary-effects simulations of seven operational
+inputs, balanced across eight cells of 160 runs: four ARDS severities crossed
+with two patient reference bodies).**
+
+The journal has also published on the credibility and use of computational
+physiological models: a cardiac digital-twin surrogate spanning 43 model
+parameters and used for global sensitivity analysis and parameter estimation
+with uncertainty quantification (Salvador et al., 2024), and a survey and
+perspective on verification, validation and uncertainty quantification of
+digital twins for precision medicine (Sel et al., 2025). Our study addresses a
+complementary upstream problem: before outputs from a mechanistic physiology
+engine are used to generate synthetic cohorts or train downstream models, its
+operational input space and failure modes need to be characterised. We
+therefore present the atlas as a reproducible curation and review-priority
+instrument, not as external physiological validation or a formal regulatory
+credibility assessment.
 
 Three findings make this contribution timely for the *npj Digital Medicine*
 readership:
