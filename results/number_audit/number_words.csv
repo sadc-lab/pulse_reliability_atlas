@@ -1,5 +1,5 @@
 artefact,line,word,class,context
-paper,128,first,ordinal,nsitivity analysis of its operational inputs has been published. We present the first open reliability atlas across its critical-care envelope: Morris elementary-eff
+paper,128,first,ordinal,report no formal sensitivity analysis of its operational inputs. We present the first open reliability atlas across its critical-care envelope: Morris elementary-eff
 paper,128,seven,cardinal,"atlas across its critical-care envelope: Morris elementary-effects sampling of seven inputs, four severity scenarios, male and female bodies (1{,}280 simulations)."
 paper,128,four,cardinal,"its critical-care envelope: Morris elementary-effects sampling of seven inputs, four severity scenarios, male and female bodies (1{,}280 simulations). Sensitivity i"
 paper,128,three,cardinal,"scenarios, male and female bodies (1{,}280 simulations). Sensitivity is skewed: three inputs carry a median 93~\% of each output's total. A four-flag classifier surf"
@@ -1285,66 +1285,66 @@ monograph,3406,three,cardinal,"the canonical sweep required approximately 14 h o
 monograph,3407,two,cardinal,"4 h of active elapsed time, using three parallel Docker workers initially and two after a mid-sweep reduction to control thermal load (resume-safe); the timing"
 monograph,3419,second,ordinal,"cal *""incompatible-with-60-s-steady-state-in-window""* threshold. Within the second category, the exact numerical choice (e.g., PaO2 lower 20 vs 25 mmHg, MAP low"
 monograph,3445,three,cardinal,udit ([S022 ) shows that the locked count bundles three distinct contributions: (i) **76 runs** flagged because of physiological SpO2
-monograph,3489,two,cardinal,simulation community. ### 4.6 Implications for downstream Pulse research *The two downstream research lines this atlas opens hooks for: the pediatric translation
-monograph,3496,two,cardinal,"they can target.* This atlas is positioned as foundational infrastructure for two downstream lines of work, both currently in preparation: * **Pediatric transla"
-monograph,3513,first,ordinal,"ns driving high-μ\* inputs (heart-rate baseline, FiO2 / PEEP, Vt) are patched first; equations driving low-μ\* inputs are deferred. Neither downstream paper is re"
-monograph,3533,six,cardinal,"4 , [S014 , [S017 , [S018 , [S021 ) surfaced six places where small additions to Pulse's existing tooling, documentation, or val"
-monograph,3546,one,cardinal,"es that downstream tools must regex-parse. A small structured-event API — one typed record per rejected field, with the offending value, the enforced boun"
-monograph,3560,one,cardinal,cally while investigating the all-male divergence cluster ([S018 ); a one-line note in the patient-baseline reference table would have saved the inves
-monograph,3583,three,cardinal,"able and H3) and in the §1.2 limitations list (entry 4), and corroborated by three independent sources, but Pulse does not currently emit a setup-time warni"
-monograph,3608,one,cardinal,require some domain knowledge to map back to the offending input field. A one-token prefix indicating which input was rejected (
-monograph,3628,two,cardinal,"Conclusion *A short closing summary of the atlas's headline contribution, the two operator-actionable findings, the sex-as-reliability-axis result (in its regime"
-monograph,3632,first,ordinal,"r plays in the maintainer's PhD pipeline.* This reliability atlas provides the first open, preregistered sensitivity and divergence map for the Pulse Physiology Eng"
-monograph,3634,seven,cardinal,e Physiology Engine ( ) across the adult operational envelope. By sweeping seven user-facing inputs across four ARDS severities and two adult reference surrogat
-monograph,3635,four,cardinal,"oss the adult operational envelope. By sweeping seven user-facing inputs across four ARDS severities and two adult reference surrogates ([S006 , 1,280 simula"
-monograph,3635,two,cardinal,"envelope. By sweeping seven user-facing inputs across four ARDS severities and two adult reference surrogates ([S006 , 1,280 simulations), we identified bo"
-monograph,3644,two,cardinal,"or synthetic cohort generation. Beyond mapping the envelope, this work yielded two operator-actionable corrections — resolving VC-AC tidal-volume dyssynchrony (F-"
-monograph,3665,two,cardinal,"orously validated baseline and foundational infrastructure for the maintainer's two downstream papers: a pediatric translation layer (Paper 1, in preparation) and"
-monograph,3678,one,cardinal,"ong in the Zenodo deposit, not in git history; see ) — which is why one ledger anchor ( ) auto-skips on a public clone, giving 393 / 394 there a"
-monograph,3684,third,ordinal,; the deposited data and this monograph's own content under CC-BY-4.0. Verbatim third-party excerpts — notably from the Pulse documentation and source (Apache-2.0) —
-monograph,3714,one,cardinal,"PASS on the authors' full data tree (393 / 394 on a public clone, where the one anchor needing the gitignored raw S021 trajectories is auto-skipped) ([S024"
-monograph,3726,one,cardinal,). * **Lab-notebook provenance:** every commit on the main branch ties to one of the experiment-log entries S001 – S024 + the OSS release-hygiene entries S
-monograph,3763,four,cardinal,"ugh clinical discussions with M.S. and P.J. — designed the Morris sweep and the four-flag steady-state classifier, performed all computational runs and statistical"
-monograph,3781,two,cardinal,"out with the assistance of AI tools, used within a cross-checking loop between two large language models under direct supervision by S.N.: Claude /4.8, an"
-monograph,3785,second,ordinal,"rough the Claude Code agent at the thinking-effort default, and, as the second model, Gemini Pro 3.1 (Google; extended-thinking mode) through a separate web s"
-monograph,3798,second,ordinal,"e Code** with / / , and as second model **Gemini Pro 3.1** to 2 August 2026, then **OpenAI ChatGPT** ( S"
-monograph,3808,second,ordinal,"the same dual-model cross-checking loop (Claude Code, with Gemini Pro 3.1 as second model to 2 August 2026 and OpenAI ChatGPT ( Sol, High reasoning level)"
-monograph,3833,one,cardinal,9. References Primary sources only — every cited fact in this paper traces to one of the following or to an experiment-log entry in this repository. 1. **Pulse
-monograph,3883,nine,cardinal,24749. Describes Pulse's ASL 5000 + Dräger Evita validation framework across nine cases (healthy / restrictive / obstructive × PC-AC / VC-AC / CPAP); repor
-monograph,3922,three,cardinal,"p with 8 sanity checks. * **[S007 ** — Targeted reproducibility check at three independent layers, all bit-exact. * **[S008 ** — Tier-1 statistical r"
-monograph,3946,four,cardinal,"ber corrected 2026-05-12 in pre-submission audit; the previous draft listed a four-author reduction including a non-existent ""Carpenter J"" — full nine-author"
-monograph,3947,nine,cardinal,"listed a four-author reduction including a non-existent ""Carpenter J"" — full nine-author list confirmed against the Springer record and the Pulse publication"
-monograph,3952,two,cardinal,*Computational simulation to assess patient safety of uncompensated COVID-19 two-patient ventilator sharing using the Pulse Physiology Engine.* PLoS One 15(11
-monograph,3953,One,cardinal,ID-19 two-patient ventilator sharing using the Pulse Physiology Engine.* PLoS One 15(11):e0242532 (2020). DOI: [
-monograph,3968,seven,cardinal,paper is the 2022 ANNSIM mechanical-ventilator implementation paper with the seven-author list above. The qualitative ASL 5000 validation framework is described
-monograph,3995,two,cardinal,"ft alveoli) and of the no-inertance limitation, both verified verbatim; those two claims had been mis-attributed to Bray 2019, which contains neither. * []{#re"
-monograph,4038,first,ordinal,of Digital Twins.* Journal of Machine Learning Research 27(152):1–52 (2026); first posted as arXiv:2301.07210 and read in its v4 (November 2023); the published
-monograph,4089,Second,ordinal,", Iyer NP, Bembea MM, Agulnik A, Barbaro RP, et al. *Executive Summary of the Second International Guidelines for the Diagnosis and Management of Pediatric Acute"
-monograph,4168,Third,ordinal,"M, Deutschman CS, Seymour CW, Shankar-Hari M, Annane D, Bauer M, et al. *The Third International Consensus Definitions for Sepsis and Septic Shock (Sepsis-3).*"
-monograph,4203,one,cardinal,"y-state table; that citation has not been pinned to a chapter and is the last one outstanding for this reference. The former ""acid-base ranges"" annotation was"
-monograph,4205,one,cardinal,"on was withdrawn on 2026-07-28: no locus in this monograph cites the work for one, and the CO2-narcosis justification it once supported was withdrawn on 2026"
-monograph,4260,double,multiplicative,"gistered bolt-on) | | []{#s020} S020 | Pre-submission novelty audit (literature double-check on every ""first"" claim; one citation added) | | []{#s021} S021 | Hyperoxi"
-monograph,4260,first,ordinal,"]{#s020} S020 | Pre-submission novelty audit (literature double-check on every ""first"" claim; one citation added) | | []{#s021} S021 | Hyperoxia convergence (60-run"
-monograph,4260,one,cardinal,"| Pre-submission novelty audit (literature double-check on every ""first"" claim; one citation added) | | []{#s021} S021 | Hyperoxia convergence (60-run rerun at 300"
-monograph,4263,three,cardinal,dix C) | | []{#s023} S023 | Supplementary ML/SHAP cross-check of Morris μ\* top-three input sets on the clean subset (see Supplementary §S13) | | []{#s024} S024 | Pr
-monograph,4264,one,cardinal,"394 / 394 PASS on the authors' full data tree, 393 / 394 on a public clone with one auto-skipped anchor, see §2.8) | | []{#s025} S025 | Pre-release OSS code-hygien"
-monograph,4317,seven,cardinal,difference reflects the averaging across a wider FiO2 envelope and across the seven perturbed inputs rather than a per-step single-input perturbation near the
-monograph,4351,Two,cardinal,uses 0.8 (between the documented moderate and severe transition points). Two independent prior sources (the Respiratory Methodology page and Webb 2020) ther
-monograph,4374,three,cardinal,"g interval: 10 s. * Total per-run duration: 5 min. The sweep was structured in three passes: a coarse 0.1–0.9 sweep (step 0.1, 9 runs), a fine 0.20–0.30 sweep aroun"
-monograph,4408,seven,cardinal,"ave not tested that. The Atlas's reliability sweep is preregistered to vary all seven operational inputs around that reference setting, so the calibration applies pr"
-monograph,4413,Three,cardinal,ing at other ventilation regimes is out of scope. **Solver instability zone.** Three convergent sweeps within the companion project (same en
-monograph,4433,three,cardinal,"lure range, giving the calibrated severe fraction (0.95) a 0.005 margin. All three sweeps are within the same companion project rather than independent third-part"
-monograph,4434,third,ordinal,"All three sweeps are within the same companion project rather than independent third-party replications, so the convergence is evidence of reproducibility under the"
-monograph,4447,zero,cardinal,"git-ignored and hidden files*, at tag (commit ) — returns zero occurrences of . Because such a model could hide behind other vocab"
-monograph,4450,one,cardinal,", the search was widened to the terms it would necessarily surface under; every one returns zero: , , , ,"
-monograph,4450,zero,cardinal,"was widened to the terms it would necessarily surface under; every one returns zero: , , , ,"
-monograph,4461,seven,cardinal,"touches no respiratory or CDM source file (total delta seven build-system files, +46/−17). What Pulse reproduces instead are the *macroscop"
-monograph,4483,one,cardinal,"ease, including its response to surfactant instillation — is not representable, one substantive reason the native pediatric-engine work treats surfactant as a modu"
-monograph,4489,three,cardinal,iscrepancies A source-level audit of the Pulse C++ repository identified three discrepancies between the official methodology documentation and the compiled e
-monograph,4506,two,cardinal,(where slope = 12). ### B.5 Reference-surrogate body-dimension provenance The two adult surrogates used throughout the atlas (M: 18 yr / 67.3 kg / 180 cm; F: 18
-monograph,4516,half,multiplicative,"re-read 2026-08-20 with columns resolved by name). CDC lists age at the half-month point standing for the whole month, so this row denotes 216.0–216.99 mo"
-monograph,4561,one,cardinal,"ssifier's flag (§2.6) fires when any output channel violates one of three sub-mode rules in the [60, 120] s steady-state window: flatline at a h"
-monograph,4561,three,cardinal,"'s flag (§2.6) fires when any output channel violates one of three sub-mode rules in the [60, 120] s steady-state window: flatline at a hard bound"
-monograph,4570,two,cardinal,"hat gives readers a finer-grained read on what the flag is doing per cell. The two sub-modes audited are: * **SpO2 ""flatline at ceiling"" with mean ≥ 0.999.** A *"
-monograph,4580,two,cardinal,"ifier was designed to catch solver-pinning, not physiological saturation; the two coincide numerically. * **Vt CV > 5 %.** The F-004 patient-ventilator dyssynchr"
-monograph,4634,Zero,cardinal,"e runs; 30 in S1_F, 16 in S1_M, 16 in S2_F, 9 in S2_M, plus 5 trickle in S3). Zero in S4 (in severe ARDS, SpO2 no longer saturates and this trigger never fires)"
+monograph,3490,two,cardinal,simulation community. ### 4.6 Implications for downstream Pulse research *The two downstream research lines this atlas opens hooks for: the pediatric translation
+monograph,3497,two,cardinal,"they can target.* This atlas is positioned as foundational infrastructure for two downstream lines of work, both currently in preparation: * **Pediatric transla"
+monograph,3514,first,ordinal,"ns driving high-μ\* inputs (heart-rate baseline, FiO2 / PEEP, Vt) are patched first; equations driving low-μ\* inputs are deferred. Neither downstream paper is re"
+monograph,3534,six,cardinal,"4 , [S014 , [S017 , [S018 , [S021 ) surfaced six places where small additions to Pulse's existing tooling, documentation, or val"
+monograph,3547,one,cardinal,"es that downstream tools must regex-parse. A small structured-event API — one typed record per rejected field, with the offending value, the enforced boun"
+monograph,3561,one,cardinal,cally while investigating the all-male divergence cluster ([S018 ); a one-line note in the patient-baseline reference table would have saved the inves
+monograph,3584,three,cardinal,"able and H3) and in the §1.2 limitations list (entry 4), and corroborated by three independent sources, but Pulse does not currently emit a setup-time warni"
+monograph,3609,one,cardinal,require some domain knowledge to map back to the offending input field. A one-token prefix indicating which input was rejected (
+monograph,3629,two,cardinal,"Conclusion *A short closing summary of the atlas's headline contribution, the two operator-actionable findings, the sex-as-reliability-axis result (in its regime"
+monograph,3633,first,ordinal,"r plays in the maintainer's PhD pipeline.* This reliability atlas provides the first open, preregistered sensitivity and divergence map for the Pulse Physiology Eng"
+monograph,3635,seven,cardinal,e Physiology Engine ( ) across the adult operational envelope. By sweeping seven user-facing inputs across four ARDS severities and two adult reference surrogat
+monograph,3636,four,cardinal,"oss the adult operational envelope. By sweeping seven user-facing inputs across four ARDS severities and two adult reference surrogates ([S006 , 1,280 simula"
+monograph,3636,two,cardinal,"envelope. By sweeping seven user-facing inputs across four ARDS severities and two adult reference surrogates ([S006 , 1,280 simulations), we identified bo"
+monograph,3645,two,cardinal,"or synthetic cohort generation. Beyond mapping the envelope, this work yielded two operator-actionable corrections — resolving VC-AC tidal-volume dyssynchrony (F-"
+monograph,3666,two,cardinal,"orously validated baseline and foundational infrastructure for the maintainer's two downstream papers: a pediatric translation layer (Paper 1, in preparation) and"
+monograph,3679,one,cardinal,"ong in the Zenodo deposit, not in git history; see ) — which is why one ledger anchor ( ) auto-skips on a public clone, giving 393 / 394 there a"
+monograph,3685,third,ordinal,; the deposited data and this monograph's own content under CC-BY-4.0. Verbatim third-party excerpts — notably from the Pulse documentation and source (Apache-2.0) —
+monograph,3715,one,cardinal,"PASS on the authors' full data tree (393 / 394 on a public clone, where the one anchor needing the gitignored raw S021 trajectories is auto-skipped) ([S024"
+monograph,3727,one,cardinal,). * **Lab-notebook provenance:** every commit on the main branch ties to one of the experiment-log entries S001 – S024 + the OSS release-hygiene entries S
+monograph,3764,four,cardinal,"ugh clinical discussions with M.S. and P.J. — designed the Morris sweep and the four-flag steady-state classifier, performed all computational runs and statistical"
+monograph,3782,two,cardinal,"out with the assistance of AI tools, used within a cross-checking loop between two large language models under direct supervision by S.N.: Claude /4.8, an"
+monograph,3786,second,ordinal,"rough the Claude Code agent at the thinking-effort default, and, as the second model, Gemini Pro 3.1 (Google; extended-thinking mode) through a separate web s"
+monograph,3799,second,ordinal,"e Code** with / / , and as second model **Gemini Pro 3.1** to 2 August 2026, then **OpenAI ChatGPT** ( S"
+monograph,3809,second,ordinal,"the same dual-model cross-checking loop (Claude Code, with Gemini Pro 3.1 as second model to 2 August 2026 and OpenAI ChatGPT ( Sol, High reasoning level)"
+monograph,3834,one,cardinal,9. References Primary sources only — every cited fact in this paper traces to one of the following or to an experiment-log entry in this repository. 1. **Pulse
+monograph,3884,nine,cardinal,24749. Describes Pulse's ASL 5000 + Dräger Evita validation framework across nine cases (healthy / restrictive / obstructive × PC-AC / VC-AC / CPAP); repor
+monograph,3923,three,cardinal,"p with 8 sanity checks. * **[S007 ** — Targeted reproducibility check at three independent layers, all bit-exact. * **[S008 ** — Tier-1 statistical r"
+monograph,3947,four,cardinal,"ber corrected 2026-05-12 in pre-submission audit; the previous draft listed a four-author reduction including a non-existent ""Carpenter J"" — full nine-author"
+monograph,3948,nine,cardinal,"listed a four-author reduction including a non-existent ""Carpenter J"" — full nine-author list confirmed against the Springer record and the Pulse publication"
+monograph,3953,two,cardinal,*Computational simulation to assess patient safety of uncompensated COVID-19 two-patient ventilator sharing using the Pulse Physiology Engine.* PLoS One 15(11
+monograph,3954,One,cardinal,ID-19 two-patient ventilator sharing using the Pulse Physiology Engine.* PLoS One 15(11):e0242532 (2020). DOI: [
+monograph,3969,seven,cardinal,paper is the 2022 ANNSIM mechanical-ventilator implementation paper with the seven-author list above. The qualitative ASL 5000 validation framework is described
+monograph,3996,two,cardinal,"ft alveoli) and of the no-inertance limitation, both verified verbatim; those two claims had been mis-attributed to Bray 2019, which contains neither. * []{#re"
+monograph,4039,first,ordinal,of Digital Twins.* Journal of Machine Learning Research 27(152):1–52 (2026); first posted as arXiv:2301.07210 and read in its v4 (November 2023); the published
+monograph,4090,Second,ordinal,", Iyer NP, Bembea MM, Agulnik A, Barbaro RP, et al. *Executive Summary of the Second International Guidelines for the Diagnosis and Management of Pediatric Acute"
+monograph,4169,Third,ordinal,"M, Deutschman CS, Seymour CW, Shankar-Hari M, Annane D, Bauer M, et al. *The Third International Consensus Definitions for Sepsis and Septic Shock (Sepsis-3).*"
+monograph,4204,one,cardinal,"y-state table; that citation has not been pinned to a chapter and is the last one outstanding for this reference. The former ""acid-base ranges"" annotation was"
+monograph,4206,one,cardinal,"on was withdrawn on 2026-07-28: no locus in this monograph cites the work for one, and the CO2-narcosis justification it once supported was withdrawn on 2026"
+monograph,4261,double,multiplicative,"gistered bolt-on) | | []{#s020} S020 | Pre-submission novelty audit (literature double-check on every ""first"" claim; one citation added) | | []{#s021} S021 | Hyperoxi"
+monograph,4261,first,ordinal,"]{#s020} S020 | Pre-submission novelty audit (literature double-check on every ""first"" claim; one citation added) | | []{#s021} S021 | Hyperoxia convergence (60-run"
+monograph,4261,one,cardinal,"| Pre-submission novelty audit (literature double-check on every ""first"" claim; one citation added) | | []{#s021} S021 | Hyperoxia convergence (60-run rerun at 300"
+monograph,4264,three,cardinal,dix C) | | []{#s023} S023 | Supplementary ML/SHAP cross-check of Morris μ\* top-three input sets on the clean subset (see Supplementary §S13) | | []{#s024} S024 | Pr
+monograph,4265,one,cardinal,"394 / 394 PASS on the authors' full data tree, 393 / 394 on a public clone with one auto-skipped anchor, see §2.8) | | []{#s025} S025 | Pre-release OSS code-hygien"
+monograph,4320,seven,cardinal,difference reflects the averaging across a wider FiO2 envelope and across the seven perturbed inputs rather than a per-step single-input perturbation near the
+monograph,4354,Two,cardinal,uses 0.8 (between the documented moderate and severe transition points). Two independent prior sources (the Respiratory Methodology page and Webb 2020) ther
+monograph,4377,three,cardinal,"g interval: 10 s. * Total per-run duration: 5 min. The sweep was structured in three passes: a coarse 0.1–0.9 sweep (step 0.1, 9 runs), a fine 0.20–0.30 sweep aroun"
+monograph,4411,seven,cardinal,"ave not tested that. The Atlas's reliability sweep is preregistered to vary all seven operational inputs around that reference setting, so the calibration applies pr"
+monograph,4416,Three,cardinal,ing at other ventilation regimes is out of scope. **Solver instability zone.** Three convergent sweeps within the companion project (same en
+monograph,4436,three,cardinal,"lure range, giving the calibrated severe fraction (0.95) a 0.005 margin. All three sweeps are within the same companion project rather than independent third-part"
+monograph,4437,third,ordinal,"All three sweeps are within the same companion project rather than independent third-party replications, so the convergence is evidence of reproducibility under the"
+monograph,4450,zero,cardinal,"git-ignored and hidden files*, at tag (commit ) — returns zero occurrences of . Because such a model could hide behind other vocab"
+monograph,4453,one,cardinal,", the search was widened to the terms it would necessarily surface under; every one returns zero: , , , ,"
+monograph,4453,zero,cardinal,"was widened to the terms it would necessarily surface under; every one returns zero: , , , ,"
+monograph,4464,seven,cardinal,"touches no respiratory or CDM source file (total delta seven build-system files, +46/−17). What Pulse reproduces instead are the *macroscop"
+monograph,4486,one,cardinal,"ease, including its response to surfactant instillation — is not representable, one substantive reason the native pediatric-engine work treats surfactant as a modu"
+monograph,4492,three,cardinal,iscrepancies A source-level audit of the Pulse C++ repository identified three discrepancies between the official methodology documentation and the compiled e
+monograph,4509,two,cardinal,(where slope = 12). ### B.5 Reference-surrogate body-dimension provenance The two adult surrogates used throughout the atlas (M: 18 yr / 67.3 kg / 180 cm; F: 18
+monograph,4519,half,multiplicative,"re-read 2026-08-20 with columns resolved by name). CDC lists age at the half-month point standing for the whole month, so this row denotes 216.0–216.99 mo"
+monograph,4564,one,cardinal,"ssifier's flag (§2.6) fires when any output channel violates one of three sub-mode rules in the [60, 120] s steady-state window: flatline at a h"
+monograph,4564,three,cardinal,"'s flag (§2.6) fires when any output channel violates one of three sub-mode rules in the [60, 120] s steady-state window: flatline at a hard bound"
+monograph,4573,two,cardinal,"hat gives readers a finer-grained read on what the flag is doing per cell. The two sub-modes audited are: * **SpO2 ""flatline at ceiling"" with mean ≥ 0.999.** A *"
+monograph,4583,two,cardinal,"ifier was designed to catch solver-pinning, not physiological saturation; the two coincide numerically. * **Vt CV > 5 %.** The F-004 patient-ventilator dyssynchr"
+monograph,4637,Zero,cardinal,"e runs; 30 in S1_F, 16 in S1_M, 16 in S2_F, 9 in S2_M, plus 5 trickle in S3). Zero in S4 (in severe ARDS, SpO2 no longer saturates and this trigger never fires)"

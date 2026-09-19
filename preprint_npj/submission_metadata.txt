@@ -19,13 +19,13 @@ An Open Reliability Atlas of Sensitivity and Failure Modes in the Pulse Physiolo
 ------------------------------------------------------------------------------
 ABSTRACT  (150 words, npj cap 150)
 ------------------------------------------------------------------------------
-Pulse is an actively maintained open-source adult-physiology simulator, yet no
-formal sensitivity analysis of its operational inputs has been published. We
-present the first open reliability atlas across its critical-care envelope:
-Morris elementary-effects sampling of seven inputs, four severity scenarios,
-male and female bodies (1,280 simulations). Sensitivity is skewed: three
-inputs carry a median 93 % of each output's total. A four-flag classifier
-surfaces failure modes: two operator-actionable, one sex-dependent.
+Pulse is an actively maintained open-source adult-physiology simulator, yet
+its maintainers report no formal sensitivity analysis of its operational
+inputs. We present the first open reliability atlas across its critical-care
+envelope: Morris elementary-effects sampling of seven inputs, four severity
+scenarios, male and female bodies (1,280 simulations). Sensitivity is skewed:
+three inputs carry a median 93 % of each output's total. A four-flag
+classifier surfaces failure modes: two operator-actionable, one sex-dependent.
 Tidal-volume instability (20.6 % of runs) reflects patient–ventilator
 dyssynchrony; locking the VC-AC trigger to −2 cmH2O collapses that
 variability. At FiO2 = 1.0 transient hyperoxia makes 120-second runs

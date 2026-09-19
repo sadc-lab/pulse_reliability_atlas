@@ -1965,10 +1965,10 @@ serialises after ingestion, on all 10,160 contracts that reached it.
 
 Two implications:
 1. Pulse's *verified* acceptance ranges (HR 50 – 110, SBP 90 – 120, DBP
-   60 – 80, RR 8 – 20, Vt 300 – 800, FiO2 0.21 – 1.0, PEEP 0 – 20) are
-   *exactly* the ranges Pulse will accept without intervention. Users
-   sweeping inputs strictly inside these envelopes never trigger
-   silent substitution.
+   60 – 80, RR 8 – 20, Vt 300 – 800, FiO2 0.21 – 1.0, PEEP 0 – 20) all
+   sit inside the ranges Pulse accepts without intervention. No input
+   submitted strictly inside these envelopes was silently substituted
+   anywhere in this sweep.
 2. Pulse rejects out-of-envelope inputs *loudly* — the deliberate clamp
    probes in [S005](#s005) confirmed this: SBP = 140 produces an explicit `[ERROR]`
    line and exit code 1, not a silent substitution. Rejection is loud and
@@ -3470,8 +3470,9 @@ bounded.*
   cross-check is reported in supplementary section S11 with the
   honest caveats it requires (clean-subset bias, OAT non-uniform
   design); see [`results/s023/`](../results/s023/) for artefacts.
-* **No comparable open atlas exists for sibling engines.** The atlas
-  reports Pulse-specific reliability behaviour; it does not establish
+* **To our knowledge, no comparable open atlas exists for sibling
+  engines.** The atlas reports Pulse-specific reliability behaviour;
+  it does not establish
   whether the patterns reported here (sex-stratified divergence,
   VC-AC dyssynchrony at default trigger settings, transient hyperoxia
   regime at FiO2 = 1.0 in a 120 s steady-state window) are unique to
@@ -4306,7 +4307,9 @@ initialization failure prior to stabilization.
   initialization is rejected even if individual values fall within
   the allowed absolute ranges.
 * **Fraction of inspired oxygen (FiO2):** Direct probing confirmed
-  that the engine remains fully stable up to FiO2 = 1.0. In the focused
+  that Pulse accepts FiO2 = 1.0 and produces a stable trajectory; the
+  transient hyperoxia regime and the extended-window solver-instability
+  tail at that setting are characterised separately in §3.8. In the focused
   single-input probe (the companion `Pulse_translation_new` FiO2 = 1.0
   crash probe, 9 runs sweeping
   FiO2 ∈ {0.95, …, 1.00} on a healthy male surrogate at fixed

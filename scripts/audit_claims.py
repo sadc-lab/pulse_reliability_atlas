@@ -8024,6 +8024,117 @@ n_windowtol_fail = check_window_tolerance()
 
 n_sobolframe_fail = check_sobol_framing()
 
+
+# Prose-audit guard (2026-09-19, register audit/number_inventory.md 12.4).
+#
+# The hole this closes. The prose audit enumerated the sentences that assert
+# something absolute while carrying no digit -- the one population neither
+# number instrument could ever show -- and found four claims stronger than
+# their own evidence. Each was corrected on the author's decision. Nothing else
+# in the gate would notice if one came back: these are words, not numbers, so
+# no inventory, residue or ledger anchor covers them, which is precisely how
+# they survived until 2026-09-19.
+#
+# Two directions, as in the Sobol guard above: the over-claim coming back is
+# one failure mode, the repaired wording quietly disappearing in a later
+# condensation pass is the other. P-1 in particular sits in an abstract that is
+# AT the npj 150-word cap, so it is the first clause a word-hunting edit
+# reaches.
+#
+# Calibrated 2026-09-19 in both directions, whitespace-normalised: each retired
+# phrase matches at d0406cf (the commit before the corrections) and none
+# matches now; each required phrase matches now.
+PROSE_AUDIT_DOCS = ("preprint_npj/paper.tex", "preprint_npj/supplement.tex",
+                    "preprint/manuscript.md")
+
+PROSE_RETIRED_PHRASES: tuple[tuple[str, str], ...] = (
+    # P-1: unhedged, unattributed universal negative over the literature, in the
+    # abstract, while L144 hedged it and L327 attributed it.
+    ("yet no formal sensitivity analysis of its operational inputs has been published",
+     "d0406cf"),
+    # M-1: bold lead-in asserting as fact what its own bullet hedged 7 lines down.
+    ("**No comparable open atlas exists for sibling engines.**", "d0406cf"),
+    # M-2: "exactly" claims both directions of an envelope probed on one side
+    # only (Vt and PEEP edges were never probed); the monograph's own 2.2 says
+    # the seven ranges sit INSIDE it.
+    ("*exactly* the ranges Pulse will accept", "d0406cf"),
+    # M-2: a universal over future users and unsampled points, from 10,160
+    # contracts at the sampled points.
+    ("never trigger silent substitution", "d0406cf"),
+    # M-3: larger than the 9-run acceptance probe it cites, and contradicted by
+    # the monograph's own 3.8 solver-instability tail at that same setting.
+    ("remains fully stable up to FiO2 = 1.0", "d0406cf"),
+)
+
+PROSE_REQUIRED_PHRASES: tuple[tuple[str, str], ...] = (
+    ("preprint_npj/paper.tex",
+     "yet its maintainers report no formal sensitivity analysis of its operational inputs"),
+    ("preprint/manuscript.md",
+     "To our knowledge, no comparable open atlas exists for sibling engines"),
+    ("preprint/manuscript.md",
+     "all sit inside the ranges Pulse accepts without intervention"),
+    ("preprint/manuscript.md",
+     "was silently substituted anywhere in this sweep"),
+    ("preprint/manuscript.md",
+     "produces a stable trajectory; the transient hyperoxia regime and the "
+     "extended-window solver-instability tail"),
+)
+
+
+def check_prose_audit() -> int:
+    """Hold the four prose-audit corrections, in both directions.
+
+    Whitespace-normalised before matching: the monograph hard-wraps, and three
+    of these phrases span a line break in the very revision that created them.
+    A raw line scan would report a false PASS on the retired side and a false
+    FAIL on the required side -- both in the direction that hides the defect.
+
+    A missing document is a FAIL, never a skip.
+    """
+    print("\n## Prose-audit guard "
+          "(paper abstract, monograph 4.5 / 3.4 / Appendix B.2)\n")
+    rows: list[tuple[str, str, str]] = []
+    n_bad = 0
+
+    def record(label: str, observed: object, ok: bool) -> None:
+        nonlocal n_bad
+        n_bad += 0 if ok else 1
+        rows.append((label, str(observed), "PASS" if ok else "**FAIL**"))
+
+    texts: dict[str, str | None] = {}
+    for rel in PROSE_AUDIT_DOCS:
+        path = REPO / rel
+        if not path.is_file():
+            texts[rel] = None
+            record(f"document {rel}", "ABSENT", False)
+        else:
+            texts[rel] = " ".join(path.read_text(encoding="utf-8").split())
+
+    for phrase, calibrated_at in PROSE_RETIRED_PHRASES:
+        hits = [rel for rel, t in texts.items() if t is not None and phrase in t]
+        record(f"retired `{phrase[:52]}` (matched at {calibrated_at})",
+               ", ".join(hits) if hits else "absent from all three",
+               not hits)
+
+    for rel, phrase in PROSE_REQUIRED_PHRASES:
+        text = texts.get(rel)
+        present = text is not None and phrase in text
+        record(f"{rel} still states `{phrase[:44]}`",
+               "present" if present else "ABSENT", present)
+
+    print("| check | observed | verdict |")
+    print("|---|---|---|")
+    for label, observed, verdict in rows:
+        print(f"| {label} | {observed} | {verdict} |")
+    print(
+        f"\n**Prose-audit guard:** {len(rows)} checks, "
+        f"{len(rows) - n_bad} PASS, {n_bad} FAIL.\n"
+    )
+    return n_bad
+
+
+n_prose_fail = check_prose_audit()
+
 n_counter_fail = 0
 if _ARGS.check_paper_sync and _ARGS.check_monograph:
     n_counter_fail = check_audit_counters(
@@ -8042,7 +8153,7 @@ sys.exit(
         + n_fio2adj_fail + n_sobolframe_fail + n_s011_fail + n_abstract_fail
         + n_vtcv_split_fail + n_shap_unit_fail + n_detvocab_fail + n_cdcprov_fail + n_pubgate_fail
         + n_windowtol_fail + n_s033_fail + n_s023oos_fail + n_s034_fail + n_contband_fail
-        + n_smallaudit_fail + n_monoaudit_fail
+        + n_smallaudit_fail + n_monoaudit_fail + n_prose_fail
     ) > 0
     else 0
 )

@@ -247,9 +247,9 @@ supplement,927,1,"n clinical. One multinational ARDS cohort --- 1{,}899 patients
 supplement,93,1,"& 44 & 643.2 & [592, 668] \\ S3 (moderate ARDS) & 8 & 143.6 & [93, 218] \\ S4 (severe ARDS) & 8 & 72.6 & [71, 76] \\ \bottomrul"
 supplement,99,1,28 / 163 / 160 \\ S4 (0.95) & 91 & 75 [69--83] & severe & --- / 99 / 74 \\ \bottomrule \subsection{Severity-t
 monograph,18,28,"st one clean pair, so it covers six inputs rather than seven in the 18 combinations where FiO2 carries none (S1_M, S1_F, S4_F); the fracti"
+monograph,3.8,24,ion (PaO2 upper 700 mmHg) is reported as a sensitivity analysis in §3.8. * **Sex as a reliability-sensitivity axis** — the first sex-stratifi
 monograph,0.05,23,"steady-state distributions, under Benjamini–Hochberg FDR control (q = 0.05): 5 of 24 cell × output Wasserstein distances survive the permutation"
 monograph,13,23,every male run matching it diverges). **FiO2 = 1.0 co-occurs in 13 / 20** (enriched ~4× vs base rate) but is **not necessary** — the
-monograph,3.8,23,ion (PaO2 upper 700 mmHg) is reported as a sensitivity analysis in §3.8. * **Sex as a reliability-sensitivity axis** — the first sex-stratifi
 monograph,110,20,"ises to **155.7 (S3)** and **147.1 (S4)** bpm despite the same [50, 110] input range — a scenario-dependent compensatory response that domi"
 monograph,394,16,canonical parquets/CSVs and verifies it against the manuscript text (394 / 394 PASS at the locked tolerance band on the authors' full data tre
 monograph,95,14,"ximum PaCO2 in the first 48 h of ventilation placed approximately the 95th percentile at 70 mmHg [@nin2017], so a 120 mmHg ceiling leaves seve"
