@@ -1,0 +1,25 @@
+artefact,rule,line,word,context
+paper,tex_comment,10,Complete,it_claims.py --check-paper-sync %% %% Status: Complete manuscript. %% %%
+paper,tex_comment,45,no,%% %% The active title below is no longer any of the three lettered %% %% candidates. It
+paper,tex_comment,45,any,%% %% The active title below is no longer any of the three lettered %% %% candidates. It descends f
+paper,tex_comment,51,all,"upervisor-requested Title %% %% T1), and d409080 removed all punctuation to satisfy npj's rule %% %% that a title b"
+paper,tex_comment,52,most,unctuation to satisfy npj's rule %% %% that a title be at most 15 words and free of punctuation. The %% %% active t
+paper,tex_comment,53,no,of punctuation. The %% %% active title is 14 words with no punctuation (register C-1 in %% %% audit/npj_format_co
+paper,tex_comment,57,neither,"ved below as commented %% %% alternatives, but neither is swap-ready: A is 25 words and C %% %% is 21,"
+paper,tex_comment,58,both,"her is swap-ready: A is 25 words and C %% %% is 21, and both carry a colon and commas, so either would %% %%"
+paper,tex_comment,58,either,"nd C %% %% is 21, and both carry a colon and commas, so either would %% %% need a punctuation and length trim"
+paper,tex_comment,83,Single,he YAML frontmatter and the Affiliations %% %% block). Single corresponding author across four affiliations. %%
+paper,tex_comment,92,only,. Affiliations %% %% 1-4 retain their monograph ordering; only the * marker moved. %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+paper,tex_comment,123,each,"). %% %% refinement #3. Three headline findings, one number each. Every %% %% numerical claim is registered in paper_t"
+paper,tex_comment,123,Every,"%% refinement #3. Three headline findings, one number each. Every %% %% numerical claim is registered in paper_to_mono"
+supplement,tex_comment,11,Complete,"it_claims.py --check-paper-sync %% %% Status: Complete supplement, sections S1-S18. %% %%"
+supplement,tex_comment,44,every,"tle. % \numberline is the macro that typesets the number in every TOC entry, so % redefining it here covers section / su"
+supplement,tex_comment,46,uniformly,covers section / subsection / figure / table list entries % uniformly without conflicting with the sn-jnl class's own TO
+supplement,tex_comment,54,only,"% Why this exists. LaTeX renumbers \ref automatically, but only inside one % document. This supplement is compiled sepa"
+supplement,tex_comment,55,cannot,ument. This supplement is compiled separately and therefore cannot \ref % into paper.tex; every reference to a main-manu
+supplement,tex_comment,56,every,iled separately and therefore cannot \ref % into paper.tex; every reference to a main-manuscript section is a literal %
+supplement,tex_comment,57,single,ection is a literal % number typed by hand. On 2026-08-05 a single new subsection inserted in the % paper's Results sile
+supplement,tex_comment,58,nothing,"the % paper's Results silently invalidated 21 of them, and nothing in the build % noticed -- scripts/check_render.py gu"
+supplement,tex_comment,64,nothing,"se across % documents. % % The macro renders the number and nothing else, so the printed supplement is % unchanged and s"
+supplement,tex_comment,65,unchanged,"the number and nothing else, so the printed supplement is % unchanged and stays readable on its own. What it adds is the"
+supplement,tex_comment,1100,all,eps its %% historical label sec:s16 but now renders as S17 (all \ref auto-update). %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

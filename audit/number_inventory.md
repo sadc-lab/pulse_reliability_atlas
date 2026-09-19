@@ -2493,7 +2493,7 @@ retained; calibrations 39 / 0 and 19 / 0.
 |---|---:|---:|---|
 | paper | 38 / 30 since the 2026-09-16 pass (37 / 29 when §3 was written; 43 / 31 when read) | 301 since that pass (307 when read) | **both read row by row** (§3, §3.2). `none`: no defect. `ambiguous_small`: 57 not quantities, 248 + 2 verified, **1 wording finding, corrected** (L259, author's choice, guarded). **`guard` and `ledger` read one by one** (§6): 183 occurrences, 16 of them a different quantity, all verified, no defect. **Year-like and masked literals read** (§7: 4; §8: 40), no defect |
 | supplement | 409 / 210 since the 2026-09-16 pass (431 / 218 after §4.1; 456 when read) | 967 since that pass (957 when read) | **`none` read row by row** (§4.1): 6 not quantities, 450 verified; **all six findings corrected** on the author's decisions (F-S1 to F-S6, 2026-09-14). **`ambiguous_small` read row by row** (§4.2): 134 not quantities, 823 verified; **3 findings, 1 mechanical pointer and prose-sweep #15 all corrected** on the author's decisions (2026-09-14), guarded (22 checks). Counts now 411 / 960 (432 → 411 is by value only: §5 Resolution, §6 GL-S2). **`guard` and `ledger` read one by one** (§6): 515 occurrences, 122 a different quantity; **GL-S1 corrected** (mechanical pointer, guarded), **GL-S2 corrected** (author's decision, 2026-09-15, guarded). **Year-like and masked literals read** (§7: 18; §8: 77, the five chapter locators re-opened in the cited editions), no defect |
-| monograph | 803 / 344 when read; 794 / 334 after the corrections | 1864 when read; 1878 after | **both read row by row, plus the 89 inline-code literals** (§5); section pointers and "Cited in §X" checked. **19 findings (MF-1 … MF-21, MF-8 merged, MF-10 downgraded) and 11 observations. All 19 findings, O-3/5/7/8/9/10/11 and the Cornish citation corrected 2026-09-14** (author's decisions, or mechanical under the pact), guarded (63 checks, one of them GL-S1's; 66 after GL-S2 and YL-M2). O-1 not selected, O-4 not to be edited. MF-22 (HR anchors against Ostchega 2011), found during the resolution, removed on the author's decision, together with a precision on MF-20. Quantities against non-quantities not counted: the rule-based split failed its precision pass. **`guard` and `ledger` read one by one** (§6): 698 occurrences, 126 a different quantity, all verified, no defect. **Year-like literals read one by one** (§7): 153 occurrences; **YL-M2 corrected** (mechanical pointer, guarded), **YL-M1 corrected** (title-page date = revision date, author's decision, guarded). **Masked literals read one by one** (§8): 166 occurrences; **MK-M1 corrected** (line-range pointer, mechanical, guarded; the guard has 68 checks after MK-M1, 69 after YL-M1). **Numbers written in words read** (§9, all three artefacts: 233 / 559 / 546 kept when read, 12 masked): **W-M2 corrected** (mechanical), **W-P1, W-P2, W-S2, W-S3 and W-M1 corrected on the author's decisions**, all guarded (79 checks); monograph 122 pages. O-D1 (supplement section numbers missing from both DOCX twins) fixed in the converter and guarded. Prose without numbers not audited |
+| monograph | 803 / 344 when read; 794 / 334 after the corrections | 1864 when read; 1878 after | **both read row by row, plus the 89 inline-code literals** (§5); section pointers and "Cited in §X" checked. **19 findings (MF-1 … MF-21, MF-8 merged, MF-10 downgraded) and 11 observations. All 19 findings, O-3/5/7/8/9/10/11 and the Cornish citation corrected 2026-09-14** (author's decisions, or mechanical under the pact), guarded (63 checks, one of them GL-S1's; 66 after GL-S2 and YL-M2). O-1 not selected, O-4 not to be edited. MF-22 (HR anchors against Ostchega 2011), found during the resolution, removed on the author's decision, together with a precision on MF-20. Quantities against non-quantities not counted: the rule-based split failed its precision pass. **`guard` and `ledger` read one by one** (§6): 698 occurrences, 126 a different quantity, all verified, no defect. **Year-like literals read one by one** (§7): 153 occurrences; **YL-M2 corrected** (mechanical pointer, guarded), **YL-M1 corrected** (title-page date = revision date, author's decision, guarded). **Masked literals read one by one** (§8): 166 occurrences; **MK-M1 corrected** (line-range pointer, mechanical, guarded; the guard has 68 checks after MK-M1, 69 after YL-M1). **Numbers written in words read** (§9, all three artefacts: 233 / 559 / 546 kept when read, 12 masked): **W-M2 corrected** (mechanical), **W-P1, W-P2, W-S2, W-S3 and W-M1 corrected on the author's decisions**, all guarded (79 checks); monograph 122 pages. O-D1 (supplement section numbers missing from both DOCX twins) fixed in the converter and guarded. **Prose without numbers: read row by row in §12** (904 occurrences; findings M-1, M-2, M-3 open with the author) |
 
 ⚠️ **No count in this register may come from an ad-hoc pipeline.** Three
 successive `grep | cut | uniq` passes over `inventory.csv` each miscounted the
@@ -2518,9 +2518,13 @@ W-S2, W-S3 and W-M1 are corrected on the author's decisions. **O-D1**, the
 supplement section numbers missing from both DOCX twins, is fixed in
 `scripts/tex_to_docx.py` and guarded in `scripts/check_docx_structure.py`.
 
-**Still unread, in all three artefacts (2026-09-15):**
+**Was unread, in all three artefacts (2026-09-15) — now read, §12 (2026-09-19):**
 - **prose that carries no number.** Quantifiers ("only", "none", "both", "all")
   are part of it: O-S5 and O-M1 were found in passing, not by enumeration.
+  The enumeration is §12: **1,922 occurrences** (paper 287, supplement 731,
+  monograph 904), calibration 20 probes 0 FAIL, all read. Supplement clean;
+  four earlier defects (`c3f94e9`, `64c39d1`) verified in place; **four findings
+  open with the author** (P-1 paper abstract; M-1, M-2, M-3 monograph).
 
 ## 11. What this register does not claim
 
@@ -2549,8 +2553,9 @@ the Cornish citation are corrected, on the author's decisions or as mechanical
 fixes, and guarded. A twentieth finding, MF-22, came up while resolving MF-5; it
 is corrected too. The monograph's `guard` and `ledger` occurrences were then
 read one by one (§6) and carry no defect. Its sentences that carry no number
-are not audited: three such defects (MF-18, MF-20, MF-21)
-were found in passing, so its prose is not claimed clean.
+were not audited at that point: three such defects (MF-18, MF-20, MF-21)
+had been found in passing, so its prose was not claimed clean. They are audited
+now, in §12 (904 occurrences read, three findings open with the author).
 
 The year-like literals were then read one by one (§7). One date pointer is
 corrected, and the monograph's title-page date is corrected on the author's
@@ -2565,8 +2570,12 @@ verdict table was kept for that population. The Word twins were checked for the 
 wordings and, after O-D1, for section-sign references; nothing else in them was
 compared number by number with the PDFs.
 
-Nor does it claim anything about prose without numbers, quantifiers included,
-listed at the end of §10: it has not been read.
+Prose without numbers, quantifiers included, was outside every population above.
+It has since been enumerated and read on its own terms: **§12** (2026-09-19,
+1,922 occurrences, third producer `scripts/audit_prose_quantifiers.py`). What
+§12 does and does not claim is stated in §12.6; in particular, a sentence that
+asserts an absolute without carrying one of its stems is still not covered by
+any instrument in this register.
 
 ---
 
@@ -2591,3 +2600,173 @@ All three were read against primary source the same day, in the local
 `residue_by_literal.csv` and `masked_by_rule.csv` are unchanged in content: the
 paper edits of the same session ("essentially all of the gains" -> "most of the
 gains", and the restored Sobol gloss) carry no numeral and no number word.
+
+---
+
+## 12. Prose that carries no number, read one by one — 1,922 occurrences (2026-09-19)
+
+This is the population §10 listed as **still unread** and §11 disclaimed: the
+sentences that assert something absolute while carrying no digit and no number
+word. Neither `audit_number_inventory.py` nor `audit_number_words.py` could ever
+show one — both exclude quantifiers by construction and say so in their
+docstrings. Four defects of exactly this shape had already been corrected
+(`c3f94e9`, `64c39d1`), and every one of them was found by reading a sentence
+that happened to sit next to a digit. This section is the enumeration that was
+missing.
+
+### 12.1 The instrument
+
+Producer: **`scripts/audit_prose_quantifiers.py`**, third instrument of this
+audit. It reuses `audit_number_inventory.py`'s `ARTEFACTS` and `mask_out`, so
+the three instruments see the same rendered text and the same masks. Outputs
+under `results/number_audit/`: `prose_quantifiers.csv` (one row per kept token),
+`prose_quantifiers_masked.csv`, `prose_quantifiers_summary.json`.
+
+**Calibration: 20 probes, 0 FAIL**, including the four defect shapes it exists
+to find, the longest-alternative-wins cases (`none` before `no`, `entirely`
+before `entire`), the substring negatives (`nonetheless`, `allocate`,
+`firstly`), the masks, and the hedges and comparatives that are OUT.
+
+Two instrument decisions were made against the recall-safe side and are recorded
+because each was reversed or repaired during construction:
+
+1. **A hyphen is a word boundary**, so `all-male` enters as `all`. The first
+   version refused a hyphen; that would have missed the paper abstract's own
+   universal, which is written `all-male`. Measured cost of the reversal on
+   `paper.tex`: `all` goes from 26 to 30 occurrences (the 2026-09-17 hand count
+   in the working notes was 26 — it was both hyphen-blind and case-sensitive).
+2. **The dump path forces UTF-8.** On a Windows console Python defaults to
+   cp1252 and a dump of the monograph died mid-row with `UnicodeEncodeError`
+   on `μ` — *after* printing part of the population. A truncated reading pass
+   looks exactly like a completed one; that is the dangerous shape.
+
+### 12.2 The population, and why it is larger than the previous pass
+
+| artefact | in raw text | masked | **kept and read** |
+|---|---:|---:|---:|
+| `paper.tex` | 300 | 13 (all `tex_comment`) | **287** |
+| `supplement.tex` | 742 | 11 (all `tex_comment`) | **731** |
+| `manuscript.md` | 904 | 0 | **904** |
+| **total** | 1,946 | 24 | **1,922** |
+
+Recall accounting closes per artefact (`accounting_closes: true`): tokens in the
+raw text = tokens kept + tokens masked, with every masked token written out with
+its rule.
+
+`64c39d1` recorded a pass over `paper.tex` (251 of 251) and `supplement.tex`
+(654 of 654) "over 27 quantifier stems". **That stem list was never written
+down** — not here, not in a script, only asserted in a commit message — so it
+cannot be reconstructed and no occurrence can be shown to have been covered by
+it. The list defined in §12.1 is larger on every artefact (+36 paper, +77
+supplement, +87 monograph). The paper and the supplement were therefore **read
+again in full** rather than only at the difference. That is the reason this
+section reports 1,922 read and not 904.
+
+### 12.3 Verdicts
+
+**`supplement.tex` (731): no defect.** Its universals are bounded on their face,
+by a named population (`all eight cells`, `all 195 runs concerned`, `all 10,160
+contracts that reached it`) or by an explicit scope sentence. The two loci that
+carry the regime qualifier the paper needed — §S5.5's "best stated as
+`regime-dependent` rather than `all-male`" and the `exclusively on the male
+reference body` of the same subsection — are present and correctly bounded.
+
+**`paper.tex` (287): the four defects of `64c39d1` are in place and verified**
+— the abstract's `all-male in an input-extreme regime`, the Figure 5 legend's
+`The asymmetry is specific to this input-extreme regime`, the `to our knowledge`
+at L144, and the rewritten L146. Both legend and abstract clauses are pinned in
+`CONT_TEXT_REQUIRED`. **One finding remains open (P-1, below).**
+
+**`manuscript.md` (904): three findings open (M-1 … M-3, below).** The
+`64c39d1` monograph edits (L442, L506, L512, L514) are in place and verified.
+
+### 12.4 Findings, for the author — nothing has been written to any manuscript
+
+Each is a scientific claim, so under the autonomy pact this section records them
+and stops. No diff has been applied.
+
+**P-1 — `preprint_npj/paper.tex` L128 (abstract).** The first sentence reads
+"yet no formal sensitivity analysis of its operational inputs has been
+published": an unhedged, unattributed universal negative over the whole
+literature. The same claim is hedged at L144 ("Yet **to our knowledge** no
+public map ... has been published", hedged by `64c39d1` on the author's
+decision) and attributed at L327 ("the Pulse maintainers' **own statement** that
+no formal sensitivity or uncertainty quantification has been performed"). The
+third artefact already does it correctly: `manuscript.md` L35 reads "**Its
+developers state on the Pulse FAQ** that no formal sensitivity analysis has been
+performed". The abstract is the one surface that asserts it flatly. This is the
+same defect shape as `64c39d1`'s finding 3, on the same surface that also
+carried its finding 1. ⚠️ **Cost constraint, measured:** the abstract extent
+guard reports **150 words, exactly at the npj cap**, so `to our knowledge`
+(+3 words) or an attribution would have to be paid for elsewhere.
+
+**M-1 — `preprint/manuscript.md` L3473.** The bullet's bold lead-in states
+"**No comparable open atlas exists for sibling engines.**" as fact, while the
+body of that same bullet, seven lines down at L3480, hedges the identical claim:
+"**To our knowledge**, no comparable publicly available reliability atlas ...
+has been published for either BioGears or HumMod **at the time of writing**".
+A reader skimming the bold labels of §4.5 reads the unhedged form. Same shape as
+P-1 and as `64c39d1`'s finding 3.
+
+**M-2 — `preprint/manuscript.md` L1969–1971.** Two implications drawn from the
+instantiation audit are stronger than the audit:
+
+- "Pulse's *verified* acceptance ranges ... are **exactly** the ranges Pulse
+  will accept without intervention." `exactly` asserts both directions. The
+  evidence establishes one: §2.2 L844 says the seven ranges "sit **inside**
+  Pulse's verified acceptance envelope by construction". Boundary probes exist
+  for HR and RR (49/111, 7/21 rejected) and for the BP gate, not for the Vt,
+  PEEP or FiO2 edges, so the coincidence of sampler range with acceptance edge
+  is not established for those. **L844 and L1969 disagree, and the stronger one
+  is the unsupported one.**
+- "Users sweeping inputs strictly inside these envelopes **never** trigger
+  silent substitution." A universal over future users and unsampled points,
+  drawn from 10,160 contracts at the sampled points. The paper states the same
+  result bounded, at L323: "bounded to the sampled envelope: within Pulse's
+  accepted setup envelope, no submitted input **was** silently altered at
+  ingestion", past tense, plus an explicit scope sentence.
+
+**M-3 — `preprint/manuscript.md` L4308–4309 (Appendix B.2).** "Direct probing
+confirmed that the engine **remains fully stable up to FiO2 = 1.0**", sourced to
+a 9-run single-input probe on a healthy male surrogate at fixed ventilation.
+What that probe establishes is that Pulse **accepts** FiO2 = 1.0 and does not
+crash — which is exactly the withdrawn-claim wording in `CLAUDE.md` ("Pulse
+accepts FiO2=1.0"). "Fully stable" is a different and larger claim, and the
+atlas's own §3.8 contradicts it: at FiO2 = 1.0 under a 300 s window, **6 of 44**
+healthy-S1 reruns (14 %) develop unphysical PaO2 plateaus above 700 mmHg, four
+of them stabilising near 1,400 mmHg — a regime the monograph itself names a
+"solver-instability tail". ⚠️ Found by reading, not by the pattern: the word
+`fully` is not a stem in §12.1's list.
+
+### 12.5 Two families read and inventoried, not raised as findings
+
+**Priority claims ("the first ..."), 12 unhedged loci in the monograph** — L2
+(title), L115, L324, L346, L443, L516, L611, L616, L626, L2239, L2251, L3632 —
+against 1 hedged (L232, "to our knowledge, the first systematic
+characterisation"); L706 is quoted preregistration text and is not editable.
+The paper's equivalents are L128, L150 and L321, which `64c39d1` left unhedged
+**on the author's decision**, recorded there. They are listed rather than raised
+because the repository carries an instrument for them: **S020, the
+pre-submission novelty audit, "verified that every 'first' / 'novel' claim in
+the manuscript survives a literature double-check"** (monograph L669, L4260).
+The open question is one of consistency, not of evidence, and it is the
+author's.
+
+**Present-tense availability claims while the repository is private** — already
+enumerated and guarded: `scripts/check_publication_gate.py` resolves **10 / 10
+anchors** across the four public artefacts, and `audit_claims.py` carries a
+4-check publication-gate guard. The prose sweep re-encountered them at
+`paper.tex` L128 ("All runs and flags are released openly") and L402,
+`supplement.tex` L1054, `manuscript.md` L3673 and L4283, and adds nothing the
+gate does not already hold. Visibility itself is not checkable offline;
+`--verify-public` is the pre-submission step.
+
+### 12.6 What §12 does not claim
+
+It does not claim the prose is correct. It claims the population is defined and
+enumerable, that the instrument is calibrated in both directions with its
+recall accounting closed, and that all 1,922 occurrences have been read with a
+verdict. It says nothing about prose that asserts an absolute **without** one of
+the stems in §12.1 — M-3 is proof that such sentences exist, and it was found by
+reading its neighbours, not by the pattern. Nor does it cover the LaTeX comments
+(masked, 24 tokens) or the DOCX twins.
