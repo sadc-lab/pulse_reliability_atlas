@@ -681,3 +681,129 @@ gitignored raw trajectories); `check_citations.py` (41 keys); `check_backrefs.py
 (self-calibrated: paper 10 of 10 images, supplement 5 of 5, all captions in
 source order). Plus 80 pytest and `ruff`. CI green on this exact commit, `0f275e0`, run `33980343328`, with all seven
 gate steps individually confirmed executed rather than inferred from a green job.
+
+---
+
+## 2026-09-19 — prepared for the four supervisors (paper + supplement)
+
+**Status: PREPARED, NOT YET SENT.** The hashes below were frozen before the
+files left the machine, which is the whole point of this entry existing at this
+moment rather than afterwards. **The `Sent` row stays empty until the author
+confirms the send**, and is filled in then. This is the discipline the
+2026-08-25 entry failed: it was written nine days late, `preprint_npj/build/`
+had been overwritten, and its hashes were unrecoverable.
+
+| | |
+|---|---|
+| Sent | *(pending author confirmation)* |
+| Recipients | the four supervising co-authors (A.W., C.S., P.J., M.S.) |
+| Source commit | `3765872adc0605dff578a2466edd0fe2d22c3a69` |
+| Format | `.pdf` and `.docx` |
+| Artefacts to send | paper and supplement only |
+| Pages | 25 (paper) / 64 (supplement) |
+| Not sent | the companion technical monograph (122 pages), by the author's decision of 2026-09-19, repeating the decision of 2026-09-05 |
+
+### Hashes, frozen before any further build
+
+| artefact | SHA-256 | bytes |
+|---|---|---|
+| `preprint_npj/build/paper.pdf` | `9048c5a03b230c012f3d77d7f8acdc7c72a5bc9ea2544231384e66405688b80b` | 613,838 |
+| `preprint_npj/build/paper.docx` | `6cbcba229f99b5c5b86823c02f06e96a1a8874879bc3661615b99ba10f5b915a` | 962,382 |
+| `preprint_npj/build/supplement.pdf` | `56bf898eb4e18a1e962370a795cb3db2fdeb361ff5b08a39445aaa5a815f0616` | 726,019 |
+| `preprint_npj/build/supplement.docx` | `167df388408f7f3709035faa8bc1d2e685733ccc628956aac2b7ae434a6025ae` | 747,727 |
+
+The monograph was rebuilt at the same commit and **is not part of this
+dispatch**. Its hashes are recorded so that build stays identifiable:
+`preprint/build/manuscript.pdf`
+`39555bc6ec4137a67ebbcb9e7b184a03e70f7dd3dfa3edec790e18a6dc497a80` (1,357,606
+bytes) and `preprint/build/manuscript.docx`
+`bd74f63ceff213b87ed271f310b4815aafa3b72cea35a7966399d6e273dd6dea` (1,016,371
+bytes).
+
+⚠️ **These hashes are valid for this build only.** Any further edit to
+`paper.tex` or `supplement.tex` — including the still-open abstract decision
+recorded below — invalidates them, and they must be re-frozen before the send.
+
+### What changed since the version the four last received (`0f275e0`, 2026-09-05)
+
+**92 commits.** The paper goes from 24 to **25** rendered pages, the supplement
+from 56 to **64**. The monograph, which they did not receive in September
+either, stands at 122.
+
+By tag, the 92 split as 27 `[AUDIT]`, 10 `[MANUSCRIPT+GUARD]`, 10
+`[MANUSCRIPT]`, 6 `[GUARD]`, 5 `[SCIENTIFIC]`, 4 `[MONOGRAPH]`, 4 `[LOG]` and
+26 mixed. Substantively:
+
+- **The exhaustive number audit was carried to its end.** Every numeric literal,
+  every number written in words, every year-like and masked literal, and every
+  `guard`/`ledger` occurrence across the three artefacts was read row by row and
+  its findings resolved on the author's decisions (register
+  `audit/number_inventory.md` §3–§9).
+- **Then the population no instrument could see: prose that carries no number.**
+  1,922 quantifier and absolute-claim occurrences enumerated and read (§12).
+  Four claims were found stronger than their evidence and corrected on the
+  author's decisions the same day, including two in surfaces a reader meets
+  alone — the abstract and a figure legend.
+- **Six `[SCIENTIFIC]` corrections**, each from data already recorded: the
+  continuous-severity band re-binned on the severity Pulse actually ran
+  (`[0.879, 0.946]`); the Morris rankings re-derived under a relaxed clean-pair
+  screen (rank 1 holds, ranks 2–3 move); the Sobol cost model corrected; a
+  merging-bias figure corrected; a denominator named; and one sentence deleted
+  because the measurement refuted it.
+- **The September condensation pass and its repairs**: four closing statements
+  shortened and the AI-use disclosure split, with the detail moved to
+  Supplement §S18; then two claims the compression had dropped restored, with a
+  guard paired to each.
+
+### What the covering message must say
+
+1. **The reference numbering has moved.** The citation gate records **46 cited
+   keys** on this build against **41** at their dispatch, so the same bracketed
+   number no longer points at the same work. Annotations of the form
+   "reference [12] is wrong" must be made **on the new files**, not on the
+   September copy. ⚠️ This warning was drafted for the 2026-09-05 send and
+   **dropped for brevity**; dropping it again would be the second time.
+2. **Page and line references have moved** (24 → 25 and 56 → 64 pages).
+3. **The repository is still private, deliberately.** The author's plan of
+   2026-09-19: it goes public with the arXiv deposit, *after* this review round
+   and the corrections it produces. Until then the availability sentences in
+   both documents read in the present tense and their links do not resolve —
+   `scripts/check_publication_gate.py` holds all 10 such anchors, and
+   `--verify-public` is the pre-submission step that will check the visibility
+   itself.
+
+### Gate state at preparation
+
+All nine invocations green, measured on this commit rather than carried over
+from the previous entry: `audit_claims.py` bare, `--check-paper-sync`,
+`--check-monograph` (**394 / 394 anchors**, 0 WARN, 0 FAIL, 0 SKIPPED on the
+authors' full tree; **26** monograph anchors; **94** crosswalk; **25** head-line
+counters; **17** README science anchors); `check_citations.py` (**46** cited
+keys, all resolved and recorded); `check_backrefs.py` (**13** back-references,
+11 probed against `paper.tex`, 2 registered as pointers);
+`check_stale_counts.py`; `check_render.py` (**1 accepted residue, 0 new**);
+`check_docx_structure.py` (self-calibrated); `check_publication_gate.py`
+(**10 / 10** anchors). Plus 80 pytest and `ruff` clean on the CI scope. CI green
+on this exact commit, `3765872`, run `35460101524`, three jobs — and that run
+executed the new prose-audit guard on a fresh Linux clone, not only locally.
+
+### Open decision carried into this dispatch
+
+**The abstract's hyperoxia sentence.** "300-second healthy-lung reruns give a
+median 643 mmHg" does not name the population the median is taken over. The
+repository's own guard partitions the 44 S1 reruns as 37 + 3 + 3 + 1, and the
+published 643 (642.8704) is the median over the **40 drift-converged** runs,
+i.e. 37 physiologically converged plus 3 runaway-but-converged. Two consequences
+were put to the author on 2026-09-19:
+
+- Naming "the six runaways" in the abstract would **misdescribe the exclusion**:
+  three of the six are inside the median. The screen is convergence, not
+  runaway status.
+- Naming the denominator instead was measured and does not fit: "a converged
+  median 643 mmHg" gives 151 words and "a drift-converged median of 643 mmHg"
+  gives 152, against a cap of 150 that the abstract already sits at exactly.
+
+Not decided. The median over all 44 reruns has **not** been re-measured in this
+session; an August note recorded it as 643.3063, but the same note gave
+"642.8716 on 41" where the guard measures 642.8704 on **40**, so that note is
+not relied on here.
