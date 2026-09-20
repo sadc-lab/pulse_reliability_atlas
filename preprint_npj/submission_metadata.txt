@@ -28,7 +28,7 @@ three inputs carry a median 93 % of each output's total. A four-flag
 classifier surfaces failure modes: two operator-actionable, one sex-dependent.
 Tidal-volume instability (20.6 % of runs) reflects patient–ventilator
 dyssynchrony; locking the VC-AC trigger to −2 cmH2O collapses that
-variability. At FiO2 = 1.0 transient hyperoxia makes 120-second runs
+variability. At FiO2 = 1.0, transient hyperoxia makes 120-second runs
 underestimate plateau PaO2; 300-second healthy-lung reruns give a median 643
 mmHg. Solver divergence was all-male in an input-extreme regime (20/1,280);
 reducing the male blood-volume baseline to the 4,082 mL floor eliminated it.
