@@ -697,7 +697,7 @@ had been overwritten, and its hashes were unrecoverable.
 |---|---|
 | Sent | *(pending author confirmation)* |
 | Recipients | the four supervising co-authors (A.W., C.S., P.J., M.S.) |
-| Source commit | `3765872adc0605dff578a2466edd0fe2d22c3a69` |
+| Source commit | `c562e4c2f4b67c470dbe57b469f3203b53970f2e` |
 | Format | `.pdf` and `.docx` |
 | Artefacts to send | paper and supplement only |
 | Pages | 25 (paper) / 64 (supplement) |
@@ -707,8 +707,8 @@ had been overwritten, and its hashes were unrecoverable.
 
 | artefact | SHA-256 | bytes |
 |---|---|---|
-| `preprint_npj/build/paper.pdf` | `9048c5a03b230c012f3d77d7f8acdc7c72a5bc9ea2544231384e66405688b80b` | 613,838 |
-| `preprint_npj/build/paper.docx` | `6cbcba229f99b5c5b86823c02f06e96a1a8874879bc3661615b99ba10f5b915a` | 962,382 |
+| `preprint_npj/build/paper.pdf` | `53446d2c54da0fd0cce9462813ce1411ce416231c45fcfea84003d9954290d1c` | 613,842 |
+| `preprint_npj/build/paper.docx` | `46e19b9f5e3f484ec030f6bf2c74107c62074933e93647a9ce2b1510d62c58bc` | 962,384 |
 | `preprint_npj/build/supplement.pdf` | `56bf898eb4e18a1e962370a795cb3db2fdeb361ff5b08a39445aaa5a815f0616` | 726,019 |
 | `preprint_npj/build/supplement.docx` | `167df388408f7f3709035faa8bc1d2e685733ccc628956aac2b7ae434a6025ae` | 747,727 |
 
@@ -723,6 +723,14 @@ bytes).
 ⚠️ **These hashes are valid for this build only.** Any further edit to
 `paper.tex` or `supplement.tex` — including the still-open abstract decision
 recorded below — invalidates them, and they must be re-frozen before the send.
+
+**Re-frozen once already, 2026-09-20.** A comma was added after the abstract's
+introductory phrase ("At FiO$_2$ = 1.0, transient hyperoxia", commit
+`c562e4c`), so the paper was rebuilt and its two hashes replaced above; the
+source commit moved from `3765872` to `c562e4c`. **The supplement's two hashes
+are unchanged**, which is not a detail but the check: it proves the rebuild
+touched the paper only. Page counts unmoved at 25 and 64, and the abstract
+stayed at 150 words / 147 strict, the comma attaching to the token before it.
 
 ### What changed since the version the four last received (`0f275e0`, 2026-09-05)
 
