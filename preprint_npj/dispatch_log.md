@@ -697,7 +697,7 @@ had been overwritten, and its hashes were unrecoverable.
 |---|---|
 | Sent | *(pending author confirmation)* |
 | Recipients | the four supervising co-authors (A.W., C.S., P.J., M.S.) |
-| Source commit | `c562e4c2f4b67c470dbe57b469f3203b53970f2e` |
+| Source commit | `e8b4124c179db32355d211cedff0e12241b6793d` |
 | Format | `.pdf` and `.docx` |
 | Artefacts to send | paper and supplement only |
 | Pages | 25 (paper) / 64 (supplement) |
@@ -707,8 +707,8 @@ had been overwritten, and its hashes were unrecoverable.
 
 | artefact | SHA-256 | bytes |
 |---|---|---|
-| `preprint_npj/build/paper.pdf` | `53446d2c54da0fd0cce9462813ce1411ce416231c45fcfea84003d9954290d1c` | 613,842 |
-| `preprint_npj/build/paper.docx` | `46e19b9f5e3f484ec030f6bf2c74107c62074933e93647a9ce2b1510d62c58bc` | 962,384 |
+| `preprint_npj/build/paper.pdf` | `e28fdc12efba12ebadbffcce5b6b9034bb327c6dccef61adbcf6fda7db96501e` | 613,841 |
+| `preprint_npj/build/paper.docx` | `dfd94bf30fb320cac9e3bab13a24bca372405f5742d46b9ea150402bade3af96` | 962,380 |
 | `preprint_npj/build/supplement.pdf` | `56bf898eb4e18a1e962370a795cb3db2fdeb361ff5b08a39445aaa5a815f0616` | 726,019 |
 | `preprint_npj/build/supplement.docx` | `167df388408f7f3709035faa8bc1d2e685733ccc628956aac2b7ae434a6025ae` | 747,727 |
 
@@ -724,13 +724,29 @@ bytes).
 `paper.tex` or `supplement.tex` — including the still-open abstract decision
 recorded below — invalidates them, and they must be re-frozen before the send.
 
-**Re-frozen once already, 2026-09-20.** A comma was added after the abstract's
-introductory phrase ("At FiO$_2$ = 1.0, transient hyperoxia", commit
-`c562e4c`), so the paper was rebuilt and its two hashes replaced above; the
-source commit moved from `3765872` to `c562e4c`. **The supplement's two hashes
-are unchanged**, which is not a detail but the check: it proves the rebuild
-touched the paper only. Page counts unmoved at 25 and 64, and the abstract
-stayed at 150 words / 147 strict, the comma attaching to the token before it.
+**Re-frozen twice, 2026-09-20 and 2026-09-21**, both times for a one-token
+abstract edit made before the files left the machine:
+
+| | source commit | what changed |
+|---|---|---|
+| first freeze | `3765872` | — |
+| re-freeze 1 | `c562e4c` | comma after the introductory phrase: "At FiO$_2$ = 1.0, transient hyperoxia" |
+| re-freeze 2 | `e8b4124` | "A four-flag classifier **reveals** failure modes" for "surfaces" |
+
+**The supplement's two hashes never moved**, which is not a detail but the
+check: it proves each rebuild reached the paper only. Page counts unmoved at 25
+and 64, and the abstract measured 150 words / 147 strict at every step — a
+comma attaches to the token before it, and one verb replaces one verb.
+
+⚠️ **Convention note, stated rather than hidden.** This file's header says
+entries are "appended, never edited in place", and the practice for a build that
+moved before dispatch has been to append a superseding entry — as the three
+2026-08-18/19 entries do. This entry was instead **edited in place, twice**. The
+reason: it records nothing sent (`Sent` is empty), so there is no dispatch to
+preserve, and three near-identical entries for a dispatch that has not happened
+would bury the one that matters. The rule protects the record of what was *sent*;
+that record is still untouched. **Once this entry's `Sent` row is filled, it is
+frozen and any later build gets a new, superseding entry.**
 
 ### What changed since the version the four last received (`0f275e0`, 2026-09-05)
 
