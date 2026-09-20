@@ -697,7 +697,7 @@ had been overwritten, and its hashes were unrecoverable.
 |---|---|
 | Sent | *(pending author confirmation)* |
 | Recipients | the four supervising co-authors (A.W., C.S., P.J., M.S.) |
-| Source commit | `a3ee4c0` (see the freeze table below) |
+| Source commit | `d0110e4` (see the freeze table below) |
 | Format | `.pdf` and `.docx` |
 | Artefacts to send | paper and supplement only |
 | Pages | 25 (paper) / 64 (supplement) |
@@ -707,8 +707,8 @@ had been overwritten, and its hashes were unrecoverable.
 
 | artefact | SHA-256 | bytes |
 |---|---|---|
-| `preprint_npj/build/paper.pdf` | `58cc44f46ee175ee4b75b6813efbb9549698c0f162acc4dba6de24440f2df5ff` | 613,845 |
-| `preprint_npj/build/paper.docx` | `44d530939478befb3bb4ff4f8ba25031a3888993df237bb5ecae7cd5d13ab517` | 962,385 |
+| `preprint_npj/build/paper.pdf` | `deeec37002bc2fbfad179efc81dfed038cf98f2ae6af46086b8834f7c031fbd4` | 613,846 |
+| `preprint_npj/build/paper.docx` | `d33504728e81ef6cc8e258e6587e6353dea365b8c6fa4b91e60c7a4883e790aa` | 962,383 |
 | `preprint_npj/build/supplement.pdf` | `56bf898eb4e18a1e962370a795cb3db2fdeb361ff5b08a39445aaa5a815f0616` | 726,019 |
 | `preprint_npj/build/supplement.docx` | `167df388408f7f3709035faa8bc1d2e685733ccc628956aac2b7ae434a6025ae` | 747,727 |
 
@@ -735,6 +735,7 @@ files left the machine:
 | re-freeze 3 | `3a8b01c` | "**Runs** and flags are released openly" for "All runs and flags" | **149 / 146** |
 | re-freeze 4 | `575c5bc` | the 87-word Webb sentence in the Introduction split in three (no claim touched, abstract untouched) | 149 / 146 |
 | re-freeze 5 | `a3ee4c0` | "That **work**" for "That sweep" in that split: it had narrowed a conjunction's scope and moved a pronoun's antecedent | 149 / 146 |
+| re-freeze 6 | `d0110e4` | the 2020-study sentence loses its em-dashes and its colon, aligning on the form the supplement already used | 149 / 146 |
 
 The third is the only one that moved the count: the abstract now holds one word
 of margin under the npj cap, for the first time since the cap was reached. What
