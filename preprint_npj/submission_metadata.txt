@@ -17,7 +17,7 @@ An Open Reliability Atlas of Sensitivity and Failure Modes in the Pulse Physiolo
 (Running title / short title: Reliability Atlas: Pulse Physiology Engine)
 
 ------------------------------------------------------------------------------
-ABSTRACT  (150 words, npj cap 150)
+ABSTRACT  (149 words, npj cap 150)
 ------------------------------------------------------------------------------
 Pulse is an actively maintained open-source adult-physiology simulator, yet
 its maintainers report no formal sensitivity analysis of its operational
@@ -32,7 +32,7 @@ variability. At FiO2 = 1.0, transient hyperoxia makes 120-second runs
 underestimate plateau PaO2; 300-second healthy-lung reruns give a median 643
 mmHg. Solver divergence was all-male in an input-extreme regime (20/1,280);
 reducing the male blood-volume baseline to the 4,082 mL floor eliminated it.
-All runs and flags are released openly, so users can see which regions need
+Runs and flags are released openly, so users can see which regions need
 checking before training on Pulse output.
 
 ------------------------------------------------------------------------------
