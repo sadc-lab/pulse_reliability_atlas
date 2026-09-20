@@ -697,7 +697,7 @@ had been overwritten, and its hashes were unrecoverable.
 |---|---|
 | Sent | *(pending author confirmation)* |
 | Recipients | the four supervising co-authors (A.W., C.S., P.J., M.S.) |
-| Source commit | `d0110e4` (see the freeze table below) |
+| Source commit | `fe66bac` (see the freeze table below) |
 | Format | `.pdf` and `.docx` |
 | Artefacts to send | paper and supplement only |
 | Pages | 25 (paper) / 64 (supplement) |
@@ -707,8 +707,8 @@ had been overwritten, and its hashes were unrecoverable.
 
 | artefact | SHA-256 | bytes |
 |---|---|---|
-| `preprint_npj/build/paper.pdf` | `deeec37002bc2fbfad179efc81dfed038cf98f2ae6af46086b8834f7c031fbd4` | 613,846 |
-| `preprint_npj/build/paper.docx` | `d33504728e81ef6cc8e258e6587e6353dea365b8c6fa4b91e60c7a4883e790aa` | 962,383 |
+| `preprint_npj/build/paper.pdf` | `866338c631ebe9b0f1a157af8576d1d423f9939735f4b3a27c096ca8310f9cb3` | 613,864 |
+| `preprint_npj/build/paper.docx` | `b04b94226a76a5d1ace0698fc5ecf68e9bada7e37de724407919dac6976bf3d7` | 962,384 |
 | `preprint_npj/build/supplement.pdf` | `56bf898eb4e18a1e962370a795cb3db2fdeb361ff5b08a39445aaa5a815f0616` | 726,019 |
 | `preprint_npj/build/supplement.docx` | `167df388408f7f3709035faa8bc1d2e685733ccc628956aac2b7ae434a6025ae` | 747,727 |
 
@@ -736,6 +736,7 @@ files left the machine:
 | re-freeze 4 | `575c5bc` | the 87-word Webb sentence in the Introduction split in three (no claim touched, abstract untouched) | 149 / 146 |
 | re-freeze 5 | `a3ee4c0` | "That **work**" for "That sweep" in that split: it had narrowed a conjunction's scope and moved a pronoun's antecedent | 149 / 146 |
 | re-freeze 6 | `d0110e4` | the 2020-study sentence loses its em-dashes and its colon, aligning on the form the supplement already used | 149 / 146 |
+| re-freeze 7 | `fe66bac` | the same sentence split in three: the punctuation fix had not made it readable, a missing "that" was the real cause | 149 / 146 |
 
 The third is the only one that moved the count: the abstract now holds one word
 of margin under the npj cap, for the first time since the cap was reached. What
