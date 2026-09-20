@@ -697,7 +697,7 @@ had been overwritten, and its hashes were unrecoverable.
 |---|---|
 | Sent | *(pending author confirmation)* |
 | Recipients | the four supervising co-authors (A.W., C.S., P.J., M.S.) |
-| Source commit | `e8b4124c179db32355d211cedff0e12241b6793d` |
+| Source commit | `3a8b01c` (see the freeze table below) |
 | Format | `.pdf` and `.docx` |
 | Artefacts to send | paper and supplement only |
 | Pages | 25 (paper) / 64 (supplement) |
@@ -707,8 +707,8 @@ had been overwritten, and its hashes were unrecoverable.
 
 | artefact | SHA-256 | bytes |
 |---|---|---|
-| `preprint_npj/build/paper.pdf` | `e28fdc12efba12ebadbffcce5b6b9034bb327c6dccef61adbcf6fda7db96501e` | 613,841 |
-| `preprint_npj/build/paper.docx` | `dfd94bf30fb320cac9e3bab13a24bca372405f5742d46b9ea150402bade3af96` | 962,380 |
+| `preprint_npj/build/paper.pdf` | `ca8e86395326d75b1a9c1546a60962c9439f9336bdcd92e491037e828dad4487` | 613,812 |
+| `preprint_npj/build/paper.docx` | `569c5d790f0c260cf97d1dd97d53f1cbfce6fcd351caf8c3e927ad87d0d679e2` | 962,379 |
 | `preprint_npj/build/supplement.pdf` | `56bf898eb4e18a1e962370a795cb3db2fdeb361ff5b08a39445aaa5a815f0616` | 726,019 |
 | `preprint_npj/build/supplement.docx` | `167df388408f7f3709035faa8bc1d2e685733ccc628956aac2b7ae434a6025ae` | 747,727 |
 
@@ -724,14 +724,20 @@ bytes).
 `paper.tex` or `supplement.tex` — including the still-open abstract decision
 recorded below — invalidates them, and they must be re-frozen before the send.
 
-**Re-frozen twice, 2026-09-20 and 2026-09-21**, both times for a one-token
-abstract edit made before the files left the machine:
+**Re-frozen three times**, each for a one-token abstract edit made before the
+files left the machine:
 
-| | source commit | what changed |
-|---|---|---|
-| first freeze | `3765872` | — |
-| re-freeze 1 | `c562e4c` | comma after the introductory phrase: "At FiO$_2$ = 1.0, transient hyperoxia" |
-| re-freeze 2 | `e8b4124` | "A four-flag classifier **reveals** failure modes" for "surfaces" |
+| | source commit | what changed | words |
+|---|---|---|---:|
+| first freeze | `3765872` | — | 150 / 147 |
+| re-freeze 1 | `c562e4c` | comma after the introductory phrase: "At FiO$_2$ = 1.0, transient hyperoxia" | 150 / 147 |
+| re-freeze 2 | `e8b4124` | "A four-flag classifier **reveals** failure modes" for "surfaces" | 150 / 147 |
+| re-freeze 3 | `3a8b01c` | "**Runs** and flags are released openly" for "All runs and flags" | **149 / 146** |
+
+The third is the only one that moved the count: the abstract now holds one word
+of margin under the npj cap, for the first time since the cap was reached. What
+the dropped "All" carried — that the release is complete, failures included —
+is recorded in that commit and survives in the body at L150.
 
 **The supplement's two hashes never moved**, which is not a detail but the
 check: it proves each rebuild reached the paper only. Page counts unmoved at 25
