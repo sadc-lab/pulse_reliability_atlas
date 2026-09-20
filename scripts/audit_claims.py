@@ -8064,6 +8064,15 @@ PROSE_RETIRED_PHRASES: tuple[tuple[str, str], ...] = (
     # M-3: larger than the 9-run acceptance probe it cites, and contradicted by
     # the monograph's own 3.8 solver-instability tail at that same setting.
     ("remains fully stable up to FiO2 = 1.0", "d0406cf"),
+    # P-2 (2026-09-21, author's reading): "ventilating an impaired lung is a
+    # main use of Pulse's respiratory model" carried no citation and asserted
+    # relative importance that nothing measures. What the repository actually
+    # sources about Pulse's uses points elsewhere -- education and
+    # simulation-training integrations (pulseinaction), with an explicit note
+    # that only the NAMED integrations are cited. The sentence's job is to
+    # justify centring on ARDS, and its second half already does that, so the
+    # claim was replaced by a verifiable one rather than hedged.
+    ("a main use of Pulse", "b8ae590"),
 )
 
 PROSE_REQUIRED_PHRASES: tuple[tuple[str, str], ...] = (
@@ -8078,6 +8087,8 @@ PROSE_REQUIRED_PHRASES: tuple[tuple[str, str], ...] = (
     ("preprint/manuscript.md",
      "produces a stable trajectory; the transient hyperoxia regime and the "
      "extended-window solver-instability tail"),
+    ("preprint_npj/paper.tex",
+     "Pulse models mechanical ventilation of an impaired lung"),
 )
 
 
