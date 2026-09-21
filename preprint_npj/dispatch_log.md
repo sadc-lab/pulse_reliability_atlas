@@ -697,7 +697,7 @@ had been overwritten, and its hashes were unrecoverable.
 |---|---|
 | Sent | *(pending author confirmation)* |
 | Recipients | the four supervising co-authors (A.W., C.S., P.J., M.S.) |
-| Source commit | `3afea21` (see the freeze table below) |
+| Source commit | `d8d7b5b` (see the freeze table below) |
 | Format | `.pdf` and `.docx` |
 | Artefacts to send | paper and supplement only |
 | Pages | 25 (paper) / 64 (supplement) |
@@ -707,8 +707,8 @@ had been overwritten, and its hashes were unrecoverable.
 
 | artefact | SHA-256 | bytes |
 |---|---|---|
-| `preprint_npj/build/paper.pdf` | `111c5601fcb278c76f0a9d16dc58df45fad8696631cf7dffa8b9064535007666` | 613,614 |
-| `preprint_npj/build/paper.docx` | `0034df0513683377db0638f09b364eccbf7fc529e3569e9ade1409a8fdbed05b` | 962,342 |
+| `preprint_npj/build/paper.pdf` | `6a7b8a75b91e9a3e2c238b998c08bd4e558cc0353939d825982f14673da7030d` | 614,061 |
+| `preprint_npj/build/paper.docx` | `3798c5163188e42f29dba80714ee10d1a8b708bb446a57436ac88919e424ac0d` | 962,416 |
 | `preprint_npj/build/supplement.pdf` | `56bf898eb4e18a1e962370a795cb3db2fdeb361ff5b08a39445aaa5a815f0616` | 726,019 |
 | `preprint_npj/build/supplement.docx` | `167df388408f7f3709035faa8bc1d2e685733ccc628956aac2b7ae434a6025ae` | 747,727 |
 
@@ -740,6 +740,7 @@ files left the machine:
 | re-freeze 8 | `5cae746` | **a claim, not a wording**: the unsourced "a main use of Pulse's respiratory model" replaced by "Pulse models mechanical ventilation of an impaired lung", and guarded | 149 / 146 |
 | re-freeze 9 | `08f3643` | Introduction: the three questions become three questions, "linear" glossed where used, and the advance echo of the same three axes removed — 936 → 928 words | 149 / 146 |
 | re-freeze 10 | `3afea21` | Introduction: the four flags put in one grammatical shape — 928 → 926 words | 149 / 146 |
+| re-freeze 11 | `d8d7b5b` | Table 1 caption: "pointers" for "section references", and Berlin's PEEP condition restored; the Introduction's first use of "distribution-neutral" glossed | 149 / 146 |
 
 The last two are the only entries so far that shortened a section rather than a
 sentence: **the Introduction goes 936 → 926 words**, and the abstract is
