@@ -4972,12 +4972,22 @@ INST_N_PARSED = 10_160
 INST_N_NOT_REACHED = 80
 INST_N_NOT_REACHED_RUNS = 20
 INST_VENT_CONTRACTS = 4
+# The design total, added to the paper on 2026-09-21 so the reader can close
+# the arithmetic: 10,160 reached ingestion, 80 never did, and 8 contracts x
+# 1,280 runs is where both come from. It is NOT a fourth independent figure --
+# it is pinned here precisely because it must stay equal to 10,160 + 80, and a
+# reader who finds it drifting from that sum has found a real defect.
+INST_N_DESIGN = 10_240
 # The prose these numbers live in. Pinned so a rewrite cannot quietly drop the
 # scope that makes them true.
 INST_LITERALS = [
     "found exact agreement for all 10{,}160 input contracts that reached ingestion",
     "The remaining 80 ventilator contracts belong to 20 runs that failed during "
     "patient stabilisation before the ventilator action was submitted",
+    # The gloss carrying the design total. "holds", never "submits": 80 of the
+    # 10,240 were never offered to the engine, so "the sweep submits 10,240"
+    # would be false.
+    "the design holds 10{,}240 of them",
 ]
 
 
@@ -5013,6 +5023,13 @@ def check_input_instantiation() -> int:
     record("invariant 80 = 20 x 4",
            unparsed["run_id"].nunique() * INST_VENT_CONTRACTS,
            INST_N_NOT_REACHED)
+    # The design total the paper now prints. Recomputed two independent ways:
+    # from the artefact's own length, and as the sum the reader is invited to
+    # make. Both must land on the same number, or the gloss is wrong.
+    record("design total, from the artefact (recomputed)",
+           len(long), INST_N_DESIGN)
+    record("design total = ingested + never-reached",
+           INST_N_PARSED + INST_N_NOT_REACHED, INST_N_DESIGN)
     record("every NOT_REACHED row is a ventilator contract",
            set(unparsed["source_block"]), {"vent"})
     record("every NOT_REACHED run diverged",
