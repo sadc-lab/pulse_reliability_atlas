@@ -707,10 +707,10 @@ had been overwritten, and its hashes were unrecoverable.
 
 | artefact | SHA-256 | bytes |
 |---|---|---|
-| `preprint_npj/build/paper.pdf` | `fd618e74c7596cf58b584dd551158c651ba77b05180695e69f23668dc11b1871` | 614,344 |
-| `preprint_npj/build/paper.docx` | `f1ca7e82631c2a9bd881c7850bd41d18e25be72075e5e2f78c8ad3efd150d870` | 962,510 |
-| `preprint_npj/build/supplement.pdf` | `c89fbfca22ed1d3c936ae5c1834bf40058f20e75136603010a543d52c65dac18` | 726,019 |
-| `preprint_npj/build/supplement.docx` | `8df5122b94541aecd43283c04db93bb71dd06c5a5445740366cbfc49a429cf4f` | 747,728 |
+| `preprint_npj/build/paper.pdf` | `daf9ea875b69a7c1d2ca954c69f10945b591d10c0aec9b0274b369bd3c1e274e` | 614,350 |
+| `preprint_npj/build/paper.docx` | `0742940c867290d0a766b52b4f4be52d56f5a666b13189ac6b40e68dde40b1f3` | 962,532 |
+| `preprint_npj/build/supplement.pdf` | `9df3d0af4983523141acc2123065cb0af020dd33b5671afb1911b3f68f3c6a6c` | 726,019 |
+| `preprint_npj/build/supplement.docx` | `15fbb1becb7c100e022c05a34cbd2121f75dd26b3f4cbc94a0403e989bf9fd46` | 747,727 |
 
 The monograph was rebuilt at the same commit and **is not part of this
 dispatch**. Its hashes are recorded so that build stays identifiable:
@@ -724,7 +724,7 @@ bytes).
 `paper.tex` or `supplement.tex` — including the still-open abstract decision
 recorded below — invalidates them, and they must be re-frozen before the send.
 
-⚠️ **The supplement's two hashes changed at re-freeze 13, and again at 14, although
+⚠️ **The supplement's two hashes changed at re-freeze 13, and again at 14 and 15, although
 `supplement.tex` did not.** Verified: `git diff 3765872..HEAD --
 preprint_npj/supplement.tex` is empty, the supplement still renders 64 pages,
 and every structural check passes. The cause is the build, not the content:
@@ -736,7 +736,7 @@ artefacts cannot be recovered for comparison. Read a changed supplement hash as
 whether the content moved. The monograph hashes below are unchanged because
 `build_npj.ps1` does not rebuild it.
 
-**Re-frozen fourteen times.** The first three were one-token abstract edits
+**Re-frozen fifteen times.** The first three were one-token abstract edits
 made before the files left the machine; the rest leave the abstract untouched:
 
 | | source commit | what changed | words |
@@ -756,6 +756,7 @@ made before the files left the machine; the rest leave the abstract untouched:
 | re-freeze 12 | `ff09c92` | §2.1: the hypothesis paragraph split so the four verdicts are visible — 229 → 224 words | 149 / 146 |
 | re-freeze 13 | `6205cd3` | §2.1: the instantiation paragraph reframed and "contract" glossed — 138 → 155 words | 149 / 146 |
 | re-freeze 14 | `20e03fa` | §2.1: the flag-definitions table adopted — 0 references → 2, and the four flags named at first use | 149 / 146 |
+| re-freeze 15 | `4fc3ee8` | §2.1: design total 10{,}240 added and guarded; the log-test claim aligned on the monograph | 149 / 146 |
 
 Re-freezes 9 and 10 are the two that shortened a section rather than a
 sentence: **the Introduction goes 936 → 926 words**, and the abstract is
