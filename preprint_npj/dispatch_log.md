@@ -697,7 +697,7 @@ had been overwritten, and its hashes were unrecoverable.
 |---|---|
 | Sent | *(pending author confirmation)* |
 | Recipients | the four supervising co-authors (A.W., C.S., P.J., M.S.) |
-| Source commit | `d8d7b5b` (see the freeze table below) |
+| Source commit | `ff09c92` (see the freeze table below) |
 | Format | `.pdf` and `.docx` |
 | Artefacts to send | paper and supplement only |
 | Pages | 25 (paper) / 64 (supplement) |
@@ -707,8 +707,8 @@ had been overwritten, and its hashes were unrecoverable.
 
 | artefact | SHA-256 | bytes |
 |---|---|---|
-| `preprint_npj/build/paper.pdf` | `6a7b8a75b91e9a3e2c238b998c08bd4e558cc0353939d825982f14673da7030d` | 614,061 |
-| `preprint_npj/build/paper.docx` | `3798c5163188e42f29dba80714ee10d1a8b708bb446a57436ac88919e424ac0d` | 962,416 |
+| `preprint_npj/build/paper.pdf` | `cabd1a77a2b061d3e73fe6da3f0838fc029f85cabeed6e153c05a32cb0c63af5` | 614,047 |
+| `preprint_npj/build/paper.docx` | `33588e30e5ded5116a4bab14e0e06447134fe4918ffc7ac27ca3d751b7f2913f` | 962,416 |
 | `preprint_npj/build/supplement.pdf` | `56bf898eb4e18a1e962370a795cb3db2fdeb361ff5b08a39445aaa5a815f0616` | 726,019 |
 | `preprint_npj/build/supplement.docx` | `167df388408f7f3709035faa8bc1d2e685733ccc628956aac2b7ae434a6025ae` | 747,727 |
 
@@ -741,6 +741,7 @@ files left the machine:
 | re-freeze 9 | `08f3643` | Introduction: the three questions become three questions, "linear" glossed where used, and the advance echo of the same three axes removed — 936 → 928 words | 149 / 146 |
 | re-freeze 10 | `3afea21` | Introduction: the four flags put in one grammatical shape — 928 → 926 words | 149 / 146 |
 | re-freeze 11 | `d8d7b5b` | Table 1 caption: "pointers" for "section references", and Berlin's PEEP condition restored; the Introduction's first use of "distribution-neutral" glossed | 149 / 146 |
+| re-freeze 12 | `ff09c92` | §2.1: the hypothesis paragraph split so the four verdicts are visible — 229 → 224 words | 149 / 146 |
 
 The last two are the only entries so far that shortened a section rather than a
 sentence: **the Introduction goes 936 → 926 words**, and the abstract is
