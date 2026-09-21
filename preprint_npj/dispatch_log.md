@@ -707,10 +707,10 @@ had been overwritten, and its hashes were unrecoverable.
 
 | artefact | SHA-256 | bytes |
 |---|---|---|
-| `preprint_npj/build/paper.pdf` | `cabd1a77a2b061d3e73fe6da3f0838fc029f85cabeed6e153c05a32cb0c63af5` | 614,047 |
-| `preprint_npj/build/paper.docx` | `33588e30e5ded5116a4bab14e0e06447134fe4918ffc7ac27ca3d751b7f2913f` | 962,416 |
-| `preprint_npj/build/supplement.pdf` | `56bf898eb4e18a1e962370a795cb3db2fdeb361ff5b08a39445aaa5a815f0616` | 726,019 |
-| `preprint_npj/build/supplement.docx` | `167df388408f7f3709035faa8bc1d2e685733ccc628956aac2b7ae434a6025ae` | 747,727 |
+| `preprint_npj/build/paper.pdf` | `1e2634e8a3980ddcce6140de31f8506af8953cee08519851ef594e76d23db94a` | 614,066 |
+| `preprint_npj/build/paper.docx` | `526370ca26acb3e1393e190f4783d71028e9aadc7dd9c3d32461cf1401a02058` | 962,452 |
+| `preprint_npj/build/supplement.pdf` | `5ec91d970cc4d88aa11b166251c973c5859784ec69108c3502902c8fee835f3f` | 726,019 |
+| `preprint_npj/build/supplement.docx` | `ae6f5c25ee8a318dba48d4b2212efc002fcbc4f121f3797efb11fd508199554c` | 747,726 |
 
 The monograph was rebuilt at the same commit and **is not part of this
 dispatch**. Its hashes are recorded so that build stays identifiable:
@@ -724,8 +724,20 @@ bytes).
 `paper.tex` or `supplement.tex` — including the still-open abstract decision
 recorded below — invalidates them, and they must be re-frozen before the send.
 
-**Re-frozen three times**, each for a one-token abstract edit made before the
-files left the machine:
+⚠️ **The supplement's two hashes changed at re-freeze 13 although
+`supplement.tex` did not.** Verified: `git diff 3765872..HEAD --
+preprint_npj/supplement.tex` is empty, the supplement still renders 64 pages,
+and every structural check passes. The cause is the build, not the content:
+pdfTeX stamps a wall-clock `CreationDate` into the PDF (`18:05:54` for this
+one) and the pandoc DOCX moved by one byte, 747,727 to 747,726, so a rebuild
+never reproduces the previous digest. `build/` is untracked, so the earlier
+artefacts cannot be recovered for comparison. Read a changed supplement hash as
+*rebuilt*, never as *edited*; `supplement.tex` in git is the authority on
+whether the content moved. The monograph hashes below are unchanged because
+`build_npj.ps1` does not rebuild it.
+
+**Re-frozen thirteen times.** The first three were one-token abstract edits
+made before the files left the machine; the rest leave the abstract untouched:
 
 | | source commit | what changed | words |
 |---|---|---|---:|
@@ -742,8 +754,9 @@ files left the machine:
 | re-freeze 10 | `3afea21` | Introduction: the four flags put in one grammatical shape — 928 → 926 words | 149 / 146 |
 | re-freeze 11 | `d8d7b5b` | Table 1 caption: "pointers" for "section references", and Berlin's PEEP condition restored; the Introduction's first use of "distribution-neutral" glossed | 149 / 146 |
 | re-freeze 12 | `ff09c92` | §2.1: the hypothesis paragraph split so the four verdicts are visible — 229 → 224 words | 149 / 146 |
+| re-freeze 13 | `6205cd3` | §2.1: the instantiation paragraph reframed and "contract" glossed — 138 → 155 words | 149 / 146 |
 
-The last two are the only entries so far that shortened a section rather than a
+Re-freezes 9 and 10 are the two that shortened a section rather than a
 sentence: **the Introduction goes 936 → 926 words**, and the abstract is
 untouched throughout. For the record, since it bears on what the four received:
 the Introduction stood at 1,417 words in their August copy and 804 in the
