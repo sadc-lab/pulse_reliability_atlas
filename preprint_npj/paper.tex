@@ -172,7 +172,7 @@ Term & Definition \\
 
 \subsection{Overview of the reliability atlas}\label{sec:results-overview}
 
-The atlas comprises 1{,}280 simulations spanning eight cells of 160 runs each, one cell per clinical scenario (S1 healthy, S2 mild, S3 moderate, S4 severe ARDS) and patient sex (Figure~\ref{fig:design}). Every run carries the four preregistered flags defined in Methods~\S\ref{sec:methods-detector}, where the hard physiological bounds behind \texttt{implausible} are listed.
+The atlas comprises 1{,}280 simulations spanning eight cells of 160 runs each, one cell per clinical scenario (S1 healthy, S2 mild, S3 moderate, S4 severe ARDS) and patient sex (Figure~\ref{fig:design}). Every run carries the four preregistered flags --- \texttt{clamped}, \texttt{diverged}, \texttt{implausible} and \texttt{not\_steady\_state} --- defined with their trigger conditions in Table~\ref{tab:flag_defs}. Methods~\S\ref{sec:methods-detector} lists the hard physiological bounds behind \texttt{implausible}.
 
 Three of the four preregistered hypotheses are settled by Table~\ref{tab:flag_summary} alone. H2, silent input clamping, is \emph{not supported}: the preregistered \texttt{clamped} category remained empty at setup (0 / 1{,}280 across every cell). H3 is supported: solver divergence appears outside the previously characterised ARDS instability band, on 20 / 1{,}280 runs whose sex stratification is the subject of \S\ref{sec:results-sex}. H4 is supported: its preregistered criterion is a sex difference in clamping, divergence or $\mu^{*}$ ranking, and that divergence asymmetry alone satisfies it. H1 is settled in \S\ref{sec:results-morris}.
 
@@ -207,7 +207,7 @@ Flag & Fires when & What it means \\
 \end{table}
 \begin{table}[h]
 \centering
-\caption{\textbf{Per-cell flag breakdown across the eight scenario $\times$ sex cells.} The preregistered \texttt{clamped} category is empty in all eight cells, 0 of 1{,}280: no submitted setup input was refused. What varies between cells is not whether the engine fails but how much of the grid survives, from 144 of 160 clean runs in moderate ARDS on the male body down to 42 of 160 in the healthy female cell. Flag columns are independent presence counts, so row sums exceed \texttt{n\_total} when a run fires several; only \texttt{clean} is mutually exclusive of the four flag classes. Runs are resolved to a single primary flag for partition-style analyses by the priority order \texttt{clamped > diverged > implausible > not\_steady\_state > clean}. Cell-label key: Table~\ref{tab:terms}.}
+\caption{\textbf{Per-cell flag breakdown across the eight scenario $\times$ sex cells.} The preregistered \texttt{clamped} category is empty in all eight cells, 0 of 1{,}280: no submitted setup input was refused. What varies between cells is not whether the engine fails but how much of the grid survives, from 144 of 160 clean runs in moderate ARDS on the male body down to 42 of 160 in the healthy female cell. Flag columns are independent presence counts, so row sums exceed \texttt{n\_total} when a run fires several; only \texttt{clean} is mutually exclusive of the four flag classes. Runs are resolved to a single primary flag for partition-style analyses by the priority order \texttt{clamped > diverged > implausible > not\_steady\_state > clean}. Flag definitions: Table~\ref{tab:flag_defs}. Cell-label key: Table~\ref{tab:terms}.}
 \label{tab:flag_summary}
 \begin{tabular}{lrrrrrr}
 \toprule
