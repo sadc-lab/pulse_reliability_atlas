@@ -707,10 +707,10 @@ had been overwritten, and its hashes were unrecoverable.
 
 | artefact | SHA-256 | bytes |
 |---|---|---|
-| `preprint_npj/build/paper.pdf` | `b99991e514557be4d382f0a683e2271ee4c8b8297aec961075dc28acf7ba89eb` | 632,254 |
-| `preprint_npj/build/paper.docx` | `272103d1599b72df70b34ad8790ef25a4dbf2e13bf65e8e690dcebe76b8935d7` | 974,832 |
-| `preprint_npj/build/supplement.pdf` | `7aff3622bde40e161a5e25e65c0139d2e3c0f91b634cf2c4efeaa42b04696580` | 726,019 |
-| `preprint_npj/build/supplement.docx` | `c02161dc0bf46f49511f95b4e552d8339f701f8cd5248f4acbc39f7441266adc` | 747,727 |
+| `preprint_npj/build/paper.pdf` | `5965145d5fa94dcb0b3ab50504e3030136e2b3a14a11b77596fa375f9fa2f471` | 632,572 |
+| `preprint_npj/build/paper.docx` | `f9125b68c432b1318927ff0b46b1644577e848f230b417844368ae25690b2882` | 974,978 |
+| `preprint_npj/build/supplement.pdf` | `62c64272942161129d2f6432278e8b73fa15bc33d4da79b6e15938740dd07ac2` | 725,734 |
+| `preprint_npj/build/supplement.docx` | `6ede894d9617f332660230d3097227d77701a434f7ec9cba3f070682158de1df` | 747,701 |
 
 The monograph was rebuilt at the same commit and **is not part of this
 dispatch**. Its hashes are recorded so that build stays identifiable:
@@ -725,11 +725,13 @@ bytes).
 recorded below — invalidates them, and they must be re-frozen before the send.
 
 ⚠️ **The supplement's two hashes changed at re-freeze 13, and again at 14, 15, 16, 17, 18 and 19, although
-`supplement.tex` did not.** Verified: `git diff 3765872..HEAD --
+`supplement.tex` did not.** Verified: `git diff 3765872..a064d14^ --
 preprint_npj/supplement.tex` is empty, the supplement still renders 64 pages,
-and every structural check passes. The cause is the build, not the content:
-pdfTeX stamps a wall-clock `CreationDate` into the PDF (`18:05:54` for this
-one) and the pandoc DOCX moved by one byte, 747,727 to 747,726, so a rebuild
+and every structural check passes. **At re-freeze 20 they changed for a real
+reason:** `a064d14` edits `supplement.tex` (11 edits on 10 lines; still 64
+pages). For re-freezes 13 to 19 the cause is the build, not the content:
+pdfTeX stamps a wall-clock `CreationDate` into the PDF (`17:59:16` for the
+re-freeze 20 supplement) and the pandoc DOCX moved by one byte, 747,727 to 747,726, so a rebuild
 never reproduces the previous digest. `build/` is untracked, so the earlier
 artefacts cannot be recovered for comparison. Read a changed supplement hash as
 *rebuilt*, never as *edited*; `supplement.tex` in git is the authority on
@@ -738,8 +740,9 @@ and 17 for a real reason, unlike the supplement's: `manuscript.md` was edited
 (`1d684c7`, then `f9e3bb7`) and rebuilt with `scripts/build_paper.ps1`.
 `build_npj.ps1` alone never rebuilds it.
 
-**Re-frozen nineteen times.** The first three were one-token abstract edits
-made before the files left the machine; the rest leave the abstract untouched:
+**Re-frozen twenty times.** The first three were one-token abstract edits
+made before the files left the machine; re-freezes 4 to 19 leave the abstract
+untouched, and re-freeze 20 rewords three of its phrases at an unchanged count:
 
 | | source commit | what changed | words |
 |---|---|---|---:|
@@ -763,6 +766,7 @@ made before the files left the machine; the rest leave the abstract untouched:
 | re-freeze 17 | `c9fd377` | Methods §4.3: "The impairment fractions are therefore anchored…" for "An atlas cell is therefore anchored…", completing the male-body scoping. The monograph was aligned in `f9e3bb7` (6 loci; not dispatched) | 149 / 146 |
 | re-freeze 18 | `34fcef2` | Figure 1 caption: "clean pairs" defined where the figure first uses them (124 → 144 words) | 149 / 146 |
 | re-freeze 19 | `fa3e869` | eight terms made readable where figures and tables use them: σ defined; five screen names cut to two; "frozen at saturation", "blood volume" and VC-AC spelled out; Table 3 "Runs"; "tile" for a heatmap square (Figure 2b's false "48 cells" fixed); Figure 4b's "AGE" replaced. The paper reflows to **26 pages** | 149 / 146 |
+| re-freeze 20 | `a064d14` | **claims, not wording**: seven narrowed to what their experiments show. One unsupported supplement inference removed (a divergence-only sweep cannot show Morris-rank robustness); dyssynchrony "consistent with"; "sex-stratified" for "sex-dependent"/"sex-specific"; blood-volume "dependence" for "mechanism", including the §2.5 and §S10 titles; rank 1 "more stable", not "resolved"; the ARDS labels stated as calibration bands; the monograph "gives further detail" rather than being "the source of truth". Paper and supplement both edited; still 26 / 64 pages | 149 / 146 |
 
 Re-freezes 9 and 10 are the two that shortened a section rather than a
 sentence: **the Introduction goes 936 → 926 words**, and the abstract is
@@ -794,7 +798,7 @@ frozen and any later build gets a new, superseding entry.**
 
 ### What changed since the version the four last received (`0f275e0`, 2026-09-05)
 
-**92 commits** up to the preparation build (`3765872`), 144 up to re-freeze 19.
+**92 commits** up to the preparation build (`3765872`), 147 up to re-freeze 20.
 The paper goes from 24 to **26** rendered pages (25 until re-freeze 18), the
 supplement from 56 to **64**. The monograph, which they did not receive in September
 either, stands at 122.
@@ -823,6 +827,12 @@ By tag, the 92 split as 27 `[AUDIT]`, 10 `[MANUSCRIPT+GUARD]`, 10
   shortened and the AI-use disclosure split, with the detail moved to
   Supplement §S18; then two claims the compression had dropped restored, with a
   guard paired to each.
+
+After those 92, re-freeze 20 (`a064d14`) narrows seven claims to what their
+experiments show (row 20 of the table above). A reader of the September copy
+will see it in the abstract and in two section titles: §2.5 now ends "and
+blood-volume dependence", §S10 begins "Blood-volume dependence". No number,
+figure or table moved.
 
 ### What the covering message must say
 
