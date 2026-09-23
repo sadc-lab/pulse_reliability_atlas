@@ -49,9 +49,9 @@ total simulations. A locked four-flag detector (`clamped` / `diverged` /
 
 **Results.** The headline operator-actionable result: VC-AC
 (volume-controlled assist-control) tidal-volume instability appears in
-20.6 % of runs (finding **F-004**), and is **causally identified as
-patient-ventilator dyssynchrony at the inspiration trigger and corrected
-by setting trigger pressure to −2 cmH2O** (median Vt CV collapses from
+20.6 % of runs (finding **F-004**), and is **causally linked to the
+inspiration trigger, consistent with patient-ventilator dyssynchrony, and
+corrected by setting trigger pressure to −2 cmH2O** (median Vt CV collapses from
 0.351 to 0.016; worst-case from 1.826 to 0.018). Sensitivity is
 strongly skewed: 48 of 48 (cell × output) combinations have ≥ 50 % of
 summed μ\* in their top-3 inputs (median 0.928), and the engine is
@@ -130,13 +130,14 @@ below; this section is the exhaustive findings digest.*
 * Delivered-Vt coefficient of variation (CV) exceeds the 0.05 steady-state
   threshold in **20.6 %** of runs; concentrated on healthy lungs (S1), fading
   with ARDS severity.
-* **Causally identified** as patient–ventilator dyssynchrony at the
-  inspiration trigger — a clinically real asynchrony, not a solver artefact.
+* **Causally linked** to the inspiration trigger and consistent with
+  patient–ventilator dyssynchrony, a clinically recognised asynchrony; not a
+  solver artefact.
 * Locking `InspirationPatientTriggerPressure` to **−2 cmH2O** ([S014](#s014))
   collapses **median Vt CV 0.351 → 0.016** and **worst-case 1.826 → 0.018**;
   **78.1 %** of locked reruns drop below 0.05. Use as a deterministic-cohort
-  lever, *not* a clinical recommendation (it suppresses Pulse's realistic
-  effort-dependent asynchrony).
+  lever, *not* a clinical recommendation (it suppresses Pulse's
+  effort-dependent breath-to-breath variability).
 
 **Primary finding 2 — transient hyperoxia regime at FiO2 = 1.0 (F-003).**
 
@@ -156,7 +157,7 @@ below; this section is the exhaustive findings digest.*
   individually — no input-side ventilation setting predicts the
   numerical runaway.
 
-**Primary finding 3 — sex-stratified solver divergence and its blood-volume mechanism.**
+**Primary finding 3 — sex-stratified solver divergence and its blood-volume dependence.**
 
 * **20 of 1,280 runs (1.6 %) diverged; all 20 on the male body** (per-cell
   4 / 4 / 4 / 8 across S1–S4_M; zero of the 640 female runs).
@@ -169,7 +170,7 @@ below; this section is the exhaustive findings digest.*
     * *Severity-driven* ([S009](#s009)): at midrange inputs **both sexes
       diverge across the [0.879, 0.946]** ARDS-impairment band (union; female
       0.879–0.928, male 0.899–0.946).
-* **Mechanism** ([S018](#s018)): Pulse's allometric `BloodVolumeBaseline`
+* **Blood-volume dependence** ([S018](#s018)): Pulse's allometric `BloodVolumeBaseline`
   (male default **4,802.63 mL** vs female **3,996.09 mL**, ~17 % gap).
   Reducing male BV eliminates divergence:
   **20/20 → 0/20** at both the 4,400 and 4,082.24 mL reductions (default 4,802.63 mL).
@@ -326,8 +327,8 @@ sweep.*
   (48 combinations, 1,280 simulations), openly released alongside
   the engine.
 * **Operator-actionable VC-AC correction (F-004).** Tidal-volume
-  instability in 20.6 % of runs is *causally identified* as
-  patient-ventilator dyssynchrony at the inspiration trigger and
+  instability in 20.6 % of runs is *causally linked* to the
+  inspiration trigger, consistent with patient-ventilator dyssynchrony, and
   *resolved* by setting trigger pressure to −2 cmH2O (median Vt
   coefficient of variation collapses 0.351 → 0.016; worst-case
   1.826 → 0.018).
@@ -356,7 +357,7 @@ sweep.*
   sex asymmetry reversed between the two severity bands (female 14/19 vs
   male 5/19 in (0.85, 0.91]; female 5/9 vs male 8/9 in (0.91, 0.945])
   — the sex effect is regime-dependent. The [S006](#s006) cluster is
-  mechanistically confirmed ([S018](#s018)) to be mediated by Pulse's
+  shown ([S018](#s018)) to depend on Pulse's
   `BloodVolumeBaseline` (male default 4,802.63 mL vs female default
   3,996.09 mL, a ~17 % gap): reducing the male surrogate's BV
   eliminates divergence
@@ -661,14 +662,14 @@ underlying files are in the repository.
 | S011 | Sex-vs-mass disentangling experiment. |
 | S012 | Steady-state window cross-output audit (does F-003 / F-004 contaminate other channels? — answer: no). |
 | S013 | Lexical lockdown (manuscript taxonomy normalization). |
-| S014 | Trigger-pressure lockout (causally identifies F-004 as VC-AC dyssynchrony). |
+| S014 | Trigger-pressure lockout (causally links F-004 to the VC-AC inspiration trigger). |
 | S015 | Reproducibility and logic audit before publication. |
 | S016 | Re-audit of the Pulse GitLab + literature (May 2026). |
 | S017 | Cornish 2023 cross-mapping against the atlas's 6-output panel. |
-| S018 | Blood-volume mechanism falsification (explains the all-male divergence cluster). |
+| S018 | Blood-volume mechanism falsification (lowering male blood volume removes the all-male divergence cluster). |
 | S019 | Restricted exploratory Sobol demonstrator, written under the earlier dominant-input reading; not executed, and not an implementation of the preregistered bolt-on — see §3.3.1. |
 | S020 | Pre-submission novelty audit; verified that every "first" / "novel" claim in the manuscript survives a literature double-check (single citation added: Figueroa-Casas & Montoya 2016 for the F-004 clinical precedent). |
-| S021 | Hyperoxia convergence: 60-run pre-registered rerun at 300 s vs locked 120 s sweep window — tests whether F-003 PaO2 > 600 mmHg at FiO2 = 1.0 reflects oxygenation overshoot or transient non-convergence. |
+| S021 | Hyperoxia convergence: 60-run rerun at 300 s vs locked 120 s sweep window — tests whether F-003 PaO2 > 600 mmHg at FiO2 = 1.0 reflects oxygenation overshoot or transient non-convergence. |
 | S022 | No-compute failure-mode attribution audit of the locked `not_steady_state` count (Appendix C). |
 | S023 | Supplementary ML/SHAP cross-check of the Morris μ\* top-three input sets on the clean subset (Supplementary §S13). |
 | S024 | Pre-submission claims-ledger audit — `scripts/audit_claims.py` re-derives every quantitative claim registered in the audit ledger from the canonical parquets/CSVs and verifies it against the manuscript text (394 / 394 PASS at the locked tolerance band on the authors' full data tree; 393 / 394 on a public clone, where the one anchor needing the gitignored raw S021 trajectories is auto-skipped). |
@@ -1020,7 +1021,11 @@ boundary (P/F ≈ 256 / 150 / 96 mmHg) under the same ventilation
 settings. The calibration is therefore *ventilation-setting-dependent*
 rather than a global correction; Pulse's documented mapping may
 reproduce its claimed P/F values under different Vt / PEEP / FiO2
-combinations, but does not at the reference ventilation setting. Full
+combinations, but does not at the reference ventilation setting. The
+mild, moderate and severe labels name the band each scenario was
+calibrated to, not a diagnosis of each run: individual runs vary FiO2
+and PEEP across the sweep and need not meet that band's P/F and PEEP
+criteria. Full
 contrast table, ventilation-setting disclosure, three-source
 convergence for the 0.91 – 0.945 solver-instability zone, and the
 ARDS calibration provenance are in Appendix B.3.
@@ -1337,7 +1342,7 @@ post-[S014](#s014)-patch rebuild — a different image hash than the
   `output.csv` against canonical gave **1,260 / 1,280 bit-identical
   completed runs and 20 / 20 originally-diverged runs reproducing
   divergence with `exit_code = 1`** (i.e. the same 20-run male-extreme
-  cluster that §3.5 attributes to the blood-volume mechanism). **Zero
+  cluster that §3.5 links to blood volume). **Zero
   deviations, zero clean-↔-diverged asymmetries, zero missing files.**
   The [S015](#s015) audit's 40-run bit-exact result is therefore extended to
   the full 1,280-run envelope, and the [S014](#s014) SDK sed-patch is
@@ -2055,7 +2060,7 @@ none of them inside that band, so H3 is supported outright. A second
 question, which H3 does not ask, is whether those divergences are
 sex-stratified: partially. In the [S006](#s006) input-extreme regime, all 20 / 20
 divergences are male and zero female, with the asymmetry
-mechanistically confirmed ([S018](#s018)) to be mediated by Pulse's
+shown ([S018](#s018)) to depend on Pulse's
 `BloodVolumeBaseline` gap on the two surrogates — male default
 4,802.63 mL vs female default 3,996.09 mL, a ~17 % difference — and
 with a separate F-S018-A side-finding that Pulse enforces a
@@ -2117,7 +2122,7 @@ body masses by construction. The atlas's sex-stratified divergence
 finding is therefore correctly stated in absolute-mL terms because
 Pulse's internal `BloodVolumeBaseline` floor (4,082.24 mL on this
 male body = 60.7 mL/kg) is parameterized on absolute volumes, not on
-per-kg physiology; the BV-mechanism characterisation in this section
+per-kg physiology; the BV-dependence characterisation in this section
 is about how Pulse's solver responds to absolute-BV values near its
 setup-time floor on the male reference body, not a claim about
 per-kg blood-volume physiology in real patients. Pooling male and
@@ -2746,10 +2751,10 @@ atlas is an external physiological validation.
 Pulse PaO2 exceeds the locked 600 mmHg classifier upper bound at
 FiO2 = 1.0 on healthy adults — a *transient hyperoxia regime + conservative
 preregistered classifier bound*, **not** an oxygenation overshoot, as
-shown by a pre-registered 300 s rerun ([S021](#s021)) on the same
+shown by a 300 s rerun ([S021](#s021)) on the same
 input combinations. **F-004**: VC-AC tidal-volume instability in
-20.6 % of runs, causally identified in [S014](#s014) as
-patient-ventilator dyssynchrony at the inspiration trigger and
+20.6 % of runs, causally linked in [S014](#s014) to the
+inspiration trigger, consistent with patient-ventilator dyssynchrony, and
 corrected by setting trigger pressure to −2 cmH2O.*
 
 * **F-003 — Transient hyperoxia regime in the locked 120 s window.**
@@ -2785,13 +2790,13 @@ corrected by setting trigger pressure to −2 cmH2O.*
   distinguish them at longer windows.
 
   **The transient-regime interpretation is supported ([S021](#s021)).**
-  A pre-registered controlled experiment reran 60 matched-input cases
+  A controlled experiment reran 60 matched-input cases
   at FiO2 = 1.0, each re-executed from time zero with the recorded
   simulation duration raised from the locked 120 s to 300 s
   (sample interval 5 s; 22 paired Morris indices × S1 (M + F) =
   44 S1 runs; 4 paired indices × {S3, S4} × {M, F} = 16 ARDS runs).
-  All thresholds were committed before any S021 Pulse run was
-  observed. The pre-registered decision rule on the S1 subset
+  The S021 notebook entry records all thresholds as fixed before any
+  S021 Pulse run was observed. The decision rule on the S1 subset
   required *frac converged ≥ 75 %* (plateau drift over [240, 300] s
   below the locked 15 mmHg / 60 s threshold) **and** *median plateau
   ∈ [580, 680] mmHg* (alveolar-gas-equation prediction ± 75 mmHg).
@@ -2805,7 +2810,7 @@ corrected by setting trigger pressure to −2 cmH2O.*
       $= 1.0 \cdot (760 - 47) - 40 / 0.8 \approx 663$ mmHg; the measured
       arterial $P_aO_2$ of 643 mmHg therefore implies an A-a difference
       of ~20 mmHg. Pulse *under-shoots*
-      the alveolar prediction and does not overshoot. The pre-registered
+      the alveolar prediction and does not overshoot. The
       decision is `HYPOTHESIS_II_TRANSIENT_REGIME_SUPPORTED`.
 
   **Severity-graded oxygenation depression, consistent with the
@@ -2975,16 +2980,16 @@ corrected by setting trigger pressure to −2 cmH2O.*
   overshoots the mandatory rate, generating the observed mandatory +
   assist alternation.
 
-  **Causal confirmation ([S014](#s014)).** A pre-registered controlled experiment
+  **Causal confirmation ([S014](#s014)).** A controlled experiment
   on the top-64 Vt-CV runs reran each with identical inputs but with an
   explicit `InspirationPatientTriggerPressure = −2 cmH2O`. Setting any
   explicit trigger threshold disables the respiratory-model branch (the
   fall-through guard becomes false). **Median (Vt_cv_original −
-  Vt_cv_lockout) = +0.326** (pre-registered threshold ≥ 0.04, exceeded
+  Vt_cv_lockout) = +0.326** (decision threshold ≥ 0.04, exceeded
   8×); **proportion of locked runs with Vt_cv < 0.05 = 78.1 %**
-  (pre-registered threshold ≥ 75 %). Median Vt_cv collapses from 0.351
+  (decision threshold ≥ 75 %). Median Vt_cv collapses from 0.351
   to 0.016 (96 % reduction); worst-case from 1.826 to 0.018. Both
-  pre-registered thresholds were met, confirming that the dyssynchrony
+  thresholds were met, confirming that the trigger coupling
   — not solver instability, not Nyquist aliasing of the breath cycle,
   and not auto-PEEP — drives the original 20.6 % flag rate. Full
   protocol and per-run paired data:
@@ -3101,7 +3106,7 @@ artifact:
   implementation.** The F-004 finding (Vt CV > 5 % in 20.6 % of runs) is
   not a controller pathology: patient-ventilator dyssynchrony at extreme
   settings is a real intensive-care phenomenon [@figueroacasas2016] and
-  Pulse models it correctly. The atlas's preregistered steady-state detector simply
+  Pulse's behaviour is consistent with it. The atlas's preregistered steady-state detector simply
   flags the resulting Vt variability as a non-steady-state outcome, by
   design. Two practical consequences follow. First, atlas users who
   require pure mandatory ventilation (e.g. for medical-device validation
@@ -3145,7 +3150,7 @@ always set `InspirationPatientTriggerPressure` or
 `InspirationPatientTriggerFlow` explicitly. Leaving both unspecified
 causes Pulse to enable a respiratory-model-driven patient trigger
 (`SEMechanicalVentilatorVolumeControl.cpp` lines 120–128), which
-produces realistic patient-ventilator dyssynchrony but renders
+produces effort-dependent tidal-volume variability consistent with patient-ventilator dyssynchrony but renders
 delivered tidal volume non-steady at extreme input combinations. For sensitivity-analysis-style sweeps that require deterministic, steady-state-interpretable tidal volume, setting `InspirationPatientTriggerPressure = −2 cmH2O` collapses that variability (validated by [S014](#s014): median Vt_cv 0.351 to 0.016, a 96 % reduction; 78.1 % of locked runs below the 0.05 steady-state threshold). This is best read as a data-generation / exploration lever, not a clinical recommendation: locking the trigger to a fixed threshold leaves simulated inspiratory efforts below −2 cmH2O unrewarded, a form of patient-ventilator dyssynchrony [@thille2006], corresponding in a real patient to a shift from patient-responsive assist-control toward controlled ventilation — clinically undesirable [@blanch2015], and detectable on ventilator flow/pressure waveforms, though most directly confirmed with specialised monitoring such as esophageal pressure [@akoumianaki2014] or diaphragm electrical activity [@sinderby1999]. The −2 cmH2O lock is therefore an instrument for controlled software exploration and deterministic synthetic-data generation, not guidance for clinically realistic ventilation.
 
 ### 4.3 Implications for machine-learning pipelines using Pulse
@@ -3450,7 +3455,7 @@ bounded.*
   patients (a detector edge case on the flatline rule — SpO2 = 1.0 is
   the expected steady-state on adequate FiO2, not pinning); (ii)
   **170 runs** flagged because of F-004 patient-ventilator
-  dyssynchrony (§3.8, documented finding causally confirmed by
+  dyssynchrony (§3.8; its trigger dependence causally confirmed by
   [S014](#s014)); and (iii) a **185-run residual** dominated by S4
   severe-ARDS slow convergence and S1 transient hyperoxia drift
   (the F-003 phenomenon documented in §3.8 / [S012](#s012) /
@@ -3658,7 +3663,7 @@ undershoot rather than an oxygenation defect. We also established patient sex as
 previously uncharacterized, *regime-dependent* reliability-sensitivity
 axis: concentrated on gas-exchange outputs under permutation-based BH-FDR
 control (5 of 24 cell × output Wasserstein survivors, §3.6) and on
-the male input-extreme divergence cluster mediated by Pulse's
+the male input-extreme divergence cluster, which depends on Pulse's
 blood-volume baseline ([S018](#s018); 20 / 20 → 0 / 20 BV
 dose-response across §3.5 / §3.5.1).
 
