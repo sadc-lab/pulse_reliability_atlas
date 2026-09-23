@@ -445,7 +445,7 @@ paper,tex_comment,123,3,"ntence, + 2026-08-18 healthy-lung scope). %% %% refinem
 paper,typeset_length,160,0.70,"\, .} {lp{0.70\textwidth}} \toprule Term & Definition \\ \midrule \tex"
 paper,typeset_length,194,0.38,.} {lp{0.38\textwidth}p{0.30\textwidth}} \toprule Flag & Fires when
 paper,typeset_length,194,0.30,} {lp{0.38\textwidth}p{0.30\textwidth}} \toprule Flag & Fires when & What it means
-paper,typeset_length,270,0.467,ot. [!htbp] \centering [b]{0.467\textwidth}
+paper,typeset_length,270,0.467,gn. [!htbp] \centering [b]{0.467\textwidth}
 paper,typeset_length,271,0.467,\hfill [b]{0.467\textwidth}
 paper,typeset_length,272,0,\caption{MAP} \\[-0.6em] [b]{0.467\textwidth}
 paper,typeset_length,273,0.467,\\[-0.6em] [b]{0.467\textwidth}
@@ -469,7 +469,7 @@ supplement,product_version,1156,5.6,"inking mode), then, from 3~August~2026, Ope
 supplement,product_version,1158,5,"enAI ChatGPT (GPT-5.6 Sol, High reasoning level). The Opus 5 rounds covered in-repository replication of the ARDS-sever"
 supplement,ref_or_machinery,120,1,e present atlas's contribution (Section~\mainref{sec:intro}{1} of the main manuscript): a quantitative characterisation
 supplement,ref_or_machinery,166,2.4,"rised separately in Section~\mainref{sec:results-hyperoxia}{2.4} of the main manuscript and in Supplement~\S\,\ref{sec:s"
-supplement,ref_or_machinery,166,2.5,"e divergence mechanism of Section~\mainref{sec:results-sex}{2.5} of the main manuscript and Supplement~\S\,\ref{sec:s10}"
+supplement,ref_or_machinery,166,2.5,"lood-volume dependence of Section~\mainref{sec:results-sex}{2.5} of the main manuscript and Supplement~\S\,\ref{sec:s10}"
 supplement,ref_or_machinery,178,4.4,ther run is flagged (Section~\mainref{sec:methods-detector}{4.4} of the main manuscript). This eliminates all clean FiO$
 supplement,ref_or_machinery,194,4.4,} flag are stated in Section~\mainref{sec:methods-detector}{4.4} of the main manuscript and are held in the \texttt{HARD
 supplement,ref_or_machinery,208,1,"te reduce cardiac output and myocardial perfusion~\cite[Ch.~1]{marini2018critical}, which gives 202~bpm on the 18-year-o"
@@ -519,7 +519,7 @@ supplement,ref_or_machinery,1135,2.6,y-driven). Supports Section~\mainref{sec:re
 supplement,ref_or_machinery,1136,2.5,ts the Discussion and the Section~\mainref{sec:results-sex}{2.5} caveat. \\ \S\ref{sec:s7} & \textbf{Cornish et al.\ 202
 supplement,ref_or_machinery,1138,2.5,y divergence cluster from Section~\mainref{sec:results-sex}{2.5} of the main paper under both an absolute-BV and a weigh
 supplement,ref_or_machinery,1141,2.6,hypoxemia. Supports Section~\mainref{sec:results-secondary}{2.6} of the main paper. \\ \S\ref{sec:s16-window} & \textbf{
-supplement,ref_or_machinery,1147,2,"mechanism) are summarised in Section~\mainref{sec:results}{2} of the main paper, with extended detail in supplement sec"
+supplement,ref_or_machinery,1147,2,"dependence) are summarised in Section~\mainref{sec:results}{2} of the main paper, with extended detail in supplement sec"
 supplement,ref_or_machinery,1156,4.7,nd phases}\label{sec:s18} Section~\mainref{sec:methods-ai}{4.7} of the main manuscript states how large language models
 supplement,tex_comment,57,2026,-manuscript section is a literal % number typed by hand. On 2026-08-05 a single new subsection inserted in the % paper's
 supplement,tex_comment,57,08,script section is a literal % number typed by hand. On 2026-08-05 a single new subsection inserted in the % paper's Resu
@@ -545,7 +545,7 @@ supplement,version,523,4.3,"mmit \texttt{e8a3649}) --- physiologically identical
 supplement,version,976,26.5,".'s Apple Silicon host (MacBook Air, Apple~M2, ARM64; macOS~26.5.1; archived under \texttt{audits/reproduction\_macos\_2"
 supplement,version,976,4.3,"ive-ARM64 test: the pinned base image \texttt{kitware/pulse:4.3.1} is published for \texttt{linux/amd64} only, so on App"
 supplement,version,1052,4.3,"s own reference list; the sources behind the verified Pulse 4.3.1 limitations table (Supplement~\S\, ), with"
-supplement,version,1052,4.3,cceptance gates; and the findings of its audit of the Pulse 4.3.1 source code. The companion monograph is the source of
+supplement,version,1052,4.3,cceptance gates; and the findings of its audit of the Pulse 4.3.1 source code. The companion monograph gives further de
 supplement,version,1131,4.3,\\ \midrule \S & \textbf{Twelve verified Pulse 4.3.1 limitations} that the atlas is calibrated against. Two
 supplement,year_like,118,2017,"is a separate, targeted experiment. Pulse was forked in 2017 from the U.S.\ Department of Defense--funded BioGears engine by the o"
 supplement,year_like,118,2017,jects still exist independently but have diverged substantially since 2017; Pulse models mechanoreceptor feedback and lung recruitment; w

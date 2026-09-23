@@ -46,7 +46,7 @@ supplement,14,6,"s inputs at their midrange values (HR = 80, SBP = 105, DBP = 70
 supplement,"4{,}082.24",6,"ing the male reference body's \texttt{BloodVolumeBaseline} toward its 4{,}082.24~mL setup-time floor eliminates the divergence cluster (20 / 20 at the"
 supplement,0.21,5,"pies is not fixed across the sweep, whose operational inputs (FiO$_2$ 0.21--1.0, PEEP 0--20~cmH$_2$O, Vt 300--800~mL) vary the ventilation setti"
 supplement,163,5,"le body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both weights are U.S.\ Centers for Disease Control and Preventio"
-supplement,"3{,}996.09",5,"ht}_{\text{kg}}^{1.02}$, yielding 4{,}802.63~mL for the male body and 3{,}996.09~mL for the female body --- the 17~\% sex gap whose mechanism on the i"
+supplement,"3{,}996.09",5,"ht}_{\text{kg}}^{1.02}$, yielding 4{,}802.63~mL for the male body and 3{,}996.09~mL for the female body --- the 17~\% sex gap whose effect on the inpu"
 supplement,96,5,"rts the result: impairment 0.26, 0.60, and 0.95 land at 256, 150, and 96~mmHg. The companion's later E6 experiment (2026-04) re-ran the three"
 supplement,0.1,4,"terion fires when \texttt{std / |mean| < 0.01} AND the mean is within 0.1~\% of a hard bound, intended to flag numerical pinning at a bound, al"
 supplement,0.25,4,"ampling interval (50~Hz). At adult respiratory rates of approximately 0.25~Hz (one breath every four seconds), 50~Hz sampling is a 200-fold over"
@@ -102,7 +102,7 @@ supplement,0.07,1,"% across healthy, restrictive, and obstructive lung profiles,
 supplement,0.075,1,diffusion surface area & decreases & $0.57\times$ & $0.20\times$ & $0.075\times$ \\ Pulmonary-shunt path resistance & decreases & $\approx 0.
 supplement,0.078,1,", and they are also where the out-of-bag estimate is most optimistic (0.078 to 0.087, against 0.0003 for delivered Vt). Both measures point the s"
 supplement,0.087,1,"y are also where the out-of-bag estimate is most optimistic (0.078 to 0.087, against 0.0003 for delivered Vt). Both measures point the same way:"
-supplement,0.10,1,S2 and S3 are insensitive to small calibration shifts of $\pm 0.05$--$0.10$ around these values: any shift within that range lands in the same z
+supplement,0.10,1,"est non-trivial bins combined), so calibration shifts of $\pm 0.05$--$0.10$ around these values stay inside that zero-divergence regime at midra"
 supplement,0.125,1,stance & decreases & $\approx 0.22\times$ & $0.20\times$ & $\approx 0.125\times$ \\ \bottomrule The four curves act
 supplement,0.2,1,"patient--ventilator dyssynchrony. At a breath rate near 0.25~Hz, the 0.2~Hz sampling rate is insufficient to resolve breath-to-breath dynamics"
 supplement,0.22,1,75\times$ \\ Pulmonary-shunt path resistance & decreases & $\approx 0.22\times$ & $0.20\times$ & $\approx 0.125\times$ \\ \bottomrule

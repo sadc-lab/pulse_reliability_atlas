@@ -3397,15 +3397,15 @@ paper,115,5,5.0,ambiguous_small,", \orgaddress{\city{Nancy}, \country{France}}} 
 paper,117,6,6.0,ambiguous_small,", \orgaddress{\city{Nancy}, \country{France}}} \affil[6]{"
 paper,128,"1{,}280",1280.0,guard,"ing of seven inputs, four severity scenarios, male and female bodies (1{,}280 simulations). Sensitivity is skewed: three inputs carry a median 93~\"
 paper,128,93,93.0,none,}280 simulations). Sensitivity is skewed: three inputs carry a median 93~\% of each output's total. A four-flag classifier reveals failure mod
-paper,128,20.6,20.6,guard,"two operator-actionable, one sex-dependent. Tidal-volume instability (20.6~\% of runs) reflects patient--ventilator dyssynchrony; locking the VC"
-paper,128,2,2.0,ambiguous_small,"ects patient--ventilator dyssynchrony; locking the VC-AC trigger to $-2$~cmH$_2$O collapses that variability. At FiO$_2$~=~1.0, transient hyp"
+paper,128,20.6,20.6,guard,"wo operator-actionable, one sex-stratified. Tidal-volume instability (20.6~\% of runs) is consistent with patient--ventilator dyssynchrony; lock"
+paper,128,2,2.0,ambiguous_small,"with patient--ventilator dyssynchrony; locking the VC-AC trigger to $-2$~cmH$_2$O collapses that variability. At FiO$_2$~=~1.0, transient hyp"
 paper,128,1.0,1.0,ambiguous_small,"-AC trigger to $-2$~cmH$_2$O collapses that variability. At FiO$_2$~=~1.0, transient hyperoxia makes 120-second runs underestimate plateau PaO$"
 paper,128,120,120.0,guard,"llapses that variability. At FiO$_2$~=~1.0, transient hyperoxia makes 120-second runs underestimate plateau PaO$_2$; 300-second healthy-lung re"
 paper,128,300,300.0,guard,nsient hyperoxia makes 120-second runs underestimate plateau PaO$_2$; 300-second healthy-lung reruns give a median 643~mmHg. Solver divergence
 paper,128,643,643.0,guard,stimate plateau PaO$_2$; 300-second healthy-lung reruns give a median 643~mmHg. Solver divergence was all-male in an input-extreme regime (20/1
 paper,128,20,20.0,ambiguous_small,"643~mmHg. Solver divergence was all-male in an input-extreme regime (20/1{,}280); reducing the male blood-volume baseline to the 4{,}082~mL f"
 paper,128,"1{,}280",1280.0,guard,"3~mmHg. Solver divergence was all-male in an input-extreme regime (20/1{,}280); reducing the male blood-volume baseline to the 4{,}082~mL floor eli"
-paper,128,"4{,}082",4082.0,ledger,"e regime (20/1{,}280); reducing the male blood-volume baseline to the 4{,}082~mL floor eliminated it. Runs and flags are released openly, so users"
+paper,128,"4{,}082",4082.0,ledger,"e regime (20/1{,}280); reducing the male blood-volume baseline to the 4{,}082~mL floor eliminated it. Runs and flags are released openly, showing u"
 paper,142,2.0,2.0,ambiguous_small,"automatically reliable. The Pulse Physiology Engine (Kitware, Apache-2.0) is one such actively maintained open-source whole-body simulator~"
 paper,142,1,1.0,ambiguous_small,"simulation (Supplement~\S\, ). Pulse has been applied to (1)~ventilator-safety what-if analysis~ , (2)~validation o"
 paper,142,2,2.0,ambiguous_small,"n applied to (1)~ventilator-safety what-if analysis~ , (2)~validation of its own mechanical-ventilator model against a physical"
@@ -3619,9 +3619,9 @@ paper,265,1,1.0,ambiguous_small,"9 rest on a single pair, five of those being th
 paper,265,48,48.0,ambiguous_small,"ee screen in Supplement~\S\, , and H1 holds in all 48 combinations under both the four-flag and the hard-failure-free scree"
 paper,265,30,30.0,ambiguous_small,ns under both the four-flag and the hard-failure-free screens. On the 30 combinations whose candidate set (the inputs carrying at least one re
 paper,265,1,1.0,ambiguous_small,"at least one retained pair) is the same under both screens, the rank-1 input is preserved in all 30, while the identity of ranks two and thr"
-paper,265,30,30.0,ambiguous_small,"is the same under both screens, the rank-1 input is preserved in all 30, while the identity of ranks two and three changes in 11. Rank 1 is t"
-paper,265,11,11.0,ambiguous_small,"erved in all 30, while the identity of ranks two and three changes in 11. Rank 1 is therefore resolved by this design, and the ordering below"
-paper,265,1,1.0,ambiguous_small,"all 30, while the identity of ranks two and three changes in 11. Rank 1 is therefore resolved by this design, and the ordering below it is no"
+paper,265,30,30.0,ambiguous_small,"is the same under both screens, the rank-1 input is preserved in all 30, while the identity of ranks two and three changes in 11. Under this"
+paper,265,11,11.0,ambiguous_small,"erved in all 30, while the identity of ranks two and three changes in 11. Under this screen comparison, rank 1 was therefore more stable than"
+paper,265,1,1.0,ambiguous_small,"ranks two and three changes in 11. Under this screen comparison, rank 1 was therefore more stable than the ordering below it, and the full or"
 paper,278,1,1.0,ambiguous_small,"few rows rather than spreading across all seven, which is Hypothesis~1's ``skewed sensitivity'' in visual form: on 48 of 48 cell $\times$ ou"
 paper,278,48,48.0,ambiguous_small,"en, which is Hypothesis~1's ``skewed sensitivity'' in visual form: on 48 of 48 cell $\times$ output combinations the top three inputs carry at"
 paper,278,48,48.0,ambiguous_small,ich is Hypothesis~1's ``skewed sensitivity'' in visual form: on 48 of 48 cell $\times$ output combinations the top three inputs carry at least
@@ -3692,7 +3692,7 @@ paper,298,663,663.0,guard,locked classifier's upper bound and the dash-dotted li
 paper,298,0,0.0,ambiguous_small,". Both axes are clamped to the physiological $[0, 760]$~mmHg range; six S1 reruns run off-scale into a numerical runaw"
 paper,298,760,760.0,guard,". Both axes are clamped to the physiological $[0, 760]$~mmHg range; six S1 reruns run off-scale into a numerical runaway (p"
 paper,298,"1{,}408",1408.0,ledger,"reruns run off-scale into a numerical runaway (plateau up to $\approx$1{,}408~mmHg; Supplement~\S\, ) and are omitted. Most S1 dots sit"
-paper,304,"1{,}280",1280.0,guard,"e and blood-volume mechanism} Across the full 1{,}280-run sweep, solver divergence is rare but strikingly sex-stratified. 2"
+paper,304,"1{,}280",1280.0,guard,"and blood-volume dependence} Across the full 1{,}280-run sweep, solver divergence is rare but strikingly sex-stratified. 2"
 paper,304,20,20.0,ambiguous_small,"0-run sweep, solver divergence is rare but strikingly sex-stratified. 20 runs (1.6~\%) failed to complete with finite output, and \emph{all 20"
 paper,304,1.6,1.6,ambiguous_small,"ep, solver divergence is rare but strikingly sex-stratified. 20 runs (1.6~\%) failed to complete with finite output, and \emph{all 20 fell on t"
 paper,304,20,20.0,ambiguous_small,"20 runs (1.6~\%) failed to complete with finite output, and \emph{all 20 fell on the male reference body}, against zero divergences across the"
@@ -3742,7 +3742,7 @@ paper,314,20,20.0,ambiguous_small,divergence count out of 20. The collapse to ze
 paper,314,0,0.0,ambiguous_small,out of 20. The collapse to zero at both reductions (20 $\rightarrow$ 0) establishes that lowering the blood-volume baseline is sufficient to
 paper,314,"3{,}996",3996.0,ledger,"olver fails at the default value. Pulse's allometric formula computes 3{,}996~mL for the female reference body (dashed vertical line), 86~mL below"
 paper,314,86,86.0,none,"utes 3{,}996~mL for the female reference body (dashed vertical line), 86~mL below the male floor, so a one-way blood-volume transplant cannot"
-paper,325,"1{,}280",1280.0,guard,"nable corrections and a sex-specific reliability axis emerge from the 1{,}280-run sweep: a single configuration setting that makes VC-AC tidal-volu"
+paper,325,"1{,}280",1280.0,guard,"ble corrections and a sex-stratified reliability axis emerge from the 1{,}280-run sweep: a single configuration setting that makes VC-AC tidal-volu"
 paper,325,1.0,1.0,ambiguous_small,"a steady-state-window correction for hyperoxia simulation at FiO$_2 = 1.0$ (\S ); and, on a separate axis, a previous"
 paper,333,85,85.0,ambiguous_small,"tion framework to Pulse on MIMIC-III sepsis trajectories and reported 85 total Hoeffding-inequality rejections. Of these, 82 of 85 fall outsid"
 paper,333,82,82.0,ambiguous_small,"ries and reported 85 total Hoeffding-inequality rejections. Of these, 82 of 85 fall outside the four-channel overlap with this atlas (HR, MAP,"
@@ -3788,8 +3788,8 @@ paper,361,0,0.0,ambiguous_small,"re severity range: a healthy baseline (S1, ARDS
 paper,361,0.26,0.26,ambiguous_small,"rment fraction = 0) and three ARDS severities (S2, mild, impairment = 0.26; S3, moderate, impairment = 0.60; S4, severe, impairment = 0.95). At"
 paper,361,0.60,0.6,ambiguous_small,"S severities (S2, mild, impairment = 0.26; S3, moderate, impairment = 0.60; S4, severe, impairment = 0.95). At a reference ventilation setting b"
 paper,361,0.95,0.95,ambiguous_small,"ent = 0.26; S3, moderate, impairment = 0.60; S4, severe, impairment = 0.95). At a reference ventilation setting based on the ARDSnet low-tidal-v"
-paper,361,0.91,0.91,ambiguous_small,n as arbitrary engine settings. The three severities also bracket the 0.91--0.945 solver-instability zone documented at design time (Supplement~
-paper,361,0.945,0.945,guard,"rbitrary engine settings. The three severities also bracket the 0.91--0.945 solver-instability zone documented at design time (Supplement~\S\,"
+paper,361,0.91,0.91,ambiguous_small,t band's P/F and PEEP criteria. The three severities also bracket the 0.91--0.945 solver-instability zone documented at design time (Supplement~
+paper,361,0.945,0.945,guard,"'s P/F and PEEP criteria. The three severities also bracket the 0.91--0.945 solver-instability zone documented at design time (Supplement~\S\,"
 paper,361,0.879,0.879,guard,"s's own continuous-severity sweep subsequently widened that band to $[0.879, 0.946]$ (\S ). Pulse represents severity a"
 paper,361,0.946,0.946,guard,"continuous-severity sweep subsequently widened that band to $[0.879, 0.946]$ (\S ). Pulse represents severity as a sin"
 paper,363,20,20.0,ambiguous_small,ple was generated with SALib~ using 20 trajectories at 4 grid levels per input and random seed 42. Each traj
@@ -4198,8 +4198,8 @@ supplement,294,177.0,177.0,none,"20.8 (it is not Pulse's source-code \texttt{hei
 supplement,294,65.6,65.6,guard,"ulting blood-volume baseline via the allometric relation $\text{BV} = 65.6 \cdot \text{weight}_{\text{kg}}^{1.02}$, yielding 4{,}802.63~mL for t"
 supplement,294,1.02,1.02,guard,"llometric relation $\text{BV} = 65.6 \cdot \text{weight}_{\text{kg}}^{1.02}$, yielding 4{,}802.63~mL for the male body and 3{,}996.09~mL for the"
 supplement,294,"4{,}802.63",4802.63,none,"n $\text{BV} = 65.6 \cdot \text{weight}_{\text{kg}}^{1.02}$, yielding 4{,}802.63~mL for the male body and 3{,}996.09~mL for the female body --- the 17"
-supplement,294,"3{,}996.09",3996.09,none,"ht}_{\text{kg}}^{1.02}$, yielding 4{,}802.63~mL for the male body and 3{,}996.09~mL for the female body --- the 17~\% sex gap whose mechanism on the i"
-supplement,294,17,17.0,ambiguous_small,"63~mL for the male body and 3{,}996.09~mL for the female body --- the 17~\% sex gap whose mechanism on the input-extreme divergence cluster is"
+supplement,294,"3{,}996.09",3996.09,none,"ht}_{\text{kg}}^{1.02}$, yielding 4{,}802.63~mL for the male body and 3{,}996.09~mL for the female body --- the 17~\% sex gap whose effect on the inpu"
+supplement,294,17,17.0,ambiguous_small,"63~mL for the male body and 3{,}996.09~mL for the female body --- the 17~\% sex gap whose effect on the input-extreme divergence cluster is ch"
 supplement,302,20,20.0,ambiguous_small,"n Section~ of the main manuscript --- 20 trajectories, 4 grid levels per input, and random seed 42 --- are fix"
 supplement,302,4,4.0,ambiguous_small,"of the main manuscript --- 20 trajectories, 4 grid levels per input, and random seed 42 --- are fixed in the code b"
 supplement,302,42,42.0,ambiguous_small,"uscript --- 20 trajectories, 4 grid levels per input, and random seed 42 --- are fixed in the code base as \texttt{SWEEP\_TRAJECTORIES}, \text"
@@ -4856,9 +4856,9 @@ supplement,562,0,0.0,ambiguous_small,"RDS, S4 = 0.95 severe ARDS). S2 (0.26) and
 supplement,562,0.85,0.85,none,", S4 = 0.95 severe ARDS). S2 (0.26) and S3 (0.60) lie inside the $(0, 0.85]$ zero-divergence regime of Table~ (0 / 50 divergenc"
 supplement,562,0,0.0,ambiguous_small,"de the $(0, 0.85]$ zero-divergence regime of Table~ (0 / 50 divergence on each sex across the two lowest non-trivial bins co"
 supplement,562,50,50.0,ambiguous_small,"he $(0, 0.85]$ zero-divergence regime of Table~ (0 / 50 divergence on each sex across the two lowest non-trivial bins combine"
-supplement,562,0.05,0.05,none,ings in S2 and S3 are insensitive to small calibration shifts of $\pm 0.05$--$0.10$ around these values: any shift within that range lands in th
-supplement,562,0.10,0.1,none,S2 and S3 are insensitive to small calibration shifts of $\pm 0.05$--$0.10$ around these values: any shift within that range lands in the same z
-supplement,562,0.95,0.95,ambiguous_small,ontinuous in the impairment fraction across this stable interval. S4 (0.95) was preregistered specifically to sit just above the upper edge of t
+supplement,562,0.05,0.05,none,"two lowest non-trivial bins combined), so calibration shifts of $\pm 0.05$--$0.10$ around these values stay inside that zero-divergence regime"
+supplement,562,0.10,0.1,none,"est non-trivial bins combined), so calibration shifts of $\pm 0.05$--$0.10$ around these values stay inside that zero-divergence regime at midra"
+supplement,562,0.95,0.95,ambiguous_small,$ rankings in S2 and S3 are robust to such shifts was not tested. S4 (0.95) was preregistered specifically to sit just above the upper edge of t
 supplement,566,1.0,1.0,ambiguous_small,"ipt headline) concentrates at low HR, low SBP, high RR, and FiO$_2$ = 1.0 --- the hypotensive--tachypneic--fully-oxygenated input pattern --- a"
 supplement,566,20,20.0,ambiguous_small,n --- and produces divergence exclusively on the male reference body: 20 events across the four male cells versus zero across the 640 runs on
 supplement,566,640,640.0,guard,nce body: 20 events across the four male cells versus zero across the 640 runs on the female reference body. The severity-driven regime (this c
@@ -5147,7 +5147,7 @@ supplement,726,60,60.0,ambiguous_small,"made here. Both panels plot the 50~Hz wa
 supplement,726,120,120.0,guard,"here. Both panels plot the 50~Hz waveform over the classifier's [60, 120]~s window in recording-relative time; each quoted CV is the classifie"
 supplement,726,5,5.0,ambiguous_small,"ng-relative time; each quoted CV is the classifier statistic from the 5-second samples of that same window, not of the trace. \textbf{(a)} De"
 supplement,726,640,640.0,guard,race. \textbf{(a)} Default VC-AC trigger: delivered volume holds near 640~mL but is interrupted by cycles of collapsed and then oversized volum
-supplement,726,0.351,0.351,guard,"ted by cycles of collapsed and then oversized volume (classifier CV = 0.351), the patient--ventilator dyssynchrony that the classifier flags as \"
+supplement,726,0.351,0.351,guard,"ted by cycles of collapsed and then oversized volume (classifier CV = 0.351), an oscillation consistent with patient--ventilator dyssynchrony, wh"
 supplement,726,2,2.0,ambiguous_small,flags as \texttt{not\_steady\_state}. \textbf{(b)} Locked trigger ($-2$~cmH$_2$O): Vt is metronomic across the same window (classifier CV =
 supplement,726,0.005,0.005,none,"$~cmH$_2$O): Vt is metronomic across the same window (classifier CV = 0.005), so the intervention disables the spontaneous-drive coupling without"
 supplement,726,50,50.0,ambiguous_small,s the directly observable proxy of the trigger-coupling dynamics; the 50~Hz native sampling rate is Nyquist-safe for the $\sim$0.25~Hz breath-
@@ -5687,8 +5687,8 @@ supplement,1042,3,3.0,ambiguous_small,"input in 6 of its 6 outputs, the top-thre
 supplement,1042,6,6.0,ambiguous_small,"he top-three set in 4 and its order in 3; the screen change preserves 6, 2 and 2 on the same six outputs. One cell and six outputs is a landm"
 supplement,1042,2,2.0,ambiguous_small,"top-three set in 4 and its order in 3; the screen change preserves 6, 2 and 2 on the same six outputs. One cell and six outputs is a landmark"
 supplement,1042,2,2.0,ambiguous_small,"ree set in 4 and its order in 3; the screen change preserves 6, 2 and 2 on the same six outputs. One cell and six outputs is a landmark rathe"
-supplement,1042,1,1.0,ambiguous_small,ation the design already carries. The defensible reading is that rank~1 is resolved by this design and the identity of ranks two and three is
-supplement,1042,3,3.0,ambiguous_small,"o and three is not, under either perturbation --- which is why Figure~3 is presented as a map of where influence concentrates rather than as"
+supplement,1042,1,1.0,ambiguous_small,"rries. The defensible reading is that, under both perturbations, rank~1 was more stable than the identity of ranks two and three, and the ful"
+supplement,1042,3,3.0,ambiguous_small,full ordering is not resolved by this design --- which is why Figure~3 is presented as a map of where influence concentrates rather than as
 supplement,1044,318,318.0,none,"e locked screen reproduces the published indices exactly --- the same 318 (cell, output, input) rows with $\mu^{*}$ identical to double precisi"
 supplement,1052,100,100.0,guard,"f the main manuscript. A separate companion technical monograph, over 100 pages, is archived with the code and data in the Zenodo deposit. It c"
 supplement,1054,0.26,0.26,ambiguous_small,"l-test selection rationale, the calibration trace for the empirical \{0.26, 0.60, 0.95\} ARDS-severity mapping, or the bit-exact reproduction pr"
@@ -5775,13 +5775,13 @@ supplement,1135,0.879,0.879,guard,"erity sweep at midrange Morris inputs extends
 supplement,1135,0.946,0.946,guard,"weep at midrange Morris inputs extends the empirical band to $[0.879, 0.946]$, almost entirely on the low edge, and distinguishes two divergence"
 supplement,1136,95,95.0,none,"x agreement on Morris $\mu^{*}$ rankings, with paired-input bootstrap 95~\% CIs (\S ); ventilation-dose mismatch between the tw"
 supplement,1137,15,15.0,ambiguous_small,"bf{Cornish et al.\ 2026 per-channel cross-mapping.} Each of Cornish's 15 channels mapped against the atlas's six steady-state outputs, support"
-supplement,1138,20,20.0,ambiguous_small,lume mechanism and sex-conditioned setup parameters.} Re-examines the 20-event male-only divergence cluster from Section~
+supplement,1138,20,20.0,ambiguous_small,ume dependence and sex-conditioned setup parameters.} Re-examines the 20-event male-only divergence cluster from Section~
 supplement,1140,17,17.0,ambiguous_small,ee input sets.} A RandomForest~+~SHAP analysis recovers those sets in 17 of 18 pooled cases on the same Pulse-generated data --- a set overlap
 supplement,1140,18,18.0,none,"ut sets.} A RandomForest~+~SHAP analysis recovers those sets in 17 of 18 pooled cases on the same Pulse-generated data --- a set overlap, not"
 supplement,1142,60,60.0,ambiguous_small,"\textbf{Steady-state window cross-output drift audit.} Confirms the [60, 120]~s window is valid for HR, MAP, and PaCO$_2$ across the full swe"
 supplement,1142,120,120.0,guard,"xtbf{Steady-state window cross-output drift audit.} Confirms the [60, 120]~s window is valid for HR, MAP, and PaCO$_2$ across the full sweep; o"
 supplement,1142,1.0,1.0,ambiguous_small,"only PaO$_2$ and delivered Vt are window-sensitive, at the FiO$_2$ = 1.0 and high-oscillation extremes. \\ \bottomrule"
-supplement,1147,1.0,1.0,ambiguous_small,"ction (VC-AC trigger-lockout, transient hyperoxia regime at FiO$_2$ = 1.0, sex-stratified solver divergence with blood-volume mechanism) are su"
+supplement,1147,1.0,1.0,ambiguous_small,"ction (VC-AC trigger-lockout, transient hyperoxia regime at FiO$_2$ = 1.0, sex-stratified solver divergence with blood-volume dependence) are s"
 supplement,1147,300,300.0,guard,"tions \S (VC-AC full protocol), \S (hyperoxia 300-second convergence full protocol), and \S (sex-stratifie"
 supplement,1156,4,4.0,ambiguous_small,\texttt{xhigh} thinking-effort default: (\texttt{claude-opus-4-7}) for the initial drafting and a manuscript-formatting pass;
 supplement,1156,7,7.0,ambiguous_small,exttt{xhigh} thinking-effort default: (\texttt{claude-opus-4-7}) for the initial drafting and a manuscript-formatting pass;
