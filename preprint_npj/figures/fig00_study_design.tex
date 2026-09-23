@@ -14,17 +14,20 @@
 \begin{document}
 \begin{tikzpicture}[
   box/.style={draw, rounded corners, align=center, inner sep=5pt, font=\small, text width=0.66\textwidth},
+  half/.style={draw, rounded corners, align=center, inner sep=5pt, font=\small, text width=0.30\textwidth},
   arr/.style={-{Stealth[length=2mm]}, semithick},
   lbl/.style={font=\scriptsize\itshape, midway, right=1.5mm}
 ]
 \node[box] (inputs) {\textbf{7 operational inputs}\\[1pt] {\footnotesize HR, SBP, DBP, RR, Vt, FiO$_2$, PEEP}};
 \node[box, below=11mm of inputs] (cells) {\textbf{8 cells = 4 severity scenarios $\times$ 2 sexes}\\[1pt] {\footnotesize severity (impairment fraction): S1 healthy 0.00, S2 mild 0.26, S3 moderate 0.60, S4 severe 0.95}\\[1pt] {\footnotesize $\times$ 2 sexes (male, female)\quad$\Rightarrow$\quad$8 \times 160 = 1{,}280$ simulations}};
-\node[box, below=11mm of cells] (detector) {\textbf{Four-flag steady-state classifier}\\[1pt] {\footnotesize clamped, diverged, implausible, not-steady-state}};
-\node[box, below=11mm of detector] (outputs) {\textbf{6 steady-state outputs}\\[1pt] {\footnotesize HR, MAP, Vt delivered, SpO$_2$, PaO$_2$, PaCO$_2$}};
-\node[box, below=11mm of outputs] (atlas) {\textbf{Per-cell traffic-light curation}\\[1pt] \textbf{and review-priority map}};
+\node[box, below=11mm of cells] (outputs) {\textbf{6 steady-state outputs}\\[1pt] {\footnotesize HR, MAP, Vt delivered, SpO$_2$, PaO$_2$, PaCO$_2$}};
+\node[box, below=11mm of outputs] (detector) {\textbf{Four-flag steady-state classifier}\\[1pt] {\footnotesize clamped, diverged, implausible, not\_steady\_state}};
+\node[half, below=11mm of detector.south west, anchor=north west] (morris) {\textbf{Morris $\mu^{*}$ and $\sigma$}\\[1pt] {\footnotesize per input, output and cell, from clean pairs}};
+\node[half, below=11mm of detector.south east, anchor=north east] (atlas) {\textbf{Per-cell traffic-light curation and review-priority map}};
 \draw[arr] (inputs) -- node[lbl, align=left]{Morris sampling:\\20 trajectories $\times$ 8 $=$ 160 runs/cell} (cells);
-\draw[arr] (cells) -- node[lbl]{classify every run} (detector);
-\draw[arr] (detector) -- node[lbl]{steady-state means} (outputs);
-\draw[arr] (outputs) -- (atlas);
+\draw[arr] (cells) -- node[lbl]{steady-state means} (outputs);
+\draw[arr] (outputs) -- node[lbl]{classify every run} (detector);
+\draw[arr] (morris.north |- detector.south) -- (morris.north);
+\draw[arr] (atlas.north |- detector.south) -- (atlas.north);
 \end{tikzpicture}
 \end{document}
