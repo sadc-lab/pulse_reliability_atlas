@@ -111,6 +111,19 @@ screen effect alongside a perturbation the design already carries.
 under either perturbation. That is why Figure 3 is a map of where influence
 concentrates, not a stable ordering.
 
+> **Correction (2026-09-23).** "Rank 1 is resolved by this design" overstated
+> what the two perturbations show. It generalises from the 30 like-for-like
+> combinations to all 48, although rank 1 changes in 7 of the other 18
+> (`results/s034/rank_comparison.csv`, `top1_preserved`): six where FiO₂ becomes
+> estimable and rank-1 for PaO₂ and SpO₂ in S1\_M, S1\_F and S4\_F, and S1\_M
+> PaCO₂, where Vt displaces RR. This is the 41 of 48 above; five
+> rank-1 entries rest on a single elementary-effect pair; the seed comparator
+> covers one cell; and no trajectory-count convergence analysis was run. The
+> published wording is now comparative and scoped: rank 1 **was more stable**
+> than the ordering below it under these perturbations, and the full ordering is
+> not resolved by this design (`paper.tex` §2.2, `supplement.tex` §S13). The
+> measurements above are unchanged. The original sentence is kept as written.
+
 ## The framing is mandatory, and it is in the script and the supplement
 
 The 471 runs the relaxed screen admits are exactly those whose **only** flag is
