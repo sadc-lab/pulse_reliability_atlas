@@ -707,10 +707,10 @@ had been overwritten, and its hashes were unrecoverable.
 
 | artefact | SHA-256 | bytes |
 |---|---|---|
-| `preprint_npj/build/paper.pdf` | `3b1956f6931c3faf4d5adb4007aecabd2361113c9ac07cbdc8a9315ccc9f8ae7` | 631,684 |
-| `preprint_npj/build/paper.docx` | `a63ef674cecb9625f9d149bec983d12a9bd29e093c52a9986c49ab035e4df202` | 974,397 |
-| `preprint_npj/build/supplement.pdf` | `7542a0bac4e72c63c56d702bc2d17ccd0198b480c65cfb7c8f0dbb6bae43c69a` | 726,019 |
-| `preprint_npj/build/supplement.docx` | `44e2c2960a622186f08e3382444757e7f93d30e2fcd13affd8d507df9728d307` | 747,728 |
+| `preprint_npj/build/paper.pdf` | `f2f3095b0f87c07f86336012a84d1e4b5ccba1683cb149757ec9e735075cc305` | 631,787 |
+| `preprint_npj/build/paper.docx` | `160dde996d77ce268c845143bb85c466a130a84ed6d122e15c6dfc666e3e5c78` | 974,441 |
+| `preprint_npj/build/supplement.pdf` | `1ced944fdde3be02f019a0ff0387699053ef0c925768e8d85cbbb0ddc0fbc83d` | 726,019 |
+| `preprint_npj/build/supplement.docx` | `a35fff27d4cf11340e4e88a06f23cd7846ba9fcbe88b1094d0b40a3dc9ae5a66` | 747,727 |
 
 The monograph was rebuilt at the same commit and **is not part of this
 dispatch**. Its hashes are recorded so that build stays identifiable:
@@ -724,7 +724,7 @@ bytes).
 `paper.tex` or `supplement.tex` — including the still-open abstract decision
 recorded below — invalidates them, and they must be re-frozen before the send.
 
-⚠️ **The supplement's two hashes changed at re-freeze 13, and again at 14, 15, 16 and 17, although
+⚠️ **The supplement's two hashes changed at re-freeze 13, and again at 14, 15, 16, 17 and 18, although
 `supplement.tex` did not.** Verified: `git diff 3765872..HEAD --
 preprint_npj/supplement.tex` is empty, the supplement still renders 64 pages,
 and every structural check passes. The cause is the build, not the content:
@@ -738,7 +738,7 @@ and 17 for a real reason, unlike the supplement's: `manuscript.md` was edited
 (`1d684c7`, then `f9e3bb7`) and rebuilt with `scripts/build_paper.ps1`.
 `build_npj.ps1` alone never rebuilds it.
 
-**Re-frozen seventeen times.** The first three were one-token abstract edits
+**Re-frozen eighteen times.** The first three were one-token abstract edits
 made before the files left the machine; the rest leave the abstract untouched:
 
 | | source commit | what changed | words |
@@ -761,6 +761,7 @@ made before the files left the machine; the rest leave the abstract untouched:
 | re-freeze 15 | `4fc3ee8` | §2.1: design total 10{,}240 added and guarded; the log-test claim aligned on the monograph | 149 / 146 |
 | re-freeze 16 | `8f2adc2` | seven commits from `1d684c7`, all author decisions. Morris called "a global screening method that varies one input at a time"; the Berlin Definition cited in Table 1 (paper list 26 → 27); H1–H4 pointed to Methods §4.6; **one scope change**: the Berlin calibration bounded to the male reference body; "a linear, additive response"; §2.2's pair-count and screen sentences rewritten, with the cell labels defined in Table 1; Figure 1 redrawn in the order the code runs, with the Morris branch | 149 / 146 |
 | re-freeze 17 | `c9fd377` | Methods §4.3: "The impairment fractions are therefore anchored…" for "An atlas cell is therefore anchored…", completing the male-body scoping. The monograph was aligned in `f9e3bb7` (6 loci; not dispatched) | 149 / 146 |
+| re-freeze 18 | `34fcef2` | Figure 1 caption: "clean pairs" defined where the figure first uses them (124 → 144 words) | 149 / 146 |
 
 Re-freezes 9 and 10 are the two that shortened a section rather than a
 sentence: **the Introduction goes 936 → 926 words**, and the abstract is
