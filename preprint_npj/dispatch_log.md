@@ -712,12 +712,14 @@ had been overwritten, and its hashes were unrecoverable.
 | `preprint_npj/build/supplement.pdf` | `c172582ec4231e32ce03a26c85a859212c044a8e8247d435e7c6ee8794c252bb` | 725,734 |
 | `preprint_npj/build/supplement.docx` | `d29775f66d424113861e963b96d21a41a4b6a27337d9a199a52953f1267361d6` | 747,701 |
 
-The monograph was rebuilt at the same commit and **is not part of this
-dispatch**. Its hashes are recorded so that build stays identifiable:
+The monograph **is not part of this dispatch**. It was last rebuilt after
+re-freeze 21, at `78396c0`, which aligned it on the paper's re-freeze 20
+and 21 wording; the dispatch artefacts above are unaffected. Its hashes are
+recorded so that build stays identifiable:
 `preprint/build/manuscript.pdf`
-`d3b39cdf150b8ab449ab6a6e01400e3af2e88ad7c85acfa027cdf046f64fe1f1` (1,357,868
+`3e537aa4f4eb4c9ebb4aaed1d98151060b78549c7a1101c9d7abfecfacffe797` (1,358,162
 bytes) and `preprint/build/manuscript.docx`
-`b8407dce95e4f9e15779dfa8f441c751fee2c404d1aa3e08dc360c22a2a7287f` (1,016,444
+`d3a93dc76c8c22744da39a7815faeed1eff98a7126370e4cd6dc3f251f424e23` (1,016,561
 bytes).
 
 ⚠️ **These hashes are valid for this build only.** Any further edit to
@@ -738,8 +740,9 @@ never reproduces the previous digest. `build/` is untracked, so the earlier
 artefacts cannot be recovered for comparison. Read a changed supplement hash as
 *rebuilt*, never as *edited*; `supplement.tex` in git is the authority on
 whether the content moved. The monograph hashes above changed at re-freezes 16
-and 17 for a real reason, unlike the supplement's: `manuscript.md` was edited
-(`1d684c7`, then `f9e3bb7`) and rebuilt with `scripts/build_paper.ps1`.
+and 17, and again after 21, for a real reason, unlike the supplement's:
+`manuscript.md` was edited (`1d684c7`, then `f9e3bb7`, then `78396c0`) and
+rebuilt with `scripts/build_paper.ps1`.
 `build_npj.ps1` alone never rebuilds it.
 
 **Re-frozen twenty-one times.** The first three were one-token abstract edits
