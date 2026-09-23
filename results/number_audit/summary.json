@@ -4,7 +4,7 @@
     "probes": 39
   },
   "coverage_is_by_value_not_by_occurrence": true,
-  "guard_pinned_literals": 1063,
+  "guard_pinned_literals": 1067,
   "ledger": {
     "anchors_expected": 394,
     "anchors_run": 394,
@@ -61,19 +61,19 @@
     },
     "paper": {
       "buckets": {
-        "ambiguous_small": 301,
-        "guard": 167,
+        "ambiguous_small": 302,
+        "guard": 168,
         "ledger": 15,
         "none": 38
       },
       "distinct_unbucketed_values": 30,
-      "distinct_values": 144,
+      "distinct_values": 145,
       "excluded": {
         "file_path": 3,
         "line_reference": 0,
         "org_identifier": 12,
         "product_version": 2,
-        "ref_or_machinery": 229,
+        "ref_or_machinery": 233,
         "tex_comment": 99,
         "typeset_length": 11,
         "url_or_doi": 0,
@@ -83,8 +83,8 @@
       "path": "preprint_npj/paper.tex",
       "recall": {
         "accounting_closes": true,
-        "literals_after_masking": 523,
-        "literals_in_raw_text": 569,
+        "literals_after_masking": 525,
+        "literals_in_raw_text": 571,
         "literals_removed_per_rule": {
           "file_path": 0,
           "line_reference": 0,
@@ -97,9 +97,9 @@
           "version": 0
         },
         "removed_by_masks": 46,
-        "retained_plus_year_like": 523
+        "retained_plus_year_like": 525
       },
-      "retained_occurrences": 521
+      "retained_occurrences": 523
     },
     "supplement": {
       "buckets": {
@@ -146,10 +146,10 @@
   },
   "population_rule": "see the module docstring; exclusions are counted per artefact",
   "totals": {
-    "ambiguous_small_occurrences": 3149,
-    "distinct_values": 730,
-    "not_demonstrably_covered_occurrences": 4392,
-    "retained_occurrences": 5790,
+    "ambiguous_small_occurrences": 3150,
+    "distinct_values": 731,
+    "not_demonstrably_covered_occurrences": 4393,
+    "retained_occurrences": 5792,
     "unbucketed_distinct_values": 418,
     "unbucketed_occurrences": 1243
   }

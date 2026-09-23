@@ -14,19 +14,19 @@ paper,14,1,"is-4 statistics differed only at floating-point round-off ($\sim 10^
 paper,163,1,"le body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both weights are U.S.\ Centers for Disease Control and Preventio"
 paper,"1{,}400",1,"rion (Figure~ b). Three of those 40 plateau above 1{,}400~mmHg, beyond the sea-level barometric pressure of 760~mmHg and so phy"
 paper,22,1,"s window was preregistered before any sweep data was collected, and a 22-run pilot on the healthy-male cell verified five preregistered gating"
-paper,25,1,"index is computed from 7 of the 20 possible elementary-effect pairs, 25 rest on three or fewer, and 9 rest on a single pair --- five of those"
+paper,25,1,"index is computed from 7 of the 20 possible elementary-effect pairs, 25 rest on three or fewer, and 9 rest on a single pair, five of those be"
 paper,36,1,"threshold on 139 of 320 runs and none of those 8 falls there, against 36 of 320 runs and 3 of the 8 in S3. That map is therefore bounded by ru"
 paper,37,1,"d below, three of whose members are drift-converged and three not, so 37 of 44 (84.1~\%) converge below the supplement's physiology-anchored 7"
 paper,"3{,}348",1,"'s lower-bound rejection format. Replaying both pattern sets over all 3{,}348 recorded setup logs reclassifies no run of this sweep. This log-based"
 paper,4.1,1,"budget its own protocol declared, exceeding it by a factor of 2.4 to 4.1 on these two readings, and up to 5.5 on the wider set in Supplement~\"
 paper,4.8,1,"t and code. The first was always a Claude model (Anthropic; , 4.8 and 5 in succession), the second Google Gemini Pro 3.1 and later Open"
 paper,5.5,1,"ceeding it by a factor of 2.4 to 4.1 on these two readings, and up to 5.5 on the wider set in Supplement~\S\, , and is reporte"
-paper,70,1,"ome correlation, but over the \emph{mismatch} between two equal-sized 70~kg bodies sharing one ventilator, scored against a single composite s"
+paper,70,1,"at work, however, is over the \emph{mismatch} between two equal-sized 70~kg bodies sharing one ventilator, scored against a single composite s"
 paper,71,1,"refore share essentially the same blood volume per kilogram ($\approx$71~mL\,kg$^{-1}$, within standard clinical estimates~ ),"
 paper,8.4,1,"et, 4{,}082~mL Pulse setup-time floor on this body; reductions of 0, $8.4$ and $15.0~\%$ beneath each tick), the $y$-axis the divergence count"
 paper,84.1,1,"hree of whose members are drift-converged and three not, so 37 of 44 (84.1~\%) converge below the supplement's physiology-anchored 700~mmHg ceil"
-paper,86,1,"utes 3{,}996~mL for the female reference body (dashed vertical line), 86~mL below the male floor, so a one-way BV transplant cannot make the t"
-paper,93,1,}280 simulations). Sensitivity is skewed: three inputs carry a median 93~\% of each output's total. A four-flag classifier surfaces failure mo
+paper,86,1,"utes 3{,}996~mL for the female reference body (dashed vertical line), 86~mL below the male floor, so a one-way blood-volume transplant cannot"
+paper,93,1,}280 simulations). Sensitivity is skewed: three inputs carry a median 93~\% of each output's total. A four-flag classifier reveals failure mod
 paper,95,1,"change per full-range move of its input. Indices carry non-parametric 95~\% bootstrap confidence intervals from 1{,}000 trajectory-level resam"
 paper,99.9,1,f the mean \emph{and} a mean within 0.1~\% of a hard bound --- $\geq$~99.9~\% for the SpO$_2$ ceiling --- a rule written to catch a solver that
 supplement,95,17,in the first 48~h of ventilation; its cutoffs place approximately the 95th percentile at 70~mmHg~ . A 120~mmHg ceiling therefore
@@ -278,9 +278,9 @@ monograph,5000,6,irtual patient. Pulse's own ventilator-validation tables report
 monograph,75,6,-:|---:|---:|---:|---| | 100-to-120 | 3 | 9 | 20.44 | 15.74 | +4.70 | 75 → 80 (midpoint 77.5) | | 110-to-90 | 15 | 16 | 24.94 | 17.26 | +7.68
 monograph,94,6,ble 5) & Maps to atlas output? \\ \midrule Chloride & 24 / 94 & 47 / 94 & No (electrolyte) \\ Sodium & 21 / 94 & 46 /
 monograph,0.1,5,"ment, 2026-04-22-b, tightened the flatline-bound tolerance from 1 % → 0.1 % BEFORE any atlas data was collected). Clamp regex empirically calib"
-monograph,0.4,5,"ed below and has no centre) under VC-AC + Vt 6 mL/kg + PEEP 10 + FiO2 0.4; Pulse's documented {0.3, 0.6, 0.9} defaults give 199 / 150 / 119 m"
+monograph,0.4,5,"ed below and has no centre) under VC-AC + Vt 6 mL/kg + PEEP 10 + FiO2 0.4 on the male reference body; Pulse's documented {0.3, 0.6, 0.9} defa"
 monograph,11.3,5,"match. 7. PC-AC delivered Vt deviates from the physical reference by 11.3 – 25.3 % across healthy / restrictive / obstructive lung profiles, ag"
-monograph,119,5,"2 0.4; Pulse's documented {0.3, 0.6, 0.9} defaults give 199 / 150 / 119 mmHg at the same settings. * **Complementarity with Cornish et al."
+monograph,119,5,"body; Pulse's documented {0.3, 0.6, 0.9} defaults give 199 / 150 / 119 mmHg at the same settings. * **Complementarity with Cornish et al."
 monograph,2.5,5,"60, 120] s (13 points). Detector enforces 13 points / clean run. ### 2.5 Morris sampling *Why Morris elementary effects is the right screenin"
 monograph,25.3,5,"7. PC-AC delivered Vt deviates from the physical reference by 11.3 – 25.3 % across healthy / restrictive / obstructive lung profiles, against 0"
 monograph,3.3,5,"preregistered hypotheses, quoted verbatim in §2.0 and evaluated in §§3.3 – 3.6. | | T1.\* / T2.\* / T3.\* / T5.\* | Anchor identifiers in the"
@@ -294,7 +294,7 @@ monograph,0.47,4,m only 3–4 clean elementary-effect pairs. The pairs taken at 
 monograph,0.85,4,"ersed between the two severity bands (female 14/19 vs male 5/19 in (0.85, 0.91]; female 5/9 vs male 8/9 in (0.91, 0.945]) — the sex effect i"
 monograph,0.94,4,"), with μ\* in the 84 – 147 mmHg range and σ / μ\* between 0.64 and 0.94. This is the regime where venous admixture caps oxygenation gain pe"
 monograph,190,4,"ction standard (0.21 vs 0.28), height bounds (151 – 175.5 cm vs 163 – 190 cm), and the Harris–Benedict basal metabolic rate, which the engine's"
-monograph,199,4,"EEP 10 + FiO2 0.4; Pulse's documented {0.3, 0.6, 0.9} defaults give 199 / 150 / 119 mmHg at the same settings. * **Complementarity with Cor"
+monograph,199,4,"le reference body; Pulse's documented {0.3, 0.6, 0.9} defaults give 199 / 150 / 119 mmHg at the same settings. * **Complementarity with Cor"
 monograph,4.4,4,"ol, and Hoeffding / Holm–Bonferroni (external; used by Cornish 2026, §4.4). First appearance of each test in §3 is therefore immediately interp"
 monograph,4.7,4,e infrastructure recommendations offered to the Pulse maintainers (§4.7). --- ## Reader's roadmap *This paper is written for a cross-disci
 monograph,0.005,3,"t** (a 9-run high-resolution sweep, 2026-04, testing 0.93 – 0.97 in 0.005 steps): 0.93 – 0.945 all FAIL (4 runs), 0.95 – 0.97 all PASS (5 run"
