@@ -387,7 +387,7 @@ monograph,0.245,1,4 & 0.009 & 0.017 & 0.119 & \\ S3 & PaO2 & 8.82 & 6.57 & 12.8 
 monograph,0.28,1,"ine formula coefficient 50.0 vs 45.5), fat-fraction standard (0.21 vs 0.28), height bounds (151 – 175.5 cm vs 163 – 190 cm), and the Harris–Bene"
 monograph,0.305,1,emp & Sig.? (BH-FDR) \\ \midrule S1 & HR & 5.02 & 3.91 & 8.56 & 0.305 & \\ S1 & MAP & 0.58 & 1.38 & 2.78 & 0.995 & \\ S1 & Vt &
 monograph,0.32,1,n ceiling (definitional) | | PaO2 (mmHg) | 20 | 600 | Lower: SpO2 ≈ 0.32 on the standard Severinghaus 1979 dissociation curve [@severinghaus19
-monograph,0.326,1,"guard becomes false). **Median (Vt_cv_original − Vt_cv_lockout) = +0.326** (pre-registered threshold ≥ 0.04, exceeded 8×); **proportion of l"
+monograph,0.326,1,"guard becomes false). **Median (Vt_cv_original − Vt_cv_lockout) = +0.326** (decision threshold ≥ 0.04, exceeded 8×); **proportion of locked"
 monograph,0.333,1,extbf{$<$ 0.001} & * \\ \midrule S3 & HR & 4.77 & 3.86 & 8.61 & 0.333 & \\ S3 & MAP & 0.94 & 0.98 & 2.02 & 0.538 & \\ S3 & Vt &
 monograph,0.35,1,"70, 1.00] \\ S2 & PaO2 & 0.93 & [0.41, 1.00] \\ S2 & PaCO2 & 0.89 & [0.35, 1.00] \\ \midrule S3 & HR & 0.96 & [0.70, 1.00] \\ S3 & MAP & 0"
 monograph,0.40,1,"gically incompatible with a viable 60 s steady-state — e.g. SpO2 = 0.40, which on the standard Severinghaus 1979 dissociation curve corres"
