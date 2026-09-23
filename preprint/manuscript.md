@@ -1089,7 +1089,8 @@ elementary-effect rankings are directly comparable.*
 
 The Morris elementary-effects design [@morris1991], with the
 μ\* refinement of [@campolongo2007],
-is an efficient one-at-a-time screening method that ranks inputs by
+is an efficient global screening method that varies one input at a
+time along randomised trajectories; it ranks inputs by
 overall importance (μ\*, the mean of absolute elementary effects)
 and flags non-linearity or input-input interaction (σ, the standard
 deviation of those effects), at a small fraction of the cost of a
