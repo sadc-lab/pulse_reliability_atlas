@@ -161,7 +161,7 @@ Seven user-facing operational inputs --- heart rate (HR), systolic and diastolic
 \toprule
 Term & Definition \\
 \midrule
-\textbf{Scenario} & One of the four impairment-fraction settings spanning a healthy baseline and three ARDS severities: \textbf{S1} healthy baseline (impairment 0.00), \textbf{S2} mild (0.26), \textbf{S3} moderate (0.60), \textbf{S4} severe (0.95). The mild/moderate/severe labels are Berlin Definition bands, set by the arterial PaO$_2$/FiO$_2$ ratio at PEEP $\geq 5$~cmH$_2$O. The impairment fractions are Pulse's own severity knob, calibrated so the engine's PaO$_2$/FiO$_2$ at a fixed reference ventilation falls in the matching band (Supplement~\S\,\ref{sec:s5-berlin}; Methods~\S\ref{sec:methods-sweep}). \\
+\textbf{Scenario} & One of the four impairment-fraction settings spanning a healthy baseline and three ARDS severities: \textbf{S1} healthy baseline (impairment 0.00), \textbf{S2} mild (0.26), \textbf{S3} moderate (0.60), \textbf{S4} severe (0.95). The mild/moderate/severe labels are Berlin Definition bands, set by the arterial PaO$_2$/FiO$_2$ ratio at PEEP $\geq 5$~cmH$_2$O~\cite{ards2012}. The impairment fractions are Pulse's own severity knob, calibrated so the engine's PaO$_2$/FiO$_2$ at a fixed reference ventilation falls in the matching band (Supplement~\S\,\ref{sec:s5-berlin}; Methods~\S\ref{sec:methods-sweep}). \\
 \addlinespace
 \textbf{Cell} & A single (scenario, sex) slice of the atlas: one severity scenario combined with one reference patient body (\textbf{M} male, \textbf{F} female), i.e.\ a row of the curation map (Figure~\ref{fig:traffic_light}). The four scenarios crossed with the two bodies give $4 \times 2 = 8$ cells, each containing 160 simulations (runs). \\
 \addlinespace
