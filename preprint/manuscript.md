@@ -85,8 +85,8 @@ the permutation null; input-importance rankings are largely
 preserved across sexes (Spearman ρ 0.75 – 1.00 in S2 / S3).
 
 **Conclusion.** The atlas provides a per-cell traffic-light reliability
-map for adult Pulse 4.3.1, identifies sex as a previously uncharacterized
-reliability-sensitivity axis, yields two operator-actionable corrections
+map for adult Pulse 4.3.1, identifies a previously uncharacterized
+sex-stratified reliability-sensitivity axis, yields two operator-actionable corrections
 (setting the VC-AC inspiration trigger pressure to −2 cmH2O for
 tidal-volume determinism, and extending the steady-state window to
 300 s of total simulated time for FiO2 = 1.0 hyperoxia), delivers an
@@ -216,7 +216,7 @@ below; this section is the exhaustive findings digest.*
   oxygen fraction at **0.9996** (195 runs; see §3.4). It is neither silent nor
   a setup event, so it neither enters `clamped` nor bears on H2.
 
-**Sex as a reliability axis (H4).**
+**Sex-stratified reliability (H4).**
 
 * Under Benjamini–Hochberg FDR control (q = 0.05), **5 of 24** cell × output
   Wasserstein distances survive the permutation null — **all five
@@ -344,7 +344,7 @@ sweep.*
   classifier bound, not a Pulse oxygenation overshoot. A supplementary `HARD_BOUNDS_PHYSIOLOGICAL`
   reclassification (PaO2 upper 700 mmHg) is reported as a sensitivity
   analysis in §3.8.
-* **Sex as a reliability-sensitivity axis** — the first sex-stratified
+* **A sex-stratified reliability-sensitivity axis** — the first male–female
   reliability comparison in the Pulse literature. Under
   Benjamini–Hochberg FDR control (q = 0.05), 5 of 24 cell × output
   Wasserstein tests survive the permutation null, *all five in
@@ -2150,7 +2150,7 @@ between the two bodies — but it does so as a body-mass difference,
 not as a sex difference.
 
 **Causal lever identified ([S018](#s018), 2026-05-13).** *In one sentence:
-forcing the male surrogate's BV down to the female-equivalent range
+forcing the male surrogate's BV down towards the female value
 eliminates the divergence cluster.* We re-executed the 20
 originally-diverged male inputs, this time injecting an explicit
 `BloodVolumeBaseline` override via
@@ -2244,7 +2244,7 @@ column is the `diverged` column of Table 1, isolated for direct
 sex comparison.
 **Key takeaway:** male cells diverge at 4 – 8 runs each (3.1 %
 overall); female cells, run on the *identical* input grid, never
-diverge in this regime — the first quantitative sex-specific
+diverge in this regime — the first quantitative sex-stratified
 reliability finding for Pulse 4.3.1.
 
 The same 160 Morris input points were submitted to both M and F cells.
@@ -2256,7 +2256,7 @@ Yet the divergence rate is **2.5 % in S1_M, S2_M, and S3_M** (4 / 160
 each), **5.0 % in S4_M** (8 / 160), and **0 % in every female cell**.
 The overall male rate is 20 / 640 = 3.1 %; the female rate is 0 / 640.
 
-This is the first quantitative sex-specific reliability finding for
+This is the first quantitative sex-stratified reliability finding for
 Pulse 4.3.1, and is consequential for any device-validation pipeline
 that uses Pulse as a virtual patient. **All 20 divergences occur on
 the male surrogate; the female surrogate, run on the *identical*
@@ -2532,8 +2532,9 @@ experiments (`Pulse_translation_new` female-surrogate engine tests
 and male/female side-by-side verification) established that the
 female surrogate produces physiologically plausible output across all
 four scenarios, independent of this sweep. The sex effects we observe
-above therefore reflect real engine-level sex-specific physiology,
-not miscalibration of the female patient model.
+above therefore reflect the engine's behaviour on two reference bodies
+that differ in sex, mass and height at once, not a miscalibration of
+the female patient model.
 
 *Figure 5 (`fig05_h4_spearman_mu_star`) — at a glance.*
 **What:** Spearman rank correlation ρ between male and female Morris
@@ -3659,9 +3660,9 @@ dyssynchrony (F-004) via an explicit
 as a transient hyperoxia regime (F-003), with the 300 s plateau
 landing ~ 20 mmHg below the alveolar-gas-equation prediction
 ([S021](#s021); median 643 mmHg vs ~ 663 mmHg predicted) — an
-undershoot rather than an oxygenation defect. We also established patient sex as a
-previously uncharacterized, *regime-dependent* reliability-sensitivity
-axis: concentrated on gas-exchange outputs under permutation-based BH-FDR
+undershoot rather than an oxygenation defect. We also established a
+previously uncharacterized, *regime-dependent*, sex-stratified
+reliability-sensitivity axis: concentrated on gas-exchange outputs under permutation-based BH-FDR
 control (5 of 24 cell × output Wasserstein survivors, §3.6) and on
 the male input-extreme divergence cluster, which depends on Pulse's
 blood-volume baseline ([S018](#s018); 20 / 20 → 0 / 20 BV
