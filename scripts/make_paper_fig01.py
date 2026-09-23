@@ -193,7 +193,7 @@ def main() -> None:
     # to trail this line went with the codes it decoded (2026-08-12); the
     # segments now name themselves.
     axb.set_title(
-        "(b)  Classification drivers over the 48 cells",
+        "(b)  Classification drivers over the 48 combinations",
         loc="left", fontsize=8)
 
     fig.tight_layout()

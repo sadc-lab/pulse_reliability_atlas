@@ -99,7 +99,9 @@ BUCKETS_SRC = REPO / "scripts" / "sobol_ci_buckets.py"
 # entries; Figure 3 draws every entry, so its outlined-cell count is a DIFFERENT
 # population and must be measured on the full table, not on the top-three one.
 MORRIS = REPO / "results" / "morris_indices.parquet"
-CAPTION_OPEN = "White cells mark combinations with no estimable"
+# "tiles", not "cells", since 2026-09-23: a heatmap square is a (cell, output)
+# combination, and "cell" is reserved for the (scenario, sex) slice of Table 1.
+CAPTION_OPEN = "White tiles mark combinations with no estimable"
 CAPTION_CLOSE = "Cell-label key"
 THRESHOLD_RE = re.compile(r"^PROMOTE_THRESHOLD\s*=\s*([\d.]+)", re.M)
 SEEDS_RE = re.compile(r"^SEEDS\s*=\s*\(([^)]*)\)", re.M)
@@ -253,7 +255,7 @@ def check(paper_text: str, df: pd.DataFrame) -> list[str]:
     except LookupError as exc:
         problems.append(str(exc))
         return problems
-    outlined_phrase = f"{NUM_WORDS[n_outlined].capitalize()} cells are outlined"
+    outlined_phrase = f"{NUM_WORDS[n_outlined].capitalize()} tiles are outlined"
     if outlined_phrase not in caption:
         problems.append(f"outlined: Figure 3 caption does not state {outlined_phrase!r}")
     return problems
@@ -308,8 +310,8 @@ def self_test(paper_text: str, df: pd.DataFrame) -> int:
     # CHECK E calibrated on its own count, measured from the full table
     # rather than assumed from the 144 the sentence above uses.
     n_out = int((pd.read_parquet(MORRIS)["n_clean_pairs"] == 1).sum())
-    old_out = f"{NUM_WORDS[n_out].capitalize()} cells are outlined"
-    new_out = f"{NUM_WORDS[n_out - 1].capitalize()} cells are outlined"
+    old_out = f"{NUM_WORDS[n_out].capitalize()} tiles are outlined"
+    new_out = f"{NUM_WORDS[n_out - 1].capitalize()} tiles are outlined"
     if old_out not in paper_text:
         failures.append(f"outlined-count target absent, cannot calibrate: {old_out!r}")
     elif not check(paper_text.replace(old_out, new_out, 1), df):
@@ -321,7 +323,7 @@ def self_test(paper_text: str, df: pd.DataFrame) -> int:
     for opener, stub, which in [
         (SENTENCE_OPEN, "The same mechanism sets how", "pair-count"),
         (TRIGGER_OPEN, "Influence is not", "trigger"),
-        (CAPTION_OPEN, "White cells mark combinations with no", "caption"),
+        (CAPTION_OPEN, "White tiles mark combinations with no", "caption"),
     ]:
         if not check(paper_text.replace(opener, stub, 1), df):
             failures.append(
