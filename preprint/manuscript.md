@@ -93,7 +93,7 @@ tidal-volume determinism, and extending the steady-state window to
 empirical Pulse-severity → P/F calibration table — Pulse's documented
 severity defaults all land in the Berlin *moderate* band under the
 low-tidal-volume reference ventilation used for that calibration
-(6 mL/kg actual body weight), and the table supplies corrected
+(6 mL/kg actual body weight, on the male reference body), and the table supplies corrected
 fractions that reach the intended mild, moderate and severe bands —
 and provides a per-cell curation and review-priority map for downstream
 machine-learning pipelines that train on Pulse-generated synthetic
@@ -253,7 +253,7 @@ below; this section is the exhaustive findings digest.*
 * **ARDS-severity → P/F calibration table** (ventilation-setting-dependent):
   impairment {0.26, 0.60, 0.95} lands P/F ≈ **256 / 150 / 96 mmHg** (near the
   Berlin mild and moderate band centres; just inside the severe band's
-  upper boundary, which is open-ended below and has no centre) under VC-AC + Vt 6 mL/kg + PEEP 10 + FiO2 0.4; Pulse's
+  upper boundary, which is open-ended below and has no centre) under VC-AC + Vt 6 mL/kg + PEEP 10 + FiO2 0.4 on the male reference body; Pulse's
   documented {0.3, 0.6, 0.9} defaults give 199 / 150 / 119 mmHg at the same
   settings.
 * **Complementarity with Cornish et al. 2026** ([S017](#s017)): their
@@ -372,8 +372,8 @@ sweep.*
   Empirical mapping {0.26, 0.60, 0.95} lands Pulse's per-lung severity
   scalar near the Berlin mild and moderate band centres, and just inside
   the severe band's upper boundary (P/F ≈ 256 / 150 / 96 mmHg), under VC-AC +
-  Vt 6 mL/kg actual body weight + PEEP 10 + FiO2 0.4; Pulse's
-  documented {0.3, 0.6, 0.9}
+  Vt 6 mL/kg actual body weight + PEEP 10 + FiO2 0.4 on the male reference
+  body; Pulse's documented {0.3, 0.6, 0.9}
   defaults yield 199 / 150 / 119 mmHg at the same settings (vs. published
   340 / 130 / 50 mmHg, Webb 2020) — calibration is *ventilation-setting-dependent*.
 
@@ -523,7 +523,8 @@ before any data was collected (preregistration §Inputs, §Scenarios,
   (the companion E10 boundary probe and its HR / RR initialisation
   probes).
 * **Scenarios** spanning healthy adult and three ARDS severities,
-  calibrated on the Berlin Definition's PaO2/FiO2 bands [@ards2012].
+  calibrated on the male reference body against the Berlin Definition's
+  PaO2/FiO2 bands [@ards2012].
   PALICC-2 (Pediatric Acute Lung Injury Consensus Conference, 2nd
   ed.) [@emeriaud2023] is cited as the parallel pediatric severity
   framework; note that PALICC-2 itself favours Oxygenation Index
@@ -974,8 +975,9 @@ reports anything of its own.
 ### 2.3 Scenarios and patients
 
 *The 4 scenarios × 2 patient surrogates = 8 cells of the atlas.
-Healthy and three ARDS severities, calibrated on the Berlin
-definition's PaO2 / FiO2 bands and bracketing Pulse's 0.91 – 0.945
+Healthy and three ARDS severities, calibrated on the male reference
+body against the Berlin definition's PaO2 / FiO2 bands and bracketing
+Pulse's 0.91 – 0.945
 solver-instability zone, each run on the male and female reference
 bodies. Ventilator mode is VC-AC only — the configuration
 Pulse's own validation table reports as most accurate (0.07 – 2.25 %
@@ -1006,8 +1008,8 @@ Phase-2 audit, [S020](#s020) follow-up). Under
 the reference ventilation setting that the Atlas sweep is built
 around — based on the ARDSnet low-tidal-volume framework (VC-AC,
 Vt = 6 mL/kg actual body weight, PEEP = 10 cmH2O, FiO2 = 0.4) —
-direct measurement of the documented mapping in a 28-run impairment
-sweep (`Pulse_translation_new`, original ARDS severity calibration)
+direct measurement of the documented mapping on the male reference
+body in a 28-run impairment sweep (`Pulse_translation_new`, original ARDS severity calibration)
 produced P/F ratios of
 199 / 150 / 119 mmHg — leaving Pulse's "mild" fraction (0.3) at the
 moderate / mild boundary and its "severe" fraction (0.9) well inside
