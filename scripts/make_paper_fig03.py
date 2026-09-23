@@ -79,7 +79,7 @@ offscale = s21[
 ]["PaO2_plateau_mmHg"]
 axB.plot([lo, hi], [lo, hi], color="#888888", linestyle="--", linewidth=1.0, label="$y = x$ (no change)")
 axB.axhline(600, color="#6A4C93", linestyle=":", linewidth=1.3, label="600 mmHg classifier bound")
-axB.axhline(663, color="#1a1a1a", linestyle="-.", linewidth=1.6, label=r"$\approx$ 663 mmHg AGE prediction")
+axB.axhline(663, color="#1a1a1a", linestyle="-.", linewidth=1.6, label=r"$\approx$ 663 mmHg alveolar gas equation")
 axB.set_xlim(lo, hi)
 axB.set_ylim(lo, hi)
 axB.annotate(
