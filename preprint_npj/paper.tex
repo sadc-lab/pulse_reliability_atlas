@@ -207,11 +207,11 @@ Flag & Fires when & What it means \\
 \end{table}
 \begin{table}[h]
 \centering
-\caption{\textbf{Per-cell flag breakdown across the eight scenario $\times$ sex cells.} The preregistered \texttt{clamped} category is empty in all eight cells, 0 of 1{,}280: no submitted setup input was refused. What varies between cells is not whether the engine fails but how much of the grid survives, from 144 of 160 clean runs in moderate ARDS on the male body down to 42 of 160 in the healthy female cell. Flag columns are independent presence counts, so row sums exceed \texttt{n\_total} when a run fires several; only \texttt{clean} is mutually exclusive of the four flag classes. Runs are resolved to a single primary flag for partition-style analyses by the priority order \texttt{clamped > diverged > implausible > not\_steady\_state > clean}. Flag definitions: Table~\ref{tab:flag_defs}. Cell-label key: Table~\ref{tab:terms}.}
+\caption{\textbf{Per-cell flag breakdown across the eight scenario $\times$ sex cells.} The preregistered \texttt{clamped} category is empty in all eight cells, 0 of 1{,}280: no submitted setup input was refused. What varies between cells is not whether the engine fails but how much of the grid survives, from 144 of 160 clean runs in moderate ARDS on the male body down to 42 of 160 in the healthy female cell. Flag columns are independent presence counts, so row sums exceed the run count when a run fires several; only \texttt{clean} is mutually exclusive of the four flag classes. Runs are resolved to a single primary flag for partition-style analyses by the priority order \texttt{clamped > diverged > implausible > not\_steady\_state > clean}. Flag definitions: Table~\ref{tab:flag_defs}. Cell-label key: Table~\ref{tab:terms}.}
 \label{tab:flag_summary}
 \begin{tabular}{lrrrrrr}
 \toprule
-Cell & n\_total & clamped & diverged & implausible & not\_steady\_state & clean \\
+Cell & Runs & clamped & diverged & implausible & not\_steady\_state & clean \\
 \midrule
 S1\_M & 160 & 0 & 4 & 11 & 107 & 49 \\
 S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\
