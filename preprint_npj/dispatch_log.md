@@ -700,17 +700,17 @@ had been overwritten, and its hashes were unrecoverable.
 | Source commit | `ff09c92` (see the freeze table below) |
 | Format | `.pdf` and `.docx` |
 | Artefacts to send | paper and supplement only |
-| Pages | 25 (paper) / 64 (supplement) |
+| Pages | 26 (paper; 25 until re-freeze 18) / 64 (supplement) |
 | Not sent | the companion technical monograph (122 pages), by the author's decision of 2026-09-19, repeating the decision of 2026-09-05 |
 
 ### Hashes, frozen before any further build
 
 | artefact | SHA-256 | bytes |
 |---|---|---|
-| `preprint_npj/build/paper.pdf` | `f2f3095b0f87c07f86336012a84d1e4b5ccba1683cb149757ec9e735075cc305` | 631,787 |
-| `preprint_npj/build/paper.docx` | `160dde996d77ce268c845143bb85c466a130a84ed6d122e15c6dfc666e3e5c78` | 974,441 |
-| `preprint_npj/build/supplement.pdf` | `1ced944fdde3be02f019a0ff0387699053ef0c925768e8d85cbbb0ddc0fbc83d` | 726,019 |
-| `preprint_npj/build/supplement.docx` | `a35fff27d4cf11340e4e88a06f23cd7846ba9fcbe88b1094d0b40a3dc9ae5a66` | 747,727 |
+| `preprint_npj/build/paper.pdf` | `b99991e514557be4d382f0a683e2271ee4c8b8297aec961075dc28acf7ba89eb` | 632,254 |
+| `preprint_npj/build/paper.docx` | `272103d1599b72df70b34ad8790ef25a4dbf2e13bf65e8e690dcebe76b8935d7` | 974,832 |
+| `preprint_npj/build/supplement.pdf` | `7aff3622bde40e161a5e25e65c0139d2e3c0f91b634cf2c4efeaa42b04696580` | 726,019 |
+| `preprint_npj/build/supplement.docx` | `c02161dc0bf46f49511f95b4e552d8339f701f8cd5248f4acbc39f7441266adc` | 747,727 |
 
 The monograph was rebuilt at the same commit and **is not part of this
 dispatch**. Its hashes are recorded so that build stays identifiable:
@@ -724,7 +724,7 @@ bytes).
 `paper.tex` or `supplement.tex` — including the still-open abstract decision
 recorded below — invalidates them, and they must be re-frozen before the send.
 
-⚠️ **The supplement's two hashes changed at re-freeze 13, and again at 14, 15, 16, 17 and 18, although
+⚠️ **The supplement's two hashes changed at re-freeze 13, and again at 14, 15, 16, 17, 18 and 19, although
 `supplement.tex` did not.** Verified: `git diff 3765872..HEAD --
 preprint_npj/supplement.tex` is empty, the supplement still renders 64 pages,
 and every structural check passes. The cause is the build, not the content:
@@ -738,7 +738,7 @@ and 17 for a real reason, unlike the supplement's: `manuscript.md` was edited
 (`1d684c7`, then `f9e3bb7`) and rebuilt with `scripts/build_paper.ps1`.
 `build_npj.ps1` alone never rebuilds it.
 
-**Re-frozen eighteen times.** The first three were one-token abstract edits
+**Re-frozen nineteen times.** The first three were one-token abstract edits
 made before the files left the machine; the rest leave the abstract untouched:
 
 | | source commit | what changed | words |
@@ -762,6 +762,7 @@ made before the files left the machine; the rest leave the abstract untouched:
 | re-freeze 16 | `8f2adc2` | seven commits from `1d684c7`, all author decisions. Morris called "a global screening method that varies one input at a time"; the Berlin Definition cited in Table 1 (paper list 26 → 27); H1–H4 pointed to Methods §4.6; **one scope change**: the Berlin calibration bounded to the male reference body; "a linear, additive response"; §2.2's pair-count and screen sentences rewritten, with the cell labels defined in Table 1; Figure 1 redrawn in the order the code runs, with the Morris branch | 149 / 146 |
 | re-freeze 17 | `c9fd377` | Methods §4.3: "The impairment fractions are therefore anchored…" for "An atlas cell is therefore anchored…", completing the male-body scoping. The monograph was aligned in `f9e3bb7` (6 loci; not dispatched) | 149 / 146 |
 | re-freeze 18 | `34fcef2` | Figure 1 caption: "clean pairs" defined where the figure first uses them (124 → 144 words) | 149 / 146 |
+| re-freeze 19 | `fa3e869` | eight terms made readable where figures and tables use them: σ defined; five screen names cut to two; "frozen at saturation", "blood volume" and VC-AC spelled out; Table 3 "Runs"; "tile" for a heatmap square (Figure 2b's false "48 cells" fixed); Figure 4b's "AGE" replaced. The paper reflows to **26 pages** | 149 / 146 |
 
 Re-freezes 9 and 10 are the two that shortened a section rather than a
 sentence: **the Introduction goes 936 → 926 words**, and the abstract is
@@ -793,8 +794,9 @@ frozen and any later build gets a new, superseding entry.**
 
 ### What changed since the version the four last received (`0f275e0`, 2026-09-05)
 
-**92 commits.** The paper goes from 24 to **25** rendered pages, the supplement
-from 56 to **64**. The monograph, which they did not receive in September
+**92 commits** up to the preparation build (`3765872`), 144 up to re-freeze 19.
+The paper goes from 24 to **26** rendered pages (25 until re-freeze 18), the
+supplement from 56 to **64**. The monograph, which they did not receive in September
 either, stands at 122.
 
 By tag, the 92 split as 27 `[AUDIT]`, 10 `[MANUSCRIPT+GUARD]`, 10
@@ -834,7 +836,7 @@ By tag, the 92 split as 27 `[AUDIT]`, 10 `[MANUSCRIPT+GUARD]`, 10
    now enters its list at [15] (26 → 27 entries), moving the former 15–26 up
    by one. The 46 does not move, because the gate counts the paper and
    supplement together and the supplement already cited it.
-2. **Page and line references have moved** (24 → 25 and 56 → 64 pages).
+2. **Page and line references have moved** (24 → 26 and 56 → 64 pages).
 3. **The repository is still private, deliberately.** The author's plan of
    2026-09-19: it goes public with the arXiv deposit, *after* this review round
    and the corrections it produces. Until then the availability sentences in
