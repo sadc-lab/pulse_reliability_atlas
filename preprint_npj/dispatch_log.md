@@ -707,19 +707,19 @@ had been overwritten, and its hashes were unrecoverable.
 
 | artefact | SHA-256 | bytes |
 |---|---|---|
-| `preprint_npj/build/paper.pdf` | `df7ed83a8e4172b0221f1934096e4c7e7e601bc470a188e2cadd82547667e83c` | 632,574 |
-| `preprint_npj/build/paper.docx` | `087ef0204f4f241a31c9c5fb5e096060205a30a0da9a27321f1bc7f51025003b` | 974,973 |
-| `preprint_npj/build/supplement.pdf` | `c172582ec4231e32ce03a26c85a859212c044a8e8247d435e7c6ee8794c252bb` | 725,734 |
-| `preprint_npj/build/supplement.docx` | `d29775f66d424113861e963b96d21a41a4b6a27337d9a199a52953f1267361d6` | 747,701 |
+| `preprint_npj/build/paper.pdf` | `2d89c65dd05391fa8d70d21b31ea4d6fbd80300038f2481e7c8fa5961c6e663e` | 632,563 |
+| `preprint_npj/build/paper.docx` | `e8f3eaa80d9a89754294f5bf5c8cbc1807e8a02b38edb1de7ce4947a823f4792` | 974,969 |
+| `preprint_npj/build/supplement.pdf` | `03e8f96ce3a8a59fe5bd3dfc49076881a091fa7539b75ed7f662803cdc0d8bea` | 725,734 |
+| `preprint_npj/build/supplement.docx` | `9e24f3695c1a3635526eca07ca769230e5fc8b5d8d1faa7cefd49ec972ec6dcb` | 747,702 |
 
-The monograph **is not part of this dispatch**. It was last rebuilt after
-re-freeze 21, at `78396c0`, which aligned it on the paper's re-freeze 20
-and 21 wording; the dispatch artefacts above are unaffected. Its hashes are
-recorded so that build stays identifiable:
+The monograph **is not part of this dispatch**. It was rebuilt with
+re-freeze 22, at `026df18`, after `78396c0` and `026df18` aligned it on the
+paper's re-freeze 20 to 22 wording. Its hashes are recorded so that build
+stays identifiable:
 `preprint/build/manuscript.pdf`
-`3e537aa4f4eb4c9ebb4aaed1d98151060b78549c7a1101c9d7abfecfacffe797` (1,358,162
+`d83f8127365f908ecd18fde4b1fd31d7cd7d0bbd8c9e156e673965c4068b39be` (1,358,171
 bytes) and `preprint/build/manuscript.docx`
-`d3a93dc76c8c22744da39a7815faeed1eff98a7126370e4cd6dc3f251f424e23` (1,016,561
+`8165325a6ff114586ed1b2bc52926a052fc42a517388a5c85d841f0f312ae288` (1,016,594
 bytes).
 
 ⚠️ **These hashes are valid for this build only.** Any further edit to
@@ -732,22 +732,23 @@ preprint_npj/supplement.tex` is empty, the supplement still renders 64 pages,
 and every structural check passes. **At re-freeze 20 they changed for a real
 reason:** `a064d14` edits `supplement.tex` (11 edits on 10 lines; still 64
 pages). At re-freeze 21 they moved again with `supplement.tex` unchanged
-since `a064d14` (`git diff a064d14..a92496f --` on it is empty). For
-re-freezes 13 to 19 and 21 the cause is the build, not the content:
-pdfTeX stamps a wall-clock `CreationDate` into the PDF (`18:17:04` for the
-re-freeze 21 supplement) and the pandoc DOCX moved by one byte, 747,727 to 747,726, so a rebuild
+since `a064d14` (`git diff a064d14..a92496f --` on it is empty), and again
+at re-freeze 22 (`supplement.tex` still unchanged since `a064d14`). For
+re-freezes 13 to 19, 21 and 22 the cause is the build, not the content:
+pdfTeX stamps a wall-clock `CreationDate` into the PDF (`18:47:46` for the
+re-freeze 22 supplement) and the pandoc DOCX moved by one byte, 747,727 to 747,726, so a rebuild
 never reproduces the previous digest. `build/` is untracked, so the earlier
 artefacts cannot be recovered for comparison. Read a changed supplement hash as
 *rebuilt*, never as *edited*; `supplement.tex` in git is the authority on
 whether the content moved. The monograph hashes above changed at re-freezes 16
-and 17, and again after 21, for a real reason, unlike the supplement's:
-`manuscript.md` was edited (`1d684c7`, then `f9e3bb7`, then `78396c0`) and
-rebuilt with `scripts/build_paper.ps1`.
+and 17, again after 21, and at 22, for a real reason, unlike the
+supplement's: `manuscript.md` was edited (`1d684c7`, then `f9e3bb7`, then
+`78396c0` and `026df18`) and rebuilt with `scripts/build_paper.ps1`.
 `build_npj.ps1` alone never rebuilds it.
 
-**Re-frozen twenty-one times.** The first three were one-token abstract edits
-made before the files left the machine; re-freezes 4 to 19 and 21 leave the
-abstract untouched, and re-freeze 20 rewords three of its phrases at an
+**Re-frozen twenty-two times.** The first three were one-token abstract edits
+made before the files left the machine; re-freezes 4 to 19, 21 and 22 leave
+the abstract untouched, and re-freeze 20 rewords three of its phrases at an
 unchanged count:
 
 | | source commit | what changed | words |
@@ -774,6 +775,7 @@ unchanged count:
 | re-freeze 19 | `fa3e869` | eight terms made readable where figures and tables use them: σ defined; five screen names cut to two; "frozen at saturation", "blood volume" and VC-AC spelled out; Table 3 "Runs"; "tile" for a heatmap square (Figure 2b's false "48 cells" fixed); Figure 4b's "AGE" replaced. The paper reflows to **26 pages** | 149 / 146 |
 | re-freeze 20 | `a064d14` | **claims, not wording**: seven narrowed to what their experiments show. One unsupported supplement inference removed (a divergence-only sweep cannot show Morris-rank robustness); dyssynchrony "consistent with"; "sex-stratified" for "sex-dependent"/"sex-specific"; blood-volume "dependence" for "mechanism", including the §2.5 and §S10 titles; rank 1 "more stable", not "resolved"; the ARDS labels stated as calibration bands; the monograph "gives further detail" rather than being "the source of truth". Paper and supplement both edited; still 26 / 64 pages | 149 / 146 |
 | re-freeze 21 | `a92496f` | "preregistered" dropped from the three follow-up experiments (trigger lockout, 300-s hyperoxia rerun, blood volume): none is in `preregistration.md`, and protocol and results entered git in the same commit for each. Paper only; still 26 / 64 pages | 149 / 146 |
+| re-freeze 22 | `4a9286c` | two residual sentences of the same two themes: §2.5 "Sex therefore moves where the solver fails…" becomes "Across the two reference bodies, where the solver fails therefore differs…", and the Discussion's "effort-dependent dyssynchrony Pulse models" becomes "effort-dependent variability". Paper only; still 26 / 64 pages. The monograph and README were aligned in the same round (`78396c0`, `026df18`, `3f5ad9e`; not dispatched) | 149 / 146 |
 
 Re-freezes 9 and 10 are the two that shortened a section rather than a
 sentence: **the Introduction goes 936 → 926 words**, and the abstract is
@@ -805,7 +807,7 @@ frozen and any later build gets a new, superseding entry.**
 
 ### What changed since the version the four last received (`0f275e0`, 2026-09-05)
 
-**92 commits** up to the preparation build (`3765872`), 150 up to re-freeze 21.
+**92 commits** up to the preparation build (`3765872`), 156 up to re-freeze 22.
 The paper goes from 24 to **26** rendered pages (25 until re-freeze 18), the
 supplement from 56 to **64**. The monograph, which they did not receive in September
 either, stands at 122.
@@ -840,7 +842,8 @@ experiments show (row 20 of the table above). A reader of the September copy
 will see it in the abstract and in two section titles: §2.5 now ends "and
 blood-volume dependence", §S10 begins "Blood-volume dependence". Re-freeze 21
 (`a92496f`) then stops calling three follow-up experiments "preregistered"
-(§2.3, §2.4, §2.5). No number, figure or table moved.
+(§2.3, §2.4, §2.5), and re-freeze 22 (`4a9286c`) rewords one sentence each
+in §2.5 and the Discussion. No number, figure or table moved.
 
 ### What the covering message must say
 
