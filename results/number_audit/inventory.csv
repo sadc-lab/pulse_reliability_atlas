@@ -3638,7 +3638,7 @@ paper,282,2,2.0,ambiguous_small,"and the $-2$~cmH$_2$O lever}{VC-AC tidal-volume
 paper,284,60,60.0,ambiguous_small,uantified as the delivered Vt coefficient of variation over the final 60~s of the 120~s simulation. Vt oscillation is the \emph{primary} such
 paper,284,120,120.0,guard,the delivered Vt coefficient of variation over the final 60~s of the 120~s simulation. Vt oscillation is the \emph{primary} such flag on 20.6~
 paper,284,20.6,20.6,guard,e 120~s simulation. Vt oscillation is the \emph{primary} such flag on 20.6~\% of runs: the delivered breath volume never settles to a single val
-paper,286,64,64.0,ambiguous_small,preregistered follow-up experiment isolated the mechanism. Re-running 64 of the affected configurations with Pulse's \texttt{InspirationPatien
+paper,286,64,64.0,ambiguous_small,o finding. A follow-up experiment isolated the mechanism. Re-running 64 of the affected configurations with Pulse's \texttt{InspirationPatien
 paper,286,2,2.0,ambiguous_small,"ions with Pulse's \texttt{InspirationPatientTriggerPressure} set to $-2$~cmH$_2$O collapses the median Vt CV from 0.351 to 0.016, and 78.1~\%"
 paper,286,0.351,0.351,guard,"TriggerPressure} set to $-2$~cmH$_2$O collapses the median Vt CV from 0.351 to 0.016, and 78.1~\% of the locked-trigger reruns drop below the 0.0"
 paper,286,0.016,0.016,ambiguous_small,"essure} set to $-2$~cmH$_2$O collapses the median Vt CV from 0.351 to 0.016, and 78.1~\% of the locked-trigger reruns drop below the 0.05 steady-"
@@ -3650,9 +3650,9 @@ paper,290,120,120.0,guard,"ncentrates on the highest inspired-oxygen settings. W
 paper,290,600,600.0,guard,"e's steady-state mean PaO$_2$ exceeds the classifier's upper bound of 600~mmHg on 34 of the 126 \texttt{implausible}-flagged runs, and 91~\% of"
 paper,290,34,34.0,ambiguous_small,"tate mean PaO$_2$ exceeds the classifier's upper bound of 600~mmHg on 34 of the 126 \texttt{implausible}-flagged runs, and 91~\% of these excu"
 paper,290,126,126.0,guard,"PaO$_2$ exceeds the classifier's upper bound of 600~mmHg on 34 of the 126 \texttt{implausible}-flagged runs, and 91~\% of these excursions occu"
-paper,290,91,91.0,ambiguous_small,"d of 600~mmHg on 34 of the 126 \texttt{implausible}-flagged runs, and 91~\% of these excursions occur at FiO$_2 \geq 0.95$. A preregistered 60"
-paper,290,0.95,0.95,ambiguous_small,"ble}-flagged runs, and 91~\% of these excursions occur at FiO$_2 \geq 0.95$. A preregistered 60-run rerun separated an engine defect from a wind"
-paper,290,60,60.0,ambiguous_small,91~\% of these excursions occur at FiO$_2 \geq 0.95$. A preregistered 60-run rerun separated an engine defect from a window-length artefact. E
+paper,290,91,91.0,ambiguous_small,"d of 600~mmHg on 34 of the 126 \texttt{implausible}-flagged runs, and 91~\% of these excursions occur at FiO$_2 \geq 0.95$. A 60-run rerun sep"
+paper,290,0.95,0.95,ambiguous_small,"ble}-flagged runs, and 91~\% of these excursions occur at FiO$_2 \geq 0.95$. A 60-run rerun separated an engine defect from a window-length arte"
+paper,290,60,60.0,ambiguous_small,"ged runs, and 91~\% of these excursions occur at FiO$_2 \geq 0.95$. A 60-run rerun separated an engine defect from a window-length artefact. E"
 paper,290,120,120.0,guard,"was re-executed from time zero with the recorded duration raised from 120 to 300 seconds, and the plateau taken over the final 60 seconds ($t ="
 paper,290,300,300.0,guard,"executed from time zero with the recorded duration raised from 120 to 300 seconds, and the plateau taken over the final 60 seconds ($t = 240$--"
 paper,290,60,60.0,ambiguous_small,"raised from 120 to 300 seconds, and the plateau taken over the final 60 seconds ($t = 240$--$300$~s). The result supports the artefact: in th"
