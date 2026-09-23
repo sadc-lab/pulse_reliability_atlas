@@ -707,24 +707,24 @@ had been overwritten, and its hashes were unrecoverable.
 
 | artefact | SHA-256 | bytes |
 |---|---|---|
-| `preprint_npj/build/paper.pdf` | `6ce03fda086fba4c80e89b9de728cc260bfe8297342d0bd6579cec32baed3683` | 631,681 |
-| `preprint_npj/build/paper.docx` | `1046420b1863a1e4338d0a6f36999e23ac6c6b745661a85c3ad46ff5a435922a` | 974,396 |
-| `preprint_npj/build/supplement.pdf` | `0162e536fdcd2fb112e9d64c19c2ab36440312ea011ec254e9fc25a8d822e7e8` | 726,019 |
-| `preprint_npj/build/supplement.docx` | `20aa7334db043e0ec92f51484892e83037b663fdc803ff2451908529bafe4ffe` | 747,727 |
+| `preprint_npj/build/paper.pdf` | `3b1956f6931c3faf4d5adb4007aecabd2361113c9ac07cbdc8a9315ccc9f8ae7` | 631,684 |
+| `preprint_npj/build/paper.docx` | `a63ef674cecb9625f9d149bec983d12a9bd29e093c52a9986c49ab035e4df202` | 974,397 |
+| `preprint_npj/build/supplement.pdf` | `7542a0bac4e72c63c56d702bc2d17ccd0198b480c65cfb7c8f0dbb6bae43c69a` | 726,019 |
+| `preprint_npj/build/supplement.docx` | `44e2c2960a622186f08e3382444757e7f93d30e2fcd13affd8d507df9728d307` | 747,728 |
 
 The monograph was rebuilt at the same commit and **is not part of this
 dispatch**. Its hashes are recorded so that build stays identifiable:
 `preprint/build/manuscript.pdf`
-`6be1c001c4a79db640a65523c0a0e3454e217fbab40d0a2dc5e4c19898e84982` (1,357,692
+`d3b39cdf150b8ab449ab6a6e01400e3af2e88ad7c85acfa027cdf046f64fe1f1` (1,357,868
 bytes) and `preprint/build/manuscript.docx`
-`a8d63af25817538a83be6628a02ea5db681ee1f5ed2e7e8e875994f375933ac5` (1,016,399
+`b8407dce95e4f9e15779dfa8f441c751fee2c404d1aa3e08dc360c22a2a7287f` (1,016,444
 bytes).
 
 ⚠️ **These hashes are valid for this build only.** Any further edit to
 `paper.tex` or `supplement.tex` — including the still-open abstract decision
 recorded below — invalidates them, and they must be re-frozen before the send.
 
-⚠️ **The supplement's two hashes changed at re-freeze 13, and again at 14, 15 and 16, although
+⚠️ **The supplement's two hashes changed at re-freeze 13, and again at 14, 15, 16 and 17, although
 `supplement.tex` did not.** Verified: `git diff 3765872..HEAD --
 preprint_npj/supplement.tex` is empty, the supplement still renders 64 pages,
 and every structural check passes. The cause is the build, not the content:
@@ -733,12 +733,12 @@ one) and the pandoc DOCX moved by one byte, 747,727 to 747,726, so a rebuild
 never reproduces the previous digest. `build/` is untracked, so the earlier
 artefacts cannot be recovered for comparison. Read a changed supplement hash as
 *rebuilt*, never as *edited*; `supplement.tex` in git is the authority on
-whether the content moved. The monograph hashes above changed at re-freeze 16
-for a real reason, unlike the supplement's: `manuscript.md` was edited
-(`1d684c7`) and rebuilt with `scripts/build_paper.ps1`. `build_npj.ps1` alone
-never rebuilds it.
+whether the content moved. The monograph hashes above changed at re-freezes 16
+and 17 for a real reason, unlike the supplement's: `manuscript.md` was edited
+(`1d684c7`, then `f9e3bb7`) and rebuilt with `scripts/build_paper.ps1`.
+`build_npj.ps1` alone never rebuilds it.
 
-**Re-frozen sixteen times.** The first three were one-token abstract edits
+**Re-frozen seventeen times.** The first three were one-token abstract edits
 made before the files left the machine; the rest leave the abstract untouched:
 
 | | source commit | what changed | words |
@@ -760,6 +760,7 @@ made before the files left the machine; the rest leave the abstract untouched:
 | re-freeze 14 | `20e03fa` | §2.1: the flag-definitions table adopted — 0 references → 2, and the four flags named at first use | 149 / 146 |
 | re-freeze 15 | `4fc3ee8` | §2.1: design total 10{,}240 added and guarded; the log-test claim aligned on the monograph | 149 / 146 |
 | re-freeze 16 | `8f2adc2` | seven commits from `1d684c7`, all author decisions. Morris called "a global screening method that varies one input at a time"; the Berlin Definition cited in Table 1 (paper list 26 → 27); H1–H4 pointed to Methods §4.6; **one scope change**: the Berlin calibration bounded to the male reference body; "a linear, additive response"; §2.2's pair-count and screen sentences rewritten, with the cell labels defined in Table 1; Figure 1 redrawn in the order the code runs, with the Morris branch | 149 / 146 |
+| re-freeze 17 | `c9fd377` | Methods §4.3: "The impairment fractions are therefore anchored…" for "An atlas cell is therefore anchored…", completing the male-body scoping. The monograph was aligned in `f9e3bb7` (6 loci; not dispatched) | 149 / 146 |
 
 Re-freezes 9 and 10 are the two that shortened a section rather than a
 sentence: **the Introduction goes 936 → 926 words**, and the abstract is
