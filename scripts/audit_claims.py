@@ -7893,14 +7893,16 @@ def check_s034_screen_sensitivity() -> int:
     # (22 of 48 is 46 %, not a third). Naming the 30 and giving the raw count
     # removes the ambiguity instead of relying on the intended reading.
     # Re-registered 2026-09-23 after an author-approved readability rewrite: the
-    # sentence now names the preregistered clean-pair screen (a bare "both
-    # screens" left the first one unnamed) and glosses "candidate set", as the
-    # producer defines it (s034: set of inputs carrying a mu*, i.e. at least
-    # one retained pair). The three raw counts and their denominator are
+    # sentence names both screens (a bare "both screens" left the first one
+    # unnamed) and glosses "candidate set", as the producer defines it (s034:
+    # set of inputs carrying a mu*, i.e. at least one retained pair). Same day,
+    # re-registered again when the paper's five screen names were cut to the two
+    # 2.1 defines: "four-flag" and "hard-failure-free" (the relaxed screen keeps
+    # the same 1,134 runs). The three raw counts and their denominator are
     # unchanged.
     _paper_claim = (
-        "H1 holds in all 48 combinations under both the preregistered clean-pair "
-        "screen and the relaxed one. On the 30 combinations whose candidate set "
+        "H1 holds in all 48 combinations under both the four-flag and the "
+        "hard-failure-free screens. On the 30 combinations whose candidate set "
         "(the inputs carrying at least one retained pair) is the same under both "
         "screens, the rank-1 input is preserved in all 30, while the identity of "
         "ranks two and three changes in 11"
