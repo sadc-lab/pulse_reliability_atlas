@@ -120,7 +120,7 @@ FAILs contribute to the script's exit code; WARNs do not.
   notes: 'displayed as a whole percent. Was wrong (90 % / 43 of 48) in this document, in Supplement S13 and in the S023 log until commit 70b6078.'
 
 - anchor_id: 'M.T03.floor_female_gap'
-  monograph_section: '§3.6 blood-volume mechanism (F-S018-A)'
+  monograph_section: '§3.6 blood-volume dependence (F-S018-A)'
   claim: 'gap between the male BV floor and the female computed default'
   pattern: '86 mL'
   min_occurrences: 2

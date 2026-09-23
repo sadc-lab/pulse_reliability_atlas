@@ -204,7 +204,7 @@ caught equally.*
   expected_value: 160
   format_in_paper: 'S4\_M & 160 & 0 & 8 & 46 & 44  & 67'
   expected_occurrences: 1
-  notes: 'Full Table 1 row for the S4_M cell. Note: 8 divergences (twice any other male cell) reflects the severe-ARDS regime where the male BV mechanism amplifies (§2.5).'
+  notes: 'Full Table 1 row for the S4_M cell. Note: 8 divergences (twice any other male cell) reflects the severe-ARDS regime where the male BV dependence amplifies (§2.5).'
 
 - paper_section: '§2.1 Table 1 row (S4, F)'
   paper_context: 'Per-cell flag counts for S4_F (severe ARDS, female)'
@@ -382,7 +382,7 @@ caught equally.*
   expected_occurrences: 2
   notes: 'Twice: §2.4 prose immediately after the 40-of-44 count, and Supplement S9 opening. Was 93.2 until 2026-09-01, corrected with T1.24b for the same window-selection defect; the occurrence count is unchanged at 2.'
 
-## Step 5 — Results §2.5 sex-stratified divergence + BV mechanism
+## Step 5 — Results §2.5 sex-stratified divergence + BV dependence
 
 - paper_section: '§2.5 prose + Figure 5 caption'
   paper_context: 'All 20 divergence events on male surrogate (anchor for the sex-stratification claim)'
