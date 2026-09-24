@@ -3215,7 +3215,7 @@ The four-flag detector (§2.6) and the per-cell traffic-light map
    colour — the colour does not count runs flagged `not_steady_state` —
    and report the clean-rate per cell with the training-set metadata.
 2. **Green and yellow cells:** the colour sets cell-level review
-   priority, subject to use-case-specific validation.
+   priority; every use remains subject to use-case-specific validation.
 3. **Red cells:** do not ingest into supervised-learning training sets
    without per-channel and per-input justification. Where red cells
    must be used (e.g. learning that PaO2 saturates at extreme FiO2),
