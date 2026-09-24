@@ -15,7 +15,7 @@ paper,"1{,}400",1,"rion (Figure~ b). Three of those 40 plateau above 1{,}400~mmH
 paper,22,1,"s window was preregistered before any sweep data was collected, and a 22-run pilot on the healthy-male cell verified five preregistered gating"
 paper,25,1,"index is computed from 7 of the 20 possible elementary-effect pairs, 25 rest on three or fewer, and 9 rest on a single pair, five of those be"
 paper,36,1,"threshold on 139 of 320 runs and none of those 8 falls there, against 36 of 320 runs and 3 of the 8 in S3. That map is therefore bounded by ru"
-paper,37,1,"d below, three of whose members are drift-converged and three not, so 37 of 44 (84.1~\%) converge below the supplement's physiology-anchored 7"
+paper,37,1,"d below, three of whose members are drift-converged and three not, so 37 of 44 (84.1~\%) converge below the supplement's wider 700~mmHg upper"
 paper,"3{,}348",1,"'s lower-bound rejection format. Replaying both pattern sets over all 3{,}348 recorded setup logs reclassifies no run of this sweep. This log-based"
 paper,4.1,1,"budget its own protocol declared, exceeding it by a factor of 2.4 to 4.1 on these two readings, and up to 5.5 on the wider set in Supplement~\"
 paper,4.8,1,"t and code. The first was always a Claude model (Anthropic; , 4.8 and 5 in succession), the second Google Gemini Pro 3.1 and later Open"
@@ -23,7 +23,7 @@ paper,5.5,1,"ceeding it by a factor of 2.4 to 4.1 on these two readings, and up 
 paper,70,1,"at work, however, is over the \emph{mismatch} between two equal-sized 70~kg bodies sharing one ventilator, scored against a single composite s"
 paper,71,1,"refore share essentially the same blood volume per kilogram ($\approx$71~mL\,kg$^{-1}$, within standard clinical estimates~ ),"
 paper,8.4,1,"et, 4{,}082~mL Pulse setup-time floor on this body; reductions of 0, $8.4$ and $15.0~\%$ beneath each tick), the $y$-axis the divergence count"
-paper,84.1,1,"hree of whose members are drift-converged and three not, so 37 of 44 (84.1~\%) converge below the supplement's physiology-anchored 700~mmHg ceil"
+paper,84.1,1,"hree of whose members are drift-converged and three not, so 37 of 44 (84.1~\%) converge below the supplement's wider 700~mmHg upper bound, which"
 paper,86,1,"utes 3{,}996~mL for the female reference body (dashed vertical line), 86~mL below the male floor, so a one-way blood-volume transplant cannot"
 paper,93,1,}280 simulations). Sensitivity is skewed: three inputs carry a median 93~\% of each output's total. A four-flag classifier reveals failure mod
 paper,95,1,"change per full-range move of its input. Indices carry non-parametric 95~\% bootstrap confidence intervals from 1{,}000 trajectory-level resam"

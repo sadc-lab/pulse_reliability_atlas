@@ -100,7 +100,7 @@ paper,265,three,cardinal,"s, the rank-1 input is preserved in all 30, while the 
 paper,278,six,cardinal,"\caption{\textbf{Morris $\mu^{*}$ heatmaps for the six steady-state outputs.} One panel per output: \textbf{(a)}~HR, \textbf{(b)}~MAP,"
 paper,278,One,cardinal,"\caption{\textbf{Morris $\mu^{*}$ heatmaps for the six steady-state outputs.} One panel per output: \textbf{(a)}~HR, \textbf{(b)}~MAP, \textbf{(c)}~Vt delivered,"
 paper,278,seven,cardinal,"\textbf{(d)}~SpO$_2$, \textbf{(e)}~PaO$_2$, \textbf{(f)}~PaCO$_2$. Rows are the seven swept inputs (HR, SBP, DBP, RR, Vt, FiO$_2$, PEEP), columns the eight (scenario"
-paper,278,eight,cardinal,"s are the seven swept inputs (HR, SBP, DBP, RR, Vt, FiO$_2$, PEEP), columns the eight (scenario $\times$ sex) cells, and colour intensity is $\mu^{*}$, the magnitude"
+paper,278,eight,cardinal,"s are the seven swept inputs (HR, SBP, DBP, RR, Vt, FiO$_2$, PEEP), columns the eight (scenario $\times$ sex) cells, and colour intensity is $\mu^{*}$, the average a"
 paper,278,seven,cardinal,"n every panel $\mu^{*}$ collects in a few rows rather than spreading across all seven, which is Hypothesis~1's ``skewed sensitivity'' in visual form: on 48 of 48 cel"
 paper,278,three,cardinal,itivity'' in visual form: on 48 of 48 cell $\times$ output combinations the top three inputs carry at least half of the summed $\mu^{*}$ (median 0.928). The top thre
 paper,278,half,multiplicative,48 of 48 cell $\times$ output combinations the top three inputs carry at least half of the summed $\mu^{*}$ (median 0.928). The top three differ from output to out
@@ -118,7 +118,7 @@ paper,290,zero,cardinal,"ect from a window-length artefact. Each configuration w
 paper,290,Three,cardinal,"lateau under the preregistered drift criterion (Figure~ b). Three of those 40 plateau above 1{,}400~mmHg, beyond the sea-level barometric pressur"
 paper,290,six,cardinal,"barometric pressure of 760~mmHg and so physically impossible; they belong to a six-run solver-instability regime noted below, three of whose members are drift-con"
 paper,290,three,cardinal,"lly impossible; they belong to a six-run solver-instability regime noted below, three of whose members are drift-converged and three not, so 37 of 44 (84.1~\%) conve"
-paper,290,three,cardinal,"-instability regime noted below, three of whose members are drift-converged and three not, so 37 of 44 (84.1~\%) converge below the supplement's physiology-anchored"
+paper,290,three,cardinal,"-instability regime noted below, three of whose members are drift-converged and three not, so 37 of 44 (84.1~\%) converge below the supplement's wider 700~mmHg upper"
 paper,298,Two,cardinal,\caption{\textbf{Two operator-actionable corrections surfaced by the atlas.} Each is a before/after
 paper,298,one,cardinal,corrections surfaced by the atlas.} Each is a before/after paired scatter with one dot per configuration; the dashed diagonal marks ``no change''. \textbf{(a)} Tr
 paper,298,second,ordinal,"volume delivery, not a clinical ventilation setting. \textbf{(b)} Hyperoxia 300-second convergence ($n = 60$ reruns across S1, S3, S4 at FiO$_2 = 1.0$): PaO$_2$ avera"
