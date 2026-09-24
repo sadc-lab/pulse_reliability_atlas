@@ -697,7 +697,7 @@ had been overwritten, and its hashes were unrecoverable.
 |---|---|
 | Sent | *(pending author confirmation)* |
 | Recipients | the four supervising co-authors (A.W., C.S., P.J., M.S.) |
-| Source commit | `629d3a0`, re-freeze 25 (see the freeze table below; this row had stayed at re-freeze 12's `ff09c92` through re-freezes 13 to 22) |
+| Source commit | `cf3ef7c`, re-freeze 26 (see the freeze table below; this row had stayed at re-freeze 12's `ff09c92` through re-freezes 13 to 22) |
 | Format | `.pdf` and `.docx` |
 | Artefacts to send | paper and supplement only |
 | Pages | 26 (paper; 25 until re-freeze 18) / 64 (supplement) |
@@ -707,10 +707,10 @@ had been overwritten, and its hashes were unrecoverable.
 
 | artefact | SHA-256 | bytes |
 |---|---|---|
-| `preprint_npj/build/paper.pdf` | `8350bf80011991f996dc0107088d1d593a7d423450b3681cb25f6fb8143e42a4` | 633,268 |
-| `preprint_npj/build/paper.docx` | `44e08705aba1571e2107d46b98fd514951e42a41e91a532765cd5f28f310fd97` | 975,261 |
-| `preprint_npj/build/supplement.pdf` | `a3acc8d24b399d68a2e2f81b6cdb603cee5431d83f407e524ade7d42f81448fe` | 725,801 |
-| `preprint_npj/build/supplement.docx` | `7f74bf2acdfeeb8c760652092dac763486109fab13a3c68ab54b2ca36f080e70` | 747,729 |
+| `preprint_npj/build/paper.pdf` | `c9021b6ad975059e3b9184966a94c1a80a9c72fe15f270cc8a7bc3709f38947b` | 633,429 |
+| `preprint_npj/build/paper.docx` | `c344233d539035032b2fe22d38ffc27112dca72900009fc4597b74f8a8c90aeb` | 975,273 |
+| `preprint_npj/build/supplement.pdf` | `e426c13f14d10eaa6a0b079251de6af387286227a23843a73e28d11286b60f21` | 725,943 |
+| `preprint_npj/build/supplement.docx` | `ae8824e59633e97f51947e467a2c19f9e1a862ce9f26f758f61ce6cf630f813e` | 747,748 |
 
 The monograph **is not part of this dispatch**. It was rebuilt with
 re-freeze 24, at `cabc29c`, which carries the one re-freeze 24 repair it
@@ -721,9 +721,11 @@ Its hashes are recorded so that build stays identifiable:
 `cd123e011bf2d21d898edd0fc32bb023b7865c2201a21d1e3007afeb5922a178` (1,357,986
 bytes) and `preprint/build/manuscript.docx`
 `38162e09c937278a03e000e7a4113ecb9587f50a51ad7c70c8e7ac84dbac9119` (1,016,646
-bytes), still 122 pages. Re-freeze 25 does not touch it (`manuscript.md`
-is unchanged since `cabc29c`), so it was not rebuilt; both hashes and byte
-counts were re-measured at re-freeze 25 and still match.
+bytes), still 122 pages. Re-freezes 25 and 26 do not touch it
+(`manuscript.md` is unchanged since `cabc29c`), so it was not rebuilt; both
+hashes and byte counts were re-measured at re-freeze 26 and still match.
+Re-freeze 26's wording was **not** carried to it: the monograph still has the
+retired phrases (row 26 below), deferred with it.
 
 ⚠️ **These hashes are valid for this build only.** Any further edit to
 `paper.tex` or `supplement.tex` invalidates them, and they must be re-frozen
@@ -741,7 +743,9 @@ re-freeze 23 they changed for a real reason again:** `c4efe6c` edits
 `supplement.tex` (still 64 pages), and so does `ada9659` at re-freeze 24 (one
 cross-reference; still 64 pages). At re-freeze 25 they moved again with
 `supplement.tex` unchanged since `ada9659` (`git diff ada9659..629d3a0 --`
-on it is empty; byte counts identical, 725,801 and 747,729). For
+on it is empty; byte counts identical, 725,801 and 747,729). **At
+re-freeze 26 they changed for a real reason:** `cf3ef7c` edits
+`supplement.tex` (9 lines edited; still 64 pages). For
 re-freezes 13 to 19, 21, 22 and 25 the cause is the build, not the content:
 pdfTeX stamps a wall-clock `CreationDate` into the PDF (`18:47:46` for the
 re-freeze 22 supplement) and the pandoc DOCX moved by one byte, 747,727 to 747,726, so a rebuild
@@ -753,12 +757,12 @@ and 17, again after 21, and at 22, 23 and 24, for a real reason, unlike the
 supplement's at 13 to 19, 21, 22 and 25: `manuscript.md` was edited (`1d684c7`,
 then `f9e3bb7`, then `78396c0` and `026df18`, then `27a012c`, then
 `cabc29c`) and rebuilt
-with `scripts/build_paper.ps1`. They did not change at re-freeze 25, which
-leaves `manuscript.md` untouched.
+with `scripts/build_paper.ps1`. They did not change at re-freezes 25 and 26,
+which leave `manuscript.md` untouched.
 `build_npj.ps1` alone never rebuilds it.
 
-**Re-frozen twenty-five times.** The first three were one-token abstract edits
-made before the files left the machine; re-freezes 4 to 19 and 21 to 25 leave
+**Re-frozen twenty-six times.** The first three were one-token abstract edits
+made before the files left the machine; re-freezes 4 to 19 and 21 to 26 leave
 the abstract untouched, and re-freeze 20 rewords three of its phrases at an
 unchanged count:
 
@@ -790,6 +794,7 @@ unchanged count:
 | re-freeze 23 | `c4efe6c` | **claims, not wording**: eighteen statements narrowed to what the documents' own figures, tables and data show. H2 no longer "settled by Table 3 alone"; "no measurable ventilator cross-talk" removed; FiO$_2$ in severe ARDS no longer "near-flat"; the FiO$_2$ = 1.0 of the divergent runs "requested", never applied; the blood-volume sentence bounded to Pulse's calculation; heart rate no longer "decouples" from its input; the Cornish ordinal paragraph deleted; the 120-s window verdict bounded to the two audited populations; runs "recorded for 120 s after a 120-s ventilator-settling phase"; the SHAP 17 / 18 unit and the Spearman rationale corrected; dyssynchrony no longer asserted ("instability" in the §2.3 title, "consistent with" at six supplement loci); Table 2's not_steady_state meaning, "five flags", preregistration scope, "fully balanced factorial", "causal-mechanistic" and two shunt statements narrowed; the green-tile guidance replaced by run-level screening in every cell. Paper and supplement both edited; still 26 / 64 pages. The monograph, README, cover letter and traffic-light JSON legend were aligned in the same round (`27a012c`, `e9ac421`; not dispatched) | 149 / 146 |
 | re-freeze 24 | `ada9659` | three repairs to re-freeze 23's own wording, found on re-reading it before any push: the H2 verdict no longer rests on the log flag alone ("…the input-instantiation audit below provides the complementary check, and together they leave H2 not supported"); the traffic-light caveat moved to the end of its sentence ("every use remains subject to use-case-specific validation"); S5.5's "all 20 divergences occur during patient stabilisation" now points to §2.1, which states it, instead of S3, which states it for 13. Paper and supplement both edited; still 26 / 64 pages. The monograph's copy of the traffic-light caveat was repaired in the same round (`cabc29c`; not dispatched) | 149 / 146 |
 | re-freeze 25 | `629d3a0` | five sentences said more plainly, on the author's decision after a read of the paper for density; no claim, number, figure or table changes. Introduction: "We provide a reusable run-level classifier and a per-cell map that sets review priority", both caveats kept (not a validation; the screened runs are not a representative subset). Discussion: "data-quality contract" becomes "can also be used to screen Pulse-generated synthetic patient cohorts…"; "Three traps … merit explicit attention" becomes "Three findings call for care when Pulse-generated data are reused"; "foundational infrastructure rather than a terminal deliverable" becomes "meant as a baseline for further work". Code availability: the reproduction host's model and OS and the $10^{-14}$ round-off detail left to Supplement S12, "x86\_64" kept. Paper only; still 26 / 64 pages. The cover letter was aligned in the same commit; the monograph was not (not dispatched) | 149 / 146 |
+| re-freeze 26 | `cf3ef7c` | **claims, not wording**: phrases on 14 lines (5 paper, 9 supplement) narrowed to what the code, the data or a primary source show, after a read-through before dispatch; no number, figure, table or reference changes. The trigger lock no longer "decouples" breath delivery nor restores "metronomic" delivery: Pulse's pressure trigger still fires on strong efforts, and at least 11 of the 64 lock reruns deliver two or more breaths above the set rate; hence "lower-variability", "markedly stabilises", "largely removed", "strongly reduces". The calibration setting is no longer "based on the ARDSnet framework" (6 mL/kg of actual, not predicted, body weight). The last sentence reads "characterising a simulator's operational limits", its closed-loop trial citation kept. The hard bounds are a "screening standard" in S3.1 and S3.6, and the PaO$_2$ 20 mmHg "incompatible with a stable steady state" clause is removed (Grocott 2009: 19.1–29.5 mmHg in climbers at 8,400 m). S3.10's 32 runs "no longer exceed the widened bound" instead of becoming "physiologically clean"; S3.8 says "bootstrap seeds". Paper and supplement both edited; still 26 / 64 pages. Not carried to the monograph or to `src/detector.py` (not dispatched) | 149 / 146 |
 
 Re-freezes 9 and 10 are the two that shortened a section rather than a
 sentence: **the Introduction goes 936 → 926 words**, and the abstract is
@@ -825,7 +830,8 @@ frozen and any later build gets a new, superseding entry.**
 ### What changed since the version the four last received (`0f275e0`, 2026-09-05)
 
 **92 commits** up to the preparation build (`3765872`), 156 up to re-freeze 22,
-161 up to re-freeze 23, 167 up to re-freeze 24, 172 up to re-freeze 25.
+161 up to re-freeze 23, 167 up to re-freeze 24, 172 up to re-freeze 25,
+175 up to re-freeze 26.
 The paper goes from 24 to **26** rendered pages (25 until re-freeze 18), the
 supplement from 56 to **64**. The monograph, which they did not receive in September
 either, stands at 122.
@@ -874,7 +880,12 @@ compared against the atlas's red tiles. Re-freeze 24 (`ada9659`) repairs three
 of those sentences (§2.1 H2, the Discussion's traffic-light caveat, one S5.5
 cross-reference). Re-freeze 25 (`629d3a0`) rewords five paper sentences (one
 in the Introduction, three in the Discussion, one in Code availability)
-without changing a claim.
+without changing a claim. Re-freeze 26 (`cf3ef7c`) narrows phrases on 14
+lines (row 26 above): a reader of the September copy will see it in §2.3,
+Figure 4's caption, the Discussion (two sentences, including the last) and
+Methods §4.3, and in supplement S3.1 (with its bound table), S3.6, S3.8,
+S3.10, S5.4, S8 and S8.4 (with its figure caption). No result changes and no
+figure moves.
 
 ### What the covering message must say
 
