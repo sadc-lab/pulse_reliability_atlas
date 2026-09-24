@@ -17,7 +17,7 @@ it changing silently afterwards. If someone edits one of the locked loci, the
 occurrence count falls below the declared floor and the audit FAILs.
 
 **It does not verify correctness.** A presence check cannot tell a right
-number from a wrong one — only that the number is still there. The 26 patterns
+number from a wrong one — only that the number is still there. The 25 patterns
 below are trustworthy because each was **re-derived from the canonical
 artefacts on 2026-07-25** before being locked, not because the guard says so.
 
@@ -297,19 +297,11 @@ FAILs contribute to the script's exit code; WARNs do not.
   derivation: 'S012 audit — 7.26 % of the n = 303 runs with Vt CV > 0.05 exceed DRIFT_MAX_DELTA_60S["PaO2"] = 15.0'
   verified_on: '2026-07-25'
 
-- anchor_id: 'M.T20.cornish_pct'
-  monograph_section: '§4 Cornish cross-comparison'
-  claim: 'PaCO2 bootstrap rejection rate in Cornish 2023'
-  pattern: '18.6 %'
-  min_occurrences: 1
-  derivation: '13 / 70 = 18.571 %. The counts are Cornish 2023 Appendix Table 4, maintainer-verified against the PDF in S029; the percentage is our arithmetic on them.'
-  verified_on: '2026-07-25'
-
 - anchor_id: 'M.T20.cornish_frac'
   monograph_section: '§4 Cornish cross-comparison (overlap table and narrative)'
   claim: 'PaCO2 bootstrap rejection count in Cornish 2023'
   pattern: '13 / 70'
-  min_occurrences: 3
+  min_occurrences: 2
   derivation: 'Cornish 2023 Appendix Table 4, PaCO2 row: "Arterial CO2 Pressure (paCO2)  3  70"; Table 5 (bootstrap): "... 13  70". Not re-derivable from atlas data; locked against transcription drift only.'
   verified_on: '2026-07-26'
-  notes: 'Verified at source on 2026-07-26 -- arXiv:2301.07210v4 retrieved and text-extracted, both appendix tables transcribed in full, all 9 Cornish-attributed claims MATCH (audit/reference_audit.md). This was the one anchor whose correctness rested on a human reading of an external PDF rather than on atlas data; that reading is now confirmed verbatim.'
+  notes: 'Verified at source on 2026-07-26 -- arXiv:2301.07210v4 retrieved and text-extracted, both appendix tables transcribed in full, all 9 Cornish-attributed claims MATCH (audit/reference_audit.md). This was the one anchor whose correctness rested on a human reading of an external PDF rather than on atlas data; that reading is now confirmed verbatim. Floor lowered from 3 to 2 on 2026-09-24, and its companion anchor M.T20.cornish_pct (pattern 18.6 %) retired the same day: the §4.4 paragraph that carried the third occurrence and the only 18.6 % argued that the Cornish bootstrap ordering (PaCO2 > PaO2 > MAP > HR) mirrors the atlas red-cell density, which the traffic-light counts contradict (red cells: PaO2 4, HR 4, MAP 1, PaCO2 1). The paragraph was removed from the monograph and from supplement S7 together; the two remaining occurrences (overlap table, four-quadrant list) are unchanged.'

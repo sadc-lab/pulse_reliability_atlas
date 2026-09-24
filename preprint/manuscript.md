@@ -125,7 +125,7 @@ below; this section is the exhaustive findings digest.*
   the locked classifier. Per-cell traffic-light map: **7 green / 29 yellow /
   12 red** of the 48 cell × output combinations (Figure 6).
 
-**Primary finding 1 — VC-AC tidal-volume dyssynchrony and the −2 cmH2O lever (F-004).**
+**Primary finding 1 — VC-AC tidal-volume instability and the −2 cmH2O trigger lever (F-004).**
 
 * Delivered-Vt coefficient of variation (CV) exceeds the 0.05 steady-state
   threshold in **20.6 %** of runs; concentrated on healthy lungs (S1), fading
@@ -164,9 +164,11 @@ below; this section is the exhaustive findings digest.*
 * **Two regimes** (independently re-derived and live-Docker-confirmed):
     * *Input-driven:* the compound hypotensive–tachypneic pattern
       **HR = 50 & SBP = 90 & RR = 20** accounts for **16 / 20** divergences
-      (and every male run matching it diverges). **FiO2 = 1.0 co-occurs in
-      13 / 20** (enriched ~4× vs base rate) but is **not necessary** — the
-      compound diverges at FiO2 = 0.737 as well.
+      (and every male run matching it diverges). **FiO2 = 1.0 is requested
+      in 13 / 20** (enriched ~4× vs base rate) but is **not necessary** — the
+      compound diverges at FiO2 = 0.737 as well — and it is never applied:
+      every divergence occurs during patient stabilisation, before the
+      ventilator action is submitted.
     * *Severity-driven* ([S009](#s009)): at midrange inputs **both sexes
       diverge across the [0.879, 0.946]** ARDS-impairment band (union; female
       0.879–0.928, male 0.899–0.946).
@@ -188,9 +190,10 @@ below; this section is the exhaustive findings digest.*
   cells.
   Lowest fractions in severe-ARDS gas-exchange (S4_F SpO2 0.658, S4_M 0.703).
 * Cardiovascular outputs are cardio-input-driven (output HR ← input HR,
-  MAP ← SBP in every cell, no ventilator cross-talk); gas-exchange outputs are
-  ventilator-driven (PaO2 ← FiO2 in mild/moderate ARDS, collapsing to a flat
-  dependence in severe ARDS = shunt physiology; PaCO2 ← Vt via the
+  MAP ← SBP in every cell); gas-exchange outputs are ventilator-driven
+  (PaO2 ← FiO2 in mild/moderate ARDS; in severe ARDS the FiO2 μ\* falls
+  sharply, still rank 1 in S4_M on a single elementary-effect pair and not
+  estimable in S4_F under the four-flag screen; PaCO2 ← Vt via the
   alveolar-ventilation identity).
 * **Linear on the dominant input, much less so on the top three:** the
   dominant input's point-estimate σ/μ\* stays below 0.6 in 40 / 48 cells, and
@@ -235,17 +238,18 @@ below; this section is the exhaustive findings digest.*
   continuous-severity sweep extends the empirical divergence band to
   **[0.879, 0.946]**. The locked sweep places S4 at 0.95, deliberately above
   it. Avoid [0.879, 0.946] when stable steady-state outputs are required.
-* **Compensatory tachycardia decouples input HR from output HR under
+* **Compensatory tachycardia shifts output HR upward under
   hypoxemia.** Output HR settles at **73.8 ± 20.4 bpm** in S1 but rises to
   **155.7 (S3)** and **147.1 (S4)** bpm despite the same [50, 110] input
-  range — a scenario-dependent compensatory response that dominates the
-  requested baseline, consistent with Pulse's documented
-  baroreflex/chemoreflex behaviour.
+  range — a scenario-dependent compensatory shift, consistent with Pulse's
+  documented baroreflex/chemoreflex behaviour, while input HR remains the
+  dominant within-scenario determinant of output HR.
   ML pipelines will internalise this as a steady-state feature, not an active
   response.
 * **ML/SHAP cross-check of the Morris top-three sets** ([S023](#s023)): a
-  RandomForest + SHAP surrogate on the 663 clean runs recovers the Morris
-  top-3 **set** in **17 / 18** pooled cases (mean per-cell overlap 2.40 / 3; 92 % of
+  RandomForest + SHAP surrogate on the 663 clean runs shares **17 / 18**
+  possible input memberships with the Morris top-3 **sets** across the six
+  pooled output-level comparisons (five outputs 3/3, PaO2 2/3; mean per-cell overlap 2.40 / 3; 92 % of
   48 comparisons ≥ 2/3, a partial overlap rather than a preserved order) —
   supporting the robustness of those sets
   to an alternative analysis route on the same Pulse-generated data.
@@ -417,7 +421,7 @@ need to chase definitions through the prose.*
 | Allometric | Scaling a physiological quantity by body size. Pulse sets blood volume allometrically as BV = 65.6 · weight^1.02 (§3.5). |
 | **Identifier families** | |
 | S001 – S026 | Atlas lab-notebook entries, one per experiment, in `experiments_log/santino/`. Indexed in Appendix A. |
-| F-003 / F-004 | The two named boundary findings the atlas carried from pilot to full sweep: F-003 the transient hyperoxia regime at FiO2 = 1.0 (§3.8), F-004 the VC-AC tidal-volume dyssynchrony (§3.8). No other F-numbers are in use. |
+| F-003 / F-004 | The two named boundary findings the atlas carried from pilot to full sweep: F-003 the transient hyperoxia regime at FiO2 = 1.0 (§3.8), F-004 the VC-AC tidal-volume oscillation, consistent with patient-ventilator dyssynchrony (§3.8). No other F-numbers are in use. |
 | H1 – H4 | The four preregistered hypotheses, quoted verbatim in §2.0 and evaluated in §§3.3 – 3.6. |
 | T1.\* / T2.\* / T3.\* / T5.\* | Anchor identifiers in the audit ledger (`scripts/audit_claims.py`). Each re-derives one manuscript number from the canonical data. |
 | §S1 – §S18 | Sections of the *npj* submission's Supplementary Information, a separate document from this monograph. |
@@ -535,8 +539,9 @@ before any data was collected (preregistration §Inputs, §Scenarios,
   [@munafo2017]).
 
 Four properties make this paper a methods-paper rather than a
-findings-paper: (1) the entire pipeline is preregistered with
-amendment history (per [@munafo2017]); (2) every quoted
+findings-paper: (1) the core sampling design, classifier thresholds
+and primary analysis plan are preregistered, with amendment history
+and deviations reported explicitly (per [@munafo2017]); (2) every quoted
 number is reproducible from the canonical Morris sample (seed = 42)
 plus the atlas Docker image, verified at three independent layers
 ([S007](#s007)); (3) the data are released under FAIR principles
@@ -1082,8 +1087,9 @@ clean run, enough resolution to compute steady-state mean, variance,
 drift, and flatline diagnostics for the detector without storing
 high-frequency time-series.*
 
-120 s simulation, sample interval 5 s, steady-state window [60, 120] s
-(13 points). Detector enforces 13 points / clean run.
+120 s recording, after Pulse's patient stabilisation and a 120 s
+ventilator-settling phase; sample interval 5 s, steady-state window
+[60, 120] s (13 points). Detector enforces 13 points / clean run.
 
 ### 2.5 Morris sampling
 
@@ -1656,8 +1662,7 @@ claims as its first deliverable; `clamped` is empty everywhere.
 *The Morris μ\* heatmaps per output — which inputs dominate which
 outputs in which cells. Four visual patterns emerge: cardiovascular
 outputs are cardio-driven, gas-exchange outputs are ventilator-driven,
-FiO2 sensitivity collapses in severe ARDS as shunt physiology
-dominates, and output Vt tracks input Vt at μ\* ≈ 500 mL across every
+FiO2 sensitivity falls sharply in severe ARDS, and output Vt tracks input Vt at μ\* ≈ 500 mL across every
 cell.*
 
 Figures 2 a–f show the Morris μ\* heatmap for each of the six outputs.
@@ -1669,11 +1674,9 @@ visual patterns dominate:
 * **Cardiovascular outputs are cardio-input dominated.** Output HR is
   driven by input HR in every cell (μ\* ≈ 55 in healthy → ≈ 95 in
   severe ARDS); output MAP is driven by SBP in every cell (μ\* ≈ 17 –
-  20). No cross-talk from ventilator settings.
+  20). Ventilator settings still contribute smaller, non-zero effects.
 * **Gas-exchange outputs are ventilator-driven.** PaO2 is dominated by
-  FiO2 in S2 / S3 (μ\* peaks at 147 mmHg in (S2, F)) — the regime
-  where venous admixture has not yet decoupled oxygenation from
-  inspired oxygen. PaCO2 is dominated by Vt in most cells, consistent
+  FiO2 in S2 / S3 (μ\* peaks at 147 mmHg in (S2, F)). PaCO2 is dominated by Vt in most cells, consistent
   with the alveolar-ventilation identity
   $\dot{V}_A = \mathrm{RR} \cdot (V_T - V_D)$
   (where $\dot{V}_A$ is alveolar minute ventilation, RR is set
@@ -1684,14 +1687,16 @@ visual patterns dominate:
   the largest value, 0.12 in S3, would read 12 in percentage points.
 * **The ARDS gradient is visible.** PaO2's FiO2 sensitivity peaks in
   S2 (μ\* = 133 – 147 mmHg), remains substantial in S3 (μ\* = 84 – 93
-  mmHg), and *collapses* in severe ARDS (μ\* = 31 in (S4, M)). Pulse
-  correctly captures the regime where shunt physiology pins PaO2
-  regardless of FiO2 — a textbook ARDS finding, captured by the engine
-  without explicit programming.
+  mmHg), and falls sharply in severe ARDS (μ\* = 31 in (S4, M), on a
+  single elementary-effect pair; not estimable in (S4, F) under the
+  four-flag screen). FiO2 nevertheless remains the rank-1 input wherever
+  it is estimable. The fall is consistent with the model's
+  severity-dependent gas-exchange changes; shunt fraction was not
+  recorded, so a shunt-mediated reading is not directly tested.
 * **Output Vt tracks input Vt at μ\* ≈ 500 mL** in every cell. In VC-AC
   mode, asking Pulse for a 500 mL tidal volume produces close to a
   500 mL delivered tidal volume, cell-invariant. The cells where this
-  coupling is disrupted are the F-004 dyssynchrony runs (§3.8).
+  coupling is disrupted are the F-004 oscillation runs (§3.8).
 
 **Bootstrap 95 % CI on μ\*** (1,000 resamples) is reported alongside
 each μ\* point estimate in the table; CI overlap between the top-3 and
@@ -1701,11 +1706,11 @@ the rest is the formal H1 test.
 one-at-a-time probing prior to the Atlas (`Pulse_translation_new` E4,
 ±10 % perturbations on healthy and ARDS-moderate cells, n = 74 Docker
 runs) reported the FiO2 → PaO2 elasticity collapsing from 1.32 in
-healthy to 0.26 in moderate ARDS — an ~80 % attenuation as shunt
-physiology takes over. The Atlas Morris μ\* for PaO2 ~ FiO2 reproduces
+healthy to 0.26 in moderate ARDS — an ~80 % attenuation, consistent
+with rising shunt. The Atlas Morris μ\* for PaO2 ~ FiO2 reproduces
 both the direction and roughly the magnitude of this attenuation:
 μ\* peaks at S2 / S3 (147 mmHg in (S2, F)) and falls to 31 mmHg in
-(S4, M), a ~79 % drop. Elasticity (local %-change/%-change) and μ\*
+(S4, M), a ~79 % drop resting on a single elementary-effect pair. Elasticity (local %-change/%-change) and μ\*
 (mean absolute elementary effect in output units) are formally
 different metrics, so this is a qualitative consistency check rather
 than a numerical equivalence — but the matched direction and
@@ -2023,30 +2028,34 @@ versus the output HR mean ± std that Pulse actually returns at steady
 state.
 **How to read it:** the input range is fixed at [50, 110] bpm across
 all scenarios; the gap between that range and the output mean
-quantifies the scenario-dependent decoupling between input and output HR.
-**Key takeaway:** in S3 / S4 the output HR sits at 145 – 160 bpm
-despite inputs drawn from [50, 110] — a ~70 bpm sympathetic overshoot above the input-range midpoint
+quantifies the scenario-dependent upward shift of output HR; within each
+scenario, input HR remains the dominant determinant of output HR (§3.2).
+**Key takeaway:** in S3 / S4 the mean output HR sits at 145 – 160 bpm
+despite inputs drawn from [50, 110] — a ~70 bpm overshoot above the input-range midpoint
 consistent with Pulse's documented baroreceptor and chemoreceptor reflex
 behaviour, though the atlas did not record or isolate the contribution of
 those reflexes. The response occurs in runs that meet the atlas's clean-run
 criteria, which argues against the classifier's predefined failure modes as
 its explanation without excluding unmeasured numerical effects.
 
-In S1 (healthy), Pulse settles output HR near a physiological norm
-(~74 bpm) regardless of the requested baseline. By S3 / S4, output HR
-is in the 145 – 160 bpm range *despite* the input being drawn from
-[50, 110] — a ~70 bpm sympathetic overshoot above the input-range midpoint. This is
+In S1 (healthy), mean output HR is ~74 bpm, and output HR
+still follows the requested baseline: input HR is the rank-1 input for
+output HR in every cell (§3.2). By S3 / S4, mean output HR is in the
+145 – 160 bpm range *despite* the input being drawn from [50, 110] — a
+~70 bpm overshoot above the input-range midpoint. This is
 consistent with the engine's documented baroreceptor / chemoreceptor
 reflex behaviour under hypoxemia, though the atlas did not record or
-isolate the contribution of those reflexes; the compensation is
-*strong enough to dominate the explicit input HR baseline*.
+isolate the contribution of those reflexes. ARDS severity therefore
+shifts the output-HR distribution strongly upward, while input HR
+remains a dominant within-scenario determinant of output HR.
 
 Operational implication: **Morris elementary effects on input HR in
-ARDS scenarios capture the *coupling between compensation gain and
-input setting*, not the steady-state effect of resting HR.** The H1
+ARDS scenarios describe how output HR responds to the input setting
+within a scenario whose compensatory state is already shifted, not the
+steady-state effect of resting HR.** The H1
 support for HR-dominated cardiovascular outputs (HR, MAP) is robust;
-the *interpretation* is "the compensation responds proportionally to
-the input baseline" rather than "the input HR is the steady-state
+the *interpretation* is that input HR remains a dominant within-scenario
+determinant of output HR, not that "the input HR is the steady-state
 HR." Users running Pulse for ARDS device-validation should treat
 output HR as the engine's scenario-dependent steady-state response,
 not a setpoint.
@@ -2094,8 +2103,8 @@ input pattern. Of the 20:
 The signature reads cleanly: **low cardiovascular output (low HR +
 low SBP) combined with high respiratory rate (high RR) on the male
 reference surrogate** drives Pulse to a numerical edge case; the
-high-oxygen boundary (FiO2 = 1.0) co-occurs in 13 of the 20 cases (not all 20 — the other 7 sit near FiO2 ≈ 0.74, so it is enriched but not necessary). The compound input is *clinically plausible* — a hypotensive,
-tachypneic, fully oxygenated patient, recognizable as a septic /
+high-oxygen boundary (FiO2 = 1.0) is requested in 13 of the 20 cases (not all 20 — the other 7 sit near FiO2 ≈ 0.74, so it is enriched but not necessary), and it is never applied: every divergence occurs during patient stabilisation, before the ventilator action is submitted. The compound input is *clinically plausible* — a hypotensive,
+tachypneic patient, recognizable as a septic /
 pre-arrest configuration — and sits inside Pulse's verified
 acceptance ranges. Users should treat this corner of the envelope
 as fragile when running the male surrogate.
@@ -2924,12 +2933,13 @@ corrected by setting trigger pressure to −2 cmH2O.*
   protocol and per-run paired data:
   [`experiments_log/santino/S021_hyperoxia_convergence.md`](../experiments_log/santino/S021_hyperoxia_convergence.md);
   raw artefacts in `data/runs/s021_hyperoxia_convergence/`.
-* **F-004 — Patient-ventilator dyssynchrony in VC-AC at extreme inputs.**
+* **F-004 — Tidal-volume oscillation in VC-AC at extreme inputs,
+  consistent with patient-ventilator dyssynchrony.**
   Patient-ventilator dyssynchrony in volume-control ventilation at low
   tidal volume is a well-documented bedside phenomenon
-  [@figueroacasas2016], so the relevant question for the atlas is not
-  *whether* dyssynchrony exists in Pulse but how often the engine's
-  default trigger configuration enters that regime under operational
+  [@figueroacasas2016], so the relevant question for the atlas is how
+  often the engine's default trigger configuration produces a
+  tidal-volume oscillation consistent with it under operational
   sweeps. Across the full sweep, 303 / 1,280 (23.7 %) Morris runs
   satisfy `Vt_cv > 5 %` in the [60, 120] s window. Of those,
   264 / 1,280 (20.6 %) carry it as their *primary* flag — the
@@ -3031,11 +3041,11 @@ clinical-meaningfulness anchors).
   Even in this dual-vulnerability population, HR/MAP/PaCO2 drift rates
   remain below 4 %.
 
-The audit shows the [60, 120] s window is reliable for HR, MAP, and
-PaCO2 across the full sweep — the steady-state definition holds for
-the cardiovascular and ventilation channels used by Morris analysis.
-The window is *only* unreliable for PaO2 and Vt at FiO2 ≥ 0.95, which
-is exactly what F-003 and F-004 already disclose. The F-003 / F-004
+In these audited populations, window-length sensitivity is concentrated
+in PaO2 and delivered Vt, and threshold exceedances are uncommon for HR,
+MAP and PaCO2; the audit does not cover the rest of the sweep. The
+sensitive channels sit at the FiO2 ≥ 0.95 and high-oscillation
+extremes, which is exactly what F-003 and F-004 already disclose. The F-003 / F-004
 findings are therefore not a hidden invalidator of the rest of the
 sweep; they are the bounded scope of an explicitly-disclosed
 window-length limitation. Numerical detail in
@@ -3057,7 +3067,7 @@ the work in §4.5.*
 *A practitioner-oriented summary of which cells and which outputs are
 green, yellow, or red under the combined flag-and-baseline-deviation
 rule — and the specific reasons:
-F-003 transient hyperoxia regime, F-004 trigger dyssynchrony,
+F-003 transient hyperoxia regime, F-004 tidal-volume oscillation,
 severe-ARDS solver behaviour, and the sex-stratified divergence
 cluster in the input-extreme regime.*
 
@@ -3103,7 +3113,7 @@ artifact:
   guidance: at FiO2 ≥ 0.95, either lengthen the simulation window to
   ≥ 300 s of total simulated time and use a plateau window in the final 60 s of that
   simulation, or treat PaO2 as a transient, not steady-state, output.
-* **VC-AC dyssynchrony refines rather than indicts Pulse's
+* **VC-AC tidal-volume oscillation refines rather than indicts Pulse's
   implementation.** The F-004 finding (Vt CV > 5 % in 20.6 % of runs) is
   not a controller pathology: patient-ventilator dyssynchrony at extreme
   settings is a real intensive-care phenomenon [@figueroacasas2016] and
@@ -3119,10 +3129,10 @@ artifact:
   this is realistic but produces non-steady tidal volumes at exactly
   the ventilator-stress points where validation matters most. Section
   4.2 details the −2 cmH2O setting validated by [S014](#s014) as a data-generation lever for deterministic sweeps (with the clinical caveat in §4.2). Second, the prevalence of
-  dyssynchrony events (20.6 % across the full 7-input sweep) bounds how
+  oscillation events (20.6 % across the full 7-input sweep) bounds how
   much of Pulse's VC-AC behaviour at the default trigger configuration
   is steady-state interpretable. Sensitivity indices computed on the
-  dyssynchrony-flagged subset are not directly comparable to those on
+  oscillation-flagged subset are not directly comparable to those on
   the steady runs; the atlas's preregistered analysis plan correctly
   excludes flagged runs from Morris EE computation. Future work using
   Pulse for closed-loop VC-AC studies should commit to an explicit
@@ -3160,8 +3170,9 @@ delivered tidal volume non-steady at extreme input combinations. For sensitivity
 cohorts: 51.8 % of runs are clean, but the flagged 48.2 % follow
 non-random patterns that can leak into supervised labels and inflate
 apparent generalisation. The per-cell traffic light gives an immediate
-curation map — green cells are default-eligible, yellow ingest
-clean-only with metadata, red cells require per-channel justification.*
+curation map — the colour sets cell-level review priority, run-level
+four-flag screening remains necessary in every cell, and red cells
+require per-channel justification.*
 
 The atlas's curation map is not only an instrument for direct Pulse
 users; it doubles as a **per-cell curation layer for synthetic
@@ -3179,11 +3190,11 @@ internalise simulator artefacts as if they were physiology:
   steady-state window (F-003, §3.8) becomes "what hyperoxia looks like"
   to the model — even though Pulse converges into the physiological
   alveolar-gas-equation band when given a 300 s window ([S021](#s021)).
-* The 20.6 % VC-AC tidal-volume oscillation arising from inspiration-
-  trigger dyssynchrony (F-004, §3.8) becomes "ventilator behaviour" to
+* The 20.6 % VC-AC tidal-volume oscillation, consistent with inspiration-
+  trigger dyssynchrony (F-004, §3.8), becomes "ventilator behaviour" to
   the model, even though it is corrected by a single configuration
   flag.
-* The compensatory tachycardia decoupling input HR from output HR in
+* The compensatory tachycardia that shifts output HR upward in
   S3 / S4 (§3.4.1) is a particularly insidious feature-engineering
   trap: a neural network trained on these outputs will learn an
   *active physiological response* (the engine's compensatory
@@ -3200,10 +3211,11 @@ internalise simulator artefacts as if they were physiology:
 The four-flag detector (§2.6) and the per-cell traffic-light map
 (§3.7) together support a defensible ML-pipeline contract:
 
-1. **Green cells:** eligible for default inclusion in training cohorts
-   without per-run filtering, subject to use-case-specific validation.
-2. **Yellow cells:** ingest only the `clean`-flagged runs; report the
-   clean-rate per cell with the training-set metadata.
+1. **Every cell:** apply the run-level four-flag screen irrespective of
+   colour — the colour does not count runs flagged `not_steady_state` —
+   and report the clean-rate per cell with the training-set metadata.
+2. **Green and yellow cells:** the colour sets cell-level review
+   priority, subject to use-case-specific validation.
 3. **Red cells:** do not ingest into supervised-learning training sets
    without per-channel and per-input justification. Where red cells
    must be used (e.g. learning that PaO2 saturates at extreme FiO2),
@@ -3306,29 +3318,15 @@ assess at all + 2 on partial-input channels SysBP/DiaBP/RR)**. This non-overlap 
 central observation: the two papers' failure surfaces are
 *complementary*, not redundant.
 
-**The agreement on the overlap.** Within the four-channel overlap,
-Cornish's Hoeffding results report 3 / 70 rejections (4.3 %) for
-PaCO2 and zero rejections for HR, MAP (MeanBP), and PaO2. The
-atlas's §3.7 traffic-light shows a structurally compatible picture
-on the same four channels: PaO2 goes red at S3 and S4 across both
-sexes (4 / 8 cells), HR likewise goes red at S3+ (4 / 8 cells), and
-MAP and PaCO2 each have exactly one red cell (S4_M). The two papers
-therefore disagree on absolute rates — the atlas exposes
-boundary-region failure that Cornish's sepsis-cohort intervention
-sequences do not visit — but agree on the *ordinal* pattern: PaCO2
-is the channel where Hoeffding rejections concentrate in Cornish,
-and PaCO2 is also the channel where the atlas finds permutation-based
-Wasserstein significance (§3.6 H4); both papers single it out as
-the most assessment-sensitive gas-exchange variable. Cornish's
-bootstrap counts (Appendix Table 5) reinforce this: PaCO2 rises to
-13 / 70 (18.6 %), PaO2 acquires 4 / 78 rejections, and MAP picks up
-3 / 92 — a rank ordering (PaCO2 > PaO2 > MAP > HR) that mirrors
-the red-cell density of the atlas's gas-exchange-then-cardiovascular
-column ordering. The cell-level cross-tab cannot be tighter than
-this: Cornish's rejections are indexed by (time-step,
-action-sequence, sex–age–quantile bin) over sepsis trajectories,
-not by (scenario, sex) over the operational acceptance envelope,
-and the two indexings are not surjective on each other.
+**The overlap.** Within the four-channel overlap, Cornish's Hoeffding
+results report 3 / 70 rejections (4.3 %) for PaCO2 and zero
+rejections for HR, MAP (MeanBP), and PaO2. No ordinal comparison
+with the atlas's channel rankings is drawn here: Cornish's rejections
+are indexed by (time-step, action-sequence, sex–age–quantile bin)
+over sepsis trajectories, not by (scenario, sex) over the operational
+acceptance envelope, and the two indexings are not surjective on each
+other. The supported conclusion is the non-overlap above: the two
+failure surfaces are complementary rather than redundant.
 
 **The complementarity.** The 11 / 15 Cornish channels that do not
 map to the atlas (Chloride 24, Sodium 21, Potassium 13, Skin
@@ -3391,8 +3389,9 @@ bounded.*
   paper's measurement; longer windows are explicit future work. The
   [S012](#s012) cross-output audit (§3.8.1) bounds this limitation to PaO2 and
   Vt at FiO2 ≥ 0.95: HR and MAP drift rates stay below 3 % and PaCO2
-  below 4 % in both vulnerable populations, so the [60, 120] s steady-state window
-  remains reliable for the cardiovascular and ventilation channels.
+  below 4 % in both vulnerable populations, so in those audited populations
+  threshold exceedances are uncommon for HR, MAP and PaCO2, while delivered Vt
+  is itself one of the two window-sensitive channels.
 * MAP derived, not sampled; if Pulse's response to MAP differs from the
   derived value, our atlas could miss it. We argue against re-introducing
   MAP because the constraint MAP = (SBP + 2·DBP) / 3 is mechanically
@@ -3455,8 +3454,8 @@ bounded.*
   of physiological SpO2 saturation on healthy / well-oxygenated
   patients (a detector edge case on the flatline rule — SpO2 = 1.0 is
   the expected steady-state on adequate FiO2, not pinning); (ii)
-  **170 runs** flagged because of F-004 patient-ventilator
-  dyssynchrony (§3.8; its trigger dependence causally confirmed by
+  **170 runs** flagged because of the F-004 tidal-volume
+  oscillation (§3.8; its trigger dependence causally confirmed by
   [S014](#s014)); and (iii) a **185-run residual** dominated by S4
   severe-ARDS slow convergence and S1 transient hyperoxia drift
   (the F-003 phenomenon documented in §3.8 / [S012](#s012) /
@@ -3472,8 +3471,9 @@ bounded.*
   presented as a decomposition, not a re-classification.
 * **`not_steady_state` cross-validation by ML/SHAP surrogate.** A
   supplementary RandomForest + SHAP attribution on the n = 663 clean
-  subset ([S023](#s023)) recovers the Morris μ\* top-3 **set** in 17 / 18
-  pooled (output × top-3) cases and in 23 / 48 per-cell cases at full
+  subset ([S023](#s023)) shares 17 / 18 possible input memberships with
+  the Morris μ\* top-3 **sets** across the six pooled output-level
+  comparisons (five outputs 3/3, PaO2 2/3), and matches 23 / 48 per-cell cases at full
   3 / 3 set agreement (92 % of per-cell comparisons share at least
   2 / 3 — a partial overlap, not a preserved order). The
   cross-check is reported in supplementary section S11 with the
@@ -3483,7 +3483,7 @@ bounded.*
   engines.** The atlas reports Pulse-specific reliability behaviour;
   it does not establish
   whether the patterns reported here (sex-stratified divergence,
-  VC-AC dyssynchrony at default trigger settings, transient hyperoxia
+  VC-AC tidal-volume oscillation at default trigger settings, transient hyperoxia
   regime at FiO2 = 1.0 in a 120 s steady-state window) are unique to
   Pulse or generic to related physiology
   engines such as BioGears or HumMod. To our
@@ -3653,7 +3653,7 @@ practitioners using Pulse for synthetic cohort generation.
 
 Beyond mapping the envelope, this work yielded two
 operator-actionable corrections — resolving VC-AC tidal-volume
-dyssynchrony (F-004) via an explicit
+oscillation (F-004) via an explicit
 `InspirationPatientTriggerPressure = −2 cmH2O` setting
 ([S014](#s014); median Vt CV collapses 0.351 → 0.016, worst-case
 1.826 → 0.018) and reframing the apparent FiO2 = 1.0 PaO2 overshoot
@@ -4115,10 +4115,11 @@ during the literature-review pass logged in
   American Thoracic Society 13(12):2207-2214 (2016). DOI:
   [10.1513/AnnalsATS.201605-362OC](https://doi.org/10.1513/AnnalsATS.201605-362OC).
   PMID: 27598383. Cited in §3.8 and §4.1 as clinical-literature
-  precedent for the patient-ventilator dyssynchrony phenomenon that
-  F-004 quantifies inside Pulse. Identified and verified via PubMed
+  precedent for the patient-ventilator dyssynchrony phenomenon with
+  which the tidal-volume oscillation F-004 quantifies inside Pulse is
+  consistent. Identified and verified via PubMed
   esummary during the 2026-05-15 novelty audit ([S020](#s020)); the atlas's
-  contribution is the Pulse-engine manifestation and the corrective
+  contribution is a Pulse-engine oscillation consistent with it and the corrective
   trigger setting (−2 cmH2O), not the discovery of dyssynchrony.
 * []{#ref-thille2006} Thille AW, Rodriguez P, Cabello B, Lellouche F, Brochard L.
   *Patient-ventilator asynchrony during assisted mechanical ventilation.*
@@ -4590,8 +4591,8 @@ The two sub-modes audited are:
   expected hemoglobin saturation on adequate FiO2. The locked
   classifier was designed to catch solver-pinning, not physiological
   saturation; the two coincide numerically.
-* **Vt CV > 5 %.** The F-004 patient-ventilator dyssynchrony signal
-  described in §3.8 and causally tested in [S014](#s014). Pulse's
+* **Vt CV > 5 %.** The F-004 tidal-volume oscillation, consistent with
+  patient-ventilator dyssynchrony, described in §3.8 and causally tested in [S014](#s014). Pulse's
   default VC-AC trigger configuration leaves the spontaneous-drive
   respiratory model on, which inserts assist breaths between mandatory
   cycles and produces real per-breath Vt variance. S014 confirmed that
@@ -4651,7 +4652,7 @@ not feed §3.1 Table 1 or any of the headline figures.
   researcher who wants to score "engine instability" rather than
   "detector edge case + engine instability" can re-tally clean runs
   excluding this sub-mode using this table.
-* **F-004 dyssynchrony contribution (locked − excl. F-004 = 170 runs).**
+* **F-004 oscillation contribution (locked − excl. F-004 = 170 runs).**
   Distributed across all cells, with the strongest contribution at
   high set RR (consistent with the S014 mechanism: more assist-breath
   insertions per minute). This sub-mode is a *finding*, not a
@@ -4666,8 +4667,8 @@ not feed §3.1 Table 1 or any of the headline figures.
   F-003 transient hyperoxia regime (PaO2 drift at FiO2 = 1.0). Both
   categories are already discussed in §3.8 and are not new findings.
 * **Counterfactual "clean" recount.** Under the joint exclusion
-  (treat SpO2 saturation as physiological *and* re-attribute F-004
-  dyssynchrony to its own documented finding), the clean count would
+  (treat SpO2 saturation as physiological *and* re-attribute the F-004
+  oscillation to its own documented finding), the clean count would
   rise from 663 / 1,280 (51.8 %) to 1,008 / 1,280 (78.8 %). This
   number is *not* a re-classification of the atlas — it is a
   decomposition of where the 51.8 % clean rate comes from. The
