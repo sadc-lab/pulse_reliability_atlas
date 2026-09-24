@@ -3886,11 +3886,7 @@ paper,406,4.0,4.0,ambiguous_small,"the lab-notebook entries, and Creative Common
 paper,406,4.0,4.0,ambiguous_small,"ries, and Creative Commons Attribution 4.0 (CC-BY-4.0), whose version~4.0 covers sui generis database rights, for the deposited data and the au"
 paper,406,2.0,2.0,ambiguous_small,"rty excerpts, notably from the Pulse documentation and source (Apache-2.0), retain their original licensing terms. \hypertarget{tgt:code-avail"
 paper,410,2.0,2.0,ambiguous_small,udit ledger and reproducibility scripts) is released under the Apache-2.0 license at .
-paper,410,"1{,}280",1280.0,guard,"xttt{audits/} in the code repository: a co-author reproduced the full 1{,}280-run sweep and the S1\_M pilot on a second, independent x86\_64 host,"
-paper,410,5,5.0,ambiguous_small,"d the S1\_M pilot on a second, independent x86\_64 host, an AMD Ryzen~5 CPU running Linux under WSL2, whose CPU vendor and operating system d"
-paper,410,4,4.0,ambiguous_small,ag and steady-state value was bit-identical; three derived Hypothesis-4 statistics differed only at floating-point round-off ($\sim 10^{-14}$
-paper,410,10,10.0,ambiguous_small,"othesis-4 statistics differed only at floating-point round-off ($\sim 10^{-14}$), leaving the Benjamini--Hochberg survivor set unchanged. \bm"
-paper,410,14,14.0,none,"is-4 statistics differed only at floating-point round-off ($\sim 10^{-14}$), leaving the Benjamini--Hochberg survivor set unchanged. \bmhead{"
+paper,410,"1{,}280",1280.0,guard,"xttt{audits/} in the code repository: a co-author reproduced the full 1{,}280-run sweep and the S1\_M pilot on a second, independent x86\_64 comput"
 paper,414,23,23.0,ambiguous_small,ional Research Agency under France 2030 via the ENACT AI Cluster (ANR-23-IACL-0004). This work also relies on the financial support provided b
 paper,414,0004,4.0,ambiguous_small,search Agency under France 2030 via the ENACT AI Cluster (ANR-23-IACL-0004). This work also relies on the financial support provided by the R\'e
 supplement,48,1,1.0,ambiguous_small,\makeatletter \renewcommand\numberline[1]{\hb@xt@ {#1\hfil}} \makeatother

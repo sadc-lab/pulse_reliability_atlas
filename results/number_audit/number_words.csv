@@ -146,12 +146,11 @@ paper,325,first,ordinal,. \section{Discussion} This work delivers the first open
 paper,325,Two,cardinal,"tional scenarios, with its core design and primary analysis plan preregistered. Two operator-actionable corrections and a sex-stratified reliability axis emerge fr"
 paper,325,five,cardinal,"sured data~ , which this work does not perform. In a five-stage validation scheme proposed for synthetic biomedical data, running from in"
 paper,325,first,ordinal,", the atlas's run-level checks address only part of the first stage: they test whether runs are internally plausible, not whether they match"
-paper,327,four,cardinal,"learning pipelines that train on Pulse-generated synthetic patient cohorts, the four-flag classifier doubles as a run-level data-quality contract. Its role is compa"
-paper,327,doubles,multiplicative,"at train on Pulse-generated synthetic patient cohorts, the four-flag classifier doubles as a run-level data-quality contract. Its role is comparable to the verificatio"
+paper,327,four,cardinal,"are internally plausible, not whether they match real-world distributions. The four-flag classifier can also be used to screen Pulse-generated synthetic patient co"
 paper,327,one,cardinal,"gent task carries its own verification system~ , with one difference: the classifier checks the simulator's behaviour, not agreement with"
 paper,327,four,cardinal,"ap in Figure~ sets cell-level review priority; run-level four-flag screening remains necessary irrespective of cell colour, because a tile's"
 paper,327,second,ordinal,"e rule, and green does not establish physiological validity. The same map has a second audience: Pulse is embedded in named training products that present healthcare"
-paper,329,Three,cardinal,the per-cell map to avoid regimes where the engine diverges or never settles. Three traps documented here merit explicit attention. The sex-stratified divergence c
+paper,329,Three,cardinal,the per-cell map to avoid regimes where the engine diverges or never settles. Three findings call for care when Pulse-generated data are reused. The sex-stratified
 paper,329,third,ordinal,e as a steady-state feature rather than as an active response to hypoxemia. The third survives flag-based curation altogether: sex-conditioned distributional differe
 paper,331,two,cardinal,"on of effect. For the computational-physiology community, the atlas matters in two ways. First, it directly addresses the Pulse maintainers' own statement that no"
 paper,331,First,ordinal,"ct. For the computational-physiology community, the atlas matters in two ways. First, it directly addresses the Pulse maintainers' own statement that no formal sens"
@@ -164,7 +163,7 @@ paper,335,first,ordinal,"atlas also serves the engine's maintainers: it provides
 paper,337,Six,cardinal,ation and validation infrastructure rather than Pulse's underlying physiology. Six scope limits bound the conclusions; each is set out with its evidence in Supple
 paper,337,two,cardinal,"results applying identically to the build-only . (ii)~Patient anatomy is two adult reference bodies, so mass and height variation within sex is uncharacteri"
 paper,337,Two,cardinal,"steps, so some SBP and DBP effects are not strict fixed-step Morris estimates. Two further caveats are of evidence rather than scope: no trajectory-count converge"
-paper,339,four,cardinal,intended as foundational infrastructure rather than a terminal deliverable. The four-flag classifier and the per-cell traffic-light are reusable instruments that do
+paper,339,four,cardinal,than directly tested. This atlas is meant as a baseline for further work. The four-flag classifier and the per-cell traffic-light are reusable instruments that do
 paper,339,first,ordinal,"re-running the present sweep. By characterising the adult operational envelope first, the atlas provides the methodological basis a pediatric translation layer woul"
 paper,339,one,cardinal,"ned on simulated cohorts performs on recorded data is a further question, which one sim-to-real study addressed by quantifying the distributional mismatch between"
 paper,347,one,cardinal,"ated by a thin Python layer around Pulse's command-line interface, which writes one JSON configuration per Morris input vector --- reference body, ARDS scenario co"
@@ -233,8 +232,7 @@ paper,393,second,ordinal,"t was always a Claude model (Anthropic; , 4.8 and 5 in
 paper,406,third,ordinal,"rights, for the deposited data and the authors' own monograph content. Verbatim third-party excerpts, notably from the Pulse documentation and source (Apache-2.0), r"
 paper,410,four,cardinal,"ilability} \noindent The atlas codebase (Morris sampler, Pulse Docker wrapper, four-flag steady-state classifier, statistical-analysis pipeline, audit ledger and r"
 paper,410,three,cardinal,"summarises the reproducibility recipe (Docker image tag, random seed, three-layer bit-exact verification) and documents the cross-platform, cross-vendor re"
-paper,410,second,ordinal,"ory: a co-author reproduced the full 1{,}280-run sweep and the S1\_M pilot on a second, independent x86\_64 host, an AMD Ryzen~5 CPU running Linux under WSL2, whose C"
-paper,410,three,cardinal,ndows reference. Every run-level flag and steady-state value was bit-identical; three derived Hypothesis-4 statistics differed only at floating-point round-off ($\si
+paper,410,second,ordinal,"ory: a co-author reproduced the full 1{,}280-run sweep and the S1\_M pilot on a second, independent x86\_64 computer whose CPU vendor and operating system differ from"
 paper,414,one,cardinal,".\ dedicates this work to the memory of U.N.\ --- for the knock at the door, at one, at two, at three in the morning. \bmhead{Author contributions} \noindent S."
 paper,414,two,cardinal,"ates this work to the memory of U.N.\ --- for the knock at the door, at one, at two, at three in the morning. \bmhead{Author contributions} \noindent S.N.\ conc"
 paper,414,three,cardinal,"s work to the memory of U.N.\ --- for the knock at the door, at one, at two, at three in the morning. \bmhead{Author contributions} \noindent S.N.\ conceived and"

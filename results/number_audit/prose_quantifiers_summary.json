@@ -10,9 +10,9 @@
       "kept_per_family": {
         "extent": 2,
         "frequency": 8,
-        "identity": 22,
+        "identity": 21,
         "priority": 11,
-        "scope": 64,
+        "scope": 63,
         "strength": 12,
         "universal": 179
       },
@@ -38,20 +38,19 @@
         "no": 26,
         "none": 5,
         "nothing": 2,
-        "only": 20,
+        "only": 19,
         "same": 17,
         "single": 21,
         "throughout": 2,
         "total": 3,
-        "unchanged": 1,
         "uniformly": 1,
         "unique": 1,
         "whole": 4
       },
       "lines_with_a_kept_token": 70,
       "recall": {
-        "tokens_in_raw_text": 311,
-        "tokens_kept": 298,
+        "tokens_in_raw_text": 309,
+        "tokens_kept": 296,
         "tokens_masked": 13,
         "masked_per_rule": {
           "tex_comment": 13,
@@ -219,14 +218,14 @@
     }
   },
   "totals": {
-    "kept": 1932,
+    "kept": 1930,
     "masked": 24,
     "kept_per_family": {
       "extent": 23,
       "frequency": 35,
-      "identity": 245,
+      "identity": 244,
       "priority": 74,
-      "scope": 425,
+      "scope": 424,
       "strength": 48,
       "universal": 1082
     }

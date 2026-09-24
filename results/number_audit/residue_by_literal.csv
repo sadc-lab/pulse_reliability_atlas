@@ -10,7 +10,6 @@ paper,0.21,1,"), tidal volume (Vt, 300--800~mL), inspired oxygen fraction (FiO$_
 paper,0.625,1,"entages on purpose: with $n = 160$ every percentage is a multiple of $0.625$, so nine of the sixteen values below fall on an exact rounding tie a"
 paper,110,1,"pt across their verified Pulse acceptance ranges: heart rate (HR, 50--110~bpm), systolic and diastolic blood pressure (SBP 90--120~mmHg, DBP 60"
 paper,"12{,}642",1,"et al.'s ventilator-sharing study~ does sweep inputs (12{,}642 unique patient and ventilator combinations spanning respiratory compl"
-paper,14,1,"is-4 statistics differed only at floating-point round-off ($\sim 10^{-14}$), leaving the Benjamini--Hochberg survivor set unchanged. \bmhead{"
 paper,163,1,"le body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both weights are U.S.\ Centers for Disease Control and Preventio"
 paper,"1{,}400",1,"rion (Figure~ b). Three of those 40 plateau above 1{,}400~mmHg, beyond the sea-level barometric pressure of 760~mmHg and so phy"
 paper,22,1,"s window was preregistered before any sweep data was collected, and a 22-run pilot on the healthy-male cell verified five preregistered gating"
