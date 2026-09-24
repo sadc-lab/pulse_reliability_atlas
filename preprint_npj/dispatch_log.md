@@ -697,7 +697,7 @@ had been overwritten, and its hashes were unrecoverable.
 |---|---|
 | Sent | *(pending author confirmation)* |
 | Recipients | the four supervising co-authors (A.W., C.S., P.J., M.S.) |
-| Source commit | `ada9659`, re-freeze 24 (see the freeze table below; this row had stayed at re-freeze 12's `ff09c92` through re-freezes 13 to 22) |
+| Source commit | `629d3a0`, re-freeze 25 (see the freeze table below; this row had stayed at re-freeze 12's `ff09c92` through re-freezes 13 to 22) |
 | Format | `.pdf` and `.docx` |
 | Artefacts to send | paper and supplement only |
 | Pages | 26 (paper; 25 until re-freeze 18) / 64 (supplement) |
@@ -707,10 +707,10 @@ had been overwritten, and its hashes were unrecoverable.
 
 | artefact | SHA-256 | bytes |
 |---|---|---|
-| `preprint_npj/build/paper.pdf` | `a66f3f6fae16b63a8d1690bcb2753ae1bfda5f4e4546baa31f36c32f247eba65` | 633,702 |
-| `preprint_npj/build/paper.docx` | `f592bd4fbcace780bf37e630629e7fee7a8bfcd4cddae71af9a906808e44fe8c` | 975,412 |
-| `preprint_npj/build/supplement.pdf` | `dbe22a69701046a3c40e158050e3c6d62c8b276df3167d2ba52104b570aa2804` | 725,801 |
-| `preprint_npj/build/supplement.docx` | `2c43f1a38a35d34d6f0f23f0ad719a2bcf7d804e44cd6b4b796d64e9c163232c` | 747,729 |
+| `preprint_npj/build/paper.pdf` | `8350bf80011991f996dc0107088d1d593a7d423450b3681cb25f6fb8143e42a4` | 633,268 |
+| `preprint_npj/build/paper.docx` | `44e08705aba1571e2107d46b98fd514951e42a41e91a532765cd5f28f310fd97` | 975,261 |
+| `preprint_npj/build/supplement.pdf` | `a3acc8d24b399d68a2e2f81b6cdb603cee5431d83f407e524ade7d42f81448fe` | 725,801 |
+| `preprint_npj/build/supplement.docx` | `7f74bf2acdfeeb8c760652092dac763486109fab13a3c68ab54b2ca36f080e70` | 747,729 |
 
 The monograph **is not part of this dispatch**. It was rebuilt with
 re-freeze 24, at `cabc29c`, which carries the one re-freeze 24 repair it
@@ -721,7 +721,9 @@ Its hashes are recorded so that build stays identifiable:
 `cd123e011bf2d21d898edd0fc32bb023b7865c2201a21d1e3007afeb5922a178` (1,357,986
 bytes) and `preprint/build/manuscript.docx`
 `38162e09c937278a03e000e7a4113ecb9587f50a51ad7c70c8e7ac84dbac9119` (1,016,646
-bytes), still 122 pages.
+bytes), still 122 pages. Re-freeze 25 does not touch it (`manuscript.md`
+is unchanged since `cabc29c`), so it was not rebuilt; both hashes and byte
+counts were re-measured at re-freeze 25 and still match.
 
 ⚠️ **These hashes are valid for this build only.** Any further edit to
 `paper.tex` or `supplement.tex` invalidates them, and they must be re-frozen
@@ -737,8 +739,10 @@ since `a064d14` (`git diff a064d14..a92496f --` on it is empty), and again
 at re-freeze 22 (`supplement.tex` still unchanged since `a064d14`). **At
 re-freeze 23 they changed for a real reason again:** `c4efe6c` edits
 `supplement.tex` (still 64 pages), and so does `ada9659` at re-freeze 24 (one
-cross-reference; still 64 pages). For
-re-freezes 13 to 19, 21 and 22 the cause is the build, not the content:
+cross-reference; still 64 pages). At re-freeze 25 they moved again with
+`supplement.tex` unchanged since `ada9659` (`git diff ada9659..629d3a0 --`
+on it is empty; byte counts identical, 725,801 and 747,729). For
+re-freezes 13 to 19, 21, 22 and 25 the cause is the build, not the content:
 pdfTeX stamps a wall-clock `CreationDate` into the PDF (`18:47:46` for the
 re-freeze 22 supplement) and the pandoc DOCX moved by one byte, 747,727 to 747,726, so a rebuild
 never reproduces the previous digest. `build/` is untracked, so the earlier
@@ -746,14 +750,15 @@ artefacts cannot be recovered for comparison. Read a changed supplement hash as
 *rebuilt*, never as *edited*; `supplement.tex` in git is the authority on
 whether the content moved. The monograph hashes above changed at re-freezes 16
 and 17, again after 21, and at 22, 23 and 24, for a real reason, unlike the
-supplement's at 13 to 19, 21 and 22: `manuscript.md` was edited (`1d684c7`,
+supplement's at 13 to 19, 21, 22 and 25: `manuscript.md` was edited (`1d684c7`,
 then `f9e3bb7`, then `78396c0` and `026df18`, then `27a012c`, then
 `cabc29c`) and rebuilt
-with `scripts/build_paper.ps1`.
+with `scripts/build_paper.ps1`. They did not change at re-freeze 25, which
+leaves `manuscript.md` untouched.
 `build_npj.ps1` alone never rebuilds it.
 
-**Re-frozen twenty-four times.** The first three were one-token abstract edits
-made before the files left the machine; re-freezes 4 to 19 and 21 to 24 leave
+**Re-frozen twenty-five times.** The first three were one-token abstract edits
+made before the files left the machine; re-freezes 4 to 19 and 21 to 25 leave
 the abstract untouched, and re-freeze 20 rewords three of its phrases at an
 unchanged count:
 
@@ -784,6 +789,7 @@ unchanged count:
 | re-freeze 22 | `4a9286c` | two residual sentences of the same two themes: §2.5 "Sex therefore moves where the solver fails…" becomes "Across the two reference bodies, where the solver fails therefore differs…", and the Discussion's "effort-dependent dyssynchrony Pulse models" becomes "effort-dependent variability". Paper only; still 26 / 64 pages. The monograph and README were aligned in the same round (`78396c0`, `026df18`, `3f5ad9e`; not dispatched) | 149 / 146 |
 | re-freeze 23 | `c4efe6c` | **claims, not wording**: eighteen statements narrowed to what the documents' own figures, tables and data show. H2 no longer "settled by Table 3 alone"; "no measurable ventilator cross-talk" removed; FiO$_2$ in severe ARDS no longer "near-flat"; the FiO$_2$ = 1.0 of the divergent runs "requested", never applied; the blood-volume sentence bounded to Pulse's calculation; heart rate no longer "decouples" from its input; the Cornish ordinal paragraph deleted; the 120-s window verdict bounded to the two audited populations; runs "recorded for 120 s after a 120-s ventilator-settling phase"; the SHAP 17 / 18 unit and the Spearman rationale corrected; dyssynchrony no longer asserted ("instability" in the §2.3 title, "consistent with" at six supplement loci); Table 2's not_steady_state meaning, "five flags", preregistration scope, "fully balanced factorial", "causal-mechanistic" and two shunt statements narrowed; the green-tile guidance replaced by run-level screening in every cell. Paper and supplement both edited; still 26 / 64 pages. The monograph, README, cover letter and traffic-light JSON legend were aligned in the same round (`27a012c`, `e9ac421`; not dispatched) | 149 / 146 |
 | re-freeze 24 | `ada9659` | three repairs to re-freeze 23's own wording, found on re-reading it before any push: the H2 verdict no longer rests on the log flag alone ("…the input-instantiation audit below provides the complementary check, and together they leave H2 not supported"); the traffic-light caveat moved to the end of its sentence ("every use remains subject to use-case-specific validation"); S5.5's "all 20 divergences occur during patient stabilisation" now points to §2.1, which states it, instead of S3, which states it for 13. Paper and supplement both edited; still 26 / 64 pages. The monograph's copy of the traffic-light caveat was repaired in the same round (`cabc29c`; not dispatched) | 149 / 146 |
+| re-freeze 25 | `629d3a0` | five sentences said more plainly, on the author's decision after a read of the paper for density; no claim, number, figure or table changes. Introduction: "We provide a reusable run-level classifier and a per-cell map that sets review priority", both caveats kept (not a validation; the screened runs are not a representative subset). Discussion: "data-quality contract" becomes "can also be used to screen Pulse-generated synthetic patient cohorts…"; "Three traps … merit explicit attention" becomes "Three findings call for care when Pulse-generated data are reused"; "foundational infrastructure rather than a terminal deliverable" becomes "meant as a baseline for further work". Code availability: the reproduction host's model and OS and the $10^{-14}$ round-off detail left to Supplement S12, "x86\_64" kept. Paper only; still 26 / 64 pages. The cover letter was aligned in the same commit; the monograph was not (not dispatched) | 149 / 146 |
 
 Re-freezes 9 and 10 are the two that shortened a section rather than a
 sentence: **the Introduction goes 936 → 926 words**, and the abstract is
@@ -819,7 +825,7 @@ frozen and any later build gets a new, superseding entry.**
 ### What changed since the version the four last received (`0f275e0`, 2026-09-05)
 
 **92 commits** up to the preparation build (`3765872`), 156 up to re-freeze 22,
-161 up to re-freeze 23, 167 up to re-freeze 24.
+161 up to re-freeze 23, 167 up to re-freeze 24, 172 up to re-freeze 25.
 The paper goes from 24 to **26** rendered pages (25 until re-freeze 18), the
 supplement from 56 to **64**. The monograph, which they did not receive in September
 either, stands at 122.
@@ -866,7 +872,9 @@ S5, S7, S8, S10, S12, S13, S15, S16 and S17. No result changes and no figure
 moves; S7 loses one paragraph, with the four Cornish bootstrap percentages it
 compared against the atlas's red tiles. Re-freeze 24 (`ada9659`) repairs three
 of those sentences (§2.1 H2, the Discussion's traffic-light caveat, one S5.5
-cross-reference).
+cross-reference). Re-freeze 25 (`629d3a0`) rewords five paper sentences (one
+in the Introduction, three in the Discussion, one in Code availability)
+without changing a claim.
 
 ### What the covering message must say
 
