@@ -54,7 +54,7 @@ supplement,"4{,}400",4,"ence cluster (20 / 20 at the default $\rightarrow$ 0 / 2
 supplement,0.01,3,"an. The flatline-at-bound criterion fires when \texttt{std / |mean| < 0.01} AND the mean is within 0.1~\% of a hard bound, intended to flag nume"
 supplement,0.20,3,$ \\ Alveolar diffusion surface area & decreases & $0.57\times$ & $0.20\times$ & $0.075\times$ \\ Pulmonary-shunt path resistance & decreas
 supplement,0.41,3,"\\ S2 & SpO$_2$ & 0.96 & $[0.70, 1.00]$ \\ S2 & PaO$_2$ & 0.93 & $[0.41, 1.00]$ \\ S2 & PaCO$_2$ & 0.89 & $[0.35, 1.00]$ \\ \midrule S3 & HR"
-supplement,0.737,3,"ecific one; the exception is a single healthy-female run at FiO$_2$ = 0.737, whose 679~mmHg steady-state mean stands well above the $0.737 \times"
+supplement,0.737,3,"ecific one; the exception is a single healthy-female run at FiO$_2$ = 0.737, whose 679~mmHg mean over the final 60~s stands well above the $0.737"
 supplement,16.8,3,"67.3~kg male body versus 3{,}996.09~mL for the 56.2~kg female body (a 16.8~\% absolute-mL sex gap), and that reducing the male reference body's"
 supplement,25,3,"n category (b), the exact numerical choice (e.g., PaO$_2$ lower 20 vs 25~mmHg) is a defensible judgment call within the cited literature rathe"
 supplement,28,3,"companion translation project's original ARDS severity calibration, a 28-run impairment sweep of 2026-03 (full log in the companion technical"
@@ -78,9 +78,9 @@ supplement,3.8,2,he cited literature rather than a unique biological constant. S
 supplement,393,2,"# 394/394 PASS (exit 0) with the authors' full data tree, # or 393/394 on a public clone (T1.06u auto-skipped). uv run python"
 supplement,4.3,2,"ibration, a different parameter class, and has not been ported to the 4.3.x release line. & Pulse FAQ~ + upstream repo audit (mo"
 supplement,403.8,2,"reference body under VC-AC, tidal volume 6~mL/kg actual body weight (403.8~mL), PEEP 10~cmH$_2$O, FiO$_2$ 0.4. Table~ r"
-supplement,47,2,679~mmHg steady-state mean stands well above the $0.737 \times (760 - 47) - 16.2 / 0.8 \approx 505$~mmHg its own inspired fraction and PaCO$_2
+supplement,47,2,g mean over the final 60~s stands well above the $0.737 \times (760 - 47) - 16.2 / 0.8 \approx 505$~mmHg its own inspired fraction and PaCO$_2
 supplement,"4{,}900",2,"tbf{Cardiovascular sizing.} A cardiac-output target of 5{,}600 versus 4{,}900~mL\,min$^{-1}$, from which every regional vascular flow target is der"
-supplement,505,2,n stands well above the $0.737 \times (760 - 47) - 16.2 / 0.8 \approx 505$~mmHg its own inspired fraction and PaCO$_2$ permit. An FiO$_2$-aware
+supplement,505,2,s stands well above the $0.737 \times (760 - 47) - 16.2 / 0.8 \approx 505$~mmHg its own inspired fraction and PaCO$_2$ permit. An FiO$_2$-aware
 supplement,"5{,}600",2,"ent. \item \textbf{Cardiovascular sizing.} A cardiac-output target of 5{,}600 versus 4{,}900~mL\,min$^{-1}$, from which every regional vascular flo"
 supplement,6.84,2,S4\_M\_0124}) have wall-time metadata spanning the same approximately 6.84~h suspension of the reference machine. Because both timing records in
 supplement,63,2,oth resolutions. Four descriptive summaries were computed on the same 63 configurations with a non-zero post-lockout cycle-level CV (Table~
@@ -121,7 +121,7 @@ supplement,0.55,1,$ \\ Alveolar compliance & decreases & $0.70\times$ & $0.55\ti
 supplement,0.57,1,$ & $0.45\times$ \\ Alveolar diffusion surface area & decreases & $0.57\times$ & $0.20\times$ & $0.075\times$ \\ Pulmonary-shunt path resista
 supplement,0.58,1,"~bpm), MAP on 0~\% (median 0.05~mmHg), and PaCO$_2$ on 3.6~\% (median 0.58~mmHg). Only oxygenation and tidal-volume delivery are materially affe"
 supplement,0.667,1,"the $\sigma/\mu^{*}$ point estimate for FiO$_2$ on PaO$_2$ moved from 0.667 to 0.547, crossing the preregistered 0.6 point-estimate promotion tri"
-supplement,0.8,1,dy-state mean stands well above the $0.737 \times (760 - 47) - 16.2 / 0.8 \approx 505$~mmHg its own inspired fraction and PaCO$_2$ permit. An F
+supplement,0.8,1,he final 60~s stands well above the $0.737 \times (760 - 47) - 16.2 / 0.8 \approx 505$~mmHg its own inspired fraction and PaCO$_2$ permit. An F
 supplement,0.87,1,"single input nearly determines. The three blood-gas channels average 0.87 with a spread ten to thirty times larger, and they are also where the"
 supplement,0.915,1,o stabilise. A 10-run high-resolution boundary probe at 0.90 / 0.91 / 0.915 / 0.92 / 0.925 / 0.93 / 0.935 / 0.94 / 0.945 / 0.95 narrowed the fail
 supplement,0.920,1,"erive the instability band independently: impairment fractions 0.910, 0.920, 0.930, 0.940 and 0.945 all failed to complete, while 0.900 and 0.950"
@@ -143,7 +143,7 @@ supplement,130,1,"ear in the recorded reason, because a CV trigger was reached f
 supplement,"13{,}824",1,"all seven swept inputs, base sample 256, first-order indices only, or 13{,}824 runs. It shares the locked input-space definition of the Morris sweep"
 supplement,14.0,1,"item \textbf{Oxygen-carrying capacity.} Total haemoglobin 15.0 versus 14.0~g\,dL$^{-1}$, giving haematocrit 0.4412 versus 0.4118, passed to the"
 supplement,15.4,1,"cludes it, and its $\mu^{*}$ rises by a median factor of 2.4 (maximum 15.4). The reported $\mu^{*}$ for DBP should therefore be read as a lower"
-supplement,16.2,1,Hg steady-state mean stands well above the $0.737 \times (760 - 47) - 16.2 / 0.8 \approx 505$~mmHg its own inspired fraction and PaCO$_2$ permit
+supplement,16.2,1,over the final 60~s stands well above the $0.737 \times (760 - 47) - 16.2 / 0.8 \approx 505$~mmHg its own inspired fraction and PaCO$_2$ permit
 supplement,16.5,1,"lmost entirely driven by the body-mass difference (67.3 vs 56.2~kg, a 16.5~\% gap) rather than by an intrinsic per-kg sex difference in Pulse's"
 supplement,163.0,1,and Pulse's own \texttt{heightStandardFemale\_cm = 163.0} reference constant in \texttt{ }; the male height is
 supplement,168,1,"sult no longer depends on an external project. Evaluated over a [108, 168]~s window derived from the timing recorded with E6 (a 60-s settle, th"
@@ -218,7 +218,7 @@ supplement,668,1,"-60-s IQR (mmHg) \\ \midrule S1 (healthy) & 44 & 643.2 & [592,
 supplement,67.28992603,1,"lishes their row: \texttt{Agemos}~=~216.5, whose 50th percentiles are 67.28992603~kg for males and 56.22969564~kg for females, rounded to the preregist"
 supplement,67.5,1,80$ & 77.5 \\ 110-to-90 & 15 & 16 & 24.94 & 17.26 & $+7.68$ & $80 \to 67.5$ & 73.75 \\ 120-to-100 & 1 & 19 & 20.32 & 16.74 & $+3.59$ & $80 \to 7
 supplement,67.64281378,1,"es. Both statements were wrong, and they shared one cause. The values 67.64281378 and 56.40963105~kg belong to \texttt{Agemos}~=~218.5, that is 18~year"
-supplement,679,1,"he exception is a single healthy-female run at FiO$_2$ = 0.737, whose 679~mmHg steady-state mean stands well above the $0.737 \times (760 - 47)"
+supplement,679,1,"he exception is a single healthy-female run at FiO$_2$ = 0.737, whose 679~mmHg mean over the final 60~s stands well above the $0.737 \times (76"
 supplement,7.3,1,"drifts beyond threshold on 2.3~\% of runs, MAP on 0.7~\%, PaO$_2$ on 7.3~\%, and PaCO$_2$ on 2.0~\% --- Pulse buffers the breath-to-breath vol"
 supplement,7.5,1,"f baseline, collapses the alveolar diffusion surface area to $\approx 7.5\,\%$ of baseline, and opens the intrapulmonary shunt. The diffusion-s"
 supplement,7.68,1,4.70$ & $75 \to 80$ & 77.5 \\ 110-to-90 & 15 & 16 & 24.94 & 17.26 & $+7.68$ & $80 \to 67.5$ & 73.75 \\ 120-to-100 & 1 & 19 & 20.32 & 16.74 & $+3

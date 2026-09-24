@@ -59,11 +59,11 @@ paper,200,zero,cardinal,"ith finite numbers: NaN/Inf in the output, a missing or
 paper,204,one,cardinal,"\addlinespace \texttt{not\_steady\_state} & in the final 60~s window, at least one tracked output flatlines at a hard bound (frozen with near-zero variation), var"
 paper,204,zero,cardinal,"window, at least one tracked output flatlines at a hard bound (frozen with near-zero variation), varies too much (coefficient of variation $>$ 0.05; most often tida"
 paper,210,eight,cardinal,[h] \centering \caption{\textbf{Per-cell flag breakdown across the eight scenario $\times$ sex cells.} The preregistered \texttt{clamped} category is em
-paper,210,eight,cardinal,"\times$ sex cells.} The preregistered \texttt{clamped} category is empty in all eight cells, 0 of 1{,}280: no submitted setup input was refused. What varies between"
-paper,210,four,cardinal,ount when a run fires several; only \texttt{clean} is mutually exclusive of the four flag classes. Runs are resolved to a single primary flag for partition-style an
-paper,233,eight,cardinal,"tile, which is what the map is for rather than a defect in it. \textbf{(a)} The eight cells against the six steady-state outputs (HR, MAP, Vt delivered, SpO$_2$, PaO"
-paper,233,six,cardinal,"map is for rather than a defect in it. \textbf{(a)} The eight cells against the six steady-state outputs (HR, MAP, Vt delivered, SpO$_2$, PaO$_2$, PaCO$_2$; units"
-paper,233,half,multiplicative,"emph{both}. The 12 red tiles split 6 deviation-only, 4 flag-only and 2 both, so half are red because the clean-run mean sits far from a \emph{healthy male} in scena"
+paper,210,eight,cardinal,"\times$ sex cells.} The preregistered \texttt{clamped} category is empty in all eight cells, 0 of 1{,}280: no submitted setup input was refused. Every cell has flagg"
+paper,210,one,cardinal,e than 160 when flags overlap; \texttt{clean} means no flag. Analyses that need one label per run use the priority order of Methods~\S . F
+paper,233,eight,cardinal,": a clinically ordinary value can sit on a yellow or red tile. \textbf{(a)} The eight cells against the six steady-state outputs (HR, MAP, Vt delivered, SpO$_2$, PaO"
+paper,233,six,cardinal,"value can sit on a yellow or red tile. \textbf{(a)} The eight cells against the six steady-state outputs (HR, MAP, Vt delivered, SpO$_2$, PaO$_2$, PaCO$_2$; units"
+paper,233,six,cardinal,"red tiles, 6 are red on deviation only, 4 on hard flags only and 2 on both. The six deviation-only red tiles are HR and PaO$_2$ in S3\_M, S3\_F and S4\_F: tachycar"
 paper,238,two,cardinal,[!ht] \centering \caption{\textbf{Per-cell retention under the two screening definitions.} Retention is computed over 160 simulations per cell. \e
 paper,238,Four,cardinal,eening definitions.} Retention is computed over 160 simulations per cell. \emph{Four-flag clean} keeps only runs firing none of the four flags; \emph{hard-failure-f
 paper,238,four,cardinal,simulations per cell. \emph{Four-flag clean} keeps only runs firing none of the four flags; \emph{hard-failure-free} keeps every run firing neither \texttt{diverged
@@ -189,8 +189,8 @@ paper,367,zero,cardinal,"than solver divergence by construction, since a setup r
 paper,369,six,cardinal,", PaO$_2$ [20, 600]~mmHg, PaCO$_2$ [10, 120]~mmHg. Unlike the swept inputs, the six tracked outputs have no acceptance envelope in Pulse: the engine reports whatev"
 paper,371,second,ordinal,". \texttt{not\_steady\_state} fires when, over the final 60-second window, any tracked output flatlines, drifts beyond its per-channel clinical th"
 paper,373,four,cardinal,"; the drift thresholds are tabulated in Supplement~\S\, . The four flags are independent presence counts, so one run can fire several. Analyses th"
-paper,373,one,cardinal,"ent~\S\, . The four flags are independent presence counts, so one run can fire several. Analyses that need one category per run resolve it by a f"
-paper,373,one,cardinal,"re independent presence counts, so one run can fire several. Analyses that need one category per run resolve it by a fixed priority order, \texttt{clamped} $>$ \te"
+paper,373,one,cardinal,"ent~\S\, . The four flags are independent presence counts, so one run can fire several. Analyses that need one category per run resolve it by a p"
+paper,373,one,cardinal,"re independent presence counts, so one run can fire several. Analyses that need one category per run resolve it by a priority order fixed after the sweep, \texttt{"
 paper,373,five,cardinal,"sweep data was collected, and a 22-run pilot on the healthy-male cell verified five preregistered gating criteria, among them detector self-consistency and Pulse d"
 paper,377,one,cardinal,"p (Figure~ ) reduces each (scenario, sex, output) cell to one green / yellow / red verdict, built from two locked ingredients: the cell's com"
 paper,377,two,cardinal,"ch (scenario, sex, output) cell to one green / yellow / red verdict, built from two locked ingredients: the cell's combined diverged-plus-implausible flag rate, an"

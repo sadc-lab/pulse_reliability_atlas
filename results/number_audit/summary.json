@@ -62,7 +62,7 @@
     "paper": {
       "buckets": {
         "ambiguous_small": 302,
-        "guard": 169,
+        "guard": 170,
         "ledger": 15,
         "none": 37
       },
@@ -73,7 +73,7 @@
         "line_reference": 0,
         "org_identifier": 12,
         "product_version": 2,
-        "ref_or_machinery": 235,
+        "ref_or_machinery": 236,
         "tex_comment": 99,
         "typeset_length": 11,
         "url_or_doi": 0,
@@ -83,8 +83,8 @@
       "path": "preprint_npj/paper.tex",
       "recall": {
         "accounting_closes": true,
-        "literals_after_masking": 525,
-        "literals_in_raw_text": 571,
+        "literals_after_masking": 526,
+        "literals_in_raw_text": 572,
         "literals_removed_per_rule": {
           "file_path": 0,
           "line_reference": 0,
@@ -97,13 +97,13 @@
           "version": 0
         },
         "removed_by_masks": 46,
-        "retained_plus_year_like": 525
+        "retained_plus_year_like": 526
       },
-      "retained_occurrences": 523
+      "retained_occurrences": 524
     },
     "supplement": {
       "buckets": {
-        "ambiguous_small": 966,
+        "ambiguous_small": 967,
         "guard": 490,
         "ledger": 26,
         "none": 407
@@ -125,8 +125,8 @@
       "path": "preprint_npj/supplement.tex",
       "recall": {
         "accounting_closes": true,
-        "literals_after_masking": 1909,
-        "literals_in_raw_text": 2004,
+        "literals_after_masking": 1910,
+        "literals_in_raw_text": 2005,
         "literals_removed_per_rule": {
           "file_path": 2,
           "line_reference": 2,
@@ -139,17 +139,17 @@
           "version": 7
         },
         "removed_by_masks": 95,
-        "retained_plus_year_like": 1909
+        "retained_plus_year_like": 1910
       },
-      "retained_occurrences": 1889
+      "retained_occurrences": 1890
     }
   },
   "population_rule": "see the module docstring; exclusions are counted per artefact",
   "totals": {
-    "ambiguous_small_occurrences": 3145,
+    "ambiguous_small_occurrences": 3146,
     "distinct_values": 730,
-    "not_demonstrably_covered_occurrences": 4382,
-    "retained_occurrences": 5779,
+    "not_demonstrably_covered_occurrences": 4383,
+    "retained_occurrences": 5781,
     "unbucketed_distinct_values": 417,
     "unbucketed_occurrences": 1237
   }

@@ -8,8 +8,8 @@
     "paper": {
       "path": "preprint_npj/paper.tex",
       "kept_per_class": {
-        "cardinal": 204,
-        "multiplicative": 3,
+        "cardinal": 205,
+        "multiplicative": 2,
         "ordinal": 32
       },
       "kept_per_word": {
@@ -17,14 +17,14 @@
         "fifth": 1,
         "first": 11,
         "five": 7,
-        "four": 36,
+        "four": 35,
         "fourth": 1,
-        "half": 3,
+        "half": 2,
         "nine": 3,
-        "one": 45,
+        "one": 46,
         "second": 16,
         "seven": 13,
-        "six": 13,
+        "six": 14,
         "sixteen": 1,
         "third": 3,
         "three": 26,
@@ -165,8 +165,8 @@
     "kept": 1367,
     "masked": 12,
     "kept_per_class": {
-      "cardinal": 1155,
-      "multiplicative": 27,
+      "cardinal": 1156,
+      "multiplicative": 26,
       "ordinal": 185
     }
   }

@@ -3468,12 +3468,13 @@ paper,202,600,600.0,guard,"nds outside the locked hard physiological bounds (e.g
 paper,204,60,60.0,ambiguous_small,"ted as-is \\ \addlinespace \texttt{not\_steady\_state} & in the final 60~s window, at least one tracked output flatlines at a hard bound (froz"
 paper,204,0.05,0.05,none,"h near-zero variation), varies too much (coefficient of variation $>$ 0.05; most often tidal volume), or drifts past its locked per-channel limi"
 paper,204,60,60.0,ambiguous_small,"run completed but did not satisfy the steady-state criterion, so its 60~s mean is not a reliable summary \\ \bottomrule"
-paper,210,0,0.0,ambiguous_small,"preregistered \texttt{clamped} category is empty in all eight cells, 0 of 1{,}280: no submitted setup input was refused. What varies between"
-paper,210,"1{,}280",1280.0,guard,"egistered \texttt{clamped} category is empty in all eight cells, 0 of 1{,}280: no submitted setup input was refused. What varies between cells is n"
-paper,210,144,144.0,guard,"not whether the engine fails but how much of the grid survives, from 144 of 160 clean runs in moderate ARDS on the male body down to 42 of 160"
-paper,210,160,160.0,guard,"ether the engine fails but how much of the grid survives, from 144 of 160 clean runs in moderate ARDS on the male body down to 42 of 160 in the"
-paper,210,42,42.0,ambiguous_small,from 144 of 160 clean runs in moderate ARDS on the male body down to 42 of 160 in the healthy female cell. Flag columns are independent prese
-paper,210,160,160.0,guard,144 of 160 clean runs in moderate ARDS on the male body down to 42 of 160 in the healthy female cell. Flag columns are independent presence cou
+paper,210,0,0.0,ambiguous_small,"preregistered \texttt{clamped} category is empty in all eight cells, 0 of 1{,}280: no submitted setup input was refused. Every cell has flag"
+paper,210,"1{,}280",1280.0,guard,"egistered \texttt{clamped} category is empty in all eight cells, 0 of 1{,}280: no submitted setup input was refused. Every cell has flagged runs; w"
+paper,210,144,144.0,guard,"Every cell has flagged runs; what varies is how many stay clean, from 144 of 160 in moderate ARDS on the male body to 42 of 160 in the healthy"
+paper,210,160,160.0,guard,"ell has flagged runs; what varies is how many stay clean, from 144 of 160 in moderate ARDS on the male body to 42 of 160 in the healthy female"
+paper,210,42,42.0,ambiguous_small,"many stay clean, from 144 of 160 in moderate ARDS on the male body to 42 of 160 in the healthy female cell. A run can fire several flags, so a"
+paper,210,160,160.0,guard,"tay clean, from 144 of 160 in moderate ARDS on the male body to 42 of 160 in the healthy female cell. A run can fire several flags, so a row su"
+paper,210,160,160.0,guard,"female cell. A run can fire several flags, so a row sums to more than 160 when flags overlap; \texttt{clean} means no flag. Analyses that need"
 paper,216,160,160.0,guard,verged & implausible & not\_steady\_state & clean \\ \midrule S1\_M & 160 & 0 & 4 & 11 & 107 & 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \mi
 paper,216,0,0.0,ambiguous_small,& implausible & not\_steady\_state & clean \\ \midrule S1\_M & 160 & 0 & 4 & 11 & 107 & 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrul
 paper,216,4,4.0,ambiguous_small,mplausible & not\_steady\_state & clean \\ \midrule S1\_M & 160 & 0 & 4 & 11 & 107 & 49 \\ S1\_F & 160 & 0 & 0 & 23 & 118 & 42 \\ \midrule S2
@@ -3522,23 +3523,23 @@ paper,226,0,0.0,ambiguous_small,\\ \midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \
 paper,226,46,46.0,ambiguous_small,\midrule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160 & 0 & 0 & 46 & 74 & 60 \\ \bottomrule [!h
 paper,226,74,74.0,ambiguous_small,ule S4\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160 & 0 & 0 & 46 & 74 & 60 \\ \bottomrule [!htbp]
 paper,226,60,60.0,ambiguous_small,\_M & 160 & 0 & 8 & 46 & 44 & 67 \\ S4\_F & 160 & 0 & 0 & 46 & 74 & 60 \\ \bottomrule [!htbp] \cente
-paper,233,10,10.0,ambiguous_small,"le flags (together the \emph{hard flags}) \emph{and} the mean within $10~\%$ of the (S1, M) baseline (the \emph{deviation} criterion). \textit"
-paper,233,10,10.0,ambiguous_small,viation} criterion). \textit{Yellow}: any hard flag \emph{or} a mean $10$--$30~\%$ off baseline. \textit{Red}: more than $30~\%$ off baseline
-paper,233,30,30.0,ambiguous_small,n} criterion). \textit{Yellow}: any hard flag \emph{or} a mean $10$--$30~\%$ off baseline. \textit{Red}: more than $30~\%$ off baseline \emph{
-paper,233,30,30.0,ambiguous_small,\emph{or} a mean $10$--$30~\%$ off baseline. \textit{Red}: more than $30~\%$ off baseline \emph{or} a diverged-plus-implausible rate above $30
-paper,233,30,30.0,ambiguous_small,30~\%$ off baseline \emph{or} a diverged-plus-implausible rate above $30~\%$. Across the 48 cell $\times$ output combinations the aggregate is
-paper,233,48,48.0,ambiguous_small,\emph{or} a diverged-plus-implausible rate above $30~\%$. Across the 48 cell $\times$ output combinations the aggregate is 7 green / 29 yello
-paper,233,7,7.0,ambiguous_small,\%$. Across the 48 cell $\times$ output combinations the aggregate is 7 green / 29 yellow / 12 red. \textbf{(b)} Which criterion produced eac
-paper,233,29,29.0,ambiguous_small,s the 48 cell $\times$ output combinations the aggregate is 7 green / 29 yellow / 12 red. \textbf{(b)} Which criterion produced each classific
-paper,233,12,12.0,ambiguous_small,l $\times$ output combinations the aggregate is 7 green / 29 yellow / 12 red. \textbf{(b)} Which criterion produced each classification: 7 \em
-paper,233,7,7.0,ambiguous_small,"/ 12 red. \textbf{(b)} Which criterion produced each classification: 7 \emph{neither} (the green set by construction), 23 \emph{hard flags o"
-paper,233,23,23.0,ambiguous_small,"ach classification: 7 \emph{neither} (the green set by construction), 23 \emph{hard flags only}, 9 \emph{deviation only}, 9 \emph{both}. The 1"
-paper,233,9,9.0,ambiguous_small,"{neither} (the green set by construction), 23 \emph{hard flags only}, 9 \emph{deviation only}, 9 \emph{both}. The 12 red tiles split 6 deviat"
-paper,233,9,9.0,ambiguous_small,"by construction), 23 \emph{hard flags only}, 9 \emph{deviation only}, 9 \emph{both}. The 12 red tiles split 6 deviation-only, 4 flag-only and"
-paper,233,12,12.0,ambiguous_small,"3 \emph{hard flags only}, 9 \emph{deviation only}, 9 \emph{both}. The 12 red tiles split 6 deviation-only, 4 flag-only and 2 both, so half are"
-paper,233,6,6.0,ambiguous_small,"only}, 9 \emph{deviation only}, 9 \emph{both}. The 12 red tiles split 6 deviation-only, 4 flag-only and 2 both, so half are red because the c"
-paper,233,4,4.0,ambiguous_small,"iation only}, 9 \emph{both}. The 12 red tiles split 6 deviation-only, 4 flag-only and 2 both, so half are red because the clean-run mean sits"
-paper,233,2,2.0,ambiguous_small,"\emph{both}. The 12 red tiles split 6 deviation-only, 4 flag-only and 2 both, so half are red because the clean-run mean sits far from a \emp"
+paper,233,10,10.0,ambiguous_small,baseline. \textit{Green}: no hard flag \emph{and} a deviation within $10~\%$. \textit{Yellow}: any hard flag \emph{or} a deviation of $10$--$3
+paper,233,10,10.0,ambiguous_small,hin $10~\%$. \textit{Yellow}: any hard flag \emph{or} a deviation of $10$--$30~\%$. \textit{Red}: a deviation above $30~\%$ \emph{or} a hard-f
+paper,233,30,30.0,ambiguous_small,0~\%$. \textit{Yellow}: any hard flag \emph{or} a deviation of $10$--$30~\%$. \textit{Red}: a deviation above $30~\%$ \emph{or} a hard-flag ra
+paper,233,30,30.0,ambiguous_small,ph{or} a deviation of $10$--$30~\%$. \textit{Red}: a deviation above $30~\%$ \emph{or} a hard-flag rate above $30~\%$. Over the 48 tiles: 7 gr
+paper,233,30,30.0,ambiguous_small,tit{Red}: a deviation above $30~\%$ \emph{or} a hard-flag rate above $30~\%$. Over the 48 tiles: 7 green / 29 yellow / 12 red. \textbf{(b)} Th
+paper,233,48,48.0,ambiguous_small,tion above $30~\%$ \emph{or} a hard-flag rate above $30~\%$. Over the 48 tiles: 7 green / 29 yellow / 12 red. \textbf{(b)} The criterion behin
+paper,233,7,7.0,ambiguous_small,$30~\%$ \emph{or} a hard-flag rate above $30~\%$. Over the 48 tiles: 7 green / 29 yellow / 12 red. \textbf{(b)} The criterion behind each co
+paper,233,29,29.0,ambiguous_small,emph{or} a hard-flag rate above $30~\%$. Over the 48 tiles: 7 green / 29 yellow / 12 red. \textbf{(b)} The criterion behind each colour: 7 \em
+paper,233,12,12.0,ambiguous_small,ard-flag rate above $30~\%$. Over the 48 tiles: 7 green / 29 yellow / 12 red. \textbf{(b)} The criterion behind each colour: 7 \emph{neither}
+paper,233,7,7.0,ambiguous_small,"/ 29 yellow / 12 red. \textbf{(b)} The criterion behind each colour: 7 \emph{neither} (the green tiles), 23 \emph{hard flags only}, 9 \emph{"
+paper,233,23,23.0,ambiguous_small,"The criterion behind each colour: 7 \emph{neither} (the green tiles), 23 \emph{hard flags only}, 9 \emph{deviation only}, 9 \emph{both}. Of th"
+paper,233,9,9.0,ambiguous_small,"olour: 7 \emph{neither} (the green tiles), 23 \emph{hard flags only}, 9 \emph{deviation only}, 9 \emph{both}. Of the 12 red tiles, 6 are red"
+paper,233,9,9.0,ambiguous_small,"the green tiles), 23 \emph{hard flags only}, 9 \emph{deviation only}, 9 \emph{both}. Of the 12 red tiles, 6 are red on deviation only, 4 on h"
+paper,233,12,12.0,ambiguous_small,"emph{hard flags only}, 9 \emph{deviation only}, 9 \emph{both}. Of the 12 red tiles, 6 are red on deviation only, 4 on hard flags only and 2 on"
+paper,233,6,6.0,ambiguous_small,"s only}, 9 \emph{deviation only}, 9 \emph{both}. Of the 12 red tiles, 6 are red on deviation only, 4 on hard flags only and 2 on both. The si"
+paper,233,4,4.0,ambiguous_small,"ly}, 9 \emph{both}. Of the 12 red tiles, 6 are red on deviation only, 4 on hard flags only and 2 on both. The six deviation-only red tiles ar"
+paper,233,2,2.0,ambiguous_small,"e 12 red tiles, 6 are red on deviation only, 4 on hard flags only and 2 on both. The six deviation-only red tiles are HR and PaO$_2$ in S3\_M"
 paper,238,160,160.0,guard,tion under the two screening definitions.} Retention is computed over 160 simulations per cell. \emph{Four-flag clean} keeps only runs firing n
 paper,238,160,160.0,guard,"his sweep, so including it changes no count). Counts are given out of 160 rather than as percentages on purpose: with $n = 160$ every percentag"
 paper,238,160,160.0,guard,"are given out of 160 rather than as percentages on purpose: with $n = 160$ every percentage is a multiple of $0.625$, so nine of the sixteen va"
@@ -3638,9 +3639,9 @@ paper,284,60,60.0,ambiguous_small,uantified as the delivered Vt coefficient of v
 paper,284,120,120.0,guard,the delivered Vt coefficient of variation over the final 60~s of the 120~s recording. Vt oscillation is the \emph{primary} such flag on 20.6~\
 paper,284,20.6,20.6,guard,he 120~s recording. Vt oscillation is the \emph{primary} such flag on 20.6~\% of runs: the delivered breath volume never settles to a single val
 paper,286,64,64.0,ambiguous_small,o finding. A follow-up experiment isolated the mechanism. Re-running 64 of the affected configurations with Pulse's \texttt{InspirationPatien
-paper,286,2,2.0,ambiguous_small,"ions with Pulse's \texttt{InspirationPatientTriggerPressure} set to $-2$~cmH$_2$O collapses the median Vt CV from 0.351 to 0.016, and 78.1~\%"
-paper,286,0.351,0.351,guard,"TriggerPressure} set to $-2$~cmH$_2$O collapses the median Vt CV from 0.351 to 0.016, and 78.1~\% of the locked-trigger reruns drop below the 0.0"
-paper,286,0.016,0.016,ambiguous_small,"essure} set to $-2$~cmH$_2$O collapses the median Vt CV from 0.351 to 0.016, and 78.1~\% of the locked-trigger reruns drop below the 0.05 steady-"
+paper,286,2,2.0,ambiguous_small,"drop below PEEP at which a patient effort triggers a breath) set to $-2$~cmH$_2$O collapses the median Vt CV from 0.351 to 0.016, and 78.1~\%"
+paper,286,0.351,0.351,guard,"iggers a breath) set to $-2$~cmH$_2$O collapses the median Vt CV from 0.351 to 0.016, and 78.1~\% of the locked-trigger reruns drop below the 0.0"
+paper,286,0.016,0.016,ambiguous_small,"breath) set to $-2$~cmH$_2$O collapses the median Vt CV from 0.351 to 0.016, and 78.1~\% of the locked-trigger reruns drop below the 0.05 steady-"
 paper,286,78.1,78.1,guard,"to $-2$~cmH$_2$O collapses the median Vt CV from 0.351 to 0.016, and 78.1~\% of the locked-trigger reruns drop below the 0.05 steady-state thre"
 paper,286,0.05,0.05,none,"351 to 0.016, and 78.1~\% of the locked-trigger reruns drop below the 0.05 steady-state threshold (Figure~ a). The lock is a"
 paper,288,1.0,1.0,ambiguous_small,\subsection{\texorpdfstring{Transient hyperoxia regime at FiO$_2$~=~1.0}{Transient hyperoxia regime at FiO2 = 1.0}}
@@ -4389,14 +4390,15 @@ supplement,357,1.0,1.0,ambiguous_small,"hould be read. 700~mmHg is a \emph{flat}
 supplement,357,32,32.0,ambiguous_small,"lue scales with each run's own inspired fraction and PaCO$_2$. Of the 32 runs it reclassifies, 31 sit at FiO$_2 \geq 0.95$, where the flat cei"
 supplement,357,31,31.0,ambiguous_small,"s own inspired fraction and PaCO$_2$. Of the 32 runs it reclassifies, 31 sit at FiO$_2 \geq 0.95$, where the flat ceiling is close to the run-"
 supplement,357,0.95,0.95,ambiguous_small,"n and PaCO$_2$. Of the 32 runs it reclassifies, 31 sit at FiO$_2 \geq 0.95$, where the flat ceiling is close to the run-specific one; the except"
-supplement,357,0.737,0.737,none,"ecific one; the exception is a single healthy-female run at FiO$_2$ = 0.737, whose 679~mmHg steady-state mean stands well above the $0.737 \times"
-supplement,357,679,679.0,none,"he exception is a single healthy-female run at FiO$_2$ = 0.737, whose 679~mmHg steady-state mean stands well above the $0.737 \times (760 - 47)"
-supplement,357,0.737,0.737,none,"$_2$ = 0.737, whose 679~mmHg steady-state mean stands well above the $0.737 \times (760 - 47) - 16.2 / 0.8 \approx 505$~mmHg its own inspired fra"
-supplement,357,760,760.0,guard,whose 679~mmHg steady-state mean stands well above the $0.737 \times (760 - 47) - 16.2 / 0.8 \approx 505$~mmHg its own inspired fraction and Pa
-supplement,357,47,47.0,none,679~mmHg steady-state mean stands well above the $0.737 \times (760 - 47) - 16.2 / 0.8 \approx 505$~mmHg its own inspired fraction and PaCO$_2
-supplement,357,16.2,16.2,none,Hg steady-state mean stands well above the $0.737 \times (760 - 47) - 16.2 / 0.8 \approx 505$~mmHg its own inspired fraction and PaCO$_2$ permit
-supplement,357,0.8,0.8,none,dy-state mean stands well above the $0.737 \times (760 - 47) - 16.2 / 0.8 \approx 505$~mmHg its own inspired fraction and PaCO$_2$ permit. An F
-supplement,357,505,505.0,none,n stands well above the $0.737 \times (760 - 47) - 16.2 / 0.8 \approx 505$~mmHg its own inspired fraction and PaCO$_2$ permit. An FiO$_2$-aware
+supplement,357,0.737,0.737,none,"ecific one; the exception is a single healthy-female run at FiO$_2$ = 0.737, whose 679~mmHg mean over the final 60~s stands well above the $0.737"
+supplement,357,679,679.0,none,"he exception is a single healthy-female run at FiO$_2$ = 0.737, whose 679~mmHg mean over the final 60~s stands well above the $0.737 \times (76"
+supplement,357,60,60.0,ambiguous_small,"thy-female run at FiO$_2$ = 0.737, whose 679~mmHg mean over the final 60~s stands well above the $0.737 \times (760 - 47) - 16.2 / 0.8 \approx"
+supplement,357,0.737,0.737,none,"0.737, whose 679~mmHg mean over the final 60~s stands well above the $0.737 \times (760 - 47) - 16.2 / 0.8 \approx 505$~mmHg its own inspired fra"
+supplement,357,760,760.0,guard,79~mmHg mean over the final 60~s stands well above the $0.737 \times (760 - 47) - 16.2 / 0.8 \approx 505$~mmHg its own inspired fraction and Pa
+supplement,357,47,47.0,none,g mean over the final 60~s stands well above the $0.737 \times (760 - 47) - 16.2 / 0.8 \approx 505$~mmHg its own inspired fraction and PaCO$_2
+supplement,357,16.2,16.2,none,over the final 60~s stands well above the $0.737 \times (760 - 47) - 16.2 / 0.8 \approx 505$~mmHg its own inspired fraction and PaCO$_2$ permit
+supplement,357,0.8,0.8,none,he final 60~s stands well above the $0.737 \times (760 - 47) - 16.2 / 0.8 \approx 505$~mmHg its own inspired fraction and PaCO$_2$ permit. An F
+supplement,357,505,505.0,none,s stands well above the $0.737 \times (760 - 47) - 16.2 / 0.8 \approx 505$~mmHg its own inspired fraction and PaCO$_2$ permit. An FiO$_2$-aware
 supplement,357,700,700.0,guard,ermit. An FiO$_2$-aware ceiling would keep that run flagged. The flat 700~mmHg bound is therefore a deliberately permissive stress test of the
 supplement,357,04,4.0,ambiguous_small,"has been adjusted post-hoc; the only preregistration amendment (2026-04-22-b, flatline tolerance 1~\% $\rightarrow$ 0.1~\%) was made before t"
 supplement,357,22,22.0,none,"s been adjusted post-hoc; the only preregistration amendment (2026-04-22-b, flatline tolerance 1~\% $\rightarrow$ 0.1~\%) was made before the"
