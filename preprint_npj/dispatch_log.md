@@ -697,7 +697,7 @@ had been overwritten, and its hashes were unrecoverable.
 |---|---|
 | Sent | *(pending author confirmation)* |
 | Recipients | the four supervising co-authors (A.W., C.S., P.J., M.S.) |
-| Source commit | `ff09c92` (see the freeze table below) |
+| Source commit | `c4efe6c`, re-freeze 23 (see the freeze table below; this row had stayed at re-freeze 12's `ff09c92` through re-freezes 13 to 22) |
 | Format | `.pdf` and `.docx` |
 | Artefacts to send | paper and supplement only |
 | Pages | 26 (paper; 25 until re-freeze 18) / 64 (supplement) |
@@ -707,24 +707,24 @@ had been overwritten, and its hashes were unrecoverable.
 
 | artefact | SHA-256 | bytes |
 |---|---|---|
-| `preprint_npj/build/paper.pdf` | `2d89c65dd05391fa8d70d21b31ea4d6fbd80300038f2481e7c8fa5961c6e663e` | 632,563 |
-| `preprint_npj/build/paper.docx` | `e8f3eaa80d9a89754294f5bf5c8cbc1807e8a02b38edb1de7ce4947a823f4792` | 974,969 |
-| `preprint_npj/build/supplement.pdf` | `03e8f96ce3a8a59fe5bd3dfc49076881a091fa7539b75ed7f662803cdc0d8bea` | 725,734 |
-| `preprint_npj/build/supplement.docx` | `9e24f3695c1a3635526eca07ca769230e5fc8b5d8d1faa7cefd49ec972ec6dcb` | 747,702 |
+| `preprint_npj/build/paper.pdf` | `24174385947ff7f7bc1bf3e2549fd8c3599ff8d0ac5f9a293e960dd7e0122a84` | 633,650 |
+| `preprint_npj/build/paper.docx` | `61d978dfe96b0e8dd72df1b3cfcb9f126197296b08df590ce5771a9ac93fc609` | 975,396 |
+| `preprint_npj/build/supplement.pdf` | `9fa92cc24dfc44fd8c5577156d7e116f264e784454de94514be6ed68f61562a2` | 725,819 |
+| `preprint_npj/build/supplement.docx` | `cf44c2e9742997f627cc287f5f101929cc8477399e2646dbf618dd69cd8c80ba` | 747,725 |
 
 The monograph **is not part of this dispatch**. It was rebuilt with
-re-freeze 22, at `026df18`, after `78396c0` and `026df18` aligned it on the
-paper's re-freeze 20 to 22 wording. Its hashes are recorded so that build
-stays identifiable:
+re-freeze 23, at `27a012c`, which aligned it on the paper's re-freeze 23
+wording (`78396c0` and `026df18` had done so for re-freezes 20 to 22). Its
+hashes are recorded so that build stays identifiable:
 `preprint/build/manuscript.pdf`
-`d83f8127365f908ecd18fde4b1fd31d7cd7d0bbd8c9e156e673965c4068b39be` (1,358,171
+`6c36a5326a56df1313617baa477e2257b62d9d08b711e40c497602c9ce387f8d` (1,357,988
 bytes) and `preprint/build/manuscript.docx`
-`8165325a6ff114586ed1b2bc52926a052fc42a517388a5c85d841f0f312ae288` (1,016,594
-bytes).
+`35f170877155666359613abc6f37fbe757993b9d2572e17aba3ca1397ebfb59a` (1,016,639
+bytes), still 122 pages.
 
 ⚠️ **These hashes are valid for this build only.** Any further edit to
-`paper.tex` or `supplement.tex` — including the still-open abstract decision
-recorded below — invalidates them, and they must be re-frozen before the send.
+`paper.tex` or `supplement.tex` invalidates them, and they must be re-frozen
+before the send. (The abstract decision recorded below is closed: kept as is.)
 
 ⚠️ **The supplement's two hashes changed at re-freeze 13, and again at 14, 15, 16, 17, 18 and 19, although
 `supplement.tex` did not.** Verified: `git diff 3765872..a064d14^ --
@@ -733,7 +733,9 @@ and every structural check passes. **At re-freeze 20 they changed for a real
 reason:** `a064d14` edits `supplement.tex` (11 edits on 10 lines; still 64
 pages). At re-freeze 21 they moved again with `supplement.tex` unchanged
 since `a064d14` (`git diff a064d14..a92496f --` on it is empty), and again
-at re-freeze 22 (`supplement.tex` still unchanged since `a064d14`). For
+at re-freeze 22 (`supplement.tex` still unchanged since `a064d14`). **At
+re-freeze 23 they changed for a real reason again:** `c4efe6c` edits
+`supplement.tex` (still 64 pages). For
 re-freezes 13 to 19, 21 and 22 the cause is the build, not the content:
 pdfTeX stamps a wall-clock `CreationDate` into the PDF (`18:47:46` for the
 re-freeze 22 supplement) and the pandoc DOCX moved by one byte, 747,727 to 747,726, so a rebuild
@@ -741,13 +743,14 @@ never reproduces the previous digest. `build/` is untracked, so the earlier
 artefacts cannot be recovered for comparison. Read a changed supplement hash as
 *rebuilt*, never as *edited*; `supplement.tex` in git is the authority on
 whether the content moved. The monograph hashes above changed at re-freezes 16
-and 17, again after 21, and at 22, for a real reason, unlike the
-supplement's: `manuscript.md` was edited (`1d684c7`, then `f9e3bb7`, then
-`78396c0` and `026df18`) and rebuilt with `scripts/build_paper.ps1`.
+and 17, again after 21, and at 22 and 23, for a real reason, unlike the
+supplement's at 13 to 19, 21 and 22: `manuscript.md` was edited (`1d684c7`,
+then `f9e3bb7`, then `78396c0` and `026df18`, then `27a012c`) and rebuilt
+with `scripts/build_paper.ps1`.
 `build_npj.ps1` alone never rebuilds it.
 
-**Re-frozen twenty-two times.** The first three were one-token abstract edits
-made before the files left the machine; re-freezes 4 to 19, 21 and 22 leave
+**Re-frozen twenty-three times.** The first three were one-token abstract edits
+made before the files left the machine; re-freezes 4 to 19 and 21 to 23 leave
 the abstract untouched, and re-freeze 20 rewords three of its phrases at an
 unchanged count:
 
@@ -776,6 +779,7 @@ unchanged count:
 | re-freeze 20 | `a064d14` | **claims, not wording**: seven narrowed to what their experiments show. One unsupported supplement inference removed (a divergence-only sweep cannot show Morris-rank robustness); dyssynchrony "consistent with"; "sex-stratified" for "sex-dependent"/"sex-specific"; blood-volume "dependence" for "mechanism", including the §2.5 and §S10 titles; rank 1 "more stable", not "resolved"; the ARDS labels stated as calibration bands; the monograph "gives further detail" rather than being "the source of truth". Paper and supplement both edited; still 26 / 64 pages | 149 / 146 |
 | re-freeze 21 | `a92496f` | "preregistered" dropped from the three follow-up experiments (trigger lockout, 300-s hyperoxia rerun, blood volume): none is in `preregistration.md`, and protocol and results entered git in the same commit for each. Paper only; still 26 / 64 pages | 149 / 146 |
 | re-freeze 22 | `4a9286c` | two residual sentences of the same two themes: §2.5 "Sex therefore moves where the solver fails…" becomes "Across the two reference bodies, where the solver fails therefore differs…", and the Discussion's "effort-dependent dyssynchrony Pulse models" becomes "effort-dependent variability". Paper only; still 26 / 64 pages. The monograph and README were aligned in the same round (`78396c0`, `026df18`, `3f5ad9e`; not dispatched) | 149 / 146 |
+| re-freeze 23 | `c4efe6c` | **claims, not wording**: eighteen statements narrowed to what the documents' own figures, tables and data show. H2 no longer "settled by Table 3 alone"; "no measurable ventilator cross-talk" removed; FiO$_2$ in severe ARDS no longer "near-flat"; the FiO$_2$ = 1.0 of the divergent runs "requested", never applied; the blood-volume sentence bounded to Pulse's calculation; heart rate no longer "decouples" from its input; the Cornish ordinal paragraph deleted; the 120-s window verdict bounded to the two audited populations; runs "recorded for 120 s after a 120-s ventilator-settling phase"; the SHAP 17 / 18 unit and the Spearman rationale corrected; dyssynchrony "consistent with" in the §2.3 title and six supplement loci; Table 2's not_steady_state meaning, "five flags", preregistration scope, "fully balanced factorial", "causal-mechanistic" and two shunt statements narrowed; the green-tile guidance replaced by run-level screening in every cell. Paper and supplement both edited; still 26 / 64 pages. The monograph, README, cover letter and traffic-light JSON legend were aligned in the same round (`27a012c`, `e9ac421`; not dispatched) | 149 / 146 |
 
 Re-freezes 9 and 10 are the two that shortened a section rather than a
 sentence: **the Introduction goes 936 → 926 words**, and the abstract is
@@ -807,7 +811,8 @@ frozen and any later build gets a new, superseding entry.**
 
 ### What changed since the version the four last received (`0f275e0`, 2026-09-05)
 
-**92 commits** up to the preparation build (`3765872`), 156 up to re-freeze 22.
+**92 commits** up to the preparation build (`3765872`), 156 up to re-freeze 22,
+161 up to re-freeze 23.
 The paper goes from 24 to **26** rendered pages (25 until re-freeze 18), the
 supplement from 56 to **64**. The monograph, which they did not receive in September
 either, stands at 122.
@@ -844,6 +849,14 @@ blood-volume dependence", §S10 begins "Blood-volume dependence". Re-freeze 21
 (`a92496f`) then stops calling three follow-up experiments "preregistered"
 (§2.3, §2.4, §2.5), and re-freeze 22 (`4a9286c`) rewords one sentence each
 in §2.5 and the Discussion. No number, figure or table moved.
+
+Re-freeze 23 (`c4efe6c`) narrows eighteen further statements (row 23 above).
+A reader of the September copy will see it in the paper's §2.1 (H2), §2.2,
+the §2.3 title, §2.4, §2.5, §2.6, the Discussion and Methods §4.3, in the
+wording of Tables 1 and 2 and of Figure 1's caption, and in supplement S4,
+S5, S7, S8, S10, S12, S13, S15, S16 and S17. No result changes and no figure
+moves; S7 loses one paragraph, with the four Cornish bootstrap percentages it
+compared against the atlas's red tiles.
 
 ### What the covering message must say
 
@@ -897,7 +910,20 @@ were put to the author on 2026-09-19:
   median 643 mmHg" gives 151 words and "a drift-converged median of 643 mmHg"
   gives 152, against a cap of 150 that the abstract already sits at exactly.
 
-Not decided. The median over all 44 reruns has **not** been re-measured in this
+Not decided on 2026-09-19. The median over all 44 reruns has **not** been re-measured in that
 session; an August note recorded it as 643.3063, but the same note gave
 "642.8716 on 41" where the guard measures 642.8704 on **40**, so that note is
 not relied on here.
+
+**Decided 2026-09-24 by the author: the sentence is kept as is.** Measured the
+same day from the tracked `data/runs/s021_hyperoxia_convergence/summary.json`:
+`S1_plateau_median_mmHg` = 643.2458 over the 44 reruns (its `n` = 44) and
+`S1_converged_plateau_median_mmHg` = 642.8704 over the 40 drift-converged.
+Both round to the published 643, so the sentence is true under either
+population; the August 643.3063 is not what the file holds. For the record,
+the 151 / 152 word counts above were taken while the abstract stood at 150
+words, before re-freeze 3; on the current 149-word abstract (portal text from
+`sync_submission_metadata.py --print`, split on whitespace as the script
+does), "a converged median 643 mmHg" gives 150, at the cap, and "a
+drift-converged median of 643 mmHg" gives 151. The decision does not depend
+on it.
