@@ -91,8 +91,7 @@ under consideration for publication elsewhere. All named authors have
 contributed to and approved the submission. The authors declare no competing interests, and author contributions are specified in the manuscript (CRediT taxonomy). All data and code are openly available; the data-availability
 statement will cite the repository and the archived dataset DOI.
 
-We believe the reliability atlas offers foundational infrastructure that will
-benefit the growing community building digital-health and clinical-AI systems
+We believe the reliability atlas offers a useful baseline for the growing community building digital-health and clinical-AI systems
 on synthetic physiology, and we hope you will find it suitable for *npj Digital
 Medicine*.
 
