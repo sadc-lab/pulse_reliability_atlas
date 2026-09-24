@@ -56,7 +56,7 @@
       "kept_per_class": {
         "cardinal": 470,
         "multiplicative": 13,
-        "ordinal": 89
+        "ordinal": 88
       },
       "kept_per_word": {
         "double": 2,
@@ -70,7 +70,7 @@
         "nine": 6,
         "one": 100,
         "quarter": 1,
-        "second": 54,
+        "second": 53,
         "seven": 15,
         "seventh": 1,
         "six": 31,
@@ -87,10 +87,10 @@
         "two-thirds": 3,
         "zero": 21
       },
-      "lines_with_a_kept_token": 182,
+      "lines_with_a_kept_token": 181,
       "recall": {
-        "tokens_in_raw_text": 578,
-        "tokens_kept": 572,
+        "tokens_in_raw_text": 577,
+        "tokens_kept": 571,
         "tokens_masked": 6,
         "masked_per_rule": {
           "tex_comment": 6,
@@ -162,12 +162,12 @@
     }
   },
   "totals": {
-    "kept": 1368,
+    "kept": 1367,
     "masked": 12,
     "kept_per_class": {
       "cardinal": 1155,
       "multiplicative": 27,
-      "ordinal": 186
+      "ordinal": 185
     }
   }
 }

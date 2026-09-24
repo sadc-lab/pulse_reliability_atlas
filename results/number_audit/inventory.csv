@@ -3675,12 +3675,12 @@ paper,292,300,300.0,guard,ion map. Hyperoxia studies on Pulse should therefore r
 paper,292,1.0,1.0,ambiguous_small,"). Extended-window runs on healthy lungs at FiO$_2$ = 1.0 can additionally enter a separate solver-instability regime, far more"
 paper,298,64,64.0,ambiguous_small,)} Trigger-lockout intervention on VC-AC tidal-volume stability ($n = 64$ paired reruns): breath-to-breath tidal-volume variability under Puls
 paper,298,2,2.0,ambiguous_small,"ability after locking \texttt{InspirationPatientTriggerPressure} at $-2$~cmH$_2$O ($y$), so a dot far below the diagonal is a configuration w"
-paper,298,0.05,0.05,none,"configuration whose oscillation the lock removed. The dotted line at $0.05$ is the classifier's steady-state threshold, a delivered-Vt coefficie"
+paper,298,0.05,0.05,none,"ation whose oscillation the lock largely removed. The dotted line at $0.05$ is the classifier's steady-state threshold, a delivered-Vt coefficie"
 paper,298,5,5.0,ambiguous_small,"steady-state threshold, a delivered-Vt coefficient of variation above 5~\% of the mean. The lock collapses the median CV from 0.351 to 0.016"
 paper,298,0.351,0.351,guard,riation above 5~\% of the mean. The lock collapses the median CV from 0.351 to 0.016 and brings 78.1~\% of reruns below the threshold; it is a da
 paper,298,0.016,0.016,ambiguous_small,bove 5~\% of the mean. The lock collapses the median CV from 0.351 to 0.016 and brings 78.1~\% of reruns below the threshold; it is a data-genera
-paper,298,78.1,78.1,guard,mean. The lock collapses the median CV from 0.351 to 0.016 and brings 78.1~\% of reruns below the threshold; it is a data-generation lever for d
-paper,298,300,300.0,guard,"al volume, not a clinical ventilation setting. \textbf{(b)} Hyperoxia 300-second convergence ($n = 60$ reruns across S1, S3, S4 at FiO$_2 = 1.0"
+paper,298,78.1,78.1,guard,mean. The lock collapses the median CV from 0.351 to 0.016 and brings 78.1~\% of reruns below the threshold; it is a data-generation lever for l
+paper,298,300,300.0,guard,"delivery, not a clinical ventilation setting. \textbf{(b)} Hyperoxia 300-second convergence ($n = 60$ reruns across S1, S3, S4 at FiO$_2 = 1.0"
 paper,298,60,60.0,ambiguous_small,"tilation setting. \textbf{(b)} Hyperoxia 300-second convergence ($n = 60$ reruns across S1, S3, S4 at FiO$_2 = 1.0$): PaO$_2$ averaged over th"
 paper,298,1.0,1.0,ambiguous_small,"300-second convergence ($n = 60$ reruns across S1, S3, S4 at FiO$_2 = 1.0$): PaO$_2$ averaged over the original 120-second window ($x$) against"
 paper,298,120,120.0,guard,"ross S1, S3, S4 at FiO$_2 = 1.0$): PaO$_2$ averaged over the original 120-second window ($x$) against the plateau after 300~seconds ($y$). The"
@@ -3740,7 +3740,7 @@ paper,314,20,20.0,ambiguous_small,divergence count out of 20. The collapse to ze
 paper,314,0,0.0,ambiguous_small,out of 20. The collapse to zero at both reductions (20 $\rightarrow$ 0) establishes that lowering the blood-volume baseline is sufficient to
 paper,314,"3{,}996",3996.0,ledger,"olver fails at the default value. Pulse's allometric formula computes 3{,}996~mL for the female reference body (dashed vertical line), 86~mL below"
 paper,314,86,86.0,none,"utes 3{,}996~mL for the female reference body (dashed vertical line), 86~mL below the male floor, so a one-way blood-volume transplant cannot"
-paper,325,"1{,}280",1280.0,guard,"ble corrections and a sex-stratified reliability axis emerge from the 1{,}280-run sweep: a single configuration setting that makes VC-AC tidal-volu"
+paper,325,"1{,}280",1280.0,guard,"ble corrections and a sex-stratified reliability axis emerge from the 1{,}280-run sweep: a single configuration setting that markedly stabilises VC"
 paper,325,1.0,1.0,ambiguous_small,"a steady-state-window correction for hyperoxia simulation at FiO$_2 = 1.0$ (\S ); and, on a separate axis, a previous"
 paper,333,85,85.0,ambiguous_small,"tion framework to Pulse on MIMIC-III sepsis trajectories and reported 85 total Hoeffding-inequality rejections. Of these, 82 of 85 fall outsid"
 paper,333,82,82.0,ambiguous_small,"ries and reported 85 total Hoeffding-inequality rejections. Of these, 82 of 85 fall outside the four-channel overlap with this atlas (HR, MAP,"
@@ -3784,8 +3784,8 @@ paper,359,20,20.0,ambiguous_small,"n (FiO$_2$, 0.21--1.0) and positive end-expir
 paper,359,3,3.0,ambiguous_small,pressure was derived as $\mathrm{DBP} + (\mathrm{SBP} - \mathrm{DBP})/3$ rather than swept independently. The swept heart-rate and blood-pres
 paper,361,0,0.0,ambiguous_small,"re severity range: a healthy baseline (S1, ARDS impairment fraction = 0) and three ARDS severities (S2, mild, impairment = 0.26; S3, moderate"
 paper,361,0.26,0.26,ambiguous_small,"rment fraction = 0) and three ARDS severities (S2, mild, impairment = 0.26; S3, moderate, impairment = 0.60; S4, severe, impairment = 0.95). At"
-paper,361,0.60,0.6,ambiguous_small,"S severities (S2, mild, impairment = 0.26; S3, moderate, impairment = 0.60; S4, severe, impairment = 0.95). At a reference ventilation setting b"
-paper,361,0.95,0.95,ambiguous_small,"ent = 0.26; S3, moderate, impairment = 0.60; S4, severe, impairment = 0.95). At a reference ventilation setting based on the ARDSnet low-tidal-v"
+paper,361,0.60,0.6,ambiguous_small,"S severities (S2, mild, impairment = 0.26; S3, moderate, impairment = 0.60; S4, severe, impairment = 0.95). At a low-tidal-volume reference vent"
+paper,361,0.95,0.95,ambiguous_small,"ent = 0.26; S3, moderate, impairment = 0.60; S4, severe, impairment = 0.95). At a low-tidal-volume reference ventilation setting, these impairme"
 paper,361,0.91,0.91,ambiguous_small,t band's P/F and PEEP criteria. The three severities also bracket the 0.91--0.945 solver-instability zone documented at design time (Supplement~
 paper,361,0.945,0.945,guard,"'s P/F and PEEP criteria. The three severities also bracket the 0.91--0.945 solver-instability zone documented at design time (Supplement~\S\,"
 paper,361,0.879,0.879,guard,"s's own continuous-severity sweep subsequently widened that band to $[0.879, 0.946]$ (\S ). Pulse represents severity a"
@@ -4013,7 +4013,7 @@ supplement,194,50,50.0,ambiguous_small,"pO$_2$ as a fraction in [0, 1], so the b
 supplement,194,100,100.0,guard,"2$ as a fraction in [0, 1], so the bound the main text writes as [50, 100]~\% is held in the code as 0.50 / 1.00. Each bound falls into one of"
 supplement,194,0.50,0.5,ambiguous_small,"the bound the main text writes as [50, 100]~\% is held in the code as 0.50 / 1.00. Each bound falls into one of two logical categories. Categor"
 supplement,194,1.00,1.0,guard,"nd the main text writes as [50, 100]~\% is held in the code as 0.50 / 1.00. Each bound falls into one of two logical categories. Category (a) i"
-supplement,196,60,60.0,ambiguous_small,"on. Category (b) is a clinical-plausibility threshold, beyond which a 60-second steady-state mean would be incompatible with a viable patient."
+supplement,196,60,60.0,ambiguous_small,"n saturation. Category (b) is a clinical-plausibility threshold for a 60-second steady-state mean: a screening standard, not a claim that valu"
 supplement,196,2.6,2.6,ambiguous_small,he per-bound rationale audited in the companion technical monograph (§2.6). [htbp] \centering \small \caption{\textbf{Per-bound p
 supplement,207,20,20.0,ambiguous_small,"Output & Primary-literature rationale (lower / upper) \\ \midrule HR [20, 220]~bpm & Deliberately permissive at both extremes. Upper: sinus ra"
 supplement,207,220,220.0,guard,"ut & Primary-literature rationale (lower / upper) \\ \midrule HR [20, 220]~bpm & Deliberately permissive at both extremes. Upper: sinus rates e"
@@ -4048,7 +4048,6 @@ supplement,215,20,20.0,ambiguous_small,". Upper: hemoglobin saturation ceiling (
 supplement,215,600,600.0,guard,"Upper: hemoglobin saturation ceiling (definitional). \\ PaO$_2$ [20, 600]~mmHg & Lower: PaO$_2$ = 20~mmHg corresponds to SpO$_2 \approx 0.32$"
 supplement,216,20,20.0,ambiguous_small,"ceiling (definitional). \\ PaO$_2$ [20, 600]~mmHg & Lower: PaO$_2$ = 20~mmHg corresponds to SpO$_2 \approx 0.32$ on the standard Severinghaus"
 supplement,216,0.32,0.32,none,"0, 600]~mmHg & Lower: PaO$_2$ = 20~mmHg corresponds to SpO$_2 \approx 0.32$ on the standard Severinghaus dissociation curve~"
-supplement,216,60,60.0,ambiguous_small,", a value incompatible with a stable steady state sustained over the 60-second evaluation window, and well inside the Berlin severe-ARDS oxyg"
 supplement,216,663,663.0,guard,vative below the alveolar-gas-equation sea-level ceiling of $\approx$~663~mmHg on FiO$_2$ = 1.0~ ; the suppleme
 supplement,216,1.0,1.0,ambiguous_small,lar-gas-equation sea-level ceiling of $\approx$~663~mmHg on FiO$_2$ = 1.0~ ; the supplementary \texttt{HARD\_BO
 supplement,216,700,700.0,guard,tionary in \texttt{ } raises the PaO$_2$ upper bound to 700~mmHg and powers the F-003 sensitivity-analysis reclassification repor
@@ -4198,9 +4197,9 @@ supplement,294,17,17.0,ambiguous_small,"63~mL for the male body and 3{,}996.09~m
 supplement,302,20,20.0,ambiguous_small,"n Section~ of the main manuscript --- 20 trajectories, 4 grid levels per input, and random seed 42 --- are fix"
 supplement,302,4,4.0,ambiguous_small,"of the main manuscript --- 20 trajectories, 4 grid levels per input, and random seed 42 --- are fixed in the code b"
 supplement,302,42,42.0,ambiguous_small,"uscript --- 20 trajectories, 4 grid levels per input, and random seed 42 --- are fixed in the code base as \texttt{SWEEP\_TRAJECTORIES}, \text"
-supplement,306,60,60.0,ambiguous_small,"mathematically valid output, biologically incompatible with a viable 60-second steady-state. \texttt{not\_steady\_state} is the dynamic failu"
-supplement,306,60,60.0,ambiguous_small,"d and biologically coherent but the trajectory has not settled in the 60-second window (flatline at a bound, coefficient of variation above 0."
+supplement,306,60,60.0,ambiguous_small,"h finite output but did not satisfy the steady-state criterion in the 60-second window (flatline at a bound, coefficient of variation above 0."
 supplement,306,0.05,0.05,none,"60-second window (flatline at a bound, coefficient of variation above 0.05, or drift exceeding the per-channel thresholds in Table~"
+supplement,306,60,60.0,ambiguous_small,"xceeding the per-channel thresholds in Table~ ), so its 60-second mean is not treated as a steady-state summary. \subsection{Co"
 supplement,312,160,160.0,guard,"elementary-effect estimator divides by the full nominal step. Of the 160 sampled points, 35 carry a requested DBP above the 0.75 ratio and are"
 supplement,312,35,35.0,ambiguous_small,"timator divides by the full nominal step. Of the 160 sampled points, 35 carry a requested DBP above the 0.75 ratio and are clipped. Two conse"
 supplement,312,0.75,0.75,ambiguous_small,"step. Of the 160 sampled points, 35 carry a requested DBP above the 0.75 ratio and are clipped. Two consequences follow, both fixed by the sam"
@@ -4333,8 +4332,8 @@ supplement,343,256,256.0,guard,"s selected on the dominant input, all seven swep
 supplement,343,"13{,}824",13824.0,none,"all seven swept inputs, base sample 256, first-order indices only, or 13{,}824 runs. It shares the locked input-space definition of the Morris sweep"
 supplement,343,"6{,}144",6144.0,ledger,"is sweep, but it does not implement the preregistered design, and the 6{,}144-run figure above is the cost of that design rather than of the demons"
 supplement,345,"1{,}000",1000.0,ledger,"ensitivity analysis, and label it as such: trajectories are resampled 1{,}000 times per combination and $\sigma / \mu^{*}$ is recomputed jointly on"
-supplement,345,23,23.0,ambiguous_small,"interval in an uncontrolled direction. Under five independent seeds, 23 of the 144 top-three inputs keep a lower bound at or above 0.6 in eve"
-supplement,345,144,144.0,guard,"in an uncontrolled direction. Under five independent seeds, 23 of the 144 top-three inputs keep a lower bound at or above 0.6 in every draw. Re"
+supplement,345,23,23.0,ambiguous_small,"in an uncontrolled direction. Under five independent bootstrap seeds, 23 of the 144 top-three inputs keep a lower bound at or above 0.6 in eve"
+supplement,345,144,144.0,guard,"ntrolled direction. Under five independent bootstrap seeds, 23 of the 144 top-three inputs keep a lower bound at or above 0.6 in every draw. Re"
 supplement,345,0.6,0.6,ambiguous_small,"seeds, 23 of the 144 top-three inputs keep a lower bound at or above 0.6 in every draw. Repeating the whole procedure at 500, 2{,}000 and 4{,}"
 supplement,345,500,500.0,guard,"bound at or above 0.6 in every draw. Repeating the whole procedure at 500, 2{,}000 and 4{,}000 resamples returns the same 23 combinations, so t"
 supplement,345,"2{,}000",2000.0,guard,"at or above 0.6 in every draw. Repeating the whole procedure at 500, 2{,}000 and 4{,}000 resamples returns the same 23 combinations, so the stable"
@@ -4374,11 +4373,11 @@ supplement,357,700,700.0,guard,"the single most contestable bound (PaO$_2$ upper
 supplement,357,34,34.0,ambiguous_small,ised from 600 to 700~mmHg per the alveolar-gas-equation ceiling); the 34 exceedances it starts from are reported in Section~
 supplement,357,32,32.0,ambiguous_small,"bject of this subsection. Under this wider physiology-anchored bound, 32 of the 34 runs flagged \texttt{implausible} by the locked 600~mmHg Pa"
 supplement,357,34,34.0,ambiguous_small,"his subsection. Under this wider physiology-anchored bound, 32 of the 34 runs flagged \texttt{implausible} by the locked 600~mmHg PaO$_2$ ceil"
-supplement,357,600,600.0,guard,"d bound, 32 of the 34 runs flagged \texttt{implausible} by the locked 600~mmHg PaO$_2$ ceiling become physiologically clean (31 at FiO$_2 \geq"
-supplement,357,31,31.0,ambiguous_small,by the locked 600~mmHg PaO$_2$ ceiling become physiologically clean (31 at FiO$_2 \geq 0.95$; 21 on the female and 11 on the male reference b
-supplement,357,0.95,0.95,ambiguous_small,~mmHg PaO$_2$ ceiling become physiologically clean (31 at FiO$_2 \geq 0.95$; 21 on the female and 11 on the male reference body); the remaining
-supplement,357,21,21.0,ambiguous_small,aO$_2$ ceiling become physiologically clean (31 at FiO$_2 \geq 0.95$; 21 on the female and 11 on the male reference body); the remaining two a
-supplement,357,11,11.0,ambiguous_small,physiologically clean (31 at FiO$_2 \geq 0.95$; 21 on the female and 11 on the male reference body); the remaining two are healthy-female run
+supplement,357,600,600.0,guard,"d bound, 32 of the 34 runs flagged \texttt{implausible} by the locked 600~mmHg PaO$_2$ ceiling no longer exceed the widened PaO$_2$ plausibilit"
+supplement,357,31,31.0,ambiguous_small,$_2$ ceiling no longer exceed the widened PaO$_2$ plausibility bound (31 at FiO$_2 \geq 0.95$; 21 on the female and 11 on the male reference b
+supplement,357,0.95,0.95,ambiguous_small,nger exceed the widened PaO$_2$ plausibility bound (31 at FiO$_2 \geq 0.95$; 21 on the female and 11 on the male reference body); the remaining
+supplement,357,21,21.0,ambiguous_small,ceed the widened PaO$_2$ plausibility bound (31 at FiO$_2 \geq 0.95$; 21 on the female and 11 on the male reference body); the remaining two a
+supplement,357,11,11.0,ambiguous_small,_2$ plausibility bound (31 at FiO$_2 \geq 0.95$; 21 on the female and 11 on the male reference body); the remaining two are healthy-female run
 supplement,357,800,800.0,guard,maining two are healthy-female runs at maximal minute ventilation (Vt 800~mL $\times$ RR 20 = 16~L/min) whose PaO$_2$ suffers a genuine numeric
 supplement,357,20,20.0,ambiguous_small,lthy-female runs at maximal minute ventilation (Vt 800~mL $\times$ RR 20 = 16~L/min) whose PaO$_2$ suffers a genuine numerical runaway within
 supplement,357,16,16.0,ambiguous_small,female runs at maximal minute ventilation (Vt 800~mL $\times$ RR 20 = 16~L/min) whose PaO$_2$ suffers a genuine numerical runaway within the w
@@ -5035,7 +5034,7 @@ supplement,677,0.016,0.016,ambiguous_small,"median delivered-tidal-volume coeffi
 supplement,677,64,64.0,ambiguous_small,"ered-tidal-volume coefficient of variation from 0.351 to 0.016 across 64 paired reruns, with 78.1~\% of locked-trigger reruns dropping below t"
 supplement,677,78.1,78.1,guard,"icient of variation from 0.351 to 0.016 across 64 paired reruns, with 78.1~\% of locked-trigger reruns dropping below the 0.05 steady-state thre"
 supplement,677,0.05,0.05,none,"ired reruns, with 78.1~\% of locked-trigger reruns dropping below the 0.05 steady-state threshold. This supplement section describes the experim"
-supplement,681,64,64.0,ambiguous_small,"removes it. \subsection{Protocol design} The 64 paired reruns sampled seven of the eight (scenario, sex) cells---S3\_"
+supplement,681,64,64.0,ambiguous_small,"reduces it. \subsection{Protocol design} The 64 paired reruns sampled seven of the eight (scenario, sex) cells---S3\_"
 supplement,681,26,26.0,ambiguous_small,"h most reruns occurring in the healthy (S1) and mild-ARDS (S2) cells (26 and 19 of the 64). For each rerun, the locked configuration was repro"
 supplement,681,19,19.0,ambiguous_small,"reruns occurring in the healthy (S1) and mild-ARDS (S2) cells (26 and 19 of the 64). For each rerun, the locked configuration was reproduced e"
 supplement,681,64,64.0,ambiguous_small,"urring in the healthy (S1) and mild-ARDS (S2) cells (26 and 19 of the 64). For each rerun, the locked configuration was reproduced exactly fro"
@@ -5127,8 +5126,8 @@ supplement,715,530,530.0,guard,"ve the \texttt{not\_steady\_state} total from 53
 supplement,715,536,536.0,guard,"\texttt{not\_steady\_state} total from 530 to 533, against the 530 to 536 reported above. The 15 / 6 split is therefore not an artefact of the"
 supplement,715,15,15.0,ambiguous_small,"te} total from 530 to 533, against the 530 to 536 reported above. The 15 / 6 split is therefore not an artefact of the segmentation rule, and"
 supplement,715,6,6.0,ambiguous_small,"otal from 530 to 533, against the 530 to 536 reported above. The 15 / 6 split is therefore not an artefact of the segmentation rule, and the"
-supplement,721,2,2.0,ambiguous_small,"as classifier relies on. Setting the trigger pressure explicitly to $-2$~cmH$_2$O disables the spontaneous-trigger coupling, restoring metron"
-supplement,721,2,2.0,ambiguous_small,"ne tidal-volume oscillation consistent with that phenomenon and the $-2$~cmH$_2$O trigger lever for deterministic synthetic-data generation,"
+supplement,721,2,2.0,ambiguous_small,"as classifier relies on. Setting the trigger pressure explicitly to $-2$~cmH$_2$O replaces that trigger with a fixed pressure threshold, whic"
+supplement,721,2,2.0,ambiguous_small,ne tidal-volume oscillation consistent with that phenomenon and the $-2$~cmH$_2$O trigger lever for synthetic-data generation with reduced ti
 supplement,726,50,50.0,ambiguous_small,"\caption{\textbf{Per-breath delivered tidal volume at Pulse's native 50~Hz sampling rate, for a deterministically selected S014 paired config"
 supplement,726,64,64.0,ambiguous_small,"e whose pre-lock classifier Vt CV lies closest to the median over the 64 paired reruns, ties broken on case identifier, so the illustration co"
 supplement,726,50,50.0,ambiguous_small,"d no claim about that distribution is made here. Both panels plot the 50~Hz waveform over the classifier's [60, 120]~s window in recording-rel"
@@ -5138,7 +5137,7 @@ supplement,726,5,5.0,ambiguous_small,"ng-relative time; each quoted CV is the cl
 supplement,726,640,640.0,guard,race. \textbf{(a)} Default VC-AC trigger: delivered volume holds near 640~mL but is interrupted by cycles of collapsed and then oversized volum
 supplement,726,0.351,0.351,guard,"ted by cycles of collapsed and then oversized volume (classifier CV = 0.351), an oscillation consistent with patient--ventilator dyssynchrony, wh"
 supplement,726,2,2.0,ambiguous_small,flags as \texttt{not\_steady\_state}. \textbf{(b)} Locked trigger ($-2$~cmH$_2$O): Vt is metronomic across the same window (classifier CV =
-supplement,726,0.005,0.005,none,"$~cmH$_2$O): Vt is metronomic across the same window (classifier CV = 0.005), so the intervention disables the spontaneous-drive coupling without"
+supplement,726,0.005,0.005,none,"$~cmH$_2$O): Vt is metronomic across the same window (classifier CV = 0.005), so, in this configuration, the lock removes the oscillation without"
 supplement,726,50,50.0,ambiguous_small,s the directly observable proxy of the trigger-coupling dynamics; the 50~Hz native sampling rate is Nyquist-safe for the $\sim$0.25~Hz breath-
 supplement,726,0.25,0.25,none,ynamics; the 50~Hz native sampling rate is Nyquist-safe for the $\sim$0.25~Hz breath-rate signal.}
 supplement,734,300,300.0,guard,\section{Hyperoxia 300-second convergence full protocol} Section~
