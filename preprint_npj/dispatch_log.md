@@ -798,15 +798,18 @@ of margin under the npj cap, for the first time since the cap was reached. What
 the dropped "All" carried — that the release is complete, failures included —
 is recorded in that commit and survives in the body at L150.
 
-**The supplement's two hashes never moved**, which is not a detail but the
-check: it proves each rebuild reached the paper only. Page counts unmoved at 25
-and 64, and the abstract measured 150 words / 147 strict at every step — a
-comma attaches to the token before it, and one verb replaces one verb.
+**Across re-freezes 1 to 3 the supplement's two hashes never moved**, which
+was not a detail but the check: it proved each of those rebuilds reached the
+paper only (later re-freezes did move them; see the note above the table).
+Page counts stayed at 25 and 64 through those three, and the abstract measured
+150 words / 147 strict at re-freezes 1 and 2 — a comma attaches to the token
+before it, and one verb replaces one verb.
 
 ⚠️ **Convention note, stated rather than hidden.** This file's header says
 entries are "appended, never edited in place", and the practice for a build that
 moved before dispatch has been to append a superseding entry — as the three
-2026-08-18/19 entries do. This entry was instead **edited in place, twice**. The
+2026-08-18/19 entries do. This entry was instead **edited in place**: twice
+when this note was written, and again at every re-freeze since. The
 reason: it records nothing sent (`Sent` is empty), so there is no dispatch to
 preserve, and three near-identical entries for a dispatch that has not happened
 would bury the one that matters. The rule protects the record of what was *sent*;
@@ -856,7 +859,8 @@ in §2.5 and the Discussion. No number, figure or table moved.
 
 Re-freeze 23 (`c4efe6c`) narrows eighteen further statements (row 23 above).
 A reader of the September copy will see it in the paper's §2.1 (H2), §2.2,
-the §2.3 title, §2.4, §2.5, §2.6, the Discussion and Methods §4.3, in the
+§2.3 (its title and one sentence), §2.4, §2.5, §2.6, the Discussion and
+Methods §4.3, in the
 wording of Tables 1 and 2 and of Figure 1's caption, and in supplement S4,
 S5, S7, S8, S10, S12, S13, S15, S16 and S17. No result changes and no figure
 moves; S7 loses one paragraph, with the four Cornish bootstrap percentages it
