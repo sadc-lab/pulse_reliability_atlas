@@ -2403,7 +2403,7 @@ monograph,3211,2.6,2.6,ambiguous_small,pooled without flag-stratified filtering.
 monograph,3212,3.7,3.7,none,. The four-flag detector (§2.6) and the per-cell traffic-light map (§3.7) together support a defensible ML-pipeline contract: 1. **Every cell
 monograph,3214,1,1.0,ambiguous_small,light map (§3.7) together support a defensible ML-pipeline contract: 1. **Every cell:** apply the run-level four-flag screen irrespective of
 monograph,3217,2,2.0,ambiguous_small,and report the clean-rate per cell with the training-set metadata. 2. **Green and yellow cells:** the colour sets cell-level review pri
-monograph,3219,3,3.0,ambiguous_small,"ll-level review priority, subject to use-case-specific validation. 3. **Red cells:** do not ingest into supervised-learning training sets"
+monograph,3219,3,3.0,ambiguous_small,priority; every use remains subject to use-case-specific validation. 3. **Red cells:** do not ingest into supervised-learning training sets
 monograph,3233,4.4,4.4,none,ational envelopes once a sweep at the new envelope is completed. ### 4.4 Relationship to Cornish et al. 2026 (causal falsification) — Table 2
 monograph,3233,2,2.0,ambiguous_small,.4 Relationship to Cornish et al. 2026 (causal falsification) — Table 2 *A side-by-side mapping of the atlas's six-output reliability panel
 monograph,3246,0.05,0.05,none,"d Hoeffding's-inequality confidence intervals (family-wise error rate 0.05) — tested 1,522 hypotheses across 15 physiological quantities on MIMI"
@@ -3427,8 +3427,8 @@ paper,175,"1{,}280",1280.0,guard,"e reliability atlas} The atlas comprises 1{,}2
 paper,175,160,160.0,guard,"The atlas comprises 1{,}280 simulations spanning eight cells of 160 runs each, one cell per clinical scenario (S1 healthy, S2 mild, S3 mo"
 paper,177,20,20.0,ambiguous_small,"ppears outside the previously characterised ARDS instability band, on 20 / 1{,}280 runs whose sex stratification is the subject of \S"
 paper,177,"1{,}280",1280.0,guard,"s outside the previously characterised ARDS instability band, on 20 / 1{,}280 runs whose sex stratification is the subject of \S"
-paper,177,0,0.0,ambiguous_small,"the preregistered \texttt{clamped} category remained empty at setup (0 / 1{,}280 across every cell), so H2 is \emph{not supported}; because"
-paper,177,"1{,}280",1280.0,guard,"preregistered \texttt{clamped} category remained empty at setup (0 / 1{,}280 across every cell), so H2 is \emph{not supported}; because that log-b"
+paper,177,0,0.0,ambiguous_small,"the preregistered \texttt{clamped} category remained empty at setup (0 / 1{,}280 across every cell); because that log-based flag cannot dete"
+paper,177,"1{,}280",1280.0,guard,"preregistered \texttt{clamped} category remained empty at setup (0 / 1{,}280 across every cell); because that log-based flag cannot detect silent"
 paper,179,"10{,}160",10160.0,guard,"e Pulse serialises after ingestion, and found exact agreement for all 10{,}160 input contracts that reached ingestion. A contract is one value submi"
 paper,179,"10{,}240",10240.0,guard,"t is one value submitted in one configuration block; the design holds 10{,}240 of them. The remaining 80 ventilator contracts belong to 20 runs that"
 paper,179,80,80.0,ambiguous_small,"configuration block; the design holds 10{,}240 of them. The remaining 80 ventilator contracts belong to 20 runs that failed during patient sta"

@@ -149,7 +149,7 @@ paper,325,first,ordinal,", the atlas's run-level checks address only part of the
 paper,327,four,cardinal,"learning pipelines that train on Pulse-generated synthetic patient cohorts, the four-flag classifier doubles as a run-level data-quality contract. Its role is compa"
 paper,327,doubles,multiplicative,"at train on Pulse-generated synthetic patient cohorts, the four-flag classifier doubles as a run-level data-quality contract. Its role is comparable to the verificatio"
 paper,327,one,cardinal,"gent task carries its own verification system~ , with one difference: the classifier checks the simulator's behaviour, not agreement with"
-paper,327,four,cardinal,"cell-level review priority, subject to use-case-specific validation; run-level four-flag screening remains necessary irrespective of cell colour, because a tile's"
+paper,327,four,cardinal,"ap in Figure~ sets cell-level review priority; run-level four-flag screening remains necessary irrespective of cell colour, because a tile's"
 paper,327,second,ordinal,"e rule, and green does not establish physiological validity. The same map has a second audience: Pulse is embedded in named training products that present healthcare"
 paper,329,Three,cardinal,the per-cell map to avoid regimes where the engine diverges or never settles. Three traps documented here merit explicit attention. The sex-stratified divergence c
 paper,329,third,ordinal,e as a steady-state feature rather than as an active response to hypoxemia. The third survives flag-based curation altogether: sex-conditioned distributional differe
