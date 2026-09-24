@@ -29,8 +29,8 @@ dynamics as a source of simulated data to learn and benchmark
 ventilator-control policies for ARDS (Ward et al., *IEEE CBMS* 2024), and any
 model fitted to that output absorbs whatever artefacts the envelope contains as
 though they were physiology. **Our manuscript provides that map — the first
-open, preregistered reliability atlas of Pulse across the adult critical-care
-envelope (1,280 Morris elementary-effects simulations of seven operational
+open reliability atlas of Pulse, with a preregistered core design, across the
+adult critical-care envelope (1,280 Morris elementary-effects simulations of seven operational
 inputs, balanced across eight cells of 160 runs: four ARDS severities crossed
 with two patient reference bodies).**
 
@@ -52,13 +52,13 @@ readership:
 
 1. **A reusable, open curation instrument for synthetic-cohort science.**
    The per-cell traffic-light curation map is a principal deliverable of the
-   atlas: under the stated criteria, it identifies configurations that are
-   default-eligible, require review, or require priority review. A separate
-   run-level four-flag classifier supports exclusion, remediation, or
-   stratified handling; neither layer is a distribution-neutral automatic
-   filter. We also surface two
+   atlas: under the stated criteria, it sets cell-level review priority. A
+   separate run-level four-flag classifier, needed in every cell whatever its
+   colour, supports exclusion, remediation, or stratified handling; neither
+   layer is a distribution-neutral automatic filter. We also surface two
    operator-actionable fixes — a one-line VC-AC trigger setting (−2 cmH₂O) that
-   collapses tidal-volume dyssynchrony, and a steady-state-window correction for
+   collapses tidal-volume variability consistent with patient–ventilator
+   dyssynchrony, and a steady-state-window correction for
    hyperoxia simulation at FiO₂ = 1.0.
 
 2. **A previously uncharacterised, sex-stratified solver-divergence cluster
