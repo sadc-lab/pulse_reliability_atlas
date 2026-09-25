@@ -716,17 +716,20 @@ The monograph **is not part of this dispatch**. It was rebuilt with
 re-freeze 24, at `cabc29c`, which carries the one re-freeze 24 repair it
 needed (the §4.3 use-case caveat); `27a012c` had aligned it on the
 re-freeze 23 wording, as `78396c0` and `026df18` did for re-freezes 20 to 22.
-Its hashes are recorded so that build stays identifiable:
+Re-freezes 25 to 28 do not touch it. It was rebuilt again after re-freeze 28,
+at `1cc0708`, which removes its two claims that the flag priority order was
+preregistered: it now says the order was fixed after the sweep, as the paper
+does since re-freeze 27. The npj artefacts are not affected. Its hashes are
+recorded so that build stays identifiable:
 `preprint/build/manuscript.pdf`
-`cd123e011bf2d21d898edd0fc32bb023b7865c2201a21d1e3007afeb5922a178` (1,357,986
+`bfb8cec519a94965c88fef6b5ab6d2e424757a7e21ce587469e98800f1c20391` (1,358,081
 bytes) and `preprint/build/manuscript.docx`
-`38162e09c937278a03e000e7a4113ecb9587f50a51ad7c70c8e7ac84dbac9119` (1,016,646
-bytes), still 122 pages. Re-freezes 25 to 28 do not touch it
-(`manuscript.md` is unchanged since `cabc29c`), so it was not rebuilt; both
-hashes and byte counts were re-measured at re-freeze 28 and still match.
-The wording of re-freezes 26 and 27 was **not** carried to it: the monograph
-still has phrases they replaced (rows 26 and 27 below), deferred with it.
-The two sentences re-freeze 28 corrects do not occur in it.
+`03a5f1e8fcbbf29937b2b2c26dd85e6a0d754673ed4853f55913767ded910b39` (1,016,694
+bytes), still 122 pages.
+Apart from that provenance, the wording of re-freezes 26 and 27 was **not**
+carried to it: the monograph still has phrases they replaced (rows 26 and 27
+below), deferred with it. The two sentences re-freeze 28 corrects do not
+occur in it.
 
 ⚠️ **These hashes are valid for this build only.** Any further edit to
 `paper.tex` or `supplement.tex` invalidates them, and they must be re-frozen
@@ -759,10 +762,10 @@ never reproduces the previous digest. `build/` is untracked, so the earlier
 artefacts cannot be recovered for comparison. Read a changed supplement hash as
 *rebuilt*, never as *edited*; `supplement.tex` in git is the authority on
 whether the content moved. The monograph hashes above changed at re-freezes 16
-and 17, again after 21, and at 22, 23 and 24, for a real reason, unlike the
-supplement's at 13 to 19, 21, 22 and 25: `manuscript.md` was edited (`1d684c7`,
-then `f9e3bb7`, then `78396c0` and `026df18`, then `27a012c`, then
-`cabc29c`) and rebuilt
+and 17, again after 21, at 22, 23 and 24, and again after 28, for a real
+reason, unlike the supplement's at 13 to 19, 21, 22 and 25: `manuscript.md`
+was edited (`1d684c7`, then `f9e3bb7`, then `78396c0` and `026df18`, then
+`27a012c`, then `cabc29c`, then `1cc0708`) and rebuilt
 with `scripts/build_paper.ps1`. They did not change at re-freezes 25 to 28,
 which leave `manuscript.md` untouched.
 `build_npj.ps1` alone never rebuilds it.
@@ -801,8 +804,8 @@ unchanged count:
 | re-freeze 24 | `ada9659` | three repairs to re-freeze 23's own wording, found on re-reading it before any push: the H2 verdict no longer rests on the log flag alone ("…the input-instantiation audit below provides the complementary check, and together they leave H2 not supported"); the traffic-light caveat moved to the end of its sentence ("every use remains subject to use-case-specific validation"); S5.5's "all 20 divergences occur during patient stabilisation" now points to §2.1, which states it, instead of S3, which states it for 13. Paper and supplement both edited; still 26 / 64 pages. The monograph's copy of the traffic-light caveat was repaired in the same round (`cabc29c`; not dispatched) | 149 / 146 |
 | re-freeze 25 | `629d3a0` | five sentences said more plainly, on the author's decision after a read of the paper for density; no claim, number, figure or table changes. Introduction: "We provide a reusable run-level classifier and a per-cell map that sets review priority", both caveats kept (not a validation; the screened runs are not a representative subset). Discussion: "data-quality contract" becomes "can also be used to screen Pulse-generated synthetic patient cohorts…"; "Three traps … merit explicit attention" becomes "Three findings call for care when Pulse-generated data are reused"; "foundational infrastructure rather than a terminal deliverable" becomes "meant as a baseline for further work". Code availability: the reproduction host's model and OS and the $10^{-14}$ round-off detail left to Supplement S12, "x86\_64" kept. Paper only; still 26 / 64 pages. The cover letter was aligned in the same commit; the monograph was not (not dispatched) | 149 / 146 |
 | re-freeze 26 | `cf3ef7c` | **claims, not wording**: phrases on 14 lines (5 paper, 9 supplement) narrowed to what the code, the data or a primary source show, after a read-through before dispatch; no number, figure, table or reference changes. The trigger lock no longer "decouples" breath delivery nor restores "metronomic" delivery: Pulse's pressure trigger still fires on strong efforts, and at least 11 of the 64 lock reruns deliver two or more breaths above the set rate; hence "lower-variability", "markedly stabilises", "largely removed", "strongly reduces". The calibration setting is no longer "based on the ARDSnet framework" (6 mL/kg of actual, not predicted, body weight). The last sentence reads "characterising a simulator's operational limits", its closed-loop trial citation kept. The hard bounds are a "screening standard" in S3.1 and S3.6, and the PaO$_2$ 20 mmHg "incompatible with a stable steady state" clause is removed (Grocott 2009: 19.1–29.5 mmHg in climbers at 8,400 m). S3.10's 32 runs "no longer exceed the widened bound" instead of becoming "physiologically clean"; S3.8 says "bootstrap seeds". Paper and supplement both edited; still 26 / 64 pages. Not carried to the monograph or to `src/detector.py` (not dispatched) | 149 / 146 |
-| re-freeze 27 | `97b13e1` | wording made plainer on 7 lines (6 paper, 1 supplement), on the author's questions, with one provenance fact stated; no result, table value, figure or reference changes. Methods §4.4: the flag priority order is "fixed after the sweep" (it is not in `preregistration.md`; the sweep ended 2026-04-26 and the order was first written on 2026-04-27, `a8111fa`). §2.3: `InspirationPatientTriggerPressure` glossed as "the airway-pressure drop below PEEP at which a patient effort triggers a breath" (Pulse source, identical in 4.3.1 and 4.3.2). Table 3, Figure 2 and Figure 3 captions rewritten more plainly: Figure 2 names the six deviation-only red tiles (HR and PaO$_2$ in S3\_M, S3\_F and S4\_F) and says "lower PaO$_2$" for "ARDS hypoxemia"; Figure 3 defines μ\* as "the average absolute change in the panel's output per full-range move of that input" and says that each panel has its own colour scale. §2.4: "wider 700 mmHg upper bound" for "physiology-anchored 700 mmHg ceiling". S3.10: the runaway run's 679 mmHg is a "mean over the final 60 s", not a "steady-state mean". Still 26 / 64 pages. Not carried to the monograph (not dispatched) | 149 / 146 |
-| re-freeze 28 | `a0fb250` | **a claim, not a wording**: two supplement sentences said that heart rate rises with ARDS severity, which the data do not show (clean-run mean output HR 153–158 bpm in S3, 147–148 in S4) and which the supplement's own S15.3 contradicts ("output HR peaks at S3 … and eases at S4"). Figure S5(c) caption: "in every ARDS cell, HR sits above and PaO$_2$ below the healthy-male baseline". S15 opening: it now repeats §2.6's own wording, "in moderate and severe ARDS, a compensatory tachycardia lifts Pulse's mean output heart rate above the sampled input range". The back-reference manifest entry for that sentence was updated with it. Supplement only; still 26 / 64 pages. The paper was rebuilt but not edited | 149 / 146 |
+| re-freeze 27 | `97b13e1` | wording made plainer on 7 lines (6 paper, 1 supplement), on the author's questions, with one provenance fact stated; no result, table value, figure or reference changes. Methods §4.4: the flag priority order is "fixed after the sweep" (it is not in `preregistration.md`; the sweep ended 2026-04-26 and the order was first written on 2026-04-27, `a8111fa`). §2.3: `InspirationPatientTriggerPressure` glossed as "the airway-pressure drop below PEEP at which a patient effort triggers a breath" (Pulse source, identical in 4.3.1 and 4.3.2). Table 3, Figure 2 and Figure 3 captions rewritten more plainly: Figure 2 names the six deviation-only red tiles (HR and PaO$_2$ in S3\_M, S3\_F and S4\_F) and says "lower PaO$_2$" for "ARDS hypoxemia"; Figure 3 defines μ\* as "the average absolute change in the panel's output per full-range move of that input" and says that each panel has its own colour scale. §2.4: "wider 700 mmHg upper bound" for "physiology-anchored 700 mmHg ceiling". S3.10: the runaway run's 679 mmHg is a "mean over the final 60 s", not a "steady-state mean". Still 26 / 64 pages. Not carried to the monograph (not dispatched), except the flag-order provenance, carried later by `1cc0708` | 149 / 146 |
+| re-freeze 28 | `a0fb250` | **a claim, not a wording**: two supplement sentences said that heart rate rises with ARDS severity, which the data do not show (clean-run mean output HR 153–158 bpm in S3, 147–148 in S4) and which the supplement's own S15.2 contradicts ("output HR peaks at S3 … and eases at S4"). Figure S5(c) caption: "in every ARDS cell, HR sits above and PaO$_2$ below the healthy-male baseline". S15 opening: it now repeats §2.6's own wording, "in moderate and severe ARDS, a compensatory tachycardia lifts Pulse's mean output heart rate above the sampled input range". The back-reference manifest entry for that sentence was updated with it. Supplement only; still 26 / 64 pages. The paper was rebuilt but not edited | 149 / 146 |
 
 Re-freezes 9 and 10 are the two that shortened a section rather than a
 sentence: **the Introduction goes 936 → 926 words**, and the abstract is
