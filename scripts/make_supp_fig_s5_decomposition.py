@@ -17,8 +17,9 @@ that did not fit in the main figure's float budget.
         co-occurring mechanisms -- on Vt, 3 recorded against 133 real.
     (c) signed deviation of each clean-run mean from the healthy-male (S1, M)
         baseline. Signed, not absolute: the sign is the whole point, because it
-        shows HR rising and PaO2 falling with severity, which is the expected
-        direction under ARDS.
+        shows HR above and PaO2 below that baseline in every ARDS cell, which
+        is the expected direction under ARDS. It is not a severity gradient:
+        output HR peaks at S3 and eases at S4 (Supplement S15).
     (d) which criterion produced each of the 48 classifications.
 
 Read (c) as descriptive only. A directionally expected change does not validate

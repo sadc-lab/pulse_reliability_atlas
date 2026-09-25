@@ -27,6 +27,6 @@ main manuscript reports that the locked 120-second simulation window is insuffic
 main manuscript reports that all 20 of 1{,}280 input-extreme-regime divergences fall on the m	all 20 fell on the male reference body
 main manuscript carries a forward-looking note on engine-side infrastructure suggestions for	the atlas also serves the engine's maintainers
 main manuscript); a one-line note in the patient-baseline reference table would have saved the investig	POINTER
-main manuscript reports that, under increasing ARDS severity, a compensatory tachycardia shif	a compensatory tachycardia that lifts mean output heart rate above the sampled input range in moderate and severe ARDS while input heart rate remains its dominant within-scenario determinant
+main manuscript reports that, in moderate and severe ARDS, a compensatory tachycardia lifts P	a compensatory tachycardia that lifts mean output heart rate above the sampled input range in moderate and severe ARDS while input heart rate remains its dominant within-scenario determinant
 main manuscript), which keeps the assumption auditable	POINTER
 main manuscript states how large language models were used and where responsibility rests; t	Large language models (LLMs) were used substantially
