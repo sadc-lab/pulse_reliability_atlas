@@ -161,12 +161,13 @@ paper,331,Second,ordinal,"on every cell $\times$ output combination tested (\S )
 paper,331,four,cardinal,ver to other engines. It pairs a Morris screen of the operational inputs with a four-flag classifier that sorts every run into a category instead of discarding any.
 paper,333,four,cardinal,"d 85 total Hoeffding-inequality rejections. Of these, 82 of 85 fall outside the four-channel overlap with this atlas (HR, MAP, PaO$_2$, PaCO$_2$): 80 on channels th"
 paper,335,first,ordinal,"atlas also serves the engine's maintainers: it provides, to our knowledge, the first systematic characterisation of an ARDS impairment-fraction solver-instability b"
-paper,337,Six,cardinal,ation and validation infrastructure rather than Pulse's underlying physiology. Six scope limits bound the conclusions; each is set out with its evidence in Supple
+paper,337,Six,cardinal,"ture rather than Pulse's underlying physiology (Supplement~\S\, ). Six scope limits bound the conclusions; each is set out with its evidence in Supple"
 paper,337,two,cardinal,"; results apply identically to the build-only . (ii)~Patient anatomy is two adult reference bodies, so mass and height variation within sex is uncharacteri"
 paper,337,Two,cardinal,"steps, so some SBP and DBP effects are not strict fixed-step Morris estimates. Two further caveats are of evidence rather than scope: no trajectory-count converge"
-paper,339,four,cardinal,than directly tested. This atlas is meant as a baseline for further work. The four-flag classifier and the per-cell traffic-light are reusable instruments that do
-paper,339,first,ordinal,"re-running the present sweep. By characterising the adult operational envelope first, the atlas provides the methodological basis a pediatric translation layer woul"
-paper,339,One,cardinal,l trained on simulated cohorts performs on recorded data is a further question. One sim-to-real study addressed it by quantifying the distributional mismatch betwe
+paper,339,four,cardinal,than directly tested. This atlas is meant as a baseline for further work. The four-flag classifier and the per-cell traffic-light are reusable without re-running
+paper,339,eight,cardinal,"runs recorded with the atlas's protocol, the map for configurations inside its eight cells. By characterising the adult operational envelope first, the atlas provid"
+paper,339,first,ordinal,"ations inside its eight cells. By characterising the adult operational envelope first, the atlas provides the methodological basis a pediatric translation layer woul"
+paper,339,One,cardinal,on simulated cohorts performs on real-world patient data is a further question. One sim-to-real study addressed it by quantifying the distributional mismatch betwe
 paper,347,one,cardinal,"ated by a thin Python layer around Pulse's command-line interface, which writes one JSON configuration per Morris input vector --- reference body, ARDS scenario co"
 paper,347,seven,cardinal,"tor --- reference body, ARDS scenario condition, ventilator action set, and the seven operational inputs at their sampled values --- and spawns a container from that"
 paper,349,three,cardinal,"image. Re-running the pipeline reproduces the canonical outputs bit-for-bit at three successive stages, each checked against its own committed artefact: the input s"
