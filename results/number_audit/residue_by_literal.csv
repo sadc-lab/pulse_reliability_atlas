@@ -260,6 +260,7 @@ monograph,28,9,"sed-patch ( fall-through guard, 2026-04-28). [S015 Phase 2 verif
 monograph,96,9,"dependent): impairment {0.26, 0.60, 0.95} lands P/F ≈ **256 / 150 / 96 mmHg** (near the Berlin mild and moderate band centres; just inside"
 monograph,4.2,8,the ventilator-stress points where validation matters most. Section 4.2 details the −2 cmH2O setting validated by [S014 as a data-gen
 monograph,1.1,7,log tag system ([S001 – [S024 ) used throughout.* ### 1.1 Motivation *Why this paper exists. Pulse is used in clinical researc
+monograph,3.7,7,(§2.6). | | Traffic light | The per-cell curation map (§3.7): each cell scored green / yellow / red from its flag rates and its d
 monograph,0.01,6,"≈ 505 × FiO2 − 25 mmHg (R² = 0.90), i.e. roughly **5 mmHg PaO2 per 0.01 FiO2** in the clean range (Appendix B.2 / the companion"
 monograph,0.07,6,validation tables report ASL 5000-referenced tidal-volume errors of 0.07 – 2.25 % for VC-AC (volume-controlled assist-control) across health
 monograph,130,6,"ield 199 / 150 / 119 mmHg at the same settings (vs. published 340 / 130 / 50 mmHg, Webb 2020) — calibration is *ventilation-setting-dependent"
@@ -267,7 +268,6 @@ monograph,2.25,6,"ion tables report ASL 5000-referenced tidal-volume errors of 0
 monograph,2.8,6,"cing or extending the work should additionally read §2.6 (detector), §2.8 (reproducibility), and Appendix A. --- ## Key contributions *Seven"
 monograph,20.8,6,", and the male height is a researcher-fixed value chosen for a BMI of 20.8 — it is **not** Pulse's , but exactly"
 monograph,25,6,"thin category (b), the exact numerical choice (e.g., PaO2 lower 20 vs 25 mmHg) is a defensible judgment call rather than a unique biological c"
-monograph,3.7,6,(§2.6). | | Traffic light | The per-cell curation map (§3.7): each cell scored green / yellow / red from its flag rates and its d
 monograph,"4,400",6,"educing male BV eliminates divergence: **20/20 → 0/20** at both the 4,400 and 4,082.24 mL reductions (default 4,802.63 mL). * Engine-level side"
 monograph,4.3,6,"values, not user-facing operational inputs) and was not ported to the 4.3.x release line. Prior external work [@cornish2023] addressed interven"
 monograph,5000,6,irtual patient. Pulse's own ventilator-validation tables report ASL 5000-referenced tidal-volume errors of 0.07 – 2.25 % for VC-AC (volume-c

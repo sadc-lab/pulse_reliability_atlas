@@ -109,7 +109,7 @@
     "monograph": {
       "path": "preprint/manuscript.md",
       "kept_per_class": {
-        "cardinal": 481,
+        "cardinal": 482,
         "multiplicative": 11,
         "ordinal": 65
       },
@@ -124,7 +124,7 @@
         "fourth": 1,
         "half": 5,
         "nine": 6,
-        "one": 120,
+        "one": 121,
         "second": 16,
         "seven": 23,
         "six": 22,
@@ -139,10 +139,10 @@
         "two": 112,
         "zero": 24
       },
-      "lines_with_a_kept_token": 485,
+      "lines_with_a_kept_token": 486,
       "recall": {
-        "tokens_in_raw_text": 558,
-        "tokens_kept": 557,
+        "tokens_in_raw_text": 559,
+        "tokens_kept": 558,
         "tokens_masked": 1,
         "masked_per_rule": {
           "md_fence": 1,
@@ -162,10 +162,10 @@
     }
   },
   "totals": {
-    "kept": 1367,
+    "kept": 1368,
     "masked": 12,
     "kept_per_class": {
-      "cardinal": 1156,
+      "cardinal": 1157,
       "multiplicative": 26,
       "ordinal": 185
     }
