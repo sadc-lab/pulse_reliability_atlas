@@ -2225,3 +2225,57 @@ from 0 (no disease) to 1 (maximum severity)"*. Reconstruction, not proof.
 **What stands.** Only the bound: Pulse's own examples and validations do not go
 above 0.9 (maximum in `ARDSExacerbation.json`), and nothing lands inside
 0.91--0.945. That is what `supplement.tex` §S5.3 carries, and it is guarded.
+
+---
+
+## Addendum 2026-09-25 — three sim-to-real candidates for the Discussion, read in full, NOT cited
+
+**Why.** The author asked for further references supporting the Discussion's
+sentence on sim-to-real transfer (`paper.tex:339`, "Whether a model trained on
+simulated cohorts performs on recorded data is a further question. One
+sim-to-real study addressed it ... `hwang2025sim2real`; the atlas does
+neither."), each paper read in full before being proposed. **Status of all
+three: CANDIDATE. Nothing is added to `paper.tex` or `paper.bib` until the
+author decides.**
+
+**How they were found and read.** PubMed via NCBI E-utilities (`esearch`, then
+`efetch` abstracts; positive control: PMID 41102316 returns the Hwang title).
+Full texts: Bikia from Europe PMC (`PMC7490416/fullTextXML`); Bakkes and Hao
+from the publisher PDFs (CC BY, "Version of Record") deposited at
+research.tue.nl, scraped with Firecrawl on 2026-09-25 after ScienceDirect
+returned HTTP 403 and the TU/e file links returned a Cloudflare challenge to
+`curl`. Identity checked on the first lines of each scrape (title, DOI,
+"Publisher's PDF", "CC BY") before anything was read. The pages scraped:
+`https://research.tue.nl/files/266404274/1_s2.0_S0169260722007143_main.pdf`
+and `https://research.tue.nl/files/328048830/1-s2.0-S0169260724001718-main.pdf`.
+
+| candidate | what it did | verbatim support | cautions |
+|---|---|---|---|
+| **Bakkes T et al.**, Comput Methods Programs Biomed 2023;230:107333, doi:10.1016/j.cmpb.2022.107333, PMID 36640603 | Patient–ventilator asynchrony (PVA) detector, pressure support ventilation. Table 2, approach 3: trained on the simulated dataset (1,405 simulations, 58,876 breaths from the van Diepen model), tested on the clinical dataset (15 patients, 4,275 breaths, labelled with oesophageal pressure) | "With approach 3 it is shown that even when the method is trained on only simulated data we still achieve a reasonable performance." Table 8, F1 approach 3 vs approach 1 (clinical, leave-one-patient-out): DI 74.3 vs 81.9 %, LC 82.2 vs 92.0 %, EC 86.9 vs 87.3 %, IE 86.3 vs 91.7 %, Normal 69.9 vs 80.8 %. Abstract: "using simulated data in combination with clinical data increases the variability in the training dataset, leading to a gain in performance and generalizability." | One centre (Pavia), 15 patients, PSV only. Approaches 1 and 3 do not use the same test protocol. §4.1: "the clinical data contained lower levels of noise and amplitude of cardiac oscillations compared to the simulated dataset" -- here the SIMULATED data are the noisier ones. The combination (approach 4) was best for EC and normal breaths, and for LC among the approaches tested on clinical data; approach 1 stayed best for DI and IE. |
+| **Hao L et al.**, Comput Methods Programs Biomed 2024;250:108175, doi:10.1016/j.cmpb.2024.108175, PMID 38640840 | Same group and simulator. VentGAN adds "ventilator fingerprints" learned from 206 unlabelled patients (Catharina hospital) to the simulated waveforms; the Bakkes detector is trained on the original or the refined simulated data and tested on labelled clinical data | Abstract: "the obtained data lacks the influence of different hardware, of servo-controlled algorithms, and different sources of noise." "Testing is performed on independent clinical data labeled by experts." "VentGAN significantly improves the classification accuracy for late cycling, early cycling and normal breaths (p < 0.01); no significant difference in accuracy was observed for delayed inspirations (p = 0.2), while the accuracy decreased for ineffective efforts (p < 0.01)." | The labelled test set is described exactly as Bakkes 2023's (15 Pavia patients, Hamilton G5 or GE Engstrom, oesophageal-pressure labels) and Hao §2.1 refers to Bakkes for its details, so the two are very probably not independent evaluations (inferred; neither paper says "same dataset"). GAN trained on "data from only one hospital, acquired with one ventilator model in a specific ventilation mode"; the authors: "the present study can only show the feasibility of the approach". |
+| **Bikia V et al.**, Sci Rep 2020;10:15015, doi:10.1038/s41598-020-72147-8, PMID 32929108, PMC7490416 | 1-D cardiovascular model, 4,018 virtual subjects; regression of aortic systolic pressure (aSBP), cardiac output (CO) and end-systolic elastance from brachial pressures, HR and PWV | Methods: "an SVR model was trained with the totality of the in-silico data (n = 4,018) and, then, was tested on the in-vivo data (n = 783)". Table 11 (tested on in-vivo data only): trained in silico RMSE 5.34 mmHg, nRMSE 5.93 %, r 0.94; trained in vivo 3.53 ± 1.27 mmHg, 5.26 ± 2.30 %, r 0.97. "The accuracy was slightly higher in the second scenario despite the smaller size of the training dataset." "Clinical validation was not possible for the CO and Ees estimators, due to the lack of the respective data." "While synthetic data can mimic numerous properties of the real clinical data, they do not copy the original content in an identical way." | ⚠️ The abstract's "(5.26 ± 2.30%/0.97)" is the **in-vivo-trained** model (Table 11), not the in-silico-trained one: never quote it as the sim-to-real result. The in-vivo aSBP reference is itself non-invasive (SphygmoCor, "validated transfer functions"). The virtual population was "chosen to represent healthy individuals". Only aSBP was tested in vivo. |
+
+**Considered and not proposed.** van Diepen et al., J Clin Monit Comput
+2022;36:1739, PMID 35142976 (abstract read, full text not read): the simulator
+behind Bakkes and Hao; it trains on clinical data and tests on simulated data,
+the reverse direction, so it does not bear on the sentence. A web search for a
+model trained on Pulse or BioGears output and evaluated on patients returned
+nothing beyond `cornish2023`, which is already cited and evaluates the engine,
+not a trained model.
+
+**Where they would fit, if the author chooses** (drafts, not applied):
+- the sim-to-real sentence at `paper.tex:339`: Bakkes 2023 and Bikia 2020 as two
+  more models trained only on simulated data and tested on recorded data, each
+  below a model trained on recorded data;
+- the uncited sentence just before it, "Simulated and recorded cohorts are
+  complementary rather than interchangeable ... recorded clinical data retain the
+  messiness of real practice": Hao 2024 (simulated waveforms lack hardware,
+  servo-control and noise signatures) and Bakkes 2023 (simulated plus clinical
+  training data increased variability and performance).
+Adding them at `paper.tex:339` would give them numbers 23-24 (or 23-25)
+and move the five references first cited after that line
+(`sinnige2026active`, `pulserespmethod`, `kuczmarski2002cdc`, `iwanaga2022`,
+`herman2017salib`, now 23-27) by two or three. The paper list would go from
+27 to 29 or 30 (`build/paper.bbl`: 27 `\bibitem` on 2026-09-25; npj cap 60),
+and the union counted by `check_citations.py` from 46 to 48 or 49 keys, which
+the covering message's "46 against 41" would then have to follow.
