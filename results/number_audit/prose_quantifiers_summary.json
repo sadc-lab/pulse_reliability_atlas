@@ -12,7 +12,7 @@
         "frequency": 8,
         "identity": 20,
         "priority": 12,
-        "scope": 61,
+        "scope": 62,
         "strength": 12,
         "universal": 183
       },
@@ -37,7 +37,7 @@
         "no": 27,
         "none": 5,
         "nothing": 2,
-        "only": 19,
+        "only": 20,
         "same": 16,
         "single": 20,
         "throughout": 2,
@@ -48,8 +48,8 @@
       },
       "lines_with_a_kept_token": 70,
       "recall": {
-        "tokens_in_raw_text": 311,
-        "tokens_kept": 298,
+        "tokens_in_raw_text": 312,
+        "tokens_kept": 299,
         "tokens_masked": 13,
         "masked_per_rule": {
           "tex_comment": 13,
@@ -217,14 +217,14 @@
     }
   },
   "totals": {
-    "kept": 1934,
+    "kept": 1935,
     "masked": 24,
     "kept_per_family": {
       "extent": 23,
       "frequency": 35,
       "identity": 243,
       "priority": 75,
-      "scope": 422,
+      "scope": 423,
       "strength": 49,
       "universal": 1087
     }
