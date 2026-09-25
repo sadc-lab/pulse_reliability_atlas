@@ -697,7 +697,7 @@ had been overwritten, and its hashes were unrecoverable.
 |---|---|
 | Sent | *(pending author confirmation)* |
 | Recipients | the four supervising co-authors (A.W., C.S., P.J., M.S.) |
-| Source commit | `36333d8`, re-freeze 31 (see the freeze table below; this row had stayed at re-freeze 12's `ff09c92` through re-freezes 13 to 22) |
+| Source commit | `435974e`, re-freeze 32 (see the freeze table below; this row had stayed at re-freeze 12's `ff09c92` through re-freezes 13 to 22) |
 | Format | `.pdf` and `.docx` |
 | Artefacts to send | paper and supplement only |
 | Pages | 26 (paper; 25 until re-freeze 18) / 64 (supplement) |
@@ -707,10 +707,10 @@ had been overwritten, and its hashes were unrecoverable.
 
 | artefact | SHA-256 | bytes |
 |---|---|---|
-| `preprint_npj/build/paper.pdf` | `db4dc82d6653f71ac81ce2c13c904fd31c0edb37a3c024b53b67014a4e8fdcf2` | 634,076 |
-| `preprint_npj/build/paper.docx` | `029ee82f3488e4330490b70208b73653f59d6b3da6c22f130289b0b4b72e2e2f` | 975,688 |
-| `preprint_npj/build/supplement.pdf` | `126b55c327501c0829353b47c3f5f7f7bb820eea19804f48dc9c764a972c75a9` | 726,017 |
-| `preprint_npj/build/supplement.docx` | `16cba5cc820869807b45dedf60168880652c65ab404afde974e2ac028e92eada` | 747,761 |
+| `preprint_npj/build/paper.pdf` | `3281d55bcb8124130e2caba234d2861f2ffb1bd6ae9cd881bb1fde6d135d8cae` | 634,136 |
+| `preprint_npj/build/paper.docx` | `5f73d57caaefb705ed8abdea3ab33847769eab93a527f956253b1b5532635036` | 975,715 |
+| `preprint_npj/build/supplement.pdf` | `0acd77fe058f5bd49de58f359215b287744c24dde7c48b6034f7f6c47c548884` | 726,017 |
+| `preprint_npj/build/supplement.docx` | `19b7d908b2f61ed18f5f7b4df3846c3283e1b347d12675650ba46d07b879408b` | 747,761 |
 
 The monograph **is not part of this dispatch**. It was rebuilt with
 re-freeze 24, at `cabc29c`, which carries the one re-freeze 24 repair it
@@ -742,7 +742,9 @@ preprint/manuscript.md` is empty too, and both monograph hashes were
 re-measured unchanged. Re-freeze 31 touches only the paper's Discussion and
 `paper.bib`, which the monograph does not use (`git diff 1f7f776..36333d8 --
 preprint/manuscript.md` is empty); its hashes were re-measured unchanged
-again.
+again. Re-freeze 32 edits one Discussion sentence of `paper.tex` only
+(`git diff 1f7f776..435974e -- preprint/manuscript.md` is empty); the
+monograph hashes stand.
 
 ⚠️ **These hashes are valid for this build only.** Any further edit to
 `paper.tex` or `supplement.tex` invalidates them, and they must be re-frozen
@@ -782,8 +784,10 @@ on it is empty), but the supplement shares `paper.bib` through
 supplement: its `.bbl` still holds 32 entries, and "Bakkes" and "Bikia" occur
 0 times in its PDF and DOCX (1 time in the paper's DOCX, the control). The
 supplement PDF keeps 726,017 bytes; the DOCX moves by one byte, 747,762 to
-747,761. For
-re-freezes 13 to 19, 21, 22, 25, 29, 30 and 31 the supplement's change is the build, not the content:
+747,761. At re-freeze 32, `435974e` edits `paper.tex` only (one gloss in the
+Discussion); `supplement.tex` and `paper.bib` are unchanged since `36333d8`,
+and the supplement's byte counts are again 726,017 and 747,761. For
+re-freezes 13 to 19, 21, 22, 25 and 29 to 32 the supplement's change is the build, not the content:
 pdfTeX stamps a wall-clock `CreationDate` into the PDF (`18:47:46` for the
 re-freeze 22 supplement) and the pandoc DOCX moved by one byte, 747,727 to 747,726, so a rebuild
 never reproduces the previous digest. `build/` is untracked, so the earlier
@@ -791,15 +795,15 @@ artefacts cannot be recovered for comparison. Read a changed supplement hash as
 *rebuilt*, never as *edited*; `supplement.tex` in git is the authority on
 whether the content moved. The monograph hashes above changed at re-freezes 16
 and 17, again after 21, at 22, 23 and 24, and again after 28, for a real
-reason, unlike the supplement's at 13 to 19, 21, 22, 25, 29, 30 and 31: `manuscript.md`
+reason, unlike the supplement's at 13 to 19, 21, 22, 25 and 29 to 32: `manuscript.md`
 was edited (`1d684c7`, then `f9e3bb7`, then `78396c0` and `026df18`, then
 `27a012c`, then `cabc29c`, then `1cc0708` and `1f7f776`) and rebuilt
-with `scripts/build_paper.ps1`. They did not change at re-freezes 25 to 31,
+with `scripts/build_paper.ps1`. They did not change at re-freezes 25 to 32,
 which leave `manuscript.md` untouched.
 `build_npj.ps1` alone never rebuilds it.
 
-**Re-frozen thirty-one times.** The first three were one-token abstract edits
-made before the files left the machine; re-freezes 4 to 19 and 21 to 31 leave
+**Re-frozen thirty-two times.** The first three were one-token abstract edits
+made before the files left the machine; re-freezes 4 to 19 and 21 to 32 leave
 the abstract untouched, and re-freeze 20 rewords three of its phrases at an
 unchanged count:
 
@@ -837,6 +841,7 @@ unchanged count:
 | re-freeze 29 | `d38fcd8` | Introduction made easier to read, on the author's request for a shorter Introduction with no loss of information; no claim, number, reference, figure or table changes. Seven sentences split at an existing semicolon, colon or ", and"; the 67-word design sentence split in two ("We varied seven user-facing operational inputs…", then "We used a Morris elementary-effects design…"); four phrases trimmed ("mechanistic generator" for "…generator of synthetic data", "Without" for "In the absence of", "where" for "the setting in which", PaO$_2$ and PaCO$_2$ named together). 951 → 936 words; longest sentence 67 → 41 words. The citation sequence is identical, so no reference is renumbered. A first draft was withdrawn before application because five of its edits undid earlier decisions (rows 5 and 7, the accepted (1)–(4) numbering, the five notions kept on 2026-09-02, the objective stated last). Paper only; still 26 / 64 pages. The supplement was rebuilt but not edited | 149 / 146 |
 | re-freeze 30 | `0166cbd` | Discussion made easier to read, on the author's request for a shorter Discussion with no loss of information; no claim, number, reference, figure or table changes. The 79-word enumeration of the two corrections and the sex-stratified axis split in five ("The first is…", "The second is…", "On a separate axis, the sweep reveals…"), at the author's choice (+11 words). Thirteen other splits: seven at an existing colon, semicolon or ", and"; six by rewording the link ("together with" → "It also offers", ", so" → "therefore", ", though whether" → "Whether", ", which one … addressed" → "One … addressed it", the Victoriano sentence after its citation, and the last sentence, whose closed-loop trial clause is verbatim). "The map is a curation…" for "It is…" and "that overlap" for "it", to fix two referents. One sentence removed: "The two studies therefore expose different weaknesses of Pulse rather than the same one" restated the Cornish paragraph's opening ("complementary rather than overlapping") and its 82-of-85 breakdown. 1,308 → 1,297 words; 42 → 58 sentences; longest 79 → 45 words (the DeepSeek comparison, kept verbatim by the author's decision). The citation sequence is identical, so no reference is renumbered. Paper only; still 26 / 64 pages. The supplement was rebuilt but not edited | 149 / 146 |
 | re-freeze 31 | `36333d8` | **two references added**, on the author's decision, after a search for further sim-to-real evidence with each paper read in full: "Models trained only on simulated data and tested on recorded data, in ventilator-asynchrony detection and in aortic pressure estimation, performed reasonably, though below models trained on recorded data" (Bakkes et al. 2023; Bikia et al. 2020), after "the atlas does neither". Two pronouns that re-freeze 30 had left without a clear antecedent repaired: "The Morris screen finds" (for "Its") and "Cornish et al. test Pulse's chemistry" (for "its"). Discussion 1,297 → 1,325 words. **The references move**: the two enter at [23] and [24], and the former 23–27 become 25–29; paper list 27 → 29, union 46 → 48 cited keys. A third candidate (Hao et al. 2024) was read and not cited. Paper and `paper.bib` only; still 26 / 64 pages. The supplement was rebuilt but not edited | 149 / 146 |
+| re-freeze 32 | `435974e` | a gloss, on the author's decision after asking what "agent" meant: "each synthesised agent task (one the model performs by acting in a software environment) carries its own verification system", checked against section 5.1.1 of the pinned DeepSeek report. "agent" occurs once in the paper; the rest of the sentence is unchanged. Discussion 1,325 → 1,335 words; no claim, number, reference, figure or table changes. Paper only; still 26 / 64 pages. The supplement was rebuilt but not edited | 149 / 146 |
 
 Measured in one unit throughout (`wc -w` over the Introduction's source
 lines, at each row's source commit), **the Introduction goes 936 → 926 words**
@@ -877,7 +882,7 @@ frozen and any later build gets a new, superseding entry.**
 **92 commits** up to the preparation build (`3765872`), 156 up to re-freeze 22,
 161 up to re-freeze 23, 167 up to re-freeze 24, 172 up to re-freeze 25,
 175 up to re-freeze 26, 180 up to re-freeze 27, 183 up to re-freeze 28,
-193 up to re-freeze 29, 196 up to re-freeze 30, 201 up to re-freeze 31.
+193 up to re-freeze 29, 196 up to re-freeze 30, 201 up to re-freeze 31, 204 up to re-freeze 32.
 The paper goes from 24 to **26** rendered pages (25 until re-freeze 18), the
 supplement from 56 to **64**. The monograph, which they did not receive in September
 either, stands at 122.
@@ -949,6 +954,9 @@ Re-freeze 31 (`36333d8`) adds one sourced sentence to the Discussion, with two
 new references, and repairs two pronouns there (row 31 above). A reader of the
 September copy will see it in the Discussion and in the reference list, where
 the last five entries move by two. No result, figure or table changes.
+Re-freeze 32 (`435974e`) adds a ten-word gloss of "agent task" in the
+Discussion (row 32 above). No claim, number, reference, figure or table
+changes.
 
 ### What the covering message must say
 
