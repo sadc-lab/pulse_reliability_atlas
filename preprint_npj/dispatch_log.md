@@ -719,12 +719,17 @@ re-freeze 23 wording, as `78396c0` and `026df18` did for re-freezes 20 to 22.
 Re-freezes 25 to 28 do not touch it. It was rebuilt again after re-freeze 28,
 at `1cc0708`, which removes its two claims that the flag priority order was
 preregistered: it now says the order was fixed after the sweep, as the paper
-does since re-freeze 27. The npj artefacts are not affected. Its hashes are
-recorded so that build stays identifiable:
+does since re-freeze 27. It was rebuilt once more at `1f7f776`, which aligns
+four further passages on its own results and on the paper: `clamped` is an
+explicit setup rejection, not a silent change (two passages); the
+Introduction no longer says Pulse "silently bends inputs"; and not every
+threshold was preregistered (the traffic-light rule, declared in its §3.7). The npj
+artefacts are not affected. Its hashes are recorded so that build stays
+identifiable:
 `preprint/build/manuscript.pdf`
-`bfb8cec519a94965c88fef6b5ab6d2e424757a7e21ce587469e98800f1c20391` (1,358,081
+`0c02ee4b8fd4a3128cb5e5f04b9cf47d9629c8030198303b932c72b1dc80cd57` (1,358,288
 bytes) and `preprint/build/manuscript.docx`
-`03a5f1e8fcbbf29937b2b2c26dd85e6a0d754673ed4853f55913767ded910b39` (1,016,694
+`7253b8f395488b356192fc6a321d82851683db8bf56d65580e93b053128ca98d` (1,016,751
 bytes), still 122 pages.
 Apart from that provenance, the wording of re-freezes 26 and 27 was **not**
 carried to it: the monograph still has phrases they replaced (rows 26 and 27
@@ -765,7 +770,7 @@ whether the content moved. The monograph hashes above changed at re-freezes 16
 and 17, again after 21, at 22, 23 and 24, and again after 28, for a real
 reason, unlike the supplement's at 13 to 19, 21, 22 and 25: `manuscript.md`
 was edited (`1d684c7`, then `f9e3bb7`, then `78396c0` and `026df18`, then
-`27a012c`, then `cabc29c`, then `1cc0708`) and rebuilt
+`27a012c`, then `cabc29c`, then `1cc0708` and `1f7f776`) and rebuilt
 with `scripts/build_paper.ps1`. They did not change at re-freezes 25 to 28,
 which leave `manuscript.md` untouched.
 `build_npj.ps1` alone never rebuilds it.
