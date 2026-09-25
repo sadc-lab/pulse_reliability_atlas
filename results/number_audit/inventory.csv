@@ -3407,7 +3407,7 @@ paper,142,2.0,2.0,ambiguous_small,"automatically reliable. The Pulse Physiology 
 paper,142,1,1.0,ambiguous_small,"simulation (Supplement~\S\, ). Pulse has been applied to (1)~ventilator-safety what-if analysis~ , (2)~validation o"
 paper,142,2,2.0,ambiguous_small,"n applied to (1)~ventilator-safety what-if analysis~ , (2)~validation of its own mechanical-ventilator model against a physical"
 paper,142,3,3.0,ambiguous_small,"or model against a physical reference simulator~ , (3)~medical education and simulation training on virtual-patient and eme"
-paper,142,4,4.0,ambiguous_small,"l-patient and emergency-medicine platforms~ , and (4)~general-purpose computational physiology~ ; its respir"
+paper,142,4,4.0,ambiguous_small,"l-patient and emergency-medicine platforms~ , and (4)~general-purpose computational physiology~ . Its respir"
 paper,144,"12{,}642",12642.0,none,"et al.'s ventilator-sharing study~ does sweep inputs (12{,}642 unique patient and ventilator combinations spanning respiratory compl"
 paper,144,70,70.0,none,"at work, however, is over the \emph{mismatch} between two equal-sized 70~kg bodies sharing one ventilator, scored against a single composite s"
 paper,152,"1{,}280",1280.0,guard,"rossed with two adult reference patient bodies, male and female, gave 1{,}280 simulations. A four-flag steady-state classifier then labelled every"
