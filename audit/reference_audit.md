@@ -2299,3 +2299,56 @@ every Bakkes metric is lower, and because Bikia's authors call the gap
 Hao 2024 is **not** cited (no `paper.bib` entry) and stays a candidate. Rendering: the paper
 list is [1]–[29], the two enter at [23] and [24] in both PDF and DOCX, and the
 five references cited after them move from 23–27 to 25–29.
+
+---
+
+## Addendum 2026-09-25 (late) — BioGears cited, the "no comparable atlas" search re-run, Ward cited in the Discussion
+
+**Why.** On the author's request to check every claim of the Discussion's
+BioGears/HumMod sentence, three things were found: BioGears was named with no
+source (HumMod carried `hester2011hummod`); the negative claim rested on
+S020's single web query of 2026-05-15, whose results table has no row for it;
+and the Discussion's "Pulse-generated cohorts are already used as
+machine-learning training data" carried no citation (its source,
+`ward2024ventilator`, is cited only in the Introduction). The author approved
+citing both (2026-09-25, "go pour A B C D E").
+
+| locus | key | support | verdict |
+|---|---|---|---|
+| `paper.tex:331` | `baird2020biogears` | Baird et al., J Open Source Softw 2020;5(56):2645, read in full (joss.theoj.org PDF, 4 pages; Crossref metadata; no PubMed record, esearch on the DOI = 0 with the Hwang DOI as control): "BioGears is an open source, extensible human physiology computational engine"; "published under the Apache 2.0 license and are made available through the public GitHub repository"; an API, patient parameters "such as height, weight, systolic and diastolic pressure", data requests "published to a given .csv file". Supports naming BioGears and the feasibility of "wrapping each engine's own inputs and outputs". Does not support the absence of a comparable atlas (below), nor that BioGears logs input rejections (not examined). | MATCH |
+| `paper.tex:341` | `ward2024ventilator` | Ward et al. 2024 (arXiv:2411.07971v1, re-read in full 2026-09-25): "Our benchmark simulates 100 patients" (50 male, 50 female, ages 18-65, mild-to-severe ARDS); "To generate training and validation data we simulate the full benchmark (100 patients) twice, using the random policy ... for 200 total runs", giving 19,000 state-action-state triplets on which an autoencoder and a latent-dynamics network are trained. One third-party study; the Discussion sentence is a general statement it instantiates. | MATCH |
+
+**The negative claim, re-searched** (2026-09-25; "To our knowledge no
+comparable publicly available reliability atlas combining Morris screening
+with explicit clamping analysis has been published for either BioGears or
+HumMod"). PubMed E-utilities, terms URL-encoded (a first attempt with raw
+`[tiab]` brackets returned nothing for every query, including controls,
+because `curl` read the brackets as a URL glob):
+- `BioGears[tiab]`: 5 records (32218085, 31945891, 31681022, 30411537,
+  28268603): hemorrhage tool comparison, burn, sepsis, two PK/PD papers.
+- `BioGears[tiab] AND (sensitivity OR Morris OR Sobol OR uncertainty OR
+  reliability)[tiab]`: 0.
+- `HumMod[tiab]`: 20 records; with the same terms: 4 (38634648, 30571226,
+  29285341, 27974315), all about salt sensitivity (physiological), one of
+  them a validation test.
+- `"Pulse Physiology Engine"[tiab]`: 0 -- Bray 2019 appeared in SN
+  Comprehensive Clinical Medicine, not indexed there; not an instrument
+  failure, since the other queries returned records.
+- One web search (Morris / sensitivity analysis on BioGears or HumMod): no
+  such study.
+Closest work found, and why it is not comparable: Barnes et al. 2020, Simul
+Healthc 15:310 (PMID 32218085) compares BioGears, HumMod and Muse against
+published hemorrhage physiology; Kurtz et al. 2018, Hypertension 72:1407
+(PMID 30571226) tests HumMod-3.0.4 and QCP-2005 against salt-loading
+responses. Both are validations against physiology; neither screens
+operational inputs nor analyses clamping. The claim holds in its narrow form,
+under "to our knowledge". Availability behind "could be applied": BioGears
+per Baird 2020 and biogearsengine.com ("open source ... Apache 2.0 license",
+"A full-featured API, SDK"); HumMod per Hester 2011 ("HumMod can be
+downloaded", model in XML) and hummod.org on 2026-09-25 ("Standalone
+Package"). Not tested on either engine.
+
+Rendering after the edit: paper list [1]-[30]; Baird enters at [22], and
+`hester2011hummod`, `bakkes2023asynchrony`, `bikia2020aortic`,
+`sinnige2026active`, `pulserespmethod`, `kuczmarski2002cdc`, `iwanaga2022`,
+`herman2017salib` move by one (22-29 -> 23-30); Ward stays [10].
