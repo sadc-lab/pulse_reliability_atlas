@@ -144,8 +144,10 @@ paper,321,Four,cardinal,\subsection{Secondary observations} Four further observa
 paper,321,four,cardinal,"ed its locked compute budget, and a limitation of the flatline rule itself. All four are stated in full in the Supplementary Information and indexed in \S\,"
 paper,325,first,ordinal,. \section{Discussion} This work delivers the first open reliability atlas for the Pulse Physiology Engine across several adult cri
 paper,325,Two,cardinal,"tional scenarios, with its core design and primary analysis plan preregistered. Two operator-actionable corrections and a sex-stratified reliability axis emerge fr"
-paper,325,five,cardinal,"sured data~ , which this work does not perform. In a five-stage validation scheme proposed for synthetic biomedical data, running from in"
-paper,325,first,ordinal,", the atlas's run-level checks address only part of the first stage: they test whether runs are internally plausible, not whether they match"
+paper,325,first,ordinal,"ns and a sex-stratified reliability axis emerge from the 1{,}280-run sweep. The first is a single configuration setting that markedly stabilises VC-AC tidal-volume d"
+paper,325,second,ordinal,ther than a clinical ventilation recommendation (\S ). The second is a steady-state-window correction for hyperoxia simulation at FiO$_2 = 1.0$ (
+paper,325,five,cardinal,"measured data~ , which this work does not perform. A five-stage validation scheme has been proposed for synthetic biomedical data, runnin"
+paper,325,first,ordinal,". The atlas's run-level checks address only part of the first stage: they test whether runs are internally plausible, not whether they match"
 paper,327,four,cardinal,"are internally plausible, not whether they match real-world distributions. The four-flag classifier can also be used to screen Pulse-generated synthetic patient co"
 paper,327,one,cardinal,"gent task carries its own verification system~ , with one difference: the classifier checks the simulator's behaviour, not agreement with"
 paper,327,four,cardinal,"ap in Figure~ sets cell-level review priority; run-level four-flag screening remains necessary irrespective of cell colour, because a tile's"
@@ -157,15 +159,13 @@ paper,331,First,ordinal,"ct. For the computational-physiology community, the atl
 paper,331,Second,ordinal,"on every cell $\times$ output combination tested (\S ). Second, the method carries over to other engines. It pairs a Morris screen of the oper"
 paper,331,four,cardinal,ver to other engines. It pairs a Morris screen of the operational inputs with a four-flag classifier that sorts every run into a category instead of discarding any.
 paper,333,four,cardinal,"d 85 total Hoeffding-inequality rejections. Of these, 82 of 85 fall outside the four-channel overlap with this atlas (HR, MAP, PaO$_2$, PaCO$_2$): 80 on channels th"
-paper,333,two,cardinal,", plus 2 on partial-overlap pressure channels; only 3 of 85 fall inside it. The two studies therefore expose different weaknesses of Pulse rather than the same one"
-paper,333,one,cardinal,two studies therefore expose different weaknesses of Pulse rather than the same one. Cornish et al.\ test its chemistry and thermoregulation outputs against a real
 paper,335,first,ordinal,"atlas also serves the engine's maintainers: it provides, to our knowledge, the first systematic characterisation of an ARDS impairment-fraction solver-instability b"
 paper,337,Six,cardinal,ation and validation infrastructure rather than Pulse's underlying physiology. Six scope limits bound the conclusions; each is set out with its evidence in Supple
-paper,337,two,cardinal,"results applying identically to the build-only . (ii)~Patient anatomy is two adult reference bodies, so mass and height variation within sex is uncharacteri"
+paper,337,two,cardinal,"; results apply identically to the build-only . (ii)~Patient anatomy is two adult reference bodies, so mass and height variation within sex is uncharacteri"
 paper,337,Two,cardinal,"steps, so some SBP and DBP effects are not strict fixed-step Morris estimates. Two further caveats are of evidence rather than scope: no trajectory-count converge"
 paper,339,four,cardinal,than directly tested. This atlas is meant as a baseline for further work. The four-flag classifier and the per-cell traffic-light are reusable instruments that do
 paper,339,first,ordinal,"re-running the present sweep. By characterising the adult operational envelope first, the atlas provides the methodological basis a pediatric translation layer woul"
-paper,339,one,cardinal,"ned on simulated cohorts performs on recorded data is a further question, which one sim-to-real study addressed by quantifying the distributional mismatch between"
+paper,339,One,cardinal,l trained on simulated cohorts performs on recorded data is a further question. One sim-to-real study addressed it by quantifying the distributional mismatch betwe
 paper,347,one,cardinal,"ated by a thin Python layer around Pulse's command-line interface, which writes one JSON configuration per Morris input vector --- reference body, ARDS scenario co"
 paper,347,seven,cardinal,"tor --- reference body, ARDS scenario condition, ventilator action set, and the seven operational inputs at their sampled values --- and spawns a container from that"
 paper,349,three,cardinal,"image. Re-running the pipeline reproduces the canonical outputs bit-for-bit at three successive stages, each checked against its own committed artefact: the input s"

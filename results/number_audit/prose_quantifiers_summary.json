@@ -10,8 +10,8 @@
       "kept_per_family": {
         "extent": 2,
         "frequency": 8,
-        "identity": 21,
-        "priority": 11,
+        "identity": 20,
+        "priority": 12,
         "scope": 61,
         "strength": 12,
         "universal": 183
@@ -27,7 +27,7 @@
         "each": 45,
         "either": 2,
         "every": 29,
-        "first": 11,
+        "first": 12,
         "identical": 3,
         "impossible": 2,
         "irrespective": 1,
@@ -38,7 +38,7 @@
         "none": 5,
         "nothing": 2,
         "only": 19,
-        "same": 17,
+        "same": 16,
         "single": 20,
         "throughout": 2,
         "total": 3,
@@ -222,8 +222,8 @@
     "kept_per_family": {
       "extent": 23,
       "frequency": 35,
-      "identity": 244,
-      "priority": 74,
+      "identity": 243,
+      "priority": 75,
       "scope": 422,
       "strength": 49,
       "universal": 1087
