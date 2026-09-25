@@ -697,7 +697,7 @@ had been overwritten, and its hashes were unrecoverable.
 |---|---|
 | Sent | *(pending author confirmation)* |
 | Recipients | the four supervising co-authors (A.W., C.S., P.J., M.S.) |
-| Source commit | `a0fb250`, re-freeze 28 (see the freeze table below; this row had stayed at re-freeze 12's `ff09c92` through re-freezes 13 to 22) |
+| Source commit | `d38fcd8`, re-freeze 29 (see the freeze table below; this row had stayed at re-freeze 12's `ff09c92` through re-freezes 13 to 22) |
 | Format | `.pdf` and `.docx` |
 | Artefacts to send | paper and supplement only |
 | Pages | 26 (paper; 25 until re-freeze 18) / 64 (supplement) |
@@ -707,10 +707,10 @@ had been overwritten, and its hashes were unrecoverable.
 
 | artefact | SHA-256 | bytes |
 |---|---|---|
-| `preprint_npj/build/paper.pdf` | `589c8fbf0d3c24285cfa71b37621ee72aebd51534bbd4d2ec663daab4c5d3e5f` | 633,077 |
-| `preprint_npj/build/paper.docx` | `a9f6ad8662d778d18364a8565b384e530147a6fd95f1d9204fa863b34ce87830` | 975,278 |
-| `preprint_npj/build/supplement.pdf` | `33bac37733c156812a6402e6da52b0bab4b0a87199896572ca4a5f26a764d213` | 726,017 |
-| `preprint_npj/build/supplement.docx` | `690d7b1a3b78d1b72b9cac6041410be4bee4b8f882b5fe2599bb7c1f3cfb3719` | 747,762 |
+| `preprint_npj/build/paper.pdf` | `c806836ec7eb08d96d0fd48efb0d6e5ce8d4c834f957ffe92d5cb024e1dad8c5` | 633,038 |
+| `preprint_npj/build/paper.docx` | `008271dce7929e22953ef5319c00c276e37872d4baaeb800d53530e9fbb163a3` | 975,263 |
+| `preprint_npj/build/supplement.pdf` | `83cf3d646ac7725f32d76758b62467dcdc2e60eaf40ac43b7e2fd5060816c609` | 726,017 |
+| `preprint_npj/build/supplement.docx` | `1d8b5a75e002303e91bc6d7ec0abf3ad232008574f2ecda39374b4936adc59a1` | 747,762 |
 
 The monograph **is not part of this dispatch**. It was rebuilt with
 re-freeze 24, at `cabc29c`, which carries the one re-freeze 24 repair it
@@ -734,7 +734,9 @@ bytes), still 122 pages.
 Apart from that provenance, the wording of re-freezes 26 and 27 was **not**
 carried to it: the monograph still has phrases they replaced (rows 26 and 27
 below), deferred with it. The two sentences re-freeze 28 corrects do not
-occur in it.
+occur in it. Re-freeze 29 rewords only the paper's Introduction; the monograph
+has its own Introduction, which was not changed (`git diff 1f7f776..d38fcd8 --
+preprint/manuscript.md` is empty), so its hashes stand.
 
 ⚠️ **These hashes are valid for this build only.** Any further edit to
 `paper.tex` or `supplement.tex` invalidates them, and they must be re-frozen
@@ -759,8 +761,12 @@ re-freeze 26 they changed for a real reason:** `cf3ef7c` edits
 re-freeze 28** (two sentences; still 64 pages). At re-freeze 28 it is the
 *paper's* two hashes that moved with the content unchanged: `paper.tex` is
 untouched since `97b13e1` and both byte counts are identical (633,077 and
-975,278), so the build timestamp alone moved them. For
-re-freezes 13 to 19, 21, 22 and 25 the cause is the build, not the content:
+975,278), so the build timestamp alone moved them. At re-freeze 29 it is
+the supplement's turn again: `d38fcd8` edits `paper.tex` only (the
+Introduction; 633,077 → 633,038 and 975,278 → 975,263 bytes), while
+`git diff a0fb250..d38fcd8 -- preprint_npj/supplement.tex` is empty and both
+supplement byte counts are identical (726,017 and 747,762). For
+re-freezes 13 to 19, 21, 22, 25 and 29 the supplement's change is the build, not the content:
 pdfTeX stamps a wall-clock `CreationDate` into the PDF (`18:47:46` for the
 re-freeze 22 supplement) and the pandoc DOCX moved by one byte, 747,727 to 747,726, so a rebuild
 never reproduces the previous digest. `build/` is untracked, so the earlier
@@ -768,15 +774,15 @@ artefacts cannot be recovered for comparison. Read a changed supplement hash as
 *rebuilt*, never as *edited*; `supplement.tex` in git is the authority on
 whether the content moved. The monograph hashes above changed at re-freezes 16
 and 17, again after 21, at 22, 23 and 24, and again after 28, for a real
-reason, unlike the supplement's at 13 to 19, 21, 22 and 25: `manuscript.md`
+reason, unlike the supplement's at 13 to 19, 21, 22, 25 and 29: `manuscript.md`
 was edited (`1d684c7`, then `f9e3bb7`, then `78396c0` and `026df18`, then
 `27a012c`, then `cabc29c`, then `1cc0708` and `1f7f776`) and rebuilt
-with `scripts/build_paper.ps1`. They did not change at re-freezes 25 to 28,
+with `scripts/build_paper.ps1`. They did not change at re-freezes 25 to 29,
 which leave `manuscript.md` untouched.
 `build_npj.ps1` alone never rebuilds it.
 
-**Re-frozen twenty-eight times.** The first three were one-token abstract edits
-made before the files left the machine; re-freezes 4 to 19 and 21 to 28 leave
+**Re-frozen twenty-nine times.** The first three were one-token abstract edits
+made before the files left the machine; re-freezes 4 to 19 and 21 to 29 leave
 the abstract untouched, and re-freeze 20 rewords three of its phrases at an
 unchanged count:
 
@@ -811,14 +817,18 @@ unchanged count:
 | re-freeze 26 | `cf3ef7c` | **claims, not wording**: phrases on 14 lines (5 paper, 9 supplement) narrowed to what the code, the data or a primary source show, after a read-through before dispatch; no number, figure, table or reference changes. The trigger lock no longer "decouples" breath delivery nor restores "metronomic" delivery: Pulse's pressure trigger still fires on strong efforts, and at least 11 of the 64 lock reruns deliver two or more breaths above the set rate; hence "lower-variability", "markedly stabilises", "largely removed", "strongly reduces". The calibration setting is no longer "based on the ARDSnet framework" (6 mL/kg of actual, not predicted, body weight). The last sentence reads "characterising a simulator's operational limits", its closed-loop trial citation kept. The hard bounds are a "screening standard" in S3.1 and S3.6, and the PaO$_2$ 20 mmHg "incompatible with a stable steady state" clause is removed (Grocott 2009: 19.1–29.5 mmHg in climbers at 8,400 m). S3.10's 32 runs "no longer exceed the widened bound" instead of becoming "physiologically clean"; S3.8 says "bootstrap seeds". Paper and supplement both edited; still 26 / 64 pages. Not carried to the monograph or to `src/detector.py` (not dispatched) | 149 / 146 |
 | re-freeze 27 | `97b13e1` | wording made plainer on 7 lines (6 paper, 1 supplement), on the author's questions, with one provenance fact stated; no result, table value, figure or reference changes. Methods §4.4: the flag priority order is "fixed after the sweep" (it is not in `preregistration.md`; the sweep ended 2026-04-26 and the order was first written on 2026-04-27, `a8111fa`). §2.3: `InspirationPatientTriggerPressure` glossed as "the airway-pressure drop below PEEP at which a patient effort triggers a breath" (Pulse source, identical in 4.3.1 and 4.3.2). Table 3, Figure 2 and Figure 3 captions rewritten more plainly: Figure 2 names the six deviation-only red tiles (HR and PaO$_2$ in S3\_M, S3\_F and S4\_F) and says "lower PaO$_2$" for "ARDS hypoxemia"; Figure 3 defines μ\* as "the average absolute change in the panel's output per full-range move of that input" and says that each panel has its own colour scale. §2.4: "wider 700 mmHg upper bound" for "physiology-anchored 700 mmHg ceiling". S3.10: the runaway run's 679 mmHg is a "mean over the final 60 s", not a "steady-state mean". Still 26 / 64 pages. Not carried to the monograph (not dispatched), except the flag-order provenance, carried later by `1cc0708` | 149 / 146 |
 | re-freeze 28 | `a0fb250` | **a claim, not a wording**: two supplement sentences said that heart rate rises with ARDS severity, which the data do not show (clean-run mean output HR 153–158 bpm in S3, 147–148 in S4) and which the supplement's own S15.2 contradicts ("output HR peaks at S3 … and eases at S4"). Figure S5(c) caption: "in every ARDS cell, HR sits above and PaO$_2$ below the healthy-male baseline". S15 opening: it now repeats §2.6's own wording, "in moderate and severe ARDS, a compensatory tachycardia lifts Pulse's mean output heart rate above the sampled input range". The back-reference manifest entry for that sentence was updated with it. Supplement only; still 26 / 64 pages. The paper was rebuilt but not edited | 149 / 146 |
+| re-freeze 29 | `d38fcd8` | Introduction made easier to read, on the author's request for a shorter Introduction with no loss of information; no claim, number, reference, figure or table changes. Seven sentences split at an existing semicolon, colon or ", and"; the 67-word design sentence split in two ("We varied seven user-facing operational inputs…", then "We used a Morris elementary-effects design…"); four phrases trimmed ("mechanistic generator" for "…generator of synthetic data", "Without" for "In the absence of", "where" for "the setting in which", PaO$_2$ and PaCO$_2$ named together). 951 → 936 words; longest sentence 67 → 41 words. The citation sequence is identical, so no reference is renumbered. A first draft was withdrawn before application because five of its edits undid earlier decisions (rows 5 and 7, the accepted (1)–(4) numbering, the five notions kept on 2026-09-02, the objective stated last). Paper only; still 26 / 64 pages. The supplement was rebuilt but not edited | 149 / 146 |
 
-Re-freezes 9 and 10 are the two that shortened a section rather than a
-sentence: **the Introduction goes 936 → 926 words**, and the abstract is
-untouched throughout. For the record, since it bears on what the four received:
-the Introduction stood at 1,417 words in their August copy and 804 in the
-September one, the difference being the deliberate synthetic-data framing added
-on 2026-09-15 (`e34ec07`, four sentences and four citations). That framing was
-**kept**, on the author's decision of 2026-09-21.
+Measured in one unit throughout (`wc -w` over the Introduction's source
+lines, at each row's source commit), **the Introduction goes 936 → 926 words**
+at re-freezes 9 and 10 and **951 → 936 at re-freeze 29**. Re-freezes 8 and 25
+also removed words (5 and 7), and re-freezes 4, 7, 11, 16 and 23 added some
+(958 after re-freeze 23). The abstract is untouched throughout. For the record,
+since it bears on what the four received: the Introduction stood at 1,417 words
+in their August copy and 804 in the September one. The deliberate
+synthetic-data framing added on 2026-09-15, after that copy (`e34ec07`, four
+sentences and four citations), accounts for +132 words (813 → 945 in that
+commit). That framing was **kept**, on the author's decision of 2026-09-21.
 
 The third is the only one that moved the count: the abstract now holds one word
 of margin under the npj cap, for the first time since the cap was reached. What
@@ -847,7 +857,8 @@ frozen and any later build gets a new, superseding entry.**
 
 **92 commits** up to the preparation build (`3765872`), 156 up to re-freeze 22,
 161 up to re-freeze 23, 167 up to re-freeze 24, 172 up to re-freeze 25,
-175 up to re-freeze 26, 180 up to re-freeze 27, 183 up to re-freeze 28.
+175 up to re-freeze 26, 180 up to re-freeze 27, 183 up to re-freeze 28,
+193 up to re-freeze 29.
 The paper goes from 24 to **26** rendered pages (25 until re-freeze 18), the
 supplement from 56 to **64**. The monograph, which they did not receive in September
 either, stands at 122.
@@ -908,6 +919,9 @@ Methods §4.4, and in supplement S3.10. No result changes and no figure moves.
 Re-freeze 28 (`a0fb250`) corrects two supplement sentences (row 28 above): a
 reader of the September copy will see it in the Figure S5 caption, panel (c),
 and in the opening of S15. No result changes and no figure moves.
+Re-freeze 29 (`d38fcd8`) rewords the paper's Introduction (row 29 above): a
+reader of the September copy will see it there only. No claim, number,
+reference, figure or table changes.
 
 ### What the covering message must say
 
