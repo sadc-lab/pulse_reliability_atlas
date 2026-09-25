@@ -514,7 +514,7 @@ Vt, FiO2, PEEP) has been published.
 The corollary is operational: every Pulse user driving the engine
 from operational settings — clinical, industrial, educational — is
 operating *without a published map* of how the engine behaves across its
-operational envelope, where it silently bends inputs out of acceptance,
+operational envelope, whether it runs submitted inputs as given,
 and which inputs dominate which outputs. Users may therefore need to establish
 a use-case-specific working envelope independently.
 
@@ -685,9 +685,10 @@ underlying files are in the repository.
 
 *This section is the engineering layer of the atlas: which Pulse
 version, which inputs, which scenarios, which patient surrogates,
-which Morris design, which flags. Every threshold and every range was
-locked in the preregistration before the 1,280-run sweep launched; the
-flag priority order was fixed after it (§2.6).*
+which Morris design, which flags. Every classifier threshold and every
+input range was locked in the preregistration before the 1,280-run sweep
+launched; the flag priority order was fixed after it (§2.6), and the
+implemented traffic-light rule departs from the preregistered one (§3.7).*
 
 ### 2.0 Preregistered hypotheses
 
@@ -1118,8 +1119,8 @@ persisted at `data/runs/full_sweep/morris_sample.parquet`.
 
 ### 2.6 Detector
 
-*The four orthogonal flags that classify every run: `clamped` (Pulse
-silently bent the input), `diverged` (NaN / Inf / exit code ≠ 0),
+*The four orthogonal flags that classify every run: `clamped` (Pulse's
+setup log records a rejected setup input), `diverged` (NaN / Inf / exit code ≠ 0),
 `implausible` (steady-state mean outside hard physiological bounds),
 and `not_steady_state` (flatline, drift, or excess variance). All
 thresholds were locked in preregistration before data collection. The
@@ -1132,8 +1133,9 @@ failure modes a Pulse simulation could exhibit, from input handling
 through solver execution to output evaluation against biological and
 dynamic criteria:
 
-1. **`clamped` — input-contract breach.** Pulse has silently
-   substituted at least one setup input. The simulation no longer
+1. **`clamped` — input-contract breach.** Pulse did not accept at
+   least one setup input as submitted (its setup log matches a
+   rejection pattern). The simulation no longer
    corresponds to the Morris grid point that was requested, so any
    downstream flag would refer to a different input than the one
    being studied. Disqualifying the run at this layer is
