@@ -231,6 +231,7 @@ paper,393,second,ordinal,"ions, primary-source audits and a condensation pass. D
 paper,393,first,ordinal,"w, a second LLM, in a separate session, was repeatedly prompted to critique the first model's outputs, a loop reported as an additional source of challenge on text a"
 paper,393,first,ordinal,"uts, a loop reported as an additional source of challenge on text and code. The first was always a Claude model (Anthropic; , 4.8 and 5 in succession), the s"
 paper,393,second,ordinal,"t was always a Claude model (Anthropic; , 4.8 and 5 in succession), the second Google Gemini Pro 3.1 and later OpenAI ChatGPT ( Sol); Supplement~\S\,"
+paper,406,eight,cardinal,"curation and review-priority layer on synthetic patient cohorts drawn from its eight cells, without re-running the sweep; neither this cell-level map nor the run-le"
 paper,406,third,ordinal,"rights, for the deposited data and the authors' own monograph content. Verbatim third-party excerpts, notably from the Pulse documentation and source (Apache-2.0), r"
 paper,410,four,cardinal,"ilability} \noindent The atlas codebase (Morris sampler, Pulse Docker wrapper, four-flag steady-state classifier, statistical-analysis pipeline, audit ledger and r"
 paper,410,three,cardinal,"summarises the reproducibility recipe (Docker image tag, random seed, three-layer bit-exact verification) and documents the cross-platform, cross-vendor re"

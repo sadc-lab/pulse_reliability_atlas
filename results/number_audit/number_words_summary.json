@@ -8,12 +8,12 @@
     "paper": {
       "path": "preprint_npj/paper.tex",
       "kept_per_class": {
-        "cardinal": 205,
+        "cardinal": 206,
         "multiplicative": 2,
         "ordinal": 34
       },
       "kept_per_word": {
-        "eight": 9,
+        "eight": 10,
         "fifth": 1,
         "first": 12,
         "five": 7,
@@ -34,8 +34,8 @@
       },
       "lines_with_a_kept_token": 64,
       "recall": {
-        "tokens_in_raw_text": 246,
-        "tokens_kept": 241,
+        "tokens_in_raw_text": 247,
+        "tokens_kept": 242,
         "tokens_masked": 5,
         "masked_per_rule": {
           "tex_comment": 5,
@@ -162,10 +162,10 @@
     }
   },
   "totals": {
-    "kept": 1370,
+    "kept": 1371,
     "masked": 12,
     "kept_per_class": {
-      "cardinal": 1157,
+      "cardinal": 1158,
       "multiplicative": 26,
       "ordinal": 187
     }
