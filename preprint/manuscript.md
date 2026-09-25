@@ -685,9 +685,9 @@ underlying files are in the repository.
 
 *This section is the engineering layer of the atlas: which Pulse
 version, which inputs, which scenarios, which patient surrogates,
-which Morris design, which flags. Every threshold, every range, and
-every priority order was locked in the preregistration before the
-1,280-run sweep launched.*
+which Morris design, which flags. Every threshold and every range was
+locked in the preregistration before the 1,280-run sweep launched; the
+flag priority order was fixed after it (§2.6).*
 
 ### 2.0 Preregistered hypotheses
 
@@ -1122,9 +1122,10 @@ persisted at `data/runs/full_sweep/morris_sample.parquet`.
 silently bent the input), `diverged` (NaN / Inf / exit code ≠ 0),
 `implausible` (steady-state mean outside hard physiological bounds),
 and `not_steady_state` (flatline, drift, or excess variance). All
-thresholds were locked in preregistration before data collection,
-with priority order `clamped > diverged > implausible >
-not_steady_state > clean` for primary-flag analyses.*
+thresholds were locked in preregistration before data collection. The
+priority order `clamped > diverged > implausible > not_steady_state >
+clean` for primary-flag analyses was fixed after the sweep, not
+preregistered.*
 
 **Why this priority order.** The four flags trace the chronology of
 failure modes a Pulse simulation could exhibit, from input handling
