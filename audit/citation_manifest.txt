@@ -9,7 +9,9 @@
 
 [ACTIVE]
 akoumianaki2014  supplement
-ards2012  supplement
+ards2012  paper+supplement
+bakkes2023asynchrony  paper
+bikia2020aortic  paper
 blanch2015  paper+supplement
 bray2019  paper+supplement
 brower2000  supplement

@@ -2279,3 +2279,23 @@ and move the five references first cited after that line
 27 to 29 or 30 (`build/paper.bbl`: 27 `\bibitem` on 2026-09-25; npj cap 60),
 and the union counted by `check_citations.py` from 46 to 48 or 49 keys, which
 the covering message's "46 against 41" would then have to follow.
+
+**Follow-up, same day — two of the three are now cited, on the author's decision.**
+`bakkes2023asynchrony` and `bikia2020aortic` enter `paper.tex:339`, after "the
+atlas does neither", in the wording put to the author after the double-check:
+*"Models trained only on simulated data and tested on recorded data, in
+ventilator-asynchrony detection and in aortic pressure estimation, performed
+reasonably, though below models trained on recorded data."* The first draft
+said only "performed below"; "reasonably, though" was added because Bakkes's
+authors call the simulated-only result "a reasonable performance" and not
+every Bakkes metric is lower, and because Bikia's authors call the gap
+"slightly".
+
+| locus | key | support | verdict |
+|---|---|---|---|
+| `paper.tex:339` | `bakkes2023asynchrony` | Table 2, approach 3 (trained on simulated, tested on 15 patients); "even when the method is trained on only simulated data we still achieve a reasonable performance"; Table 8, accuracy and F1 of approach 3 below approach 1 for all five breath classes | MATCH |
+| `paper.tex:339` | `bikia2020aortic` | Methods, SVR trained on the 4,018 in-silico cases and tested on the 783 in-vivo subjects; Table 11, RMSE 5.34 vs 3.53 mmHg for the in-vivo-trained model; "The accuracy was slightly higher in the second scenario" | MATCH |
+
+Hao 2024 is **not** cited (no `paper.bib` entry) and stays a candidate. Rendering: the paper
+list is [1]–[29], the two enter at [23] and [24] in both PDF and DOCX, and the
+five references cited after them move from 23–27 to 25–29.
