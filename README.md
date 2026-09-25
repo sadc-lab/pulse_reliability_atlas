@@ -5,8 +5,8 @@
 
 **The first open reliability atlas for the Pulse Physiology Engine
 (v4.3.1).** This repository tells you — clinician, engineer, researcher,
-educator — *which regimes meet the stated screening criteria*, *where it
-silently bends inputs out of acceptance*, *where its solver gives up*, and
+educator — *which regimes meet the stated screening criteria*, *whether it
+runs submitted inputs as given*, *where its solver gives up*, and
 *which inputs actually drive each output*.
 
 The full result is [`preprint/manuscript.md`](preprint/manuscript.md). The
@@ -90,7 +90,7 @@ We ran Pulse 4.3.1 **1,280 times** across:
 
 Every run was classified by a four-flag detector:
 
-- **clamped** — Pulse silently substituted an input we asked for.
+- **clamped** — Pulse's setup log shows it did not accept an input as we submitted it.
 - **diverged** — solver crashed / NaN / Inf.
 - **implausible** — output ended up outside hard physiological bounds.
 - **not_steady_state** — output didn't settle in the final 60 seconds.
