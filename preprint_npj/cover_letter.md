@@ -81,7 +81,7 @@ readership:
 
 The work directly addresses a stated gap acknowledged by the engine's
 maintainers; its methodology (Morris screening plus a categorise-don't-discard
-steady-state classifier) transfers to sibling lumped-parameter engines such as
+steady-state classifier) could be applied to related physiology engines such as
 BioGears and HumMod; and the entire pipeline — preregistration, Docker image,
 fixed seed, and a machine-checked audit ledger of the computed quantitative
 claims — is released open-source under Apache-2.0 for full reproducibility.
