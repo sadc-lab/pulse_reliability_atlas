@@ -29,4 +29,4 @@ main manuscript carries a forward-looking note on engine-side infrastructure sug
 main manuscript); a one-line note in the patient-baseline reference table would have saved the investig	POINTER
 main manuscript reports that, in moderate and severe ARDS, a compensatory tachycardia lifts P	a compensatory tachycardia that lifts mean output heart rate above the sampled input range in moderate and severe ARDS while input heart rate remains its dominant within-scenario determinant
 main manuscript), which keeps the assumption auditable	POINTER
-main manuscript states how large language models were used and where responsibility rests; t	Large language models (LLMs) were used substantially
+main manuscript states how large language models were used and where responsibility rests; t	Large language models (LLMs) were used in this work
