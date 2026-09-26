@@ -8,34 +8,34 @@
     "paper": {
       "path": "preprint_npj/paper.tex",
       "kept_per_class": {
-        "cardinal": 206,
+        "cardinal": 209,
         "multiplicative": 2,
-        "ordinal": 34
+        "ordinal": 30
       },
       "kept_per_word": {
         "eight": 10,
         "fifth": 1,
-        "first": 12,
+        "first": 10,
         "five": 7,
         "four": 35,
         "fourth": 1,
         "half": 2,
         "nine": 3,
-        "one": 46,
-        "second": 17,
+        "one": 47,
+        "second": 15,
         "seven": 13,
         "six": 14,
         "sixteen": 1,
         "third": 3,
         "three": 26,
         "twelve": 2,
-        "two": 36,
+        "two": 38,
         "zero": 13
       },
       "lines_with_a_kept_token": 64,
       "recall": {
-        "tokens_in_raw_text": 247,
-        "tokens_kept": 242,
+        "tokens_in_raw_text": 246,
+        "tokens_kept": 241,
         "tokens_masked": 5,
         "masked_per_rule": {
           "tex_comment": 5,
@@ -54,9 +54,9 @@
     "supplement": {
       "path": "preprint_npj/supplement.tex",
       "kept_per_class": {
-        "cardinal": 470,
+        "cardinal": 471,
         "multiplicative": 13,
-        "ordinal": 88
+        "ordinal": 87
       },
       "kept_per_word": {
         "double": 2,
@@ -70,7 +70,7 @@
         "nine": 6,
         "one": 100,
         "quarter": 1,
-        "second": 53,
+        "second": 52,
         "seven": 15,
         "seventh": 1,
         "six": 31,
@@ -79,7 +79,7 @@
         "third": 7,
         "thirteen": 1,
         "thirty": 1,
-        "three": 83,
+        "three": 84,
         "twelve": 4,
         "twenty": 1,
         "twice": 4,
@@ -162,12 +162,12 @@
     }
   },
   "totals": {
-    "kept": 1371,
+    "kept": 1370,
     "masked": 12,
     "kept_per_class": {
-      "cardinal": 1158,
+      "cardinal": 1162,
       "multiplicative": 26,
-      "ordinal": 187
+      "ordinal": 182
     }
   }
 }

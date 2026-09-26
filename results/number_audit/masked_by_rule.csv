@@ -409,8 +409,8 @@ monograph,year_like,4531,2026,", < re-read 2026-08-20 with columns resolved by n
 monograph,year_like,4542,2026,"recorded in that project's experiments log (CDC weight audit step, 2026-04). * **Female height (163 cm).** Matches the CDC P50 stature for"
 paper,org_identifier,115,3450,"ress{\city{Nancy}, \country{France}}} \affil[5]{\orgdiv{UR 3450 DevAH}, \orgname{Universit\'e de Lorraine}, \orgaddress"
 paper,org_identifier,117,1256,"Nancy}, \country{France}}} \affil[6]{\orgdiv{INSERM UMR\_S 1256, Nutrition-G\'en\'etique et Exposition aux Risques Envi"
-paper,product_version,393,4.7,"code. The first was always a Claude model (Anthropic; Opus 4.7, 4.8 and 5 in succession), the second Google Gemini Pro"
-paper,product_version,393,5.6,"second Google Gemini Pro 3.1 and later OpenAI ChatGPT (GPT-5.6 Sol); Supplement~\S\,\ref{sec:s18} gives their identifie"
+paper,product_version,393,4.7,". One of the two was always a Claude model (Anthropic; Opus 4.7, 4.8, 5 and 5.5 in succession), the other Google Gemini"
+paper,product_version,393,5.6,"e other Google Gemini Pro 3.1 and later OpenAI ChatGPT (GPT-5.6 Sol); Supplement~\S\,\ref{sec:s18} gives each model's ex"
 paper,ref_or_machinery,186,0.748,des. \begin{figure}[!t] \centering \includegraphics[width=0.748\textwidth]{figures/fig00_study_design.pdf} \caption{\t
 paper,ref_or_machinery,232,0.95,le} \begin{figure}[!htbp] \centering \includegraphics[width=0.95\textwidth]{figures/fig01_traffic_light.pdf} \caption{\t
 paper,ref_or_machinery,297,0.95,. \begin{figure}[!htbp] \centering \includegraphics[width=0.95\textwidth]{figures/fig03_actionable_corrections.pdf} \c
@@ -464,7 +464,8 @@ supplement,org_identifier,100,1256,"Nancy}, \country{France}}} \affil[6]{\orgdiv
 supplement,product_version,886,3.12,t-identical engine binaries. The host environment is Python 3.12+ managed via \texttt{uv} for deterministic dependency r
 supplement,product_version,1156,4.7,l agent at the \texttt{xhigh} thinking-effort default: Opus 4.7 (\texttt{claude-opus-4-7}) for the initial drafting and
 supplement,product_version,1156,4.8,the initial drafting and a manuscript-formatting pass; Opus 4.8 (\texttt{claude-opus-4-8}) through the first supervisor-
-supplement,product_version,1156,5,the associated text and reference modifications); and Opus 5 (\texttt{claude-opus-5}) for the audit and synthesis round
+supplement,product_version,1156,5,and the associated text and reference modifications); Opus 5 (\texttt{claude-opus-5}) for the audit and synthesis round
+supplement,product_version,1156,5.5,"sis rounds that followed; and, from 23~September~2026, Opus 5.5 (\texttt{claude-opus-5-5}) for the later readability and"
 supplement,product_version,1156,5.6,"inking mode), then, from 3~August~2026, OpenAI ChatGPT (GPT-5.6 Sol, High reasoning level). The Opus 5 rounds covered i"
 supplement,product_version,1158,5,"enAI ChatGPT (GPT-5.6 Sol, High reasoning level). The Opus 5 rounds covered in-repository replication of the ARDS-sever"
 supplement,ref_or_machinery,120,1,e present atlas's contribution (Section~\mainref{sec:intro}{1} of the main manuscript): a quantitative characterisation
@@ -568,5 +569,7 @@ supplement,year_like,632,2026,verlap. [h] \centering \caption{\textbf{Cornish et
 supplement,year_like,636,2026,ndant.} \toprule Cornish 2026 channel & Hoeffding & Bootstrap & Maps to atlas output? \\ \midrule \
 supplement,year_like,865,2020,ipe for user-facing operational inputs.} Pulse's repository carries a 2020 \texttt{STUDY\_SENSITIVITY\_ANALYSIS\_1\_0\_0} tag that performs Sobo
 supplement,year_like,1137,2026,caveat. \\ \S & \textbf{Cornish et al.\ 2026 per-channel cross-mapping.} Each of Cornish's 15 channels mapped agai
+supplement,year_like,1156,2026,"the audit and synthesis rounds that followed; and, from 23~September~2026, (\texttt{claude-opus-5-5}) for the later readability and au"
 supplement,year_like,1156,2026,"t Google Gemini Pro 3.1 (extended-thinking mode), then, from 3~August~2026, OpenAI ChatGPT ( Sol, High reasoning level). The roun"
 supplement,year_like,1158,2026,and versioned its generating script. They also covered the September 2026 condensation pass and the ensuing audits and their corrections; in th
+supplement,year_like,1158,2026,"placed material moving to the Supplementary Information. In September 2026, Claude Code's automated code review (\texttt{/ultrareview}) was also"

@@ -8,13 +8,13 @@
     "paper": {
       "path": "preprint_npj/paper.tex",
       "kept_per_family": {
-        "extent": 2,
+        "extent": 1,
         "frequency": 8,
         "identity": 20,
-        "priority": 12,
-        "scope": 63,
+        "priority": 10,
+        "scope": 62,
         "strength": 12,
-        "universal": 184
+        "universal": 187
       },
       "kept_per_word": {
         "all": 30,
@@ -24,23 +24,23 @@
         "both": 19,
         "cannot": 9,
         "complete": 5,
-        "each": 45,
+        "each": 47,
         "either": 2,
         "every": 29,
-        "first": 12,
+        "first": 10,
         "identical": 3,
         "impossible": 2,
         "irrespective": 1,
         "most": 7,
-        "neither": 12,
+        "neither": 13,
         "never": 6,
         "no": 27,
         "none": 5,
         "nothing": 2,
-        "only": 21,
+        "only": 20,
         "same": 16,
         "single": 20,
-        "throughout": 2,
+        "throughout": 1,
         "total": 3,
         "uniformly": 1,
         "unique": 1,
@@ -48,8 +48,8 @@
       },
       "lines_with_a_kept_token": 70,
       "recall": {
-        "tokens_in_raw_text": 314,
-        "tokens_kept": 301,
+        "tokens_in_raw_text": 313,
+        "tokens_kept": 300,
         "tokens_masked": 13,
         "masked_per_rule": {
           "tex_comment": 13,
@@ -74,7 +74,7 @@
         "priority": 23,
         "scope": 166,
         "strength": 18,
-        "universal": 385
+        "universal": 386
       },
       "kept_per_word": {
         "all": 76,
@@ -85,7 +85,7 @@
         "both": 49,
         "cannot": 12,
         "complete": 9,
-        "each": 78,
+        "each": 79,
         "either": 11,
         "entire": 2,
         "entirely": 6,
@@ -118,10 +118,10 @@
         "universally": 1,
         "whole": 8
       },
-      "lines_with_a_kept_token": 201,
+      "lines_with_a_kept_token": 202,
       "recall": {
-        "tokens_in_raw_text": 741,
-        "tokens_kept": 730,
+        "tokens_in_raw_text": 742,
+        "tokens_kept": 731,
         "tokens_masked": 11,
         "masked_per_rule": {
           "tex_comment": 11,
@@ -220,13 +220,13 @@
     "kept": 1937,
     "masked": 24,
     "kept_per_family": {
-      "extent": 23,
+      "extent": 22,
       "frequency": 35,
       "identity": 243,
-      "priority": 75,
-      "scope": 424,
+      "priority": 73,
+      "scope": 423,
       "strength": 49,
-      "universal": 1088
+      "universal": 1092
     }
   }
 }
