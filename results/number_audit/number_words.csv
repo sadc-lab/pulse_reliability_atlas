@@ -150,7 +150,7 @@ paper,325,five,cardinal,"measured data~ , which this work does not perform. A fi
 paper,325,first,ordinal,". The atlas's run-level checks address only part of the first stage: they test whether runs are internally plausible, not whether they match"
 paper,327,four,cardinal,"are internally plausible, not whether they match real-world distributions. The four-flag classifier can also be used to screen Pulse-generated synthetic patient co"
 paper,327,one,cardinal,"technical report cited in the Introduction, where each synthesised agent task (one the model performs by acting in a software environment) carries its own verific"
-paper,327,One,cardinal,"e environment) carries its own verification system~ . One difference remains: the classifier checks the simulator's behaviour, not agreem"
+paper,327,One,cardinal,"e environment) carries its own verification system~ . One difference is that the classifier checks how the simulator behaved, not whether"
 paper,327,four,cardinal,"ap in Figure~ sets cell-level review priority; run-level four-flag screening remains necessary irrespective of cell colour, because a tile's"
 paper,327,second,ordinal,"e rule, and green does not establish physiological validity. The same map has a second audience: Pulse is embedded in named training products that present healthcare"
 paper,329,Three,cardinal,the per-cell map to avoid regimes where the engine diverges or never settles. Three findings call for care when Pulse-generated data are reused. The sex-stratified
