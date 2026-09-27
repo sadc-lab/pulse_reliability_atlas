@@ -6,8 +6,10 @@ Panel A: per-cell divergence counts across the 1,280-run sweep,
          to surface the 20/20 male-only divergence pattern.
 
 Panel B: BV-rescue dose-response on the 20 originally-diverged male
-         inputs. X-axis is the imposed BloodVolumeBaseline override
-         (default 4802.63 -> bracket 4400 -> floor 4082.24 mL); y-axis
+         inputs. X-axis is the blood-volume baseline: Pulse's computed
+         default 4802.63 mL (not imposed; the Tier-2 default arm runs
+         without a blood_volume_ml field) and the imposed BloodVolumeBaseline
+         overrides, bracket 4400 and floor 4082.24 mL; y-axis
          is the divergence count out of 20. Reads
          data/runs/s018_blood_volume/{s018_classified.parquet,
          s018_floor_classified.parquet} for the dose-response counts.
@@ -96,7 +98,10 @@ axB.axvline(FEMALE_DEFAULT_BV_ML, color="#DD8452", linestyle="--", linewidth=1.8
 axB.axvline(MALE_FLOOR_BV_ML, color="#4C4C4C", linestyle=":", linewidth=1.6, alpha=0.9, label="Pulse setup floor (male)")
 axB.set_xlim(3850, 4900)
 axB.set_ylim(-1, 22)
-axB.set_xlabel(r"Imposed \texttt{BloodVolumeBaseline} override (mL)".replace(r"\texttt{", "").replace("}", ""))
+# "Blood-volume baseline", not "Imposed BloodVolumeBaseline override"
+# (2026-09-26): only the bracket and floor levels are imposed; the default is
+# Pulse's own computed value (scripts/verify_s018_tier2.py L11-14).
+axB.set_xlabel("Blood-volume baseline (mL)")
 axB.set_ylabel("Divergence count (out of 20 reruns)")
 axB.set_title(r"(b) Blood-volume rescue ($n = 20$ originally-diverged male inputs)", fontsize=10)
 axB.set_xticks(dose_bv)
