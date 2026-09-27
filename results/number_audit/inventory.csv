@@ -3765,6 +3765,8 @@ paper,353,163,163.0,none,"le body (age 18, 67.3~kg, 180~cm) and a female body (a
 paper,353,50,50.0,ambiguous_small,e U.S.\ Centers for Disease Control and Prevention (CDC) growth-chart 50th-percentile weight-for-age values for each sex~
 paper,353,216.5,216.5,guard,", taken from the CDC row at \texttt{Agemos}~=~216.5. The female height matches the CDC 50th percentile and Pulse's own st"
 paper,353,50,50.0,ambiguous_small,CDC row at \texttt{Agemos}~=~216.5. The female height matches the CDC 50th percentile and Pulse's own standard female height; the male height
+paper,355,0.75,0.75,ambiguous_small,"e step later, when each configuration is written (a sampled DBP above 0.75~$\times$~SBP is lowered to 0.75~$\times$~SBP), and every run records"
+paper,355,0.75,0.75,ambiguous_small,"ation is written (a sampled DBP above 0.75~$\times$~SBP is lowered to 0.75~$\times$~SBP), and every run records the requested value, the applied"
 paper,359,50,50.0,ambiguous_small,"swept across their verified Pulse acceptance ranges: heart rate (HR, 50--110~bpm), systolic and diastolic blood pressure (SBP 90--120~mmHg, D"
 paper,359,110,110.0,none,"pt across their verified Pulse acceptance ranges: heart rate (HR, 50--110~bpm), systolic and diastolic blood pressure (SBP 90--120~mmHg, DBP 60"
 paper,359,90,90.0,ambiguous_small,"rt rate (HR, 50--110~bpm), systolic and diastolic blood pressure (SBP 90--120~mmHg, DBP 60--80~mmHg with the post-clip pulse-pressure constrai"
