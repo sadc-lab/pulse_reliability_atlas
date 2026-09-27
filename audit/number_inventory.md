@@ -2886,3 +2886,62 @@ there, and a single-line pattern cannot see it. A positive control on a word
 that cannot wrap (`all-male`) exposed it. Same failure mode as the cp1252 defect
 in §12.1, and the same lesson — a search that returns zero is a claim about the
 instrument before it is a claim about the text.
+
+---
+
+## Addendum 2026-09-27 — literals entering with the Methods §4.4 rewrite
+
+All three producers were re-run after the edit: `audit_number_inventory.py` 39
+probes, 0 FAIL; `audit_number_words.py` 19 probes, 0 FAIL;
+`audit_prose_quantifiers.py` 20 probes, 0 FAIL. Each delta below was predicted
+from the diff before the comparison, and the comparison drops the line and
+context columns, so a shifted line is not counted as a change.
+
+Retained occurrences in the paper go from **523 to 525**; the supplement and
+the monograph retain the same literals. The `inventory.csv` delta is four rows,
+all in the rewritten §4.4:
+
+| literal | bucket | change | what it is |
+|---|---|---:|---|
+| `0.05` | none | +1 | the coefficient-of-variation threshold, now stated in §4.4 (`CV_THRESHOLD` in `src/detector.py`); same value and meaning as the paper's other `0.05` rows read in §3 |
+| `2` | ambiguous_small | +1 | the −2 of "an aortic pressure below −2 or above 700 mmHg" |
+| `700` | guard | +1 | the 700 mmHg of the same sentence |
+| `5` | ambiguous_small | −1 | the old "5 documented input-rejection patterns", rewritten |
+
+⚠️ **The `700` row is a by-value false comfort.** It is classed `guard` because
+another 700 in the paper, the PaO2 bound of the physiological-bounds
+sensitivity analysis, is guarded. The new 700 is a different quantity, and the
+−2 beside it falls into `ambiguous_small`. Neither is anchored in the ledger.
+Both are Pulse source constants, read on 2026-09-27 in the local clone at
+`REL_4_3_1`: `src/cpp/engine/common/system/physiology/CardiovascularModel.cpp`
+L1223–1230, `m_CardiacCycleAortaPressureLow_mmHg < -2.0` ->
+`Fatal("Diastolic pressure has fallen below zero.")` and
+`m_CardiacCycleAortaPressureHigh_mmHg > 700.0` ->
+`Fatal("Systolic pressure has exceeded physiologic range.")`. The file is
+identical at `REL_4_3_2`. The engine forwards every `Fatal` to a listener that
+sets `IrreversibleState` (`Controller.h` `FatalListner`, attached in
+`Controller.cpp` L272–273), and `AdvanceModelTime` then returns false and
+stops (L612–618). "No run of this sweep reached one": 0 of the 3,349
+`pulse.log` files under `data/runs` and `data/clamp_probe` contain `fatal` or
+`irreversible` (case-insensitive; Pulse writes `[FATAL]`, `SimpleLogger.cpp`),
+against 3,349 of 3,349 containing `[ERROR]`. The ledger is not extended: the
+source lives outside the repository and CI cannot read it.
+
+**Masked, not retained:** +3 cross-reference machinery in the paper (the new
+pointers to Supplement S3.3, S3.6 and S4); +1 three-part version in the
+supplement and +1 in the monograph (`4.3.1` in the new sentence on the
+`is outside the valid range` pattern); +1 inline-code literal in the monograph
+(that pattern).
+
+**Number words.** Paper `one` 38 -> 43: the new §4.4 has seven ("one of the
+messages", "one pattern was widened", "reached one", "one run can fire
+several", "one category per run", "outranks one", "where one exists") against
+two in the old. Paper `first` 8 -> 9 ("at setup first"). Supplement `one`
+91 -> 93: "where one exists" twice in S3.1 and "one of them" in S3.3, less "one
+observed Pulse rejection message".
+
+**Prose quantifiers.** Paper: `any` −1 ("any of 5 documented" removed),
+`complete` −1 ("failed to complete" removed), `never` −1 ("never rejects an
+output value" corrected), `no` +1 ("no run of this sweep reached one"), `first`
++1. Supplement: `no` +2 and `each` +1 (the S3.3 and S3.1 sentences). Monograph:
+`no` +2 (its twin of the S3.3 sentence).

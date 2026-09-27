@@ -9,10 +9,10 @@
       "path": "preprint_npj/paper.tex",
       "kept_per_family": {
         "extent": 1,
-        "frequency": 8,
+        "frequency": 7,
         "identity": 22,
-        "priority": 10,
-        "scope": 64,
+        "priority": 11,
+        "scope": 63,
         "strength": 12,
         "universal": 183
       },
@@ -20,21 +20,21 @@
         "all": 28,
         "alone": 4,
         "always": 1,
-        "any": 13,
+        "any": 12,
         "both": 20,
         "cannot": 9,
-        "complete": 5,
+        "complete": 4,
         "each": 46,
         "either": 2,
         "every": 28,
-        "first": 10,
+        "first": 11,
         "identical": 3,
         "impossible": 2,
         "irrespective": 1,
         "most": 7,
         "neither": 12,
-        "never": 7,
-        "no": 27,
+        "never": 6,
+        "no": 28,
         "none": 5,
         "nothing": 2,
         "only": 20,
@@ -45,10 +45,10 @@
         "unique": 1,
         "whole": 5
       },
-      "lines_with_a_kept_token": 70,
+      "lines_with_a_kept_token": 72,
       "recall": {
-        "tokens_in_raw_text": 313,
-        "tokens_kept": 300,
+        "tokens_in_raw_text": 312,
+        "tokens_kept": 299,
         "tokens_masked": 13,
         "masked_per_rule": {
           "tex_comment": 13,
@@ -73,7 +73,7 @@
         "priority": 23,
         "scope": 166,
         "strength": 18,
-        "universal": 386
+        "universal": 389
       },
       "kept_per_word": {
         "all": 76,
@@ -84,7 +84,7 @@
         "both": 49,
         "cannot": 12,
         "complete": 9,
-        "each": 79,
+        "each": 80,
         "either": 11,
         "entire": 2,
         "entirely": 6,
@@ -100,7 +100,7 @@
         "necessarily": 1,
         "neither": 10,
         "never": 5,
-        "no": 75,
+        "no": 77,
         "none": 10,
         "nothing": 3,
         "only": 59,
@@ -119,8 +119,8 @@
       },
       "lines_with_a_kept_token": 202,
       "recall": {
-        "tokens_in_raw_text": 752,
-        "tokens_kept": 731,
+        "tokens_in_raw_text": 755,
+        "tokens_kept": 734,
         "tokens_masked": 21,
         "masked_per_rule": {
           "tex_comment": 21,
@@ -145,7 +145,7 @@
         "priority": 40,
         "scope": 195,
         "strength": 19,
-        "universal": 521
+        "universal": 523
       },
       "kept_per_word": {
         "all": 108,
@@ -176,7 +176,7 @@
         "necessarily": 2,
         "neither": 14,
         "never": 11,
-        "no": 103,
+        "no": 105,
         "none": 10,
         "nothing": 4,
         "only": 83,
@@ -193,10 +193,10 @@
         "unique": 11,
         "whole": 7
       },
-      "lines_with_a_kept_token": 784,
+      "lines_with_a_kept_token": 786,
       "recall": {
-        "tokens_in_raw_text": 908,
-        "tokens_kept": 908,
+        "tokens_in_raw_text": 910,
+        "tokens_kept": 910,
         "tokens_masked": 0,
         "masked_per_rule": {
           "md_fence": 0,
@@ -216,16 +216,16 @@
     }
   },
   "totals": {
-    "kept": 1939,
+    "kept": 1943,
     "masked": 34,
     "kept_per_family": {
       "extent": 22,
-      "frequency": 35,
+      "frequency": 34,
       "identity": 245,
-      "priority": 73,
-      "scope": 425,
+      "priority": 74,
+      "scope": 424,
       "strength": 49,
-      "universal": 1090
+      "universal": 1095
     }
   }
 }

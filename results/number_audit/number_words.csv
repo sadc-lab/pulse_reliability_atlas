@@ -60,7 +60,7 @@ paper,204,one,cardinal,"\addlinespace \texttt{not\_steady\_state} & in the final
 paper,204,zero,cardinal,"window, at least one tracked output flatlines at a hard bound (frozen with near-zero variation), varies too much (coefficient of variation $>$ 0.05; most often tida"
 paper,210,eight,cardinal,[h] \centering \caption{\textbf{Per-cell flag breakdown across the eight scenario $\times$ sex cells.} The preregistered \texttt{clamped} category is em
 paper,210,eight,cardinal,"\times$ sex cells.} The preregistered \texttt{clamped} category is empty in all eight cells, 0 of 1{,}280: no submitted setup input was refused. Every cell has flagg"
-paper,210,one,cardinal,e than 160 when flags overlap; \texttt{clean} means no flag. Analyses that need one label per run use the priority order of Methods~\S . F
+paper,210,one,cardinal,e than 160 when flags overlap; \texttt{clean} means no flag. Analyses that need one category per run use the priority order of Methods~\S
 paper,233,eight,cardinal,": a clinically ordinary value can sit on a yellow or red tile. \textbf{(a)} The eight cells against the six steady-state outputs (HR, MAP, Vt delivered, SpO$_2$, PaO"
 paper,233,six,cardinal,"value can sit on a yellow or red tile. \textbf{(a)} The eight cells against the six steady-state outputs (HR, MAP, Vt delivered, SpO$_2$, PaO$_2$, PaCO$_2$; units"
 paper,233,six,cardinal,"red tiles, 6 are red on deviation only, 4 on hard flags only and 2 on both. The six deviation-only red tiles are HR and PaO$_2$ in S3\_M, S3\_F and S4\_F: tachycar"
@@ -184,61 +184,67 @@ paper,363,second,ordinal,"for 120 seconds of simulated time after Pulse's patien
 paper,363,second,ordinal,"n and a 120-second ventilator-settling phase, with output channels sampled at 5-second intervals (13 samples in the final 60-second steady-state window). \subsection"
 paper,363,second,ordinal,with output channels sampled at 5-second intervals (13 samples in the final 60-second steady-state window). \subsection{Steady-state classifier}
 paper,367,four,cardinal,e classifier} Every simulation was classified by a four-flag steady-state classifier before any statistical analysis. \texttt{clamped}
-paper,367,fifth,ordinal,"umented input-rejection patterns --- 4 of them in force when the sweep ran, the fifth added afterwards to close a false negative on Pulse's lower-bound rejection for"
-paper,367,zero,cardinal,"omplete with finite output, the CSV is missing, or the engine exited with a non-zero status. The category is wider than solver divergence by construction, since a s"
-paper,367,zero,cardinal,"than solver divergence by construction, since a setup rejection also exits non-zero, but in this sweep it holds nothing else: each of the 20 diverged runs carries"
-paper,369,six,cardinal,"~mL, SpO$_2$ [50, 100]~\%, PaO$_2$ [20, 600]~mmHg, PaCO$_2$ [10, 120]~mmHg. The six tracked outputs have no acceptance envelope in Pulse: the engine reports whatev"
-paper,371,second,ordinal,". \texttt{not\_steady\_state} fires when, over the final 60-second window, any tracked output flatlines, drifts beyond its per-channel clinical th"
-paper,373,four,cardinal,"; the drift thresholds are tabulated in Supplement~\S\, . The four flags are independent presence counts, so one run can fire several. Analyses th"
-paper,373,one,cardinal,"ent~\S\, . The four flags are independent presence counts, so one run can fire several. Analyses that need one category per run resolve it by a p"
-paper,373,one,cardinal,"re independent presence counts, so one run can fire several. Analyses that need one category per run resolve it by a priority order fixed after the sweep, \texttt{"
-paper,373,five,cardinal,"sweep data was collected, and a 22-run pilot on the healthy-male cell verified five preregistered gating criteria, among them detector self-consistency and Pulse d"
-paper,377,one,cardinal,"p (Figure~ ) reduces each (scenario, sex, output) cell to one green / yellow / red verdict, built from two locked ingredients: the cell's com"
-paper,377,two,cardinal,"ch (scenario, sex, output) cell to one green / yellow / red verdict, built from two locked ingredients: the cell's combined diverged-plus-implausible flag rate, an"
-paper,377,one,cardinal,"ing every cell against a single (S1, M) baseline keeps male and female cells on one comparable scale, at the cost of folding legitimate male--female differences in"
-paper,379,four,cardinal,"on. \textbf{Post hoc deviation from the preregistered traffic-light rule.} The four-flag run-level classifier and its thresholds were preregistered, but the traffi"
-paper,379,zero,cardinal,"implausible} as hard flags, assigns yellow whenever their combined rate exceeds zero, and reserves red for a combined hard-flag rate above $30~\%$. The repository e"
-paper,379,seven,cardinal,"the literal reading it would contain 7 green / 3 yellow / 38 red, with the same seven green and the same twelve red. We retain the implemented rule as the primary di"
-paper,379,twelve,cardinal,"uld contain 7 green / 3 yellow / 38 red, with the same seven green and the same twelve red. We retain the implemented rule as the primary display because it preserves"
-paper,383,Four,cardinal,"c 95~\% bootstrap confidence intervals from 1{,}000 trajectory-level resamples. Four hypotheses were preregistered before data collection: H1, the top-three inputs"
-paper,383,three,cardinal,"samples. Four hypotheses were preregistered before data collection: H1, the top-three inputs account for at least half of the summed $\mu^{*}$ for each output; H2, a"
-paper,383,half,multiplicative,"egistered before data collection: H1, the top-three inputs account for at least half of the summed $\mu^{*}$ for each output; H2, at least 5~\% of the Morris sample"
-paper,383,one,cardinal,"$\mu^{*}$ for each output; H2, at least 5~\% of the Morris sample hits at least one silent clamp; H3, at least one solver-divergence zone exists outside the previo"
-paper,383,one,cardinal,"at least 5~\% of the Morris sample hits at least one silent clamp; H3, at least one solver-divergence zone exists outside the previously characterised 0.91--0.945"
-paper,383,seven,cardinal,"ce zone exists outside the previously characterised 0.91--0.945 band within the seven-input adult envelope; H4, the male and female reference bodies differ in clampi"
-paper,383,one,cardinal,"eference bodies differ in clamping, divergence or $\mu^{*}$ ranking on at least one output, with no direction prespecified. Hypothesis~1 was evaluated per cell $\t"
-paper,383,one,cardinal,"3 fraction of summed $\mu^{*}$. That sum runs over the inputs carrying at least one clean elementary-effect pair, so it covers six inputs rather than seven in the"
-paper,383,six,cardinal,"ver the inputs carrying at least one clean elementary-effect pair, so it covers six inputs rather than seven in the 18 combinations where FiO$_2$ carries none (Fig"
-paper,383,seven,cardinal,"at least one clean elementary-effect pair, so it covers six inputs rather than seven in the 18 combinations where FiO$_2$ carries none (Figure~ ); th"
-paper,385,one,cardinal,$\times$ output) Wasserstein distances (the minimum ``work'' needed to reshape one probability distribution into the other) between the male and female clean-run
-paper,385,two,cardinal,"utions, tested against a permutation null of 2{,}000 random relabellings at the two original group sizes. The resulting 24-test family was corrected by Benjamini--"
-paper,385,zero,cardinal,"g the rejected tests) at $q = 0.05$; with 2{,}000 relabellings the smallest non-zero empirical tail proportion is 1/2{,}000, and two tests reaching zero are reporte"
-paper,385,two,cardinal,"relabellings the smallest non-zero empirical tail proportion is 1/2{,}000, and two tests reaching zero are reported conservatively as $p < 0.001$. Cross-sex agree"
-paper,385,zero,cardinal,"mallest non-zero empirical tail proportion is 1/2{,}000, and two tests reaching zero are reported conservatively as $p < 0.001$. Cross-sex agreement of input-import"
-paper,385,two,cardinal,"ortance rankings was quantified by the Spearman rank correlation ($+1$ when the two orderings agree, $-1$ when they are reversed) between male and female $\mu^{*}$"
-paper,387,three,cardinal,"put). A Sobol bolt-on was preregistered as a conditional escalation on any top-three input whose $\sigma / \mu^{*}$ ratio reaches 0.6. Applied as preregistered, the"
-paper,387,three,cardinal,"o reaches 0.6. Applied as preregistered, the trigger fires on 72 of the 144 top-three inputs, spanning 43 of the 48 combinations, while the same preregistration fixe"
-paper,387,one,cardinal,"additional runs. Because every output of a cell comes from the same Pulse run, one Sobol sample serves all six, so the cost scales with the eight firing cells rat"
-paper,387,six,cardinal,"ery output of a cell comes from the same Pulse run, one Sobol sample serves all six, so the cost scales with the eight firing cells rather than with the 43 combina"
-paper,387,eight,cardinal,"he same Pulse run, one Sobol sample serves all six, so the cost scales with the eight firing cells rather than with the 43 combinations: 6{,}144 runs under the prere"
-paper,387,first,ordinal,"ns under the preregistered $64 \times (2k + 2)$ formula, or 3{,}584 if only the first-order and total indices the protocol asks for are computed. The bolt-on was the"
-paper,387,two,cardinal,"dget its own protocol declared, exceeding it by a factor of 2.4 to 4.1 on these two readings, and up to 5.5 on the wider set in Supplement~\S\, ,"
-paper,387,five,cardinal,"ch draw; combinations whose lower bound clears 0.6 in every draw, under each of five independent seeds, are characterised in \S , and the ful"
-paper,389,four,cardinal,"ition is in Supplement~\S\, . The full sampler, sweep driver, four-flag classifier, statistical-analysis pipeline and audit ledger are released op"
-paper,389,four,cardinal,"dit ledger are released open-source. The sampling design, the input ranges, the four flags and their thresholds, and the analysis plan were preregistered before dat"
-paper,393,two,cardinal,"manuscript. During iterative review, text and code went back and forth between two LLMs in separate sessions, each critiquing the other's latest output. S.N.\ use"
-paper,393,One,cardinal,"cide whether to run a further round or to judge the result sound and act on it. One of the two was always a Claude model (Anthropic; , 4.8, 5 and 5.5 in su"
-paper,393,two,cardinal,"r to run a further round or to judge the result sound and act on it. One of the two was always a Claude model (Anthropic; , 4.8, 5 and 5.5 in succession),"
-paper,406,eight,cardinal,"curation and review-priority layer on synthetic patient cohorts drawn from its eight cells, without re-running the sweep; neither this cell-level map nor the run-le"
-paper,406,third,ordinal,"rights, for the deposited data and the authors' own monograph content. Verbatim third-party excerpts, notably from the Pulse documentation and source (Apache-2.0), r"
-paper,410,four,cardinal,"ilability} \noindent The atlas codebase (Morris sampler, Pulse Docker wrapper, four-flag steady-state classifier, statistical-analysis pipeline, audit ledger and r"
-paper,410,three,cardinal,"summarises the reproducibility recipe (Docker image tag, random seed, three-layer bit-exact verification) and documents the cross-platform, cross-vendor re"
-paper,410,second,ordinal,"ory: a co-author reproduced the full 1{,}280-run sweep and the S1\_M pilot on a second, independent x86\_64 computer whose CPU vendor and operating system differ from"
-paper,414,one,cardinal,".\ dedicates this work to the memory of U.N.\ --- for the knock at the door, at one, at two, at three in the morning. \bmhead{Author contributions} \noindent S."
-paper,414,two,cardinal,"ates this work to the memory of U.N.\ --- for the knock at the door, at one, at two, at three in the morning. \bmhead{Author contributions} \noindent S.N.\ conc"
-paper,414,three,cardinal,"s work to the memory of U.N.\ --- for the knock at the door, at one, at two, at three in the morning. \bmhead{Author contributions} \noindent S.N.\ conceived and"
-paper,419,four,cardinal,ugh clinical discussions with M.S.\ and P.J.; designed the Morris sweep and the four-flag steady-state classifier; performed all computational runs and statistical
-paper,419,two,cardinal,fier; performed all computational runs and statistical analyses; supervised the two-model LLM cross-checking loop (Methods~\S ); and wrote the m
+paper,369,one,cardinal,y statistical analysis. \texttt{clamped} fires when Pulse's setup log contains one of the messages Pulse writes when it rejects a setup input. The name comes from
+paper,369,one,cardinal,". The sweep was classified with 4 message patterns. After the sweep, one pattern was widened and a fifth added, to catch Pulse's heart-rate lower-bound"
+paper,369,fifth,ordinal,"ssified with 4 message patterns. After the sweep, one pattern was widened and a fifth added, to catch Pulse's heart-rate lower-bound rejection, which the original pa"
+paper,371,zero,cardinal,". \texttt{diverged} fires when a run does not finish with finite output: a non-zero exit code, a missing or truncated CSV, or NaN or infinite values in the output."
+paper,371,zero,cardinal,"therefore wider than solver divergence, since a setup rejection also exits non-zero. In this sweep, however, it holds nothing else: each of the 20 diverged runs ca"
+paper,373,six,cardinal,"~mL, SpO$_2$ [50, 100]~\%, PaO$_2$ [20, 600]~mmHg, PaCO$_2$ [10, 120]~mmHg. The six tracked outputs have no acceptance envelope in Pulse: the engine reports whatev"
+paper,373,one,cardinal,"aortic pressure below $-2$ or above 700~mmHg, but no run of this sweep reached one. These bounds are therefore ours, a plausibility standard applied after the run"
+paper,373,one,cardinal,"gives the rationale for each, with its literature source where one exists. \texttt{not\_steady\_state} fires when, over the final 60-second windo"
+paper,375,second,ordinal,"ce where one exists. \texttt{not\_steady\_state} fires when, over the final 60-second window, any tracked output flatlines, drifts beyond its per-channel clinical th"
+paper,377,four,cardinal,". The drift thresholds are tabulated in Supplement~\S\, . The four flags are independent presence counts, so one run can fire several. Analyses th"
+paper,377,one,cardinal,"ent~\S\, . The four flags are independent presence counts, so one run can fire several. Analyses that need one category per run keep the highest-"
+paper,377,one,cardinal,"re independent presence counts, so one run can fire several. Analyses that need one category per run keep the highest-ranked flag, in an order set after the sweep:"
+paper,377,first,ordinal,"teady\_state} $>$ \texttt{clean}. The order follows where a run fails: at setup first, then during the run, then in its output, where a value outside the bounds outr"
+paper,377,one,cardinal,"n during the run, then in its output, where a value outside the bounds outranks one that has not settled (Supplement~\S\, ). The [60, 120"
+paper,377,five,cardinal,"sweep data was collected, and a 22-run pilot on the healthy-male cell verified five preregistered gating criteria, among them detector self-consistency and Pulse d"
+paper,381,one,cardinal,"p (Figure~ ) reduces each (scenario, sex, output) cell to one green / yellow / red verdict, built from two locked ingredients: the cell's com"
+paper,381,two,cardinal,"ch (scenario, sex, output) cell to one green / yellow / red verdict, built from two locked ingredients: the cell's combined diverged-plus-implausible flag rate, an"
+paper,381,one,cardinal,"ing every cell against a single (S1, M) baseline keeps male and female cells on one comparable scale, at the cost of folding legitimate male--female differences in"
+paper,383,four,cardinal,"on. \textbf{Post hoc deviation from the preregistered traffic-light rule.} The four-flag run-level classifier and its thresholds were preregistered, but the traffi"
+paper,383,zero,cardinal,"implausible} as hard flags, assigns yellow whenever their combined rate exceeds zero, and reserves red for a combined hard-flag rate above $30~\%$. The repository e"
+paper,383,seven,cardinal,"the literal reading it would contain 7 green / 3 yellow / 38 red, with the same seven green and the same twelve red. We retain the implemented rule as the primary di"
+paper,383,twelve,cardinal,"uld contain 7 green / 3 yellow / 38 red, with the same seven green and the same twelve red. We retain the implemented rule as the primary display because it preserves"
+paper,387,Four,cardinal,"c 95~\% bootstrap confidence intervals from 1{,}000 trajectory-level resamples. Four hypotheses were preregistered before data collection: H1, the top-three inputs"
+paper,387,three,cardinal,"samples. Four hypotheses were preregistered before data collection: H1, the top-three inputs account for at least half of the summed $\mu^{*}$ for each output; H2, a"
+paper,387,half,multiplicative,"egistered before data collection: H1, the top-three inputs account for at least half of the summed $\mu^{*}$ for each output; H2, at least 5~\% of the Morris sample"
+paper,387,one,cardinal,"$\mu^{*}$ for each output; H2, at least 5~\% of the Morris sample hits at least one silent clamp; H3, at least one solver-divergence zone exists outside the previo"
+paper,387,one,cardinal,"at least 5~\% of the Morris sample hits at least one silent clamp; H3, at least one solver-divergence zone exists outside the previously characterised 0.91--0.945"
+paper,387,seven,cardinal,"ce zone exists outside the previously characterised 0.91--0.945 band within the seven-input adult envelope; H4, the male and female reference bodies differ in clampi"
+paper,387,one,cardinal,"eference bodies differ in clamping, divergence or $\mu^{*}$ ranking on at least one output, with no direction prespecified. Hypothesis~1 was evaluated per cell $\t"
+paper,387,one,cardinal,"3 fraction of summed $\mu^{*}$. That sum runs over the inputs carrying at least one clean elementary-effect pair, so it covers six inputs rather than seven in the"
+paper,387,six,cardinal,"ver the inputs carrying at least one clean elementary-effect pair, so it covers six inputs rather than seven in the 18 combinations where FiO$_2$ carries none (Fig"
+paper,387,seven,cardinal,"at least one clean elementary-effect pair, so it covers six inputs rather than seven in the 18 combinations where FiO$_2$ carries none (Figure~ ); th"
+paper,389,one,cardinal,$\times$ output) Wasserstein distances (the minimum ``work'' needed to reshape one probability distribution into the other) between the male and female clean-run
+paper,389,two,cardinal,"utions, tested against a permutation null of 2{,}000 random relabellings at the two original group sizes. The resulting 24-test family was corrected by Benjamini--"
+paper,389,zero,cardinal,"g the rejected tests) at $q = 0.05$; with 2{,}000 relabellings the smallest non-zero empirical tail proportion is 1/2{,}000, and two tests reaching zero are reporte"
+paper,389,two,cardinal,"relabellings the smallest non-zero empirical tail proportion is 1/2{,}000, and two tests reaching zero are reported conservatively as $p < 0.001$. Cross-sex agree"
+paper,389,zero,cardinal,"mallest non-zero empirical tail proportion is 1/2{,}000, and two tests reaching zero are reported conservatively as $p < 0.001$. Cross-sex agreement of input-import"
+paper,389,two,cardinal,"ortance rankings was quantified by the Spearman rank correlation ($+1$ when the two orderings agree, $-1$ when they are reversed) between male and female $\mu^{*}$"
+paper,391,three,cardinal,"put). A Sobol bolt-on was preregistered as a conditional escalation on any top-three input whose $\sigma / \mu^{*}$ ratio reaches 0.6. Applied as preregistered, the"
+paper,391,three,cardinal,"o reaches 0.6. Applied as preregistered, the trigger fires on 72 of the 144 top-three inputs, spanning 43 of the 48 combinations, while the same preregistration fixe"
+paper,391,one,cardinal,"additional runs. Because every output of a cell comes from the same Pulse run, one Sobol sample serves all six, so the cost scales with the eight firing cells rat"
+paper,391,six,cardinal,"ery output of a cell comes from the same Pulse run, one Sobol sample serves all six, so the cost scales with the eight firing cells rather than with the 43 combina"
+paper,391,eight,cardinal,"he same Pulse run, one Sobol sample serves all six, so the cost scales with the eight firing cells rather than with the 43 combinations: 6{,}144 runs under the prere"
+paper,391,first,ordinal,"ns under the preregistered $64 \times (2k + 2)$ formula, or 3{,}584 if only the first-order and total indices the protocol asks for are computed. The bolt-on was the"
+paper,391,two,cardinal,"dget its own protocol declared, exceeding it by a factor of 2.4 to 4.1 on these two readings, and up to 5.5 on the wider set in Supplement~\S\, ,"
+paper,391,five,cardinal,"ch draw; combinations whose lower bound clears 0.6 in every draw, under each of five independent seeds, are characterised in \S , and the ful"
+paper,393,four,cardinal,"ition is in Supplement~\S\, . The full sampler, sweep driver, four-flag classifier, statistical-analysis pipeline and audit ledger are released op"
+paper,393,four,cardinal,"dit ledger are released open-source. The sampling design, the input ranges, the four flags and their thresholds, and the analysis plan were preregistered before dat"
+paper,397,two,cardinal,"manuscript. During iterative review, text and code went back and forth between two LLMs in separate sessions, each critiquing the other's latest output. S.N.\ use"
+paper,397,One,cardinal,"cide whether to run a further round or to judge the result sound and act on it. One of the two was always a Claude model (Anthropic; , 4.8, 5 and 5.5 in su"
+paper,397,two,cardinal,"r to run a further round or to judge the result sound and act on it. One of the two was always a Claude model (Anthropic; , 4.8, 5 and 5.5 in succession),"
+paper,410,eight,cardinal,"curation and review-priority layer on synthetic patient cohorts drawn from its eight cells, without re-running the sweep; neither this cell-level map nor the run-le"
+paper,410,third,ordinal,"rights, for the deposited data and the authors' own monograph content. Verbatim third-party excerpts, notably from the Pulse documentation and source (Apache-2.0), r"
+paper,414,four,cardinal,"ilability} \noindent The atlas codebase (Morris sampler, Pulse Docker wrapper, four-flag steady-state classifier, statistical-analysis pipeline, audit ledger and r"
+paper,414,three,cardinal,"summarises the reproducibility recipe (Docker image tag, random seed, three-layer bit-exact verification) and documents the cross-platform, cross-vendor re"
+paper,414,second,ordinal,"ory: a co-author reproduced the full 1{,}280-run sweep and the S1\_M pilot on a second, independent x86\_64 computer whose CPU vendor and operating system differ from"
+paper,418,one,cardinal,".\ dedicates this work to the memory of U.N.\ --- for the knock at the door, at one, at two, at three in the morning. \bmhead{Author contributions} \noindent S."
+paper,418,two,cardinal,"ates this work to the memory of U.N.\ --- for the knock at the door, at one, at two, at three in the morning. \bmhead{Author contributions} \noindent S.N.\ conc"
+paper,418,three,cardinal,"s work to the memory of U.N.\ --- for the knock at the door, at one, at two, at three in the morning. \bmhead{Author contributions} \noindent S.N.\ conceived and"
+paper,423,four,cardinal,ugh clinical discussions with M.S.\ and P.J.; designed the Morris sweep and the four-flag steady-state classifier; performed all computational runs and statistical
+paper,423,two,cardinal,fier; performed all computational runs and statistical analyses; supervised the two-model LLM cross-checking loop (Methods~\S ); and wrote the m
 supplement,131,Four,cardinal,", and deploys on Windows, Mac, Linux, and ARM~ . Four further implementation choices bear directly on how this atlas is read. First,"
 supplement,131,First,ordinal,". Four further implementation choices bear directly on how this atlas is read. First, those circuits are built from paths carrying idealised elements (resistances,"
 supplement,131,one,cardinal,"ces, capacitances, diodes), and the resulting non-linear networks are solved by one generic circuit solver shared across all systems~ . Second, t"
@@ -277,6 +283,8 @@ supplement,209,One,cardinal,"entry, so any drift between the code and the manusc
 supplement,211,one,cardinal,"ites as [50, 100]~\% is held in the code as 0.50 / 1.00. Each bound falls into one of two logical categories. Category (a) is a physical or definitional ceiling,"
 supplement,211,two,cardinal,"[50, 100]~\% is held in the code as 0.50 / 1.00. Each bound falls into one of two logical categories. Category (a) is a physical or definitional ceiling, whose o"
 supplement,211,second,ordinal,"moglobin saturation. Category (b) is a clinical-plausibility threshold for a 60-second steady-state mean: a screening standard, not a claim that values beyond it are"
+supplement,211,one,cardinal,"ication. The rationale for each bound, with its primary-literature anchor where one exists, is documented in Table~ ; the citation se"
+supplement,216,one,cardinal,"tionale for the lower and upper extremes of the corresponding output and, where one exists, the clinical guideline or physiological reference behind it.}"
 supplement,225,first,ordinal,er: well below both the 70~mmHg at which the Sepsis-3 SOFA cardiovascular score first registers organ dysfunction~ and the Surviving Sepsis Campaign
 supplement,227,zero,cardinal,"{,}500]~mL & Lower: below adult anatomical dead space ($\sim$~150~mL), implying zero alveolar ventilation~ . Upper: $\sim 3$--$4.5\t"
 supplement,233,One,cardinal,"maximal hyperventilation. Upper: deliberately permissive rather than clinical. One multinational ARDS cohort --- 1{,}899 patients across 927 ICUs in 40 countries"
@@ -291,8 +299,8 @@ supplement,278,second,ordinal,aching one band at room air; clinically meaningful
 supplement,280,one,cardinal,a 60-second window~ . \\ PaCO$_2$ (5 mmHg / 60~s) & Approximately one alveolar-ventilation step under ARDS Network protective ventilation per minute
 supplement,285,Two,cardinal,2$ change~ . \\ \bottomrule Two further \texttt{not\_steady\_state} triggers complement the drift check. The co
 supplement,285,six,cardinal,"ulse runs. The coefficient-of-variation threshold is applied identically to all six tracked outputs. For delivered tidal volume, where this criterion fired most of"
-supplement,289,one,cardinal,"log matches any of a locked set of regular-expression patterns, each targeting one observed Pulse rejection message. The set printed below is the one currently in"
-supplement,289,one,cardinal,"ch targeting one observed Pulse rejection message. The set printed below is the one currently in \texttt{ }. The 1{,}280-run sweep reported here was"
+supplement,289,one,cardinal,"f regular-expression patterns, each written to match a Pulse rejection message; one of them, \texttt{is outside the valid range}, matches no message in the Pulse"
+supplement,289,one,cardinal,"he Pulse source and fired on no log on disk. The set printed below is the one currently in \texttt{ }. The 1{,}280-run sweep reported here was"
 supplement,289,four,cardinal,"}. The 1{,}280-run sweep reported here was classified with the \emph{four}-pattern version of this set, which was empirically calibrated against delibera"
 supplement,301,four,cardinal,"range"" \noindent On the calibration runs, the four-pattern set fired on both deliberate-clamp probes of the pilot (SBP = 140 and D"
 supplement,301,eight,cardinal,"and DBP = 85~mmHg, each rejected at setup with exit code 1) and on none of the eight smoke-test runs; its behaviour on every Pulse log on disk is replayed in the no"
@@ -985,388 +993,388 @@ monograph,1144,zero,cardinal,"re.** The solver could not produce a complete, fin
 monograph,1164,two,cardinal,ch flag's underlying thresholds and their clinical anchors are described in the two tables below. Four flags locked in preregistration §Flags; thresholds calibrat
 monograph,1167,Four,cardinal,g thresholds and their clinical anchors are described in the two tables below. Four flags locked in preregistration §Flags; thresholds calibrated on real Pulse run
 monograph,1168,one,cardinal,"alibrated on real Pulse runs without modifying preregistration thresholds (only one amendment, 2026-04-22-b, tightened the flatline-bound tolerance from 1 % → 0.1"
-monograph,1172,four,cardinal,oundary probe in [S004 ; the over-broad upstream regex was replaced with four Pulse-specific patterns:
-monograph,1184,four,cardinal,"he flag useless across the entire sweep. On the calibration runs, the four-pattern set fired on both deliberate-clamp probes of the [S005 pilot (S"
-monograph,1187,eight,cardinal,"and DBP = 85 mmHg, each rejected at setup with exit code 1) and on none of the eight [S004 smoke-test runs; the patch note below replays both pattern sets o"
-monograph,1190,four,cardinal,"every Pulse log on disk. **Patch of 2026-07-26, applied after the sweep.** The four patterns above are the set that classified all 1,280 published runs, and are le"
-monograph,1192,Two,cardinal,"ed all 1,280 published runs, and are left as written for the historical record. Two changes were made afterwards, giving the five-pattern set now in"
-monograph,1193,five,cardinal,"written for the historical record. Two changes were made afterwards, giving the five-pattern set now in :"
-monograph,1203,ten,cardinal,"Pulse's builds ten baseline-rejection strings, nine of which write the unit between the value and"
-monograph,1203,nine,cardinal,"Pulse's builds ten baseline-rejection strings, nine of which write the unit between the value and ; the heart-rate lower bound"
-monograph,1205,first,ordinal,"and ; the heart-rate lower bound ( ) is the sole exception. The original first pattern required that token, so a heart rate below 50 bpm was rejected by Pulse"
-monograph,1208,one,cardinal,". Replaying both pattern sets over all 3,348 Pulse logs on disk flips exactly one run — the S030b probe written to expose the gap — and no run in the published s"
-monograph,1211,zero,cardinal,"re unchanged. The gap never lost a run in any case: a setup rejection exits non-zero with no CSV, so fires instead. **Hard physiological bounds for the"
-monograph,1217,one,cardinal,d is reproduced here for reader convenience. Each pair encodes one of two logical categories: (a) a physical / definitional ceiling for which no c
-monograph,1217,two,cardinal,produced here for reader convenience. Each pair encodes one of two logical categories: (a) a physical / definitional ceiling for which no citation
-monograph,1228,first,ordinal,er: well below both the 70 mmHg at which the Sepsis-3 SOFA cardiovascular score first registers organ dysfunction [@singer2016] and the Surviving Sepsis Campaign ini
-monograph,1232,first,ordinal,"rt from 927 ICUs in 40 countries, the cutoffs categorising maximum PaCO2 in the first 48 h of ventilation placed approximately the 95th percentile at 70 mmHg [@nin20"
-monograph,1268,two,cardinal,t | 50 mL | ~ 0.7–0.9 mL/kg ideal body weight across the two surrogates — within the noise band of breath-to-breath measurement at ARDSnet V
-monograph,1270,one,cardinal,ical-care sources | | PaO2 | 15 mmHg | A 15–71 % fraction of one Berlin P/F band depending on FiO2 — sub-band at the high-FiO2 end of the sweep
-monograph,1270,one,cardinal,depending on FiO2 — sub-band at the high-FiO2 end of the sweep but approaching one band at room air; clinically meaningful oxygenation change over a 60-second win
-monograph,1270,second,ordinal,aching one band at room air; clinically meaningful oxygenation change over a 60-second window [@ards2012] | | PaCO2 | 5 mmHg | Roughly one alveolar
-monograph,1271,one,cardinal,a 60-second window [@ards2012] | | PaCO2 | 5 mmHg | Roughly one alveolar-ventilation step under ARDSnet protective ventilation per minute — cli
-monograph,1276,Two,cardinal,² of the fit is logged as diagnostic metadata but does *not* trigger anything). Two further triggers (the coefficient-of-variation threshold
-monograph,1289,three,cardinal,nd the detector's hard-bound check on the steady-state mean. This three-layer defense-in-depth contract was verified end-to-end in [S015 . ###
-monograph,1295,five,cardinal,"verified end-to-end in [S015 . ### 2.7 Pilot gate ([S005 ) *The five preregistered gates the 22-run pilot on cell (S1, M) had to pass before the ful"
-monograph,1299,three,cardinal,"regex reachability, and Pulse determinism. The pilot also surfaced and resolved three pipeline bugs before the compute budget was spent.* A 22-run pilot on cell (S1"
-monograph,1302,five,cardinal,"rris points + 4 reproducibility reruns + 2 deliberate clamp probes verified all five preregistered gate criteria: success rate, detector self-consistency, 13-point"
-monograph,1306,three,cardinal,"rance across 24 (output × rerun) comparisons). Pilot also surfaced and resolved three pipeline bugs (time- origin, case_id collision, G4 unreachability from locked M"
-monograph,1313,twelve,cardinal,"PU-only), the 2–3 parallel Docker throughput verified in [S001 , and the twelve independent verification points that make the published numbers reproducible bi"
-monograph,1320,two,cardinal,"al / 12 logical cores), 8 GB RAM; Pulse is CPU-only, so neither of the laptop's two GPUs (Intel UHD, NVIDIA RTX 3050) is used. Docker allocation 3.95 GB / 12 CPU."
-monograph,1321,Two,cardinal,"GPUs (Intel UHD, NVIDIA RTX 3050) is used. Docker allocation 3.95 GB / 12 CPU. Two-to-three parallel containers per the verified [S001 budget. Pulse is bi"
-monograph,1321,three,cardinal,"Intel UHD, NVIDIA RTX 3050) is used. Docker allocation 3.95 GB / 12 CPU. Two-to-three parallel containers per the verified [S001 budget. Pulse is bit-exact d"
-monograph,1326,twelve,cardinal,"ed time on this hardware (Supplement §S12). The atlas's published numbers have twelve independent verification points (Pulse determinism, pipeline + analysis correct"
-monograph,1330,twelve,cardinal,"layers) detailed in [Supplementary S10 ; all twelve passed with zero violations. [S007 deliberately rejected a full 1,280-s"
-monograph,1330,zero,cardinal,"n [Supplementary S10 ; all twelve passed with zero violations. [S007 deliberately rejected a full 1,280-simulation re-exec"
-monograph,1337,twelve,cardinal,"-05-16 → 2026-05-18).** As a pre-submission belt-and-braces check on top of the twelve verification points above, two complementary re-executions were performed under"
-monograph,1338,two,cardinal,"ubmission belt-and-braces check on top of the twelve verification points above, two complementary re-executions were performed under the current"
-monograph,1354,Zero,cardinal,"i.e. the same 20-run male-extreme cluster that §3.5 links to blood volume). **Zero deviations, zero clean-↔-diverged asymmetries, zero missing files.** The [S"
-monograph,1355,zero,cardinal,"n male-extreme cluster that §3.5 links to blood volume). **Zero deviations, zero clean-↔-diverged asymmetries, zero missing files.** The [S015 audit's"
-monograph,1355,zero,cardinal,"links to blood volume). **Zero deviations, zero clean-↔-diverged asymmetries, zero missing files.** The [S015 audit's 40-run bit-exact result is therefo"
-monograph,1369,second,ordinal,"n 4 / 6 outputs (top-3 orders in 3 / 6); disagreements were confined to the second- and third-ranked inputs, where μ\* magnitudes are similar across competing i"
-monograph,1369,third,ordinal,"tputs (top-3 orders in 3 / 6); disagreements were confined to the second- and third-ranked inputs, where μ\* magnitudes are similar across competing inputs — con"
-monograph,1372,two,cardinal,"reported in § and the Spearman ρ analysis in §3.6. In full transparency, two sample-dependent quantities surfaced. **(a)** The S2_M divergence count went"
-monograph,1375,two,cardinal,"7 new-seed divergences occurred at HR = 50 and SBP = 90, with RR in the upper two grid levels (16 or 20) and FiO2 likewise in its upper two levels (0.737 or"
-monograph,1376,two,cardinal,"ith RR in the upper two grid levels (16 or 20) and FiO2 likewise in its upper two levels (0.737 or 1.0); only 1 / 7 occurred at FiO2 = 1.0, against 13 / 20 in"
-monograph,1396,third,ordinal,"24 , 2026-05-22).** Independently of the bit-exact re-execution above, a third verification layer closes the data-integrity loop at the *manuscript* level. Th"
-monograph,1412,half,multiplicative,oats at their displayed precision; a 1 × 10⁻⁹ IEEE-754 epsilon protects against half-precision rounding boundaries). The current report on the locked manuscript is
-monograph,1414,one,cardinal,"/ 394 PASS, 0 WARN, 0 FAIL** on the authors' full data tree. On a public clone, one anchor — T1.06u, the S021 time-to-95%-plateau, which requires the heavy raw per"
-monograph,1417,one,cardinal,"nored — is automatically skipped, so the script reports **393 / 394 PASS** with one explicitly-flagged SKIPPED (the headline target of 394 is computed dynamically"
-monograph,1420,zero,cardinal,"anchors-run plus anchors-skipped, so it cannot go stale). The script exits non-zero on any FAIL and is therefore CI-ready: future manuscript edits that drift a quo"
-monograph,1426,four,cardinal,. ### 2.9 Using the four-flag classifier independently *The minimal public API for re-using the four-fl
-monograph,1428,four,cardinal,"he four-flag classifier independently *The minimal public API for re-using the four-flag classifier on someone else's Pulse output, without re-running the atlas sw"
-monograph,1481,First,ordinal,"ontrol, and Hoeffding / Holm–Bonferroni (external; used by Cornish 2026, §4.4). First appearance of each test in §3 is therefore immediately interpretable.* Several"
-monograph,1485,first,ordinal,§3 (Results) and §4 (Discussion). We define each here in plain language so the first appearance of a test name in the results section is immediately interpretable.
-monograph,1510,first,ordinal,hod that splits the variance of an output into contributions from each input (first-order index S₁) and from each input's interactions with all others (total-ord
-monograph,1518,two,cardinal,eported rather than executed. * **1-Wasserstein distance.** A distance between two probability *distributions* on a one-dimensional output. Intuitively: the m
-monograph,1519,one,cardinal,"sserstein distance.** A distance between two probability *distributions* on a one-dimensional output. Intuitively: the minimum ""work"" needed to transport one h"
-monograph,1520,one,cardinal,"a one-dimensional output. Intuitively: the minimum ""work"" needed to transport one histogram onto the other, in the output's natural units (e.g. mmHg, mL, bpm)."
-monograph,1522,zero,cardinal,"output's natural units (e.g. mmHg, mL, bpm). Larger value = more separation; zero means the two distributions are identical. Used in §3.6 to quantify how diffe"
-monograph,1522,two,cardinal,"al units (e.g. mmHg, mL, bpm). Larger value = more separation; zero means the two distributions are identical. Used in §3.6 to quantify how different male vs f"
-monograph,1528,two,cardinal,"distribution built by randomly splitting the *combined* M + F clean runs into two groups the same size as the original M and F groups, then computing the same"
-monograph,1536,two,cardinal,ct is sample-size noise. * **Spearman's rank correlation ρ.** Measures whether two paired rankings agree (ρ = 1: identical ordering; ρ = 0: no monotonic relat
-monograph,1539,one,cardinal,= −1: reversed ordering). Used in §3.6 on the M and F vectors of μ\* values (one entry per input) to ask whether both sexes order the seven inputs the same wa
-monograph,1540,seven,cardinal,ctors of μ\* values (one entry per input) to ask whether both sexes order the seven inputs the same way. We attach a paired-input bootstrap 95 % CI by resampling
-monograph,1541,seven,cardinal,ts the same way. We attach a paired-input bootstrap 95 % CI by resampling the seven inputs with replacement and re-ranking. * **Benjamini–Hochberg (BH) false-di
-monograph,1573,four,cardinal,"80-run sweep: the per-cell flag breakdown, Morris μ\* sensitivity rankings, the four hypothesis tests (H1 – H4), and the cell-level reliability traffic light. Each"
-monograph,1574,one,cardinal,"), and the cell-level reliability traffic light. Each subsection corresponds to one bounded result rather than to one experimental phase.* *All numerical results"
-monograph,1575,one,cardinal,traffic light. Each subsection corresponds to one bounded result rather than to one experimental phase.* *All numerical results are sourced from artifa
-monograph,1583,four,cardinal,") *The headline counts: how many runs in each of the 8 cells fired each of the four flags, and how many were clean. Flag columns are *independent* presence counts"
-monograph,1584,one,cardinal,"flags, and how many were clean. Flag columns are *independent* presence counts (one run can fire several flags), so row sums can exceed ; r"
-monograph,1613,four,cardinal,ously and is counted in both columns. Only is mutually exclusive of the four flags. Row sums therefore exceed (e.g. S1_F sums to 183) when runs tr
-monograph,1621,four,cardinal,"tion-style analyses. *Table 1 — at a glance.* **What:** per-cell counts of the four detector flags and across the 8 (scenario, sex) cells (160 runs each)."
-monograph,1624,one,cardinal,"uns each). **How to read it:** flag columns are *independent* presence counts — one run can fire several flags simultaneously, so row sums can exceed (e."
-monograph,1653,one,cardinal,(160 runs each). Visual counterpart to Table 1. **How to read it:** each bar is one cell; segment colours give counts of and the four flag classes. Flag ca
-monograph,1654,four,cardinal,read it:** each bar is one cell; segment colours give counts of and the four flag classes. Flag categories are *independent* presence counts so a single run
-monograph,1659,first,ordinal,d is the primary operational-envelope map the atlas claims as its first deliverable; is empty everywhere. ![Figure 1. Per-cell flag breakdow
-monograph,1661,one,cardinal,sex) cells (n = 160 per cell). Flag categories are independent presence counts (one run can fire several flags); is mutually exclusive of the four flag cla
-monograph,1661,four,cardinal,e counts (one run can fire several flags); is mutually exclusive of the four flag classes. The S1 → S4 gradient in and is t
-monograph,1666,Four,cardinal,"s μ\* heatmaps per output — which inputs dominate which outputs in which cells. Four visual patterns emerge: cardiovascular outputs are cardio-driven, gas-exchange"
-monograph,1671,six,cardinal,"across every cell.* Figures 2 a–f show the Morris μ\* heatmap for each of the six outputs. Rows are the seven swept inputs; columns are the eight (scenario, sex)"
-monograph,1672,seven,cardinal,"res 2 a–f show the Morris μ\* heatmap for each of the six outputs. Rows are the seven swept inputs; columns are the eight (scenario, sex) cells. The colour scale is"
-monograph,1672,eight,cardinal,"p for each of the six outputs. Rows are the seven swept inputs; columns are the eight (scenario, sex) cells. The colour scale is the magnitude of the elementary effe"
-monograph,1674,Four,cardinal,effect — how much each output moves when the corresponding input is perturbed. Four visual patterns dominate: * **Cardiovascular outputs are cardio-input dominate
-monograph,1680,zero,cardinal,"every cell (μ\* ≈ 17 – 20). Ventilator settings still contribute smaller, non-zero effects. * **Gas-exchange outputs are ventilator-driven.** PaO2 is dominated by"
-monograph,1695,four,cardinal,"M), on a single elementary-effect pair; not estimable in (S4, F) under the four-flag screen). FiO2 nevertheless remains the rank-1 input wherever it is estim"
-monograph,1709,one,cardinal,"mal H1 test. **External cross-validation against an OAT precursor.** Companion one-at-a-time probing prior to the Atlas ( E4, ±10 % perturb"
-monograph,1720,two,cardinal,uivalence — but the matched direction and order-of-magnitude attenuation across two independent designs is an external robustness signal for the Atlas's FiO2 sensi
-monograph,1724,six,cardinal,"ng. *Figures 2 a–f ( ) — at a glance.* **What:** six heatmaps (HR, MAP, Vt, SpO2, PaO2, PaCO2) of Morris μ\* across inputs × cells."
-monograph,1726,seven,cardinal,"2, PaCO2) of Morris μ\* across inputs × cells. **How to read it:** rows are the seven swept inputs; columns are the 8 (scenario, sex) cells (S1_M … S4_F); colour int"
-monograph,1750,first,ordinal,"### 3.3 H1 — skewed sensitivity (PASS, 48 / 48) *The first hypothesis test: in every cell × output combination, do the top-3 inputs accoun"
-monograph,1787,three,cardinal,"t, rr, fio2 | *Top-3-inputs table — at a glance.* **What:** the three most influential inputs (by Morris μ\*) for each of the 6 atlas outputs, ranked"
-monograph,1790,one,cardinal,"μ\* summed across the 8 (scenario, sex) cells. **How to read it:** each row is one output; the three inputs listed are those with the largest cumulative mean abso"
-monograph,1790,three,cardinal,"ss the 8 (scenario, sex) cells. **How to read it:** each row is one output; the three inputs listed are those with the largest cumulative mean absolute elementary ef"
-monograph,1829,two,cardinal,"ell, **8 of 48 cells fire the trigger.** Manual inspection separates these into two regimes: * **Group A — saturation-boundary cells (2 of 8 cells).** Both are Sp"
-monograph,1838,three,cardinal,"14–0.049) all come from pairs taken at FiO2 = 0.21, where SpO2 is 0.95–0.96 — three of the four pairs there (one Vt step moves SpO2 from 0.962 to 0.929). The hig"
-monograph,1838,four,cardinal,"come from pairs taken at FiO2 = 0.21, where SpO2 is 0.95–0.96 — three of the four pairs there (one Vt step moves SpO2 from 0.962 to 0.929). The high σ / μ\*"
-monograph,1838,one,cardinal,"aken at FiO2 = 0.21, where SpO2 is 0.95–0.96 — three of the four pairs there (one Vt step moves SpO2 from 0.962 to 0.929). The high σ / μ\* therefore reflect"
-monograph,1843,Four,cardinal,"oating-point noise. * **Group B — known nonlinear physiology (6 of 8 cells).** Four of these are the FiO2 → PaO2 cells in ARDS scenarios: (S2 / S3, M / F, PaO2"
-monograph,1848,two,cardinal,er FiO2 increment — an established physiological non-linearity. The remaining two cells reflect minute-ventilation coupling on PaCO2: RR → PaCO2 in healthy m
-monograph,1862,two,cardinal,ted in . What that bootstrap returns depends on two choices that an earlier version of this subsection got wrong: which of two σ /
-monograph,1863,two,cardinal,"s on two choices that an earlier version of this subsection got wrong: which of two σ / μ\* CI formulas is used, and whether the trigger is read on the dominant in"
-monograph,1864,three,cardinal,"used, and whether the trigger is read on the dominant input alone or on the top three the preregistration actually names. Both are settled in the methodological note"
-monograph,1866,four,cardinal,"settled in the methodological note below, which carries the current counts. The four-bucket table that stood here reported a non-linear count of zero and a straddli"
-monograph,1867,zero,cardinal,"nt counts. The four-bucket table that stood here reported a non-linear count of zero and a straddling count of twelve; both were wrong, and the table is removed rat"
-monograph,1868,twelve,cardinal,"e that stood here reported a non-linear count of zero and a straddling count of twelve; both were wrong, and the table is removed rather than rebuilt, since the note"
-monograph,1871,One,cardinal,"er than rebuilt, since the note below states what the corrected reading gives. One of its buckets survives unchanged, because it reflects data availability rather"
-monograph,1873,Three,cardinal,than any bootstrap formula: the cells with **no estimable σ / μ\* CI at all**. Three lie in S1_F where the dominant input is Vt — the Vt one-at-a-time (OAT) step ha
-monograph,1874,one,cardinal,"σ / μ\* CI at all**. Three lie in S1_F where the dominant input is Vt — the Vt one-at-a-time (OAT) step has only one clean trajectory pair (S1_F × {PaCO2, PaO2, V"
-monograph,1874,one,cardinal,"S1_F where the dominant input is Vt — the Vt one-at-a-time (OAT) step has only one clean trajectory pair (S1_F × {PaCO2, PaO2, Vt}). Two lie in S4_M where the dom"
-monograph,1875,Two,cardinal,"-time (OAT) step has only one clean trajectory pair (S1_F × {PaCO2, PaO2, Vt}). Two lie in S4_M where the dominant input is FiO2 — the FiO2 OAT step has only one c"
-monograph,1876,one,cardinal,". Two lie in S4_M where the dominant input is FiO2 — the FiO2 OAT step has only one clean trajectory pair (S4_M × {PaO2, SpO2}). The *which-input-lacks-pairs* diff"
-monograph,1878,two,cardinal,"y pair (S4_M × {PaO2, SpO2}). The *which-input-lacks-pairs* differs between the two groups (Vt in S1_F vs FiO2 in S4_M); per-input gaps are summarised at cell leve"
-monograph,1881,Two,cardinal,"ell level in the §4.5 limitations. *Methodological note (σ / μ\* CI formula).* Two formulas are available once a confidence interval is put on σ / μ\*, and they d"
-monograph,1882,first,ordinal,"ilable once a confidence interval is put on σ / μ\*, and they do not agree. The first divides σ_hi — the upper 97.5-percentile of the trajectory-level block bootstra"
-monograph,1885,second,ordinal,") — by the μ̂\* point estimate, treating the denominator as fixed. The second, which this manuscript now adopts, resamples trajectories and recomputes σ_b /"
-monograph,1887,first,ordinal,"es σ_b / μ\*_b *jointly* per draw, so the interval covers the ratio itself. The first formula ignores the positive covariance between σ and μ\*, which widens its int"
-monograph,1891,two,cardinal,"ncontrolled direction; it is retained here only as the historical variant. The two do not lead to the same conclusion, and an earlier version of this section stat"
-monograph,1893,one,cardinal,"a the dominant-input bucketing is 31 / 48 CI-robustly linear in every draw, and one dominant-input cell — (S3, M, PaO2, FiO2) — is CI-robustly non-linear in all fi"
-monograph,1894,five,cardinal,"ne dominant-input cell — (S3, M, PaO2, FiO2) — is CI-robustly non-linear in all five, with occasional further cells appearing in individual draws but none surviving"
-monograph,1895,five,cardinal,h occasional further cells appearing in individual draws but none surviving all five. The count is not zero under either reading. Applying the rule the preregistrat
-monograph,1896,zero,cardinal,lls appearing in individual draws but none surviving all five. The count is not zero under either reading. Applying the rule the preregistration actually states — t
-monograph,1897,three,cardinal,"either reading. Applying the rule the preregistration actually states — the top-three inputs, not the dominant one alone — 23 of the 144 top-three inputs hold a lowe"
-monograph,1897,one,cardinal,"le the preregistration actually states — the top-three inputs, not the dominant one alone — 23 of the 144 top-three inputs hold a lower bound at or above 0.6 acros"
-monograph,1898,three,cardinal,"y states — the top-three inputs, not the dominant one alone — 23 of the 144 top-three inputs hold a lower bound at or above 0.6 across five independent seeds. The ea"
-monograph,1898,five,cardinal,"lone — 23 of the 144 top-three inputs hold a lower bound at or above 0.6 across five independent seeds. The earlier claim that ""zero cells are CI-robustly non-linea"
-monograph,1899,zero,cardinal,"er bound at or above 0.6 across five independent seeds. The earlier claim that ""zero cells are CI-robustly non-linear under either formula"" was wrong on both counts"
-monograph,1904,three,cardinal,"ered compute envelope.** Applying the rule the preregistration states — the top-three inputs of every cell, not the dominant one alone — the point-estimate trigger f"
-monograph,1905,one,cardinal,"e preregistration states — the top-three inputs of every cell, not the dominant one alone — the point-estimate trigger fires on 72 of the 144 top-three inputs, spa"
-monograph,1906,three,cardinal,"the dominant one alone — the point-estimate trigger fires on 72 of the 144 top-three inputs, spanning 43 of the 48 cell × output combinations. The same preregistrat"
-monograph,1909,six,cardinal,"s, because each scenario–sex cell is a different model; it is shared across the six outputs of one cell, because they all come from the same Pulse run. The 43 trig"
-monograph,1910,one,cardinal,"scenario–sex cell is a different model; it is shared across the six outputs of one cell, because they all come from the same Pulse run. The 43 triggered combinati"
-monograph,1911,eight,cardinal,"l come from the same Pulse run. The 43 triggered combinations therefore fall in eight cells, carrying between three and six distinct promoted inputs each, for 6,144"
-monograph,1912,three,cardinal,". The 43 triggered combinations therefore fall in eight cells, carrying between three and six distinct promoted inputs each, for 6,144 runs under the preregistered 6"
-monograph,1912,six,cardinal,"riggered combinations therefore fall in eight cells, carrying between three and six distinct promoted inputs each, for 6,144 runs under the preregistered 64 × (2k"
-monograph,1913,first,ordinal,"or 6,144 runs under the preregistered 64 × (2k + 2) formula. Computing only the first-order and total indices the analysis plan asks for, at 64 × (k + 2), lowers thi"
-monograph,1915,seven,cardinal,"dices the analysis plan asks for, at 64 × (k + 2), lowers this to 3,584; a full seven-input design in every firing cell would cost 8,192 and 4,608 respectively. The"
-monograph,1917,one,cardinal,"8 respectively. The bolt-on exceeded its own preregistered envelope under every one of these readings, by a factor of 2.4 to 5.5, and is therefore reported rather"
-monograph,1922,two,cardinal,"ty to decompose. The post-hoc ratio-aware bootstrap is the stricter test of the two, and 23 of the 144 top-three inputs still hold a lower bound at or above 0.6 in"
-monograph,1923,three,cardinal,"oc ratio-aware bootstrap is the stricter test of the two, and 23 of the 144 top-three inputs still hold a lower bound at or above 0.6 in every draw, spanning 17 of t"
-monograph,1942,one,cardinal,"ementation of the preregistered bolt-on costed above, and should not be read as one. It was written under the earlier dominant-input reading of the trigger, and it"
-monograph,1944,seven,cardinal,"follows from that reading: 6 Group-B cells selected on the dominant input, all seven swept inputs, N = 256 with first-order indices only — 256 × (7 + 2) = 2,304 row"
-monograph,1945,first,ordinal,"up-B cells selected on the dominant input, all seven swept inputs, N = 256 with first-order indices only — 256 × (7 + 2) = 2,304 rows per cell, 13,824 runs in total."
-monograph,1947,one,cardinal,"04 rows per cell, 13,824 runs in total. The preregistered design is a different one, 43 triggered cell × output combinations spread over eight cells, at a base sam"
-monograph,1947,eight,cardinal,"design is a different one, 43 triggered cell × output combinations spread over eight cells, at a base sample of 64 on the promoted inputs, and the 6,144-run figure"
-monograph,1950,two,cardinal,"inputs, and the 6,144-run figure above is its cost, not the demonstrator's. The two are not comparable: the demonstrator costs more than twice as much and answers"
-monograph,1950,twice,multiplicative,he demonstrator's. The two are not comparable: the demonstrator costs more than twice as much and answers a different question. What the demonstrator does share wit
-monograph,1964,second,ordinal,". ### 3.4 H2 — silent clamping rate (NOT supported, 0 / 1,280) *The second hypothesis test: does Pulse silently clamp out-of-range inputs at setup? Answer"
-monograph,1968,One,cardinal,"lines and exit code 1 (confirmed by the [S005 deliberate clamp probes). One adjustment does occur downstream of ingestion, and Pulse announces it too: FiO2"
-monograph,1973,one,cardinal,"preregistered hypothesis was that ≥ 5 % of the Morris sample would hit at least one silent clamp. **Zero runs out of 1,280 fired the regex.** That is a n"
-monograph,1973,Zero,cardinal,"esis was that ≥ 5 % of the Morris sample would hit at least one silent clamp. **Zero runs out of 1,280 fired the regex.** That is a null result on the pre"
-monograph,1982,Two,cardinal,"hat Pulse serialises after ingestion, on all 10,160 contracts that reached it. Two implications: 1. The swept ranges (HR 50 – 110, SBP 90 – 120, DBP 60 – 80, R"
-monograph,1994,One,cardinal,ble; users can detect it from logs alone with no special instrumentation. **One explicit downstream adjustment (measured 2026-08-13).** Inside the swept envelo
-monograph,1995,one,cardinal,"m adjustment (measured 2026-08-13).** Inside the swept envelope Pulse does make one deterministic change to a submitted ventilator setting, and it announces that t"
-monograph,1997,one,cardinal,"uested inspired-oxygen fraction plus the non-nitrogen ambient fractions exceeds one, the ventilator model logs"
-monograph,2068,third,ordinal,umented ARDS zone (supported); its sex-stratification is regime-dependent *The third hypothesis test: does at least one solver-divergence zone exist outside the doc
-monograph,2068,one,cardinal,x-stratification is regime-dependent *The third hypothesis test: does at least one solver-divergence zone exist outside the documented 0.91 – 0.945 ARDS zone? Ans
-monograph,2071,second,ordinal,"6, 0.60 and 0.95, none of them inside that band, so H3 is supported outright. A second question, which H3 does not ask, is whether those divergences are sex-stratifie"
-monograph,2074,zero,cardinal,"In the [S006 input-extreme regime, all 20 / 20 divergences are male and zero female, with the asymmetry shown ([S018 ) to depend on Pulse's"
-monograph,2076,two,cardinal,"try shown ([S018 ) to depend on Pulse's gap on the two surrogates — male default 4,802.63 mL vs female default 3,996.09 mL, a ~17 % di"
-monograph,2080,one,cardinal,"(4,082.24 mL on this male body) which bounds how far the gap can be closed by a one-way transplant. In the § continuous-severity regime at midrange inputs, di"
-monograph,2083,two,cardinal,"e inside the [0.879, 0.946] band, though the sex asymmetry reverses between its two severity bands — so the original sex effect varies with *what is varying*, not"
-monograph,2101,one,cardinal,"ique to (S4, M), at 24 / 82 / 137 / 138. They form a mixed cluster: one HR at 110 bpm, three at 90 bpm; two Vt at 300 mL, one at 633.3 mL, one at 800"
-monograph,2101,three,cardinal,"24 / 82 / 137 / 138. They form a mixed cluster: one HR at 110 bpm, three at 90 bpm; two Vt at 300 mL, one at 633.3 mL, one at 800 mL. This is a *par"
-monograph,2102,two,cardinal,"/ 137 / 138. They form a mixed cluster: one HR at 110 bpm, three at 90 bpm; two Vt at 300 mL, one at 633.3 mL, one at 800 mL. This is a *partial second regim"
-monograph,2102,one,cardinal,"y form a mixed cluster: one HR at 110 bpm, three at 90 bpm; two Vt at 300 mL, one at 633.3 mL, one at 800 mL. This is a *partial second regime* — one the locke"
-monograph,2102,one,cardinal,"uster: one HR at 110 bpm, three at 90 bpm; two Vt at 300 mL, one at 633.3 mL, one at 800 mL. This is a *partial second regime* — one the locked Morris sample e"
-monograph,2103,second,ordinal,"90 bpm; two Vt at 300 mL, one at 633.3 mL, one at 800 mL. This is a *partial second regime* — one the locked Morris sample explores only at the most severe ARDS"
-monograph,2103,one,cardinal,"t 300 mL, one at 633.3 mL, one at 800 mL. This is a *partial second regime* — one the locked Morris sample explores only at the most severe ARDS impairment. T"
-monograph,2125,two,cardinal,"te-mL sex gap is almost entirely driven by the body-mass difference between the two reference surrogates (67.3 vs 56.2 kg, also a ~17 % difference). When normalize"
-monograph,2161,two,cardinal,"stabilisation directly, and shifts the operating-point neighborhood between the two bodies — but it does so as a body-mass difference, not as a sex difference. **"
-monograph,2164,one,cardinal,"a sex difference. **Causal lever identified ([S018 , 2026-05-13).** *In one sentence: forcing the male surrogate's BV down towards the female value elimina"
-monograph,2173,two,cardinal,"p, so every override is verifiable post hoc from . The protocol used two override points to map a dose-response curve: | Override BV (mL) | Reduction v"
-monograph,2183,three,cardinal,"male inputs when re-executed with an explicit override at three levels (default 4,802.63 mL → 4,400 mL → 4,082.24 mL, the Pulse-stated floor on"
-monograph,2186,one,cardinal,"mL, the Pulse-stated floor on this surrogate). **How to read it:** each row is one BV override level; columns count the four detector outcomes plus across"
-monograph,2187,four,cardinal,gate). **How to read it:** each row is one BV override level; columns count the four detector outcomes plus across the 20 reruns. **Key takeaway:** divergen
-monograph,2203,two,cardinal,"); none requires deeper reduction. (An earlier internal classification recorded two S4_M / FiO2 = 1.0 cases as still divergent at 4,400 mL, but that was a classifi"
-monograph,2204,two,cardinal,"as still divergent at 4,400 mL, but that was a classification-time race on the two slowest runs — both completed normally and re-classify as clean; see the S018 l"
-monograph,2219,two,cardinal,"ts: the female-computed BV (3,996.09 mL) sits 86 mL *below* the male floor. The two surrogates therefore cannot be made BV-equivalent by a one-way transplant — the"
-monograph,2220,one,cardinal,the male floor. The two surrogates therefore cannot be made BV-equivalent by a one-way transplant — the strongest BV-only reduction Pulse will accept on the male
-monograph,2224,eight,cardinal,"pt on the male surrogate is 4,082.24 mL (a 15.0 % reduction from default). The eight classifications at both BV brackets are concentrated in S1_M"
-monograph,2233,four,cardinal,nputs ( 24 / 82 / 137 / 138) run clean at both brackets. These are the four runs where input low-cardiac-output + high-respiratory-drive is clinically cohe
-monograph,2259,first,ordinal,"le cells, run on the *identical* input grid, never diverge in this regime — the first quantitative sex-stratified reliability finding for Pulse . The same 160"
-monograph,2271,first,ordinal,"overall male rate is 20 / 640 = 3.1 %; the female rate is 0 / 640. This is the first quantitative sex-stratified reliability finding for Pulse , and is consequ"
-monograph,2282,second,ordinal,"the documented 0.91 – 0.945 ARDS zone *and* the regime is sex-conditioned. The second half is a finding in addition to the hypothesis, not a qualification of it. ##"
-monograph,2282,half,multiplicative,"cumented 0.91 – 0.945 ARDS zone *and* the regime is sex-conditioned. The second half is a finding in addition to the hypothesis, not a qualification of it. ###"
-monograph,2287,four,cardinal,ous-severity divergence regime (Tier-2 follow-up) The [S006 sweep used four fixed ARDS severities. A complementary 200-run sweep at continuous severity (Ti
-monograph,2307,one,cardinal,"105, DBP 70, RR 14, Vt 550, FiO2 0.6, PEEP 10). **How to read it:** each row is one severity bin; F-diverged and M-diverged columns show divergences per sex (denom"
-monograph,2316,two,cardinal,"in aggregate at midrange inputs, though the sex asymmetry reverses between the two bands above (female-dominated in (0.85, 0.91], male-dominated in (0.91, 0.945])"
-monograph,2321,Two,cardinal,"cific* (Morris-extreme inputs), not a global sex effect on solver reliability. Two refinements of the literature picture: 1. **The instability band is wider than"
-monograph,2341,two,cardinal,a global sex effect on solver reliability. The atlas therefore distinguishes **two separate divergence regimes**: * **Input-driven regime** ([S006 ): male
-monograph,2345,zero,cardinal,"low SBP + high RR + FiO2 = 1.0. 20 divergence events on the male body, versus zero across the 640 runs on the female body. Mechanism candidate: ~17 % blood-volu"
-monograph,2362,fourth,ordinal,"ported by divergence; the distributional difference is gas-exchange only) *The fourth hypothesis test: do the male and female bodies differ in clamping, divergence,"
-monograph,2367,five,cardinal,"control (q = 0.05), 5 of 24 cell × output Wasserstein distances survive — *all five on gas-exchange channels* (PaCO2 × 3, SpO2 × 1, PaO2 × 1). Cardiovascular and V"
-monograph,2372,two,cardinal,"eserved across sexes (Spearman ρ 0.75 – 1.00 in S2 / S3).* H4 is reported with two complementary statistics, each answering a different question. *How different"
-monograph,2391,two,cardinal,"ll is built by repeatedly splitting the *combined* M+F clean runs randomly into two groups of the original sizes (n_null = 2,000 splits)."
-monograph,2439,Five,cardinal,and is therefore reported *unbolded* in the table. **Honest interpretation.** Five of 24 (cell × output) Wasserstein distances survive BH-FDR control at q = 0.05
-monograph,2441,five,cardinal,"BH-FDR control at q = 0.05 against a permutation-based sub-sampling null. **All five are gas-exchange channels:** PaCO2 ×3, SpO2 ×1, PaO2 ×1. Before any multiple-c"
-monograph,2444,six,cardinal,"SpO2 ×1, PaO2 ×1. Before any multiple-comparisons correction (naive α = 0.05), six rows are flagged as significant — all on gas-exchange channels: S1 PaCO2, S2 Sp"
-monograph,2448,one,cardinal,"SpO2, and S4 PaO2. Applying Benjamini–Hochberg FDR control at q = 0.05 demotes one of these: **S2 SpO2** (p_emp = 0.022) sits above the BH critical value of"
-monograph,2461,two,cardinal,"hange outputs, but they cannot be read as isolated effects of the sex flag. The two reference bodies differ jointly in sex, in morphology, and in relative ventilat"
-monograph,2480,one,cardinal,observed 4.7 – 5.1 mmHg M-vs-F PaCO2 Wasserstein in S1 and S2 is comparable to one alveolar-ventilation step under ARDSnet protective ventilation — the same magni
-monograph,2491,one,cardinal,"each output's native units (bpm, mmHg, mL, %). **How to read it:** each bar is one (scenario, output) cell; the observed M-vs-F distance is compared against a per"
-monograph,2496,five,cardinal,"null. **Key takeaway:** 5 of 24 cells survive BH-FDR control at q = 0.05 — *all five on gas-exchange channels* (PaCO2 × 3, SpO2 × 1, PaO2 × 1). Cardiovascular and V"
-monograph,2530,zero,cardinal,rule S1 and S4_F have no computable ρ. FiO2 has zero clean elementary-effect pairs in those cells: every Morris trajectory step that
-monograph,2532,one,cardinal,every Morris trajectory step that flips FiO2 between 0.21 and 1.0 has at least one endpoint flagged — predominantly by SpO2 ceiling pinning at high FiO2. This non
-monograph,2546,four,cardinal,"that the female surrogate produces physiologically plausible output across all four scenarios, independent of this sweep. The sex effects we observe above therefor"
-monograph,2547,two,cardinal,"p. The sex effects we observe above therefore reflect the engine's behaviour on two reference bodies that differ in sex, mass and height at once, not a miscalibrat"
-monograph,2558,one,cardinal,_F have no clean FiO2 elementary-effect pairs (every FiO2 OAT step has at least one endpoint flagged). **Key takeaway:** point estimates 0.75 – 1.00 in S2 / S3 — i
-monograph,2586,one,cardinal,"ap (Figure 6) *The user-facing summary of the entire atlas: per cell × output, one of {green, yellow, red}, anchored to preregistered baseline-percentage threshol"
-monograph,2611,one,cardinal,"assifications (the visual version is Figure 6). **How to read it:** each row is one (scenario, sex) cell; each column is one of the 6 atlas outputs; the cell value"
-monograph,2612,one,cardinal,"re 6). **How to read it:** each row is one (scenario, sex) cell; each column is one of the 6 atlas outputs; the cell value is the preregistered classification (gre"
-monograph,2615,seven,cardinal,"yellow / red — definitions in the Figure 6 W/H/T block). **Key takeaway:** all seven green classifications fall in the (S2_F, S3_F) cluster, the only two cells carr"
-monograph,2616,two,cardinal,"y:** all seven green classifications fall in the (S2_F, S3_F) cluster, the only two cells carrying no diverged and no implausible run; (S4, M) is the only cell red"
-monograph,2619,six,cardinal,"sexes from S3 onwards. Red marks a cell for review, not a defect in the engine: six of the twelve are red on the deviation criterion alone, in scenarios where a de"
-monograph,2619,twelve,cardinal,"S3 onwards. Red marks a cell for review, not a defect in the engine: six of the twelve are red on the deviation criterion alone, in scenarios where a departure from t"
-monograph,2629,two,cardinal,"ed 30 % or when ""any flag"" was raised. The implementation instead uses only the two hard flags ( and ): any positive combined rate yields ye"
-monograph,2632,eight,cardinal,"%; the 10 % and 30 % deviation thresholds are unchanged. Reconstructed from the eight run-level artefacts, the implemented rule gives 7 green, 29 yellow, 12 red, whe"
-monograph,2634,seven,cardinal,"eas the literal hard-flag reading gives **7 green, 3 yellow, 38 red**. The same seven green and twelve red combinations are retained, with 26 combinations moving fro"
-monograph,2634,twelve,cardinal,"hard-flag reading gives **7 green, 3 yellow, 38 red**. The same seven green and twelve red combinations are retained, with 26 combinations moving from yellow to red."
-monograph,2636,four,cardinal,"ined, with 26 combinations moving from yellow to red. Reading ""any flag"" as all four flags gives 0 green, 0 yellow, 48 red and is reported only to document the ambi"
-monograph,2646,three,cardinal,"rebuilds all three readings). * Green cells cluster in **(S2, F) + (S3, F)** — moderate ARDS in t"
-monograph,2672,one,cardinal,"cell in the atlas. ![Figure 6. Reliability traffic light — per cell × output, one of {green, yellow, red}. Green = no diverged or implausible flags in the cell A"
-monograph,2678,two,cardinal,"n and review-priority instrument, not a reliability verdict, and neither of the two screens available to a downstream user is distribution-neutral.* **Two levels,"
-monograph,2680,Two,cardinal,"of the two screens available to a downstream user is distribution-neutral.* **Two levels, not one.** The four-flag classifier assigns labels to **runs**; the tra"
-monograph,2680,one,cardinal,"ens available to a downstream user is distribution-neutral.* **Two levels, not one.** The four-flag classifier assigns labels to **runs**; the traffic light is wh"
-monograph,2680,four,cardinal,"le to a downstream user is distribution-neutral.* **Two levels, not one.** The four-flag classifier assigns labels to **runs**; the traffic light is what you get b"
-monograph,2683,two,cardinal,combining the result with a deviation term. They are not interchangeable. Only two of the four flags enter the cell-level rule — and ;
-monograph,2683,four,cardinal,the result with a deviation term. They are not interchangeable. Only two of the four flags enter the cell-level rule — and ; and
-monograph,2685,four,cardinal,"; and never do — so the map is not a ""four-flag map"", and the run-level classifier is not a per-cell contract. **Why the"
-monograph,2689,two,cardinal,"tract. **Why the colour alone is not a diagnosis.** Each colour is produced by two independent criteria, on class-relative and deliberately asymmetric thresholds:"
-monograph,2695,half,multiplicative,"ng the 12 red cells the split is **6 deviation-only, 4 flag-only, 2 both** — so half the red cells are red because the clean-run mean sits far from a *healthy male*"
-monograph,2701,two,cardinal,"a request for justification, not a verdict that the physiology is wrong. **The two screens, and what each removes.** Under the strict four-flag definition, 663 /"
-monograph,2701,four,cardinal,"siology is wrong. **The two screens, and what each removes.** Under the strict four-flag definition, 663 / 1,280 simulations (51.8 %) are clean, with per-cell rete"
-monograph,2709,nine,cardinal,ges because with *n* = 160 every per-cell percentage is a multiple of 0.625 and nine of the sixteen values fall on an exact rounding tie at one or two decimals. |
-monograph,2709,sixteen,cardinal,with *n* = 160 every per-cell percentage is a multiple of 0.625 and nine of the sixteen values fall on an exact rounding tie at one or two decimals. | cell | four-fla
-monograph,2709,one,cardinal,ltiple of 0.625 and nine of the sixteen values fall on an exact rounding tie at one or two decimals. | cell | four-flag clean | hard-failure-free | |---|---:|---:
-monograph,2709,two,cardinal,of 0.625 and nine of the sixteen values fall on an exact rounding tie at one or two decimals. | cell | four-flag clean | hard-failure-free | |---|---:|---:| | S1_
-monograph,2711,four,cardinal,sixteen values fall on an exact rounding tie at one or two decimals. | cell | four-flag clean | hard-failure-free | |---|---:|---:| | S1_M | 49/160 | 145/160 | |
-monograph,2722,two,cardinal,/160 | 160/160 | | S4_M | 67/160 | 106/160 | | S4_F | 60/160 | 114/160 | **The two screens deplete opposite ends of the severity axis.** The four-flag screen is h
-monograph,2723,four,cardinal,"114/160 | **The two screens deplete opposite ends of the severity axis.** The four-flag screen is harshest on the *healthy* cells (S1_F, S1_M); the hard-failure-f"
-monograph,2741,first,ordinal,"ccurring mechanisms.** The detector stores, for each failing channel, only the *first* trigger its ordered checks reach (flatline, then CV, then drift). Re-applying"
-monograph,2748,first,ordinal,"but only **3** appear in the recorded reason, because a CV trigger was reached first in 130 of them. Exhaustive counts are non-mutually-exclusive channel-level occu"
-monograph,2760,Two,cardinal,"de, and nothing in this atlas is an external physiological validation. ### 3.8 Two structural findings carried from pilot to full sweep *Two findings that surfac"
-monograph,2762,Two,cardinal,"validation. ### 3.8 Two structural findings carried from pilot to full sweep *Two findings that surfaced in the 22-run pilot and held through the 1,280-run sweep"
-monograph,2787,two,cardinal,"7.8 mmHg / 0.01 slope on a focused single-input probe at FiO2 0.95 – 1.0; the two figures reflect different regimes — multi-input averaged across [0.21, 0.47"
-monograph,2798,Two,cardinal,issolved-oxygen kinetics take over above FiO2 ≈ 0.6) — not an overshoot. **Two competing interpretations.** The original 120 s pattern admits either (i) Pul
-monograph,2807,zero,cardinal,"riment reran 60 matched-input cases at FiO2 = 1.0, each re-executed from time zero with the recorded simulation duration raised from the locked 120 s to 300 s"
-monograph,2844,four,cardinal,"order-of-magnitude decrease across severity. The S3 and S4 summaries use the four paired Morris input vectors replayed on both reference bodies, whereas the S1"
-monograph,2857,six,cardinal,"ng near 1,400 mmHg, above the sea-level barometric pressure of 760 mmHg). All six sit at the single tidal-volume level **Vt = 633.3 mL** at FiO2 = 1.0 — 6 of t"
-monograph,2859,three,cardinal,"FiO2 = 1.0 — 6 of the 20 S1 reruns at that level, none of the 24 at the other three, and 0 of 8 at the highest level Vt = 800 mL. **Minute ventilation does no"
-monograph,2862,Five,cardinal,"he highest level Vt = 800 mL. **Minute ventilation does not separate them.** Five of the six carry RR = 20 (V̇E ≈ 12.7 L/min, ~ 2× the physiological norm of 6"
-monograph,2862,six,cardinal,"evel Vt = 800 mL. **Minute ventilation does not separate them.** Five of the six carry RR = 20 (V̇E ≈ 12.7 L/min, ~ 2× the physiological norm of 6 – 8 L/min),"
-monograph,2864,three,cardinal,"RR = 20 (V̇E ≈ 12.7 L/min, ~ 2× the physiological norm of 6 – 8 L/min), but three further runs at that same V̇E do not run away; the sixth carries RR = 16 at P"
-monograph,2864,sixth,ordinal,"of 6 – 8 L/min), but three further runs at that same V̇E do not run away; the sixth carries RR = 16 at PEEP = 0 (V̇E ≈ 10.1 L/min). No input-side ventilation t"
-monograph,2871,five,cardinal,"them is the reference body.** The 10 runs at Vt = 633.3 mL with RR ≥ 16 form five male/female pairs, verified input-identical on all seven Morris inputs. The f"
-monograph,2872,seven,cardinal,"mL with RR ≥ 16 form five male/female pairs, verified input-identical on all seven Morris inputs. The female body ran away in **5 of 5**, the male in **1 of 5**"
-monograph,2874,five,cardinal,"e single male case plateaus at 770 mmHg against 1,126 – 1,408 mmHg across the five female cases. This is the opposite direction to the all-male input-extreme"
-monograph,2876,third,ordinal,"ite direction to the all-male input-extreme divergence cluster of §3.5, and a third instance of the regime-dependence that section establishes. It is consistent"
-monograph,2880,four,cardinal,dentical inputs (mean 686 vs 663 mmHg in the locked 120 s window across the four RR = 20 pairs) and with the sex effect on S1 PaO2 measured by the controlled
-monograph,2882,two,cardinal,"), which held body mass and height fixed across sexes. That design has two arms and they carry different weight: **+13.7 mmHg** in the 56.2 kg compariso"
-monograph,2888,one,cardinal,"ne's own model-validity warning. The smaller, fully in-envelope figure is the one to weigh. **No mechanism is claimed**, and three limits bound the design even"
-monograph,2889,three,cardinal,"ully in-envelope figure is the one to weigh. **No mechanism is claimed**, and three limits bound the design even on its clean arm: the two bodies are not percent"
-monograph,2890,two,cardinal,"sm is claimed**, and three limits bound the design even on its clean arm: the two bodies are not percentile-matched (163 cm is simultaneously Pulse's female 50"
-monograph,2921,two,cardinal,"the wider bound** (31 at FiO2 ≥ 0.95, 21 in S1_F + 11 in S1_M); the remaining two stay implausible under either classifier and correspond to the solver-insta"
-monograph,2952,one,cardinal,there per the detector priority order (§2.6). The 303-run population is the one analysed by the § cross-output drift audit; the 264-run subset is the F-
-monograph,2958,two,cardinal,"e set respiratory rate delivers Vt close to the requested target, followed by two to three smaller ""assist"" breaths fired between mandatory cycles. Mean instan"
-monograph,2958,three,cardinal,"espiratory rate delivers Vt close to the requested target, followed by two to three smaller ""assist"" breaths fired between mandatory cycles. Mean instantaneous r"
-monograph,2961,twice,multiplicative,ring these episodes alternates between the set rate (e.g. 20 bpm) and roughly twice the set rate (~46 bpm). Lung compliance is constant within numerical precisio
-monograph,3056,two,cardinal,cal detail in [ and the two per-arm files in . --- ## 4. Discussion *This section places the a
-monograph,3081,Four,cardinal,"n in the atlas falls in moderate ARDS on the female surrogate (S2_F, S3_F).** Four of the six outputs are green in S2_F and three of six in S3_F; these are the"
-monograph,3081,six,cardinal,"as falls in moderate ARDS on the female surrogate (S2_F, S3_F).** Four of the six outputs are green in S2_F and three of six in S3_F; these are the only two ce"
-monograph,3082,three,cardinal,"emale surrogate (S2_F, S3_F).** Four of the six outputs are green in S2_F and three of six in S3_F; these are the only two cells with no diverged and no implausi"
-monograph,3082,six,cardinal,"rogate (S2_F, S3_F).** Four of the six outputs are green in S2_F and three of six in S3_F; these are the only two cells with no diverged and no implausible run"
-monograph,3082,two,cardinal,"he six outputs are green in S2_F and three of six in S3_F; these are the only two cells with no diverged and no implausible run, and delivered Vt is green in b"
-monograph,3089,doubled,multiplicative,rrogate (S4_M) is the only cell red on every output.** Its divergence rate is doubled relative to the other male cells (8 / 160 vs 4 / 160) and 46 / 160 runs are i
-monograph,3091,one,cardinal,"runs are implausible, so its 54 / 160 combined hard-failure rate is the only one in the atlas above the 30 % that makes a cell red on flags alone. Users shoul"
-monograph,3125,Two,cardinal,"flags the resulting Vt variability as a non-steady-state outcome, by design. Two practical consequences follow. First, atlas users who require pure mandatory"
-monograph,3125,First,ordinal,"as a non-steady-state outcome, by design. Two practical consequences follow. First, atlas users who require pure mandatory ventilation (e.g. for medical-device"
-monograph,3134,Second,ordinal,"a-generation lever for deterministic sweeps (with the clinical caveat in §4.2). Second, the prevalence of oscillation events (20.6 % across the full 7-input sweep)"
-monograph,3177,four,cardinal,"immediate curation map — the colour sets cell-level review priority, run-level four-flag screening remains necessary in every cell, and red cells require per-chann"
-monograph,3181,doubles,multiplicative,The atlas's curation map is not only an instrument for direct Pulse users; it doubles as a **per-cell curation layer for synthetic training cohorts** generated by Pu
-monograph,3214,four,cardinal,etic male / female cohorts are pooled without flag-stratified filtering. The four-flag detector (§2.6) and the per-cell traffic-light map (§3.7) together support
-monograph,3217,four,cardinal,port a defensible ML-pipeline contract: 1. **Every cell:** apply the run-level four-flag screen irrespective of colour — the colour does not count runs flagged
-monograph,3230,four,cardinal,hetic-data source whose known failure modes are documented and addressable. The four-flag detector is general — it can be applied to any Pulse output CSV without re
-monograph,3238,six,cardinal,. 2026 (causal falsification) — Table 2 *A side-by-side mapping of the atlas's six-output reliability panel against Cornish et al.'s causal-falsification rejectio
-monograph,3240,two,cardinal,Cornish et al.'s causal-falsification rejection counts on MIMIC-III sepsis. The two studies target different scopes (intervention-outcome falsification vs operatio
-monograph,3242,four,cardinal,"rational-input sensitivity) and are complementary; the cross-mapping identifies four channels of direct overlap (HR, MAP, PaO2, PaCO2) where the two papers' ordinal"
-monograph,3243,two,cardinal,"ing identifies four channels of direct overlap (HR, MAP, PaO2, PaCO2) where the two papers' ordinal rankings agree even though absolute rates differ.* [@cornish20"
-monograph,3287,six,cardinal,s) and Table 5 (reverse-percentile bootstrap) re-tabulated against this atlas's six-output panel. Bold rows mark the four channels that overlap directly with HR /
-monograph,3287,four,cardinal,otstrap) re-tabulated against this atlas's six-output panel. Bold rows mark the four channels that overlap directly with HR / MAP / PaO2 / PaCO2. *Table 2 — at a g
-monograph,3293,six,cardinal,"n framework on MIMIC-III sepsis trajectories, re-tabulated against this atlas's six-output panel. **How to read it:** each row is one Cornish quantity; the first n"
-monograph,3294,one,cardinal,abulated against this atlas's six-output panel. **How to read it:** each row is one Cornish quantity; the first numeric column gives Hoeffding-inequality rejection
-monograph,3294,first,ordinal,"s's six-output panel. **How to read it:** each row is one Cornish quantity; the first numeric column gives Hoeffding-inequality rejections (their main-text Table 1),"
-monograph,3296,second,ordinal,"ric column gives Hoeffding-inequality rejections (their main-text Table 1), the second column the reverse-percentile bootstrap rejections (their Appendix Table 5); th"
-monograph,3299,four,cardinal,mn maps each channel to an atlas output (Yes / Partial / No). Bold rows are the four-channel direct overlap. **Key takeaway:** 82 of 85 Hoeffding rejections fall *o
-monograph,3301,four,cardinal,lap. **Key takeaway:** 82 of 85 Hoeffding rejections fall *outside* the atlas's four-channel overlap: 80 on the eight channels the atlas does not assess (electrolyt
-monograph,3301,eight,cardinal,"Hoeffding rejections fall *outside* the atlas's four-channel overlap: 80 on the eight channels the atlas does not assess (electrolyte, metabolic, acid-base, dermal)"
-monograph,3304,four,cardinal,"partial-overlap pressure channels. Only 3 (all PaCO2) fall on the overlap. The four-channel overlap (HR, MAP, PaO2, PaCO2) is in ordinal agreement — PaCO2 is the m"
-monograph,3309,six,cardinal,"olute rejection rates differ. **Cross-mapping the methodologies.** The atlas's six outputs (HR, MAP, Vt delivered, SpO2, PaO2, PaCO2) intersect Cornish's 15-quant"
-monograph,3311,four,cardinal,"MAP, Vt delivered, SpO2, PaO2, PaCO2) intersect Cornish's 15-quantity panel on four channels (HR, MeanBP ≈ atlas MAP, PaO2, PaCO2); Vt and SpO2 are atlas-only cont"
-monograph,3318,four,cardinal,"SysBP, DiaBP). Of Cornish's 85 total Hoeffding rejections, **only 3 fall on the four-channel atlas overlap (all on PaCO2); the remaining 82 fall outside the four-ch"
-monograph,3319,four,cardinal,he four-channel atlas overlap (all on PaCO2); the remaining 82 fall outside the four-channel direct overlap (80 on channels the atlas does not assess at all + 2 on
-monograph,3321,two,cardinal,"ut channels SysBP/DiaBP/RR)**. This non-overlap is the central observation: the two papers' failure surfaces are *complementary*, not redundant. **The overlap.**"
-monograph,3324,four,cardinal,"ilure surfaces are *complementary*, not redundant. **The overlap.** Within the four-channel overlap, Cornish's Hoeffding results report 3 / 70 rejections (4.3 %) f"
-monograph,3325,zero,cardinal,"lap, Cornish's Hoeffding results report 3 / 70 rejections (4.3 %) for PaCO2 and zero rejections for HR, MAP (MeanBP), and PaO2. No ordinal comparison with the atlas"
-monograph,3330,two,cardinal,"ories, not by (scenario, sex) over the operational acceptance envelope, and the two indexings are not surjective on each other. The supported conclusion is the non"
-monograph,3331,two,cardinal,urjective on each other. The supported conclusion is the non-overlap above: the two failure surfaces are complementary rather than redundant. **The complementarit
-monograph,3340,two,cardinal,"2 or delivered Vt, both of which are central to ventilator-cohort research. The two papers therefore divide the Pulse-reliability question along an output axis: Co"
-monograph,3351,two,cardinal,**Why this matters for downstream Pulse users.** A practitioner combining the two assessments now has a four-quadrant reliability picture: 1. *Cardio–respirator
-monograph,3351,four,cardinal,ownstream Pulse users.** A practitioner combining the two assessments now has a four-quadrant reliability picture: 1. *Cardio–respiratory outputs under operational
-monograph,3357,four,cardinal,"respiratory outputs under clinical-intervention sequences* — Cornish: of the four channels shared with the atlas, PaCO2 is the only one flagged under Hoeffdin"
-monograph,3358,one,cardinal,"es* — Cornish: of the four channels shared with the atlas, PaCO2 is the only one flagged under Hoeffding (3 / 70) and the most flagged under the bootstrap (1"
-monograph,3366,seven,cardinal,"k of Pulse's rejections concentrate (80 of 85 Hoeffding rejections on the seven non-cardiorespiratory channels Chloride, Sodium, Potassium, Skin Temperature"
-monograph,3397,one,cardinal,"exceedances are uncommon for HR, MAP and PaCO2, while delivered Vt is itself one of the two window-sensitive channels. * MAP derived, not sampled; if Pulse's re"
-monograph,3397,two,cardinal,"s are uncommon for HR, MAP and PaCO2, while delivered Vt is itself one of the two window-sensitive channels. * MAP derived, not sampled; if Pulse's response to M"
-monograph,3404,zero,cardinal,cell); trajectory-level structure is preserved but not modelled. * **FiO2 has zero clean Morris EE pairs in S1 (both sexes) and S4_F.** Every Morris OAT step th
-monograph,3406,one,cardinal,.** Every Morris OAT step that flips FiO2 between 0.21 and 1.0 had at least one endpoint flagged ( due to SpO2 ceiling pinning at FiO2 ≈ 1.
-monograph,3409,one,cardinal,las reports this honestly as 18 of 48 cell-output Morris combinations missing one input rather than imputing or relaxing thresholds. The Spearman M-vs-F sex co
-monograph,3417,three,cardinal,"the canonical sweep required approximately 14 h of active elapsed time, using three parallel Docker workers initially and two after a mid-sweep reduction to co"
-monograph,3418,two,cardinal,"4 h of active elapsed time, using three parallel Docker workers initially and two after a mid-sweep reduction to control thermal load (resume-safe); the timing"
-monograph,3430,second,ordinal,"cal *""incompatible-with-60-s-steady-state-in-window""* threshold. Within the second category, the exact numerical choice (e.g., PaO2 lower 20 vs 25 mmHg, MAP low"
-monograph,3456,three,cardinal,udit ([S022 ) shows that the locked count bundles three distinct contributions: (i) **76 runs** flagged because of physiological SpO2
-monograph,3478,six,cardinal,"/ 18 possible input memberships with the Morris μ\* top-3 **sets** across the six pooled output-level comparisons (five outputs 3/3, PaO2 2/3), and matches 23"
-monograph,3479,five,cardinal,"the Morris μ\* top-3 **sets** across the six pooled output-level comparisons (five outputs 3/3, PaO2 2/3), and matches 23 / 48 per-cell cases at full 3 / 3 set"
-monograph,3502,two,cardinal,simulation community. ### 4.6 Implications for downstream Pulse research *The two downstream research lines this atlas opens hooks for: the pediatric translation
-monograph,3509,two,cardinal,"they can target.* This atlas is positioned as foundational infrastructure for two downstream lines of work, both currently in preparation: * **Pediatric transla"
-monograph,3526,first,ordinal,"ns driving high-μ\* inputs (heart-rate baseline, FiO2 / PEEP, Vt) are patched first; equations driving low-μ\* inputs are deferred. Neither downstream paper is re"
-monograph,3546,six,cardinal,"4 , [S014 , [S017 , [S018 , [S021 ) surfaced six places where small additions to Pulse's existing tooling, documentation, or val"
-monograph,3559,one,cardinal,"es that downstream tools must regex-parse. A small structured-event API — one typed record per rejected field, with the offending value, the enforced boun"
-monograph,3573,one,cardinal,cally while investigating the all-male divergence cluster ([S018 ); a one-line note in the patient-baseline reference table would have saved the inves
-monograph,3596,three,cardinal,"able and H3) and in the §1.2 limitations list (entry 4), and corroborated by three independent sources, but Pulse does not currently emit a setup-time warni"
-monograph,3621,one,cardinal,require some domain knowledge to map back to the offending input field. A one-token prefix indicating which input was rejected (
-monograph,3641,two,cardinal,"Conclusion *A short closing summary of the atlas's headline contribution, the two operator-actionable findings, the sex-as-reliability-axis result (in its regime"
-monograph,3645,first,ordinal,"r plays in the maintainer's PhD pipeline.* This reliability atlas provides the first open, preregistered sensitivity and divergence map for the Pulse Physiology Eng"
-monograph,3647,seven,cardinal,e Physiology Engine ( ) across the adult operational envelope. By sweeping seven user-facing inputs across four ARDS severities and two adult reference surrogat
-monograph,3648,four,cardinal,"oss the adult operational envelope. By sweeping seven user-facing inputs across four ARDS severities and two adult reference surrogates ([S006 , 1,280 simula"
-monograph,3648,two,cardinal,"envelope. By sweeping seven user-facing inputs across four ARDS severities and two adult reference surrogates ([S006 , 1,280 simulations), we identified bo"
-monograph,3657,two,cardinal,"or synthetic cohort generation. Beyond mapping the envelope, this work yielded two operator-actionable corrections — resolving VC-AC tidal-volume oscillation (F-0"
-monograph,3678,two,cardinal,"orously validated baseline and foundational infrastructure for the maintainer's two downstream papers: a pediatric translation layer (Paper 1, in preparation) and"
-monograph,3691,one,cardinal,"ong in the Zenodo deposit, not in git history; see ) — which is why one ledger anchor ( ) auto-skips on a public clone, giving 393 / 394 there a"
-monograph,3697,third,ordinal,; the deposited data and this monograph's own content under CC-BY-4.0. Verbatim third-party excerpts — notably from the Pulse documentation and source (Apache-2.0) —
-monograph,3727,one,cardinal,"PASS on the authors' full data tree (393 / 394 on a public clone, where the one anchor needing the gitignored raw S021 trajectories is auto-skipped) ([S024"
-monograph,3739,one,cardinal,). * **Lab-notebook provenance:** every commit on the main branch ties to one of the experiment-log entries S001 – S024 + the OSS release-hygiene entries S
-monograph,3776,four,cardinal,"ugh clinical discussions with M.S. and P.J. — designed the Morris sweep and the four-flag steady-state classifier, performed all computational runs and statistical"
-monograph,3794,two,cardinal,"out with the assistance of AI tools, used within a cross-checking loop between two large language models under direct supervision by S.N.: Claude /4.8, an"
-monograph,3798,second,ordinal,"rough the Claude Code agent at the thinking-effort default, and, as the second model, Gemini Pro 3.1 (Google; extended-thinking mode) through a separate web s"
-monograph,3811,second,ordinal,"e Code** with / / , and as second model **Gemini Pro 3.1** to 2 August 2026, then **OpenAI ChatGPT** ( S"
-monograph,3821,second,ordinal,"the same dual-model cross-checking loop (Claude Code, with Gemini Pro 3.1 as second model to 2 August 2026 and OpenAI ChatGPT ( Sol, High reasoning level)"
-monograph,3846,one,cardinal,9. References Primary sources only — every cited fact in this paper traces to one of the following or to an experiment-log entry in this repository. 1. **Pulse
-monograph,3896,nine,cardinal,24749. Describes Pulse's ASL 5000 + Dräger Evita validation framework across nine cases (healthy / restrictive / obstructive × PC-AC / VC-AC / CPAP); repor
-monograph,3935,three,cardinal,"p with 8 sanity checks. * **[S007 ** — Targeted reproducibility check at three independent layers, all bit-exact. * **[S008 ** — Tier-1 statistical r"
-monograph,3959,four,cardinal,"ber corrected 2026-05-12 in pre-submission audit; the previous draft listed a four-author reduction including a non-existent ""Carpenter J"" — full nine-author"
-monograph,3960,nine,cardinal,"listed a four-author reduction including a non-existent ""Carpenter J"" — full nine-author list confirmed against the Springer record and the Pulse publication"
-monograph,3965,two,cardinal,*Computational simulation to assess patient safety of uncompensated COVID-19 two-patient ventilator sharing using the Pulse Physiology Engine.* PLoS One 15(11
-monograph,3966,One,cardinal,ID-19 two-patient ventilator sharing using the Pulse Physiology Engine.* PLoS One 15(11):e0242532 (2020). DOI: [
-monograph,3981,seven,cardinal,paper is the 2022 ANNSIM mechanical-ventilator implementation paper with the seven-author list above. The qualitative ASL 5000 validation framework is described
-monograph,4008,two,cardinal,"ft alveoli) and of the no-inertance limitation, both verified verbatim; those two claims had been mis-attributed to Bray 2019, which contains neither. * []{#re"
-monograph,4051,first,ordinal,of Digital Twins.* Journal of Machine Learning Research 27(152):1–52 (2026); first posted as arXiv:2301.07210 and read in its v4 (November 2023); the published
-monograph,4102,Second,ordinal,", Iyer NP, Bembea MM, Agulnik A, Barbaro RP, et al. *Executive Summary of the Second International Guidelines for the Diagnosis and Management of Pediatric Acute"
-monograph,4182,Third,ordinal,"M, Deutschman CS, Seymour CW, Shankar-Hari M, Annane D, Bauer M, et al. *The Third International Consensus Definitions for Sepsis and Septic Shock (Sepsis-3).*"
-monograph,4217,one,cardinal,"y-state table; that citation has not been pinned to a chapter and is the last one outstanding for this reference. The former ""acid-base ranges"" annotation was"
-monograph,4219,one,cardinal,"on was withdrawn on 2026-07-28: no locus in this monograph cites the work for one, and the CO2-narcosis justification it once supported was withdrawn on 2026"
-monograph,4274,double,multiplicative,"gistered bolt-on) | | []{#s020} S020 | Pre-submission novelty audit (literature double-check on every ""first"" claim; one citation added) | | []{#s021} S021 | Hyperoxi"
-monograph,4274,first,ordinal,"]{#s020} S020 | Pre-submission novelty audit (literature double-check on every ""first"" claim; one citation added) | | []{#s021} S021 | Hyperoxia convergence (60-run"
-monograph,4274,one,cardinal,"| Pre-submission novelty audit (literature double-check on every ""first"" claim; one citation added) | | []{#s021} S021 | Hyperoxia convergence (60-run rerun at 300"
-monograph,4277,three,cardinal,dix C) | | []{#s023} S023 | Supplementary ML/SHAP cross-check of Morris μ\* top-three input sets on the clean subset (see Supplementary §S13) | | []{#s024} S024 | Pr
-monograph,4278,one,cardinal,"394 / 394 PASS on the authors' full data tree, 393 / 394 on a public clone with one auto-skipped anchor, see §2.8) | | []{#s025} S025 | Pre-release OSS code-hygien"
-monograph,4333,seven,cardinal,difference reflects the averaging across a wider FiO2 envelope and across the seven perturbed inputs rather than a per-step single-input perturbation near the
-monograph,4367,Two,cardinal,uses 0.8 (between the documented moderate and severe transition points). Two independent prior sources (the Respiratory Methodology page and Webb 2020) ther
-monograph,4390,three,cardinal,"g interval: 10 s. * Total per-run duration: 5 min. The sweep was structured in three passes: a coarse 0.1–0.9 sweep (step 0.1, 9 runs), a fine 0.20–0.30 sweep aroun"
-monograph,4424,seven,cardinal,"ave not tested that. The Atlas's reliability sweep is preregistered to vary all seven operational inputs around that reference setting, so the calibration applies pr"
-monograph,4429,Three,cardinal,ing at other ventilation regimes is out of scope. **Solver instability zone.** Three convergent sweeps within the companion project (same en
-monograph,4449,three,cardinal,"lure range, giving the calibrated severe fraction (0.95) a 0.005 margin. All three sweeps are within the same companion project rather than independent third-part"
-monograph,4450,third,ordinal,"All three sweeps are within the same companion project rather than independent third-party replications, so the convergence is evidence of reproducibility under the"
-monograph,4463,zero,cardinal,"git-ignored and hidden files*, at tag (commit ) — returns zero occurrences of . Because such a model could hide behind other vocab"
-monograph,4466,one,cardinal,", the search was widened to the terms it would necessarily surface under; every one returns zero: , , , ,"
-monograph,4466,zero,cardinal,"was widened to the terms it would necessarily surface under; every one returns zero: , , , ,"
-monograph,4477,seven,cardinal,"touches no respiratory or CDM source file (total delta seven build-system files, +46/−17). What Pulse reproduces instead are the *macroscop"
-monograph,4499,one,cardinal,"ease, including its response to surfactant instillation — is not representable, one substantive reason the native pediatric-engine work treats surfactant as a modu"
-monograph,4505,three,cardinal,iscrepancies A source-level audit of the Pulse C++ repository identified three discrepancies between the official methodology documentation and the compiled e
-monograph,4522,two,cardinal,(where slope = 12). ### B.5 Reference-surrogate body-dimension provenance The two adult surrogates used throughout the atlas (M: 18 yr / 67.3 kg / 180 cm; F: 18
-monograph,4532,half,multiplicative,"re-read 2026-08-20 with columns resolved by name). CDC lists age at the half-month point standing for the whole month, so this row denotes 216.0–216.99 mo"
-monograph,4577,one,cardinal,"ssifier's flag (§2.6) fires when any output channel violates one of three sub-mode rules in the [60, 120] s steady-state window: flatline at a h"
-monograph,4577,three,cardinal,"'s flag (§2.6) fires when any output channel violates one of three sub-mode rules in the [60, 120] s steady-state window: flatline at a hard bound"
-monograph,4586,two,cardinal,"hat gives readers a finer-grained read on what the flag is doing per cell. The two sub-modes audited are: * **SpO2 ""flatline at ceiling"" with mean ≥ 0.999.** A *"
-monograph,4596,two,cardinal,"ifier was designed to catch solver-pinning, not physiological saturation; the two coincide numerically. * **Vt CV > 5 %.** The F-004 tidal-volume oscillation, co"
-monograph,4650,Zero,cardinal,"e runs; 30 in S1_F, 16 in S1_M, 16 in S2_F, 9 in S2_M, plus 5 trickle in S3). Zero in S4 (in severe ARDS, SpO2 no longer saturates and this trigger never fires)"
+monograph,1172,four,cardinal,oundary probe in [S004 ; the over-broad upstream regex was replaced with four patterns aimed at Pulse's rejection messages:
+monograph,1185,four,cardinal,"he flag useless across the entire sweep. On the calibration runs, the four-pattern set fired on both deliberate-clamp probes of the [S005 pilot (S"
+monograph,1188,eight,cardinal,"and DBP = 85 mmHg, each rejected at setup with exit code 1) and on none of the eight [S004 smoke-test runs; the patch note below replays both pattern sets o"
+monograph,1193,four,cardinal,"on no Pulse log on disk. **Patch of 2026-07-26, applied after the sweep.** The four patterns above are the set that classified all 1,280 published runs, and are le"
+monograph,1195,Two,cardinal,"ed all 1,280 published runs, and are left as written for the historical record. Two changes were made afterwards, giving the five-pattern set now in"
+monograph,1196,five,cardinal,"written for the historical record. Two changes were made afterwards, giving the five-pattern set now in :"
+monograph,1206,ten,cardinal,"Pulse's builds ten baseline-rejection strings, nine of which write the unit between the value and"
+monograph,1206,nine,cardinal,"Pulse's builds ten baseline-rejection strings, nine of which write the unit between the value and ; the heart-rate lower bound"
+monograph,1208,first,ordinal,"and ; the heart-rate lower bound ( ) is the sole exception. The original first pattern required that token, so a heart rate below 50 bpm was rejected by Pulse"
+monograph,1211,one,cardinal,". Replaying both pattern sets over all 3,348 Pulse logs on disk flips exactly one run — the S030b probe written to expose the gap — and no run in the published s"
+monograph,1214,zero,cardinal,"re unchanged. The gap never lost a run in any case: a setup rejection exits non-zero with no CSV, so fires instead. **Hard physiological bounds for the"
+monograph,1220,one,cardinal,d is reproduced here for reader convenience. Each pair encodes one of two logical categories: (a) a physical / definitional ceiling for which no c
+monograph,1220,two,cardinal,produced here for reader convenience. Each pair encodes one of two logical categories: (a) a physical / definitional ceiling for which no citation
+monograph,1231,first,ordinal,er: well below both the 70 mmHg at which the Sepsis-3 SOFA cardiovascular score first registers organ dysfunction [@singer2016] and the Surviving Sepsis Campaign ini
+monograph,1235,first,ordinal,"rt from 927 ICUs in 40 countries, the cutoffs categorising maximum PaCO2 in the first 48 h of ventilation placed approximately the 95th percentile at 70 mmHg [@nin20"
+monograph,1271,two,cardinal,t | 50 mL | ~ 0.7–0.9 mL/kg ideal body weight across the two surrogates — within the noise band of breath-to-breath measurement at ARDSnet V
+monograph,1273,one,cardinal,ical-care sources | | PaO2 | 15 mmHg | A 15–71 % fraction of one Berlin P/F band depending on FiO2 — sub-band at the high-FiO2 end of the sweep
+monograph,1273,one,cardinal,depending on FiO2 — sub-band at the high-FiO2 end of the sweep but approaching one band at room air; clinically meaningful oxygenation change over a 60-second win
+monograph,1273,second,ordinal,aching one band at room air; clinically meaningful oxygenation change over a 60-second window [@ards2012] | | PaCO2 | 5 mmHg | Roughly one alveolar
+monograph,1274,one,cardinal,a 60-second window [@ards2012] | | PaCO2 | 5 mmHg | Roughly one alveolar-ventilation step under ARDSnet protective ventilation per minute — cli
+monograph,1279,Two,cardinal,² of the fit is logged as diagnostic metadata but does *not* trigger anything). Two further triggers (the coefficient-of-variation threshold
+monograph,1292,three,cardinal,nd the detector's hard-bound check on the steady-state mean. This three-layer defense-in-depth contract was verified end-to-end in [S015 . ###
+monograph,1298,five,cardinal,"verified end-to-end in [S015 . ### 2.7 Pilot gate ([S005 ) *The five preregistered gates the 22-run pilot on cell (S1, M) had to pass before the ful"
+monograph,1302,three,cardinal,"regex reachability, and Pulse determinism. The pilot also surfaced and resolved three pipeline bugs before the compute budget was spent.* A 22-run pilot on cell (S1"
+monograph,1305,five,cardinal,"rris points + 4 reproducibility reruns + 2 deliberate clamp probes verified all five preregistered gate criteria: success rate, detector self-consistency, 13-point"
+monograph,1309,three,cardinal,"rance across 24 (output × rerun) comparisons). Pilot also surfaced and resolved three pipeline bugs (time- origin, case_id collision, G4 unreachability from locked M"
+monograph,1316,twelve,cardinal,"PU-only), the 2–3 parallel Docker throughput verified in [S001 , and the twelve independent verification points that make the published numbers reproducible bi"
+monograph,1323,two,cardinal,"al / 12 logical cores), 8 GB RAM; Pulse is CPU-only, so neither of the laptop's two GPUs (Intel UHD, NVIDIA RTX 3050) is used. Docker allocation 3.95 GB / 12 CPU."
+monograph,1324,Two,cardinal,"GPUs (Intel UHD, NVIDIA RTX 3050) is used. Docker allocation 3.95 GB / 12 CPU. Two-to-three parallel containers per the verified [S001 budget. Pulse is bi"
+monograph,1324,three,cardinal,"Intel UHD, NVIDIA RTX 3050) is used. Docker allocation 3.95 GB / 12 CPU. Two-to-three parallel containers per the verified [S001 budget. Pulse is bit-exact d"
+monograph,1329,twelve,cardinal,"ed time on this hardware (Supplement §S12). The atlas's published numbers have twelve independent verification points (Pulse determinism, pipeline + analysis correct"
+monograph,1333,twelve,cardinal,"layers) detailed in [Supplementary S10 ; all twelve passed with zero violations. [S007 deliberately rejected a full 1,280-s"
+monograph,1333,zero,cardinal,"n [Supplementary S10 ; all twelve passed with zero violations. [S007 deliberately rejected a full 1,280-simulation re-exec"
+monograph,1340,twelve,cardinal,"-05-16 → 2026-05-18).** As a pre-submission belt-and-braces check on top of the twelve verification points above, two complementary re-executions were performed under"
+monograph,1341,two,cardinal,"ubmission belt-and-braces check on top of the twelve verification points above, two complementary re-executions were performed under the current"
+monograph,1357,Zero,cardinal,"i.e. the same 20-run male-extreme cluster that §3.5 links to blood volume). **Zero deviations, zero clean-↔-diverged asymmetries, zero missing files.** The [S"
+monograph,1358,zero,cardinal,"n male-extreme cluster that §3.5 links to blood volume). **Zero deviations, zero clean-↔-diverged asymmetries, zero missing files.** The [S015 audit's"
+monograph,1358,zero,cardinal,"links to blood volume). **Zero deviations, zero clean-↔-diverged asymmetries, zero missing files.** The [S015 audit's 40-run bit-exact result is therefo"
+monograph,1372,second,ordinal,"n 4 / 6 outputs (top-3 orders in 3 / 6); disagreements were confined to the second- and third-ranked inputs, where μ\* magnitudes are similar across competing i"
+monograph,1372,third,ordinal,"tputs (top-3 orders in 3 / 6); disagreements were confined to the second- and third-ranked inputs, where μ\* magnitudes are similar across competing inputs — con"
+monograph,1375,two,cardinal,"reported in § and the Spearman ρ analysis in §3.6. In full transparency, two sample-dependent quantities surfaced. **(a)** The S2_M divergence count went"
+monograph,1378,two,cardinal,"7 new-seed divergences occurred at HR = 50 and SBP = 90, with RR in the upper two grid levels (16 or 20) and FiO2 likewise in its upper two levels (0.737 or"
+monograph,1379,two,cardinal,"ith RR in the upper two grid levels (16 or 20) and FiO2 likewise in its upper two levels (0.737 or 1.0); only 1 / 7 occurred at FiO2 = 1.0, against 13 / 20 in"
+monograph,1399,third,ordinal,"24 , 2026-05-22).** Independently of the bit-exact re-execution above, a third verification layer closes the data-integrity loop at the *manuscript* level. Th"
+monograph,1415,half,multiplicative,oats at their displayed precision; a 1 × 10⁻⁹ IEEE-754 epsilon protects against half-precision rounding boundaries). The current report on the locked manuscript is
+monograph,1417,one,cardinal,"/ 394 PASS, 0 WARN, 0 FAIL** on the authors' full data tree. On a public clone, one anchor — T1.06u, the S021 time-to-95%-plateau, which requires the heavy raw per"
+monograph,1420,one,cardinal,"nored — is automatically skipped, so the script reports **393 / 394 PASS** with one explicitly-flagged SKIPPED (the headline target of 394 is computed dynamically"
+monograph,1423,zero,cardinal,"anchors-run plus anchors-skipped, so it cannot go stale). The script exits non-zero on any FAIL and is therefore CI-ready: future manuscript edits that drift a quo"
+monograph,1429,four,cardinal,. ### 2.9 Using the four-flag classifier independently *The minimal public API for re-using the four-fl
+monograph,1431,four,cardinal,"he four-flag classifier independently *The minimal public API for re-using the four-flag classifier on someone else's Pulse output, without re-running the atlas sw"
+monograph,1484,First,ordinal,"ontrol, and Hoeffding / Holm–Bonferroni (external; used by Cornish 2026, §4.4). First appearance of each test in §3 is therefore immediately interpretable.* Several"
+monograph,1488,first,ordinal,§3 (Results) and §4 (Discussion). We define each here in plain language so the first appearance of a test name in the results section is immediately interpretable.
+monograph,1513,first,ordinal,hod that splits the variance of an output into contributions from each input (first-order index S₁) and from each input's interactions with all others (total-ord
+monograph,1521,two,cardinal,eported rather than executed. * **1-Wasserstein distance.** A distance between two probability *distributions* on a one-dimensional output. Intuitively: the m
+monograph,1522,one,cardinal,"sserstein distance.** A distance between two probability *distributions* on a one-dimensional output. Intuitively: the minimum ""work"" needed to transport one h"
+monograph,1523,one,cardinal,"a one-dimensional output. Intuitively: the minimum ""work"" needed to transport one histogram onto the other, in the output's natural units (e.g. mmHg, mL, bpm)."
+monograph,1525,zero,cardinal,"output's natural units (e.g. mmHg, mL, bpm). Larger value = more separation; zero means the two distributions are identical. Used in §3.6 to quantify how diffe"
+monograph,1525,two,cardinal,"al units (e.g. mmHg, mL, bpm). Larger value = more separation; zero means the two distributions are identical. Used in §3.6 to quantify how different male vs f"
+monograph,1531,two,cardinal,"distribution built by randomly splitting the *combined* M + F clean runs into two groups the same size as the original M and F groups, then computing the same"
+monograph,1539,two,cardinal,ct is sample-size noise. * **Spearman's rank correlation ρ.** Measures whether two paired rankings agree (ρ = 1: identical ordering; ρ = 0: no monotonic relat
+monograph,1542,one,cardinal,= −1: reversed ordering). Used in §3.6 on the M and F vectors of μ\* values (one entry per input) to ask whether both sexes order the seven inputs the same wa
+monograph,1543,seven,cardinal,ctors of μ\* values (one entry per input) to ask whether both sexes order the seven inputs the same way. We attach a paired-input bootstrap 95 % CI by resampling
+monograph,1544,seven,cardinal,ts the same way. We attach a paired-input bootstrap 95 % CI by resampling the seven inputs with replacement and re-ranking. * **Benjamini–Hochberg (BH) false-di
+monograph,1576,four,cardinal,"80-run sweep: the per-cell flag breakdown, Morris μ\* sensitivity rankings, the four hypothesis tests (H1 – H4), and the cell-level reliability traffic light. Each"
+monograph,1577,one,cardinal,"), and the cell-level reliability traffic light. Each subsection corresponds to one bounded result rather than to one experimental phase.* *All numerical results"
+monograph,1578,one,cardinal,traffic light. Each subsection corresponds to one bounded result rather than to one experimental phase.* *All numerical results are sourced from artifa
+monograph,1586,four,cardinal,") *The headline counts: how many runs in each of the 8 cells fired each of the four flags, and how many were clean. Flag columns are *independent* presence counts"
+monograph,1587,one,cardinal,"flags, and how many were clean. Flag columns are *independent* presence counts (one run can fire several flags), so row sums can exceed ; r"
+monograph,1616,four,cardinal,ously and is counted in both columns. Only is mutually exclusive of the four flags. Row sums therefore exceed (e.g. S1_F sums to 183) when runs tr
+monograph,1624,four,cardinal,"tion-style analyses. *Table 1 — at a glance.* **What:** per-cell counts of the four detector flags and across the 8 (scenario, sex) cells (160 runs each)."
+monograph,1627,one,cardinal,"uns each). **How to read it:** flag columns are *independent* presence counts — one run can fire several flags simultaneously, so row sums can exceed (e."
+monograph,1656,one,cardinal,(160 runs each). Visual counterpart to Table 1. **How to read it:** each bar is one cell; segment colours give counts of and the four flag classes. Flag ca
+monograph,1657,four,cardinal,read it:** each bar is one cell; segment colours give counts of and the four flag classes. Flag categories are *independent* presence counts so a single run
+monograph,1662,first,ordinal,d is the primary operational-envelope map the atlas claims as its first deliverable; is empty everywhere. ![Figure 1. Per-cell flag breakdow
+monograph,1664,one,cardinal,sex) cells (n = 160 per cell). Flag categories are independent presence counts (one run can fire several flags); is mutually exclusive of the four flag cla
+monograph,1664,four,cardinal,e counts (one run can fire several flags); is mutually exclusive of the four flag classes. The S1 → S4 gradient in and is t
+monograph,1669,Four,cardinal,"s μ\* heatmaps per output — which inputs dominate which outputs in which cells. Four visual patterns emerge: cardiovascular outputs are cardio-driven, gas-exchange"
+monograph,1674,six,cardinal,"across every cell.* Figures 2 a–f show the Morris μ\* heatmap for each of the six outputs. Rows are the seven swept inputs; columns are the eight (scenario, sex)"
+monograph,1675,seven,cardinal,"res 2 a–f show the Morris μ\* heatmap for each of the six outputs. Rows are the seven swept inputs; columns are the eight (scenario, sex) cells. The colour scale is"
+monograph,1675,eight,cardinal,"p for each of the six outputs. Rows are the seven swept inputs; columns are the eight (scenario, sex) cells. The colour scale is the magnitude of the elementary effe"
+monograph,1677,Four,cardinal,effect — how much each output moves when the corresponding input is perturbed. Four visual patterns dominate: * **Cardiovascular outputs are cardio-input dominate
+monograph,1683,zero,cardinal,"every cell (μ\* ≈ 17 – 20). Ventilator settings still contribute smaller, non-zero effects. * **Gas-exchange outputs are ventilator-driven.** PaO2 is dominated by"
+monograph,1698,four,cardinal,"M), on a single elementary-effect pair; not estimable in (S4, F) under the four-flag screen). FiO2 nevertheless remains the rank-1 input wherever it is estim"
+monograph,1712,one,cardinal,"mal H1 test. **External cross-validation against an OAT precursor.** Companion one-at-a-time probing prior to the Atlas ( E4, ±10 % perturb"
+monograph,1723,two,cardinal,uivalence — but the matched direction and order-of-magnitude attenuation across two independent designs is an external robustness signal for the Atlas's FiO2 sensi
+monograph,1727,six,cardinal,"ng. *Figures 2 a–f ( ) — at a glance.* **What:** six heatmaps (HR, MAP, Vt, SpO2, PaO2, PaCO2) of Morris μ\* across inputs × cells."
+monograph,1729,seven,cardinal,"2, PaCO2) of Morris μ\* across inputs × cells. **How to read it:** rows are the seven swept inputs; columns are the 8 (scenario, sex) cells (S1_M … S4_F); colour int"
+monograph,1753,first,ordinal,"### 3.3 H1 — skewed sensitivity (PASS, 48 / 48) *The first hypothesis test: in every cell × output combination, do the top-3 inputs accoun"
+monograph,1790,three,cardinal,"t, rr, fio2 | *Top-3-inputs table — at a glance.* **What:** the three most influential inputs (by Morris μ\*) for each of the 6 atlas outputs, ranked"
+monograph,1793,one,cardinal,"μ\* summed across the 8 (scenario, sex) cells. **How to read it:** each row is one output; the three inputs listed are those with the largest cumulative mean abso"
+monograph,1793,three,cardinal,"ss the 8 (scenario, sex) cells. **How to read it:** each row is one output; the three inputs listed are those with the largest cumulative mean absolute elementary ef"
+monograph,1832,two,cardinal,"ell, **8 of 48 cells fire the trigger.** Manual inspection separates these into two regimes: * **Group A — saturation-boundary cells (2 of 8 cells).** Both are Sp"
+monograph,1841,three,cardinal,"14–0.049) all come from pairs taken at FiO2 = 0.21, where SpO2 is 0.95–0.96 — three of the four pairs there (one Vt step moves SpO2 from 0.962 to 0.929). The hig"
+monograph,1841,four,cardinal,"come from pairs taken at FiO2 = 0.21, where SpO2 is 0.95–0.96 — three of the four pairs there (one Vt step moves SpO2 from 0.962 to 0.929). The high σ / μ\*"
+monograph,1841,one,cardinal,"aken at FiO2 = 0.21, where SpO2 is 0.95–0.96 — three of the four pairs there (one Vt step moves SpO2 from 0.962 to 0.929). The high σ / μ\* therefore reflect"
+monograph,1846,Four,cardinal,"oating-point noise. * **Group B — known nonlinear physiology (6 of 8 cells).** Four of these are the FiO2 → PaO2 cells in ARDS scenarios: (S2 / S3, M / F, PaO2"
+monograph,1851,two,cardinal,er FiO2 increment — an established physiological non-linearity. The remaining two cells reflect minute-ventilation coupling on PaCO2: RR → PaCO2 in healthy m
+monograph,1865,two,cardinal,ted in . What that bootstrap returns depends on two choices that an earlier version of this subsection got wrong: which of two σ /
+monograph,1866,two,cardinal,"s on two choices that an earlier version of this subsection got wrong: which of two σ / μ\* CI formulas is used, and whether the trigger is read on the dominant in"
+monograph,1867,three,cardinal,"used, and whether the trigger is read on the dominant input alone or on the top three the preregistration actually names. Both are settled in the methodological note"
+monograph,1869,four,cardinal,"settled in the methodological note below, which carries the current counts. The four-bucket table that stood here reported a non-linear count of zero and a straddli"
+monograph,1870,zero,cardinal,"nt counts. The four-bucket table that stood here reported a non-linear count of zero and a straddling count of twelve; both were wrong, and the table is removed rat"
+monograph,1871,twelve,cardinal,"e that stood here reported a non-linear count of zero and a straddling count of twelve; both were wrong, and the table is removed rather than rebuilt, since the note"
+monograph,1874,One,cardinal,"er than rebuilt, since the note below states what the corrected reading gives. One of its buckets survives unchanged, because it reflects data availability rather"
+monograph,1876,Three,cardinal,than any bootstrap formula: the cells with **no estimable σ / μ\* CI at all**. Three lie in S1_F where the dominant input is Vt — the Vt one-at-a-time (OAT) step ha
+monograph,1877,one,cardinal,"σ / μ\* CI at all**. Three lie in S1_F where the dominant input is Vt — the Vt one-at-a-time (OAT) step has only one clean trajectory pair (S1_F × {PaCO2, PaO2, V"
+monograph,1877,one,cardinal,"S1_F where the dominant input is Vt — the Vt one-at-a-time (OAT) step has only one clean trajectory pair (S1_F × {PaCO2, PaO2, Vt}). Two lie in S4_M where the dom"
+monograph,1878,Two,cardinal,"-time (OAT) step has only one clean trajectory pair (S1_F × {PaCO2, PaO2, Vt}). Two lie in S4_M where the dominant input is FiO2 — the FiO2 OAT step has only one c"
+monograph,1879,one,cardinal,". Two lie in S4_M where the dominant input is FiO2 — the FiO2 OAT step has only one clean trajectory pair (S4_M × {PaO2, SpO2}). The *which-input-lacks-pairs* diff"
+monograph,1881,two,cardinal,"y pair (S4_M × {PaO2, SpO2}). The *which-input-lacks-pairs* differs between the two groups (Vt in S1_F vs FiO2 in S4_M); per-input gaps are summarised at cell leve"
+monograph,1884,Two,cardinal,"ell level in the §4.5 limitations. *Methodological note (σ / μ\* CI formula).* Two formulas are available once a confidence interval is put on σ / μ\*, and they d"
+monograph,1885,first,ordinal,"ilable once a confidence interval is put on σ / μ\*, and they do not agree. The first divides σ_hi — the upper 97.5-percentile of the trajectory-level block bootstra"
+monograph,1888,second,ordinal,") — by the μ̂\* point estimate, treating the denominator as fixed. The second, which this manuscript now adopts, resamples trajectories and recomputes σ_b /"
+monograph,1890,first,ordinal,"es σ_b / μ\*_b *jointly* per draw, so the interval covers the ratio itself. The first formula ignores the positive covariance between σ and μ\*, which widens its int"
+monograph,1894,two,cardinal,"ncontrolled direction; it is retained here only as the historical variant. The two do not lead to the same conclusion, and an earlier version of this section stat"
+monograph,1896,one,cardinal,"a the dominant-input bucketing is 31 / 48 CI-robustly linear in every draw, and one dominant-input cell — (S3, M, PaO2, FiO2) — is CI-robustly non-linear in all fi"
+monograph,1897,five,cardinal,"ne dominant-input cell — (S3, M, PaO2, FiO2) — is CI-robustly non-linear in all five, with occasional further cells appearing in individual draws but none surviving"
+monograph,1898,five,cardinal,h occasional further cells appearing in individual draws but none surviving all five. The count is not zero under either reading. Applying the rule the preregistrat
+monograph,1899,zero,cardinal,lls appearing in individual draws but none surviving all five. The count is not zero under either reading. Applying the rule the preregistration actually states — t
+monograph,1900,three,cardinal,"either reading. Applying the rule the preregistration actually states — the top-three inputs, not the dominant one alone — 23 of the 144 top-three inputs hold a lowe"
+monograph,1900,one,cardinal,"le the preregistration actually states — the top-three inputs, not the dominant one alone — 23 of the 144 top-three inputs hold a lower bound at or above 0.6 acros"
+monograph,1901,three,cardinal,"y states — the top-three inputs, not the dominant one alone — 23 of the 144 top-three inputs hold a lower bound at or above 0.6 across five independent seeds. The ea"
+monograph,1901,five,cardinal,"lone — 23 of the 144 top-three inputs hold a lower bound at or above 0.6 across five independent seeds. The earlier claim that ""zero cells are CI-robustly non-linea"
+monograph,1902,zero,cardinal,"er bound at or above 0.6 across five independent seeds. The earlier claim that ""zero cells are CI-robustly non-linear under either formula"" was wrong on both counts"
+monograph,1907,three,cardinal,"ered compute envelope.** Applying the rule the preregistration states — the top-three inputs of every cell, not the dominant one alone — the point-estimate trigger f"
+monograph,1908,one,cardinal,"e preregistration states — the top-three inputs of every cell, not the dominant one alone — the point-estimate trigger fires on 72 of the 144 top-three inputs, spa"
+monograph,1909,three,cardinal,"the dominant one alone — the point-estimate trigger fires on 72 of the 144 top-three inputs, spanning 43 of the 48 cell × output combinations. The same preregistrat"
+monograph,1912,six,cardinal,"s, because each scenario–sex cell is a different model; it is shared across the six outputs of one cell, because they all come from the same Pulse run. The 43 trig"
+monograph,1913,one,cardinal,"scenario–sex cell is a different model; it is shared across the six outputs of one cell, because they all come from the same Pulse run. The 43 triggered combinati"
+monograph,1914,eight,cardinal,"l come from the same Pulse run. The 43 triggered combinations therefore fall in eight cells, carrying between three and six distinct promoted inputs each, for 6,144"
+monograph,1915,three,cardinal,". The 43 triggered combinations therefore fall in eight cells, carrying between three and six distinct promoted inputs each, for 6,144 runs under the preregistered 6"
+monograph,1915,six,cardinal,"riggered combinations therefore fall in eight cells, carrying between three and six distinct promoted inputs each, for 6,144 runs under the preregistered 64 × (2k"
+monograph,1916,first,ordinal,"or 6,144 runs under the preregistered 64 × (2k + 2) formula. Computing only the first-order and total indices the analysis plan asks for, at 64 × (k + 2), lowers thi"
+monograph,1918,seven,cardinal,"dices the analysis plan asks for, at 64 × (k + 2), lowers this to 3,584; a full seven-input design in every firing cell would cost 8,192 and 4,608 respectively. The"
+monograph,1920,one,cardinal,"8 respectively. The bolt-on exceeded its own preregistered envelope under every one of these readings, by a factor of 2.4 to 5.5, and is therefore reported rather"
+monograph,1925,two,cardinal,"ty to decompose. The post-hoc ratio-aware bootstrap is the stricter test of the two, and 23 of the 144 top-three inputs still hold a lower bound at or above 0.6 in"
+monograph,1926,three,cardinal,"oc ratio-aware bootstrap is the stricter test of the two, and 23 of the 144 top-three inputs still hold a lower bound at or above 0.6 in every draw, spanning 17 of t"
+monograph,1945,one,cardinal,"ementation of the preregistered bolt-on costed above, and should not be read as one. It was written under the earlier dominant-input reading of the trigger, and it"
+monograph,1947,seven,cardinal,"follows from that reading: 6 Group-B cells selected on the dominant input, all seven swept inputs, N = 256 with first-order indices only — 256 × (7 + 2) = 2,304 row"
+monograph,1948,first,ordinal,"up-B cells selected on the dominant input, all seven swept inputs, N = 256 with first-order indices only — 256 × (7 + 2) = 2,304 rows per cell, 13,824 runs in total."
+monograph,1950,one,cardinal,"04 rows per cell, 13,824 runs in total. The preregistered design is a different one, 43 triggered cell × output combinations spread over eight cells, at a base sam"
+monograph,1950,eight,cardinal,"design is a different one, 43 triggered cell × output combinations spread over eight cells, at a base sample of 64 on the promoted inputs, and the 6,144-run figure"
+monograph,1953,two,cardinal,"inputs, and the 6,144-run figure above is its cost, not the demonstrator's. The two are not comparable: the demonstrator costs more than twice as much and answers"
+monograph,1953,twice,multiplicative,he demonstrator's. The two are not comparable: the demonstrator costs more than twice as much and answers a different question. What the demonstrator does share wit
+monograph,1967,second,ordinal,". ### 3.4 H2 — silent clamping rate (NOT supported, 0 / 1,280) *The second hypothesis test: does Pulse silently clamp out-of-range inputs at setup? Answer"
+monograph,1971,One,cardinal,"lines and exit code 1 (confirmed by the [S005 deliberate clamp probes). One adjustment does occur downstream of ingestion, and Pulse announces it too: FiO2"
+monograph,1976,one,cardinal,"preregistered hypothesis was that ≥ 5 % of the Morris sample would hit at least one silent clamp. **Zero runs out of 1,280 fired the regex.** That is a n"
+monograph,1976,Zero,cardinal,"esis was that ≥ 5 % of the Morris sample would hit at least one silent clamp. **Zero runs out of 1,280 fired the regex.** That is a null result on the pre"
+monograph,1985,Two,cardinal,"hat Pulse serialises after ingestion, on all 10,160 contracts that reached it. Two implications: 1. The swept ranges (HR 50 – 110, SBP 90 – 120, DBP 60 – 80, R"
+monograph,1997,One,cardinal,ble; users can detect it from logs alone with no special instrumentation. **One explicit downstream adjustment (measured 2026-08-13).** Inside the swept envelo
+monograph,1998,one,cardinal,"m adjustment (measured 2026-08-13).** Inside the swept envelope Pulse does make one deterministic change to a submitted ventilator setting, and it announces that t"
+monograph,2000,one,cardinal,"uested inspired-oxygen fraction plus the non-nitrogen ambient fractions exceeds one, the ventilator model logs"
+monograph,2071,third,ordinal,umented ARDS zone (supported); its sex-stratification is regime-dependent *The third hypothesis test: does at least one solver-divergence zone exist outside the doc
+monograph,2071,one,cardinal,x-stratification is regime-dependent *The third hypothesis test: does at least one solver-divergence zone exist outside the documented 0.91 – 0.945 ARDS zone? Ans
+monograph,2074,second,ordinal,"6, 0.60 and 0.95, none of them inside that band, so H3 is supported outright. A second question, which H3 does not ask, is whether those divergences are sex-stratifie"
+monograph,2077,zero,cardinal,"In the [S006 input-extreme regime, all 20 / 20 divergences are male and zero female, with the asymmetry shown ([S018 ) to depend on Pulse's"
+monograph,2079,two,cardinal,"try shown ([S018 ) to depend on Pulse's gap on the two surrogates — male default 4,802.63 mL vs female default 3,996.09 mL, a ~17 % di"
+monograph,2083,one,cardinal,"(4,082.24 mL on this male body) which bounds how far the gap can be closed by a one-way transplant. In the § continuous-severity regime at midrange inputs, di"
+monograph,2086,two,cardinal,"e inside the [0.879, 0.946] band, though the sex asymmetry reverses between its two severity bands — so the original sex effect varies with *what is varying*, not"
+monograph,2104,one,cardinal,"ique to (S4, M), at 24 / 82 / 137 / 138. They form a mixed cluster: one HR at 110 bpm, three at 90 bpm; two Vt at 300 mL, one at 633.3 mL, one at 800"
+monograph,2104,three,cardinal,"24 / 82 / 137 / 138. They form a mixed cluster: one HR at 110 bpm, three at 90 bpm; two Vt at 300 mL, one at 633.3 mL, one at 800 mL. This is a *par"
+monograph,2105,two,cardinal,"/ 137 / 138. They form a mixed cluster: one HR at 110 bpm, three at 90 bpm; two Vt at 300 mL, one at 633.3 mL, one at 800 mL. This is a *partial second regim"
+monograph,2105,one,cardinal,"y form a mixed cluster: one HR at 110 bpm, three at 90 bpm; two Vt at 300 mL, one at 633.3 mL, one at 800 mL. This is a *partial second regime* — one the locke"
+monograph,2105,one,cardinal,"uster: one HR at 110 bpm, three at 90 bpm; two Vt at 300 mL, one at 633.3 mL, one at 800 mL. This is a *partial second regime* — one the locked Morris sample e"
+monograph,2106,second,ordinal,"90 bpm; two Vt at 300 mL, one at 633.3 mL, one at 800 mL. This is a *partial second regime* — one the locked Morris sample explores only at the most severe ARDS"
+monograph,2106,one,cardinal,"t 300 mL, one at 633.3 mL, one at 800 mL. This is a *partial second regime* — one the locked Morris sample explores only at the most severe ARDS impairment. T"
+monograph,2128,two,cardinal,"te-mL sex gap is almost entirely driven by the body-mass difference between the two reference surrogates (67.3 vs 56.2 kg, also a ~17 % difference). When normalize"
+monograph,2164,two,cardinal,"stabilisation directly, and shifts the operating-point neighborhood between the two bodies — but it does so as a body-mass difference, not as a sex difference. **"
+monograph,2167,one,cardinal,"a sex difference. **Causal lever identified ([S018 , 2026-05-13).** *In one sentence: forcing the male surrogate's BV down towards the female value elimina"
+monograph,2176,two,cardinal,"p, so every override is verifiable post hoc from . The protocol used two override points to map a dose-response curve: | Override BV (mL) | Reduction v"
+monograph,2186,three,cardinal,"male inputs when re-executed with an explicit override at three levels (default 4,802.63 mL → 4,400 mL → 4,082.24 mL, the Pulse-stated floor on"
+monograph,2189,one,cardinal,"mL, the Pulse-stated floor on this surrogate). **How to read it:** each row is one BV override level; columns count the four detector outcomes plus across"
+monograph,2190,four,cardinal,gate). **How to read it:** each row is one BV override level; columns count the four detector outcomes plus across the 20 reruns. **Key takeaway:** divergen
+monograph,2206,two,cardinal,"); none requires deeper reduction. (An earlier internal classification recorded two S4_M / FiO2 = 1.0 cases as still divergent at 4,400 mL, but that was a classifi"
+monograph,2207,two,cardinal,"as still divergent at 4,400 mL, but that was a classification-time race on the two slowest runs — both completed normally and re-classify as clean; see the S018 l"
+monograph,2222,two,cardinal,"ts: the female-computed BV (3,996.09 mL) sits 86 mL *below* the male floor. The two surrogates therefore cannot be made BV-equivalent by a one-way transplant — the"
+monograph,2223,one,cardinal,the male floor. The two surrogates therefore cannot be made BV-equivalent by a one-way transplant — the strongest BV-only reduction Pulse will accept on the male
+monograph,2227,eight,cardinal,"pt on the male surrogate is 4,082.24 mL (a 15.0 % reduction from default). The eight classifications at both BV brackets are concentrated in S1_M"
+monograph,2236,four,cardinal,nputs ( 24 / 82 / 137 / 138) run clean at both brackets. These are the four runs where input low-cardiac-output + high-respiratory-drive is clinically cohe
+monograph,2262,first,ordinal,"le cells, run on the *identical* input grid, never diverge in this regime — the first quantitative sex-stratified reliability finding for Pulse . The same 160"
+monograph,2274,first,ordinal,"overall male rate is 20 / 640 = 3.1 %; the female rate is 0 / 640. This is the first quantitative sex-stratified reliability finding for Pulse , and is consequ"
+monograph,2285,second,ordinal,"the documented 0.91 – 0.945 ARDS zone *and* the regime is sex-conditioned. The second half is a finding in addition to the hypothesis, not a qualification of it. ##"
+monograph,2285,half,multiplicative,"cumented 0.91 – 0.945 ARDS zone *and* the regime is sex-conditioned. The second half is a finding in addition to the hypothesis, not a qualification of it. ###"
+monograph,2290,four,cardinal,ous-severity divergence regime (Tier-2 follow-up) The [S006 sweep used four fixed ARDS severities. A complementary 200-run sweep at continuous severity (Ti
+monograph,2310,one,cardinal,"105, DBP 70, RR 14, Vt 550, FiO2 0.6, PEEP 10). **How to read it:** each row is one severity bin; F-diverged and M-diverged columns show divergences per sex (denom"
+monograph,2319,two,cardinal,"in aggregate at midrange inputs, though the sex asymmetry reverses between the two bands above (female-dominated in (0.85, 0.91], male-dominated in (0.91, 0.945])"
+monograph,2324,Two,cardinal,"cific* (Morris-extreme inputs), not a global sex effect on solver reliability. Two refinements of the literature picture: 1. **The instability band is wider than"
+monograph,2344,two,cardinal,a global sex effect on solver reliability. The atlas therefore distinguishes **two separate divergence regimes**: * **Input-driven regime** ([S006 ): male
+monograph,2348,zero,cardinal,"low SBP + high RR + FiO2 = 1.0. 20 divergence events on the male body, versus zero across the 640 runs on the female body. Mechanism candidate: ~17 % blood-volu"
+monograph,2365,fourth,ordinal,"ported by divergence; the distributional difference is gas-exchange only) *The fourth hypothesis test: do the male and female bodies differ in clamping, divergence,"
+monograph,2370,five,cardinal,"control (q = 0.05), 5 of 24 cell × output Wasserstein distances survive — *all five on gas-exchange channels* (PaCO2 × 3, SpO2 × 1, PaO2 × 1). Cardiovascular and V"
+monograph,2375,two,cardinal,"eserved across sexes (Spearman ρ 0.75 – 1.00 in S2 / S3).* H4 is reported with two complementary statistics, each answering a different question. *How different"
+monograph,2394,two,cardinal,"ll is built by repeatedly splitting the *combined* M+F clean runs randomly into two groups of the original sizes (n_null = 2,000 splits)."
+monograph,2442,Five,cardinal,and is therefore reported *unbolded* in the table. **Honest interpretation.** Five of 24 (cell × output) Wasserstein distances survive BH-FDR control at q = 0.05
+monograph,2444,five,cardinal,"BH-FDR control at q = 0.05 against a permutation-based sub-sampling null. **All five are gas-exchange channels:** PaCO2 ×3, SpO2 ×1, PaO2 ×1. Before any multiple-c"
+monograph,2447,six,cardinal,"SpO2 ×1, PaO2 ×1. Before any multiple-comparisons correction (naive α = 0.05), six rows are flagged as significant — all on gas-exchange channels: S1 PaCO2, S2 Sp"
+monograph,2451,one,cardinal,"SpO2, and S4 PaO2. Applying Benjamini–Hochberg FDR control at q = 0.05 demotes one of these: **S2 SpO2** (p_emp = 0.022) sits above the BH critical value of"
+monograph,2464,two,cardinal,"hange outputs, but they cannot be read as isolated effects of the sex flag. The two reference bodies differ jointly in sex, in morphology, and in relative ventilat"
+monograph,2483,one,cardinal,observed 4.7 – 5.1 mmHg M-vs-F PaCO2 Wasserstein in S1 and S2 is comparable to one alveolar-ventilation step under ARDSnet protective ventilation — the same magni
+monograph,2494,one,cardinal,"each output's native units (bpm, mmHg, mL, %). **How to read it:** each bar is one (scenario, output) cell; the observed M-vs-F distance is compared against a per"
+monograph,2499,five,cardinal,"null. **Key takeaway:** 5 of 24 cells survive BH-FDR control at q = 0.05 — *all five on gas-exchange channels* (PaCO2 × 3, SpO2 × 1, PaO2 × 1). Cardiovascular and V"
+monograph,2533,zero,cardinal,rule S1 and S4_F have no computable ρ. FiO2 has zero clean elementary-effect pairs in those cells: every Morris trajectory step that
+monograph,2535,one,cardinal,every Morris trajectory step that flips FiO2 between 0.21 and 1.0 has at least one endpoint flagged — predominantly by SpO2 ceiling pinning at high FiO2. This non
+monograph,2549,four,cardinal,"that the female surrogate produces physiologically plausible output across all four scenarios, independent of this sweep. The sex effects we observe above therefor"
+monograph,2550,two,cardinal,"p. The sex effects we observe above therefore reflect the engine's behaviour on two reference bodies that differ in sex, mass and height at once, not a miscalibrat"
+monograph,2561,one,cardinal,_F have no clean FiO2 elementary-effect pairs (every FiO2 OAT step has at least one endpoint flagged). **Key takeaway:** point estimates 0.75 – 1.00 in S2 / S3 — i
+monograph,2589,one,cardinal,"ap (Figure 6) *The user-facing summary of the entire atlas: per cell × output, one of {green, yellow, red}, anchored to preregistered baseline-percentage threshol"
+monograph,2614,one,cardinal,"assifications (the visual version is Figure 6). **How to read it:** each row is one (scenario, sex) cell; each column is one of the 6 atlas outputs; the cell value"
+monograph,2615,one,cardinal,"re 6). **How to read it:** each row is one (scenario, sex) cell; each column is one of the 6 atlas outputs; the cell value is the preregistered classification (gre"
+monograph,2618,seven,cardinal,"yellow / red — definitions in the Figure 6 W/H/T block). **Key takeaway:** all seven green classifications fall in the (S2_F, S3_F) cluster, the only two cells carr"
+monograph,2619,two,cardinal,"y:** all seven green classifications fall in the (S2_F, S3_F) cluster, the only two cells carrying no diverged and no implausible run; (S4, M) is the only cell red"
+monograph,2622,six,cardinal,"sexes from S3 onwards. Red marks a cell for review, not a defect in the engine: six of the twelve are red on the deviation criterion alone, in scenarios where a de"
+monograph,2622,twelve,cardinal,"S3 onwards. Red marks a cell for review, not a defect in the engine: six of the twelve are red on the deviation criterion alone, in scenarios where a departure from t"
+monograph,2632,two,cardinal,"ed 30 % or when ""any flag"" was raised. The implementation instead uses only the two hard flags ( and ): any positive combined rate yields ye"
+monograph,2635,eight,cardinal,"%; the 10 % and 30 % deviation thresholds are unchanged. Reconstructed from the eight run-level artefacts, the implemented rule gives 7 green, 29 yellow, 12 red, whe"
+monograph,2637,seven,cardinal,"eas the literal hard-flag reading gives **7 green, 3 yellow, 38 red**. The same seven green and twelve red combinations are retained, with 26 combinations moving fro"
+monograph,2637,twelve,cardinal,"hard-flag reading gives **7 green, 3 yellow, 38 red**. The same seven green and twelve red combinations are retained, with 26 combinations moving from yellow to red."
+monograph,2639,four,cardinal,"ined, with 26 combinations moving from yellow to red. Reading ""any flag"" as all four flags gives 0 green, 0 yellow, 48 red and is reported only to document the ambi"
+monograph,2649,three,cardinal,"rebuilds all three readings). * Green cells cluster in **(S2, F) + (S3, F)** — moderate ARDS in t"
+monograph,2675,one,cardinal,"cell in the atlas. ![Figure 6. Reliability traffic light — per cell × output, one of {green, yellow, red}. Green = no diverged or implausible flags in the cell A"
+monograph,2681,two,cardinal,"n and review-priority instrument, not a reliability verdict, and neither of the two screens available to a downstream user is distribution-neutral.* **Two levels,"
+monograph,2683,Two,cardinal,"of the two screens available to a downstream user is distribution-neutral.* **Two levels, not one.** The four-flag classifier assigns labels to **runs**; the tra"
+monograph,2683,one,cardinal,"ens available to a downstream user is distribution-neutral.* **Two levels, not one.** The four-flag classifier assigns labels to **runs**; the traffic light is wh"
+monograph,2683,four,cardinal,"le to a downstream user is distribution-neutral.* **Two levels, not one.** The four-flag classifier assigns labels to **runs**; the traffic light is what you get b"
+monograph,2686,two,cardinal,combining the result with a deviation term. They are not interchangeable. Only two of the four flags enter the cell-level rule — and ;
+monograph,2686,four,cardinal,the result with a deviation term. They are not interchangeable. Only two of the four flags enter the cell-level rule — and ; and
+monograph,2688,four,cardinal,"; and never do — so the map is not a ""four-flag map"", and the run-level classifier is not a per-cell contract. **Why the"
+monograph,2692,two,cardinal,"tract. **Why the colour alone is not a diagnosis.** Each colour is produced by two independent criteria, on class-relative and deliberately asymmetric thresholds:"
+monograph,2698,half,multiplicative,"ng the 12 red cells the split is **6 deviation-only, 4 flag-only, 2 both** — so half the red cells are red because the clean-run mean sits far from a *healthy male*"
+monograph,2704,two,cardinal,"a request for justification, not a verdict that the physiology is wrong. **The two screens, and what each removes.** Under the strict four-flag definition, 663 /"
+monograph,2704,four,cardinal,"siology is wrong. **The two screens, and what each removes.** Under the strict four-flag definition, 663 / 1,280 simulations (51.8 %) are clean, with per-cell rete"
+monograph,2712,nine,cardinal,ges because with *n* = 160 every per-cell percentage is a multiple of 0.625 and nine of the sixteen values fall on an exact rounding tie at one or two decimals. |
+monograph,2712,sixteen,cardinal,with *n* = 160 every per-cell percentage is a multiple of 0.625 and nine of the sixteen values fall on an exact rounding tie at one or two decimals. | cell | four-fla
+monograph,2712,one,cardinal,ltiple of 0.625 and nine of the sixteen values fall on an exact rounding tie at one or two decimals. | cell | four-flag clean | hard-failure-free | |---|---:|---:
+monograph,2712,two,cardinal,of 0.625 and nine of the sixteen values fall on an exact rounding tie at one or two decimals. | cell | four-flag clean | hard-failure-free | |---|---:|---:| | S1_
+monograph,2714,four,cardinal,sixteen values fall on an exact rounding tie at one or two decimals. | cell | four-flag clean | hard-failure-free | |---|---:|---:| | S1_M | 49/160 | 145/160 | |
+monograph,2725,two,cardinal,/160 | 160/160 | | S4_M | 67/160 | 106/160 | | S4_F | 60/160 | 114/160 | **The two screens deplete opposite ends of the severity axis.** The four-flag screen is h
+monograph,2726,four,cardinal,"114/160 | **The two screens deplete opposite ends of the severity axis.** The four-flag screen is harshest on the *healthy* cells (S1_F, S1_M); the hard-failure-f"
+monograph,2744,first,ordinal,"ccurring mechanisms.** The detector stores, for each failing channel, only the *first* trigger its ordered checks reach (flatline, then CV, then drift). Re-applying"
+monograph,2751,first,ordinal,"but only **3** appear in the recorded reason, because a CV trigger was reached first in 130 of them. Exhaustive counts are non-mutually-exclusive channel-level occu"
+monograph,2763,Two,cardinal,"de, and nothing in this atlas is an external physiological validation. ### 3.8 Two structural findings carried from pilot to full sweep *Two findings that surfac"
+monograph,2765,Two,cardinal,"validation. ### 3.8 Two structural findings carried from pilot to full sweep *Two findings that surfaced in the 22-run pilot and held through the 1,280-run sweep"
+monograph,2790,two,cardinal,"7.8 mmHg / 0.01 slope on a focused single-input probe at FiO2 0.95 – 1.0; the two figures reflect different regimes — multi-input averaged across [0.21, 0.47"
+monograph,2801,Two,cardinal,issolved-oxygen kinetics take over above FiO2 ≈ 0.6) — not an overshoot. **Two competing interpretations.** The original 120 s pattern admits either (i) Pul
+monograph,2810,zero,cardinal,"riment reran 60 matched-input cases at FiO2 = 1.0, each re-executed from time zero with the recorded simulation duration raised from the locked 120 s to 300 s"
+monograph,2847,four,cardinal,"order-of-magnitude decrease across severity. The S3 and S4 summaries use the four paired Morris input vectors replayed on both reference bodies, whereas the S1"
+monograph,2860,six,cardinal,"ng near 1,400 mmHg, above the sea-level barometric pressure of 760 mmHg). All six sit at the single tidal-volume level **Vt = 633.3 mL** at FiO2 = 1.0 — 6 of t"
+monograph,2862,three,cardinal,"FiO2 = 1.0 — 6 of the 20 S1 reruns at that level, none of the 24 at the other three, and 0 of 8 at the highest level Vt = 800 mL. **Minute ventilation does no"
+monograph,2865,Five,cardinal,"he highest level Vt = 800 mL. **Minute ventilation does not separate them.** Five of the six carry RR = 20 (V̇E ≈ 12.7 L/min, ~ 2× the physiological norm of 6"
+monograph,2865,six,cardinal,"evel Vt = 800 mL. **Minute ventilation does not separate them.** Five of the six carry RR = 20 (V̇E ≈ 12.7 L/min, ~ 2× the physiological norm of 6 – 8 L/min),"
+monograph,2867,three,cardinal,"RR = 20 (V̇E ≈ 12.7 L/min, ~ 2× the physiological norm of 6 – 8 L/min), but three further runs at that same V̇E do not run away; the sixth carries RR = 16 at P"
+monograph,2867,sixth,ordinal,"of 6 – 8 L/min), but three further runs at that same V̇E do not run away; the sixth carries RR = 16 at PEEP = 0 (V̇E ≈ 10.1 L/min). No input-side ventilation t"
+monograph,2874,five,cardinal,"them is the reference body.** The 10 runs at Vt = 633.3 mL with RR ≥ 16 form five male/female pairs, verified input-identical on all seven Morris inputs. The f"
+monograph,2875,seven,cardinal,"mL with RR ≥ 16 form five male/female pairs, verified input-identical on all seven Morris inputs. The female body ran away in **5 of 5**, the male in **1 of 5**"
+monograph,2877,five,cardinal,"e single male case plateaus at 770 mmHg against 1,126 – 1,408 mmHg across the five female cases. This is the opposite direction to the all-male input-extreme"
+monograph,2879,third,ordinal,"ite direction to the all-male input-extreme divergence cluster of §3.5, and a third instance of the regime-dependence that section establishes. It is consistent"
+monograph,2883,four,cardinal,dentical inputs (mean 686 vs 663 mmHg in the locked 120 s window across the four RR = 20 pairs) and with the sex effect on S1 PaO2 measured by the controlled
+monograph,2885,two,cardinal,"), which held body mass and height fixed across sexes. That design has two arms and they carry different weight: **+13.7 mmHg** in the 56.2 kg compariso"
+monograph,2891,one,cardinal,"ne's own model-validity warning. The smaller, fully in-envelope figure is the one to weigh. **No mechanism is claimed**, and three limits bound the design even"
+monograph,2892,three,cardinal,"ully in-envelope figure is the one to weigh. **No mechanism is claimed**, and three limits bound the design even on its clean arm: the two bodies are not percent"
+monograph,2893,two,cardinal,"sm is claimed**, and three limits bound the design even on its clean arm: the two bodies are not percentile-matched (163 cm is simultaneously Pulse's female 50"
+monograph,2924,two,cardinal,"the wider bound** (31 at FiO2 ≥ 0.95, 21 in S1_F + 11 in S1_M); the remaining two stay implausible under either classifier and correspond to the solver-insta"
+monograph,2955,one,cardinal,there per the detector priority order (§2.6). The 303-run population is the one analysed by the § cross-output drift audit; the 264-run subset is the F-
+monograph,2961,two,cardinal,"e set respiratory rate delivers Vt close to the requested target, followed by two to three smaller ""assist"" breaths fired between mandatory cycles. Mean instan"
+monograph,2961,three,cardinal,"espiratory rate delivers Vt close to the requested target, followed by two to three smaller ""assist"" breaths fired between mandatory cycles. Mean instantaneous r"
+monograph,2964,twice,multiplicative,ring these episodes alternates between the set rate (e.g. 20 bpm) and roughly twice the set rate (~46 bpm). Lung compliance is constant within numerical precisio
+monograph,3059,two,cardinal,cal detail in [ and the two per-arm files in . --- ## 4. Discussion *This section places the a
+monograph,3084,Four,cardinal,"n in the atlas falls in moderate ARDS on the female surrogate (S2_F, S3_F).** Four of the six outputs are green in S2_F and three of six in S3_F; these are the"
+monograph,3084,six,cardinal,"as falls in moderate ARDS on the female surrogate (S2_F, S3_F).** Four of the six outputs are green in S2_F and three of six in S3_F; these are the only two ce"
+monograph,3085,three,cardinal,"emale surrogate (S2_F, S3_F).** Four of the six outputs are green in S2_F and three of six in S3_F; these are the only two cells with no diverged and no implausi"
+monograph,3085,six,cardinal,"rogate (S2_F, S3_F).** Four of the six outputs are green in S2_F and three of six in S3_F; these are the only two cells with no diverged and no implausible run"
+monograph,3085,two,cardinal,"he six outputs are green in S2_F and three of six in S3_F; these are the only two cells with no diverged and no implausible run, and delivered Vt is green in b"
+monograph,3092,doubled,multiplicative,rrogate (S4_M) is the only cell red on every output.** Its divergence rate is doubled relative to the other male cells (8 / 160 vs 4 / 160) and 46 / 160 runs are i
+monograph,3094,one,cardinal,"runs are implausible, so its 54 / 160 combined hard-failure rate is the only one in the atlas above the 30 % that makes a cell red on flags alone. Users shoul"
+monograph,3128,Two,cardinal,"flags the resulting Vt variability as a non-steady-state outcome, by design. Two practical consequences follow. First, atlas users who require pure mandatory"
+monograph,3128,First,ordinal,"as a non-steady-state outcome, by design. Two practical consequences follow. First, atlas users who require pure mandatory ventilation (e.g. for medical-device"
+monograph,3137,Second,ordinal,"a-generation lever for deterministic sweeps (with the clinical caveat in §4.2). Second, the prevalence of oscillation events (20.6 % across the full 7-input sweep)"
+monograph,3180,four,cardinal,"immediate curation map — the colour sets cell-level review priority, run-level four-flag screening remains necessary in every cell, and red cells require per-chann"
+monograph,3184,doubles,multiplicative,The atlas's curation map is not only an instrument for direct Pulse users; it doubles as a **per-cell curation layer for synthetic training cohorts** generated by Pu
+monograph,3217,four,cardinal,etic male / female cohorts are pooled without flag-stratified filtering. The four-flag detector (§2.6) and the per-cell traffic-light map (§3.7) together support
+monograph,3220,four,cardinal,port a defensible ML-pipeline contract: 1. **Every cell:** apply the run-level four-flag screen irrespective of colour — the colour does not count runs flagged
+monograph,3233,four,cardinal,hetic-data source whose known failure modes are documented and addressable. The four-flag detector is general — it can be applied to any Pulse output CSV without re
+monograph,3241,six,cardinal,. 2026 (causal falsification) — Table 2 *A side-by-side mapping of the atlas's six-output reliability panel against Cornish et al.'s causal-falsification rejectio
+monograph,3243,two,cardinal,Cornish et al.'s causal-falsification rejection counts on MIMIC-III sepsis. The two studies target different scopes (intervention-outcome falsification vs operatio
+monograph,3245,four,cardinal,"rational-input sensitivity) and are complementary; the cross-mapping identifies four channels of direct overlap (HR, MAP, PaO2, PaCO2) where the two papers' ordinal"
+monograph,3246,two,cardinal,"ing identifies four channels of direct overlap (HR, MAP, PaO2, PaCO2) where the two papers' ordinal rankings agree even though absolute rates differ.* [@cornish20"
+monograph,3290,six,cardinal,s) and Table 5 (reverse-percentile bootstrap) re-tabulated against this atlas's six-output panel. Bold rows mark the four channels that overlap directly with HR /
+monograph,3290,four,cardinal,otstrap) re-tabulated against this atlas's six-output panel. Bold rows mark the four channels that overlap directly with HR / MAP / PaO2 / PaCO2. *Table 2 — at a g
+monograph,3296,six,cardinal,"n framework on MIMIC-III sepsis trajectories, re-tabulated against this atlas's six-output panel. **How to read it:** each row is one Cornish quantity; the first n"
+monograph,3297,one,cardinal,abulated against this atlas's six-output panel. **How to read it:** each row is one Cornish quantity; the first numeric column gives Hoeffding-inequality rejection
+monograph,3297,first,ordinal,"s's six-output panel. **How to read it:** each row is one Cornish quantity; the first numeric column gives Hoeffding-inequality rejections (their main-text Table 1),"
+monograph,3299,second,ordinal,"ric column gives Hoeffding-inequality rejections (their main-text Table 1), the second column the reverse-percentile bootstrap rejections (their Appendix Table 5); th"
+monograph,3302,four,cardinal,mn maps each channel to an atlas output (Yes / Partial / No). Bold rows are the four-channel direct overlap. **Key takeaway:** 82 of 85 Hoeffding rejections fall *o
+monograph,3304,four,cardinal,lap. **Key takeaway:** 82 of 85 Hoeffding rejections fall *outside* the atlas's four-channel overlap: 80 on the eight channels the atlas does not assess (electrolyt
+monograph,3304,eight,cardinal,"Hoeffding rejections fall *outside* the atlas's four-channel overlap: 80 on the eight channels the atlas does not assess (electrolyte, metabolic, acid-base, dermal)"
+monograph,3307,four,cardinal,"partial-overlap pressure channels. Only 3 (all PaCO2) fall on the overlap. The four-channel overlap (HR, MAP, PaO2, PaCO2) is in ordinal agreement — PaCO2 is the m"
+monograph,3312,six,cardinal,"olute rejection rates differ. **Cross-mapping the methodologies.** The atlas's six outputs (HR, MAP, Vt delivered, SpO2, PaO2, PaCO2) intersect Cornish's 15-quant"
+monograph,3314,four,cardinal,"MAP, Vt delivered, SpO2, PaO2, PaCO2) intersect Cornish's 15-quantity panel on four channels (HR, MeanBP ≈ atlas MAP, PaO2, PaCO2); Vt and SpO2 are atlas-only cont"
+monograph,3321,four,cardinal,"SysBP, DiaBP). Of Cornish's 85 total Hoeffding rejections, **only 3 fall on the four-channel atlas overlap (all on PaCO2); the remaining 82 fall outside the four-ch"
+monograph,3322,four,cardinal,he four-channel atlas overlap (all on PaCO2); the remaining 82 fall outside the four-channel direct overlap (80 on channels the atlas does not assess at all + 2 on
+monograph,3324,two,cardinal,"ut channels SysBP/DiaBP/RR)**. This non-overlap is the central observation: the two papers' failure surfaces are *complementary*, not redundant. **The overlap.**"
+monograph,3327,four,cardinal,"ilure surfaces are *complementary*, not redundant. **The overlap.** Within the four-channel overlap, Cornish's Hoeffding results report 3 / 70 rejections (4.3 %) f"
+monograph,3328,zero,cardinal,"lap, Cornish's Hoeffding results report 3 / 70 rejections (4.3 %) for PaCO2 and zero rejections for HR, MAP (MeanBP), and PaO2. No ordinal comparison with the atlas"
+monograph,3333,two,cardinal,"ories, not by (scenario, sex) over the operational acceptance envelope, and the two indexings are not surjective on each other. The supported conclusion is the non"
+monograph,3334,two,cardinal,urjective on each other. The supported conclusion is the non-overlap above: the two failure surfaces are complementary rather than redundant. **The complementarit
+monograph,3343,two,cardinal,"2 or delivered Vt, both of which are central to ventilator-cohort research. The two papers therefore divide the Pulse-reliability question along an output axis: Co"
+monograph,3354,two,cardinal,**Why this matters for downstream Pulse users.** A practitioner combining the two assessments now has a four-quadrant reliability picture: 1. *Cardio–respirator
+monograph,3354,four,cardinal,ownstream Pulse users.** A practitioner combining the two assessments now has a four-quadrant reliability picture: 1. *Cardio–respiratory outputs under operational
+monograph,3360,four,cardinal,"respiratory outputs under clinical-intervention sequences* — Cornish: of the four channels shared with the atlas, PaCO2 is the only one flagged under Hoeffdin"
+monograph,3361,one,cardinal,"es* — Cornish: of the four channels shared with the atlas, PaCO2 is the only one flagged under Hoeffding (3 / 70) and the most flagged under the bootstrap (1"
+monograph,3369,seven,cardinal,"k of Pulse's rejections concentrate (80 of 85 Hoeffding rejections on the seven non-cardiorespiratory channels Chloride, Sodium, Potassium, Skin Temperature"
+monograph,3400,one,cardinal,"exceedances are uncommon for HR, MAP and PaCO2, while delivered Vt is itself one of the two window-sensitive channels. * MAP derived, not sampled; if Pulse's re"
+monograph,3400,two,cardinal,"s are uncommon for HR, MAP and PaCO2, while delivered Vt is itself one of the two window-sensitive channels. * MAP derived, not sampled; if Pulse's response to M"
+monograph,3407,zero,cardinal,cell); trajectory-level structure is preserved but not modelled. * **FiO2 has zero clean Morris EE pairs in S1 (both sexes) and S4_F.** Every Morris OAT step th
+monograph,3409,one,cardinal,.** Every Morris OAT step that flips FiO2 between 0.21 and 1.0 had at least one endpoint flagged ( due to SpO2 ceiling pinning at FiO2 ≈ 1.
+monograph,3412,one,cardinal,las reports this honestly as 18 of 48 cell-output Morris combinations missing one input rather than imputing or relaxing thresholds. The Spearman M-vs-F sex co
+monograph,3420,three,cardinal,"the canonical sweep required approximately 14 h of active elapsed time, using three parallel Docker workers initially and two after a mid-sweep reduction to co"
+monograph,3421,two,cardinal,"4 h of active elapsed time, using three parallel Docker workers initially and two after a mid-sweep reduction to control thermal load (resume-safe); the timing"
+monograph,3433,second,ordinal,"cal *""incompatible-with-60-s-steady-state-in-window""* threshold. Within the second category, the exact numerical choice (e.g., PaO2 lower 20 vs 25 mmHg, MAP low"
+monograph,3459,three,cardinal,udit ([S022 ) shows that the locked count bundles three distinct contributions: (i) **76 runs** flagged because of physiological SpO2
+monograph,3481,six,cardinal,"/ 18 possible input memberships with the Morris μ\* top-3 **sets** across the six pooled output-level comparisons (five outputs 3/3, PaO2 2/3), and matches 23"
+monograph,3482,five,cardinal,"the Morris μ\* top-3 **sets** across the six pooled output-level comparisons (five outputs 3/3, PaO2 2/3), and matches 23 / 48 per-cell cases at full 3 / 3 set"
+monograph,3505,two,cardinal,simulation community. ### 4.6 Implications for downstream Pulse research *The two downstream research lines this atlas opens hooks for: the pediatric translation
+monograph,3512,two,cardinal,"they can target.* This atlas is positioned as foundational infrastructure for two downstream lines of work, both currently in preparation: * **Pediatric transla"
+monograph,3529,first,ordinal,"ns driving high-μ\* inputs (heart-rate baseline, FiO2 / PEEP, Vt) are patched first; equations driving low-μ\* inputs are deferred. Neither downstream paper is re"
+monograph,3549,six,cardinal,"4 , [S014 , [S017 , [S018 , [S021 ) surfaced six places where small additions to Pulse's existing tooling, documentation, or val"
+monograph,3562,one,cardinal,"es that downstream tools must regex-parse. A small structured-event API — one typed record per rejected field, with the offending value, the enforced boun"
+monograph,3576,one,cardinal,cally while investigating the all-male divergence cluster ([S018 ); a one-line note in the patient-baseline reference table would have saved the inves
+monograph,3599,three,cardinal,"able and H3) and in the §1.2 limitations list (entry 4), and corroborated by three independent sources, but Pulse does not currently emit a setup-time warni"
+monograph,3624,one,cardinal,require some domain knowledge to map back to the offending input field. A one-token prefix indicating which input was rejected (
+monograph,3644,two,cardinal,"Conclusion *A short closing summary of the atlas's headline contribution, the two operator-actionable findings, the sex-as-reliability-axis result (in its regime"
+monograph,3648,first,ordinal,"r plays in the maintainer's PhD pipeline.* This reliability atlas provides the first open, preregistered sensitivity and divergence map for the Pulse Physiology Eng"
+monograph,3650,seven,cardinal,e Physiology Engine ( ) across the adult operational envelope. By sweeping seven user-facing inputs across four ARDS severities and two adult reference surrogat
+monograph,3651,four,cardinal,"oss the adult operational envelope. By sweeping seven user-facing inputs across four ARDS severities and two adult reference surrogates ([S006 , 1,280 simula"
+monograph,3651,two,cardinal,"envelope. By sweeping seven user-facing inputs across four ARDS severities and two adult reference surrogates ([S006 , 1,280 simulations), we identified bo"
+monograph,3660,two,cardinal,"or synthetic cohort generation. Beyond mapping the envelope, this work yielded two operator-actionable corrections — resolving VC-AC tidal-volume oscillation (F-0"
+monograph,3681,two,cardinal,"orously validated baseline and foundational infrastructure for the maintainer's two downstream papers: a pediatric translation layer (Paper 1, in preparation) and"
+monograph,3694,one,cardinal,"ong in the Zenodo deposit, not in git history; see ) — which is why one ledger anchor ( ) auto-skips on a public clone, giving 393 / 394 there a"
+monograph,3700,third,ordinal,; the deposited data and this monograph's own content under CC-BY-4.0. Verbatim third-party excerpts — notably from the Pulse documentation and source (Apache-2.0) —
+monograph,3730,one,cardinal,"PASS on the authors' full data tree (393 / 394 on a public clone, where the one anchor needing the gitignored raw S021 trajectories is auto-skipped) ([S024"
+monograph,3742,one,cardinal,). * **Lab-notebook provenance:** every commit on the main branch ties to one of the experiment-log entries S001 – S024 + the OSS release-hygiene entries S
+monograph,3779,four,cardinal,"ugh clinical discussions with M.S. and P.J. — designed the Morris sweep and the four-flag steady-state classifier, performed all computational runs and statistical"
+monograph,3797,two,cardinal,"out with the assistance of AI tools, used within a cross-checking loop between two large language models under direct supervision by S.N.: Claude /4.8, an"
+monograph,3801,second,ordinal,"rough the Claude Code agent at the thinking-effort default, and, as the second model, Gemini Pro 3.1 (Google; extended-thinking mode) through a separate web s"
+monograph,3814,second,ordinal,"e Code** with / / , and as second model **Gemini Pro 3.1** to 2 August 2026, then **OpenAI ChatGPT** ( S"
+monograph,3824,second,ordinal,"the same dual-model cross-checking loop (Claude Code, with Gemini Pro 3.1 as second model to 2 August 2026 and OpenAI ChatGPT ( Sol, High reasoning level)"
+monograph,3849,one,cardinal,9. References Primary sources only — every cited fact in this paper traces to one of the following or to an experiment-log entry in this repository. 1. **Pulse
+monograph,3899,nine,cardinal,24749. Describes Pulse's ASL 5000 + Dräger Evita validation framework across nine cases (healthy / restrictive / obstructive × PC-AC / VC-AC / CPAP); repor
+monograph,3938,three,cardinal,"p with 8 sanity checks. * **[S007 ** — Targeted reproducibility check at three independent layers, all bit-exact. * **[S008 ** — Tier-1 statistical r"
+monograph,3962,four,cardinal,"ber corrected 2026-05-12 in pre-submission audit; the previous draft listed a four-author reduction including a non-existent ""Carpenter J"" — full nine-author"
+monograph,3963,nine,cardinal,"listed a four-author reduction including a non-existent ""Carpenter J"" — full nine-author list confirmed against the Springer record and the Pulse publication"
+monograph,3968,two,cardinal,*Computational simulation to assess patient safety of uncompensated COVID-19 two-patient ventilator sharing using the Pulse Physiology Engine.* PLoS One 15(11
+monograph,3969,One,cardinal,ID-19 two-patient ventilator sharing using the Pulse Physiology Engine.* PLoS One 15(11):e0242532 (2020). DOI: [
+monograph,3984,seven,cardinal,paper is the 2022 ANNSIM mechanical-ventilator implementation paper with the seven-author list above. The qualitative ASL 5000 validation framework is described
+monograph,4011,two,cardinal,"ft alveoli) and of the no-inertance limitation, both verified verbatim; those two claims had been mis-attributed to Bray 2019, which contains neither. * []{#re"
+monograph,4054,first,ordinal,of Digital Twins.* Journal of Machine Learning Research 27(152):1–52 (2026); first posted as arXiv:2301.07210 and read in its v4 (November 2023); the published
+monograph,4105,Second,ordinal,", Iyer NP, Bembea MM, Agulnik A, Barbaro RP, et al. *Executive Summary of the Second International Guidelines for the Diagnosis and Management of Pediatric Acute"
+monograph,4185,Third,ordinal,"M, Deutschman CS, Seymour CW, Shankar-Hari M, Annane D, Bauer M, et al. *The Third International Consensus Definitions for Sepsis and Septic Shock (Sepsis-3).*"
+monograph,4220,one,cardinal,"y-state table; that citation has not been pinned to a chapter and is the last one outstanding for this reference. The former ""acid-base ranges"" annotation was"
+monograph,4222,one,cardinal,"on was withdrawn on 2026-07-28: no locus in this monograph cites the work for one, and the CO2-narcosis justification it once supported was withdrawn on 2026"
+monograph,4277,double,multiplicative,"gistered bolt-on) | | []{#s020} S020 | Pre-submission novelty audit (literature double-check on every ""first"" claim; one citation added) | | []{#s021} S021 | Hyperoxi"
+monograph,4277,first,ordinal,"]{#s020} S020 | Pre-submission novelty audit (literature double-check on every ""first"" claim; one citation added) | | []{#s021} S021 | Hyperoxia convergence (60-run"
+monograph,4277,one,cardinal,"| Pre-submission novelty audit (literature double-check on every ""first"" claim; one citation added) | | []{#s021} S021 | Hyperoxia convergence (60-run rerun at 300"
+monograph,4280,three,cardinal,dix C) | | []{#s023} S023 | Supplementary ML/SHAP cross-check of Morris μ\* top-three input sets on the clean subset (see Supplementary §S13) | | []{#s024} S024 | Pr
+monograph,4281,one,cardinal,"394 / 394 PASS on the authors' full data tree, 393 / 394 on a public clone with one auto-skipped anchor, see §2.8) | | []{#s025} S025 | Pre-release OSS code-hygien"
+monograph,4336,seven,cardinal,difference reflects the averaging across a wider FiO2 envelope and across the seven perturbed inputs rather than a per-step single-input perturbation near the
+monograph,4370,Two,cardinal,uses 0.8 (between the documented moderate and severe transition points). Two independent prior sources (the Respiratory Methodology page and Webb 2020) ther
+monograph,4393,three,cardinal,"g interval: 10 s. * Total per-run duration: 5 min. The sweep was structured in three passes: a coarse 0.1–0.9 sweep (step 0.1, 9 runs), a fine 0.20–0.30 sweep aroun"
+monograph,4427,seven,cardinal,"ave not tested that. The Atlas's reliability sweep is preregistered to vary all seven operational inputs around that reference setting, so the calibration applies pr"
+monograph,4432,Three,cardinal,ing at other ventilation regimes is out of scope. **Solver instability zone.** Three convergent sweeps within the companion project (same en
+monograph,4452,three,cardinal,"lure range, giving the calibrated severe fraction (0.95) a 0.005 margin. All three sweeps are within the same companion project rather than independent third-part"
+monograph,4453,third,ordinal,"All three sweeps are within the same companion project rather than independent third-party replications, so the convergence is evidence of reproducibility under the"
+monograph,4466,zero,cardinal,"git-ignored and hidden files*, at tag (commit ) — returns zero occurrences of . Because such a model could hide behind other vocab"
+monograph,4469,one,cardinal,", the search was widened to the terms it would necessarily surface under; every one returns zero: , , , ,"
+monograph,4469,zero,cardinal,"was widened to the terms it would necessarily surface under; every one returns zero: , , , ,"
+monograph,4480,seven,cardinal,"touches no respiratory or CDM source file (total delta seven build-system files, +46/−17). What Pulse reproduces instead are the *macroscop"
+monograph,4502,one,cardinal,"ease, including its response to surfactant instillation — is not representable, one substantive reason the native pediatric-engine work treats surfactant as a modu"
+monograph,4508,three,cardinal,iscrepancies A source-level audit of the Pulse C++ repository identified three discrepancies between the official methodology documentation and the compiled e
+monograph,4525,two,cardinal,(where slope = 12). ### B.5 Reference-surrogate body-dimension provenance The two adult surrogates used throughout the atlas (M: 18 yr / 67.3 kg / 180 cm; F: 18
+monograph,4535,half,multiplicative,"re-read 2026-08-20 with columns resolved by name). CDC lists age at the half-month point standing for the whole month, so this row denotes 216.0–216.99 mo"
+monograph,4580,one,cardinal,"ssifier's flag (§2.6) fires when any output channel violates one of three sub-mode rules in the [60, 120] s steady-state window: flatline at a h"
+monograph,4580,three,cardinal,"'s flag (§2.6) fires when any output channel violates one of three sub-mode rules in the [60, 120] s steady-state window: flatline at a hard bound"
+monograph,4589,two,cardinal,"hat gives readers a finer-grained read on what the flag is doing per cell. The two sub-modes audited are: * **SpO2 ""flatline at ceiling"" with mean ≥ 0.999.** A *"
+monograph,4599,two,cardinal,"ifier was designed to catch solver-pinning, not physiological saturation; the two coincide numerically. * **Vt CV > 5 %.** The F-004 tidal-volume oscillation, co"
+monograph,4653,Zero,cardinal,"e runs; 30 in S1_F, 16 in S1_M, 16 in S2_F, 9 in S2_M, plus 5 trickle in S3). Zero in S4 (in severe ARDS, SpO2 no longer saturates and this trigger never fires)"
