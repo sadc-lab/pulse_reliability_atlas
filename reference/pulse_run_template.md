@@ -1,5 +1,7 @@
 # Pulse Run Template — verified syntax
 
+> **Note, 2026-09-27.** Parts of this April note are out of date; the code is the authority. (1) The atlas runs the `pulse-atlas-engine` image (`src/runner.py`, `DEFAULT_IMAGE`), not `pulse-pediatric-engine`, and the Docker call lives in `src/runner.py` (there is no `src/run_morris.py`). (2) The detection criteria under *Clamp / divergence detection* predate the detector's calibration of 2026-04-25: none of the four strings listed there occurs in the Pulse 4.3.1 engine source, and a value outside the physiological bounds makes a run `implausible`, not `diverged`. See `src/detector.py`.
+
 This is the exact Docker invocation verified to work on the maintainer's machine (2026-04-19). Copy into `src/run_morris.py` and similar scripts.
 
 ## Single run
