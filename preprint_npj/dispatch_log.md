@@ -697,7 +697,7 @@ had been overwritten, and its hashes were unrecoverable.
 |---|---|
 | Sent | *(pending author confirmation)* |
 | Recipients | the four supervising co-authors (A.W., C.S., P.J., M.S.) |
-| Source commit | `ea398b0`, re-freeze 38 (see the freeze table below; this row had stayed at re-freeze 12's `ff09c92` through re-freezes 13 to 22) |
+| Source commit | `1155ea5`, re-freeze 39 (see the freeze table below; this row had stayed at re-freeze 12's `ff09c92` through re-freezes 13 to 22) |
 | Format | `.pdf` and `.docx` |
 | Artefacts to send | paper and supplement only |
 | Pages | 26 (paper; 25 until re-freeze 18) / 64 (supplement) |
@@ -707,10 +707,10 @@ had been overwritten, and its hashes were unrecoverable.
 
 | artefact | SHA-256 | bytes |
 |---|---|---|
-| `preprint_npj/build/paper.pdf` | `71495ea05a9f2edbce2277be47ee4cb08c01517351096831663a8863da126b0e` | 634,647 |
-| `preprint_npj/build/paper.docx` | `21c34795effb643ed6034d488f44b0b797e934f46fda8773e9e54083bb223c12` | 976,055 |
-| `preprint_npj/build/supplement.pdf` | `d6f9cbbe399e3bbd2c25eb80d76841c0676d1c149849abce71b733d7445b2221` | 726,254 |
-| `preprint_npj/build/supplement.docx` | `c063fe169fc51545311f1463c35b41a1271e98b51e1b942aeaaa1d99f72d1dcd` | 747,880 |
+| `preprint_npj/build/paper.pdf` | `74ae95266d56776be0ae262877073003bf43daae88bdcba18bd649055e8bb939` | 634,579 |
+| `preprint_npj/build/paper.docx` | `c8afe3275de2899d2449e3e87f999cd4b94e13634a903b285f55aeb024e7e5cf` | 962,689 |
+| `preprint_npj/build/supplement.pdf` | `da8a128d4411adf24f107c764c8344a06724d16414a3540d9dae5ed030d1a084` | 726,267 |
+| `preprint_npj/build/supplement.docx` | `f4784ddb8baed946f5be17e708348bac9fec668ced93450da08b506241c7950a` | 747,885 |
 
 The monograph **is not part of this dispatch**. It was rebuilt with
 re-freeze 24, at `cabc29c`, which carries the one re-freeze 24 repair it
@@ -759,7 +759,14 @@ still names Opus 4.7/4.8/5 only: deferred with it, as for rows 26 and 27.
 Re-freeze 38 edits one paragraph of the paper's §4.7 (`git diff
 1f7f776..ea398b0 -- preprint/manuscript.md` is empty); both monograph hashes
 were re-measured unchanged. The monograph keeps "reviewed, tested, and
-committed" and its own "all"/"every", deferred likewise.
+committed" and its own "all"/"every", deferred likewise. Re-freeze 39 edits
+`paper.tex`, `supplement.tex` and the npj Figure 5 (`git diff
+1f7f776..1155ea5 -- preprint/manuscript.md` is empty, and the monograph
+embeds its own figures from `figures/`, not
+`preprint_npj/figures/fig04_sex_bv_mechanism`); both monograph hashes were
+re-measured unchanged. Its §2.5 counterpart, its Figure 4/5 equivalents and
+its own "breath-to-breath" and "gas exchange" wordings were not checked
+against this round: deferred with it.
 
 ⚠️ **These hashes are valid for this build only.** Any further edit to
 `paper.tex` or `supplement.tex` invalidates them, and they must be re-frozen
@@ -818,7 +825,10 @@ named, "The other model", one sentence on `/ultrareview`; 726,017 → 726,254 an
 747,761 → 747,881 bytes; still 64 pages). Re-freeze 38 is a build-only case
 again (`ea398b0` edits `paper.tex` only; `git diff e136118..ea398b0 --
 preprint_npj/supplement.tex` is empty; the PDF keeps 726,254 bytes, the DOCX
-moves by one byte, 747,881 to 747,880). For
+moves by one byte, 747,881 to 747,880). **At re-freeze 39 they changed for a
+real reason:** `1ebe9f0` edits `supplement.tex` (two words, "cell" → "tile"
+in S3.12 and the Figure S5(d) caption; 726,254 → 726,267 and 747,880 →
+747,885 bytes; still 64 pages). For
 re-freezes 13 to 19, 21, 22, 25, 29 to 36 and 38 the supplement's change is the build, not the content:
 pdfTeX stamps a wall-clock `CreationDate` into the PDF (`18:47:46` for the
 re-freeze 22 supplement) and the pandoc DOCX moved by one byte, 747,727 to 747,726, so a rebuild
@@ -830,12 +840,12 @@ and 17, again after 21, at 22, 23 and 24, and again after 28, for a real
 reason, unlike the supplement's at 13 to 19, 21, 22, 25, 29 to 36 and 38: `manuscript.md`
 was edited (`1d684c7`, then `f9e3bb7`, then `78396c0` and `026df18`, then
 `27a012c`, then `cabc29c`, then `1cc0708` and `1f7f776`) and rebuilt
-with `scripts/build_paper.ps1`. They did not change at re-freezes 25 to 38,
+with `scripts/build_paper.ps1`. They did not change at re-freezes 25 to 39,
 which leave `manuscript.md` untouched.
 `build_npj.ps1` alone never rebuilds it.
 
-**Re-frozen thirty-eight times.** The first three were one-token abstract edits
-made before the files left the machine; re-freezes 4 to 19 and 21 to 38 leave
+**Re-frozen thirty-nine times.** The first three were one-token abstract edits
+made before the files left the machine; re-freezes 4 to 19 and 21 to 39 leave
 the abstract untouched, and re-freeze 20 rewords three of its phrases at an
 unchanged count:
 
@@ -880,6 +890,7 @@ unchanged count:
 | re-freeze 36 | `c560e95` | the passage after it, which the author could not follow, checked against §2.1 (correct) and reworded to say why cohort screening relies on the H2 null result: "Its clamped flag sees only the input rejections that Pulse logs. This screening therefore relies on the null result of §2.1: in the configurations the sweep sampled, all inside Pulse's accepted setup envelope, no submitted input was silently altered at ingestion." The sampled-envelope bound is kept; "One difference is that the classifier checks how the simulator behaved, not whether its outputs agree with patient data." Discussion 1,349 → 1,369 words. No claim, number, reference, figure or table changes. Paper only; still 26 / 64 pages. The supplement was rebuilt but not edited | 149 / 146 |
 | re-freeze 37 | `e136118` | **the AI-use disclosure**, on the author's decisions: Methods §4.7 now names Opus 5.5 (every Claude response since 2026-09-23 came from it, per the session transcripts), describes the critique loop in both directions ("text and code went back and forth between two LLMs in separate sessions, each critiquing the other's latest output"), states that "S.N. used the critiques to decide whether to run a further round or to judge the result sound and act on it" (no claim that the loop validates), and adds "Neither the classifier that assigns the flags nor the audit ledger calls an LLM"; "used substantially throughout" → "used in", "a condensation pass" → "shortening the manuscript", "identifiers and settings" → "exact version and reasoning level" (198 → 229 words). §4.6 and Data availability: the ledger "recompute(s) … from the saved output files", and §4.6 adds "and check them against the text". Author contributions: the "text and code only" list, which omitted replications and audits, becomes a pointer to §4.7. Supplement §S18: Opus 5.5 from 23 September 2026, "The other model", and one sentence on Claude Code's `/ultrareview` (three batches, each finding checked in the code). No result, number, reference, figure or table changes; still 26 / 64 pages. The monograph's disclosure was not aligned (not dispatched) | 149 / 146 |
 | re-freeze 38 | `ea398b0` | the responsibility sentence of §4.7, on the author's decisions: no universal claim the author cannot guarantee after five months of work. "reviewed and verified all AI-assisted outputs" → "reviewed and verified AI-assisted outputs"; "reviewed, tested and committed every AI-assisted code change" → "reviewed and committed AI-assisted code changes"; "authored and locked all preregistered thresholds…" → "authored and locked preregistered thresholds…". Re-freeze 37's "Neither the classifier that assigns the flags nor the audit ledger calls an LLM" becomes "Although written with LLM assistance, the classifier and the audit ledger run without any LLM", since both tools were written with LLM help. §4.7 229 → 226 words. No result, number, reference, figure or table changes. Paper only; still 26 / 64 pages. The supplement was rebuilt but not edited | 149 / 146 |
+| re-freeze 39 | `1155ea5` | a clarity and accuracy round on the author's requests, edited from the author's own wording (seven commits, `71b6e8f` to `1155ea5`). Introduction: says plainly what the 2020 Pulse sensitivity study varied, with examples of operational inputs. Figure 3 caption: long sentences split, and a scope narrowing, the white tiles hide "the input that dominates oxygenation", not "gas exchange" (FiO₂ becomes rank 1 for PaO₂ and SpO₂ but not for PaCO₂). Table 4 caption: "retention" defined. Figure 4 caption: the plotted statistics named exactly (the classifier's 5-second delivered-Vt CV, not "breath-to-breath variability"; PaO₂ over t = 60–120 s against the plateau over t = 240–300 s), and "Most S1 dots sit just below the prediction: a transient hyperoxia from the too-short window" replaced by what the data show (above the diagonal, PaO₂ still rising; below the prediction). §2.5: `SetupPatient.cpp` and `BloodVolumeBaseline` glossed, 646 → 622 words. Figure 5b redrawn with markers only, no line through the unmeasured 4,400–4,803 mL range. §4.7: "reviewed and, as far as practicable, verified". Supplement: "cell" → "tile" twice. No result or reference changes and no table value moves; Figure 4 now sits at the top of p. 13; still 26 / 64 pages | 149 / 146 |
 
 Measured in one unit throughout (`wc -w` over the Introduction's source
 lines, at each row's source commit), **the Introduction goes 936 → 926 words**
@@ -920,7 +931,7 @@ frozen and any later build gets a new, superseding entry.**
 **92 commits** up to the preparation build (`3765872`), 156 up to re-freeze 22,
 161 up to re-freeze 23, 167 up to re-freeze 24, 172 up to re-freeze 25,
 175 up to re-freeze 26, 180 up to re-freeze 27, 183 up to re-freeze 28,
-193 up to re-freeze 29, 196 up to re-freeze 30, 201 up to re-freeze 31, 204 up to re-freeze 32, 207 up to re-freeze 33, 210 up to re-freeze 34, 214 up to re-freeze 35, 217 up to re-freeze 36, 220 up to re-freeze 37, 223 up to re-freeze 38.
+193 up to re-freeze 29, 196 up to re-freeze 30, 201 up to re-freeze 31, 204 up to re-freeze 32, 207 up to re-freeze 33, 210 up to re-freeze 34, 214 up to re-freeze 35, 217 up to re-freeze 36, 220 up to re-freeze 37, 223 up to re-freeze 38, 232 up to re-freeze 39.
 The paper goes from 24 to **26** rendered pages (25 until re-freeze 18), the
 supplement from 56 to **64**. The monograph, which they did not receive in September
 either, stands at 122.
@@ -1011,7 +1022,12 @@ will see it in Methods §4.6 (one sentence) and §4.7, the data-availability
 statement (one phrase), the last sentence of Author contributions, and
 supplement §S18. No result, figure or table changes. Re-freeze 38
 (`ea398b0`) rewords the responsibility paragraph of §4.7 (row 38 above), without
-changing a result.
+changing a result. Re-freeze 39 (`1155ea5`) is a clarity and accuracy round
+(row 39 above): a reader of the September copy will see it in the
+Introduction (one passage), the captions of Figures 3 and 4 and of Table 4,
+§2.5, the drawing of Figure 5b, §4.7 (one four-word qualifier), and supplement S3.12 and
+the Figure S5 caption. No result changes; the Figure 3 and Figure 4 caption
+corrections make those captions describe their data more exactly.
 
 ### What the covering message must say
 
