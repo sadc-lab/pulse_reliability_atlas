@@ -92,6 +92,8 @@ def test_clean_run_stats_have_13_points(clean_csv: Path) -> None:
         "Hypertension must be modeled by adding/using a condition.",
         "Maximum systolic pressure baseline allowed is 120 mmHg",
         "must be modeled by adding/using a condition",
+        # Not a Pulse message: this pins the fifth pattern only (no message in
+        # the Pulse 4.3.1 source contains it; see src/detector.py).
         "is outside the valid range",
     ],
 )

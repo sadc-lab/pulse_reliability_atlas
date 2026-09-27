@@ -1169,7 +1169,8 @@ Pulse runs without modifying preregistration thresholds (only one
 amendment, 2026-04-22-b, tightened the flatline-bound tolerance from 1 % →
 0.1 % BEFORE any atlas data was collected). Clamp regex empirically
 calibrated against an SBP = 140 boundary probe in [S004](#s004); the over-broad
-upstream regex was replaced with four Pulse-specific patterns:
+upstream regex was replaced with four patterns aimed at Pulse's rejection
+messages:
 
 ```python
 r"baseline of [\d\.]+ \S+ is too (?:high|low)"
@@ -1185,7 +1186,9 @@ sweep. On the calibration runs, the four-pattern set fired on both
 deliberate-clamp probes of the [S005](#s005) pilot (SBP = 140 and
 DBP = 85 mmHg, each rejected at setup with exit code 1) and on none of the
 eight [S004](#s004) smoke-test runs; the patch note below replays both
-pattern sets over every Pulse log on disk.
+pattern sets over every Pulse log on disk. The pattern
+`is outside the valid range` matches no message in the Pulse 4.3.1 source
+and fired on no Pulse log on disk.
 
 **Patch of 2026-07-26, applied after the sweep.** The four patterns above
 are the set that classified all 1,280 published runs, and are left as

@@ -2,7 +2,7 @@
 
 Classifies each run on four orthogonal failure modes:
 
-    clamped           — Pulse log contains rejection strings; setup values silently changed.
+    clamped           — Pulse log contains a setup-rejection message (explicit rejection only).
     diverged          — NaN/Inf in CSV, missing CSV, non-zero exit code, or truncated sim.
     implausible       — steady-state mean outside hard physiological bounds.
     not_steady_state  — flatline at extreme, variance too high, or drift over final 60 s.
@@ -164,7 +164,7 @@ STEADY_STATE_T_HI: float = 120.0
 # The published 1,280-run sweep is untouched (its inputs never leave HR [50, 110]
 # or RR [8, 20]), and no run that produced a CSV becomes `clamped`.
 #
-# Patterns kept (verified to fire only on genuine init clamping / rejection):
+# Patterns kept (the first four match real Pulse setup-rejection messages):
 CLAMP_PATTERNS: list[str] = [
     # Pulse's setup-time rejection format. Examples observed:
     #   "Patient systolic pressure baseline of 140 mmHg is too high"
@@ -175,7 +175,7 @@ CLAMP_PATTERNS: list[str] = [
     r"maximum [\w\s]+ baseline allowed is",
     r"minimum [\w\s]+ baseline allowed is",
     r"must be modeled by adding/using a condition",
-    # The Pulse Setup pipeline emits this when an input is silently substituted.
+    # From the 2026-04-19 run template; no Pulse 4.3.1 message or log matches it.
     r"is outside the valid range",
 ]
 
@@ -236,9 +236,9 @@ class DetectorResult:
             clamped > diverged > implausible > not_steady_state > clean
 
         Rationale:
-            * clamped     — Pulse silently modified an input; downstream
-                            interpretation of any other flag is based on the
-                            substituted (not requested) input.
+            * clamped     — Pulse did not accept a setup input as submitted;
+                            no other flag would then refer to the requested
+                            input.
             * diverged    — solver failed; no interpretable output exists.
             * implausible — solver produced a value outside hard physiological
                             bounds; output is mathematically valid but

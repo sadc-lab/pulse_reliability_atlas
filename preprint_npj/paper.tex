@@ -195,7 +195,7 @@ Retention, the number of runs kept after screening, is strongly cell-dependent a
 \toprule
 Flag & Fires when & What it means \\
 \midrule
-\texttt{clamped} & Pulse's setup log matches one of the locked rejection patterns (e.g.\ ``baseline of \ldots\ is too high'' or ``is outside the valid range''), i.e.\ a setup input was not accepted as given & the submitted setup value was explicitly rejected, so the run does not proceed under the requested setting \\
+\texttt{clamped} & Pulse's setup log matches one of the locked rejection patterns (e.g.\ ``baseline of \ldots\ is too high'' or ``must be modeled by adding/using a condition''), i.e.\ a setup input was not accepted as given & the submitted setup value was explicitly rejected, so the run does not proceed under the requested setting \\
 \addlinespace
 \texttt{diverged} & the run does not finish with finite numbers: NaN/Inf in the output, a missing or truncated CSV, or a non-zero exit code & Pulse's numerical solver failed: there is no usable output for that run \\
 \addlinespace
