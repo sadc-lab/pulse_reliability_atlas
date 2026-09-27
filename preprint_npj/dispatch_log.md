@@ -773,12 +773,23 @@ empty); both monograph hashes were re-measured unchanged. Re-freeze 41 edits
 preprint/manuscript.md` is empty); the monograph hashes were re-measured
 unchanged again. Re-freeze 42 edits `paper.tex` and `supplement.tex` only
 (`git diff 1f7f776..b7ff9b5 -- preprint/manuscript.md` is empty); both
-monograph hashes were re-measured unchanged. The monograph still says the
+monograph hashes were re-measured unchanged. The monograph still said the
 2020 sensitivity study "has not been ported" to 4.3.x, the clause re-freeze
-42 removes from Table S1: deferred with it. Re-freeze 43 edits `paper.tex`
+42 removes from Table S1: deferred with it at the time, then corrected after
+re-freeze 43 (below). Re-freeze 43 edits `paper.tex`
 and `supplement.tex` only (`git diff 1f7f776..4491820 --
 preprint/manuscript.md` is empty); both monograph hashes were re-measured
-unchanged.
+unchanged. **After re-freeze 43**, on the author's request, `07d026b` corrects
+the monograph's three "not ported" passages (L505, L592, L3872) and its "last
+functional commit 2020-08-24" (L3871–3872); the npj files do not change, so
+this is not a re-freeze. The monograph was rebuilt at that commit with
+`scripts/build_paper.ps1`, still 122 pages, and these hashes replace the
+`1f7f776` ones above as its identifying build:
+`preprint/build/manuscript.pdf`
+`92b391b394bd5521bb64651e9d3e076a777beadbe72a7e89257b977885b8cb36` (1,358,256
+bytes) and `preprint/build/manuscript.docx`
+`99b1acc3c76bf3b0daca5e9ac9478394fdc3e6112244cd09158aec7db3101204` (1,016,741
+bytes).
 
 ⚠️ **These hashes are valid for this build only.** Any further edit to
 `paper.tex` or `supplement.tex` invalidates them, and they must be re-frozen
@@ -867,7 +878,8 @@ reason, unlike the supplement's at 13 to 19, 21, 22, 25, 29 to 36, 38, 40 and 41
 was edited (`1d684c7`, then `f9e3bb7`, then `78396c0` and `026df18`, then
 `27a012c`, then `cabc29c`, then `1cc0708` and `1f7f776`) and rebuilt
 with `scripts/build_paper.ps1`. They did not change at re-freezes 25 to 43,
-which leave `manuscript.md` untouched.
+which leave `manuscript.md` untouched, and changed again after re-freeze 43
+for a real reason (`07d026b`, above).
 `build_npj.ps1` alone never rebuilds it.
 
 **Re-frozen forty-three times.** The first three were one-token abstract edits
