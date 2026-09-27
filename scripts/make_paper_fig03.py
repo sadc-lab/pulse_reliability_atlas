@@ -5,7 +5,7 @@ Panel A: S014 trigger-lockout effect on VC-AC tidal-volume coefficient
          of variation. Each of the 64 paired runs is one dot; x-axis is
          the original Vt CV (default trigger configuration), y-axis is
          the Vt CV after locking inspiration trigger pressure to
-         -2 cmH2O. The diagonal y = x marks "no effect"; the dashed
+         -2 cmH2O. The diagonal y = x marks "no change"; the dotted
          horizontal at y = 0.05 marks the detector's steady-state
          threshold. Strong asymmetry below the diagonal visualises the
          intervention's effect.
@@ -48,7 +48,9 @@ fig, (axA, axB) = plt.subplots(1, 2, figsize=(11.0, 5.0))
 # ---- Panel A: S014 trigger-lockout effect on Vt CV
 axA.scatter(s14["Vt_cv_orig"], s14["Vt_cv_lock"], s=28, alpha=0.75, edgecolor="black", linewidth=0.4, color="#4C72B0")
 lim = max(s14["Vt_cv_orig"].max(), s14["Vt_cv_lock"].max()) * 1.05
-axA.plot([0, lim], [0, lim], color="#888888", linestyle="--", linewidth=1.0, label="$y = x$ (no effect)")
+# "no change", not "no effect" (2026-09-26): the caption and panel (b) both call
+# the diagonal "no change", and y = x says only that the CV did not move.
+axA.plot([0, lim], [0, lim], color="#888888", linestyle="--", linewidth=1.0, label="$y = x$ (no change)")
 axA.axhline(0.05, color="#C44E52", linestyle=":", linewidth=1.0, alpha=0.8, label="$0.05$ steady-state threshold")
 axA.set_xlim(0, lim)
 axA.set_ylim(0, lim)
