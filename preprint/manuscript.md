@@ -39,7 +39,7 @@ MIMIC-III sepsis; the operational-input reliability question has remained
 unaddressed.
 
 **Methods.** We swept seven user-facing inputs (HR, SBP, DBP, RR, Vt,
-FiO2, PEEP) from Pulse's verified acceptance ranges using Morris
+FiO2, PEEP) over preregistered ranges (Pulse's verified setup bands for HR, SBP, DBP and RR; clinical ranges for Vt, FiO2 and PEEP) using Morris
 elementary-effects sampling. The sweep spanned four scenarios (healthy
 and three ARDS severities, spanning the Berlin Definition's mild–severe
 bands and bracketing the 0.91–0.945 solver-instability zone) across two
@@ -524,9 +524,9 @@ critical care. The methodology follows three commitments locked
 before any data was collected (preregistration §Inputs, §Scenarios,
 §Flags):
 
-* **Inputs** swept from Pulse's *verified* acceptance ranges
-  (the companion E10 boundary probe and its HR / RR initialisation
-  probes).
+* **Inputs** swept over preregistered ranges: Pulse's *verified* setup bands
+  for HR, SBP, DBP and RR (the companion E10 boundary probe and its HR / RR initialisation
+  probes), and clinical ranges for Vt, FiO2 and PEEP.
 * **Scenarios** spanning healthy adult and three ARDS severities,
   calibrated on the male reference body against the Berlin Definition's
   PaO2/FiO2 bands [@ards2012].
@@ -821,15 +821,15 @@ Pulse release.
 
 ### 2.2 Inputs
 
-*The seven user-facing operational inputs and the verified acceptance
+*The seven user-facing operational inputs and the
 ranges they were swept over. MAP is *derived* from SBP and DBP rather
 than swept independently, to avoid redundant sampling and constraint
 violation. The DBP / SBP ≤ 0.75 ratio is enforced at the scenario
 builder, not the sampler, so Morris geometry stays intact for
 elementary-effects computation.*
 
-Seven inputs swept, ranges verified in Pulse boundary probes
-(companion E10 boundary probe plus its HR / RR initialisation probes):
+Seven inputs swept; the HR, SBP, DBP and RR ranges were verified in Pulse boundary probes
+(companion E10 boundary probe plus its HR / RR initialisation probes), the other three are clinical ranges:
 
 | Input | Range | Units | Source |
 |---|---|---|---|
@@ -843,14 +843,14 @@ Seven inputs swept, ranges verified in Pulse boundary probes
 
 *Input-ranges table — at a glance.*
 **What:** the 7 user-facing operational inputs swept by Morris, their
-ranges (units), and the verification source for each acceptance window.
+ranges (units), and the source for each range.
 **How to read it:** each row is one Morris-sampled input; the range
 column lists the [min, max] interval; the source column points at the
 boundary probe (companion E10, or its HR / RR initialisation and
 FiO2 = 1.0 probes) or literature reference that
 established the range.
-**Key takeaway:** all 7 ranges sit *inside* Pulse's verified acceptance
-envelope by construction — so no Morris point should ever silently
+**Key takeaway:** all 7 ranges sit *inside* what Pulse accepts (the four
+patient ranges by construction; Pulse sets no setup bound on Vt or PEEP) — so no Morris point should ever silently
 clamp, a claim §3.4 (H2) confirms empirically (0 / 1,280 clamp events).
 
 MAP is *derived* from SBP / DBP, never sampled independently
@@ -1980,7 +1980,7 @@ below, which found every submitted value preserved in what Pulse
 serialises after ingestion, on all 10,160 contracts that reached it.
 
 Two implications:
-1. Pulse's *verified* acceptance ranges (HR 50 – 110, SBP 90 – 120, DBP
+1. The swept ranges (HR 50 – 110, SBP 90 – 120, DBP
    60 – 80, RR 8 – 20, Vt 300 – 800, FiO2 0.21 – 1.0, PEEP 0 – 20) all
    sit inside the ranges Pulse accepts without intervention. No input
    submitted strictly inside these envelopes was silently substituted

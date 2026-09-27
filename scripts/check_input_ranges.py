@@ -81,7 +81,10 @@ SUPPLEMENT = REPO / "preprint_npj" / "supplement.tex"
 # The two literals delimiting the Methods 4.3 enumeration. If either stops
 # matching, the passage was rewritten and this guard must be re-registered
 # against the new wording -- so a miss is a FAILURE, never a silent pass.
-SENTENCE_OPEN = "swept across their verified Pulse acceptance ranges"
+# Re-registered 2026-09-27: the sentence no longer calls all seven ranges
+# "verified Pulse acceptance ranges" (Vt, FiO2 and PEEP are clinical ranges
+# fixed in the preregistration); the closing anchor did not change.
+SENTENCE_OPEN = "swept across the following ranges"
 SENTENCE_CLOSE = "Each range is anchored"
 
 # LaTeX unit tokens per swept input, as they appear after "~" in the sources.
