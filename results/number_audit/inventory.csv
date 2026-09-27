@@ -3438,7 +3438,7 @@ paper,179,20,20.0,ambiguous_small,"lds 10{,}240 of them. The remaining 80 ventil
 paper,179,1.0,1.0,ambiguous_small,". Pulse does make one explicit downstream adjustment. Where FiO$_2$~=~1.0 was requested and the ventilator action was reached, the ventilator m"
 paper,179,0.9996,0.9996,guard,"as reached, the ventilator model caps the inspired oxygen fraction at 0.9996, with a logged error on all 195 runs concerned. The ambient mixture a"
 paper,179,195,195.0,guard,"ps the inspired oxygen fraction at 0.9996, with a logged error on all 195 runs concerned. The ambient mixture already carries CO$_2$, so exactl"
-paper,179,1.0,1.0,ambiguous_small,"uns concerned. The ambient mixture already carries CO$_2$, so exactly 1.0 cannot be composed (Supplement~\S\, ). Retention is"
+paper,179,1.0,1.0,ambiguous_small,"uns concerned. The ambient mixture already carries CO$_2$, so exactly 1.0 cannot be composed (Supplement~\S\, ). Retention, t"
 paper,181,663,663.0,guard,"t and depends on which screen is applied. Under the four-flag screen, 663 of 1{,}280 runs (51.8~\%) are clean, ranging 3.43-fold across cells,"
 paper,181,"1{,}280",1280.0,guard,"epends on which screen is applied. Under the four-flag screen, 663 of 1{,}280 runs (51.8~\%) are clean, ranging 3.43-fold across cells, from 144 of"
 paper,181,51.8,51.8,guard,"h screen is applied. Under the four-flag screen, 663 of 1{,}280 runs (51.8~\%) are clean, ranging 3.43-fold across cells, from 144 of 160 in mod"

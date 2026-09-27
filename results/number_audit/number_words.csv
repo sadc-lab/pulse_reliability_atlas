@@ -43,7 +43,7 @@ paper,177,four,cardinal,"lists the hard physiological bounds behind \texttt{impl
 paper,179,one,cardinal,"greement for all 10{,}160 input contracts that reached ingestion. A contract is one value submitted in one configuration block; the design holds 10{,}240 of them."
 paper,179,one,cardinal,"60 input contracts that reached ingestion. A contract is one value submitted in one configuration block; the design holds 10{,}240 of them. The remaining 80 ventil"
 paper,179,one,cardinal,hing about the clinically plausible adult-ICU range outside it. Pulse does make one explicit downstream adjustment. Where FiO$_2$~=~1.0 was requested and the venti
-paper,181,four,cardinal,"on is strongly cell-dependent and depends on which screen is applied. Under the four-flag screen, 663 of 1{,}280 runs (51.8~\%) are clean, ranging 3.43-fold across"
+paper,181,four,cardinal,"g, is strongly cell-dependent and depends on which screen is applied. Under the four-flag screen, 663 of 1{,}280 runs (51.8~\%) are clean, ranging 3.43-fold across"
 paper,181,two,cardinal,"\_steady\_state}, 1{,}134 of 1{,}280 (88.6~\%) survive, a 1.51-fold spread; the two screens deplete opposite ends of the severity axis. The per-cell breakdown is i"
 paper,181,two,cardinal,decomposes the \texttt{not\_steady\_state} population that separates the two screens into its trigger sub-modes. [!t] \centering
 paper,187,Seven,cardinal,"\caption{\textbf{Study design of the 1{,}280-run sweep.} Seven user-facing operational inputs are screened with a Morris elementary-effects de"
