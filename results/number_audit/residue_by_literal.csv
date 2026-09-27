@@ -76,7 +76,6 @@ supplement,"1{,}400",2,"limited to $[350, 760]$~mmHg; these three traces continu
 supplement,27,2,lobin dissociation curve P50 places SpO$_2$ = 50~\% at PaO$_2 \approx 27$~mmHg~ . Upper: hemoglobin saturation ceiling (
 supplement,3.8,2,he cited literature rather than a unique biological constant. Section~3.8 of the companion technical monograph demonstrates the sensitivity-ana
 supplement,393,2,"# 394/394 PASS (exit 0) with the authors' full data tree, # or 393/394 on a public clone (T1.06u auto-skipped). uv run python"
-supplement,4.3,2,"ibration, a different parameter class, and has not been ported to the 4.3.x release line. & Pulse FAQ~ + upstream repo audit (mo"
 supplement,403.8,2,"reference body under VC-AC, tidal volume 6~mL/kg actual body weight (403.8~mL), PEEP 10~cmH$_2$O, FiO$_2$ 0.4. Table~ r"
 supplement,47,2,g mean over the final 60~s stands well above the $0.737 \times (760 - 47) - 16.2 / 0.8 \approx 505$~mmHg its own inspired fraction and PaCO$_2
 supplement,"4{,}900",2,"tbf{Cardiovascular sizing.} A cardiac-output target of 5{,}600 versus 4{,}900~mL\,min$^{-1}$, from which every regional vascular flow target is der"
@@ -184,6 +183,7 @@ supplement,388,1,P/F by FiO$_2$ (low / mid / high) \\ \midrule S1 (0.00) & 61 & 
 supplement,390,1,mid / high) \\ \midrule S1 (0.00) & 61 & 431 [388--481] & not-ARDS & 390 / 481 / --- \\ S2 (0.26) & 114 & 304 [264--337] & mild/not-ARDS bound
 supplement,"3{,}090",1,"the extra data is most abundant where it is least trustworthy: of the 3{,}090 elementary-effect observations gained, 1{,}152 fall in S1, the scenar"
 supplement,"3{,}348",1,"did not raise \texttt{clamped}. Replaying both pattern sets over all 3{,}348 Pulse logs on disk flips exactly one run --- the probe written to exp"
+supplement,4.3,1,"ted: PaO$_2$ exceeds its 15~mmHg threshold on 19.5~\% of runs (median 4.3~mmHg, 95th percentile 40.2~mmHg) and delivered Vt on 8.7~\%. In the t"
 supplement,4.6,1,"-patient vital capacity of 4.93~L against a literature value of about 4.6~L (about 7~\% higher); its current patient validation table lists 4{,"
 supplement,4.70,1,& path & midpoint \\ \midrule 100-to-120 & 3 & 9 & 20.44 & 15.74 & $+4.70$ & $75 \to 80$ & 77.5 \\ 110-to-90 & 15 & 16 & 24.94 & 17.26 & $+7.68
 supplement,40.2,1,"5~mmHg threshold on 19.5~\% of runs (median 4.3~mmHg, 95th percentile 40.2~mmHg) and delivered Vt on 8.7~\%. In the tidal-volume-oscillation arm"

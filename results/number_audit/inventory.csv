@@ -3940,10 +3940,11 @@ supplement,120,46,46.0,ambiguous_small,l diff against \texttt{REL\_4\_3\_1} is b
 supplement,120,17,17.0,ambiguous_small,against \texttt{REL\_4\_3\_1} is build-system-only (7 files / +46 / -17 lines: web-WASM dockcross support and a .NET binding tweak); no physi
 supplement,132,1.0,1.0,ambiguous_small,"ernal-probing assertions from the companion technical work (FiO$_2$ = 1.0 solver crash, absence of any sex-specific physiology) were tested emp"
 supplement,139,1,1.0,ambiguous_small,}p{ }} \toprule \# & Limitation & Primary source \\ \midrule 1 & No formal SA / UQ on user-facing operational inputs --- addressed b
-supplement,139,4.3,4.3,none,"ibration, a different parameter class, and has not been ported to the 4.3.x release line. & Pulse FAQ~ + upstream repo audit (mo"
-supplement,141,2,2.0,ambiguous_small,AQ~ + upstream repo audit (monograph S016) \\ \midrule 2 & Blood-pressure gate: SBP $>$ 120 or DBP $>$ 80 mmHg rejected at set
-supplement,141,120,120.0,guard,o audit (monograph S016) \\ \midrule 2 & Blood-pressure gate: SBP $>$ 120 or DBP $>$ 80 mmHg rejected at setup with explicit \texttt{[ERROR]} l
-supplement,141,80,80.0,ambiguous_small,aph S016) \\ \midrule 2 & Blood-pressure gate: SBP $>$ 120 or DBP $>$ 80 mmHg rejected at setup with explicit \texttt{[ERROR]} log and exit; p
+supplement,141,2,2.0,ambiguous_small,AQ~ + upstream repo audit (monograph S016) \\ \midrule 2 & Blood-pressure gate: SBP outside 90--120 or DBP outside 60--80 mmHg
+supplement,141,90,90.0,ambiguous_small,dit (monograph S016) \\ \midrule 2 & Blood-pressure gate: SBP outside 90--120 or DBP outside 60--80 mmHg rejected at setup with explicit \text
+supplement,141,120,120.0,guard,(monograph S016) \\ \midrule 2 & Blood-pressure gate: SBP outside 90--120 or DBP outside 60--80 mmHg rejected at setup with explicit \texttt{[E
+supplement,141,60,60.0,ambiguous_small,\midrule 2 & Blood-pressure gate: SBP outside 90--120 or DBP outside 60--80 mmHg rejected at setup with explicit \texttt{[ERROR]} log and exi
+supplement,141,80,80.0,ambiguous_small,drule 2 & Blood-pressure gate: SBP outside 90--120 or DBP outside 60--80 mmHg rejected at setup with explicit \texttt{[ERROR]} log and exit; p
 supplement,141,0.75,0.75,ambiguous_small,cit \texttt{[ERROR]} log and exit; pulse-pressure ratio DBP/SBP $\leq 0.75$ also enforced. & Pulse source audit + monograph S005 deliberate-clam
 supplement,143,3,3.0,ambiguous_small,lse source audit + monograph S005 deliberate-clamp probes \\ \midrule 3 & Adult-only restriction: age $\geq 18$ years hard-gated in \texttt{
 supplement,143,18,18.0,none,berate-clamp probes \\ \midrule 3 & Adult-only restriction: age $\geq 18$ years hard-gated in \texttt{ }. & Source audit (monog
