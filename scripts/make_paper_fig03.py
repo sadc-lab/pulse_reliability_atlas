@@ -11,8 +11,9 @@ Panel A: S014 trigger-lockout effect on VC-AC tidal-volume coefficient
          intervention's effect.
 
 Panel B: S021 hyperoxia 300-second convergence. Each of the 60 reruns
-         is one dot; x-axis is the original 120-second mean PaO2, y-axis
-         is the 300-second plateau PaO2. Diagonal y = x marks "no
+         is one dot; x-axis is the original run's PaO2 mean over
+         t = 60-120 s (the detector's steady-state window), y-axis the
+         300-second rerun's plateau over t = 240-300 s. Diagonal y = x marks "no
          change". The horizontal at 600 mmHg marks the detector's
          locked upper bound; the horizontal at ~663 mmHg marks the
          alveolar-gas-equation prediction. Both axes are clamped to the
@@ -90,8 +91,12 @@ axB.annotate(
     xy=(0.97, 0.97), xycoords="axes fraction", ha="right", va="top",
     fontsize=8, color="#555555", style="italic",
 )
-axB.set_xlabel(r"Original 120-s mean PaO$_2$ (mmHg, before)")
-axB.set_ylabel(r"Extended 300-s plateau PaO$_2$ (mmHg, after)")
+# Both windows named (2026-09-26). "Original 120-s mean" read as a mean over the
+# whole 120-s recording; x is the steady-state mean over t = 60-120 s
+# (src/detector.py window) and y the plateau over t = 240-300 s
+# (run_s021_hyperoxia_convergence.py PLATEAU_WINDOW_S), as the caption states.
+axB.set_xlabel(r"PaO$_2$, mean over $t$ = 60–120 s, original run (mmHg)")
+axB.set_ylabel(r"PaO$_2$, plateau over $t$ = 240–300 s, 300-s rerun (mmHg)")
 axB.set_title(r"(b) Hyperoxia 300 s convergence ($n = 60$ reruns)", fontsize=10)
 axB.legend(loc="lower right", fontsize=8, frameon=True)
 axB.grid(True, alpha=0.25, linewidth=0.5)
