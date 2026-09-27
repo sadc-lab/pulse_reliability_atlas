@@ -75,16 +75,16 @@
 % Float placement. sn-jnl sets \floatpagefraction to .887 and \textfraction to
 % .13, so a float taller than ~87% of the text block but shorter than 88.7%
 % fits neither on a text page nor alone on a float page. It then waits for
-% \end{document} and holds every later float of its kind with it: until
-% 2026-09-27 Tables S4-S18 and Figures S3-S5 printed after the references,
-% up to 43 pages from their first mention. Lowering the float-page threshold,
-% and giving every float [htbp] rather than [h] alone, lets each one land
-% next to its section. Content is unchanged; only placement moves.
+% the end of the document and holds every later float of its kind with it:
+% until 2026-09-27 Tables S4-S18 and Figures S3-S5 printed after the
+% references, up to 43 pages from their first mention. A float-page threshold
+% of 0.7 (low enough for that table, high enough that no figure is left alone
+% on a half-empty page) and [htbp] instead of [h] let each float land near its section.
 % flafter (loaded above) keeps a float from printing at the top of a page
 % above the heading of its own section, which [htbp] alone allowed for
 % Table S1; the clamp-pattern listing in S3.3 is boxed so a page break
 % cannot split it.
-\renewcommand{\floatpagefraction}{0.5}
+\renewcommand{\floatpagefraction}{0.7}
 
 \begin{document}
 
