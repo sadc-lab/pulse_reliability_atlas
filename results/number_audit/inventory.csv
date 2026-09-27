@@ -3728,14 +3728,13 @@ paper,308,19.8,19.8,guard,"hed absolute tidal-volume setting, the female referen
 paper,308,36.1,36.1,guard,"ives 19.8~\% more tidal volume per kilogram of actual body weight and 36.1~\% more per kilogram of ideal body weight, computed using the sex-spe"
 paper,314,"1{,}280",1280.0,guard,"bf{(a)} Divergence counts per (scenario $\times$ sex) cell across the 1{,}280-run sweep: all 20 divergence events fall on the male reference body,"
 paper,314,20,20.0,ambiguous_small,"ts per (scenario $\times$ sex) cell across the 1{,}280-run sweep: all 20 divergence events fall on the male reference body, while the female b"
-paper,314,20,20.0,ambiguous_small,). \textbf{(b)} Blood-volume rescue dose-response on the 20 originally-diverged male inputs. The $x$-axis is the imposed \texttt{
-paper,314,"4{,}803",4803.0,ledger,"s. The $x$-axis is the imposed \texttt{BloodVolumeBaseline} override (4{,}803~mL default, 4{,}400~mL intermediate bracket, 4{,}082~mL Pulse setup-t"
-paper,314,"4{,}400",4400.0,none,"he imposed \texttt{BloodVolumeBaseline} override (4{,}803~mL default, 4{,}400~mL intermediate bracket, 4{,}082~mL Pulse setup-time floor on this bo"
-paper,314,"4{,}082",4082.0,ledger,"eline} override (4{,}803~mL default, 4{,}400~mL intermediate bracket, 4{,}082~mL Pulse setup-time floor on this body; reductions of 0, $8.4$ and $1"
-paper,314,0,0.0,ambiguous_small,"racket, 4{,}082~mL Pulse setup-time floor on this body; reductions of 0, $8.4$ and $15.0~\%$ beneath each tick), the $y$-axis the divergence"
-paper,314,8.4,8.4,none,"et, 4{,}082~mL Pulse setup-time floor on this body; reductions of 0, $8.4$ and $15.0~\%$ beneath each tick), the $y$-axis the divergence count"
-paper,314,15.0,15.0,guard,"2~mL Pulse setup-time floor on this body; reductions of 0, $8.4$ and $15.0~\%$ beneath each tick), the $y$-axis the divergence count out of 20."
-paper,314,20,20.0,ambiguous_small,"15.0~\%$ beneath each tick), the $y$-axis the divergence count out of 20. The collapse to zero at both reductions (20 $\rightarrow$ 0) establi"
+paper,314,20,20.0,ambiguous_small,). \textbf{(b)} Blood-volume rescue dose-response on the 20 originally-diverged male inputs. The $x$-axis is the blood-volume bas
+paper,314,"4{,}803",4803.0,ledger,"The $x$-axis is the blood-volume baseline: Pulse's computed default (4{,}803~mL) or an imposed \texttt{BloodVolumeBaseline} override (4{,}400~mL i"
+paper,314,"4{,}400",4400.0,none,"ult (4{,}803~mL) or an imposed \texttt{BloodVolumeBaseline} override (4{,}400~mL intermediate bracket, 4{,}082~mL Pulse setup-time floor on this bo"
+paper,314,"4{,}082",4082.0,ledger,"exttt{BloodVolumeBaseline} override (4{,}400~mL intermediate bracket, 4{,}082~mL Pulse setup-time floor on this body), with the reduction from the"
+paper,314,8.4,8.4,none,with the reduction from the default beneath the two override ticks ($8.4$ and $15.0~\%$); the $y$-axis is the divergence count out of 20. The
+paper,314,15.0,15.0,guard,reduction from the default beneath the two override ticks ($8.4$ and $15.0~\%$); the $y$-axis is the divergence count out of 20. The collapse to
+paper,314,20,20.0,ambiguous_small,ks ($8.4$ and $15.0~\%$); the $y$-axis is the divergence count out of 20. The collapse to zero at both reductions (20 $\rightarrow$ 0) establi
 paper,314,20,20.0,ambiguous_small,divergence count out of 20. The collapse to zero at both reductions (20 $\rightarrow$ 0) establishes that lowering the blood-volume baseline
 paper,314,0,0.0,ambiguous_small,out of 20. The collapse to zero at both reductions (20 $\rightarrow$ 0) establishes that lowering the blood-volume baseline is sufficient to
 paper,314,"3{,}996",3996.0,ledger,"olver fails at the default value. Pulse's allometric formula computes 3{,}996~mL for the female reference body (dashed vertical line), 86~mL below"

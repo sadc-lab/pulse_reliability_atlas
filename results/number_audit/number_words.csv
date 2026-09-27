@@ -135,7 +135,8 @@ paper,306,zero,cardinal,"ARDS delivered-tidal-volume combination has a confidenc
 paper,306,two,cardinal,"dence interval that includes zero (Supplement~\S\, ). Across the two reference bodies, where the solver fails therefore differs far more than which"
 paper,308,two,cardinal,"self differs by sex (144 of 160 against 122 of 160 in S3, for instance), so the two distributions are drawn from different subsets of the input grid. A surviving d"
 paper,314,one,cardinal,"ody, while the female body runs an identical Morris input grid without a single one. The asymmetry is specific to this input-extreme regime: at midrange inputs acr"
-paper,314,zero,cardinal,"eneath each tick), the $y$-axis the divergence count out of 20. The collapse to zero at both reductions (20 $\rightarrow$ 0) establishes that lowering the blood-vol"
+paper,314,two,cardinal,"setup-time floor on this body), with the reduction from the default beneath the two override ticks ($8.4$ and $15.0~\%$); the $y$-axis is the divergence count out"
+paper,314,zero,cardinal,and $15.0~\%$); the $y$-axis is the divergence count out of 20. The collapse to zero at both reductions (20 $\rightarrow$ 0) establishes that lowering the blood-vol
 paper,314,one,cardinal,"female reference body (dashed vertical line), 86~mL below the male floor, so a one-way blood-volume transplant cannot make the two reference bodies equal in blood"
 paper,314,two,cardinal,"6~mL below the male floor, so a one-way blood-volume transplant cannot make the two reference bodies equal in blood volume. Cell-label key: Table~ .}"
 paper,321,Four,cardinal,\subsection{Secondary observations} Four further observations bear on downstream interpretation: Pulse's ARDS impairment

@@ -22,7 +22,7 @@ paper,4.1,1,"budget its own protocol declared, exceeding it by a factor of 2.4 t
 paper,4.8,1,"on it. One of the two was always a Claude model (Anthropic; , 4.8, 5 and 5.5 in succession), the other Google Gemini Pro 3.1 and later"
 paper,70,1,"at work, however, is over the \emph{mismatch} between two equal-sized 70~kg bodies sharing one ventilator, scored against a single composite s"
 paper,71,1,"es therefore share about the same blood volume per kilogram ($\approx$71~mL\,kg$^{-1}$, within standard clinical estimates~ ),"
-paper,8.4,1,"et, 4{,}082~mL Pulse setup-time floor on this body; reductions of 0, $8.4$ and $15.0~\%$ beneath each tick), the $y$-axis the divergence count"
+paper,8.4,1,with the reduction from the default beneath the two override ticks ($8.4$ and $15.0~\%$); the $y$-axis is the divergence count out of 20. The
 paper,84.1,1,"hree of whose members are drift-converged and three not, so 37 of 44 (84.1~\%) converge below the supplement's wider 700~mmHg upper bound, which"
 paper,86,1,"utes 3{,}996~mL for the female reference body (dashed vertical line), 86~mL below the male floor, so a one-way blood-volume transplant cannot"
 paper,93,1,}280 simulations). Sensitivity is skewed: three inputs carry a median 93~\% of each output's total. A four-flag classifier reveals failure mod
