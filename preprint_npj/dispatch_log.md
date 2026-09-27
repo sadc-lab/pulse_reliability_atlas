@@ -697,20 +697,20 @@ had been overwritten, and its hashes were unrecoverable.
 |---|---|
 | Sent | *(pending author confirmation)* |
 | Recipients | the four supervising co-authors (A.W., C.S., P.J., M.S.) |
-| Source commit | `e71387f`, re-freeze 41 (see the freeze table below; this row had stayed at re-freeze 12's `ff09c92` through re-freezes 13 to 22) |
+| Source commit | `b7ff9b5`, re-freeze 42 (see the freeze table below; this row had stayed at re-freeze 12's `ff09c92` through re-freezes 13 to 22) |
 | Format | `.pdf` and `.docx` |
 | Artefacts to send | paper and supplement only |
-| Pages | 26 (paper; 25 until re-freeze 18) / 64 (supplement) |
+| Pages | 26 (paper; 25 until re-freeze 18) / 63 (supplement; 64 until re-freeze 41) |
 | Not sent | the companion technical monograph (122 pages), by the author's decision of 2026-09-19, repeating the decision of 2026-09-05 |
 
 ### Hashes, frozen before any further build
 
 | artefact | SHA-256 | bytes |
 |---|---|---|
-| `preprint_npj/build/paper.pdf` | `f9050ed2b8450d75cf42550b8ce1896dc2e31347620df97dd7aa3d082bc1c207` | 634,755 |
-| `preprint_npj/build/paper.docx` | `74fcf59ea4d0323419bd607345809f820d3adc9b9b79ce8a17a48744bd851f63` | 963,531 |
-| `preprint_npj/build/supplement.pdf` | `a2bd773b76ec0449c8be675954f315da71aac26cb462478ecba3ca629b7adf5d` | 726,267 |
-| `preprint_npj/build/supplement.docx` | `82629306fad9772c549fdb94804497c21f13a9ac413a48c32f8d0b65253b77e1` | 747,886 |
+| `preprint_npj/build/paper.pdf` | `1d4b480cfbb6ca9cb577a8be06d4a01feb66af6dc6750a843abc0b82d15ca084` | 634,905 |
+| `preprint_npj/build/paper.docx` | `1f2148d928cc578a40b69b98473086a91fc5d02b138993d9a26ff5f893ff3306` | 963,586 |
+| `preprint_npj/build/supplement.pdf` | `b9a8c4e486b87cec14b8cfee9aca494f571bf66324a13c37c7f638016ba828d2` | 726,206 |
+| `preprint_npj/build/supplement.docx` | `61d463f33f70f43ce6988ca427d0ee2f2ca7a12bf9e0d2b9b18be4997a45edb1` | 747,865 |
 
 The monograph **is not part of this dispatch**. It was rebuilt with
 re-freeze 24, at `cabc29c`, which carries the one re-freeze 24 repair it
@@ -771,7 +771,11 @@ npj Figure 4 only (`git diff 1f7f776..dbbd718 -- preprint/manuscript.md` is
 empty); both monograph hashes were re-measured unchanged. Re-freeze 41 edits
 `paper.tex` and npj Figures 4 and 5 only (`git diff 1f7f776..e71387f --
 preprint/manuscript.md` is empty); the monograph hashes were re-measured
-unchanged again.
+unchanged again. Re-freeze 42 edits `paper.tex` and `supplement.tex` only
+(`git diff 1f7f776..b7ff9b5 -- preprint/manuscript.md` is empty); both
+monograph hashes were re-measured unchanged. The monograph still says the
+2020 sensitivity study "has not been ported" to 4.3.x, the clause re-freeze
+42 removes from Table S1: deferred with it.
 
 ⚠️ **These hashes are valid for this build only.** Any further edit to
 `paper.tex` or `supplement.tex` invalidates them, and they must be re-frozen
@@ -839,7 +843,12 @@ in S3.12 and the Figure S5(d) caption; 726,254 → 726,267 and 747,880 →
 identical, 726,267 and 747,885). So is re-freeze 41 (`7f9155b` and `e71387f`
 edit `paper.tex` and Figures 4 and 5 only; `git diff 802fdf0..e71387f --
 preprint_npj/supplement.tex` is empty; the PDF keeps 726,267 bytes, the DOCX
-moves by one byte, 747,885 to 747,886). For
+moves by one byte, 747,885 to 747,886). **At re-freeze 42 they changed for a
+real reason:** `5173fbf` edits `supplement.tex` (Table S1, rows 1 and 2;
+726,267 → 726,206 and 747,886 → 747,865 bytes), and the supplement goes from
+64 to **63 pages**: with row 1 shorter, LaTeX places Tables S1–S3 next to
+their sections (pp. 6, 9, 10) instead of after the references (pp. 49–51).
+For
 re-freezes 13 to 19, 21, 22, 25, 29 to 36, 38, 40 and 41 the supplement's change is the build, not the content:
 pdfTeX stamps a wall-clock `CreationDate` into the PDF (`18:47:46` for the
 re-freeze 22 supplement) and the pandoc DOCX moved by one byte, 747,727 to 747,726, so a rebuild
@@ -851,12 +860,12 @@ and 17, again after 21, at 22, 23 and 24, and again after 28, for a real
 reason, unlike the supplement's at 13 to 19, 21, 22, 25, 29 to 36, 38, 40 and 41: `manuscript.md`
 was edited (`1d684c7`, then `f9e3bb7`, then `78396c0` and `026df18`, then
 `27a012c`, then `cabc29c`, then `1cc0708` and `1f7f776`) and rebuilt
-with `scripts/build_paper.ps1`. They did not change at re-freezes 25 to 41,
+with `scripts/build_paper.ps1`. They did not change at re-freezes 25 to 42,
 which leave `manuscript.md` untouched.
 `build_npj.ps1` alone never rebuilds it.
 
-**Re-frozen forty-one times.** The first three were one-token abstract edits
-made before the files left the machine; re-freezes 4 to 19 and 21 to 41 leave
+**Re-frozen forty-two times.** The first three were one-token abstract edits
+made before the files left the machine; re-freezes 4 to 19 and 21 to 42 leave
 the abstract untouched, and re-freeze 20 rewords three of its phrases at an
 unchanged count:
 
@@ -904,6 +913,7 @@ unchanged count:
 | re-freeze 39 | `1155ea5` | a clarity and accuracy round on the author's requests, edited from the author's own wording (seven commits, `71b6e8f` to `1155ea5`). Introduction: says plainly what the 2020 Pulse sensitivity study varied, with examples of operational inputs. Figure 3 caption: long sentences split, and a scope narrowing, the white tiles hide "the input that dominates oxygenation", not "gas exchange" (FiO₂ becomes rank 1 for PaO₂ and SpO₂ but not for PaCO₂). Table 4 caption: "retention" defined. Figure 4 caption: the plotted statistics named exactly (the classifier's 5-second delivered-Vt CV, not "breath-to-breath variability"; PaO₂ over t = 60–120 s against the plateau over t = 240–300 s), and "Most S1 dots sit just below the prediction: a transient hyperoxia from the too-short window" replaced by what the data show (above the diagonal, PaO₂ still rising; below the prediction). §2.5: `SetupPatient.cpp` and `BloodVolumeBaseline` glossed, 646 → 622 words. Figure 5b redrawn with markers only, no line through the unmeasured 4,400–4,803 mL range. §4.7: "reviewed and, as far as practicable, verified". Supplement: "cell" → "tile" twice. No result or reference changes and no table value moves; Figure 4 now sits at the top of p. 13; still 26 / 64 pages | 149 / 146 |
 | re-freeze 40 | `dbbd718` | three follow-ups to re-freeze 39, on the author's decisions (`d16405c`, `17d13ba`, `dbbd718`). §2.1: "Retention, the number of runs kept after screening, is strongly cell-dependent…", defining the word at its first use (p. 5) and not only in the Table 4 caption (p. 11). Figure 3 caption: S4_F's white FiO₂ tiles come from "severe hypoxemia or a still-drifting SpO₂" (12 of the 20 FiO₂ pairs lose an endpoint to severe hypoxemia, the other 8 to SpO₂ drift). Figure 4a legend: "y = x (no change)", as in the caption and panel (b). No result, number, reference or table change. Paper only; still 26 / 64 pages; figure placement unchanged. The supplement was rebuilt but not edited | 149 / 146 |
 | re-freeze 41 | `e71387f` | two figure-label corrections, on the author's decisions (`7f9155b`, `e71387f`). Figure 4b axes: "PaO₂, mean over t = 60–120 s, original run" and "PaO₂, plateau over t = 240–300 s, 300-s rerun", replacing "Original 120-s mean" and "Extended 300-s plateau", as the caption already says. Figure 5b: x-axis "Blood-volume baseline (mL)", and the caption now says the default is "Pulse's computed default (4,803 mL)", not an imposed override (the default runs set no blood volume; only 4,400 and 4,082 mL are imposed), with the reductions "beneath the two override ticks (8.4 and 15.0 %)". No result, number, reference or table change. Paper only; still 26 / 64 pages; figure placement unchanged. The supplement was rebuilt but not edited | 149 / 146 |
+| re-freeze 42 | `b7ff9b5` | a source check, on the author's requests, of the Introduction's two gap paragraphs, Methods §4.2 and the Morris paragraph of §4.3 (every number and fact found correct at source), then four fixes on the author's decisions (`3533a90`, `5173fbf`, `2af4350`, `b7ff9b5`). Introduction: "Most prior assessments of the engine probe its outputs, validating them against reference data [8], or, in one external study discussed below, falsifying…" for "Most of that work…", whose referent, the six works cited just before, fits "validating" for at most three of them and does not include Cornish. Supplement Table S1: row 1 loses "and has not been ported to the 4.3.x release line" (the study's code is in the 4.3.1 tree); row 2 gives the BP gate both bounds, "SBP outside 90--120 or DBP outside 60--80 mmHg". Methods: §4.1 "launches a container, a running copy of that image" for "spawns a container from that image"; §4.2 points the clip to Supplement §S3.7 and makes the blood-volume floor per patient, "characterised for the male body in §2.5"; §4.7 adds "Verification was an iterative process of checks." No result or reference change (reference 8 was already cited) and no figure moves; the only new numbers are the gate's lower bounds, read from `SetupPatient.cpp`. 26 / **63** pages: Tables S1–S3 now sit next to their sections instead of after the references | 149 / 146 |
 
 Measured in one unit throughout (`wc -w` over the Introduction's source
 lines, at each row's source commit), **the Introduction goes 936 → 926 words**
@@ -944,9 +954,9 @@ frozen and any later build gets a new, superseding entry.**
 **92 commits** up to the preparation build (`3765872`), 156 up to re-freeze 22,
 161 up to re-freeze 23, 167 up to re-freeze 24, 172 up to re-freeze 25,
 175 up to re-freeze 26, 180 up to re-freeze 27, 183 up to re-freeze 28,
-193 up to re-freeze 29, 196 up to re-freeze 30, 201 up to re-freeze 31, 204 up to re-freeze 32, 207 up to re-freeze 33, 210 up to re-freeze 34, 214 up to re-freeze 35, 217 up to re-freeze 36, 220 up to re-freeze 37, 223 up to re-freeze 38, 232 up to re-freeze 39, 237 up to re-freeze 40, 241 up to re-freeze 41.
+193 up to re-freeze 29, 196 up to re-freeze 30, 201 up to re-freeze 31, 204 up to re-freeze 32, 207 up to re-freeze 33, 210 up to re-freeze 34, 214 up to re-freeze 35, 217 up to re-freeze 36, 220 up to re-freeze 37, 223 up to re-freeze 38, 232 up to re-freeze 39, 237 up to re-freeze 40, 241 up to re-freeze 41, 247 up to re-freeze 42.
 The paper goes from 24 to **26** rendered pages (25 until re-freeze 18), the
-supplement from 56 to **64**. The monograph, which they did not receive in September
+supplement from 56 to **63** (64 until re-freeze 41). The monograph, which they did not receive in September
 either, stands at 122.
 
 By tag, the 92 split as 27 `[AUDIT]`, 10 `[MANUSCRIPT+GUARD]`, 10
@@ -1046,7 +1056,12 @@ the Figure 3 caption's reason for S4_F's white tiles, and relabels Figure 4a's
 diagonal "no change" (row 40 above). No result changes. Re-freeze 41
 (`e71387f`) names the averaging windows on Figure 4b's axes and states in
 Figure 5b's axis and caption that the default blood volume is Pulse's own
-value, not an imposed override (row 41 above). No result changes.
+value, not an imposed override (row 41 above). No result changes. Re-freeze 42
+(`b7ff9b5`) fixes one Introduction sentence whose referent did not support it,
+corrects and completes two rows of supplement Table S1, and clarifies three
+Methods passages (row 42 above): a reader of the September copy will see it in
+the Introduction (one sentence), Methods §4.1, §4.2 and §4.7, and supplement
+Table S1, which now sits next to §S2. No result changes.
 
 ### What the covering message must say
 
@@ -1066,7 +1081,7 @@ value, not an imposed override (row 41 above). No result changes.
    two, and the union goes 46 → 48. Re-freeze 33 adds one more, also paper
    only: Baird et al. (BioGears) enters at [22] (29 → 30 entries), moving
    the former 22–29 up by one, and the union goes 48 → 49.
-2. **Page and line references have moved** (24 → 26 and 56 → 64 pages).
+2. **Page and line references have moved** (24 → 26 and 56 → 63 pages).
 3. **The repository is still private, deliberately.** The author's plan of
    2026-09-19: it goes public with the arXiv deposit, *after* this review round
    and the corrections it produces. Until then the availability sentences in
