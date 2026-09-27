@@ -64,14 +64,14 @@ paper,210,one,cardinal,e than 160 when flags overlap; \texttt{clean} means no fl
 paper,233,eight,cardinal,": a clinically ordinary value can sit on a yellow or red tile. \textbf{(a)} The eight cells against the six steady-state outputs (HR, MAP, Vt delivered, SpO$_2$, PaO"
 paper,233,six,cardinal,"value can sit on a yellow or red tile. \textbf{(a)} The eight cells against the six steady-state outputs (HR, MAP, Vt delivered, SpO$_2$, PaO$_2$, PaCO$_2$; units"
 paper,233,six,cardinal,"red tiles, 6 are red on deviation only, 4 on hard flags only and 2 on both. The six deviation-only red tiles are HR and PaO$_2$ in S3\_M, S3\_F and S4\_F: tachycar"
-paper,238,two,cardinal,[!ht] \centering \caption{\textbf{Per-cell retention under the two screening definitions.} Retention is computed over 160 simulations per cell. \e
-paper,238,Four,cardinal,eening definitions.} Retention is computed over 160 simulations per cell. \emph{Four-flag clean} keeps only runs firing none of the four flags; \emph{hard-failure-f
-paper,238,four,cardinal,simulations per cell. \emph{Four-flag clean} keeps only runs firing none of the four flags; \emph{hard-failure-free} keeps every run firing neither \texttt{diverged
-paper,238,nine,cardinal,"ntages on purpose: with $n = 160$ every percentage is a multiple of $0.625$, so nine of the sixteen values below fall on an exact rounding tie at one or two decimal"
-paper,238,sixteen,cardinal,"rpose: with $n = 160$ every percentage is a multiple of $0.625$, so nine of the sixteen values below fall on an exact rounding tie at one or two decimals, and their la"
+paper,238,two,cardinal,[!ht] \centering \caption{\textbf{Per-cell retention under the two screening definitions.} Retention is the number of a cell's 160 runs that a scr
+paper,238,Four,cardinal,tions.} Retention is the number of a cell's 160 runs that a screen keeps. \emph{Four-flag clean} keeps only runs firing none of the four flags. \emph{Hard-failure-f
+paper,238,four,cardinal,that a screen keeps. \emph{Four-flag clean} keeps only runs firing none of the four flags. \emph{Hard-failure-free} keeps every run firing neither \texttt{diverged
+paper,238,nine,cardinal,"centages because, with $n = 160$, every percentage is a multiple of $0.625$, so nine of the sixteen values below fall on an exact rounding tie at one or two decimal"
+paper,238,sixteen,cardinal,"ause, with $n = 160$, every percentage is a multiple of $0.625$, so nine of the sixteen values below fall on an exact rounding tie at one or two decimals, and their la"
 paper,238,one,cardinal,"f $0.625$, so nine of the sixteen values below fall on an exact rounding tie at one or two decimals, and their last digit would be set by a convention rather than"
 paper,238,two,cardinal,"5$, so nine of the sixteen values below fall on an exact rounding tie at one or two decimals, and their last digit would be set by a convention rather than by the"
-paper,238,two,cardinal,"and their last digit would be set by a convention rather than by the data. The two whole-sweep percentages are quoted because neither is a tie ($663/1{,}280$; $1{"
+paper,238,two,cardinal,and their last digit would be set by a convention rather than by the data. The two whole-sweep percentages are quoted because neither is a tie. Neither subset is
 paper,242,Four,cardinal,.} \toprule Cell & Four-flag clean & Hard-failure-free \\ \midrule S1\_M & 49/160 & 145/160 \\ S1\_F &
 paper,263,six,cardinal,"shows the Morris $\mu^{*}$, the input-importance metric, for the six outputs across the eight cells and seven swept inputs. Preregistered hypothesis"
 paper,263,eight,cardinal,"e Morris $\mu^{*}$, the input-importance metric, for the six outputs across the eight cells and seven swept inputs. Preregistered hypothesis H1 is supported in 48 of"
@@ -99,17 +99,16 @@ paper,265,two,cardinal,"h screens, the rank-1 input is preserved in all 30, whil
 paper,265,three,cardinal,"s, the rank-1 input is preserved in all 30, while the identity of ranks two and three changes in 11. Under this screen comparison, rank 1 was therefore more stable t"
 paper,278,six,cardinal,"\caption{\textbf{Morris $\mu^{*}$ heatmaps for the six steady-state outputs.} One panel per output: \textbf{(a)}~HR, \textbf{(b)}~MAP,"
 paper,278,One,cardinal,"\caption{\textbf{Morris $\mu^{*}$ heatmaps for the six steady-state outputs.} One panel per output: \textbf{(a)}~HR, \textbf{(b)}~MAP, \textbf{(c)}~Vt delivered,"
-paper,278,seven,cardinal,"\textbf{(d)}~SpO$_2$, \textbf{(e)}~PaO$_2$, \textbf{(f)}~PaCO$_2$. Rows are the seven swept inputs (HR, SBP, DBP, RR, Vt, FiO$_2$, PEEP), columns the eight (scenario"
-paper,278,eight,cardinal,"s are the seven swept inputs (HR, SBP, DBP, RR, Vt, FiO$_2$, PEEP), columns the eight (scenario $\times$ sex) cells, and colour intensity is $\mu^{*}$, the average a"
-paper,278,seven,cardinal,"n every panel $\mu^{*}$ collects in a few rows rather than spreading across all seven, which is Hypothesis~1's ``skewed sensitivity'' in visual form: on 48 of 48 cel"
+paper,278,seven,cardinal,"\textbf{(d)}~SpO$_2$, \textbf{(e)}~PaO$_2$, \textbf{(f)}~PaCO$_2$. Rows are the seven swept inputs (HR, SBP, DBP, RR, Vt, FiO$_2$, PEEP) and columns the eight (scena"
+paper,278,eight,cardinal,"re the seven swept inputs (HR, SBP, DBP, RR, Vt, FiO$_2$, PEEP) and columns the eight (scenario $\times$ sex) cells. Colour intensity is $\mu^{*}$, the average absol"
+paper,278,seven,cardinal,n every panel $\mu^{*}$ collects in a few rows rather than spreading across all seven. This is Hypothesis~1's ``skewed sensitivity'' in visual form: on 48 of 48 cell
 paper,278,three,cardinal,itivity'' in visual form: on 48 of 48 cell $\times$ output combinations the top three inputs carry at least half of the summed $\mu^{*}$ (median 0.928). The top thre
 paper,278,half,multiplicative,48 of 48 cell $\times$ output combinations the top three inputs carry at least half of the summed $\mu^{*}$ (median 0.928). The top three differ from output to out
 paper,278,three,cardinal,"hree inputs carry at least half of the summed $\mu^{*}$ (median 0.928). The top three differ from output to output, and for gas exchange also with severity, so a ran"
 paper,278,one,cardinal,"utput to output, and for gas exchange also with severity, so a ranking read off one panel does not transfer to the next. White tiles mark combinations with no esti"
-paper,278,one,cardinal,"S1\_M, S1\_F and S4\_F, where every FiO$_2$ elementary-effect pair has at least one flagged endpoint --- SpO$_2$ frozen at saturation and transient hyperoxia in th"
-paper,278,three,cardinal,"g the indices under the hard-failure-free screen makes FiO$_2$ estimable in all three, and it is then the rank-1 input for PaO$_2$ and SpO$_2$ in each: what the whit"
-paper,278,one,cardinal,"e white tiles withhold is the dominant input for gas exchange, not a negligible one (Supplement~\S\, ). Twelve tiles are outlined: they rest on"
-paper,278,Twelve,cardinal,"t for gas exchange, not a negligible one (Supplement~\S\, ). Twelve tiles are outlined: they rest on a single elementary-effect pair, so their $\si"
+paper,278,one,cardinal,"S1\_M, S1\_F and S4\_F, where every FiO$_2$ elementary-effect pair has at least one flagged endpoint (SpO$_2$ frozen at saturation and transient hyperoxia in the h"
+paper,278,three,cardinal,"g the indices under the hard-failure-free screen makes FiO$_2$ estimable in all three, and it is then the rank-1 input for PaO$_2$ and SpO$_2$ in each. So the white"
+paper,278,Twelve,cardinal,"ide the input that dominates oxygenation (Supplement~\S\, ). Twelve tiles are outlined: they rest on a single elementary-effect pair, so their $\si"
 paper,278,zero,cardinal,"re outlined: they rest on a single elementary-effect pair, so their $\sigma$ is zero by construction and no bootstrap interval is estimable. For SpO$_{2}$, $\mu^{*}"
 paper,286,two,cardinal,"that is clinically undesirable~ . The full protocol, the two worst-affected configurations and the per-run values are in Supplement~\S\,"
 paper,290,second,ordinal,1.0}{Transient hyperoxia regime at FiO2 = 1.0}} A second cluster of preregistered classifier flags concentrates on the highest inspired-
@@ -122,20 +121,19 @@ paper,290,three,cardinal,"-instability regime noted below, three of whose member
 paper,298,Two,cardinal,\caption{\textbf{Two operator-actionable corrections surfaced by the atlas.} Each is a before/after
 paper,298,one,cardinal,corrections surfaced by the atlas.} Each is a before/after paired scatter with one dot per configuration; the dashed diagonal marks ``no change''. \textbf{(a)} Tr
 paper,298,second,ordinal,"volume delivery, not a clinical ventilation setting. \textbf{(b)} Hyperoxia 300-second convergence ($n = 60$ reruns across S1, S3, S4 at FiO$_2 = 1.0$): PaO$_2$ avera"
-paper,298,second,ordinal,"uns across S1, S3, S4 at FiO$_2 = 1.0$): PaO$_2$ averaged over the original 120-second window ($x$) against the plateau after 300~seconds ($y$). The dotted line at 60"
+paper,298,second,ordinal,of the original run ($x$) against its plateau over $t = 240$--$300$~s of a 300-second rerun ($y$). The dotted line at 600~mmHg is the locked classifier's upper bound
 paper,298,six,cardinal,". Both axes are clamped to the physiological $[0, 760]$~mmHg range; six S1 reruns run off-scale into a numerical runaway (plateau up to $\approx$1{,}40"
+paper,298,second,ordinal,"st S1 dots sit above the diagonal because PaO$_2$ was still rising when the 120-second window closed. They also sit below the prediction, so the cohort as a whole doe"
 paper,304,zero,cardinal,"with finite output, and \emph{all 20 fell on the male reference body}, against zero divergences across the 640 runs on the female reference body (Figure~"
-paper,306,two,cardinal,"the 67.3~kg male reference body and 3{,}996~mL for the 56.2~kg female body. The two bodies therefore share essentially the same blood volume per kilogram ($\approx"
-paper,306,two,cardinal,"), so, within Pulse's blood-volume calculation, what separates the two bodies is absolute volume, driven by body mass, rather than a sex-specific bloo"
-paper,306,one,cardinal,"(Supplement~\S\, , with the full override protocol). Divergence is one axis of sex-stratified behaviour; the steady-state values separate far less. Ac"
+paper,306,two,cardinal,"the 67.3~kg male reference body and 3{,}996~mL for the 56.2~kg female body. The two bodies therefore share about the same blood volume per kilogram ($\approx$71~mL"
+paper,306,two,cardinal,"dy defines (Supplement~\S\, ). The steady-state values separate the two bodies far less than divergence does. Across the 24 (scenario $\times$ output)"
 paper,306,six,cardinal,"een the male and female clean-run distributions exceeds its permutation null on six, of which five survive Benjamini--Hochberg correction (Methods~\S"
-paper,306,five,cardinal,"nd female clean-run distributions exceeds its permutation null on six, of which five survive Benjamini--Hochberg correction (Methods~\S ); all"
-paper,306,five,cardinal,"survive Benjamini--Hochberg correction (Methods~\S ); all five are gas-exchange channels --- PaCO$_2$ in S1--S3, with SpO$_2$ and PaO$_2$ in S"
-paper,306,two,cardinal,"ankings move less still: male and female Morris rankings stay concordant in the two scenarios where the comparison is computable, with Spearman $\rho$ point estima"
-paper,306,zero,cardinal,"ild-ARDS delivered-tidal-volume cell having a confidence interval that includes zero (Supplement~\S\, ). Across the two reference bodies, where the s"
+paper,306,five,cardinal,"nd female clean-run distributions exceeds its permutation null on six, of which five survive Benjamini--Hochberg correction (Methods~\S ). All"
+paper,306,five,cardinal,"survive Benjamini--Hochberg correction (Methods~\S ). All five are gas-exchange channels (PaCO$_2$ in S1--S3, SpO$_2$ and PaO$_2$ in S4). Hear"
+paper,306,two,cardinal,"e less still. Male and female Morris rankings stay concordant in S2 and S3, the two scenarios where the comparison is computable, with Spearman $\rho$ point estima"
+paper,306,zero,cardinal,"ARDS delivered-tidal-volume combination has a confidence interval that includes zero (Supplement~\S\, ). Across the two reference bodies, where the s"
 paper,306,two,cardinal,"dence interval that includes zero (Supplement~\S\, ). Across the two reference bodies, where the solver fails therefore differs far more than which"
-paper,308,One,cardinal,where the solver fails therefore differs far more than which inputs dominate. One caveat governs how any cross-body contrast should be read. The comparison is ma
-paper,308,two,cardinal,"differs by sex --- 144 of 160 against 122 of 160 in S3, for instance --- so the two distributions are drawn from different subsets of the input grid, and a survivi"
+paper,308,two,cardinal,"self differs by sex (144 of 160 against 122 of 160 in S3, for instance), so the two distributions are drawn from different subsets of the input grid. A surviving d"
 paper,314,one,cardinal,"ody, while the female body runs an identical Morris input grid without a single one. The asymmetry is specific to this input-extreme regime: at midrange inputs acr"
 paper,314,zero,cardinal,"eneath each tick), the $y$-axis the divergence count out of 20. The collapse to zero at both reductions (20 $\rightarrow$ 0) establishes that lowering the blood-vol"
 paper,314,one,cardinal,"female reference body (dashed vertical line), 86~mL below the male floor, so a one-way blood-volume transplant cannot make the two reference bodies equal in blood"
@@ -401,7 +399,7 @@ supplement,378,Fourth,ordinal,"he implemented rule therefore never converted a c
 supplement,378,twelve,cardinal,"ed rule therefore never converted a cell into a favourable verdict. Fourth, all twelve combinations that are red under the implemented rule remain red under the liter"
 supplement,380,four,cardinal,ary between ``carries a hard flag'' and ``carries them at above $30~\%$''. The four-flag reading is reported to document the ambiguity of the preregistered word ``
 supplement,380,two,cardinal,"no information. The complete list of the 26 transitions, the chronology of the two rules in the repository, and the reasoning behind retaining the implemented rul"
-supplement,388,one,cardinal,"separates the ingredients that Figure~2 of the main manuscript combines into one colour per cell, and adds the per-cell driver matrix that did not fit the main"
+supplement,388,one,cardinal,"separates the ingredients that Figure~2 of the main manuscript combines into one colour per tile, and adds the per-cell driver matrix that did not fit the main"
 supplement,400,one,cardinal,ty at fixed trajectory count} The canonical sweep draws one Morris sample at seed 42. To test the sensitivity of the reported rankings to t
 supplement,402,six,cardinal,"the number of trajectories. The highest-$\mu^{*}$ input was preserved for all six outputs. The complete top-three set was preserved for four of six (MAP, PaCO$_2"
 supplement,402,three,cardinal,"The highest-$\mu^{*}$ input was preserved for all six outputs. The complete top-three set was preserved for four of six (MAP, PaCO$_2$, PaO$_2$, SpO$_2$) and its ord"

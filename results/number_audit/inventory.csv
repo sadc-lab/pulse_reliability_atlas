@@ -3542,14 +3542,9 @@ paper,233,12,12.0,ambiguous_small,"emph{hard flags only}, 9 \emph{deviation only
 paper,233,6,6.0,ambiguous_small,"s only}, 9 \emph{deviation only}, 9 \emph{both}. Of the 12 red tiles, 6 are red on deviation only, 4 on hard flags only and 2 on both. The si"
 paper,233,4,4.0,ambiguous_small,"ly}, 9 \emph{both}. Of the 12 red tiles, 6 are red on deviation only, 4 on hard flags only and 2 on both. The six deviation-only red tiles ar"
 paper,233,2,2.0,ambiguous_small,"e 12 red tiles, 6 are red on deviation only, 4 on hard flags only and 2 on both. The six deviation-only red tiles are HR and PaO$_2$ in S3\_M"
-paper,238,160,160.0,guard,tion under the two screening definitions.} Retention is computed over 160 simulations per cell. \emph{Four-flag clean} keeps only runs firing n
-paper,238,160,160.0,guard,"his sweep, so including it changes no count). Counts are given out of 160 rather than as percentages on purpose: with $n = 160$ every percentag"
-paper,238,160,160.0,guard,"are given out of 160 rather than as percentages on purpose: with $n = 160$ every percentage is a multiple of $0.625$, so nine of the sixteen va"
-paper,238,0.625,0.625,none,"entages on purpose: with $n = 160$ every percentage is a multiple of $0.625$, so nine of the sixteen values below fall on an exact rounding tie a"
-paper,238,663,663.0,guard,"The two whole-sweep percentages are quoted because neither is a tie ($663/1{,}280$; $1{,}134/1{,}280$). Neither subset is distribution-neutral."
-paper,238,"1{,}280",1280.0,guard,"two whole-sweep percentages are quoted because neither is a tie ($663/1{,}280$; $1{,}134/1{,}280$). Neither subset is distribution-neutral. Cell-la"
-paper,238,"1{,}134",1134.0,guard,"weep percentages are quoted because neither is a tie ($663/1{,}280$; $1{,}134/1{,}280$). Neither subset is distribution-neutral. Cell-label key: Ta"
-paper,238,"1{,}280",1280.0,guard,"centages are quoted because neither is a tie ($663/1{,}280$; $1{,}134/1{,}280$). Neither subset is distribution-neutral. Cell-label key: Table~"
+paper,238,160,160.0,guard,r the two screening definitions.} Retention is the number of a cell's 160 runs that a screen keeps. \emph{Four-flag clean} keeps only runs firi
+paper,238,160,160.0,guard,"o count). Counts are given rather than percentages because, with $n = 160$, every percentage is a multiple of $0.625$, so nine of the sixteen v"
+paper,238,0.625,0.625,none,"rcentages because, with $n = 160$, every percentage is a multiple of $0.625$, so nine of the sixteen values below fall on an exact rounding tie a"
 paper,244,49,49.0,ambiguous_small,oprule Cell & Four-flag clean & Hard-failure-free \\ \midrule S1\_M & 49/160 & 145/160 \\ S1\_F & 42/160 & 137/160 \\ \midrule S2\_M & 87/160
 paper,244,160,160.0,guard,ule Cell & Four-flag clean & Hard-failure-free \\ \midrule S1\_M & 49/160 & 145/160 \\ S1\_F & 42/160 & 137/160 \\ \midrule S2\_M & 87/160 & 15
 paper,244,145,145.0,guard,ll & Four-flag clean & Hard-failure-free \\ \midrule S1\_M & 49/160 & 145/160 \\ S1\_F & 42/160 & 137/160 \\ \midrule S2\_M & 87/160 & 156/160
@@ -3624,12 +3619,12 @@ paper,265,1,1.0,ambiguous_small,"at least one retained pair) is the same under b
 paper,265,30,30.0,ambiguous_small,"is the same under both screens, the rank-1 input is preserved in all 30, while the identity of ranks two and three changes in 11. Under this"
 paper,265,11,11.0,ambiguous_small,"erved in all 30, while the identity of ranks two and three changes in 11. Under this screen comparison, rank 1 was therefore more stable than"
 paper,265,1,1.0,ambiguous_small,"ranks two and three changes in 11. Under this screen comparison, rank 1 was therefore more stable than the ordering below it, and the full or"
-paper,278,1,1.0,ambiguous_small,"few rows rather than spreading across all seven, which is Hypothesis~1's ``skewed sensitivity'' in visual form: on 48 of 48 cell $\times$ ou"
-paper,278,48,48.0,ambiguous_small,"en, which is Hypothesis~1's ``skewed sensitivity'' in visual form: on 48 of 48 cell $\times$ output combinations the top three inputs carry at"
-paper,278,48,48.0,ambiguous_small,ich is Hypothesis~1's ``skewed sensitivity'' in visual form: on 48 of 48 cell $\times$ output combinations the top three inputs carry at least
+paper,278,1,1.0,ambiguous_small,a few rows rather than spreading across all seven. This is Hypothesis~1's ``skewed sensitivity'' in visual form: on 48 of 48 cell $\times$ ou
+paper,278,48,48.0,ambiguous_small,ven. This is Hypothesis~1's ``skewed sensitivity'' in visual form: on 48 of 48 cell $\times$ output combinations the top three inputs carry at
+paper,278,48,48.0,ambiguous_small,his is Hypothesis~1's ``skewed sensitivity'' in visual form: on 48 of 48 cell $\times$ output combinations the top three inputs carry at least
 paper,278,0.928,0.928,guard,"top three inputs carry at least half of the summed $\mu^{*}$ (median 0.928). The top three differ from output to output, and for gas exchange al"
-paper,278,0,0.0,ambiguous_small,"e tiles mark combinations with no estimable $\mu^{*}$, not $\mu^{*} = 0$; this occurs only for FiO$_2$ in S1\_M, S1\_F and S4\_F, where every"
-paper,278,1,1.0,ambiguous_small,"screen makes FiO$_2$ estimable in all three, and it is then the rank-1 input for PaO$_2$ and SpO$_2$ in each: what the white tiles withhold"
+paper,278,0,0.0,ambiguous_small,"e tiles mark combinations with no estimable $\mu^{*}$, not $\mu^{*} = 0$. This occurs only for FiO$_2$ in S1\_M, S1\_F and S4\_F, where every"
+paper,278,1,1.0,ambiguous_small,"screen makes FiO$_2$ estimable in all three, and it is then the rank-1 input for PaO$_2$ and SpO$_2$ in each. So the white tiles hide the in"
 paper,278,2,2.0,ambiguous_small,"ero by construction and no bootstrap interval is estimable. For SpO$_{2}$, $\mu^{*}$ is expressed on the fractional scale Pulse reports (0--1"
 paper,278,0,0.0,ambiguous_small,"$_{2}$, $\mu^{*}$ is expressed on the fractional scale Pulse reports (0--1), so 0.12 corresponds to 12 percentage points. Cell-label key: Tab"
 paper,278,1,1.0,ambiguous_small,"2}$, $\mu^{*}$ is expressed on the fractional scale Pulse reports (0--1), so 0.12 corresponds to 12 percentage points. Cell-label key: Table~"
@@ -3676,57 +3671,59 @@ paper,290,643,643.0,guard,"und above. The S1 plateau median over all 40 drift-co
 paper,290,20,20.0,ambiguous_small,"over all 40 drift-converged runs was 643~mmHg, sitting approximately 20~mmHg \emph{below} the alveolar-gas-equation prediction~"
 paper,292,300,300.0,guard,ion map. Hyperoxia studies on Pulse should therefore record at least 300 seconds of simulation before extracting a steady-state plateau. In th
 paper,292,1.0,1.0,ambiguous_small,"). Extended-window runs on healthy lungs at FiO$_2$ = 1.0 can additionally enter a separate solver-instability regime, far more"
-paper,298,64,64.0,ambiguous_small,)} Trigger-lockout intervention on VC-AC tidal-volume stability ($n = 64$ paired reruns): breath-to-breath tidal-volume variability under Puls
-paper,298,2,2.0,ambiguous_small,"ability after locking \texttt{InspirationPatientTriggerPressure} at $-2$~cmH$_2$O ($y$), so a dot far below the diagonal is a configuration w"
-paper,298,0.05,0.05,none,"ation whose oscillation the lock largely removed. The dotted line at $0.05$ is the classifier's steady-state threshold, a delivered-Vt coefficie"
-paper,298,5,5.0,ambiguous_small,"steady-state threshold, a delivered-Vt coefficient of variation above 5~\% of the mean. The lock collapses the median CV from 0.351 to 0.016"
-paper,298,0.351,0.351,guard,riation above 5~\% of the mean. The lock collapses the median CV from 0.351 to 0.016 and brings 78.1~\% of reruns below the threshold; it is a da
-paper,298,0.016,0.016,ambiguous_small,bove 5~\% of the mean. The lock collapses the median CV from 0.351 to 0.016 and brings 78.1~\% of reruns below the threshold; it is a data-genera
-paper,298,78.1,78.1,guard,mean. The lock collapses the median CV from 0.351 to 0.016 and brings 78.1~\% of reruns below the threshold; it is a data-generation lever for l
+paper,298,64,64.0,ambiguous_small,)} Trigger-lockout intervention on VC-AC tidal-volume stability ($n = 64$ paired reruns): the classifier's delivered-Vt coefficient of variati
+paper,298,2,2.0,ambiguous_small,"same CV after locking \texttt{InspirationPatientTriggerPressure} at $-2$~cmH$_2$O ($y$), so a dot far below the diagonal is a configuration w"
+paper,298,0.05,0.05,none,ation whose oscillation the lock largely removed. The dotted line at $0.05$ is the classifier's steady-state threshold. The lock collapses the m
+paper,298,0.351,0.351,guard,ifier's steady-state threshold. The lock collapses the median CV from 0.351 to 0.016 and brings 78.1~\% of reruns below the threshold; it is a da
+paper,298,0.016,0.016,ambiguous_small,teady-state threshold. The lock collapses the median CV from 0.351 to 0.016 and brings 78.1~\% of reruns below the threshold; it is a data-genera
+paper,298,78.1,78.1,guard,hold. The lock collapses the median CV from 0.351 to 0.016 and brings 78.1~\% of reruns below the threshold; it is a data-generation lever for l
 paper,298,300,300.0,guard,"delivery, not a clinical ventilation setting. \textbf{(b)} Hyperoxia 300-second convergence ($n = 60$ reruns across S1, S3, S4 at FiO$_2 = 1.0"
-paper,298,60,60.0,ambiguous_small,"tilation setting. \textbf{(b)} Hyperoxia 300-second convergence ($n = 60$ reruns across S1, S3, S4 at FiO$_2 = 1.0$): PaO$_2$ averaged over th"
-paper,298,1.0,1.0,ambiguous_small,"300-second convergence ($n = 60$ reruns across S1, S3, S4 at FiO$_2 = 1.0$): PaO$_2$ averaged over the original 120-second window ($x$) against"
-paper,298,120,120.0,guard,"ross S1, S3, S4 at FiO$_2 = 1.0$): PaO$_2$ averaged over the original 120-second window ($x$) against the plateau after 300~seconds ($y$). The"
-paper,298,300,300.0,guard,d over the original 120-second window ($x$) against the plateau after 300~seconds ($y$). The dotted line at 600~mmHg is the locked classifier's
-paper,298,600,600.0,guard,($x$) against the plateau after 300~seconds ($y$). The dotted line at 600~mmHg is the locked classifier's upper bound and the dash-dotted line
+paper,298,60,60.0,ambiguous_small,"tilation setting. \textbf{(b)} Hyperoxia 300-second convergence ($n = 60$ reruns across S1, S3, S4 at FiO$_2 = 1.0$): PaO$_2$ averaged over $t"
+paper,298,1.0,1.0,ambiguous_small,"300-second convergence ($n = 60$ reruns across S1, S3, S4 at FiO$_2 = 1.0$): PaO$_2$ averaged over $t = 60$--$120$~s of the original run ($x$)"
+paper,298,60,60.0,ambiguous_small,"eruns across S1, S3, S4 at FiO$_2 = 1.0$): PaO$_2$ averaged over $t = 60$--$120$~s of the original run ($x$) against its plateau over $t = 240"
+paper,298,120,120.0,guard,"across S1, S3, S4 at FiO$_2 = 1.0$): PaO$_2$ averaged over $t = 60$--$120$~s of the original run ($x$) against its plateau over $t = 240$--$300"
+paper,298,240,240.0,guard,60$--$120$~s of the original run ($x$) against its plateau over $t = 240$--$300$~s of a 300-second rerun ($y$). The dotted line at 600~mmHg is
+paper,298,300,300.0,guard,120$~s of the original run ($x$) against its plateau over $t = 240$--$300$~s of a 300-second rerun ($y$). The dotted line at 600~mmHg is the lo
+paper,298,300,300.0,guard,e original run ($x$) against its plateau over $t = 240$--$300$~s of a 300-second rerun ($y$). The dotted line at 600~mmHg is the locked classif
+paper,298,600,600.0,guard,er $t = 240$--$300$~s of a 300-second rerun ($y$). The dotted line at 600~mmHg is the locked classifier's upper bound and the dash-dotted line
 paper,298,663,663.0,guard,locked classifier's upper bound and the dash-dotted line at $\approx$~663~mmHg the alveolar-gas-equation sea-level prediction~
 paper,298,0,0.0,ambiguous_small,". Both axes are clamped to the physiological $[0, 760]$~mmHg range; six S1 reruns run off-scale into a numerical runaw"
 paper,298,760,760.0,guard,". Both axes are clamped to the physiological $[0, 760]$~mmHg range; six S1 reruns run off-scale into a numerical runaway (p"
 paper,298,"1{,}408",1408.0,ledger,"reruns run off-scale into a numerical runaway (plateau up to $\approx$1{,}408~mmHg; Supplement~\S\, ) and are omitted. Most S1 dots sit"
-paper,304,"1{,}280",1280.0,guard,"and blood-volume dependence} Across the full 1{,}280-run sweep, solver divergence is rare but strikingly sex-stratified. 2"
-paper,304,20,20.0,ambiguous_small,"0-run sweep, solver divergence is rare but strikingly sex-stratified. 20 runs (1.6~\%) failed to complete with finite output, and \emph{all 20"
+paper,298,120,120.0,guard,"dots sit above the diagonal because PaO$_2$ was still rising when the 120-second window closed. They also sit below the prediction, so the coho"
+paper,304,20,20.0,ambiguous_small,"s the sweep, solver divergence is rare but strikingly sex-stratified. 20 runs (1.6~\%) failed to complete with finite output, and \emph{all 20"
 paper,304,1.6,1.6,ambiguous_small,"ep, solver divergence is rare but strikingly sex-stratified. 20 runs (1.6~\%) failed to complete with finite output, and \emph{all 20 fell on t"
 paper,304,20,20.0,ambiguous_small,"20 runs (1.6~\%) failed to complete with finite output, and \emph{all 20 fell on the male reference body}, against zero divergences across the"
 paper,304,640,640.0,guard,"fell on the male reference body}, against zero divergences across the 640 runs on the female reference body (Figure~ a). The 20"
-paper,304,20,20.0,ambiguous_small,640 runs on the female reference body (Figure~ a). The 20 divergence events are not spread uniformly through the input space: t
-paper,304,8,8.0,ambiguous_small,"ents are not spread uniformly through the input space: they span only 8 distinct operational-input vectors, and FiO$_2$ was requested at its"
-paper,304,1.0,1.0,ambiguous_small,"distinct operational-input vectors, and FiO$_2$ was requested at its 1.0 boundary in 13 of the 20, although every divergence preceded the vent"
-paper,304,13,13.0,none,"ional-input vectors, and FiO$_2$ was requested at its 1.0 boundary in 13 of the 20, although every divergence preceded the ventilator action t"
-paper,304,20,20.0,ambiguous_small,"t vectors, and FiO$_2$ was requested at its 1.0 boundary in 13 of the 20, although every divergence preceded the ventilator action that would"
-paper,306,"4{,}803",4803.0,ledger,"e from a sex-independent allometric relation on body weight, yielding 4{,}803~mL for the 67.3~kg male reference body and 3{,}996~mL for the 56.2~kg"
-paper,306,67.3,67.3,guard,"ndent allometric relation on body weight, yielding 4{,}803~mL for the 67.3~kg male reference body and 3{,}996~mL for the 56.2~kg female body. Th"
-paper,306,"3{,}996",3996.0,ledger,"y weight, yielding 4{,}803~mL for the 67.3~kg male reference body and 3{,}996~mL for the 56.2~kg female body. The two bodies therefore share essent"
-paper,306,56.2,56.2,guard,"4{,}803~mL for the 67.3~kg male reference body and 3{,}996~mL for the 56.2~kg female body. The two bodies therefore share essentially the same b"
-paper,306,71,71.0,none,"refore share essentially the same blood volume per kilogram ($\approx$71~mL\,kg$^{-1}$, within standard clinical estimates~ ),"
-paper,306,1,1.0,ambiguous_small,"essentially the same blood volume per kilogram ($\approx$71~mL\,kg$^{-1}$, within standard clinical estimates~ ), so, within"
-paper,306,20,20.0,ambiguous_small,"ss, rather than a sex-specific blood-volume formula. Re-executing the 20 originally-diverged male inputs with an explicit \texttt{BloodVolumeB"
-paper,306,20,20.0,ambiguous_small,"\texttt{BloodVolumeBaseline} override took the divergence count from 20 / 20 at the default to 0 / 20 at both an intermediate 4{,}400~mL brac"
-paper,306,20,20.0,ambiguous_small,"ttt{BloodVolumeBaseline} override took the divergence count from 20 / 20 at the default to 0 / 20 at both an intermediate 4{,}400~mL bracket a"
-paper,306,0,0.0,ambiguous_small,"ne} override took the divergence count from 20 / 20 at the default to 0 / 20 at both an intermediate 4{,}400~mL bracket and the engine's own"
-paper,306,20,20.0,ambiguous_small,"override took the divergence count from 20 / 20 at the default to 0 / 20 at both an intermediate 4{,}400~mL bracket and the engine's own setup"
-paper,306,"4{,}400",4400.0,none,"e count from 20 / 20 at the default to 0 / 20 at both an intermediate 4{,}400~mL bracket and the engine's own setup floor of 4{,}082~mL (Figure~"
-paper,306,"4{,}082",4082.0,ledger,"n intermediate 4{,}400~mL bracket and the engine's own setup floor of 4{,}082~mL (Figure~ b). Removing the divergence does not by it"
-paper,306,12,12.0,ambiguous_small,moving the divergence does not by itself make a configuration usable: 12 of the 20 are clean at both override levels while 8 retain a flag ---
-paper,306,20,20.0,ambiguous_small,divergence does not by itself make a configuration usable: 12 of the 20 are clean at both override levels while 8 retain a flag --- SpO$_2$ p
-paper,306,8,8.0,ambiguous_small,"guration usable: 12 of the 20 are clean at both override levels while 8 retain a flag --- SpO$_2$ pinned at saturation, the tidal-volume osci"
-paper,306,24,24.0,ambiguous_small,"fied behaviour; the steady-state values separate far less. Across the 24 (scenario $\times$ output) comparisons, the Wasserstein distance betw"
-paper,306,0.75,0.75,ambiguous_small,"the comparison is computable, with Spearman $\rho$ point estimates of 0.75--1.00 across the 12 (scenario, output) cells of S2 and S3, only the m"
-paper,306,1.00,1.0,guard,"mparison is computable, with Spearman $\rho$ point estimates of 0.75--1.00 across the 12 (scenario, output) cells of S2 and S3, only the mild-AR"
-paper,306,12,12.0,ambiguous_small,"utable, with Spearman $\rho$ point estimates of 0.75--1.00 across the 12 (scenario, output) cells of S2 and S3, only the mild-ARDS delivered-t"
-paper,308,144,144.0,guard,"on clean runs, and how many runs stay clean itself differs by sex --- 144 of 160 against 122 of 160 in S3, for instance --- so the two distribu"
-paper,308,160,160.0,guard,"n runs, and how many runs stay clean itself differs by sex --- 144 of 160 against 122 of 160 in S3, for instance --- so the two distributions a"
-paper,308,122,122.0,guard,"how many runs stay clean itself differs by sex --- 144 of 160 against 122 of 160 in S3, for instance --- so the two distributions are drawn fro"
-paper,308,160,160.0,guard,"y runs stay clean itself differs by sex --- 144 of 160 against 122 of 160 in S3, for instance --- so the two distributions are drawn from diffe"
+paper,304,20,20.0,ambiguous_small,640 runs on the female reference body (Figure~ a). The 20 divergence events span only 8 distinct operational-input vectors. FiO
+paper,304,8,8.0,ambiguous_small,e body (Figure~ a). The 20 divergence events span only 8 distinct operational-input vectors. FiO$_2$ was requested at its 1.0
+paper,304,1.0,1.0,ambiguous_small,"ly 8 distinct operational-input vectors. FiO$_2$ was requested at its 1.0 boundary in 13 of the 20, although every divergence preceded the vent"
+paper,304,13,13.0,none,"erational-input vectors. FiO$_2$ was requested at its 1.0 boundary in 13 of the 20, although every divergence preceded the ventilator action t"
+paper,304,20,20.0,ambiguous_small,"input vectors. FiO$_2$ was requested at its 1.0 boundary in 13 of the 20, although every divergence preceded the ventilator action that would"
+paper,306,"4{,}803",4803.0,ledger,"ight alone, with the same allometric formula for both sexes, yielding 4{,}803~mL for the 67.3~kg male reference body and 3{,}996~mL for the 56.2~kg"
+paper,306,67.3,67.3,guard,"e same allometric formula for both sexes, yielding 4{,}803~mL for the 67.3~kg male reference body and 3{,}996~mL for the 56.2~kg female body. Th"
+paper,306,"3{,}996",3996.0,ledger,"th sexes, yielding 4{,}803~mL for the 67.3~kg male reference body and 3{,}996~mL for the 56.2~kg female body. The two bodies therefore share about"
+paper,306,56.2,56.2,guard,"4{,}803~mL for the 67.3~kg male reference body and 3{,}996~mL for the 56.2~kg female body. The two bodies therefore share about the same blood v"
+paper,306,71,71.0,none,"es therefore share about the same blood volume per kilogram ($\approx$71~mL\,kg$^{-1}$, within standard clinical estimates~ ),"
+paper,306,1,1.0,ambiguous_small,"share about the same blood volume per kilogram ($\approx$71~mL\,kg$^{-1}$, within standard clinical estimates~ ), so within t"
+paper,306,20,20.0,ambiguous_small,"body mass, rather than through a sex-specific formula. We re-ran the 20 originally-diverged male configurations with the baseline imposed thr"
+paper,306,20,20.0,ambiguous_small,"{BloodVolumeBaseline} patient setting. The divergence count fell from 20 / 20 at the default to 0 / 20 at both an intermediate 4{,}400~mL brac"
+paper,306,20,20.0,ambiguous_small,"dVolumeBaseline} patient setting. The divergence count fell from 20 / 20 at the default to 0 / 20 at both an intermediate 4{,}400~mL bracket a"
+paper,306,0,0.0,ambiguous_small,"ent setting. The divergence count fell from 20 / 20 at the default to 0 / 20 at both an intermediate 4{,}400~mL bracket and the engine's own"
+paper,306,20,20.0,ambiguous_small,"setting. The divergence count fell from 20 / 20 at the default to 0 / 20 at both an intermediate 4{,}400~mL bracket and the engine's own setup"
+paper,306,"4{,}400",4400.0,none,"nt fell from 20 / 20 at the default to 0 / 20 at both an intermediate 4{,}400~mL bracket and the engine's own setup floor of 4{,}082~mL, the lowest"
+paper,306,"4{,}082",4082.0,ledger,"n intermediate 4{,}400~mL bracket and the engine's own setup floor of 4{,}082~mL, the lowest value it accepts for this body (Figure~"
+paper,306,12,12.0,ambiguous_small,"moving the divergence does not by itself make a configuration usable: 12 of the 20 are clean at both levels, while 8 keep a flag (SpO$_2$ pinn"
+paper,306,20,20.0,ambiguous_small,"divergence does not by itself make a configuration usable: 12 of the 20 are clean at both levels, while 8 keep a flag (SpO$_2$ pinned at satu"
+paper,306,8,8.0,ambiguous_small,"a configuration usable: 12 of the 20 are clean at both levels, while 8 keep a flag (SpO$_2$ pinned at saturation, the tidal-volume oscillati"
+paper,306,24,24.0,ambiguous_small,"ues separate the two bodies far less than divergence does. Across the 24 (scenario $\times$ output) comparisons, the Wasserstein distance betw"
+paper,306,0.75,0.75,ambiguous_small,"the comparison is computable, with Spearman $\rho$ point estimates of 0.75--1.00 across their 12 (scenario, output) combinations, and only the m"
+paper,306,1.00,1.0,guard,"mparison is computable, with Spearman $\rho$ point estimates of 0.75--1.00 across their 12 (scenario, output) combinations, and only the mild-AR"
+paper,306,12,12.0,ambiguous_small,"able, with Spearman $\rho$ point estimates of 0.75--1.00 across their 12 (scenario, output) combinations, and only the mild-ARDS delivered-tid"
+paper,308,144,144.0,guard,"de on clean runs, and how many runs stay clean itself differs by sex (144 of 160 against 122 of 160 in S3, for instance), so the two distributi"
+paper,308,160,160.0,guard,"lean runs, and how many runs stay clean itself differs by sex (144 of 160 against 122 of 160 in S3, for instance), so the two distributions are"
+paper,308,122,122.0,guard,"nd how many runs stay clean itself differs by sex (144 of 160 against 122 of 160 in S3, for instance), so the two distributions are drawn from"
+paper,308,160,160.0,guard,"many runs stay clean itself differs by sex (144 of 160 against 122 of 160 in S3, for instance), so the two distributions are drawn from differe"
 paper,308,19.8,19.8,guard,"hed absolute tidal-volume setting, the female reference body receives 19.8~\% more tidal volume per kilogram of actual body weight and 36.1~\% m"
 paper,308,36.1,36.1,guard,"ives 19.8~\% more tidal volume per kilogram of actual body weight and 36.1~\% more per kilogram of ideal body weight, computed using the sex-spe"
 paper,314,"1{,}280",1280.0,guard,"bf{(a)} Divergence counts per (scenario $\times$ sex) cell across the 1{,}280-run sweep: all 20 divergence events fall on the male reference body,"
@@ -4428,7 +4425,7 @@ supplement,378,30,30.0,ambiguous_small,boundary between ``carries a hard flag'' 
 supplement,380,12,12.0,ambiguous_small,"cell in the sweep contains \texttt{not\_steady\_state} runs (minimum 12, in S3\_M), so that reading colours all 48 combinations red and carri"
 supplement,380,48,48.0,ambiguous_small,"eady\_state} runs (minimum 12, in S3\_M), so that reading colours all 48 combinations red and carries no information. The complete list of the"
 supplement,380,26,26.0,ambiguous_small,"combinations red and carries no information. The complete list of the 26 transitions, the chronology of the two rules in the repository, and t"
-supplement,388,2,2.0,ambiguous_small,"gure~ separates the ingredients that Figure~2 of the main manuscript combines into one colour per cell, and adds th"
+supplement,388,2,2.0,ambiguous_small,"gure~ separates the ingredients that Figure~2 of the main manuscript combines into one colour per tile, and adds th"
 supplement,391,10,10.0,ambiguous_small,"ss-relative and deliberately asymmetric: for deviation, yellow above $10~\%$ and red above $30~\%$; for hard flags, yellow at any positive rat"
 supplement,391,30,30.0,ambiguous_small,"rately asymmetric: for deviation, yellow above $10~\%$ and red above $30~\%$; for hard flags, yellow at any positive rate and red above $30~\%"
 supplement,392,30,30.0,ambiguous_small,"e $30~\%$; for hard flags, yellow at any positive rate and red above $30~\%$. The \texttt{not\_steady\_state} attribution in panel~(b) is reco"
