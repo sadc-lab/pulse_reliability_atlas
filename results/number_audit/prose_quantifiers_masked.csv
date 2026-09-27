@@ -24,14 +24,12 @@ supplement,tex_comment,59,nothing,"the % paper's Results silently invalidated 21
 supplement,tex_comment,65,nothing,"se across % documents. % % The macro renders the number and nothing else, so the printed supplement is % unchanged and s"
 supplement,tex_comment,66,unchanged,"the number and nothing else, so the printed supplement is % unchanged and stays readable on its own. What it adds is the"
 supplement,tex_comment,77,neither,r than ~87% of the text block but shorter than 88.7% % fits neither on a text page nor alone on a float page. It then wa
-supplement,tex_comment,77,alone,ck but shorter than 88.7% % fits neither on a text page nor alone on a float page. It then waits for % \end{document} an
-supplement,tex_comment,78,every,a float page. It then waits for % \end{document} and holds every later float of its kind with it: until % 2026-09-27 Ta
-supplement,tex_comment,80,first,"5 printed after the references, % up to 43 pages from their first mention. Lowering the float-page threshold, % and givi"
-supplement,tex_comment,81,every,"st mention. Lowering the float-page threshold, % and giving every float [htbp] rather than [h] alone, lets each one land"
-supplement,tex_comment,81,alone,"threshold, % and giving every float [htbp] rather than [h] alone, lets each one land % next to its section. Content is"
-supplement,tex_comment,81,each,"% and giving every float [htbp] rather than [h] alone, lets each one land % next to its section. Content is unchanged; o"
-supplement,tex_comment,82,unchanged,"alone, lets each one land % next to its section. Content is unchanged; only placement moves. % flafter (loaded above) ke"
-supplement,tex_comment,82,only,each one land % next to its section. Content is unchanged; only placement moves. % flafter (loaded above) keeps a float
+supplement,tex_comment,77,alone,ck but shorter than 88.7% % fits neither on a text page nor alone on a float page. It then waits for % the end of the do
+supplement,tex_comment,78,every,page. It then waits for % the end of the document and holds every later float of its kind with it: % until 2026-09-27 Ta
+supplement,tex_comment,80,first,"5 printed after the % references, up to 43 pages from their first mention. A float-page threshold % of 0.7 (low enough f"
+supplement,tex_comment,81,no,"shold % of 0.7 (low enough for that table, high enough that no figure is left alone % on a half-empty page) and [htbp] i"
+supplement,tex_comment,81,alone,"w enough for that table, high enough that no figure is left alone % on a half-empty page) and [htbp] instead of [h] let"
+supplement,tex_comment,82,each,alone % on a half-empty page) and [htbp] instead of [h] let each float land near its section. % flafter (loaded above) k
 supplement,tex_comment,84,alone,"a page % above the heading of its own section, which [htbp] alone allowed for % Table S1; the clamp-pattern listing in S"
-supplement,tex_comment,86,cannot,he clamp-pattern listing in S3.3 is boxed so a page break % cannot split it. \renewcommand{\floatpagefraction}{0.5} \be
+supplement,tex_comment,86,cannot,he clamp-pattern listing in S3.3 is boxed so a page break % cannot split it. \renewcommand{\floatpagefraction}{0.7} \be
 supplement,tex_comment,1117,all,eps its %% historical label sec:s16 but now renders as S17 (all \ref auto-update). %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

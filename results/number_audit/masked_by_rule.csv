@@ -530,10 +530,11 @@ supplement,tex_comment,58,05,ipt section is a literal % number typed by hand. On
 supplement,tex_comment,59,21,"tion inserted in the % paper's Results silently invalidated 21 of them, and nothing in the build % noticed -- scripts/ch"
 supplement,tex_comment,76,87,"to .887 and \textfraction to % .13, so a float taller than ~87% of the text block but shorter than 88.7% % fits neither"
 supplement,tex_comment,76,88.7,a float taller than ~87% of the text block but shorter than 88.7% % fits neither on a text page nor alone on a float pag
-supplement,tex_comment,79,2026,t} and holds every later float of its kind with it: until % 2026-09-27 Tables S4-S18 and Figures S3-S5 printed after the
-supplement,tex_comment,79,09,d holds every later float of its kind with it: until % 2026-09-27 Tables S4-S18 and Figures S3-S5 printed after the refe
-supplement,tex_comment,79,27,olds every later float of its kind with it: until % 2026-09-27 Tables S4-S18 and Figures S3-S5 printed after the referen
-supplement,tex_comment,80,43,"S18 and Figures S3-S5 printed after the references, % up to 43 pages from their first mention. Lowering the float-page t"
+supplement,tex_comment,79,2026,nt and holds every later float of its kind with it: % until 2026-09-27 Tables S4-S18 and Figures S3-S5 printed after the
+supplement,tex_comment,79,09,d holds every later float of its kind with it: % until 2026-09-27 Tables S4-S18 and Figures S3-S5 printed after the % re
+supplement,tex_comment,79,27,olds every later float of its kind with it: % until 2026-09-27 Tables S4-S18 and Figures S3-S5 printed after the % refer
+supplement,tex_comment,80,43,"S18 and Figures S3-S5 printed after the % references, up to 43 pages from their first mention. A float-page threshold %"
+supplement,tex_comment,81,0.7,"pages from their first mention. A float-page threshold % of 0.7 (low enough for that table, high enough that no figure i"
 supplement,tex_comment,138,4.3,%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %% S2 -- Verified Pulse 4.3.1 limitations %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 supplement,tex_comment,314,3,%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %% S4 -- Extended Table 3: not_steady_state attribution %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 supplement,tex_comment,434,3,"ged, the pair contributes nothing. %% S4 -- Extended Table 3 \section{Extended Table 3: not\_steady\_state attributi"

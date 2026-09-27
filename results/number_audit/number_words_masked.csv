@@ -9,7 +9,7 @@ supplement,tex_comment,55,one,"exists. LaTeX renumbers \ref automatically, but o
 supplement,tex_comment,60,three,g in the build % noticed -- scripts/check_render.py guarded three markdown files against % exactly this failure but exem
 supplement,tex_comment,68,two,ve the label in % the paper's .aux and fail loudly when the two disagree. % % scripts/tex_to_docx.py unwraps it to the l
 supplement,tex_comment,71,two,"mber before pandoc, which % would otherwise drop an unknown two-argument macro and lose the numbers from % the Word twin"
-supplement,tex_comment,80,first,"5 printed after the references, % up to 43 pages from their first mention. Lowering the float-page threshold, % and givi"
-supplement,tex_comment,81,one,"giving every float [htbp] rather than [h] alone, lets each one land % next to its section. Content is unchanged; only p"
+supplement,tex_comment,80,first,"5 printed after the % references, up to 43 pages from their first mention. A float-page threshold % of 0.7 (low enough f"
+supplement,tex_comment,82,half,"that table, high enough that no figure is left alone % on a half-empty page) and [htbp] instead of [h] let each float la"
 supplement,tex_comment,748,second,%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %% S9 -- Hyperoxia 300-second convergence full protocol %%%%%%%%%%%%%%%%%%%%%%%%%%%
 monograph,md_fence,1449,four,"# container exit code ) # result is a DetectorResult with four orthogonal flags. print(result.clamped.fired, r"

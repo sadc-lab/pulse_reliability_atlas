@@ -126,19 +126,19 @@
       "recall": {
         "accounting_closes": true,
         "literals_after_masking": 1917,
-        "literals_in_raw_text": 2019,
+        "literals_in_raw_text": 2020,
         "literals_removed_per_rule": {
           "file_path": 2,
           "line_reference": 2,
           "org_identifier": 2,
           "product_version": 7,
           "ref_or_machinery": 57,
-          "tex_comment": 19,
+          "tex_comment": 20,
           "typeset_length": 6,
           "url_or_doi": 0,
           "version": 7
         },
-        "removed_by_masks": 102,
+        "removed_by_masks": 103,
         "retained_plus_year_like": 1917
       },
       "retained_occurrences": 1895

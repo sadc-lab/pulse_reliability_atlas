@@ -3892,7 +3892,7 @@ supplement,49,1,1.0,ambiguous_small,\makeatletter \renewcommand\numberline[1]{\h
 supplement,49,1,1.0,ambiguous_small,\makeatletter \renewcommand\numberline[1]{\hb@xt@ {#1\hfil}} \makeatother
 supplement,73,2,2.0,ambiguous_small,\newcommand{\mainref}[2]{#2}
 supplement,73,2,2.0,ambiguous_small,\newcommand{\mainref}[2]{#2}
-supplement,87,0.5,0.5,ambiguous_small,\renewcommand{\floatpagefraction}{0.5} \title[Supplementary Information]{Supplementary I
+supplement,87,0.7,0.7,ambiguous_small,\renewcommand{\floatpagefraction}{0.7} \title[Supplementary Information]{Supplementary I
 supplement,93,1,1.0,ambiguous_small,"nsitivity and Failure Modes in the Pulse Physiology Engine} \author*[1,2,3,4,5]{\fnm{Santino} \sur{Nanini}}\email{santino.nanini@umontreal.c"
 supplement,93,2,2.0,ambiguous_small,"itivity and Failure Modes in the Pulse Physiology Engine} \author*[1,2,3,4,5]{\fnm{Santino} \sur{Nanini}}\email{santino.nanini@umontreal.ca}"
 supplement,93,3,3.0,ambiguous_small,"ivity and Failure Modes in the Pulse Physiology Engine} \author*[1,2,3,4,5]{\fnm{Santino} \sur{Nanini}}\email{santino.nanini@umontreal.ca}"
