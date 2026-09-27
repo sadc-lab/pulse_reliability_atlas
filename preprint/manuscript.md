@@ -502,7 +502,7 @@ the repo carries a 2020 tag `STUDY_SENSITIVITY_ANALYSIS_1_0_0` with a
 one-off Sobol study on internal lumped-parameter circuit values
 (cardiovascular and respiratory resistances and compliances) for model calibration. That study targets a different parameter class
 (internal circuit values, not user-facing operational
-inputs) and was not ported to the 4.3.x release line. Prior external work [@cornish2023]
+inputs). Prior external work [@cornish2023]
 addressed intervention-outcome falsification — verifying whether
 Pulse accurately mimics how a real patient's trajectory changes after
 a medical intervention — on MIMIC-III sepsis trajectories, a different
@@ -589,7 +589,7 @@ This atlas adds quantitative coverage to those:
    this paper. The 2020 `STUDY_SENSITIVITY_ANALYSIS_1_0_0` tag in the
    Pulse repository (Sobol on internal lumped-parameter circuit values:
    cardiovascular and respiratory resistances and compliances, for model calibration) addressed a different parameter
-   class and has not been ported to 4.3.x; the FAQ statement remains
+   class; the FAQ statement remains
    current. Audit details in [S016](#s016).
 2. BP clamping above SBP > 120 / DBP > 80 — verified empirically; locked
    sampler ranges respect this so it does not contaminate H2.
@@ -3864,12 +3864,12 @@ the following or to an experiment-log entry in this repository.
 3. **Pulse `STUDY_SENSITIVITY_ANALYSIS_1_0_0` tag (Kitware, 2020-07-20).**
     Code at `src/cpp/study/sensitivity_analysis/` and
     `src/python/pulse/study/sensitivity_analysis/` in the Pulse
-    GitLab repository. Sobol S1/ST analysis with an ML surrogate
+    GitLab repository. Sobol S1/ST analysis, direct or through an ML surrogate,
     over internal lumped-parameter circuit values (cardiovascular and
     respiratory resistances and compliances; model-calibration parameters); ReadMe scope
     statement: *"sensitivity analysis as a path towards improved
-    lumped parameter optimization."* Last functional commit
-    2020-08-24; not ported to Pulse 4.3.x. Cited in §1.1 to
+    lumped parameter optimization."* The code is still in the
+    4.3.x source tree; no published re-run on 4.3.x was found. Cited in §1.1 to
     distinguish internal-calibration SA (their scope) from
     operational-input SA (this paper's scope). Audit logged in
     [S016](#s016) (2026-05-07).

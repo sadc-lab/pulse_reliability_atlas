@@ -43,7 +43,7 @@ Ventilator modes (VC-AC validated best, Webb 2023):
 
 **Critical gap (Pulse FAQ, verbatim, still current 2026-05-07):** *"We have not performed a systematic forward propagation or inverse quantification of model uncertainty, nor have we conducted a formal sensitivity analysis."*
 
-**Nuance (S016 GitLab re-audit, 2026-05-07).** The Pulse repo carries a `STUDY_SENSITIVITY_ANALYSIS_1_0_0` tag (2020-07-20) with code at `src/cpp/study/sensitivity_analysis/` — a one-off Sobol study on **internal lumped-parameter circuit values (cardiovascular and respiratory resistances and compliances)** for model calibration, not on user-facing operational inputs (HR, BP, RR, Vt, FiO2, PEEP). It has not been re-run for Pulse 4.3.x. PulseProbe's contribution is the first SA on operational inputs; the 2020 study addressed a different parameter class.
+**Nuance (S016 GitLab re-audit, 2026-05-07).** The Pulse repo carries a `STUDY_SENSITIVITY_ANALYSIS_1_0_0` tag (2020-07-20) with code at `src/cpp/study/sensitivity_analysis/` — a one-off Sobol study on **internal lumped-parameter circuit values (cardiovascular and respiratory resistances and compliances)** for model calibration, not on user-facing operational inputs (HR, BP, RR, Vt, FiO2, PEEP). Its code is still in the 4.3.x source tree; no published re-run on 4.3.x was found. PulseProbe's contribution is the first SA on operational inputs; the 2020 study addressed a different parameter class.
 
 **Version-pin status (S016).** Pulse `REL_4_3_2` (2025-08-12) is the current `stable` head, but it is a build-system-only patch (web-WASM dockcross, 7 files / +46 −17). No physiology, validation, or solver code changed vs 4.3.1. Atlas runs on `pulse-pediatric-engine:latest` (4.3.1) remain the correct evaluation target.
 

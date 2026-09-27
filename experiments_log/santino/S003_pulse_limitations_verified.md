@@ -76,3 +76,5 @@ Re-audit of `gitlab.kitware.com/physiology/engine` surfaced one nuance that **do
 - Pulse `REL_4_3_2` (2025-08-12, current `stable` head) was diffed vs `REL_4_3_1` and is build-system only (7 files, +46 / −17, web-WASM + .NET binding); no physiology / validation / patient-setup / solver code changed. Our 4.3.1 pin remains the correct evaluation target.
 
 S003's central finding — Pulse 4.3.1 ships with no formal SA / UQ on operational inputs and the FAQ is still current — is unchanged. S016 documents the audit in full.
+
+**Note (2026-09-27).** The 2026-05-07 update above says the 2020 study's last functional commit was 2020-08-24 and that it was "not ported to 4.3.x". Both are corrected in the dated note of 2026-09-27 at the end of [S016](S016_pulse_gitlab_audit_may2026.md): the code is still in the 4.3.x source tree, and two of the 17 later commits on its C++ folder change the study's own code. The text above is kept as written.

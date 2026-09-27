@@ -67,8 +67,8 @@ A 2020 study tag (`STUDY_SENSITIVITY_ANALYSIS_1_0_0`) in the Pulse repo did
 apply Sobol indices to a different parameter class — **internal
 lumped-parameter circuit values (cardiovascular and respiratory resistances and compliances)** used for model calibration — but no
 sensitivity analysis on **user-facing operational inputs** (HR, BP, RR, Vt,
-FiO2, PEEP) has been published, and that 2020 study has not been ported to
-the 4.3.x release line (audit logged in
+FiO2, PEEP) has been published; the 2020 study's code is still in the
+4.3.x source tree, and no published re-run was found (audit logged in
 [`experiments_log/santino/S016`](experiments_log/santino/S016_pulse_gitlab_audit_may2026.md)).
 
 That means **every Pulse user driving the engine from operational settings
