@@ -136,9 +136,9 @@ The atlas is calibrated against the following twelve Pulse limitations, each ver
 \toprule
 \# & Limitation & Primary source \\
 \midrule
-1 & No formal SA / UQ on user-facing operational inputs --- addressed by this paper. The 2020 \texttt{STUDY\_SENSITIVITY\_ANALYSIS\_1\_0\_0} repository tag performs Sobol analysis on internal lumped-parameter circuit values (cardiovascular and respiratory resistances and compliances) for calibration, a different parameter class, and has not been ported to the 4.3.x release line. & Pulse FAQ~\cite{pulsefaq} + upstream repo audit (monograph S016) \\
+1 & No formal SA / UQ on user-facing operational inputs --- addressed by this paper. The 2020 \texttt{STUDY\_SENSITIVITY\_ANALYSIS\_1\_0\_0} repository tag performs Sobol analysis on internal lumped-parameter circuit values (cardiovascular and respiratory resistances and compliances) for calibration, a different parameter class. & Pulse FAQ~\cite{pulsefaq} + upstream repo audit (monograph S016) \\
 \midrule
-2 & Blood-pressure gate: SBP $>$ 120 or DBP $>$ 80 mmHg rejected at setup with explicit \texttt{[ERROR]} log and exit; pulse-pressure ratio DBP/SBP $\leq 0.75$ also enforced. & Pulse source audit + monograph S005 deliberate-clamp probes \\
+2 & Blood-pressure gate: SBP outside 90--120 or DBP outside 60--80 mmHg rejected at setup with explicit \texttt{[ERROR]} log and exit; pulse-pressure ratio DBP/SBP $\leq 0.75$ also enforced. & Pulse source audit + monograph S005 deliberate-clamp probes \\
 \midrule
 3 & Adult-only restriction: age $\geq 18$ years hard-gated in \texttt{SetupPatient.cpp}. & Source audit (monograph S003) \\
 \midrule
