@@ -85,7 +85,11 @@ dose_labels = [
     f"Floor\n{MALE_FLOOR_BV_ML:,.2f} mL\n(−{_pct_reduction(MALE_FLOOR_BV_ML):.1f}%)",
 ]
 
-axB.plot(dose_bv, dose_div, marker="o", linewidth=2.0, markersize=10, color="#C44E52", markeredgecolor="black", markeredgewidth=0.6)
+# Markers only, no connecting line (2026-09-26). A line from 4,400 mL (0 / 20)
+# to the 4,802.63 mL default (20 / 20) drew a linear transition through a range
+# where no blood-volume level was run; the threshold lies somewhere in that gap,
+# and a straight segment implied it did not.
+axB.plot(dose_bv, dose_div, marker="o", linestyle="none", markersize=10, color="#C44E52", markeredgecolor="black", markeredgewidth=0.6)
 for bv, div in zip(dose_bv, dose_div):
     axB.text(bv, div + 0.8, f"{div} / 20", ha="center", va="bottom", fontsize=9, fontweight="bold")
 axB.axvline(FEMALE_DEFAULT_BV_ML, color="#DD8452", linestyle="--", linewidth=1.8, alpha=0.85, label=f"Female default ({FEMALE_DEFAULT_BV_ML:,.2f} mL)")
