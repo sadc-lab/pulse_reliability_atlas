@@ -208,12 +208,12 @@ The Methods section of the main manuscript states the constants the atlas runs o
 
 The six \texttt{(lower, upper)} pairs that gate the \texttt{implausible} flag are stated in Section~\mainref{sec:methods-detector}{4.4} of the main manuscript and are held in the \texttt{HARD\_BOUNDS} dictionary in \texttt{src/detector.py}. Each pair was locked in preregistration before any data was collected and none has been revised post-hoc. Each is regex-extracted from the source file at audit time by its \texttt{T1.06p.*} ledger entry, so any drift between the code and the manuscript is caught immediately. One display difference is worth naming: Pulse reports SpO$_2$ as a fraction in [0, 1], so the bound the main text writes as [50, 100]~\% is held in the code as 0.50 / 1.00.
 
-Each bound falls into one of two logical categories. Category (a) is a physical or definitional ceiling, whose only instance is the SpO$_2$ upper bound at hemoglobin saturation. Category (b) is a clinical-plausibility threshold for a 60-second steady-state mean: a screening standard, not a claim that values beyond it are impossible in a patient (\S\ref{sec:s2-scope}). No bound rests on an equipment specification. The per-bound primary-literature anchor is documented in Table~\ref{tab:hard-bounds-rationale}; the citation set mirrors the per-bound rationale audited in the companion technical monograph (§2.6).
+Each bound falls into one of two logical categories. Category (a) is a physical or definitional ceiling, whose only instance is the SpO$_2$ upper bound at hemoglobin saturation. Category (b) is a clinical-plausibility threshold for a 60-second steady-state mean: a screening standard, not a claim that values beyond it are impossible in a patient (\S\ref{sec:s2-scope}). No bound rests on an equipment specification. The rationale for each bound, with its primary-literature anchor where one exists, is documented in Table~\ref{tab:hard-bounds-rationale}; the citation set mirrors the per-bound rationale audited in the companion technical monograph (§2.6).
 
 \begin{table}[htbp]
 \centering
 \small
-\caption{\textbf{Per-bound primary-literature rationale for the \texttt{HARD\_BOUNDS} table.} Each row identifies the clinical guidelines or physiological reference that anchor the lower and upper extremes for the corresponding output.}
+\caption{\textbf{Per-bound rationale for the \texttt{HARD\_BOUNDS} table.} Each row gives the rationale for the lower and upper extremes of the corresponding output and, where one exists, the clinical guideline or physiological reference behind it.}
 \label{tab:hard-bounds-rationale}
 \begin{tabular}{lp{0.66\textwidth}}
 \toprule

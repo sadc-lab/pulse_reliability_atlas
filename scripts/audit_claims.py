@@ -2934,7 +2934,7 @@ assert CLAMP_PATTERNS_FROM_SRC, (
 add(
     claim_id="T1.detector.n_patterns_published",
     section="Section 4.4 of main paper (four-flag detector)",
-    manuscript_text="clamped fires on any of 4 documented input-rejection patterns",
+    manuscript_text="The sweep was classified with 4 message patterns",
     source_file="frozen historical constant (sweep commit e068544)",
     manuscript_value=4,
     computed_value=CLAMP_PATTERNS_PUBLISHED,

@@ -1218,8 +1218,8 @@ Each `(lower, upper)` pair encodes one of two logical categories:
 (a) a physical / definitional ceiling for which no citation is
 needed, or (b) a clinical *"incompatible with a 60 s steady-state
 in the locked window"* threshold. Only the SpO2 upper bound falls
-in category (a); every other bound is category (b), a judgment call
-within the cited literature. No bound rests on an equipment
+in category (a); every other bound is category (b), a judgment call,
+cited where a source exists. No bound rests on an equipment
 specification.
 
 | Output | Lower | Upper | Source (lower / upper) |
