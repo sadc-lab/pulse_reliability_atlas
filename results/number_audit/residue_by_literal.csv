@@ -269,7 +269,6 @@ monograph,2.8,6,"cing or extending the work should additionally read §2.6 (dete
 monograph,20.8,6,", and the male height is a researcher-fixed value chosen for a BMI of 20.8 — it is **not** Pulse's , but exactly"
 monograph,25,6,"thin category (b), the exact numerical choice (e.g., PaO2 lower 20 vs 25 mmHg) is a defensible judgment call rather than a unique biological c"
 monograph,"4,400",6,"educing male BV eliminates divergence: **20/20 → 0/20** at both the 4,400 and 4,082.24 mL reductions (default 4,802.63 mL). * Engine-level side"
-monograph,4.3,6,"values, not user-facing operational inputs) and was not ported to the 4.3.x release line. Prior external work [@cornish2023] addressed interven"
 monograph,5000,6,irtual patient. Pulse's own ventilator-validation tables report ASL 5000-referenced tidal-volume errors of 0.07 – 2.25 % for VC-AC (volume-c
 monograph,75,6,-:|---:|---:|---:|---| | 100-to-120 | 3 | 9 | 20.44 | 15.74 | +4.70 | 75 → 80 (midpoint 77.5) | | 110-to-90 | 15 | 16 | 24.94 | 17.26 | +7.68
 monograph,94,6,ble 5) & Maps to atlas output? \\ \midrule Chloride & 24 / 94 & 47 / 94 & No (electrolyte) \\ Sodium & 21 / 94 & 46 /
@@ -284,6 +283,7 @@ monograph,3.3,5,"preregistered hypotheses, quoted verbatim in §2.0 and evaluate
 monograph,3.4,5,"downstream adjustment (FiO2 1.0 → 0.9996, 195 runs) is documented in §3.4. Solver divergence is sex-stratified — 20 of 1,280 runs (1.6 %) diver"
 monograph,340,5,"ults yield 199 / 150 / 119 mmHg at the same settings (vs. published 340 / 130 / 50 mmHg, Webb 2020) — calibration is *ventilation-setting-dep"
 monograph,393,5,"394 PASS at the locked tolerance band on the authors' full data tree; 393 / 394 on a public clone, where the one anchor needing the gitignored"
+monograph,4.3,5,"cted channel: **19.5 %** exceed the 15 mmHg drift threshold (median 4.3 mmHg, p95 = 40.2 mmHg). *Interpretation: the cardiovascular loop is"
 monograph,65,5,"40 of 48 cells, and under trajectory-level bootstrap 31 of 48 cells (65 %) are CI-robustly linear (upper bootstrap CI < 0.6); of the remainin"
 monograph,86,5,"): a hard per-patient BV floor at **4,082.24 mL** on the male body, 86 mL above the female default — the two bodies cannot be made BV-equi"
 monograph,0.001,4,"— the lower edge moves down by 0.031 and the upper edge up by 0.001, extending the band on the low side by about 90 % of the original"

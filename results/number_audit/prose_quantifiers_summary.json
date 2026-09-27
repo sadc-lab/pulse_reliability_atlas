@@ -145,7 +145,7 @@
         "priority": 40,
         "scope": 195,
         "strength": 19,
-        "universal": 519
+        "universal": 520
       },
       "kept_per_word": {
         "all": 108,
@@ -176,7 +176,7 @@
         "necessarily": 2,
         "neither": 14,
         "never": 11,
-        "no": 101,
+        "no": 102,
         "none": 10,
         "nothing": 4,
         "only": 83,
@@ -193,10 +193,10 @@
         "unique": 11,
         "whole": 7
       },
-      "lines_with_a_kept_token": 783,
+      "lines_with_a_kept_token": 784,
       "recall": {
-        "tokens_in_raw_text": 906,
-        "tokens_kept": 906,
+        "tokens_in_raw_text": 907,
+        "tokens_kept": 907,
         "tokens_masked": 0,
         "masked_per_rule": {
           "md_fence": 0,
@@ -216,7 +216,7 @@
     }
   },
   "totals": {
-    "kept": 1937,
+    "kept": 1938,
     "masked": 24,
     "kept_per_family": {
       "extent": 22,
@@ -225,7 +225,7 @@
       "priority": 73,
       "scope": 425,
       "strength": 49,
-      "universal": 1088
+      "universal": 1089
     }
   }
 }

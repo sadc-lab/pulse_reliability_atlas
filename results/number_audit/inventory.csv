@@ -416,7 +416,6 @@ monograph,484,0.07,0.07,none,validation tables report ASL 5000-referenced tidal-
 monograph,484,2.25,2.25,none,"ion tables report ASL 5000-referenced tidal-volume errors of 0.07 – 2.25 % for VC-AC (volume-controlled assist-control) across healthy, rest"
 monograph,493,04,4.0,ambiguous_small,"explicitly on the public Pulse FAQ [@pulsefaq; verified verbatim 2026-04-19, still current as of the May 2026 GitLab re-audit, [S003 /"
 monograph,493,19,19.0,ambiguous_small,"licitly on the public Pulse FAQ [@pulsefaq; verified verbatim 2026-04-19, still current as of the May 2026 GitLab re-audit, [S003 / [S"
-monograph,505,4.3,4.3,none,"values, not user-facing operational inputs) and was not ported to the 4.3.x release line. Prior external work [@cornish2023] addressed interven"
 monograph,533,2,2.0,ambiguous_small,"ainst the Berlin Definition's PaO2/FiO2 bands [@ards2012]. PALICC-2 (Pediatric Acute Lung Injury Consensus Conference, 2nd ed.) [@emeri"
 monograph,533,2,2.0,ambiguous_small,"s2012]. PALICC-2 (Pediatric Acute Lung Injury Consensus Conference, 2nd ed.) [@emeriaud2023] is cited as the parallel pediatric severity"
 monograph,535,2,2.0,ambiguous_small,ited as the parallel pediatric severity framework; note that PALICC-2 itself favours Oxygenation Index (OI) / Oxygen Saturation Index (OS
@@ -431,7 +430,6 @@ monograph,573,4.5,4.5,ambiguous_small,practical implications for downstream pipe
 monograph,575,1.2,1.2,none,implications for downstream pipelines — is consolidated in §4.5. ### 1.2 Verified limitations of Pulse *The twelve Pulse limitations th
 monograph,580,1.0,1.0,ambiguous_small,"S016 ). Two previously asserted but unverified claims — FiO2 = 1.0 crashes the solver, and Pulse has no sex-specific physiology — were w"
 monograph,588,1,1.0,ambiguous_small,ked ([S003 ). This atlas adds quantitative coverage to those: 1. No formal SA / UQ on user-facing operational inputs — addressed by
-monograph,592,4.3,4.3,none,) addressed a different parameter class and has not been ported to 4.3.x; the FAQ statement remains current. Audit details in [S016
 monograph,594,2,2.0,ambiguous_small,the FAQ statement remains current. Audit details in [S016 . 2. BP clamping above SBP > 120 / DBP > 80 — verified empirically; locke
 monograph,594,120,120.0,guard,current. Audit details in [S016 . 2. BP clamping above SBP > 120 / DBP > 80 — verified empirically; locked sampler ranges respect t
 monograph,594,80,80.0,ambiguous_small,udit details in [S016 . 2. BP clamping above SBP > 120 / DBP > 80 — verified empirically; locked sampler ranges respect this so it d
@@ -2737,10 +2735,9 @@ monograph,3863,1.1,1.1,none,"4-19, still current at the May 2026 re-audit; parag
 monograph,3864,3,3.0,ambiguous_small,"agraph quoted in §1.1 (recorded in [S003 / [S016 ). 3. **Pulse tag (Kitware, 2020-07-20)"
 monograph,3864,07,7.0,ambiguous_small,"). 3. **Pulse tag (Kitware, 2020-07-20).** Code at and"
 monograph,3864,20,20.0,ambiguous_small,". 3. **Pulse tag (Kitware, 2020-07-20).** Code at and"
-monograph,3872,08,8.0,ambiguous_small,"lumped parameter optimization.""* Last functional commit 2020-08-24; not ported to Pulse 4.3.x. Cited in §1.1 to distinguish inter"
-monograph,3872,24,24.0,ambiguous_small,"lumped parameter optimization.""* Last functional commit 2020-08-24; not ported to Pulse 4.3.x. Cited in §1.1 to distinguish internal"
-monograph,3872,4.3,4.3,none,"ization.""* Last functional commit 2020-08-24; not ported to Pulse 4.3.x. Cited in §1.1 to distinguish internal-calibration SA (their sc"
-monograph,3872,1.1,1.1,none,unctional commit 2020-08-24; not ported to Pulse 4.3.x. Cited in §1.1 to distinguish internal-calibration SA (their scope) from ope
+monograph,3872,4.3,4.3,none,"ved lumped parameter optimization.""* The code is still in the 4.3.x source tree; no published re-run on 4.3.x was found. Cited in §1.1"
+monograph,3872,4.3,4.3,none,he code is still in the 4.3.x source tree; no published re-run on 4.3.x was found. Cited in §1.1 to distinguish internal-calibration SA
+monograph,3872,1.1,1.1,none,4.3.x source tree; no published re-run on 4.3.x was found. Cited in §1.1 to distinguish internal-calibration SA (their scope) from ope
 monograph,3875,05,5.0,ambiguous_small,"nput SA (this paper's scope). Audit logged in [S016 (2026-05-07). 4. **Cornish R, Taufiq MF, Doucet A, Holmes C (Oxford, 2026).**"
 monograph,3875,07,7.0,ambiguous_small,"t SA (this paper's scope). Audit logged in [S016 (2026-05-07). 4. **Cornish R, Taufiq MF, Doucet A, Holmes C (Oxford, 2026).**"
 monograph,3876,4,4.0,ambiguous_small,"(this paper's scope). Audit logged in [S016 (2026-05-07). 4. **Cornish R, Taufiq MF, Doucet A, Holmes C (Oxford, 2026).** *Ca"
