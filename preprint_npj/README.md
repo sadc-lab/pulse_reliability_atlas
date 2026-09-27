@@ -3,7 +3,7 @@
 This directory holds the **journal-submission version** of the Pulse
 Reliability Atlas, targeted at *npj Digital Medicine* as an Original
 Article. It is **separate from, and a strict subset of**, the audited
-~92-page monograph at [`../preprint/manuscript.md`](../preprint/manuscript.md).
+122-page monograph at [`../preprint/manuscript.md`](../preprint/manuscript.md).
 
 The monograph remains the canonical, audited, single source of truth
 (195/195 PASS at the locked tolerance band). This directory contains
@@ -17,7 +17,7 @@ the condensed, journal-formatted derivative used for peer review.
 preprint_npj/
 ├── paper.tex                      # main manuscript (sn-jnl class, sn-nature option)
 ├── paper.bib                      # full copy of ../preprint/references.bib (pruned at Step 8)
-├── supplement.tex                 # supplementary information document (~22 pages)
+├── supplement.tex                 # supplementary information document (61 pages)
 ├── paper_to_monograph_map.md      # numerical-claim crosswalk for audit sync
 ├── figures/                       # main + supplement figure source files (PDF preferred)
 ├── template/                      # upstream Springer Nature LaTeX template
@@ -63,12 +63,12 @@ list-all-authors).
 
 ---
 
-## The 92-page monograph vs the npj submission
+## The 122-page monograph vs the npj submission
 
 | Aspect | Monograph (`../preprint/manuscript.md`) | npj submission (`paper.tex`) |
 |---|---|---|
 | Audience | PhD committee, Pulse community, deep technical readers | npj Digital Medicine reviewers, clinical and ML audience |
-| Length | ~100 pages (markdown → PDF via pandoc) | ~12 pages main + ~22 pages supplement |
+| Length (builds of 2026-09-27) | 122 pages (markdown → PDF via pandoc) | 26 pages main + 61 pages supplement |
 | Word count (main text) | unconstrained | ~4,200 target (npj DM concise recommendation) |
 | Structure | Comprehensive: Intro → Methods → Results (8 subsections) → Discussion (7 subsections) → Conclusion → Appendices A/B/C | npj IMRaD: Abstract → Intro → Results → Discussion → Methods → closing sections |
 | Internal codes (`S006`, `S018`, `F-003`, `H1`) | used throughout as cross-references to the lab notebook | **expunged** from main paper (descriptive names instead); allowed in supplement as lab-notebook cross-references |
