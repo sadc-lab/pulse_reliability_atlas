@@ -53,7 +53,9 @@ Three properties of this block matter, and they are not symmetrical:
 > ### ⚠️ Correction 2026-08-14 — this section listed two write sites; there are five
 >
 > A repository-wide grep for the setters, excluding `/test/`, `howto/` and the
-> 2020 `study/patient_variability` tooling, finds the cardiovascular baselines
+> 2022 `study/patient_variability` tooling (this line read "2020" until
+> 2026-09-27; the GitLab API dates its first commits to 2022-05-04, none earlier),
+> finds the cardiovascular baselines
 > written in **five** places, not the two named above. The three missing ones do
 > not change this register's conclusion, but the sentence drafted in §7 depended
 > on knowing them:
