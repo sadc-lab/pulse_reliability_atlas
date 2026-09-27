@@ -454,121 +454,127 @@ paper,typeset_length,276,0.467,\\[-0.6em] [b]{0.467\textwidth}
 paper,typeset_length,277,0.467,\hfill [b]{0.467\textwidth}
 paper,year_like,146,2020,"alysis''~ . The upstream repository does carry a single 2020 sensitivity study in its source tree, tagged \texttt{STUDY\_SENSITIVI"
 paper,year_like,414,2030,vernment funding managed by the National Research Agency under France 2030 via the ENACT AI Cluster (ANR-23-IACL-0004). This work also relies on
-supplement,file_path,972,06,erical comparison report (\texttt{reproduction\_check\_2026-06-07.md}); \texttt{reproduction\_thinkpad\_2026-06-10/} car
-supplement,file_path,972,07,cal comparison report (\texttt{reproduction\_check\_2026-06-07.md}); \texttt{reproduction\_thinkpad\_2026-06-10/} carrie
-supplement,line_reference,721,120,ied (\texttt{ } lines 120--128 in the upstream Pulse source). The spontaneous-driv
-supplement,line_reference,721,128,\texttt{ } lines 120--128 in the upstream Pulse source). The spontaneous-drive tri
-supplement,org_identifier,98,3450,"ress{\city{Nancy}, \country{France}}} \affil[5]{\orgdiv{UR 3450 DevAH}, \orgname{Universit\'e de Lorraine}, \orgaddress"
-supplement,org_identifier,100,1256,"Nancy}, \country{France}}} \affil[6]{\orgdiv{INSERM UMR\_S 1256, Nutrition-G\'en\'etique et Exposition aux Risques Envi"
-supplement,product_version,886,3.12,t-identical engine binaries. The host environment is Python 3.12+ managed via \texttt{uv} for deterministic dependency r
-supplement,product_version,1156,4.7,l agent at the \texttt{xhigh} thinking-effort default: Opus 4.7 (\texttt{claude-opus-4-7}) for the initial drafting and
-supplement,product_version,1156,4.8,the initial drafting and a manuscript-formatting pass; Opus 4.8 (\texttt{claude-opus-4-8}) through the first supervisor-
-supplement,product_version,1156,5,and the associated text and reference modifications); Opus 5 (\texttt{claude-opus-5}) for the audit and synthesis round
-supplement,product_version,1156,5.5,"sis rounds that followed; and, from 23~September~2026, Opus 5.5 (\texttt{claude-opus-5-5}) for the later readability and"
-supplement,product_version,1156,5.6,"inking mode), then, from 3~August~2026, OpenAI ChatGPT (GPT-5.6 Sol, High reasoning level). The Opus 5 rounds covered i"
-supplement,product_version,1158,5,"enAI ChatGPT (GPT-5.6 Sol, High reasoning level). The Opus 5 rounds covered in-repository replication of the ARDS-sever"
-supplement,ref_or_machinery,120,1,e present atlas's contribution (Section~\mainref{sec:intro}{1} of the main manuscript): a quantitative characterisation
-supplement,ref_or_machinery,166,2.4,"rised separately in Section~\mainref{sec:results-hyperoxia}{2.4} of the main manuscript and in Supplement~\S\,\ref{sec:s"
-supplement,ref_or_machinery,166,2.5,"lood-volume dependence of Section~\mainref{sec:results-sex}{2.5} of the main manuscript and Supplement~\S\,\ref{sec:s10}"
-supplement,ref_or_machinery,178,4.4,ther run is flagged (Section~\mainref{sec:methods-detector}{4.4} of the main manuscript). This eliminates all clean FiO$
-supplement,ref_or_machinery,194,4.4,} flag are stated in Section~\mainref{sec:methods-detector}{4.4} of the main manuscript and are held in the \texttt{HARD
-supplement,ref_or_machinery,208,1,"te reduce cardiac output and myocardial perfusion~\cite[Ch.~1]{marini2018critical}, which gives 202~bpm on the 18-year-o"
-supplement,ref_or_machinery,208,1,"rdia depresses cardiac output and oxygen delivery~\cite[Ch.~1]{marini2018critical}, but no numeric floor is asserted the"
-supplement,ref_or_machinery,212,2,"\sim$~150~mL), implying zero alveolar ventilation~\cite[Ch.~2]{west2020respiratory}. Upper: $\sim 3$--$4.5\times$ the AR"
-supplement,ref_or_machinery,212,25,"ndard practice before lung-protective ventilation~\cite[Ch.~25]{marino2013icu}. \\ SpO$_2$ [50, 100]~\% & Lower: oxyhemo"
-supplement,ref_or_machinery,216,5,el ceiling of $\approx$~663~mmHg on FiO$_2$ = 1.0~\cite[Ch.~5]{west2020respiratory}; the supplementary \texttt{HARD\_BOU
-supplement,ref_or_machinery,288,2.5,ator action is submitted (Section~\mainref{sec:results-sex}{2.5} of the main manuscript). No requested FiO$_2$ below 1.0
-supplement,ref_or_machinery,294,2.5,uster is characterised in Section~\mainref{sec:results-sex}{2.5} of the main manuscript.
-supplement,ref_or_machinery,302,4.3,"er settings reported in Section~\mainref{sec:methods-sweep}{4.3} of the main manuscript --- 20 trajectories, 4 grid leve"
-supplement,ref_or_machinery,306,4.4,cal bounds stated in Section~\mainref{sec:methods-detector}{4.4} of the main manuscript --- a screening outcome (\S\ref{
-supplement,ref_or_machinery,351,4.5,"ow or red is given in Section~\mainref{sec:methods-traffic}{4.5} of the main manuscript, and the three colour criteria a"
-supplement,ref_or_machinery,357,2.4,"rom are reported in Section~\mainref{sec:results-hyperoxia}{2.4} of the main manuscript, and the reclassification itself"
-supplement,ref_or_machinery,361,4.5,c:s3-tl-sensitivity} Section~\mainref{sec:methods-traffic}{4.5} of the main manuscript records a post hoc deviation bet
-supplement,ref_or_machinery,407,1,ipt and are defined here in full; Table~\mainref{tab:terms}{1} of the main manuscript keeps the three terms needed to re
-supplement,ref_or_machinery,413,3,t-importance metric reported in Figure~\mainref{fig:morris}{3} of the main manuscript; large $\mu^{*}$ indicates strong
-supplement,ref_or_machinery,415,4.4,four failure flags (Section~\mainref{sec:methods-detector}{4.4} of the main manuscript). An elementary effect is the di
-supplement,ref_or_machinery,427,2.3,"chrony, characterised in Section~\mainref{sec:results-vcac}{2.3} of the main manuscript). The two ``excl.\'' columns cou"
-supplement,ref_or_machinery,450,2.3,-volume oscillation that Section~\mainref{sec:results-vcac}{2.3} of the main manuscript identifies and corrects by setti
-supplement,ref_or_machinery,458,2.6,one}\label{sec:s5} Section~\mainref{sec:results-secondary}{2.6} of the main manuscript refers to a documented 0.91--0.9
-supplement,ref_or_machinery,521,2.6,"in main-manuscript Section~\mainref{sec:results-secondary}{2.6}; shunt fraction itself was not recorded, so this readin"
-supplement,ref_or_machinery,531,2.5,e regime characterised in Section~\mainref{sec:results-sex}{2.5} of the main manuscript. \begin{table}[h] \centering \c
-supplement,ref_or_machinery,557,0.95,robes. \begin{figure}[h] \centering \includegraphics[width=0.95\textwidth]{figures/fig_s1_continuous_severity.pdf} \cap
-supplement,ref_or_machinery,558,2.5,e divergence pattern from Section~\mainref{sec:results-sex}{2.5} of the main manuscript does not generalise to midrange
-supplement,ref_or_machinery,562,4.3,ocumented in main paper Section~\mainref{sec:methods-sweep}{4.3}. The atlas's contribution in this domain --- to our kno
-supplement,ref_or_machinery,562,2.6,"S\ref{sec:s5-prov}, Section~\mainref{sec:results-secondary}{2.6} of the main paper) --- is a property of the Pulse engin"
-supplement,ref_or_machinery,566,2.5,"5-regimes} Together with Section~\mainref{sec:results-sex}{2.5} of the main manuscript, the data distinguish two operat"
-supplement,ref_or_machinery,566,2.1,action is submitted (Section~\mainref{sec:results-overview}{2.1} of the main manuscript) --- and produces divergence exc
-supplement,ref_or_machinery,566,2.5,gs; the sex effect of H4 (Section~\mainref{sec:results-sex}{2.5} of the main manuscript) is therefore best stated as ``r
-supplement,ref_or_machinery,576,2.5,ings}}\label{sec:s6-rho} Section~\mainref{sec:results-sex}{2.5} of the main manuscript reports the cross-sex Spearman r
-supplement,ref_or_machinery,607,0.85,ually. \begin{figure}[h] \centering \includegraphics[width=0.85\textwidth]{figures/fig_s2_spearman.pdf} \caption{\textb
-supplement,ref_or_machinery,620,2.5,ein distances reported in Section~\mainref{sec:results-sex}{2.5} of the main manuscript. Separating the three would requ
-supplement,ref_or_machinery,677,2.3,protocol}\label{sec:s8} Section~\mainref{sec:results-vcac}{2.3} of the main manuscript reports that setting Pulse's \te
-supplement,ref_or_machinery,725,0.95,tself. \begin{figure}[h] \centering \includegraphics[width=0.95\textwidth]{figures/fig_s4_vt_waveform.pdf} \caption{\te
-supplement,ref_or_machinery,736,2.4,col}\label{sec:s9} Section~\mainref{sec:results-hyperoxia}{2.4} of the main manuscript reports that the locked 120-seco
-supplement,ref_or_machinery,744,0.95,nce}). \begin{figure}[h] \centering \includegraphics[width=0.95\textwidth]{figures/fig_s3_hyperoxia_convergence.pdf} \c
-supplement,ref_or_machinery,751,0.95,ure} \begin{figure}[!ht] \centering \includegraphics[width=0.95\textwidth]{figures/fig_s5_decomposition.pdf} \caption{\
-supplement,ref_or_machinery,760,2.5,eme divergence cluster of Section~\mainref{sec:results-sex}{2.5} of the main manuscript and a further instance of the re
-supplement,ref_or_machinery,789,2.5,"rameters}\label{sec:s10} Section~\mainref{sec:results-sex}{2.5} of the main manuscript reports that all 20 of 1{,}280 i"
-supplement,ref_or_machinery,821,2.5,"dy's divergence boundary (Section~\mainref{sec:results-sex}{2.5} of the main manuscript), but downstream users adapting"
-supplement,ref_or_machinery,846,2.5,erence-body comparison of Section~\mainref{sec:results-sex}{2.5} of the main manuscript is a limit on attribution rather
-supplement,ref_or_machinery,863,2.5,-male divergence cluster (Section~\mainref{sec:results-sex}{2.5} of the main manuscript); a one-line note in the patient
-supplement,ref_or_machinery,869,2.4,me characterised in Section~\mainref{sec:results-hyperoxia}{2.4} of the main manuscript (PaO$_2$ still rising at the end
-supplement,ref_or_machinery,1068,2.6,"ia}\label{sec:s15} Section~\mainref{sec:results-secondary}{2.6} of the main manuscript reports that, in moderate and se"
-supplement,ref_or_machinery,1076,2.2,erminant of output HR (Section~\mainref{sec:results-morris}{2.2} of the main manuscript).} \label{tab:s15-comphr} \begin
-supplement,ref_or_machinery,1092,2.2,tput HR in every cell (Section~\mainref{sec:results-morris}{2.2} of the main manuscript). By S3 (60~\% alveolar impairme
-supplement,ref_or_machinery,1105,4.4,"ther than discarded (Section~\mainref{sec:methods-detector}{4.4} of the main manuscript), which keeps the assumption aud"
-supplement,ref_or_machinery,1120,2,ubsection in the main paper's Section~\mainref{sec:results}{2} Results; brief reminders of the headline findings are inc
-supplement,ref_or_machinery,1135,2.6,y-driven). Supports Section~\mainref{sec:results-secondary}{2.6} of the main paper. \\ \S\ref{sec:s6} & \textbf{Sex-stra
-supplement,ref_or_machinery,1136,2.5,ts the Discussion and the Section~\mainref{sec:results-sex}{2.5} caveat. \\ \S\ref{sec:s7} & \textbf{Cornish et al.\ 202
-supplement,ref_or_machinery,1138,2.5,y divergence cluster from Section~\mainref{sec:results-sex}{2.5} of the main paper under both an absolute-BV and a weigh
-supplement,ref_or_machinery,1141,2.6,vere ARDS. Supports Section~\mainref{sec:results-secondary}{2.6} of the main paper. \\ \S\ref{sec:s16-window} & \textbf{
-supplement,ref_or_machinery,1147,2,"dependence) are summarised in Section~\mainref{sec:results}{2} of the main paper, with extended detail in supplement sec"
-supplement,ref_or_machinery,1156,4.7,nd phases}\label{sec:s18} Section~\mainref{sec:methods-ai}{4.7} of the main manuscript states how large language models
-supplement,tex_comment,57,2026,-manuscript section is a literal % number typed by hand. On 2026-08-05 a single new subsection inserted in the % paper's
-supplement,tex_comment,57,08,script section is a literal % number typed by hand. On 2026-08-05 a single new subsection inserted in the % paper's Resu
-supplement,tex_comment,57,05,ipt section is a literal % number typed by hand. On 2026-08-05 a single new subsection inserted in the % paper's Results
-supplement,tex_comment,58,21,"tion inserted in the % paper's Results silently invalidated 21 of them, and nothing in the build % noticed -- scripts/ch"
-supplement,tex_comment,123,4.3,%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %% S2 -- Verified Pulse 4.3.1 limitations %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-supplement,tex_comment,297,3,%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %% S4 -- Extended Table 3: not_steady_state attribution %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-supplement,tex_comment,417,3,"ged, the pair contributes nothing. %% S4 -- Extended Table 3 \section{Extended Table 3: not\_steady\_state attributi"
-supplement,tex_comment,623,2,%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %% S7 -- Cornish Table 2 expanded %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-supplement,tex_comment,731,300,%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %% S9 -- Hyperoxia 300-second convergence full protocol %%%%%%%%%%%%%%%%%%%%%%%
-supplement,tex_comment,1059,7,rdia: input HR vs output HR under %% hypoxemia (Pass 7 D9 Option B follow-up to Manual %% Orthogonal Audit
-supplement,tex_comment,1062,2.6,tory-tachycardia secondary observation in %% Section 2.6 of the main manuscript; sourced from %% companion
-supplement,tex_comment,1063,3.4,uscript; sourced from %% companion monograph Section 3.4.1) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-supplement,tex_comment,1150,4.7,%%%%%% %% S18 -- Use of AI tools: detail moved from Methods 4.7 of the main %% %% manuscript (review comment: sho
-supplement,typeset_length,135,8,ation.} \footnotesize {rp{8.5cm}p{3.5cm}} \toprule \# & Limitation & Primary source \\
-supplement,typeset_length,135,3,\footnotesize {rp{8.5cm}p{3.5cm}} \toprule \# & Limitation & Primary source \\ \midrul
-supplement,typeset_length,203,0.66,tput.} {lp{0.66\textwidth}} \toprule Output & Primary-literature ration
-supplement,typeset_length,250,0.55,(see text).} {lp{0.55\textwidth}} \toprule Channel \& drift threshold & Clini
-supplement,typeset_length,489,2,}.} {lrrlp{2.6cm}} \toprule Scenario & $n$ & Median P/F [IQR] & Band (m
-supplement,typeset_length,1127,0.62,ain-paper anchor.} {lp{0.62\textwidth}} \toprule Anchor & Finding / discovery \\ \m
-supplement,version,126,4.3,\section{Verified Pulse 4.3.1 limitations} The atlas is calibrated ag
-supplement,version,523,4.3,"mmit \texttt{e8a3649}) --- physiologically identical to the 4.3.1 pin, the only delta being seven build-system files wit"
-supplement,version,976,26.5,".'s Apple Silicon host (MacBook Air, Apple~M2, ARM64; macOS~26.5.1; archived under \texttt{audits/reproduction\_macos\_2"
-supplement,version,976,4.3,"ive-ARM64 test: the pinned base image \texttt{kitware/pulse:4.3.1} is published for \texttt{linux/amd64} only, so on App"
-supplement,version,1052,4.3,"s own reference list; the sources behind the verified Pulse 4.3.1 limitations table (Supplement~\S\, ), with"
-supplement,version,1052,4.3,cceptance gates; and the findings of its audit of the Pulse 4.3.1 source code. The companion monograph gives further de
-supplement,version,1131,4.3,\\ \midrule \S & \textbf{Twelve verified Pulse 4.3.1 limitations} that the atlas is calibrated against. Two
-supplement,year_like,118,2017,"is a separate, targeted experiment. Pulse was forked in 2017 from the U.S.\ Department of Defense--funded BioGears engine by the o"
-supplement,year_like,118,2017,jects still exist independently but have diverged substantially since 2017; Pulse models mechanoreceptor feedback and lung recruitment; w
-supplement,year_like,120,2025,". The current upstream stable head is \texttt{REL\_4\_3\_2} (released 2025-08-12), whose full diff against \texttt{REL\_4\_3\_1} is build-system"
-supplement,year_like,139,2020,UQ on user-facing operational inputs --- addressed by this paper. The 2020 \texttt{STUDY\_SENSITIVITY\_ANALYSIS\_1\_0\_0} repository tag perform
-supplement,year_like,164,2026,"Rows 5--6 were subsequently re-derived within this repository. On 2026-07-26, eight single-purpose probes on the male reference body tested"
-supplement,year_like,166,1919,"f the Harris--Benedict equations~ --- not the 1919 originals, whose constants differ --- to set a sex-dependent patient"
-supplement,year_like,210,2023,"aign initial MAP target of 65~mmHg~ . Upper: ESH 2023 hypertensive emergency, i.e.\ grade~3 hypertension (SBP $\geq$ 180 an"
-supplement,year_like,286,2026,"og on disk is replayed in the note below. \noindent \textbf{Patch of 2026-07-26, applied after the sweep.} Two changes produce the five-pattern"
-supplement,year_like,357,2026,"shold has been adjusted post-hoc; the only preregistration amendment (2026-04-22-b, flatline tolerance 1~\% $\rightarrow$ 0.1~\%) was made befor"
-supplement,year_like,462,2026,"ct's original ARDS severity calibration, a 28-run impairment sweep of 2026-03 (full log in the companion technical monograph, Appendix~B.3), on"
-supplement,year_like,462,2026,"5 land at 256, 150, and 96~mmHg. The companion's later E6 experiment (2026-04) re-ran the three fractions with the same ventilator mode, tidal v"
-supplement,year_like,464,2026,"calibration has since been reproduced inside the present repository (2026-07-26, 40 runs on the atlas's own engine image), so a headline result"
-supplement,year_like,468,2026,"w} original ARDS severity calibration, the 28-run impairment sweep of 2026-03; its later \texttt{E6} experiment is an April refinement that re-c"
-supplement,year_like,626,2026,\section{Cornish et al.\ 2026 per-channel cross-mapping} The Discussion of the main
-supplement,year_like,632,2026,verlap. [h] \centering \caption{\textbf{Cornish et al.\ 2026 per-quantity rejection counts (Cornish Appendix Tables~4 and~5) re-ta
-supplement,year_like,636,2026,ndant.} \toprule Cornish 2026 channel & Hoeffding & Bootstrap & Maps to atlas output? \\ \midrule \
-supplement,year_like,865,2020,ipe for user-facing operational inputs.} Pulse's repository carries a 2020 \texttt{STUDY\_SENSITIVITY\_ANALYSIS\_1\_0\_0} tag that performs Sobo
-supplement,year_like,1137,2026,caveat. \\ \S & \textbf{Cornish et al.\ 2026 per-channel cross-mapping.} Each of Cornish's 15 channels mapped agai
-supplement,year_like,1156,2026,"the audit and synthesis rounds that followed; and, from 23~September~2026, (\texttt{claude-opus-5-5}) for the later readability and au"
-supplement,year_like,1156,2026,"t Google Gemini Pro 3.1 (extended-thinking mode), then, from 3~August~2026, OpenAI ChatGPT ( Sol, High reasoning level). The roun"
-supplement,year_like,1158,2026,and versioned its generating script. They also covered the September 2026 condensation pass and the ensuing audits and their corrections; in th
-supplement,year_like,1158,2026,"placed material moving to the Supplementary Information. In September 2026, Claude Code's automated code review (\texttt{/ultrareview}) was also"
+supplement,file_path,989,06,erical comparison report (\texttt{reproduction\_check\_2026-06-07.md}); \texttt{reproduction\_thinkpad\_2026-06-10/} car
+supplement,file_path,989,07,cal comparison report (\texttt{reproduction\_check\_2026-06-07.md}); \texttt{reproduction\_thinkpad\_2026-06-10/} carrie
+supplement,line_reference,738,120,ied (\texttt{ } lines 120--128 in the upstream Pulse source). The spontaneous-driv
+supplement,line_reference,738,128,\texttt{ } lines 120--128 in the upstream Pulse source). The spontaneous-drive tri
+supplement,org_identifier,113,3450,"ress{\city{Nancy}, \country{France}}} \affil[5]{\orgdiv{UR 3450 DevAH}, \orgname{Universit\'e de Lorraine}, \orgaddress"
+supplement,org_identifier,115,1256,"Nancy}, \country{France}}} \affil[6]{\orgdiv{INSERM UMR\_S 1256, Nutrition-G\'en\'etique et Exposition aux Risques Envi"
+supplement,product_version,903,3.12,t-identical engine binaries. The host environment is Python 3.12+ managed via \texttt{uv} for deterministic dependency r
+supplement,product_version,1173,4.7,l agent at the \texttt{xhigh} thinking-effort default: Opus 4.7 (\texttt{claude-opus-4-7}) for the initial drafting and
+supplement,product_version,1173,4.8,the initial drafting and a manuscript-formatting pass; Opus 4.8 (\texttt{claude-opus-4-8}) through the first supervisor-
+supplement,product_version,1173,5,and the associated text and reference modifications); Opus 5 (\texttt{claude-opus-5}) for the audit and synthesis round
+supplement,product_version,1173,5.5,"sis rounds that followed; and, from 23~September~2026, Opus 5.5 (\texttt{claude-opus-5-5}) for the later readability and"
+supplement,product_version,1173,5.6,"inking mode), then, from 3~August~2026, OpenAI ChatGPT (GPT-5.6 Sol, High reasoning level). The Opus 5 rounds covered i"
+supplement,product_version,1175,5,"enAI ChatGPT (GPT-5.6 Sol, High reasoning level). The Opus 5 rounds covered in-repository replication of the ARDS-sever"
+supplement,ref_or_machinery,135,1,e present atlas's contribution (Section~\mainref{sec:intro}{1} of the main manuscript): a quantitative characterisation
+supplement,ref_or_machinery,181,2.4,"rised separately in Section~\mainref{sec:results-hyperoxia}{2.4} of the main manuscript and in Supplement~\S\,\ref{sec:s"
+supplement,ref_or_machinery,181,2.5,"lood-volume dependence of Section~\mainref{sec:results-sex}{2.5} of the main manuscript and Supplement~\S\,\ref{sec:s10}"
+supplement,ref_or_machinery,193,4.4,ther run is flagged (Section~\mainref{sec:methods-detector}{4.4} of the main manuscript). This eliminates all clean FiO$
+supplement,ref_or_machinery,209,4.4,} flag are stated in Section~\mainref{sec:methods-detector}{4.4} of the main manuscript and are held in the \texttt{HARD
+supplement,ref_or_machinery,223,1,"te reduce cardiac output and myocardial perfusion~\cite[Ch.~1]{marini2018critical}, which gives 202~bpm on the 18-year-o"
+supplement,ref_or_machinery,223,1,"rdia depresses cardiac output and oxygen delivery~\cite[Ch.~1]{marini2018critical}, but no numeric floor is asserted the"
+supplement,ref_or_machinery,227,2,"\sim$~150~mL), implying zero alveolar ventilation~\cite[Ch.~2]{west2020respiratory}. Upper: $\sim 3$--$4.5\times$ the AR"
+supplement,ref_or_machinery,227,25,"ndard practice before lung-protective ventilation~\cite[Ch.~25]{marino2013icu}. \\ SpO$_2$ [50, 100]~\% & Lower: oxyhemo"
+supplement,ref_or_machinery,231,5,el ceiling of $\approx$~663~mmHg on FiO$_2$ = 1.0~\cite[Ch.~5]{west2020respiratory}; the supplementary \texttt{HARD\_BOU
+supplement,ref_or_machinery,305,2.5,ator action is submitted (Section~\mainref{sec:results-sex}{2.5} of the main manuscript). No requested FiO$_2$ below 1.0
+supplement,ref_or_machinery,311,2.5,uster is characterised in Section~\mainref{sec:results-sex}{2.5} of the main manuscript.
+supplement,ref_or_machinery,319,4.3,"er settings reported in Section~\mainref{sec:methods-sweep}{4.3} of the main manuscript --- 20 trajectories, 4 grid leve"
+supplement,ref_or_machinery,323,4.4,cal bounds stated in Section~\mainref{sec:methods-detector}{4.4} of the main manuscript --- a screening outcome (\S\ref{
+supplement,ref_or_machinery,368,4.5,"ow or red is given in Section~\mainref{sec:methods-traffic}{4.5} of the main manuscript, and the three colour criteria a"
+supplement,ref_or_machinery,374,2.4,"rom are reported in Section~\mainref{sec:results-hyperoxia}{2.4} of the main manuscript, and the reclassification itself"
+supplement,ref_or_machinery,378,4.5,c:s3-tl-sensitivity} Section~\mainref{sec:methods-traffic}{4.5} of the main manuscript records a post hoc deviation bet
+supplement,ref_or_machinery,424,1,ipt and are defined here in full; Table~\mainref{tab:terms}{1} of the main manuscript keeps the three terms needed to re
+supplement,ref_or_machinery,430,3,t-importance metric reported in Figure~\mainref{fig:morris}{3} of the main manuscript; large $\mu^{*}$ indicates strong
+supplement,ref_or_machinery,432,4.4,four failure flags (Section~\mainref{sec:methods-detector}{4.4} of the main manuscript). An elementary effect is the di
+supplement,ref_or_machinery,444,2.3,"chrony, characterised in Section~\mainref{sec:results-vcac}{2.3} of the main manuscript). The two ``excl.\'' columns cou"
+supplement,ref_or_machinery,467,2.3,-volume oscillation that Section~\mainref{sec:results-vcac}{2.3} of the main manuscript identifies and corrects by setti
+supplement,ref_or_machinery,475,2.6,one}\label{sec:s5} Section~\mainref{sec:results-secondary}{2.6} of the main manuscript refers to a documented 0.91--0.9
+supplement,ref_or_machinery,538,2.6,"in main-manuscript Section~\mainref{sec:results-secondary}{2.6}; shunt fraction itself was not recorded, so this readin"
+supplement,ref_or_machinery,548,2.5,e regime characterised in Section~\mainref{sec:results-sex}{2.5} of the main manuscript. \begin{table}[htbp] \centering
+supplement,ref_or_machinery,574,0.95,es. \begin{figure}[htbp] \centering \includegraphics[width=0.95\textwidth]{figures/fig_s1_continuous_severity.pdf} \cap
+supplement,ref_or_machinery,575,2.5,e divergence pattern from Section~\mainref{sec:results-sex}{2.5} of the main manuscript does not generalise to midrange
+supplement,ref_or_machinery,579,4.3,ocumented in main paper Section~\mainref{sec:methods-sweep}{4.3}. The atlas's contribution in this domain --- to our kno
+supplement,ref_or_machinery,579,2.6,"S\ref{sec:s5-prov}, Section~\mainref{sec:results-secondary}{2.6} of the main paper) --- is a property of the Pulse engin"
+supplement,ref_or_machinery,583,2.5,"5-regimes} Together with Section~\mainref{sec:results-sex}{2.5} of the main manuscript, the data distinguish two operat"
+supplement,ref_or_machinery,583,2.1,action is submitted (Section~\mainref{sec:results-overview}{2.1} of the main manuscript) --- and produces divergence exc
+supplement,ref_or_machinery,583,2.5,gs; the sex effect of H4 (Section~\mainref{sec:results-sex}{2.5} of the main manuscript) is therefore best stated as ``r
+supplement,ref_or_machinery,593,2.5,ings}}\label{sec:s6-rho} Section~\mainref{sec:results-sex}{2.5} of the main manuscript reports the cross-sex Spearman r
+supplement,ref_or_machinery,624,0.85,ly. \begin{figure}[htbp] \centering \includegraphics[width=0.85\textwidth]{figures/fig_s2_spearman.pdf} \caption{\textb
+supplement,ref_or_machinery,637,2.5,ein distances reported in Section~\mainref{sec:results-sex}{2.5} of the main manuscript. Separating the three would requ
+supplement,ref_or_machinery,694,2.3,protocol}\label{sec:s8} Section~\mainref{sec:results-vcac}{2.3} of the main manuscript reports that setting Pulse's \te
+supplement,ref_or_machinery,742,0.95,lf. \begin{figure}[htbp] \centering \includegraphics[width=0.95\textwidth]{figures/fig_s4_vt_waveform.pdf} \caption{\te
+supplement,ref_or_machinery,753,2.4,col}\label{sec:s9} Section~\mainref{sec:results-hyperoxia}{2.4} of the main manuscript reports that the locked 120-seco
+supplement,ref_or_machinery,761,0.95,}). \begin{figure}[htbp] \centering \includegraphics[width=0.95\textwidth]{figures/fig_s3_hyperoxia_convergence.pdf} \c
+supplement,ref_or_machinery,768,0.95,re} \begin{figure}[htbp] \centering \includegraphics[width=0.95\textwidth]{figures/fig_s5_decomposition.pdf} \caption{\
+supplement,ref_or_machinery,777,2.5,eme divergence cluster of Section~\mainref{sec:results-sex}{2.5} of the main manuscript and a further instance of the re
+supplement,ref_or_machinery,806,2.5,"rameters}\label{sec:s10} Section~\mainref{sec:results-sex}{2.5} of the main manuscript reports that all 20 of 1{,}280 i"
+supplement,ref_or_machinery,838,2.5,"dy's divergence boundary (Section~\mainref{sec:results-sex}{2.5} of the main manuscript), but downstream users adapting"
+supplement,ref_or_machinery,863,2.5,erence-body comparison of Section~\mainref{sec:results-sex}{2.5} of the main manuscript is a limit on attribution rather
+supplement,ref_or_machinery,880,2.5,-male divergence cluster (Section~\mainref{sec:results-sex}{2.5} of the main manuscript); a one-line note in the patient
+supplement,ref_or_machinery,886,2.4,me characterised in Section~\mainref{sec:results-hyperoxia}{2.4} of the main manuscript (PaO$_2$ still rising at the end
+supplement,ref_or_machinery,1085,2.6,"ia}\label{sec:s15} Section~\mainref{sec:results-secondary}{2.6} of the main manuscript reports that, in moderate and se"
+supplement,ref_or_machinery,1093,2.2,erminant of output HR (Section~\mainref{sec:results-morris}{2.2} of the main manuscript).} \label{tab:s15-comphr} \begin
+supplement,ref_or_machinery,1109,2.2,tput HR in every cell (Section~\mainref{sec:results-morris}{2.2} of the main manuscript). By S3 (60~\% alveolar impairme
+supplement,ref_or_machinery,1122,4.4,"ther than discarded (Section~\mainref{sec:methods-detector}{4.4} of the main manuscript), which keeps the assumption aud"
+supplement,ref_or_machinery,1137,2,ubsection in the main paper's Section~\mainref{sec:results}{2} Results; brief reminders of the headline findings are inc
+supplement,ref_or_machinery,1152,2.6,y-driven). Supports Section~\mainref{sec:results-secondary}{2.6} of the main paper. \\ \S\ref{sec:s6} & \textbf{Sex-stra
+supplement,ref_or_machinery,1153,2.5,ts the Discussion and the Section~\mainref{sec:results-sex}{2.5} caveat. \\ \S\ref{sec:s7} & \textbf{Cornish et al.\ 202
+supplement,ref_or_machinery,1155,2.5,y divergence cluster from Section~\mainref{sec:results-sex}{2.5} of the main paper under both an absolute-BV and a weigh
+supplement,ref_or_machinery,1158,2.6,vere ARDS. Supports Section~\mainref{sec:results-secondary}{2.6} of the main paper. \\ \S\ref{sec:s16-window} & \textbf{
+supplement,ref_or_machinery,1164,2,"dependence) are summarised in Section~\mainref{sec:results}{2} of the main paper, with extended detail in supplement sec"
+supplement,ref_or_machinery,1173,4.7,nd phases}\label{sec:s18} Section~\mainref{sec:methods-ai}{4.7} of the main manuscript states how large language models
+supplement,tex_comment,58,2026,-manuscript section is a literal % number typed by hand. On 2026-08-05 a single new subsection inserted in the % paper's
+supplement,tex_comment,58,08,script section is a literal % number typed by hand. On 2026-08-05 a single new subsection inserted in the % paper's Resu
+supplement,tex_comment,58,05,ipt section is a literal % number typed by hand. On 2026-08-05 a single new subsection inserted in the % paper's Results
+supplement,tex_comment,59,21,"tion inserted in the % paper's Results silently invalidated 21 of them, and nothing in the build % noticed -- scripts/ch"
+supplement,tex_comment,76,87,"to .887 and \textfraction to % .13, so a float taller than ~87% of the text block but shorter than 88.7% % fits neither"
+supplement,tex_comment,76,88.7,a float taller than ~87% of the text block but shorter than 88.7% % fits neither on a text page nor alone on a float pag
+supplement,tex_comment,79,2026,t} and holds every later float of its kind with it: until % 2026-09-27 Tables S4-S18 and Figures S3-S5 printed after the
+supplement,tex_comment,79,09,d holds every later float of its kind with it: until % 2026-09-27 Tables S4-S18 and Figures S3-S5 printed after the refe
+supplement,tex_comment,79,27,olds every later float of its kind with it: until % 2026-09-27 Tables S4-S18 and Figures S3-S5 printed after the referen
+supplement,tex_comment,80,43,"S18 and Figures S3-S5 printed after the references, % up to 43 pages from their first mention. Lowering the float-page t"
+supplement,tex_comment,138,4.3,%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %% S2 -- Verified Pulse 4.3.1 limitations %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+supplement,tex_comment,314,3,%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %% S4 -- Extended Table 3: not_steady_state attribution %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+supplement,tex_comment,434,3,"ged, the pair contributes nothing. %% S4 -- Extended Table 3 \section{Extended Table 3: not\_steady\_state attributi"
+supplement,tex_comment,640,2,%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %% S7 -- Cornish Table 2 expanded %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+supplement,tex_comment,748,300,%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %% S9 -- Hyperoxia 300-second convergence full protocol %%%%%%%%%%%%%%%%%%%%%%%
+supplement,tex_comment,1076,7,rdia: input HR vs output HR under %% hypoxemia (Pass 7 D9 Option B follow-up to Manual %% Orthogonal Audit
+supplement,tex_comment,1079,2.6,tory-tachycardia secondary observation in %% Section 2.6 of the main manuscript; sourced from %% companion
+supplement,tex_comment,1080,3.4,uscript; sourced from %% companion monograph Section 3.4.1) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+supplement,tex_comment,1167,4.7,%%%%%% %% S18 -- Use of AI tools: detail moved from Methods 4.7 of the main %% %% manuscript (review comment: sho
+supplement,typeset_length,150,8,ation.} \footnotesize {rp{8.5cm}p{3.5cm}} \toprule \# & Limitation & Primary source \\
+supplement,typeset_length,150,3,\footnotesize {rp{8.5cm}p{3.5cm}} \toprule \# & Limitation & Primary source \\ \midrul
+supplement,typeset_length,218,0.66,tput.} {lp{0.66\textwidth}} \toprule Output & Primary-literature ration
+supplement,typeset_length,265,0.55,(see text).} {lp{0.55\textwidth}} \toprule Channel \& drift threshold & Clini
+supplement,typeset_length,506,2,}.} {lrrlp{2.6cm}} \toprule Scenario & $n$ & Median P/F [IQR] & Band (m
+supplement,typeset_length,1144,0.62,ain-paper anchor.} {lp{0.62\textwidth}} \toprule Anchor & Finding / discovery \\ \m
+supplement,version,141,4.3,\section{Verified Pulse 4.3.1 limitations} The atlas is calibrated ag
+supplement,version,540,4.3,"mmit \texttt{e8a3649}) --- physiologically identical to the 4.3.1 pin, the only delta being seven build-system files wit"
+supplement,version,993,26.5,".'s Apple Silicon host (MacBook Air, Apple~M2, ARM64; macOS~26.5.1; archived under \texttt{audits/reproduction\_macos\_2"
+supplement,version,993,4.3,"ive-ARM64 test: the pinned base image \texttt{kitware/pulse:4.3.1} is published for \texttt{linux/amd64} only, so on App"
+supplement,version,1069,4.3,"s own reference list; the sources behind the verified Pulse 4.3.1 limitations table (Supplement~\S\, ), with"
+supplement,version,1069,4.3,cceptance gates; and the findings of its audit of the Pulse 4.3.1 source code. The companion monograph gives further de
+supplement,version,1148,4.3,\\ \midrule \S & \textbf{Twelve verified Pulse 4.3.1 limitations} that the atlas is calibrated against. Two
+supplement,year_like,133,2017,"is a separate, targeted experiment. Pulse was forked in 2017 from the U.S.\ Department of Defense--funded BioGears engine by the o"
+supplement,year_like,133,2017,jects still exist independently but have diverged substantially since 2017; Pulse models mechanoreceptor feedback and lung recruitment; w
+supplement,year_like,135,2025,". The current upstream stable head is \texttt{REL\_4\_3\_2} (released 2025-08-12), whose full diff against \texttt{REL\_4\_3\_1} is build-system"
+supplement,year_like,154,2020,UQ on user-facing operational inputs --- addressed by this paper. The 2020 \texttt{STUDY\_SENSITIVITY\_ANALYSIS\_1\_0\_0} repository tag perform
+supplement,year_like,179,2026,"Rows 5--6 were subsequently re-derived within this repository. On 2026-07-26, eight single-purpose probes on the male reference body tested"
+supplement,year_like,181,1919,"f the Harris--Benedict equations~ --- not the 1919 originals, whose constants differ --- to set a sex-dependent patient"
+supplement,year_like,225,2023,"aign initial MAP target of 65~mmHg~ . Upper: ESH 2023 hypertensive emergency, i.e.\ grade~3 hypertension (SBP $\geq$ 180 an"
+supplement,year_like,303,2026,"og on disk is replayed in the note below. \noindent \textbf{Patch of 2026-07-26, applied after the sweep.} Two changes produce the five-pattern"
+supplement,year_like,374,2026,"shold has been adjusted post-hoc; the only preregistration amendment (2026-04-22-b, flatline tolerance 1~\% $\rightarrow$ 0.1~\%) was made befor"
+supplement,year_like,479,2026,"ct's original ARDS severity calibration, a 28-run impairment sweep of 2026-03 (full log in the companion technical monograph, Appendix~B.3), on"
+supplement,year_like,479,2026,"5 land at 256, 150, and 96~mmHg. The companion's later E6 experiment (2026-04) re-ran the three fractions with the same ventilator mode, tidal v"
+supplement,year_like,481,2026,"calibration has since been reproduced inside the present repository (2026-07-26, 40 runs on the atlas's own engine image), so a headline result"
+supplement,year_like,485,2026,"w} original ARDS severity calibration, the 28-run impairment sweep of 2026-03; its later \texttt{E6} experiment is an April refinement that re-c"
+supplement,year_like,643,2026,\section{Cornish et al.\ 2026 per-channel cross-mapping} The Discussion of the main
+supplement,year_like,649,2026,lap. [htbp] \centering \caption{\textbf{Cornish et al.\ 2026 per-quantity rejection counts (Cornish Appendix Tables~4 and~5) re-ta
+supplement,year_like,653,2026,ndant.} \toprule Cornish 2026 channel & Hoeffding & Bootstrap & Maps to atlas output? \\ \midrule \
+supplement,year_like,882,2020,ipe for user-facing operational inputs.} Pulse's repository carries a 2020 \texttt{STUDY\_SENSITIVITY\_ANALYSIS\_1\_0\_0} tag that performs Sobo
+supplement,year_like,1154,2026,caveat. \\ \S & \textbf{Cornish et al.\ 2026 per-channel cross-mapping.} Each of Cornish's 15 channels mapped agai
+supplement,year_like,1173,2026,"the audit and synthesis rounds that followed; and, from 23~September~2026, (\texttt{claude-opus-5-5}) for the later readability and au"
+supplement,year_like,1173,2026,"t Google Gemini Pro 3.1 (extended-thinking mode), then, from 3~August~2026, OpenAI ChatGPT ( Sol, High reasoning level). The roun"
+supplement,year_like,1175,2026,and versioned its generating script. They also covered the September 2026 condensation pass and the ensuing audits and their corrections; in th
+supplement,year_like,1175,2026,"placed material moving to the Supplementary Information. In September 2026, Claude Code's automated code review (\texttt{/ultrareview}) was also"

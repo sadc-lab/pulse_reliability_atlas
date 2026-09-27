@@ -9,7 +9,7 @@ paper,0.1,1,atline is variability below 1~\% of the mean \emph{and} a mean withi
 paper,0.12,1,"mu^{*}$ is expressed on the fractional scale Pulse reports (0--1), so 0.12 corresponds to 12 percentage points. Cell-label key: Table~"
 paper,0.21,1,"), tidal volume (Vt, 300--800~mL), inspired oxygen fraction (FiO$_2$, 0.21--1.0) and positive end-expiratory pressure (PEEP, 0--20~cmH$_2$O). Ea"
 paper,0.625,1,"rcentages because, with $n = 160$, every percentage is a multiple of $0.625$, so nine of the sixteen values below fall on an exact rounding tie a"
-paper,110,1,"pt across their verified Pulse acceptance ranges: heart rate (HR, 50--110~bpm), systolic and diastolic blood pressure (SBP 90--120~mmHg, DBP 60"
+paper,110,1,"al inputs were swept across the following ranges: heart rate (HR, 50--110~bpm), systolic and diastolic blood pressure (SBP 90--120~mmHg, DBP 60"
 paper,"12{,}642",1,"et al.'s ventilator-sharing study~ does sweep inputs (12{,}642 unique patient and ventilator combinations spanning respiratory compl"
 paper,163,1,"le body (age 18, 67.3~kg, 180~cm) and a female body (age 18, 56.2~kg, 163~cm). Both weights are U.S.\ Centers for Disease Control and Preventio"
 paper,"1{,}400",1,"rion (Figure~ b). Three of those 40 plateau above 1{,}400~mmHg, beyond the sea-level barometric pressure of 760~mmHg and so phy"
@@ -300,7 +300,7 @@ monograph,0.06,3,"0, 1.00] \\ S2 & MAP & 1.00 & [1.00, 1.00] \\ S2 & Vt & 0.75 &
 monograph,0.41,3,"06, 1.00] \\ S2 & SpO2 & 0.96 & [0.70, 1.00] \\ S2 & PaO2 & 0.93 & [0.41, 1.00] \\ S2 & PaCO2 & 0.89 & [0.35, 1.00] \\ \midrule S3 & HR & 0"
 monograph,"1,400",3,"S1 reruns met the drift criterion, but 3 of those 40 plateau above 1,400 mmHg, beyond the 760 mmHg sea-level barometric pressure; 6 runs in"
 monograph,154,3,bf{3 / 92} & \textbf{Yes (≈ atlas MAP)} \\ SysBP & 2 / 154 & 8 / 154 & Partial (MAP input) \\ DiaBP & 0 / 72 & 0
-monograph,2.2,3,ostic and designed to be re-applied to any future Pulse release. ### 2.2 Inputs *The seven user-facing operational inputs and the verified ac
+monograph,2.2,3,ostic and designed to be re-applied to any future Pulse release. ### 2.2 Inputs *The seven user-facing operational inputs and the ranges they
 monograph,318,3,"r recomputation reproduces exactly — 318 / 318 rows, relative deviation 0, identical clean-pair counts — so th"
 monograph,33,3,"scillation upstream.* * **Intersection (FiO2 ≥ 0.95 AND Vt_cv > 5 %): 33 / 1,280 runs.** Even in this dual-vulnerability population, HR/MAP/"
 monograph,633.3,3,"uster: one HR at 110 bpm, three at 90 bpm; two Vt at 300 mL, one at 633.3 mL, one at 800 mL. This is a *partial second regime* — one the lock"
@@ -327,7 +327,7 @@ monograph,1.2,2,implications for downstream pipelines — is consolidated in §4
 monograph,1.38,2,1 & HR & 5.02 & 3.91 & 8.56 & 0.305 & \\ S1 & MAP & 0.58 & 1.38 & 2.78 & 0.995 & \\ S1 & Vt & 21.4 & 34.4 & 76.6 & 0.798 &
 monograph,1.4,2,"e limitations the atlas builds on, and the contribution catalogue. §1.4 explains the experiment-log tag system ([S001 – [S024"
 monograph,1.91,2,tbf{4.69} & 1.65 & 3.56 & \textbf{0.009} & * \\ \midrule S2 & HR & 1.91 & 3.60 & 7.72 & 0.958 & \\ S2 & MAP & 0.88 & 1.03 & 2.11 &
-monograph,"10,160",2,"tted value preserved in what Pulse serialises after ingestion, on all 10,160 contracts that reached it. Two implications: 1. Pulse's *verified* a"
+monograph,"10,160",2,"tted value preserved in what Pulse serialises after ingestion, on all 10,160 contracts that reached it. Two implications: 1. The swept ranges (HR"
 monograph,13.33,2,"tened. The nominal Morris step in DBP is 2/3 of the 20 mmHg range = 13.33 mmHg; five of the nine fall to 6.25 % of that (0.83 mmHg), one to 5"
 monograph,13.3333,2,"endpoint at SBP = 90 caps DBP at 67.5 mmHg, so a requested step of 13.3333 mmHg executes as 0.8333 mmHg, and 0.8333 / 13.3333 = 0.0625. * **One-"
 monograph,138,2,"The remaining 4 are unique to (S4, M), at 24 / 82 / 137 / 138. They form a mixed cluster: one HR at 110 bpm, three at 90 bpm; two"
