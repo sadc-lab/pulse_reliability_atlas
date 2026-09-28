@@ -12,19 +12,25 @@ What it does, and how that differs from the preregistration
 ----------------------------------------------------------------------
 
                     preregistration           this script
-  cells             every cell whose top-3    the 6 cells fixed
-                    has sigma/mu* >= 0.6,     below, chosen on the
-                    which is 43 of 48         DOMINANT input, with
-                                              2 more excluded
+  cells             every cell with a top-3   the 6 cells fixed
+                    input at sigma/mu* >=     below, chosen on the
+                    0.6: 43 of 48 cell x      DOMINANT input, with
+                    output combinations,      2 more excluded
+                    falling in all 8 cells
   inputs            "Sobol on that input";    all 7 swept inputs
                     cost k = inputs promoted
   base sample       64                        256, first-order only
 
-The costs follow from that. The preregistered design is 43 cells at 256
-runs each = 11,008 runs, which is the figure the manuscript quotes. This
-script is 6 cells at N x (D + 2) = 256 x 9 = 2,304 rows each = 13,824
-runs. The two totals are close by coincidence, not because they are the
-same design.
+The costs follow from that. A Sobol sample is shared across the six
+outputs of one cell but not across cells, so the preregistered design
+costs 64 x (2k + 2) summed over the 8 cells, with k = 3 to 6 distinct
+promoted inputs per cell: 6,144 runs, or 3,584 at 64 x (k + 2) for the
+first-order and total indices only. Those are the figures the manuscript
+quotes (Supplement S3-sobol; sobol_ci_buckets.py). An earlier reading
+billed 43 "cells" at 256 runs = 11,008; it counted cell x output
+combinations as cells and is withdrawn (sobol_ci_buckets.json,
+"sobol_runs_unshared_k1_withdrawn"). This script is 6 cells at
+N x (D + 2) = 256 x 9 = 2,304 rows each = 13,824 runs.
 
 What it does share with the sweep is the locked input-space definition
 (`src.sampler.salib_problem()`) and RNG seed 42, so any indices it

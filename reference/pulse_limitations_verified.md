@@ -87,7 +87,7 @@ PC-AC mode significantly over-delivers Vt versus VC-AC. Pulse's own validation r
 
 ## 8. Upper airway simplified to single trachea resistance
 
-No separate nose/pharynx compartments. The entire upper airway is one resistor. Runtime scaling available via `UpperInspiratoryResistanceMultiplier` and `UpperExpiratoryResistanceMultiplier` APIs — can approximate stridor, laryngospasm, post-extubation edema, but cannot model dead-space partitioning or heat/humidity exchange.
+No nose compartment. The pharynx does exist as a gas compartment (a 1 mL node), but it carries no series resistance: the entire upper-airway resistance is one resistor, the trachea resistance on the pharynx-to-carina path (`SetupCircuitsAndCompartments.cpp` at `REL_4_3_1`, L2991–2994, L3066–3068, L3146; corrected 2026-09-28 — this line earlier said "no separate nose/pharynx compartments"). Runtime scaling available via `UpperInspiratoryResistanceMultiplier` and `UpperExpiratoryResistanceMultiplier` APIs — can approximate stridor, laryngospasm, post-extubation edema, but cannot model dead-space partitioning or heat/humidity exchange.
 
 **Evidence:** source audit 2026-04-07.
 

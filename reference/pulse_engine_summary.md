@@ -19,7 +19,7 @@ Primary citation: **Bray et al. (2019)**, "Pulse Physiology Engine: an Open-Sour
 
 ## Architecture
 
-**Zero-dimensional lumped-parameter circuits.** Same approach as BioGears, HumMod, Muse. Electrical-circuit analogues: resistors = vascular resistance, capacitors = compliance, pressure sources = heart / respiratory muscles.
+**Zero-dimensional lumped-parameter circuits.** Same approach as BioGears, HumMod, Muse. Electrical-circuit analogues: resistors = vascular resistance, capacitors = compliance (the heart is a time-varying capacitor, its changing elastance driving the circulation: CardiovascularMethodology.md at REL_4_3_1), pressure source = respiratory muscles.
 
 **11 physiology systems:** Cardiovascular, Respiratory, BloodChemistry, Nervous, Renal, Endocrine, Energy, Drug, Gastrointestinal, Hepatic, Tissue.
 

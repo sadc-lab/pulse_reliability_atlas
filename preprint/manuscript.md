@@ -1,7 +1,7 @@
 ---
 title: "Pulse Reliability Atlas: first sensitivity, clamping, and divergence map for the Pulse Physiology Engine v4.3.1"
 author: "Santino Nanini^1,2,3,4,5,\\*^, Arnaud Wiedemann^2,3,4,6^, Yassir Mamouni^3^, Cyril Schweitzer^4,5^, Philippe Jouvet^1,2,3^, Michael Sauthier^1,2,3^"
-date: "2026-09-15"
+date: "2026-09-28"
 header-includes:
   - \renewcommand{\arraystretch}{1.35}
   - \makeatletter\renewcommand{\@maketitle}{\newpage\null\vskip 2em\begin{center}\let\footnote\thanks{\LARGE\@title\par}\vskip 1.5em{\large\begin{minipage}{0.92\textwidth}\centering\@author\end{minipage}\par}\vskip 1em{\large\@date}\end{center}\par\vskip 1em}\makeatother
@@ -455,8 +455,9 @@ systems.
 
 *Pulse in a nutshell.* The engine represents the body as a network of
 coupled electrical-circuit analogues — vascular resistances as
-resistors, vessel and chamber compliances as capacitors, heart and
-respiratory muscles as time-varying pressure sources — solved as a
+resistors, vessel and chamber compliances as capacitors, the heart as a
+time-varying capacitor [@pulsecardiomethod] and the respiratory muscles
+as a time-varying pressure source — solved as a
 system of ordinary differential equations at a 20 ms fixed timestep
 [@bray2019]. The cardiovascular, respiratory (a 5-compartment lung
 model: carina, left and right anatomic dead space, left and right
@@ -1207,7 +1208,7 @@ Pulse's `SetupPatient.cpp` builds ten baseline-rejection strings, nine of
 which write the unit between the value and `is`; the heart-rate lower bound
 (L311) is the sole exception. The original first pattern required that
 token, so a heart rate below 50 bpm was rejected by Pulse at setup yet never
-raised `clamped`. Replaying both pattern sets over all 3,348 Pulse logs on
+raised `clamped`. Replaying both pattern sets over all 3,349 Pulse logs on
 disk flips exactly one run — the S030b probe written to expose the gap — and
 no run in the published sweep, whose requested heart rates never leave
 [50, 110] bpm. The published classification is therefore unchanged. The gap
@@ -1247,7 +1248,7 @@ call rather than a unique biological constant; §4.5 acknowledges
 this and §3.8 demonstrates the sensitivity-analysis pattern on the
 single most contestable bound (PaO2 upper, raised from 600 to 700
 mmHg per the alveolar-gas-equation ceiling). No locked threshold has
-been adjusted post-hoc — the only preregistration amendment
+been adjusted post-hoc — the only amendment to a locked threshold
 (2026-04-22-b, flatline tolerance 1 % → 0.1 %) was made *before* the
 sweep launched.
 
@@ -4010,6 +4011,16 @@ during the literature-review pass logged in
   left alveoli) and of the no-inertance limitation, both verified
   verbatim; those two claims had been mis-attributed to Bray 2019,
   which contains neither.
+* []{#ref-pulsecardiomethod} Kitware, Inc. *Cardiovascular Methodology — Pulse
+  Physiology Engine documentation (v4.3.1).*
+  <https://pulse.kitware.com/_cardiovascular_methodology.html>.
+  Source of the heart modelled as a time-varying capacitor in "Pulse in a
+  nutshell", verbatim: *"The heart model generates pressure that drives the
+  hemodynamics through a variable capacitor that simulates the changing
+  elastance of the myocardium throughout the cardiac cycle."* That sentence
+  earlier called the heart a time-varying pressure source, which this page
+  contradicts. Verified verbatim 2026-09-28 at tag `REL_4_3_1`
+  (`docs/Methodology/CardiovascularMethodology.md`, L113).
 * []{#ref-pulseabout} Kitware, Inc. *About Pulse — Pulse Physiology Engine.*
   <https://pulse.kitware.com/_about_pulse.html>.
   Source of the language-binding and platform list, verbatim: *"easy
