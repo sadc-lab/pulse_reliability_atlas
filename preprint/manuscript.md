@@ -658,7 +658,7 @@ underlying files are in the repository.
 | S002 | Project bootstrap (repo layout, licensing). |
 | S003 | Verified the 12 Pulse 4.3.1 limitations against primary sources. |
 | S004 | Built the atlas Docker image; scenario smoke test; calibrated the detector clamp regex against real Pulse rejection logs. |
-| S005 | 22-run pilot on cell (S1, M); passed all 5 preregistered gates. |
+| S005 | 22-run pilot on cell S1_M; passed all 5 preregistered gates. |
 | S006 | Full 1,280-run Morris sweep (the headline experiment). |
 | S007 | Targeted reproducibility check at three independent layers, all bit-exact. |
 | S008 | Tier-1 statistical refinement (block bootstrap on σ, Wasserstein permutation null, Spearman CI, divergence-input mechanism). |
@@ -1295,13 +1295,13 @@ defense-in-depth contract was verified end-to-end in
 
 ### 2.7 Pilot gate ([S005](#s005))
 
-*The five preregistered gates the 22-run pilot on cell (S1, M) had to
+*The five preregistered gates the 22-run pilot on cell S1_M had to
 pass before the full 1,280-run sweep launched: success rate, detector
 self-consistency, 13-point steady-state window, clamp-regex
 reachability, and Pulse determinism. The pilot also surfaced and
 resolved three pipeline bugs before the compute budget was spent.*
 
-A 22-run pilot on cell (S1, M) with 16 unique Morris points + 4
+A 22-run pilot on cell S1_M with 16 unique Morris points + 4
 reproducibility reruns + 2 deliberate clamp probes verified all five
 preregistered gate criteria: success rate, detector self-consistency,
 13-point steady-state window, clamp regex reachability (probes), and Pulse
@@ -1361,7 +1361,7 @@ post-[S014](#s014)-patch rebuild — a different image hash than the
   empirically a no-op on the canonical sweep at every cell. Full report
   in `data/runs/full_sweep_repro/sha_compare.json`.
 
-* **(ii) Phase 4b — new-seed Morris stability on cell (S2, M).** A
+* **(ii) Phase 4b — new-seed Morris stability on cell S2_M.** A
   fresh Morris sample at `seed=44`, `trajectories=20`, `levels=4` (160
   unique points, matching canonical sample size; different seed from
   both canonical `seed=42` and the prior [S009](#s009) stability check at
@@ -1682,7 +1682,7 @@ visual patterns dominate:
   severe ARDS); output MAP is driven by SBP in every cell (μ\* ≈ 17 –
   20). Ventilator settings still contribute smaller, non-zero effects.
 * **Gas-exchange outputs are ventilator-driven.** PaO2 is dominated by
-  FiO2 in S2 / S3 (μ\* peaks at 147 mmHg in (S2, F)). PaCO2 is dominated by Vt in most cells, consistent
+  FiO2 in S2 / S3 (μ\* peaks at 147 mmHg in S2_F). PaCO2 is dominated by Vt in most cells, consistent
   with the alveolar-ventilation identity
   $\dot{V}_A = \mathrm{RR} \cdot (V_T - V_D)$
   (where $\dot{V}_A$ is alveolar minute ventilation, RR is set
@@ -1693,8 +1693,8 @@ visual patterns dominate:
   the largest value, 0.12 in S3, would read 12 in percentage points.
 * **The ARDS gradient is visible.** PaO2's FiO2 sensitivity peaks in
   S2 (μ\* = 133 – 147 mmHg), remains substantial in S3 (μ\* = 84 – 93
-  mmHg), and falls sharply in severe ARDS (μ\* = 31 in (S4, M), on a
-  single elementary-effect pair; not estimable in (S4, F) under the
+  mmHg), and falls sharply in severe ARDS (μ\* = 31 in S4_M, on a
+  single elementary-effect pair; not estimable in S4_F under the
   four-flag screen). FiO2 nevertheless remains the rank-1 input wherever
   it is estimable. The fall is consistent with the model's
   severity-dependent gas-exchange changes; shunt fraction was not
@@ -1715,8 +1715,8 @@ runs) reported the FiO2 → PaO2 elasticity collapsing from 1.32 in
 healthy to 0.26 in moderate ARDS — an ~80 % attenuation, consistent
 with rising shunt. The Atlas Morris μ\* for PaO2 ~ FiO2 reproduces
 both the direction and roughly the magnitude of this attenuation:
-μ\* peaks at S2 / S3 (147 mmHg in (S2, F)) and falls to 31 mmHg in
-(S4, M), a ~79 % drop resting on a single elementary-effect pair. Elasticity (local %-change/%-change) and μ\*
+μ\* peaks at S2 / S3 (147 mmHg in S2_F) and falls to 31 mmHg in
+S4_M, a ~79 % drop resting on a single elementary-effect pair. Elasticity (local %-change/%-change) and μ\*
 (mean absolute elementary effect in output units) are formally
 different metrics, so this is a qualitative consistency check rather
 than a numerical equivalence — but the matched direction and
@@ -1850,8 +1850,8 @@ these into two regimes:
   oxygenation gain per FiO2 increment — an established physiological
   non-linearity. The remaining two cells
   reflect minute-ventilation coupling on PaCO2: RR → PaCO2 in healthy
-  males ((S1, M), σ / μ\* = 0.87), and Vt → PaCO2 in severe-ARDS
-  females ((S4, F), σ / μ\* = 0.66). Both are predicted by the
+  males (S1_M, σ / μ\* = 0.87), and Vt → PaCO2 in severe-ARDS
+  females (S4_F, σ / μ\* = 0.66). Both are predicted by the
   alveolar-ventilation identity
   $\dot{V}_A = \mathrm{RR} \cdot (V_T - V_D)$ that governs CO₂
   elimination.
@@ -2100,7 +2100,7 @@ input pattern. Of the 20:
 * The 16 shared cases correspond to **the same 4 Morris sample
   indices repeated across S1 / S2 / S3 / S4_M** — `run_idx` 119, 157,
   158, 159 in the canonical sample.
-* The remaining 4 are unique to (S4, M), at `run_idx` 24 / 82 /
+* The remaining 4 are unique to S4_M, at `run_idx` 24 / 82 /
   137 / 138. They form a mixed cluster: one HR at 110 bpm, three at
   90 bpm; two Vt at 300 mL, one at 633.3 mL, one at 800 mL. This is a
   *partial second regime* — one the locked Morris sample explores
@@ -2590,7 +2590,7 @@ driving Vt is not clearly preserved across sex.
 of {green, yellow, red}, anchored to preregistered baseline-percentage
 thresholds (10 % / 30 % deviation; 30 % hard-failure rate). The final
 distribution is 7 green, 29 yellow, 12 red out of 48 cells — and
-(S4, M) is red on every output.*
+S4_M is red on every output.*
 
 Per cell × output green / yellow / red classification grounded on the
 preregistered tolerances (10 % / 30 % deviation thresholds, 30 %
@@ -2617,7 +2617,7 @@ classification (green / yellow / red — definitions in the Figure 6
 W/H/T block).
 **Key takeaway:** all seven green classifications fall in the
 (S2_F, S3_F) cluster, the only two cells carrying no diverged and no
-implausible run; (S4, M) is the only cell red on every output; and
+implausible run; S4_M is the only cell red on every output; and
 HR + PaO2 turn red across both sexes from S3 onwards. Red marks a cell
 for review, not a defect in the engine: six of the twelve are red on
 the deviation criterion alone, in scenarios where a departure from the
@@ -2638,7 +2638,7 @@ gives **7 green, 3 yellow, 38 red**. The same seven green and twelve red
 combinations are retained, with 26 combinations moving from yellow to red.
 Reading "any flag" as all four flags gives 0 green, 0 yellow, 48 red and is
 reported only to document the ambiguity. The phrase "cell baseline" is also
-ambiguous; the implemented map uses the healthy-male (S1, M) reference. The
+ambiguous; the implemented map uses the healthy-male S1_M reference. The
 repository establishes that the implemented rule was committed after
 preregistration, in the same commit as the tracked sweep artefacts, but does
 not establish whether it was defined before or after inspection of the sweep
@@ -2648,13 +2648,13 @@ rationale in `audit/preregistration_traffic_light_deviation.md`
 ([`scripts/audit_traffic_light_rule.py`](../scripts/audit_traffic_light_rule.py)
 rebuilds all three readings).
 
-* Green cells cluster in **(S2, F) + (S3, F)** — moderate ARDS in the
+* Green cells cluster in **S2_F + S3_F** — moderate ARDS in the
   female surrogate is, paradoxically, Pulse's most steady operational
   region within the atlas envelope.
 * Red cells cluster in **S3 + S4 on HR + PaO2** — moderate-to-severe
   hypoxemia drives both heart-rate compensation and arterial-oxygen
   values far from the S1_M baseline.
-* **(S4, M) is red on every output.** It is the only cell whose hard-failure
+* **S4_M is red on every output.** It is the only cell whose hard-failure
   rate exceeds 30 % (54 / 160 = 33.75 %), and it corresponds to severe ARDS on
   the larger male body habitus. Users running Pulse at this configuration
   should treat the engine output as a starting point, not a faithful
@@ -2665,14 +2665,14 @@ rebuilds all three readings).
 The user-facing summary of the entire atlas and the figure most
 likely to be consulted by Pulse practitioners.
 **How to read it:** green = no diverged or implausible flags in the cell *and*
-clean-run mean within 10 % of the (S1, M) baseline; yellow = any
+clean-run mean within 10 % of the S1_M baseline; yellow = any
 diverged or implausible flag *or* mean 10 – 30 % off baseline; red = mean > 30 % off
 baseline *or* diverged + implausible rate > 30 %.
 **Key takeaway:** 7 green, 29 yellow, 12 red out of 48 cells. Green
-cluster: (S2, F) + (S3, F). Red cluster: HR and PaO2 in S3 / S4.
-(S4, M) is red on every output — the worst single cell in the atlas.
+cluster: S2_F + S3_F. Red cluster: HR and PaO2 in S3 / S4.
+S4_M is red on every output — the worst single cell in the atlas.
 
-![Figure 6. Reliability traffic light — per cell × output, one of {green, yellow, red}. Green = no diverged or implausible flags in the cell AND clean-run mean within 10 % of the (S1, M) baseline. Yellow = any diverged or implausible flag OR mean 10 – 30 % off baseline. Red = mean > 30 % off baseline OR diverged + implausible rate > 30 %. Distribution: 7 green / 29 yellow / 12 red across 48 cells — i.e. 7/48 (15 %), 29/48 (60 %), 12/48 (25 %) respectively, shares of the map distinct from the 10 %/30 % baseline-deviation thresholds that define the colours; the user-facing summary of the entire atlas. Source: `results/reliability_classification.csv` (S006).](../figures/fig06_reliability_traffic_light.png)
+![Figure 6. Reliability traffic light — per cell × output, one of {green, yellow, red}. Green = no diverged or implausible flags in the cell AND clean-run mean within 10 % of the S1_M baseline. Yellow = any diverged or implausible flag OR mean 10 – 30 % off baseline. Red = mean > 30 % off baseline OR diverged + implausible rate > 30 %. Distribution: 7 green / 29 yellow / 12 red across 48 cells — i.e. 7/48 (15 %), 29/48 (60 %), 12/48 (25 %) respectively, shares of the map distinct from the 10 %/30 % baseline-deviation thresholds that define the colours; the user-facing summary of the entire atlas. Source: `results/reliability_classification.csv` (S006).](../figures/fig06_reliability_traffic_light.png)
 
 ### 3.7.1 What the colour does not say, and what each screen costs
 
@@ -2755,7 +2755,7 @@ must not be summed as independent runs.
 **Where this is published.** The npj paper carries the driver totals as
 a compact strip under Figure 2; the full per-cell driver matrix, the
 per-cell hard-failure rates, the exhaustive trigger attribution and the
-*signed* deviation from the (S1, M) baseline are Supplement Figure S5
+*signed* deviation from the S1_M baseline are Supplement Figure S5
 (§S3.12). The signed panel is descriptive only: a directionally expected
 change under ARDS does not validate its magnitude, and nothing in this
 atlas is an external physiological validation.
@@ -4259,7 +4259,7 @@ indexed here.*
 | []{#s002} S002 | Project bootstrap |
 | []{#s003} S003 | Verified Pulse 4.3.1 limitations |
 | []{#s004} S004 | Atlas image + scenario smoke + detector recalibration |
-| []{#s005} S005 | 22-run pilot on (S1, M) |
+| []{#s005} S005 | 22-run pilot on S1_M |
 | []{#s006} S006 | Full Morris sweep (1,280 runs) |
 | []{#s007} S007 | Targeted reproducibility check (3-layer, all bit-exact) |
 | []{#s008} S008 | Tier-1 statistical refinement (block bootstrap, Wasserstein null) |
