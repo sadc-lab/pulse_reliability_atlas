@@ -61,8 +61,8 @@
     },
     "paper": {
       "buckets": {
-        "ambiguous_small": 294,
-        "guard": 166,
+        "ambiguous_small": 293,
+        "guard": 165,
         "ledger": 15,
         "none": 39
       },
@@ -73,7 +73,7 @@
         "line_reference": 0,
         "org_identifier": 12,
         "product_version": 2,
-        "ref_or_machinery": 245,
+        "ref_or_machinery": 246,
         "tex_comment": 99,
         "typeset_length": 11,
         "url_or_doi": 0,
@@ -83,8 +83,8 @@
       "path": "preprint_npj/paper.tex",
       "recall": {
         "accounting_closes": true,
-        "literals_after_masking": 516,
-        "literals_in_raw_text": 562,
+        "literals_after_masking": 514,
+        "literals_in_raw_text": 560,
         "literals_removed_per_rule": {
           "file_path": 0,
           "line_reference": 0,
@@ -97,9 +97,9 @@
           "version": 0
         },
         "removed_by_masks": 46,
-        "retained_plus_year_like": 516
+        "retained_plus_year_like": 514
       },
-      "retained_occurrences": 514
+      "retained_occurrences": 512
     },
     "supplement": {
       "buckets": {
@@ -115,7 +115,7 @@
         "line_reference": 1,
         "org_identifier": 12,
         "product_version": 7,
-        "ref_or_machinery": 421,
+        "ref_or_machinery": 423,
         "tex_comment": 137,
         "typeset_length": 13,
         "url_or_doi": 0,
@@ -146,10 +146,10 @@
   },
   "population_rule": "see the module docstring; exclusions are counted per artefact",
   "totals": {
-    "ambiguous_small_occurrences": 3143,
+    "ambiguous_small_occurrences": 3142,
     "distinct_values": 730,
-    "not_demonstrably_covered_occurrences": 4383,
-    "retained_occurrences": 5777,
+    "not_demonstrably_covered_occurrences": 4382,
+    "retained_occurrences": 5775,
     "unbucketed_distinct_values": 417,
     "unbucketed_occurrences": 1240
   }

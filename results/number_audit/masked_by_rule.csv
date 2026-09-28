@@ -259,7 +259,7 @@ monograph,year_like,4,2026,"weitzer^4,5^, Philippe Jouvet^1,2,3^, Michael Sauthi
 monograph,year_like,264,2026,mmHg at the same settings. * **Complementarity with Cornish et al. 2026** ([S017 ): their causal-falsification on MIMIC-III reported
 monograph,year_like,302,2026,"se synthetic cohorts, a side-by-side mapping against Cornish et al. 2026 causal falsification (Table 2), explicit limitations (§4.5), downst"
 monograph,year_like,383,2020,"mmHg at the same settings (vs. published 340 / 130 / 50 mmHg, Webb 2020) — calibration is *ventilation-setting-dependent*. --- ## Notation"
-monograph,year_like,469,2017,"RM [@pulseabout]. Pulse forked from the DoD-funded BioGears engine in 2017 and is described by its maintainers as a ""low fidelity clinical appro"
+monograph,year_like,469,2017,RM [@pulseabout]. Pulse forked from the DoD-funded BioGears engine in 2017 [@pulseabout; @pulsefaq] and is described by its maintainers as using
 monograph,year_like,493,2026,"tate explicitly on the public Pulse FAQ [@pulsefaq; verified verbatim 2026-04-19, still current as of the May 2026 GitLab re-audit, [S003"
 monograph,year_like,494,2026,"[@pulsefaq; verified verbatim 2026-04-19, still current as of the May 2026 GitLab re-audit, [S003 / [S016 ]: > ""We have not perf"
 monograph,year_like,500,2026,"rtainty, nor have we conducted a formal > sensitivity analysis."" The 2026 GitLab re-audit ([S016 ) qualifies the FAQ claim slightly: the"
@@ -409,8 +409,8 @@ monograph,year_like,4534,2026,", < re-read 2026-08-20 with columns resolved by n
 monograph,year_like,4545,2026,"recorded in that project's experiments log (CDC weight audit step, 2026-04). * **Female height (163 cm).** Matches the CDC P50 stature for"
 paper,org_identifier,115,3450,"ress{\city{Nancy}, \country{France}}} \affil[5]{\orgdiv{UR 3450 DevAH}, \orgname{Universit\'e de Lorraine}, \orgaddress"
 paper,org_identifier,117,1256,"Nancy}, \country{France}}} \affil[6]{\orgdiv{INSERM UMR\_S 1256, Nutrition-G\'en\'etique et Exposition aux Risques Envi"
-paper,product_version,397,4.7,". One of the two was always a Claude model (Anthropic; Opus 4.7, 4.8, 5 and 5.5 in succession), the other Google Gemini"
-paper,product_version,397,5.6,"e other Google Gemini Pro 3.1 and later OpenAI ChatGPT (GPT-5.6 Sol); Supplement~\S\,\ref{sec:s18} gives each model's ex"
+paper,product_version,397,4.7,"n separate sessions: always a Claude model (Anthropic; Opus 4.7, 4.8, 5 and 5.5 in succession), and Google Gemini Pro 3."
+paper,product_version,397,5.6,"sion), and Google Gemini Pro 3.1, later OpenAI ChatGPT (GPT-5.6 Sol). The Claude model in particular was often asked to"
 paper,ref_or_machinery,186,0.748,des. \begin{figure}[!t] \centering \includegraphics[width=0.748\textwidth]{figures/fig00_study_design.pdf} \caption{\t
 paper,ref_or_machinery,232,0.95,le} \begin{figure}[!htbp] \centering \includegraphics[width=0.95\textwidth]{figures/fig01_traffic_light.pdf} \caption{\t
 paper,ref_or_machinery,297,0.95,. \begin{figure}[!htbp] \centering \includegraphics[width=0.95\textwidth]{figures/fig03_actionable_corrections.pdf} \c
@@ -559,7 +559,7 @@ supplement,version,995,4.3,"ive-ARM64 test: the pinned base image \texttt{kitwar
 supplement,version,1071,4.3,"s own reference list; the sources behind the verified Pulse 4.3.1 limitations table (Supplement~\S\, ), with"
 supplement,version,1071,4.3,cceptance gates; and the findings of its audit of the Pulse 4.3.1 source code. The companion monograph gives further de
 supplement,version,1150,4.3,\\ \midrule \S & \textbf{Twelve verified Pulse 4.3.1 limitations} that the atlas is calibrated against. Two
-supplement,year_like,133,2017,"is a separate, targeted experiment. Pulse was forked in 2017 from the U.S.\ Department of Defense--funded BioGears engine by the o"
+supplement,year_like,133,2017,"is a separate, targeted experiment. Pulse was forked in 2017 from the U.S.\ Department of Defense--funded BioGears engine by membe"
 supplement,year_like,133,2017,jects still exist independently but have diverged substantially since 2017; Pulse models mechanoreceptor feedback and lung recruitment; w
 supplement,year_like,135,2025,". The current upstream stable head is \texttt{REL\_4\_3\_2} (released 2025-08-12), whose full diff against \texttt{REL\_4\_3\_1} is build-system"
 supplement,year_like,154,2020,UQ on user-facing operational inputs --- addressed by this paper. The 2020 \texttt{STUDY\_SENSITIVITY\_ANALYSIS\_1\_0\_0} repository tag perform

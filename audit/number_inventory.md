@@ -3063,3 +3063,34 @@ one of the five", "one other"), `two` +1 ("two of the five seeds").
 **Prose quantifiers** (1,948 -> 1,947), same sentence: `all` −1, `none` −1
 ("none surviving all five" removed), `only` +1 ("two of the five seeds
 only"). `every` is unchanged ("in every draw" -> "under every one").
+
+## Addendum 2026-09-28 (afternoon) — availability statements, Methods 4.6/4.7, citation fixes
+
+All three producers were re-run on `85d8bdb`, after `c88273d` (Data and Code
+availability, funders), `089bb47` (Methods 4.7), `1ad0e3a` (Methods 4.6 Morris
+clause) and `85d8bdb` (citation fixes in paper, supplement and monograph):
+self-tests 0 FAIL each.
+
+`inventory.csv` (5,777 -> 5,775 rows; paper 514 -> 512; supplement and
+monograph counts unchanged). Paper rows that left: `100` ("over 100 pages",
+the monograph's length, now given by Supplement S14 only), `2.0` (the
+Apache-2.0 of the code in the old licensing clause, now stated once in Code
+availability), one of three `4.0` ("whose version~4.0 covers sui generis
+database rights"). Row that entered: `11` ("Windows~11", the reference
+machine in Code availability). Model versions 4.8 / 5 / 5.5 / 3.1 and
+`1{,}280` stay, with new context. Supplement rows 170–174 (Table S1 rows 10–12)
+change context only (citations added); row 133 likewise.
+
+**Number words** (1,387 -> 1,385), paper only: `one` −1 ("One of the two was
+always a Claude model" rewritten "two LLMs … always a Claude model"),
+`three` −1 ("three-layer bit-exact verification", left to S12). `four` moves
+without changing its count (`four-flag` in the old codebase list out, "These
+four funders" in).
+
+**Prose quantifiers** (1,947 -> 1,949). Paper +2: `every` +1 ("Every cited
+reference was checked against its source"), `same` +1 (the Morris clause's
+"the same runs"), and `both`/`each` moved within 4.6/4.7 without net change.
+Supplement −1: `most` ("among the most actively maintained" -> "an actively
+maintained"). Monograph +1: `necessarily` (the System Methodology quotation
+"not necessarily for high fidelity predictive purposes", now quoted in place of
+the unsourced "intended for training simulation" gloss).

@@ -3865,18 +3865,16 @@ paper,391,4.1,4.1,none,only the first-order and total indices the protocol asks 
 paper,391,"1{,}000",1000.0,ledger,"e, we add a post hoc sensitivity analysis: trajectories are resampled 1{,}000 times for each top-three input and $\sigma / \mu^{*}$ is recomputed j"
 paper,391,95,95.0,none,u^{*}$ is recomputed jointly on each draw. The top-three inputs whose 95~\% interval on that ratio has a lower bound at or above 0.6 under eac
 paper,391,0.6,0.6,ambiguous_small,puts whose 95~\% interval on that ratio has a lower bound at or above 0.6 under each of five independent seeds are characterised in \S
-paper,397,4.8,4.8,none,"on it. One of the two was always a Claude model (Anthropic; , 4.8, 5 and 5.5 in succession), the other Google Gemini Pro 3.1 and later"
-paper,397,5,5.0,ambiguous_small,". One of the two was always a Claude model (Anthropic; , 4.8, 5 and 5.5 in succession), the other Google Gemini Pro 3.1 and later Ope"
-paper,397,5.5,5.5,none,"of the two was always a Claude model (Anthropic; , 4.8, 5 and 5.5 in succession), the other Google Gemini Pro 3.1 and later OpenAI Chat"
-paper,397,3.1,3.1,ambiguous_small,", 4.8, 5 and 5.5 in succession), the other Google Gemini Pro 3.1 and later OpenAI ChatGPT ( Sol); Supplement~\S\,"
-paper,410,100,100.0,guard,"o, together with the code and the companion technical monograph (over 100 pages) carrying the full audit traceability; pre-deposit access is av"
-paper,410,2.0,2.0,ambiguous_small,"). Licensing follows each artefact's function: Apache-2.0 for the code and the lab-notebook entries, and Creative Commons Attri"
-paper,410,4.0,4.0,ambiguous_small,"e code and the lab-notebook entries, and Creative Commons Attribution 4.0 (CC-BY-4.0), whose version~4.0 covers sui generis database rights, fo"
-paper,410,4.0,4.0,ambiguous_small,"the lab-notebook entries, and Creative Commons Attribution 4.0 (CC-BY-4.0), whose version~4.0 covers sui generis database rights, for the depos"
-paper,410,4.0,4.0,ambiguous_small,"ries, and Creative Commons Attribution 4.0 (CC-BY-4.0), whose version~4.0 covers sui generis database rights, for the deposited data and the au"
+paper,397,4.8,4.8,none,"ked in separate sessions: always a Claude model (Anthropic; , 4.8, 5 and 5.5 in succession), and Google Gemini Pro 3.1, later OpenAI Ch"
+paper,397,5,5.0,ambiguous_small,"n separate sessions: always a Claude model (Anthropic; , 4.8, 5 and 5.5 in succession), and Google Gemini Pro 3.1, later OpenAI ChatG"
+paper,397,5.5,5.5,none,"rate sessions: always a Claude model (Anthropic; , 4.8, 5 and 5.5 in succession), and Google Gemini Pro 3.1, later OpenAI ChatGPT ("
+paper,397,3.1,3.1,ambiguous_small,"ropic; , 4.8, 5 and 5.5 in succession), and Google Gemini Pro 3.1, later OpenAI ChatGPT ( Sol). The Claude model in particular w"
+paper,410,4.0,4.0,ambiguous_small,"own monograph content are licensed under Creative Commons Attribution 4.0 (CC-BY-4.0); verbatim third-party excerpts, notably from the Pulse do"
+paper,410,4.0,4.0,ambiguous_small,"ph content are licensed under Creative Commons Attribution 4.0 (CC-BY-4.0); verbatim third-party excerpts, notably from the Pulse documentation"
 paper,410,2.0,2.0,ambiguous_small,"rty excerpts, notably from the Pulse documentation and source (Apache-2.0), retain their original licensing terms. \hypertarget{tgt:code-avail"
-paper,414,2.0,2.0,ambiguous_small,udit ledger and reproducibility scripts) is released under the Apache-2.0 license at .
-paper,414,"1{,}280",1280.0,guard,"xttt{audits/} in the code repository: a co-author reproduced the full 1{,}280-run sweep and the S1\_M pilot on a second, independent x86\_64 comput"
+paper,414,2.0,2.0,ambiguous_small,"as codebase, including the audit ledger, is released under the Apache-2.0 license at ,"
+paper,414,"1{,}280",1280.0,guard,"th the per-experiment lab-notebook entries. Y.M.\ reproduced the full 1{,}280-run sweep and the S1\_M pilot on a second, independent x86\_64 comput"
+paper,414,11,11.0,ambiguous_small,"ter (AMD CPU, Linux under WSL2; reference machine: Intel CPU, Windows~11). Every run-level flag and steady-state value was bit-identical, and"
 paper,418,23,23.0,ambiguous_small,ional Research Agency under France 2030 via the ENACT AI Cluster (ANR-23-IACL-0004). This work also relies on the financial support provided b
 paper,418,0004,4.0,ambiguous_small,search Agency under France 2030 via the ENACT AI Cluster (ANR-23-IACL-0004). This work also relies on the financial support provided by the R\'e
 supplement,49,1,1.0,ambiguous_small,\makeatletter \renewcommand\numberline[1]{\hb@xt@ {#1\hfil}} \makeatother
@@ -3923,7 +3921,7 @@ supplement,131,0.3,0.3,ambiguous_small,"through piecewise-linear functions calib
 supplement,131,0.6,0.6,ambiguous_small,"ugh piecewise-linear functions calibrated at five nodes --- 0.0, 0.3, 0.6, 0.9 and 1.0~ . That five-node calibration is wh"
 supplement,131,0.9,0.9,ambiguous_small,"iecewise-linear functions calibrated at five nodes --- 0.0, 0.3, 0.6, 0.9 and 1.0~ . That five-node calibration is why the"
 supplement,131,1.0,1.0,ambiguous_small,"-linear functions calibrated at five nodes --- 0.0, 0.3, 0.6, 0.9 and 1.0~ . That five-node calibration is why the main de"
-supplement,133,2.0,2.0,ambiguous_small,"Bray, Webb) and is now maintained by Kitware, Inc.\ under the Apache-2.0 license. Both projects still exist independently but have diverged su"
+supplement,133,2.0,2.0,ambiguous_small,"ioGears team and is now maintained by Kitware, Inc.\ under the Apache-2.0 license~ . Both projects still exist indepen"
 supplement,135,08,8.0,ambiguous_small,"current upstream stable head is \texttt{REL\_4\_3\_2} (released 2025-08-12), whose full diff against \texttt{REL\_4\_3\_1} is build-system-on"
 supplement,135,12,12.0,ambiguous_small,"rrent upstream stable head is \texttt{REL\_4\_3\_2} (released 2025-08-12), whose full diff against \texttt{REL\_4\_3\_1} is build-system-only"
 supplement,135,7,7.0,ambiguous_small,", whose full diff against \texttt{REL\_4\_3\_1} is build-system-only (7 files / +46 / -17 lines: web-WASM dockcross support and a .NET bindin"
@@ -3964,10 +3962,10 @@ supplement,170,10,10.0,ambiguous_small,\dot Q$ is uniform). & Structural design 
 supplement,170,4.93,4.93,guard,respiratory methodology reports a standard-patient vital capacity of 4.93~L against a literature value of about 4.6~L (about 7~\% higher); its
 supplement,170,4.6,4.6,none,"-patient vital capacity of 4.93~L against a literature value of about 4.6~L (about 7~\% higher); its current patient validation table lists 4{,"
 supplement,170,7,7.0,ambiguous_small,"l capacity of 4.93~L against a literature value of about 4.6~L (about 7~\% higher); its current patient validation table lists 4{,}819~mL for"
-supplement,170,"4{,}819",4819.0,guard,"4.6~L (about 7~\% higher); its current patient validation table lists 4{,}819~mL for the standard male (about 5~\% higher). & Pulse documentation \"
-supplement,170,5,5.0,ambiguous_small,"atient validation table lists 4{,}819~mL for the standard male (about 5~\% higher). & Pulse documentation \\ \midrule 11 & Lumped-parameter l"
-supplement,172,11,11.0,ambiguous_small,"standard male (about 5~\% higher). & Pulse documentation \\ \midrule 11 & Lumped-parameter limits: no inertance, linear resistance only, idea"
-supplement,174,12,12.0,ambiguous_small,"ised valves. & Pulse documentation~ \\ \midrule 12 & No dicrotic notch, no retrograde flow; ECG P-wave and T-wave merge"
+supplement,170,"4{,}819",4819.0,guard,"4.6~L (about 7~\% higher); its current patient validation table lists 4{,}819~mL for the standard male (about 5~\% higher). & Pulse documentation~"
+supplement,170,5,5.0,ambiguous_small,"atient validation table lists 4{,}819~mL for the standard male (about 5~\% higher). & Pulse documentation~"
+supplement,172,11,11.0,ambiguous_small,"e documentation~ \\ \midrule 11 & Lumped-parameter limits: no inertance, linear resistance only, idea"
+supplement,174,12,12.0,ambiguous_small,"se documentation~ \\ \midrule 12 & No dicrotic notch, no retrograde flow; ECG P-wave and T-wave merge"
 supplement,179,5,5.0,ambiguous_small,\\ \bottomrule Rows 5--6 were subsequently re-derived within this repository. On 2026-07-26
 supplement,179,6,6.0,ambiguous_small,"\\ \bottomrule Rows 5--6 were subsequently re-derived within this repository. On 2026-07-26, e"
 supplement,179,07,7.0,ambiguous_small,"ows 5--6 were subsequently re-derived within this repository. On 2026-07-26, eight single-purpose probes on the male reference body tested bot"
