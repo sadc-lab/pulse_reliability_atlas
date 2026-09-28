@@ -3094,3 +3094,26 @@ Supplement −1: `most` ("among the most actively maintained" -> "an actively
 maintained"). Monograph +1: `necessarily` (the System Methodology quotation
 "not necessarily for high fidelity predictive purposes", now quoted in place of
 the unsourced "intended for training simulation" gloss).
+
+## Addendum 2026-09-28 (evening) — supplement audit part 1 and the two author decisions
+
+All three producers were re-run on `bf6f6fe`, after `a1d21e9` (supplement
+audit, part 1: S1–S3 fixes in paper, supplement and monograph) and `bf6f6fe`
+(opening provenance sentence, README, CLAUDE.md): self-tests 0 FAIL each.
+
+`inventory.csv` (5,775 -> 5,777 rows; paper 512 and supplement 1,897
+unchanged; monograph 3,366 -> 3,368). The log count `3{,}348` -> `3{,}349` in
+all three documents (one file, `data/clamp_probe/pulse.log`, had been left out
+of the count). Monograph: the title-page date 2026-09-15 -> 2026-09-28 (`15`
+−1, `28` +1) and the new S9.7 entry for `pulsecardiomethod`, "Verified
+verbatim 2026-09-28" (`09` +1, `28` +1).
+
+**Number words** unchanged (1,385).
+
+**Prose quantifiers** (1,949 -> 1,948). Supplement −2: `Every` ("Every
+quantitative claim in this supplement traces to the same audit ledger" ->
+"Quantitative claims in this supplement are traceable, as applicable, …") and
+`no` (Table S1 row 8, "there is no anatomically separate nose / pharynx
+compartment" -> "… the nose is not modelled"). Monograph +1: `throughout`
+(the Cardiovascular Methodology quotation in the new S9.7 entry, "throughout
+the cardiac cycle").

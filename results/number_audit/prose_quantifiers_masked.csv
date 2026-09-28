@@ -32,4 +32,4 @@ supplement,tex_comment,81,alone,"w enough for that table, high enough that no fi
 supplement,tex_comment,82,each,alone % on a half-empty page) and [htbp] instead of [h] let each float land near its section. % flafter (loaded above) k
 supplement,tex_comment,84,alone,"a page % above the heading of its own section, which [htbp] alone allowed for % Table S1; the clamp-pattern listing in S"
 supplement,tex_comment,86,cannot,he clamp-pattern listing in S3.3 is boxed so a page break % cannot split it. \renewcommand{\floatpagefraction}{0.7} \be
-supplement,tex_comment,1119,all,eps its %% historical label sec:s16 but now renders as S17 (all \ref auto-update). %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+supplement,tex_comment,1115,all,eps its %% historical label sec:s16 but now renders as S17 (all \ref auto-update). %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
