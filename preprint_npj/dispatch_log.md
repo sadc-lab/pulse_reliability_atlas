@@ -697,20 +697,20 @@ had been overwritten, and its hashes were unrecoverable.
 |---|---|
 | Sent | *(pending author confirmation)* |
 | Recipients | the four supervising co-authors (A.W., C.S., P.J., M.S.) |
-| Source commit | `4404203`, re-freeze 47 (see the freeze table below; this row had stayed at re-freeze 12's `ff09c92` through re-freezes 13 to 22) |
+| Source commit | `fd86dc2`, re-freeze 48 (see the freeze table below; this row had stayed at re-freeze 12's `ff09c92` through re-freezes 13 to 22) |
 | Format | `.pdf` and `.docx` |
 | Artefacts to send | paper and supplement only |
-| Pages | 26 (paper; 25 until re-freeze 18) / 61 (supplement; 64 until re-freeze 41, 63 at re-freezes 42 to 44) |
+| Pages | 26 (paper; 25 until re-freeze 18) / 62 (supplement; 64 until re-freeze 41, 63 at re-freezes 42 to 44, 61 at re-freezes 45 to 47) |
 | Not sent | the companion technical monograph (122 pages), by the author's decision of 2026-09-19, repeating the decision of 2026-09-05 |
 
 ### Hashes, frozen before any further build
 
 | artefact | SHA-256 | bytes |
 |---|---|---|
-| `preprint_npj/build/paper.pdf` | `cf582bcd3533ce309e84321365c609386e215723d381c7cb0c20d5091b7a0e71` | 635,167 |
-| `preprint_npj/build/paper.docx` | `12012d935e007e70d13c33f5dd128eb6e1280edf6dca4d1702cdd11727a79cc6` | 963,817 |
-| `preprint_npj/build/supplement.pdf` | `0cef40b61a952c4ea749d91d4b18cc6f8caedb9c71980926f05f20e602f0b3c3` | 725,857 |
-| `preprint_npj/build/supplement.docx` | `e00df90ca7631cb57fd859c80cc6f6902ab243d5250cf0561b0642710d084bfb` | 747,972 |
+| `preprint_npj/build/paper.pdf` | `3b5b44e40b6ac9d4959ebe739e23b270da1f6dc1e35b6a13042e7a73130f9d6c` | 634,701 |
+| `preprint_npj/build/paper.docx` | `d9d4c5be55f2cce9739176e13d3652270069c1a58682832351c8b8179411e5fa` | 963,568 |
+| `preprint_npj/build/supplement.pdf` | `ff6d523664651b621af02434bf4b3fb005db1a6506003c1a66d273fe468798dc` | 726,739 |
+| `preprint_npj/build/supplement.docx` | `e0b1f4e69b9426f6ed7bb0e4f7422c1c404bf67819fed708af443cfd1e3c2dce` | 748,103 |
 
 The monograph **is not part of this dispatch**. It was rebuilt with
 re-freeze 24, at `cabc29c`, which carries the one re-freeze 24 repair it
@@ -815,7 +815,9 @@ identifying build: `preprint/build/manuscript.pdf`
 `978a316252577f38c5b96e0eecc449c4aad88a059f5092d51b5f032d496f95fc` (1,358,614
 bytes) and `preprint/build/manuscript.docx`
 `80d1acb34f6c9b54b24726ac12b1d506faf6f5d70afcdd832a862c6771b9f81a` (1,016,905
-bytes).
+bytes). Re-freeze 48 edits `paper.tex`, `supplement.tex` and scripts only
+(`git diff 4404203..fd86dc2 -- preprint/manuscript.md` is empty); the
+monograph was not rebuilt and both of its hashes were re-measured unchanged.
 
 ⚠️ **These hashes are valid for this build only.** Any further edit to
 `paper.tex` or `supplement.tex` invalidates them, and they must be re-frozen
@@ -909,6 +911,10 @@ bytes for the PDF and 747,885 → 747,963 for the DOCX; still 61 pages.
 **At re-freeze 47 they changed for a real reason again:** `4404203` edits
 `supplement.tex` (one sentence of §S3.8); 725,853 → 725,857 bytes for the
 PDF and 747,963 → 747,972 for the DOCX; still 61 pages.
+**At re-freeze 48 they changed for a real reason again:** `9e0a9f7` and
+`fd86dc2` edit `supplement.tex` (§S3.8, §S3.9, §S3.11, the Table S6 and
+Figure S5 captions, §S7); 725,857 → 726,739 bytes for the PDF and 747,972 →
+748,103 for the DOCX; 61 → 62 pages.
 For
 re-freezes 13 to 19, 21, 22, 25, 29 to 36, 38, 40 and 41 the supplement's change is the build, not the content:
 pdfTeX stamps a wall-clock `CreationDate` into the PDF (`18:47:46` for the
@@ -928,8 +934,8 @@ at re-freeze 46 (`bcec0db` and `1a88e2a`, above) and at re-freeze 47
 (`4404203`, above).
 `build_npj.ps1` alone never rebuilds it.
 
-**Re-frozen forty-seven times.** The first three were one-token abstract edits
-made before the files left the machine; re-freezes 4 to 19 and 21 to 47 leave
+**Re-frozen forty-eight times.** The first three were one-token abstract edits
+made before the files left the machine; re-freezes 4 to 19 and 21 to 48 leave
 the abstract untouched, and re-freeze 20 rewords three of its phrases at an
 unchanged count:
 
@@ -983,6 +989,7 @@ unchanged count:
 | re-freeze 45 | `44d8515` | a follow-up to re-freeze 44 found by the same page-by-page reading, on the author's request that everything print where it should: at a float-page threshold of 0.5, Figures S1 and S2 sat alone on half-empty pages. The threshold becomes 0.7 (tested at 0.6, 0.7 and 0.8 on a scratch copy), which keeps every table 0 to 3 pages after its first mention and puts both figures back on text pages. Placement only; no word, number, caption or reference of the content changes. Supplement 63 → 61 pages; paper unchanged, 26 pages. Every internal link of both PDFs (103 and 227) lands on a page showing its target, and the 41 paper → supplement links resolve to the matching section | 149 / 146 |
 | re-freeze 46 | `1a88e2a` | a source check of Methods §4.4 on the author's request, then four changes on the author's decisions (`bcec0db`, `1a88e2a`). Layout: `clamped` and `diverged` each start their own paragraph, like `implausible` and `not_steady_state`; `clamped` is called a flag, not a "label", and one sentence says its name comes from hypothesis H2. Corrected: after the sweep one clamp pattern was widened and a fifth added (the text said only "added"), to catch the heart-rate lower-bound rejection. Claims: "never rejects an output value" becomes "It does stop a run on some states far outside physiology, such as an aortic pressure below −2 or above 700 mmHg, but no run of this sweep reached one" (`CardiovascularModel.cpp`); "each [bound] is anchored to primary … literature" becomes "with its literature source where one exists" (the PaCO₂ floor has none), also in §S3.1 and the monograph; the warning that a physiologically saturated SpO₂ meets the flatline rule is back (lost on 2026-09-02); Table 2 no longer gives "is outside the valid range", a string no Pulse 4.3.1 message contains, as an example of a Pulse message (§S3.3 and the monograph corrected too). The priority order is "set after the sweep" and explained by where a run fails; pointers added to §S3.3, §S3.6 and §S4. No result, figure or reference change; the new numbers are −2, 700 and 0.05. Still 26 / 61 pages; every internal link of both PDFs (103 and 227) lands on a page showing its target, and the 44 paper → supplement links resolve | 149 / 146 |
 | re-freeze 47 | `4404203` | a source check of Methods §4.5 and §4.6 on the author's request, then changes on the author's decisions (`38a8998`, `4404203`). Both subsections rewritten in shorter sentences (longest 50 → 35 and 63 → 45 words), nothing dropped. Made exact: "two locked ingredients" → "two ingredients" (the hard-flag rate and its 30 % threshold were not preregistered); the 7 / 3 / 38 reading is the one "with 'flag' read as the two hard flags", and read over all four flags the wording makes every combination red; "The four flags and their thresholds were preregistered" for "The four-flag run-level classifier and its thresholds"; "Indices resting on at least two trajectories carry" the bootstrap intervals (12 of the 318 rest on one). Removed: the "p < 0.001" clause, orphaned since `d88a1ca`. The stable non-linear set is now defined by its per-seed lower bound, not "in every draw" (16 of the 23 have draws below 0.6), in Results §2.2, Methods §4.6, supplement §S3.8 and the monograph; guard CHECK F added. No result, figure or reference change (SALib stays cited in §4.3); the only new numeral is 95, the interval. Still 26 / 61 pages; every internal link of both PDFs (102 and 227) lands on a page showing its target (102: the SALib citation removed from §4.6 carried two links, the new §4.3 pointer one), and the 44 paper → supplement links resolve | 149 / 146 |
+| re-freeze 48 | `fd86dc2` | a readability pass on the author's requests, then changes on the author's decisions (`9e0a9f7`, `fd86dc2`). Results §2.2: the H1 sentence the author could not follow becomes three short ones ("It holds for all six outputs in all eight cells (48 of 48 cell × output combinations)"). Methods §4.5, 327 → 274 words: the single-baseline rationale moves to §S3.9; the slash-form colour counts stay in the Figure 2 legend and Table S6. Methods §4.6: the Sobol cost calculation moves to §S3.8; the paper keeps 6,144 or 3,584 runs, 2.4 to 4.1 times the budget. Discussion: "the partial-overlap pressure channel SysBP" (2 / 154; DiaBP 0 / 72) and a pointer to §S7. Corrected in §S3.9: S1_F PaCO₂ crosses 10 % on the sex difference alone (11.3 %; healthy-cell differences 0.3 to 11.3 %), though no colour changes, where the text said no female combination does. Notation S1_M / S1_F (Figure S5's image keeps "(S1, M)", now explained in its caption). Units: "for each top-three input", "the same 23 inputs" (guard re-anchored), and "combination" in §S3.9, §S3.11 and the Table S6 caption. No result, figure or reference change; paper body −92 words. Paper 26 pages; supplement 61 → 62. Every internal link of both PDFs (102 and 227) lands on a page showing its target, and the 45 paper → supplement links resolve (the new §S7 pointer is the 45th) | 149 / 146 |
 
 Measured in one unit throughout (`wc -w` over the Introduction's source
 lines, at each row's source commit), **the Introduction goes 936 → 926 words**
@@ -1023,9 +1030,9 @@ frozen and any later build gets a new, superseding entry.**
 **92 commits** up to the preparation build (`3765872`), 156 up to re-freeze 22,
 161 up to re-freeze 23, 167 up to re-freeze 24, 172 up to re-freeze 25,
 175 up to re-freeze 26, 180 up to re-freeze 27, 183 up to re-freeze 28,
-193 up to re-freeze 29, 196 up to re-freeze 30, 201 up to re-freeze 31, 204 up to re-freeze 32, 207 up to re-freeze 33, 210 up to re-freeze 34, 214 up to re-freeze 35, 217 up to re-freeze 36, 220 up to re-freeze 37, 223 up to re-freeze 38, 232 up to re-freeze 39, 237 up to re-freeze 40, 241 up to re-freeze 41, 247 up to re-freeze 42, 252 up to re-freeze 43, 260 up to re-freeze 44, 263 up to re-freeze 45, 267 up to re-freeze 46, 273 up to re-freeze 47.
+193 up to re-freeze 29, 196 up to re-freeze 30, 201 up to re-freeze 31, 204 up to re-freeze 32, 207 up to re-freeze 33, 210 up to re-freeze 34, 214 up to re-freeze 35, 217 up to re-freeze 36, 220 up to re-freeze 37, 223 up to re-freeze 38, 232 up to re-freeze 39, 237 up to re-freeze 40, 241 up to re-freeze 41, 247 up to re-freeze 42, 252 up to re-freeze 43, 260 up to re-freeze 44, 263 up to re-freeze 45, 267 up to re-freeze 46, 273 up to re-freeze 47, 277 up to re-freeze 48.
 The paper goes from 24 to **26** rendered pages (25 until re-freeze 18), the
-supplement from 56 to **61** (64 until re-freeze 41, 63 at re-freezes 42 to 44). The monograph, which they did not receive in September
+supplement from 56 to **62** (64 until re-freeze 41, 63 at re-freezes 42 to 44, 61 at re-freezes 45 to 47). The monograph, which they did not receive in September
 either, stands at 122.
 
 By tag, the 92 split as 27 `[AUDIT]`, 10 `[MANUSCRIPT+GUARD]`, 10
@@ -1149,7 +1156,13 @@ Table 2 (one example), the Table 3 caption (one word) and supplement §S3.1 and
 author's decisions, and states the stable non-linear set's criterion as a
 per-seed lower bound (row 47 above): a reader of the September copy will see
 it in Results §2.2 (one clause), Methods §4.5 and §4.6, and supplement §S3.8
-(one sentence). No result changes.
+(one sentence). No result changes. Re-freeze 48 (`fd86dc2`) makes the H1
+sentence of §2.2 and Methods §4.5 and §4.6 shorter and plainer, moves detail
+to supplement §S3.8 and §S3.9, and corrects one false sentence of §S3.9
+(row 48 above): a reader of the September copy will see it in §2.2, Methods
+§4.5 and §4.6, the Discussion's Cornish paragraph, the Figure 2 legend, and
+supplement §S3.8, §S3.9, §S3.11, §S7 and the Table S6 and Figure S5
+captions. No result changes.
 
 ### What the covering message must say
 
@@ -1169,7 +1182,7 @@ it in Results §2.2 (one clause), Methods §4.5 and §4.6, and supplement §S3.8
    two, and the union goes 46 → 48. Re-freeze 33 adds one more, also paper
    only: Baird et al. (BioGears) enters at [22] (29 → 30 entries), moving
    the former 22–29 up by one, and the union goes 48 → 49.
-2. **Page and line references have moved** (24 → 26 and 56 → 61 pages).
+2. **Page and line references have moved** (24 → 26 and 56 → 62 pages).
 3. **The repository is still private, deliberately.** The author's plan of
    2026-09-19: it goes public with the arXiv deposit, *after* this review round
    and the corrections it produces. Until then the availability sentences in
