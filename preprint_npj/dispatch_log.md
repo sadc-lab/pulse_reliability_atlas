@@ -1267,7 +1267,7 @@ Supplied by the author after the send, reproduced verbatim:
 
 Against the three items above: **item 2** (pagination) and **item 3** (private
 repository) are in the message; **item 1** (the reference renumbering, 41 → 49
-cited keys) is **not**, the author's choice at send time, and so is the
+cited keys) is **not** (the author's choice at send time), and neither is the
 practical note that the paper → supplement links work only with both PDFs in
 one folder under their original names. Consequence for the review round: a
 supervisor's remark that cites a reference **by number** must be checked
