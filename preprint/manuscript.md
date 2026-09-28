@@ -1893,10 +1893,10 @@ direction; it is retained here only as the historical variant.
 
 The two do not lead to the same conclusion, and an earlier version of this
 section stated otherwise. Under the ratio-aware formula the dominant-input
-bucketing is 31 / 48 CI-robustly linear in every draw, and one dominant-input
-cell — (S3, M, PaO2, FiO2) — is CI-robustly non-linear in all five, with occasional
-further cells appearing in individual draws but none surviving all five. The
-count is not zero under either reading. Applying the rule the preregistration
+bucketing is 31 / 48 CI-robustly linear under every one of the five bootstrap
+seeds, and one dominant input — FiO2 on PaO2 in S3_M — is CI-robustly
+non-linear under all five; one other, FiO2 on PaO2 in S3_F, is non-linear
+under two of the five seeds only. The count is not zero under either reading. Applying the rule the preregistration
 actually states — the top-three inputs, not the dominant one alone — 23 of the
 144 top-three inputs hold a lower bound at or above 0.6 across five independent
 seeds. The earlier claim that "zero cells are CI-robustly non-linear under
