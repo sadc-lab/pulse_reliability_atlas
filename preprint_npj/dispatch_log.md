@@ -697,7 +697,7 @@ had been overwritten, and its hashes were unrecoverable.
 |---|---|
 | Sent | *(pending author confirmation)* |
 | Recipients | the four supervising co-authors (A.W., C.S., P.J., M.S.) |
-| Source commit | `fd86dc2`, re-freeze 48 (see the freeze table below; this row had stayed at re-freeze 12's `ff09c92` through re-freezes 13 to 22) |
+| Source commit | `85d8bdb`, re-freeze 49 (see the freeze table below; this row had stayed at re-freeze 12's `ff09c92` through re-freezes 13 to 22) |
 | Format | `.pdf` and `.docx` |
 | Artefacts to send | paper and supplement only |
 | Pages | 26 (paper; 25 until re-freeze 18) / 62 (supplement; 64 until re-freeze 41, 63 at re-freezes 42 to 44, 61 at re-freezes 45 to 47) |
@@ -707,10 +707,10 @@ had been overwritten, and its hashes were unrecoverable.
 
 | artefact | SHA-256 | bytes |
 |---|---|---|
-| `preprint_npj/build/paper.pdf` | `3b5b44e40b6ac9d4959ebe739e23b270da1f6dc1e35b6a13042e7a73130f9d6c` | 634,701 |
-| `preprint_npj/build/paper.docx` | `d9d4c5be55f2cce9739176e13d3652270069c1a58682832351c8b8179411e5fa` | 963,568 |
-| `preprint_npj/build/supplement.pdf` | `ff6d523664651b621af02434bf4b3fb005db1a6506003c1a66d273fe468798dc` | 726,739 |
-| `preprint_npj/build/supplement.docx` | `e0b1f4e69b9426f6ed7bb0e4f7422c1c404bf67819fed708af443cfd1e3c2dce` | 748,103 |
+| `preprint_npj/build/paper.pdf` | `3fca7eaa9f3b5e30faa43c3434cb0aa09a962fd136cadd0d2fb1938b8554ac30` | 634,393 |
+| `preprint_npj/build/paper.docx` | `f9edc88b50422d918ac8a94c5ec90ba79d9696018c31374c6b68c3b321999411` | 963,414 |
+| `preprint_npj/build/supplement.pdf` | `e536a076d3614324087a3ae8945f88d0cf67b4da70717d33279fbdc634572b54` | 726,839 |
+| `preprint_npj/build/supplement.docx` | `9e274c37ce589e6f50856cfac49333bd1f5a89ee9a824cba656c101c200af500` | 748,121 |
 
 The monograph **is not part of this dispatch**. It was rebuilt with
 re-freeze 24, at `cabc29c`, which carries the one re-freeze 24 repair it
@@ -827,6 +827,17 @@ above as its identifying build: `preprint/build/manuscript.pdf`
 `52e2977cf21d272d25f7e10e4b57483497a237cda52d83e75041627620828a2b` (1,358,512
 bytes) and `preprint/build/manuscript.docx`
 `a96ca581498bea87b0b1ff09130ebb65a8dccd35b32bb26ac9312dadb84a2650` (1,016,861
+bytes). Re-freeze 49 edits `manuscript.md` too (`85d8bdb`: the Blanch
+citation moved onto the dyssynchrony, Python cited to Webb 2022, the fork
+sentence cited, the unsourced "intended for training simulation" gloss
+replaced by the System Methodology page's own two quotations, "dermal" for
+"thermoregulation"), and `references.bib` (Webb 2022 pages). The monograph was
+rebuilt from that commit with `scripts/build_paper.ps1` on 2026-09-28 at
+14:00, still 122 pages, and these hashes replace the two above as its
+identifying build: `preprint/build/manuscript.pdf`
+`69d8a793e21df43771d4b041405e237ef9784478c23cb58bf547105274a510e0` (1,358,655
+bytes) and `preprint/build/manuscript.docx`
+`4e04eefb300dd2982f87b2a4cdf900f3c27c255934103d98e06fb3cd82de5abc` (1,016,904
 bytes).
 
 ⚠️ **These hashes are valid for this build only.** Any further edit to
@@ -925,6 +936,10 @@ PDF and 747,963 → 747,972 for the DOCX; still 61 pages.
 `fd86dc2` edit `supplement.tex` (§S3.8, §S3.9, §S3.11, the Table S6 and
 Figure S5 captions, §S7); 725,857 → 726,739 bytes for the PDF and 747,972 →
 748,103 for the DOCX; 61 → 62 pages.
+**At re-freeze 49 they changed for a real reason again:** `85d8bdb` edits
+`supplement.tex` (three sentences of §S1, Table S1 rows 10 and 11, one
+sentence of §S8); 726,739 → 726,839 bytes for the PDF and 748,103 → 748,121
+for the DOCX; still 62 pages.
 For
 re-freezes 13 to 19, 21, 22, 25, 29 to 36, 38, 40 and 41 the supplement's change is the build, not the content:
 pdfTeX stamps a wall-clock `CreationDate` into the PDF (`18:47:46` for the
@@ -941,11 +956,12 @@ with `scripts/build_paper.ps1`. They did not change at re-freezes 25 to 43,
 which leave `manuscript.md` untouched, and changed again after re-freeze 43
 for a real reason (`07d026b`, above), at re-freeze 44 (`031e1f2`, above),
 at re-freeze 46 (`bcec0db` and `1a88e2a`, above), at re-freeze 47
-(`4404203`, above) and after re-freeze 48 (`85b0d24` and `8ab2fd4`, above).
+(`4404203`, above), after re-freeze 48 (`85b0d24` and `8ab2fd4`, above) and
+at re-freeze 49 (`85d8bdb`, above).
 `build_npj.ps1` alone never rebuilds it.
 
-**Re-frozen forty-eight times.** The first three were one-token abstract edits
-made before the files left the machine; re-freezes 4 to 19 and 21 to 48 leave
+**Re-frozen forty-nine times.** The first three were one-token abstract edits
+made before the files left the machine; re-freezes 4 to 19 and 21 to 49 leave
 the abstract untouched, and re-freeze 20 rewords three of its phrases at an
 unchanged count:
 
@@ -1000,6 +1016,7 @@ unchanged count:
 | re-freeze 46 | `1a88e2a` | a source check of Methods §4.4 on the author's request, then four changes on the author's decisions (`bcec0db`, `1a88e2a`). Layout: `clamped` and `diverged` each start their own paragraph, like `implausible` and `not_steady_state`; `clamped` is called a flag, not a "label", and one sentence says its name comes from hypothesis H2. Corrected: after the sweep one clamp pattern was widened and a fifth added (the text said only "added"), to catch the heart-rate lower-bound rejection. Claims: "never rejects an output value" becomes "It does stop a run on some states far outside physiology, such as an aortic pressure below −2 or above 700 mmHg, but no run of this sweep reached one" (`CardiovascularModel.cpp`); "each [bound] is anchored to primary … literature" becomes "with its literature source where one exists" (the PaCO₂ floor has none), also in §S3.1 and the monograph; the warning that a physiologically saturated SpO₂ meets the flatline rule is back (lost on 2026-09-02); Table 2 no longer gives "is outside the valid range", a string no Pulse 4.3.1 message contains, as an example of a Pulse message (§S3.3 and the monograph corrected too). The priority order is "set after the sweep" and explained by where a run fails; pointers added to §S3.3, §S3.6 and §S4. No result, figure or reference change; the new numbers are −2, 700 and 0.05. Still 26 / 61 pages; every internal link of both PDFs (103 and 227) lands on a page showing its target, and the 44 paper → supplement links resolve | 149 / 146 |
 | re-freeze 47 | `4404203` | a source check of Methods §4.5 and §4.6 on the author's request, then changes on the author's decisions (`38a8998`, `4404203`). Both subsections rewritten in shorter sentences (longest 50 → 35 and 63 → 45 words), nothing dropped. Made exact: "two locked ingredients" → "two ingredients" (the hard-flag rate and its 30 % threshold were not preregistered); the 7 / 3 / 38 reading is the one "with 'flag' read as the two hard flags", and read over all four flags the wording makes every combination red; "The four flags and their thresholds were preregistered" for "The four-flag run-level classifier and its thresholds"; "Indices resting on at least two trajectories carry" the bootstrap intervals (12 of the 318 rest on one). Removed: the "p < 0.001" clause, orphaned since `d88a1ca`. The stable non-linear set is now defined by its per-seed lower bound, not "in every draw" (16 of the 23 have draws below 0.6), in Results §2.2, Methods §4.6, supplement §S3.8 and the monograph; guard CHECK F added. No result, figure or reference change (SALib stays cited in §4.3); the only new numeral is 95, the interval. Still 26 / 61 pages; every internal link of both PDFs (102 and 227) lands on a page showing its target (102: the SALib citation removed from §4.6 carried two links, the new §4.3 pointer one), and the 44 paper → supplement links resolve | 149 / 146 |
 | re-freeze 48 | `fd86dc2` | a readability pass on the author's requests, then changes on the author's decisions (`9e0a9f7`, `fd86dc2`). Results §2.2: the H1 sentence the author could not follow becomes three short ones ("It holds for all six outputs in all eight cells (48 of 48 cell × output combinations)"). Methods §4.5, 327 → 274 words: the single-baseline rationale moves to §S3.9; the slash-form colour counts stay in the Figure 2 legend and Table S6. Methods §4.6: the Sobol cost calculation moves to §S3.8; the paper keeps 6,144 or 3,584 runs, 2.4 to 4.1 times the budget. Discussion: "the partial-overlap pressure channel SysBP" (2 / 154; DiaBP 0 / 72) and a pointer to §S7. Corrected in §S3.9: S1_F PaCO₂ crosses 10 % on the sex difference alone (11.3 %; healthy-cell differences 0.3 to 11.3 %), though no colour changes, where the text said no female combination does. Notation S1_M / S1_F (Figure S5's image keeps "(S1, M)", now explained in its caption). Units: "for each top-three input", "the same 23 inputs" (guard re-anchored), and "combination" in §S3.9, §S3.11 and the Table S6 caption. No result, figure or reference change; paper body −92 words. Paper 26 pages; supplement 61 → 62. Every internal link of both PDFs (102 and 227) lands on a page showing its target, and the 45 paper → supplement links resolve (the new §S7 pointer is the 45th) | 149 / 146 |
+| re-freeze 49 | `85d8bdb` | source checks on the author's requests — the Data and Code availability statements, Methods §4.7, and all 49 cited references (`audit/reference_audit_2026-09-28.md`) — then changes on the author's decisions (`c88273d`, `089bb47`, `1ad0e3a`, `85d8bdb`). Data availability about 225 → 153 words and Code availability about 100 → 76, no longer repeating each other: code, ledger and lab-notebook entries stated once, in Code availability; the monograph's length left to §S14; "sui generis" removed; the second computer described as §S12.5 does ("AMD CPU, Linux under WSL2; reference machine: Intel CPU, Windows 11"), replacing an inexact "operating system differ". Acknowledgements: "These four funders". Methods §4.7, 237 → 268 words, 34 of 34 facts kept: the self-check and cross-critique loop as practised, "the code that runs and analyses the sweep", "the simulations, the classifier and the audit ledger run without any LLM", "Every cited reference was checked against its source". Methods §4.6: one clause on why Morris. Citation fixes, mirrored in the monograph where it has the same sentence: the Blanch citation onto the dyssynchrony (§S8), Python cited to Webb 2022 and "an actively maintained" (§S1), the fork sentence cited (§S1), the unsourced "intended for training simulation" clause removed (§S1), Table S1 rows 10 and 11 cited, "dermal" for "thermoregulation" (Discussion), the Victoriano et al. sentence quoted verbatim (Introduction), Webb 2022 pages in both bibs. No result, number or conclusion changes; 49 cited keys. Still 26 / 62 pages. Internal links 101 (paper; the "Code availability" hyperlink went with its sentence) and 232 (supplement; five citations added), all landing on a page showing their target (two supplement anchors whose extracted text catches a neighbouring line, §S3.10 and §S6.1, checked by hand); 46 paper → supplement links resolve (the new §S14 pointer is the 46th) | 149 / 146 |
 
 Measured in one unit throughout (`wc -w` over the Introduction's source
 lines, at each row's source commit), **the Introduction goes 936 → 926 words**
@@ -1040,7 +1057,7 @@ frozen and any later build gets a new, superseding entry.**
 **92 commits** up to the preparation build (`3765872`), 156 up to re-freeze 22,
 161 up to re-freeze 23, 167 up to re-freeze 24, 172 up to re-freeze 25,
 175 up to re-freeze 26, 180 up to re-freeze 27, 183 up to re-freeze 28,
-193 up to re-freeze 29, 196 up to re-freeze 30, 201 up to re-freeze 31, 204 up to re-freeze 32, 207 up to re-freeze 33, 210 up to re-freeze 34, 214 up to re-freeze 35, 217 up to re-freeze 36, 220 up to re-freeze 37, 223 up to re-freeze 38, 232 up to re-freeze 39, 237 up to re-freeze 40, 241 up to re-freeze 41, 247 up to re-freeze 42, 252 up to re-freeze 43, 260 up to re-freeze 44, 263 up to re-freeze 45, 267 up to re-freeze 46, 273 up to re-freeze 47, 277 up to re-freeze 48.
+193 up to re-freeze 29, 196 up to re-freeze 30, 201 up to re-freeze 31, 204 up to re-freeze 32, 207 up to re-freeze 33, 210 up to re-freeze 34, 214 up to re-freeze 35, 217 up to re-freeze 36, 220 up to re-freeze 37, 223 up to re-freeze 38, 232 up to re-freeze 39, 237 up to re-freeze 40, 241 up to re-freeze 41, 247 up to re-freeze 42, 252 up to re-freeze 43, 260 up to re-freeze 44, 263 up to re-freeze 45, 267 up to re-freeze 46, 273 up to re-freeze 47, 277 up to re-freeze 48, 289 up to re-freeze 49.
 The paper goes from 24 to **26** rendered pages (25 until re-freeze 18), the
 supplement from 56 to **62** (64 until re-freeze 41, 63 at re-freezes 42 to 44, 61 at re-freezes 45 to 47). The monograph, which they did not receive in September
 either, stands at 122.
@@ -1172,7 +1189,13 @@ to supplement §S3.8 and §S3.9, and corrects one false sentence of §S3.9
 (row 48 above): a reader of the September copy will see it in §2.2, Methods
 §4.5 and §4.6, the Discussion's Cornish paragraph, the Figure 2 legend, and
 supplement §S3.8, §S3.9, §S3.11, §S7 and the Table S6 and Figure S5
-captions. No result changes.
+captions. No result changes. Re-freeze 49 (`85d8bdb`) shortens the Data and
+Code availability statements and removes what they repeated, names the four
+funders by position, rewrites Methods §4.7, adds one clause to §4.6, and
+applies the citation fixes of a full reference audit (row 49 above): a reader
+of the September copy will see it in the Introduction (one quotation), the
+Discussion (one word), Methods §4.6 and §4.7, the closing statements, and
+supplement §S1, Table S1 and §S8. No result changes.
 
 ### What the covering message must say
 
@@ -1197,7 +1220,8 @@ captions. No result changes.
    2026-09-19: it goes public with the arXiv deposit, *after* this review round
    and the corrections it produces. Until then the availability sentences in
    both documents read in the present tense and their links do not resolve —
-   `scripts/check_publication_gate.py` holds all 10 such anchors, and
+   `scripts/check_publication_gate.py` holds all 9 such anchors (10 until
+   re-freeze 49, which merged two of the statements), and
    `--verify-public` is the pre-submission step that will check the visibility
    itself.
 
