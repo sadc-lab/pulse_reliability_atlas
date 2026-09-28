@@ -2996,3 +2996,48 @@ digit and a space; the three new ones are in `scripts/check_pair_counts.py`
 (`4404203`): the two supplement sentences of its self-test and the new
 Results §2.2 phrase, whose "95" is its only digit. The restated ledger label
 in `audit_claims.py` replaces one such string with another (net 0).
+
+## Addendum 2026-09-27 (c) — H1 sentence, §4.5 and §4.6 shortened, S3.9 corrected
+
+All three producers were re-run on `fd86dc2`, after `9e0a9f7` (Results §2.2
+H1, Methods §4.5 into S3.9, the S3.9 correction, S1_M notation) and `fd86dc2`
+(Sobol cost to S3.8, Cornish, unit fixes, Table S6 caption):
+`audit_number_inventory.py` 39 probes, `audit_number_words.py` 19,
+`audit_prose_quantifiers.py` 20, 0 FAIL each. Every delta below was traced to
+a phrase added or removed; the rows not listed only changed context.
+
+Retained occurrences: paper **522 -> 514**, supplement +2. `inventory.csv`
+5,783 -> 5,777:
+
+| literal | artefact | change | what it is |
+|---|---|---:|---|
+| `7`, `3`, `12`, `38` | paper | −2, −1, −1, −1 | "7 green / 29 yellow / 12 red" and "7 green / 3 yellow / 38 red" left §4.5 (Figure 2 legend and Table S6 keep them) |
+| `26` | paper | +1 | "turns 26 of the 29 yellow ones red" (29 unchanged: it was already in §4.5) |
+| `64`, `2` | paper | −1, −1 | the $64 \times (2k + 2)$ formula, now only in S3.8 |
+| `43` | paper | −1 | "not the 43 combinations", with the one-sample-per-cell reasoning (S3.8) |
+| `5.5` | paper | −1 | "up to 5.5 times", now only in S3.8; the paper's remaining 5.5 is the model version in §4.7 |
+| `0.3`, `11.3` | supplement | +1, +2 | the healthy-cell male-female range and S1_F PaCO2 in the corrected S3.9 |
+| `30` | supplement | −1 | "the 10 % or 30 % band" of the removed false sentence |
+
+`masked_by_rule.csv` and the two `*_masked.csv` files are unchanged in
+content.
+
+**Number words** (1,382 -> 1,383). Paper: `half` +1 and `three` +1 (the H1
+sentence: "at least half", "the three most influential"; "top-three inputs"
+leaves it and "for each top-three input" enters §4.6), `four` +1 ("four
+channels both studies assess", "those four channels" for "four-channel
+overlap"; "all four flags" -> "the four-flag one"), `six` −1 ("all six" twice
+out of §4.6, "all six outputs" into H1), `seven` −1 ("all seven inputs" out of
+§4.6), `two` −1 ("two ingredients" out of §4.5), `One` −1 ("One Sobol
+sample"). Supplement: `one` +2 ("Only one female combination", "on one
+scale"), `three` +1 ("for each top-three input"), `two` −1 ("the two
+indexings").
+
+**Prose quantifiers** (1,949 -> 1,948). Paper: `all` −2, `any` −1 ("any hard
+flag makes" -> "they make"), `both` +1, `each` +2 ("each output's", "for each
+top-three input"), `every` −2 ("every firing cell", "every combination red"),
+`most` +1, `same` −2 ("the same twelve red" -> "twelve red"; "the same Pulse
+runs" out of §4.6), `single` −1 ("A single (S1, M) baseline"). Supplement:
+`Only` +1, `any` +1 (Table S6 caption), `each` −1 ("Within each group"),
+`neither` +1, `no` −1 ("no female cell crosses"), `only` +1 (Table S6
+caption), `single` +1 ("That single baseline").

@@ -4,7 +4,6 @@ paper,18,3,"Two adult reference bodies were used: a male body (age 18, 67.3~kg, 
 paper,95,3,"ects) to each cell's top-three inputs, and retaining only those whose 95~\% bootstrap interval lies at or above it under each of five independ"
 paper,13,2,"erational-input vectors. FiO$_2$ was requested at its 1.0 boundary in 13 of the 20, although every divergence preceded the ventilator action t"
 paper,"4{,}400",2,"nt fell from 20 / 20 at the default to 0 / 20 at both an intermediate 4{,}400~mL bracket and the engine's own setup floor of 4{,}082~mL, the lowest"
-paper,5.5,2,"omputed. This is 2.4 to 4.1 times the preregistered budget, and up to 5.5 times if every firing cell used all seven inputs (Supplement~\S\,"
 paper,0.1,1,a standard deviation below 1~\% of the mean \emph{and} a mean within 0.1~\% of a hard bound ($\geq$~99.9~\% for the SpO$_2$ ceiling). The rule
 paper,0.12,1,"mu^{*}$ is expressed on the fractional scale Pulse reports (0--1), so 0.12 corresponds to 12 percentage points. Cell-label key: Table~"
 paper,0.21,1,"), tidal volume (Vt, 300--800~mL), inspired oxygen fraction (FiO$_2$, 0.21--1.0) and positive end-expiratory pressure (PEEP, 0--20~cmH$_2$O). Ea"
@@ -18,8 +17,9 @@ paper,25,1,"index is computed from 7 of the 20 possible elementary-effect pairs,
 paper,36,1,"threshold on 139 of 320 runs and none of those 8 falls there, against 36 of 320 runs and 3 of the 8 in S3. That map is therefore bounded by ru"
 paper,37,1,"d below, three of whose members are drift-converged and three not, so 37 of 44 (84.1~\%) converge below the supplement's wider 700~mmHg upper"
 paper,"3{,}348",1,"ch the original patterns missed. Replaying both pattern sets over all 3{,}348 recorded setup logs reclassifies no run of this sweep (Supplement~\S\"
-paper,4.1,1,"and total indices the protocol asks for are computed. This is 2.4 to 4.1 times the preregistered budget, and up to 5.5 times if every firing c"
+paper,4.1,1,only the first-order and total indices the protocol asks for: 2.4 to 4.1 times that envelope. The bolt-on is therefore reported rather than ex
 paper,4.8,1,"on it. One of the two was always a Claude model (Anthropic; , 4.8, 5 and 5.5 in succession), the other Google Gemini Pro 3.1 and later"
+paper,5.5,1,"of the two was always a Claude model (Anthropic; , 4.8, 5 and 5.5 in succession), the other Google Gemini Pro 3.1 and later OpenAI Chat"
 paper,70,1,"at work, however, is over the \emph{mismatch} between two equal-sized 70~kg bodies sharing one ventilator, scored against a single composite s"
 paper,71,1,"es therefore share about the same blood volume per kilogram ($\approx$71~mL\,kg$^{-1}$, within standard clinical estimates~ ),"
 paper,8.4,1,with the reduction from the default beneath the two override ticks ($8.4$ and $15.0~\%$); the $y$-axis is the divergence count out of 20. The
@@ -54,6 +54,7 @@ supplement,0.01,3,"an. The flatline-at-bound criterion fires when \texttt{std / 
 supplement,0.20,3,$ \\ Alveolar diffusion surface area & decreases & $0.57\times$ & $0.20\times$ & $0.075\times$ \\ Pulmonary-shunt path resistance & decreas
 supplement,0.41,3,"\\ S2 & SpO$_2$ & 0.96 & $[0.70, 1.00]$ \\ S2 & PaO$_2$ & 0.93 & $[0.41, 1.00]$ \\ S2 & PaCO$_2$ & 0.89 & $[0.35, 1.00]$ \\ \midrule S3 & HR"
 supplement,0.737,3,"ecific one; the exception is a single healthy-female run at FiO$_2$ = 0.737, whose 679~mmHg mean over the final 60~s stands well above the $0.737"
+supplement,11.3,3,"PC-AC delivered tidal volume deviates from the physical reference by 11.3--25.3~\% across healthy, restrictive, and obstructive lung profiles,"
 supplement,16.8,3,"67.3~kg male body versus 3{,}996.09~mL for the 56.2~kg female body (a 16.8~\% absolute-mL sex gap), and that reducing the male reference body's"
 supplement,25,3,"n category (b), the exact numerical choice (e.g., PaO$_2$ lower 20 vs 25~mmHg) is a defensible judgment call within the cited literature rathe"
 supplement,28,3,"companion translation project's original ARDS severity calibration, a 28-run impairment sweep of 2026-03 (full log in the companion technical"
@@ -132,13 +133,12 @@ supplement,1.1,1,"the \texttt{not\_steady\_state} total from 530 to 536, an incr
 supplement,1.15,1,"} also rejects any baseline above the allometric value $\times$ 1.15, with an \texttt{[ERROR]} and exit, exactly as it rejects one below t"
 supplement,10.1,1,"n away, and the sixth carries RR~=~16 at PEEP~=~0 ($\dot{V}_E \approx 10.1$~L/min), so no input-side ventilation threshold in this cohort separa"
 supplement,11.1,1,"two standard reference bodies, therefore cannot separate sex from the 11.1~kg body-mass difference in this regime, and no mechanism is claimed."
-supplement,11.3,1,"PC-AC delivered tidal volume deviates from the physical reference by 11.3--25.3~\% across healthy, restrictive, and obstructive lung profiles,"
 supplement,111,1,"t patient setup, before any ventilation begins. Heart rates of 49 and 111~bpm and respiratory rates of 7 and 21~bpm were each rejected with an"
 supplement,119,1,". Pulse's own documented \{0.3, 0.6, 0.9\} defaults yield 199 / 150 / 119~mmHg at the same settings.}"
 supplement,12.7,1,"not separate them: five of the six carry RR~=~20 ($\dot{V}_E \approx 12.7$~L/min, roughly twice the physiological norm of 6--8~L/min) but three"
 supplement,13.9,1,"p's 20.78~h calendar span, the execution corresponds to approximately 13.9~h of active elapsed time. Their simulation outputs are unaffected and"
 supplement,130,1,"ear in the recorded reason, because a CV trigger was reached first in 130 of them. \textbf{(c)} Signed deviation of each cell's clean-run mean"
-supplement,"13{,}824",1,"all seven swept inputs, base sample 256, first-order indices only, or 13{,}824 runs. It shares the locked input-space definition of the Morris sweep"
+supplement,"13{,}824",1,"seven swept inputs, base sample 256 and first-order indices only, or 13{,}824 runs. It shares the locked input-space definition of the Morris sweep"
 supplement,14.0,1,"item \textbf{Oxygen-carrying capacity.} Total haemoglobin 15.0 versus 14.0~g\,dL$^{-1}$, giving haematocrit 0.4412 versus 0.4118, passed to the"
 supplement,15.4,1,"cludes it, and its $\mu^{*}$ rises by a median factor of 2.4 (maximum 15.4). The reported $\mu^{*}$ for DBP should therefore be read as a lower"
 supplement,16.2,1,over the final 60~s stands well above the $0.737 \times (760 - 47) - 16.2 / 0.8 \approx 505$~mmHg its own inspired fraction and PaCO$_2$ permit
@@ -193,7 +193,7 @@ supplement,431,1,an) & P/F by FiO$_2$ (low / mid / high) \\ \midrule S1 (0.00) &
 supplement,45.5,1,"$50.0 + 2.3\,(\text{height in inches} - 60)$~kg for a male body and $45.5 + 2.3\,(\text{height in inches} - 60)$~kg for a female body --- givin"
 supplement,450,1,the ARDS Network lung-protective tidal volume (6~mL/kg PBW $\approx$ 450 and 330~mL on the male and female reference bodies)~
 supplement,"4{,}595.50",1,"loor. For the published 56.2~kg female reference body that ceiling is 4{,}595.50~mL, which ends 207.13~mL below the 4{,}802.63~mL male default at whic"
-supplement,5.5,1,"se readings exceeds the preregistered envelope, by a factor of 2.4 to 5.5. It is therefore reported rather than executed. The released code bas"
+supplement,5.5,1,"se readings exceeds the preregistered envelope, by a factor of 2.4 to 5.5. The bolt-on is therefore reported rather than executed. The release"
 supplement,50.8,1,"to 20.0~min$^{-1}$ --- still above the set rate --- PaCO$_2$ rises to 50.8~mmHg, and P/F falls to 91.5~mmHg, keeping the run severe across all t"
 supplement,5000,1,"described in~ ; that paper reports qualitative ASL-5000 waveform agreement, not these quantitative percentages). The atlas re"
 supplement,54,1,"exceeds the 30~\% rate that makes a cell red on that criterion alone (54 / 160 = 33.75~\%); S4\_F, at 46 / 160 = 28.75~\%, sits just below it."
