@@ -1,9 +1,11 @@
-"""Verify the eight present-tense public-availability statements, by content.
+"""Verify the present-tense public-availability statements, by content.
 
 Why this exists
 ---------------
-Nine statements in the submission package assert, in the present tense, that the
-code and data are already publicly available. Each is false while the GitHub
+Statements in the submission package assert, in the present tense, that the
+code and data are already publicly available (the CLAIMS list below is the
+count: 9 since 2026-09-28, when two Data/Code availability statements were
+merged; 10 before; the history of the count follows). Each is false while the GitHub
 repository is private, so the release order is fixed: public repository first,
 submission second.
 
