@@ -684,22 +684,28 @@ gate steps individually confirmed executed rather than inferred from a green job
 
 ---
 
-## 2026-09-19 — prepared for the four supervisors (paper + supplement)
+## 2026-09-19 — prepared for the four supervisors (paper + supplement); sent 2026-09-28
 
-**Status: PREPARED, NOT YET SENT.** The hashes below were frozen before the
-files left the machine, which is the whole point of this entry existing at this
-moment rather than afterwards. **The `Sent` row stays empty until the author
-confirms the send**, and is filled in then. This is the discipline the
-2026-08-25 entry failed: it was written nine days late, `preprint_npj/build/`
-had been overwritten, and its hashes were unrecoverable.
+**Status: SENT.** 2026-09-28, 18:18 Montreal time, confirmed by the author the same
+evening. Order of events, Montreal time (UTC−4): the four files written
+18:01:37–18:01:48 (file times, unchanged since), re-freeze 50 committed 18:08:37
+(`712b68c`), the send 18:18, so the freeze precedes the send. The hashes
+below were frozen at re-freeze 50, before the files left the machine, which is
+the whole point of this entry existing at this moment rather than afterwards;
+they were re-checked against `preprint_npj/build/` just before this row was
+filled (each digest found once in this entry). The author was pointed to those
+four files; that the attachments are exactly those files is the author's
+report, not a measurement. The discipline the 2026-08-25 entry failed — written
+nine days late, `preprint_npj/build/` overwritten, hashes unrecoverable — was
+kept: prepared on 2026-09-19, re-frozen fifty times, sent from re-freeze 50.
 
 | | |
 |---|---|
-| Sent | *(pending author confirmation)* |
+| Sent | 2026-09-28, 18:18 Montreal time (author's confirmation) |
 | Recipients | the four supervising co-authors (A.W., C.S., P.J., M.S.) |
 | Source commit | `bf6f6fe`, re-freeze 50 (see the freeze table below; this row had stayed at re-freeze 12's `ff09c92` through re-freezes 13 to 22) |
 | Format | `.pdf` and `.docx` |
-| Artefacts to send | paper and supplement only |
+| Artefacts sent | paper and supplement only (four files: `paper.pdf`, `paper.docx`, `supplement.pdf`, `supplement.docx`) |
 | Pages | 26 (paper; 25 until re-freeze 18) / 62 (supplement; 64 until re-freeze 41, 63 at re-freezes 42 to 44, 61 at re-freezes 45 to 47) |
 | Not sent | the companion technical monograph (123 pages; 122 until re-freeze 49), by the author's decision of 2026-09-19, repeating the decision of 2026-09-05 |
 
@@ -1252,6 +1258,23 @@ Methods §4.4 (one count, 3,349) and in the supplement's opening paragraph,
    re-freeze 49, which merged two of the statements), and
    `--verify-public` is the pre-submission step that will check the visibility
    itself.
+
+### The message as sent (2026-09-28)
+
+Supplied by the author after the send, reproduced verbatim:
+
+> [Text of a private message removed from the public history; see HISTORY.md.]
+
+Against the three items above: **item 2** (pagination) and **item 3** (private
+repository) are in the message; **item 1** (the reference renumbering, 41 → 49
+cited keys) is **not**, the author's choice at send time, and so is the
+practical note that the paper → supplement links work only with both PDFs in
+one folder under their original names. Consequence for the review round: a
+supervisor's remark that cites a reference **by number** must be checked
+against the re-freeze 50 files before it is acted on, since the September copy
+numbered them differently (and the supplement's [2]–[10] moved again at
+re-freeze 50). The names question (role or initials in commit messages and
+working files) awaits the four answers.
 
 ### Gate state at preparation
 
