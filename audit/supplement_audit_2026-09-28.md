@@ -79,7 +79,7 @@ scripts in the session scratchpad (`s2_checks.py`, `s2_pair_cause.py`,
 | S2.3 | Row 3: age ≥ 18 hard-gated | `ageMin_yr = 18.0`, `Error` below it (L42, L52–57). (Pulse also rejects age > 65; not claimed, not needed.) | OK |
 | S2.4 | Row 4: band 0.91–0.945, widened to 0.879–0.946 | Same band at all 9 supplement and 2 paper loci; data check deferred to Part S5. | see S5 |
 | S2.5 | Rows 5–6: HR 50–110, RR 8–20; "Sampler ranges match" | `SetupPatient.cpp` L276–311 (brady 50 / tachy 110 are the error thresholds), L568–590 (RR 8/20). `src/sampler.py:41–47`: HR 50–110, SBP 90–120, DBP 60–80, RR 8–20. | OK |
-| S2.6 | Row 8: "single trachea resistance; there is no anatomically separate nose / pharynx compartment" | **Half wrong.** `SetupCircuitsAndCompartments.cpp`: node `Pharynx` (L2991–2994, 1 mL), paths `AirwayToPharynx` (no element) and `PharynxToCarina` (the only series resistance, `TracheaResistance`, L3066–3068), gas compartment `PulmonaryCompartment::Pharynx` (L3146). No nose anywhere (`nasal` only in the nasal-cannula device). The single-resistance statement is right; the pharynx-compartment statement is not. Same error in `reference/pulse_limitations_verified.md:90` and `CLAUDE.md:139`. | **FIXED** in the supplement ("Upper-airway resistance is a single fixed trachea resistance, between the pharynx and carina compartments; the nose is not modelled", source column now names the Pulse file) and in the reference note. `CLAUDE.md:139` left to the author (instruction file). |
+| S2.6 | Row 8: "single trachea resistance; there is no anatomically separate nose / pharynx compartment" | **Half wrong.** `SetupCircuitsAndCompartments.cpp`: node `Pharynx` (L2991–2994, 1 mL), paths `AirwayToPharynx` (no element) and `PharynxToCarina` (the only series resistance, `TracheaResistance`, L3066–3068), gas compartment `PulmonaryCompartment::Pharynx` (L3146). No nose anywhere (`nasal` only in the nasal-cannula device). The single-resistance statement is right; the pharynx-compartment statement is not. Same error in `reference/pulse_limitations_verified.md:90` and `CLAUDE.md:139`. | **FIXED** in the supplement ("Upper-airway resistance is a single fixed trachea resistance, between the pharynx and carina compartments; the nose is not modelled", source column now "Pulse circuit source + source audit (monograph S003)"; the file name `SetupCircuitsAndCompartments.cpp` was tried first and overflowed the 3.5 cm column by 25.7 pt, caught by `check_render.py`) and in the reference note. `CLAUDE.md:139` left to the author (instruction file). |
 | S2.7 | Row 9: no regional V/Q mismatch | Pulse states it itself: "The model makes no distinction between different generations of bifurcating airways. Therefore, factors affecting the regional ventilation and perfusion of the lungs cannot be captured by the model" (`RespiratoryMethodology.md:1163–1165`). Row cited only "Structural design". | **FIXED** (source added: `\cite{pulserespmethod}`; claim unchanged) |
 | S2.8 | Row 10: VC 4.93 L vs about 4.6 L (about 7 %); 4,819 mL (about 5 %) | `RespiratoryMethodology.md:655–656`; Patient methodology Table 4 StandardMale `Patient-VitalCapacity(mL) 4819.2` (live page, `.firecrawl/pulse_patient_method_2026-09-14.md:201`). 4.93/4.6 = +7.2 %; 4.8192/4.6 = +4.8 %. | OK |
 | S2.9 | Rows 7, 11, 12 | Verified this morning (`reference_audit_2026-09-28.md`, Pulse documentation table); row 11 already carries both sources. | OK |
@@ -98,4 +98,17 @@ Noted, outside the supplement: `experiments_log/santino/S003_pulse_limitations_v
 dates v4.3.1 to "Sept 2024"; the `REL_4_3_1` merge commit is dated
 2025-01-24 (Sept 2024 is `REL_4_3_0`, 2024-09-10). No public document dates
 4.3.1, so nothing to correct outside the log.
+
+## Part S3 — Parameter provenance and supplementary analyses (L203–434)
+
+Status at the end of 2026-09-28: audited in full; every check, instrument and
+result is listed in the message of commit `a1d21e9` (fixes: "3,349" logs,
+"the only amendment to a locked threshold", misplaced `%% S4` comment; a
+signal on "any drift … is caught" withdrawn after finding the crosswalk rows in
+`preprint_npj/paper_to_monograph_map.md`). The row-by-row table is still to be
+copied here from that message.
+
+Consequence noted after the rebuild: citing `pulsecardiomethod` in §S1 makes it
+reference [2] of the supplement, so the supplement's reference numbers shift
+(automatic, BibTeX). The paper's numbering is unchanged.
 
