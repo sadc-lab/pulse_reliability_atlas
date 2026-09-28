@@ -225,8 +225,8 @@ negative."*
 
 > Blinding was not used and is not applicable to this design, for a stated
 > reason rather than by omission: the outcome is deterministic simulator output
-> classified by the preregistered four-flag algorithmic detector, with fixed
-> numerical thresholds locked before any data were collected. No human
+> classified by the four-flag algorithmic detector, whose flags and numerical
+> thresholds were preregistered before any data were collected. No human
 > judgement enters between the run and its classification, so there is no
 > assessment for an observer's expectation to bias. The separate cell-level
 > traffic-light aggregation is a downstream summary of those run-level
