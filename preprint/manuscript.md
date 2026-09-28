@@ -464,12 +464,12 @@ alveoli) [@pulserespmethod], gas-exchange, endocrine, renal, and drug
 sub-models share state at each step, producing a self-consistent
 whole-body trajectory at about 5–10× real time, depending on machine
 specifications [@pulsefaq]. The codebase is C++ with bindings for Java, C#, and Unity
-[@pulseabout] and an interface for Python [@bray2019], and deploys on
+[@pulseabout] and an interface for Python [@webb2022vent], and deploys on
 Windows, Mac, Linux, and ARM [@pulseabout]. Pulse forked from the
-DoD-funded BioGears engine in 2017 and is described by its
-maintainers as a "low fidelity clinical approach" intended for
-training simulation rather than patient-specific prediction
-[@pulsesystem] — a self-description that motivates rather than
+DoD-funded BioGears engine in 2017 [@pulseabout; @pulsefaq] and is
+described by its maintainers as using "a low fidelity clinical
+approach" and as "not necessarily for high fidelity predictive
+purposes" [@pulsesystem] — a self-description that motivates rather than
 contradicts the present reliability mapping.
 
 Pulse is used in three broad communities:
@@ -3168,7 +3168,7 @@ always set `InspirationPatientTriggerPressure` or
 causes Pulse to enable a respiratory-model-driven patient trigger
 (`SEMechanicalVentilatorVolumeControl.cpp` lines 120–128), which
 produces effort-dependent tidal-volume variability consistent with patient-ventilator dyssynchrony but renders
-delivered tidal volume non-steady at extreme input combinations. For sensitivity-analysis-style sweeps that require deterministic, steady-state-interpretable tidal volume, setting `InspirationPatientTriggerPressure = −2 cmH2O` collapses that variability (validated by [S014](#s014): median Vt_cv 0.351 to 0.016, a 96 % reduction; 78.1 % of locked runs below the 0.05 steady-state threshold). This is best read as a data-generation / exploration lever, not a clinical recommendation: locking the trigger to a fixed threshold leaves simulated inspiratory efforts below −2 cmH2O unrewarded, a form of patient-ventilator dyssynchrony [@thille2006], corresponding in a real patient to a shift from patient-responsive assist-control toward controlled ventilation — clinically undesirable [@blanch2015], and detectable on ventilator flow/pressure waveforms, though most directly confirmed with specialised monitoring such as esophageal pressure [@akoumianaki2014] or diaphragm electrical activity [@sinderby1999]. The −2 cmH2O lock is therefore an instrument for controlled software exploration and deterministic synthetic-data generation, not guidance for clinically realistic ventilation.
+delivered tidal volume non-steady at extreme input combinations. For sensitivity-analysis-style sweeps that require deterministic, steady-state-interpretable tidal volume, setting `InspirationPatientTriggerPressure = −2 cmH2O` collapses that variability (validated by [S014](#s014): median Vt_cv 0.351 to 0.016, a 96 % reduction; 78.1 % of locked runs below the 0.05 steady-state threshold). This is best read as a data-generation / exploration lever, not a clinical recommendation: locking the trigger to a fixed threshold leaves simulated inspiratory efforts below −2 cmH2O unrewarded, a form of patient-ventilator dyssynchrony [@thille2006] that is clinically undesirable [@blanch2015], corresponding in a real patient to a shift from patient-responsive assist-control toward controlled ventilation; such dyssynchrony is detectable on ventilator flow/pressure waveforms, though most directly confirmed with specialised monitoring such as esophageal pressure [@akoumianaki2014] or diaphragm electrical activity [@sinderby1999]. The −2 cmH2O lock is therefore an instrument for controlled software exploration and deterministic synthetic-data generation, not guidance for clinically realistic ventilation.
 
 ### 4.3 Implications for machine-learning pipelines using Pulse
 
@@ -3342,7 +3342,7 @@ dermal failure surface. The atlas does not assess any of these.
 Conversely, Cornish does not assess SpO2 or delivered Vt, both of
 which are central to ventilator-cohort research. The two
 papers therefore divide the Pulse-reliability question along an
-output axis: Cornish covers chemistry-and-thermoregulation
+output axis: Cornish covers chemistry-and-dermal
 intervention-outcome accuracy on a real cohort; the atlas covers
 cardio–respiratory operational-input reliability on the engine's
 theoretical acceptance envelope. The natural follow-up that neither
