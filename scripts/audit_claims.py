@@ -2635,7 +2635,7 @@ for _cid, _text, _value, _key in [
      "one dominant-input cell is CI-robustly non-linear in all five draws",
      1, "dominant_nonlinear_all_seeds"),
     ("T2.sobol.n_bootstrap",
-     "trajectories are resampled 1,000 times per combination",
+     "trajectories are resampled 1,000 times for each top-three input",
      1000, "n_bootstrap"),
 ]:
     add(
@@ -6806,9 +6806,9 @@ MONO_AUDIT_TEXT_REQUIRED = (
      "channels the present atlas does not assess", 1),
     # C-S4: "this absence" had no antecedent in the paragraph (it has had none since 48912f8).
     ("preprint_npj/supplement.tex", "the absence of any surfactant model was re-verified directly", 1),
-    # GL-S2 (2026-09-15, author's decision): the resample-count sensitivity as re-measured.
+    # GL-S2 (2026-09-15, author's decision; unit corrected 2026-09-27): resample-count sensitivity.
     ("preprint_npj/supplement.tex", "Repeating the whole procedure at 500, 2{,}000 and 4{,}000 resamples returns "
-     "the same 23 combinations, so the stable set does not depend on the resample count.", 1),
+     "the same 23 inputs, so the stable set does not depend on the resample count.", 1),
     ("preprint/supplementary.md", "## S10 — Verification points (twelve independent layers)", 1),
     ("preprint/supplementary.md", "12 independent verification points; 0 failures", 1),
 )
