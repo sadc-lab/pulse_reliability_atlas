@@ -216,13 +216,13 @@ caught equally.*
 
 ## Step 3 — Results §2.1 Figure 2 traffic-light caption
 
-- paper_section: '§2.1 Figure 2 caption + §4.5 deviation declaration'
+- paper_section: '§2.1 Figure 2 caption'
   paper_context: 'Reliability traffic-light aggregate breakdown'
   monograph_claim_id: 'T1.25'
   expected_value: 7
   format_in_paper: '7 green / 29 yellow / 12 red'
-  expected_occurrences: 2
-  notes: 'Bumped 1 -> 2 (2026-08-04), post hoc deviation declaration: Methods §4.5 now restates the primary counts at the point where the 7 / 3 / 38 sensitivity is introduced, so a reader meets both distributions together instead of having to hold one from §2.1. The canonical slash form was used deliberately rather than a comma variant, which would have escaped this check while leaving two spellings of the same anchored quantity in the paper. Also corrected in this entry: paper_section said "Figure 1 caption"; the traffic-light map is Figure 2 (fig00_study_design was inserted as Figure 1 on 2026-06-24 and this label was not renumbered). Single literal-string check covering all three traffic-light counts (T1.25=7 green, T1.26=29 yellow, T1.27=12 red). Anchored on T1.25 for value-cross-check; 29 and 12 are co-validated by literal presence.'
+  expected_occurrences: 1
+  notes: 'Back 2 -> 1 (2026-09-27, author-approved shortening of Methods §4.5): the §4.5 restatement is removed. §4.5 still gives the same counts in words where the literal reading is introduced ("the same seven green and twelve red combinations and turns 26 of the 29 yellow ones red"), so a reader still meets both distributions there; the slash form now occurs once, in the Figure 2 legend, and the 7 / 3 / 38 row is in Supplement Table S6. Counted before and after: paper.tex 2 -> 1, supplement.tex 0 -> 0. Earlier history: Bumped 1 -> 2 (2026-08-04), post hoc deviation declaration: Methods §4.5 now restates the primary counts at the point where the 7 / 3 / 38 sensitivity is introduced, so a reader meets both distributions together instead of having to hold one from §2.1. The canonical slash form was used deliberately rather than a comma variant, which would have escaped this check while leaving two spellings of the same anchored quantity in the paper. Also corrected in this entry: paper_section said "Figure 1 caption"; the traffic-light map is Figure 2 (fig00_study_design was inserted as Figure 1 on 2026-06-24 and this label was not renumbered). Single literal-string check covering all three traffic-light counts (T1.25=7 green, T1.26=29 yellow, T1.27=12 red). Anchored on T1.25 for value-cross-check; 29 and 12 are co-validated by literal presence.'
 
 ## Step 3 — Results §2.2 Morris rankings (prose + Figure 3 caption)
 

@@ -7,10 +7,12 @@ common S1_M baseline. This script re-scores the 24 FEMALE cells against a
 sex-specific S1_F baseline instead, holding the flag-rate logic unchanged, and
 reports how many female cells change colour.
 
-Result (Pulse v4.3.1 canonical sweep): 0 of 24 female cells change colour --
-female yellow/red verdicts are driven either by the diverged/implausible flag
-rate or by ARDS-scale deviations that dwarf the few-percent male-female
-difference. Referenced from Supplement S3 (traffic-light scoring subsection).
+Result (Pulse v4.3.1 canonical sweep): 0 of 24 female combinations change
+colour. Female yellow/red colours are set either by the diverged/implausible
+flag rate or by ARDS-scale deviations (13.3 % and above) that exceed the
+healthy-cell male-female differences (0.3 to 11.3 %). Only S1_F PaCO2 crosses
+10 % on the sex difference alone, and its cell's hard flags already make it
+yellow. Referenced from Supplement S3.9 (traffic-light baseline robustness).
 
 Usage::
 
