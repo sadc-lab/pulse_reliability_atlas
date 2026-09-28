@@ -1018,8 +1018,8 @@ monograph,1273,second,ordinal,aching one band at room air; clinically meaningful
 monograph,1274,one,cardinal,a 60-second window [@ards2012] | | PaCO2 | 5 mmHg | Roughly one alveolar-ventilation step under ARDSnet protective ventilation per minute — cli
 monograph,1279,Two,cardinal,² of the fit is logged as diagnostic metadata but does *not* trigger anything). Two further triggers (the coefficient-of-variation threshold
 monograph,1292,three,cardinal,nd the detector's hard-bound check on the steady-state mean. This three-layer defense-in-depth contract was verified end-to-end in [S015 . ###
-monograph,1298,five,cardinal,"verified end-to-end in [S015 . ### 2.7 Pilot gate ([S005 ) *The five preregistered gates the 22-run pilot on cell (S1, M) had to pass before the ful"
-monograph,1302,three,cardinal,"regex reachability, and Pulse determinism. The pilot also surfaced and resolved three pipeline bugs before the compute budget was spent.* A 22-run pilot on cell (S1"
+monograph,1298,five,cardinal,verified end-to-end in [S015 . ### 2.7 Pilot gate ([S005 ) *The five preregistered gates the 22-run pilot on cell S1_M had to pass before the full 1
+monograph,1302,three,cardinal,"regex reachability, and Pulse determinism. The pilot also surfaced and resolved three pipeline bugs before the compute budget was spent.* A 22-run pilot on cell S1_"
 monograph,1305,five,cardinal,"rris points + 4 reproducibility reruns + 2 deliberate clamp probes verified all five preregistered gate criteria: success rate, detector self-consistency, 13-point"
 monograph,1309,three,cardinal,"rance across 24 (output × rerun) comparisons). Pilot also surfaced and resolved three pipeline bugs (time- origin, case_id collision, G4 unreachability from locked M"
 monograph,1316,twelve,cardinal,"PU-only), the 2–3 parallel Docker throughput verified in [S001 , and the twelve independent verification points that make the published numbers reproducible bi"
@@ -1078,7 +1078,7 @@ monograph,1675,seven,cardinal,"res 2 a–f show the Morris μ\* heatmap for each
 monograph,1675,eight,cardinal,"p for each of the six outputs. Rows are the seven swept inputs; columns are the eight (scenario, sex) cells. The colour scale is the magnitude of the elementary effe"
 monograph,1677,Four,cardinal,effect — how much each output moves when the corresponding input is perturbed. Four visual patterns dominate: * **Cardiovascular outputs are cardio-input dominate
 monograph,1683,zero,cardinal,"every cell (μ\* ≈ 17 – 20). Ventilator settings still contribute smaller, non-zero effects. * **Gas-exchange outputs are ventilator-driven.** PaO2 is dominated by"
-monograph,1698,four,cardinal,"M), on a single elementary-effect pair; not estimable in (S4, F) under the four-flag screen). FiO2 nevertheless remains the rank-1 input wherever it is estim"
+monograph,1698,four,cardinal,"n S4_M, on a single elementary-effect pair; not estimable in S4_F under the four-flag screen). FiO2 nevertheless remains the rank-1 input wherever it is estim"
 monograph,1712,one,cardinal,"mal H1 test. **External cross-validation against an OAT precursor.** Companion one-at-a-time probing prior to the Atlas ( E4, ±10 % perturb"
 monograph,1723,two,cardinal,uivalence — but the matched direction and order-of-magnitude attenuation across two independent designs is an external robustness signal for the Atlas's FiO2 sensi
 monograph,1727,six,cardinal,"ng. *Figures 2 a–f ( ) — at a glance.* **What:** six heatmaps (HR, MAP, Vt, SpO2, PaO2, PaCO2) of Morris μ\* across inputs × cells."
@@ -1111,10 +1111,14 @@ monograph,1885,first,ordinal,"ilable once a confidence interval is put on σ / �
 monograph,1888,second,ordinal,") — by the μ̂\* point estimate, treating the denominator as fixed. The second, which this manuscript now adopts, resamples trajectories and recomputes σ_b /"
 monograph,1890,first,ordinal,"es σ_b / μ\*_b *jointly* per draw, so the interval covers the ratio itself. The first formula ignores the positive covariance between σ and μ\*, which widens its int"
 monograph,1894,two,cardinal,"ncontrolled direction; it is retained here only as the historical variant. The two do not lead to the same conclusion, and an earlier version of this section stat"
-monograph,1896,one,cardinal,"a the dominant-input bucketing is 31 / 48 CI-robustly linear in every draw, and one dominant-input cell — (S3, M, PaO2, FiO2) — is CI-robustly non-linear in all fi"
-monograph,1897,five,cardinal,"ne dominant-input cell — (S3, M, PaO2, FiO2) — is CI-robustly non-linear in all five, with occasional further cells appearing in individual draws but none surviving"
-monograph,1898,five,cardinal,h occasional further cells appearing in individual draws but none surviving all five. The count is not zero under either reading. Applying the rule the preregistrat
-monograph,1899,zero,cardinal,lls appearing in individual draws but none surviving all five. The count is not zero under either reading. Applying the rule the preregistration actually states — t
+monograph,1896,one,cardinal,"formula the dominant-input bucketing is 31 / 48 CI-robustly linear under every one of the five bootstrap seeds, and one dominant input — FiO2 on PaO2 in S3_M — is"
+monograph,1896,five,cardinal,"e dominant-input bucketing is 31 / 48 CI-robustly linear under every one of the five bootstrap seeds, and one dominant input — FiO2 on PaO2 in S3_M — is CI-robustly"
+monograph,1897,one,cardinal,"is 31 / 48 CI-robustly linear under every one of the five bootstrap seeds, and one dominant input — FiO2 on PaO2 in S3_M — is CI-robustly non-linear under all fiv"
+monograph,1898,five,cardinal,"one dominant input — FiO2 on PaO2 in S3_M — is CI-robustly non-linear under all five; one other, FiO2 on PaO2 in S3_F, is non-linear under two of the five seeds onl"
+monograph,1898,one,cardinal,"minant input — FiO2 on PaO2 in S3_M — is CI-robustly non-linear under all five; one other, FiO2 on PaO2 in S3_F, is non-linear under two of the five seeds only. Th"
+monograph,1899,two,cardinal,"non-linear under all five; one other, FiO2 on PaO2 in S3_F, is non-linear under two of the five seeds only. The count is not zero under either reading. Applying th"
+monograph,1899,five,cardinal,"under all five; one other, FiO2 on PaO2 in S3_F, is non-linear under two of the five seeds only. The count is not zero under either reading. Applying the rule the p"
+monograph,1899,zero,cardinal,"PaO2 in S3_F, is non-linear under two of the five seeds only. The count is not zero under either reading. Applying the rule the preregistration actually states — t"
 monograph,1900,three,cardinal,"either reading. Applying the rule the preregistration actually states — the top-three inputs, not the dominant one alone — 23 of the 144 top-three inputs hold a lowe"
 monograph,1900,one,cardinal,"le the preregistration actually states — the top-three inputs, not the dominant one alone — 23 of the 144 top-three inputs hold a lower bound at or above 0.6 acros"
 monograph,1901,three,cardinal,"y states — the top-three inputs, not the dominant one alone — 23 of the 144 top-three inputs hold a lower bound at or above 0.6 across five independent seeds. The ea"
@@ -1156,7 +1160,7 @@ monograph,2077,zero,cardinal,"In the [S006 input-extreme regime, all 20 / 20 div
 monograph,2079,two,cardinal,"try shown ([S018 ) to depend on Pulse's gap on the two surrogates — male default 4,802.63 mL vs female default 3,996.09 mL, a ~17 % di"
 monograph,2083,one,cardinal,"(4,082.24 mL on this male body) which bounds how far the gap can be closed by a one-way transplant. In the § continuous-severity regime at midrange inputs, di"
 monograph,2086,two,cardinal,"e inside the [0.879, 0.946] band, though the sex asymmetry reverses between its two severity bands — so the original sex effect varies with *what is varying*, not"
-monograph,2104,one,cardinal,"ique to (S4, M), at 24 / 82 / 137 / 138. They form a mixed cluster: one HR at 110 bpm, three at 90 bpm; two Vt at 300 mL, one at 633.3 mL, one at 800"
+monograph,2104,one,cardinal,"unique to S4_M, at 24 / 82 / 137 / 138. They form a mixed cluster: one HR at 110 bpm, three at 90 bpm; two Vt at 300 mL, one at 633.3 mL, one at 800"
 monograph,2104,three,cardinal,"24 / 82 / 137 / 138. They form a mixed cluster: one HR at 110 bpm, three at 90 bpm; two Vt at 300 mL, one at 633.3 mL, one at 800 mL. This is a *par"
 monograph,2105,two,cardinal,"/ 137 / 138. They form a mixed cluster: one HR at 110 bpm, three at 90 bpm; two Vt at 300 mL, one at 633.3 mL, one at 800 mL. This is a *partial second regim"
 monograph,2105,one,cardinal,"y form a mixed cluster: one HR at 110 bpm, three at 90 bpm; two Vt at 300 mL, one at 633.3 mL, one at 800 mL. This is a *partial second regime* — one the locke"
@@ -1207,7 +1211,7 @@ monograph,2589,one,cardinal,"ap (Figure 6) *The user-facing summary of the entir
 monograph,2614,one,cardinal,"assifications (the visual version is Figure 6). **How to read it:** each row is one (scenario, sex) cell; each column is one of the 6 atlas outputs; the cell value"
 monograph,2615,one,cardinal,"re 6). **How to read it:** each row is one (scenario, sex) cell; each column is one of the 6 atlas outputs; the cell value is the preregistered classification (gre"
 monograph,2618,seven,cardinal,"yellow / red — definitions in the Figure 6 W/H/T block). **Key takeaway:** all seven green classifications fall in the (S2_F, S3_F) cluster, the only two cells carr"
-monograph,2619,two,cardinal,"y:** all seven green classifications fall in the (S2_F, S3_F) cluster, the only two cells carrying no diverged and no implausible run; (S4, M) is the only cell red"
+monograph,2619,two,cardinal,"y:** all seven green classifications fall in the (S2_F, S3_F) cluster, the only two cells carrying no diverged and no implausible run; S4_M is the only cell red on"
 monograph,2622,six,cardinal,"sexes from S3 onwards. Red marks a cell for review, not a defect in the engine: six of the twelve are red on the deviation criterion alone, in scenarios where a de"
 monograph,2622,twelve,cardinal,"S3 onwards. Red marks a cell for review, not a defect in the engine: six of the twelve are red on the deviation criterion alone, in scenarios where a departure from t"
 monograph,2632,two,cardinal,"ed 30 % or when ""any flag"" was raised. The implementation instead uses only the two hard flags ( and ): any positive combined rate yields ye"
@@ -1215,7 +1219,7 @@ monograph,2635,eight,cardinal,"%; the 10 % and 30 % deviation thresholds are unc
 monograph,2637,seven,cardinal,"eas the literal hard-flag reading gives **7 green, 3 yellow, 38 red**. The same seven green and twelve red combinations are retained, with 26 combinations moving fro"
 monograph,2637,twelve,cardinal,"hard-flag reading gives **7 green, 3 yellow, 38 red**. The same seven green and twelve red combinations are retained, with 26 combinations moving from yellow to red."
 monograph,2639,four,cardinal,"ined, with 26 combinations moving from yellow to red. Reading ""any flag"" as all four flags gives 0 green, 0 yellow, 48 red and is reported only to document the ambi"
-monograph,2649,three,cardinal,"rebuilds all three readings). * Green cells cluster in **(S2, F) + (S3, F)** — moderate ARDS in t"
+monograph,2649,three,cardinal,rebuilds all three readings). * Green cells cluster in **S2_F + S3_F** — moderate ARDS in the f
 monograph,2675,one,cardinal,"cell in the atlas. ![Figure 6. Reliability traffic light — per cell × output, one of {green, yellow, red}. Green = no diverged or implausible flags in the cell A"
 monograph,2681,two,cardinal,"n and review-priority instrument, not a reliability verdict, and neither of the two screens available to a downstream user is distribution-neutral.* **Two levels,"
 monograph,2683,Two,cardinal,"of the two screens available to a downstream user is distribution-neutral.* **Two levels, not one.** The four-flag classifier assigns labels to **runs**; the tra"

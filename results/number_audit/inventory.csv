@@ -474,9 +474,9 @@ monograph,650,2,2.0,ambiguous_small,"piece of work. The tags are introduced here
 monograph,650,4,4.0,ambiguous_small,"of work. The tags are introduced here so that any reference in §2 – §4 to e.g. ""[S005 pilot"" or ""[S014 trigger lockout"" is i"
 monograph,657,3,3.0,ambiguous_small,pository. | Tag | One-line description | |---|---| | S001 | Docker + 3-parallel hardware smoke test (CPU/RAM budget). | | S002 | Project boo
 monograph,659,12,12.0,ambiguous_small,"| Project bootstrap (repo layout, licensing). | | S003 | Verified the 12 Pulse limitations against primary sources. | | S004 | Built the"
-monograph,661,22,22.0,none,"he detector clamp regex against real Pulse rejection logs. | | S005 | 22-run pilot on cell (S1, M); passed all 5 preregistered gates. | | S006"
-monograph,661,5,5.0,ambiguous_small,"e rejection logs. | | S005 | 22-run pilot on cell (S1, M); passed all 5 preregistered gates. | | S006 | Full 1,280-run Morris sweep (the head"
-monograph,662,"1,280",1280.0,guard,"ot on cell (S1, M); passed all 5 preregistered gates. | | S006 | Full 1,280-run Morris sweep (the headline experiment). | | S007 | Targeted repro"
+monograph,661,22,22.0,none,he detector clamp regex against real Pulse rejection logs. | | S005 | 22-run pilot on cell S1_M; passed all 5 preregistered gates. | | S006 |
+monograph,661,5,5.0,ambiguous_small,"ulse rejection logs. | | S005 | 22-run pilot on cell S1_M; passed all 5 preregistered gates. | | S006 | Full 1,280-run Morris sweep (the head"
+monograph,662,"1,280",1280.0,guard,"pilot on cell S1_M; passed all 5 preregistered gates. | | S006 | Full 1,280-run Morris sweep (the headline experiment). | | S007 | Targeted repro"
 monograph,664,1,1.0,ambiguous_small,"ity check at three independent layers, all bit-exact. | | S008 | Tier-1 statistical refinement (block bootstrap on σ, Wasserstein permutation"
 monograph,665,2,2.0,ambiguous_small,"ation null, Spearman CI, divergence-input mechanism). | | S009 | Tier-2 robustness (seed stability, continuous-ARDS micro-sweep, pytest suite"
 monograph,668,003,3.0,ambiguous_small,experiment. | | S012 | Steady-state window cross-output audit (does F-003 / F-004 contaminate other channels? — answer: no). | | S013 | Lexical
@@ -946,13 +946,13 @@ monograph,1284,1,1.0,ambiguous_small,"§Flags. SpO2 is reported by Pulse as a fr
 monograph,1285,2,2.0,ambiguous_small,"d by Pulse as a fraction in [0, 1], so the listed drift threshold of ""2 percentage points"" corresponds to in the code constant. Atlas"
 monograph,1290,2.2,2.2,none,"-bound enforcement is delegated to the locked Morris sampler ranges (§2.2), Pulse's setup-time rejection (captured by the flag), and"
 monograph,1296,2.7,2.7,none,ense-in-depth contract was verified end-to-end in [S015 . ### 2.7 Pilot gate ([S005 ) *The five preregistered gates the 22-run
-monograph,1298,22,22.0,none,"### 2.7 Pilot gate ([S005 ) *The five preregistered gates the 22-run pilot on cell (S1, M) had to pass before the full 1,280-run sweep"
-monograph,1299,"1,280",1280.0,guard,"ed gates the 22-run pilot on cell (S1, M) had to pass before the full 1,280-run sweep launched: success rate, detector self-consistency, 13-point"
+monograph,1298,22,22.0,none,"### 2.7 Pilot gate ([S005 ) *The five preregistered gates the 22-run pilot on cell S1_M had to pass before the full 1,280-run sweep la"
+monograph,1299,"1,280",1280.0,guard,"tered gates the 22-run pilot on cell S1_M had to pass before the full 1,280-run sweep launched: success rate, detector self-consistency, 13-point"
 monograph,1300,13,13.0,none,"ll 1,280-run sweep launched: success rate, detector self-consistency, 13-point steady-state window, clamp-regex reachability, and Pulse determ"
-monograph,1304,22,22.0,none,"resolved three pipeline bugs before the compute budget was spent.* A 22-run pilot on cell (S1, M) with 16 unique Morris points + 4 reproducib"
-monograph,1304,16,16.0,ambiguous_small,"e the compute budget was spent.* A 22-run pilot on cell (S1, M) with 16 unique Morris points + 4 reproducibility reruns + 2 deliberate clamp"
-monograph,1304,4,4.0,ambiguous_small,"pent.* A 22-run pilot on cell (S1, M) with 16 unique Morris points + 4 reproducibility reruns + 2 deliberate clamp probes verified all five"
-monograph,1305,2,2.0,ambiguous_small,"ell (S1, M) with 16 unique Morris points + 4 reproducibility reruns + 2 deliberate clamp probes verified all five preregistered gate criteria"
+monograph,1304,22,22.0,none,resolved three pipeline bugs before the compute budget was spent.* A 22-run pilot on cell S1_M with 16 unique Morris points + 4 reproducibili
+monograph,1304,16,16.0,ambiguous_small,fore the compute budget was spent.* A 22-run pilot on cell S1_M with 16 unique Morris points + 4 reproducibility reruns + 2 deliberate clamp
+monograph,1304,4,4.0,ambiguous_small,s spent.* A 22-run pilot on cell S1_M with 16 unique Morris points + 4 reproducibility reruns + 2 deliberate clamp probes verified all five
+monograph,1305,2,2.0,ambiguous_small,n cell S1_M with 16 unique Morris points + 4 reproducibility reruns + 2 deliberate clamp probes verified all five preregistered gate criteria
 monograph,1307,13,13.0,none,"preregistered gate criteria: success rate, detector self-consistency, 13-point steady-state window, clamp regex reachability (probes), and Pul"
 monograph,1308,1e-6,1e-06,none,"ate window, clamp regex reachability (probes), and Pulse determinism (1e-6 relative tolerance across 24 (output × rerun) comparisons). Pilot als"
 monograph,1308,24,24.0,ambiguous_small,"ility (probes), and Pulse determinism (1e-6 relative tolerance across 24 (output × rerun) comparisons). Pilot also surfaced and resolved three"
@@ -1172,17 +1172,17 @@ monograph,1681,55,55.0,none,t dominated.** Output HR is driven by input HR in ev
 monograph,1681,95,95.0,none,put HR is driven by input HR in every cell (μ\* ≈ 55 in healthy → ≈ 95 in severe ARDS); output MAP is driven by SBP in every cell (μ\* ≈ 1
 monograph,1682,17,17.0,ambiguous_small,"5 in severe ARDS); output MAP is driven by SBP in every cell (μ\* ≈ 17 – 20). Ventilator settings still contribute smaller, non-zero effec"
 monograph,1683,20,20.0,ambiguous_small,"severe ARDS); output MAP is driven by SBP in every cell (μ\* ≈ 17 – 20). Ventilator settings still contribute smaller, non-zero effects. * *"
-monograph,1685,147,147.0,guard,"ilator-driven.** PaO2 is dominated by FiO2 in S2 / S3 (μ\* peaks at 147 mmHg in (S2, F)). PaCO2 is dominated by Vt in most cells, consistent"
+monograph,1685,147,147.0,guard,"ilator-driven.** PaO2 is dominated by FiO2 in S2 / S3 (μ\* peaks at 147 mmHg in S2_F). PaCO2 is dominated by Vt in most cells, consistent w"
 monograph,1691,2,2.0,ambiguous_small,the anatomical dead-space volume; West *Respiratory Physiology* Ch. 2 convention). SpO2 is also ventilator-driven but on a small numerica
 monograph,1692,0.13,0.13,none,"pO2 is also ventilator-driven but on a small numerical scale (μ\* ≤ 0.13) because it is recorded as a fraction: the largest value, 0.12 in S"
 monograph,1693,0.12,0.12,none,"\* ≤ 0.13) because it is recorded as a fraction: the largest value, 0.12 in S3, would read 12 in percentage points. * **The ARDS gradient is v"
 monograph,1693,12,12.0,ambiguous_small,"s recorded as a fraction: the largest value, 0.12 in S3, would read 12 in percentage points. * **The ARDS gradient is visible.** PaO2's FiO2"
 monograph,1695,133,133.0,guard,"S gradient is visible.** PaO2's FiO2 sensitivity peaks in S2 (μ\* = 133 – 147 mmHg), remains substantial in S3 (μ\* = 84 – 93 mmHg), and fa"
 monograph,1695,147,147.0,guard,"ient is visible.** PaO2's FiO2 sensitivity peaks in S2 (μ\* = 133 – 147 mmHg), remains substantial in S3 (μ\* = 84 – 93 mmHg), and falls sh"
-monograph,1695,84,84.0,none,"eaks in S2 (μ\* = 133 – 147 mmHg), remains substantial in S3 (μ\* = 84 – 93 mmHg), and falls sharply in severe ARDS (μ\* = 31 in (S4, M),"
-monograph,1695,93,93.0,none,"in S2 (μ\* = 133 – 147 mmHg), remains substantial in S3 (μ\* = 84 – 93 mmHg), and falls sharply in severe ARDS (μ\* = 31 in (S4, M), on a"
-monograph,1696,31,31.0,ambiguous_small,"in S3 (μ\* = 84 – 93 mmHg), and falls sharply in severe ARDS (μ\* = 31 in (S4, M), on a single elementary-effect pair; not estimable in (S"
-monograph,1698,1,1.0,ambiguous_small,F) under the four-flag screen). FiO2 nevertheless remains the rank-1 input wherever it is estimable. The fall is consistent with the mod
+monograph,1695,84,84.0,none,"eaks in S2 (μ\* = 133 – 147 mmHg), remains substantial in S3 (μ\* = 84 – 93 mmHg), and falls sharply in severe ARDS (μ\* = 31 in S4_M, on"
+monograph,1695,93,93.0,none,"in S2 (μ\* = 133 – 147 mmHg), remains substantial in S3 (μ\* = 84 – 93 mmHg), and falls sharply in severe ARDS (μ\* = 31 in S4_M, on a s"
+monograph,1696,31,31.0,ambiguous_small,"in S3 (μ\* = 84 – 93 mmHg), and falls sharply in severe ARDS (μ\* = 31 in S4_M, on a single elementary-effect pair; not estimable in S4_F"
+monograph,1698,1,1.0,ambiguous_small,4_F under the four-flag screen). FiO2 nevertheless remains the rank-1 input wherever it is estimable. The fall is consistent with the mod
 monograph,1702,500,500.0,guard,"eading is not directly tested. * **Output Vt tracks input Vt at μ\* ≈ 500 mL** in every cell. In VC-AC mode, asking Pulse for a 500 mL tidal"
 monograph,1703,500,500.0,guard,"at μ\* ≈ 500 mL** in every cell. In VC-AC mode, asking Pulse for a 500 mL tidal volume produces close to a 500 mL delivered tidal volume,"
 monograph,1704,500,500.0,guard,"mode, asking Pulse for a 500 mL tidal volume produces close to a 500 mL delivered tidal volume, cell-invariant. The cells where this cou"
@@ -1196,9 +1196,9 @@ monograph,1713,74,74.0,ambiguous_small,"E4, ±10 % perturbations on healthy and 
 monograph,1714,1.32,1.32,none,"= 74 Docker runs) reported the FiO2 → PaO2 elasticity collapsing from 1.32 in healthy to 0.26 in moderate ARDS — an ~80 % attenuation, consisten"
 monograph,1715,0.26,0.26,ambiguous_small,"eported the FiO2 → PaO2 elasticity collapsing from 1.32 in healthy to 0.26 in moderate ARDS — an ~80 % attenuation, consistent with rising shunt"
 monograph,1715,80,80.0,ambiguous_small,"ticity collapsing from 1.32 in healthy to 0.26 in moderate ARDS — an ~80 % attenuation, consistent with rising shunt. The Atlas Morris μ\* for"
-monograph,1718,147,147.0,guard,"and roughly the magnitude of this attenuation: μ\* peaks at S2 / S3 (147 mmHg in (S2, F)) and falls to 31 mmHg in (S4, M), a ~79 % drop restin"
-monograph,1718,31,31.0,ambiguous_small,"attenuation: μ\* peaks at S2 / S3 (147 mmHg in (S2, F)) and falls to 31 mmHg in (S4, M), a ~79 % drop resting on a single elementary-effect p"
-monograph,1719,79,79.0,none,"at S2 / S3 (147 mmHg in (S2, F)) and falls to 31 mmHg in (S4, M), a ~79 % drop resting on a single elementary-effect pair. Elasticity (local"
+monograph,1718,147,147.0,guard,"and roughly the magnitude of this attenuation: μ\* peaks at S2 / S3 (147 mmHg in S2_F) and falls to 31 mmHg in S4_M, a ~79 % drop resting on a"
+monograph,1718,31,31.0,ambiguous_small,"his attenuation: μ\* peaks at S2 / S3 (147 mmHg in S2_F) and falls to 31 mmHg in S4_M, a ~79 % drop resting on a single elementary-effect pair"
+monograph,1719,79,79.0,none,"peaks at S2 / S3 (147 mmHg in S2_F) and falls to 31 mmHg in S4_M, a ~79 % drop resting on a single elementary-effect pair. Elasticity (local"
 monograph,1726,2,2.0,ambiguous_small,robustness signal for the Atlas's FiO2 sensitivity ranking. *Figures 2 a–f ( ) — at a glance.* **What:** six h
 monograph,1730,8,8.0,ambiguous_small,"**How to read it:** rows are the seven swept inputs; columns are the 8 (scenario, sex) cells (S1_M … S4_F); colour intensity is the magnitud"
 monograph,1732,95,95.0,none,"effect, i.e. the input's average influence on that output. Bootstrap 95 % CIs on each μ\* are recorded in bu"
@@ -1277,15 +1277,15 @@ monograph,1848,84,84.0,none,"ls in ARDS scenarios: (S2 / S3, M / F, PaO2, FiO2),
 monograph,1848,147,147.0,guard,"ARDS scenarios: (S2 / S3, M / F, PaO2, FiO2), with μ\* in the 84 – 147 mmHg range and σ / μ\* between 0.64 and 0.94. This is the regime wh"
 monograph,1849,0.64,0.64,none,"aO2, FiO2), with μ\* in the 84 – 147 mmHg range and σ / μ\* between 0.64 and 0.94. This is the regime where venous admixture caps oxygenatio"
 monograph,1849,0.94,0.94,none,"), with μ\* in the 84 – 147 mmHg range and σ / μ\* between 0.64 and 0.94. This is the regime where venous admixture caps oxygenation gain pe"
-monograph,1853,0.87,0.87,none,"coupling on PaCO2: RR → PaCO2 in healthy males ((S1, M), σ / μ\* = 0.87), and Vt → PaCO2 in severe-ARDS females ((S4, F), σ / μ\* = 0.66)."
-monograph,1854,0.66,0.66,none,"= 0.87), and Vt → PaCO2 in severe-ARDS females ((S4, F), σ / μ\* = 0.66). Both are predicted by the alveolar-ventilation identity $\dot{V"
+monograph,1853,0.87,0.87,none,"ion coupling on PaCO2: RR → PaCO2 in healthy males (S1_M, σ / μ\* = 0.87), and Vt → PaCO2 in severe-ARDS females (S4_F, σ / μ\* = 0.66). Bot"
+monograph,1854,0.66,0.66,none,"μ\* = 0.87), and Vt → PaCO2 in severe-ARDS females (S4_F, σ / μ\* = 0.66). Both are predicted by the alveolar-ventilation identity $\dot{V"
 monograph,1859,8,8.0,ambiguous_small,ns CO₂ elimination. **CI-aware re-evaluation of the trigger.** The 8 / 48 promotion count above is a *point* estimate. To attach a confide
 monograph,1859,48,48.0,ambiguous_small,O₂ elimination. **CI-aware re-evaluation of the trigger.** The 8 / 48 promotion count above is a *point* estimate. To attach a confidence i
 monograph,1861,"1,000",1000.0,guard,"onfidence interval to it, we resampled trajectories (block bootstrap, 1,000 resamples, same RNG seed as the μ\* CI) and recomputed σ / μ\* on eac"
 monograph,1882,4.5,4.5,ambiguous_small,vs FiO2 in S4_M); per-input gaps are summarised at cell level in the §4.5 limitations. *Methodological note (σ / μ\* CI formula).* Two formula
 monograph,1886,97.5,97.5,none,"on σ / μ\*, and they do not agree. The first divides σ_hi — the upper 97.5-percentile of the trajectory-level block bootstrap on σ ("
-monograph,1896,31,31.0,ambiguous_small,"erwise. Under the ratio-aware formula the dominant-input bucketing is 31 / 48 CI-robustly linear in every draw, and one dominant-input cell —"
-monograph,1896,48,48.0,ambiguous_small,"e. Under the ratio-aware formula the dominant-input bucketing is 31 / 48 CI-robustly linear in every draw, and one dominant-input cell — (S3,"
+monograph,1896,31,31.0,ambiguous_small,"erwise. Under the ratio-aware formula the dominant-input bucketing is 31 / 48 CI-robustly linear under every one of the five bootstrap seeds,"
+monograph,1896,48,48.0,ambiguous_small,"e. Under the ratio-aware formula the dominant-input bucketing is 31 / 48 CI-robustly linear under every one of the five bootstrap seeds, and o"
 monograph,1900,23,23.0,ambiguous_small,"actually states — the top-three inputs, not the dominant one alone — 23 of the 144 top-three inputs hold a lower bound at or above 0.6 across"
 monograph,1901,144,144.0,guard,"states — the top-three inputs, not the dominant one alone — 23 of the 144 top-three inputs hold a lower bound at or above 0.6 across five indep"
 monograph,1901,0.6,0.6,ambiguous_small,"alone — 23 of the 144 top-three inputs hold a lower bound at or above 0.6 across five independent seeds. The earlier claim that ""zero cells are"
@@ -1443,13 +1443,13 @@ monograph,2100,16,16.0,ambiguous_small,) appears in 16 / 20 runs. * **FiO2 = 1.0
 monograph,2100,4,4.0,ambiguous_small,** appears in 13 / 20. * The 16 shared cases correspond to **the same 4 Morris sample indices repeated across S1 / S2 / S3 / S4_M** —
 monograph,2101,119,119.0,none,"is sample indices repeated across S1 / S2 / S3 / S4_M** — 119, 157, 158, 159 in the canonical sample. * The remaining 4 are uniqu"
 monograph,2101,157,157.0,ledger,"mple indices repeated across S1 / S2 / S3 / S4_M** — 119, 157, 158, 159 in the canonical sample. * The remaining 4 are unique to"
-monograph,2102,158,158.0,none,"indices repeated across S1 / S2 / S3 / S4_M** — 119, 157, 158, 159 in the canonical sample. * The remaining 4 are unique to (S4, M)"
-monograph,2102,159,159.0,none,"es repeated across S1 / S2 / S3 / S4_M** — 119, 157, 158, 159 in the canonical sample. * The remaining 4 are unique to (S4, M), at"
-monograph,2103,4,4.0,ambiguous_small,"119, 157, 158, 159 in the canonical sample. * The remaining 4 are unique to (S4, M), at 24 / 82 / 137 / 138. They form"
-monograph,2103,24,24.0,ambiguous_small,"nonical sample. * The remaining 4 are unique to (S4, M), at 24 / 82 / 137 / 138. They form a mixed cluster: one HR at 110 bpm, thr"
-monograph,2103,82,82.0,ambiguous_small,"al sample. * The remaining 4 are unique to (S4, M), at 24 / 82 / 137 / 138. They form a mixed cluster: one HR at 110 bpm, three at"
-monograph,2104,137,137.0,guard,"le. * The remaining 4 are unique to (S4, M), at 24 / 82 / 137 / 138. They form a mixed cluster: one HR at 110 bpm, three at 90 bp"
-monograph,2104,138,138.0,none,"The remaining 4 are unique to (S4, M), at 24 / 82 / 137 / 138. They form a mixed cluster: one HR at 110 bpm, three at 90 bpm; two"
+monograph,2102,158,158.0,none,"indices repeated across S1 / S2 / S3 / S4_M** — 119, 157, 158, 159 in the canonical sample. * The remaining 4 are unique to S4_M, a"
+monograph,2102,159,159.0,none,"es repeated across S1 / S2 / S3 / S4_M** — 119, 157, 158, 159 in the canonical sample. * The remaining 4 are unique to S4_M, at"
+monograph,2103,4,4.0,ambiguous_small,"119, 157, 158, 159 in the canonical sample. * The remaining 4 are unique to S4_M, at 24 / 82 / 137 / 138. They form a m"
+monograph,2103,24,24.0,ambiguous_small,"canonical sample. * The remaining 4 are unique to S4_M, at 24 / 82 / 137 / 138. They form a mixed cluster: one HR at 110 bpm, thr"
+monograph,2103,82,82.0,ambiguous_small,"nical sample. * The remaining 4 are unique to S4_M, at 24 / 82 / 137 / 138. They form a mixed cluster: one HR at 110 bpm, three at"
+monograph,2104,137,137.0,guard,"ample. * The remaining 4 are unique to S4_M, at 24 / 82 / 137 / 138. They form a mixed cluster: one HR at 110 bpm, three at 90 bp"
+monograph,2104,138,138.0,none,"* The remaining 4 are unique to S4_M, at 24 / 82 / 137 / 138. They form a mixed cluster: one HR at 110 bpm, three at 90 bpm; two"
 monograph,2104,110,110.0,none,"24 / 82 / 137 / 138. They form a mixed cluster: one HR at 110 bpm, three at 90 bpm; two Vt at 300 mL, one at 633.3 mL, one at 800"
 monograph,2105,90,90.0,ambiguous_small,"137 / 138. They form a mixed cluster: one HR at 110 bpm, three at 90 bpm; two Vt at 300 mL, one at 633.3 mL, one at 800 mL. This is a *p"
 monograph,2105,300,300.0,guard,"form a mixed cluster: one HR at 110 bpm, three at 90 bpm; two Vt at 300 mL, one at 633.3 mL, one at 800 mL. This is a *partial second regim"
@@ -1905,10 +1905,10 @@ monograph,2587,6,6.0,ambiguous_small,"tive, not high-precision. ### 3.7 Traffic-
 monograph,2591,10,10.0,ambiguous_small,"llow, red}, anchored to preregistered baseline-percentage thresholds (10 % / 30 % deviation; 30 % hard-failure rate). The final distribution i"
 monograph,2591,30,30.0,ambiguous_small,"ed}, anchored to preregistered baseline-percentage thresholds (10 % / 30 % deviation; 30 % hard-failure rate). The final distribution is 7 gre"
 monograph,2591,30,30.0,ambiguous_small,"preregistered baseline-percentage thresholds (10 % / 30 % deviation; 30 % hard-failure rate). The final distribution is 7 green, 29 yellow, 1"
-monograph,2592,7,7.0,ambiguous_small,"/ 30 % deviation; 30 % hard-failure rate). The final distribution is 7 green, 29 yellow, 12 red out of 48 cells — and (S4, M) is red on ever"
-monograph,2592,29,29.0,ambiguous_small,"eviation; 30 % hard-failure rate). The final distribution is 7 green, 29 yellow, 12 red out of 48 cells — and (S4, M) is red on every output.*"
-monograph,2592,12,12.0,ambiguous_small,"0 % hard-failure rate). The final distribution is 7 green, 29 yellow, 12 red out of 48 cells — and (S4, M) is red on every output.* Per cell"
-monograph,2592,48,48.0,ambiguous_small,"re rate). The final distribution is 7 green, 29 yellow, 12 red out of 48 cells — and (S4, M) is red on every output.* Per cell × output green"
+monograph,2592,7,7.0,ambiguous_small,"/ 30 % deviation; 30 % hard-failure rate). The final distribution is 7 green, 29 yellow, 12 red out of 48 cells — and S4_M is red on every o"
+monograph,2592,29,29.0,ambiguous_small,"eviation; 30 % hard-failure rate). The final distribution is 7 green, 29 yellow, 12 red out of 48 cells — and S4_M is red on every output.* P"
+monograph,2592,12,12.0,ambiguous_small,"0 % hard-failure rate). The final distribution is 7 green, 29 yellow, 12 red out of 48 cells — and S4_M is red on every output.* Per cell × o"
+monograph,2592,48,48.0,ambiguous_small,"re rate). The final distribution is 7 green, 29 yellow, 12 red out of 48 cells — and S4_M is red on every output.* Per cell × output green /"
 monograph,2596,10,10.0,ambiguous_small,"yellow / red classification grounded on the preregistered tolerances (10 % / 30 % deviation thresholds, 30 % hard-failure rate threshold). |"
 monograph,2596,30,30.0,ambiguous_small,"/ red classification grounded on the preregistered tolerances (10 % / 30 % deviation thresholds, 30 % hard-failure rate threshold). | Cell |"
 monograph,2596,30,30.0,ambiguous_small,"ed on the preregistered tolerances (10 % / 30 % deviation thresholds, 30 % hard-failure rate threshold). | Cell | HR | MAP | Vt |"
@@ -1943,19 +1943,19 @@ monograph,2658,54,54.0,none,"output.** It is the only cell whose hard-failure ra
 monograph,2658,160,160.0,guard,"t.** It is the only cell whose hard-failure rate exceeds 30 % (54 / 160 = 33.75 %), and it corresponds to severe ARDS on the larger male bo"
 monograph,2658,33.75,33.75,none,"t is the only cell whose hard-failure rate exceeds 30 % (54 / 160 = 33.75 %), and it corresponds to severe ARDS on the larger male body habit"
 monograph,2663,6,6.0,ambiguous_small,"a starting point, not a faithful steady-state physiology. *Figure 6 ( ) — at a glance.* **What:** per cel"
-monograph,2668,10,10.0,ambiguous_small,"diverged or implausible flags in the cell *and* clean-run mean within 10 % of the (S1, M) baseline; yellow = any diverged or implausible flag"
-monograph,2669,10,10.0,ambiguous_small,"(S1, M) baseline; yellow = any diverged or implausible flag *or* mean 10 – 30 % off baseline; red = mean > 30 % off baseline *or* diverged + i"
-monograph,2669,30,30.0,ambiguous_small,M) baseline; yellow = any diverged or implausible flag *or* mean 10 – 30 % off baseline; red = mean > 30 % off baseline *or* diverged + implau
+monograph,2668,10,10.0,ambiguous_small,diverged or implausible flags in the cell *and* clean-run mean within 10 % of the S1_M baseline; yellow = any diverged or implausible flag *or
+monograph,2669,10,10.0,ambiguous_small,he S1_M baseline; yellow = any diverged or implausible flag *or* mean 10 – 30 % off baseline; red = mean > 30 % off baseline *or* diverged + i
+monograph,2669,30,30.0,ambiguous_small,_M baseline; yellow = any diverged or implausible flag *or* mean 10 – 30 % off baseline; red = mean > 30 % off baseline *or* diverged + implau
 monograph,2669,30,30.0,ambiguous_small,ed or implausible flag *or* mean 10 – 30 % off baseline; red = mean > 30 % off baseline *or* diverged + implausible rate > 30 %. **Key takeawa
 monograph,2670,30,30.0,ambiguous_small,"ne; red = mean > 30 % off baseline *or* diverged + implausible rate > 30 %. **Key takeaway:** 7 green, 29 yellow, 12 red out of 48 cells. Gree"
-monograph,2671,7,7.0,ambiguous_small,"f baseline *or* diverged + implausible rate > 30 %. **Key takeaway:** 7 green, 29 yellow, 12 red out of 48 cells. Green cluster: (S2, F) + (S"
-monograph,2671,29,29.0,ambiguous_small,"e *or* diverged + implausible rate > 30 %. **Key takeaway:** 7 green, 29 yellow, 12 red out of 48 cells. Green cluster: (S2, F) + (S3, F). Red"
-monograph,2671,12,12.0,ambiguous_small,"rged + implausible rate > 30 %. **Key takeaway:** 7 green, 29 yellow, 12 red out of 48 cells. Green cluster: (S2, F) + (S3, F). Red cluster: H"
-monograph,2671,48,48.0,ambiguous_small,"ible rate > 30 %. **Key takeaway:** 7 green, 29 yellow, 12 red out of 48 cells. Green cluster: (S2, F) + (S3, F). Red cluster: HR and PaO2 in"
+monograph,2671,7,7.0,ambiguous_small,"f baseline *or* diverged + implausible rate > 30 %. **Key takeaway:** 7 green, 29 yellow, 12 red out of 48 cells. Green cluster: S2_F + S3_F."
+monograph,2671,29,29.0,ambiguous_small,"e *or* diverged + implausible rate > 30 %. **Key takeaway:** 7 green, 29 yellow, 12 red out of 48 cells. Green cluster: S2_F + S3_F. Red clust"
+monograph,2671,12,12.0,ambiguous_small,"rged + implausible rate > 30 %. **Key takeaway:** 7 green, 29 yellow, 12 red out of 48 cells. Green cluster: S2_F + S3_F. Red cluster: HR and"
+monograph,2671,48,48.0,ambiguous_small,"ible rate > 30 %. **Key takeaway:** 7 green, 29 yellow, 12 red out of 48 cells. Green cluster: S2_F + S3_F. Red cluster: HR and PaO2 in S3 / S"
 monograph,2675,6,6.0,ambiguous_small,"s red on every output — the worst single cell in the atlas. ![Figure 6. Reliability traffic light — per cell × output, one of {green, yellow"
-monograph,2675,10,10.0,ambiguous_small,"o diverged or implausible flags in the cell AND clean-run mean within 10 % of the (S1, M) baseline. Yellow = any diverged or implausible flag"
-monograph,2675,10,10.0,ambiguous_small,"e (S1, M) baseline. Yellow = any diverged or implausible flag OR mean 10 – 30 % off baseline. Red = mean > 30 % off baseline OR diverged + imp"
-monograph,2675,30,30.0,ambiguous_small,", M) baseline. Yellow = any diverged or implausible flag OR mean 10 – 30 % off baseline. Red = mean > 30 % off baseline OR diverged + implausi"
+monograph,2675,10,10.0,ambiguous_small,o diverged or implausible flags in the cell AND clean-run mean within 10 % of the S1_M baseline. Yellow = any diverged or implausible flag OR
+monograph,2675,10,10.0,ambiguous_small,the S1_M baseline. Yellow = any diverged or implausible flag OR mean 10 – 30 % off baseline. Red = mean > 30 % off baseline OR diverged + imp
+monograph,2675,30,30.0,ambiguous_small,S1_M baseline. Yellow = any diverged or implausible flag OR mean 10 – 30 % off baseline. Red = mean > 30 % off baseline OR diverged + implausi
 monograph,2675,30,30.0,ambiguous_small,rged or implausible flag OR mean 10 – 30 % off baseline. Red = mean > 30 % off baseline OR diverged + implausible rate > 30 %. Distribution: 7
 monograph,2675,30,30.0,ambiguous_small,line. Red = mean > 30 % off baseline OR diverged + implausible rate > 30 %. Distribution: 7 green / 29 yellow / 12 red across 48 cells — i.e.
 monograph,2675,7,7.0,ambiguous_small,"0 % off baseline OR diverged + implausible rate > 30 %. Distribution: 7 green / 29 yellow / 12 red across 48 cells — i.e. 7/48 (15 %), 29/48"
@@ -3024,8 +3024,8 @@ monograph,4241,5,5.0,ambiguous_small,"h. 2, without a number, and about delivery
 monograph,4242,06,6.0,ambiguous_small,ion. (5th edition; LWW publisher date confirmed as 2018 in the 2026-06-05 re-audit — bib key updated to marini2018critical accordingly. Th
 monograph,4242,05,5.0,ambiguous_small,. (5th edition; LWW publisher date confirmed as 2018 in the 2026-06-05 re-audit — bib key updated to marini2018critical accordingly. The c
 monograph,4244,3,3.0,ambiguous_small,". The copyright page reads 2019; see , OPEN-3.) --- ## Appendix A — Experiment log index *Every code used"
-monograph,4262,22,22.0,none,"image + scenario smoke + detector recalibration | | []{#s005} S005 | 22-run pilot on (S1, M) | | []{#s006} S006 | Full Morris sweep (1,280 ru"
-monograph,4263,"1,280",1280.0,guard,"005 | 22-run pilot on (S1, M) | | []{#s006} S006 | Full Morris sweep (1,280 runs) | | []{#s007} S007 | Targeted reproducibility check (3-layer, a"
+monograph,4262,22,22.0,none,"image + scenario smoke + detector recalibration | | []{#s005} S005 | 22-run pilot on S1_M | | []{#s006} S006 | Full Morris sweep (1,280 runs)"
+monograph,4263,"1,280",1280.0,guard,"} S005 | 22-run pilot on S1_M | | []{#s006} S006 | Full Morris sweep (1,280 runs) | | []{#s007} S007 | Targeted reproducibility check (3-layer, a"
 monograph,4264,3,3.0,ambiguous_small,"eep (1,280 runs) | | []{#s007} S007 | Targeted reproducibility check (3-layer, all bit-exact) | | []{#s008} S008 | Tier-1 statistical refinem"
 monograph,4265,1,1.0,ambiguous_small,"roducibility check (3-layer, all bit-exact) | | []{#s008} S008 | Tier-1 statistical refinement (block bootstrap, Wasserstein null) | | []{#s0"
 monograph,4266,2,2.0,ambiguous_small,"inement (block bootstrap, Wasserstein null) | | []{#s009} S009 | Tier-2 (seed stability, continuous-ARDS, pytest, GHA CI) | | []{#s010} S010"

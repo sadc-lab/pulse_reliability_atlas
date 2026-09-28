@@ -36,8 +36,8 @@ monograph,md_inline_code,1348,42,"mple (`data/runs/full_sweep/morris_sample.parq
 monograph,md_inline_code,1349,20,"ll_sweep/morris_sample.parquet`; `seed=42`, `trajectories=20`, `levels=4`) against the current image, with output wr"
 monograph,md_inline_code,1349,4,"is_sample.parquet`; `seed=42`, `trajectories=20`, `levels=4`) against the current image, with output written to a pa"
 monograph,md_inline_code,1356,1,ly-diverged runs reproducing divergence with `exit_code = 1`** (i.e. the same 20-run male-extreme cluster that §3.5
-monograph,md_inline_code,1365,44,"ability on cell (S2, M).** A fresh Morris sample at `seed=44`, `trajectories=20`, `levels=4` (160 unique points, mat"
-monograph,md_inline_code,1365,20,", M).** A fresh Morris sample at `seed=44`, `trajectories=20`, `levels=4` (160 unique points, matching canonical sam"
+monograph,md_inline_code,1365,44,"stability on cell S2_M.** A fresh Morris sample at `seed=44`, `trajectories=20`, `levels=4` (160 unique points, mat"
+monograph,md_inline_code,1365,20,"S2_M.** A fresh Morris sample at `seed=44`, `trajectories=20`, `levels=4` (160 unique points, matching canonical sam"
 monograph,md_inline_code,1365,4,"resh Morris sample at `seed=44`, `trajectories=20`, `levels=4` (160 unique points, matching canonical sample size; dif"
 monograph,md_inline_code,1367,42,cal sample size; different seed from both canonical `seed=42` and the prior [S009](#s009) stability check at `seed=4
 monograph,md_inline_code,1368,43,"=42` and the prior [S009](#s009) stability check at `seed=43, trajectories=10`) was run on the mild-ARDS male cell."

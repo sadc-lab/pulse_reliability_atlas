@@ -143,12 +143,12 @@
         "frequency": 17,
         "identity": 104,
         "priority": 40,
-        "scope": 195,
+        "scope": 196,
         "strength": 19,
-        "universal": 523
+        "universal": 521
       },
       "kept_per_word": {
-        "all": 108,
+        "all": 107,
         "alone": 17,
         "always": 2,
         "any": 38,
@@ -177,9 +177,9 @@
         "neither": 14,
         "never": 11,
         "no": 105,
-        "none": 10,
+        "none": 9,
         "nothing": 4,
-        "only": 83,
+        "only": 84,
         "regardless": 1,
         "same": 64,
         "single": 30,
@@ -193,10 +193,10 @@
         "unique": 11,
         "whole": 7
       },
-      "lines_with_a_kept_token": 786,
+      "lines_with_a_kept_token": 785,
       "recall": {
-        "tokens_in_raw_text": 910,
-        "tokens_kept": 910,
+        "tokens_in_raw_text": 909,
+        "tokens_kept": 909,
         "tokens_masked": 0,
         "masked_per_rule": {
           "md_fence": 0,
@@ -216,16 +216,16 @@
     }
   },
   "totals": {
-    "kept": 1948,
+    "kept": 1947,
     "masked": 34,
     "kept_per_family": {
       "extent": 22,
       "frequency": 34,
       "identity": 242,
       "priority": 74,
-      "scope": 430,
+      "scope": 431,
       "strength": 49,
-      "universal": 1097
+      "universal": 1095
     }
   }
 }

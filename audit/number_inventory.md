@@ -3041,3 +3041,25 @@ runs" out of §4.6), `single` −1 ("A single (S1, M) baseline"). Supplement:
 `Only` +1, `any` +1 (Table S6 caption), `each` −1 ("Within each group"),
 `neither` +1, `no` −1 ("no female cell crosses"), `only` +1 (Table S6
 caption), `single` +1 ("That single baseline").
+
+## Addendum 2026-09-28 — monograph Sobol sentence and cell labels
+
+All three producers were re-run on `bd0c86d`, after `85b0d24` (the monograph's
+dominant-input Sobol sentence), `8ab2fd4` (its 25 parenthesised cell labels
+written S1_M) and `bd0c86d` (`reporting_summary_draft.md`, outside the
+inventory's three artefacts): 39 / 19 / 20 probes, 0 FAIL each.
+
+`inventory.csv`, `masked_by_rule.csv` and `summary.json`: no count moves
+(5,777 rows; paper 514, supplement 1,897 and monograph totals unchanged).
+The cell labels carry no retained literal, so the notation change only
+rewrites context columns; `residue_by_literal.csv` changes context on nine
+monograph rows (0.66, 0.87, 138, 158, 159, 22, 79, 84, 93), counts unchanged.
+
+**Number words** (1,383 -> 1,387), all in the monograph sentence of
+`85b0d24`: `five` +1 ("the five bootstrap seeds", "under all five", "two of
+the five seeds" for "in all five" and "surviving all five"), `one` +2 ("every
+one of the five", "one other"), `two` +1 ("two of the five seeds").
+
+**Prose quantifiers** (1,948 -> 1,947), same sentence: `all` −1, `none` −1
+("none surviving all five" removed), `only` +1 ("two of the five seeds
+only"). `every` is unchanged ("in every draw" -> "under every one").
