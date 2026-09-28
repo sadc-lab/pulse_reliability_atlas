@@ -19,8 +19,15 @@ was written (fixed 2026-09-07):
     in Methods 4.6 by 83da8a2 earlier the same day -- that sweep found one
     locus and the population was two, which is exactly the failure a guard
     exists to stop repeating.
+  * the 2026-09-07 fix wrote "in every draw under each of five independent
+    seeds", which is false as read: a draw is ONE of the N_BOOTSTRAP
+    resamples, and the criterion is that the 2.5th percentile of those draws
+    is >= 0.6 under each seed. On 2026-09-27, 16 of the 23 stable inputs were
+    measured to have draws below 0.6 (up to 1.9 % of them). The same wording
+    stood in Methods 4.6 and Supplement S3-sobol; all three now state the
+    per-seed lower bound, and CHECK F bans "every draw" in both files.
 
-Those two are therefore checked here against ``scripts/sobol_ci_buckets.py``,
+Those three are therefore checked here against ``scripts/sobol_ci_buckets.py``,
 read as text rather than imported, so that running this guard never executes
 the bootstrap.
 
@@ -66,6 +73,9 @@ WHAT IT CHECKS.
   the sentence above -- the figure draws every entry, the sentence counts
   inside the top three only -- so the two legitimately disagree, and each is
   measured on its own table.
+  CHECK F: "every draw" appears nowhere in paper.tex or supplement.tex. The
+  monograph is not read: its own "linear in every draw" (manuscript.md, 31 of
+  48) uses a draw for one whole seed run and is true under either reading.
 
 Usage:
       python scripts/check_pair_counts.py              (measure)
@@ -84,7 +94,12 @@ import pandas as pd
 
 REPO = Path(__file__).resolve().parents[1]
 PAPER = REPO / "preprint_npj" / "paper.tex"
+SUPPLEMENT = REPO / "preprint_npj" / "supplement.tex"
 BUCKETS = REPO / "results" / "sobol_ci_buckets.csv"
+
+# CHECK F. A draw is one bootstrap resample; the stable-set criterion is a
+# per-seed lower bound, which no single draw has.
+DRAW_DEFECT = "every draw"
 
 # The sentences under guard, delimited rather than pattern-matched.
 SENTENCE_OPEN = "The same mechanism sets how much data each index rests on"
@@ -195,9 +210,17 @@ def extract_sentence(
     return paper_text[start:end]
 
 
-def check(paper_text: str, df: pd.DataFrame) -> list[str]:
+def check(paper_text: str, df: pd.DataFrame, supplement_text: str = "") -> list[str]:
     """Return the list of problems; empty means the manuscript agrees."""
     problems: list[str] = []
+
+    # CHECK F first, so no early return below can skip it.
+    for name, text in (("paper.tex", paper_text), ("supplement.tex", supplement_text)):
+        if DRAW_DEFECT in text:
+            problems.append(
+                f"{name} says {DRAW_DEFECT!r}: a draw is one resample, and the "
+                f"criterion is a per-seed lower bound"
+            )
 
     # CHECK C first: every later number is quoted against this denominator.
     totals = set(df["n_total_pairs"].unique())
@@ -261,11 +284,12 @@ def check(paper_text: str, df: pd.DataFrame) -> list[str]:
     return problems
 
 
-def self_test(paper_text: str, df: pd.DataFrame) -> int:
+def self_test(paper_text: str, df: pd.DataFrame, supplement_text: str) -> int:
     """Calibrate on the EXACT defects this guard exists to catch."""
     print("## Self-test\n")
     failures: list[str] = []
     m = measure(df)
+    supp = supplement_text
 
     # Positive controls: each count, wrong by one, must be caught.
     mutations = [
@@ -284,28 +308,42 @@ def self_test(paper_text: str, df: pd.DataFrame) -> int:
         if old not in paper_text:
             failures.append(f"mutation target absent, cannot calibrate: {old!r}")
             continue
-        if not check(paper_text.replace(old, new, 1), df):
+        if not check(paper_text.replace(old, new, 1), df, supp):
             failures.append(f"guard did NOT catch a wrong {label}")
         else:
             print(f"  ok    catches a wrong {label}")
 
-    # CHECK D calibrated on the two defects that were live in this paragraph
-    # until 2026-09-07, reproduced verbatim rather than by a plausible stand-in.
+    # CHECK D and CHECK F calibrated on the three defects that were live in this
+    # paragraph (two until 2026-09-07, one until 2026-09-27), reproduced
+    # verbatim rather than by a plausible stand-in.
     historical = [
         (r"$\sigma / \mu^{*} \geq 0.6$", r"$\sigma / \mu^{*} > 0.6$",
          "the threshold written as a strict inequality"),
-        ("in every draw under each of five independent seeds",
-         "in all five bootstrap draws",
+        ("lies at or above it under each of five independent seeds",
+         "clear it in all five bootstrap draws",
          "a seed count passed off as a draw count"),
+        (r"whose 95~\% bootstrap interval lies at or above it under each of five independent seeds",
+         "that clear it in every draw under each of five independent seeds",
+         "a per-seed lower bound passed off as every draw"),
     ]
     for old, new, label in historical:
         if old not in paper_text:
             failures.append(f"historical defect target absent: {old!r}")
             continue
-        if not check(paper_text.replace(old, new, 1), df):
+        if not check(paper_text.replace(old, new, 1), df, supp):
             failures.append(f"guard did NOT catch {label}")
         else:
             print(f"  ok    catches {label}")
+
+    # CHECK F on the supplement, with its own 2026-09-27 wording reinjected.
+    supp_old = "keep the lower bound of this joint interval at or above 0.6."
+    supp_new = "keep a lower bound at or above 0.6 in every draw."
+    if supp_old not in supp:
+        failures.append(f"supplement defect target absent: {supp_old!r}")
+    elif not check(paper_text, df, supp.replace(supp_old, supp_new, 1)):
+        failures.append("guard did NOT catch the supplement's every-draw wording")
+    else:
+        print("  ok    catches the supplement's every-draw wording")
 
     # CHECK E calibrated on its own count, measured from the full table
     # rather than assumed from the 144 the sentence above uses.
@@ -314,7 +352,7 @@ def self_test(paper_text: str, df: pd.DataFrame) -> int:
     new_out = f"{NUM_WORDS[n_out - 1].capitalize()} tiles are outlined"
     if old_out not in paper_text:
         failures.append(f"outlined-count target absent, cannot calibrate: {old_out!r}")
-    elif not check(paper_text.replace(old_out, new_out, 1), df):
+    elif not check(paper_text.replace(old_out, new_out, 1), df, supp):
         failures.append("guard did NOT catch a wrong outlined-cell count")
     else:
         print("  ok    catches a wrong outlined-cell count")
@@ -325,7 +363,7 @@ def self_test(paper_text: str, df: pd.DataFrame) -> int:
         (TRIGGER_OPEN, "Influence is not", "trigger"),
         (CAPTION_OPEN, "White tiles mark combinations with no", "caption"),
     ]:
-        if not check(paper_text.replace(opener, stub, 1), df):
+        if not check(paper_text.replace(opener, stub, 1), df, supp):
             failures.append(
                 f"guard passed with the {which} opening delimiter removed"
             )
@@ -333,7 +371,7 @@ def self_test(paper_text: str, df: pd.DataFrame) -> int:
             print(f"  ok    fails loudly if the {which} sentence is rewritten away")
 
     # Negative controls.
-    if check(paper_text, df):
+    if check(paper_text, df, supp):
         failures.append("guard fails on the unmodified manuscript")
     else:
         print("  ok    unmodified manuscript passes")
@@ -343,7 +381,7 @@ def self_test(paper_text: str, df: pd.DataFrame) -> int:
         f"{m['single']} rest on a single pair",
         f"{m['single'] - 1} rest on a single pair", 1,
     ) + f"\n% decoy {m['single']} rest on a single pair\n"
-    if not check(decoyed, df):
+    if not check(decoyed, df, supp):
         failures.append("a decoy outside the guarded sentence satisfied the check")
     else:
         print("  ok    a matching phrase outside the sentence does not count")
@@ -368,9 +406,10 @@ def main() -> int:
         return 1
     df = pd.read_csv(BUCKETS)
     paper_text = PAPER.read_text(encoding="utf-8")
+    supplement_text = SUPPLEMENT.read_text(encoding="utf-8")
 
     if args.self_test:
-        return self_test(paper_text, df)
+        return self_test(paper_text, df, supplement_text)
 
     m = measure(df)
     if args.list:
@@ -387,7 +426,7 @@ def main() -> int:
         return 0
 
     print("## Manuscript pair counts vs results/sobol_ci_buckets.csv\n")
-    problems = check(paper_text, df)
+    problems = check(paper_text, df, supplement_text)
     if problems:
         print(f"  FAIL  {len(problems)} disagreement(s):")
         for p in problems:
@@ -404,6 +443,7 @@ def main() -> int:
           f"sobol_ci_buckets.PROMOTE_THRESHOLD")
     print(f"  ok    {design['n_seeds']} seeds in the paper, in the script and "
           f"in the CSV's ra_lo_* columns")
+    print(f"  ok    no {DRAW_DEFECT!r} in paper.tex or supplement.tex")
     morris = pd.read_parquet(MORRIS)
     n_out = int((morris["n_clean_pairs"] == 1).sum())
     print(f"  ok    Figure 3 caption outlines {n_out} cells, matching the "

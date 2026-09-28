@@ -2623,7 +2623,7 @@ for _cid, _text, _value, _key in [
      "preregistered compute envelope of 1,500 additional runs",
      1500, "sobol_budget_runs_preregistered"),
     ("T2.sobol.core_nonlinear",
-     "23 of the 144 top-three inputs keep a lower bound at or above 0.6 in every draw",
+     "23 of the 144 top-three inputs keep a lower bound at or above 0.6 under each of five seeds",
      23, "core_nonlinear_all_seeds"),
     ("T2.sobol.cells_touched",
      "the stable set spans 17 of the 48 cells",
@@ -5753,7 +5753,7 @@ VTCV_TEXT_LOCI = (
 # had no anchor and were printed under a wrong label ("no Vt combination is
 # estimable ... 3 estimable combinations in S3") until the number audit of
 # 2026-09-13 (audit/number_inventory.md section 3.2). "Stable" means the lower
-# bound clears 0.6 in every draw under all five seeds: nonlinear_all_seeds.
+# bound clears 0.6 under each of the five seeds: nonlinear_all_seeds.
 VTCV_STABLE_VT_SPLIT = {"S1": 0, "S3": 3}
 VTCV_STABLE_VT_TEXT = (
     "preprint_npj/paper.tex",
@@ -5896,7 +5896,7 @@ def check_vtcv_scenario_split() -> int:
                          f"{got} (published {published})",
                          "PASS" if good else "**FAIL**"))
         # NEGATIVE CALIBRATION: a single seed must not reproduce the split, or
-        # "every draw under each of five seeds" would be doing no work here.
+        # "under each of five seeds" would be doing no work here.
         any_seed = vt[vt["nonlinear_any_seed"].astype(bool)]
         decoy = tuple(int((any_seed["scenario"] == sc).sum()) for sc in VTCV_STABLE_VT_SPLIT)
         good = decoy != tuple(VTCV_STABLE_VT_SPLIT.values())

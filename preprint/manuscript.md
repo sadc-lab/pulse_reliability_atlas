@@ -1924,7 +1924,7 @@ rather than executed.
 The reason is the budget, not an absence of non-linearity to decompose.
 The post-hoc ratio-aware bootstrap is the stricter test of the two, and
 23 of the 144 top-three inputs still hold a lower bound at or above 0.6
-in every draw, spanning 17 of the 48 combinations. What the atlas
+under each of five independent seeds, spanning 17 of the 48 combinations. What the atlas
 reports here is a deferral under a declared budget, not a finding that
 the variance decomposition would have been uninformative.
 
