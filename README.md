@@ -521,7 +521,7 @@ Licensing follows the function of each artefact, not the folder it sits in:
 | Artefact | Licence |
 |---|---|
 | Code (`src/`, `scripts/`, `engine/`) and the per-experiment lab-notebook entries (`experiments_log/`) | **Apache-2.0**, matching the upstream Pulse engine licence — see [LICENSE](LICENSE) |
-| Data deposited at Zenodo (raw simulation outputs, derived parquet artefacts) | **CC-BY-4.0**, the conventional choice for a data archive; version 4.0 also covers sui generis database rights, which Apache-2.0 does not address |
+| Data deposited at Zenodo (raw simulation outputs, derived parquet artefacts) | **CC-BY-4.0**, the conventional choice for a data archive |
 | The companion technical monograph (authors' own content) | **CC-BY-4.0** |
 
 Verbatim third-party excerpts — notably from the Pulse documentation and

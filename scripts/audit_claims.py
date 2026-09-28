@@ -6328,7 +6328,10 @@ PUBLICATION_CLAIM_FILES = (
     "preprint_npj/supplement.tex",
     "preprint/manuscript.md",
 )
-PUBLICATION_CLAIM_TOTAL = 5
+# 5 -> 4 on 2026-09-28: Data availability's "already openly available in the public
+# code repository" was merged into Code availability, whose "is released under the
+# Apache" sentence already counted here; the register lists the four loci.
+PUBLICATION_CLAIM_TOTAL = 4
 
 
 def check_publication_gate() -> int:

@@ -306,6 +306,15 @@ tokens after expansion: none). Both land on the same reading text.
 > predates this addition, so the question was put to the author on
 > 2026-09-13. **Answer: BIOSE gave support, not funding.** Nothing to change.
 >
+> **2026-09-28.** The author found "The funders" unclear: which bodies? Asked
+> again, the author named four funders: ANR (France 2030, ENACT), the Région
+> Grand Est, the CHU Sainte-Justine Foundation and R-SADC -- the same four that
+> preceded the sentence when `91d705d` added it. The sentence now reads "These
+> four funders played no role…", and the BIOSE sentence moved after it, so
+> the four bodies named immediately before are exactly the four it covers.
+> Rejected alternative: naming all four inside the sentence (about ten more
+> words for the same information). npj's wording is otherwise unchanged.
+>
 > The finding as originally recorded on 2026-07-29 follows. Its line
 > reference `paper.tex:372` is stale.
 

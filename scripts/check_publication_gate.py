@@ -78,10 +78,12 @@ CLAIMS: list[tuple[str, str, int, str]] = [
      "Introduction: the pipeline itself is public NOW."),
     ("preprint_npj/paper.tex", "are released open-source", 1,
      "Code availability: the artefacts are public NOW."),
-    ("preprint_npj/paper.tex", "already openly available in the public code repository", 1,
-     "Data availability: the repository is public NOW, pre-deposit."),
+    # 2026-09-28: Data availability no longer carries "already openly available in
+    # the public code repository". The code, ledger and lab-notebook entries it named
+    # are now stated once, in Code availability, by the anchor below; the claim that
+    # they are public NOW moved with them rather than disappearing.
     ("preprint_npj/paper.tex", "released under the Apache-2.0 license at", 1,
-     "Code availability: a resolvable public URL is given."),
+     "Code availability: code, ledger and lab-notebook entries are public NOW, at a resolvable URL."),
     # Added 2026-09-16 with the sentence itself: Methods 4.7 now offers the commit
     # history as the evidence trail behind the AI-assisted audits, which is one more
     # present-tense claim that the repository is readable by anyone.
@@ -170,10 +172,10 @@ def main() -> int:
         return 1
     if repo != "200":
         print(f"\n  BLOCKED: repository is not public ({repo}); the control confirms the")
-        print("  network is fine. All eight statements above are false today.")
+        print(f"  network is fine. All {len(CLAIMS)} statements above are false today.")
         print("  Make the repository public BEFORE submitting, per the release order.")
         return 1
-    print("\n  CLEAR: repository is public and all eight statements are true.")
+    print(f"\n  CLEAR: repository is public and all {len(CLAIMS)} statements are true.")
     return 0
 
 

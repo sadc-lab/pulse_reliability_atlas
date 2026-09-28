@@ -21,20 +21,30 @@ before it. The maintainer's decision, recorded 2026-08-17 and restated
 3. npj Digital Medicine submission.
 
 Under that order the sentences are true at every moment a reader can read them.
-Reversing steps 2 and 3 would publish five false statements.
+Reversing steps 2 and 3 would publish four false statements (five before
+2026-09-28, see §2).
 
-## 2. The five loci, verbatim positions
+## 2. The four loci, verbatim positions
 
 | file | line | claim |
 |---|---|---|
-| `preprint_npj/paper.tex` | 454 | the sampler, driver, classifier, pipeline and ledger "are released open-source" |
-| `preprint_npj/paper.tex` | 475 | code, ledger and lab-notebook entries "are already openly available in the public code repository" |
-| `preprint_npj/paper.tex` | 479 | the codebase "is released under the Apache-2.0 license at <URL>" |
-| `preprint_npj/supplement.tex` | 941 | the experiment-log entries "are openly available under `experiments_log/`" |
-| `preprint/manuscript.md` | 3579 | the numbers, figures and tables "are openly available in the …" |
+| `preprint_npj/paper.tex` | 393 | the sampler, driver, classifier, pipeline and ledger "are released open-source" |
+| `preprint_npj/paper.tex` | 414 | the codebase, including the ledger, "is released under the Apache-2.0 license at <URL>, together with the per-experiment lab-notebook entries" |
+| `preprint_npj/supplement.tex` | 1073 | the experiment-log entries "are openly available under `experiments_log/`" |
+| `preprint/manuscript.md` | 3690 | the numbers, figures and tables "are openly available in the …" |
 
 Line numbers drift with editing; the guard in `scripts/audit_claims.py` counts
 the loci rather than trusting these positions, and fails if the count changes.
+Positions re-read on 2026-09-28.
+
+**2026-09-28 — five loci became four.** Data availability used to say that the
+code, the audit ledger and the lab-notebook entries "are already openly available
+in the public code repository", while Code availability said the codebase "is
+released under the Apache-2.0 license at <URL>". Both closing statements were
+shortened on the author's request, and the repetition removed: the code, the
+ledger and the lab-notebook entries are now stated once, in Code availability.
+The present-tense claim did not disappear; it moved into that sentence, which the
+gate already anchored. The constraint of §1 is unchanged.
 
 ## 3. Last verified state of the repository
 
