@@ -2945,3 +2945,54 @@ observed Pulse rejection message".
 output value" corrected), `no` +1 ("no run of this sweep reached one"), `first`
 +1. Supplement: `no` +2 and `each` +1 (the S3.3 and S3.1 sentences). Monograph:
 `no` +2 (its twin of the S3.3 sentence).
+
+## Addendum 2026-09-27 (b) — Methods §4.5–§4.6 rewrite and the "every draw" correction
+
+All three producers were re-run on `4404203`, after `38a8998` (Methods §4.5
+and §4.6) and `4404203` (the stable-set criterion in Results §2.2, Supplement
+S3.8 and monograph L1927): `audit_number_inventory.py` 39 probes,
+`audit_number_words.py` 19, `audit_prose_quantifiers.py` 20, 0 FAIL each.
+Each delta was predicted from the two diffs, then compared with the line and
+context columns dropped. Every one is accounted for below.
+
+Retained occurrences in the paper go from **525 to 522**; the supplement and
+the monograph retain the same literals. `inventory.csv` 5,786 -> 5,783:
+
+| literal | bucket | change | what it is |
+|---|---|---:|---|
+| `0.001` | none | −1 | "reported conservatively as $p < 0.001$", removed from §4.6: nothing in the paper or supplement has reported those two p-values since `d88a1ca` |
+| `2{,}000` | guard | −2 | the same removed clause: "with 2{,}000 relabellings" and the "1/2{,}000" floor. The permutation null's own "2{,}000 random relabellings" stays, once (crosswalk row `T2.analysis.spearman_n_bootstrap` 8 -> 6 in `38a8998`) |
+| `1` | ambiguous_small | −1 | the 1 of "1/2{,}000" |
+| `3` | ambiguous_small | −1 | "top-3 fraction", rewritten |
+| `95` | none | +2 | the 95 % interval now named in the stable-set criterion, once in Results §2.2 and once in §4.6; it is `ALPHA = 0.05` in `scripts/sobol_ci_buckets.py`, a design constant, not a result |
+
+`masked_by_rule.csv`, `number_words_masked.csv` and
+`prose_quantifiers_masked.csv` are unchanged in content: the removed `\cite`
+and the new `\S\ref` are stripped before extraction.
+
+**Number words** (1,379 -> 1,382). Paper: `one` −1 and `One` +1 (the Sobol
+sentence now opens "One Sobol sample"); `four` +1 ("The four flags" and "all
+four flags" replace "The four-flag run-level classifier"); `seven` +1 ("all
+seven inputs"); `six` +1 ("all six outputs", "all six come", for "all six");
+`three` +1 ("The top-three inputs whose"); `two` +1 ("the two hard flags",
+"at least two trajectories", less "these two readings"); `zero` −3 ("exceeds
+zero", "non-zero", "reaching zero"). Monograph: `five` +1 ("under each of five
+independent seeds").
+
+**Prose quantifiers** (1,943 -> 1,949). Paper: `all` +3 ("all four flags",
+"all six" twice for once, "all seven inputs"); `only` +3 ("counts only",
+"red only when", "using only"); `every` −2 ("in every draw" twice, "Scoring
+every cell", "every output of a cell" out; "every combination red", "every
+firing cell" in); `Each` +1 ("Each distance"); `any` +1 ("any hard flag");
+`both` +1 ("both clean"); `no` +1 ("changes no colour"); `neither` −1
+("neither the classifier, the map nor"); `same` −1 ("while the same
+preregistration fixed the bolt-on's compute envelope"; the envelope now sits
+in the first sentence). Supplement and monograph: `each` +1 and `every` −1
+each.
+
+`summary.json`: `guard_pinned_literals` 1,067 -> 1,070. `guard_literals()`
+counts the quoted strings of `audit_claims.py` and `check_*.py` that carry a
+digit and a space; the three new ones are in `scripts/check_pair_counts.py`
+(`4404203`): the two supplement sentences of its self-test and the new
+Results §2.2 phrase, whose "95" is its only digit. The restated ledger label
+in `audit_claims.py` replaces one such string with another (net 0).

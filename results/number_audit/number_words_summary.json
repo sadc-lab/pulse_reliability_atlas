@@ -8,7 +8,7 @@
     "paper": {
       "path": "preprint_npj/paper.tex",
       "kept_per_class": {
-        "cardinal": 212,
+        "cardinal": 214,
         "multiplicative": 2,
         "ordinal": 32
       },
@@ -17,25 +17,25 @@
         "fifth": 1,
         "first": 11,
         "five": 7,
-        "four": 35,
+        "four": 36,
         "fourth": 1,
         "half": 2,
         "nine": 3,
         "one": 49,
         "second": 16,
-        "seven": 13,
-        "six": 14,
+        "seven": 14,
+        "six": 15,
         "sixteen": 1,
         "third": 3,
-        "three": 26,
+        "three": 27,
         "twelve": 2,
-        "two": 39,
-        "zero": 13
+        "two": 40,
+        "zero": 10
       },
       "lines_with_a_kept_token": 66,
       "recall": {
-        "tokens_in_raw_text": 251,
-        "tokens_kept": 246,
+        "tokens_in_raw_text": 253,
+        "tokens_kept": 248,
         "tokens_masked": 5,
         "masked_per_rule": {
           "tex_comment": 5,
@@ -109,7 +109,7 @@
     "monograph": {
       "path": "preprint/manuscript.md",
       "kept_per_class": {
-        "cardinal": 484,
+        "cardinal": 485,
         "multiplicative": 11,
         "ordinal": 65
       },
@@ -119,7 +119,7 @@
         "doubles": 1,
         "eight": 11,
         "first": 40,
-        "five": 21,
+        "five": 22,
         "four": 73,
         "fourth": 1,
         "half": 5,
@@ -139,10 +139,10 @@
         "two": 112,
         "zero": 24
       },
-      "lines_with_a_kept_token": 488,
+      "lines_with_a_kept_token": 489,
       "recall": {
-        "tokens_in_raw_text": 561,
-        "tokens_kept": 560,
+        "tokens_in_raw_text": 562,
+        "tokens_kept": 561,
         "tokens_masked": 1,
         "masked_per_rule": {
           "md_fence": 1,
@@ -162,10 +162,10 @@
     }
   },
   "totals": {
-    "kept": 1379,
+    "kept": 1382,
     "masked": 14,
     "kept_per_class": {
-      "cardinal": 1169,
+      "cardinal": 1172,
       "multiplicative": 26,
       "ordinal": 184
     }
