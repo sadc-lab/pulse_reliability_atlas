@@ -818,6 +818,16 @@ bytes) and `preprint/build/manuscript.docx`
 bytes). Re-freeze 48 edits `paper.tex`, `supplement.tex` and scripts only
 (`git diff 4404203..fd86dc2 -- preprint/manuscript.md` is empty); the
 monograph was not rebuilt and both of its hashes were re-measured unchanged.
+After re-freeze 48, `85b0d24` (its Sobol dominant-input sentence names seeds
+as seeds) and `8ab2fd4` (its 25 parenthesised cell labels written S1_M) edit
+`manuscript.md` only; the npj files do not change, so this is not a
+re-freeze. The monograph was rebuilt at that commit with
+`scripts/build_paper.ps1`, still 122 pages, and these hashes replace the two
+above as its identifying build: `preprint/build/manuscript.pdf`
+`52e2977cf21d272d25f7e10e4b57483497a237cda52d83e75041627620828a2b` (1,358,512
+bytes) and `preprint/build/manuscript.docx`
+`a96ca581498bea87b0b1ff09130ebb65a8dccd35b32bb26ac9312dadb84a2650` (1,016,861
+bytes).
 
 ⚠️ **These hashes are valid for this build only.** Any further edit to
 `paper.tex` or `supplement.tex` invalidates them, and they must be re-frozen
@@ -930,8 +940,8 @@ was edited (`1d684c7`, then `f9e3bb7`, then `78396c0` and `026df18`, then
 with `scripts/build_paper.ps1`. They did not change at re-freezes 25 to 43,
 which leave `manuscript.md` untouched, and changed again after re-freeze 43
 for a real reason (`07d026b`, above), at re-freeze 44 (`031e1f2`, above),
-at re-freeze 46 (`bcec0db` and `1a88e2a`, above) and at re-freeze 47
-(`4404203`, above).
+at re-freeze 46 (`bcec0db` and `1a88e2a`, above), at re-freeze 47
+(`4404203`, above) and after re-freeze 48 (`85b0d24` and `8ab2fd4`, above).
 `build_npj.ps1` alone never rebuilds it.
 
 **Re-frozen forty-eight times.** The first three were one-token abstract edits
