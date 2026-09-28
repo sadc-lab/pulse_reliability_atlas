@@ -313,8 +313,8 @@ machine.
 ## How this repository verifies itself
 
 Much of this repository's prose and code was drafted with AI assistance,
-and every quantitative claim in the manuscript is checked by a machine
-rather than by care. The two facts are connected: the checks exist
+and every quantitative claim registered in the audit ledger is re-derived
+by a machine rather than checked by care. The two facts are connected: the checks exist
 because the drafting is fallible, and each was written **after** a
 specific defect had already slipped through.
 
