@@ -47,7 +47,7 @@ set -e
 #
 # Verified when the patterns were widened: `git ls-files` matched none of
 # TODO_*, ROADMAP_*, NEXT_* at that time, so no existing tracked file is caught.
-SENSITIVE=$(git diff --cached --name-only --diff-filter=d | grep -Exi '(Paper_retour_PJ\.pdf|paper_feedback_michaelSauthier\.docx|internal_morris_rebuttal\.md|(.*/)?TODO_.*\.md|(.*/)?ROADMAP_.*\.md|(.*/)?NEXT_SESSION.*\.md)' || true)
+SENSITIVE=$(git diff --cached --name-only --diff-filter=d | grep -Exi '(Paper_retour_PJ\.pdf|paper_feedback_michaelSauthier\.docx|(paper|supplement)_revised_Claude_MS\.docx|internal_morris_rebuttal\.md|(.*/)?TODO_.*\.md|(.*/)?ROADMAP_.*\.md|(.*/)?NEXT_SESSION.*\.md)' || true)
 if [ -n "$SENSITIVE" ]; then
     echo ""
     echo "pre-commit: refusing to commit sensitive internal review material:"
