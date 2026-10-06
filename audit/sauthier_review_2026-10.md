@@ -184,7 +184,16 @@ alternative écartée) :
 
 Gardes recalés sur les nouveaux libellés, sans rien affaiblir (le fait vérifié
 avant chaque chaîne) : `audit_claims.py` (gardes de phrases, 13 littéraux du
-contrôle S033, table de correspondance : 23 lignes recalées, 1 supprimée
-« 82 of 85 », 2 ajoutées, donc 95 entrées), `audit/backref_manifest.txt`
-(+1 renvoi : « Table 1 of the main manuscript gives the correspondence »). La
-monographie n'est pas renommée : elle documente les données, qui gardent S1–S4.
+contrôle S033, table de correspondance : 30 lignes recalées, soit 22 à la
+transposition, dont 3 sur le seul compte, et les 8 lignes de la Table 3 au
+renommage ; 1 supprimée « 82 of 85 » ; 2 ajoutées ; donc 95 entrées),
+`audit/backref_manifest.txt` (+1 renvoi : « Table 1 of the main manuscript
+gives the correspondence »). La monographie n'est pas renommée : elle documente
+les données, qui gardent S1–S4.
+
+**Erratum (mesuré le 2026-10-06, `bf6f6fe` contre `HEAD`).** Ce paragraphe disait
+d'abord « 23 lignes recalées » : 23 était le nombre de lignes en échec, pas de
+lignes modifiées. Le message du commit `d0361de` porte la même erreur, et il dit
+aussi « 14 S033 literals » : ce sont 13 littéraux distincts (14 remplacements,
+un littéral figurant deux fois dans le code). Le commit n'est pas réécrit : le
+journal d'envoi le cite comme source du re-gel 51.
