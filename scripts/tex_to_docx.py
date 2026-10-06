@@ -53,6 +53,14 @@ the PDF shows) before handing the source to pandoc. The build's ``paper.aux``
 and ``supplement.aux`` must therefore exist (they do: ``build_npj.ps1`` runs
 pdflatex before this helper).
 
+Numbering
+---------
+The same ``.aux`` numbers are written into the figure and table captions
+("Figure 3.", "Table S7.") and the section headings ("2.1", "S3.7"), which
+pandoc otherwise prints unnumbered; ``\bmhead`` headings become unnumbered
+sections, ``\tableofcontents`` becomes a static contents list, and the
+reference list gets its "References" heading (see ``number_for_word``).
+
 Usage
 -----
     python scripts/tex_to_docx.py \
@@ -292,6 +300,104 @@ def flatten_subfigures(tex: str) -> str:
     )
 
 
+# Numbering for the Word twins. pandoc's Word writer prints figure and table
+# captions and section headings WITHOUT their numbers, drops the sn-jnl
+# \bmhead headings (Data availability, Acknowledgements, ...) and the
+# \tableofcontents, and gives the reference list no heading, while the text cites
+# "Figure 3", "Table S7" and "Supplement S3.7" by number. Reported by
+# M. Sauthier on 2026-10-06 (quotation removed from the public history). Every number below
+# is the one LaTeX recorded in the .aux, i.e. the number the PDF prints.
+FLOAT_RE = re.compile(r"\\begin\{(figure|table)(\*?)\}(.*?)\\end\{\1\2\}", re.S)
+FLOAT_LABEL_RE = re.compile(r"\\label\{((?:fig|tab):[^{}]+)\}")
+CAPTION_OPEN_RE = re.compile(r"\\caption\s*(?:\[[^\]]*\])?\s*\{")
+HEADING_RE = re.compile(r"\\(section|subsection|subsubsection)\{")
+HEADING_LABEL_RE = re.compile(r"\s*\\label\{([^{}]+)\}")
+
+
+def number_floats(tex: str, labels: dict[str, tuple[str, str]]) -> tuple[str, list[str]]:
+    r"""Prefix each float caption with ``Figure N.`` or ``Table N.`` from the .aux.
+
+    Returns the new source and the floats left unnumbered (no label, no caption,
+    or a label absent from the .aux), so the caller can report them.
+    """
+    unnumbered: list[str] = []
+    out: list[str] = []
+    last = 0
+    for m in FLOAT_RE.finditer(tex):
+        kind, body_start = m.group(1), m.start(3)
+        body = m.group(3)
+        lab = FLOAT_LABEL_RE.search(body)
+        cap = CAPTION_OPEN_RE.search(body)
+        hit = labels.get(lab.group(1)) if lab else None
+        out.append(tex[last:body_start])
+        if cap and hit and hit[0]:
+            word = "Figure" if kind == "figure" else "Table"
+            out.append(body[:cap.end()] + f"\\textbf{{{word} {hit[0]}.}} " + body[cap.end():])
+        else:
+            unnumbered.append(lab.group(1) if lab else f"unlabelled {kind}")
+            out.append(body)
+        last = m.end(3)
+    out.append(tex[last:])
+    return "".join(out), unnumbered
+
+
+def _headings(tex: str) -> list[tuple[int, int, str, str, str]]:
+    """(arg_start, arg_end, level, title, label) for every numbered heading."""
+    found = []
+    for m in HEADING_RE.finditer(tex):
+        title, end = _braced(tex, m.end() - 1)
+        lab = HEADING_LABEL_RE.match(tex, end)
+        found.append((m.end(), end - 1, m.group(1), title, lab.group(1) if lab else ""))
+    return found
+
+
+def number_headings(tex: str, labels: dict[str, tuple[str, str]]) -> tuple[str, list[str]]:
+    r"""Prefix each numbered heading with its number from the .aux (``2.1``, ``S3.7``).
+
+    The prefix is written into the heading text rather than left to pandoc's
+    ``--number-sections``, which counts 1, 2, 3 and cannot produce the
+    supplement's S-prefixed numbers. Returns the new source and the headings
+    left unnumbered.
+    """
+    unnumbered: list[str] = []
+    for start, _end, _level, title, label in reversed(_headings(tex)):
+        hit = labels.get(label) if label else None
+        if hit and hit[0]:
+            tex = tex[:start] + f"{hit[0]} " + tex[start:]
+        else:
+            unnumbered.append(label or title[:40])
+    return tex, unnumbered
+
+
+def contents_list(tex: str, labels: dict[str, tuple[str, str]]) -> str:
+    r"""A static contents list standing in for ``\tableofcontents``.
+
+    Sections in bold, subsections plain, each with its .aux number. Static on
+    purpose: a Word TOC field would make every reader confirm a field update
+    when opening the file, and its page numbers would not match the PDF anyway.
+    """
+    lines = ["\\section*{Contents}"]
+    for _start, _end, level, title, label in _headings(tex):
+        number = labels.get(label, ("", ""))[0] if label else ""
+        entry = f"{number} {title}".strip()
+        if level == "section":
+            lines.append(f"\\noindent\\textbf{{{entry}}}")
+        elif level == "subsection":
+            lines.append(f"\\noindent {entry}")
+    return "\n\n".join(lines) + "\n\n"
+
+
+def number_for_word(tex: str, labels: dict[str, tuple[str, str]]) -> tuple[str, list[str]]:
+    r"""Apply every numbering repair above; return the source and what stayed unnumbered."""
+    tex, unnumbered_floats = number_floats(tex, labels)
+    if "\\tableofcontents" in tex:
+        tex = tex.replace("\\tableofcontents", contents_list(tex, labels), 1)
+    tex, unnumbered_headings = number_headings(tex, labels)
+    # sn-jnl back-matter headings, unknown to pandoc, which dropped them.
+    tex = re.sub(r"\\bmhead\{([^{}]*)\}", r"\\section*{\1}", tex)
+    return tex, unnumbered_floats + unnumbered_headings
+
+
 def transform_frontmatter(tex: str) -> str:
     r"""Rewrite the sn-jnl front matter into pandoc-friendly LaTeX.
 
@@ -379,6 +485,9 @@ def main() -> int:
     munged = flatten_subfigures(munged)
     labels = parse_aux_labels(out_path.parent)
     if labels:
+        munged, unnumbered = number_for_word(munged, labels)
+        if unnumbered:
+            print(f"  WARNING: left unnumbered in Word: {unnumbered}", file=sys.stderr)
         munged = resolve_refs(munged, labels)
     else:
         print(
@@ -410,6 +519,9 @@ def main() -> int:
         str(args.lua.resolve()),
         "--metadata",
         "link-citations=true",
+        # The PDF's reference list has a heading; pandoc's had none.
+        "--metadata",
+        "reference-section-title=References",
         "--resource-path",
         str(src_dir),
         "--standalone",

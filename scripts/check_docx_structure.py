@@ -143,6 +143,53 @@ def reference_entry(xml: str, key: str) -> str | None:
     return None
 
 
+# Numbering. Added 2026-10-06, after M. Sauthier read the Word twins and asked
+# whether the missing figure, table and section numbers were intended: pandoc
+# printed every caption and heading without its number, dropped the \bmhead
+# back-matter headings and the supplement's contents, and gave the reference list
+# no heading. Every check above passed, because none of them read a number.
+FLOAT_LABEL = re.compile(r"\\begin\{(figure|table)\*?\}.*?\\label\{((?:fig|tab):[^{}]+)\}", re.S)
+HEADING_LABEL = re.compile(r"\\(?:section|subsection|subsubsection)\{.*?\}\s*\\label\{([^{}]+)\}")
+BMHEAD = re.compile(r"\\bmhead\{([^{}]*)\}")
+CAPTION_NUMBER = re.compile(r"^(Figure|Table) (S?\d+)\.")
+
+
+def paragraphs(xml: str) -> list[tuple[str, str]]:
+    """(paragraph style id, plain text) for every paragraph of document.xml."""
+    out = []
+    for para in xml.split("</w:p>"):
+        style = re.search(r'<w:pStyle w:val="([^"]+)"', para)
+        text = re.sub(r"<[^>]+>", "", para)
+        text = text.replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">")
+        out.append((style.group(1) if style else "", re.sub(r"\s+", " ", text).strip()))
+    return out
+
+
+def numbering_problems(paras: list[tuple[str, str]], want_floats: Counter,
+                       want_headings: set[str], want_titles: list[str]) -> list[str]:
+    """What the Word twin fails to number or title, against what the .tex announces."""
+    problems = []
+    got_floats = Counter()
+    for style, text in paras:
+        if "Caption" in style:
+            m = CAPTION_NUMBER.match(text)
+            if m:
+                got_floats[f"{m.group(1)} {m.group(2)}"] += 1
+            elif text:
+                problems.append(f"caption without a number: {ascii(text[:60])}")
+    for key in sorted(set(want_floats) | set(got_floats)):
+        if got_floats[key] != want_floats[key]:
+            problems.append(f"'{key}.' caption: {want_floats[key]} in .tex, {got_floats[key]} in .docx")
+    heads = [text for style, text in paras if style.startswith("Heading")]
+    starts = {h.split(" ", 1)[0] for h in heads}
+    for number in sorted(want_headings - starts):
+        problems.append(f"no heading numbered {number}")
+    for title in want_titles:
+        if title not in heads:
+            problems.append(f"no heading {ascii(title)}")
+    return problems
+
+
 def main() -> int:
     fails = 0
     labels = parse_aux_labels(NPJ / "build")
@@ -221,6 +268,24 @@ def main() -> int:
             print(f"  *** {key}: {'no reference entry' if absent else 'lacks'} {want[:70]!r}")
         fails += len(bad)
 
+        live = re.sub(r"(?<!\\)%.*", "", tex)
+        # A figure's own label, not its first sub-panel's (Figure 3 is not "3a").
+        floats_only = re.sub(r"\\begin\{subfigure\}.*?\\end\{subfigure\}", "", live, flags=re.S)
+        want_floats = Counter(
+            f"{'Figure' if m.group(1) == 'figure' else 'Table'} {labels.get(m.group(2), ('?',))[0]}"
+            for m in FLOAT_LABEL.finditer(floats_only))
+        want_headings = {labels.get(lab, ("?",))[0] for lab in HEADING_LABEL.findall(live)}
+        want_titles = BMHEAD.findall(live) + ["References"]
+        if "\\tableofcontents" in live:
+            want_titles.append("Contents")
+        problems = numbering_problems(paragraphs(xml), want_floats, want_headings, want_titles)
+        print(f"  numbering: {sum(want_floats.values())} float captions, {len(want_headings)} "
+              f"numbered headings, {len(want_titles)} titled headings expected; "
+              f"{len(problems)} problem(s) {'OK' if not problems else '*** MISSING ***'}")
+        for p in problems:
+            print(f"  *** {p}")
+        fails += len(problems)
+
     print("\n--- CALIBRATION ---")
     probe = docx_text(NPJ / "build/paper.docx")
     found_present = CONTROL_PRESENT in probe
@@ -241,6 +306,20 @@ def main() -> int:
     print(f"  reference matcher rejects the URL-less entry and accepts the repaired one: {ref_ok}")
     if not ref_ok:
         print("  *** CALIBRATION FAILED -- the reference-link check cannot be believed")
+        fails += 1
+
+    # The numbering check must flag the exact defect it was written for -- the
+    # first caption of paper.docx as pandoc printed it before the fix, a heading
+    # without its number -- and accept the repaired form.
+    defect = [("ImageCaption", "Study design of the 1,280-run sweep."), ("Heading2", "Overview")]
+    repaired = [("ImageCaption", "Figure 1. Study design of the 1,280-run sweep."),
+                ("Heading2", "2.1 Overview")]
+    want = Counter({"Figure 1": 1})
+    num_ok = (bool(numbering_problems(defect, want, {"2.1"}, []))
+              and not numbering_problems(repaired, want, {"2.1"}, []))
+    print(f"  numbering check flags the unnumbered caption and heading and accepts the repaired ones: {num_ok}")
+    if not num_ok:
+        print("  *** CALIBRATION FAILED -- the numbering check cannot be believed")
         fails += 1
 
     print(f"\nRESULT: "
