@@ -1324,3 +1324,92 @@ words, before re-freeze 3; on the current 149-word abstract (portal text from
 does), "a converged median 643 mmHg" gives 150, at the cap, and "a
 drift-converged median of 643 mmHg" gives 151. The decision does not depend
 on it.
+
+---
+
+## 2026-10-06 — re-freeze 51: the build answering M.S.'s review (paper + supplement); not sent
+
+**Status: NOT SENT.** Frozen here, before any further build, so that whatever
+leaves the machine next can be matched to its source. The 2026-09-19 entry
+above is closed (sent at re-freeze 50) and is not edited; this re-freeze opens
+a new entry, as this file's rule requires.
+
+| | |
+|---|---|
+| Sent | — (the author decides when and to whom) |
+| Source commit | `d0361de` (content: `429a77d`, `bf2641c`, `d0361de`; 7 commits after `bf6f6fe`, 302 since `0f275e0` on the convention of the entry above) |
+| Format | `.pdf` and `.docx` |
+| Pages | 24 (paper; 26 at re-freeze 50) / 58 (supplement; 62 at re-freeze 50) |
+| Monograph | not part of the dispatch; rebuilt because `d0361de` edits it (E7), still 123 pages |
+
+### Hashes, frozen before any further build
+
+| artefact | SHA-256 | bytes |
+|---|---|---|
+| `preprint_npj/build/paper.pdf` | `4a8ed8cc0db10e0a92231d838e60381af50b1311e4fda7faff29f2d253e1e628` | 615,847 |
+| `preprint_npj/build/paper.docx` | `80161d2588520ce1c70cf39d957bdf13a215eaa7b379c096eccd3cfa928cdfc4` | 953,498 |
+| `preprint_npj/build/supplement.pdf` | `1d8b9c7e5e186b93492af241fca45784869a62682fe7e6f4c9972a504bded60b` | 714,520 |
+| `preprint_npj/build/supplement.docx` | `ad896ab7013fecc697834523614f71df94967eb24f758a81c5ef930a6cbb612e` | 761,428 |
+| `preprint/build/manuscript.pdf` (not sent) | `a65ace03ceacf7df288318d9790e3973c050d52ed1bd356755b6958227cd3369` | 1,360,388 |
+| `preprint/build/manuscript.docx` (not sent) | `ee7b1d73e745cfda016d139d9af44990aae384ca942acea65361b57e87a23722` | 1,017,276 |
+
+Measured by script on the files in `build/`. The four npj files were written
+16:01:41–16:01:50 local time and the monograph 16:09:28–16:09:29, after every
+source (`git diff HEAD` on `paper.tex`, `supplement.tex`, `paper.bib`,
+`manuscript.md`, `references.bib` is empty). The two PNG rasters the npj build
+rewrites (`fig01_traffic_light.png`, `fig_s2_spearman.png`) are byte-identical
+to the tracked ones (`git status` clean). Copies of the six files are kept in
+`preprint_npj/build/freeze51/` (gitignored); their digests were re-measured
+there and match the table.
+
+### What changed since re-freeze 50 (`bf6f6fe`)
+
+M.S.'s review of the re-freeze 50 files, applied as written except for the
+deviations the author approved, plus the scenario renaming and the Word
+numbering he asked for. Full record, with the justification owed to M.S. for
+each deviation: `audit/sauthier_review_2026-10.md`; summary in the message of
+`d0361de`. For a reader of the re-freeze 50 copy:
+
+1. **Scenario names.** S1–S4 now read Healthy, Mild, Moderate and Severe, and
+   the cells Healthy-M … Severe-F, in the text, the tables and Figures 1–5, S3
+   and S5. Data files, run identifiers and Figure S2 (a reproduction of the
+   monograph's Figure 5) keep the codes; Table 1 gives the correspondence.
+2. **Tables 3 and 4 are merged** into Table 3, so Table 4 no longer exists.
+   The table numbers after it did not exist (the paper has three tables), and
+   the supplement's numbering is unchanged.
+3. **References are not renumbered.** First-citation order measured against
+   `bf6f6fe` and against the build's `.bbl`: paper 30 keys, supplement 32,
+   same keys and same order (49 cited keys in all).
+4. **Word files.** Figures, tables and sections are now numbered as in the
+   PDF; the back-matter headings, the References heading and the supplement's
+   contents list are restored (`bf2641c`).
+5. **Pagination**: 24 / 58 pages (26 / 62).
+
+### Gate state at freeze
+
+Measured on `d0361de`, all green: `audit_claims.py --check-paper-sync
+--check-monograph` (**394 / 394** anchors on the authors' full tree,
+**95 / 95** crosswalk, **25 / 25** monograph anchors, **83 / 83** monograph
+number-audit checks, **23 / 23** head-line counters, **17 / 17** README
+science anchors); `sync_submission_metadata.py --check`; `check_citations.py`
+(**49** cited keys); `check_stale_counts.py`; `check_backrefs.py` (**16**
+back-references, 13 probed, 3 pointers); `check_input_ranges.py`;
+`check_pair_counts.py`; `check_figure_freshness.py`;
+`check_publication_gate.py` (**9 / 9** anchors); `check_render.py` (**1
+accepted residue, 0 new**); `check_docx_structure.py` (self-calibrated,
+numbering included); `ruff`; **80** pytest. CI not run (nothing pushed).
+
+Three counts in the 2026-09-19 entry's gate section do not match the sources
+they describe, and are recorded here rather than edited there: it printed
+**26** monograph anchors and **10 / 10** publication-gate anchors, while
+`preprint/monograph_anchor_map.md` and `check_publication_gate.py` declare 25
+and 9 both at `bf6f6fe` and now; and **25** head-line counters, while the
+counted loci at `bf6f6fe` number 24 (README 10 and monograph 9, unchanged in
+number since, plus 5 in the supplement). Nothing was lost in between except
+one supplement locus: M.S.'s version of §S12.4 drops "(394/394 PASS)", and the
+sentence still says all 394 pass. Hence 23 here.
+
+### What the covering message should say
+
+Items 1, 2 and 5 above, and that the deviations from his corrections are
+explained point by point (the register's sections 2 and 6, in French).
