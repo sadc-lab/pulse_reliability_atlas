@@ -84,8 +84,11 @@ SUPPLEMENT = REPO / "preprint_npj" / "supplement.tex"
 # Re-registered 2026-09-27: the sentence no longer calls all seven ranges
 # "verified Pulse acceptance ranges" (Vt, FiO2 and PEEP are clinical ranges
 # fixed in the preregistration); the closing anchor did not change.
+# Re-registered 2026-10-06 (M. Sauthier review): the enumeration now uses bare
+# abbreviations ("HR 50--110~bpm, ...") and the sentence that follows opens
+# "The HR, blood-pressure and RR ranges are"; same seven ranges, new closing anchor.
 SENTENCE_OPEN = "swept across the following ranges"
-SENTENCE_CLOSE = "Each range is anchored"
+SENTENCE_CLOSE = "The HR, blood-pressure and RR ranges are"
 
 # LaTeX unit tokens per swept input, as they appear after "~" in the sources.
 # fio2 is dimensionless and carries no unit token, so CHECK B cannot address it;

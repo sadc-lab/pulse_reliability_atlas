@@ -2,8 +2,8 @@
 
 Each panel is one of the six steady-state outputs (HR, MAP, Vt, SpO2, PaO2,
 PaCO2). Rows of every panel are the seven swept inputs (HR, SBP, DBP, RR, Vt,
-FiO2, PEEP); columns are the eight (scenario x sex) cells (S1_M, S1_F, ...,
-S4_M, S4_F). The npj LaTeX preamble assembles the six panels into a 2x3
+FiO2, PEEP); columns are the eight (scenario x sex) cells (Healthy-M,
+Healthy-F, ..., Severe-M, Severe-F; data codes S1_M ... S4_F). The npj LaTeX preamble assembles the six panels into a 2x3
 subfigure grid in paper.tex Section 2.2.
 
 Data source: results/morris_indices.parquet -- the canonical Morris
@@ -113,6 +113,11 @@ INPUT_ORDER_DISPLAY: tuple[tuple[str, str], ...] = (
 CELL_ORDER: list[str] = [
     f"{sc}_{sx}" for sc in ("S1", "S2", "S3", "S4") for sx in ("M", "F")
 ]
+# Scenario labels shown to the reader (M. Sauthier review round, 2026-10-06).
+# The data keep the codes S1-S4; Table 1 of the paper gives the correspondence.
+# "Moderate-M" is too wide for one column at this panel width, so the axis is
+# labelled on two levels: M / F under each column, the scenario under each pair.
+SCENARIO_LABEL: dict[str, str] = {"S1": "Healthy", "S2": "Mild", "S3": "Moderate", "S4": "Severe"}
 
 # Output channel display labels (LaTeX-aware for the subscripts).
 OUTPUT_LABEL: dict[str, str] = {
@@ -212,7 +217,17 @@ def make_panel(df: pd.DataFrame, channel: str) -> None:
     # (HR, MAP, Vt, SpO2, PaO2, PaCO2). Skipping the title gives the heatmap area
     # the full panel for legibility once the 3x2 LaTeX grid scales the panel to
     # 0.48\textwidth.
-    ax.set_xlabel(r"Cell (scenario $\times$ sex)", fontsize=10)
+    # Two-level x axis: the sex under each column, the scenario under each pair.
+    # The scenario row takes the place of the former "Cell (scenario x sex)"
+    # axis label, so the panel height does not grow.
+    ax.set_xticks([i + 0.5 for i in range(len(CELL_ORDER))])
+    ax.set_xticklabels([cell.split("_")[1] for cell in CELL_ORDER], rotation=0)
+    scenario_axis = ax.secondary_xaxis("bottom")
+    scenario_axis.set_xticks([2 * i + 1 for i in range(len(SCENARIO_LABEL))])
+    scenario_axis.set_xticklabels(list(SCENARIO_LABEL.values()))
+    scenario_axis.tick_params(axis="x", length=0, pad=19, labelsize=10)
+    scenario_axis.spines["bottom"].set_visible(False)
+    ax.set_xlabel("")
     ax.set_ylabel("Input", fontsize=10)
     ax.tick_params(axis="x", labelsize=10)
     # Smaller y-tick font so the stacked input labels (notably FiO2 and PEEP,

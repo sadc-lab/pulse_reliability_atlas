@@ -36,12 +36,11 @@ floor eliminated it. Runs and flags are released openly, showing users which
 regions need checking before training on Pulse output.
 
 ------------------------------------------------------------------------------
-KEYWORDS  (13)
+KEYWORDS  (8)
 ------------------------------------------------------------------------------
-Pulse Physiology Engine; digital twin; synthetic patient data; Morris
-elementary effects; sensitivity analysis; uncertainty quantification; ARDS;
-mechanical ventilation; VC-AC ventilation; critical care; machine learning
-training data; operational envelope; reproducibility
+Pulse Physiology Engine; digital twin; synthetic patient data; sensitivity
+analysis; Morris elementary effects; mechanical ventilation; ARDS;
+reproducibility
 
 *** END GENERATED BLOCK ***
 

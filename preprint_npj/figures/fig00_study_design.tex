@@ -19,7 +19,7 @@
   lbl/.style={font=\scriptsize\itshape, midway, right=1.5mm}
 ]
 \node[box] (inputs) {\textbf{7 operational inputs}\\[1pt] {\footnotesize HR, SBP, DBP, RR, Vt, FiO$_2$, PEEP}};
-\node[box, below=11mm of inputs] (cells) {\textbf{8 cells = 4 severity scenarios $\times$ 2 sexes}\\[1pt] {\footnotesize severity (impairment fraction): S1 healthy 0.00, S2 mild 0.26, S3 moderate 0.60, S4 severe 0.95}\\[1pt] {\footnotesize $\times$ 2 sexes (male, female)\quad$\Rightarrow$\quad$8 \times 160 = 1{,}280$ simulations}};
+\node[box, below=11mm of inputs] (cells) {\textbf{8 cells = 4 severity scenarios $\times$ 2 sexes}\\[1pt] {\footnotesize severity (impairment fraction): Healthy~0.00, Mild~0.26, Moderate~0.60, Severe~0.95}\\[1pt] {\footnotesize $\times$ 2 sexes (male, female)\quad$\Rightarrow$\quad$8 \times 160 = 1{,}280$ simulations}};
 \node[box, below=11mm of cells] (outputs) {\textbf{6 steady-state outputs}\\[1pt] {\footnotesize HR, MAP, Vt delivered, SpO$_2$, PaO$_2$, PaCO$_2$}};
 \node[box, below=11mm of outputs] (detector) {\textbf{Four-flag steady-state classifier}\\[1pt] {\footnotesize clamped, diverged, implausible, not\_steady\_state}};
 \node[half, below=11mm of detector.south west, anchor=north west] (morris) {\textbf{Morris $\mu^{*}$ and $\sigma$}\\[1pt] {\footnotesize per input, output and cell, from clean pairs}};

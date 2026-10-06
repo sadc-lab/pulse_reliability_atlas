@@ -90,7 +90,7 @@ for run_id, sub in converged.groupby("run_id"):
 # Highlight median across the physiological-converged runs.
 ax.plot(median_traj.index, median_traj.values,
         color="#4C72B0", linewidth=2.6, alpha=0.95, zorder=3,
-        label=f"S1 median trajectory ({n_physio} physiological-converged of {n_converged} converged)")
+        label=f"Median trajectory ({n_physio} physiological-converged of {n_converged} converged)")
 
 # Reference horizontals.
 ax.axhline(600, color="#8172B2", linestyle=":", linewidth=1.0, alpha=0.85,
@@ -109,7 +109,7 @@ ax.annotate(
 ax.set_xlabel(r"Recorded simulation time $t$ (s), 300-s rerun")
 ax.set_ylabel(r"Arterial PaO$_2$ (mmHg)")
 ax.set_title(
-    "Hyperoxia late-phase convergence (S021 reruns, FiO$_2$ = 1.0, S1 healthy)",
+    "Hyperoxia late-phase convergence (S021 reruns, FiO$_2$ = 1.0, Healthy)",
     fontsize=10,
 )
 ax.legend(loc="lower right", fontsize=8, frameon=True)

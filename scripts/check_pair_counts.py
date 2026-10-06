@@ -102,11 +102,13 @@ BUCKETS = REPO / "results" / "sobol_ci_buckets.csv"
 DRAW_DEFECT = "every draw"
 
 # The sentences under guard, delimited rather than pattern-matched.
-SENTENCE_OPEN = "The same mechanism sets how much data each index rests on"
-SENTENCE_CLOSE = "The top-three input sets are cross-checked"
+# Re-registered 2026-10-06 after the M. Sauthier review split the Results paragraph
+# in three; the counts and the phrases they must appear in are unchanged in content.
+SENTENCE_OPEN = "Run survival also limits the data behind each index"
+SENTENCE_CLOSE = "Per-entry pair counts are released"
 
 TRIGGER_OPEN = "Influence is not proportionality"
-TRIGGER_CLOSE = "That map is therefore bounded"
+TRIGGER_CLOSE = "Delivered tidal volume is the most affected output"
 
 BUCKETS_SRC = REPO / "scripts" / "sobol_ci_buckets.py"
 
@@ -175,16 +177,16 @@ def expected_phrases(m: dict[str, int]) -> list[tuple[str, str]]:
     """(label, phrase) the sentence must contain, built from the measurement."""
     return [
         ("population",
-         f"across the {m['population']} top-three entries"),
+         f"the {m['population']} top-three entries"),
         ("median",
          f"the median index is computed from {m['median']} of the "
          f"{m['total_pairs']} possible elementary-effect pairs"),
         ("le3",
          f"{m['le3']} rest on three or fewer"),
         ("single",
-         f"{m['single']} rest on a single pair"),
+         f"{m['single']} on a single pair"),
         ("single_rank1",
-         f"{NUM_WORDS[m['single_rank1']]} of those being their "
+         f"{NUM_WORDS[m['single_rank1']]} of them their "
          f"combination's rank-1 input"),
     ]
 
@@ -278,7 +280,7 @@ def check(paper_text: str, df: pd.DataFrame, supplement_text: str = "") -> list[
     except LookupError as exc:
         problems.append(str(exc))
         return problems
-    outlined_phrase = f"{NUM_WORDS[n_outlined].capitalize()} tiles are outlined"
+    outlined_phrase = f"Outlined tiles ({NUM_WORDS[n_outlined]})"
     if outlined_phrase not in caption:
         problems.append(f"outlined: Figure 3 caption does not state {outlined_phrase!r}")
     return problems
@@ -293,16 +295,16 @@ def self_test(paper_text: str, df: pd.DataFrame, supplement_text: str) -> int:
 
     # Positive controls: each count, wrong by one, must be caught.
     mutations = [
-        (f"{m['single']} rest on a single pair",
-         f"{m['single'] - 1} rest on a single pair", "single-pair count"),
+        (f"{m['single']} on a single pair",
+         f"{m['single'] - 1} on a single pair", "single-pair count"),
         (f"{m['le3']} rest on three or fewer",
          f"{m['le3'] - 1} rest on three or fewer", "three-or-fewer count"),
-        (f"across the {m['population']} top-three entries",
-         f"across the {m['population'] - 1} top-three entries", "population"),
+        (f"the {m['population']} top-three entries",
+         f"the {m['population'] - 1} top-three entries", "population"),
         (f"from {m['median']} of the {m['total_pairs']} possible",
          f"from {m['median'] + 1} of the {m['total_pairs']} possible", "median"),
-        (NUM_WORDS[m["single_rank1"]] + " of those being",
-         NUM_WORDS[m["single_rank1"] - 1] + " of those being", "rank-1 subset"),
+        (NUM_WORDS[m["single_rank1"]] + " of them their",
+         NUM_WORDS[m["single_rank1"] - 1] + " of them their", "rank-1 subset"),
     ]
     for old, new, label in mutations:
         if old not in paper_text:
@@ -319,10 +321,10 @@ def self_test(paper_text: str, df: pd.DataFrame, supplement_text: str) -> int:
     historical = [
         (r"$\sigma / \mu^{*} \geq 0.6$", r"$\sigma / \mu^{*} > 0.6$",
          "the threshold written as a strict inequality"),
-        ("lies at or above it under each of five independent seeds",
+        ("at or above it under each of five independent seeds",
          "clear it in all five bootstrap draws",
          "a seed count passed off as a draw count"),
-        (r"whose 95~\% bootstrap interval lies at or above it under each of five independent seeds",
+        (r"with a 95~\% bootstrap interval at or above it under each of five independent seeds",
          "that clear it in every draw under each of five independent seeds",
          "a per-seed lower bound passed off as every draw"),
     ]
@@ -336,8 +338,8 @@ def self_test(paper_text: str, df: pd.DataFrame, supplement_text: str) -> int:
             print(f"  ok    catches {label}")
 
     # CHECK F on the supplement, with its own 2026-09-27 wording reinjected.
-    supp_old = "keep the lower bound of this joint interval at or above 0.6."
-    supp_new = "keep a lower bound at or above 0.6 in every draw."
+    supp_old = "keep the lower bound of this joint interval at or above 0.6"
+    supp_new = "keep a lower bound at or above 0.6 in every draw"
     if supp_old not in supp:
         failures.append(f"supplement defect target absent: {supp_old!r}")
     elif not check(paper_text, df, supp.replace(supp_old, supp_new, 1)):
@@ -348,8 +350,8 @@ def self_test(paper_text: str, df: pd.DataFrame, supplement_text: str) -> int:
     # CHECK E calibrated on its own count, measured from the full table
     # rather than assumed from the 144 the sentence above uses.
     n_out = int((pd.read_parquet(MORRIS)["n_clean_pairs"] == 1).sum())
-    old_out = f"{NUM_WORDS[n_out].capitalize()} tiles are outlined"
-    new_out = f"{NUM_WORDS[n_out - 1].capitalize()} tiles are outlined"
+    old_out = f"Outlined tiles ({NUM_WORDS[n_out]})"
+    new_out = f"Outlined tiles ({NUM_WORDS[n_out - 1]})"
     if old_out not in paper_text:
         failures.append(f"outlined-count target absent, cannot calibrate: {old_out!r}")
     elif not check(paper_text.replace(old_out, new_out, 1), df, supp):
@@ -359,7 +361,7 @@ def self_test(paper_text: str, df: pd.DataFrame, supplement_text: str) -> int:
 
     # A removed delimiter must FAIL, not silently pass on an empty passage.
     for opener, stub, which in [
-        (SENTENCE_OPEN, "The same mechanism sets how", "pair-count"),
+        (SENTENCE_OPEN, "Run survival also limits the", "pair-count"),
         (TRIGGER_OPEN, "Influence is not", "trigger"),
         (CAPTION_OPEN, "White tiles mark combinations with no", "caption"),
     ]:
@@ -378,9 +380,9 @@ def self_test(paper_text: str, df: pd.DataFrame, supplement_text: str) -> int:
 
     # A digit elsewhere in the document must not satisfy a phrase check.
     decoyed = paper_text.replace(
-        f"{m['single']} rest on a single pair",
-        f"{m['single'] - 1} rest on a single pair", 1,
-    ) + f"\n% decoy {m['single']} rest on a single pair\n"
+        f"{m['single']} on a single pair",
+        f"{m['single'] - 1} on a single pair", 1,
+    ) + f"\n% decoy {m['single']} on a single pair\n"
     if not check(decoyed, df, supp):
         failures.append("a decoy outside the guarded sentence satisfied the check")
     else:

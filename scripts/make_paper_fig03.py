@@ -62,6 +62,9 @@ axA.legend(loc="upper left", fontsize=8, frameon=True)
 axA.grid(True, alpha=0.25, linewidth=0.5)
 
 # ---- Panel B: S021 hyperoxia 300s convergence
+# Scenario labels shown to the reader (M. Sauthier review round, 2026-10-06).
+# The data keep the codes S1-S4; Table 1 of the paper gives the correspondence.
+SCENARIO_LABEL = {"S1": "Healthy", "S2": "Mild", "S3": "Moderate", "S4": "Severe"}
 palette = {"S1": "#4C72B0", "S3": "#DD8452", "S4": "#6E1E1E"}
 for sc in ("S1", "S3", "S4"):
     sub = s21[s21["scenario"] == sc]
@@ -69,7 +72,7 @@ for sc in ("S1", "S3", "S4"):
         sub["PaO2_mean_orig_120s"],
         sub["PaO2_plateau_mmHg"],
         s=28, alpha=0.75, edgecolor="black", linewidth=0.4,
-        color=palette[sc], label=f"{sc} ($n = {len(sub)}$)",
+        color=palette[sc], label=f"{SCENARIO_LABEL[sc]} ($n = {len(sub)}$)",
     )
 # Clamp panel-B axes to the physiological range to highlight the
 # convergence structure; the S021 numerical-runaway points (plateau up
@@ -86,7 +89,7 @@ axB.axhline(663, color="#1a1a1a", linestyle="-.", linewidth=1.6, label=r"$\appro
 axB.set_xlim(lo, hi)
 axB.set_ylim(lo, hi)
 axB.annotate(
-    f"{len(offscale)} S1 runaway points off-scale\n"
+    f"{len(offscale)} Healthy runaway points off-scale\n"
     f"(plateau {offscale.min():.0f}-{offscale.max():.0f} mmHg; numerical runaway)",
     xy=(0.97, 0.97), xycoords="axes fraction", ha="right", va="top",
     fontsize=8, color="#555555", style="italic",

@@ -77,8 +77,8 @@ caught equally.*
   monograph_claim_id: 'T1.01'
   expected_value: 1280
   format_in_paper: '1{,}280'
-  expected_occurrences: 41
-  notes: 'Bumped 42 -> 41 (2026-09-26, author-approved Section 2.5 edit): Section 2.5 opens "Across the sweep" instead of "Across the full 1{,}280-run sweep" (1). Counted before and after: paper.tex 19 -> 18, supplement.tex 23 -> 23, total 42 -> 41, no other occurrence touched. Earlier history: Bumped 44 -> 42 (2026-09-26, author-approved Table 4 caption edit): the caption no longer repeats the two whole-sweep fractions "($663/1{,}280$; $1{,}134/1{,}280$)", which the table''s own "All cells" row prints directly below it (2). Counted before and after: paper.tex 21 -> 19, supplement.tex 23 -> 23, total 44 -> 42. Earlier history: Bumped 45 -> 44 (2026-09-15, lossless condensation pass): the Discussion ML-pipeline paragraph no longer restates the silent-clamping evidence ("The preregistered rejection-log detector fired on 0 of 1{,}280 runs, and the post hoc instantiation audit found exact agreement ..."); it now points to Section 2.1, which states both results in full (the "0 / 1{,}280 across every cell" count and the 10{,}160-contract audit), and the Table 2 caption still carries "0 of 1{,}280". Counted before and after on paper.tex + supplement.tex: 45 -> 44, no other occurrence touched. Earlier history: Bumped 44 -> 45 (2026-09-12): Supplement S13 gains a screen-sensitivity subsection whose opening states that the preregistered clean-pair screen keeps 663 of the 1{,}280 runs. The literal is load-bearing: the whole subsection compares two screens, so naming the full population is what makes the retention figure interpretable. Earlier history: Bumped 43 -> 44 (2026-09-10): Supplement S13 gains an out-of-sample subsection whose method sentence states that the run-to-trajectory mapping is verified against morris_sample.parquet on all 1{,}280 rows before grouping. The literal is load-bearing rather than decorative: the grouped cross-validation is only valid if every run is assigned to its true trajectory, so naming the full population is what states the scope of that check. Earlier history: Bumped 46 -> 47 (2026-09-01): the Introduction was rewritten to P.J.''s brief and its closing objective paragraph now states the swept population directly, "Four clinical scenarios (a healthy baseline and three ARDS severities) crossed with two adult reference patient bodies, male and female, gave 1{,}280 simulations". The old Introduction carried no occurrence of the canonical literal, so this is a net addition of one and the only crosswalk consequence of that rewrite -- verified before and after: paper.tex 25 -> 26, supplement.tex 21 unchanged. Bumped 45 -> 46 (2026-08-23): Supplement S12 gains a provenance paragraph documenting the host suspension that contaminates two wall-time records, which states "summing all 1{,}280 records in 	exttt{aggregated.parquet} gives approximately 41.1~h". The literal is load-bearing rather than decorative: aggregated.parquet is git-tracked and carries a wall_time_s column, so naming the exact population is what lets a reader reproduce the 41.1 h figure on a public clone and see why it differs from the 27.4 h reported. The paper_section label was also corrected in the same edit -- it read S3/S4/S5/S16 while a 2026-07-24 note already recorded an occurrence added in S12.1, so it understated the swept population before this change; the field is documentary only, read at audit_claims.py:309 for display and used by no check. Bumped 46 -> 45 (2026-08-20): paper.tex §4.4 no longer prints the four clamp regexes, and the sentence introducing that listing ("the set with which the 1{,}280-run sweep was classified") went with it. The regexes now live only in Supplement §S3.3, where an anchor holds them character-identical to src/detector.py; the paper keeps the count, the epistemic scope of the log-based test, and a pointer. Earlier history: Bumped 44 -> 46 (2026-08-05, second change that day), Supplement Figure S5 added: its caption states the calibration gate that licenses the exhaustive trigger attribution, "reproduces the stored \texttt{not\_steady\_state} flag on 1{,}280 of 1{,}280 runs", which carries the canonical literal twice in one clause -- numerator and denominator. The clause is load-bearing rather than decorative: the panel it justifies differs from the detector''s own recorded reasons, so the figure has to say on what basis the reconstruction is trusted. Bumped 38 -> 44 (2026-08-05), screening-retention block added to §2.1 as part of the Figure 2 reframing: six new occurrences of the canonical literal, each counted by hand against the added text before the map was edited. Prose: "663 of 1{,}280 simulations (51.8~\%) are clean" (1) and the empty-category sentence "\texttt{clamped} is a provided category that is empty here (0 / 1{,}280)" (1). Table 4 caption: the two whole-sweep percentages are quoted in full to show neither is a rounding tie, "663/1{,}280 = 51.796875~\%" (1) and "1{,}134/1{,}280 = 88.59375~\%" (1). Table 4 body, the All-cells row: "663/1{,}280 (51.8~\%)" (1) and "1{,}134/1{,}280 (88.6~\%)" (1). Note that "1{,}134" does not itself match this literal; only the denominators do. Bumped 37 -> 38 (2026-08-04), sex/blood-volume correction in supplement S2: the rewritten clause (ii) scopes its own limitation to the sweep rather than to the atlas as a whole -- "Because the 1{,}280-run sweep varies sex jointly with body mass and height, it cannot on its own quantify the independent effect of the sex flag". The scoping is load-bearing, not decorative: supplement S9 credits the controlled 2x2 design of S011 with a fixed-mass sex effect on S1 PaO2, so an unscoped sentence would have contradicted it. The literal is therefore kept rather than reworded away. Bumped 39 -> 37 (2026-08-02, second change that day), N-1 removal of Supplementary Methods: two supplement subsections were deleted as duplicates of the main Methods text, each carrying one occurrence of the canonical literal. §S3.1 "Engine wrapper, Docker pinning, and reproducibility" stated that "bit-exact reproduction of the canonical 1{,}280-run sweep was verified at three independent layers" -- paper.tex §4.1 already names those three layers, and the wrapper description it uniquely held has moved there. §S3.2 "Morris sampler implementation" stated "1{,}280 evaluations across the full sweep"; paper.tex §4.3 already carried the sampler settings, the seven ranges, the clip rationale and that same total, so only a short code-provenance note survives, under the label sec:s3-morris. Bumped 38 -> 39 (2026-08-02), N-1 removal of Supplementary Methods: Methods §4.4 now prints the four clamp regular expressions themselves, which the main text previously described only by their count ("any of 4 documented input-rejection patterns"). Their lead-in names the set as the one "with which the 1{,}280-run sweep was classified", adding one occurrence of the canonical literal. The patterns move because npj does not permit Supplementary Methods; the four-pattern set printed is the one recovered from 708efb1^, i.e. the set as executed, not the current five-pattern set in src/detector.py. Bumped 37 -> 38 (2026-07-29): the §2.1 Overview paragraph now states the verdicts of the preregistered hypotheses, giving H2 as "the observed rate is 0 of 1{,}280", which adds one occurrence of the canonical literal. The same null is already counted at the Table 3 caption and once in the Discussion; this third instance is the one that names it as the H2 outcome (hypothesis not supported). Bumped 36 -> 37 (2026-07-28, second change that day): the Figure 1 caption title was changed from "One grid, eight times." to "Study design of the 1{,}280-run sweep." at the author''s request, which adds one occurrence of the canonical literal. Bumped 35 -> 36 (2026-07-28): the Table 3 caption gains an opening sentence stating the silent-clamping null as read off that table, "the clamped column is empty in all eight cells, 0 of 1{,}280", adding one occurrence. This is the same null already counted once in the Discussion, reported here at its own table. Bumped 36 -> 35 (2026-07-27, second change that day): the study-design figure was externalised from an inline tikzpicture to preprint_npj/figures/fig00_study_design.tex, because pinning it with [H] after the full-page Table 1 overflowed the page by 410 pt and swallowed its caption, and because pandoc drops TikZ so it was missing from paper.docx. Its node text "8 x 160 = 1,280 simulations" therefore left paper.tex. The claim still renders in the figure; only the file holding it changed, and scripts/make_fig00_study_design.py regenerates that file so it cannot drift. Earlier that day, bumped 35 -> 36 (2026-07-27): the Supplement §S3 body-dimension paragraph gains the CDC-lookup provenance declaration, whose closing clause states that the two preregistered bodies "are exactly the two bodies simulated in all 1{,}280 runs" (1). Earlier history: Total occurrences of "1{,}280" across paper.tex + supplement.tex as of Phase 9.B: paper.tex 12 (abstract 2, §2.1 5, §2.5+Fig4 2, §4 Discussion 1, Methods §4.1+§4.3 2) + supplement.tex 5 (S3.2 Morris sampler, S4 NSS table prose "1{,}280-run sweep" + Table S1 total row + "1{,}008 / 1{,}280" + "663 / 1{,}280" repeats). Bumped 14 -> 17 in Phase 9.B for the S4 extended-Table-1 additions. Bumped 23 -> 24 in Phase H (2026-05-31): the new Supplement §S16 "Summary of supplementary findings and discoveries" intro paragraph uses "The 1{,}280-run atlas" as its opening descriptor, so the canonical formatted string appears once more. Bumped 24 -> 28 in the cross-platform reproduction round (2026-06-11): the new Supplement §S12 "Independent reproduction on separate hardware" subsection plus the Code-availability sentence add four "1{,}280" substring occurrences --- paper.tex "full 1{,}280-run sweep" (1), supplement.tex "full 1{,}280-run Morris sweep" (1), and "matched on 1{,}280/1{,}280 runs" (2). Bumped 28 -> 30 (2026-06-24): the new study-design Figure 1 adds two "1{,}280" occurrences --- figure caption ("8 x 160 = 1,280 simulations in total") + figure body ("8 x 160 = 1,280 simulations"). Bumped 30 -> 31 (2026-07-05): the §4 Discussion ML-pipeline paragraph now surfaces the silent-clamping null as "0 of 1{,}280 runs", adding one occurrence. Bumped 31 -> 33 (2026-07-24), Methods §4.1 clarity rewrite + S-G-1 resolution: paper.tex §4.1 now names the first verification layer as "the 1{,}280-row table of input combinations" (1), and supplement.tex §S12.1 gains the compute-effort sentence "the full 1{,}280-run sweep was carried out end-to-end three times in total" (1). 47 -> 44 (2026-09-02, P.J. synthesis pass): Results lost three restatements of facts the paper still makes -- the Morris 8-evaluations-per-trajectory arithmetic (now Methods only), the second '663 of 1{,}280' sentence, and the prose copy of the 0/1{,}280 clamped count that Table~\ref{tab:flag_summary}'s caption already carries. 44 -> 43 (2026-09-02, P.J. synthesis pass, caption sweep): the Table 2 caption's "Each cell holds 160 simulations, 1{,}280 in total" restated the same caption's own "0 of 1{,}280" and Section 2.1's opening sentence; the caption keeps the denominator in the clamped statement.'
+  expected_occurrences: 36
+  notes: 'Bumped 41 -> 36 (2026-10-06, M. Sauthier review round). Counted before and after: paper.tex 18 -> 16, supplement.tex 23 -> 20. paper.tex: Tables 3 and 4 were merged and the merged All-cells row prints the run total once ("All cells & 1{,}280") where Table 4 printed the two denominators "663/1{,}280" and "1{,}134/1{,}280" (net -1); the Figure 5 legend no longer opens panel (a) with "across the 1{,}280-run sweep" (-1). supplement.tex: the S3.4 erratum paragraph, whose last clause read "exactly the two bodies simulated in all 1{,}280 runs", was deleted on the author''s decision (-1); the S3.3 clamp-patch sentence now reads "no effect on the reported classification" (-1); the S13 opening no longer restates "fires on 530 of 1{,}280 runs", which Table S4''s total row still carries (-1). No fact left the documents. Earlier history: Bumped 42 -> 41 (2026-09-26, author-approved Section 2.5 edit): Section 2.5 opens "Across the sweep" instead of "Across the full 1{,}280-run sweep" (1). Counted before and after: paper.tex 19 -> 18, supplement.tex 23 -> 23, total 42 -> 41, no other occurrence touched. Earlier history: Bumped 44 -> 42 (2026-09-26, author-approved Table 4 caption edit): the caption no longer repeats the two whole-sweep fractions "($663/1{,}280$; $1{,}134/1{,}280$)", which the table''s own "All cells" row prints directly below it (2). Counted before and after: paper.tex 21 -> 19, supplement.tex 23 -> 23, total 44 -> 42. Earlier history: Bumped 45 -> 44 (2026-09-15, lossless condensation pass): the Discussion ML-pipeline paragraph no longer restates the silent-clamping evidence ("The preregistered rejection-log detector fired on 0 of 1{,}280 runs, and the post hoc instantiation audit found exact agreement ..."); it now points to Section 2.1, which states both results in full (the "0 / 1{,}280 across every cell" count and the 10{,}160-contract audit), and the Table 2 caption still carries "0 of 1{,}280". Counted before and after on paper.tex + supplement.tex: 45 -> 44, no other occurrence touched. Earlier history: Bumped 44 -> 45 (2026-09-12): Supplement S13 gains a screen-sensitivity subsection whose opening states that the preregistered clean-pair screen keeps 663 of the 1{,}280 runs. The literal is load-bearing: the whole subsection compares two screens, so naming the full population is what makes the retention figure interpretable. Earlier history: Bumped 43 -> 44 (2026-09-10): Supplement S13 gains an out-of-sample subsection whose method sentence states that the run-to-trajectory mapping is verified against morris_sample.parquet on all 1{,}280 rows before grouping. The literal is load-bearing rather than decorative: the grouped cross-validation is only valid if every run is assigned to its true trajectory, so naming the full population is what states the scope of that check. Earlier history: Bumped 46 -> 47 (2026-09-01): the Introduction was rewritten to P.J.''s brief and its closing objective paragraph now states the swept population directly, "Four clinical scenarios (a healthy baseline and three ARDS severities) crossed with two adult reference patient bodies, male and female, gave 1{,}280 simulations". The old Introduction carried no occurrence of the canonical literal, so this is a net addition of one and the only crosswalk consequence of that rewrite -- verified before and after: paper.tex 25 -> 26, supplement.tex 21 unchanged. Bumped 45 -> 46 (2026-08-23): Supplement S12 gains a provenance paragraph documenting the host suspension that contaminates two wall-time records, which states "summing all 1{,}280 records in 	exttt{aggregated.parquet} gives approximately 41.1~h". The literal is load-bearing rather than decorative: aggregated.parquet is git-tracked and carries a wall_time_s column, so naming the exact population is what lets a reader reproduce the 41.1 h figure on a public clone and see why it differs from the 27.4 h reported. The paper_section label was also corrected in the same edit -- it read S3/S4/S5/S16 while a 2026-07-24 note already recorded an occurrence added in S12.1, so it understated the swept population before this change; the field is documentary only, read at audit_claims.py:309 for display and used by no check. Bumped 46 -> 45 (2026-08-20): paper.tex §4.4 no longer prints the four clamp regexes, and the sentence introducing that listing ("the set with which the 1{,}280-run sweep was classified") went with it. The regexes now live only in Supplement §S3.3, where an anchor holds them character-identical to src/detector.py; the paper keeps the count, the epistemic scope of the log-based test, and a pointer. Earlier history: Bumped 44 -> 46 (2026-08-05, second change that day), Supplement Figure S5 added: its caption states the calibration gate that licenses the exhaustive trigger attribution, "reproduces the stored \texttt{not\_steady\_state} flag on 1{,}280 of 1{,}280 runs", which carries the canonical literal twice in one clause -- numerator and denominator. The clause is load-bearing rather than decorative: the panel it justifies differs from the detector''s own recorded reasons, so the figure has to say on what basis the reconstruction is trusted. Bumped 38 -> 44 (2026-08-05), screening-retention block added to §2.1 as part of the Figure 2 reframing: six new occurrences of the canonical literal, each counted by hand against the added text before the map was edited. Prose: "663 of 1{,}280 simulations (51.8~\%) are clean" (1) and the empty-category sentence "\texttt{clamped} is a provided category that is empty here (0 / 1{,}280)" (1). Table 4 caption: the two whole-sweep percentages are quoted in full to show neither is a rounding tie, "663/1{,}280 = 51.796875~\%" (1) and "1{,}134/1{,}280 = 88.59375~\%" (1). Table 4 body, the All-cells row: "663/1{,}280 (51.8~\%)" (1) and "1{,}134/1{,}280 (88.6~\%)" (1). Note that "1{,}134" does not itself match this literal; only the denominators do. Bumped 37 -> 38 (2026-08-04), sex/blood-volume correction in supplement S2: the rewritten clause (ii) scopes its own limitation to the sweep rather than to the atlas as a whole -- "Because the 1{,}280-run sweep varies sex jointly with body mass and height, it cannot on its own quantify the independent effect of the sex flag". The scoping is load-bearing, not decorative: supplement S9 credits the controlled 2x2 design of S011 with a fixed-mass sex effect on S1 PaO2, so an unscoped sentence would have contradicted it. The literal is therefore kept rather than reworded away. Bumped 39 -> 37 (2026-08-02, second change that day), N-1 removal of Supplementary Methods: two supplement subsections were deleted as duplicates of the main Methods text, each carrying one occurrence of the canonical literal. §S3.1 "Engine wrapper, Docker pinning, and reproducibility" stated that "bit-exact reproduction of the canonical 1{,}280-run sweep was verified at three independent layers" -- paper.tex §4.1 already names those three layers, and the wrapper description it uniquely held has moved there. §S3.2 "Morris sampler implementation" stated "1{,}280 evaluations across the full sweep"; paper.tex §4.3 already carried the sampler settings, the seven ranges, the clip rationale and that same total, so only a short code-provenance note survives, under the label sec:s3-morris. Bumped 38 -> 39 (2026-08-02), N-1 removal of Supplementary Methods: Methods §4.4 now prints the four clamp regular expressions themselves, which the main text previously described only by their count ("any of 4 documented input-rejection patterns"). Their lead-in names the set as the one "with which the 1{,}280-run sweep was classified", adding one occurrence of the canonical literal. The patterns move because npj does not permit Supplementary Methods; the four-pattern set printed is the one recovered from 708efb1^, i.e. the set as executed, not the current five-pattern set in src/detector.py. Bumped 37 -> 38 (2026-07-29): the §2.1 Overview paragraph now states the verdicts of the preregistered hypotheses, giving H2 as "the observed rate is 0 of 1{,}280", which adds one occurrence of the canonical literal. The same null is already counted at the Table 3 caption and once in the Discussion; this third instance is the one that names it as the H2 outcome (hypothesis not supported). Bumped 36 -> 37 (2026-07-28, second change that day): the Figure 1 caption title was changed from "One grid, eight times." to "Study design of the 1{,}280-run sweep." at the author''s request, which adds one occurrence of the canonical literal. Bumped 35 -> 36 (2026-07-28): the Table 3 caption gains an opening sentence stating the silent-clamping null as read off that table, "the clamped column is empty in all eight cells, 0 of 1{,}280", adding one occurrence. This is the same null already counted once in the Discussion, reported here at its own table. Bumped 36 -> 35 (2026-07-27, second change that day): the study-design figure was externalised from an inline tikzpicture to preprint_npj/figures/fig00_study_design.tex, because pinning it with [H] after the full-page Table 1 overflowed the page by 410 pt and swallowed its caption, and because pandoc drops TikZ so it was missing from paper.docx. Its node text "8 x 160 = 1,280 simulations" therefore left paper.tex. The claim still renders in the figure; only the file holding it changed, and scripts/make_fig00_study_design.py regenerates that file so it cannot drift. Earlier that day, bumped 35 -> 36 (2026-07-27): the Supplement §S3 body-dimension paragraph gains the CDC-lookup provenance declaration, whose closing clause states that the two preregistered bodies "are exactly the two bodies simulated in all 1{,}280 runs" (1). Earlier history: Total occurrences of "1{,}280" across paper.tex + supplement.tex as of Phase 9.B: paper.tex 12 (abstract 2, §2.1 5, §2.5+Fig4 2, §4 Discussion 1, Methods §4.1+§4.3 2) + supplement.tex 5 (S3.2 Morris sampler, S4 NSS table prose "1{,}280-run sweep" + Table S1 total row + "1{,}008 / 1{,}280" + "663 / 1{,}280" repeats). Bumped 14 -> 17 in Phase 9.B for the S4 extended-Table-1 additions. Bumped 23 -> 24 in Phase H (2026-05-31): the new Supplement §S16 "Summary of supplementary findings and discoveries" intro paragraph uses "The 1{,}280-run atlas" as its opening descriptor, so the canonical formatted string appears once more. Bumped 24 -> 28 in the cross-platform reproduction round (2026-06-11): the new Supplement §S12 "Independent reproduction on separate hardware" subsection plus the Code-availability sentence add four "1{,}280" substring occurrences --- paper.tex "full 1{,}280-run sweep" (1), supplement.tex "full 1{,}280-run Morris sweep" (1), and "matched on 1{,}280/1{,}280 runs" (2). Bumped 28 -> 30 (2026-06-24): the new study-design Figure 1 adds two "1{,}280" occurrences --- figure caption ("8 x 160 = 1,280 simulations in total") + figure body ("8 x 160 = 1,280 simulations"). Bumped 30 -> 31 (2026-07-05): the §4 Discussion ML-pipeline paragraph now surfaces the silent-clamping null as "0 of 1{,}280 runs", adding one occurrence. Bumped 31 -> 33 (2026-07-24), Methods §4.1 clarity rewrite + S-G-1 resolution: paper.tex §4.1 now names the first verification layer as "the 1{,}280-row table of input combinations" (1), and supplement.tex §S12.1 gains the compute-effort sentence "the full 1{,}280-run sweep was carried out end-to-end three times in total" (1). 47 -> 44 (2026-09-02, P.J. synthesis pass): Results lost three restatements of facts the paper still makes -- the Morris 8-evaluations-per-trajectory arithmetic (now Methods only), the second '663 of 1{,}280' sentence, and the prose copy of the 0/1{,}280 clamped count that Table~\ref{tab:flag_summary}'s caption already carries. 44 -> 43 (2026-09-02, P.J. synthesis pass, caption sweep): the Table 2 caption's "Each cell holds 160 simulations, 1{,}280 in total" restated the same caption's own "0 of 1{,}280" and Section 2.1's opening sentence; the caption keeps the denominator in the clamped statement.'
 
 - paper_section: 'Abstract + §2.3 VC-AC'
   paper_context: 'VC-AC trigger-dyssynchrony primary-flag rate (Vt CV > 0.05 under not_steady_state)'
@@ -112,9 +112,9 @@ caught equally.*
   paper_context: 'Silent clamping count across full sweep (H2 NOT supported)'
   monograph_claim_id: 'T1.11'
   expected_value: 0
-  format_in_paper: '(0 / 1{,}280 across every cell)'
+  format_in_paper: '(0 / 1{,}280)'
   expected_occurrences: 1
-  notes: 'Appears once in §2.1 prose. Surrounding parenthetical context "(... across every cell)" is included in the format to avoid substring-overlap with "20 / 1{,}280" (the divergence count in the next sentence): the bare "0 / 1{,}280" pattern would match both because "20 / 1{,}280" contains the literal substring "0 / 1{,}280". Lesson recorded for future map entries with short numeric patterns: use surrounding context to disambiguate.'
+  notes: 'Re-pinned 2026-10-06 (M. Sauthier review round): Section 2.1 now reads "the \texttt{clamped} flag never fired (0 / 1{,}280)". The opening parenthesis keeps the pattern from matching inside "(20 / 1{,}280 runs)" in the same paragraph, which is the overlap the old "across every cell" context was added to avoid. Earlier history: Appears once in §2.1 prose. Surrounding parenthetical context "(... across every cell)" is included in the format to avoid substring-overlap with "20 / 1{,}280" (the divergence count in the next sentence): the bare "0 / 1{,}280" pattern would match both because "20 / 1{,}280" contains the literal substring "0 / 1{,}280". Lesson recorded for future map entries with short numeric patterns: use surrounding context to disambiguate.'
 
 - paper_section: '§2.1 Overview (prose)'
   paper_context: 'Solver divergence count (spaced form used in Results)'
@@ -154,65 +154,65 @@ caught equally.*
   paper_context: 'Per-cell flag counts for S1_M (healthy, male)'
   monograph_claim_id: 'T1.T1-S1_M.n_total'
   expected_value: 160
-  format_in_paper: 'S1\_M & 160 & 0 & 4 & 11 & 107 & 49'
+  format_in_paper: 'Healthy-M & 160 & 0 & 4 & 11 & 107 & 49'
   expected_occurrences: 1
-  notes: 'Full Table 1 row for the S1_M cell as a single literal-string check. If any cell value drifts (n_total / clamped / diverged / implausible / not_steady_state / clean), the literal match fails and the audit FAILs. Anchored on n_total=160 for value-cross-check; the other five column values are co-validated by literal presence.'
+  notes: 'Relabelled 2026-10-06 (M. Sauthier review round): the scenarios S1-S4 are shown as Healthy, Mild, Moderate and Severe, and the cells as Healthy-M ... Severe-F; the data keep the codes, and paper Table 1 gives the correspondence. Values unchanged. Full Table 1 row for the S1_M cell as a single literal-string check. If any cell value drifts (n_total / clamped / diverged / implausible / not_steady_state / clean), the literal match fails and the audit FAILs. Anchored on n_total=160 for value-cross-check; the other five column values are co-validated by literal presence.'
 
 - paper_section: '§2.1 Table 1 row (S1, F)'
   paper_context: 'Per-cell flag counts for S1_F (healthy, female)'
   monograph_claim_id: 'T1.T1-S1_F.n_total'
   expected_value: 160
-  format_in_paper: 'S1\_F & 160 & 0 & 0 & 23 & 118 & 42'
+  format_in_paper: 'Healthy-F & 160 & 0 & 0 & 23 & 118 & 42'
   expected_occurrences: 1
-  notes: 'Full Table 1 row for the S1_F cell as a single literal-string check.'
+  notes: 'Relabelled 2026-10-06 (M. Sauthier review round): the scenarios S1-S4 are shown as Healthy, Mild, Moderate and Severe, and the cells as Healthy-M ... Severe-F; the data keep the codes, and paper Table 1 gives the correspondence. Values unchanged. Full Table 1 row for the S1_F cell as a single literal-string check.'
 
 - paper_section: '§2.1 Table 1 row (S2, M)'
   paper_context: 'Per-cell flag counts for S2_M (mild ARDS, male)'
   monograph_claim_id: 'T1.T1-S2_M.n_total'
   expected_value: 160
-  format_in_paper: 'S2\_M & 160 & 0 & 4 & 0  & 69  & 87'
+  format_in_paper: 'Mild-M & 160 & 0 & 4 & 0  & 69  & 87'
   expected_occurrences: 1
-  notes: 'Full Table 1 row for the S2_M cell. Note the double spaces in the source (cosmetic column-alignment in the LaTeX source), preserved verbatim from the monograph.'
+  notes: 'Relabelled 2026-10-06 (M. Sauthier review round): the scenarios S1-S4 are shown as Healthy, Mild, Moderate and Severe, and the cells as Healthy-M ... Severe-F; the data keep the codes, and paper Table 1 gives the correspondence. Values unchanged. Full Table 1 row for the S2_M cell. Note the double spaces in the source (cosmetic column-alignment in the LaTeX source), preserved verbatim from the monograph.'
 
 - paper_section: '§2.1 Table 1 row (S2, F)'
   paper_context: 'Per-cell flag counts for S2_F (mild ARDS, female)'
   monograph_claim_id: 'T1.T1-S2_F.n_total'
   expected_value: 160
-  format_in_paper: 'S2\_F & 160 & 0 & 0 & 0  & 68  & 92'
+  format_in_paper: 'Mild-F & 160 & 0 & 0 & 0  & 68  & 92'
   expected_occurrences: 1
-  notes: 'Full Table 1 row for the S2_F cell.'
+  notes: 'Relabelled 2026-10-06 (M. Sauthier review round): the scenarios S1-S4 are shown as Healthy, Mild, Moderate and Severe, and the cells as Healthy-M ... Severe-F; the data keep the codes, and paper Table 1 gives the correspondence. Values unchanged. Full Table 1 row for the S2_F cell.'
 
 - paper_section: '§2.1 Table 1 row (S3, M)'
   paper_context: 'Per-cell flag counts for S3_M (moderate ARDS, male)'
   monograph_claim_id: 'T1.T1-S3_M.n_total'
   expected_value: 160
-  format_in_paper: 'S3\_M & 160 & 0 & 4 & 0  & 12  & 144'
+  format_in_paper: 'Moderate-M & 160 & 0 & 4 & 0  & 12  & 144'
   expected_occurrences: 1
-  notes: 'Full Table 1 row for the S3_M cell.'
+  notes: 'Relabelled 2026-10-06 (M. Sauthier review round): the scenarios S1-S4 are shown as Healthy, Mild, Moderate and Severe, and the cells as Healthy-M ... Severe-F; the data keep the codes, and paper Table 1 gives the correspondence. Values unchanged. Full Table 1 row for the S3_M cell.'
 
 - paper_section: '§2.1 Table 1 row (S3, F)'
   paper_context: 'Per-cell flag counts for S3_F (moderate ARDS, female)'
   monograph_claim_id: 'T1.T1-S3_F.n_total'
   expected_value: 160
-  format_in_paper: 'S3\_F & 160 & 0 & 0 & 0  & 38  & 122'
+  format_in_paper: 'Moderate-F & 160 & 0 & 0 & 0  & 38  & 122'
   expected_occurrences: 1
-  notes: 'Full Table 1 row for the S3_F cell.'
+  notes: 'Relabelled 2026-10-06 (M. Sauthier review round): the scenarios S1-S4 are shown as Healthy, Mild, Moderate and Severe, and the cells as Healthy-M ... Severe-F; the data keep the codes, and paper Table 1 gives the correspondence. Values unchanged. Full Table 1 row for the S3_F cell.'
 
 - paper_section: '§2.1 Table 1 row (S4, M)'
   paper_context: 'Per-cell flag counts for S4_M (severe ARDS, male)'
   monograph_claim_id: 'T1.T1-S4_M.n_total'
   expected_value: 160
-  format_in_paper: 'S4\_M & 160 & 0 & 8 & 46 & 44  & 67'
+  format_in_paper: 'Severe-M & 160 & 0 & 8 & 46 & 44  & 67'
   expected_occurrences: 1
-  notes: 'Full Table 1 row for the S4_M cell. Note: 8 divergences (twice any other male cell) reflects the severe-ARDS regime where the male BV dependence amplifies (§2.5).'
+  notes: 'Relabelled 2026-10-06 (M. Sauthier review round): the scenarios S1-S4 are shown as Healthy, Mild, Moderate and Severe, and the cells as Healthy-M ... Severe-F; the data keep the codes, and paper Table 1 gives the correspondence. Values unchanged. Full Table 1 row for the S4_M cell. Note: 8 divergences (twice any other male cell) reflects the severe-ARDS regime where the male BV dependence amplifies (§2.5).'
 
 - paper_section: '§2.1 Table 1 row (S4, F)'
   paper_context: 'Per-cell flag counts for S4_F (severe ARDS, female)'
   monograph_claim_id: 'T1.T1-S4_F.n_total'
   expected_value: 160
-  format_in_paper: 'S4\_F & 160 & 0 & 0 & 46 & 74  & 60'
+  format_in_paper: 'Severe-F & 160 & 0 & 0 & 46 & 74  & 60'
   expected_occurrences: 1
-  notes: 'Full Table 1 row for the S4_F cell. Note: 0 divergences (consistent with the all-male divergence cluster, §2.5).'
+  notes: 'Relabelled 2026-10-06 (M. Sauthier review round): the scenarios S1-S4 are shown as Healthy, Mild, Moderate and Severe, and the cells as Healthy-M ... Severe-F; the data keep the codes, and paper Table 1 gives the correspondence. Values unchanged. Full Table 1 row for the S4_F cell. Note: 0 divergences (consistent with the all-male divergence cluster, §2.5).'
 
 ## Step 3 — Results §2.1 Figure 2 traffic-light caption
 
@@ -220,27 +220,35 @@ caught equally.*
   paper_context: 'Reliability traffic-light aggregate breakdown'
   monograph_claim_id: 'T1.25'
   expected_value: 7
-  format_in_paper: '7 green / 29 yellow / 12 red'
+  format_in_paper: '7 green, 29 yellow, 12 red'
   expected_occurrences: 1
-  notes: 'Back 2 -> 1 (2026-09-27, author-approved shortening of Methods §4.5): the §4.5 restatement is removed. §4.5 still gives the same counts in words where the literal reading is introduced ("the same seven green and twelve red combinations and turns 26 of the 29 yellow ones red"), so a reader still meets both distributions there; the slash form now occurs once, in the Figure 2 legend, and the 7 / 3 / 38 row is in Supplement Table S6. Counted before and after: paper.tex 2 -> 1, supplement.tex 0 -> 0. Earlier history: Bumped 1 -> 2 (2026-08-04), post hoc deviation declaration: Methods §4.5 now restates the primary counts at the point where the 7 / 3 / 38 sensitivity is introduced, so a reader meets both distributions together instead of having to hold one from §2.1. The canonical slash form was used deliberately rather than a comma variant, which would have escaped this check while leaving two spellings of the same anchored quantity in the paper. Also corrected in this entry: paper_section said "Figure 1 caption"; the traffic-light map is Figure 2 (fig00_study_design was inserted as Figure 1 on 2026-06-24 and this label was not renumbered). Single literal-string check covering all three traffic-light counts (T1.25=7 green, T1.26=29 yellow, T1.27=12 red). Anchored on T1.25 for value-cross-check; 29 and 12 are co-validated by literal presence.'
+  notes: 'Re-pinned 2026-10-06 (M. Sauthier review round): the Figure 2 legend prints the totals as "Totals: 7 green, 29 yellow, 12 red." Same three counts. Earlier history: Back 2 -> 1 (2026-09-27, author-approved shortening of Methods §4.5): the §4.5 restatement is removed. §4.5 still gives the same counts in words where the literal reading is introduced ("the same seven green and twelve red combinations and turns 26 of the 29 yellow ones red"), so a reader still meets both distributions there; the slash form now occurs once, in the Figure 2 legend, and the 7 / 3 / 38 row is in Supplement Table S6. Counted before and after: paper.tex 2 -> 1, supplement.tex 0 -> 0. Earlier history: Bumped 1 -> 2 (2026-08-04), post hoc deviation declaration: Methods §4.5 now restates the primary counts at the point where the 7 / 3 / 38 sensitivity is introduced, so a reader meets both distributions together instead of having to hold one from §2.1. The canonical slash form was used deliberately rather than a comma variant, which would have escaped this check while leaving two spellings of the same anchored quantity in the paper. Also corrected in this entry: paper_section said "Figure 1 caption"; the traffic-light map is Figure 2 (fig00_study_design was inserted as Figure 1 on 2026-06-24 and this label was not renumbered). Single literal-string check covering all three traffic-light counts (T1.25=7 green, T1.26=29 yellow, T1.27=12 red). Anchored on T1.25 for value-cross-check; 29 and 12 are co-validated by literal presence.'
 
 ## Step 3 — Results §2.2 Morris rankings (prose + Figure 3 caption)
 
-- paper_section: '§2.2 Morris (prose + Figure 3 caption)'
+- paper_section: '§2.2 Morris (prose) + supplement S13.5'
   paper_context: 'H1 verdict — top-3 fraction >= 0.5 on all 48 cell x output combinations'
   monograph_claim_id: 'T1.07'
   expected_value: 48
-  format_in_paper: '48 of 48'
-  expected_occurrences: 3
-  notes: 'Appears three times: once in §2.2 prose ("the data support this on 48 of 48 cell $\times$ output combinations"), once in Figure 3 caption ("48 of 48 cell $\times$ output combinations"), and once in Supplement §S3.3 on the pulse-pressure-clip cost, which states that H1 "holds in 48 of 48 cell--output combinations under either estimator". History: bumped 2 -> 3 (2026-07-05) when the Discussion surfaced the result at the FAQ-gap sentence, 3 -> 4 (2026-07-24) when the Supplement §S3.3 subsection was added, and back 4 -> 3 (2026-09-05) when the Discussion occurrence was removed. That removal answers P.J.''s request for the absence of repetition: the Discussion was restating §2.2''s sentence with both of its figures rather than interpreting it, and now carries the finding without the numbers, pointing to §2.2 instead.'
+  format_in_paper: 'holds in all 48 cell $\times$ output combinations'
+  expected_occurrences: 2
+  notes: 'Re-pinned 2026-10-06 (M. Sauthier review round): Section 2.2 now states H1 as "holds in all 48 cell $\times$ output combinations (range 0.658--0.998; median 0.928)" (1), and Supplement S13.5 as "Hypothesis~1 holds in all 48 cell $\times$ output combinations under both screens" (1). The Figure 3 legend no longer repeats the count; it keeps "(H1; median top-three share 0.928)". The "holds in" prefix keeps the pattern off Supplement S3.11''s "reproduces the published classification for all 48 cell $\times$ output combinations", a different claim. The surviving "48 of 48" (Supplement S3, estimator distortion) has its own row below. Earlier history: Appears three times: once in §2.2 prose ("the data support this on 48 of 48 cell $\times$ output combinations"), once in Figure 3 caption ("48 of 48 cell $\times$ output combinations"), and once in Supplement §S3.3 on the pulse-pressure-clip cost, which states that H1 "holds in 48 of 48 cell--output combinations under either estimator". History: bumped 2 -> 3 (2026-07-05) when the Discussion surfaced the result at the FAQ-gap sentence, 3 -> 4 (2026-07-24) when the Supplement §S3.3 subsection was added, and back 4 -> 3 (2026-09-05) when the Discussion occurrence was removed. That removal answers P.J.''s request for the absence of repetition: the Discussion was restating §2.2''s sentence with both of its figures rather than interpreting it, and now carries the finding without the numbers, pointing to §2.2 instead.'
 
-- paper_section: '§2.2 Morris (prose)'
+- paper_section: 'supplement S3 (estimator distortion paragraph)'
+  paper_context: 'H1 count under both elementary-effect estimators'
+  monograph_claim_id: 'T1.07'
+  expected_value: 48
+  format_in_paper: '48 of 48'
+  expected_occurrences: 1
+  notes: 'Split out of the T1.07 row above on 2026-10-06 (M. Sauthier review round), when the paper''s two "48 of 48" occurrences were reworded. This one is the Supplement S3 sentence "H1 holds in 48 of 48 cell--output combinations under either estimator".'
+
+- paper_section: '§2.2 Morris (prose + Figure 3 legend) + supplement S3, S13.5'
   paper_context: 'H1 median top-3 fraction (prose form)'
   monograph_claim_id: 'T1.08'
   expected_value: 0.928
-  format_in_paper: 'median top-3 fraction of 0.928'
-  expected_occurrences: 1
-  notes: 'Appears once in §2.2 prose as "with a median top-3 fraction of 0.928".'
+  format_in_paper: '0.928'
+  expected_occurrences: 4
+  notes: 'Re-pinned 2026-10-06 (M. Sauthier review round): the value is now printed four times, all of them the H1 median top-three share: Section 2.2 "(range 0.658--0.998; median 0.928)" (1), the Figure 3 legend "median top-three share 0.928" (1), Supplement S3 "median top-3 fraction 0.928 nominal" (1) and Supplement S13.5 "(median 0.928)" (1). The bare value is pinned so that any new 0.928, for any quantity, surfaces as count drift. Earlier history: Appears once in §2.2 prose as "with a median top-3 fraction of 0.928".'
 
 - paper_section: '§2.2 Figure 3 caption'
   paper_context: 'H1 median top-3 fraction (figure caption form)'
@@ -270,17 +278,17 @@ caught equally.*
   paper_context: 'H1 lowest top-3 fraction (S4_F SpO2 = lower endpoint of the S4 gas-exchange range)'
   monograph_claim_id: 'T2.h1.S4_F.SpO2'
   expected_value: 0.658
-  format_in_paper: 'from 0.658 to 0.727'
+  format_in_paper: '0.658--0.727'
   expected_occurrences: 1
-  notes: 'Appears once in §2.2 prose as "(SpO$_2$ and PaO$_2$ in S4, from 0.658 to 0.727)"; 0.658 is the lower endpoint = S4_F SpO2 top-3 fraction. Reworded 2026-07-18 from the earlier "S4\_F SpO$_2$ at 0.658" when the sentence was corrected to a shunt-driven range over the four S4 gas-exchange cells (the earlier "only cells where the property weakens" / saturation-ceiling framing was an overstatement, now aligned with the monograph).'
+  notes: 'Re-pinned 2026-10-06 (M. Sauthier review round): Section 2.2 now reads "The lowest fractions (0.658--0.727) all occur for gas-exchange outputs in severe ARDS". Earlier history: Appears once in §2.2 prose as "(SpO$_2$ and PaO$_2$ in S4, from 0.658 to 0.727)"; 0.658 is the lower endpoint = S4_F SpO2 top-3 fraction. Reworded 2026-07-18 from the earlier "S4\_F SpO$_2$ at 0.658" when the sentence was corrected to a shunt-driven range over the four S4 gas-exchange cells (the earlier "only cells where the property weakens" / saturation-ceiling framing was an overstatement, now aligned with the monograph).'
 
 - paper_section: '§2.2 Morris (prose)'
   paper_context: 'H1 highest of the S4 gas-exchange top-3 fractions (S4_M PaO2 = upper endpoint of the S4 gas-exchange range)'
   monograph_claim_id: 'T2.h1.S4_M.PaO2'
   expected_value: 0.727
-  format_in_paper: 'from 0.658 to 0.727'
+  format_in_paper: '0.658--0.727'
   expected_occurrences: 1
-  notes: 'Appears once in §2.2 prose as "(SpO$_2$ and PaO$_2$ in S4, from 0.658 to 0.727)"; 0.727 is the upper endpoint = S4_M PaO2 top-3 fraction. Repointed 2026-07-18 from the earlier "S4\_M SpO$_2$ at 0.703" (S4_M SpO2) when the sentence was corrected to a shunt-driven range over the four S4 gas-exchange cells; 0.703 (S4_M SpO2) and 0.707 (S4_F PaO2) are no longer cited verbatim in the paper but remain validated as monograph claims T2.h1.S4_M.SpO2 / T2.h1.S4_F.PaO2 in the anchor ledger.'
+  notes: 'Re-pinned 2026-10-06 (M. Sauthier review round): Section 2.2 now reads "The lowest fractions (0.658--0.727) all occur for gas-exchange outputs in severe ARDS". Earlier history: Appears once in §2.2 prose as "(SpO$_2$ and PaO$_2$ in S4, from 0.658 to 0.727)"; 0.727 is the upper endpoint = S4_M PaO2 top-3 fraction. Repointed 2026-07-18 from the earlier "S4\_M SpO$_2$ at 0.703" (S4_M SpO2) when the sentence was corrected to a shunt-driven range over the four S4 gas-exchange cells; 0.703 (S4_M SpO2) and 0.707 (S4_F PaO2) are no longer cited verbatim in the paper but remain validated as monograph claims T2.h1.S4_M.SpO2 / T2.h1.S4_F.PaO2 in the anchor ledger.'
 
 ## Step 4 — Results §2.3 VC-AC trigger correction
 
@@ -320,9 +328,9 @@ caught equally.*
   paper_context: 'S014 paired-rerun sample size'
   monograph_claim_id: 'T1.06b.s14_n_runs'
   expected_value: 64
-  format_in_paper: '64 of the affected configurations'
+  format_in_paper: '64 affected configurations'
   expected_occurrences: 1
-  notes: 'Appears once in §2.3 prose: "We re-ran 64 of the affected configurations". New ledger claim T1.06b.s14_n_runs added in Step 4 (was implicit in monograph L2226 but not previously audited).'
+  notes: 'Re-pinned 2026-10-06 (M. Sauthier review round): Section 2.3 now opens the lockout sentence with "In 64 affected configurations, setting Pulse''s \texttt{InspirationPatientTriggerPressure} ...". Earlier history: Appears once in §2.3 prose: "We re-ran 64 of the affected configurations". New ledger claim T1.06b.s14_n_runs added in Step 4 (was implicit in monograph L2226 but not previously audited).'
 
 - paper_section: '§2.3 + §2.4 caption'
   paper_context: 'Fraction of locked-trigger reruns below 0.05 Vt CV threshold'
@@ -346,9 +354,9 @@ caught equally.*
   paper_context: 'Total implausible-flagged runs across full sweep'
   monograph_claim_id: 'T1.21b'
   expected_value: 126
-  format_in_paper: '126 \texttt{implausible}-flagged runs'
+  format_in_paper: '126 \texttt{implausible} runs'
   expected_occurrences: 1
-  notes: 'Appears once in §2.4 prose: "exceeds the detector''s locked upper bound of 600~mmHg on 34 of the 126 \texttt{implausible}-flagged runs".'
+  notes: 'Re-pinned 2026-10-06 (M. Sauthier review round): Section 2.4 now reads "on 34 of the 126 \texttt{implausible} runs". Earlier history: Appears once in §2.4 prose: "exceeds the detector''s locked upper bound of 600~mmHg on 34 of the 126 \texttt{implausible}-flagged runs".'
 
 - paper_section: '§2.4 hyperoxia (prose)'
   paper_context: 'PaO2 > 600 implausible count (F-003 hyperoxia subset)'
@@ -362,9 +370,9 @@ caught equally.*
   paper_context: 'Fraction of PaO2>600 runs at FiO2 >= 0.95'
   monograph_claim_id: 'T1.22'
   expected_value: 91
-  format_in_paper: '91~\% of these excursions'
+  format_in_paper: '91~\% of them at FiO$_2 \geq 0.95$'
   expected_occurrences: 1
-  notes: 'Appears once in §2.4 prose: "91~\% of these excursions occur at FiO$_2 \geq 0.95$".'
+  notes: 'Re-pinned 2026-10-06 (M. Sauthier review round): Section 2.4 now reads "91~\% of them at FiO$_2 \geq 0.95$"; the threshold is now part of the pinned string. Earlier history: Appears once in §2.4 prose: "91~\% of these excursions occur at FiO$_2 \geq 0.95$".'
 
 - paper_section: '§2.4 hyperoxia (prose)'
   paper_context: 'S021 S1 converged reruns'
@@ -384,29 +392,37 @@ caught equally.*
 
 ## Step 5 — Results §2.5 sex-stratified divergence + BV dependence
 
-- paper_section: '§2.5 prose + Figure 5 caption'
+- paper_section: '§2.5 prose'
   paper_context: 'All 20 divergence events on male surrogate (anchor for the sex-stratification claim)'
   monograph_claim_id: 'T1.12'
   expected_value: 20
-  format_in_paper: '20 divergence events'
-  expected_occurrences: 2
-  notes: 'Appears twice: §2.5 prose "The 20 divergence events span only 8 distinct operational-input vectors" (1) and Figure 5 caption "all 20 divergence events fall on the male reference body" (1). Quotes refreshed 2026-09-26: the §2.5 sentence lost its "are not spread uniformly through the input space" clause (implied by "only 8"), and the caption had long read "reference body", not "surrogate"; the count is unchanged.'
+  format_in_paper: 'The 20 events span only 8 distinct input vectors'
+  expected_occurrences: 1
+  notes: 'Re-pinned 2026-10-06 (M. Sauthier review round): Section 2.5 now reads "The 20 events span only 8 distinct input vectors" (1). The Figure 5 legend no longer says "all 20 divergence events"; it reads "all 20 occur on the male body". Count 2 -> 1. Earlier history: Appears twice: §2.5 prose "The 20 divergence events span only 8 distinct operational-input vectors" (1) and Figure 5 caption "all 20 divergence events fall on the male reference body" (1). Quotes refreshed 2026-09-26: the §2.5 sentence lost its "are not spread uniformly through the input space" clause (implied by "only 8"), and the caption had long read "reference body", not "surrogate"; the count is unchanged.'
 
 - paper_section: '§2.5 prose'
   paper_context: 'Female surrogate divergence count (zero across 4 cells x 160 runs)'
   monograph_claim_id: 'T1.14b'
   expected_value: 0
-  format_in_paper: '640 runs on the female reference body'
-  expected_occurrences: 2
-  notes: 'Appears once in §2.5 prose: "zero divergences across the 640 runs on the female reference body". Anchored on T1.14b (the value 0 for female divergence count); the 640 denominator is co-validated. Format updated 2026-05-30 in the surrogate -> reference body terminology change: from "640 female-surrogate" to "640 runs on the female reference body" (the natural English phrasing for the new terminology, avoiding the awkward hyphenated form "female-reference body"). Count 1 -> 2 on 2026-08-11: supplement S5 replaced the unverifiable "approximately fivefold higher ... than on the female" ratio with the measured counts, which restate the same 640-run female denominator (see audit/fivefold_divergence_ratio_defect.md).'
+  format_in_paper: '640 runs on the female body'
+  expected_occurrences: 1
+  notes: 'Re-pinned 2026-10-06 (M. Sauthier review round): Section 2.5 now reads "none of the 640 runs on the female body diverged" (1). The Supplement S5.5 copy now reads "none in the 640 female runs" and is pinned by the sex-stratified divergence guard (SEX_DIV_CONTEXT), so it is not counted here. Count 2 -> 1. Earlier history: Appears once in §2.5 prose: "zero divergences across the 640 runs on the female reference body". Anchored on T1.14b (the value 0 for female divergence count); the 640 denominator is co-validated. Format updated 2026-05-30 in the surrogate -> reference body terminology change: from "640 female-surrogate" to "640 runs on the female reference body" (the natural English phrasing for the new terminology, avoiding the awkward hyphenated form "female-reference body"). Count 1 -> 2 on 2026-08-11: supplement S5 replaced the unverifiable "approximately fivefold higher ... than on the female" ratio with the measured counts, which restate the same 640-run female denominator (see audit/fivefold_divergence_ratio_defect.md).'
 
-- paper_section: '§2.5 + S018 follow-up prose (×2)'
+- paper_section: 'Figure 5 legend'
   paper_context: 'S018 rerun sample size for BV-rescue dose-response'
   monograph_claim_id: 'T1.12'
   expected_value: 20
-  format_in_paper: '20 originally-diverged'
-  expected_occurrences: 2
-  notes: 'Appears twice in §2.5 prose: ¶2 "We re-executed the 20 originally-diverged male inputs with an explicit BloodVolumeBaseline override" (1) and Figure 4 caption "20 originally-diverged male inputs" (1).'
+  format_in_paper: '20 originally diverged'
+  expected_occurrences: 1
+  notes: 'Re-pinned 2026-10-06 (M. Sauthier review round): the hyphen was dropped. Only the Figure 5 legend keeps "originally" ("in the 20 originally diverged male configurations"); Section 2.5 now reads "We re-ran the 20 diverged male configurations", which has its own row below. Count 2 -> 1. Earlier history: Appears twice in §2.5 prose: ¶2 "We re-executed the 20 originally-diverged male inputs with an explicit BloodVolumeBaseline override" (1) and Figure 4 caption "20 originally-diverged male inputs" (1).'
+
+- paper_section: '§2.5 prose (blood-volume rerun)'
+  paper_context: 'Diverged male configurations re-run with an imposed blood-volume baseline'
+  monograph_claim_id: 'T1.12'
+  expected_value: 20
+  format_in_paper: '20 diverged male configurations'
+  expected_occurrences: 1
+  notes: 'Split out of the "20 originally-diverged" row on 2026-10-06 (M. Sauthier review round): Section 2.5 now reads "We re-ran the 20 diverged male configurations with the baseline imposed through Pulse''s \texttt{BloodVolumeBaseline} patient setting".'
 
 - paper_section: '§2.5 prose + supplement S2 limitations table footer'
   paper_context: 'Default BV dose-response starting point: 20 diverged out of 20'
@@ -485,8 +501,8 @@ caught equally.*
   monograph_claim_id: 'T2.bv.bracket.diverged'
   expected_value: 0
   format_in_paper: '4{,}400'
-  expected_occurrences: 6
-  notes: 'Appears twice: §2.5 prose "an intermediate bracket (4{,}400~mL, a 8.4~\% reduction)" (1), Figure 5 caption "4{,}400~mL intermediate bracket" (1). 4 -> 5 (2026-09-08, reviewer point 3.7): the new supplement §S10 subsection on the output quality of the rescued runs names the bracket once when reporting the 12-of-20 clean count at both override levels. 5 -> 6 (2026-09-14, number-audit F-S3): the same §S10 paragraph now scopes the Vt-oscillation count by override level, "three of the eight at the 4{,}400~mL bracket (four at the floor)". Measured: paper 2 + supplement 4 = 6. Anchored on T2.bv.bracket.diverged (value corrected 2026-06-16 to 0 diverged at this BV setting; the "4400" value itself is the experimental BV override, declared in scripts/s018_bv_falsification.py as BV_BRACKETS["bracket"]).'
+  expected_occurrences: 7
+  notes: 'Bumped 6 -> 7 (2026-10-06, M. Sauthier review round): Supplement S10 (output quality of the rescued runs) now names the volume where it read "at the bracket": "a steady-state mean PaO$_2$ of 657~mmHg at 4{,}400~mL and 686~mmHg at the floor". Same value, one more explicit statement; the other six are unchanged in number (paper 2, supplement 4). Earlier history: Appears twice: §2.5 prose "an intermediate bracket (4{,}400~mL, a 8.4~\% reduction)" (1), Figure 5 caption "4{,}400~mL intermediate bracket" (1). 4 -> 5 (2026-09-08, reviewer point 3.7): the new supplement §S10 subsection on the output quality of the rescued runs names the bracket once when reporting the 12-of-20 clean count at both override levels. 5 -> 6 (2026-09-14, number-audit F-S3): the same §S10 paragraph now scopes the Vt-oscillation count by override level, "three of the eight at the 4{,}400~mL bracket (four at the floor)". Measured: paper 2 + supplement 4 = 6. Anchored on T2.bv.bracket.diverged (value corrected 2026-06-16 to 0 diverged at this BV setting; the "4400" value itself is the experimental BV override, declared in scripts/s018_bv_falsification.py as BV_BRACKETS["bracket"]).'
 
 ## Step 5 — Results §2.6 secondary observations narrative block
 
@@ -526,41 +542,33 @@ caught equally.*
   paper_context: 'Cornish 2023 non-overlap Hoeffding rejections (channels outside atlas) -- supplement quote'
   monograph_claim_id: 'T3.s028.cornish_non_overlap_hoeffding'
   expected_value: 80
-  format_in_paper: '80 of 85'
+  format_in_paper: '80 of their 85'
   expected_occurrences: 1
-  notes: 'supplement S7 prose direct quote "80 of 85 Hoeffding rejections fall on channels..." (1). Dropped 2 -> 1 in the [SCIENTIFIC] final-fixes pass: paper §2.6 ¶3 was reworded from "80 of 85 fall on channels" to the self-consistent "82 of 85 fall outside ... 80 on channels ... plus 2 ... only 3 of 85 on the overlap" decomposition (D.8 sweep finding A1: 80 + 3 did not sum to 85). The paper-side value 80 is now tracked by the "80 on channels the present atlas does not assess" row below.'
+  notes: 'Re-pinned 2026-10-06 (M. Sauthier review round): Supplement S7 now reads "80 of their 85 Hoeffding rejections fall on channels the atlas does not assess". Earlier history: supplement S7 prose direct quote "80 of 85 Hoeffding rejections fall on channels..." (1). Dropped 2 -> 1 in the [SCIENTIFIC] final-fixes pass: paper §2.6 ¶3 was reworded from "80 of 85 fall on channels" to the self-consistent "82 of 85 fall outside ... 80 on channels ... plus 2 ... only 3 of 85 on the overlap" decomposition (D.8 sweep finding A1: 80 + 3 did not sum to 85). The paper-side value 80 is now tracked by the "80 on channels the present atlas does not assess" row below.'
 
 - paper_section: '§2.6 secondary observations (Cornish complementarity)'
   paper_context: 'Cornish 2023 non-overlap Hoeffding rejections -- paper-side wording after A1 rewrite'
   monograph_claim_id: 'T3.s028.cornish_non_overlap_hoeffding'
   expected_value: 80
-  format_in_paper: '80 on channels the present atlas does not assess'
+  format_in_paper: '80 fall on channels the atlas does not assess'
   expected_occurrences: 1
-  notes: 'paper §2.6 ¶3 after the A1 rewrite: "80 on channels the present atlas does not assess (electrolyte, metabolic, acid--base, dermal)". Same ledger value (80) as the supplement "80 of 85" row above; tracked under a distinct literal because the two documents now phrase it differently.'
+  notes: 'Re-pinned 2026-10-06 (M. Sauthier review round): Section 2.6 now reads "Of the 85 Hoeffding-inequality rejections reported by Cornish et al., 80 fall on channels the atlas does not assess, 2 on the partially overlapping pressure channel SysBP, and only 3 on the four channels assessed by both studies". Earlier history: paper §2.6 ¶3 after the A1 rewrite: "80 on channels the present atlas does not assess (electrolyte, metabolic, acid--base, dermal)". Same ledger value (80) as the supplement "80 of 85" row above; tracked under a distinct literal because the two documents now phrase it differently.'
 
 - paper_section: '§2.6 secondary observations (Cornish complementarity)'
   paper_context: 'Cornish 2023 total Hoeffding rejections across 15 quantities'
   monograph_claim_id: 'T3.s028.cornish_total_hoeffding'
   expected_value: 85
-  format_in_paper: '85 total Hoeffding-inequality rejections'
+  format_in_paper: 'Of the 85 Hoeffding-inequality rejections'
   expected_occurrences: 1
-  notes: 'Appears once in §2.6 ¶3: "reported 85 total Hoeffding-inequality rejections across 15 physiological quantities".'
-
-- paper_section: '§2.6 secondary observations (Cornish complementarity)'
-  paper_context: 'Cornish 2023 rejections OUTSIDE the four-channel overlap (80 not-assessed + 2 SysBP partial)'
-  monograph_claim_id: 'T3.s028.cornish_outside_overlap'
-  expected_value: 82
-  format_in_paper: '82 of 85'
-  expected_occurrences: 1
-  notes: 'Added in the [SCIENTIFIC] final-fixes pass (D.8 sweep finding A1). Appears once in paper §2.6 ¶3: "82 of 85 fall outside the four-channel overlap". The supplement S7 caption (L351) states the same decomposition as "82 fall outside" (no "of 85" literal), so this row is paper-only. Ledger anchor 82 = 80 not-assessed + 2 SysBP-partial, asserted to sum with 3 (overlap) to 85.'
+  notes: 'Re-pinned 2026-10-06 (M. Sauthier review round): see the row above for the new sentence. Earlier history: Appears once in §2.6 ¶3: "reported 85 total Hoeffding-inequality rejections across 15 physiological quantities".'
 
 - paper_section: '§2.6 + supplement S7 caption'
   paper_context: 'Cornish 2023 rejections ON the four-channel overlap (all PaCO2)'
   monograph_claim_id: 'T3.s028.cornish_overlap_hoeffding'
   expected_value: 3
-  format_in_paper: '3 of 85'
+  format_in_paper: 'only 3 on the four'
   expected_occurrences: 2
-  notes: 'Added in the [SCIENTIFIC] final-fixes pass (D.8 sweep finding A1). paper §2.6 ¶3 "only 3 of 85 fall on the four-channel overlap" (1) + supplement S7 caption L351 "only 3 of 85 fall on the four-channel overlap" (1). This number was present in both documents before but untracked; now guarded.'
+  notes: 'Re-pinned 2026-10-06 (M. Sauthier review round): Section 2.6 "and only 3 on the four channels assessed by both studies" (1) and the Table S7 legend "and only 3 on the four overlapping channels (all on PaCO$_2$)" (1). Earlier history: Added in the [SCIENTIFIC] final-fixes pass (D.8 sweep finding A1). paper §2.6 ¶3 "only 3 of 85 fall on the four-channel overlap" (1) + supplement S7 caption L351 "only 3 of 85 fall on the four-channel overlap" (1). This number was present in both documents before but untracked; now guarded.'
 
 - paper_section: '§2.4 Figure 4b caption (npj paper)'
   paper_context: 'Worst-case S1 hyperoxia numerical-runaway plateau, off the [0,760] visible range'
@@ -696,25 +704,25 @@ caught equally.*
   paper_context: 'S2 mild ARDS impairment fraction'
   monograph_claim_id: 'T1.06i.ards_S2_severity'
   expected_value: 0.26
-  format_in_paper: 'impairment = 0.26'
+  format_in_paper: 'Mild, 0.26'
   expected_occurrences: 1
-  notes: 'Appears once in §5 Methods §4.3: "S2, mild, impairment = 0.26". New ledger claim added in Step 7 (regex-extracted from src/scenario.py SCENARIOS).'
+  notes: 'Relabelled 2026-10-06 (M. Sauthier review round): the scenarios S1-S4 are shown as Healthy, Mild, Moderate and Severe, and the cells as Healthy-M ... Severe-F; the data keep the codes, and paper Table 1 gives the correspondence. Values unchanged. Re-pinned 2026-10-06 (M. Sauthier review round): Methods 4.3 now reads "three ARDS severities (S2, mild, 0.26; S3, moderate, 0.60; S4, severe, 0.95)"; the healthy-baseline clause before it names the quantity ("ARDS impairment fraction = 0"). Earlier history: Appears once in §5 Methods §4.3: "S2, mild, impairment = 0.26". New ledger claim added in Step 7 (regex-extracted from src/scenario.py SCENARIOS).'
 
 - paper_section: '§5 Methods §4.3 (scenario definitions)'
   paper_context: 'S3 moderate ARDS impairment fraction'
   monograph_claim_id: 'T1.06j.ards_S3_severity'
   expected_value: 0.60
-  format_in_paper: 'impairment = 0.60'
+  format_in_paper: 'Moderate, 0.60'
   expected_occurrences: 1
-  notes: 'Appears once in §5 Methods §4.3.'
+  notes: 'Relabelled 2026-10-06 (M. Sauthier review round): the scenarios S1-S4 are shown as Healthy, Mild, Moderate and Severe, and the cells as Healthy-M ... Severe-F; the data keep the codes, and paper Table 1 gives the correspondence. Values unchanged. Re-pinned 2026-10-06 (M. Sauthier review round): see the S2 row above. Earlier history: Appears once in §5 Methods §4.3.'
 
 - paper_section: '§5 Methods §4.3 (scenario definitions)'
   paper_context: 'S4 severe ARDS impairment fraction'
   monograph_claim_id: 'T1.06k.ards_S4_severity'
   expected_value: 0.95
-  format_in_paper: 'impairment = 0.95'
+  format_in_paper: 'Severe, 0.95'
   expected_occurrences: 1
-  notes: 'Appears once in §5 Methods §4.3.'
+  notes: 'Relabelled 2026-10-06 (M. Sauthier review round): the scenarios S1-S4 are shown as Healthy, Mild, Moderate and Severe, and the cells as Healthy-M ... Severe-F; the data keep the codes, and paper Table 1 gives the correspondence. Values unchanged. Re-pinned 2026-10-06 (M. Sauthier review round): see the S2 row above. Earlier history: Appears once in §5 Methods §4.3.'
 
 - paper_section: '§5 Methods §4.3 (simulation duration)'
   paper_context: 'Each run simulation length in seconds'
@@ -728,9 +736,9 @@ caught equally.*
   paper_context: 'CSV output sample interval in seconds'
   monograph_claim_id: 'T1.06o.sample_interval_seconds'
   expected_value: 5
-  format_in_paper: '5-second intervals'
+  format_in_paper: 'every 5 seconds'
   expected_occurrences: 3
-  notes: 'Appears once in §5 Methods §4.3: "output channels sampled at 5-second intervals". New ledger claim added in Step 7 (regex-extracted from src/scenario.py SAMPLE_INTERVAL_S).'
+  notes: 'Re-pinned 2026-10-06 (M. Sauthier review round): all three occurrences now read "every 5 seconds": Methods 4.3 "with outputs sampled every 5 seconds" (1), Supplement S8.2 "a breath-integrated time series sampled every 5 seconds" (1), Supplement S9.1 "sampled every 5 seconds into the atlas-aggregated CSV" (1). Table 1''s "sampled every 5~s" uses another spelling and was never counted here. Earlier history: Appears once in §5 Methods §4.3: "output channels sampled at 5-second intervals". New ledger claim added in Step 7 (regex-extracted from src/scenario.py SAMPLE_INTERVAL_S).'
 
 ## Phase 9.A - Supplement S3 Tables S2 + S3 (HARD_BOUNDS + DRIFT row literals)
 

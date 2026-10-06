@@ -17,16 +17,19 @@
 # supplement and update the probe here. Do not weaken a probe to make the gate
 # pass -- that is the failure this file exists to catch.
 
-main manuscript states the constants the atlas runs on: the hard physiological bounds and th	HR [20, 220]~bpm
-main manuscript records a post hoc deviation between the preregistered traffic-light rule and	Post hoc deviation from the preregistered traffic-light rule
-main manuscript keeps the three terms needed to read its figures	Terms used in this paper
-main manuscript reports per-cell counts under the locked four-flag classifier	Per-cell flag breakdown across the eight scenario
-main manuscript reports the cross-sex Spearman rank correlation $\rho$ on Morris $\mu^{*}$ in	Spearman $\rho$ point estimates of 0.75--1.00
-main manuscript reports that setting Pulse's \texttt{InspirationPatientTriggerPressure} to $-	collapses the median Vt CV from 0.351 to 0.016
-main manuscript reports that the locked 120-second simulation window is insufficient for arte	40 of 44 reruns (90.9~\%)
-main manuscript reports that all 20 of 1{,}280 input-extreme-regime divergences fall on the m	all 20 fell on the male reference body
-main manuscript carries a forward-looking note on engine-side infrastructure suggestions for	the atlas also serves the engine's maintainers
-main manuscript); a one-line note in the patient-baseline reference table would have saved the investig	POINTER
-main manuscript reports that, in moderate and severe ARDS, a compensatory tachycardia lifts P	a compensatory tachycardia that lifts mean output heart rate above the sampled input range in moderate and severe ARDS while input heart rate remains its dominant within-scenario determinant
+main manuscript give both the section number and the phrase ``of the main manuscript'', to	POINTER
+main manuscript states the constants on which the atlas runs: the hard physiological bounds	HR [20, 220]~bpm
+main manuscript records a post hoc deviation between the preregistered and implemented traffi	Post hoc deviation from the preregistered traffic-light rule
+main manuscript defines the three terms needed to read its figures	Key terms used in this paper
+main manuscript reports per-cell counts under the locked four-flag classifier	Per-cell flag counts and retention across the eight scenario
+main manuscript reports cross-sex Spearman rank correlations $\rho$ of 0	Spearman $\rho$ point estimates 0.75--1.00
+main manuscript gives the correspondence	Data files and run identifiers code these four scenarios S1--S4, in this order.
+main manuscript summarises the complementarity between the atlas and the causal-falsification st	80 fall on channels the atlas does not assess
+main manuscript reports that setting Pulse's \texttt{InspirationPatientTriggerPressure} to $-	the median Vt CV from 0.351 to 0.016
+main manuscript reports that the locked 120-second window is too short for PaO$_2$ convergenc	40 of 44 reruns (90.9~\%)
+main manuscript reports that all 20 input-extreme divergences (of 1{,}280 runs) fall on the m	all 20 diverged runs (1.6~\%) were on the male reference body
+main manuscript mentions engine-side suggestions for the Pulse maintainers; they are listed be	engine-level observations that target tooling, documentation and validation infrastructure
+main manuscript); a one-line note in the patient-baseline reference table would have avoided that inves	POINTER
+main manuscript reports that, in moderate and severe ARDS, a compensatory tachycardia lifts P	a compensatory tachycardia that lifts mean output heart rate above the sampled input range in moderate and severe ARDS, although input heart rate remains its dominant within-scenario determinant
 main manuscript), which keeps the assumption auditable	POINTER
 main manuscript states how large language models were used and where responsibility rests; t	Large language models (LLMs) were used in this work

@@ -12,7 +12,7 @@ colour word. Formatting is fixed for clinical legibility:
     * output units carried in the column headers, so the cells hold bare numbers.
 
 The colour is a combined class -- the diverged/implausible flag rate together
-with the deviation from the healthy-male S1_M baseline -- and NOT a reliability
+with the deviation from the healthy-male (Healthy-M) baseline -- and NOT a reliability
 verdict; the number encodes the value. These are complementary axes, so a
 clinically normal value can sit on a yellow or red cell, as stated in the caption.
 
@@ -43,6 +43,11 @@ OUT_DIR = REPO / "preprint_npj" / "figures"
 OUTPUTS = ["HR", "MAP", "Vt", "SpO2", "PaO2", "PaCO2"]
 COL_LABELS = ["HR (bpm)", "MAP (mmHg)", "Vt (mL)", "SpO2 (%)", "PaO2 (mmHg)", "PaCO2 (mmHg)"]
 COLOR_SCORE = {"green": 2, "yellow": 1, "red": 0}
+# Scenario labels shown to the reader (M. Sauthier review round, 2026-10-06).
+# The data keep the codes S1-S4; Table 1 of the paper gives the correspondence.
+SCENARIO_LABEL = {"S1": "Healthy", "S2": "Mild", "S3": "Moderate", "S4": "Severe"}
+# Row order as before the relabelling: scenario, then female above male.
+CELL_ORDER = [f"{SCENARIO_LABEL[sc]}-{sx}" for sc in ("S1", "S2", "S3", "S4") for sx in ("F", "M")]
 
 
 def _annotate(row: pd.Series) -> str:
@@ -108,13 +113,13 @@ DRIVER_ORDER = ["neither", "flag_only", "dev_only", "both"]
 
 def main() -> None:
     df = pd.read_csv(SRC)
-    df["cell"] = df["scenario"] + "_" + df["sex"]
+    df["cell"] = df["scenario"].map(SCENARIO_LABEL) + "-" + df["sex"]
     df["light_score"] = df["light"].map(COLOR_SCORE)
     df["annot"] = df.apply(_annotate, axis=1)
     df["driver"] = df.apply(_driver, axis=1)
 
-    score = df.pivot(index="cell", columns="output", values="light_score").reindex(columns=OUTPUTS)
-    annot = df.pivot(index="cell", columns="output", values="annot").reindex(columns=OUTPUTS)
+    score = df.pivot(index="cell", columns="output", values="light_score").reindex(index=CELL_ORDER, columns=OUTPUTS)
+    annot = df.pivot(index="cell", columns="output", values="annot").reindex(index=CELL_ORDER, columns=OUTPUTS)
 
     sns.set_context("paper")
     sns.set_style("whitegrid")

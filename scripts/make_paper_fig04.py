@@ -46,6 +46,9 @@ FEMALE_DEFAULT_BV_ML = 3996.09
 fig, (axA, axB) = plt.subplots(1, 2, figsize=(11.0, 5.0))
 
 # ---- Panel A: per-cell divergence counts, M vs F
+# Scenario labels shown to the reader (M. Sauthier review round, 2026-10-06).
+# The data keep the codes S1-S4; Table 1 of the paper gives the correspondence.
+SCENARIO_LABEL = {"S1": "Healthy", "S2": "Mild", "S3": "Moderate", "S4": "Severe"}
 scenarios = ["S1", "S2", "S3", "S4"]
 male_counts = [int(cfs[(cfs["scenario"] == sc) & (cfs["sex"] == "M")]["n_diverged"].iloc[0]) for sc in scenarios]
 female_counts = [int(cfs[(cfs["scenario"] == sc) & (cfs["sex"] == "F")]["n_diverged"].iloc[0]) for sc in scenarios]
@@ -62,7 +65,7 @@ for xi, fc in zip(x, female_counts):
 # group centre: the female bars are all zero (invisible), so a group-centred
 # label reads as right-shifted from the only drawn bar.
 axA.set_xticks([xi - width/2 for xi in x])
-axA.set_xticklabels([f"{sc}\n(healthy)" if sc == "S1" else (f"{sc}\n(mild ARDS)" if sc == "S2" else (f"{sc}\n(moderate ARDS)" if sc == "S3" else f"{sc}\n(severe ARDS)")) for sc in scenarios])
+axA.set_xticklabels([SCENARIO_LABEL[sc] for sc in scenarios])
 axA.set_ylabel("Divergence count (out of 160 runs per cell)")
 axA.set_title(r"(a) Per-cell solver divergence ($n = 1{,}280$, 160 per cell)", fontsize=10)
 axA.set_ylim(0, max(male_counts) * 1.25 + 0.5)

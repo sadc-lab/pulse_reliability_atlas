@@ -58,6 +58,10 @@ TL = REPO / "results" / "reliability_traffic_light.csv"
 OUT_DIR = REPO / "preprint_npj" / "figures"
 
 CELLS = ["S1_M", "S1_F", "S2_M", "S2_F", "S3_M", "S3_F", "S4_M", "S4_F"]
+# Labels shown to the reader (M. Sauthier review round, 2026-10-06); the data
+# keep the codes. Table 1 of the paper gives the correspondence.
+SCENARIO_LABEL = {"S1": "Healthy", "S2": "Mild", "S3": "Moderate", "S4": "Severe"}
+CELL_LABELS = [f"{SCENARIO_LABEL[c[:2]]}-{c[3]}" for c in CELLS]
 COL_LABELS = ["HR", "MAP", "Vt", "SpO$_2$", "PaO$_2$", "PaCO$_2$"]
 
 # Same validated trio as the main figure's driver strip (reference palette slots
@@ -116,7 +120,7 @@ def main() -> None:
     ax_a.text(-0.4, 30.6, "30 % red threshold", ha="left",
               va="bottom", fontsize=6.5, color="0.3")
     ax_a.set_xticks(range(len(CELLS)))
-    ax_a.set_xticklabels(CELLS, rotation=45, ha="right", fontsize=7)
+    ax_a.set_xticklabels(CELL_LABELS, rotation=45, ha="right", fontsize=7)
     ax_a.set_ylabel("hard-failure rate (%)", fontsize=8)
     ax_a.set_title("(a)  Hard failures per cell (diverged + implausible),\n"
                    "run-level, 160 runs per cell", loc="left", fontsize=8)
@@ -156,8 +160,8 @@ def main() -> None:
     ax_c.set_xticks(range(6))
     ax_c.set_xticklabels(COL_LABELS, fontsize=7)
     ax_c.set_yticks(range(len(CELLS)))
-    ax_c.set_yticklabels(CELLS, fontsize=7)
-    ax_c.set_title("(c)  Signed deviation from the healthy-male (S1, M)\n"
+    ax_c.set_yticklabels(CELL_LABELS, fontsize=7)
+    ax_c.set_title("(c)  Signed deviation from the Healthy-M\n"
                    "baseline (%); descriptive, not a validation",
                    loc="left", fontsize=8)
     cb = fig.colorbar(im, ax=ax_c, fraction=0.046, pad=0.03)
@@ -178,7 +182,7 @@ def main() -> None:
     ax_d.set_xticks(range(6))
     ax_d.set_xticklabels(COL_LABELS, fontsize=7)
     ax_d.set_yticks(range(len(CELLS)))
-    ax_d.set_yticklabels(CELLS, fontsize=7)
+    ax_d.set_yticklabels(CELL_LABELS, fontsize=7)
     counts = tl["driver"].value_counts()
     ax_d.set_title(
         "(d)  Classification drivers:  F hard flags only (n = %d) · "

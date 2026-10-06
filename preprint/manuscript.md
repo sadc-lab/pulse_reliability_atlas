@@ -2920,8 +2920,8 @@ corrected by setting trigger pressure to −2 cmH2O.*
   [`results/f003_physiological_reclassification.csv`](../results/f003_physiological_reclassification.csv)
   (committed code:
   [`scripts/f003_physiological_reclassification.py`](../scripts/f003_physiological_reclassification.py)):
-  **32 of the 34 implausibly-flagged-by-PaO2 runs become
-  physiologically clean under the wider bound** (31 at FiO2 ≥ 0.95,
+  **32 of the 34 implausibly-flagged-by-PaO2 runs no longer
+  exceed the wider PaO2 bound** (31 at FiO2 ≥ 0.95,
   21 in S1_F + 11 in S1_M); the remaining two stay implausible
   under either classifier and correspond to the
   solver-instability-tail input signature above.

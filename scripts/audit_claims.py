@@ -1136,7 +1136,8 @@ add(
     tolerance_rule="pct_1dp",
 )
 
-# 25. Screening retention, both definitions (npj §2.1, Table 4). Added 2026-08-05.
+# 25. Screening retention, both definitions (npj §2.1, Table 3; was Table 4 until the
+# 2026-10-06 M. Sauthier review merged it into the flag table). Added 2026-08-05.
 #
 # Two screens are reported side by side because neither is distribution-neutral
 # and they deplete opposite ends of the severity axis. "Four-flag clean" is the
@@ -1150,7 +1151,7 @@ _cell_hard_free = (~_hard).groupby([agg["scenario"], agg["sex"]]).sum().astype(i
 
 add(
     claim_id="T1.30r.hard_free_total",
-    section="npj §2.1, Table 4",
+    section="npj §2.1, Table 3",
     manuscript_text="1,134 hard-failure-free simulations",
     source_file="data/runs/full_sweep/aggregated.parquet",
     manuscript_value=1134,
@@ -1159,7 +1160,7 @@ add(
 )
 add(
     claim_id="T1.30r.hard_free_pct",
-    section="npj §2.1, Table 4",
+    section="npj §2.1, Table 3",
     manuscript_text="88.6% hard-failure-free rate",
     source_file="data/runs/full_sweep/aggregated.parquet",
     manuscript_value=88.6,
@@ -1226,7 +1227,7 @@ add(
     computed_value=float(_cell_hard_free.max()) / float(_cell_hard_free.min()),
     tolerance_rule="displayed_2dp",
 )
-# The sixteen cells of Table 4, one anchor each, so a single stale count cannot
+# The sixteen retention cells of Table 3, one anchor each, so a single stale count cannot
 # hide inside a table nobody re-derives.
 _RETENTION_TABLE = {
     ("S1", "M"): (49, 145), ("S1", "F"): (42, 137),
@@ -1237,7 +1238,7 @@ _RETENTION_TABLE = {
 for (_sk, _xk), (_v_clean, _v_hf) in _RETENTION_TABLE.items():
     add(
         claim_id=f"T1.30r.clean.{_sk}_{_xk}",
-        section="npj Table 4",
+        section="npj Table 3",
         manuscript_text=f"{_sk}_{_xk} four-flag clean = {_v_clean}/160",
         source_file="data/runs/full_sweep/aggregated.parquet",
         manuscript_value=_v_clean,
@@ -1246,7 +1247,7 @@ for (_sk, _xk), (_v_clean, _v_hf) in _RETENTION_TABLE.items():
     )
     add(
         claim_id=f"T1.30r.hardfree.{_sk}_{_xk}",
-        section="npj Table 4",
+        section="npj Table 3",
         manuscript_text=f"{_sk}_{_xk} hard-failure-free = {_v_hf}/160",
         source_file="data/runs/full_sweep/aggregated.parquet",
         manuscript_value=_v_hf,
@@ -1594,11 +1595,15 @@ add(
     tolerance_rule="exact_int",
 )
 
-# 43-44. §3.8 F-003 reclassification: 32/34 -> clean under 700 mmHg, 31 at FiO2 >= 0.95.
+# 43-44. §3.8 F-003 reclassification: 32/34 below the 700 mmHg bound, 31 at FiO2 >= 0.95.
+# The producer compares PaO2 with 700 mmHg only and re-checks no other flag, so the
+# monograph no longer says these runs "become physiologically clean" (aligned with
+# supplement S3.10 in the M. Sauthier review round, 2026-10-06). The artefact field
+# keeps its historical name.
 add(
     claim_id="T2.f003.reclass",
     section="§3.8 L2024",
-    manuscript_text="32 of 34 implausibly-flagged-by-PaO2 become clean under wider bound",
+    manuscript_text="32 of 34 implausibly-flagged-by-PaO2 no longer exceed the wider PaO2 bound",
     source_file="results/f003_physiological_reclassification_summary.json",
     manuscript_value=32,
     computed_value=int(f003["n_reclassified_locked_to_physio_clean"]),
@@ -3575,9 +3580,11 @@ assert not (_s32_cmb["f_c"] > _s32_cmb["f_flip"]).any() and _s32_first[
 # --- Gates passed. Manuscript claims follow. ---
 
 _lim_src = (REPO / "preprint_npj" / "paper.tex").read_text(encoding="utf-8")
+# End delimiter re-registered 2026-10-06 (M. Sauthier review): the sentence after
+# limit (vi) now opens "In addition, no trajectory-count convergence analysis".
 _lim_txt = _lim_src[
     _lim_src.index("scope limits bound the conclusions") : _lim_src.index(
-        "Two further caveats are of evidence rather than scope"
+        "In addition, no trajectory-count convergence analysis"
     )
 ]
 add(
@@ -4183,8 +4190,10 @@ S021_CONVERGED_PUBLISHED_MMHG = 643
 # drift-converged reruns, which is not the 37 physiologically converged ones
 # that the checks above hold apart.
 S021_CONVERGED_CONTEXT: tuple[tuple[str, str], ...] = (
-    ("preprint_npj/supplement.tex", "over all 40 drift-converged runs"),
-    ("preprint_npj/paper.tex", "over all 40 drift-converged runs was 643~mmHg"),
+    ("preprint_npj/supplement.tex", "over the 40 drift-converged runs"),
+    # Re-pinned 2026-10-06: the M. Sauthier round shortened the sentence to
+    # "with a median of 643 mmHg"; the author restored the denominator (D30).
+    ("preprint_npj/paper.tex", "with a median of 643~mmHg over all 40"),
 )
 # 2026-09-08, reviewer point 3.6: the paper-side literal was strengthened rather
 # than merely repaired. It used to read "converged S1 plateau median was
@@ -4653,9 +4662,11 @@ SEX_DIV_VECTOR_COLS = ["in_hr", "in_sbp", "in_dbp", "in_rr", "in_vt",
 SEX_DIV_DISTINCT_VECTORS = 8
 # {times a vector recurs: how many vectors recur that often}
 SEX_DIV_VECTOR_STRUCTURE = {1: 4, 4: 4}
+# Literals re-registered 2026-10-06 (M. Sauthier review): same facts, same
+# denominators, condensed wording.
 SEX_DIV_UNIT_PROSE = (
     "preprint_npj/paper.tex",
-    "span only 8 distinct operational-input vectors",
+    "span only 8 distinct input vectors",
 )
 SEX_DIV_DOCS = [
     "preprint_npj/paper.tex",
@@ -4663,11 +4674,11 @@ SEX_DIV_DOCS = [
     "preprint/manuscript.md",
 ]
 SEX_DIV_CONTEXT = [
-    ("preprint_npj/paper.tex", "all 20 fell on the male reference body"),
+    ("preprint_npj/paper.tex", "diverged runs (1.6~\\%) were on the male reference body"),
     ("preprint_npj/paper.tex",
-     "zero divergences across the 640 runs on the female reference body"),
+     "none of the 640 runs on the female body diverged"),
     ("preprint_npj/supplement.tex",
-     "20 events across the four male cells versus zero across the 640 runs"),
+     "20 events in the four male cells, none in the 640 female runs"),
     ("preprint/manuscript.md", "20 divergence events on the male"),
 ]
 # Literal reintroductions, plus a narrow proximity pattern for a reworded one.
@@ -4881,8 +4892,11 @@ S011_REL_EXPECTED = [
 ]
 S011_DIVERGED_CELL = ("S4", 67.3)
 S011_PROSE = [
-    ("preprint_npj/supplement.tex", "reverses direction"),
-    ("preprint_npj/supplement.tex", "diverged outright at S4"),
+    # "reverses direction" -> "reverses: female-minus-male" (2026-10-06, M. Sauthier
+    # review); the qualification itself is unchanged.
+    ("preprint_npj/supplement.tex", "comparison reverses: female-minus-male"),
+    # Scenario relabelled S4 -> Severe (2026-10-06, M. Sauthier review).
+    ("preprint_npj/supplement.tex", "diverged outright in Severe"),
     ("preprint_npj/supplement.tex",
      "scenario-dependent sensitivity to the sex-conditioned setup"),
 ]
@@ -4981,13 +4995,16 @@ INST_N_DESIGN = 10_240
 # The prose these numbers live in. Pinned so a rewrite cannot quietly drop the
 # scope that makes them true.
 INST_LITERALS = [
-    "found exact agreement for all 10{,}160 input contracts that reached ingestion",
-    "The remaining 80 ventilator contracts belong to 20 runs that failed during "
-    "patient stabilisation before the ventilator action was submitted",
-    # The gloss carrying the design total. "holds", never "submits": 80 of the
-    # 10,240 were never offered to the engine, so "the sweep submits 10,240"
-    # would be false.
-    "the design holds 10{,}240 of them",
+    # Re-pinned 2026-10-06 (M. Sauthier review round): the contract gloss moved
+    # into a parenthesis, and the design total into "80 of the 10,240 contracts".
+    # "ventilator" was dropped in his version and restored by the author (D29):
+    # the 80 are 20 runs x 4 ventilator contracts, the same runs' setup contracts
+    # reached ingestion, so without the word a reader can count 20 x 8 = 160.
+    # Never "the sweep submits 10,240": 80 of them were never offered to the engine.
+    "found exact agreement for all 10{,}160 input contracts (one value submitted in one "
+    "configuration block) that reached ingestion",
+    "The remaining 80 of the 10{,}240 contracts are the ventilator contracts of the 20 runs "
+    "that failed during patient stabilisation, before the ventilator action was submitted",
 ]
 
 
@@ -5073,8 +5090,10 @@ CLIP_RETAINED_TOTAL = 49
 # The caveat is the reason the numbers were published. Numbers alone would
 # survive a rewrite that deleted it, so it is pinned too.
 CLIP_RETENTION_CAVEAT = (
-    "the systolic robustness checks below therefore rest on as few as four "
-    "elementary-effect pairs in S1\\_M, S1\\_F and S4\\_M"
+    # "therefore" dropped in the 2026-10-06 M. Sauthier review, and the cells
+    # relabelled (S1_M -> Healthy-M ...) in the same round; caveat unchanged.
+    "the systolic robustness checks below rest on as few as four "
+    "elementary-effect pairs in Healthy-M, Healthy-F and Severe-M"
 )
 
 
@@ -5154,13 +5173,13 @@ S030_PUBLISHED: list[tuple[str, float, str, str, float, str | None]] = [
     ("free", 0.95, "late_240_300", "aa_gradient_mmhg", 185.7,
      "narrows from 196.4 to 185.7~mmHg"),
     ("locked", 0.95, "late_240_300", "aa_gradient_mmhg", 185.1,
-     "(185.7 against 185.1~mmHg)"),
+     "(185.7 versus 185.1~mmHg)"),
     ("free", 0.95, "atlas_60_120", "pf_mmhg", 87.3,
      "P/F is 87.3~mmHg over the atlas window"),
     ("free", 0.95, "late_240_300", "pf_mmhg", 112.6,
      "and 112.6~mmHg over [240, 300]~s"),
     ("locked", 0.95, "atlas_60_120", "pf_mmhg", 69.4, "(87.3 and 69.4~mmHg)"),
-    ("locked", 0.95, "late_240_300", "pf_mmhg", 91.5, "P/F falls to 91.5~mmHg"),
+    ("locked", 0.95, "late_240_300", "pf_mmhg", 91.5, "lowers P/F to 91.5~mmHg"),
 ]
 
 
@@ -5264,11 +5283,15 @@ FIO2_ADJ_SOURCE = "results/fio2_adjustment_provenance.csv"
 # monograph is hard-wrapped and every one of these phrases spans a line break
 # there.
 FIO2_ADJ_PHRASES: list[tuple[str, str]] = [
+    # Paper and supplement literals re-registered 2026-10-06 (M. Sauthier
+    # review): the 195-run scope, the logged error, the 208/195 split and the
+    # 0.04 % size are all still stated, in condensed wording.
     ("preprint_npj/paper.tex", "caps the inspired oxygen fraction at 0.9996"),
-    ("preprint_npj/paper.tex", "with a logged error on all 195 runs concerned"),
+    ("preprint_npj/paper.tex", "ventilator action was reached (195 runs)"),
+    ("preprint_npj/paper.tex", "at 0.9996 and logs an error"),
     ("preprint_npj/supplement.tex",
-     "208 runs request FiO$_2$ = 1.0; 195 of them reach the ventilator action"),
-    ("preprint_npj/supplement.tex", "The adjustment is 0.04~\\%"),
+     "Of the 208 runs requesting FiO$_2$ = 1.0, 195 reach the ventilator action"),
+    ("preprint_npj/supplement.tex", "The adjustment (0.04~\\% in relative terms)"),
     ("preprint_npj/supplement.tex", "from 663.0 to 662.7~mmHg"),
     ("preprint/manuscript.md",
      "208 runs request FiO2 = 1.0; **195 reach the ventilator action and "
@@ -5539,9 +5562,10 @@ SOBOL_REQUIRED_PHRASES: tuple[tuple[str, str], ...] = (
     # 2026-09-02 compression removed the gloss that stood there, leaving the
     # term of art undefined in the main text -- "variance" then occurred zero
     # times in paper.tex. The wording restored is the pre-compression one, not
-    # a new composition.
+    # a new composition. Re-pinned 2026-10-06: the M. Sauthier review round
+    # dropped "individual"; the gloss itself is unchanged.
     ("preprint_npj/paper.tex",
-     "apportions output variance among individual inputs and their interactions"),
+     "apportions output variance among inputs and their interactions"),
 )
 
 
@@ -5746,7 +5770,7 @@ VTCV_SCENARIO_SPLIT = {"S1": 139, "S3": 36}
 VTCV_RUNS_PER_SCENARIO = 320
 VTCV_TEXT_LOCI = (
     ("preprint_npj/paper.tex", "exceeds the 0.05 threshold on 139 of 320 runs"),
-    ("preprint_npj/supplement.tex", "above 0.05 on 139 of 320 runs, against 36 of 320 in S3"),
+    ("preprint_npj/supplement.tex", "above 0.05 on 139 of 320 runs, versus 36 of 320 in Moderate"),
 )
 # The same sentence pairs each run count with how many of the 8 delivered-Vt
 # entries of the stable non-linear set fall in that scenario. Those two figures
@@ -5757,7 +5781,9 @@ VTCV_TEXT_LOCI = (
 VTCV_STABLE_VT_SPLIT = {"S1": 0, "S3": 3}
 VTCV_STABLE_VT_TEXT = (
     "preprint_npj/paper.tex",
-    "none of those 8 falls there, against 36 of 320 runs and 3 of the 8 in S3",
+    # Scenario labels S1/S3 -> Healthy/Moderate since 2026-10-06 (M. Sauthier review).
+    "none of the 8 falls there, whereas in the Moderate scenario it does so on 36 of 320 runs "
+    "and 3 of the 8 fall there",
 )
 
 
@@ -6433,7 +6459,7 @@ CONT_TEXT_REQUIRED = (
     ("preprint_npj/paper.tex", "$[0.879, 0.946]$", 2),
     ("preprint_npj/supplement.tex", "$(0.945, 0.95]$    & 2  & 0 / 2   & \\textbf{1 / 2}", 1),
     ("preprint_npj/supplement.tex", "$(0.91, 0.945]$    & 9  & 5 / 9   & \\textbf{8 / 9}", 1),
-    ("preprint_npj/supplement.tex", "0 / 50 divergence on each sex", 1),
+    ("preprint_npj/supplement.tex", "0 / 50 divergences for each sex", 1),
     ("preprint/manuscript.md", "| (0.945, 0.95]    | 0 / 2      | **1 / 2**  |", 1),
     ("preprint/manuscript.md", "0.879–0.928, male 0.899–0.946", 1),
     ("README.md", "female 14/19 vs male 5/19 in (0.85, 0.91], female 5/9 vs male 8/9", 1),
@@ -6449,7 +6475,7 @@ CONT_TEXT_REQUIRED = (
     # (ARDSExacerbation.json), and RespiratoryMethodology.md:1746 reports the
     # ARDS validation "against a moderate severity scenario". Nothing lands
     # inside 0.91--0.945.
-    ("preprint_npj/supplement.tex", "sample at most up to severity 0.9", 1),
+    ("preprint_npj/supplement.tex", "sample severities up to 0.9 at most", 1),
     ("preprint_npj/cover_letter.md", "sample at most up to severity 0.9", 1),
     # Added 2026-09-17, on the author's decision, and paired for the same reason
     # as the two rows above. Results 2.5 states that all 20 divergences fall on
@@ -6458,8 +6484,11 @@ CONT_TEXT_REQUIRED = (
     # it in the lower part of the band (Supplement S5.5, Table S5.4: female
     # 14/19 against male 5/19 in (0.85, 0.91]). The paper carried no such
     # qualifier until now, so a reader of the paper alone could take "all-male"
-    # as general. Either locus going missing is a FAIL.
-    ("preprint_npj/paper.tex", "dominating the lower part of the band", 1),
+    # as general. Either locus going missing is a FAIL. Re-pinned 2026-10-06:
+    # the M. Sauthier review round reworded "with the female body dominating the
+    # lower part" to "the female body mainly in the lower part"; both readings
+    # hold on Table S11 (14 of the 19 female divergences sit in (0.85, 0.91]).
+    ("preprint_npj/paper.tex", "the female body mainly in the lower part of the band", 1),
     ("preprint_npj/supplement.tex", "female divergence concentrated in the lower part", 1),
     # Added 2026-09-17 by the prose audit, which found that the qualifier added
     # above had landed on Results 2.5 ONLY: the abstract and the Figure 5 legend
@@ -6570,21 +6599,26 @@ SMALL_AUDIT_TEXT_REQUIRED = (
      "against a literature value of about 4.6~L (about 7~\\% higher); its current patient "
      "validation table lists 4{,}819~mL for the standard male (about 5~\\% higher).", 1),
     ("preprint_npj/supplement.tex",
-     "the FiO$_2$ rows of Figure~3 of the main manuscript are left blank", 1),
+     "FiO$_2$ rows of Figure~3 of the main manuscript are therefore blank", 1),
     ("preprint_npj/supplement.tex",
      "fired on both deliberate-clamp probes of the pilot (SBP = 140 and DBP = 85~mmHg, each "
      "rejected at setup with exit code 1) and on none of the eight smoke-test runs", 1),
     ("preprint/manuscript.md", "eight [S004](#s004) smoke-test runs", 1),
-    ("preprint_npj/supplement.tex", "(26 and 19 of the 64)", 1),
+    ("preprint_npj/supplement.tex", "mostly the Healthy (26 reruns) and Mild (19) cells", 1),
     ("preprint_npj/supplement.tex",
      "1.826 (S1\\_F\\_0117 and S1\\_F\\_0118, run indices 117 and 118 in the healthy-female "
-     "cell); the lock takes them to 0.018 and 0.024", 1),
+     "cell); the lock reduces them to 0.018 and 0.024", 1),
     ("preprint_npj/supplement.tex",
-     "The two worst-affected configurations, named earlier in this section", 1),
-    ("preprint_npj/paper.tex", "the two worst-affected configurations and the per-run values", 1),
+     "The two worst-affected configurations (\\S\\ref{sec:s8-protocol}; the two rightmost "
+     "points of Figure~4a of the main manuscript)", 1),
+    # The paper-side pointer ("the two worst-affected configurations and the
+    # per-run values are in Supplement S8") was removed in the M. Sauthier
+    # review round (2026-10-06): the paper now reads "Full protocol and per-run
+    # values: Supplement S8". The two configurations stay named in S8.1, pinned
+    # above; the singular wording stays banned in paper.tex below.
     ("preprint_npj/supplement.tex",
-     "within about 0.1~\\% of the value reached at $t = 300$~s on the median trajectory of "
-     "those runs, and within 1.6~\\% for any one of them", 1),
+     "within about 0.1~\\% of the value at $t = 300$~s on the median trajectory, "
+     "and within 1.6~\\% for any individual run", 1),
 )
 SMALL_AUDIT_TEXT_BANNED = {
     "preprint_npj/supplement.tex": (
@@ -6769,22 +6803,26 @@ MONO_AUDIT_TEXT_REQUIRED = (
     ("preprint/manuscript.md", "erratum of 2026-05-19, lines\n9–36).", 1),
     # Number-word findings resolved on the author's decisions (2026-09-15, register section 9).
     # W-P1: the tie count is true only at one or two decimals (4 + 5), the qualifier restored.
-    ("preprint_npj/paper.tex", "fall on an exact rounding tie at one or two decimals, and their last digit", 1),
+    # The paper literal re-pinned 2026-10-06: the M. Sauthier round dropped the
+    # qualifier, and the author restored it (decision D28, audit/sauthier_review_2026-10.md).
+    ("preprint_npj/paper.tex", "would fall on an exact rounding tie at one or two decimals.", 1),
     ("preprint/manuscript.md", "fall on an exact rounding tie at one or two decimals.", 1),
     # W-P2: the condensation pass measured part by part (f2ac374 -> e361c2a). The Methods ratio
     # (0.54) excludes the AI-disclosure subsection, which the pass left unchanged (0.59 with it).
     # Since 2026-09-15 the phase-by-phase detail lives in Supplement S18, so the sentence moved
     # there and "this disclosure" became "the AI-use subsection".
-    ("preprint_npj/supplement.tex", "the Introduction, the Discussion and the Methods other than the AI-use "
-     "subsection were rewritten to about half their length "
-     "and the Results to about a third, the figure legends were shortened by about a quarter and the abstract "
+    # Re-pinned 2026-10-06 (M. Sauthier review round): "the Methods other than the
+    # AI-use subsection" became "the Methods (except the AI-use subsection)".
+    ("preprint_npj/supplement.tex", "the Introduction, the Discussion and the Methods (except the AI-use "
+     "subsection) were rewritten to about half their length "
+     "and the Results to about a third, the figure legends were shortened by about a quarter, and the abstract "
      "was revised within its 150-word cap", 1),
     # W-S2: the out-of-sample estimates follow in their own subsection.
-    ("preprint_npj/supplement.tex", "so its training fit says nothing about predictive accuracy; out-of-sample "
-     "estimates follow in \\S\\ref{sec:s13-oos};", 1),
+    ("preprint_npj/supplement.tex", "so its training fit says nothing about predictive accuracy (out-of-sample "
+     "estimates follow in \\S\\ref{sec:s13-oos})", 1),
     # W-S3: two BMR consumers form TMR/BMR, the third (EndocrineModel.cpp L164) tests TMR > BMR.
     ("preprint_npj/supplement.tex", "cancel the sex term exactly at rest, where total metabolic rate equals basal "
-     "--- two divide one by the other, and the third acts only when total exceeds basal.", 1),
+     "(two divide one by the other, and the third acts only when total exceeds basal).", 1),
     # W-M1: the clamp catalogue holds five patterns since the 2026-07-26 patch; no count, a pointer.
     ("preprint/manuscript.md", "instead of pattern-matching the regex set documented in §2.6.", 1),
     # W-M2 (number-word read-through, 2026-09-15): the permutation null splits the pooled runs
@@ -6797,21 +6835,23 @@ MONO_AUDIT_TEXT_REQUIRED = (
     # C-S1: scripts/make_supp_fig_s3.py takes the highlighted median over the physiological
     # subset (plateau <= 700 mmHg), i.e. 37 runs, not over all 40 drift-converged ones; the
     # figure caption and S9.3 already said 37.
-    ("preprint_npj/supplement.tex", "the thick line is the median over the 37 whose plateau "
-     "stays physiological", 1),
+    ("preprint_npj/supplement.tex", "the thick line is the median of the 37 with a physiological "
+     "plateau", 1),
     # C-S2: the rho table covers S2 (mild) and S3 (moderate), so the scope is both scenarios.
-    ("preprint_npj/supplement.tex", "preserved across sex in the mild- and moderate-ARDS scenarios, "
-     "S2 and S3", 1),
+    # Re-pinned 2026-10-06: the M. Sauthier round dropped the trailing "S2 and S3";
+    # the scope still names both scenarios.
+    ("preprint_npj/supplement.tex", "rankings across sex in the mild- and moderate-ARDS scenarios", 1),
     # C-S3: the quoted sentence was never in paper.tex verbatim (0 occurrences); it is now a
     # paraphrase, and the paper's own wording is "80 on channels the present atlas does not assess".
-    # The literal "80 of 85" is kept because crosswalk T3.s028.cornish_non_overlap_hoeffding counts it.
-    ("preprint_npj/supplement.tex", "by reporting that 80 of 85 Hoeffding rejections fall on "
-     "channels the present atlas does not assess", 1),
+    # The count is kept in the sentence because crosswalk T3.s028.cornish_non_overlap_hoeffding counts
+    # it; since the M. Sauthier review round (2026-10-06) it reads "80 of their 85".
+    ("preprint_npj/supplement.tex", "80 of their 85 Hoeffding rejections fall on "
+     "channels the atlas does not assess", 1),
     # C-S4: "this absence" had no antecedent in the paragraph (it has had none since 48912f8).
-    ("preprint_npj/supplement.tex", "the absence of any surfactant model was re-verified directly", 1),
+    ("preprint_npj/supplement.tex", "The absence of a surfactant model was also verified directly", 1),
     # GL-S2 (2026-09-15, author's decision; unit corrected 2026-09-27): resample-count sensitivity.
-    ("preprint_npj/supplement.tex", "Repeating the whole procedure at 500, 2{,}000 and 4{,}000 resamples returns "
-     "the same 23 inputs, so the stable set does not depend on the resample count.", 1),
+    ("preprint_npj/supplement.tex", "repeating the procedure with 500, 2{,}000 and 4{,}000 resamples returns "
+     "the same 23 inputs", 1),
     ("preprint/supplementary.md", "## S10 — Verification points (twelve independent layers)", 1),
     ("preprint/supplementary.md", "12 independent verification points; 0 failures", 1),
 )
@@ -7009,8 +7049,8 @@ def check_monograph_number_audit() -> int:
     paper_tex = (REPO / "preprint_npj" / "paper.tex").read_text(encoding="utf-8")
     record("W-P1 nine of the sixteen retention values tie at one or two decimals (paper and monograph)",
            f"{len(ks)} values, {t1} at one decimal + {t2} at two = {t1 + t2}",
-           len(ks) == 16 and t1 + t2 == 9 and "nine of the sixteen values below fall on an exact rounding tie at one "
-           "or two decimals" in paper_tex and "nine of the sixteen values fall on an exact rounding tie at one or two "
+           len(ks) == 16 and t1 + t2 == 9 and "nine of the sixteen retention values would fall on an exact rounding "
+           "tie at one or two decimals" in paper_tex and "nine of the sixteen values fall on an exact rounding tie at one or two "
            "decimals" in mono)
 
     # MK-M1: the line range the monograph gives for the preregistration erratum is the
@@ -7222,14 +7262,14 @@ def check_s033_cycle_resolved() -> int:
             and round(float(gaps.max()), 1) == 8.6)
     n_over = int((est["cycle_resolved"] > est["five_second"]).sum())
     add_row("direction split is two against two",
-            "`two summaries make the 5-second statistic overstate the effect, two make "
+            "`two summaries make the 5-second statistic overstate the effect and two make "
             f"it understate it` -- cycle-resolved is larger in {n_over} of {len(est)}",
-            ("two summaries make the 5-second statistic overstate the effect, two make "
+            ("two summaries make the 5-second statistic overstate the effect and two make "
              "it understate it") in supp and n_over == 2 and len(est) == 4)
 
     add_row("configurations entering the estimands",
-            f"`the same 63 configurations` -- artefact {est['n_configs'].unique().tolist()}",
-            "the same 63 configurations" in supp
+            f"`computed on the 63 configurations` -- artefact {est['n_configs'].unique().tolist()}",
+            "computed on the 63 configurations" in supp
             and est["n_configs"].unique().tolist() == [63])
     add_row("caption denominator",
             "`the same 63 paired configurations (of 64)`",
@@ -7257,13 +7297,13 @@ def check_s033_cycle_resolved() -> int:
             conf["n_runs_analysed"] + conf["n_runs_without_csv"] == conf["n_runs_total"])
     add_row("native traces are sampled at exactly 50 Hz",
             f"{conf['native_sampling_hz_min']} to {conf['native_sampling_hz_max']} Hz; "
-            "prose says `0.02-second sampling interval (50~Hz)`",
+            "prose says `every 0.02~s (50~Hz)`",
             conf["native_sampling_hz_min"] == 50.0
             and conf["native_sampling_hz_max"] == 50.0
-            and "0.02-second sampling interval (50~Hz)" in supp)
+            and "every 0.02~s (50~Hz)" in supp)
     add_row("the 200-fold oversample follows from 50 Hz over 0.25 Hz",
-            f"50 / 0.25 = {50.0 / 0.25:.0f}; prose says `200-fold oversample`",
-            abs(50.0 / 0.25 - 200.0) < 1e-9 and "200-fold oversample" in supp)
+            f"50 / 0.25 = {50.0 / 0.25:.0f}; prose says `200-fold oversampling`",
+            abs(50.0 / 0.25 - 200.0) < 1e-9 and "200-fold oversampling" in supp)
 
     # ---- the segmentation limit and its sensitivity analysis -------------- #
     # Published 2026-09-12, after the re-derivation measured that the notebook's
@@ -7276,7 +7316,7 @@ def check_s033_cycle_resolved() -> int:
         "agree to a median of 5.4~\\%",
         round(100.0 * conf["cycle_count_vs_rr_median_rel_err"], 1), 5.4)
     pin("limit: 95th percentile and maximum of that disagreement",
-        "the 95th percentile of that disagreement is 38~\\% and the maximum 95~\\%",
+        "the 95th percentile of the disagreement is 38~\\% and the maximum 95~\\%",
         round(100.0 * conf["cycle_count_vs_rr_p95_rel_err"], 0) * 1e3
         + round(100.0 * conf["cycle_count_vs_rr_max_rel_err"], 0),
         38e3 + 95)
@@ -7288,23 +7328,23 @@ def check_s033_cycle_resolved() -> int:
     sa = conf["sensitivity_native_all"]
     mb = conf["merging_bias_direction"]
     add_row("limit: the four low-confidence verdict splits are all cycle-only",
-            "`four are cycle-only crossings, and none is a 5-second-only crossing` -- "
+            "`four are cycle-only crossings and none is a 5-second-only crossing` -- "
             f"artefact: {conf['n_cycle_count_disagreement_with_verdict_split']} split(s), "
             f"{conf['cycle_count_disagreement_verdict_split_runs']}",
-            ("four are cycle-only crossings, and none is a 5-second-only crossing" in supp)
+            ("four are cycle-only crossings and none is a 5-second-only crossing" in supp)
             and conf["n_cycle_count_disagreement_with_verdict_split"] == 4
             and all(
                 bool(per_run.loc[r, "flag_cycle"]) and not bool(per_run.loc[r, "flag_5s"])
                 for r in conf["cycle_count_disagreement_verdict_split_runs"]
             ))
     pin("sensitivity: the 2x2 against the all-sample estimator",
-        "agrees on 295 flagged and 945 unflagged runs, crosses the threshold alone on 12, "
+        "agrees on 295 flagged and 945 unflagged runs, crosses the threshold alone on 12 "
         "and is crossed alone by the 5-second statistic on 8",
         float(sa["flagged_by_both"]) * 1e9 + sa["flagged_by_neither"] * 1e6
         + sa["native_only"] * 1e3 + sa["five_second_only"],
         295e9 + 945e6 + 12e3 + 8)
     pin("sensitivity: its agreement, against the published one",
-        "an agreement of 98.4~\\% against the 98.3~\\% reported above",
+        "(98.4~\\% agreement, versus 98.3~\\% above)",
         round(sa["pct_agree"], 1) * 1e3 + round(conf["pct_agree"], 1),
         98.4e3 + 98.3)
     pin("sensitivity: runs where the two cycle-level estimators differ",
@@ -7319,7 +7359,7 @@ def check_s033_cycle_resolved() -> int:
     # wrong (relative-only, so blind to two values that are both noise).
     mat = mb["material"]
     pin("bias direction: runs entering the comparison",
-        "On the 1{,}250 runs whose two values differ by more than a relative $10^{-6}$",
+        "on the 1{,}250 runs whose two values differ by more than a relative $10^{-6}$",
         float(mat["n_runs"]), 1250)
     pin("bias direction: the larger side",
         "the change-point value is the larger on 640",
@@ -7327,11 +7367,11 @@ def check_s033_cycle_resolved() -> int:
     pin("bias direction: the smaller side",
         "and the smaller on 610", float(mat["n_cycle_below_native"]), 610)
     pin("bias direction: median ratio of the two cycle-level estimators",
-        "at a median ratio of 1.0005",
+        "with a median ratio of 1.0005",
         round(mb["median_ratio_cycle_over_native_material"], 4), 1.0005)
     pin("bias direction: runs excluded as numerically identical",
-        "the remaining ten are identical to the precision the trace carries, nine of "
-        "them the constant-volume runs",
+        "the remaining ten, nine of them constant-volume runs, are identical to the "
+        "precision of the trace",
         float(mb["n_below_cut"]) * 1e3 + conf["n_constant_volume"], 10e3 + 9)
     add_row("bias direction: the split accounts for every analysed run",
             f"{mat['n_runs']} compared + {mb['n_below_cut']} indistinguishable = "
@@ -7354,7 +7394,7 @@ def check_s033_cycle_resolved() -> int:
             == conf["n_constant_volume"]
             and mb["max_float_residue_on_constant_runs"] < 1e-12)
     pin("sensitivity: the all-sample counterfactual, against the published one",
-        "from 530 to 533, against the 530 to 536 reported above",
+        "from 530 to 533, versus 530 to 536 above",
         float(sa["nss_counterfactual"]) * 1e4 + conf["nss_counterfactual"],
         533e4 + 536)
     add_row("sensitivity: the published counterfactual is the larger of the two",
@@ -7370,12 +7410,12 @@ def check_s033_cycle_resolved() -> int:
             sa["flagged_by_both"] + sa["flagged_by_neither"] + sa["native_only"]
             + sa["five_second_only"] == conf["n_runs_analysed"])
     add_row("the reworded caption no longer reads as group-against-group",
-            "`Within each pair --- the two rows built from ratios, and the two built from "
-            "differences --- the summaries disagree` present; the old group-against-group "
-            "wording absent",
-            ("Within each pair --- the two rows built from ratios, and the two built from "
-             "differences --- the summaries disagree on which resolution overstates the "
-             "effect") in supp
+            "`Within each pair of summaries (the two ratio-based and the two "
+            "difference-based rows), the summaries disagree` present; the old "
+            "group-against-group wording absent",
+            ("Within each pair of summaries (the two ratio-based and the two "
+             "difference-based rows), the summaries disagree on which resolution "
+             "overstates the effect") in supp
             and "The two rows built from ratios and the two built from differences disagree"
             not in supp)
 
@@ -7559,7 +7599,7 @@ def check_s023_oos_table() -> int:
     optimism = rf["r2_oob"] - rf["r2_grouped_cv"]
     gas = ["SpO2", "PaO2", "PaCO2"]
     pin_range("prose: out-of-bag optimism on the blood-gas channels",
-              "most optimistic (0.078 to 0.087", 0.078, 0.087, 3, 3,
+              "most optimistic (by 0.078 to 0.087", 0.078, 0.087, 3, 3,
               float(optimism[gas].min()), float(optimism[gas].max()))
     add_row("prose: optimism on delivered Vt",
             "`against 0.0003 for delivered Vt` -- artefact "
@@ -7746,7 +7786,7 @@ def check_s034_screen_sensitivity() -> int:
         float(s["n_runs_hard_failure_free"]) * 1e5 + s["distinct_pairs_hff"],
         1134e5 + 969)
     pin("elementary-effect observations gained, and the S1 share",
-        "of the 3{,}090 elementary-effect observations gained, 1{,}152 fall in S1",
+        "of the 3{,}090 additional elementary-effect observations, 1{,}152 fall in Healthy",
         float(s["ee_observation_gain"]) * 1e5 + s["ee_observation_gain_by_scenario"]["S1"],
         3090e5 + 1152)
 
@@ -7754,8 +7794,8 @@ def check_s034_screen_sensitivity() -> int:
     add_row("H1 holds in all 48 combinations under both screens",
             f"clean {h1c['n_pass']}/{h1c['n_combinations']}, "
             f"relaxed {h1h['n_pass']}/{h1h['n_combinations']}; prose says "
-            "`holds in every one of the 48 cell $\\times$ output combinations under both screens`",
-            ("holds in every one of the 48 cell $\\times$ output combinations under "
+            "`holds in all 48 cell $\\times$ output combinations under both screens`",
+            ("holds in all 48 cell $\\times$ output combinations under "
              "both screens") in supp
             and h1c["n_pass"] == h1c["n_combinations"] == EXPECTED_S034_COMBINATIONS
             and h1h["n_pass"] == h1h["n_combinations"] == EXPECTED_S034_COMBINATIONS)
@@ -7800,7 +7840,7 @@ def check_s034_screen_sensitivity() -> int:
 
     s2m = s["criteria_S2_M_only"]
     pin("the screen's effect on S2_M, the seed comparator's cell",
-        "the screen change preserves 6, 2 and 2 on the same six outputs",
+        "the screen change preserves 6, 2 and 2 on the same outputs",
         float(s2m["top1_preserved"]) * 1e8 + s2m["top3_set_preserved"] * 1e4
         + s2m["top3_order_preserved"],
         6e8 + 2e4 + 2)
@@ -7858,7 +7898,7 @@ def check_s034_screen_sensitivity() -> int:
         rank1 = sum(1 for a, b in zip(canon, new) if a[:1] == b[:1] and a)
         same_set_re = [set(a) == set(b) for a, b in zip(canon, new)]
         same_order_re = [a == b for a, b in zip(canon, new)]
-        lit = ("preserves the rank-1 input in 6 of its 6 outputs, the top-three set "
+        lit = ("preserves the rank-1 input in all 6 outputs, the top-three set "
                "in 4 and its order in 3")
         found = lit in supp
         add_row("the seed comparator, read from the phase-4b artefact",
@@ -7903,12 +7943,14 @@ def check_s034_screen_sensitivity() -> int:
     # 2.1 defines: "four-flag" and "hard-failure-free" (the relaxed screen keeps
     # the same 1,134 runs). The three raw counts and their denominator are
     # unchanged.
+    # Re-registered 2026-10-06 (M. Sauthier review round, author decision D31):
+    # "under both screens" again, now unambiguous because 2.1 and Table 3 define
+    # exactly two screens. The three raw counts and their denominator are unchanged.
     _paper_claim = (
-        "H1 holds in all 48 combinations under both the four-flag and the "
-        "hard-failure-free screens. On the 30 combinations whose candidate set "
-        "(the inputs carrying at least one retained pair) is the same under both "
-        "screens, the rank-1 input is preserved in all 30, while the identity of "
-        "ranks two and three changes in 11"
+        "H1 holds in all 48 combinations under both screens. In the 30 combinations "
+        "whose candidate set (the inputs with at least one retained pair) is the same "
+        "under both screens, the rank-1 input is preserved in all 30, whereas ranks "
+        "two and three change in 11"
     )
     add_row("paper: the pointer, its denominator and its raw counts",
             f"`{_paper_claim[:60]}...` present in paper.tex; artefact: "
@@ -7923,13 +7965,15 @@ def check_s034_screen_sensitivity() -> int:
             "antecedent was the 48, where the true figure is 22 of 48",
             "changes in about a third of them" not in paper)
     add_row("paper caption: FiO2 is rank-1 for PaO2 and SpO2 in all three white-cell cells",
-            "`it is then the rank-1 input for PaO$_2$ and SpO$_2$ in each` present; artefact: "
+            "`estimable in all three and is then the rank-1 input for PaO$_2$ and SpO$_2$` "
+            "present; artefact: "
             + ", ".join(
                 f"{r['cell']}/{r['output']}"
                 for r in comp[(~comp["top1_preserved"]) & (comp["top1_hff"] == "fio2")]
                 .to_dict(orient="records")
             ),
-            ("it is then the rank-1 input for PaO$_2$ and SpO$_2$ in each") in paper
+            ("estimable in all three and is then the rank-1 input for PaO$_2$ and SpO$_2$")
+            in paper
             and sorted(
                 (r["cell"], r["output"])
                 for r in comp[(~comp["top1_preserved"]) & (comp["top1_hff"] == "fio2")]

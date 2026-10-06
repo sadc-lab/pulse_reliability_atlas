@@ -76,7 +76,10 @@ CLAIMS: list[tuple[str, str, int, str]] = [
     # eight. It sits in the Introduction rather than in a Code/Data availability
     # section, which is why an enumeration that looked where such sentences are
     # expected missed it. Finding one occurrence never measures the population.
-    ("preprint_npj/paper.tex", "and released open-source under Apache-2.0", 1,
+    # 2026-10-06: the Introduction sentence was condensed in the M. Sauthier review
+    # round to "... with a fixed seed (open-source, Apache-2.0)"; the proposition is
+    # unchanged (the pipeline is public NOW), so the anchor follows the new wording.
+    ("preprint_npj/paper.tex", "with a fixed seed (open-source, Apache-2.0)", 1,
      "Introduction: the pipeline itself is public NOW."),
     ("preprint_npj/paper.tex", "are released open-source", 1,
      "Code availability: the artefacts are public NOW."),

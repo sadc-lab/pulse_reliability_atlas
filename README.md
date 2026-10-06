@@ -285,7 +285,7 @@ quick canary check), confirm the pipeline by running:
 ```bash
 uv run pytest tests/ -v                       # S009/S015 unit tests
 uv run python scripts/audit_claims.py          # S024 -- fresh clone prints 393/394 PASS (1 SKIPPED: T1.06u, gitignored raw S021 data); 394/394 with full local data
-uv run python scripts/audit_claims.py --check-paper-sync --check-monograph   # + 94 paper crosswalk entries and 25 monograph anchors
+uv run python scripts/audit_claims.py --check-paper-sync --check-monograph   # + 95 paper crosswalk entries and 25 monograph anchors
 ```
 
 The audit has three layers, all gated by the pre-commit hook and by CI.
@@ -295,7 +295,7 @@ first re-derives a value from data:
 | Layer | Flag | What it does | What it does **not** do |
 |---|---|---|---|
 | Claims ledger | *(default)* | Re-derives **394** numerical claims from the canonical data artifacts (parquet/CSV) and compares each against the value printed in the manuscript, under per-class tolerance rules. This is the layer that verifies **correctness**. | It does not re-derive everything in the manuscript. Hard-coded detector constants (`HARD_BOUNDS`, `DRIFT_MAX_DELTA_60S`) are **regex-extracted from `src/detector.py` at audit time** — read from the code, not recomputed from data — and bounds taken from the literature trace to a citation, not to an artifact. This is why the manuscript scopes the statement to "the computed quantitative claims" rather than to all of them. |
-| Paper crosswalk | `--check-paper-sync` | **94** entries. For each, counts the literal's occurrences across the **combined `paper.tex` + `supplement.tex` corpus** and compares against the expected count, *and* checks the mapped value still agrees with the ledger entry behind it (`preprint_npj/paper_to_monograph_map.md`). | It performs no independent computation: it binds the paper to the ledger's already-re-derived value. A number wrong in the ledger stays wrong here. |
+| Paper crosswalk | `--check-paper-sync` | **95** entries. For each, counts the literal's occurrences across the **combined `paper.tex` + `supplement.tex` corpus** and compares against the expected count, *and* checks the mapped value still agrees with the ledger entry behind it (`preprint_npj/paper_to_monograph_map.md`). | It performs no independent computation: it binds the paper to the ledger's already-re-derived value. A number wrong in the ledger stays wrong here. |
 | Monograph anchors | `--check-monograph` | **25** anchors: numerical claims that live **only** in the monograph, with no ledger anchor and no crosswalk row (`preprint/monograph_anchor_map.md`). A presence guard — it detects a verified value silently drifting. | It is a **string-occurrence count**, not a re-derivation: `25/25 PASS` means each string still appears the expected number of times, not that its arithmetic was checked. Every anchor is therefore re-derived by hand before being locked. |
 
 The pilot gate study itself is a runnable smoke test on cell (S1, M):

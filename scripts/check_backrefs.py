@@ -69,7 +69,11 @@ MANIFEST = ROOT / "audit" / "backref_manifest.txt"
 # later unrelated verb in a long paragraph does not pull a pointer in.
 BACKREF_RE = re.compile(
     r"main\s+(?:manuscript|paper)\b[^.]{0,80}?"
-    r"\b(?:reports?|states?|records?|says?|gives?|describes?|notes?|shows?|carries|quotes?|keeps?)\b"
+    # defines / mentions / summarises added 2026-10-06: the M. Sauthier review
+    # round reworded three supplement back-references with these verbs, which
+    # silently took them out of the gate (a missed match is not a failure).
+    r"\b(?:reports?|states?|records?|says?|gives?|describes?|notes?|shows?|carries|quotes?|keeps?"
+    r"|defines?|mentions?|summari[sz]es?)\b"
     r"[^.]{0,70}",
     re.IGNORECASE,
 )
@@ -121,6 +125,15 @@ def self_test() -> list[str]:
     )
     if not BACKREF_RE.search(witness):
         failures.append("self-test: the S6-rho witness was NOT matched")
+
+    # The three verbs added on 2026-10-06, each on the exact clause that escaped.
+    for verb_witness in (
+        "Table 1 of the main manuscript defines the three terms needed to read its figures",
+        "The Discussion of the main manuscript mentions engine-side suggestions",
+        "The Discussion of the main manuscript summarises the complementarity",
+    ):
+        if not BACKREF_RE.search(verb_witness):
+            failures.append(f"self-test: verb witness NOT matched: {verb_witness!r}")
 
     # A \mainref that merely points at a section asserts nothing about content.
     # It is still matched (so it must be registered), which is deliberate: a
