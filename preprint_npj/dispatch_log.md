@@ -1512,3 +1512,57 @@ to a current figure PNG.
 As in the re-freeze 51 entry (renaming, Tables 3 and 4 merged, Word numbering,
 24 / 58 pages, deviations justified in the register); the scenario names are
 now used uniformly wherever the text points at a scenario or cell.
+
+---
+
+## 2026-10-07 — re-freeze 53 restamped: the files now in `build/` (same content); not sent
+
+**Status: NOT SENT.** The author sends the files found in
+`preprint_npj/build/`. At the author's request the build was rerun at
+11:59 on unchanged sources, which restamped the four files of re-freeze 53, so
+their hashes no longer matched the entry above. This entry records the bytes
+now in `build/`, so that the copy which leaves is the one logged. Not numbered
+as a new re-freeze: no text, number or figure changed.
+
+| | |
+|---|---|
+| Sent | — (the author decides when and to whom) |
+| Source | as at re-freeze 53 (`b554c95`); the only later commit, `4fdcb77`, touches git hooks, `.gitignore` and `CLAUDE.md`, none of them a build input |
+| Pages | 24 (paper) / 58 (supplement), unchanged |
+| Monograph | not part of the dispatch; unchanged |
+
+### Hashes, frozen before any further build
+
+| artefact | SHA-256 | bytes |
+|---|---|---|
+| `preprint_npj/build/paper.pdf` | `c144fc834b85648ab3d3e894abe8a694376e17ff9fbf46afceecd3de9bc3bdc4` | 615,969 |
+| `preprint_npj/build/paper.docx` | `5c7ffdab32438a339837dc165ee0997570f75939ad507e2361f5984e39e75409` | 953,416 |
+| `preprint_npj/build/supplement.pdf` | `70ec3c758d0de7882291f19df8bc28e5514659691969f934f92ec02b90ef5bf2` | 714,513 |
+| `preprint_npj/build/supplement.docx` | `f98838eb414fe08d91e3213673368f7860e2e8770d38f5c3fae4f584cf903742` | 761,316 |
+
+Written 11:59:34–11:59:42 local time; `paper.tex` and `supplement.tex` were
+last modified at 11:35:26; `git diff HEAD` is empty, so the two PNG rasters the
+build rewrites are byte-identical to the tracked ones. Measured against the
+re-freeze 53 copies in `preprint_npj/build/freeze53/`:
+
+- PDFs: same sizes; extracted text identical on every page (24 / 24 and
+  58 / 58); the only differing bytes are `/CreationDate`, `/ModDate`
+  (11:36 → 11:59) and the `/ID` pair.
+- Word files: same zip members, every one byte-identical in content except
+  `docProps/core.xml`, whose only change is the created / modified timestamp;
+  paragraph text identical (247 / 247 and 928 / 928). Each file is one byte
+  larger.
+
+Copies in `preprint_npj/build/freeze53_restamp/` (gitignored). Any rebuild
+before the send restamps the files again: check `sha256sum` against this
+table before sending.
+
+### Gate state at freeze
+
+Full gate on `4fdcb77` with this entry written: 13 / 13 PASS (render and Word
+structure checks run on these four files); the four hashes were re-measured
+after the gate, unchanged.
+
+### What the covering message should say
+
+As in the re-freeze 53 entry.
