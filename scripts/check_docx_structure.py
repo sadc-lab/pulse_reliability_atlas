@@ -190,6 +190,45 @@ def numbering_problems(paras: list[tuple[str, str]], want_floats: Counter,
     return problems
 
 
+# Table structure. Added 2026-10-07: two-line \shortstack header cells broke
+# Table 3, Table S7 and Table S10 in Word -- pandoc read the \\ inside the cell
+# as a row break, added a row and lost the first line of the cell -- while
+# every check above passed, because none of them counted table rows. Each
+# LaTeX tabular must reach Word with the same number of rows; a Word table that
+# holds images is pandoc's layout for a multi-panel figure and is not counted.
+def latex_row_counts(tex: str) -> list[int]:
+    """Rows of each tabular: top-level \\\\ only, so a \\\\ inside a cell's braces is not a row."""
+    counts = []
+    for m in re.finditer(r"\\begin\{tabular\}(.*?)\\end\{tabular\}", tex, re.S):
+        body = m.group(1)
+        if body.startswith("{"):  # the column specification
+            depth = 0
+            for j, c in enumerate(body):
+                depth += {"{": 1, "}": -1}.get(c, 0)
+                if depth == 0:
+                    body = body[j + 1:]
+                    break
+        depth, rows, i = 0, 0, 0
+        while i < len(body):
+            if body[i] == "{":
+                depth += 1
+            elif body[i] == "}":
+                depth -= 1
+            elif body.startswith("\\\\", i) and depth == 0:
+                rows += 1
+                i += 2
+                continue
+            i += 1
+        counts.append(rows)
+    return counts
+
+
+def word_row_counts(xml: str) -> list[int]:
+    """Rows of each Word data table, in document order."""
+    return [len(re.findall(r"<w:tr[ >]", t)) for t in re.findall(r"<w:tbl>.*?</w:tbl>", xml, re.S)
+            if "<w:drawing" not in t]
+
+
 def main() -> int:
     fails = 0
     labels = parse_aux_labels(NPJ / "build")
@@ -286,6 +325,18 @@ def main() -> int:
             print(f"  *** {p}")
         fails += len(problems)
 
+        tex_rows, word_rows = latex_row_counts(live), word_row_counts(xml)
+        broken_tables = [(n + 1, a, b) for n, (a, b) in enumerate(zip(tex_rows, word_rows)) if a != b]
+        same_count = len(tex_rows) == len(word_rows)
+        print(f"  tables: {len(tex_rows)} tabulars in .tex, {len(word_rows)} data tables in .docx, "
+              f"{len(broken_tables)} with a different row count "
+              f"{'OK' if same_count and not broken_tables else '*** BROKEN ***'}")
+        if not same_count:
+            print("  *** the number of tables differs")
+        for n, a, b in broken_tables:
+            print(f"  *** table #{n}: {a} rows in .tex, {b} in .docx")
+        fails += len(broken_tables) + (0 if same_count else 1)
+
     print("\n--- CALIBRATION ---")
     probe = docx_text(NPJ / "build/paper.docx")
     found_present = CONTROL_PRESENT in probe
@@ -306,6 +357,16 @@ def main() -> int:
     print(f"  reference matcher rejects the URL-less entry and accepts the repaired one: {ref_ok}")
     if not ref_ok:
         print("  *** CALIBRATION FAILED -- the reference-link check cannot be believed")
+        fails += 1
+
+    # The row counter must not count a \\ inside a cell's braces -- the exact
+    # construct that broke the Word tables -- and must count every real row.
+    snippet = ("\\begin{tabular}{lr}\nCell & \\shortstack[r]{hard-failure-\\\\free} \\\\\n"
+               "A & 1 \\\\\nAll & \\shortstack[r]{663\\\\(51.8~\\%)} \\\\\n\\end{tabular}")
+    rows_ok = latex_row_counts(snippet) == [3]
+    print(f"  row counter ignores \\\\ inside a stacked cell and counts the 3 real rows: {rows_ok}")
+    if not rows_ok:
+        print("  *** CALIBRATION FAILED -- the table-structure check cannot be believed")
         fails += 1
 
     # The numbering check must flag the exact defect it was written for -- the

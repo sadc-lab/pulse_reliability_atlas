@@ -60,6 +60,8 @@ The same ``.aux`` numbers are written into the figure and table captions
 pandoc otherwise prints unnumbered; ``\bmhead`` headings become unnumbered
 sections, ``\tableofcontents`` becomes a static contents list, and the
 reference list gets its "References" heading (see ``number_for_word``).
+Two-line ``\shortstack`` table cells are flattened to one line first
+(``unstack_cells``), because pandoc reads their ``\\`` as a row break.
 
 Usage
 -----
@@ -398,6 +400,36 @@ def number_for_word(tex: str, labels: dict[str, tuple[str, str]]) -> tuple[str, 
     return tex, unnumbered_floats + unnumbered_headings
 
 
+SHORTSTACK_RE = re.compile(r"\\shortstack\s*(?:\[[^\]]*\])?\s*\{")
+
+
+def unstack_cells(tex: str) -> str:
+    r"""Flatten ``\shortstack{A\\B}`` table cells to one line for pandoc.
+
+    pandoc reads the ``\\`` inside a ``\shortstack`` as the end of a table row,
+    so every stacked header or cell broke its table in Word: the second line
+    became an extra row and the first line was lost (found 2026-10-07 in
+    Table 3, Table S7 and Table S10, e.g. "hard-failure-" and "663" missing).
+    The PDF keeps its two-line cells; Word gets one line. A break after a
+    hyphen or an underscore joins the halves directly ("hard-failure-free",
+    "not_steady_state"); any other break becomes a space ("663 (51.8 %)").
+    """
+    out, i = [], 0
+    while True:
+        m = SHORTSTACK_RE.search(tex, i)
+        if not m:
+            out.append(tex[i:])
+            break
+        content, end = _braced(tex, m.end() - 1)
+        parts = [p.strip() for p in re.split(r"\\\\", content)]
+        joined = parts[0]
+        for p in parts[1:]:
+            joined += p if joined.endswith(("-", "\\_")) else " " + p
+        out.append(tex[i:m.start()] + joined)
+        i = end
+    return "".join(out)
+
+
 def transform_frontmatter(tex: str) -> str:
     r"""Rewrite the sn-jnl front matter into pandoc-friendly LaTeX.
 
@@ -483,6 +515,7 @@ def main() -> int:
     # cross-reference to the literal .aux number (fixes pandoc's inability to
     # resolve xr-hyper external refs and its sub-panel figure miscounting).
     munged = flatten_subfigures(munged)
+    munged = unstack_cells(munged)
     labels = parse_aux_labels(out_path.parent)
     if labels:
         munged, unnumbered = number_for_word(munged, labels)
