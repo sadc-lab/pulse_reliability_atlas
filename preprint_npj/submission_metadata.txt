@@ -60,7 +60,7 @@ Wiedemann [2,3,4,6]; Mamouni [3]; Schweitzer [4,5]; Jouvet [1,2,3]; Sauthier [1,
 Affils: [1] PICU, CHU Sainte-Justine, U. Montreal; [2] CDSS PE-DIATRICS, CHU Sainte-Justine;
 [3] Research Center, Sainte-Justine University Hospital; [4] Pediatric ICU, Children Hospital,
 CHRU Nancy; [5] UR 3450 DevAH, Universite de Lorraine, Nancy; [6] INSERM UMR_S 1256, NGERE,
-Universite de Lorraine. NGERE = Wiedemann only.
+Universite de Lorraine, Vandoeuvre-les-Nancy. NGERE = Wiedemann only.
 
 ------------------------------------------------------------------------------
 ORCID iDs

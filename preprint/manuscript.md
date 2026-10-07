@@ -19,7 +19,7 @@ header-includes:
 
 ^5^ UR 3450 DevAH, Université de Lorraine, Nancy, France.
 
-^6^ Université de Lorraine, INSERM UMR_S 1256, Nutrition-Génétique et Exposition aux Risques Environnementaux, Faculté de Médecine de Nancy, France.
+^6^ Université de Lorraine, INSERM UMR_S 1256, Nutrition-Génétique et Exposition aux Risques Environnementaux, Faculté de Médecine de Nancy, Vandœuvre-lès-Nancy, France.
 
 ^\*^ Corresponding author.
 

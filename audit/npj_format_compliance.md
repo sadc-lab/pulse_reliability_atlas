@@ -690,7 +690,16 @@ changed.
   50184, 54500 Vandoeuvre-lès-Nancy Cedex" (https://ngere.univ-lorraine.fr/,
   scraped 2026-10-07, `.firecrawl/ngere_home_2026-10-07.md`), so "Nancy" alone
   would not match the address; A.W., whose affiliation it is, decides the
-  form. Never checked before (no "city" in this register). Minor, related: affiliation 2 writes "Montréal", 1 and 3
+  form. Never checked before (no "city" in this register).
+  **Fixed the same day** on the author's decision ("Vandœuvre-lès-Nancy"):
+  `\city{Vand\oe{}uvre-l\`es-Nancy}` in `paper.tex` and `supplement.tex`,
+  "Vandœuvre-lès-Nancy" in `preprint/manuscript.md`, "Vandoeuvre-les-Nancy"
+  in the ASCII portal block of `submission_metadata.txt`; rendering checked in
+  all six built files (PDF image and Word text). The fix exposed a converter
+  defect: the braced `\oe{}` made `scripts/tex_to_docx.py` drop the whole
+  address from the Word files, city and country, while the PDFs were right;
+  repaired, and guarded in `scripts/check_docx_structure.py` (every `\affil`
+  must have `\city` and `\country`, and reach Word whole). Minor, related: affiliation 2 writes "Montréal", 1 and 3
   "Montreal"; affiliation 1 writes `\state{QC}`, 3 `\state{Quebec}`.
 - 🟡 **N-9 — Figure 2 is cited before Figure 1.** `SG`: "Figures should be
   cited in the text in the order in which they appear." Table 1's *Cell* row
