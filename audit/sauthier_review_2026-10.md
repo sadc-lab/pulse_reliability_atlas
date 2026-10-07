@@ -145,6 +145,7 @@ pour D27. Une erreur trouvée et corrigée dans ce registre (D12, ci-dessus).
 | E6 | §S15 | « archived with the code and data in the Zenodo deposit » (présent) alors que le papier dit « will be deposited » | validé : correction appliquée (2026-10-06) |
 | E7 | Monographie | « 32 of the 34 … become physiologically clean under the wider bound » : même excès que D18 | **aligné** : « no longer exceed the wider PaO2 bound » (le script ne compare que PaO₂ à 700 mmHg, relu le 2026-10-06, L77–80) ; libellé du registre d'audit `T2.f003.reclass` aligné |
 | E8 | Word (papier Table 3, supplément Tables S7 et S10) | défaut introduit pendant cette ronde : les en-têtes et cellules sur deux lignes (`\shortstack`, ajoutés pour la mise en page du PDF) étaient lus par pandoc comme des fins de ligne ; dans le Word, chaque tableau gagnait des lignes et perdait le début des cellules (« hard-failure- », « not_steady_ », « 663 », « 1,134 », « n_clean », « Mild/Moderate/Severe ») ; présent dans les Word du re-gel 51, non envoyés | **corrigé** dans `scripts/tex_to_docx.py` (`unstack_cells` : une ligne dans le Word, PDF inchangé) et **gardé** dans `scripts/check_docx_structure.py` (lignes LaTeX = lignes Word, tableau par tableau ; contrôle positif : les 3 tableaux échouent sur l'ancien Word, 0 au re-gel 50) ; trouvé à l'audit du 2026-10-07 |
+| E9 | Supplément, Table S16 (§S13.4, performance hors échantillon du substitut) | défaut **antérieur** à cette ronde : la table n'était appelée nulle part dans le texte (0 `\ref{tab:s13-oos}` au re-gel 50 comme aujourd'hui) ; npj demande que chaque tableau soit appelé | **corrigé** le 2026-10-07 sur décision de l'auteur : « so two out-of-sample estimates were computed (Table~\ref{tab:s13-oos}) » ; trouvé par la vérification de placement des tableaux et figures (premier appel contre page du tableau) |
 | ~~E4~~ | ~~§S3.11~~ | ~~retiré : j'avais cité notre texte de travers ; il dit « a favourable verdict » (vert) et il est juste. Le défaut est dans la version de M.S. → D27~~ | — |
 
 ## 5. Commentaires de M.S. et réponses
@@ -199,3 +200,55 @@ lignes modifiées. Le message du commit `d0361de` porte la même erreur, et il d
 aussi « 14 S033 literals » : ce sont 13 littéraux distincts (14 remplacements,
 un littéral figurant deux fois dans le code). Le commit n'est pas réécrit : le
 journal d'envoi le cite comme source du re-gel 51.
+
+### Harmonisation du vocabulaire des scénarios (décision de l'auteur, 2026-10-07)
+
+**Constat** (audit du 2026-10-07, inventaire de toutes les façons de nommer les
+scénarios dans le papier, le supplément, les README, la lettre et les
+métadonnées). Les noms de cellules étaient cohérents (Healthy-M … Severe-F, plus
+aucun code S1–S4 hors de la note de correspondance de la Table 1, des
+identifiants de runs, de la numérotation du supplément et de la Figure S2). Mais
+13 descriptions en minuscules désignaient encore un scénario ou une cellule de
+l'atlas, parfois dans la même phrase qu'un nom (« from the Healthy median to
+144 mmHg in moderate and 73 mmHg in severe ARDS »). La correspondance du
+renommage elle-même a été vérifiée sur chaque modification (191 automatiquement,
+24 à la main) : aucune erreur.
+
+**Règle retenue.** Le nom quand le texte désigne un scénario ou une cellule de
+l'atlas ; les mots cliniques quand il décrit la physiologie (« healthy lungs »,
+« severe-ARDS oxygenation territory » de Berlin, tachycardie compensatoire « in
+moderate and severe ARDS »), dans le résumé (où les noms ne sont pas encore
+définis) et dans les phrases de définition (« a healthy baseline and three ARDS
+severities »).
+
+| Lieu | Avant | Après |
+|---|---|---|
+| Papier §2.1 et légende de la Table 3 (×2) | in moderate ARDS on the male body … in the healthy female cell | in Moderate-M … in Healthy-F |
+| Papier §2.2 | in mild and moderate ARDS. In severe ARDS, its μ* | in Mild and Moderate. In Severe, its μ* |
+| Papier §2.2 | gas-exchange outputs in severe ARDS | gas-exchange outputs in Severe |
+| Papier §2.5 | only mild-ARDS delivered tidal volume | only delivered tidal volume in Mild |
+| Papier §4.4 | a 22-run pilot on the healthy-male cell | on the Healthy-M cell |
+| Supplément §S3.9 | differences of the healthy cells | differences of the two Healthy cells |
+| Supplément §S3.10 (×2) | healthy-female run(s) | Healthy-F run(s) |
+| Supplément §S6.1 | in the mild- and moderate-ARDS scenarios | in the Mild and Moderate scenarios |
+| Supplément §S8.1 | in the healthy-female cell | in the Healthy-F cell |
+| Supplément, légende Figure S3 | more frequent in healthy lungs than in severe ARDS | more frequent in Healthy than in Severe |
+| Supplément §S9.3 | in moderate and 73 mmHg in severe ARDS | in Moderate and 73 mmHg in Severe |
+
+Chaque phrase a été relue en contexte et vérifiée sur les données (144 et 42 sont
+Moderate-M et Healthy-F de la Table 3 ; l'intervalle qui contient zéro est celui
+de Mild, [−0,06 ; 1,00] ; en §S3.10, les deux runs restés au-dessus du plafond
+sont S1_F_0118 et S1_F_0119, et l'exception à FiO₂ = 0,737 est S1_F_0056,
+678,6 mmHg, d'après `results/f003_physiological_reclassification.csv` ; les deux
+runs de §S8.1 sont S1_F_0117 et S1_F_0118).
+
+**Même décision, deux précisions liées.**
+- Table 1 : « The labels are Berlin Definition bands » → « Mild, Moderate and
+  Severe are Berlin Definition bands » : depuis le renommage, « Healthy » est aussi
+  un nom en gras, et ce n'est pas une bande de Berlin.
+- Table S16 : appel ajouté (E9 ci-dessus).
+
+Gardes recalés : `audit_claims.py` (petits nombres F-S8 : « in the Healthy-F
+cell » ; C-S2 : « rankings across sex in the Mild and Moderate scenarios ») ;
+notes de deux lignes de `paper_to_monograph_map.md` (documentaires). Porte
+complète verte après reconstruction.
