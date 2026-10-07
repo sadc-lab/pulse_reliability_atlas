@@ -1413,3 +1413,53 @@ sentence still says all 394 pass. Hence 23 here.
 
 Items 1, 2 and 5 above, and that the deviations from his corrections are
 explained point by point (the register's sections 2 and 6, in French).
+
+---
+
+## 2026-10-07 — re-freeze 52: Word tables repaired (paper + supplement); not sent
+
+**Status: NOT SENT.** Supersedes re-freeze 51, whose two `.docx` files are
+**defective** and must not be sent: in Word, paper Table 3 and supplement
+Tables S7 and S10 had their two-line header and total cells split into extra
+rows, losing the first line of each ("not_steady_", "hard-failure-", "663",
+"1,134", "n_clean", "Mild", "Moderate", "Severe"). The PDFs of re-freeze 51
+were correct. Found by the author-requested self-audit; fixed in `01b032b`
+(the `.tex` sources are unchanged), recorded as E8 in
+`audit/sauthier_review_2026-10.md`.
+
+| | |
+|---|---|
+| Sent | — (the author decides when and to whom) |
+| Source commit | `aa99efa` (content since re-freeze 51: `d9b995d` register erratum, `01b032b` Word fix + guard, `aa99efa` register) |
+| Pages | 24 (paper) / 58 (supplement), unchanged |
+| Monograph | not part of the dispatch; unchanged since re-freeze 51 (same hashes) |
+
+### Hashes, frozen before any further build
+
+| artefact | SHA-256 | bytes |
+|---|---|---|
+| `preprint_npj/build/paper.pdf` | `28c0958c2168bff2d983039eb25eaea001a9d09708723d7e1a3f25fa293e1472` | 615,847 |
+| `preprint_npj/build/paper.docx` | `acabcbd66ee411cf91633b8404c90d5c8632ebe18fc7d41b76042100546089bf` | 953,439 |
+| `preprint_npj/build/supplement.pdf` | `ecb065bd414c9851d0fb1dc60f42aea64d7faafa72e5cb7a54a6fb679f859f21` | 714,520 |
+| `preprint_npj/build/supplement.docx` | `a460e927634d28d1e6622f3234d9b912368e48eff6616666c3bed41f3ab2aa24` | 761,336 |
+
+The four files were written 10:27:52–10:28:00 local time, after every
+source; `git diff HEAD` on the sources is empty; the two PNG rasters the
+build rewrites are byte-identical to the tracked ones. The PDFs have the
+same sizes as at re-freeze 51 (only their timestamps differ). Against the
+re-freeze 51 Word files, the text of the new ones differs in exactly the
+repaired cells (paper 3 blocks, supplement 2 blocks, paragraph by
+paragraph). `check_docx_structure.py`: tables 3/3 and 18/18 with equal row
+counts. Monograph hashes as in the entry above. Copies in
+`preprint_npj/build/freeze52/` (gitignored).
+
+### Gate state at freeze
+
+Full gate on `aa99efa`: 13 / 13 PASS, counts as at re-freeze 51 (394/394,
+95/95, 25/25, 49 cited keys, 16 back-references, 9/9 publication anchors,
+render 1 accepted residue and 0 new, 80 pytest), plus the new table check.
+
+### What the covering message should say
+
+As in the re-freeze 51 entry; nothing changes for the reader except that the
+Word tables are now intact.
