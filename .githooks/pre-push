@@ -1,0 +1,60 @@
+#!/bin/sh
+# Pulse Reliability Atlas pre-push hook: the second barrier against reviewer
+# material reaching GitHub.
+#
+# Why (2026-10-07). The pre-commit hook refuses supervisors' returns and internal
+# notes, but a `git commit --no-verify` skips it. This hook re-checks, at push
+# time, every file ADDED or MODIFIED by every commit about to be sent, with the
+# same rules (.githooks/sensitive_paths.sh), and refuses the whole push if one
+# matches -- including a file added and then deleted inside the pushed range,
+# because the deleted file would still be in the published history.
+#
+# Git feeds one line per ref on stdin:
+#   <local ref> <local sha> <remote ref> <remote sha>
+# Enabled by the same setting as pre-commit:  git config core.hooksPath .githooks
+
+. "$(git rev-parse --show-toplevel)/.githooks/sensitive_paths.sh"
+
+zero=0000000000000000000000000000000000000000
+names="$(mktemp)"
+trap 'rm -f "$names"' EXIT
+found=""
+while read -r local_ref local_sha remote_ref remote_sha; do
+    [ -z "$local_sha" ] && continue
+    [ "$local_sha" = "$zero" ] && continue          # deleting a remote branch
+    if [ "$remote_sha" = "$zero" ] || ! git cat-file -e "$remote_sha^{commit}" 2>/dev/null; then
+        # New branch, or a remote tip this clone has never fetched: check every
+        # commit that is on no remote yet rather than an unknown range.
+        range="$local_sha --not --remotes"
+    else
+        range="$remote_sha..$local_sha"
+    fi
+    # -z: raw names (no quoting of non-ASCII paths); --diff-filter=d: deletions
+    # are fine; -m: also list what a merge commit brings in.
+    # Fail closed: if the commits cannot be listed, nothing is pushed.
+    # shellcheck disable=SC2086
+    if ! git log -m --format= --name-only -z --diff-filter=d $range > "$names"; then
+        echo "pre-push: could not list the commits being pushed ($range); refusing." >&2
+        exit 1
+    fi
+    hits=$(tr '\0' '\n' < "$names" | sort -u | sensitive_paths)
+    if [ -n "$hits" ]; then
+        found="$found$hits
+"
+    fi
+done
+
+if [ -n "$found" ]; then
+    echo ""
+    echo "pre-push: refusing to push; the commits being sent add or modify"
+    echo "reviewer material or internal notes:"
+    printf '%s' "$found" | sort -u | sed 's/^/    /'
+    echo ""
+    echo "  Nothing was sent. Remove these files from the unpushed commits"
+    echo "  (e.g. git reset --soft origin/main, unstage them, commit again)."
+    echo "  Reviewers' returns belong in retours_chefs/ (gitignored). Rules:"
+    echo "  .githooks/sensitive_paths.sh"
+    echo ""
+    exit 1
+fi
+exit 0

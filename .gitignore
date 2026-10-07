@@ -134,3 +134,10 @@ audit/monograph_comprehensibility_audit.md
 # Reviewer documents: supervisor feedback files stay local, never committed
 *_PJdocx.docx
 Adult Pulse model *.docx
+
+# The one drop folder for supervisors' and co-authors' returns (2026-10-07).
+# Put every corrected Word file, annotated PDF or e-mail export there, e.g.
+# retours_chefs/2026-11_PJ/. Literal folder name, per the two-tier design
+# above; the name-independent guard is .githooks/sensitive_paths.sh, used by
+# both the pre-commit and the pre-push hooks.
+retours_chefs/

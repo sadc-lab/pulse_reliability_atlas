@@ -47,7 +47,15 @@ set -e
 #
 # Verified when the patterns were widened: `git ls-files` matched none of
 # TODO_*, ROADMAP_*, NEXT_* at that time, so no existing tracked file is caught.
-SENSITIVE=$(git diff --cached --name-only --diff-filter=d | grep -Exi '(Paper_retour_PJ\.pdf|paper_feedback_michaelSauthier\.docx|(paper|supplement)_revised_Claude_MS\.docx|internal_morris_rebuttal\.md|(.*/)?TODO_.*\.md|(.*/)?ROADMAP_.*\.md|(.*/)?NEXT_SESSION.*\.md)' || true)
+#
+# 2026-10-07: the rules moved to .githooks/sensitive_paths.sh, shared with the
+# new pre-push hook, and no longer depend on file NAMES: anything under
+# retours_chefs/, any .doc/.docx/.odt/.rtf/.pages, and any PDF outside the
+# figure and template folders is refused, so a new supervisor's file is caught
+# whatever it is called. `-z` keeps git from quoting non-ASCII names, which
+# would otherwise slip past the patterns (e.g. "retours_chefs/r\303\251vision.docx").
+. "$(git rev-parse --show-toplevel)/.githooks/sensitive_paths.sh"
+SENSITIVE=$(git diff --cached --name-only -z --diff-filter=d | tr '\0' '\n' | sensitive_paths)
 if [ -n "$SENSITIVE" ]; then
     echo ""
     echo "pre-commit: refusing to commit sensitive internal review material:"
@@ -56,8 +64,9 @@ if [ -n "$SENSITIVE" ]; then
     echo "  These files (supervisor/reviewer feedback, internal authorship/review"
     echo "  notes) must not enter the public git history. Unstage them:"
     echo "    git restore --staged <file>"
-    echo "  If a specific file is genuinely safe to publish, remove its pattern"
-    echo "  from .githooks/pre-commit AND from .gitignore first."
+    echo "  Reviewers' returns belong in retours_chefs/ (gitignored)."
+    echo "  If a specific file is genuinely safe to publish, change the rules in"
+    echo "  .githooks/sensitive_paths.sh deliberately and say why in the commit."
     echo ""
     exit 1
 fi
