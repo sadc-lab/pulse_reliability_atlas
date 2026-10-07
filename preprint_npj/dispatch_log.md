@@ -1636,3 +1636,42 @@ plus a few npj compliance fixes (affiliation 6 city, figure order, Figure S5
 now S1, the follow-up selection rules in Methods); pages 24 / 58; for M.S., the
 points not taken from his review with their reasons
 (`audit/sauthier_review_2026-10.md`, sections 1, 2 and 7).
+
+---
+
+## 2026-10-07 — re-freeze 54 SENT to the four supervisors
+
+**Status: SENT.** The four files of the re-freeze 54 entry above (source
+`47ab3b8`) left by e-mail on 2026-10-07, after 18:37 and before 18:53 Montreal
+time (UTC−4); the author confirmed the send at 18:53 without giving the exact
+minute. Order of events: the four files written 18:32:47–18:32:55, re-freeze
+54 committed 18:34:49 (`ebb8065`) and pushed 18:37, then the send, so the freeze
+precedes the send. Just before this entry, the four files in
+`preprint_npj/build/` were re-hashed: each digest is found once in the
+re-freeze 54 entry. That the attachments are exactly those files is the
+author's report, not a measurement. Copies in
+`preprint_npj/build/sent_2026-10-07_refreeze54/` (gitignored).
+
+| | |
+|---|---|
+| Sent | 2026-10-07, between 18:37 and 18:53 Montreal time (author's confirmation) |
+| Recipients | the four supervising co-authors (A.W., P.J., M.S., C.S.) |
+| Artefacts sent | `paper.pdf`, `paper.docx`, `supplement.pdf`, `supplement.docx` (re-freeze 54) |
+| Pages | 24 (paper) / 58 (supplement) |
+| Not sent | the companion monograph; Y.M.'s pending point (§S12.6) is not mentioned |
+
+### What the message said
+
+One message to all four. For everyone: M.S.'s review integrated (scenario
+names, Tables 3 and 4 merged, text tightened, Word numbered like the PDFs);
+npj adjustments (figures cited in order, former Figure S5 now S1, follow-up
+selection rules in Methods §4.3); to A.W., the city added to his INSERM
+affiliation (Vandœuvre-lès-Nancy, from the NGERE site), to confirm; the
+September question repeated (keep their names in the working files that cite
+their reviews, or initials, before the repository goes public). For M.S.: the
+25 points not taken from his review, with their reasons, as recorded in
+`audit/sauthier_review_2026-10.md` (sections 1, 2 and 7), and the Figure S5
+move he had asked for.
+
+Open answers expected: A.W. on the affiliation city; all four on names versus
+initials; their feedback on this version.
