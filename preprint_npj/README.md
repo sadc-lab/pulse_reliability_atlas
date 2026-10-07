@@ -71,7 +71,7 @@ list-all-authors).
 | Length (builds of 2026-10-06) | 123 pages (markdown → PDF via pandoc) | 24 pages main + 58 pages supplement |
 | Word count (main text) | unconstrained | ~4,200 target (npj DM concise recommendation) |
 | Structure | Comprehensive: Intro → Methods → Results (8 subsections) → Discussion (7 subsections) → Conclusion → Appendices A/B/C | npj IMRaD: Abstract → Intro → Results → Discussion → Methods → closing sections |
-| Internal codes (`S006`, `S018`, `F-003`, `H1`) | used throughout as cross-references to the lab notebook | **expunged** from main paper (descriptive names instead); allowed in supplement as lab-notebook cross-references |
+| Internal codes (`S006`, `S018`, `F-003`) | used throughout as cross-references to the lab notebook | **expunged** from main paper (descriptive names instead); allowed in supplement as lab-notebook cross-references |
 | Lab-notebook chronology | preserved | translated to synthesized scientific prose |
 | Reference style | hand-curated section §9.7 | `sn-nature.bst` formatted |
 | Build pipeline | pandoc-markdown → xelatex | native pdflatex |

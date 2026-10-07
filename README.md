@@ -85,7 +85,9 @@ We ran Pulse 4.3.1 **1,280 times** across:
 - **7 inputs** (heart rate, blood pressures, breathing rate, tidal volume,
   inspired oxygen, PEEP) — sampled with Morris elementary effects.
 - **4 scenarios** (healthy ventilated adult; mild, moderate, and severe
-  acute respiratory distress syndrome — ARDS).
+  acute respiratory distress syndrome — ARDS), coded S1–S4 in that order in
+  the data and the monograph; the npj paper calls them Healthy, Mild,
+  Moderate and Severe.
 - **2 adult reference surrogates** (male and female).
 
 Every run was classified by a four-flag detector:
@@ -406,7 +408,7 @@ pulse_reliability_atlas/
 ├── experiments_log/
 │   ├── INDEX.md                 auto-regenerated table of all experiments
 │   ├── README.md                lab-notebook conventions
-│   └── santino/                 S001 … S031 entries (one .md each)
+│   └── santino/                 S001 … S034 entries (one .md each)
 └── reference/                   verified Pulse run templates and limits
 ```
 
@@ -433,7 +435,7 @@ contribution to the PhD. Hackathon-era framing documents are preserved in
 
 ## How to read the experiments log
 
-`experiments_log/santino/S001` … `S031` are individual lab-notebook
+`experiments_log/santino/S001` … `S034` are individual lab-notebook
 entries. Every entry follows the same template — *hypothesis →
 motivation → method → what we tried (incl. dead ends) → results →
 interpretation → next steps* — so a reviewer can audit any decision
