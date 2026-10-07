@@ -652,3 +652,62 @@ dropped and inline math collapsed to one token. That over-counts constructs
 like `SpO$_2$`, so the true rendered legend lengths are **shorter** than the
 numbers in C-14 — the margin against the 350-word cap is larger than reported,
 never smaller.
+
+---
+
+## Re-check 2026-10-07, after the M. Sauthier round (sources at `b554c95`)
+
+**Sources re-read today.** `CT` re-scraped
+(`.firecrawl/npj_content_types_2026-10-07.md`); its Article table is the one
+quoted above. `SG` re-scraped (`.firecrawl/npj_sg_2026-10-07.md`): against the
+copy of 2026-09-13 the only differences are three footer links, so no rule
+changed.
+
+**Still compliant, re-measured:**
+
+| Rule (`CT` Article table unless stated) | Measured today |
+|---|---|
+| Title ≤ 15 words, no punctuation | 14 words, none |
+| Abstract ≤ 150 words, no subheadings | 149 whitespace tokens / 146 with a letter or digit, on the rendered PDF (`pdftotext`, `LC_ALL=C`); same 149 on the Word file; unchanged since the version sent on 2026-09-28 (byte-identical `\abstract{}`) |
+| Introduction without, Results and Methods with subheadings | 0 / 6 / 7 subsections |
+| Discussion: no subheadings, no limitations or conclusions section | 0 subsections, no run-in headings; the scope limits are one paragraph, not a section |
+| Data availability (mandatory), Code availability | present |
+| Funding declared in Acknowledgements, no separate Funding statement | yes; no Funding heading |
+| Author contributions name every author by initials | all six (S.N., A.W., Y.M., C.S., P.J., M.S.) |
+| Competing interests | "The authors declare no competing interests." |
+| References ≤ 60 | 30 cited keys in the paper |
+| Figure legends ≤ 350 words (also supplementary figures, `SG`) | paper max 226 (Figure 4), supplement max 280 (Figure S5); source-side count, an over-count |
+| Methods only in the main file (`CT`, `SG`) | still holds after this round: §4.6 still names Benjamini–Hochberg FDR control and Spearman correlation; only their plain-language glosses moved to the §S3.14 glossary |
+
+**New findings (not fixed; the files of re-freeze 53 are about to be sent):**
+
+- 🔴 **N-8 — Affiliation 6 has no city.** `CT`: "author affiliation
+  information, including institution, city, and country". `\affil[6]` (INSERM
+  UMR_S 1256, Faculté de Médecine de Nancy, Université de Lorraine) carries
+  `\country{France}` only, in `paper.tex` and `supplement.tex`; the other five
+  have a city. The city is a fact to confirm, not to guess: the laboratory's
+  own site gives "Campus Brabois Santé, 9 avenue de la Forêt de Haye – CS
+  50184, 54500 Vandoeuvre-lès-Nancy Cedex" (https://ngere.univ-lorraine.fr/,
+  scraped 2026-10-07, `.firecrawl/ngere_home_2026-10-07.md`), so "Nancy" alone
+  would not match the address; A.W., whose affiliation it is, decides the
+  form. Never checked before (no "city" in this register). Minor, related: affiliation 2 writes "Montréal", 1 and 3
+  "Montreal"; affiliation 1 writes `\state{QC}`, 3 `\state{Quebec}`.
+- 🟡 **N-9 — Figure 2 is cited before Figure 1.** `SG`: "Figures should be
+  cited in the text in the order in which they appear." Table 1's *Cell* row
+  cites the curation map (Figure 2) before §2.1 cites Figure 1. Already so in
+  the version sent on 2026-09-28 (`bf6f6fe`), so not introduced by this round.
+  A citation inside a table definition may or may not count as "in the text";
+  rewording that one reference would remove the question.
+- 🟡 **N-10 — Supplement: Figure S5 is cited first.** Its only call is in
+  §S3.12, before Figures S1–S4 are called. `SG` adds that its figure guidance
+  "also applies to any supplementary figures". Whether this extends to citation
+  order is not stated. This is M.S.'s point Q3, declined in this round because
+  moving the float renumbers all five supplementary figures (see memory note on
+  Figure S5); npj's rule is a further argument to revisit it before submission.
+- ⚪ **Observation — two supplement titles say "full protocol"** (§S8
+  trigger lockout, §S9 hyperoxia convergence). Their content is follow-up
+  results, and the paper's Results already state each follow-up's method
+  (64 configurations, `InspirationPatientTriggerPressure` = −2 cmH₂O; 60
+  configurations re-run for 300 s, plateau over 240–300 s; blood volume imposed
+  through `BloodVolumeBaseline`), consistent with N-1. The wording alone could
+  read as "Supplementary Methods" to an editor, as §S3's old title did.
