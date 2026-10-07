@@ -1463,3 +1463,52 @@ render 1 accepted residue and 0 new, 80 pytest), plus the new table check.
 
 As in the re-freeze 51 entry; nothing changes for the reader except that the
 Word tables are now intact.
+
+---
+
+## 2026-10-07 — re-freeze 53: scenario vocabulary harmonised, Table S16 cited (paper + supplement); not sent
+
+**Status: NOT SENT.** Supersedes re-freeze 52 for the send to M.S. (the
+re-freeze 52 files are correct but no longer match the sources). Changes since
+re-freeze 52, all on the author's decisions of 2026-10-07 and recorded in
+`audit/sauthier_review_2026-10.md` (section 6, harmonisation; E9):
+13 descriptions that designated an atlas scenario or cell now use its label
+(Healthy, Mild, Moderate, Severe; Healthy-M ... Severe-F); Table 1 says "Mild,
+Moderate and Severe are Berlin Definition bands"; Table S16, cited nowhere
+until now, is called in §S13.4. No number, result or claim changes.
+
+| | |
+|---|---|
+| Sent | — (the author decides when and to whom) |
+| Source commit | `b554c95` (content: `29b7fd1` text and guards, `b554c95` register; READMEs at `a192077`) |
+| Pages | 24 (paper) / 58 (supplement), unchanged |
+| Monograph | not part of the dispatch; unchanged since re-freeze 51 (same hashes) |
+
+### Hashes, frozen before any further build
+
+| artefact | SHA-256 | bytes |
+|---|---|---|
+| `preprint_npj/build/paper.pdf` | `ad2b1bd087637890ed3910e5de0ca594343c8b0d8dd641a565b21fbb27fe8530` | 615,969 |
+| `preprint_npj/build/paper.docx` | `4227a2898e05aead96f211781a9f553bfefeb4d99203e5ac462ace1782b8cfe0` | 953,415 |
+| `preprint_npj/build/supplement.pdf` | `4856bd141e3d62212c2b28519e0094e289026b20e82e496cd0d7a7835d7b2e95` | 714,513 |
+| `preprint_npj/build/supplement.docx` | `7d96eb0ee79663d365e8a371248000447193dac26418e930eb908a3fc65035c6` | 761,315 |
+
+Written 11:36:05–11:36:14 local time; the two `.tex` sources were last
+modified at 11:35:26, before the build; `git diff HEAD` on the sources is
+empty; the two PNG rasters the build rewrites are byte-identical to the tracked
+ones. Copies in `preprint_npj/build/freeze53/` (gitignored).
+
+### Gate state at freeze
+
+Full gate on `b554c95`: 13 / 13 PASS (394/394 anchors, 95/95 crosswalk,
+25/25 monograph anchors, render 1 accepted residue and 0 new, Word numbering
+and table structure OK, 80 pytest). Placement of every float re-measured: paper
+0–4 pages from its first call, supplement 0–3, except Figure S5 (19 pages,
+author's decision Q3). Every image embedded in the Word files is byte-identical
+to a current figure PNG.
+
+### What the covering message should say
+
+As in the re-freeze 51 entry (renaming, Tables 3 and 4 merged, Word numbering,
+24 / 58 pages, deviations justified in the register); the scenario names are
+now used uniformly wherever the text points at a scenario or cell.
