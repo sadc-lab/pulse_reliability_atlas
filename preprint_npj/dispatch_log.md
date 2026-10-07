@@ -1566,3 +1566,73 @@ after the gate, unchanged.
 ### What the covering message should say
 
 As in the re-freeze 53 entry.
+
+---
+
+## 2026-10-07 — re-freeze 54: npj compliance fixes on top of the M. Sauthier round (paper + supplement); to the four supervisors
+
+**Status: NOT SENT YET.** The author sends these four files from
+`preprint_npj/build/` to the four supervisors (A.W., P.J., M.S., C.S.), with
+the answer to M.S.'s review. Supersedes re-freeze 53 and its restamp, whose
+files no longer match the sources. Y.M.'s answer on §S12.6 is still pending;
+it will come in a later re-freeze.
+
+Changes since re-freeze 53 (`b554c95`), all on the author's decisions of
+2026-10-07, none changing a number, result or claim:
+
+- `64e42a4` Word converter: an affiliation whose city held braces lost its
+  whole address in Word (city and country); fixed and guarded.
+- `46d39f3` Affiliation 6 (A.W.) gets its city, Vandœuvre-lès-Nancy (npj asks
+  for institution, city and country).
+- `d7c85f2` Figure 2 is cited in §2.1 and Table 1 points to Methods §4.5:
+  figures now first cited in order 1–5 (npj).
+- `7839a27` The decomposition figure moves next to its call in §S3.12:
+  Figure S5 becomes S1, former S1–S4 become S2–S5 (M.S.'s request Q3; npj
+  figure order).
+- `2a07958` Methods §4.3 states the selection rules of the follow-up runs
+  (trigger lock, 300-s reruns, continuous-severity sweep), detail in §S5.4 and
+  §S9.1; the supplement's opening sentence and the §S8 / §S9 titles no longer
+  announce methods; §2.3 no longer claims per-run values in §S8 (D32, D33).
+- `47ab3b8` Figure S4 placed at the end of the §S8.2 paragraph that calls it.
+
+| | |
+|---|---|
+| Sent | — (to be recorded when the author confirms) |
+| Source commit | `47ab3b8` (= origin/main) |
+| Pages | 24 (paper) / 58 (supplement), unchanged |
+| Monograph | not part of the dispatch; changed since re-freeze 53 (affiliation 6 city, its pointer to Supplement Figure S1); 123 pages |
+
+### Hashes, frozen before any further build
+
+| artefact | SHA-256 | bytes |
+|---|---|---|
+| `preprint_npj/build/paper.pdf` | `e200a442e8f3f0f9e17d2ad313e09b012375f72ad1f2a0622b4d3752f110a5b3` | 617,211 |
+| `preprint_npj/build/paper.docx` | `d8711701e98b6c823eabe8517038fcdc63ca4cd3267bb3502cc57aa55a2bc93b` | 953,814 |
+| `preprint_npj/build/supplement.pdf` | `7ca26f6dba950ecf600e3a78a5ee3954be98e0cc25b7fe07fb3e29302029fe15` | 715,581 |
+| `preprint_npj/build/supplement.docx` | `51123c77431fefebdcd4bade1de8c7a6c1624ded55ba230b81c0c187fc0176bf` | 761,490 |
+
+Written 18:32:47–18:32:55 local time; `paper.tex` last modified 17:55:35 and
+`supplement.tex` 18:23:18, before the build; `git diff HEAD` empty after the
+build, so the two PNG rasters it rewrites are byte-identical to the tracked
+ones. Monograph build of the same run: `manuscript.pdf`
+`7f0111c8d5ee111e4f777467831392023a10a55cf7b69dcb470eb67aeb9afdec`
+(1,360,573 bytes). Copies of the four dispatched files in
+`preprint_npj/build/freeze54/` (gitignored).
+
+### Gate state at freeze
+
+Full gate on `47ab3b8` after this build: 13 / 13 PASS (render: the same 1
+accepted residue, 0 new; Word structure, numbering, tables and affiliations
+OK; the follow-up selection-rule guard 21 / 21). Measured on these PDFs:
+figures first cited in order (1–5, S1–S5); every float of the paper 0–4
+pages from its first call (4: Figure 3, as before) and of the supplement 0–3;
+no unresolved reference.
+
+### What the covering message should say
+
+One message to the four supervisors: the new version integrates M.S.'s review
+(scenario names, Tables 3 and 4 merged, Word files numbered like the PDFs),
+plus a few npj compliance fixes (affiliation 6 city, figure order, Figure S5
+now S1, the follow-up selection rules in Methods); pages 24 / 58; for M.S., the
+points not taken from his review with their reasons
+(`audit/sauthier_review_2026-10.md`, sections 1, 2 and 7).
