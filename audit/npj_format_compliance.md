@@ -749,3 +749,43 @@ changed.
   configurations re-run for 300 s, plateau over 240–300 s; blood volume imposed
   through `BloodVolumeBaseline`), consistent with N-1. The wording alone could
   read as "Supplementary Methods" to an editor, as §S3's old title did.
+
+### Update 2026-10-07 (evening) — follow-up methods, and a correction of the observation above
+
+**Correction.** The observation above says the paper's Results "already state
+each follow-up's method". Checked against the code and data, that was only half
+true: the Results state the change made and the counts, but not **how the runs
+were chosen**, and neither did the supplement. The rules lived only in
+`scripts/run_s014_trigger_lockout.py::select_top_64`,
+`scripts/run_s021_hyperoxia_convergence.py::select_subset` and
+`scripts/continuous_ards_sweep.py::severity_grid`. `SG`: "The Methods section
+should be written as concisely as possible but should contain all elements
+necessary to allow interpretation and replication of the results."
+
+**Fixed (author's decision, 2026-10-07):**
+- `paper.tex` §4.3 ends with a 97-word paragraph giving the three rules: the
+  64 non-diverged runs with the highest delivered-Vt CV; the 22 Morris points
+  requested at FiO₂ = 1.0 that diverged in no cell, in both Healthy cells, and
+  the first four in the Moderate and Severe cells; the continuous-severity
+  sweep's 100 impairment fractions drawn at random, more densely above 0.85,
+  on both bodies, inputs at the swept midpoints (FiO₂ rounded to 0.6). The
+  blood-volume reruns needed nothing: §2.5 already gives the 20 configurations
+  and both volumes. Detail in the supplement, with pointers from the paper:
+  §S9.1 (indices 6, 7, 12, 13; 44 + 16 reruns), §S5.4 (seed 2026, strata
+  50 / 30 / 20). Every value re-derived from the tracked data, twice, with two
+  instruments.
+- The supplement no longer announces methods: opening sentence reworded; §S8
+  and §S9 titles lose "full protocol".
+- `paper.tex` §2.3: "Full protocol and per-run values: Supplement §S8" claimed
+  per-run values that §S8 does not hold (one 4-row summary table and four named
+  runs; the 64 pairs are plotted in Figure 4a). Now "Further detail, including
+  the two most affected configurations: Supplement §S8". Already so before the
+  M. Sauthier round ("the per-run values are in Supplement §S8", `bf6f6fe`).
+- Guarded: `audit_claims.py::check_followup_selection` (21 checks, each rule with
+  a negative control, the sentences pinned, "per-run values: Supplement" and
+  "full protocol}" banned); calibrated: on the previous text all eight text
+  checks fail.
+
+**Side effect, measured:** Figure S4 now prints 4 pages after its first call
+(3 before), pushed by the added text; the paper keeps 24 pages, the supplement
+58, and every other float is unchanged in range.

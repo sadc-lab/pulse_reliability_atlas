@@ -252,3 +252,19 @@ Gardes recalés : `audit_claims.py` (petits nombres F-S8 : « in the Healthy-F
 cell » ; C-S2 : « rankings across sex in the Mild and Moderate scenarios ») ;
 notes de deux lignes de `paper_to_monograph_map.md` (documentaires). Porte
 complète verte après reconstruction.
+
+## 7. Après la ronde : deux phrases de la version M.S. remplacées (2026-10-07)
+
+Décisions de l'auteur du 2026-10-07, prises pour les consignes npj sur les
+méthodes (registre `audit/npj_format_compliance.md`, mise à jour du soir). Ce
+sont des écarts par rapport au texte que la ronde avait repris de M.S. ; ils sont
+consignés pour pouvoir les justifier auprès de lui.
+
+| # | Lieu | Sa version (reprise) | Nouvelle version | Justification |
+|---|---|---|---|---|
+| D32 | Papier, fin du §2.3 | « Full protocol and per-run values: Supplement §S8. » | « Further detail, including the two most affected configurations: Supplement §S8. » | Le §S8 ne contient pas de valeurs run par run (un tableau de 4 résumés et quatre runs nommés ; les 64 paires sont dans la Figure 4a). Erreur déjà présente avant la ronde (« the per-run values are in Supplement §S8 », `bf6f6fe`). « Full protocol » renvoyait des méthodes vers le supplément, ce que npj interdit ; les règles de sélection sont désormais au §4.3 |
+| D33 | Supplément, phrase d'ouverture | « …provides the methodological detail, full data tables and extended experimental protocols… » | « …provides the full data tables, parameter provenance, reproducibility recipe, supplementary analyses, extended results and further detail on the follow-up experiments… » | npj : « does not permit Supplementary Methods ». La phrase envoyée (re-gel 50) disait déjà « It carries the methodological depth… » ; l'assistant de M.S. l'avait reformulée |
+
+Dans le même mouvement, hors texte de M.S. : titres des §S8 et §S9 sans « full
+protocol » ; paragraphe de 97 mots au §4.3 (règles de sélection des expériences
+de suivi) ; détails en §S5.4 et §S9.1 ; garde `check_followup_selection`.
