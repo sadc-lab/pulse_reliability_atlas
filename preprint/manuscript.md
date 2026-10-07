@@ -2756,7 +2756,7 @@ must not be summed as independent runs.
 **Where this is published.** The npj paper carries the driver totals as
 a compact strip under Figure 2; the full per-cell driver matrix, the
 per-cell hard-failure rates, the exhaustive trigger attribution and the
-*signed* deviation from the S1_M baseline are Supplement Figure S5
+*signed* deviation from the S1_M baseline are Supplement Figure S1
 (§S3.12). The signed panel is descriptive only: a directionally expected
 change under ARDS does not validate its magnitude, and nothing in this
 atlas is an external physiological validation.

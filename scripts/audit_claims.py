@@ -946,7 +946,7 @@ _s14_pc = pd.read_parquet(
 _s14_worst = _s14_pc.loc[_s14_pc["Vt_cv_orig"].idxmax()]
 add(
     claim_id="T1.s014.worstcase_default_vtcv",
-    section="Section 2.3 + Fig 4a (npj); worst-case (monograph); Supplement Fig S3",
+    section="Section 2.3 + Fig 4a (npj); worst-case (monograph); Supplement Fig S4",
     manuscript_text="worst-case S014 default Vt CV = 1.826 (run S1_F_0117, largest before/after delta)",
     source_file="data/runs/s014_trigger_lockout/paired_comparison.parquet (max Vt_cv_orig row)",
     manuscript_value=1.826,
@@ -955,7 +955,7 @@ add(
 )
 add(
     claim_id="T1.s014.worstcase_locked_vtcv",
-    section="Section 2.3 + Fig 4a (npj); worst-case (monograph); Supplement Fig S3",
+    section="Section 2.3 + Fig 4a (npj); worst-case (monograph); Supplement Fig S4",
     manuscript_text="worst-case S014 paired-config locked Vt CV = 0.018 (same run S1_F_0117)",
     source_file="data/runs/s014_trigger_lockout/paired_comparison.parquet (Vt_cv_lock of max-Vt_cv_orig row)",
     manuscript_value=0.018,
@@ -1256,7 +1256,8 @@ for (_sk, _xk), (_v_clean, _v_hf) in _RETENTION_TABLE.items():
     )
 
 # 25b. Classification drivers and not_steady_state attribution, published in
-# npj Figure 2b and Supplement Figure S5. Added 2026-08-05.
+# npj Figure 2b and Supplement Figure S1 (numbered S5 until 2026-10-07, when it
+# moved next to its call in S3.12). Added 2026-08-05.
 #
 # The driver rule is re-applied here rather than read from a stored column, so
 # an anchor fails if the figure and the ledger ever disagree about it. The
@@ -6434,7 +6435,7 @@ n_s021_conv_fail = check_s021_converged_plateau()
 # Continuous-severity band guard (2026-09-14).
 #
 # The supplement's continuous-severity table, the empirical instability band
-# and Figure S1 were computed on the run DIRECTORY label sev{int(sev*1000)} --
+# and Figure S1 (Figure S2 since 2026-10-07) were computed on the run DIRECTORY label sev{int(sev*1000)} --
 # a truncation -- instead of the severity Pulse was given. CONT_M_078 ran at
 # 0.9458464, so the published band [0.879, 0.945] excluded one male
 # divergence, six runs sat in the wrong bin, and "0 / 51" should have been
@@ -6517,7 +6518,7 @@ def _cont_bins(sev: pd.Series, div: pd.Series) -> tuple[tuple[int, int], ...]:
 
 def check_continuous_severity_band() -> int:
     """Re-derive the continuous-severity band, per-sex ranges and bin table."""
-    print("\n## Continuous-severity band guard (Supplement S5, Figure S1)\n")
+    print("\n## Continuous-severity band guard (Supplement S5, Figure S2)\n")
     rows: list[tuple[str, str, str]] = []
     n_bad = 0
 

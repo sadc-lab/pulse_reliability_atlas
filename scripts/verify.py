@@ -64,8 +64,10 @@ REPRODUCIBLE_ENV = {
 # filename stem. The two drift apart: fig00_study_design was inserted as
 # Figure 1 on 2026-06-24 and shifted every later npj figure by one, and the
 # supplement's figure files are named after the SECTION that hosts them, so
-# fig_s4_vt_waveform renders as Figure S3 and fig_s3_hyperoxia as Figure S4.
-# Corrected 2026-08-04; every number below was read out of the .aux.
+# fig_s4_vt_waveform renders as Figure S4 and fig_s3_hyperoxia as Figure S5.
+# Corrected 2026-08-04; renumbered 2026-10-07, when the decomposition figure
+# moved next to its call in S3.12 and became Figure S1; every number below was
+# read out of the .aux.
 FIGURE_SCRIPTS = [
     "scripts/make_figures.py",          # monograph figure set -> figures/
     "scripts/make_fig00_study_design.py",  # npj Figure 1 (study-design flowchart).
@@ -79,10 +81,10 @@ FIGURE_SCRIPTS = [
     "scripts/make_paper_fig02.py",      # npj Figure 3 (Morris mu* heatmaps, 6 panels)
     "scripts/make_paper_fig03.py",      # npj Figure 4 (actionable corrections)
     "scripts/make_paper_fig04.py",      # npj Figure 5 (sex / blood-volume)
-    "scripts/make_supp_fig_s1.py",      # npj Figure S1 (continuous severity)
-    "scripts/make_supp_fig_s3.py",      # npj Figure S4 (hyperoxia convergence)
-    "scripts/make_supp_fig_s4.py",      # npj Figure S3 (Vt waveform)
-    "scripts/make_supp_fig_s5_decomposition.py",  # npj Figure S5 (what the
+    "scripts/make_supp_fig_s1.py",      # npj Figure S2 (continuous severity)
+    "scripts/make_supp_fig_s3.py",      # npj Figure S5 (hyperoxia convergence)
+    "scripts/make_supp_fig_s4.py",      # npj Figure S4 (Vt waveform)
+    "scripts/make_supp_fig_s5_decomposition.py",  # npj Figure S1 (what the
                                         # composite colour compresses)
     "scripts/export_traffic_light.py",  # reliability traffic-light CSV + JSON
 ]

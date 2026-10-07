@@ -1,4 +1,4 @@
-"""Generate Supplement Figure S1: ARDS continuous-severity divergence
+"""Generate Supplement Figure S2: ARDS continuous-severity divergence
 dumbbell plot with Wilson 95% confidence intervals.
 
 Visualises the per-bin male vs female divergence rates from the

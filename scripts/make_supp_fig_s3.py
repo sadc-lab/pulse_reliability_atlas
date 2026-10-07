@@ -1,4 +1,4 @@
-"""Generate Supplement Figure S3: PaO2 late-phase convergence trajectories
+"""Generate Supplement Figure S5: PaO2 late-phase convergence trajectories
 from the S021 hyperoxia 300-second rerun cohort.
 
 IMPORTANT framing (corrected 2026-08-06; see

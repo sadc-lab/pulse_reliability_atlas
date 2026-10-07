@@ -572,13 +572,14 @@ def _page_facts(pdf: pathlib.Path) -> list[dict]:
 # In the paper, the gap between a figure's call and where it prints measures
 # FLOAT DRIFT: the source places the figure next to its call and LaTeX moves it,
 # which is exactly the June 2026 bug. In the supplement it measures nothing of
-# the sort. Figure S5 is called at supplement.tex:368 and its figure block sits
+# the sort. Figure S5 was called at supplement.tex:368 and its figure block sat
 # at line ~684, three hundred lines and one section later, so the 13-page gap in
-# the PDF is an authoring decision faithfully rendered, not a placement accident.
+# the PDF was an authoring decision faithfully rendered, not a placement accident.
 # Gating on it would be measuring the wrong thing with the right instrument.
 # The delta is still PRINTED for every figure in both documents -- the number is
-# not hidden, only the gate is scoped. The Figure S5 gap is a real reader-facing
-# issue and is raised with the author as an editorial question, not silenced here.
+# not hidden, only the gate is scoped. That gap was raised with the author as an
+# editorial question; on 2026-10-07 the block moved next to its call in S3.12
+# and the figure became Figure S1 (M. Sauthier's request, npj figure order).
 DISTANCE_BOUND_APPLIES_TO = {"paper"}
 
 

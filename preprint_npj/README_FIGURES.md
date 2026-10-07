@@ -34,9 +34,9 @@ pinned `SOURCE_DATE_EPOCH` like every other tracked figure.
 
 | npj PDF | Used in | Data source (tracked, audited) | Closest in-repo generator |
 |---|---|---|---|
-| `fig01_traffic_light.pdf` | `paper.tex` Figure 1 | `results/reliability_classification.csv` (48 rows; `light` column = green/yellow/red) | `scripts/make_figures.py` → `fig_reliability_traffic_light()` (writes `figures/fig06_reliability_traffic_light.{pdf,png}`) |
-| `fig02_morris_{HR,MAP,Vt,SpO2,PaO2,PaCO2}.pdf` (six panels) | `paper.tex` Figure 2 (six `subfigure`s) | `results/morris_indices.parquet` (μ* per scenario × sex × input × output) | **Dedicated generator (closed 2026-05-30):** `scripts/make_paper_fig02.py` writes the panels directly to `preprint_npj/figures/fig02_morris_{ch}.{pdf,png}` in the npj-required transposed orientation. The monograph equivalent `scripts/make_figures.py` → `fig_morris_mu_star()` keeps writing the non-transposed monograph version under `figures/fig02_morris_mu_star_{ch}`. |
-| `fig_s2_spearman.pdf` | `supplement.tex` Figure S2 | `results/spearman_mu_star.csv` (ρ per scenario × output, M-vs-F μ* vectors) | `scripts/make_figures.py` → `fig_h4_spearman()` (writes `figures/fig05_h4_spearman_mu_star.{pdf,png}`) |
+| `fig01_traffic_light.pdf` | `paper.tex` Figure 2 | `results/reliability_classification.csv` (48 rows; `light` column = green/yellow/red) | `scripts/make_figures.py` → `fig_reliability_traffic_light()` (writes `figures/fig06_reliability_traffic_light.{pdf,png}`) |
+| `fig02_morris_{HR,MAP,Vt,SpO2,PaO2,PaCO2}.pdf` (six panels) | `paper.tex` Figure 3 (six `subfigure`s) | `results/morris_indices.parquet` (μ* per scenario × sex × input × output) | **Dedicated generator (closed 2026-05-30):** `scripts/make_paper_fig02.py` writes the panels directly to `preprint_npj/figures/fig02_morris_{ch}.{pdf,png}` in the npj-required transposed orientation. The monograph equivalent `scripts/make_figures.py` → `fig_morris_mu_star()` keeps writing the non-transposed monograph version under `figures/fig02_morris_mu_star_{ch}`. |
+| `fig_s2_spearman.pdf` | `supplement.tex` Figure S3 | `results/spearman_mu_star.csv` (ρ per scenario × output, M-vs-F μ* vectors) | `scripts/make_figures.py` → `fig_h4_spearman()` (writes `figures/fig05_h4_spearman_mu_star.{pdf,png}`) |
 
 Every data source is git-tracked and `scripts/audit_claims.py` already
 audits the numerical content (`T1.25/26/27` for the traffic-light tallies;
