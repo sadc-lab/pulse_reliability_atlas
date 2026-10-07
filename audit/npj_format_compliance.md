@@ -699,7 +699,8 @@ changed.
   defect: the braced `\oe{}` made `scripts/tex_to_docx.py` drop the whole
   address from the Word files, city and country, while the PDFs were right;
   repaired, and guarded in `scripts/check_docx_structure.py` (every `\affil`
-  must have `\city` and `\country`, and reach Word whole). Minor, related: affiliation 2 writes "Montréal", 1 and 3
+  must have `\city` and `\country`, and reach Word whole).
+  Minor, related, left as is: affiliation 2 writes "Montréal", 1 and 3
   "Montreal"; affiliation 1 writes `\state{QC}`, 3 `\state{Quebec}`.
 - 🟡 **N-9 — Figure 2 is cited before Figure 1.** `SG`: "Figures should be
   cited in the text in the order in which they appear." Table 1's *Cell* row
@@ -707,12 +708,40 @@ changed.
   the version sent on 2026-09-28 (`bf6f6fe`), so not introduced by this round.
   A citation inside a table definition may or may not count as "in the text";
   rewording that one reference would remove the question.
+  **Correction and fix, same day.** The last sentence above was wrong: §2.1
+  never cites Figure 2, so without the Table 1 reference its first citation
+  would have fallen in the Discussion, after Figures 3–5 (order 1, 3, 4, 5, 2).
+  Fixed on the author's decision with two edits in `paper.tex`: Table 1's
+  *Cell* row now points to Methods §4.5 instead of Figure 2, and §2.1 ends
+  with one sentence that cites Figure 2 and restates the §4.5 definition of
+  the map. First citations now run 1, 2, 3, 4, 5 whether or not Table 1 counts
+  as text (`npj_fig_order.py`, scratchpad); Figure 2 prints 3 pages after that
+  call, within the paper's existing 0–4 range.
 - 🟡 **N-10 — Supplement: Figure S5 is cited first.** Its only call is in
   §S3.12, before Figures S1–S4 are called. `SG` adds that its figure guidance
   "also applies to any supplementary figures". Whether this extends to citation
   order is not stated. This is M.S.'s point Q3, declined in this round because
   moving the float renumbers all five supplementary figures (see memory note on
   Figure S5); npj's rule is a further argument to revisit it before submission.
+  **Fixed the same day** on the author's decision: the float moved verbatim
+  (1,956 bytes) next to its call in §S3.12 and became Figure S1; the former
+  S1–S4 are S2–S5. First citations now run S1–S5 in order, and every
+  supplementary float prints 0–3 pages after its call (Figure S1: 1 page,
+  instead of 19). Hard-coded numbers in live files updated (monograph §3.7
+  pointer, `README_FIGURES.md`, labels and comments in `audit_claims.py`,
+  `verify.py`, `check_render.py`, two generator docstrings); dated records
+  (dispatch log, registers, crosswalk history notes) left as written.
+- ⚪ **Observation — the supplement's opening sentence announces method.**
+  "This Supplementary Information provides the methodological detail, full
+  data tables and extended experimental protocols cross-referenced in the main
+  manuscript." npj: "The journal does not permit Supplementary Methods" (`SG`).
+  Not introduced by this round: the version sent on 2026-09-28 already opened
+  "It carries the methodological depth, full data tables, and
+  extended-experiment protocols…"; M.S.'s assistant reworded it. (The sent
+  §S14 also said the supplement "covers the methodological depth"; that
+  phrase is no longer in the supplement.) N-1 (2026-08-02)
+  retitled §S3 for exactly this kind of announcement but did not touch the
+  front sentence. Wording only; left for the author.
 - ⚪ **Observation — two supplement titles say "full protocol"** (§S8
   trigger lockout, §S9 hyperoxia convergence). Their content is follow-up
   results, and the paper's Results already state each follow-up's method
