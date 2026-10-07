@@ -32,7 +32,7 @@ import zipfile
 from collections import Counter
 from pathlib import Path
 
-from tex_to_docx import parse_aux_labels
+from tex_to_docx import _braced, parse_aux_labels
 
 REPO = Path(__file__).resolve().parent.parent
 NPJ = REPO / "preprint_npj"
@@ -229,6 +229,39 @@ def word_row_counts(xml: str) -> list[int]:
             if "<w:drawing" not in t]
 
 
+AFFIL = re.compile(r"\\affil\*?\s*\[[^\]]*\]\s*\{")
+
+
+def affiliation_problems(live: str, paras: list[tuple[str, str]]) -> list[str]:
+    r"""Every affiliation must carry a city and a country, and reach Word whole.
+
+    npj asks for "institution, city, and country" (content-types page, Article
+    table); affiliation 6 had no city until 2026-10-07. When it was added as
+    ``\city{Vand\oe{}uvre-l\`es-Nancy}``, the converter could not expand the
+    braced argument and the Word file lost the city and the country while the
+    PDF stayed correct. So: in the .tex, each ``\affil`` has ``\city`` and
+    ``\country``; in the .docx, the i-th paragraph under "Author affiliations"
+    ends with the i-th country.
+    """
+    problems, countries = [], []
+    for n, m in enumerate(AFFIL.finditer(live), 1):
+        arg, _ = _braced(live, m.end() - 1)
+        country = re.search(r"\\country\{([^{}]*)\}", arg)
+        if not re.search(r"\\city\{", arg):
+            problems.append(f"affiliation {n}: no \\city in the .tex")
+        if not country:
+            problems.append(f"affiliation {n}: no \\country in the .tex")
+        countries.append(country.group(1) if country else None)
+    start = next((i for i, (_, t) in enumerate(paras) if t == "Author affiliations"), None)
+    if countries and start is None:
+        return problems + ["no 'Author affiliations' heading in the .docx"]
+    for n, country in enumerate(countries, 1):
+        text = paras[start + n][1] if start is not None and start + n < len(paras) else ""
+        if country and not text.endswith(country):
+            problems.append(f"affiliation {n} in Word does not end with '{country}': ...{text[-60:]!r}")
+    return problems
+
+
 def main() -> int:
     fails = 0
     labels = parse_aux_labels(NPJ / "build")
@@ -337,6 +370,13 @@ def main() -> int:
             print(f"  *** table #{n}: {a} rows in .tex, {b} in .docx")
         fails += len(broken_tables) + (0 if same_count else 1)
 
+        affil = affiliation_problems(live, paragraphs(xml))
+        print(f"  affiliations: {len(AFFIL.findall(live))} in .tex, each with city and country and "
+              f"whole in Word: {'OK' if not affil else '*** ' + str(len(affil)) + ' PROBLEM(S) ***'}")
+        for p in affil:
+            print(f"  *** {p}")
+        fails += len(affil)
+
     print("\n--- CALIBRATION ---")
     probe = docx_text(NPJ / "build/paper.docx")
     found_present = CONTROL_PRESENT in probe
@@ -381,6 +421,23 @@ def main() -> int:
     print(f"  numbering check flags the unnumbered caption and heading and accepts the repaired ones: {num_ok}")
     if not num_ok:
         print("  *** CALIBRATION FAILED -- the numbering check cannot be believed")
+        fails += 1
+
+    # The affiliation check must flag the exact defect it was written for -- the
+    # Word paragraph cut after "de Nancy," -- and a .tex affiliation without a
+    # city, and accept the repaired forms.
+    tex_ok = ("\\affil[6]{\\orgname{Fac}, \\orgaddress{\\city{Vand\\oe{}uvre-l\\`es-Nancy}, "
+              "\\country{France}}}")
+    tex_no_city = "\\affil[6]{\\orgname{Fac}, \\orgaddress{\\country{France}}}"
+    cut = [("Heading1", "Author affiliations"), ("", "Fac, Faculté de Médecine de Nancy,")]
+    whole = [("Heading1", "Author affiliations"), ("", "Fac, Vandœuvre-lès-Nancy, France")]
+    affil_ok = (bool(affiliation_problems(tex_ok, cut))
+                and bool(affiliation_problems(tex_no_city, whole))
+                and not affiliation_problems(tex_ok, whole))
+    print(f"  affiliation check flags the cut Word paragraph and the missing city, "
+          f"and accepts the repaired form: {affil_ok}")
+    if not affil_ok:
+        print("  *** CALIBRATION FAILED -- the affiliation check cannot be believed")
         fails += 1
 
     print(f"\nRESULT: "

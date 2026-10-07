@@ -158,11 +158,18 @@ def _collect_and_remove(tex: str, name: str) -> tuple[str, list[str]]:
 
 def _strip_org_macros(affil_arg: str) -> str:
     r"""Collapse ``\orgdiv{X}\orgname{Y}\orgaddress{\city{C}..}`` to plain
-    comma-joined text by repeatedly replacing innermost brace-free macros.
+    comma-joined text by repeatedly replacing innermost macros.
+
+    An argument may hold one level of braces of its own, such as the empty
+    group that ends a control word in ``\city{Vand\oe{}uvre-l\`es-Nancy}``.
+    Before 2026-10-07 the pattern accepted brace-free arguments only, so that
+    city was never matched, ``\orgaddress`` stayed unexpanded, and pandoc
+    dropped it: the Word file lost the city AND the country, silently. Guarded
+    by the affiliation check in ``check_docx_structure.py``.
     """
     pat = re.compile(
         r"\\(?:orgdiv|orgname|orgaddress|city|state|postcode|street|country)"
-        r"\s*\{([^{}]*)\}"
+        r"\s*\{((?:[^{}]|\{[^{}]*\})*)\}"
     )
     prev = None
     text = affil_arg
