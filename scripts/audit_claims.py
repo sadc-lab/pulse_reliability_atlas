@@ -6606,7 +6606,7 @@ SMALL_AUDIT_TEXT_REQUIRED = (
     ("preprint/manuscript.md", "eight [S004](#s004) smoke-test runs", 1),
     ("preprint_npj/supplement.tex", "mostly the Healthy (26 reruns) and Mild (19) cells", 1),
     ("preprint_npj/supplement.tex",
-     "1.826 (S1\\_F\\_0117 and S1\\_F\\_0118, run indices 117 and 118 in the healthy-female "
+     "1.826 (S1\\_F\\_0117 and S1\\_F\\_0118, run indices 117 and 118 in the Healthy-F "
      "cell); the lock reduces them to 0.018 and 0.024", 1),
     ("preprint_npj/supplement.tex",
      "The two worst-affected configurations (\\S\\ref{sec:s8-protocol}; the two rightmost "
@@ -6840,7 +6840,8 @@ MONO_AUDIT_TEXT_REQUIRED = (
     # C-S2: the rho table covers S2 (mild) and S3 (moderate), so the scope is both scenarios.
     # Re-pinned 2026-10-06: the M. Sauthier round dropped the trailing "S2 and S3";
     # the scope still names both scenarios.
-    ("preprint_npj/supplement.tex", "rankings across sex in the mild- and moderate-ARDS scenarios", 1),
+    # Re-pinned 2026-10-07: the scenarios are named by their labels (author decision).
+    ("preprint_npj/supplement.tex", "rankings across sex in the Mild and Moderate scenarios", 1),
     # C-S3: the quoted sentence was never in paper.tex verbatim (0 occurrences); it is now a
     # paraphrase, and the paper's own wording is "80 on channels the present atlas does not assess".
     # The count is kept in the sentence because crosswalk T3.s028.cornish_non_overlap_hoeffding counts
