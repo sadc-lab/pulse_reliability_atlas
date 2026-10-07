@@ -116,7 +116,7 @@
 
 \maketitle
 
-\noindent This Supplementary Information provides the methodological detail, full data tables and extended experimental protocols cross-referenced in the main manuscript. Table~\ref{tab:s16-index} (\S\ref{sec:s17-summary}) indexes the findings stated in full only here. Numbering follows the Nature Portfolio convention (sections \S\,S1, figures S1, tables S1, etc.). Quantitative claims are traceable, as applicable, to primary sources, the preregistration or the audit ledger (\texttt{scripts/audit\_claims.py}) that also anchors the main manuscript. References back to the main manuscript give both the section number and the phrase ``of the main manuscript'', to avoid confusion with S-numbered items.
+\noindent This Supplementary Information provides the full data tables, parameter provenance, reproducibility recipe, supplementary analyses, extended results and further detail on the follow-up experiments cross-referenced in the main manuscript. Table~\ref{tab:s16-index} (\S\ref{sec:s17-summary}) indexes the findings stated in full only here. Numbering follows the Nature Portfolio convention (sections \S\,S1, figures S1, tables S1, etc.). Quantitative claims are traceable, as applicable, to primary sources, the preregistration or the audit ledger (\texttt{scripts/audit\_claims.py}) that also anchors the main manuscript. References back to the main manuscript give both the section number and the phrase ``of the main manuscript'', to avoid confusion with S-numbered items.
 
 \tableofcontents
 
@@ -562,7 +562,7 @@ Three convergent boundary probes within the companion technical work (same Pulse
 
 \subsection{Continuous-severity micro-sweep at midrange inputs}\label{sec:s5-cont}
 
-A 200-run continuous-severity sweep (100 male, 100 female) varied only the ARDS impairment fraction, holding all seven Morris inputs at their midrange values (HR = 80, SBP = 105, DBP = 70, RR = 14, Vt = 550, FiO$_2$ = 0.6, PEEP = 10). It refines the empirical band edges and reveals a sex-stratification pattern that differs from the input-extreme regime of Section~\mainref{sec:results-sex}{2.5} of the main manuscript.
+A 200-run continuous-severity sweep (100 male, 100 female) varied only the ARDS impairment fraction, holding all seven Morris inputs at their midrange values (HR = 80, SBP = 105, DBP = 70, RR = 14, Vt = 550, FiO$_2$ = 0.6, PEEP = 10). The 100 impairment fractions were drawn uniformly at random (seed 2026) in three strata, 50 between 0 and 0.85, 30 between 0.85 and 0.95 and 20 between 0.95 and 1, and the same 100 values were run on both bodies. It refines the empirical band edges and reveals a sex-stratification pattern that differs from the input-extreme regime of Section~\mainref{sec:results-sex}{2.5} of the main manuscript.
 
 \begin{table}[htbp]
 \centering
@@ -703,10 +703,10 @@ Cornish's rejections cannot be cross-tabulated against the atlas's per-cell traf
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% S8 -- VC-AC trigger-lockout full protocol
+%% S8 -- VC-AC trigger lockout
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{VC-AC trigger-lockout full protocol}\label{sec:s8}
+\section{VC-AC trigger lockout}\label{sec:s8}
 
 Section~\mainref{sec:results-vcac}{2.3} of the main manuscript reports that setting Pulse's \texttt{InspirationPatientTriggerPressure} to $-2$~cmH$_2$O on the \texttt{SEMechanicalVentilatorVolumeControl} action reduces the median delivered-tidal-volume coefficient of variation from 0.351 to 0.016 across 64 paired reruns, with 78.1~\% of locked-trigger reruns falling below the 0.05 steady-state threshold. This section describes the protocol and shows per-breath waveform evidence that the tidal-volume oscillation is real (not a sampling artefact) and that the intervention strongly reduces it.
 
@@ -766,16 +766,16 @@ This setting is a data-generation and exploration lever, not a clinical recommen
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% S9 -- Hyperoxia 300-second convergence full protocol
+%% S9 -- Hyperoxia 300-second convergence
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Hyperoxia 300-second convergence full protocol}\label{sec:s9}
+\section{Hyperoxia 300-second convergence}\label{sec:s9}
 
 Section~\mainref{sec:results-hyperoxia}{2.4} of the main manuscript reports that the locked 120-second window is too short for PaO$_2$ convergence at FiO$_2$ = 1.0 in the Healthy cohort: in 300-second reruns, 40 of 44 (90.9~\%) converged to a stable plateau, with a median plateau PaO$_2$ of 643~mmHg over the 40 drift-converged runs, about 20~mmHg below the simple alveolar-gas-equation prediction at sea level ($\approx$~663~mmHg)~\cite{west2020respiratory}. This section provides the kinetic anchor for that claim and shows the convergence trajectories.
 
 \subsection{Late-phase convergence trajectories (Figure~\ref{fig:s9-pao2})}\label{sec:s9-trajectories}
 
-Each S021 rerun re-executes the same configuration from time zero with the recorded duration raised from 120 to 300 seconds, sampled every 5 seconds into the atlas-aggregated CSV. The 120-second ventilator-settling phase that precedes recording is unchanged, so one rerun spans 420~s of Pulse-internal time; all reported times use recorded simulation time ($t = 0$--$300$~s). Because Pulse is deterministic, the aggregated CSVs of all 60 reruns are byte-identical to those of the corresponding 120-second runs over the shared interval $t = 0$--$120$~s; the reruns are deterministic re-executions, not saved-state continuations. PaO$_2$ is already hyperoxic at $t = 0$ in this cohort, because FiO$_2$ = 1.0 applies throughout the preceding settling phase, so the figure shows the \emph{late-phase convergence} of PaO$_2$ toward its plateau, not a wash-in from room air. Each thin trace is one of the 40 drift-converged Healthy reruns; the thick line is the median of the 37 with a physiological plateau (the three runaways are excluded; \S\ref{sec:s9-guidance}).
+The 60 reruns comprise the 22 Morris points requested at FiO$_2$ = 1.0 that diverged in none of the eight cells, run in both Healthy cells (44 reruns), and the first four of these points in sample order (run indices 6, 7, 12 and 13), run in the two Moderate and two Severe cells (16 reruns). Each S021 rerun re-executes the same configuration from time zero with the recorded duration raised from 120 to 300 seconds, sampled every 5 seconds into the atlas-aggregated CSV. The 120-second ventilator-settling phase that precedes recording is unchanged, so one rerun spans 420~s of Pulse-internal time; all reported times use recorded simulation time ($t = 0$--$300$~s). Because Pulse is deterministic, the aggregated CSVs of all 60 reruns are byte-identical to those of the corresponding 120-second runs over the shared interval $t = 0$--$120$~s; the reruns are deterministic re-executions, not saved-state continuations. PaO$_2$ is already hyperoxic at $t = 0$ in this cohort, because FiO$_2$ = 1.0 applies throughout the preceding settling phase, so the figure shows the \emph{late-phase convergence} of PaO$_2$ toward its plateau, not a wash-in from room air. Each thin trace is one of the 40 drift-converged Healthy reruns; the thick line is the median of the 37 with a physiological plateau (the three runaways are excluded; \S\ref{sec:s9-guidance}).
 
 \begin{figure}[htbp]
 \centering

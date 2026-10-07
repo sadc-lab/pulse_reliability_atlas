@@ -6578,6 +6578,135 @@ n_contband_fail = check_continuous_severity_band()
 
 
 # -----------------------------------------------------------------------------
+# Follow-up selection-rule guard (2026-10-07).
+#
+# npj asks that Methods "contain all elements necessary to allow interpretation
+# and replication of the results". Until 2026-10-07 neither the paper nor the
+# supplement said how the follow-up runs were chosen: the rules lived only in
+# scripts/run_s014_trigger_lockout.py::select_top_64,
+# scripts/run_s021_hyperoxia_convergence.py::select_subset and
+# scripts/continuous_ards_sweep.py::severity_grid. Paper section 4.3 now states
+# them, and S5.4 / S9.1 give the detail. This guard re-derives each rule from the
+# tracked data and pins the sentences, so text and data cannot drift apart.
+# Each rule carries a negative control that a wrong reading must fail.
+# -----------------------------------------------------------------------------
+FOLLOWUP_TEXT_REQUIRED = (
+    ("preprint_npj/paper.tex", "took the 64 non-diverged sweep runs with the highest delivered-Vt CV", 1),
+    ("preprint_npj/paper.tex", "took the 22 Morris points requested at FiO$_2$ = 1.0 that diverged in no cell, "
+     "in both Healthy cells, and the first four, in sample order, in the Moderate and Severe cells", 1),
+    ("preprint_npj/paper.tex", "ran 100 impairment fractions, drawn at random and more densely above 0.85, "
+     "on both bodies, with the seven inputs at the midpoints of their swept ranges (FiO$_2$ rounded to 0.6)", 1),
+    ("preprint_npj/paper.tex", "Further detail, including the two most affected configurations: "
+     "Supplement~\\S\\,\\ref{sec:s8}.", 1),
+    ("preprint_npj/supplement.tex", "The 100 impairment fractions were drawn uniformly at random (seed 2026) in three "
+     "strata, 50 between 0 and 0.85, 30 between 0.85 and 0.95 and 20 between 0.95 and 1, and the same 100 values "
+     "were run on both bodies.", 1),
+    ("preprint_npj/supplement.tex", "The 60 reruns comprise the 22 Morris points requested at FiO$_2$ = 1.0 that "
+     "diverged in none of the eight cells, run in both Healthy cells (44 reruns), and the first four of these points "
+     "in sample order (run indices 6, 7, 12 and 13), run in the two Moderate and two Severe cells (16 reruns).", 1),
+)
+FOLLOWUP_TEXT_BANNED = {
+    # Section S8 holds summaries and two named configurations, not per-run values.
+    "preprint_npj/paper.tex": ("per-run values: Supplement",),
+    "preprint_npj/supplement.tex": ("full protocol}",),
+}
+FOLLOWUP_SWEPT_RANGES = {"in_hr": (50, 110), "in_sbp": (90, 120), "in_dbp": (60, 80), "in_rr": (8, 20),
+                         "in_vt": (300, 800), "in_fio2": (0.21, 1.0), "in_peep": (0, 20)}
+
+
+def check_followup_selection() -> int:
+    """Re-derive the S014, S021 and continuous-severity selection rules."""
+    print("\n## Follow-up selection-rule guard (paper 4.3; Supplement S5.4, S8.1, S9.1)\n")
+    rows: list[tuple[str, str, str]] = []
+    n_bad = 0
+
+    def record(label: str, observed: str, ok: bool) -> None:
+        nonlocal n_bad
+        n_bad += 0 if ok else 1
+        rows.append((label, observed, "PASS" if ok else "**FAIL**"))
+
+    sweep = pd.read_parquet(REPO / "data/runs/full_sweep/aggregated.parquet")
+    sweep["run_idx"] = sweep["case_id"].str.split("_").str[-1].astype(int)
+
+    # S014: the 64 non-diverged runs with the highest Vt CV.
+    s14 = pd.read_parquet(REPO / "data/runs/s014_trigger_lockout/selection.parquet")
+    pool = sweep[~sweep["diverged"] & sweep["Vt_cv"].notna()]
+    top = set(pool.nlargest(64, "Vt_cv")["case_id"])
+    rest_max = pool.loc[~pool["case_id"].isin(top), "Vt_cv"].max()
+    sel_min = pool.loc[pool["case_id"].isin(top), "Vt_cv"].min()
+    record("S014: stored selection = top-64 non-diverged by Vt CV", f"{len(s14)} rows, equal: {set(s14['case_id']) == top}",
+           len(s14) == 64 and set(s14["case_id"]) == top)
+    record("S014: the cut is strict (no tie at the 64th value)", f"{sel_min:.4f} > {rest_max:.4f}", sel_min > rest_max)
+    lowest = set(pool.nsmallest(64, "Vt_cv")["case_id"])
+    record("S014 negative control: the 64 LOWEST Vt CV differ", str(lowest != top), lowest != top)
+
+    # S021: Morris points requested at FiO2 = 1.0 that diverged in none of the eight cells.
+    s21 = pd.read_parquet(REPO / "data/runs/s021_hyperoxia_convergence/selection.parquet")
+    s21["run_idx"] = s21["case_id"].str.split("_").str[-1].astype(int)
+    f1 = sweep[sweep["in_fio2"] == 1.0]
+    n_cells = sweep.groupby(["scenario", "sex"]).ngroups
+    clean_cells = f1[~f1["diverged"]].groupby("run_idx").size()
+    common = sorted(int(i) for i in clean_cells[clean_cells == n_cells].index)
+    healthy = s21[s21["scenario"] == "S1"]
+    shunt = sorted(int(i) for i in set(s21.loc[s21["scenario"].isin(["S3", "S4"]), "run_idx"]))
+    record("S021: 22 points at FiO2 = 1.0 diverge in none of the 8 cells", f"{len(common)} over {n_cells} cells",
+           len(common) == 22 and n_cells == 8)
+    record("S021: both Healthy cells carry all 22 (44 reruns)",
+           f"{len(healthy)} rows, sets equal: {sorted(set(healthy['run_idx'])) == common}",
+           len(healthy) == 44 and sorted(set(healthy["run_idx"])) == common
+           and set(healthy["sex"]) == {"M", "F"})
+    record("S021: Moderate and Severe carry the first four in sample order",
+           f"{shunt} vs {common[:4]}; rows {int(s21['scenario'].isin(['S3', 'S4']).sum())}",
+           shunt == common[:4] == [6, 7, 12, 13] and int(s21["scenario"].isin(["S3", "S4"]).sum()) == 16)
+    record("S021: 60 reruns in total", str(len(s21)), len(s21) == 60)
+    any_div = sorted(int(i) for i in f1.loc[~f1["diverged"], "run_idx"].unique())
+    record("S021 negative control: 'non-diverged in at least one cell' gives more than 22", str(len(any_div)),
+           len(any_div) > 22)
+
+    # Continuous-severity sweep: seed 2026, strata 50/30/20, same values on both bodies, mid-range inputs.
+    cont = pd.read_parquet(REPO / CONT_SWEEP_SOURCE)
+    import numpy as _np  # local: only this guard needs it
+    rng = _np.random.default_rng(2026)
+    grid = _np.sort(_np.concatenate([rng.uniform(0.0, 0.85, 50), rng.uniform(0.85, 0.95, 30), rng.uniform(0.95, 1.0, 20)]))
+    by_sex = {s: _np.sort(cont.loc[cont["sex"] == s, "ards_severity"].astype(float).to_numpy()) for s in ("M", "F")}
+    same = all(len(v) == 100 and _np.allclose(v, grid, rtol=0, atol=1e-12) for v in by_sex.values())
+    record("continuous: both bodies ran exactly the seed-2026 grid", str(same), same)
+    v = by_sex["M"]
+    strata = (int((v < 0.85).sum()), int(((v >= 0.85) & (v < 0.95)).sum()), int((v >= 0.95).sum()))
+    dens = (strata[0] / 0.85, strata[1] / 0.10, strata[2] / 0.05)
+    record("continuous: strata 50 / 30 / 20", str(strata), strata == (50, 30, 20))
+    record("continuous: denser above 0.85 than below (per unit)", " / ".join(f"{d:.0f}" for d in dens),
+           min(dens[1], dens[2]) > dens[0])
+    other = _np.sort(_np.random.default_rng(2027).uniform(0.0, 1.0, 100))
+    record("continuous negative control: another seed does not match", str(not _np.allclose(other, grid)),
+           not _np.allclose(other, grid))
+    mids = {k: (lo + hi) / 2 for k, (lo, hi) in FOLLOWUP_SWEPT_RANGES.items()}
+    got = {k: sorted(set(cont[k].astype(float))) for k in FOLLOWUP_SWEPT_RANGES}
+    exact = all(got[k] == [mids[k]] for k in mids if k != "in_fio2")
+    fio2_ok = got["in_fio2"] == [0.6] and round(mids["in_fio2"], 1) == 0.6
+    record("continuous: inputs at the swept midpoints (FiO2 0.605 rounded to 0.6)",
+           f"{ {k: g for k, g in got.items()} }", exact and fio2_ok)
+
+    for rel, needle, expected in FOLLOWUP_TEXT_REQUIRED:
+        n = re.sub(r"\s+", " ", (REPO / rel).read_text(encoding="utf-8")).count(needle)
+        record(f"`{rel}` carries `{needle[:48]}`", f"{n} (expected {expected})", n == expected)
+    for rel, banned in FOLLOWUP_TEXT_BANNED.items():
+        text = (REPO / rel).read_text(encoding="utf-8")
+        hits = [b for b in banned if b in text]
+        record(f"`{rel}` free of {banned}", "clean" if not hits else f"found {hits}", not hits)
+
+    print("| check | observed | verdict |")
+    print("|---|---|---|")
+    for label, observed, verdict in rows:
+        print(f"| {label} | {observed} | {verdict} |")
+    print(f"\n**Follow-up selection-rule guard:** {len(rows)} checks, {len(rows) - n_bad} PASS, {n_bad} FAIL.\n")
+    return n_bad
+
+
+n_followup_fail = check_followup_selection()
+
+
+# -----------------------------------------------------------------------------
 # Supplement small-number audit guard (2026-09-14).
 #
 # The row-by-row reading of the supplement's ambiguous_small residue
@@ -6614,9 +6743,12 @@ SMALL_AUDIT_TEXT_REQUIRED = (
      "points of Figure~4a of the main manuscript)", 1),
     # The paper-side pointer ("the two worst-affected configurations and the
     # per-run values are in Supplement S8") was removed in the M. Sauthier
-    # review round (2026-10-06): the paper now reads "Full protocol and per-run
-    # values: Supplement S8". The two configurations stay named in S8.1, pinned
-    # above; the singular wording stays banned in paper.tex below.
+    # review round (2026-10-06): the paper then read "Full protocol and per-run
+    # values: Supplement S8". S8 holds no per-run values, so on 2026-10-07 it
+    # became "Further detail, including the two most affected configurations:
+    # Supplement S8" (pinned by the follow-up selection-rule guard). The two
+    # configurations stay named in S8.1, pinned above; the singular wording
+    # stays banned in paper.tex below.
     ("preprint_npj/supplement.tex",
      "within about 0.1~\\% of the value at $t = 300$~s on the median trajectory, "
      "and within 1.6~\\% for any individual run", 1),
@@ -8240,7 +8372,7 @@ sys.exit(
         + n_fio2adj_fail + n_sobolframe_fail + n_s011_fail + n_abstract_fail
         + n_vtcv_split_fail + n_shap_unit_fail + n_detvocab_fail + n_cdcprov_fail + n_pubgate_fail
         + n_windowtol_fail + n_s033_fail + n_s023oos_fail + n_s034_fail + n_contband_fail
-        + n_smallaudit_fail + n_monoaudit_fail + n_prose_fail
+        + n_followup_fail + n_smallaudit_fail + n_monoaudit_fail + n_prose_fail
     ) > 0
     else 0
 )
