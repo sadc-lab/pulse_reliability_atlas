@@ -247,8 +247,8 @@ identical inputs on the pinned image; S011 ran on that same image.
 
 > **Correction (2026-10-08).** "across CPU vendor and host OS" overstated the
 > second axis. On both hosts the engine ran in a Linux container under WSL2 (the
-> reference machine's Docker Desktop uses its WSL2 backend), so for the engine
-> only the CPU vendor changed; only the Python layer changed operating system.
+> reference machine's Docker Desktop uses its WSL2 backend), so the engine's
+> operating system did not change between hosts; only the Python layer's did.
 > Supplement §S12.6 was corrected the same day.
 
 *Cosmetic upstream note:* the warning above prints `151 cm` where the female
