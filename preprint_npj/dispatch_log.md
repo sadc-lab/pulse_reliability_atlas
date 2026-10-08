@@ -1691,7 +1691,6 @@ since re-freeze 54 (`47ab3b8`), on the author's decision of 2026-10-08:
   statistics differ at ~1e-14, §S12.5). Paper and §S12.5 unchanged.
 
 Not yet in: Methods §4.7, second review round (after A.W. and C.S. reply).
-Supervisors' approvals so far are on re-freeze 54.
 
 | | |
 |---|---|
