@@ -268,3 +268,23 @@ consignés pour pouvoir les justifier auprès de lui.
 Dans le même mouvement, hors texte de M.S. : titres des §S8 et §S9 sans « full
 protocol » ; paragraphe de 97 mots au §4.3 (règles de sélection des expériences
 de suivi) ; détails en §S5.4 et §S9.1 ; garde `check_followup_selection`.
+
+## 8. Après l'envoi du re-gel 54 : D24 précisé (2026-10-08)
+
+Décision de l'auteur du 2026-10-08. La phrase gardée en D24 (« empirical
+evidence that bit-identity holds across CPU vendor and host operating system »,
+aujourd'hui en §S12.6) et sa justification (« Intel/Windows, AMD/WSL2 »)
+opposaient deux systèmes d'exploitation. Or le moteur tournait sous Linux via
+WSL2 sur les **deux** machines : chez Y.M. (noyau `6.6.87.2-microsoft-standard-WSL2`,
+README du pilote ; même ThinkPad pour le sweep et le pilote, confirmé par Y.M.
+le 2026-10-08) comme sur la machine de référence (Windows 11 Home, édition
+`Core`, Docker Desktop installé le 2025-09-16 avec `Selected backend mode: wsl-2`,
+service Hyper-V `vmms` absent ; mesuré le 2026-10-08). Seule la couche Python
+changeait de système (Windows contre Linux).
+
+| # | Lieu | Version gardée en D24 | Nouvelle version | Justification |
+|---|---|---|---|---|
+| D24′ | §S12.6 | « …(Linux/WSL2), all bit-identical, which is empirical evidence that bit-identity holds across CPU vendor and host operating system within the x86\_64 family. » | « …with bit-identical simulation outputs, which is empirical evidence that bit-identity holds across CPU vendor within the x86\_64 family. On both hosts the engine ran in a Linux container under WSL2; only the Python layer ran under a different operating system (Windows versus Linux). » | Même sens que D24 (on refuse « shows »), plus prudent : le système d'exploitation du moteur n'a pas varié ; « all » contredisait §S12.5 (trois statistiques H4 à ~10⁻¹⁴). |
+
+Le papier (Code availability) et §S12.5 décrivent les machines sans affirmer
+d'invariance entre systèmes : inchangés, sur décision de l'auteur.

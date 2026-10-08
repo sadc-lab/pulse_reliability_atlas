@@ -245,6 +245,12 @@ CPU vendor and host OS (`max|Δ| = 0`, five-flag concordance 1,280/1,280), no RN
 in the engine path, and a fixed 20 ms ODE timestep. The engine is reproducible for
 identical inputs on the pinned image; S011 ran on that same image.
 
+> **Correction (2026-10-08).** "across CPU vendor and host OS" overstated the
+> second axis. On both hosts the engine ran in a Linux container under WSL2 (the
+> reference machine's Docker Desktop uses its WSL2 backend), so for the engine
+> only the CPU vendor changed; only the Python layer changed operating system.
+> Supplement §S12.6 was corrected the same day.
+
 *Cosmetic upstream note:* the warning above prints `151 cm` where the female
 ceiling is 175.5 — the `else if (height_cm > heightMax_cm)` branch prints
 `heightMin_cm`. A Pulse display bug, no effect on behaviour.
