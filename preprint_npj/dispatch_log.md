@@ -1675,3 +1675,45 @@ move he had asked for.
 
 Open answers expected: A.W. on the affiliation city; all four on names versus
 initials; their feedback on this version.
+
+---
+
+## 2026-10-08 — re-freeze 55: §S12.6 bounded to CPU vendor (paper + supplement); not sent
+
+**Status: NOT SENT.** Supersedes re-freeze 54 as the current build. One change
+since re-freeze 54 (`47ab3b8`), on the author's decision of 2026-10-08:
+
+- `24dd323` §S12.6: bit-identity is evidenced across CPU vendor only. Y.M.
+  confirmed on 2026-10-08 that the sweep and the S1_M pilot ran on the same
+  ThinkPad, Linux under WSL2, and the reference machine's Docker Desktop also
+  runs its engine in WSL2 (evidence in the commit), so the engine never ran
+  under two operating systems. "all bit-identical" also went (three H4
+  statistics differ at ~1e-14, §S12.5). Paper and §S12.5 unchanged.
+
+Not yet in: Methods §4.7, second review round (after A.W. and C.S. reply).
+Supervisors' approvals so far are on re-freeze 54.
+
+| | |
+|---|---|
+| Sent | — |
+| Source commit | `24dd323` |
+| Pages | 24 (paper) / 58 (supplement), unchanged |
+| Monograph | not rebuilt; it does not carry the §S12.6 sentence |
+
+### Hashes, frozen before any further build
+
+| artefact | SHA-256 | bytes |
+|---|---|---|
+| `preprint_npj/build/paper.pdf` | `f84cf278891f68cb5f399fa3aeb7c568762f11e8ec5ffefe08ff6a648832835f` | 617,211 |
+| `preprint_npj/build/paper.docx` | `0b1f2be5e2fab16c44a5171baded917b70e8667b88c5698b8fe537eecd2a611b` | 953,814 |
+| `preprint_npj/build/supplement.pdf` | `17237ee6bed0311e7793919ca857543163556dd95304ce40546dce80d3a33b81` | 715,878 |
+| `preprint_npj/build/supplement.docx` | `da7041738efbdbbccba3d40efc6930125031094d2174797cf754bb141b5f2cf2` | 761,525 |
+
+Written 13:13:29–13:13:38 local time; `supplement.tex` last modified 13:13:11,
+before the build; `git diff HEAD` empty after the build. Copies in
+`preprint_npj/build/freeze55/` (gitignored).
+
+### Gate state at freeze
+
+Full gate on `24dd323` (pre-commit hook, with this build): PASS; render: the same
+1 accepted residue, 0 new; Word structure, numbering, tables and affiliations OK.
