@@ -1,6 +1,6 @@
 ---
 title: "Pulse Reliability Atlas: first sensitivity, clamping, and divergence map for the Pulse Physiology Engine v4.3.1"
-author: "Santino Nanini^1,2,3,4,5,\\*^, Arnaud Wiedemann^2,3,4,6^, Yassir Mamouni^3^, Cyril Schweitzer^4,5^, Philippe Jouvet^1,2,3^, Michael Sauthier^1,2,3^"
+author: "Santino Nanini^1,2,3,4,5,\\*^, Arnaud Wiedemann^3,4,6^, Yassir Mamouni^3^, Cyril Schweitzer^4,5^, Philippe Jouvet^1,2,3^, Michael Sauthier^1,2,3^"
 date: "2026-09-28"
 header-includes:
   - \renewcommand{\arraystretch}{1.35}
@@ -11,7 +11,7 @@ header-includes:
 
 ^1^ Pediatric Intensive Care Unit, Department of Pediatrics, CHU Sainte-Justine, Université de Montréal, Montreal, QC, Canada.
 
-^2^ Clinical Decision Support System Artificial Intelligence Health Cluster in Acute Child Care, PE-DIATRICS, CHU Ste-Justine Centre Hospitalier Universitaire Mère-Enfant, Montréal, Canada.
+^2^ Clinical Decision Support System Artificial Intelligence Health Cluster in Acute Child Care, PEDIATRICS, CHU Ste-Justine Centre Hospitalier Universitaire Mère-Enfant, Montréal, Canada.
 
 ^3^ Research Center of Sainte-Justine University Hospital, Montreal, Quebec, Canada.
 

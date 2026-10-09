@@ -99,7 +99,7 @@ On behalf of all authors,
 
 **Santino Nanini** (corresponding author)
 Pediatric Intensive Care Unit, CHU Sainte-Justine / Université de Montréal;
-Clinical Decision Support System (PE-DIATRICS) Cluster, CHU Sainte-Justine;
+Clinical Decision Support System (PEDIATRICS) Cluster, CHU Sainte-Justine;
 Research Center, Sainte-Justine University Hospital; Pediatric Intensive Care
 Unit, Children Hospital, CHRU Nancy; UR 3450 DevAH, Université de Lorraine, Nancy
 santino.nanini@umontreal.ca

@@ -94,7 +94,7 @@
 
 \author*[1,2,3,4,5]{\fnm{Santino} \sur{Nanini}}\email{santino.nanini@umontreal.ca}
 
-\author[2,3,4,6]{\fnm{Arnaud} \sur{Wiedemann}}
+\author[3,4,6]{\fnm{Arnaud} \sur{Wiedemann}}
 
 \author[3]{\fnm{Yassir} \sur{Mamouni}}
 
@@ -106,7 +106,7 @@
 
 \affil*[1]{\orgdiv{Pediatric Intensive Care Unit, Department of Pediatrics}, \orgname{CHU Sainte-Justine, Universit\'e de Montr\'eal}, \orgaddress{\city{Montreal}, \state{QC}, \country{Canada}}}
 
-\affil[2]{\orgdiv{Clinical Decision Support System Artificial Intelligence Health Cluster in Acute Child Care (PE-DIATRICS)}, \orgname{CHU Sainte-Justine Centre Hospitalier Universitaire M\`ere-Enfant}, \orgaddress{\city{Montr\'eal}, \country{Canada}}}
+\affil[2]{\orgdiv{Clinical Decision Support System Artificial Intelligence Health Cluster in Acute Child Care (PEDIATRICS)}, \orgname{CHU Sainte-Justine Centre Hospitalier Universitaire M\`ere-Enfant}, \orgaddress{\city{Montr\'eal}, \country{Canada}}}
 
 \affil[3]{\orgdiv{Research Center}, \orgname{Sainte-Justine University Hospital}, \orgaddress{\city{Montreal}, \state{Quebec}, \country{Canada}}}
 
@@ -264,7 +264,7 @@ The rankings were tested in two ways. The top-three input sets were cross-checke
 
 The largest single source of \texttt{not\_steady\_state} flags is tidal-volume (Vt) oscillation under volume-controlled assist-control (VC-AC) ventilation, measured as the coefficient of variation (CV) of delivered Vt over the final 60~s of the 120~s recording. It is the \emph{primary} flag on 20.6~\% of runs: delivered volume keeps changing from breath to breath, a genuine oscillation rather than a solver failure. The effect concentrates in healthy lungs, is strongest at high set respiratory rate and normal compliance, and falls markedly with increasing ARDS severity. This pattern is consistent with \emph{patient--ventilator dyssynchrony}, well documented clinically in volume-control ventilation~\cite{figueroacasas2016}; the conditions that produce it here are an in-silico finding of this study.
 
-A follow-up experiment isolated the mechanism. In 64 affected configurations, setting Pulse's \texttt{InspirationPatientTriggerPressure} (the airway-pressure drop below PEEP at which a patient effort triggers a breath) to $-2$~cmH$_2$O reduced the median Vt CV from 0.351 to 0.016, and 78.1~\% of reruns fell below the 0.05 steady-state threshold (Figure~\ref{fig:corrections}a). This lock is a data-generation lever, not a clinical recommendation. By default, the assisted breaths of VC-AC are triggered by the inspiratory efforts of the engine's respiratory model. The lock replaces this respiratory-model trigger with a fixed pressure threshold, loosening the coupling between breath delivery and the modelled respiratory drive that produces effort-dependent breath-to-breath variability in the default configuration. In a real patient, the same setting would leave sub-threshold inspiratory efforts unrewarded, a form of patient--ventilator dyssynchrony~\cite{thille2006} that is clinically undesirable~\cite{blanch2015}. Further detail, including the two most affected configurations: Supplement~\S\,\ref{sec:s8}.
+A follow-up experiment isolated the mechanism. In 64 affected configurations, setting Pulse's \texttt{InspirationPatientTriggerPressure} (the airway-pressure drop below PEEP at which a patient effort triggers a breath) to $-2$~cmH$_2$O reduced the median Vt CV from 0.351 to 0.016, and 78.1~\% of reruns fell below the 0.05 steady-state threshold (Figure~\ref{fig:corrections}a). This lock is a data-generation lever, not a clinical recommendation. By default, the assisted breaths of VC-AC are triggered by the inspiratory efforts of the engine's respiratory model. The lock replaces this respiratory-model trigger with a fixed pressure threshold, loosening the coupling between breath delivery and the modelled respiratory drive that produces effort-dependent breath-to-breath variability in the default configuration. In a real patient, any fixed trigger threshold, this one included, leaves efforts too weak to reach it unrewarded, a form of patient--ventilator dyssynchrony~\cite{thille2006} that is clinically undesirable~\cite{blanch2015}. Further detail, including the two most affected configurations: Supplement~\S\,\ref{sec:s8}.
 
 \subsection{\texorpdfstring{Transient hyperoxia regime at FiO$_2$~=~1.0}{Transient hyperoxia regime at FiO2 = 1.0}}\label{sec:results-hyperoxia}
 
