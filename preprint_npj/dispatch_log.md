@@ -628,12 +628,15 @@ back byte-for-byte the same SIZE as the previous build, only their embedded
 timestamps differing, which is why every hash above moved while 24 / 56 / 121
 pages did not.
 
-### The accompanying message, as sent
+### The accompanying message, in broad lines
 
-Recorded verbatim, because a returning annotation is read against what its
-reader was told:
-
-> [Text of a private message removed from the public history; see HISTORY.md.]
+The text of the e-mail is not reproduced (author's rule of 2026-10-09: no e-mail
+text in tracked files). In broad lines, because a returning annotation is read
+against what its reader was told: the revised version followed the request to
+shorten the paper; the paper went from 38 to 24 pages and the supplement from
+52 to 56, most removed material having moved down rather than been deleted;
+five references disappeared and none was added; the longest sentences were
+split and the one real repetition removed.
 
 **Two paragraphs of the drafted message were not sent**, by the author's choice,
 and the omission is recorded because it changes what the recipients know:
@@ -1259,11 +1262,13 @@ Methods §4.4 (one count, 3,349) and in the supplement's opening paragraph,
    `--verify-public` is the pre-submission step that will check the visibility
    itself.
 
-### The message as sent (2026-09-28)
+### The message as sent (2026-09-28), in broad lines
 
-Supplied by the author after the send, reproduced verbatim:
-
-> [Text of a private message removed from the public history; see HISTORY.md.]
+The text of the e-mail is not reproduced (author's rule of 2026-10-09). In
+broad lines: the new paper and supplement, in PDF and Word; the new pagination
+(26 and 62 pages); the GitHub repository still deliberately private until the
+arXiv deposit; and a question on whether to replace the supervisors' names in
+commit messages and working files by their role or their initials.
 
 Against the three items above: **item 2** (pagination) and **item 3** (private
 repository) are in the message; **item 1** (the reference renumbering, 41 → 49

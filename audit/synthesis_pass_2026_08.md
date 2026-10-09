@@ -6,11 +6,12 @@ clean.
 
 ## 1. What P.J. asked
 
-Email 2026-08-27 plus the tracked-changes docx `Adult Pulse model
-2026-08-25_PJdocx.docx` (byte-identical copies in the repo root and in
-`~/Downloads`, sha256 prefix `bb4ea0a9`).
-
-> [Text of a private message removed from the public history; see HISTORY.md.]
+A covering message of 2026-08-27 plus the tracked-changes docx `Adult Pulse
+model 2026-08-25_PJdocx.docx` (kept outside git, sha256 prefix `bb4ea0a9`).
+The message is not reproduced in this repository (author's rule of 2026-10-09:
+nothing from supervisors' e-mails or messages is quoted in tracked files). In
+broad lines: the paper was too long and repetitive to read comfortably, and
+should be about 20 pages without tables and figures.
 
 Directives: introduction halved with the study objective **last**; a paragraph
 introducing the Methods subsections; Methods halved with the detail pushed to
@@ -348,34 +349,25 @@ Everything below was established in a single session, with the repository at
 `613f2a6` and the working tree clean. **Still nothing applied to `paper.tex`,
 `supplement.tex` or the monograph.**
 
-## 9. P.J.'s email of 2026-08-27, verbatim
+## 9. The covering message of 2026-08-27, in broad lines
 
-The primary source was missing from this register: section 1 quoted only the
-length complaint, and the directive list was an English rendering. The email in
-full, as supplied by the author:
+The message itself is not reproduced (see section 1). What it changed in this
+register, in broad lines:
 
-> [Text of a private message removed from the public history; see HISTORY.md.]
+1. **Two deliverables, not one.** The tracked changes target the **arXiv**
+   deposit; the synthesis to about 20 pages targets the **journal** version.
+   Author's decision, 2026-09-01: **one clean version serving both**, because
+   the arXiv track is blocked upstream anyway (the GitHub repository is still
+   private -- its API endpoint returns 404 against a control repository
+   returning 200, checked 2026-09-01).
+2. **The supplement may hold the detail.** An earlier objection raised during
+   this pass -- that moving material into the supplement would worsen the
+   length complaint -- is therefore **withdrawn**.
+3. **Section order was an open question, not an instruction.** Answerable
+   from npj's own Article table, see section 11.
 
-Three things this register had not recorded, all consequential.
-
-1. **Two deliverables, not one.** [text of a private message removed from the public history; see HISTORY.md]
-   His tracked changes target the **arXiv** deposit; the synthesis
-   to 20 pages targets the **journal** version. The word `arXiv` appeared zero
-   times in this register before today. Author's decision, 2026-09-01: **one
-   clean version serving both**, because the arXiv track is blocked upstream
-   anyway (the GitHub repository is still private -- its API endpoint returns
-   404 against a control repository returning 200, checked 2026-09-01).
-2. **He lifts the supplement constraint explicitly**: [text of a private message removed from the public history; see HISTORY.md]
-   His remark on the supplement was a description of his reading
-   experience, not a limit. An earlier objection raised during this pass -- that
-   moving material into the supplement would worsen his own complaint -- is
-   therefore **withdrawn**.
-3. **He asks an open question about section order**, he does not instruct:
-   [text of a private message removed from the public history; see HISTORY.md] Answerable from npj's own Article table, see
-   section 11.
-
-Note also: **the title is not mentioned in the email**. His alternative title
-exists only inside the docx, i.e. in the arXiv-suggestion bucket.
+The alternative title exists only inside the docx, i.e. in the
+arXiv-suggestion bucket.
 
 ## 10. The 14 tracked-change paragraphs
 
@@ -2831,9 +2823,9 @@ rather than resolved by the more flattering guess.
 
 **The uncomfortable number is the package.** The paper lost a third of its
 length, but most of that material was displaced into the supplement rather than
-deleted, and the supplement grew. Against a reader whose complaint was
-[text of a private message removed from the public history; see HISTORY.md], a package that shrank 11 % is the
-honest figure to give him, alongside the 37 % that describes the article alone.
+deleted, and the supplement grew. For a reader who found the supplement too
+long to read, a package that shrank 11 % is the honest figure to give,
+alongside the 37 % that describes the article alone.
 
 Word-count caveat: 18,178 is Word's count on his file and 8,579 is pandoc's on
 today's `paper.docx`. **Different instruments; do not compute a percentage from
@@ -3156,7 +3148,8 @@ six-word gloss in `sec:s13`, not in the paper.
 
 ## 36. P.J.'s two criteria, and the second full audit, 2026-09-05
 
-P.J. replied the same day: [text of a private message removed from the public history; see HISTORY.md].
+P.J.'s reply the same day (not reproduced) accepted the length and set two
+criteria: fluency of the text and no repetition.
 Both criteria were measured before anything was rewritten, and a second full
 audit followed at the author's request before the dispatch.
 

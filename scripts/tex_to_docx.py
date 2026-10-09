@@ -322,7 +322,7 @@ def flatten_subfigures(tex: str) -> str:
 # \bmhead headings (Data availability, Acknowledgements, ...) and the
 # \tableofcontents, and gives the reference list no heading, while the text cites
 # "Figure 3", "Table S7" and "Supplement S3.7" by number. Reported by
-# M. Sauthier on 2026-10-06 (quotation removed from the public history). Every number below
+# M. Sauthier on 2026-10-06. Every number below
 # is the one LaTeX recorded in the .aux, i.e. the number the PDF prints.
 FLOAT_RE = re.compile(r"\\begin\{(figure|table)(\*?)\}(.*?)\\end\{\1\2\}", re.S)
 FLOAT_LABEL_RE = re.compile(r"\\label\{((?:fig|tab):[^{}]+)\}")
