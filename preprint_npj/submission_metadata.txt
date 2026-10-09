@@ -55,7 +55,7 @@ AUTHOR LIST (as in paper.tex)
 Santino Nanini (corresponding); Arnaud Wiedemann; Yassir Mamouni;
 Cyril Schweitzer; Philippe Jouvet; Michael Sauthier
 
-NB: affiliations updated 2026-07-06 (6-affiliation scheme) — Nanini [1,2,3,4,5];
+NB: affiliations updated 2026-07-06 (6-affiliation scheme; Wiedemann 3,4,6 since 2026-10-09) — Nanini [1,2,3,4,5];
 Wiedemann [3,4,6]; Mamouni [3]; Schweitzer [4,5]; Jouvet [1,2,3]; Sauthier [1,2,3].
 Affils: [1] PICU, CHU Sainte-Justine, U. Montreal; [2] CDSS PEDIATRICS, CHU Sainte-Justine;
 [3] Research Center, Sainte-Justine University Hospital; [4] Pediatric ICU, Children Hospital,
