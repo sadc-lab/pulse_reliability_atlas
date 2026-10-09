@@ -107,6 +107,23 @@ D1–D15, texte exact dans le commit :
 
 Compilation : 0 erreur, 24 et 58 pages inchangées ; contrôles du dépôt au vert.
 
+## 5 bis. Suites du 2026-10-09 (décisions de l'auteur ; aucune citation de message)
+
+- Passages pédiatriques : retirés dans la Discussion (limite (iii), phrase
+  « pediatric translation layer ») et dans le supplément (§S2 (iii) ; §S5 :
+  titre « Adult-only tuning. », phrase finale retirée), commit `dad75bd`.
+  L'Introduction (L146) garde sa deuxième raison (choix de l'auteur). Le
+  nettoyage du plan de thèse dans la monographie et le dépôt se fera à la
+  création du dépôt public ; `preregistration.md` reste intact.
+- Q1 tranchée : affiliations d'A.W. 3, 4, 6 ; Q3 tranchée : sigle écrit
+  « PEDIATRICS » (à signaler dans la liste de la v56 pour P.J. et M.S.) ;
+  Q2 : ville confirmée, nom d'A.W. conservé dans le dépôt ; Q7 : accord
+  pour soumettre. Commit `874fced`.
+- Q4 : nouvelle phrase du §2.3 appliquée (`874fced`), acceptée par A.W. ;
+  à confirmer par M.S. en tête de la liste des changements de la v56. Le
+  §S8.4 et la monographie gardent « shift … toward controlled ventilation »
+  (contenu validé par M.S.), à lui soumettre en même temps.
+
 ## 6. Questions ouvertes
 
 - **Q1** (A.W.) Affiliation : 2,3,4,6 ou 3,4,6 ?
