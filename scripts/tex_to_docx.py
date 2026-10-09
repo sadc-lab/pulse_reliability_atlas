@@ -28,6 +28,14 @@ Resolved with ``--citeproc`` against the paper ``.bib`` using the numbered
 Nature CSL (``nature.csl``, vendored next to the .tex sources) so the .docx
 in-text markers and reference list match the numbered PDF.
 
+Every ``~\cite`` loses its tie in the Word source only. The PDF prints the
+numbers in brackets after a space ("incomplete [1]"); ``nature.csl`` prints them
+as superscripts, after which the tie left a space before every number
+("incomplete ¹"). The corrected Word file A. Wiedemann returned on 2026-10-09
+removed one such space by hand; all 42 paper and 57 supplement citations had it. The
+tie stays after a digit, where a superscript number would read as an exponent:
+"FiO2 = 1.0 ¹⁷", not "1.0¹⁷" (two supplement sites).
+
 pandoc does not read the ``.bib`` itself but a retyped copy,
 ``*.docxsrc.bib`` in the build directory. ``nature.csl`` prints a URL only for
 web pages and reports, and pandoc maps ``@misc`` to neither, so every
@@ -437,15 +445,56 @@ def unstack_cells(tex: str) -> str:
     return "".join(out)
 
 
+# A tie before a citation, unless it follows a digit; see "Citations" in the docstring.
+CITE_TIE_RE = re.compile(r"(?<![0-9])~\\cite")
+
+AUTHOR_OPEN_RE = re.compile(r"\\author(\*?)\s*(?:\[([^\]]*)\])?\s*\{")
+EMAIL_AFTER_RE = re.compile(r"\s*\\email\s*\{([^}]*)\}")
+AFFIL_LABEL_RE = re.compile(r"\\affil\*?\s*\[([^\]]*)\]\s*\{")
+
+
+def author_marks(tex: str) -> list[tuple[str, str]]:
+    r"""(superscript mark, corresponding e-mail or "") for every ``\author``, in order.
+
+    The mark is the affiliation numbers of ``\author[1,2]``, followed by ``*`` for
+    ``\author*``, as the PDF prints them ("Santino Nanini1,2,3,4,5*"). The e-mail is
+    the ``\email`` trailing a starred author. Before 2026-10-09 the converter kept
+    the names only: the Word twin showed no affiliation numbers and no
+    corresponding-author line, both present in the PDF (A. Wiedemann's corrected
+    Word file re-typed the numbers by hand and asked for the e-mail).
+    """
+    marks = []
+    for m in AUTHOR_OPEN_RE.finditer(tex):
+        _, end = _braced(tex, m.end() - 1)
+        email = EMAIL_AFTER_RE.match(tex, end)
+        starred = m.group(1) == "*"
+        if email and not starred:
+            print(f"  WARNING: e-mail of a non-corresponding author dropped from Word: "
+                  f"{email.group(1).strip()}", file=sys.stderr)
+        mark = re.sub(r"\s+", "", m.group(2) or "") + ("*" if starred else "")
+        marks.append((mark, email.group(1).strip() if email and starred else ""))
+    return marks
+
+
 def transform_frontmatter(tex: str) -> str:
     r"""Rewrite the sn-jnl front matter into pandoc-friendly LaTeX.
 
     Title (``\title[..]{..}``) is left untouched -- pandoc reads it correctly.
     Authors, affiliations, abstract, and keywords are extracted and re-emitted
     as a plain ``\author{.. \and ..}`` line plus body sections after
-    ``\maketitle``.
+    ``\maketitle``. Each name carries its affiliation numbers as a superscript,
+    and a corresponding-author line follows the affiliations (``author_marks``).
+    The affiliations stay a numbered list, so their ``\affil[n]`` labels must
+    run 1, 2, 3 ... in order for the list numbers to match the superscripts.
     """
+    marks = author_marks(tex)
+    affil_labels = [lab.strip() for lab in AFFIL_LABEL_RE.findall(tex)]
+    if affil_labels != [str(n) for n in range(1, len(affil_labels) + 1)]:
+        print(f"  WARNING: affiliation labels {affil_labels} do not run 1..n in order; "
+              f"the Word list numbers will not match the author superscripts", file=sys.stderr)
     tex, author_args = _collect_and_remove(tex, "author")
+    if len(author_args) != len(marks):
+        raise ValueError(f"{len(author_args)} \\author arguments but {len(marks)} author marks")
     tex, affil_args = _collect_and_remove(tex, "affil")
     tex, abstract_args = _collect_and_remove(tex, "abstract")
     tex, keyword_args = _collect_and_remove(tex, "keywords")
@@ -453,17 +502,18 @@ def transform_frontmatter(tex: str) -> str:
     tex = re.sub(r"\\email\s*\{[^}]*\}", "", tex)
 
     names: list[str] = []
-    for arg in author_args:
+    for arg, (mark, _email) in zip(author_args, marks):
         fnm = re.search(r"\\fnm\s*\{([^}]*)\}", arg)
         sur = re.search(r"\\sur\s*\{([^}]*)\}", arg)
         if fnm and sur:
-            names.append(f"{fnm.group(1).strip()} {sur.group(1).strip()}")
+            name = f"{fnm.group(1).strip()} {sur.group(1).strip()}"
         else:
             # Fall back to the raw argument with macro wrappers stripped.
-            cleaned = re.sub(r"\\[a-zA-Z]+\s*", "", arg).strip()
-            if cleaned:
-                names.append(cleaned)
+            name = re.sub(r"\\[a-zA-Z]+\s*", "", arg).strip()
+        if name:
+            names.append(name + (f"\\textsuperscript{{{mark}}}" if mark else ""))
     author_line = "\\author{" + " \\and ".join(names) + "}" if names else ""
+    emails = [email for _mark, email in marks if email]
 
     post_parts: list[str] = []
     if abstract_args:
@@ -479,6 +529,13 @@ def transform_frontmatter(tex: str) -> str:
         post_parts.append(
             "\\section*{Author affiliations}\n"
             "\\begin{enumerate}\n" + items + "\n\\end{enumerate}"
+        )
+    if emails:
+        plural = len(emails) > 1
+        post_parts.append(
+            "\\noindent\\textsuperscript{*}"
+            + ("Corresponding authors. E-mails: " if plural else "Corresponding author. E-mail: ")
+            + ", ".join(emails)
         )
     post_block = "\n\n".join(post_parts)
 
@@ -523,6 +580,8 @@ def main() -> int:
     # resolve xr-hyper external refs and its sub-panel figure miscounting).
     munged = flatten_subfigures(munged)
     munged = unstack_cells(munged)
+    # Superscript citations in Word: no space before the number (see "Citations").
+    munged = CITE_TIE_RE.sub(r"\\cite", munged)
     labels = parse_aux_labels(out_path.parent)
     if labels:
         munged, unnumbered = number_for_word(munged, labels)

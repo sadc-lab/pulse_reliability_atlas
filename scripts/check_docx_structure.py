@@ -22,9 +22,13 @@ CALIBRATION. The script ends by looking for a string known to be present and a
 string known to be absent. If either control comes out wrong, the matching layer
 is broken and every verdict above it is meaningless, whatever it says.
 
-Usage:  python scripts/check_docx_structure.py
+Usage:  python scripts/check_docx_structure.py [--build-dir DIR]
+        DIR holds paper.docx, supplement.docx and their .aux files
+        (default preprint_npj/build); another DIR checks a trial conversion
+        without overwriting the frozen build.
 Exit:   0 if every structural check passes, 1 otherwise.
 """
+import argparse
 import re
 import sys
 import unicodedata
@@ -32,14 +36,10 @@ import zipfile
 from collections import Counter
 from pathlib import Path
 
-from tex_to_docx import _braced, parse_aux_labels
+from tex_to_docx import CITE_TIE_RE, _braced, parse_aux_labels, transform_frontmatter
 
 REPO = Path(__file__).resolve().parent.parent
 NPJ = REPO / "preprint_npj"
-PAIRS = [
-    ("paper", NPJ / "paper.tex", NPJ / "build/paper.docx"),
-    ("supplement", NPJ / "supplement.tex", NPJ / "build/supplement.docx"),
-]
 
 # Controls. The first must appear in paper.docx, the second must not appear in
 # any document. Both are checked at the end; see CALIBRATION above.
@@ -263,9 +263,16 @@ def affiliation_problems(live: str, paras: list[tuple[str, str]]) -> list[str]:
 
 
 def main() -> int:
+    ap = argparse.ArgumentParser(description=__doc__.split("\n", 1)[0])
+    ap.add_argument("--build-dir", type=Path, default=NPJ / "build")
+    build = ap.parse_args().build_dir
+    pairs = [
+        ("paper", NPJ / "paper.tex", build / "paper.docx"),
+        ("supplement", NPJ / "supplement.tex", build / "supplement.docx"),
+    ]
     fails = 0
-    labels = parse_aux_labels(NPJ / "build")
-    for name, tex_path, docx_path in PAIRS:
+    labels = parse_aux_labels(build)
+    for name, tex_path, docx_path in pairs:
         if not docx_path.exists():
             print(f"*** {name}.docx not built -- run preprint_npj/build_npj.ps1 first")
             return 1
@@ -378,7 +385,7 @@ def main() -> int:
         fails += len(affil)
 
     print("\n--- CALIBRATION ---")
-    probe = docx_text(NPJ / "build/paper.docx")
+    probe = docx_text(build / "paper.docx")
     found_present = CONTROL_PRESENT in probe
     found_absent = CONTROL_ABSENT in probe
     print(f"  known-present string found : {found_present}")
@@ -438,6 +445,30 @@ def main() -> int:
           f"and accepts the repaired form: {affil_ok}")
     if not affil_ok:
         print("  *** CALIBRATION FAILED -- the affiliation check cannot be believed")
+        fails += 1
+
+    # Author marks and corresponding-author line. Added 2026-10-09: the Word twins
+    # printed the six names without their affiliation numbers and without the
+    # corresponding author's e-mail, both in the PDF; A. Wiedemann's corrected Word
+    # file re-typed them by hand. This exercises the converter itself, so it holds
+    # whatever build is on disk. Calibrated on 2026-10-09: a copy of the converter
+    # with the two repairs reverted fails both lines, the repaired one passes both.
+    front = ("\\author*[1,2]{\\fnm{Ann} \\sur{Lee}}\\email{a@b.org}\n"
+             "\\author[2]{\\fnm{Bo} \\sur{Kim}}\n"
+             "\\affil*[1]{\\orgname{U1}, \\orgaddress{\\city{C1}, \\country{X}}}\n"
+             "\\affil[2]{\\orgname{U2}, \\orgaddress{\\city{C2}, \\country{Y}}}\n"
+             "\\maketitle\n")
+    out = transform_frontmatter(front)
+    marks_ok = ("\\author{Ann Lee\\textsuperscript{1,2*} \\and Bo Kim\\textsuperscript{2}}" in out
+                and "Corresponding author. E-mail: a@b.org" in out)
+    ties_ok = (CITE_TIE_RE.sub(r"\\cite", "word~\\cite{k} 1.0~\\cite{k}")
+               == "word\\cite{k} 1.0~\\cite{k}")
+    print(f"  converter writes each author's affiliation numbers and the corresponding "
+          f"author's e-mail: {marks_ok}")
+    print(f"  converter drops the space before a superscript citation, except after a "
+          f"digit: {ties_ok}")
+    if not (marks_ok and ties_ok):
+        print("  *** CONVERTER CHECK FAILED -- the Word front matter or citation spacing regressed")
         fails += 1
 
     print(f"\nRESULT: "
