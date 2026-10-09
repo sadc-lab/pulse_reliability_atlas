@@ -636,6 +636,14 @@ applicable". These are BMC-style headings, absent from npj's Article table.
 They are not forbidden and they answer questions the Editorial Policy Checklist
 asks anyway. Left in place; recorded so the decision is visible.
 
+**Update 2026-10-09: *Materials availability* removed** (author's decision,
+following a co-author's correction; `audit/wiedemann_review_2026-10.md`, D6).
+Re-checked that day: npj's submission guidelines require a *Data availability*
+statement and a *Code availability* statement, not a materials one, and the
+Nature Portfolio reporting-standards policy only requires that "unique
+materials" be made available and any restriction stated. The atlas has none.
+The two other headings stay.
+
 ---
 
 ## Method note

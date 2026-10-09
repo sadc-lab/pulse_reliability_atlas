@@ -188,7 +188,7 @@ The limitations above are Pulse's, verified against its source and documentation
 
 \textbf{(i) Engine version.} The atlas pins to Pulse v4.3.1. Results apply identically to the build-only v4.3.2 release; newer physiology branches will require re-mapping.
 
-\textbf{(ii) Patient anatomy.} Only two adult reference bodies, male and female, were used; within-sex variation in body mass and height is not characterised.
+\textbf{(ii) Patient anatomy.} Only two young, lean adult reference bodies, male and female, were used (age 18, the youngest age Pulse accepts; body-mass index about 21); variation in age, and in body mass and height within each sex, is not characterised.
 
 \textbf{(iii) Operational envelope.} Only adult critical-care ventilation in VC-AC mode is covered. Three areas are out of scope by design: pediatric translation; pressure-targeted ventilator modes such as pressure-controlled and pressure-support; and transient within-run dynamics, particularly in runs that never reach steady state. The mode restriction also limits transfer to the ventilator-control application of Ward et al.~\cite{ward2024ventilator}, which drives the engine through a pressure-targeted action space: only three of its six ventilator settings (FiO$_2$, respiratory rate and PEEP) are inputs swept here.
 
@@ -1132,7 +1132,7 @@ Severe     & $[50, 110]$ & $147.1 \pm 31.8$ \\
 
 \subsection{Physiological interpretation and Morris-EE implications}\label{sec:s15-mechanism}
 
-In the Healthy scenario, mean output HR is about 74~bpm and still follows the requested input: input HR is the rank-1 input for output HR in every cell (Section~\mainref{sec:results-morris}{2.2} of the main manuscript). In Moderate (impairment 0.60) and Severe (0.95), mean output HR settles at 145--160~bpm despite identical input sampling, about 70~bpm above the midpoint of the $[50, 110]$~bpm input range. This is consistent with the engine's documented baroreceptor and chemoreceptor reflexes, although the atlas did not record or isolate their contribution. ARDS severity therefore shifts output HR strongly upward, while input HR remains a dominant within-scenario determinant.
+In the Healthy scenario, mean output HR is about 74~bpm and still follows the requested input: input HR is the rank-1 input for output HR in every cell (Section~\mainref{sec:results-morris}{2.2} of the main manuscript). In Moderate (impairment 0.60) and Severe (0.95), mean output HR settles at 145--160~bpm despite identical input sampling, about 70~bpm above the midpoint of the $[50, 110]$~bpm input range. This is consistent with the engine's documented baroreceptor and chemoreceptor reflexes, although the atlas did not record or isolate their contribution. No scenario administers a sedative or a neuromuscular-blocking drug. ARDS severity therefore shifts output HR strongly upward, while input HR remains a dominant within-scenario determinant.
 
 The overshoot is non-monotonic in severity: output HR peaks at Moderate and eases at Severe (Table~\ref{tab:s15-comphr}). Because Severe has markedly fewer clean Morris runs than Moderate, this apparent easing may partly reflect differential clean-run retention; the data cannot distinguish such a compositional effect from a change in the modelled physiological response.
 

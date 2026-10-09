@@ -48,7 +48,7 @@ total simulations. A locked four-flag detector (`clamped` / `diverged` /
 `implausible` / `not_steady_state`) classified every run before analysis.
 
 **Results.** The headline operator-actionable result: VC-AC
-(volume-controlled assist-control) tidal-volume instability appears in
+(volume-controlled assist-control) tidal-volume oscillation appears in
 20.6 % of runs (finding **F-004**), and is **causally linked to the
 inspiration trigger, consistent with patient-ventilator dyssynchrony, and
 corrected by setting trigger pressure to −2 cmH2O** (median Vt CV collapses from
@@ -125,7 +125,7 @@ below; this section is the exhaustive findings digest.*
   the locked classifier. Per-cell traffic-light map: **7 green / 29 yellow /
   12 red** of the 48 cell × output combinations (Figure 6).
 
-**Primary finding 1 — VC-AC tidal-volume instability and the −2 cmH2O trigger lever (F-004).**
+**Primary finding 1 — VC-AC tidal-volume oscillation and the −2 cmH2O trigger lever (F-004).**
 
 * Delivered-Vt coefficient of variation (CV) exceeds the 0.05 steady-state
   threshold in **20.6 %** of runs; concentrated on healthy lungs (S1), fading
@@ -331,7 +331,7 @@ sweep.*
   (48 combinations, 1,280 simulations), openly released alongside
   the engine.
 * **Operator-actionable VC-AC correction (F-004).** Tidal-volume
-  instability in 20.6 % of runs is *causally linked* to the
+  oscillation in 20.6 % of runs is *causally linked* to the
   inspiration trigger, consistent with patient-ventilator dyssynchrony, and
   *resolved* by setting trigger pressure to −2 cmH2O (median Vt
   coefficient of variation collapses 0.351 → 0.016; worst-case
@@ -2769,7 +2769,7 @@ Pulse PaO2 exceeds the locked 600 mmHg classifier upper bound at
 FiO2 = 1.0 on healthy adults — a *transient hyperoxia regime + conservative
 preregistered classifier bound*, **not** an oxygenation overshoot, as
 shown by a 300 s rerun ([S021](#s021)) on the same
-input combinations. **F-004**: VC-AC tidal-volume instability in
+input combinations. **F-004**: VC-AC tidal-volume oscillation in
 20.6 % of runs, causally linked in [S014](#s014) to the
 inspiration trigger, consistent with patient-ventilator dyssynchrony, and
 corrected by setting trigger pressure to −2 cmH2O.*
