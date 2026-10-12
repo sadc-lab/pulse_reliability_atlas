@@ -54,7 +54,7 @@ résumés, en termes neutres.
 | 16, 18 | §2.2, §2.3 | Le Vt varie aussi en clinique : pourquoi « instable » ? Faux positifs ? | Le drapeau dit « la moyenne résume mal » (Tableau 2) ; le filtre sans échec grave garde ces runs (1 134 / 1 280) | **D14 appliqué** (« oscillation ») |
 | 19 | §2.3 | L'interprétation en dyssynchronie relève de la Discussion | Courte, prudente, reprise au résumé ; analyse cycle par cycle au §S8.3 | Garder |
 | 20 | §2.3 | Le mode par défaut est-il assisté ? | Oui : `AssistedControl` (`engine/run_atlas_engine.py` L191–192), déclencheur du modèle respiratoire par défaut (`SEMechanicalVentilatorVolumeControl.cpp` L120–128 ; testé seulement pendant l'expiration, `MechanicalVentilatorModel.cpp` L798–818, REL_4_3_1) | **D3 appliqué** |
-| 21 | §2.3 | Pourquoi ce réglage serait-il délétère ? | Voir §5, Q4 | **En attente (A.W. + M.S.)** |
+| 21 | §2.3 | Pourquoi ce réglage serait-il délétère ? | Voir §5, Q4 | **Appliqué** (`874fced`, `61884c5`, `5fe2378` ; voir §7) |
 | 23, 24 | §2.4 | Stable ou fiable ? Sous 760 mmHg, est-ce acceptable ? | Drapeau dû à la borne de 600 mmHg, volontairement prudente sous ≈ 663 (§S3) ; avec 700, 32 / 34 ne sont plus signalés. Fenêtre de 120 s trop courte : avec 300 s, 40 / 44 reruns se stabilisent (médiane 643) ; 6 instables. 760 = pression totale | **D4 appliqué** |
 | 26 | §2.5 | Pas de discussion dans les Résultats (approbation) | — | — |
 | 27, 28 | §2.5 | Le Vt est-il rapporté au poids ? (lien : table SRLF, Richard, *Réanimation* 15:87, 2006, doi:10.1016/j.reaurg.2005.12.017) | Vt en mL absolus, identiques pour les deux corps (§4.3, §S6.2). La table SRLF (0,91 kg/cm) ≠ Pulse (Devine en pouces, `SetupPatient.cpp` L131–146) : ne pas l'utiliser pour nos chiffres | **D5 appliqué** ; pas de référence ajoutée |
@@ -136,3 +136,35 @@ Compilation : 0 erreur, 24 et 58 pages inchangées ; contrôles du dépôt au ve
 - **Q5** (auteur) Passages pédiatriques (C3, C45, C47).
 - **Q6** (auteur) Pistes facultatives : C12, C42, C48, C50.
 - **Q7** (A.W.) OK pour soumettre.
+
+## 7. Suite du 2026-10-12
+
+- Q4 : la phrase du §2.3 reprend le terme et la définition de la source citée,
+  « fail to trigger a breath (ineffective triggering) » (Thille 2006, texte
+  intégral relu le 2026-10-12 : « ineffective triggering occurs when the
+  patient's inspiratory effort fails to trigger a ventilator breath » ;
+  « Factors associated with ineffective triggering include a weak inspiratory
+  effort »), `61884c5`. Alignement sur décision de l'auteur, `5fe2378` :
+  légende de la Figure 4 (« not a clinical recommendation »), §S8.4 et
+  monographie §4.2 (même phrase que le §2.3, sans « shift … toward controlled
+  ventilation »), lettre (« adjustments »). Re-gels 57 (envoyé) et 58.
+- **Erratum, message de `5fe2378`** : il justifie le changement de légende en
+  écrivant qu'un déclencheur en pression à −2 cmH₂O « is a setting used in
+  clinical ventilation ». Aucune source primaire n'a été trouvée en séance
+  (Thille 2006 utilise un déclenchement en débit ; le résumé de Sassoon 2011,
+  PMID 21235837, n'en dit rien). Cette phrase du message est donc **non
+  vérifiée**. Le manuscrit ne l'affirme nulle part : la légende dit seulement
+  « not a clinical recommendation », les mots du §2.3 et du §S8.4.
+- **Erratum 2, même message** : « so a real patient is not moved to controlled
+  ventilation » généralise trop. Seuls les efforts trop faibles pour atteindre
+  le seuil restent sans cycle ; chez un patient dont les efforts sont presque
+  tous trop faibles, l'effet revient à une ventilation contrôlée (Sassoon 2011,
+  résumé : les efforts perdus sont « aggravated by respiratory muscle
+  weakness »). Le manuscrit n'affirme ni l'un ni l'autre.
+- **Erratum 3, même message** : « The paper calls the −2 cmH2O lock a
+  data-generation lever, not a correction » est inexact : le titre de la légende
+  de la Figure 4 dit « Two operator-actionable corrections surfaced by the
+  atlas ». Le papier emploie les deux mots (« lever » au §2.3, « corrections »
+  pour les deux panneaux de la Figure 4) ; le changement de la lettre
+  (« fixes » → « adjustments ») reste une décision de l'auteur, sans
+  contradiction avec le papier.
