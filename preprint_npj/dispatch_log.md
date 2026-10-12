@@ -1857,3 +1857,54 @@ the public repository. For C.S.: agreement to submit.
 
 Open answers expected: M.S. on the trigger sentence; M.S., P.J. and C.S. on
 names versus initials; C.S. on submission.
+
+## 2026-10-12 — re-freeze 58: trigger caveat aligned in the Figure 4 legend and §S8.4 (paper + supplement); not sent
+
+**Status: NOT SENT.** Supersedes re-freeze 57 (sent the same day) as the current
+build. One manuscript change since re-freeze 57 (`c02e770`), on the author's
+decision of 2026-10-12. It is the alignment the re-freeze 57 message announced:
+
+- `5fe2378` Figure 4 legend: "not a clinical ventilation setting" → "not a
+  clinical recommendation" (the words of §2.3 and §S8.4). §S8.4 (and the
+  monograph): the sentence now follows §2.3 ("In a real patient, the threshold
+  is a clinical choice: with any fixed threshold, …"), and "corresponds, in a
+  real patient, to a shift from patient-responsive assist-control toward
+  controlled ventilation" is removed. Cover letter: "fixes" → "adjustments".
+
+`76ae47c` refreshed the number inventories; no manuscript change.
+
+Awaiting: the remaining answers to the re-freeze 57 message.
+
+| | |
+|---|---|
+| Sent | — |
+| Source commit | `76ae47c` |
+| Pages | 24 (paper) / 58 (supplement), unchanged |
+| Monograph | not part of a dispatch; rebuilt the same day (123 pages) |
+
+### Hashes, frozen before any further build
+
+| artefact | SHA-256 | bytes |
+|---|---|---|
+| `preprint_npj/build/paper.pdf` | `7743e09e480d015fd346d8b96a0e3fe0acdb847eee4550952a5f1bb40f2d089d` | 618,588 |
+| `preprint_npj/build/paper.docx` | `da19dcf1116f6ace9e2ca3a713d6a341c3f6ed8144b263b53ffe4606bf48d537` | 954,441 |
+| `preprint_npj/build/supplement.pdf` | `08892c49ba796db557bd7064cf375a4ebcc276f978a1685e1b19e0397b2ad638` | 715,968 |
+| `preprint_npj/build/supplement.docx` | `f54a53ee8133a8efc93f545ccbaa5e30417833baf8ac48f104474646fbb1e5c5` | 761,747 |
+
+Written 17:37:58–17:38:07 local time; `paper.tex` and `supplement.tex` last
+modified 17:34, before the build; `git status` clean before and after the build.
+Copies in `preprint_npj/build/freeze58/` (gitignored), SHA-256 identical to
+`build/`.
+
+### Gate state at freeze
+
+Full gate on `76ae47c` with this build: see the commit that records this entry.
+Checked by hand on the frozen files, PDF and Word alike:
+- "clinical ventilation setting", "toward controlled ventilation" and
+  "unrewarded" are absent;
+- "the threshold is a clinical choice" and "ineffective triggering" appear once
+  in the paper and once in the supplement;
+- "PEDIATRICS" is present, and so is the §S18 second-round sentence (supplement);
+- "Materials availability" and "GPT-6" are absent;
+- the six authors' affiliation numbers in `paper.docx` match `paper.tex`
+  (6 / 6), and the corresponding-author line carries the e-mail.
