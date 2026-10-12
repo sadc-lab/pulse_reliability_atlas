@@ -56,7 +56,7 @@ readership:
    separate run-level four-flag classifier, needed in every cell whatever its
    colour, supports exclusion, remediation, or stratified handling; neither
    layer is a distribution-neutral automatic filter. We also surface two
-   operator-actionable fixes — a one-line VC-AC trigger setting (−2 cmH₂O) that
+   operator-actionable adjustments — a one-line VC-AC trigger setting (−2 cmH₂O) that
    collapses tidal-volume variability consistent with patient–ventilator
    dyssynchrony, and a steady-state-window correction for
    hyperoxia simulation at FiO₂ = 1.0.
