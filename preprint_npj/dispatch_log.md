@@ -1792,7 +1792,7 @@ wording; C.S.'s reply.
 
 | | |
 |---|---|
-| Sent | — |
+| Sent | 2026-10-12, 17:28 Montreal time (author's confirmation); see the entry below |
 | Source commit | `c02e770` |
 | Pages | 24 (paper) / 58 (supplement), unchanged |
 | Monograph | not part of this dispatch; rebuilt the same day (123 pages) |
@@ -1822,3 +1822,38 @@ Checked by hand on the frozen files, PDF and Word alike:
 - "Materials availability" and "GPT-6" are absent;
 - the six authors' affiliation numbers in `paper.docx` match `paper.tex`
   (6 / 6), and the corresponding-author line carries the e-mail.
+
+## 2026-10-12 — re-freeze 57 SENT to the co-authors
+
+**Status: SENT.** The four files of the re-freeze 57 entry above (source
+`c02e770`) left by e-mail on 2026-10-12 at 17:28 Montreal time (UTC−4),
+author's confirmation. Order of events: the four files written
+17:08:45–17:08:52, re-freeze 57 committed 17:10:22 (`affd507`) and pushed
+17:18, then the send, so the freeze precedes the send. Just before this entry,
+the four files in `preprint_npj/build/` were re-hashed: each digest is found
+once in the re-freeze 57 entry. That the attachments are exactly those files is
+the author's report, not a measurement. Copies in
+`preprint_npj/build/sent_2026-10-12_refreeze57/` (gitignored).
+
+| | |
+|---|---|
+| Sent | 2026-10-12, 17:28 Montreal time (author's confirmation) |
+| Recipients | the co-authors; the exact recipient list was not reported (the message addresses M.S., P.J. and C.S. by name and names A.W. and Y.M.) |
+| Artefacts sent | `paper.pdf`, `paper.docx`, `supplement.pdf`, `supplement.docx` (re-freeze 57) |
+| Pages | 24 (paper) / 58 (supplement) |
+| Not sent | the companion monograph; re-freezes 55 and 56 were never sent, their changes reached the co-authors in this version |
+
+### What the message said
+
+One message to all. For everyone: the changes since re-freeze 54, in broad
+lines (A.W.'s clarifications and additions, the paediatric follow-up no longer
+announced, A.W.'s affiliations and the PEDIATRICS acronym, §S12.6 bounded to
+CPU vendor, "Materials availability" removed, Word author marks, §S18 second
+review round). For M.S.: the reworded trigger sentence of §2.3, shown against
+the version he had validated, with the change of "unrewarded" to "ineffective
+triggering" here and in §S8.4; if accepted, the Figure 4 legend and the rest of
+§S8.4 to be aligned. For M.S., P.J. and C.S.: names versus role or initials in
+the public repository. For C.S.: agreement to submit.
+
+Open answers expected: M.S. on the trigger sentence; M.S., P.J. and C.S. on
+names versus initials; C.S. on submission.
