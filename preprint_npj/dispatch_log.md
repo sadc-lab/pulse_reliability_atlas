@@ -1774,3 +1774,51 @@ Checked by hand on the frozen files: the six authors' affiliation numbers in
 carries the e-mail; the reworded trigger sentence, "PEDIATRICS" and the §S18
 second-round sentence are present; "Materials availability" and "GPT-6" are
 absent.
+
+## 2026-10-12 — re-freeze 57: "ineffective triggering" in the trigger caveat (paper + supplement); not sent
+
+**Status: NOT SENT.** Supersedes re-freeze 56, which was never sent. One change
+since re-freeze 56 (`dd642eb`), on the author's decision of 2026-10-12:
+
+- `61884c5` trigger caveat, paper §2.3 and supplement §S8.4 (and the monograph):
+  "unrewarded" → "fail to trigger a breath (ineffective triggering)", the term
+  and definition of the source cited in the same sentence (Thille 2006).
+
+`c02e770` refreshed the number inventories; no manuscript change.
+
+Awaiting, as for re-freeze 56: M.S.'s confirmation of the reworded trigger
+sentence (§2.3), with the Figure 4 legend, §S8.4 and the cover letter's
+wording; C.S.'s reply.
+
+| | |
+|---|---|
+| Sent | — |
+| Source commit | `c02e770` |
+| Pages | 24 (paper) / 58 (supplement), unchanged |
+| Monograph | not part of this dispatch; rebuilt the same day (123 pages) |
+
+### Hashes, frozen before any further build
+
+| artefact | SHA-256 | bytes |
+|---|---|---|
+| `preprint_npj/build/paper.pdf` | `b04cfd74a707b81c1ce177d8ae9d01caa7d5f2b903ac971c34283da19449f5d3` | 618,572 |
+| `preprint_npj/build/paper.docx` | `5bf40f203219626e3a298ad9627af7f8f514d81cd5ff5c45ca66f6d5071b41b5` | 954,446 |
+| `preprint_npj/build/supplement.pdf` | `4158ced43735226361bafbbb440635046d372b2c6a6bf0bb493fa17b8ee5d911` | 715,986 |
+| `preprint_npj/build/supplement.docx` | `69a30eff388e1ea8f33546d19ecfd0446d482061bdef0ebbfd6480dcb73c7638` | 761,756 |
+
+Written 17:08:45–17:08:52 local time; `paper.tex` and `supplement.tex` last
+modified 17:06, before the build; `git status` clean before and after the build.
+Copies in `preprint_npj/build/freeze57/` (gitignored), SHA-256 identical to
+`build/`.
+
+### Gate state at freeze
+
+Full gate on `c02e770` with this build: see the commit that records this entry.
+Checked by hand on the frozen files, PDF and Word alike:
+- "fail to trigger a breath (ineffective triggering)" appears once in the paper
+  and once in the supplement, and "unrewarded" appears in neither;
+- the reworded trigger sentence, "PEDIATRICS" and the §S18 second-round
+  sentence are present;
+- "Materials availability" and "GPT-6" are absent;
+- the six authors' affiliation numbers in `paper.docx` match `paper.tex`
+  (6 / 6), and the corresponding-author line carries the e-mail.
