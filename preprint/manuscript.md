@@ -3779,12 +3779,11 @@ at the Mila — Quebec AI Institute.
 direction was shaped through clinical discussions with M.S. and
 P.J. — designed the Morris sweep and the four-flag steady-state
 classifier, performed all computational runs and statistical
-analyses, and wrote the manuscript. M.S. provided detailed clinical review of the manuscript and contributed the clinical interpretation of the VC-AC inspiration-trigger caveat. Y.M. contributed to the cross-platform reproducibility validation of the simulation environment, and to the review and editing of the manuscript. A.W. contributed to the study's conceptualization and to the iterative scientific refinement of the analysis and its framing (notably the ARDS severity-to-Berlin calibration and the reliability-classification transparency) through sustained methodological discussion, in addition to clinical supervision and manuscript review. C.S., M.S., and P.J. provided clinical supervision, contributed to the interpretation of the findings in their clinical context, and reviewed the manuscript. C.S., M.S.,
+analyses, supervised the two-model LLM cross-checking loop (§8), and
+wrote the manuscript. M.S. provided detailed clinical review of the manuscript and contributed the clinical interpretation of the VC-AC inspiration-trigger caveat. Y.M. contributed to the cross-platform reproducibility validation of the simulation environment, and to the review and editing of the manuscript. A.W. contributed to the study's conceptualization and to the iterative scientific refinement of the analysis and its framing (notably the ARDS severity-to-Berlin calibration and the reliability-classification transparency) through sustained methodological discussion, in addition to clinical supervision and manuscript review. C.S., M.S., and P.J. provided clinical supervision, contributed to the interpretation of the findings in their clinical context, and reviewed the manuscript. C.S., M.S.,
 and P.J. additionally secured the funding that supported this work.
-All authors approved the final version. AI tooling (Claude Code,
-`claude-opus-4-7` for the original drafting/refactoring, `claude-opus-4-8`, released 28 May 2026 and coinciding with the supervisor-review phase, for the subsequent supervisor-review revisions, and `claude-opus-5` from 24 July 2026 for the in-repository calibration replication and the primary-source reference audit, cross-checked against Gemini Pro 3.1 up to 2 August 2026 and against OpenAI ChatGPT (GPT-5.6 Sol, High reasoning level) from 3 August 2026) provided drafting / refactoring /
-reviewer-style critique assistance on text and code only, as
-detailed in §8.
+All authors approved the final version. AI tools were used as
+described in §8.
 
 **Competing interests.** The authors declare no competing
 interests, financial or otherwise.
@@ -3793,55 +3792,79 @@ interests, financial or otherwise.
 
 ## 8. Transparency: use of AI tools
 
-In the interest of full methodological transparency, parts of this
-work were carried out with the assistance of AI tools, used within a
-cross-checking loop between two large language models under direct
-supervision by S.N.: Claude Opus 4.7/4.8, and from 24 July 2026
-Claude Opus 5 (Anthropic), used locally
-through the Claude Code agent at the `xhigh` thinking-effort default,
-and, as the second model, Gemini Pro 3.1 (Google;
-extended-thinking mode) through a separate web session up to and
-including 2 August 2026, replaced from 3 August 2026 by OpenAI
-ChatGPT (GPT-5.6 Sol, High reasoning level, browser session), with no further use of
-Gemini thereafter. Prompt
-engineering instructed each model to critique and cross-correct the
-other's outputs at every iteration, mitigating hallucination by
-verifying claims against the audit ledger and the source code.
+Large language models (LLMs) were used in this work, under direct
+supervision by S.N., for drafting, editing and shortening the
+manuscripts, for writing, refactoring and debugging the code that runs
+and analyses the sweep, and for in-repository replications and
+primary-source audits. During iterative review, two LLMs worked in
+separate sessions:
 
-* **Coding assistance.** Portions of the analysis and pipeline code
-  in this repository were drafted, edited, refactored, or debugged
-  within the dual-model cross-checking loop described above
-  (**Claude Code** with `claude-opus-4-7` / `claude-opus-4-8` /
-  `claude-opus-5`, and as second model **Gemini Pro 3.1** to
-  2 August 2026, then **OpenAI ChatGPT** (GPT-5.6 Sol, High reasoning level)).
-  Every AI-assisted code change was reviewed,
-  tested, and committed by S.N.; all preregistered
-  thresholds, hypotheses, and experimental decisions were authored
-  and locked by S.N. before the corresponding analyses
-  were run. AI tooling did not modify preregistration content or
-  finalised numerical results.
-* **Manuscript drafting and editing.** Portions of this manuscript
-  were drafted and edited within the same dual-model cross-checking
-  loop (Claude Code, with Gemini Pro 3.1 as second model to
-  2 August 2026 and OpenAI ChatGPT (GPT-5.6 Sol, High reasoning level) thereafter). All
-  scientific claims, statistical interpretations, and citations
-  were authored, verified, and accepted by S.N. Every
-  numerical claim in the paper traces to a primary source or an
-  experiment log entry under `experiments_log/santino/`, and the
-  references were individually verified against their DOI / PMID
-  in [S010](#s010) and the 2026-05-12 pre-submission audit.
-* **What AI tools were *not* used for.** AI tooling did not run
-  Pulse simulations, did not generate or alter raw output data, did
-  not author the preregistration or hypotheses, and did not select
-  which experiments to run or which results to report. The
-  experimental design and the statistical-test choices are the
-  author's; the AI tools provided drafting, refactoring, and
-  reviewer-style critique support on text and code only.
+* **Claude** (Anthropic), always one of the two, run locally through
+  the Claude Code terminal agent at the default `xhigh` thinking
+  effort: Opus 4.7 (`claude-opus-4-7`) for the initial drafting and a
+  manuscript-formatting pass; Opus 4.8 (`claude-opus-4-8`, released
+  28 May 2026) for the
+  revision rounds responding to the first co-author and supervisor
+  review; Opus 5 (`claude-opus-5`), from 24 July 2026, for the
+  subsequent audit and synthesis rounds; and, from 23 September 2026,
+  Opus 5.5 (`claude-opus-5-5`) for the later readability and audit
+  rounds.
+* **The other model**, in a separate web session: Google Gemini Pro
+  3.1 (extended-thinking mode) up to and including 2 August 2026,
+  then, from 3 August 2026, OpenAI ChatGPT (GPT-5.6 Sol, High
+  reasoning level), with no further use of Gemini.
+
+The Claude model in particular was often asked to re-check its own
+output, claim by claim and number by number, and to correct it; the
+two models then critiqued each other's latest output in turn. These
+checks often surfaced errors or missed points, which were then
+corrected. S.N. used the critiques to decide whether to run another
+round or accept the result.
+
+The Opus 5 rounds covered in-repository replication of the
+ARDS-severity-to-Berlin calibration, the heart-rate and
+respiratory-rate boundary probes, and primary-source audits of the
+reference list, the statistical analyses and the journal paper's
+quantitative claims against their source artefacts; this work
+restored the Sobol promotion trigger to its preregistered top-three
+form, added the post hoc ratio-aware bootstrap on σ/μ\* and versioned
+its generating script. They also covered the September 2026
+condensation pass of the journal paper, whose displaced material moved
+to its Supplementary Information. In September 2026, Claude Code's
+automated code review (`/ultrareview`) was also run on three batches
+of repository changes; each finding was checked in the code before
+being fixed or set aside.
+
+S.N. revised the journal paper, its Supplementary Information and this
+monograph during the second round of supervisor review, which began in
+August 2026, with Opus 5 and then, from 23 September 2026, Opus 5.5,
+and with ChatGPT (GPT-5.6 Sol) as the second model. During this round,
+M.S. used a Claude model (Anthropic; version not recorded) to propose
+editorial revisions to the journal paper and its Supplementary
+Information; each proposal was checked against the data and sources
+with Opus 5.5 before S.N. accepted or rejected it.
+
+Responsibility rests with all the authors. S.N. personally reviewed
+and, as far as practicable, verified AI-assisted outputs, including
+editorial revisions, consistency checks and methodological
+interpretations, and reviewed and committed AI-assisted code changes.
+Verification was an iterative process of checks. S.N. authored and
+locked the preregistered thresholds, hypotheses, statistical-test
+choices and experimental decisions before the corresponding analyses
+were run. Every cited reference was checked against its source
+([S010](#s010), the 2026-05-12 pre-submission audit and the
+reference-audit register `audit/reference_audit.md`). Although the
+atlas code was written with LLM assistance, the
+simulations, the classifier and the audit ledger run without any LLM.
+Quantitative claims are traceable, as applicable, to primary sources,
+the preregistration, or entries in the open audit ledger released
+alongside the code, whose commit history records the audit findings,
+their evidence and the resulting corrections.
 
 No AI attribution is included in commits, code comments, or the
 authorship line, consistent with this repository's contribution
-policy. This transparency note is the single canonical disclosure of
-AI tool involvement in the project.
+policy. The journal paper carries the same disclosure in its Methods
+§4.7 and Supplementary §S18.
 
 ---
 
