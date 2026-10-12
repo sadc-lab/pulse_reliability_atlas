@@ -90,17 +90,17 @@ monograph,md_inline_code,3809,8,"nd a manuscript-formatting pass; Opus 4.8 (`cla
 monograph,md_inline_code,3812,5,"rst co-author and supervisor review; Opus 5 (`claude-opus-5`), from 24 July 2026, for the subsequent audit and synth"
 monograph,md_inline_code,3814,5,"unds; and, from 23 September 2026, Opus 5.5 (`claude-opus-5-5`) for the later readability and audit rounds. * **The"
 monograph,md_inline_code,3814,5,"ds; and, from 23 September 2026, Opus 5.5 (`claude-opus-5-5`) for the later readability and audit rounds. * **The ot"
-monograph,md_inline_code,4531,4388,"ratoryModel::UpdatePulmonaryShunt()` (`RespiratoryModel.cpp:4388`, piecewise-linear interpolation at `:4503`), combined"
-monograph,md_inline_code,4531,4503,"iratoryModel.cpp:4388`, piecewise-linear interpolation at `:4503`), combined by a `MIN` with the ARDS damage term — not"
-monograph,md_inline_code,4536,3774,"yModel::UpdateAlveolarCompliances()` (`RespiratoryModel.cpp:3774`), with no surface-tension dependence. The consequence"
-monograph,md_inline_code,4551,13.397,"le weight coefficient as 3.397. The codebase implements `13.397` (`SetupPatient.cpp:771`), correctly aligning with"
-monograph,md_inline_code,4551,771,"397. The codebase implements `13.397` (`SetupPatient.cpp:771`), correctly aligning with the Harris-Benedict equati"
-monograph,md_inline_code,4554,0.425,"ts the weight exponent as 0.45. The codebase implements `0.425` (`SetupPatient.cpp:752`), aligning with the Du Boi"
-monograph,md_inline_code,4555,752,"0.45. The codebase implements `0.425` (`SetupPatient.cpp:752`), aligning with the Du Bois formula. 3. **Baroreceptor"
-monograph,md_inline_code,4558,320,"debase implements an effective ν = 48 (`NervousModel.cpp:320`), calculated as `4 × ResponseSlope` (where slope = 1"
-monograph,md_inline_code,4558,4,"ffective ν = 48 (`NervousModel.cpp:320`), calculated as `4 × ResponseSlope` (where slope = 12). ### B.5 Reference"
-monograph,md_inline_code,4587,163.0,ntical to Pulse's own internal `heightStandardFemale_cm = 163.0` constant (`SetupPatient.cpp` L75; cited internally
-monograph,md_inline_code,4596,177.0,not** match Pulse's own internal `heightStandardMale_cm = 177.0` constant (`SetupPatient.cpp` L72). The 180 cm value
+monograph,md_inline_code,4532,4388,"ratoryModel::UpdatePulmonaryShunt()` (`RespiratoryModel.cpp:4388`, piecewise-linear interpolation at `:4503`), combined"
+monograph,md_inline_code,4532,4503,"iratoryModel.cpp:4388`, piecewise-linear interpolation at `:4503`), combined by a `MIN` with the ARDS damage term — not"
+monograph,md_inline_code,4537,3774,"yModel::UpdateAlveolarCompliances()` (`RespiratoryModel.cpp:3774`), with no surface-tension dependence. The consequence"
+monograph,md_inline_code,4552,13.397,"le weight coefficient as 3.397. The codebase implements `13.397` (`SetupPatient.cpp:771`), correctly aligning with"
+monograph,md_inline_code,4552,771,"397. The codebase implements `13.397` (`SetupPatient.cpp:771`), correctly aligning with the Harris-Benedict equati"
+monograph,md_inline_code,4555,0.425,"ts the weight exponent as 0.45. The codebase implements `0.425` (`SetupPatient.cpp:752`), aligning with the Du Boi"
+monograph,md_inline_code,4556,752,"0.45. The codebase implements `0.425` (`SetupPatient.cpp:752`), aligning with the Du Bois formula. 3. **Baroreceptor"
+monograph,md_inline_code,4559,320,"debase implements an effective ν = 48 (`NervousModel.cpp:320`), calculated as `4 × ResponseSlope` (where slope = 1"
+monograph,md_inline_code,4559,4,"ffective ν = 48 (`NervousModel.cpp:320`), calculated as `4 × ResponseSlope` (where slope = 12). ### B.5 Reference"
+monograph,md_inline_code,4588,163.0,ntical to Pulse's own internal `heightStandardFemale_cm = 163.0` constant (`SetupPatient.cpp` L75; cited internally
+monograph,md_inline_code,4597,177.0,not** match Pulse's own internal `heightStandardMale_cm = 177.0` constant (`SetupPatient.cpp` L72). The 180 cm value
 monograph,md_link_target,3988,10.1007,(2019). DOI: [10.1007/s42399-019-00053-w](https://doi.org/10.1007/s42399-019-00053-w). *(Author list and issue numbe
 monograph,md_link_target,3988,019,[10.1007/s42399-019-00053-w](https://doi.org/10.1007/s42399-019-00053-w). *(Author list and issue number corrected 202
 monograph,md_link_target,3988,00053,1007/s42399-019-00053-w](https://doi.org/10.1007/s42399-019-00053-w). *(Author list and issue number corrected 2026-05
@@ -124,25 +124,25 @@ monograph,md_link_target,4171,10.1007,(2006). DOI: [10.1007/s00134-006-0301-8](h
 monograph,md_link_target,4171,006,[10.1007/s00134-006-0301-8](https://doi.org/10.1007/s00134-006-0301-8). PMID: 16896854. Cited in §4.2: sub-threshold
 monograph,md_link_target,4171,0301,.1007/s00134-006-0301-8](https://doi.org/10.1007/s00134-006-0301-8). PMID: 16896854. Cited in §4.2: sub-threshold insp
 monograph,md_link_target,4171,8,/s00134-006-0301-8](https://doi.org/10.1007/s00134-006-0301-8). PMID: 16896854. Cited in §4.2: sub-threshold inspirato
-monograph,md_link_target,4180,10.1007,(2015). DOI: [10.1007/s00134-015-3692-6](https://doi.org/10.1007/s00134-015-3692-6). PMID: 25693449. Cited in §4.2
-monograph,md_link_target,4180,015,"[10.1007/s00134-015-3692-6](https://doi.org/10.1007/s00134-015-3692-6). PMID: 25693449. Cited in §4.2 for ""clinically"
-monograph,md_link_target,4180,3692,".1007/s00134-015-3692-6](https://doi.org/10.1007/s00134-015-3692-6). PMID: 25693449. Cited in §4.2 for ""clinically und"
-monograph,md_link_target,4180,6,"/s00134-015-3692-6](https://doi.org/10.1007/s00134-015-3692-6). PMID: 25693449. Cited in §4.2 for ""clinically undesira"
-monograph,md_link_target,4189,10.1164,(2014). DOI: [10.1164/rccm.201312-2193CI](https://doi.org/10.1164/rccm.201312-2193CI). PMID: 24467647. Cited in §4.2
-monograph,md_link_target,4195,10.1038,(12):1433-1436 (1999). DOI: [10.1038/71012](https://doi.org/10.1038/71012). PMID: 10581089. Cited in §4.2: diaphragm e
-monograph,md_link_target,4195,71012,3-1436 (1999). DOI: [10.1038/71012](https://doi.org/10.1038/71012). PMID: 10581089. Cited in §4.2: diaphragm electrica
-monograph,md_link_target,4204,10.1038,0018 (2016). DOI: [10.1038/sdata.2016.18](https://doi.org/10.1038/sdata.2016.18). PMID: 26978244. * []{#ref-munafo20
-monograph,md_link_target,4210,10.1038,21 (2017). DOI: [10.1038/s41562-016-0021](https://doi.org/10.1038/s41562-016-0021). **Critical-care and respiratory-p
-monograph,md_link_target,4210,016,[10.1038/s41562-016-0021](https://doi.org/10.1038/s41562-016-0021). **Critical-care and respiratory-physiology refer
-monograph,md_link_target,4210,0021,10.1038/s41562-016-0021](https://doi.org/10.1038/s41562-016-0021). **Critical-care and respiratory-physiology reference
-monograph,md_link_target,4218,10.1152,1979). DOI: [10.1152/jappl.1979.46.3.599](https://doi.org/10.1152/jappl.1979.46.3.599). PMID: 35496. Oxyhemoglobin d
-monograph,md_link_target,4225,10.1001,810 (2016). DOI: [10.1001/jama.2016.0287](https://doi.org/10.1001/jama.2016.0287). PMID: 26903338. Vasopressor-depen
-monograph,md_link_target,4232,10.1097,021). DOI: [10.1097/CCM.0000000000005337](https://doi.org/10.1097/CCM.0000000000005337). PMID: 34605781. Internation
-monograph,md_link_target,4239,10.1097,023). DOI: [10.1097/HJH.0000000000003480](https://doi.org/10.1097/HJH.0000000000003480). PMID: 37345492. Hypertensiv
-monograph,md_link_target,4247,10.1007,(2017). DOI: [10.1007/s00134-016-4611-1](https://doi.org/10.1007/s00134-016-4611-1). PMID: 28108768. Maximum-PaCO2
-monograph,md_link_target,4247,016,[10.1007/s00134-016-4611-1](https://doi.org/10.1007/s00134-016-4611-1). PMID: 28108768. Maximum-PaCO2 distribution in
-monograph,md_link_target,4247,4611,".1007/s00134-016-4611-1](https://doi.org/10.1007/s00134-016-4611-1). PMID: 28108768. Maximum-PaCO2 distribution in 1,8"
-monograph,md_link_target,4247,1,"/s00134-016-4611-1](https://doi.org/10.1007/s00134-016-4611-1). PMID: 28108768. Maximum-PaCO2 distribution in 1,899 AR"
+monograph,md_link_target,4181,10.1007,(2015). DOI: [10.1007/s00134-015-3692-6](https://doi.org/10.1007/s00134-015-3692-6). PMID: 25693449. Cited in §4.2
+monograph,md_link_target,4181,015,"[10.1007/s00134-015-3692-6](https://doi.org/10.1007/s00134-015-3692-6). PMID: 25693449. Cited in §4.2 for ""clinically"
+monograph,md_link_target,4181,3692,".1007/s00134-015-3692-6](https://doi.org/10.1007/s00134-015-3692-6). PMID: 25693449. Cited in §4.2 for ""clinically und"
+monograph,md_link_target,4181,6,"/s00134-015-3692-6](https://doi.org/10.1007/s00134-015-3692-6). PMID: 25693449. Cited in §4.2 for ""clinically undesira"
+monograph,md_link_target,4190,10.1164,(2014). DOI: [10.1164/rccm.201312-2193CI](https://doi.org/10.1164/rccm.201312-2193CI). PMID: 24467647. Cited in §4.2
+monograph,md_link_target,4196,10.1038,(12):1433-1436 (1999). DOI: [10.1038/71012](https://doi.org/10.1038/71012). PMID: 10581089. Cited in §4.2: diaphragm e
+monograph,md_link_target,4196,71012,3-1436 (1999). DOI: [10.1038/71012](https://doi.org/10.1038/71012). PMID: 10581089. Cited in §4.2: diaphragm electrica
+monograph,md_link_target,4205,10.1038,0018 (2016). DOI: [10.1038/sdata.2016.18](https://doi.org/10.1038/sdata.2016.18). PMID: 26978244. * []{#ref-munafo20
+monograph,md_link_target,4211,10.1038,21 (2017). DOI: [10.1038/s41562-016-0021](https://doi.org/10.1038/s41562-016-0021). **Critical-care and respiratory-p
+monograph,md_link_target,4211,016,[10.1038/s41562-016-0021](https://doi.org/10.1038/s41562-016-0021). **Critical-care and respiratory-physiology refer
+monograph,md_link_target,4211,0021,10.1038/s41562-016-0021](https://doi.org/10.1038/s41562-016-0021). **Critical-care and respiratory-physiology reference
+monograph,md_link_target,4219,10.1152,1979). DOI: [10.1152/jappl.1979.46.3.599](https://doi.org/10.1152/jappl.1979.46.3.599). PMID: 35496. Oxyhemoglobin d
+monograph,md_link_target,4226,10.1001,810 (2016). DOI: [10.1001/jama.2016.0287](https://doi.org/10.1001/jama.2016.0287). PMID: 26903338. Vasopressor-depen
+monograph,md_link_target,4233,10.1097,021). DOI: [10.1097/CCM.0000000000005337](https://doi.org/10.1097/CCM.0000000000005337). PMID: 34605781. Internation
+monograph,md_link_target,4240,10.1097,023). DOI: [10.1097/HJH.0000000000003480](https://doi.org/10.1097/HJH.0000000000003480). PMID: 37345492. Hypertensiv
+monograph,md_link_target,4248,10.1007,(2017). DOI: [10.1007/s00134-016-4611-1](https://doi.org/10.1007/s00134-016-4611-1). PMID: 28108768. Maximum-PaCO2
+monograph,md_link_target,4248,016,[10.1007/s00134-016-4611-1](https://doi.org/10.1007/s00134-016-4611-1). PMID: 28108768. Maximum-PaCO2 distribution in
+monograph,md_link_target,4248,4611,".1007/s00134-016-4611-1](https://doi.org/10.1007/s00134-016-4611-1). PMID: 28108768. Maximum-PaCO2 distribution in 1,8"
+monograph,md_link_target,4248,1,"/s00134-016-4611-1](https://doi.org/10.1007/s00134-016-4611-1). PMID: 28108768. Maximum-PaCO2 distribution in 1,899 AR"
 monograph,org_identifier,20,3450,"rics, Children Hospital, CHRU Nancy, Nancy, France. ^5^ UR 3450 DevAH, Université de Lorraine, Nancy, France. ^6^ Univ"
 monograph,org_identifier,22,1256,"e, Nancy, France. ^6^ Université de Lorraine, INSERM UMR_S 1256, Nutrition-Génétique et Exposition aux Risques Environn"
 monograph,product_version,3808,4.7,rminal agent at the default thinking effort: Opus 4.7 ( ) for the initial drafting and a man
@@ -181,25 +181,25 @@ monograph,url_or_doi,4171,10.1007,Intensive Care Medicine 32(10):1515-1522 (2006
 monograph,url_or_doi,4171,006,re Medicine 32(10):1515-1522 (2006). DOI: [10.1007/s00134-006-0301-8 . PM
 monograph,url_or_doi,4171,0301,edicine 32(10):1515-1522 (2006). DOI: [10.1007/s00134-006-0301-8 . PMID:
 monograph,url_or_doi,4171,8,ne 32(10):1515-1522 (2006). DOI: [10.1007/s00134-006-0301-8 . PMID: 16896
-monograph,url_or_doi,4180,10.1007,y.* Intensive Care Medicine 41(4):633-641 (2015). DOI: [10.1007/s00134-015-3692-6
-monograph,url_or_doi,4180,015,are Medicine 41(4):633-641 (2015). DOI: [10.1007/s00134-015-3692-6 . PM
-monograph,url_or_doi,4180,3692,Medicine 41(4):633-641 (2015). DOI: [10.1007/s00134-015-3692-6 . PMID:
-monograph,url_or_doi,4180,6,icine 41(4):633-641 (2015). DOI: [10.1007/s00134-015-3692-6 . PMID: 25693
-monograph,url_or_doi,4189,10.1164,and Critical Care Medicine 189(5):520-531 (2014). DOI: [10.1164/rccm.201312-2193CI
-monograph,url_or_doi,4195,10.1038,y failure.* Nature Medicine 5(12):1433-1436 (1999). DOI: [10.1038/71012 . PMID: 10581
-monograph,url_or_doi,4195,71012,e.* Nature Medicine 5(12):1433-1436 (1999). DOI: [10.1038/71012 . PMID: 10581089. Cit
-monograph,url_or_doi,4204,10.1038,nd stewardship.* Scientific Data 3:160018 (2016). DOI: [10.1038/sdata.2016.18
-monograph,url_or_doi,4210,10.1038,cience.* Nature Human Behaviour 1(1):0021 (2017). DOI: [10.1038/s41562-016-0021
-monograph,url_or_doi,4210,016,Human Behaviour 1(1):0021 (2017). DOI: [10.1038/s41562-016-0021 . **Criti
-monograph,url_or_doi,4210,0021,an Behaviour 1(1):0021 (2017). DOI: [10.1038/s41562-016-0021 . **Critical-
-monograph,url_or_doi,4218,10.1152,tal and Exercise Physiology 46(3):599-602 (1979). DOI: [10.1152/jappl.1979.46.3.599
-monograph,url_or_doi,4225,10.1001,ptic Shock (Sepsis-3).* JAMA 315(8):801-810 (2016). DOI: [10.1001/jama.2016.0287
-monograph,url_or_doi,4232,10.1097,Critical Care Medicine 49(11):e1063-e1143 (2021). DOI: [10.1097/CCM.0000000000005337
-monograph,url_or_doi,4239,10.1097,Journal of Hypertension 41(12):1874-2071 (2023). DOI: [10.1097/HJH.0000000000003480
-monograph,url_or_doi,4247,10.1007,ome.* Intensive Care Medicine 43(2):200-208 (2017). DOI: [10.1007/s00134-016-4611-1
-monograph,url_or_doi,4247,016,Care Medicine 43(2):200-208 (2017). DOI: [10.1007/s00134-016-4611-1 . PM
-monograph,url_or_doi,4247,4611,e Medicine 43(2):200-208 (2017). DOI: [10.1007/s00134-016-4611-1 . PMID:
-monograph,url_or_doi,4247,1,icine 43(2):200-208 (2017). DOI: [10.1007/s00134-016-4611-1 . PMID: 28108
+monograph,url_or_doi,4181,10.1007,y.* Intensive Care Medicine 41(4):633-641 (2015). DOI: [10.1007/s00134-015-3692-6
+monograph,url_or_doi,4181,015,are Medicine 41(4):633-641 (2015). DOI: [10.1007/s00134-015-3692-6 . PM
+monograph,url_or_doi,4181,3692,Medicine 41(4):633-641 (2015). DOI: [10.1007/s00134-015-3692-6 . PMID:
+monograph,url_or_doi,4181,6,icine 41(4):633-641 (2015). DOI: [10.1007/s00134-015-3692-6 . PMID: 25693
+monograph,url_or_doi,4190,10.1164,and Critical Care Medicine 189(5):520-531 (2014). DOI: [10.1164/rccm.201312-2193CI
+monograph,url_or_doi,4196,10.1038,y failure.* Nature Medicine 5(12):1433-1436 (1999). DOI: [10.1038/71012 . PMID: 10581
+monograph,url_or_doi,4196,71012,e.* Nature Medicine 5(12):1433-1436 (1999). DOI: [10.1038/71012 . PMID: 10581089. Cit
+monograph,url_or_doi,4205,10.1038,nd stewardship.* Scientific Data 3:160018 (2016). DOI: [10.1038/sdata.2016.18
+monograph,url_or_doi,4211,10.1038,cience.* Nature Human Behaviour 1(1):0021 (2017). DOI: [10.1038/s41562-016-0021
+monograph,url_or_doi,4211,016,Human Behaviour 1(1):0021 (2017). DOI: [10.1038/s41562-016-0021 . **Criti
+monograph,url_or_doi,4211,0021,an Behaviour 1(1):0021 (2017). DOI: [10.1038/s41562-016-0021 . **Critical-
+monograph,url_or_doi,4219,10.1152,tal and Exercise Physiology 46(3):599-602 (1979). DOI: [10.1152/jappl.1979.46.3.599
+monograph,url_or_doi,4226,10.1001,ptic Shock (Sepsis-3).* JAMA 315(8):801-810 (2016). DOI: [10.1001/jama.2016.0287
+monograph,url_or_doi,4233,10.1097,Critical Care Medicine 49(11):e1063-e1143 (2021). DOI: [10.1097/CCM.0000000000005337
+monograph,url_or_doi,4240,10.1097,Journal of Hypertension 41(12):1874-2071 (2023). DOI: [10.1097/HJH.0000000000003480
+monograph,url_or_doi,4248,10.1007,ome.* Intensive Care Medicine 43(2):200-208 (2017). DOI: [10.1007/s00134-016-4611-1
+monograph,url_or_doi,4248,016,Care Medicine 43(2):200-208 (2017). DOI: [10.1007/s00134-016-4611-1 . PM
+monograph,url_or_doi,4248,4611,e Medicine 43(2):200-208 (2017). DOI: [10.1007/s00134-016-4611-1 . PMID:
+monograph,url_or_doi,4248,1,icine 43(2):200-208 (2017). DOI: [10.1007/s00134-016-4611-1 . PMID: 28108
 monograph,version,70,3.5,-extreme regime** (sex-stratification is regime-dependent; §3.5.1). A second boundary finding (**F-003**): under the pre
 monograph,version,88,4.3,"es a per-cell traffic-light reliability map for adult Pulse 4.3.1, identifies a previously uncharacterized sex-stratifie"
 monograph,version,289,4.3,"tion.** Why an open reliability atlas is needed for Pulse 4.3.1, the twelve verified engine limitations the atlas buil"
@@ -251,11 +251,11 @@ monograph,version,3744,4.3,se 4a). * **Atlas-version compatibility:** results on
 monograph,version,3889,4.3,"patient-setup, or solver code changed. Atlas results on 4.3.1 apply identically to 4.3.2. 2. **Pulse FAQ.** *Have"
 monograph,version,3890,4.3,ode changed. Atlas results on 4.3.1 apply identically to 4.3.2. 2. **Pulse FAQ.** *Have you done UQ / SA?* <
 monograph,version,3961,4.3,"epo layout, licensing. * **[S003 ** — Verified Pulse 4.3.1 limitations from primary sources. * **[S004 **"
-monograph,version,4298,4.3,002 | Project bootstrap | | []{#s003} S003 | Verified Pulse 4.3.1 limitations | | []{#s004} S004 | Atlas image + scenari
-monograph,version,4346,4.3,is published). ### B.2 Hard input acceptance gates Pulse 4.3.1 enforces strict patient-initialization boundaries. Con
-monograph,version,4517,4.3,checkout but applies identically to the atlas's 4.3.1 pin: touches no respira
-monograph,version,4545,4.3,ndings and discrepancies A source-level audit of the Pulse 4.3.1 C++ repository identified three discrepancies between
-monograph,version,4703,4.3,"t a detector edge case — it reflects the documented Pulse-4.3.1 patient-ventilator-trigger default behaviour, and th"
+monograph,version,4299,4.3,002 | Project bootstrap | | []{#s003} S003 | Verified Pulse 4.3.1 limitations | | []{#s004} S004 | Atlas image + scenari
+monograph,version,4347,4.3,is published). ### B.2 Hard input acceptance gates Pulse 4.3.1 enforces strict patient-initialization boundaries. Con
+monograph,version,4518,4.3,checkout but applies identically to the atlas's 4.3.1 pin: touches no respira
+monograph,version,4546,4.3,ndings and discrepancies A source-level audit of the Pulse 4.3.1 C++ repository identified three discrepancies between
+monograph,version,4704,4.3,"t a detector edge case — it reflects the documented Pulse-4.3.1 patient-ventilator-trigger default behaviour, and th"
 monograph,year_like,4,2026,"weitzer^4,5^, Philippe Jouvet^1,2,3^, Michael Sauthier^1,2,3^"" date: ""2026-10-12"" header-includes: - \renewcommand{\arraystretch}{1.35} - \m"
 monograph,year_like,264,2026,mmHg at the same settings. * **Complementarity with Cornish et al. 2026** ([S017 ): their causal-falsification on MIMIC-III reported
 monograph,year_like,302,2026,"se synthetic cohorts, a side-by-side mapping against Cornish et al. 2026 causal falsification (Table 2), explicit limitations (§4.5), downst"
@@ -375,44 +375,44 @@ monograph,year_like,4154,2000,ess syndrome.* New England Journal of Medicine 342
 monograph,year_like,4159,2016,nchrony.* Annals of the American Thoracic Society 13(12):2207-2214 (2016). DOI: [
 monograph,year_like,4165,2026,consistent. Identified and verified via PubMed esummary during the 2026-05-15 novelty audit ([S020 ); the atlas's contribution is a
 monograph,year_like,4170,2006,mechanical ventilation.* Intensive Care Medicine 32(10):1515-1522 (2006). DOI: [
-monograph,year_like,4179,2015,associated with mortality.* Intensive Care Medicine 41(4):633-641 (2015). DOI: [
-monograph,year_like,4188,2014,n Journal of Respiratory and Critical Care Medicine 189(5):520-531 (2014). DOI: [
-monograph,year_like,4195,1999,ntilation in respiratory failure.* Nature Medicine 5(12):1433-1436 (1999). DOI: [ . PMID: 105810
-monograph,year_like,4203,2016,entific data management and stewardship.* Scientific Data 3:160018 (2016). DOI: [
-monograph,year_like,4209,2017,ifesto for reproducible science.* Nature Human Behaviour 1(1):0021 (2017). DOI: [
-monograph,year_like,4217,1979,"Respiratory, Environmental and Exercise Physiology 46(3):599-602 (1979). DOI: ["
-monograph,year_like,4221,2000,"Strawn LM, Flegal KM, Mei Z, Wei R, Curtin LR, Roche AF, Johnson CL. *2000 CDC Growth Charts for the United States: Methods and Development.* Vi"
-monograph,year_like,4221,2002,"Development.* Vital and Health Statistics, Series 11, No. 246:1-190 (2002). PMID: 12043359. National Center for Health Statistics; source of th"
-monograph,year_like,4224,2016,tions for Sepsis and Septic Shock (Sepsis-3).* JAMA 315(8):801-810 (2016). DOI: [
-monograph,year_like,4230,2021,International Guidelines for Management of Sepsis and Septic Shock 2021.* Critical Care Medicine 49(11):e1063-e1143 (2021). DOI: [
-monograph,year_like,4231,2021,and Septic Shock 2021.* Critical Care Medicine 49(11):e1063-e1143 (2021). DOI: [
-monograph,year_like,4236,2023,"Kreutz R, Brunström M, Burnier M, Grassi G, Januszewicz A, et al. *2023 ESH Guidelines for the management of arterial hypertension.* Journa"
-monograph,year_like,4237,2071,ment of arterial hypertension.* Journal of Hypertension 41(12):1874-2071 (2023). DOI: [
-monograph,year_like,4238,2023,arterial hypertension.* Journal of Hypertension 41(12):1874-2071 (2023). DOI: [
-monograph,year_like,4246,2017,piratory distress syndrome.* Intensive Care Medicine 43(2):200-208 (2017). DOI: [
-monograph,year_like,4252,2020,"ls.* 11th ed. Philadelphia, PA: Wolters Kluwer Health / Lippincott (2020). ISBN: 978-1-9751-3918-6. Anatomical dead space (Ch. 2) and the al"
-monograph,year_like,4255,2026,"). Both chapter pointers were verified against the cited edition on 2026-07-27. The work is also cited, without a chapter pointer, for the P"
-monograph,year_like,4259,2026,"eference. The former ""acid-base ranges"" annotation was withdrawn on 2026-07-28: no locus in this monograph cites the work for one, and the"
-monograph,year_like,4262,2026,"the CO2-narcosis justification it once supported was withdrawn on 2026-07-27 after the 9th, 10th and 11th editions were searched and found"
-monograph,year_like,4265,2013,". Philadelphia, PA: Lippincott Williams & Wilkins / Wolters Kluwer (2013). ISBN: 978-1-4511-2118-6. Pre-lung-protective tidal volumes of 10-"
-monograph,year_like,4269,2026,now carries. Its former HR and PaCO2 annotations were withdrawn on 2026-07-27 after a full-text search of the cited edition: it states no e
-monograph,year_like,4274,2018,". Philadelphia, PA: Wolters Kluwer (Lippincott Williams & Wilkins) (2018). ISBN: 978-1-4963-0291-5. Upper heart-rate bound (Ch. 1: sinus rat"
-monograph,year_like,4277,2026,myocardial perfusion). The former SpO2 annotation was withdrawn on 2026-07-27: the critical-oxygen-delivery concept does appear in the cite
-monograph,year_like,4280,2018,ther than saturation. (5th edition; LWW publisher date confirmed as 2018 in the 2026-06-05 re-audit — bib key updated to marini2018critical
-monograph,year_like,4280,2026,turation. (5th edition; LWW publisher date confirmed as 2018 in the 2026-06-05 re-audit — bib key updated to marini2018critical accordingly.
-monograph,year_like,4281,2019,"updated to marini2018critical accordingly. The copyright page reads 2019; see , OPEN-3.) --- ## Appendix A — Exper"
-monograph,year_like,4311,2026,ication) | | []{#s016} S016 | Pulse GitLab + literature re-audit (May 2026) | | []{#s017} S017 | Cornish 2023 cross-mapping (Phase B item B1) |
-monograph,year_like,4312,2023,GitLab + literature re-audit (May 2026) | | []{#s017} S017 | Cornish 2023 cross-mapping (Phase B item B1) | | []{#s018} S018 | Blood-volume mec
-monograph,year_like,4409,2020,independent prior sources (the Respiratory Methodology page and Webb 2020) therefore converge on the same documented mapping and the same P/F c
-monograph,year_like,4416,2026,"eep ( , the original ARDS severity calibration, 2026-03; the full log is the canonical record of the calibration — the lat"
-monograph,year_like,4478,2026,"nal ARDS severity calibration** (the 28-run impairment sweep above, 2026-03): fractions 0.92 and 0.94 fail to stabilise at the reference ven"
-monograph,year_like,4480,2026,"tilation setting. * **E10** (a 10-run high-resolution boundary probe, 2026-04, testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0."
-monograph,year_like,4485,2026,"**. * **E6 calibration refinement** (a 9-run high-resolution sweep, 2026-04, testing 0.93 – 0.97 in 0.005 steps): 0.93 – 0.945 all FAIL (4 r"
-monograph,year_like,4500,2026,es not flag this zone. **No surfactant model — multi-criteria audit (2026-06-11).** A direct re-verification confirms Pulse models no pulmonary
-monograph,year_like,4552,1984,rrectly aligning with the Harris-Benedict equation (Roza & Shizgal 1984). 2. **Skin surface-area exponent.** The documentation lists the weig
-monograph,year_like,4565,2026,"belled ""Pulse standard male / female"" in early drafts of this work. A 2026-05-19 source-level audit established that this label is technically a"
-monograph,year_like,4572,2026,", < re-read 2026-08-20 with columns resolved by name). CDC lists age at the half-mon"
-monograph,year_like,4583,2026,"recorded in that project's experiments log (CDC weight audit step, 2026-04). * **Female height (163 cm).** Matches the CDC P50 stature for"
+monograph,year_like,4180,2015,associated with mortality.* Intensive Care Medicine 41(4):633-641 (2015). DOI: [
+monograph,year_like,4189,2014,n Journal of Respiratory and Critical Care Medicine 189(5):520-531 (2014). DOI: [
+monograph,year_like,4196,1999,ntilation in respiratory failure.* Nature Medicine 5(12):1433-1436 (1999). DOI: [ . PMID: 105810
+monograph,year_like,4204,2016,entific data management and stewardship.* Scientific Data 3:160018 (2016). DOI: [
+monograph,year_like,4210,2017,ifesto for reproducible science.* Nature Human Behaviour 1(1):0021 (2017). DOI: [
+monograph,year_like,4218,1979,"Respiratory, Environmental and Exercise Physiology 46(3):599-602 (1979). DOI: ["
+monograph,year_like,4222,2000,"Strawn LM, Flegal KM, Mei Z, Wei R, Curtin LR, Roche AF, Johnson CL. *2000 CDC Growth Charts for the United States: Methods and Development.* Vi"
+monograph,year_like,4222,2002,"Development.* Vital and Health Statistics, Series 11, No. 246:1-190 (2002). PMID: 12043359. National Center for Health Statistics; source of th"
+monograph,year_like,4225,2016,tions for Sepsis and Septic Shock (Sepsis-3).* JAMA 315(8):801-810 (2016). DOI: [
+monograph,year_like,4231,2021,International Guidelines for Management of Sepsis and Septic Shock 2021.* Critical Care Medicine 49(11):e1063-e1143 (2021). DOI: [
+monograph,year_like,4232,2021,and Septic Shock 2021.* Critical Care Medicine 49(11):e1063-e1143 (2021). DOI: [
+monograph,year_like,4237,2023,"Kreutz R, Brunström M, Burnier M, Grassi G, Januszewicz A, et al. *2023 ESH Guidelines for the management of arterial hypertension.* Journa"
+monograph,year_like,4238,2071,ment of arterial hypertension.* Journal of Hypertension 41(12):1874-2071 (2023). DOI: [
+monograph,year_like,4239,2023,arterial hypertension.* Journal of Hypertension 41(12):1874-2071 (2023). DOI: [
+monograph,year_like,4247,2017,piratory distress syndrome.* Intensive Care Medicine 43(2):200-208 (2017). DOI: [
+monograph,year_like,4253,2020,"ls.* 11th ed. Philadelphia, PA: Wolters Kluwer Health / Lippincott (2020). ISBN: 978-1-9751-3918-6. Anatomical dead space (Ch. 2) and the al"
+monograph,year_like,4256,2026,"). Both chapter pointers were verified against the cited edition on 2026-07-27. The work is also cited, without a chapter pointer, for the P"
+monograph,year_like,4260,2026,"eference. The former ""acid-base ranges"" annotation was withdrawn on 2026-07-28: no locus in this monograph cites the work for one, and the"
+monograph,year_like,4263,2026,"the CO2-narcosis justification it once supported was withdrawn on 2026-07-27 after the 9th, 10th and 11th editions were searched and found"
+monograph,year_like,4266,2013,". Philadelphia, PA: Lippincott Williams & Wilkins / Wolters Kluwer (2013). ISBN: 978-1-4511-2118-6. Pre-lung-protective tidal volumes of 10-"
+monograph,year_like,4270,2026,now carries. Its former HR and PaCO2 annotations were withdrawn on 2026-07-27 after a full-text search of the cited edition: it states no e
+monograph,year_like,4275,2018,". Philadelphia, PA: Wolters Kluwer (Lippincott Williams & Wilkins) (2018). ISBN: 978-1-4963-0291-5. Upper heart-rate bound (Ch. 1: sinus rat"
+monograph,year_like,4278,2026,myocardial perfusion). The former SpO2 annotation was withdrawn on 2026-07-27: the critical-oxygen-delivery concept does appear in the cite
+monograph,year_like,4281,2018,ther than saturation. (5th edition; LWW publisher date confirmed as 2018 in the 2026-06-05 re-audit — bib key updated to marini2018critical
+monograph,year_like,4281,2026,turation. (5th edition; LWW publisher date confirmed as 2018 in the 2026-06-05 re-audit — bib key updated to marini2018critical accordingly.
+monograph,year_like,4282,2019,"updated to marini2018critical accordingly. The copyright page reads 2019; see , OPEN-3.) --- ## Appendix A — Exper"
+monograph,year_like,4312,2026,ication) | | []{#s016} S016 | Pulse GitLab + literature re-audit (May 2026) | | []{#s017} S017 | Cornish 2023 cross-mapping (Phase B item B1) |
+monograph,year_like,4313,2023,GitLab + literature re-audit (May 2026) | | []{#s017} S017 | Cornish 2023 cross-mapping (Phase B item B1) | | []{#s018} S018 | Blood-volume mec
+monograph,year_like,4410,2020,independent prior sources (the Respiratory Methodology page and Webb 2020) therefore converge on the same documented mapping and the same P/F c
+monograph,year_like,4417,2026,"eep ( , the original ARDS severity calibration, 2026-03; the full log is the canonical record of the calibration — the lat"
+monograph,year_like,4479,2026,"nal ARDS severity calibration** (the 28-run impairment sweep above, 2026-03): fractions 0.92 and 0.94 fail to stabilise at the reference ven"
+monograph,year_like,4481,2026,"tilation setting. * **E10** (a 10-run high-resolution boundary probe, 2026-04, testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0."
+monograph,year_like,4486,2026,"**. * **E6 calibration refinement** (a 9-run high-resolution sweep, 2026-04, testing 0.93 – 0.97 in 0.005 steps): 0.93 – 0.945 all FAIL (4 r"
+monograph,year_like,4501,2026,es not flag this zone. **No surfactant model — multi-criteria audit (2026-06-11).** A direct re-verification confirms Pulse models no pulmonary
+monograph,year_like,4553,1984,rrectly aligning with the Harris-Benedict equation (Roza & Shizgal 1984). 2. **Skin surface-area exponent.** The documentation lists the weig
+monograph,year_like,4566,2026,"belled ""Pulse standard male / female"" in early drafts of this work. A 2026-05-19 source-level audit established that this label is technically a"
+monograph,year_like,4573,2026,", < re-read 2026-08-20 with columns resolved by name). CDC lists age at the half-mon"
+monograph,year_like,4584,2026,"recorded in that project's experiments log (CDC weight audit step, 2026-04). * **Female height (163 cm).** Matches the CDC P50 stature for"
 paper,org_identifier,115,3450,"ress{\city{Nancy}, \country{France}}} \affil[5]{\orgdiv{UR 3450 DevAH}, \orgname{Universit\'e de Lorraine}, \orgaddress"
 paper,org_identifier,117,1256,"Nancy}, \country{France}}} \affil[6]{\orgdiv{INSERM UMR\_S 1256, Nutrition-G\'en\'etique et Exposition aux Risques Envi"
 paper,product_version,384,4.7,"n separate sessions: always a Claude model (Anthropic; Opus 4.7, 4.8, 5 and 5.5 in succession), and Google Gemini Pro 3."

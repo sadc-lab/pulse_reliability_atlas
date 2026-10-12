@@ -2393,7 +2393,7 @@ monograph,3176,0.016,0.016,ambiguous_small,"s that variability (validated by [S0
 monograph,3176,96,96.0,none,"riability (validated by [S014 : median Vt_cv 0.351 to 0.016, a 96 % reduction; 78.1 % of locked runs below the 0.05 steady-state thresh"
 monograph,3176,78.1,78.1,guard,"ated by [S014 : median Vt_cv 0.351 to 0.016, a 96 % reduction; 78.1 % of locked runs below the 0.05 steady-state threshold). This is best"
 monograph,3176,0.05,0.05,none,"_cv 0.351 to 0.016, a 96 % reduction; 78.1 % of locked runs below the 0.05 steady-state threshold). This is best read as a data-generation / exp"
-monograph,3176,2,2.0,ambiguous_small,"gger to a fixed threshold leaves simulated inspiratory efforts below −2 cmH2O unrewarded, a form of patient-ventilator dyssynchrony [@thille2"
+monograph,3176,2,2.0,ambiguous_small,"ger locked to a fixed threshold, simulated inspiratory efforts below −2 cmH2O fail to trigger a breath (ineffective triggering), a form of pa"
 monograph,3176,2,2.0,ambiguous_small,oumianaki2014] or diaphragm electrical activity [@sinderby1999]. The −2 cmH2O lock is therefore an instrument for controlled software explora
 monograph,3178,4.3,4.3,none,"a generation, not guidance for clinically realistic ventilation. ### 4.3 Implications for machine-learning pipelines using Pulse *Why this at"
 monograph,3181,51.8,51.8,guard,"atlas matters for anyone training models on Pulse synthetic cohorts: 51.8 % of runs are clean, but the flagged 48.2 % follow non-random pattern"
@@ -2917,459 +2917,459 @@ monograph,4170,32,32.0,ambiguous_small,ny during assisted mechanical ventilation
 monograph,4170,10,10.0,ambiguous_small,during assisted mechanical ventilation.* Intensive Care Medicine 32(10):1515-1522 (2006). DOI: [
 monograph,4170,1515,1515.0,none,ng assisted mechanical ventilation.* Intensive Care Medicine 32(10):1515-1522 (2006). DOI: [
 monograph,4170,1522,1522.0,none,sisted mechanical ventilation.* Intensive Care Medicine 32(10):1515-1522 (2006). DOI: [
-monograph,4172,16896854,16896854.0,none,. PMID: 16896854. Cited in §4.2: sub-threshold inspiratory efforts left unrewarded a
-monograph,4172,4.2,4.2,none,. PMID: 16896854. Cited in §4.2: sub-threshold inspiratory efforts left unrewarded are a form of pa
-monograph,4174,30,30.0,ambiguous_small,"ents section also records that asynchrony was ""detected visually on 30-min recordings of flow and airway pressure"", which is why §4.2 no l"
-monograph,4175,4.2,4.2,none,"ly on 30-min recordings of flow and airway pressure"", which is why §4.2 no longer says specialised monitoring is the only way to see it. *"
-monograph,4179,41,41.0,ambiguous_small,ventilation are associated with mortality.* Intensive Care Medicine 41(4):633-641 (2015). DOI: [
-monograph,4179,4,4.0,ambiguous_small,tilation are associated with mortality.* Intensive Care Medicine 41(4):633-641 (2015). DOI: [
-monograph,4179,633,633.0,none,ation are associated with mortality.* Intensive Care Medicine 41(4):633-641 (2015). DOI: [
-monograph,4179,641,641.0,none,n are associated with mortality.* Intensive Care Medicine 41(4):633-641 (2015). DOI: [
-monograph,4181,25693449,25693449.0,none,". PMID: 25693449. Cited in §4.2 for ""clinically undesirable"". The study stops short"
-monograph,4181,4.2,4.2,none,". PMID: 25693449. Cited in §4.2 for ""clinically undesirable"". The study stops short of causation —"
-monograph,4188,189,189.0,none,ailure.* American Journal of Respiratory and Critical Care Medicine 189(5):520-531 (2014). DOI: [
-monograph,4188,5,5.0,ambiguous_small,re.* American Journal of Respiratory and Critical Care Medicine 189(5):520-531 (2014). DOI: [
-monograph,4188,520,520.0,none,* American Journal of Respiratory and Critical Care Medicine 189(5):520-531 (2014). DOI: [
-monograph,4188,531,531.0,none,erican Journal of Respiratory and Critical Care Medicine 189(5):520-531 (2014). DOI: [
-monograph,4190,24467647,24467647.0,none,. PMID: 24467647. Cited in §4.2: esophageal pressure as a specialised confirmation o
-monograph,4190,4.2,4.2,none,. PMID: 24467647. Cited in §4.2: esophageal pressure as a specialised confirmation of inspiratory e
-monograph,4195,5,5.0,ambiguous_small,f mechanical ventilation in respiratory failure.* Nature Medicine 5(12):1433-1436 (1999). DOI: [
-monograph,4195,12,12.0,ambiguous_small,mechanical ventilation in respiratory failure.* Nature Medicine 5(12):1433-1436 (1999). DOI: [
-monograph,4195,1433,1433.0,guard,chanical ventilation in respiratory failure.* Nature Medicine 5(12):1433-1436 (1999). DOI: [ . P
-monograph,4195,1436,1436.0,none,cal ventilation in respiratory failure.* Nature Medicine 5(12):1433-1436 (1999). DOI: [ . PMID:
-monograph,4196,10581089,10581089.0,none,(1999). DOI: [ . PMID: 10581089. Cited in §4.2: diaphragm electrical activity (EAdi) as the other s
-monograph,4196,4.2,4.2,none,. PMID: 10581089. Cited in §4.2: diaphragm electrical activity (EAdi) as the other specialised conf
-monograph,4203,3,3.0,ambiguous_small,es for scientific data management and stewardship.* Scientific Data 3:160018 (2016). DOI: [
-monograph,4203,160018,160018.0,none,for scientific data management and stewardship.* Scientific Data 3:160018 (2016). DOI: [
-monograph,4205,26978244,26978244.0,none,". PMID: 26978244. * []{#ref-munafo2017} Munafò MR, Nosek BA, Bishop DVM, Button KS, Ch"
-monograph,4209,1,1.0,ambiguous_small,A. *A manifesto for reproducible science.* Nature Human Behaviour 1(1):0021 (2017). DOI: [
-monograph,4209,1,1.0,ambiguous_small,*A manifesto for reproducible science.* Nature Human Behaviour 1(1):0021 (2017). DOI: [
-monograph,4209,0021,21.0,ambiguous_small,manifesto for reproducible science.* Nature Human Behaviour 1(1):0021 (2017). DOI: [
-monograph,4216,46,46.0,ambiguous_small,"lied Physiology: Respiratory, Environmental and Exercise Physiology 46(3):599-602 (1979). DOI: ["
-monograph,4216,3,3.0,ambiguous_small,"d Physiology: Respiratory, Environmental and Exercise Physiology 46(3):599-602 (1979). DOI: ["
-monograph,4216,599,599.0,none,"hysiology: Respiratory, Environmental and Exercise Physiology 46(3):599-602 (1979). DOI: ["
-monograph,4216,602,602.0,none,"ology: Respiratory, Environmental and Exercise Physiology 46(3):599-602 (1979). DOI: ["
-monograph,4219,35496,35496.0,none,. PMID: 35496. Oxyhemoglobin dissociation curve (P50); anchors the SpO2 and PaO2
-monograph,4221,11,11.0,ambiguous_small,"States: Methods and Development.* Vital and Health Statistics, Series 11, No. 246:1-190 (2002). PMID: 12043359. National Center for Health Sta"
-monograph,4221,246,246.0,none,"Methods and Development.* Vital and Health Statistics, Series 11, No. 246:1-190 (2002). PMID: 12043359. National Center for Health Statistics;"
-monograph,4221,1,1.0,ambiguous_small,"ods and Development.* Vital and Health Statistics, Series 11, No. 246:1-190 (2002). PMID: 12043359. National Center for Health Statistics; so"
-monograph,4221,190,190.0,none,"s and Development.* Vital and Health Statistics, Series 11, No. 246:1-190 (2002). PMID: 12043359. National Center for Health Statistics; source"
-monograph,4221,12043359,12043359.0,none,"* Vital and Health Statistics, Series 11, No. 246:1-190 (2002). PMID: 12043359. National Center for Health Statistics; source of the sex-specific 50"
-monograph,4221,50,50.0,ambiguous_small,59. National Center for Health Statistics; source of the sex-specific 50th-percentile weight- and stature-for-age reference values for the atl
-monograph,4224,3,3.0,ambiguous_small,rnational Consensus Definitions for Sepsis and Septic Shock (Sepsis-3).* JAMA 315(8):801-810 (2016). DOI: [
-monograph,4224,315,315.0,none,Consensus Definitions for Sepsis and Septic Shock (Sepsis-3).* JAMA 315(8):801-810 (2016). DOI: [
-monograph,4224,8,8.0,ambiguous_small,ensus Definitions for Sepsis and Septic Shock (Sepsis-3).* JAMA 315(8):801-810 (2016). DOI: [
-monograph,4224,801,801.0,none,us Definitions for Sepsis and Septic Shock (Sepsis-3).* JAMA 315(8):801-810 (2016). DOI: [
-monograph,4224,810,810.0,none,efinitions for Sepsis and Septic Shock (Sepsis-3).* JAMA 315(8):801-810 (2016). DOI: [
-monograph,4226,26903338,26903338.0,none,. PMID: 26903338. Vasopressor-dependent MAP ≥ 65 mmHg; anchors the MAP lower bound.
-monograph,4226,65,65.0,none,. PMID: 26903338. Vasopressor-dependent MAP ≥ 65 mmHg; anchors the MAP lower bound. * []{#ref-evans2021sepsis} Evans
-monograph,4231,49,49.0,ambiguous_small,Management of Sepsis and Septic Shock 2021.* Critical Care Medicine 49(11):e1063-e1143 (2021). DOI: [
-monograph,4231,11,11.0,ambiguous_small,agement of Sepsis and Septic Shock 2021.* Critical Care Medicine 49(11):e1063-e1143 (2021). DOI: [
-monograph,4233,34605781,34605781.0,none,". PMID: 34605781. International initial resuscitation target MAP of 65 mmHg, recomme"
-monograph,4234,65,65.0,none,"PMID: 34605781. International initial resuscitation target MAP of 65 mmHg, recommended over higher targets. * []{#ref-mancia2023esh} Manci"
-monograph,4237,41,41.0,ambiguous_small,r the management of arterial hypertension.* Journal of Hypertension 41(12):1874-2071 (2023). DOI: [
-monograph,4237,12,12.0,ambiguous_small,he management of arterial hypertension.* Journal of Hypertension 41(12):1874-2071 (2023). DOI: [
-monograph,4237,1874,1874.0,none,anagement of arterial hypertension.* Journal of Hypertension 41(12):1874-2071 (2023). DOI: [
-monograph,4240,37345492,37345492.0,none,. PMID: 37345492. Hypertensive-emergency definition: grade 3 hypertension (SBP ≥ 180
-monograph,4240,3,3.0,ambiguous_small,". PMID: 37345492. Hypertensive-emergency definition: grade 3 hypertension (SBP ≥ 180 and/or DBP ≥ 110 mmHg, Table 1 p. 1886) wit"
-monograph,4241,180,180.0,guard,"492. Hypertensive-emergency definition: grade 3 hypertension (SBP ≥ 180 and/or DBP ≥ 110 mmHg, Table 1 p. 1886) with acute symptomatic orga"
-monograph,4241,110,110.0,guard,"-emergency definition: grade 3 hypertension (SBP ≥ 180 and/or DBP ≥ 110 mmHg, Table 1 p. 1886) with acute symptomatic organ damage; anchors"
-monograph,4241,1,1.0,ambiguous_small,"ition: grade 3 hypertension (SBP ≥ 180 and/or DBP ≥ 110 mmHg, Table 1 p. 1886) with acute symptomatic organ damage; anchors the MAP upper"
-monograph,4241,1886,1886.0,none,": grade 3 hypertension (SBP ≥ 180 and/or DBP ≥ 110 mmHg, Table 1 p. 1886) with acute symptomatic organ damage; anchors the MAP upper bound."
-monograph,4246,43,43.0,ambiguous_small,evere acute respiratory distress syndrome.* Intensive Care Medicine 43(2):200-208 (2017). DOI: [
-monograph,4246,2,2.0,ambiguous_small,re acute respiratory distress syndrome.* Intensive Care Medicine 43(2):200-208 (2017). DOI: [
-monograph,4246,200,200.0,guard,acute respiratory distress syndrome.* Intensive Care Medicine 43(2):200-208 (2017). DOI: [
-monograph,4246,208,208.0,guard,e respiratory distress syndrome.* Intensive Care Medicine 43(2):200-208 (2017). DOI: [
-monograph,4248,28108768,28108768.0,none,". PMID: 28108768. Maximum-PaCO2 distribution in 1,899 ARDS patients from 927 ICUs in"
-monograph,4248,"1,899",1899.0,none,". PMID: 28108768. Maximum-PaCO2 distribution in 1,899 ARDS patients from 927 ICUs in 40 countries; anchors the PaCO2 uppe"
-monograph,4249,927,927.0,none,"D: 28108768. Maximum-PaCO2 distribution in 1,899 ARDS patients from 927 ICUs in 40 countries; anchors the PaCO2 upper bound. * []{#ref-west20"
-monograph,4249,40,40.0,ambiguous_small,"Maximum-PaCO2 distribution in 1,899 ARDS patients from 927 ICUs in 40 countries; anchors the PaCO2 upper bound. * []{#ref-west2020respirato"
-monograph,4251,11,11.0,ambiguous_small,"West JB, Luks AM. *West's Respiratory Physiology: The Essentials.* 11th ed. Philadelphia, PA: Wolters Kluwer Health / Lippincott (2020)."
-monograph,4252,978,978.0,none,"Philadelphia, PA: Wolters Kluwer Health / Lippincott (2020). ISBN: 978-1-9751-3918-6. Anatomical dead space (Ch. 2) and the alveolar-gas e"
-monograph,4252,1,1.0,ambiguous_small,"ladelphia, PA: Wolters Kluwer Health / Lippincott (2020). ISBN: 978-1-9751-3918-6. Anatomical dead space (Ch. 2) and the alveolar-gas equ"
-monograph,4252,9751,9751.0,none,"delphia, PA: Wolters Kluwer Health / Lippincott (2020). ISBN: 978-1-9751-3918-6. Anatomical dead space (Ch. 2) and the alveolar-gas equation"
-monograph,4252,3918,3918.0,none,"ia, PA: Wolters Kluwer Health / Lippincott (2020). ISBN: 978-1-9751-3918-6. Anatomical dead space (Ch. 2) and the alveolar-gas equation behi"
-monograph,4252,6,6.0,ambiguous_small,A: Wolters Kluwer Health / Lippincott (2020). ISBN: 978-1-9751-3918-6. Anatomical dead space (Ch. 2) and the alveolar-gas equation behind
-monograph,4253,2,2.0,ambiguous_small,pincott (2020). ISBN: 978-1-9751-3918-6. Anatomical dead space (Ch. 2) and the alveolar-gas equation behind the PaO2 ceiling (≈ 663 mmHg
-monograph,4254,663,663.0,guard,"(Ch. 2) and the alveolar-gas equation behind the PaO2 ceiling (≈ 663 mmHg at FiO2 = 1.0, Ch. 5). Both chapter pointers were verified aga"
-monograph,4254,1.0,1.0,ambiguous_small,"alveolar-gas equation behind the PaO2 ceiling (≈ 663 mmHg at FiO2 = 1.0, Ch. 5). Both chapter pointers were verified against the cited edit"
-monograph,4254,5,5.0,ambiguous_small,"gas equation behind the PaO2 ceiling (≈ 663 mmHg at FiO2 = 1.0, Ch. 5). Both chapter pointers were verified against the cited edition on"
-monograph,4255,07,7.0,ambiguous_small,"th chapter pointers were verified against the cited edition on 2026-07-27. The work is also cited, without a chapter pointer, for the PaCO"
-monograph,4255,27,27.0,none,"chapter pointers were verified against the cited edition on 2026-07-27. The work is also cited, without a chapter pointer, for the PaCO2 d"
-monograph,4259,07,7.0,ambiguous_small,"nce. The former ""acid-base ranges"" annotation was withdrawn on 2026-07-28: no locus in this monograph cites the work for one, and the CO"
-monograph,4259,28,28.0,none,". The former ""acid-base ranges"" annotation was withdrawn on 2026-07-28: no locus in this monograph cites the work for one, and the CO2-n"
-monograph,4262,07,7.0,ambiguous_small,"CO2-narcosis justification it once supported was withdrawn on 2026-07-27 after the 9th, 10th and 11th editions were searched and found no"
-monograph,4262,27,27.0,none,"2-narcosis justification it once supported was withdrawn on 2026-07-27 after the 9th, 10th and 11th editions were searched and found not t"
-monograph,4262,9,9.0,ambiguous_small,"stification it once supported was withdrawn on 2026-07-27 after the 9th, 10th and 11th editions were searched and found not to contain th"
-monograph,4262,10,10.0,ambiguous_small,"cation it once supported was withdrawn on 2026-07-27 after the 9th, 10th and 11th editions were searched and found not to contain the conc"
-monograph,4262,11,11.0,ambiguous_small,"once supported was withdrawn on 2026-07-27 after the 9th, 10th and 11th editions were searched and found not to contain the concept. * []"
-monograph,4264,4,4.0,ambiguous_small,"concept. * []{#ref-marino2013icu} Marino PL. *Marino's The ICU Book.* 4th ed. Philadelphia, PA: Lippincott Williams & Wilkins / Wolters Klu"
-monograph,4266,978,978.0,none,PA: Lippincott Williams & Wilkins / Wolters Kluwer (2013). ISBN: 978-1-4511-2118-6. Pre-lung-protective tidal volumes of 10-15 mL/kg (Ch
-monograph,4266,1,1.0,ambiguous_small,Lippincott Williams & Wilkins / Wolters Kluwer (2013). ISBN: 978-1-4511-2118-6. Pre-lung-protective tidal volumes of 10-15 mL/kg (Ch.
-monograph,4266,4511,4511.0,none,"Lippincott Williams & Wilkins / Wolters Kluwer (2013). ISBN: 978-1-4511-2118-6. Pre-lung-protective tidal volumes of 10-15 mL/kg (Ch. 25),"
-monograph,4266,2118,2118.0,none,"incott Williams & Wilkins / Wolters Kluwer (2013). ISBN: 978-1-4511-2118-6. Pre-lung-protective tidal volumes of 10-15 mL/kg (Ch. 25), which"
-monograph,4266,6,6.0,ambiguous_small,"t Williams & Wilkins / Wolters Kluwer (2013). ISBN: 978-1-4511-2118-6. Pre-lung-protective tidal volumes of 10-15 mL/kg (Ch. 25), which a"
-monograph,4266,10,10.0,ambiguous_small,"013). ISBN: 978-1-4511-2118-6. Pre-lung-protective tidal volumes of 10-15 mL/kg (Ch. 25), which anchor the Vt upper bound — the sole claim"
-monograph,4266,15,15.0,ambiguous_small,"). ISBN: 978-1-4511-2118-6. Pre-lung-protective tidal volumes of 10-15 mL/kg (Ch. 25), which anchor the Vt upper bound — the sole claim th"
-monograph,4267,25,25.0,none,"-4511-2118-6. Pre-lung-protective tidal volumes of 10-15 mL/kg (Ch. 25), which anchor the Vt upper bound — the sole claim this work now ca"
-monograph,4269,07,7.0,ambiguous_small,carries. Its former HR and PaCO2 annotations were withdrawn on 2026-07-27 after a full-text search of the cited edition: it states no extr
-monograph,4269,27,27.0,none,ries. Its former HR and PaCO2 annotations were withdrawn on 2026-07-27 after a full-text search of the cited edition: it states no extreme
-monograph,4273,5,5.0,ambiguous_small,"ni JJ, Dries DJ. *Critical Care Medicine: The Essentials and More.* 5th ed. Philadelphia, PA: Wolters Kluwer (Lippincott Williams & Wilki"
-monograph,4274,978,978.0,none,"a, PA: Wolters Kluwer (Lippincott Williams & Wilkins) (2018). ISBN: 978-1-4963-0291-5. Upper heart-rate bound (Ch. 1: sinus rates exceeding"
-monograph,4274,1,1.0,ambiguous_small,A: Wolters Kluwer (Lippincott Williams & Wilkins) (2018). ISBN: 978-1-4963-0291-5. Upper heart-rate bound (Ch. 1: sinus rates exceeding (
-monograph,4274,4963,4963.0,none,Wolters Kluwer (Lippincott Williams & Wilkins) (2018). ISBN: 978-1-4963-0291-5. Upper heart-rate bound (Ch. 1: sinus rates exceeding (220 −
-monograph,4274,0291,291.0,none,ers Kluwer (Lippincott Williams & Wilkins) (2018). ISBN: 978-1-4963-0291-5. Upper heart-rate bound (Ch. 1: sinus rates exceeding (220 − age)
-monograph,4274,5,5.0,ambiguous_small,luwer (Lippincott Williams & Wilkins) (2018). ISBN: 978-1-4963-0291-5. Upper heart-rate bound (Ch. 1: sinus rates exceeding (220 − age)/m
-monograph,4275,1,1.0,ambiguous_small,lkins) (2018). ISBN: 978-1-4963-0291-5. Upper heart-rate bound (Ch. 1: sinus rates exceeding (220 − age)/min reduce cardiac output and my
-monograph,4275,220,220.0,guard,-4963-0291-5. Upper heart-rate bound (Ch. 1: sinus rates exceeding (220 − age)/min reduce cardiac output and myocardial perfusion). The for
-monograph,4277,07,7.0,ambiguous_small,ardial perfusion). The former SpO2 annotation was withdrawn on 2026-07-27: the critical-oxygen-delivery concept does appear in the cited e
-monograph,4277,27,27.0,none,ial perfusion). The former SpO2 annotation was withdrawn on 2026-07-27: the critical-oxygen-delivery concept does appear in the cited edit
-monograph,4278,2,2.0,ambiguous_small,"xygen-delivery concept does appear in the cited edition, but in Ch. 2, without a number, and about delivery rather than saturation. (5th"
-monograph,4279,5,5.0,ambiguous_small,"h. 2, without a number, and about delivery rather than saturation. (5th edition; LWW publisher date confirmed as 2018 in the 2026-06-05 r"
-monograph,4280,06,6.0,ambiguous_small,ion. (5th edition; LWW publisher date confirmed as 2018 in the 2026-06-05 re-audit — bib key updated to marini2018critical accordingly. Th
-monograph,4280,05,5.0,ambiguous_small,. (5th edition; LWW publisher date confirmed as 2018 in the 2026-06-05 re-audit — bib key updated to marini2018critical accordingly. The c
-monograph,4282,3,3.0,ambiguous_small,". The copyright page reads 2019; see , OPEN-3.) --- ## Appendix A — Experiment log index *Every code used"
-monograph,4300,22,22.0,none,"image + scenario smoke + detector recalibration | | []{#s005} S005 | 22-run pilot on S1_M | | []{#s006} S006 | Full Morris sweep (1,280 runs)"
-monograph,4301,"1,280",1280.0,guard,"} S005 | 22-run pilot on S1_M | | []{#s006} S006 | Full Morris sweep (1,280 runs) | | []{#s007} S007 | Targeted reproducibility check (3-layer, a"
-monograph,4302,3,3.0,ambiguous_small,"eep (1,280 runs) | | []{#s007} S007 | Targeted reproducibility check (3-layer, all bit-exact) | | []{#s008} S008 | Tier-1 statistical refinem"
-monograph,4303,1,1.0,ambiguous_small,"roducibility check (3-layer, all bit-exact) | | []{#s008} S008 | Tier-1 statistical refinement (block bootstrap, Wasserstein null) | | []{#s0"
-monograph,4304,2,2.0,ambiguous_small,"inement (block bootstrap, Wasserstein null) | | []{#s009} S009 | Tier-2 (seed stability, continuous-ARDS, pytest, GHA CI) | | []{#s010} S010"
-monograph,4309,004,4.0,ambiguous_small,manuscript taxonomy) | | []{#s014} S014 | Trigger-pressure lockout (F-004 mechanism) | | []{#s015} S015 | Reproducibility and logic audit (pre-
-monograph,4316,60,60.0,ambiguous_small,laim; one citation added) | | []{#s021} S021 | Hyperoxia convergence (60-run rerun at 300 s vs locked 120 s window; F-003 mechanism test) | |
-monograph,4316,300,300.0,guard,on added) | | []{#s021} S021 | Hyperoxia convergence (60-run rerun at 300 s vs locked 120 s window; F-003 mechanism test) | | []{#s022} S022 |
-monograph,4316,120,120.0,guard,{#s021} S021 | Hyperoxia convergence (60-run rerun at 300 s vs locked 120 s window; F-003 mechanism test) | | []{#s022} S022 | No-compute failu
-monograph,4316,003,3.0,ambiguous_small,yperoxia convergence (60-run rerun at 300 s vs locked 120 s window; F-003 mechanism test) | | []{#s022} S022 | No-compute failure-mode attribut
-monograph,4319,394,394.0,none,"rification of the quantitative claims registered in the audit ledger; 394 / 394 PASS on the authors' full data tree, 393 / 394 on a public clon"
-monograph,4319,394,394.0,none,"tion of the quantitative claims registered in the audit ledger; 394 / 394 PASS on the authors' full data tree, 393 / 394 on a public clone with"
-monograph,4319,393,393.0,none,"d in the audit ledger; 394 / 394 PASS on the authors' full data tree, 393 / 394 on a public clone with one auto-skipped anchor, see §2.8) | | ["
-monograph,4319,394,394.0,none,"he audit ledger; 394 / 394 PASS on the authors' full data tree, 393 / 394 on a public clone with one auto-skipped anchor, see §2.8) | | []{#s02"
-monograph,4319,2.8,2.8,none,"tree, 393 / 394 on a public clone with one auto-skipped anchor, see §2.8) | | []{#s025} S025 | Pre-release OSS code-hygiene audit and fixes |"
-monograph,4341,1,1.0,ambiguous_small,er's downstream PhD repository; GitHub URL to be filled in once Paper 1 is published). ### B.2 Hard input acceptance gates Pulse enfo
-monograph,4351,50,50.0,ambiguous_small,on. * **Heart rate (HR):** The accepted baseline range is strictly 50–110 bpm. Probes confirmed rejection at 49 bpm and 111 bpm. * **Respir
-monograph,4351,110,110.0,guard,* **Heart rate (HR):** The accepted baseline range is strictly 50–110 bpm. Probes confirmed rejection at 49 bpm and 111 bpm. * **Respirator
-monograph,4351,49,49.0,ambiguous_small,aseline range is strictly 50–110 bpm. Probes confirmed rejection at 49 bpm and 111 bpm. * **Respiratory rate (RR):** The accepted baseline r
-monograph,4351,111,111.0,none,ge is strictly 50–110 bpm. Probes confirmed rejection at 49 bpm and 111 bpm. * **Respiratory rate (RR):** The accepted baseline range is stri
-monograph,4353,8,8.0,ambiguous_small,**Respiratory rate (RR):** The accepted baseline range is strictly 8–20 bpm. Probes confirmed rejection at 7 bpm and 21 bpm. * **Blood pre
-monograph,4353,20,20.0,ambiguous_small,*Respiratory rate (RR):** The accepted baseline range is strictly 8–20 bpm. Probes confirmed rejection at 7 bpm and 21 bpm. * **Blood pressu
-monograph,4353,7,7.0,ambiguous_small,baseline range is strictly 8–20 bpm. Probes confirmed rejection at 7 bpm and 21 bpm. * **Blood pressure (BP):** Systolic blood pressure (S
-monograph,4353,21,21.0,ambiguous_small,range is strictly 8–20 bpm. Probes confirmed rejection at 7 bpm and 21 bpm. * **Blood pressure (BP):** Systolic blood pressure (SBP) is co
-monograph,4355,90,90.0,ambiguous_small,od pressure (BP):** Systolic blood pressure (SBP) is constrained to 90–120 mmHg. Diastolic blood pressure (DBP) is constrained to 60–80 mm
-monograph,4355,120,120.0,guard,pressure (BP):** Systolic blood pressure (SBP) is constrained to 90–120 mmHg. Diastolic blood pressure (DBP) is constrained to 60–80 mmHg.
-monograph,4356,60,60.0,ambiguous_small,ed to 90–120 mmHg. Diastolic blood pressure (DBP) is constrained to 60–80 mmHg. * **Pulse-pressure constraint:** An undocumented constraint
-monograph,4356,80,80.0,ambiguous_small,to 90–120 mmHg. Diastolic blood pressure (DBP) is constrained to 60–80 mmHg. * **Pulse-pressure constraint:** An undocumented constraint was
-monograph,4359,0.75,0.75,ambiguous_small,"obing: the engine requires a pulse-pressure ratio where DBP / SBP ≤ 0.75. If this ratio is exceeded (e.g., SBP = 90 mmHg and DBP = 68 mmHg,"
-monograph,4360,90,90.0,ambiguous_small,"atio where DBP / SBP ≤ 0.75. If this ratio is exceeded (e.g., SBP = 90 mmHg and DBP = 68 mmHg, ratio = 0.756), initialization is rejected"
-monograph,4360,68,68.0,ambiguous_small,"BP ≤ 0.75. If this ratio is exceeded (e.g., SBP = 90 mmHg and DBP = 68 mmHg, ratio = 0.756), initialization is rejected even if individual"
-monograph,4360,0.756,0.756,none,"s ratio is exceeded (e.g., SBP = 90 mmHg and DBP = 68 mmHg, ratio = 0.756), initialization is rejected even if individual values fall within"
-monograph,4364,1.0,1.0,ambiguous_small,oxygen (FiO2):** Direct probing confirmed that Pulse accepts FiO2 = 1.0 and produces a stable trajectory; the transient hyperoxia regime an
-monograph,4366,3.8,3.8,none,r-instability tail at that setting are characterised separately in §3.8. In the focused single-input probe (the companion
-monograph,4367,1.0,1.0,ambiguous_small,"ed single-input probe (the companion FiO2 = 1.0 crash probe, 9 runs sweeping FiO2 ∈ {0.95, …, 1.00} on a healthy"
-monograph,4368,9,9.0,ambiguous_small,"robe (the companion FiO2 = 1.0 crash probe, 9 runs sweeping FiO2 ∈ {0.95, …, 1.00} on a healthy male surrogate at"
-monograph,4369,0.95,0.95,ambiguous_small,"FiO2 = 1.0 crash probe, 9 runs sweeping FiO2 ∈ {0.95, …, 1.00} on a healthy male surrogate at fixed ventilation), PaO2 s"
-monograph,4369,1.00,1.0,guard,"FiO2 = 1.0 crash probe, 9 runs sweeping FiO2 ∈ {0.95, …, 1.00} on a healthy male surrogate at fixed ventilation), PaO2 scales lin"
-monograph,4370,7.8,7.8,none,"rogate at fixed ventilation), PaO2 scales linearly by approximately 7.8 mmHg per 0.01 increase in FiO2. The atlas's multi-input Morris fit"
-monograph,4371,0.01,0.01,none,"ventilation), PaO2 scales linearly by approximately 7.8 mmHg per 0.01 increase in FiO2. The atlas's multi-input Morris fit on the S1 clea"
-monograph,4372,0.21,0.21,none,"multi-input Morris fit on the S1 clean runs, whose FiO2 spans only [0.21, 0.47], gives a flatter slope of ~5 mmHg per 0.01 FiO2 (§3.8, F-003"
-monograph,4372,0.47,0.47,none,"input Morris fit on the S1 clean runs, whose FiO2 spans only [0.21, 0.47], gives a flatter slope of ~5 mmHg per 0.01 FiO2 (§3.8, F-003): the"
-monograph,4373,5,5.0,ambiguous_small,"runs, whose FiO2 spans only [0.21, 0.47], gives a flatter slope of ~5 mmHg per 0.01 FiO2 (§3.8, F-003): the difference reflects the avera"
-monograph,4373,0.01,0.01,none,"FiO2 spans only [0.21, 0.47], gives a flatter slope of ~5 mmHg per 0.01 FiO2 (§3.8, F-003): the difference reflects the averaging across a"
-monograph,4373,3.8,3.8,none,"only [0.21, 0.47], gives a flatter slope of ~5 mmHg per 0.01 FiO2 (§3.8, F-003): the difference reflects the averaging across a wider FiO2"
-monograph,4373,003,3.0,ambiguous_small,".21, 0.47], gives a flatter slope of ~5 mmHg per 0.01 FiO2 (§3.8, F-003): the difference reflects the averaging across a wider FiO2 envelop"
-monograph,4376,1.0,1.0,ambiguous_small,ts rather than a per-step single-input perturbation near the FiO2 = 1.0 boundary. ### B.3 ARDS severity calibration and solver instability
-monograph,4381,0,0.0,ambiguous_small,") condition in Pulse is modulated by a per-lung scalar in [0, 1]. This appendix documents the calibration of that scalar against t"
-monograph,4381,1,1.0,ambiguous_small,"ondition in Pulse is modulated by a per-lung scalar in [0, 1]. This appendix documents the calibration of that scalar against the"
-monograph,4391,0.0,0.0,ambiguous_small,"severity-to-modifier mapping calibrated at the key transition points 0.0, 0.3, 0.6, 0.9, and 1.0, with the prose claim that 0.3, 0.6, and 0.9"
-monograph,4391,0.3,0.3,ambiguous_small,"rity-to-modifier mapping calibrated at the key transition points 0.0, 0.3, 0.6, 0.9, and 1.0, with the prose claim that 0.3, 0.6, and 0.9 corre"
-monograph,4391,0.6,0.6,ambiguous_small,"to-modifier mapping calibrated at the key transition points 0.0, 0.3, 0.6, 0.9, and 1.0, with the prose claim that 0.3, 0.6, and 0.9 correspond"
-monograph,4391,0.9,0.9,ambiguous_small,"difier mapping calibrated at the key transition points 0.0, 0.3, 0.6, 0.9, and 1.0, with the prose claim that 0.3, 0.6, and 0.9 correspond to B"
-monograph,4391,1.0,1.0,ambiguous_small,"pping calibrated at the key transition points 0.0, 0.3, 0.6, 0.9, and 1.0, with the prose claim that 0.3, 0.6, and 0.9 correspond to Berlin mil"
-monograph,4392,0.3,0.3,ambiguous_small,"nsition points 0.0, 0.3, 0.6, 0.9, and 1.0, with the prose claim that 0.3, 0.6, and 0.9 correspond to Berlin mild, moderate, and severe ARDS re"
-monograph,4392,0.6,0.6,ambiguous_small,"on points 0.0, 0.3, 0.6, 0.9, and 1.0, with the prose claim that 0.3, 0.6, and 0.9 correspond to Berlin mild, moderate, and severe ARDS respect"
-monograph,4392,0.9,0.9,ambiguous_small,"0.0, 0.3, 0.6, 0.9, and 1.0, with the prose claim that 0.3, 0.6, and 0.9 correspond to Berlin mild, moderate, and severe ARDS respectively. Th"
-monograph,4395,19,19.0,ambiguous_small,d verbatim in the peer-reviewed [@webb2020] Pulse-team-authored COVID-19 multiplex paper: | Berlin band | Documented
-monograph,4400,200,200.0,guard,-----|-----------------------|-----------------------------| | Mild (200 < P/F ≤ 300) | 0.3 | 340
-monograph,4400,300,300.0,guard,-----------------|-----------------------------| | Mild (200 < P/F ≤ 300) | 0.3 | 340 | | Moderat
-monograph,4400,0.3,0.3,ambiguous_small,--------|-----------------------------| | Mild (200 < P/F ≤ 300) | 0.3 | 340 | | Moderate (100 <
-monograph,4400,340,340.0,none,--------------| | Mild (200 < P/F ≤ 300) | 0.3 | 340 | | Moderate (100 < P/F ≤ 200)| 0.6
-monograph,4401,100,100.0,guard,| 0.3 | 340 | | Moderate (100 < P/F ≤ 200)| 0.6 | 130 |
-monograph,4401,200,200.0,guard,| 340 | | Moderate (100 < P/F ≤ 200)| 0.6 | 130 | | Severe (P/
-monograph,4401,0.6,0.6,ambiguous_small,| 340 | | Moderate (100 < P/F ≤ 200)| 0.6 | 130 | | Severe (P/F ≤ 10
-monograph,4401,130,130.0,none,| | Moderate (100 < P/F ≤ 200)| 0.6 | 130 | | Severe (P/F ≤ 100) | 0.9
-monograph,4402,100,100.0,guard,.6 | 130 | | Severe (P/F ≤ 100) | 0.9 | 50 | Pul
-monograph,4402,0.9,0.9,ambiguous_small,| 130 | | Severe (P/F ≤ 100) | 0.9 | 50 | Pulse's own verif
-monograph,4402,50,50.0,ambiguous_small,| | Severe (P/F ≤ 100) | 0.9 | 50 | Pulse's own verification suite uses the
-monograph,4405,0.3,0.3,ambiguous_small,ion suite uses the same fractions: progresses 0.3 → 0.6 → 0.9; uses 0.6;
-monograph,4405,0.6,0.6,ambiguous_small,ite uses the same fractions: progresses 0.3 → 0.6 → 0.9; uses 0.6;
-monograph,4405,0.9,0.9,ambiguous_small,es the same fractions: progresses 0.3 → 0.6 → 0.9; uses 0.6; us
-monograph,4406,0.6,0.6,ambiguous_small,progresses 0.3 → 0.6 → 0.9; uses 0.6; uses 0.8 (between the documented moderate
-monograph,4407,0.8,0.8,none,uses 0.6; uses 0.8 (between the documented moderate and severe transition points). Two i
-monograph,4414,18,18.0,none,"mapping was tested directly against the male reference surrogate (age 18, 67.3 kg, 180 cm) in a 28-run impairment- fraction sweep ("
-monograph,4414,67.3,67.3,guard,"ing was tested directly against the male reference surrogate (age 18, 67.3 kg, 180 cm) in a 28-run impairment- fraction sweep ("
-monograph,4414,180,180.0,guard,"ested directly against the male reference surrogate (age 18, 67.3 kg, 180 cm) in a 28-run impairment- fraction sweep ( ,"
-monograph,4414,28,28.0,none,"y against the male reference surrogate (age 18, 67.3 kg, 180 cm) in a 28-run impairment- fraction sweep ( , the original"
-monograph,4416,03,3.0,ambiguous_small,", the original ARDS severity calibration, 2026-03; the full log is the canonical record of the calibration — the later"
-monograph,4418,28,28.0,none,pril refinement). The ventilation regime was held constant across all 28 runs: * Mode: VC-AC (volume-control assist-control). * Tidal volume:
-monograph,4421,403.8,403.8,none,runs: * Mode: VC-AC (volume-control assist-control). * Tidal volume: 403.8 mL = 6 mL/kg of **actual** body weight on the 67.3 kg male standard
-monograph,4421,6,6.0,ambiguous_small,de: VC-AC (volume-control assist-control). * Tidal volume: 403.8 mL = 6 mL/kg of **actual** body weight on the 67.3 kg male standard — a lo
-monograph,4422,67.3,67.3,guard,* Tidal volume: 403.8 mL = 6 mL/kg of **actual** body weight on the 67.3 kg male standard — a low-tidal-volume setting based on the ARDSnet
-monograph,4423,6,6.0,ambiguous_small,"tting based on the ARDSnet framework [@brower2000], which specifies 6 mL/kg of predicted body weight. * PEEP: 10 cmH2O. * FiO2: 0.4. * Se"
-monograph,4425,10,10.0,ambiguous_small,"wer2000], which specifies 6 mL/kg of predicted body weight. * PEEP: 10 cmH2O. * FiO2: 0.4. * Settle time before measurement: 120 s. * Sampli"
-monograph,4426,0.4,0.4,none,ecifies 6 mL/kg of predicted body weight. * PEEP: 10 cmH2O. * FiO2: 0.4. * Settle time before measurement: 120 s. * Sampling interval: 10 s.
-monograph,4427,120,120.0,guard,ght. * PEEP: 10 cmH2O. * FiO2: 0.4. * Settle time before measurement: 120 s. * Sampling interval: 10 s. * Total per-run duration: 5 min. The s
-monograph,4428,10,10.0,ambiguous_small,2: 0.4. * Settle time before measurement: 120 s. * Sampling interval: 10 s. * Total per-run duration: 5 min. The sweep was structured in thre
-monograph,4429,5,5.0,ambiguous_small,surement: 120 s. * Sampling interval: 10 s. * Total per-run duration: 5 min. The sweep was structured in three passes: a coarse 0.1–0.9 swee
-monograph,4431,0.1,0.1,none,"duration: 5 min. The sweep was structured in three passes: a coarse 0.1–0.9 sweep (step 0.1, 9 runs), a fine 0.20–0.30 sweep around the mild-"
-monograph,4431,0.9,0.9,ambiguous_small,"ation: 5 min. The sweep was structured in three passes: a coarse 0.1–0.9 sweep (step 0.1, 9 runs), a fine 0.20–0.30 sweep around the mild-band"
-monograph,4432,0.1,0.1,none,"he sweep was structured in three passes: a coarse 0.1–0.9 sweep (step 0.1, 9 runs), a fine 0.20–0.30 sweep around the mild-band transition (ste"
-monograph,4432,9,9.0,ambiguous_small,"eep was structured in three passes: a coarse 0.1–0.9 sweep (step 0.1, 9 runs), a fine 0.20–0.30 sweep around the mild-band transition (step 0"
-monograph,4432,0.20,0.2,none,"ed in three passes: a coarse 0.1–0.9 sweep (step 0.1, 9 runs), a fine 0.20–0.30 sweep around the mild-band transition (step 0.01, 11 runs), and"
-monograph,4432,0.30,0.3,ambiguous_small,"three passes: a coarse 0.1–0.9 sweep (step 0.1, 9 runs), a fine 0.20–0.30 sweep around the mild-band transition (step 0.01, 11 runs), and a hig"
-monograph,4433,0.01,0.01,none,"9 runs), a fine 0.20–0.30 sweep around the mild-band transition (step 0.01, 11 runs), and a high-end 0.90–0.99 sweep across the severe-band cand"
-monograph,4433,11,11.0,ambiguous_small,"), a fine 0.20–0.30 sweep around the mild-band transition (step 0.01, 11 runs), and a high-end 0.90–0.99 sweep across the severe-band candidat"
-monograph,4433,0.90,0.9,ambiguous_small,"around the mild-band transition (step 0.01, 11 runs), and a high-end 0.90–0.99 sweep across the severe-band candidates (8 runs). Under this reg"
-monograph,4433,0.99,0.99,none,"nd the mild-band transition (step 0.01, 11 runs), and a high-end 0.90–0.99 sweep across the severe-band candidates (8 runs). Under this regime t"
-monograph,4434,8,8.0,ambiguous_small,"s), and a high-end 0.90–0.99 sweep across the severe-band candidates (8 runs). Under this regime the documented mapping does not reproduce th"
-monograph,4439,0.3,0.3,ambiguous_small,-----------------------|------------------------------------------| | 0.3 | 340 (Mild claim) | 199
-monograph,4439,340,340.0,none,----------|------------------------------------------| | 0.3 | 340 (Mild claim) | 199 | Mode
-monograph,4439,199,199.0,none,----------------------------| | 0.3 | 340 (Mild claim) | 199 | Moderate (at the mild / moder
-monograph,4440,0.6,0.6,ambiguous_small,| Moderate (at the mild / moderate boundary) | | 0.6 | 130 (Moderate claim) | 150
-monograph,4440,130,130.0,none,| Moderate (at the mild / moderate boundary) | | 0.6 | 130 (Moderate claim) | 150 | Mode
-monograph,4440,150,150.0,guard,e mild / moderate boundary) | | 0.6 | 130 (Moderate claim) | 150 | Moderate (matches band)
-monograph,4441,0.9,0.9,ambiguous_small,| Moderate (matches band) | | 0.9 | 50 (Severe claim) | 119
-monograph,4441,50,50.0,ambiguous_small,| Moderate (matches band) | | 0.9 | 50 (Severe claim) | 119 | Mod
-monograph,4441,119,119.0,none,hes band) | | 0.9 | 50 (Severe claim) | 119 | Moderate (well inside the mod
-monograph,4443,0.6,0.6,ambiguous_small,| Moderate (well inside the moderate band) | Only the 0.6 → moderate mapping holds. The documented mild fraction (0.3) lands at
-monograph,4444,0.3,0.3,ambiguous_small,Only the 0.6 → moderate mapping holds. The documented mild fraction (0.3) lands at the mild / moderate boundary rather than the mild-band cent
-monograph,4445,0.9,0.9,ambiguous_small,"rather than the mild-band centre, and the documented severe fraction (0.9) sits 19 mmHg above the severe-band ceiling — i.e. still moderate by"
-monograph,4446,19,19.0,ambiguous_small,"n the mild-band centre, and the documented severe fraction (0.9) sits 19 mmHg above the severe-band ceiling — i.e. still moderate by Berlin."
-monograph,4449,28,28.0,none,"e by Berlin. **Corrected mapping used by the Atlas.** From that same 28-run sweep, the fractions that produce P/F values at the Berlin band c"
-monograph,4456,200,200.0,guard,|---------------------|------------------------------------| | Mild (200 < P/F ≤ 300) | **0.26** | 256 | Centre of m
-monograph,4456,300,300.0,guard,----------|------------------------------------| | Mild (200 < P/F ≤ 300) | **0.26** | 256 | Centre of mild band
-monograph,4456,0.26,0.26,ambiguous_small,------------------------------------| | Mild (200 < P/F ≤ 300) | **0.26** | 256 | Centre of mild band
-monograph,4456,256,256.0,guard,-------------------| | Mild (200 < P/F ≤ 300) | **0.26** | 256 | Centre of mild band | | Moderate (10
-monograph,4457,100,100.0,guard,56 | Centre of mild band | | Moderate (100 < P/F ≤ 200)| **0.60** | 150 | Centre of mode
-monograph,4457,200,200.0,guard,| Centre of mild band | | Moderate (100 < P/F ≤ 200)| **0.60** | 150 | Centre of moderate band
-monograph,4457,0.60,0.6,ambiguous_small,Centre of mild band | | Moderate (100 < P/F ≤ 200)| **0.60** | 150 | Centre of moderate band
-monograph,4457,150,150.0,guard,and | | Moderate (100 < P/F ≤ 200)| **0.60** | 150 | Centre of moderate band | | Severe (P/F
-monograph,4458,100,100.0,guard,| Centre of moderate band | | Severe (P/F ≤ 100) | **0.95** | 96 | Just inside the se
-monograph,4458,0.95,0.95,ambiguous_small,Centre of moderate band | | Severe (P/F ≤ 100) | **0.95** | 96 | Just inside the severe band ceiling
-monograph,4458,96,96.0,none,te band | | Severe (P/F ≤ 100) | **0.95** | 96 | Just inside the severe band ceiling | **Ventilati
-monograph,4477,28,28.0,none,"espiratory solver: * **The original ARDS severity calibration** (the 28-run impairment sweep above, 2026-03): fractions 0.92 and 0.94 fai"
-monograph,4478,03,3.0,ambiguous_small,"RDS severity calibration** (the 28-run impairment sweep above, 2026-03): fractions 0.92 and 0.94 fail to stabilise at the reference ventil"
-monograph,4478,0.92,0.92,none,"libration** (the 28-run impairment sweep above, 2026-03): fractions 0.92 and 0.94 fail to stabilise at the reference ventilation setting. *"
-monograph,4479,0.94,0.94,none,"(the 28-run impairment sweep above, 2026-03): fractions 0.92 and 0.94 fail to stabilise at the reference ventilation setting. * **E10** (a"
-monograph,4480,10,10.0,ambiguous_small,"fail to stabilise at the reference ventilation setting. * **E10** (a 10-run high-resolution boundary probe, 2026-04, testing 0.90, 0.91, 0."
-monograph,4480,04,4.0,ambiguous_small,"ion setting. * **E10** (a 10-run high-resolution boundary probe, 2026-04, testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945"
-monograph,4481,0.90,0.9,ambiguous_small,"**E10** (a 10-run high-resolution boundary probe, 2026-04, testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PA"
-monograph,4481,0.91,0.91,ambiguous_small,"** (a 10-run high-resolution boundary probe, 2026-04, testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PASS, 0."
-monograph,4481,0.915,0.915,none,"10-run high-resolution boundary probe, 2026-04, testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PASS, 0.91 – 0."
-monograph,4481,0.92,0.92,none,"high-resolution boundary probe, 2026-04, testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PASS, 0.91 – 0.945 al"
-monograph,4481,0.925,0.925,none,"esolution boundary probe, 2026-04, testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PASS, 0.91 – 0.945 all FAIL"
-monograph,4481,0.93,0.93,ambiguous_small,"on boundary probe, 2026-04, testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PASS, 0.91 – 0.945 all FAIL (8 con"
-monograph,4481,0.935,0.935,none,"ndary probe, 2026-04, testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PASS, 0.91 – 0.945 all FAIL (8 consecutiv"
-monograph,4481,0.94,0.94,none,"robe, 2026-04, testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PASS, 0.91 – 0.945 all FAIL (8 consecutive),"
-monograph,4482,0.945,0.945,guard,"26-04, testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PASS, 0.91 – 0.945 all FAIL (8 consecutive), 0.95 PASS"
-monograph,4482,0.95,0.95,ambiguous_small,"testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PASS, 0.91 – 0.945 all FAIL (8 consecutive), 0.95 PASS. Refi"
-monograph,4482,0.90,0.9,ambiguous_small,"ng 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PASS, 0.91 – 0.945 all FAIL (8 consecutive), 0.95 PASS. Refines the"
-monograph,4482,0.91,0.91,ambiguous_small,"91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PASS, 0.91 – 0.945 all FAIL (8 consecutive), 0.95 PASS. Refines the failure ra"
-monograph,4482,0.945,0.945,guard,"15, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PASS, 0.91 – 0.945 all FAIL (8 consecutive), 0.95 PASS. Refines the failure range to *"
-monograph,4482,8,8.0,ambiguous_small,"0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PASS, 0.91 – 0.945 all FAIL (8 consecutive), 0.95 PASS. Refines the failure range to **0.91 – 0.94"
-monograph,4483,0.95,0.95,ambiguous_small,", 0.945, 0.95): 0.90 PASS, 0.91 – 0.945 all FAIL (8 consecutive), 0.95 PASS. Refines the failure range to **0.91 – 0.945 (inclusive)**. * **"
-monograph,4483,0.91,0.91,ambiguous_small,"all FAIL (8 consecutive), 0.95 PASS. Refines the failure range to **0.91 – 0.945 (inclusive)**. * **E6 calibration refinement** (a 9-run high-"
-monograph,4483,0.945,0.945,guard,"L (8 consecutive), 0.95 PASS. Refines the failure range to **0.91 – 0.945 (inclusive)**. * **E6 calibration refinement** (a 9-run high-resoluti"
-monograph,4484,9,9.0,ambiguous_small,"e to **0.91 – 0.945 (inclusive)**. * **E6 calibration refinement** (a 9-run high-resolution sweep, 2026-04, testing 0.93 – 0.97 in 0.005 st"
-monograph,4485,04,4.0,ambiguous_small,"**E6 calibration refinement** (a 9-run high-resolution sweep, 2026-04, testing 0.93 – 0.97 in 0.005 steps): 0.93 – 0.945 all FAIL (4 runs"
-monograph,4485,0.93,0.93,ambiguous_small,"ation refinement** (a 9-run high-resolution sweep, 2026-04, testing 0.93 – 0.97 in 0.005 steps): 0.93 – 0.945 all FAIL (4 runs), 0.95 – 0.97"
-monograph,4485,0.97,0.97,none,"efinement** (a 9-run high-resolution sweep, 2026-04, testing 0.93 – 0.97 in 0.005 steps): 0.93 – 0.945 all FAIL (4 runs), 0.95 – 0.97 all PA"
-monograph,4485,0.005,0.005,none,"t** (a 9-run high-resolution sweep, 2026-04, testing 0.93 – 0.97 in 0.005 steps): 0.93 – 0.945 all FAIL (4 runs), 0.95 – 0.97 all PASS (5 run"
-monograph,4485,0.93,0.93,ambiguous_small,"igh-resolution sweep, 2026-04, testing 0.93 – 0.97 in 0.005 steps): 0.93 – 0.945 all FAIL (4 runs), 0.95 – 0.97 all PASS (5 runs). Confirms"
-monograph,4485,0.945,0.945,guard,"olution sweep, 2026-04, testing 0.93 – 0.97 in 0.005 steps): 0.93 – 0.945 all FAIL (4 runs), 0.95 – 0.97 all PASS (5 runs). Confirms the uppe"
-monograph,4486,4,4.0,ambiguous_small,"026-04, testing 0.93 – 0.97 in 0.005 steps): 0.93 – 0.945 all FAIL (4 runs), 0.95 – 0.97 all PASS (5 runs). Confirms the upper edge of th"
-monograph,4486,0.95,0.95,ambiguous_small,"esting 0.93 – 0.97 in 0.005 steps): 0.93 – 0.945 all FAIL (4 runs), 0.95 – 0.97 all PASS (5 runs). Confirms the upper edge of the failure ra"
-monograph,4486,0.97,0.97,none,"0.93 – 0.97 in 0.005 steps): 0.93 – 0.945 all FAIL (4 runs), 0.95 – 0.97 all PASS (5 runs). Confirms the upper edge of the failure range, gi"
-monograph,4486,5,5.0,ambiguous_small,"0.005 steps): 0.93 – 0.945 all FAIL (4 runs), 0.95 – 0.97 all PASS (5 runs). Confirms the upper edge of the failure range, giving the cal"
-monograph,4488,0.95,0.95,ambiguous_small,"edge of the failure range, giving the calibrated severe fraction (0.95) a 0.005 margin. All three sweeps are within the same companion proj"
-monograph,4488,0.005,0.005,none,"f the failure range, giving the calibrated severe fraction (0.95) a 0.005 margin. All three sweeps are within the same companion project rathe"
-monograph,4496,0.95,0.95,ambiguous_small,eference ventilation setting. The Atlas's calibrated severe fraction (0.95) was selected to clear the upper edge of the zone with a 0.005 margin
-monograph,4497,0.005,0.005,none,action (0.95) was selected to clear the upper edge of the zone with a 0.005 margin. Pulse's documentation [@pulserespmethod] does not flag this z
-monograph,4500,06,6.0,ambiguous_small,t flag this zone. **No surfactant model — multi-criteria audit (2026-06-11).** A direct re-verification confirms Pulse models no pulmonary su
-monograph,4500,11,11.0,ambiguous_small,lag this zone. **No surfactant model — multi-criteria audit (2026-06-11).** A direct re-verification confirms Pulse models no pulmonary surfa
-monograph,4502,"3,304",3304.0,none,"der any name. A case-insensitive search of the complete engine tree — 3,304 files, 23 MB of them text, *including git-ignored and hidden files*,"
-monograph,4503,23,23.0,ambiguous_small,"A case-insensitive search of the complete engine tree — 3,304 files, 23 MB of them text, *including git-ignored and hidden files*, at tag"
-monograph,4509,86,86.0,none,", / . Terms that *do* appear — (86), (154), (2), (3) — were each i"
-monograph,4509,154,154.0,none,". Terms that *do* appear — (86), (154), (2), (3) — were each inspected and trace"
-monograph,4510,2,2.0,ambiguous_small,"s that *do* appear — (86), (154), (2), (3) — were each inspected and trace to mechanical lung"
-monograph,4510,3,3.0,ambiguous_small,"— (86), (154), (2), (3) — were each inspected and trace to mechanical lung collapse (pneumot"
-monograph,4519,46,46.0,ambiguous_small,"espiratory or CDM source file (total delta seven build-system files, +46/−17). What Pulse reproduces instead are the *macroscopic* phenomena"
-monograph,4519,17,17.0,ambiguous_small,"ratory or CDM source file (total delta seven build-system files, +46/−17). What Pulse reproduces instead are the *macroscopic* phenomena surf"
-monograph,4549,1,1.0,ambiguous_small,he official methodology documentation and the compiled engine logic: 1. **Basal metabolic rate (BMR) coefficient.** The documentation lis
-monograph,4550,3.397,3.397,none,"fficient.** The documentation lists the male weight coefficient as 3.397. The codebase implements ( ), correc"
-monograph,4553,2,2.0,ambiguous_small,aligning with the Harris-Benedict equation (Roza & Shizgal 1984). 2. **Skin surface-area exponent.** The documentation lists the weight
-monograph,4554,0.45,0.45,none,"ce-area exponent.** The documentation lists the weight exponent as 0.45. The codebase implements ( ), alignin"
-monograph,4556,3,3.0,ambiguous_small,"( ), aligning with the Du Bois formula. 3. **Baroreceptor constant (ν).** The documentation lists the barore"
-monograph,4557,4,4.0,ambiguous_small,nstant (ν).** The documentation lists the baroreceptor exponent as 4. The codebase implements an effective ν = 48 (
-monograph,4558,48,48.0,ambiguous_small,"roreceptor exponent as 4. The codebase implements an effective ν = 48 ( ), calculated as (where"
-monograph,4559,12,12.0,ambiguous_small,"), calculated as (where slope = 12). ### B.5 Reference-surrogate body-dimension provenance The two adu"
-monograph,4563,18,18.0,none,on provenance The two adult surrogates used throughout the atlas (M: 18 yr / 67.3 kg / 180 cm; F: 18 yr / 56.2 kg / 163 cm) were originally l
-monograph,4563,67.3,67.3,guard,"nance The two adult surrogates used throughout the atlas (M: 18 yr / 67.3 kg / 180 cm; F: 18 yr / 56.2 kg / 163 cm) were originally labelled ""P"
-monograph,4564,180,180.0,guard,"two adult surrogates used throughout the atlas (M: 18 yr / 67.3 kg / 180 cm; F: 18 yr / 56.2 kg / 163 cm) were originally labelled ""Pulse stan"
-monograph,4564,18,18.0,none,"surrogates used throughout the atlas (M: 18 yr / 67.3 kg / 180 cm; F: 18 yr / 56.2 kg / 163 cm) were originally labelled ""Pulse standard male"
-monograph,4564,56.2,56.2,guard,"es used throughout the atlas (M: 18 yr / 67.3 kg / 180 cm; F: 18 yr / 56.2 kg / 163 cm) were originally labelled ""Pulse standard male / female"""
-monograph,4564,163,163.0,none,"roughout the atlas (M: 18 yr / 67.3 kg / 180 cm; F: 18 yr / 56.2 kg / 163 cm) were originally labelled ""Pulse standard male / female"" in early"
-monograph,4565,05,5.0,ambiguous_small,"d ""Pulse standard male / female"" in early drafts of this work. A 2026-05-19 source-level audit established that this label is technically a mi"
-monograph,4565,19,19.0,ambiguous_small,"Pulse standard male / female"" in early drafts of this work. A 2026-05-19 source-level audit established that this label is technically a misno"
-monograph,4569,67.3,67.3,guard,"er. The actual provenance, by dimension, is as follows: * **Weights (67.3 kg M, 56.2 kg F).** CDC weight-for-age 50th-percentile values at"
-monograph,4569,56.2,56.2,guard,"ual provenance, by dimension, is as follows: * **Weights (67.3 kg M, 56.2 kg F).** CDC weight-for-age 50th-percentile values at = 21"
-monograph,4569,50,50.0,ambiguous_small,"as follows: * **Weights (67.3 kg M, 56.2 kg F).** CDC weight-for-age 50th-percentile values at = 216.5 — 67.28992603 kg for boys,"
-monograph,4570,216.5,216.5,guard,".2 kg F).** CDC weight-for-age 50th-percentile values at = 216.5 — 67.28992603 kg for boys, 56.22969564 kg for girls (CDC z-score fi"
-monograph,4570,67.28992603,67.28992603,none,".** CDC weight-for-age 50th-percentile values at = 216.5 — 67.28992603 kg for boys, 56.22969564 kg for girls (CDC z-score file"
-monograph,4570,56.22969564,56.22969564,none,"th-percentile values at = 216.5 — 67.28992603 kg for boys, 56.22969564 kg for girls (CDC z-score file , <"
-monograph,4572,08,8.0,ambiguous_small,", < re-read 2026-08-20 with columns resolved by name). CDC lists age at the half-month"
-monograph,4572,20,20.0,ambiguous_small,", < re-read 2026-08-20 with columns resolved by name). CDC lists age at the half-month poi"
-monograph,4574,216.0,216.0,none,"half-month point standing for the whole month, so this row denotes 216.0–216.99 months, beginning at exactly 18.0 years. An earlier version"
-monograph,4574,216.99,216.99,none,"month point standing for the whole month, so this row denotes 216.0–216.99 months, beginning at exactly 18.0 years. An earlier version of this"
-monograph,4575,18.0,18.0,guard,"onth, so this row denotes 216.0–216.99 months, beginning at exactly 18.0 years. An earlier version of this entry placed the values at a 214-"
-monograph,4576,214,214.0,guard,18.0 years. An earlier version of this entry placed the values at a 214-month row and gave 67.64 and 56.41 kg as the 18.0-year figures; those
-monograph,4576,67.64,67.64,guard,version of this entry placed the values at a 214-month row and gave 67.64 and 56.41 kg as the 18.0-year figures; those belong to = 2
-monograph,4576,56.41,56.41,none,"this entry placed the values at a 214-month row and gave 67.64 and 56.41 kg as the 18.0-year figures; those belong to = 218.5, that"
-monograph,4576,18.0,18.0,guard,"ed the values at a 214-month row and gave 67.64 and 56.41 kg as the 18.0-year figures; those belong to = 218.5, that is 18 y 2 m. T"
-monograph,4577,218.5,218.5,guard,"4 and 56.41 kg as the 18.0-year figures; those belong to = 218.5, that is 18 y 2 m. These anchors were taken directly from the compa"
-monograph,4577,18,18.0,none,"as the 18.0-year figures; those belong to = 218.5, that is 18 y 2 m. These anchors were taken directly from the companion"
-monograph,4577,2,2.0,ambiguous_small,"e 18.0-year figures; those belong to = 218.5, that is 18 y 2 m. These anchors were taken directly from the companion"
-monograph,4579,18,18.0,none,"pediatric-translation pipeline, where they form the adult (18 yr) endpoint of the CDC progression used for its pediatric strata"
-monograph,4581,1,1.0,ambiguous_small,r) endpoint of the CDC progression used for its pediatric strata (1 mo / 6 mo / 18 mo / 5 yr / 10 yr / 18 yr). The audit trail is recor
-monograph,4581,6,6.0,ambiguous_small,dpoint of the CDC progression used for its pediatric strata (1 mo / 6 mo / 18 mo / 5 yr / 10 yr / 18 yr). The audit trail is recorded in
-monograph,4581,18,18.0,none,of the CDC progression used for its pediatric strata (1 mo / 6 mo / 18 mo / 5 yr / 10 yr / 18 yr). The audit trail is recorded in that pro
-monograph,4581,5,5.0,ambiguous_small,DC progression used for its pediatric strata (1 mo / 6 mo / 18 mo / 5 yr / 10 yr / 18 yr). The audit trail is recorded in that project's
-monograph,4581,10,10.0,ambiguous_small,ression used for its pediatric strata (1 mo / 6 mo / 18 mo / 5 yr / 10 yr / 18 yr). The audit trail is recorded in that project's experime
-monograph,4581,18,18.0,none,used for its pediatric strata (1 mo / 6 mo / 18 mo / 5 yr / 10 yr / 18 yr). The audit trail is recorded in that project's experiments log
-monograph,4583,04,4.0,ambiguous_small,"rded in that project's experiments log (CDC weight audit step, 2026-04). * **Female height (163 cm).** Matches the CDC P50 stature for 18"
-monograph,4585,163,163.0,none,"periments log (CDC weight audit step, 2026-04). * **Female height (163 cm).** Matches the CDC P50 stature for 18-year-old girls. By coinci"
-monograph,4586,18,18.0,none,04). * **Female height (163 cm).** Matches the CDC P50 stature for 18-year-old girls. By coincidence it is also identical to Pulse's own
-monograph,4591,180,180.0,guard,cal). Both anchors therefore agree on this value. * **Male height (180 cm).** This is a researcher-fixed rounded value chosen by the maint
-monograph,4593,20.8,20.8,none,of to yield a clean healthy baseline BMI of 20.8 in combination with the 67.3 kg weight. It is **not** the CDC P50 m
-monograph,4593,67.3,67.3,guard,yield a clean healthy baseline BMI of 20.8 in combination with the 67.3 kg weight. It is **not** the CDC P50 male stature at 18 years (CDC
-monograph,4594,18,18.0,none,with the 67.3 kg weight. It is **not** the CDC P50 male stature at 18 years (CDC P50 ≈ 176.2 cm) and it does **not** match Pulse's own in
-monograph,4594,176.2,176.2,guard,ight. It is **not** the CDC P50 male stature at 18 years (CDC P50 ≈ 176.2 cm) and it does **not** match Pulse's own internal
-monograph,4597,180,180.0,guard,constant ( ). The 180 cm value sits inside Pulse's accepted male height envelope (163–190
-monograph,4598,163,163.0,none,"The 180 cm value sits inside Pulse's accepted male height envelope (163–190 cm, with overall BMI 16–30 enforced) and is therefore engine-le"
-monograph,4598,190,190.0,none,"180 cm value sits inside Pulse's accepted male height envelope (163–190 cm, with overall BMI 16–30 enforced) and is therefore engine-legal:"
-monograph,4598,16,16.0,ambiguous_small,"Pulse's accepted male height envelope (163–190 cm, with overall BMI 16–30 enforced) and is therefore engine-legal: Pulse accepts it withou"
-monograph,4598,30,30.0,ambiguous_small,"se's accepted male height envelope (163–190 cm, with overall BMI 16–30 enforced) and is therefore engine-legal: Pulse accepts it without w"
-monograph,4605,3,3.0,ambiguous_small,er than retro-fitting a citation. **Consequence for the atlas.** The 3 cm male-height offset has no material effect on the operational-envel
-monograph,4607,163,163.0,none,"e sweep we report (Pulse does not gate any input on height beyond the 163–190 cm envelope, and the BMI of 20.8 is centrally inside the 16–30 va"
-monograph,4607,190,190.0,none,"eep we report (Pulse does not gate any input on height beyond the 163–190 cm envelope, and the BMI of 20.8 is centrally inside the 16–30 valid"
-monograph,4608,20.8,20.8,none,"te any input on height beyond the 163–190 cm envelope, and the BMI of 20.8 is centrally inside the 16–30 valid range). The finding has been carr"
-monograph,4608,16,16.0,ambiguous_small,"the 163–190 cm envelope, and the BMI of 20.8 is centrally inside the 16–30 valid range). The finding has been carried forward by relabelling"
-monograph,4608,30,30.0,ambiguous_small,"e 163–190 cm envelope, and the BMI of 20.8 is centrally inside the 16–30 valid range). The finding has been carried forward by relabelling the"
-monograph,4617,2.6,2.6,ambiguous_small,) {#appendix-c} The locked classifier's flag (§2.6) fires when any output channel violates one of three sub-mode rules i
-monograph,4619,60,60.0,ambiguous_small,"when any output channel violates one of three sub-mode rules in the [60, 120] s steady-state window: flatline at a hard bound, coefficient of"
-monograph,4619,120,120.0,guard,"n any output channel violates one of three sub-mode rules in the [60, 120] s steady-state window: flatline at a hard bound, coefficient of vari"
-monograph,4620,5,5.0,ambiguous_small,"dy-state window: flatline at a hard bound, coefficient of variation > 5 %, or drift |Δ60s| above the per-channel threshold. Across the 1,280-"
-monograph,4621,"1,280",1280.0,guard,"on > 5 %, or drift |Δ60s| above the per-channel threshold. Across the 1,280-run sweep 530 runs fire . A post-hoc trigger-attrib"
-monograph,4621,530,530.0,guard,"ft |Δ60s| above the per-channel threshold. Across the 1,280-run sweep 530 runs fire . A post-hoc trigger-attribution audit (["
-monograph,4623,530,530.0,guard,"A post-hoc trigger-attribution audit ([S022 ) decomposes those 530 by which sub-mode contributed; the locked classifier is unchanged, th"
-monograph,4629,0.999,0.999,guard,"wo sub-modes audited are: * **SpO2 ""flatline at ceiling"" with mean ≥ 0.999.** A *detector edge case*: under the locked flatline rule (std/|mea"
-monograph,4630,0.01,0.01,none,"*detector edge case*: under the locked flatline rule (std/|mean| < 0.01 *and* mean within 0.001 of a hard bound), a healthy or well-oxygena"
-monograph,4631,0.001,0.001,none,"under the locked flatline rule (std/|mean| < 0.01 *and* mean within 0.001 of a hard bound), a healthy or well-oxygenated patient whose SpO2 s"
-monograph,4632,1.0,1.0,ambiguous_small,"or well-oxygenated patient whose SpO2 saturates physiologically at 1.0 is classified as ""pinned at the ceiling."" This is correct numerical"
-monograph,4638,5,5.0,ambiguous_small,"physiological saturation; the two coincide numerically. * **Vt CV > 5 %.** The F-004 tidal-volume oscillation, consistent with patient-ve"
-monograph,4638,004,4.0,ambiguous_small,"saturation; the two coincide numerically. * **Vt CV > 5 %.** The F-004 tidal-volume oscillation, consistent with patient-ventilator dyssyn"
-monograph,4639,3.8,3.8,none,"ion, consistent with patient-ventilator dyssynchrony, described in §3.8 and causally tested in [S014 . Pulse's default VC-AC trigger"
-monograph,4644,96,96.0,none,explicit collapses the Vt CV by 96 % (median 0.351 → 0.016) on 64 controlled reruns. The
-monograph,4644,0.351,0.351,guard,collapses the Vt CV by 96 % (median 0.351 → 0.016) on 64 controlled reruns. The CSV channel is
-monograph,4644,0.016,0.016,ambiguous_small,collapses the Vt CV by 96 % (median 0.351 → 0.016) on 64 controlled reruns. The CSV channel is breath-i
-monograph,4644,64,64.0,ambiguous_small,collapses the Vt CV by 96 % (median 0.351 → 0.016) on 64 controlled reruns. The CSV channel is breath-integrat
-monograph,4646,0.02,0.02,ambiguous_small,"channel is breath-integrated and held between cycles (S014, native 0.02 s waveform inspection), so the 5 s atlas sampling is *not* aliasing"
-monograph,4646,5,5.0,ambiguous_small,"ld between cycles (S014, native 0.02 s waveform inspection), so the 5 s atlas sampling is *not* aliasing — it captures real breath-to-bre"
-monograph,4659,004,4.0,ambiguous_small,excl. & n\_clean excl. \\ & & & SpO2 sat. & F-004 & both & both \\ \midrule S1\_M & 160 & 107 &
-monograph,4661,160,160.0,guard,. & F-004 & both & both \\ \midrule S1\_M & 160 & 107 & 91 & 74 & 29 & 127 \\ S1\_F & 160 & 118 & 88 & 87 & 24 & 136
-monograph,4661,107,107.0,guard,F-004 & both & both \\ \midrule S1\_M & 160 & 107 & 91 & 74 & 29 & 127 \\ S1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\ \mi
-monograph,4661,91,91.0,ambiguous_small,& both & both \\ \midrule S1\_M & 160 & 107 & 91 & 74 & 29 & 127 \\ S1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\ \midrule
-monograph,4661,74,74.0,ambiguous_small,& both & both \\ \midrule S1\_M & 160 & 107 & 91 & 74 & 29 & 127 \\ S1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\ \midrule S2\_
-monograph,4661,29,29.0,ambiguous_small,both & both \\ \midrule S1\_M & 160 & 107 & 91 & 74 & 29 & 127 \\ S1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\ \midrule S2\_M & 1
-monograph,4661,127,127.0,ledger,& both \\ \midrule S1\_M & 160 & 107 & 91 & 74 & 29 & 127 \\ S1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\ \midrule S2\_M & 160 & 6
-monograph,4662,160,160.0,guard,\\ \midrule S1\_M & 160 & 107 & 91 & 74 & 29 & 127 \\ S1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\ \midrule S2\_M & 160 & 69 & 60 & 45 &
-monograph,4662,118,118.0,guard,\\ \midrule S1\_M & 160 & 107 & 91 & 74 & 29 & 127 \\ S1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\ \midrule S2\_M & 160 & 69 & 60 & 45 & 23 & 1
-monograph,4662,88,88.0,ambiguous_small,midrule S1\_M & 160 & 107 & 91 & 74 & 29 & 127 \\ S1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\ \midrule S2\_M & 160 & 69 & 60 & 45 & 23 & 133 \\
-monograph,4662,87,87.0,ambiguous_small,le S1\_M & 160 & 107 & 91 & 74 & 29 & 127 \\ S1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\ \midrule S2\_M & 160 & 69 & 60 & 45 & 23 & 133 \\ S2\_
-monograph,4662,24,24.0,ambiguous_small,\_M & 160 & 107 & 91 & 74 & 29 & 127 \\ S1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\ \midrule S2\_M & 160 & 69 & 60 & 45 & 23 & 133 \\ S2\_F & 1
-monograph,4662,136,136.0,ledger,160 & 107 & 91 & 74 & 29 & 127 \\ S1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\ \midrule S2\_M & 160 & 69 & 60 & 45 & 23 & 133 \\ S2\_F & 160 & 6
-monograph,4664,160,160.0,guard,9 & 127 \\ S1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\ \midrule S2\_M & 160 & 69 & 60 & 45 & 23 & 133 \\ S2\_F & 160 & 68 & 52 & 44 & 7 & 153
-monograph,4664,69,69.0,ambiguous_small,7 \\ S1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\ \midrule S2\_M & 160 & 69 & 60 & 45 & 23 & 133 \\ S2\_F & 160 & 68 & 52 & 44 & 7 & 153 \\ \m
-monograph,4664,60,60.0,ambiguous_small,1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\ \midrule S2\_M & 160 & 69 & 60 & 45 & 23 & 133 \\ S2\_F & 160 & 68 & 52 & 44 & 7 & 153 \\ \midrule
-monograph,4664,45,45.0,ambiguous_small,& 160 & 118 & 88 & 87 & 24 & 136 \\ \midrule S2\_M & 160 & 69 & 60 & 45 & 23 & 133 \\ S2\_F & 160 & 68 & 52 & 44 & 7 & 153 \\ \midrule S3\_
-monograph,4664,23,23.0,ambiguous_small,& 118 & 88 & 87 & 24 & 136 \\ \midrule S2\_M & 160 & 69 & 60 & 45 & 23 & 133 \\ S2\_F & 160 & 68 & 52 & 44 & 7 & 153 \\ \midrule S3\_M & 1
-monograph,4664,133,133.0,guard,8 & 88 & 87 & 24 & 136 \\ \midrule S2\_M & 160 & 69 & 60 & 45 & 23 & 133 \\ S2\_F & 160 & 68 & 52 & 44 & 7 & 153 \\ \midrule S3\_M & 160 & 1
-monograph,4665,160,160.0,guard,4 & 136 \\ \midrule S2\_M & 160 & 69 & 60 & 45 & 23 & 133 \\ S2\_F & 160 & 68 & 52 & 44 & 7 & 153 \\ \midrule S3\_M & 160 & 12 & 11 & 9 &
-monograph,4665,68,68.0,ambiguous_small,6 \\ \midrule S2\_M & 160 & 69 & 60 & 45 & 23 & 133 \\ S2\_F & 160 & 68 & 52 & 44 & 7 & 153 \\ \midrule S3\_M & 160 & 12 & 11 & 9 & 8 &
-monograph,4665,52,52.0,ambiguous_small,midrule S2\_M & 160 & 69 & 60 & 45 & 23 & 133 \\ S2\_F & 160 & 68 & 52 & 44 & 7 & 153 \\ \midrule S3\_M & 160 & 12 & 11 & 9 & 8 & 148 \\
-monograph,4665,44,44.0,ambiguous_small,le S2\_M & 160 & 69 & 60 & 45 & 23 & 133 \\ S2\_F & 160 & 68 & 52 & 44 & 7 & 153 \\ \midrule S3\_M & 160 & 12 & 11 & 9 & 8 & 148 \\ S3\_
-monograph,4665,7,7.0,ambiguous_small,\_M & 160 & 69 & 60 & 45 & 23 & 133 \\ S2\_F & 160 & 68 & 52 & 44 & 7 & 153 \\ \midrule S3\_M & 160 & 12 & 11 & 9 & 8 & 148 \\ S3\_F &
-monograph,4665,153,153.0,ledger,160 & 69 & 60 & 45 & 23 & 133 \\ S2\_F & 160 & 68 & 52 & 44 & 7 & 153 \\ \midrule S3\_M & 160 & 12 & 11 & 9 & 8 & 148 \\ S3\_F & 160 & 3
-monograph,4667,160,160.0,guard,3 & 133 \\ S2\_F & 160 & 68 & 52 & 44 & 7 & 153 \\ \midrule S3\_M & 160 & 12 & 11 & 9 & 8 & 148 \\ S3\_F & 160 & 38 & 34 & 10 & 3 & 157
-monograph,4667,12,12.0,ambiguous_small,3 \\ S2\_F & 160 & 68 & 52 & 44 & 7 & 153 \\ \midrule S3\_M & 160 & 12 & 11 & 9 & 8 & 148 \\ S3\_F & 160 & 38 & 34 & 10 & 3 & 157 \\ \m
-monograph,4667,11,11.0,ambiguous_small,2\_F & 160 & 68 & 52 & 44 & 7 & 153 \\ \midrule S3\_M & 160 & 12 & 11 & 9 & 8 & 148 \\ S3\_F & 160 & 38 & 34 & 10 & 3 & 157 \\ \midrule
-monograph,4667,9,9.0,ambiguous_small,& 160 & 68 & 52 & 44 & 7 & 153 \\ \midrule S3\_M & 160 & 12 & 11 & 9 & 8 & 148 \\ S3\_F & 160 & 38 & 34 & 10 & 3 & 157 \\ \midrule S4\
-monograph,4667,8,8.0,ambiguous_small,& 68 & 52 & 44 & 7 & 153 \\ \midrule S3\_M & 160 & 12 & 11 & 9 & 8 & 148 \\ S3\_F & 160 & 38 & 34 & 10 & 3 & 157 \\ \midrule S4\_M &
-monograph,4667,148,148.0,ledger,& 52 & 44 & 7 & 153 \\ \midrule S3\_M & 160 & 12 & 11 & 9 & 8 & 148 \\ S3\_F & 160 & 38 & 34 & 10 & 3 & 157 \\ \midrule S4\_M & 160 & 4
-monograph,4668,160,160.0,guard,& 153 \\ \midrule S3\_M & 160 & 12 & 11 & 9 & 8 & 148 \\ S3\_F & 160 & 38 & 34 & 10 & 3 & 157 \\ \midrule S4\_M & 160 & 44 & 44 & 39 &
-monograph,4668,38,38.0,ambiguous_small,3 \\ \midrule S3\_M & 160 & 12 & 11 & 9 & 8 & 148 \\ S3\_F & 160 & 38 & 34 & 10 & 3 & 157 \\ \midrule S4\_M & 160 & 44 & 44 & 39 & 39 &
-monograph,4668,34,34.0,ambiguous_small,midrule S3\_M & 160 & 12 & 11 & 9 & 8 & 148 \\ S3\_F & 160 & 38 & 34 & 10 & 3 & 157 \\ \midrule S4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\
-monograph,4668,10,10.0,ambiguous_small,le S3\_M & 160 & 12 & 11 & 9 & 8 & 148 \\ S3\_F & 160 & 38 & 34 & 10 & 3 & 157 \\ \midrule S4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F
-monograph,4668,3,3.0,ambiguous_small,\_M & 160 & 12 & 11 & 9 & 8 & 148 \\ S3\_F & 160 & 38 & 34 & 10 & 3 & 157 \\ \midrule S4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F & 1
-monograph,4668,157,157.0,ledger,160 & 12 & 11 & 9 & 8 & 148 \\ S3\_F & 160 & 38 & 34 & 10 & 3 & 157 \\ \midrule S4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F & 160 & 74
-monograph,4670,160,160.0,guard,& 148 \\ S3\_F & 160 & 38 & 34 & 10 & 3 & 157 \\ \midrule S4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F & 160 & 74 & 74 & 52 & 52 & 82 \\
-monograph,4670,44,44.0,ambiguous_small,8 \\ S3\_F & 160 & 38 & 34 & 10 & 3 & 157 \\ \midrule S4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F & 160 & 74 & 74 & 52 & 52 & 82 \\ \mid
-monograph,4670,44,44.0,ambiguous_small,3\_F & 160 & 38 & 34 & 10 & 3 & 157 \\ \midrule S4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F & 160 & 74 & 74 & 52 & 52 & 82 \\ \midrule \
-monograph,4670,39,39.0,ambiguous_small,& 160 & 38 & 34 & 10 & 3 & 157 \\ \midrule S4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F & 160 & 74 & 74 & 52 & 52 & 82 \\ \midrule \textb
-monograph,4670,39,39.0,ambiguous_small,& 38 & 34 & 10 & 3 & 157 \\ \midrule S4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F & 160 & 74 & 74 & 52 & 52 & 82 \\ \midrule \textbf{Tot
-monograph,4670,72,72.0,ambiguous_small,& 34 & 10 & 3 & 157 \\ \midrule S4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F & 160 & 74 & 74 & 52 & 52 & 82 \\ \midrule \textbf{Total} &
-monograph,4671,160,160.0,guard,"3 & 157 \\ \midrule S4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F & 160 & 74 & 74 & 52 & 52 & 82 \\ \midrule \textbf{Total} & \textbf{1,280}"
-monograph,4671,74,74.0,ambiguous_small,"57 \\ \midrule S4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F & 160 & 74 & 74 & 52 & 52 & 82 \\ \midrule \textbf{Total} & \textbf{1,280} & \t"
-monograph,4671,74,74.0,ambiguous_small,"\midrule S4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F & 160 & 74 & 74 & 52 & 52 & 82 \\ \midrule \textbf{Total} & \textbf{1,280} & \textbf{"
-monograph,4671,52,52.0,ambiguous_small,"ule S4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F & 160 & 74 & 74 & 52 & 52 & 82 \\ \midrule \textbf{Total} & \textbf{1,280} & \textbf{530}"
-monograph,4671,52,52.0,ambiguous_small,"4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F & 160 & 74 & 74 & 52 & 52 & 82 \\ \midrule \textbf{Total} & \textbf{1,280} & \textbf{530} & \te"
-monograph,4671,82,82.0,ambiguous_small,"& 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F & 160 & 74 & 74 & 52 & 52 & 82 \\ \midrule \textbf{Total} & \textbf{1,280} & \textbf{530} & \textbf{"
-monograph,4673,"1,280",1280.0,guard,"& 160 & 74 & 74 & 52 & 52 & 82 \\ \midrule \textbf{Total} & \textbf{1,280} & \textbf{530} & \textbf{454} & \textbf{360} & \textbf{185} & \textb"
-monograph,4673,530,530.0,guard,"& 52 & 52 & 82 \\ \midrule \textbf{Total} & \textbf{1,280} & \textbf{530} & \textbf{454} & \textbf{360} & \textbf{185} & \textbf{1,008} \\ \bo"
-monograph,4673,454,454.0,guard,"\\ \midrule \textbf{Total} & \textbf{1,280} & \textbf{530} & \textbf{454} & \textbf{360} & \textbf{185} & \textbf{1,008} \\ \bottomrule"
-monograph,4673,360,360.0,guard,"extbf{Total} & \textbf{1,280} & \textbf{530} & \textbf{454} & \textbf{360} & \textbf{185} & \textbf{1,008} \\ \bottomrule"
-monograph,4673,185,185.0,guard,"\textbf{1,280} & \textbf{530} & \textbf{454} & \textbf{360} & \textbf{185} & \textbf{1,008} \\ \bottomrule *App"
-monograph,4673,"1,008",1008.0,guard,"& \textbf{530} & \textbf{454} & \textbf{360} & \textbf{185} & \textbf{1,008} \\ \bottomrule *Appendix C Table.* P"
-monograph,4685,3.1,3.1,ambiguous_small,classifier is unchanged; rows and columns of this table do not feed §3.1 Table 1 or any of the headline figures. **Reading the table.** * **
-monograph,4685,1,1.0,ambiguous_small,r is unchanged; rows and columns of this table do not feed §3.1 Table 1 or any of the headline figures. **Reading the table.** * **SpO2 sat
-monograph,4689,76,76.0,ambiguous_small,"the table.** * **SpO2 saturation contribution (locked − excl. SpO2 = 76 runs).** Concentrated in S1/S2 (71 / 76 of those runs; 30 in S1_F,"
-monograph,4690,71,71.0,none,"tribution (locked − excl. SpO2 = 76 runs).** Concentrated in S1/S2 (71 / 76 of those runs; 30 in S1_F, 16 in S1_M, 16 in S2_F, 9 in S2_M,"
-monograph,4690,76,76.0,ambiguous_small,"tion (locked − excl. SpO2 = 76 runs).** Concentrated in S1/S2 (71 / 76 of those runs; 30 in S1_F, 16 in S1_M, 16 in S2_F, 9 in S2_M, plus"
-monograph,4690,30,30.0,ambiguous_small,"l. SpO2 = 76 runs).** Concentrated in S1/S2 (71 / 76 of those runs; 30 in S1_F, 16 in S1_M, 16 in S2_F, 9 in S2_M, plus 5 trickle in S3)."
-monograph,4690,16,16.0,ambiguous_small,"runs).** Concentrated in S1/S2 (71 / 76 of those runs; 30 in S1_F, 16 in S1_M, 16 in S2_F, 9 in S2_M, plus 5 trickle in S3). Zero in S4 ("
-monograph,4691,16,16.0,ambiguous_small,"ncentrated in S1/S2 (71 / 76 of those runs; 30 in S1_F, 16 in S1_M, 16 in S2_F, 9 in S2_M, plus 5 trickle in S3). Zero in S4 (in severe AR"
-monograph,4691,9,9.0,ambiguous_small,"n S1/S2 (71 / 76 of those runs; 30 in S1_F, 16 in S1_M, 16 in S2_F, 9 in S2_M, plus 5 trickle in S3). Zero in S4 (in severe ARDS, SpO2 no"
-monograph,4691,5,5.0,ambiguous_small,"of those runs; 30 in S1_F, 16 in S1_M, 16 in S2_F, 9 in S2_M, plus 5 trickle in S3). Zero in S4 (in severe ARDS, SpO2 no longer saturate"
-monograph,4699,004,4.0,ambiguous_small,re-tally clean runs excluding this sub-mode using this table. * **F-004 oscillation contribution (locked − excl. F-004 = 170 runs).** Distr
-monograph,4699,004,4.0,ambiguous_small,"sing this table. * **F-004 oscillation contribution (locked − excl. F-004 = 170 runs).** Distributed across all cells, with the strongest con"
-monograph,4699,170,170.0,guard,"his table. * **F-004 oscillation contribution (locked − excl. F-004 = 170 runs).** Distributed across all cells, with the strongest contribut"
-monograph,4706,185,185.0,guard,"ked classifier is correctly flagging it. * **Residual (excl. both = 185 runs).** Largest in S4 (91 / 185 of the residual), and a smaller S1"
-monograph,4706,91,91.0,ambiguous_small,"y flagging it. * **Residual (excl. both = 185 runs).** Largest in S4 (91 / 185 of the residual), and a smaller S1 contribution (53 / 185). T"
-monograph,4706,185,185.0,guard,"gging it. * **Residual (excl. both = 185 runs).** Largest in S4 (91 / 185 of the residual), and a smaller S1 contribution (53 / 185). The S4"
-monograph,4707,53,53.0,none,"st in S4 (91 / 185 of the residual), and a smaller S1 contribution (53 / 185). The S4 residual is the F-003-class slow-convergence phenome"
-monograph,4707,185,185.0,guard,"S4 (91 / 185 of the residual), and a smaller S1 contribution (53 / 185). The S4 residual is the F-003-class slow-convergence phenomenon"
-monograph,4708,003,3.0,ambiguous_small,"and a smaller S1 contribution (53 / 185). The S4 residual is the F-003-class slow-convergence phenomenon ([S012 , [S021 ): s"
-monograph,4710,120,120.0,guard,): severe-ARDS oxygenation has not settled within the locked 120 s window. The S1 residual is the F-003 transient hyperoxia regime (
-monograph,4711,003,3.0,ambiguous_small,settled within the locked 120 s window. The S1 residual is the F-003 transient hyperoxia regime (PaO2 drift at FiO2 = 1.0). Both categor
-monograph,4711,1.0,1.0,ambiguous_small,idual is the F-003 transient hyperoxia regime (PaO2 drift at FiO2 = 1.0). Both categories are already discussed in §3.8 and are not new fin
-monograph,4712,3.8,3.8,none,"aO2 drift at FiO2 = 1.0). Both categories are already discussed in §3.8 and are not new findings. * **Counterfactual ""clean"" recount.** Under"
-monograph,4714,004,4.0,ambiguous_small,"on (treat SpO2 saturation as physiological *and* re-attribute the F-004 oscillation to its own documented finding), the clean count would"
-monograph,4716,663,663.0,guard,"ion to its own documented finding), the clean count would rise from 663 / 1,280 (51.8 %) to 1,008 / 1,280 (78.8 %). This number is *not* a"
-monograph,4716,"1,280",1280.0,guard,"its own documented finding), the clean count would rise from 663 / 1,280 (51.8 %) to 1,008 / 1,280 (78.8 %). This number is *not* a re-class"
-monograph,4716,51.8,51.8,guard,"n documented finding), the clean count would rise from 663 / 1,280 (51.8 %) to 1,008 / 1,280 (78.8 %). This number is *not* a re-classificat"
-monograph,4716,"1,008",1008.0,guard,"d finding), the clean count would rise from 663 / 1,280 (51.8 %) to 1,008 / 1,280 (78.8 %). This number is *not* a re-classification of the a"
-monograph,4716,"1,280",1280.0,guard,"g), the clean count would rise from 663 / 1,280 (51.8 %) to 1,008 / 1,280 (78.8 %). This number is *not* a re-classification of the atlas — i"
-monograph,4716,78.8,78.8,guard,"clean count would rise from 663 / 1,280 (51.8 %) to 1,008 / 1,280 (78.8 %). This number is *not* a re-classification of the atlas — it is a"
-monograph,4718,51.8,51.8,guard,re-classification of the atlas — it is a decomposition of where the 51.8 % clean rate comes from. The headline locked-classifier numbers in
-monograph,4719,3.1,3.1,ambiguous_small,% clean rate comes from. The headline locked-classifier numbers in §3.1 Table 1 stand.
-monograph,4719,1,1.0,ambiguous_small,te comes from. The headline locked-classifier numbers in §3.1 Table 1 stand.
+monograph,4172,16896854,16896854.0,none,. PMID: 16896854. Cited in §4.2: sub-threshold inspiratory efforts that fail to trig
+monograph,4172,4.2,4.2,none,. PMID: 16896854. Cited in §4.2: sub-threshold inspiratory efforts that fail to trigger a breath (i
+monograph,4175,30,30.0,ambiguous_small,"ents section also records that asynchrony was ""detected visually on 30-min recordings of flow and airway pressure"", which is why §4.2 no l"
+monograph,4176,4.2,4.2,none,"ly on 30-min recordings of flow and airway pressure"", which is why §4.2 no longer says specialised monitoring is the only way to see it. *"
+monograph,4180,41,41.0,ambiguous_small,ventilation are associated with mortality.* Intensive Care Medicine 41(4):633-641 (2015). DOI: [
+monograph,4180,4,4.0,ambiguous_small,tilation are associated with mortality.* Intensive Care Medicine 41(4):633-641 (2015). DOI: [
+monograph,4180,633,633.0,none,ation are associated with mortality.* Intensive Care Medicine 41(4):633-641 (2015). DOI: [
+monograph,4180,641,641.0,none,n are associated with mortality.* Intensive Care Medicine 41(4):633-641 (2015). DOI: [
+monograph,4182,25693449,25693449.0,none,". PMID: 25693449. Cited in §4.2 for ""clinically undesirable"". The study stops short"
+monograph,4182,4.2,4.2,none,". PMID: 25693449. Cited in §4.2 for ""clinically undesirable"". The study stops short of causation —"
+monograph,4189,189,189.0,none,ailure.* American Journal of Respiratory and Critical Care Medicine 189(5):520-531 (2014). DOI: [
+monograph,4189,5,5.0,ambiguous_small,re.* American Journal of Respiratory and Critical Care Medicine 189(5):520-531 (2014). DOI: [
+monograph,4189,520,520.0,none,* American Journal of Respiratory and Critical Care Medicine 189(5):520-531 (2014). DOI: [
+monograph,4189,531,531.0,none,erican Journal of Respiratory and Critical Care Medicine 189(5):520-531 (2014). DOI: [
+monograph,4191,24467647,24467647.0,none,. PMID: 24467647. Cited in §4.2: esophageal pressure as a specialised confirmation o
+monograph,4191,4.2,4.2,none,. PMID: 24467647. Cited in §4.2: esophageal pressure as a specialised confirmation of inspiratory e
+monograph,4196,5,5.0,ambiguous_small,f mechanical ventilation in respiratory failure.* Nature Medicine 5(12):1433-1436 (1999). DOI: [
+monograph,4196,12,12.0,ambiguous_small,mechanical ventilation in respiratory failure.* Nature Medicine 5(12):1433-1436 (1999). DOI: [
+monograph,4196,1433,1433.0,guard,chanical ventilation in respiratory failure.* Nature Medicine 5(12):1433-1436 (1999). DOI: [ . P
+monograph,4196,1436,1436.0,none,cal ventilation in respiratory failure.* Nature Medicine 5(12):1433-1436 (1999). DOI: [ . PMID:
+monograph,4197,10581089,10581089.0,none,(1999). DOI: [ . PMID: 10581089. Cited in §4.2: diaphragm electrical activity (EAdi) as the other s
+monograph,4197,4.2,4.2,none,. PMID: 10581089. Cited in §4.2: diaphragm electrical activity (EAdi) as the other specialised conf
+monograph,4204,3,3.0,ambiguous_small,es for scientific data management and stewardship.* Scientific Data 3:160018 (2016). DOI: [
+monograph,4204,160018,160018.0,none,for scientific data management and stewardship.* Scientific Data 3:160018 (2016). DOI: [
+monograph,4206,26978244,26978244.0,none,". PMID: 26978244. * []{#ref-munafo2017} Munafò MR, Nosek BA, Bishop DVM, Button KS, Ch"
+monograph,4210,1,1.0,ambiguous_small,A. *A manifesto for reproducible science.* Nature Human Behaviour 1(1):0021 (2017). DOI: [
+monograph,4210,1,1.0,ambiguous_small,*A manifesto for reproducible science.* Nature Human Behaviour 1(1):0021 (2017). DOI: [
+monograph,4210,0021,21.0,ambiguous_small,manifesto for reproducible science.* Nature Human Behaviour 1(1):0021 (2017). DOI: [
+monograph,4217,46,46.0,ambiguous_small,"lied Physiology: Respiratory, Environmental and Exercise Physiology 46(3):599-602 (1979). DOI: ["
+monograph,4217,3,3.0,ambiguous_small,"d Physiology: Respiratory, Environmental and Exercise Physiology 46(3):599-602 (1979). DOI: ["
+monograph,4217,599,599.0,none,"hysiology: Respiratory, Environmental and Exercise Physiology 46(3):599-602 (1979). DOI: ["
+monograph,4217,602,602.0,none,"ology: Respiratory, Environmental and Exercise Physiology 46(3):599-602 (1979). DOI: ["
+monograph,4220,35496,35496.0,none,. PMID: 35496. Oxyhemoglobin dissociation curve (P50); anchors the SpO2 and PaO2
+monograph,4222,11,11.0,ambiguous_small,"States: Methods and Development.* Vital and Health Statistics, Series 11, No. 246:1-190 (2002). PMID: 12043359. National Center for Health Sta"
+monograph,4222,246,246.0,none,"Methods and Development.* Vital and Health Statistics, Series 11, No. 246:1-190 (2002). PMID: 12043359. National Center for Health Statistics;"
+monograph,4222,1,1.0,ambiguous_small,"ods and Development.* Vital and Health Statistics, Series 11, No. 246:1-190 (2002). PMID: 12043359. National Center for Health Statistics; so"
+monograph,4222,190,190.0,none,"s and Development.* Vital and Health Statistics, Series 11, No. 246:1-190 (2002). PMID: 12043359. National Center for Health Statistics; source"
+monograph,4222,12043359,12043359.0,none,"* Vital and Health Statistics, Series 11, No. 246:1-190 (2002). PMID: 12043359. National Center for Health Statistics; source of the sex-specific 50"
+monograph,4222,50,50.0,ambiguous_small,59. National Center for Health Statistics; source of the sex-specific 50th-percentile weight- and stature-for-age reference values for the atl
+monograph,4225,3,3.0,ambiguous_small,rnational Consensus Definitions for Sepsis and Septic Shock (Sepsis-3).* JAMA 315(8):801-810 (2016). DOI: [
+monograph,4225,315,315.0,none,Consensus Definitions for Sepsis and Septic Shock (Sepsis-3).* JAMA 315(8):801-810 (2016). DOI: [
+monograph,4225,8,8.0,ambiguous_small,ensus Definitions for Sepsis and Septic Shock (Sepsis-3).* JAMA 315(8):801-810 (2016). DOI: [
+monograph,4225,801,801.0,none,us Definitions for Sepsis and Septic Shock (Sepsis-3).* JAMA 315(8):801-810 (2016). DOI: [
+monograph,4225,810,810.0,none,efinitions for Sepsis and Septic Shock (Sepsis-3).* JAMA 315(8):801-810 (2016). DOI: [
+monograph,4227,26903338,26903338.0,none,. PMID: 26903338. Vasopressor-dependent MAP ≥ 65 mmHg; anchors the MAP lower bound.
+monograph,4227,65,65.0,none,. PMID: 26903338. Vasopressor-dependent MAP ≥ 65 mmHg; anchors the MAP lower bound. * []{#ref-evans2021sepsis} Evans
+monograph,4232,49,49.0,ambiguous_small,Management of Sepsis and Septic Shock 2021.* Critical Care Medicine 49(11):e1063-e1143 (2021). DOI: [
+monograph,4232,11,11.0,ambiguous_small,agement of Sepsis and Septic Shock 2021.* Critical Care Medicine 49(11):e1063-e1143 (2021). DOI: [
+monograph,4234,34605781,34605781.0,none,". PMID: 34605781. International initial resuscitation target MAP of 65 mmHg, recomme"
+monograph,4235,65,65.0,none,"PMID: 34605781. International initial resuscitation target MAP of 65 mmHg, recommended over higher targets. * []{#ref-mancia2023esh} Manci"
+monograph,4238,41,41.0,ambiguous_small,r the management of arterial hypertension.* Journal of Hypertension 41(12):1874-2071 (2023). DOI: [
+monograph,4238,12,12.0,ambiguous_small,he management of arterial hypertension.* Journal of Hypertension 41(12):1874-2071 (2023). DOI: [
+monograph,4238,1874,1874.0,none,anagement of arterial hypertension.* Journal of Hypertension 41(12):1874-2071 (2023). DOI: [
+monograph,4241,37345492,37345492.0,none,. PMID: 37345492. Hypertensive-emergency definition: grade 3 hypertension (SBP ≥ 180
+monograph,4241,3,3.0,ambiguous_small,". PMID: 37345492. Hypertensive-emergency definition: grade 3 hypertension (SBP ≥ 180 and/or DBP ≥ 110 mmHg, Table 1 p. 1886) wit"
+monograph,4242,180,180.0,guard,"492. Hypertensive-emergency definition: grade 3 hypertension (SBP ≥ 180 and/or DBP ≥ 110 mmHg, Table 1 p. 1886) with acute symptomatic orga"
+monograph,4242,110,110.0,guard,"-emergency definition: grade 3 hypertension (SBP ≥ 180 and/or DBP ≥ 110 mmHg, Table 1 p. 1886) with acute symptomatic organ damage; anchors"
+monograph,4242,1,1.0,ambiguous_small,"ition: grade 3 hypertension (SBP ≥ 180 and/or DBP ≥ 110 mmHg, Table 1 p. 1886) with acute symptomatic organ damage; anchors the MAP upper"
+monograph,4242,1886,1886.0,none,": grade 3 hypertension (SBP ≥ 180 and/or DBP ≥ 110 mmHg, Table 1 p. 1886) with acute symptomatic organ damage; anchors the MAP upper bound."
+monograph,4247,43,43.0,ambiguous_small,evere acute respiratory distress syndrome.* Intensive Care Medicine 43(2):200-208 (2017). DOI: [
+monograph,4247,2,2.0,ambiguous_small,re acute respiratory distress syndrome.* Intensive Care Medicine 43(2):200-208 (2017). DOI: [
+monograph,4247,200,200.0,guard,acute respiratory distress syndrome.* Intensive Care Medicine 43(2):200-208 (2017). DOI: [
+monograph,4247,208,208.0,guard,e respiratory distress syndrome.* Intensive Care Medicine 43(2):200-208 (2017). DOI: [
+monograph,4249,28108768,28108768.0,none,". PMID: 28108768. Maximum-PaCO2 distribution in 1,899 ARDS patients from 927 ICUs in"
+monograph,4249,"1,899",1899.0,none,". PMID: 28108768. Maximum-PaCO2 distribution in 1,899 ARDS patients from 927 ICUs in 40 countries; anchors the PaCO2 uppe"
+monograph,4250,927,927.0,none,"D: 28108768. Maximum-PaCO2 distribution in 1,899 ARDS patients from 927 ICUs in 40 countries; anchors the PaCO2 upper bound. * []{#ref-west20"
+monograph,4250,40,40.0,ambiguous_small,"Maximum-PaCO2 distribution in 1,899 ARDS patients from 927 ICUs in 40 countries; anchors the PaCO2 upper bound. * []{#ref-west2020respirato"
+monograph,4252,11,11.0,ambiguous_small,"West JB, Luks AM. *West's Respiratory Physiology: The Essentials.* 11th ed. Philadelphia, PA: Wolters Kluwer Health / Lippincott (2020)."
+monograph,4253,978,978.0,none,"Philadelphia, PA: Wolters Kluwer Health / Lippincott (2020). ISBN: 978-1-9751-3918-6. Anatomical dead space (Ch. 2) and the alveolar-gas e"
+monograph,4253,1,1.0,ambiguous_small,"ladelphia, PA: Wolters Kluwer Health / Lippincott (2020). ISBN: 978-1-9751-3918-6. Anatomical dead space (Ch. 2) and the alveolar-gas equ"
+monograph,4253,9751,9751.0,none,"delphia, PA: Wolters Kluwer Health / Lippincott (2020). ISBN: 978-1-9751-3918-6. Anatomical dead space (Ch. 2) and the alveolar-gas equation"
+monograph,4253,3918,3918.0,none,"ia, PA: Wolters Kluwer Health / Lippincott (2020). ISBN: 978-1-9751-3918-6. Anatomical dead space (Ch. 2) and the alveolar-gas equation behi"
+monograph,4253,6,6.0,ambiguous_small,A: Wolters Kluwer Health / Lippincott (2020). ISBN: 978-1-9751-3918-6. Anatomical dead space (Ch. 2) and the alveolar-gas equation behind
+monograph,4254,2,2.0,ambiguous_small,pincott (2020). ISBN: 978-1-9751-3918-6. Anatomical dead space (Ch. 2) and the alveolar-gas equation behind the PaO2 ceiling (≈ 663 mmHg
+monograph,4255,663,663.0,guard,"(Ch. 2) and the alveolar-gas equation behind the PaO2 ceiling (≈ 663 mmHg at FiO2 = 1.0, Ch. 5). Both chapter pointers were verified aga"
+monograph,4255,1.0,1.0,ambiguous_small,"alveolar-gas equation behind the PaO2 ceiling (≈ 663 mmHg at FiO2 = 1.0, Ch. 5). Both chapter pointers were verified against the cited edit"
+monograph,4255,5,5.0,ambiguous_small,"gas equation behind the PaO2 ceiling (≈ 663 mmHg at FiO2 = 1.0, Ch. 5). Both chapter pointers were verified against the cited edition on"
+monograph,4256,07,7.0,ambiguous_small,"th chapter pointers were verified against the cited edition on 2026-07-27. The work is also cited, without a chapter pointer, for the PaCO"
+monograph,4256,27,27.0,none,"chapter pointers were verified against the cited edition on 2026-07-27. The work is also cited, without a chapter pointer, for the PaCO2 d"
+monograph,4260,07,7.0,ambiguous_small,"nce. The former ""acid-base ranges"" annotation was withdrawn on 2026-07-28: no locus in this monograph cites the work for one, and the CO"
+monograph,4260,28,28.0,none,". The former ""acid-base ranges"" annotation was withdrawn on 2026-07-28: no locus in this monograph cites the work for one, and the CO2-n"
+monograph,4263,07,7.0,ambiguous_small,"CO2-narcosis justification it once supported was withdrawn on 2026-07-27 after the 9th, 10th and 11th editions were searched and found no"
+monograph,4263,27,27.0,none,"2-narcosis justification it once supported was withdrawn on 2026-07-27 after the 9th, 10th and 11th editions were searched and found not t"
+monograph,4263,9,9.0,ambiguous_small,"stification it once supported was withdrawn on 2026-07-27 after the 9th, 10th and 11th editions were searched and found not to contain th"
+monograph,4263,10,10.0,ambiguous_small,"cation it once supported was withdrawn on 2026-07-27 after the 9th, 10th and 11th editions were searched and found not to contain the conc"
+monograph,4263,11,11.0,ambiguous_small,"once supported was withdrawn on 2026-07-27 after the 9th, 10th and 11th editions were searched and found not to contain the concept. * []"
+monograph,4265,4,4.0,ambiguous_small,"concept. * []{#ref-marino2013icu} Marino PL. *Marino's The ICU Book.* 4th ed. Philadelphia, PA: Lippincott Williams & Wilkins / Wolters Klu"
+monograph,4267,978,978.0,none,PA: Lippincott Williams & Wilkins / Wolters Kluwer (2013). ISBN: 978-1-4511-2118-6. Pre-lung-protective tidal volumes of 10-15 mL/kg (Ch
+monograph,4267,1,1.0,ambiguous_small,Lippincott Williams & Wilkins / Wolters Kluwer (2013). ISBN: 978-1-4511-2118-6. Pre-lung-protective tidal volumes of 10-15 mL/kg (Ch.
+monograph,4267,4511,4511.0,none,"Lippincott Williams & Wilkins / Wolters Kluwer (2013). ISBN: 978-1-4511-2118-6. Pre-lung-protective tidal volumes of 10-15 mL/kg (Ch. 25),"
+monograph,4267,2118,2118.0,none,"incott Williams & Wilkins / Wolters Kluwer (2013). ISBN: 978-1-4511-2118-6. Pre-lung-protective tidal volumes of 10-15 mL/kg (Ch. 25), which"
+monograph,4267,6,6.0,ambiguous_small,"t Williams & Wilkins / Wolters Kluwer (2013). ISBN: 978-1-4511-2118-6. Pre-lung-protective tidal volumes of 10-15 mL/kg (Ch. 25), which a"
+monograph,4267,10,10.0,ambiguous_small,"013). ISBN: 978-1-4511-2118-6. Pre-lung-protective tidal volumes of 10-15 mL/kg (Ch. 25), which anchor the Vt upper bound — the sole claim"
+monograph,4267,15,15.0,ambiguous_small,"). ISBN: 978-1-4511-2118-6. Pre-lung-protective tidal volumes of 10-15 mL/kg (Ch. 25), which anchor the Vt upper bound — the sole claim th"
+monograph,4268,25,25.0,none,"-4511-2118-6. Pre-lung-protective tidal volumes of 10-15 mL/kg (Ch. 25), which anchor the Vt upper bound — the sole claim this work now ca"
+monograph,4270,07,7.0,ambiguous_small,carries. Its former HR and PaCO2 annotations were withdrawn on 2026-07-27 after a full-text search of the cited edition: it states no extr
+monograph,4270,27,27.0,none,ries. Its former HR and PaCO2 annotations were withdrawn on 2026-07-27 after a full-text search of the cited edition: it states no extreme
+monograph,4274,5,5.0,ambiguous_small,"ni JJ, Dries DJ. *Critical Care Medicine: The Essentials and More.* 5th ed. Philadelphia, PA: Wolters Kluwer (Lippincott Williams & Wilki"
+monograph,4275,978,978.0,none,"a, PA: Wolters Kluwer (Lippincott Williams & Wilkins) (2018). ISBN: 978-1-4963-0291-5. Upper heart-rate bound (Ch. 1: sinus rates exceeding"
+monograph,4275,1,1.0,ambiguous_small,A: Wolters Kluwer (Lippincott Williams & Wilkins) (2018). ISBN: 978-1-4963-0291-5. Upper heart-rate bound (Ch. 1: sinus rates exceeding (
+monograph,4275,4963,4963.0,none,Wolters Kluwer (Lippincott Williams & Wilkins) (2018). ISBN: 978-1-4963-0291-5. Upper heart-rate bound (Ch. 1: sinus rates exceeding (220 −
+monograph,4275,0291,291.0,none,ers Kluwer (Lippincott Williams & Wilkins) (2018). ISBN: 978-1-4963-0291-5. Upper heart-rate bound (Ch. 1: sinus rates exceeding (220 − age)
+monograph,4275,5,5.0,ambiguous_small,luwer (Lippincott Williams & Wilkins) (2018). ISBN: 978-1-4963-0291-5. Upper heart-rate bound (Ch. 1: sinus rates exceeding (220 − age)/m
+monograph,4276,1,1.0,ambiguous_small,lkins) (2018). ISBN: 978-1-4963-0291-5. Upper heart-rate bound (Ch. 1: sinus rates exceeding (220 − age)/min reduce cardiac output and my
+monograph,4276,220,220.0,guard,-4963-0291-5. Upper heart-rate bound (Ch. 1: sinus rates exceeding (220 − age)/min reduce cardiac output and myocardial perfusion). The for
+monograph,4278,07,7.0,ambiguous_small,ardial perfusion). The former SpO2 annotation was withdrawn on 2026-07-27: the critical-oxygen-delivery concept does appear in the cited e
+monograph,4278,27,27.0,none,ial perfusion). The former SpO2 annotation was withdrawn on 2026-07-27: the critical-oxygen-delivery concept does appear in the cited edit
+monograph,4279,2,2.0,ambiguous_small,"xygen-delivery concept does appear in the cited edition, but in Ch. 2, without a number, and about delivery rather than saturation. (5th"
+monograph,4280,5,5.0,ambiguous_small,"h. 2, without a number, and about delivery rather than saturation. (5th edition; LWW publisher date confirmed as 2018 in the 2026-06-05 r"
+monograph,4281,06,6.0,ambiguous_small,ion. (5th edition; LWW publisher date confirmed as 2018 in the 2026-06-05 re-audit — bib key updated to marini2018critical accordingly. Th
+monograph,4281,05,5.0,ambiguous_small,. (5th edition; LWW publisher date confirmed as 2018 in the 2026-06-05 re-audit — bib key updated to marini2018critical accordingly. The c
+monograph,4283,3,3.0,ambiguous_small,". The copyright page reads 2019; see , OPEN-3.) --- ## Appendix A — Experiment log index *Every code used"
+monograph,4301,22,22.0,none,"image + scenario smoke + detector recalibration | | []{#s005} S005 | 22-run pilot on S1_M | | []{#s006} S006 | Full Morris sweep (1,280 runs)"
+monograph,4302,"1,280",1280.0,guard,"} S005 | 22-run pilot on S1_M | | []{#s006} S006 | Full Morris sweep (1,280 runs) | | []{#s007} S007 | Targeted reproducibility check (3-layer, a"
+monograph,4303,3,3.0,ambiguous_small,"eep (1,280 runs) | | []{#s007} S007 | Targeted reproducibility check (3-layer, all bit-exact) | | []{#s008} S008 | Tier-1 statistical refinem"
+monograph,4304,1,1.0,ambiguous_small,"roducibility check (3-layer, all bit-exact) | | []{#s008} S008 | Tier-1 statistical refinement (block bootstrap, Wasserstein null) | | []{#s0"
+monograph,4305,2,2.0,ambiguous_small,"inement (block bootstrap, Wasserstein null) | | []{#s009} S009 | Tier-2 (seed stability, continuous-ARDS, pytest, GHA CI) | | []{#s010} S010"
+monograph,4310,004,4.0,ambiguous_small,manuscript taxonomy) | | []{#s014} S014 | Trigger-pressure lockout (F-004 mechanism) | | []{#s015} S015 | Reproducibility and logic audit (pre-
+monograph,4317,60,60.0,ambiguous_small,laim; one citation added) | | []{#s021} S021 | Hyperoxia convergence (60-run rerun at 300 s vs locked 120 s window; F-003 mechanism test) | |
+monograph,4317,300,300.0,guard,on added) | | []{#s021} S021 | Hyperoxia convergence (60-run rerun at 300 s vs locked 120 s window; F-003 mechanism test) | | []{#s022} S022 |
+monograph,4317,120,120.0,guard,{#s021} S021 | Hyperoxia convergence (60-run rerun at 300 s vs locked 120 s window; F-003 mechanism test) | | []{#s022} S022 | No-compute failu
+monograph,4317,003,3.0,ambiguous_small,yperoxia convergence (60-run rerun at 300 s vs locked 120 s window; F-003 mechanism test) | | []{#s022} S022 | No-compute failure-mode attribut
+monograph,4320,394,394.0,none,"rification of the quantitative claims registered in the audit ledger; 394 / 394 PASS on the authors' full data tree, 393 / 394 on a public clon"
+monograph,4320,394,394.0,none,"tion of the quantitative claims registered in the audit ledger; 394 / 394 PASS on the authors' full data tree, 393 / 394 on a public clone with"
+monograph,4320,393,393.0,none,"d in the audit ledger; 394 / 394 PASS on the authors' full data tree, 393 / 394 on a public clone with one auto-skipped anchor, see §2.8) | | ["
+monograph,4320,394,394.0,none,"he audit ledger; 394 / 394 PASS on the authors' full data tree, 393 / 394 on a public clone with one auto-skipped anchor, see §2.8) | | []{#s02"
+monograph,4320,2.8,2.8,none,"tree, 393 / 394 on a public clone with one auto-skipped anchor, see §2.8) | | []{#s025} S025 | Pre-release OSS code-hygiene audit and fixes |"
+monograph,4342,1,1.0,ambiguous_small,er's downstream PhD repository; GitHub URL to be filled in once Paper 1 is published). ### B.2 Hard input acceptance gates Pulse enfo
+monograph,4352,50,50.0,ambiguous_small,on. * **Heart rate (HR):** The accepted baseline range is strictly 50–110 bpm. Probes confirmed rejection at 49 bpm and 111 bpm. * **Respir
+monograph,4352,110,110.0,guard,* **Heart rate (HR):** The accepted baseline range is strictly 50–110 bpm. Probes confirmed rejection at 49 bpm and 111 bpm. * **Respirator
+monograph,4352,49,49.0,ambiguous_small,aseline range is strictly 50–110 bpm. Probes confirmed rejection at 49 bpm and 111 bpm. * **Respiratory rate (RR):** The accepted baseline r
+monograph,4352,111,111.0,none,ge is strictly 50–110 bpm. Probes confirmed rejection at 49 bpm and 111 bpm. * **Respiratory rate (RR):** The accepted baseline range is stri
+monograph,4354,8,8.0,ambiguous_small,**Respiratory rate (RR):** The accepted baseline range is strictly 8–20 bpm. Probes confirmed rejection at 7 bpm and 21 bpm. * **Blood pre
+monograph,4354,20,20.0,ambiguous_small,*Respiratory rate (RR):** The accepted baseline range is strictly 8–20 bpm. Probes confirmed rejection at 7 bpm and 21 bpm. * **Blood pressu
+monograph,4354,7,7.0,ambiguous_small,baseline range is strictly 8–20 bpm. Probes confirmed rejection at 7 bpm and 21 bpm. * **Blood pressure (BP):** Systolic blood pressure (S
+monograph,4354,21,21.0,ambiguous_small,range is strictly 8–20 bpm. Probes confirmed rejection at 7 bpm and 21 bpm. * **Blood pressure (BP):** Systolic blood pressure (SBP) is co
+monograph,4356,90,90.0,ambiguous_small,od pressure (BP):** Systolic blood pressure (SBP) is constrained to 90–120 mmHg. Diastolic blood pressure (DBP) is constrained to 60–80 mm
+monograph,4356,120,120.0,guard,pressure (BP):** Systolic blood pressure (SBP) is constrained to 90–120 mmHg. Diastolic blood pressure (DBP) is constrained to 60–80 mmHg.
+monograph,4357,60,60.0,ambiguous_small,ed to 90–120 mmHg. Diastolic blood pressure (DBP) is constrained to 60–80 mmHg. * **Pulse-pressure constraint:** An undocumented constraint
+monograph,4357,80,80.0,ambiguous_small,to 90–120 mmHg. Diastolic blood pressure (DBP) is constrained to 60–80 mmHg. * **Pulse-pressure constraint:** An undocumented constraint was
+monograph,4360,0.75,0.75,ambiguous_small,"obing: the engine requires a pulse-pressure ratio where DBP / SBP ≤ 0.75. If this ratio is exceeded (e.g., SBP = 90 mmHg and DBP = 68 mmHg,"
+monograph,4361,90,90.0,ambiguous_small,"atio where DBP / SBP ≤ 0.75. If this ratio is exceeded (e.g., SBP = 90 mmHg and DBP = 68 mmHg, ratio = 0.756), initialization is rejected"
+monograph,4361,68,68.0,ambiguous_small,"BP ≤ 0.75. If this ratio is exceeded (e.g., SBP = 90 mmHg and DBP = 68 mmHg, ratio = 0.756), initialization is rejected even if individual"
+monograph,4361,0.756,0.756,none,"s ratio is exceeded (e.g., SBP = 90 mmHg and DBP = 68 mmHg, ratio = 0.756), initialization is rejected even if individual values fall within"
+monograph,4365,1.0,1.0,ambiguous_small,oxygen (FiO2):** Direct probing confirmed that Pulse accepts FiO2 = 1.0 and produces a stable trajectory; the transient hyperoxia regime an
+monograph,4367,3.8,3.8,none,r-instability tail at that setting are characterised separately in §3.8. In the focused single-input probe (the companion
+monograph,4368,1.0,1.0,ambiguous_small,"ed single-input probe (the companion FiO2 = 1.0 crash probe, 9 runs sweeping FiO2 ∈ {0.95, …, 1.00} on a healthy"
+monograph,4369,9,9.0,ambiguous_small,"robe (the companion FiO2 = 1.0 crash probe, 9 runs sweeping FiO2 ∈ {0.95, …, 1.00} on a healthy male surrogate at"
+monograph,4370,0.95,0.95,ambiguous_small,"FiO2 = 1.0 crash probe, 9 runs sweeping FiO2 ∈ {0.95, …, 1.00} on a healthy male surrogate at fixed ventilation), PaO2 s"
+monograph,4370,1.00,1.0,guard,"FiO2 = 1.0 crash probe, 9 runs sweeping FiO2 ∈ {0.95, …, 1.00} on a healthy male surrogate at fixed ventilation), PaO2 scales lin"
+monograph,4371,7.8,7.8,none,"rogate at fixed ventilation), PaO2 scales linearly by approximately 7.8 mmHg per 0.01 increase in FiO2. The atlas's multi-input Morris fit"
+monograph,4372,0.01,0.01,none,"ventilation), PaO2 scales linearly by approximately 7.8 mmHg per 0.01 increase in FiO2. The atlas's multi-input Morris fit on the S1 clea"
+monograph,4373,0.21,0.21,none,"multi-input Morris fit on the S1 clean runs, whose FiO2 spans only [0.21, 0.47], gives a flatter slope of ~5 mmHg per 0.01 FiO2 (§3.8, F-003"
+monograph,4373,0.47,0.47,none,"input Morris fit on the S1 clean runs, whose FiO2 spans only [0.21, 0.47], gives a flatter slope of ~5 mmHg per 0.01 FiO2 (§3.8, F-003): the"
+monograph,4374,5,5.0,ambiguous_small,"runs, whose FiO2 spans only [0.21, 0.47], gives a flatter slope of ~5 mmHg per 0.01 FiO2 (§3.8, F-003): the difference reflects the avera"
+monograph,4374,0.01,0.01,none,"FiO2 spans only [0.21, 0.47], gives a flatter slope of ~5 mmHg per 0.01 FiO2 (§3.8, F-003): the difference reflects the averaging across a"
+monograph,4374,3.8,3.8,none,"only [0.21, 0.47], gives a flatter slope of ~5 mmHg per 0.01 FiO2 (§3.8, F-003): the difference reflects the averaging across a wider FiO2"
+monograph,4374,003,3.0,ambiguous_small,".21, 0.47], gives a flatter slope of ~5 mmHg per 0.01 FiO2 (§3.8, F-003): the difference reflects the averaging across a wider FiO2 envelop"
+monograph,4377,1.0,1.0,ambiguous_small,ts rather than a per-step single-input perturbation near the FiO2 = 1.0 boundary. ### B.3 ARDS severity calibration and solver instability
+monograph,4382,0,0.0,ambiguous_small,") condition in Pulse is modulated by a per-lung scalar in [0, 1]. This appendix documents the calibration of that scalar against t"
+monograph,4382,1,1.0,ambiguous_small,"ondition in Pulse is modulated by a per-lung scalar in [0, 1]. This appendix documents the calibration of that scalar against the"
+monograph,4392,0.0,0.0,ambiguous_small,"severity-to-modifier mapping calibrated at the key transition points 0.0, 0.3, 0.6, 0.9, and 1.0, with the prose claim that 0.3, 0.6, and 0.9"
+monograph,4392,0.3,0.3,ambiguous_small,"rity-to-modifier mapping calibrated at the key transition points 0.0, 0.3, 0.6, 0.9, and 1.0, with the prose claim that 0.3, 0.6, and 0.9 corre"
+monograph,4392,0.6,0.6,ambiguous_small,"to-modifier mapping calibrated at the key transition points 0.0, 0.3, 0.6, 0.9, and 1.0, with the prose claim that 0.3, 0.6, and 0.9 correspond"
+monograph,4392,0.9,0.9,ambiguous_small,"difier mapping calibrated at the key transition points 0.0, 0.3, 0.6, 0.9, and 1.0, with the prose claim that 0.3, 0.6, and 0.9 correspond to B"
+monograph,4392,1.0,1.0,ambiguous_small,"pping calibrated at the key transition points 0.0, 0.3, 0.6, 0.9, and 1.0, with the prose claim that 0.3, 0.6, and 0.9 correspond to Berlin mil"
+monograph,4393,0.3,0.3,ambiguous_small,"nsition points 0.0, 0.3, 0.6, 0.9, and 1.0, with the prose claim that 0.3, 0.6, and 0.9 correspond to Berlin mild, moderate, and severe ARDS re"
+monograph,4393,0.6,0.6,ambiguous_small,"on points 0.0, 0.3, 0.6, 0.9, and 1.0, with the prose claim that 0.3, 0.6, and 0.9 correspond to Berlin mild, moderate, and severe ARDS respect"
+monograph,4393,0.9,0.9,ambiguous_small,"0.0, 0.3, 0.6, 0.9, and 1.0, with the prose claim that 0.3, 0.6, and 0.9 correspond to Berlin mild, moderate, and severe ARDS respectively. Th"
+monograph,4396,19,19.0,ambiguous_small,d verbatim in the peer-reviewed [@webb2020] Pulse-team-authored COVID-19 multiplex paper: | Berlin band | Documented
+monograph,4401,200,200.0,guard,-----|-----------------------|-----------------------------| | Mild (200 < P/F ≤ 300) | 0.3 | 340
+monograph,4401,300,300.0,guard,-----------------|-----------------------------| | Mild (200 < P/F ≤ 300) | 0.3 | 340 | | Moderat
+monograph,4401,0.3,0.3,ambiguous_small,--------|-----------------------------| | Mild (200 < P/F ≤ 300) | 0.3 | 340 | | Moderate (100 <
+monograph,4401,340,340.0,none,--------------| | Mild (200 < P/F ≤ 300) | 0.3 | 340 | | Moderate (100 < P/F ≤ 200)| 0.6
+monograph,4402,100,100.0,guard,| 0.3 | 340 | | Moderate (100 < P/F ≤ 200)| 0.6 | 130 |
+monograph,4402,200,200.0,guard,| 340 | | Moderate (100 < P/F ≤ 200)| 0.6 | 130 | | Severe (P/
+monograph,4402,0.6,0.6,ambiguous_small,| 340 | | Moderate (100 < P/F ≤ 200)| 0.6 | 130 | | Severe (P/F ≤ 10
+monograph,4402,130,130.0,none,| | Moderate (100 < P/F ≤ 200)| 0.6 | 130 | | Severe (P/F ≤ 100) | 0.9
+monograph,4403,100,100.0,guard,.6 | 130 | | Severe (P/F ≤ 100) | 0.9 | 50 | Pul
+monograph,4403,0.9,0.9,ambiguous_small,| 130 | | Severe (P/F ≤ 100) | 0.9 | 50 | Pulse's own verif
+monograph,4403,50,50.0,ambiguous_small,| | Severe (P/F ≤ 100) | 0.9 | 50 | Pulse's own verification suite uses the
+monograph,4406,0.3,0.3,ambiguous_small,ion suite uses the same fractions: progresses 0.3 → 0.6 → 0.9; uses 0.6;
+monograph,4406,0.6,0.6,ambiguous_small,ite uses the same fractions: progresses 0.3 → 0.6 → 0.9; uses 0.6;
+monograph,4406,0.9,0.9,ambiguous_small,es the same fractions: progresses 0.3 → 0.6 → 0.9; uses 0.6; us
+monograph,4407,0.6,0.6,ambiguous_small,progresses 0.3 → 0.6 → 0.9; uses 0.6; uses 0.8 (between the documented moderate
+monograph,4408,0.8,0.8,none,uses 0.6; uses 0.8 (between the documented moderate and severe transition points). Two i
+monograph,4415,18,18.0,none,"mapping was tested directly against the male reference surrogate (age 18, 67.3 kg, 180 cm) in a 28-run impairment- fraction sweep ("
+monograph,4415,67.3,67.3,guard,"ing was tested directly against the male reference surrogate (age 18, 67.3 kg, 180 cm) in a 28-run impairment- fraction sweep ("
+monograph,4415,180,180.0,guard,"ested directly against the male reference surrogate (age 18, 67.3 kg, 180 cm) in a 28-run impairment- fraction sweep ( ,"
+monograph,4415,28,28.0,none,"y against the male reference surrogate (age 18, 67.3 kg, 180 cm) in a 28-run impairment- fraction sweep ( , the original"
+monograph,4417,03,3.0,ambiguous_small,", the original ARDS severity calibration, 2026-03; the full log is the canonical record of the calibration — the later"
+monograph,4419,28,28.0,none,pril refinement). The ventilation regime was held constant across all 28 runs: * Mode: VC-AC (volume-control assist-control). * Tidal volume:
+monograph,4422,403.8,403.8,none,runs: * Mode: VC-AC (volume-control assist-control). * Tidal volume: 403.8 mL = 6 mL/kg of **actual** body weight on the 67.3 kg male standard
+monograph,4422,6,6.0,ambiguous_small,de: VC-AC (volume-control assist-control). * Tidal volume: 403.8 mL = 6 mL/kg of **actual** body weight on the 67.3 kg male standard — a lo
+monograph,4423,67.3,67.3,guard,* Tidal volume: 403.8 mL = 6 mL/kg of **actual** body weight on the 67.3 kg male standard — a low-tidal-volume setting based on the ARDSnet
+monograph,4424,6,6.0,ambiguous_small,"tting based on the ARDSnet framework [@brower2000], which specifies 6 mL/kg of predicted body weight. * PEEP: 10 cmH2O. * FiO2: 0.4. * Se"
+monograph,4426,10,10.0,ambiguous_small,"wer2000], which specifies 6 mL/kg of predicted body weight. * PEEP: 10 cmH2O. * FiO2: 0.4. * Settle time before measurement: 120 s. * Sampli"
+monograph,4427,0.4,0.4,none,ecifies 6 mL/kg of predicted body weight. * PEEP: 10 cmH2O. * FiO2: 0.4. * Settle time before measurement: 120 s. * Sampling interval: 10 s.
+monograph,4428,120,120.0,guard,ght. * PEEP: 10 cmH2O. * FiO2: 0.4. * Settle time before measurement: 120 s. * Sampling interval: 10 s. * Total per-run duration: 5 min. The s
+monograph,4429,10,10.0,ambiguous_small,2: 0.4. * Settle time before measurement: 120 s. * Sampling interval: 10 s. * Total per-run duration: 5 min. The sweep was structured in thre
+monograph,4430,5,5.0,ambiguous_small,surement: 120 s. * Sampling interval: 10 s. * Total per-run duration: 5 min. The sweep was structured in three passes: a coarse 0.1–0.9 swee
+monograph,4432,0.1,0.1,none,"duration: 5 min. The sweep was structured in three passes: a coarse 0.1–0.9 sweep (step 0.1, 9 runs), a fine 0.20–0.30 sweep around the mild-"
+monograph,4432,0.9,0.9,ambiguous_small,"ation: 5 min. The sweep was structured in three passes: a coarse 0.1–0.9 sweep (step 0.1, 9 runs), a fine 0.20–0.30 sweep around the mild-band"
+monograph,4433,0.1,0.1,none,"he sweep was structured in three passes: a coarse 0.1–0.9 sweep (step 0.1, 9 runs), a fine 0.20–0.30 sweep around the mild-band transition (ste"
+monograph,4433,9,9.0,ambiguous_small,"eep was structured in three passes: a coarse 0.1–0.9 sweep (step 0.1, 9 runs), a fine 0.20–0.30 sweep around the mild-band transition (step 0"
+monograph,4433,0.20,0.2,none,"ed in three passes: a coarse 0.1–0.9 sweep (step 0.1, 9 runs), a fine 0.20–0.30 sweep around the mild-band transition (step 0.01, 11 runs), and"
+monograph,4433,0.30,0.3,ambiguous_small,"three passes: a coarse 0.1–0.9 sweep (step 0.1, 9 runs), a fine 0.20–0.30 sweep around the mild-band transition (step 0.01, 11 runs), and a hig"
+monograph,4434,0.01,0.01,none,"9 runs), a fine 0.20–0.30 sweep around the mild-band transition (step 0.01, 11 runs), and a high-end 0.90–0.99 sweep across the severe-band cand"
+monograph,4434,11,11.0,ambiguous_small,"), a fine 0.20–0.30 sweep around the mild-band transition (step 0.01, 11 runs), and a high-end 0.90–0.99 sweep across the severe-band candidat"
+monograph,4434,0.90,0.9,ambiguous_small,"around the mild-band transition (step 0.01, 11 runs), and a high-end 0.90–0.99 sweep across the severe-band candidates (8 runs). Under this reg"
+monograph,4434,0.99,0.99,none,"nd the mild-band transition (step 0.01, 11 runs), and a high-end 0.90–0.99 sweep across the severe-band candidates (8 runs). Under this regime t"
+monograph,4435,8,8.0,ambiguous_small,"s), and a high-end 0.90–0.99 sweep across the severe-band candidates (8 runs). Under this regime the documented mapping does not reproduce th"
+monograph,4440,0.3,0.3,ambiguous_small,-----------------------|------------------------------------------| | 0.3 | 340 (Mild claim) | 199
+monograph,4440,340,340.0,none,----------|------------------------------------------| | 0.3 | 340 (Mild claim) | 199 | Mode
+monograph,4440,199,199.0,none,----------------------------| | 0.3 | 340 (Mild claim) | 199 | Moderate (at the mild / moder
+monograph,4441,0.6,0.6,ambiguous_small,| Moderate (at the mild / moderate boundary) | | 0.6 | 130 (Moderate claim) | 150
+monograph,4441,130,130.0,none,| Moderate (at the mild / moderate boundary) | | 0.6 | 130 (Moderate claim) | 150 | Mode
+monograph,4441,150,150.0,guard,e mild / moderate boundary) | | 0.6 | 130 (Moderate claim) | 150 | Moderate (matches band)
+monograph,4442,0.9,0.9,ambiguous_small,| Moderate (matches band) | | 0.9 | 50 (Severe claim) | 119
+monograph,4442,50,50.0,ambiguous_small,| Moderate (matches band) | | 0.9 | 50 (Severe claim) | 119 | Mod
+monograph,4442,119,119.0,none,hes band) | | 0.9 | 50 (Severe claim) | 119 | Moderate (well inside the mod
+monograph,4444,0.6,0.6,ambiguous_small,| Moderate (well inside the moderate band) | Only the 0.6 → moderate mapping holds. The documented mild fraction (0.3) lands at
+monograph,4445,0.3,0.3,ambiguous_small,Only the 0.6 → moderate mapping holds. The documented mild fraction (0.3) lands at the mild / moderate boundary rather than the mild-band cent
+monograph,4446,0.9,0.9,ambiguous_small,"rather than the mild-band centre, and the documented severe fraction (0.9) sits 19 mmHg above the severe-band ceiling — i.e. still moderate by"
+monograph,4447,19,19.0,ambiguous_small,"n the mild-band centre, and the documented severe fraction (0.9) sits 19 mmHg above the severe-band ceiling — i.e. still moderate by Berlin."
+monograph,4450,28,28.0,none,"e by Berlin. **Corrected mapping used by the Atlas.** From that same 28-run sweep, the fractions that produce P/F values at the Berlin band c"
+monograph,4457,200,200.0,guard,|---------------------|------------------------------------| | Mild (200 < P/F ≤ 300) | **0.26** | 256 | Centre of m
+monograph,4457,300,300.0,guard,----------|------------------------------------| | Mild (200 < P/F ≤ 300) | **0.26** | 256 | Centre of mild band
+monograph,4457,0.26,0.26,ambiguous_small,------------------------------------| | Mild (200 < P/F ≤ 300) | **0.26** | 256 | Centre of mild band
+monograph,4457,256,256.0,guard,-------------------| | Mild (200 < P/F ≤ 300) | **0.26** | 256 | Centre of mild band | | Moderate (10
+monograph,4458,100,100.0,guard,56 | Centre of mild band | | Moderate (100 < P/F ≤ 200)| **0.60** | 150 | Centre of mode
+monograph,4458,200,200.0,guard,| Centre of mild band | | Moderate (100 < P/F ≤ 200)| **0.60** | 150 | Centre of moderate band
+monograph,4458,0.60,0.6,ambiguous_small,Centre of mild band | | Moderate (100 < P/F ≤ 200)| **0.60** | 150 | Centre of moderate band
+monograph,4458,150,150.0,guard,and | | Moderate (100 < P/F ≤ 200)| **0.60** | 150 | Centre of moderate band | | Severe (P/F
+monograph,4459,100,100.0,guard,| Centre of moderate band | | Severe (P/F ≤ 100) | **0.95** | 96 | Just inside the se
+monograph,4459,0.95,0.95,ambiguous_small,Centre of moderate band | | Severe (P/F ≤ 100) | **0.95** | 96 | Just inside the severe band ceiling
+monograph,4459,96,96.0,none,te band | | Severe (P/F ≤ 100) | **0.95** | 96 | Just inside the severe band ceiling | **Ventilati
+monograph,4478,28,28.0,none,"espiratory solver: * **The original ARDS severity calibration** (the 28-run impairment sweep above, 2026-03): fractions 0.92 and 0.94 fai"
+monograph,4479,03,3.0,ambiguous_small,"RDS severity calibration** (the 28-run impairment sweep above, 2026-03): fractions 0.92 and 0.94 fail to stabilise at the reference ventil"
+monograph,4479,0.92,0.92,none,"libration** (the 28-run impairment sweep above, 2026-03): fractions 0.92 and 0.94 fail to stabilise at the reference ventilation setting. *"
+monograph,4480,0.94,0.94,none,"(the 28-run impairment sweep above, 2026-03): fractions 0.92 and 0.94 fail to stabilise at the reference ventilation setting. * **E10** (a"
+monograph,4481,10,10.0,ambiguous_small,"fail to stabilise at the reference ventilation setting. * **E10** (a 10-run high-resolution boundary probe, 2026-04, testing 0.90, 0.91, 0."
+monograph,4481,04,4.0,ambiguous_small,"ion setting. * **E10** (a 10-run high-resolution boundary probe, 2026-04, testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945"
+monograph,4482,0.90,0.9,ambiguous_small,"**E10** (a 10-run high-resolution boundary probe, 2026-04, testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PA"
+monograph,4482,0.91,0.91,ambiguous_small,"** (a 10-run high-resolution boundary probe, 2026-04, testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PASS, 0."
+monograph,4482,0.915,0.915,none,"10-run high-resolution boundary probe, 2026-04, testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PASS, 0.91 – 0."
+monograph,4482,0.92,0.92,none,"high-resolution boundary probe, 2026-04, testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PASS, 0.91 – 0.945 al"
+monograph,4482,0.925,0.925,none,"esolution boundary probe, 2026-04, testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PASS, 0.91 – 0.945 all FAIL"
+monograph,4482,0.93,0.93,ambiguous_small,"on boundary probe, 2026-04, testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PASS, 0.91 – 0.945 all FAIL (8 con"
+monograph,4482,0.935,0.935,none,"ndary probe, 2026-04, testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PASS, 0.91 – 0.945 all FAIL (8 consecutiv"
+monograph,4482,0.94,0.94,none,"robe, 2026-04, testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PASS, 0.91 – 0.945 all FAIL (8 consecutive),"
+monograph,4483,0.945,0.945,guard,"26-04, testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PASS, 0.91 – 0.945 all FAIL (8 consecutive), 0.95 PASS"
+monograph,4483,0.95,0.95,ambiguous_small,"testing 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PASS, 0.91 – 0.945 all FAIL (8 consecutive), 0.95 PASS. Refi"
+monograph,4483,0.90,0.9,ambiguous_small,"ng 0.90, 0.91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PASS, 0.91 – 0.945 all FAIL (8 consecutive), 0.95 PASS. Refines the"
+monograph,4483,0.91,0.91,ambiguous_small,"91, 0.915, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PASS, 0.91 – 0.945 all FAIL (8 consecutive), 0.95 PASS. Refines the failure ra"
+monograph,4483,0.945,0.945,guard,"15, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PASS, 0.91 – 0.945 all FAIL (8 consecutive), 0.95 PASS. Refines the failure range to *"
+monograph,4483,8,8.0,ambiguous_small,"0.93, 0.935, 0.94, 0.945, 0.95): 0.90 PASS, 0.91 – 0.945 all FAIL (8 consecutive), 0.95 PASS. Refines the failure range to **0.91 – 0.94"
+monograph,4484,0.95,0.95,ambiguous_small,", 0.945, 0.95): 0.90 PASS, 0.91 – 0.945 all FAIL (8 consecutive), 0.95 PASS. Refines the failure range to **0.91 – 0.945 (inclusive)**. * **"
+monograph,4484,0.91,0.91,ambiguous_small,"all FAIL (8 consecutive), 0.95 PASS. Refines the failure range to **0.91 – 0.945 (inclusive)**. * **E6 calibration refinement** (a 9-run high-"
+monograph,4484,0.945,0.945,guard,"L (8 consecutive), 0.95 PASS. Refines the failure range to **0.91 – 0.945 (inclusive)**. * **E6 calibration refinement** (a 9-run high-resoluti"
+monograph,4485,9,9.0,ambiguous_small,"e to **0.91 – 0.945 (inclusive)**. * **E6 calibration refinement** (a 9-run high-resolution sweep, 2026-04, testing 0.93 – 0.97 in 0.005 st"
+monograph,4486,04,4.0,ambiguous_small,"**E6 calibration refinement** (a 9-run high-resolution sweep, 2026-04, testing 0.93 – 0.97 in 0.005 steps): 0.93 – 0.945 all FAIL (4 runs"
+monograph,4486,0.93,0.93,ambiguous_small,"ation refinement** (a 9-run high-resolution sweep, 2026-04, testing 0.93 – 0.97 in 0.005 steps): 0.93 – 0.945 all FAIL (4 runs), 0.95 – 0.97"
+monograph,4486,0.97,0.97,none,"efinement** (a 9-run high-resolution sweep, 2026-04, testing 0.93 – 0.97 in 0.005 steps): 0.93 – 0.945 all FAIL (4 runs), 0.95 – 0.97 all PA"
+monograph,4486,0.005,0.005,none,"t** (a 9-run high-resolution sweep, 2026-04, testing 0.93 – 0.97 in 0.005 steps): 0.93 – 0.945 all FAIL (4 runs), 0.95 – 0.97 all PASS (5 run"
+monograph,4486,0.93,0.93,ambiguous_small,"igh-resolution sweep, 2026-04, testing 0.93 – 0.97 in 0.005 steps): 0.93 – 0.945 all FAIL (4 runs), 0.95 – 0.97 all PASS (5 runs). Confirms"
+monograph,4486,0.945,0.945,guard,"olution sweep, 2026-04, testing 0.93 – 0.97 in 0.005 steps): 0.93 – 0.945 all FAIL (4 runs), 0.95 – 0.97 all PASS (5 runs). Confirms the uppe"
+monograph,4487,4,4.0,ambiguous_small,"026-04, testing 0.93 – 0.97 in 0.005 steps): 0.93 – 0.945 all FAIL (4 runs), 0.95 – 0.97 all PASS (5 runs). Confirms the upper edge of th"
+monograph,4487,0.95,0.95,ambiguous_small,"esting 0.93 – 0.97 in 0.005 steps): 0.93 – 0.945 all FAIL (4 runs), 0.95 – 0.97 all PASS (5 runs). Confirms the upper edge of the failure ra"
+monograph,4487,0.97,0.97,none,"0.93 – 0.97 in 0.005 steps): 0.93 – 0.945 all FAIL (4 runs), 0.95 – 0.97 all PASS (5 runs). Confirms the upper edge of the failure range, gi"
+monograph,4487,5,5.0,ambiguous_small,"0.005 steps): 0.93 – 0.945 all FAIL (4 runs), 0.95 – 0.97 all PASS (5 runs). Confirms the upper edge of the failure range, giving the cal"
+monograph,4489,0.95,0.95,ambiguous_small,"edge of the failure range, giving the calibrated severe fraction (0.95) a 0.005 margin. All three sweeps are within the same companion proj"
+monograph,4489,0.005,0.005,none,"f the failure range, giving the calibrated severe fraction (0.95) a 0.005 margin. All three sweeps are within the same companion project rathe"
+monograph,4497,0.95,0.95,ambiguous_small,eference ventilation setting. The Atlas's calibrated severe fraction (0.95) was selected to clear the upper edge of the zone with a 0.005 margin
+monograph,4498,0.005,0.005,none,action (0.95) was selected to clear the upper edge of the zone with a 0.005 margin. Pulse's documentation [@pulserespmethod] does not flag this z
+monograph,4501,06,6.0,ambiguous_small,t flag this zone. **No surfactant model — multi-criteria audit (2026-06-11).** A direct re-verification confirms Pulse models no pulmonary su
+monograph,4501,11,11.0,ambiguous_small,lag this zone. **No surfactant model — multi-criteria audit (2026-06-11).** A direct re-verification confirms Pulse models no pulmonary surfa
+monograph,4503,"3,304",3304.0,none,"der any name. A case-insensitive search of the complete engine tree — 3,304 files, 23 MB of them text, *including git-ignored and hidden files*,"
+monograph,4504,23,23.0,ambiguous_small,"A case-insensitive search of the complete engine tree — 3,304 files, 23 MB of them text, *including git-ignored and hidden files*, at tag"
+monograph,4510,86,86.0,none,", / . Terms that *do* appear — (86), (154), (2), (3) — were each i"
+monograph,4510,154,154.0,none,". Terms that *do* appear — (86), (154), (2), (3) — were each inspected and trace"
+monograph,4511,2,2.0,ambiguous_small,"s that *do* appear — (86), (154), (2), (3) — were each inspected and trace to mechanical lung"
+monograph,4511,3,3.0,ambiguous_small,"— (86), (154), (2), (3) — were each inspected and trace to mechanical lung collapse (pneumot"
+monograph,4520,46,46.0,ambiguous_small,"espiratory or CDM source file (total delta seven build-system files, +46/−17). What Pulse reproduces instead are the *macroscopic* phenomena"
+monograph,4520,17,17.0,ambiguous_small,"ratory or CDM source file (total delta seven build-system files, +46/−17). What Pulse reproduces instead are the *macroscopic* phenomena surf"
+monograph,4550,1,1.0,ambiguous_small,he official methodology documentation and the compiled engine logic: 1. **Basal metabolic rate (BMR) coefficient.** The documentation lis
+monograph,4551,3.397,3.397,none,"fficient.** The documentation lists the male weight coefficient as 3.397. The codebase implements ( ), correc"
+monograph,4554,2,2.0,ambiguous_small,aligning with the Harris-Benedict equation (Roza & Shizgal 1984). 2. **Skin surface-area exponent.** The documentation lists the weight
+monograph,4555,0.45,0.45,none,"ce-area exponent.** The documentation lists the weight exponent as 0.45. The codebase implements ( ), alignin"
+monograph,4557,3,3.0,ambiguous_small,"( ), aligning with the Du Bois formula. 3. **Baroreceptor constant (ν).** The documentation lists the barore"
+monograph,4558,4,4.0,ambiguous_small,nstant (ν).** The documentation lists the baroreceptor exponent as 4. The codebase implements an effective ν = 48 (
+monograph,4559,48,48.0,ambiguous_small,"roreceptor exponent as 4. The codebase implements an effective ν = 48 ( ), calculated as (where"
+monograph,4560,12,12.0,ambiguous_small,"), calculated as (where slope = 12). ### B.5 Reference-surrogate body-dimension provenance The two adu"
+monograph,4564,18,18.0,none,on provenance The two adult surrogates used throughout the atlas (M: 18 yr / 67.3 kg / 180 cm; F: 18 yr / 56.2 kg / 163 cm) were originally l
+monograph,4564,67.3,67.3,guard,"nance The two adult surrogates used throughout the atlas (M: 18 yr / 67.3 kg / 180 cm; F: 18 yr / 56.2 kg / 163 cm) were originally labelled ""P"
+monograph,4565,180,180.0,guard,"two adult surrogates used throughout the atlas (M: 18 yr / 67.3 kg / 180 cm; F: 18 yr / 56.2 kg / 163 cm) were originally labelled ""Pulse stan"
+monograph,4565,18,18.0,none,"surrogates used throughout the atlas (M: 18 yr / 67.3 kg / 180 cm; F: 18 yr / 56.2 kg / 163 cm) were originally labelled ""Pulse standard male"
+monograph,4565,56.2,56.2,guard,"es used throughout the atlas (M: 18 yr / 67.3 kg / 180 cm; F: 18 yr / 56.2 kg / 163 cm) were originally labelled ""Pulse standard male / female"""
+monograph,4565,163,163.0,none,"roughout the atlas (M: 18 yr / 67.3 kg / 180 cm; F: 18 yr / 56.2 kg / 163 cm) were originally labelled ""Pulse standard male / female"" in early"
+monograph,4566,05,5.0,ambiguous_small,"d ""Pulse standard male / female"" in early drafts of this work. A 2026-05-19 source-level audit established that this label is technically a mi"
+monograph,4566,19,19.0,ambiguous_small,"Pulse standard male / female"" in early drafts of this work. A 2026-05-19 source-level audit established that this label is technically a misno"
+monograph,4570,67.3,67.3,guard,"er. The actual provenance, by dimension, is as follows: * **Weights (67.3 kg M, 56.2 kg F).** CDC weight-for-age 50th-percentile values at"
+monograph,4570,56.2,56.2,guard,"ual provenance, by dimension, is as follows: * **Weights (67.3 kg M, 56.2 kg F).** CDC weight-for-age 50th-percentile values at = 21"
+monograph,4570,50,50.0,ambiguous_small,"as follows: * **Weights (67.3 kg M, 56.2 kg F).** CDC weight-for-age 50th-percentile values at = 216.5 — 67.28992603 kg for boys,"
+monograph,4571,216.5,216.5,guard,".2 kg F).** CDC weight-for-age 50th-percentile values at = 216.5 — 67.28992603 kg for boys, 56.22969564 kg for girls (CDC z-score fi"
+monograph,4571,67.28992603,67.28992603,none,".** CDC weight-for-age 50th-percentile values at = 216.5 — 67.28992603 kg for boys, 56.22969564 kg for girls (CDC z-score file"
+monograph,4571,56.22969564,56.22969564,none,"th-percentile values at = 216.5 — 67.28992603 kg for boys, 56.22969564 kg for girls (CDC z-score file , <"
+monograph,4573,08,8.0,ambiguous_small,", < re-read 2026-08-20 with columns resolved by name). CDC lists age at the half-month"
+monograph,4573,20,20.0,ambiguous_small,", < re-read 2026-08-20 with columns resolved by name). CDC lists age at the half-month poi"
+monograph,4575,216.0,216.0,none,"half-month point standing for the whole month, so this row denotes 216.0–216.99 months, beginning at exactly 18.0 years. An earlier version"
+monograph,4575,216.99,216.99,none,"month point standing for the whole month, so this row denotes 216.0–216.99 months, beginning at exactly 18.0 years. An earlier version of this"
+monograph,4576,18.0,18.0,guard,"onth, so this row denotes 216.0–216.99 months, beginning at exactly 18.0 years. An earlier version of this entry placed the values at a 214-"
+monograph,4577,214,214.0,guard,18.0 years. An earlier version of this entry placed the values at a 214-month row and gave 67.64 and 56.41 kg as the 18.0-year figures; those
+monograph,4577,67.64,67.64,guard,version of this entry placed the values at a 214-month row and gave 67.64 and 56.41 kg as the 18.0-year figures; those belong to = 2
+monograph,4577,56.41,56.41,none,"this entry placed the values at a 214-month row and gave 67.64 and 56.41 kg as the 18.0-year figures; those belong to = 218.5, that"
+monograph,4577,18.0,18.0,guard,"ed the values at a 214-month row and gave 67.64 and 56.41 kg as the 18.0-year figures; those belong to = 218.5, that is 18 y 2 m. T"
+monograph,4578,218.5,218.5,guard,"4 and 56.41 kg as the 18.0-year figures; those belong to = 218.5, that is 18 y 2 m. These anchors were taken directly from the compa"
+monograph,4578,18,18.0,none,"as the 18.0-year figures; those belong to = 218.5, that is 18 y 2 m. These anchors were taken directly from the companion"
+monograph,4578,2,2.0,ambiguous_small,"e 18.0-year figures; those belong to = 218.5, that is 18 y 2 m. These anchors were taken directly from the companion"
+monograph,4580,18,18.0,none,"pediatric-translation pipeline, where they form the adult (18 yr) endpoint of the CDC progression used for its pediatric strata"
+monograph,4582,1,1.0,ambiguous_small,r) endpoint of the CDC progression used for its pediatric strata (1 mo / 6 mo / 18 mo / 5 yr / 10 yr / 18 yr). The audit trail is recor
+monograph,4582,6,6.0,ambiguous_small,dpoint of the CDC progression used for its pediatric strata (1 mo / 6 mo / 18 mo / 5 yr / 10 yr / 18 yr). The audit trail is recorded in
+monograph,4582,18,18.0,none,of the CDC progression used for its pediatric strata (1 mo / 6 mo / 18 mo / 5 yr / 10 yr / 18 yr). The audit trail is recorded in that pro
+monograph,4582,5,5.0,ambiguous_small,DC progression used for its pediatric strata (1 mo / 6 mo / 18 mo / 5 yr / 10 yr / 18 yr). The audit trail is recorded in that project's
+monograph,4582,10,10.0,ambiguous_small,ression used for its pediatric strata (1 mo / 6 mo / 18 mo / 5 yr / 10 yr / 18 yr). The audit trail is recorded in that project's experime
+monograph,4582,18,18.0,none,used for its pediatric strata (1 mo / 6 mo / 18 mo / 5 yr / 10 yr / 18 yr). The audit trail is recorded in that project's experiments log
+monograph,4584,04,4.0,ambiguous_small,"rded in that project's experiments log (CDC weight audit step, 2026-04). * **Female height (163 cm).** Matches the CDC P50 stature for 18"
+monograph,4586,163,163.0,none,"periments log (CDC weight audit step, 2026-04). * **Female height (163 cm).** Matches the CDC P50 stature for 18-year-old girls. By coinci"
+monograph,4587,18,18.0,none,04). * **Female height (163 cm).** Matches the CDC P50 stature for 18-year-old girls. By coincidence it is also identical to Pulse's own
+monograph,4592,180,180.0,guard,cal). Both anchors therefore agree on this value. * **Male height (180 cm).** This is a researcher-fixed rounded value chosen by the maint
+monograph,4594,20.8,20.8,none,of to yield a clean healthy baseline BMI of 20.8 in combination with the 67.3 kg weight. It is **not** the CDC P50 m
+monograph,4594,67.3,67.3,guard,yield a clean healthy baseline BMI of 20.8 in combination with the 67.3 kg weight. It is **not** the CDC P50 male stature at 18 years (CDC
+monograph,4595,18,18.0,none,with the 67.3 kg weight. It is **not** the CDC P50 male stature at 18 years (CDC P50 ≈ 176.2 cm) and it does **not** match Pulse's own in
+monograph,4595,176.2,176.2,guard,ight. It is **not** the CDC P50 male stature at 18 years (CDC P50 ≈ 176.2 cm) and it does **not** match Pulse's own internal
+monograph,4598,180,180.0,guard,constant ( ). The 180 cm value sits inside Pulse's accepted male height envelope (163–190
+monograph,4599,163,163.0,none,"The 180 cm value sits inside Pulse's accepted male height envelope (163–190 cm, with overall BMI 16–30 enforced) and is therefore engine-le"
+monograph,4599,190,190.0,none,"180 cm value sits inside Pulse's accepted male height envelope (163–190 cm, with overall BMI 16–30 enforced) and is therefore engine-legal:"
+monograph,4599,16,16.0,ambiguous_small,"Pulse's accepted male height envelope (163–190 cm, with overall BMI 16–30 enforced) and is therefore engine-legal: Pulse accepts it withou"
+monograph,4599,30,30.0,ambiguous_small,"se's accepted male height envelope (163–190 cm, with overall BMI 16–30 enforced) and is therefore engine-legal: Pulse accepts it without w"
+monograph,4606,3,3.0,ambiguous_small,er than retro-fitting a citation. **Consequence for the atlas.** The 3 cm male-height offset has no material effect on the operational-envel
+monograph,4608,163,163.0,none,"e sweep we report (Pulse does not gate any input on height beyond the 163–190 cm envelope, and the BMI of 20.8 is centrally inside the 16–30 va"
+monograph,4608,190,190.0,none,"eep we report (Pulse does not gate any input on height beyond the 163–190 cm envelope, and the BMI of 20.8 is centrally inside the 16–30 valid"
+monograph,4609,20.8,20.8,none,"te any input on height beyond the 163–190 cm envelope, and the BMI of 20.8 is centrally inside the 16–30 valid range). The finding has been carr"
+monograph,4609,16,16.0,ambiguous_small,"the 163–190 cm envelope, and the BMI of 20.8 is centrally inside the 16–30 valid range). The finding has been carried forward by relabelling"
+monograph,4609,30,30.0,ambiguous_small,"e 163–190 cm envelope, and the BMI of 20.8 is centrally inside the 16–30 valid range). The finding has been carried forward by relabelling the"
+monograph,4618,2.6,2.6,ambiguous_small,) {#appendix-c} The locked classifier's flag (§2.6) fires when any output channel violates one of three sub-mode rules i
+monograph,4620,60,60.0,ambiguous_small,"when any output channel violates one of three sub-mode rules in the [60, 120] s steady-state window: flatline at a hard bound, coefficient of"
+monograph,4620,120,120.0,guard,"n any output channel violates one of three sub-mode rules in the [60, 120] s steady-state window: flatline at a hard bound, coefficient of vari"
+monograph,4621,5,5.0,ambiguous_small,"dy-state window: flatline at a hard bound, coefficient of variation > 5 %, or drift |Δ60s| above the per-channel threshold. Across the 1,280-"
+monograph,4622,"1,280",1280.0,guard,"on > 5 %, or drift |Δ60s| above the per-channel threshold. Across the 1,280-run sweep 530 runs fire . A post-hoc trigger-attrib"
+monograph,4622,530,530.0,guard,"ft |Δ60s| above the per-channel threshold. Across the 1,280-run sweep 530 runs fire . A post-hoc trigger-attribution audit (["
+monograph,4624,530,530.0,guard,"A post-hoc trigger-attribution audit ([S022 ) decomposes those 530 by which sub-mode contributed; the locked classifier is unchanged, th"
+monograph,4630,0.999,0.999,guard,"wo sub-modes audited are: * **SpO2 ""flatline at ceiling"" with mean ≥ 0.999.** A *detector edge case*: under the locked flatline rule (std/|mea"
+monograph,4631,0.01,0.01,none,"*detector edge case*: under the locked flatline rule (std/|mean| < 0.01 *and* mean within 0.001 of a hard bound), a healthy or well-oxygena"
+monograph,4632,0.001,0.001,none,"under the locked flatline rule (std/|mean| < 0.01 *and* mean within 0.001 of a hard bound), a healthy or well-oxygenated patient whose SpO2 s"
+monograph,4633,1.0,1.0,ambiguous_small,"or well-oxygenated patient whose SpO2 saturates physiologically at 1.0 is classified as ""pinned at the ceiling."" This is correct numerical"
+monograph,4639,5,5.0,ambiguous_small,"physiological saturation; the two coincide numerically. * **Vt CV > 5 %.** The F-004 tidal-volume oscillation, consistent with patient-ve"
+monograph,4639,004,4.0,ambiguous_small,"saturation; the two coincide numerically. * **Vt CV > 5 %.** The F-004 tidal-volume oscillation, consistent with patient-ventilator dyssyn"
+monograph,4640,3.8,3.8,none,"ion, consistent with patient-ventilator dyssynchrony, described in §3.8 and causally tested in [S014 . Pulse's default VC-AC trigger"
+monograph,4645,96,96.0,none,explicit collapses the Vt CV by 96 % (median 0.351 → 0.016) on 64 controlled reruns. The
+monograph,4645,0.351,0.351,guard,collapses the Vt CV by 96 % (median 0.351 → 0.016) on 64 controlled reruns. The CSV channel is
+monograph,4645,0.016,0.016,ambiguous_small,collapses the Vt CV by 96 % (median 0.351 → 0.016) on 64 controlled reruns. The CSV channel is breath-i
+monograph,4645,64,64.0,ambiguous_small,collapses the Vt CV by 96 % (median 0.351 → 0.016) on 64 controlled reruns. The CSV channel is breath-integrat
+monograph,4647,0.02,0.02,ambiguous_small,"channel is breath-integrated and held between cycles (S014, native 0.02 s waveform inspection), so the 5 s atlas sampling is *not* aliasing"
+monograph,4647,5,5.0,ambiguous_small,"ld between cycles (S014, native 0.02 s waveform inspection), so the 5 s atlas sampling is *not* aliasing — it captures real breath-to-bre"
+monograph,4660,004,4.0,ambiguous_small,excl. & n\_clean excl. \\ & & & SpO2 sat. & F-004 & both & both \\ \midrule S1\_M & 160 & 107 &
+monograph,4662,160,160.0,guard,. & F-004 & both & both \\ \midrule S1\_M & 160 & 107 & 91 & 74 & 29 & 127 \\ S1\_F & 160 & 118 & 88 & 87 & 24 & 136
+monograph,4662,107,107.0,guard,F-004 & both & both \\ \midrule S1\_M & 160 & 107 & 91 & 74 & 29 & 127 \\ S1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\ \mi
+monograph,4662,91,91.0,ambiguous_small,& both & both \\ \midrule S1\_M & 160 & 107 & 91 & 74 & 29 & 127 \\ S1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\ \midrule
+monograph,4662,74,74.0,ambiguous_small,& both & both \\ \midrule S1\_M & 160 & 107 & 91 & 74 & 29 & 127 \\ S1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\ \midrule S2\_
+monograph,4662,29,29.0,ambiguous_small,both & both \\ \midrule S1\_M & 160 & 107 & 91 & 74 & 29 & 127 \\ S1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\ \midrule S2\_M & 1
+monograph,4662,127,127.0,ledger,& both \\ \midrule S1\_M & 160 & 107 & 91 & 74 & 29 & 127 \\ S1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\ \midrule S2\_M & 160 & 6
+monograph,4663,160,160.0,guard,\\ \midrule S1\_M & 160 & 107 & 91 & 74 & 29 & 127 \\ S1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\ \midrule S2\_M & 160 & 69 & 60 & 45 &
+monograph,4663,118,118.0,guard,\\ \midrule S1\_M & 160 & 107 & 91 & 74 & 29 & 127 \\ S1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\ \midrule S2\_M & 160 & 69 & 60 & 45 & 23 & 1
+monograph,4663,88,88.0,ambiguous_small,midrule S1\_M & 160 & 107 & 91 & 74 & 29 & 127 \\ S1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\ \midrule S2\_M & 160 & 69 & 60 & 45 & 23 & 133 \\
+monograph,4663,87,87.0,ambiguous_small,le S1\_M & 160 & 107 & 91 & 74 & 29 & 127 \\ S1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\ \midrule S2\_M & 160 & 69 & 60 & 45 & 23 & 133 \\ S2\_
+monograph,4663,24,24.0,ambiguous_small,\_M & 160 & 107 & 91 & 74 & 29 & 127 \\ S1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\ \midrule S2\_M & 160 & 69 & 60 & 45 & 23 & 133 \\ S2\_F & 1
+monograph,4663,136,136.0,ledger,160 & 107 & 91 & 74 & 29 & 127 \\ S1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\ \midrule S2\_M & 160 & 69 & 60 & 45 & 23 & 133 \\ S2\_F & 160 & 6
+monograph,4665,160,160.0,guard,9 & 127 \\ S1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\ \midrule S2\_M & 160 & 69 & 60 & 45 & 23 & 133 \\ S2\_F & 160 & 68 & 52 & 44 & 7 & 153
+monograph,4665,69,69.0,ambiguous_small,7 \\ S1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\ \midrule S2\_M & 160 & 69 & 60 & 45 & 23 & 133 \\ S2\_F & 160 & 68 & 52 & 44 & 7 & 153 \\ \m
+monograph,4665,60,60.0,ambiguous_small,1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\ \midrule S2\_M & 160 & 69 & 60 & 45 & 23 & 133 \\ S2\_F & 160 & 68 & 52 & 44 & 7 & 153 \\ \midrule
+monograph,4665,45,45.0,ambiguous_small,& 160 & 118 & 88 & 87 & 24 & 136 \\ \midrule S2\_M & 160 & 69 & 60 & 45 & 23 & 133 \\ S2\_F & 160 & 68 & 52 & 44 & 7 & 153 \\ \midrule S3\_
+monograph,4665,23,23.0,ambiguous_small,& 118 & 88 & 87 & 24 & 136 \\ \midrule S2\_M & 160 & 69 & 60 & 45 & 23 & 133 \\ S2\_F & 160 & 68 & 52 & 44 & 7 & 153 \\ \midrule S3\_M & 1
+monograph,4665,133,133.0,guard,8 & 88 & 87 & 24 & 136 \\ \midrule S2\_M & 160 & 69 & 60 & 45 & 23 & 133 \\ S2\_F & 160 & 68 & 52 & 44 & 7 & 153 \\ \midrule S3\_M & 160 & 1
+monograph,4666,160,160.0,guard,4 & 136 \\ \midrule S2\_M & 160 & 69 & 60 & 45 & 23 & 133 \\ S2\_F & 160 & 68 & 52 & 44 & 7 & 153 \\ \midrule S3\_M & 160 & 12 & 11 & 9 &
+monograph,4666,68,68.0,ambiguous_small,6 \\ \midrule S2\_M & 160 & 69 & 60 & 45 & 23 & 133 \\ S2\_F & 160 & 68 & 52 & 44 & 7 & 153 \\ \midrule S3\_M & 160 & 12 & 11 & 9 & 8 &
+monograph,4666,52,52.0,ambiguous_small,midrule S2\_M & 160 & 69 & 60 & 45 & 23 & 133 \\ S2\_F & 160 & 68 & 52 & 44 & 7 & 153 \\ \midrule S3\_M & 160 & 12 & 11 & 9 & 8 & 148 \\
+monograph,4666,44,44.0,ambiguous_small,le S2\_M & 160 & 69 & 60 & 45 & 23 & 133 \\ S2\_F & 160 & 68 & 52 & 44 & 7 & 153 \\ \midrule S3\_M & 160 & 12 & 11 & 9 & 8 & 148 \\ S3\_
+monograph,4666,7,7.0,ambiguous_small,\_M & 160 & 69 & 60 & 45 & 23 & 133 \\ S2\_F & 160 & 68 & 52 & 44 & 7 & 153 \\ \midrule S3\_M & 160 & 12 & 11 & 9 & 8 & 148 \\ S3\_F &
+monograph,4666,153,153.0,ledger,160 & 69 & 60 & 45 & 23 & 133 \\ S2\_F & 160 & 68 & 52 & 44 & 7 & 153 \\ \midrule S3\_M & 160 & 12 & 11 & 9 & 8 & 148 \\ S3\_F & 160 & 3
+monograph,4668,160,160.0,guard,3 & 133 \\ S2\_F & 160 & 68 & 52 & 44 & 7 & 153 \\ \midrule S3\_M & 160 & 12 & 11 & 9 & 8 & 148 \\ S3\_F & 160 & 38 & 34 & 10 & 3 & 157
+monograph,4668,12,12.0,ambiguous_small,3 \\ S2\_F & 160 & 68 & 52 & 44 & 7 & 153 \\ \midrule S3\_M & 160 & 12 & 11 & 9 & 8 & 148 \\ S3\_F & 160 & 38 & 34 & 10 & 3 & 157 \\ \m
+monograph,4668,11,11.0,ambiguous_small,2\_F & 160 & 68 & 52 & 44 & 7 & 153 \\ \midrule S3\_M & 160 & 12 & 11 & 9 & 8 & 148 \\ S3\_F & 160 & 38 & 34 & 10 & 3 & 157 \\ \midrule
+monograph,4668,9,9.0,ambiguous_small,& 160 & 68 & 52 & 44 & 7 & 153 \\ \midrule S3\_M & 160 & 12 & 11 & 9 & 8 & 148 \\ S3\_F & 160 & 38 & 34 & 10 & 3 & 157 \\ \midrule S4\
+monograph,4668,8,8.0,ambiguous_small,& 68 & 52 & 44 & 7 & 153 \\ \midrule S3\_M & 160 & 12 & 11 & 9 & 8 & 148 \\ S3\_F & 160 & 38 & 34 & 10 & 3 & 157 \\ \midrule S4\_M &
+monograph,4668,148,148.0,ledger,& 52 & 44 & 7 & 153 \\ \midrule S3\_M & 160 & 12 & 11 & 9 & 8 & 148 \\ S3\_F & 160 & 38 & 34 & 10 & 3 & 157 \\ \midrule S4\_M & 160 & 4
+monograph,4669,160,160.0,guard,& 153 \\ \midrule S3\_M & 160 & 12 & 11 & 9 & 8 & 148 \\ S3\_F & 160 & 38 & 34 & 10 & 3 & 157 \\ \midrule S4\_M & 160 & 44 & 44 & 39 &
+monograph,4669,38,38.0,ambiguous_small,3 \\ \midrule S3\_M & 160 & 12 & 11 & 9 & 8 & 148 \\ S3\_F & 160 & 38 & 34 & 10 & 3 & 157 \\ \midrule S4\_M & 160 & 44 & 44 & 39 & 39 &
+monograph,4669,34,34.0,ambiguous_small,midrule S3\_M & 160 & 12 & 11 & 9 & 8 & 148 \\ S3\_F & 160 & 38 & 34 & 10 & 3 & 157 \\ \midrule S4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\
+monograph,4669,10,10.0,ambiguous_small,le S3\_M & 160 & 12 & 11 & 9 & 8 & 148 \\ S3\_F & 160 & 38 & 34 & 10 & 3 & 157 \\ \midrule S4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F
+monograph,4669,3,3.0,ambiguous_small,\_M & 160 & 12 & 11 & 9 & 8 & 148 \\ S3\_F & 160 & 38 & 34 & 10 & 3 & 157 \\ \midrule S4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F & 1
+monograph,4669,157,157.0,ledger,160 & 12 & 11 & 9 & 8 & 148 \\ S3\_F & 160 & 38 & 34 & 10 & 3 & 157 \\ \midrule S4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F & 160 & 74
+monograph,4671,160,160.0,guard,& 148 \\ S3\_F & 160 & 38 & 34 & 10 & 3 & 157 \\ \midrule S4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F & 160 & 74 & 74 & 52 & 52 & 82 \\
+monograph,4671,44,44.0,ambiguous_small,8 \\ S3\_F & 160 & 38 & 34 & 10 & 3 & 157 \\ \midrule S4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F & 160 & 74 & 74 & 52 & 52 & 82 \\ \mid
+monograph,4671,44,44.0,ambiguous_small,3\_F & 160 & 38 & 34 & 10 & 3 & 157 \\ \midrule S4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F & 160 & 74 & 74 & 52 & 52 & 82 \\ \midrule \
+monograph,4671,39,39.0,ambiguous_small,& 160 & 38 & 34 & 10 & 3 & 157 \\ \midrule S4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F & 160 & 74 & 74 & 52 & 52 & 82 \\ \midrule \textb
+monograph,4671,39,39.0,ambiguous_small,& 38 & 34 & 10 & 3 & 157 \\ \midrule S4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F & 160 & 74 & 74 & 52 & 52 & 82 \\ \midrule \textbf{Tot
+monograph,4671,72,72.0,ambiguous_small,& 34 & 10 & 3 & 157 \\ \midrule S4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F & 160 & 74 & 74 & 52 & 52 & 82 \\ \midrule \textbf{Total} &
+monograph,4672,160,160.0,guard,"3 & 157 \\ \midrule S4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F & 160 & 74 & 74 & 52 & 52 & 82 \\ \midrule \textbf{Total} & \textbf{1,280}"
+monograph,4672,74,74.0,ambiguous_small,"57 \\ \midrule S4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F & 160 & 74 & 74 & 52 & 52 & 82 \\ \midrule \textbf{Total} & \textbf{1,280} & \t"
+monograph,4672,74,74.0,ambiguous_small,"\midrule S4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F & 160 & 74 & 74 & 52 & 52 & 82 \\ \midrule \textbf{Total} & \textbf{1,280} & \textbf{"
+monograph,4672,52,52.0,ambiguous_small,"ule S4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F & 160 & 74 & 74 & 52 & 52 & 82 \\ \midrule \textbf{Total} & \textbf{1,280} & \textbf{530}"
+monograph,4672,52,52.0,ambiguous_small,"4\_M & 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F & 160 & 74 & 74 & 52 & 52 & 82 \\ \midrule \textbf{Total} & \textbf{1,280} & \textbf{530} & \te"
+monograph,4672,82,82.0,ambiguous_small,"& 160 & 44 & 44 & 39 & 39 & 72 \\ S4\_F & 160 & 74 & 74 & 52 & 52 & 82 \\ \midrule \textbf{Total} & \textbf{1,280} & \textbf{530} & \textbf{"
+monograph,4674,"1,280",1280.0,guard,"& 160 & 74 & 74 & 52 & 52 & 82 \\ \midrule \textbf{Total} & \textbf{1,280} & \textbf{530} & \textbf{454} & \textbf{360} & \textbf{185} & \textb"
+monograph,4674,530,530.0,guard,"& 52 & 52 & 82 \\ \midrule \textbf{Total} & \textbf{1,280} & \textbf{530} & \textbf{454} & \textbf{360} & \textbf{185} & \textbf{1,008} \\ \bo"
+monograph,4674,454,454.0,guard,"\\ \midrule \textbf{Total} & \textbf{1,280} & \textbf{530} & \textbf{454} & \textbf{360} & \textbf{185} & \textbf{1,008} \\ \bottomrule"
+monograph,4674,360,360.0,guard,"extbf{Total} & \textbf{1,280} & \textbf{530} & \textbf{454} & \textbf{360} & \textbf{185} & \textbf{1,008} \\ \bottomrule"
+monograph,4674,185,185.0,guard,"\textbf{1,280} & \textbf{530} & \textbf{454} & \textbf{360} & \textbf{185} & \textbf{1,008} \\ \bottomrule *App"
+monograph,4674,"1,008",1008.0,guard,"& \textbf{530} & \textbf{454} & \textbf{360} & \textbf{185} & \textbf{1,008} \\ \bottomrule *Appendix C Table.* P"
+monograph,4686,3.1,3.1,ambiguous_small,classifier is unchanged; rows and columns of this table do not feed §3.1 Table 1 or any of the headline figures. **Reading the table.** * **
+monograph,4686,1,1.0,ambiguous_small,r is unchanged; rows and columns of this table do not feed §3.1 Table 1 or any of the headline figures. **Reading the table.** * **SpO2 sat
+monograph,4690,76,76.0,ambiguous_small,"the table.** * **SpO2 saturation contribution (locked − excl. SpO2 = 76 runs).** Concentrated in S1/S2 (71 / 76 of those runs; 30 in S1_F,"
+monograph,4691,71,71.0,none,"tribution (locked − excl. SpO2 = 76 runs).** Concentrated in S1/S2 (71 / 76 of those runs; 30 in S1_F, 16 in S1_M, 16 in S2_F, 9 in S2_M,"
+monograph,4691,76,76.0,ambiguous_small,"tion (locked − excl. SpO2 = 76 runs).** Concentrated in S1/S2 (71 / 76 of those runs; 30 in S1_F, 16 in S1_M, 16 in S2_F, 9 in S2_M, plus"
+monograph,4691,30,30.0,ambiguous_small,"l. SpO2 = 76 runs).** Concentrated in S1/S2 (71 / 76 of those runs; 30 in S1_F, 16 in S1_M, 16 in S2_F, 9 in S2_M, plus 5 trickle in S3)."
+monograph,4691,16,16.0,ambiguous_small,"runs).** Concentrated in S1/S2 (71 / 76 of those runs; 30 in S1_F, 16 in S1_M, 16 in S2_F, 9 in S2_M, plus 5 trickle in S3). Zero in S4 ("
+monograph,4692,16,16.0,ambiguous_small,"ncentrated in S1/S2 (71 / 76 of those runs; 30 in S1_F, 16 in S1_M, 16 in S2_F, 9 in S2_M, plus 5 trickle in S3). Zero in S4 (in severe AR"
+monograph,4692,9,9.0,ambiguous_small,"n S1/S2 (71 / 76 of those runs; 30 in S1_F, 16 in S1_M, 16 in S2_F, 9 in S2_M, plus 5 trickle in S3). Zero in S4 (in severe ARDS, SpO2 no"
+monograph,4692,5,5.0,ambiguous_small,"of those runs; 30 in S1_F, 16 in S1_M, 16 in S2_F, 9 in S2_M, plus 5 trickle in S3). Zero in S4 (in severe ARDS, SpO2 no longer saturate"
+monograph,4700,004,4.0,ambiguous_small,re-tally clean runs excluding this sub-mode using this table. * **F-004 oscillation contribution (locked − excl. F-004 = 170 runs).** Distr
+monograph,4700,004,4.0,ambiguous_small,"sing this table. * **F-004 oscillation contribution (locked − excl. F-004 = 170 runs).** Distributed across all cells, with the strongest con"
+monograph,4700,170,170.0,guard,"his table. * **F-004 oscillation contribution (locked − excl. F-004 = 170 runs).** Distributed across all cells, with the strongest contribut"
+monograph,4707,185,185.0,guard,"ked classifier is correctly flagging it. * **Residual (excl. both = 185 runs).** Largest in S4 (91 / 185 of the residual), and a smaller S1"
+monograph,4707,91,91.0,ambiguous_small,"y flagging it. * **Residual (excl. both = 185 runs).** Largest in S4 (91 / 185 of the residual), and a smaller S1 contribution (53 / 185). T"
+monograph,4707,185,185.0,guard,"gging it. * **Residual (excl. both = 185 runs).** Largest in S4 (91 / 185 of the residual), and a smaller S1 contribution (53 / 185). The S4"
+monograph,4708,53,53.0,none,"st in S4 (91 / 185 of the residual), and a smaller S1 contribution (53 / 185). The S4 residual is the F-003-class slow-convergence phenome"
+monograph,4708,185,185.0,guard,"S4 (91 / 185 of the residual), and a smaller S1 contribution (53 / 185). The S4 residual is the F-003-class slow-convergence phenomenon"
+monograph,4709,003,3.0,ambiguous_small,"and a smaller S1 contribution (53 / 185). The S4 residual is the F-003-class slow-convergence phenomenon ([S012 , [S021 ): s"
+monograph,4711,120,120.0,guard,): severe-ARDS oxygenation has not settled within the locked 120 s window. The S1 residual is the F-003 transient hyperoxia regime (
+monograph,4712,003,3.0,ambiguous_small,settled within the locked 120 s window. The S1 residual is the F-003 transient hyperoxia regime (PaO2 drift at FiO2 = 1.0). Both categor
+monograph,4712,1.0,1.0,ambiguous_small,idual is the F-003 transient hyperoxia regime (PaO2 drift at FiO2 = 1.0). Both categories are already discussed in §3.8 and are not new fin
+monograph,4713,3.8,3.8,none,"aO2 drift at FiO2 = 1.0). Both categories are already discussed in §3.8 and are not new findings. * **Counterfactual ""clean"" recount.** Under"
+monograph,4715,004,4.0,ambiguous_small,"on (treat SpO2 saturation as physiological *and* re-attribute the F-004 oscillation to its own documented finding), the clean count would"
+monograph,4717,663,663.0,guard,"ion to its own documented finding), the clean count would rise from 663 / 1,280 (51.8 %) to 1,008 / 1,280 (78.8 %). This number is *not* a"
+monograph,4717,"1,280",1280.0,guard,"its own documented finding), the clean count would rise from 663 / 1,280 (51.8 %) to 1,008 / 1,280 (78.8 %). This number is *not* a re-class"
+monograph,4717,51.8,51.8,guard,"n documented finding), the clean count would rise from 663 / 1,280 (51.8 %) to 1,008 / 1,280 (78.8 %). This number is *not* a re-classificat"
+monograph,4717,"1,008",1008.0,guard,"d finding), the clean count would rise from 663 / 1,280 (51.8 %) to 1,008 / 1,280 (78.8 %). This number is *not* a re-classification of the a"
+monograph,4717,"1,280",1280.0,guard,"g), the clean count would rise from 663 / 1,280 (51.8 %) to 1,008 / 1,280 (78.8 %). This number is *not* a re-classification of the atlas — i"
+monograph,4717,78.8,78.8,guard,"clean count would rise from 663 / 1,280 (51.8 %) to 1,008 / 1,280 (78.8 %). This number is *not* a re-classification of the atlas — it is a"
+monograph,4719,51.8,51.8,guard,re-classification of the atlas — it is a decomposition of where the 51.8 % clean rate comes from. The headline locked-classifier numbers in
+monograph,4720,3.1,3.1,ambiguous_small,% clean rate comes from. The headline locked-classifier numbers in §3.1 Table 1 stand.
+monograph,4720,1,1.0,ambiguous_small,te comes from. The headline locked-classifier numbers in §3.1 Table 1 stand.
 paper,95,1,1.0,ambiguous_small,"\author*[1,2,3,4,5]{\fnm{Santino} \sur{Nanini}}\email{santino.nanini@umontreal.c"
 paper,95,2,2.0,ambiguous_small,"\author*[1,2,3,4,5]{\fnm{Santino} \sur{Nanini}}\email{santino.nanini@umontreal.ca}"
 paper,95,3,3.0,ambiguous_small,"\author*[1,2,3,4,5]{\fnm{Santino} \sur{Nanini}}\email{santino.nanini@umontreal.ca}"
