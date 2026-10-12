@@ -1,7 +1,7 @@
 ---
 title: "Pulse Reliability Atlas: first sensitivity, clamping, and divergence map for the Pulse Physiology Engine v4.3.1"
 author: "Santino Nanini^1,2,3,4,5,\\*^, Arnaud Wiedemann^3,4,6^, Yassir Mamouni^3^, Cyril Schweitzer^4,5^, Philippe Jouvet^1,2,3^, Michael Sauthier^1,2,3^"
-date: "2026-09-28"
+date: "2026-10-12"
 header-includes:
   - \renewcommand{\arraystretch}{1.35}
   - \makeatletter\renewcommand{\@maketitle}{\newpage\null\vskip 2em\begin{center}\let\footnote\thanks{\LARGE\@title\par}\vskip 1.5em{\large\begin{minipage}{0.92\textwidth}\centering\@author\end{minipage}\par}\vskip 1em{\large\@date}\end{center}\par\vskip 1em}\makeatother
