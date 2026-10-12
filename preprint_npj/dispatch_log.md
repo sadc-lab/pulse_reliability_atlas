@@ -1721,3 +1721,56 @@ before the build; `git diff HEAD` empty after the build. Copies in
 
 Full gate on `24dd323` (pre-commit hook, with this build): PASS; render: the same
 1 accepted residue, 0 new; Word structure, numbering, tables and affiliations OK.
+
+## 2026-10-12 — re-freeze 56: A.W.'s review and the second review round declared (paper + supplement); not sent
+
+**Status: NOT SENT.** Supersedes re-freeze 55 as the current build. Changes since
+re-freeze 55 (`24dd323`), on the author's decisions of 2026-10-09 and 2026-10-12:
+
+- `7021cce` 15 clarifications from A.W.'s Word comments, none changing a result;
+  "Materials availability" removed (npj does not ask for it).
+- `dad75bd` the follow-up paediatric work is no longer announced in the
+  Discussion or the supplement; the Introduction keeps its motivation.
+- `874fced` A.W.'s affiliations 3, 4, 6; cluster acronym written PEDIATRICS;
+  trigger caveat (§2.3) reworded so that −2 cmH₂O is not singled out.
+- `0f695df` five additions from A.W.'s comments: trigger-threshold caveat logic,
+  retention in healthy lungs, ventilator effects on HR and MAP, MIMIC-IV replay,
+  longer-term aim.
+- `726c1a3`, `ccb2f6c` §S18 declares the second supervisor-review round and the
+  models used for it; Methods §4.7 is unchanged in net.
+- `74c3765` (Word converter) the Word files carry each author's affiliation
+  numbers and the corresponding-author line, with no space before superscript
+  citations.
+
+Awaiting: M.S.'s confirmation of the reworded trigger sentence (§2.3), and with
+it the Figure 4 legend, §S8.4 and the cover letter's wording; C.S.'s reply.
+
+| | |
+|---|---|
+| Sent | — |
+| Source commit | `dd642eb` |
+| Pages | 24 (paper) / 58 (supplement), unchanged |
+| Monograph | not part of this dispatch; rebuilt the same day (123 pages, dated 2026-10-12) |
+
+### Hashes, frozen before any further build
+
+| artefact | SHA-256 | bytes |
+|---|---|---|
+| `preprint_npj/build/paper.pdf` | `b5bc4ddcb569241267c2dce88ab03ff22c66b16e571c6263281c7f9be6af518e` | 618,556 |
+| `preprint_npj/build/paper.docx` | `bbf5d120f7f2fab09d8325f8ba6bc84ded0eced831efb0811577fdd668b5cd70` | 954,432 |
+| `preprint_npj/build/supplement.pdf` | `9a0994df1e3138d6a106abac8278abf74c3fe292c9345d124ed99b9661a4aa75` | 715,975 |
+| `preprint_npj/build/supplement.docx` | `9356dc8811c20b270aee7739fa42190d6c9427c88c4ed665cac418d5a8f87f96` | 761,746 |
+
+Written 16:12:06–16:12:14 local time; `paper.tex` and `supplement.tex` last
+modified 13:32, before the build; `git status` clean before and after the build.
+Copies in `preprint_npj/build/freeze56/` (gitignored), SHA-256 identical to
+`build/`.
+
+### Gate state at freeze
+
+Full gate on `dd642eb` with this build: see the commit that records this entry.
+Checked by hand on the frozen files: the six authors' affiliation numbers in
+`paper.docx` match `paper.tex` (6 / 6), and the corresponding-author line
+carries the e-mail; the reworded trigger sentence, "PEDIATRICS" and the §S18
+second-round sentence are present; "Materials availability" and "GPT-6" are
+absent.
