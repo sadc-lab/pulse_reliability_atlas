@@ -11,5 +11,5 @@ supplement,tex_comment,68,two,ve the label in % the paper's .aux and fail loudly
 supplement,tex_comment,71,two,"mber before pandoc, which % would otherwise drop an unknown two-argument macro and lose the numbers from % the Word twin"
 supplement,tex_comment,80,first,"5 printed after the % references, up to 43 pages from their first mention. A float-page threshold % of 0.7 (low enough f"
 supplement,tex_comment,82,half,"that table, high enough that no figure is left alone % on a half-empty page) and [htbp] instead of [h] let each float la"
-supplement,tex_comment,746,second,%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %% S9 -- Hyperoxia 300-second convergence full protocol %%%%%%%%%%%%%%%%%%%%%%%%%%%
-monograph,md_fence,1453,four,"# container exit code ) # result is a DetectorResult with four orthogonal flags. print(result.clamped.fired, r"
+supplement,tex_comment,769,second,%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %% S9 -- Hyperoxia 300-second convergence %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+monograph,md_fence,1457,four,"# container exit code ) # result is a DetectorResult with four orthogonal flags. print(result.clamped.fired, r"

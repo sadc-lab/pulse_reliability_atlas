@@ -4,7 +4,7 @@
     "probes": 39
   },
   "coverage_is_by_value_not_by_occurrence": true,
-  "guard_pinned_literals": 1070,
+  "guard_pinned_literals": 1130,
   "ledger": {
     "anchors_expected": 394,
     "anchors_run": 394,
@@ -15,67 +15,67 @@
   "per_artefact": {
     "monograph": {
       "buckets": {
-        "ambiguous_small": 1876,
-        "guard": 675,
+        "ambiguous_small": 1878,
+        "guard": 695,
         "ledger": 22,
-        "none": 795
+        "none": 776
       },
-      "distinct_unbucketed_values": 333,
-      "distinct_values": 563,
+      "distinct_unbucketed_values": 331,
+      "distinct_values": 562,
       "excluded": {
         "file_path": 5,
         "line_reference": 11,
         "md_fence": 9,
-        "md_inline_code": 459,
-        "md_link_target": 205,
+        "md_inline_code": 457,
+        "md_link_target": 209,
         "org_identifier": 2,
-        "product_version": 7,
+        "product_version": 11,
         "ref_or_machinery": 24,
         "typeset_length": 4,
         "url_or_doi": 36,
         "version": 73,
-        "year_like": 153
+        "year_like": 157
       },
       "path": "preprint/manuscript.md",
       "recall": {
         "accounting_closes": true,
-        "literals_after_masking": 3521,
-        "literals_in_raw_text": 3777,
+        "literals_after_masking": 3528,
+        "literals_in_raw_text": 3785,
         "literals_removed_per_rule": {
           "file_path": 0,
           "line_reference": 13,
           "md_fence": 3,
-          "md_inline_code": 89,
+          "md_inline_code": 86,
           "md_link_target": 42,
           "org_identifier": 2,
-          "product_version": 7,
+          "product_version": 11,
           "ref_or_machinery": 1,
           "typeset_length": 1,
           "url_or_doi": 42,
           "version": 56
         },
-        "removed_by_masks": 256,
-        "retained_plus_year_like": 3521
+        "removed_by_masks": 257,
+        "retained_plus_year_like": 3528
       },
-      "retained_occurrences": 3368
+      "retained_occurrences": 3371
     },
     "paper": {
       "buckets": {
-        "ambiguous_small": 293,
-        "guard": 165,
+        "ambiguous_small": 270,
+        "guard": 148,
         "ledger": 15,
-        "none": 39
+        "none": 43
       },
-      "distinct_unbucketed_values": 28,
-      "distinct_values": 144,
+      "distinct_unbucketed_values": 30,
+      "distinct_values": 148,
       "excluded": {
         "file_path": 3,
         "line_reference": 0,
         "org_identifier": 12,
         "product_version": 2,
-        "ref_or_machinery": 246,
+        "ref_or_machinery": 253,
         "tex_comment": 99,
-        "typeset_length": 11,
+        "typeset_length": 12,
         "url_or_doi": 0,
         "version": 3,
         "year_like": 2
@@ -83,8 +83,8 @@
       "path": "preprint_npj/paper.tex",
       "recall": {
         "accounting_closes": true,
-        "literals_after_masking": 514,
-        "literals_in_raw_text": 560,
+        "literals_after_masking": 478,
+        "literals_in_raw_text": 524,
         "literals_removed_per_rule": {
           "file_path": 0,
           "line_reference": 0,
@@ -97,60 +97,60 @@
           "version": 0
         },
         "removed_by_masks": 46,
-        "retained_plus_year_like": 514
+        "retained_plus_year_like": 478
       },
-      "retained_occurrences": 512
+      "retained_occurrences": 476
     },
     "supplement": {
       "buckets": {
-        "ambiguous_small": 973,
-        "guard": 490,
+        "ambiguous_small": 975,
+        "guard": 492,
         "ledger": 26,
-        "none": 408
+        "none": 381
       },
-      "distinct_unbucketed_values": 207,
-      "distinct_values": 488,
+      "distinct_unbucketed_values": 196,
+      "distinct_values": 475,
       "excluded": {
         "file_path": 48,
         "line_reference": 1,
         "org_identifier": 12,
-        "product_version": 7,
-        "ref_or_machinery": 425,
+        "product_version": 11,
+        "ref_or_machinery": 428,
         "tex_comment": 134,
         "typeset_length": 13,
         "url_or_doi": 0,
         "version": 21,
-        "year_like": 22
+        "year_like": 24
       },
       "path": "preprint_npj/supplement.tex",
       "recall": {
         "accounting_closes": true,
-        "literals_after_masking": 1919,
-        "literals_in_raw_text": 2022,
+        "literals_after_masking": 1898,
+        "literals_in_raw_text": 2005,
         "literals_removed_per_rule": {
           "file_path": 2,
           "line_reference": 2,
           "org_identifier": 2,
-          "product_version": 7,
+          "product_version": 11,
           "ref_or_machinery": 57,
           "tex_comment": 19,
           "typeset_length": 6,
           "url_or_doi": 0,
           "version": 8
         },
-        "removed_by_masks": 103,
-        "retained_plus_year_like": 1919
+        "removed_by_masks": 107,
+        "retained_plus_year_like": 1898
       },
-      "retained_occurrences": 1897
+      "retained_occurrences": 1874
     }
   },
   "population_rule": "see the module docstring; exclusions are counted per artefact",
   "totals": {
-    "ambiguous_small_occurrences": 3142,
-    "distinct_values": 730,
-    "not_demonstrably_covered_occurrences": 4384,
-    "retained_occurrences": 5777,
-    "unbucketed_distinct_values": 417,
-    "unbucketed_occurrences": 1242
+    "ambiguous_small_occurrences": 3123,
+    "distinct_values": 723,
+    "not_demonstrably_covered_occurrences": 4323,
+    "retained_occurrences": 5721,
+    "unbucketed_distinct_values": 410,
+    "unbucketed_occurrences": 1200
   }
 }
