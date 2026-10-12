@@ -26,10 +26,12 @@ related: []
 
 ## Hypothesis
 
-None was stated as a separate hypothesis. The question was whether the
-companion project's severity → P/F calibration, and its HR / RR acceptance
-bounds, reproduce inside this repository. See "Why" and "Second experiment,
-also pending — HR / RR acceptance bounds" in `audit/S030_recalibration_plan.md`.
+No separate hypothesis section was written. The plan set out to reproduce,
+inside this repository, the companion project's severity → P/F calibration
+and its HR / RR acceptance bounds; for the HR / RR probes, the expected result
+of each probe is given in the "attendu" column of the probe table. See "Why",
+"Second experiment, also pending — HR / RR acceptance bounds" and "Bloc 2" in
+`audit/S030_recalibration_plan.md`.
 
 ## Motivation, method, results and interpretation
 

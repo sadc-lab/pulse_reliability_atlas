@@ -591,7 +591,7 @@ The manuscript's findings are not invalidated by anything in Phase 3.
 
 - Re-ran every 160 runs × 8 cells = 1,280 simulations from the canonical Morris sample (`data/runs/full_sweep/morris_sample.parquet`, seed=42) against the current `pulse-atlas-engine:latest` image, hash `b2e0e807803d` (the post-S014-patch rebuild from 2026-04-28).
 - The original sweep used image hash `3b18bdc08660` (2026-04-26).
-- **Correction (2026-10-12):** the two lines above are wrong on dates and attribution, and are kept as written. S015 (L122-125, written 2026-05-04) records `3b18bdc08660` as built around the S014 work (2026-04-28), after the sweep of 2026-04-25/26, whose image hash was never recorded; `b2e0e807803d` is the S015 rebuild of 2026-05-04, not of 2026-04-28. The same date correction applies to "the image rebuild on 2026-04-28" in Q.3 below.
+- **Correction (2026-10-12):** the two lines above are wrong on dates and attribution, and are kept as written. S015 (L123-124, written 2026-05-04) records `3b18bdc08660` as built around the S014 work (2026-04-28), after the sweep of 2026-04-25/26, whose image hash was never recorded; `b2e0e807803d` is the S015 rebuild of 2026-05-04, not of 2026-04-28. Likewise, the S015 comparison two lines below was between `b2e0e807803d` outputs and the original sweep's CSVs, not "between the two image hashes", and the same date correction applies to "the image rebuild on 2026-04-28" in Q.3 below.
 - Target: `data/runs/full_sweep_repro/`. Canonical artifact left untouched.
 - S015 had already verified bit-exact equivalence on a 40-run subset between the two image hashes; Phase 4a extends that to the full 1,280-run envelope.
 
