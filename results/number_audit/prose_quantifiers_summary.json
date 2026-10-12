@@ -69,13 +69,13 @@
         "priority": 23,
         "scope": 156,
         "strength": 23,
-        "universal": 385
+        "universal": 386
       },
       "kept_per_word": {
         "all": 75,
         "alone": 12,
         "always": 1,
-        "any": 31,
+        "any": 32,
         "both": 52,
         "cannot": 16,
         "complete": 6,
@@ -111,8 +111,8 @@
       },
       "lines_with_a_kept_token": 217,
       "recall": {
-        "tokens_in_raw_text": 731,
-        "tokens_kept": 710,
+        "tokens_in_raw_text": 732,
+        "tokens_kept": 711,
         "tokens_masked": 21,
         "masked_per_rule": {
           "tex_comment": 21,
@@ -137,13 +137,13 @@
         "priority": 41,
         "scope": 194,
         "strength": 20,
-        "universal": 519
+        "universal": 520
       },
       "kept_per_word": {
         "all": 106,
         "alone": 17,
         "always": 3,
-        "any": 39,
+        "any": 40,
         "anything": 2,
         "anywhere": 2,
         "both": 67,
@@ -187,8 +187,8 @@
       },
       "lines_with_a_kept_token": 785,
       "recall": {
-        "tokens_in_raw_text": 909,
-        "tokens_kept": 909,
+        "tokens_in_raw_text": 910,
+        "tokens_kept": 910,
         "tokens_masked": 0,
         "masked_per_rule": {
           "md_fence": 0,
@@ -208,7 +208,7 @@
     }
   },
   "totals": {
-    "kept": 1890,
+    "kept": 1892,
     "masked": 34,
     "kept_per_family": {
       "extent": 21,
@@ -217,7 +217,7 @@
       "priority": 74,
       "scope": 414,
       "strength": 53,
-      "universal": 1073
+      "universal": 1075
     }
   }
 }

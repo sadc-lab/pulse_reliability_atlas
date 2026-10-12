@@ -2393,7 +2393,6 @@ monograph,3176,0.016,0.016,ambiguous_small,"s that variability (validated by [S0
 monograph,3176,96,96.0,none,"riability (validated by [S014 : median Vt_cv 0.351 to 0.016, a 96 % reduction; 78.1 % of locked runs below the 0.05 steady-state thresh"
 monograph,3176,78.1,78.1,guard,"ated by [S014 : median Vt_cv 0.351 to 0.016, a 96 % reduction; 78.1 % of locked runs below the 0.05 steady-state threshold). This is best"
 monograph,3176,0.05,0.05,none,"_cv 0.351 to 0.016, a 96 % reduction; 78.1 % of locked runs below the 0.05 steady-state threshold). This is best read as a data-generation / exp"
-monograph,3176,2,2.0,ambiguous_small,"ger locked to a fixed threshold, simulated inspiratory efforts below −2 cmH2O fail to trigger a breath (ineffective triggering), a form of pa"
 monograph,3176,2,2.0,ambiguous_small,oumianaki2014] or diaphragm electrical activity [@sinderby1999]. The −2 cmH2O lock is therefore an instrument for controlled software explora
 monograph,3178,4.3,4.3,none,"a generation, not guidance for clinically realistic ventilation. ### 4.3 Implications for machine-learning pipelines using Pulse *Why this at"
 monograph,3181,51.8,51.8,guard,"atlas matters for anyone training models on Pulse synthetic cohorts: 51.8 % of runs are clean, but the flagged 48.2 % follow non-random pattern"
@@ -3647,7 +3646,7 @@ paper,279,0.05,0.05,none,onPatientTriggerPressure} at $-2$~cmH$_2$O ($y$). The d
 paper,279,0.351,0.351,guard,5$ is the steady-state threshold. The lock reduces the median CV from 0.351 to 0.016 and brings 78.1~\% of reruns below the threshold; it is a da
 paper,279,0.016,0.016,ambiguous_small,steady-state threshold. The lock reduces the median CV from 0.351 to 0.016 and brings 78.1~\% of reruns below the threshold; it is a data-genera
 paper,279,78.1,78.1,guard,"eshold. The lock reduces the median CV from 0.351 to 0.016 and brings 78.1~\% of reruns below the threshold; it is a data-generation lever, not"
-paper,279,60,60.0,ambiguous_small,"linical ventilation setting. \textbf{(b)} Hyperoxia convergence ($n = 60$ reruns in the Healthy, Moderate and Severe scenarios at FiO$_2 = 1.0"
+paper,279,60,60.0,ambiguous_small,"t a clinical recommendation. \textbf{(b)} Hyperoxia convergence ($n = 60$ reruns in the Healthy, Moderate and Severe scenarios at FiO$_2 = 1.0"
 paper,279,1.0,1.0,ambiguous_small,"60$ reruns in the Healthy, Moderate and Severe scenarios at FiO$_2 = 1.0$): mean PaO$_2$ over $t = 60$--$120$~s of the original run ($x$) and"
 paper,279,60,60.0,ambiguous_small,derate and Severe scenarios at FiO$_2 = 1.0$): mean PaO$_2$ over $t = 60$--$120$~s of the original run ($x$) and plateau over $t = 240$--$300$
 paper,279,120,120.0,guard,and Severe scenarios at FiO$_2 = 1.0$): mean PaO$_2$ over $t = 60$--$120$~s of the original run ($x$) and plateau over $t = 240$--$300$~s of a

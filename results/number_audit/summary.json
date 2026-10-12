@@ -15,7 +15,7 @@
   "per_artefact": {
     "monograph": {
       "buckets": {
-        "ambiguous_small": 1878,
+        "ambiguous_small": 1877,
         "guard": 695,
         "ledger": 22,
         "none": 776
@@ -39,8 +39,8 @@
       "path": "preprint/manuscript.md",
       "recall": {
         "accounting_closes": true,
-        "literals_after_masking": 3528,
-        "literals_in_raw_text": 3785,
+        "literals_after_masking": 3527,
+        "literals_in_raw_text": 3784,
         "literals_removed_per_rule": {
           "file_path": 0,
           "line_reference": 13,
@@ -55,9 +55,9 @@
           "version": 56
         },
         "removed_by_masks": 257,
-        "retained_plus_year_like": 3528
+        "retained_plus_year_like": 3527
       },
-      "retained_occurrences": 3371
+      "retained_occurrences": 3370
     },
     "paper": {
       "buckets": {
@@ -146,10 +146,10 @@
   },
   "population_rule": "see the module docstring; exclusions are counted per artefact",
   "totals": {
-    "ambiguous_small_occurrences": 3123,
+    "ambiguous_small_occurrences": 3122,
     "distinct_values": 723,
-    "not_demonstrably_covered_occurrences": 4323,
-    "retained_occurrences": 5721,
+    "not_demonstrably_covered_occurrences": 4322,
+    "retained_occurrences": 5720,
     "unbucketed_distinct_values": 410,
     "unbucketed_occurrences": 1200
   }
