@@ -19,6 +19,11 @@ related: [S023, S033]
 
 # S034 — Do the Morris rankings depend on the clean-pair screen?
 
+## Hypothesis (added 2026-10-12)
+
+No expected outcome was stated. The three criteria below were pre-specified on
+2026-08-25, and the raw counts are the result.
+
 ---
 
 ## Why this session happened

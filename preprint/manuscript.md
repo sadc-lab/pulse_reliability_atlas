@@ -764,7 +764,7 @@ supported.
 *The exact Pulse version, Docker image, and atlas wrapper layered on
 top — including the deliberate raising of `FiO2_MAX` from 0.95 to 1.0
 so the upper boundary actually reaches Pulse rather than being silently
-capped at the wrapper layer. Pinned image hashes and the
+capped at the wrapper layer. The engine images and the
 version-pinning rationale appear at the end so any future reader can
 reproduce the sweep bit-exactly.*
 
@@ -780,21 +780,24 @@ reproduce the sweep bit-exactly.*
      ventilator-settle time so emitted `time_s` starts at 0, allowing the
      locked steady-state window [60, 120] s to capture data.
 
-**Pinned image hashes (reproducibility).** Two `pulse-atlas-engine`
-image hashes are relevant for full reproducibility:
+**Engine images (reproducibility).** The image that ran the original
+1,280-run Morris sweep at `data/runs/full_sweep/` ([S006](#s006),
+2026-04-26) was built in [S005](#s005) (2026-04-25); its image hash was
+not recorded (`run_meta.json` keeps the image name only). Two later
+`pulse-atlas-engine` image hashes are recorded:
 
-* `3b18bdc08660` — produced the original 1,280-run Morris sweep at
-  `data/runs/full_sweep/` ([S006](#s006), 2026-04-26).
-* `b2e0e807803d` — produced the [S015](#s015) audit re-execution and includes
+* `3b18bdc08660` — built around the [S014](#s014) work (2026-04-28),
+  after the sweep; recorded in [S015](#s015) (2026-05-04).
+* `b2e0e807803d` — the [S015](#s015) rebuild of 2026-05-04, which includes
   the [S014](#s014) SDK sed-patch (`InspirationPatientTrigger*` fall-through
-  guard, 2026-04-28).
+  guard, 2026-04-28); it produced the [S015](#s015) audit re-execution.
 
 [S015](#s015) Phase 2 verified 40 / 40 reproduction-consistent CSVs under the
 rebuilt `b2e0e807803d` image (38 clean runs bit-exact; 2
 originally-diverged runs reproduce divergence with the same
 `exit_code = 1`). The [S014](#s014) patch is therefore a verified no-op for the
 original sweep, and the atlas's published numbers apply identically
-under either image hash. Upstream pin: `kitware/pulse:4.3.1`
+under the rebuilt image as under the original one. Upstream pin: `kitware/pulse:4.3.1`
 (`REL_4_3_2`, the current upstream `stable` head, is build-system-only;
 physiology unchanged per [S016](#s016) GitLab audit 2026-05-07).
 
@@ -1341,8 +1344,9 @@ more error classes at ~ 1 % of the compute cost.
 pre-submission belt-and-braces check on top of the twelve verification
 points above, two complementary re-executions were performed under the
 current `pulse-atlas-engine` image (hash `b2e0e807803d`, the
-post-[S014](#s014)-patch rebuild — a different image hash than the
-`3b18bdc08660` build that produced the canonical sweep on 2026-04-26):
+post-[S014](#s014)-patch rebuild of 2026-05-04 — not the image that
+produced the canonical sweep on 2026-04-26, whose hash was not
+recorded):
 
 * **(i) Phase 4a — same-seed full re-execution.** All 1,280 runs of the
   canonical Morris sweep were re-executed from the locked sample
@@ -3730,19 +3734,18 @@ documentation and source (Apache-2.0) — retain their original terms.
   PASS on the authors' full data tree (393 / 394 on a public clone,
   where the one anchor needing the gitignored raw S021 trajectories
   is auto-skipped) ([S024](#s024); see §2.8 for protocol).
-* **Pinned Docker image hashes (byte-level reproducibility):**
-  `pulse-atlas-engine:3b18bdc08660` (canonical sweep, 2026-04-26)
-  and `pulse-atlas-engine:b2e0e807803d` (post-[S014](#s014) rebuild,
-  2026-04-28). Upstream base: `kitware/pulse:4.3.1`. Outputs are
+* **Docker engine images (byte-level reproducibility):** the canonical
+  sweep's image hash was not recorded;
+  `pulse-atlas-engine:b2e0e807803d` (the [S015](#s015) rebuild of
+  2026-05-04) re-ran the full sweep (§2.8 Phase 4a). Upstream base:
+  `kitware/pulse:4.3.1`. Outputs are
   bit-exact across rebuilds for fixed inputs ([S005](#s005) G5 /
   [S007](#s007) / [S015](#s015) / §2.8 Phase 4a).
 * **Atlas-version compatibility:** results on Pulse 4.3.1 apply
   identically to `REL_4_3_2` (2025-08-12); the upstream diff is
   build-system-only, no physiology changed ([S016](#s016)).
-* **Lab-notebook provenance:** every commit on the main branch ties
-  to one of the experiment-log entries S001 – S024 + the OSS
-  release-hygiene entries S025 / S026; full audit trail in
-  [`experiments_log/INDEX.md`](../experiments_log/INDEX.md).
+* **Lab-notebook provenance:** dated experiment-log entries S001 – S034,
+  indexed in [`experiments_log/INDEX.md`](../experiments_log/INDEX.md).
 * **Zenodo deposit:** the raw per-run artifacts excluded from git
   history by `.gitignore` (per-run output.csv / output_pulse_native.csv /
   pulse.log / config.json / run_meta.json across the 1,280-run sweep + S014 +

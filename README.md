@@ -260,19 +260,19 @@ Pulse 4.3.1 is bit-exact deterministic for fixed inputs (verified by
 S005, gate G5), so reruns reproduce upstream values to 1e-6 relative
 tolerance for all 6 outputs.
 
-### Pinned image hashes (for byte-level reproducibility)
-
-Manuscript §2.8 names two `pulse-atlas-engine` image hashes that bound
-the sweep's exact provenance:
+### Engine images (for byte-level reproducibility)
 
 * Initial atlas image — produced the S006 1,280-run sweep
-  (`data/runs/full_sweep/`, 2026-04-26).
-* `b2e0e807803d` — post-S014 SDK sed-patch rebuild; produced the
-  S015 audit re-execution (38 / 40 runs bit-exact, 2 expected
-  pre-patch divergences). Atlas results are reproducible under either
-  hash because Pulse's solver is deterministic.
+  (`data/runs/full_sweep/`, 2026-04-26). Its image hash was not
+  recorded (`run_meta.json` keeps the image name only).
+* `b2e0e807803d` — the S015 rebuild of 2026-05-04, which includes the
+  S014 SDK sed-patch; it produced the S015 audit re-execution (38 / 40
+  runs bit-exact, 2 originally-diverged runs diverging again) and
+  re-ran the full sweep in the Phase 4a audit. Atlas results are
+  reproducible under the rebuilt image because Pulse's solver is
+  deterministic.
 
-A fresh `docker build` from this repo will not match these hashes
+A fresh `docker build` from this repo will not match this hash
 byte-for-byte (base layers and pip caches differ over time), but the
 *simulation outputs* match to 1e-6 relative tolerance across rebuilds
 sharing the same `kitware/pulse:4.3.1` upstream base. See manuscript

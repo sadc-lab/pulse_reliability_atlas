@@ -41,7 +41,8 @@ overlap — 66 assigned, 66 distinct, no duplicate, none missing, none extra.
   27, 30, **31** (the fresh-clone recipe cannot run), **33** (313 pinned at **5 loci**, one of
   them a live acceptance criterion), **34** (S001…S031 where the log reaches S032), **35**
   ("detector" baked into the Figure S5 legend), **37** (34 at FiO₂ = 1.0), **P-1**,
-  **P-3**, **40** (README announces two image hashes and prints one), **39** (the
+  **P-3**, **40** (README announces two image hashes and prints one; closed
+  2026-10-12 as *do not restore*, see `supplement_prose_sweep.md` row 40), **39** (the
   monograph's ~7 h sweep wall time, below the 13.72 h floor — README, supplement
   and paper are all **correct** here), **44** (two `wall_time_s` values inflated
   by a host suspension the 600 s timeout failed to catch), **48** (the cover letter calls all

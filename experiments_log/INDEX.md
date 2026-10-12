@@ -6,7 +6,7 @@ This file is rebuilt from the YAML frontmatter of every entry in
 `santino/` and `shared/`. To update it, edit the experiment
 and recommit — the pre-commit hook regenerates and stages this file.
 
-Total entries: **33**
+Total entries: **34**
 
 ## All experiments (newest first)
 
@@ -16,6 +16,7 @@ Total entries: **33**
 | `S033` | 2026-09-09 | santino | done | [S033 — Cycle-resolved check of the 5-second delivered-Vt CV](santino/S033_cycle_resolved_vtcv.md) |
 | `S032` | 2026-08-06 | santino | done | [S032 — Does the pulse-pressure clip hold up the SBP → MAP conclusion?](santino/S032_clip_robustness_and_transition_stratification.md) |
 | `S031` | 2026-07-29 | santino | done | [S031 — Sobol trigger reframe, systemic non-linearity, and the survivorship censoring on delivered Vt](santino/S031_sobol_reframe_and_nonlinearity.md) |
+| `S030` | 2026-07-26 | santino | done | [S030 — In-repository replication of the ARDS severity → Berlin calibration, and of the HR / RR acceptance bounds](santino/S030_ards_berlin_recalibration.md) |
 | `S029` | 2026-05-28 | santino | done | [S029 — Cornish 2023 hypothesis-count forensics: reconciling the 1,442-vs-1,522 main-text-vs-appendix discrepancy](santino/S029_cornish_forensics.md) |
 | `S028` | 2026-05-26 | santino | done | [S028 — npj Digital Medicine submission: extract `paper.tex` (~12 pp) + `supplement.tex` (~22 pp) from the 92-page audited monograph, under a strict Zero-Hallucination + audit-ledger lock-step discipline](santino/S028_npj_submission_extraction.md) |
 | `S027` | 2026-05-23 | santino | done | [S027 — §1.1 Pulse-in-a-nutshell explainer + §4.7 engine-side recommendations](santino/S027_pulse_intro_and_engine_recommendations.md) |
@@ -77,6 +78,7 @@ Total entries: **33**
 - `S027` (2026-05-23, done) — [S027 — §1.1 Pulse-in-a-nutshell explainer + §4.7 engine-side recommendations](santino/S027_pulse_intro_and_engine_recommendations.md) — _manuscript-additions, pulse-explainer, engine-recommendations, traceability, post-arxiv-polish_
 - `S028` (2026-05-26, done) — [S028 — npj Digital Medicine submission: extract `paper.tex` (~12 pp) + `supplement.tex` (~22 pp) from the 92-page audited monograph, under a strict Zero-Hallucination + audit-ledger lock-step discipline](santino/S028_npj_submission_extraction.md) — _npj-submission, manuscript-splitting, latex, audit-ledger, zero-hallucination, human-ai-workflow, regex-extraction, incremental-build, xr-hyper_
 - `S029` (2026-05-28, done) — [S029 — Cornish 2023 hypothesis-count forensics: reconciling the 1,442-vs-1,522 main-text-vs-appendix discrepancy](santino/S029_cornish_forensics.md) — _cornish, falsification, forensics, value-recomputation, manuscript-discussion, audit_
+- `S030` (2026-07-26, done) — [S030 — In-repository replication of the ARDS severity → Berlin calibration, and of the HR / RR acceptance bounds](santino/S030_ards_berlin_recalibration.md) — _ards, berlin-calibration, replication, hr-rr-bounds, pointer-entry_
 - `S031` (2026-07-29, done) — [S031 — Sobol trigger reframe, systemic non-linearity, and the survivorship censoring on delivered Vt](santino/S031_sobol_reframe_and_nonlinearity.md) — _statistics, sobol, bootstrap, preregistration-fidelity, non-linearity, survivorship-bias, manuscript-correction, ratio-aware-bootstrap, retraction_
 - `S032` (2026-08-06, done) — [S032 — Does the pulse-pressure clip hold up the SBP → MAP conclusion?](santino/S032_clip_robustness_and_transition_stratification.md) — _morris, pulse-pressure-clip, one-at-a-time-violation, robustness, sensitivity-estimators, transition-stratification, integrity-audit, ledger-expansion, deferred-analysis_
 - `S033` (2026-09-09, done) — [S033 — Cycle-resolved check of the 5-second delivered-Vt CV](santino/S033_cycle_resolved_vtcv.md) — _aliasing, steady-state-classifier, tidal-volume, trigger-lockout, reviewer-response, post-hoc, estimand-sensitivity_
@@ -86,6 +88,9 @@ Total entries: **33**
 
 ### `aliasing`
 - `S033` — [S033 — Cycle-resolved check of the 5-second delivered-Vt CV](santino/S033_cycle_resolved_vtcv.md)
+
+### `ards`
+- `S030` — [S030 — In-repository replication of the ARDS severity → Berlin calibration, and of the HR / RR acceptance bounds](santino/S030_ards_berlin_recalibration.md)
 
 ### `ards-instability`
 - `S011` — [S011 — Sex vs mass disentangling (controlled 2×2 design)](santino/S011_sex_vs_mass_disentangle.md)
@@ -100,6 +105,9 @@ Total entries: **33**
 
 ### `audit-ledger`
 - `S028` — [S028 — npj Digital Medicine submission: extract `paper.tex` (~12 pp) + `supplement.tex` (~22 pp) from the 92-page audited monograph, under a strict Zero-Hallucination + audit-ledger lock-step discipline](santino/S028_npj_submission_extraction.md)
+
+### `berlin-calibration`
+- `S030` — [S030 — In-repository replication of the ARDS severity → Berlin calibration, and of the HR / RR acceptance bounds](santino/S030_ards_berlin_recalibration.md)
 
 ### `blood-volume`
 - `S018` — [S018 — Blood-volume mechanism falsification test (Phase B item B2): dose-response bracket on the 20 originally-diverged male inputs](santino/S018_blood_volume_falsification.md)
@@ -257,6 +265,9 @@ Total entries: **33**
 ### `hardware`
 - `S001` — [S001 — Docker + hardware smoke test (3× parallel Pulse)](santino/S001_docker_smoke_test.md)
 
+### `hr-rr-bounds`
+- `S030` — [S030 — In-repository replication of the ARDS severity → Berlin calibration, and of the HR / RR acceptance bounds](santino/S030_ards_berlin_recalibration.md)
+
 ### `human-ai-workflow`
 - `S028` — [S028 — npj Digital Medicine submission: extract `paper.tex` (~12 pp) + `supplement.tex` (~22 pp) from the 92-page audited monograph, under a strict Zero-Hallucination + audit-ledger lock-step discipline](santino/S028_npj_submission_extraction.md)
 
@@ -372,6 +383,9 @@ Total entries: **33**
 - `S001` — [S001 — Docker + hardware smoke test (3× parallel Pulse)](santino/S001_docker_smoke_test.md)
 - `S005` — [S005 — 22-run pilot on cell (S1, Male) — preregistration §Pilot gate](santino/S005_pilot_S1_male.md)
 
+### `pointer-entry`
+- `S030` — [S030 — In-repository replication of the ARDS severity → Berlin calibration, and of the HR / RR acceptance bounds](santino/S030_ards_berlin_recalibration.md)
+
 ### `post-arxiv-polish`
 - `S027` — [S027 — §1.1 Pulse-in-a-nutshell explainer + §4.7 engine-side recommendations](santino/S027_pulse_intro_and_engine_recommendations.md)
 
@@ -427,6 +441,9 @@ Total entries: **33**
 
 ### `release-mechanics`
 - `S026` — [S026 — Final pre-arXiv polish](santino/S026_pre_arxiv_polish.md)
+
+### `replication`
+- `S030` — [S030 — In-repository replication of the ARDS severity → Berlin calibration, and of the HR / RR acceptance bounds](santino/S030_ards_berlin_recalibration.md)
 
 ### `repo-setup`
 - `S002` — [S002 — Project bootstrap (separate repo, skeleton, licensing)](santino/S002_project_bootstrap.md)

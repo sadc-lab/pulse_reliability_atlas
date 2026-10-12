@@ -13,6 +13,13 @@ linked_code:
 
 # S033 — Cycle-resolved check of the 5-second delivered-Vt CV
 
+## Hypothesis (added 2026-10-12)
+
+None of our own was stated beforehand. The check tested the reviewer's
+objection described below: that a CV computed from samples taken every 5 s
+cannot resolve breath-to-breath dynamics, and that its magnitude may depend on
+sampling phase.
+
 ---
 
 ## Why this session happened
