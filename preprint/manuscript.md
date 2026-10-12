@@ -3793,8 +3793,9 @@ interests, financial or otherwise.
 ## 8. Transparency: use of AI tools
 
 Large language models (LLMs) were used in this work, under direct
-supervision by S.N., for drafting, editing and shortening the
-manuscripts, for writing, refactoring and debugging the code that runs
+supervision by S.N., for drafting and editing the manuscripts and
+shortening the journal paper, for writing, refactoring and debugging
+the code that runs
 and analyses the sweep, and for in-repository replications and
 primary-source audits. During iterative review, two LLMs worked in
 separate sessions:
@@ -3829,14 +3830,15 @@ quantitative claims against their source artefacts; this work
 restored the Sobol promotion trigger to its preregistered top-three
 form, added the post hoc ratio-aware bootstrap on σ/μ\* and versioned
 its generating script. They also covered the September 2026
-condensation pass of the journal paper, whose displaced material moved
-to its Supplementary Information. In September 2026, Claude Code's
+condensation pass of the journal paper and the subsequent audits and
+corrections; the material it displaced moved to the paper's
+Supplementary Information. In September 2026, Claude Code's
 automated code review (`/ultrareview`) was also run on three batches
 of repository changes; each finding was checked in the code before
 being fixed or set aside.
 
-S.N. revised the journal paper, its Supplementary Information and this
-monograph during the second round of supervisor review, which began in
+S.N. revised the journal paper and its Supplementary Information
+during the second round of supervisor review, which began in
 August 2026, with Opus 5 and then, from 23 September 2026, Opus 5.5,
 and with ChatGPT (GPT-5.6 Sol) as the second model. During this round,
 M.S. used a Claude model (Anthropic; version not recorded) to propose
@@ -3851,10 +3853,9 @@ interpretations, and reviewed and committed AI-assisted code changes.
 Verification was an iterative process of checks. S.N. authored and
 locked the preregistered thresholds, hypotheses, statistical-test
 choices and experimental decisions before the corresponding analyses
-were run. Every cited reference was checked against its source
-([S010](#s010), the 2026-05-12 pre-submission audit and the
-reference-audit register `audit/reference_audit.md`). Although the
-atlas code was written with LLM assistance, the
+were run. The cited references were checked in [S010](#s010), the
+2026-05-12 pre-submission audit and the reference audits recorded in
+`audit/reference_audit.md`. Although the atlas code was written with LLM assistance, the
 simulations, the classifier and the audit ledger run without any LLM.
 Quantitative claims are traceable, as applicable, to primary sources,
 the preregistration, or entries in the open audit ledger released
