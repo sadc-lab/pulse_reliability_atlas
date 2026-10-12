@@ -3173,7 +3173,7 @@ always set `InspirationPatientTriggerPressure` or
 causes Pulse to enable a respiratory-model-driven patient trigger
 (`SEMechanicalVentilatorVolumeControl.cpp` lines 120–128), which
 produces effort-dependent tidal-volume variability consistent with patient-ventilator dyssynchrony but renders
-delivered tidal volume non-steady at extreme input combinations. For sensitivity-analysis-style sweeps that require deterministic, steady-state-interpretable tidal volume, setting `InspirationPatientTriggerPressure = −2 cmH2O` collapses that variability (validated by [S014](#s014): median Vt_cv 0.351 to 0.016, a 96 % reduction; 78.1 % of locked runs below the 0.05 steady-state threshold). This is best read as a data-generation / exploration lever, not a clinical recommendation: locking the trigger to a fixed threshold leaves simulated inspiratory efforts below −2 cmH2O unrewarded, a form of patient-ventilator dyssynchrony [@thille2006] that is clinically undesirable [@blanch2015], corresponding in a real patient to a shift from patient-responsive assist-control toward controlled ventilation; such dyssynchrony is detectable on ventilator flow/pressure waveforms, though most directly confirmed with specialised monitoring such as esophageal pressure [@akoumianaki2014] or diaphragm electrical activity [@sinderby1999]. The −2 cmH2O lock is therefore an instrument for controlled software exploration and deterministic synthetic-data generation, not guidance for clinically realistic ventilation.
+delivered tidal volume non-steady at extreme input combinations. For sensitivity-analysis-style sweeps that require deterministic, steady-state-interpretable tidal volume, setting `InspirationPatientTriggerPressure = −2 cmH2O` collapses that variability (validated by [S014](#s014): median Vt_cv 0.351 to 0.016, a 96 % reduction; 78.1 % of locked runs below the 0.05 steady-state threshold). This is best read as a data-generation / exploration lever, not a clinical recommendation: with the trigger locked to a fixed threshold, simulated inspiratory efforts below −2 cmH2O fail to trigger a breath (ineffective triggering), a form of patient-ventilator dyssynchrony [@thille2006] that is clinically undesirable [@blanch2015], corresponding in a real patient to a shift from patient-responsive assist-control toward controlled ventilation; such dyssynchrony is detectable on ventilator flow/pressure waveforms, though most directly confirmed with specialised monitoring such as esophageal pressure [@akoumianaki2014] or diaphragm electrical activity [@sinderby1999]. The −2 cmH2O lock is therefore an instrument for controlled software exploration and deterministic synthetic-data generation, not guidance for clinically realistic ventilation.
 
 ### 4.3 Implications for machine-learning pipelines using Pulse
 
@@ -4169,8 +4169,9 @@ during the literature-review pass logged in
   *Patient-ventilator asynchrony during assisted mechanical ventilation.*
   Intensive Care Medicine 32(10):1515-1522 (2006). DOI:
   [10.1007/s00134-006-0301-8](https://doi.org/10.1007/s00134-006-0301-8).
-  PMID: 16896854. Cited in §4.2: sub-threshold inspiratory efforts left
-  unrewarded are a form of patient-ventilator dyssynchrony. Its Measurements
+  PMID: 16896854. Cited in §4.2: sub-threshold inspiratory efforts that
+  fail to trigger a breath (ineffective triggering) are a form of
+  patient-ventilator dyssynchrony. Its Measurements
   section also records that asynchrony was "detected visually on 30-min
   recordings of flow and airway pressure", which is why §4.2 no longer says
   specialised monitoring is the only way to see it.
