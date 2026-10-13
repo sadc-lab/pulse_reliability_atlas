@@ -273,6 +273,46 @@ same 61 groups of 37, so T1.06u is sound). Scripts: scratchpad `s9_full.py`, `s9
 | S9.19 | "because hemoglobin saturation and dissolved-oxygen kinetics make the FiO₂ → PaO₂ relation non-linear above FiO₂ ≈ 0.6" (also monograph L2815–2818, stronger: "the *physiologically expected non-linearity* … not an overshoot") | **Unsourced cause, not tested here.** Without venous admixture PAO₂ is linear in FiO₂ (alveolar gas equation); a convex FiO₂ → PaO₂ curve is what a fixed admixture gives through the sigmoid oxyhaemoglobin dissociation curve (an equilibrium effect, not "kinetics"); the admixture of these runs was not measured; "≈ 0.6" has no source; and the comparison mixes the 120-s clean subset with the 300-s plateau of other inputs. Proposal: "…well below the healthy-lung plateau actually reached (Table S9); the relation is therefore not linear over the full FiO₂ range in these simulations, and the cause of this curvature is not analysed here." Monograph to match (keep "not an overshoot", which S021 supports: the plateau stays below 663) | **DECIDE** |
 | S9.20 | "about twice the physiological norm of 6–8 L/min" | 12.7 / 6–8 = 1.6–2.1; norm uncited but textbook-standard | NOTE |
 
+## Part S10 — Blood-volume dependence and sex-conditioned setup parameters (L822–886)
+
+Sources: `data/runs/full_sweep/aggregated.parquet`, `data/runs/s018_blood_volume/s018_classified.parquet`
+(20 bracket + 20 floor rows) and `s018_floor_classified.parquet`, run configs, Pulse `SetupPatient.cpp`,
+`SetupCircuitsAndCompartments.cpp`, `CardiovascularModel.cpp` at REL_4_3_1, the closed register
+`audit/pulse_sex_conditioned_parameters.md`, `audit/reference_audit.md` (Nadler). Scripts: scratchpad
+`s10_check.py`, `s10_s018.py`.
+
+| # | Claim | Check (2026-10-13) | Status |
+|---|---|---|---|
+| S10.1 | 20 input-extreme divergences, all male; 13 of them at FiO₂ = 1.0 | 20 diverged of 1,280, all M (S1 4, S2 4, S3 4, S4 8); 13 at FiO₂ 1.0 | OK |
+| S10.2 | BV 4,802.63 / 3,996.09 mL; 806.54 (16.8 % of male); floor 4,082.24 (720.39 below male, 86.15 above female); female ceiling 4,595.50 (207.13 below the male default) | All reproduced to 0.01 mL; `SetupPatient.cpp` L534–556: `65.6 * pow(weight_kg, 1.02)`, ×0.85 and ×1.15, both bounds rejected with an error; no sex branch | OK |
+| S10.3 | 71.4 vs 71.1 mL/kg, difference 0.3 (≈ 0.4 %); mass gap 16.5 % | 71.36 / 71.10, 0.257 mL/kg (0.36 %); 16.49 % | OK |
+| S10.4 | Nadler: 73.0 and 63.8 mL/kg; clinical range 64–79.3, mean 75, women 66 | 72.96 / 63.78 from the sex-specific equations; the range sentence is verbatim Nadler p. 226 (`reference_audit.md`, MATCH, read in the primary scan) | OK |
+| S10.5 | 20/20 → 0/20 at 4,400 and 4,082.24 mL | 0 diverged at either level; configs carry `blood_volume_ml` 4400.0 and 4082.24 | OK |
+| S10.6 | Rescued runs: 12 of 20 clean at both levels, same 12, identical flag assignments; 8 flagged, all `not_steady_state`, one also `implausible`; 7 SpO₂ flatline, 3 of them PaO₂ drift; Vt oscillation 3 at 4,400, 4 at the floor; S1_M_0159 657 / 686 mmHg; FiO₂ 0.737 ×3, 1.0 ×5 | Same 12 clean ids; four-flag assignment identical in 20/20; 8 nss, 1 implausible; SpO₂ 7, all 3 PaO₂-drift runs among them; Vt 3 / 4; 656.99 / 686.42; FiO₂ 3 / 5 | OK |
+| S10.7 | Sex-conditioned parameters: body fat 0.21 / 0.28; Hb 15.0 / 14.0, Hct 0.4412 / 0.4118; CO 5,600 / 4,900; 7 flow fractions; 13 tissue masses; dead space 0.002 × IBW, female Devine intercept 4.5 kg lower, 9 mL | `SetupPatient.cpp` L207–208 (fat), L139/L144 (Devine 45.5 / 50.0); CO at `SetupCircuitsAndCompartments.cpp` L293 and `CardiovascularModel.cpp` L314 (re-read with `git grep`); Hb/34 → 0.4412 / 0.4118; 7 and 13 per the closed register (L314–330, L2153–2165); 0.002 × 4.5 = 9 mL | OK |
+| S10.8 | Lung tissue +9.8 % at equal mass, −8.3 % at native masses | (0.42/58.97)/(0.50/77.11) = 1.098; 0.4003 / 0.4364 = 0.917 (register §C) | OK |
+| S10.9 | BMR intercept 88.632 vs 88.362; 0.27 kcal/day, 0.015 % | 1,751.88 vs 1,751.61 kcal/day on the male body; 0.0154 % | OK |
+| S10.10 | "The reduction from 20/20 … to 0/20 … is an absolute-volume effect" | At fixed body mass, lowering the baseline lowers mL and mL/kg together, so S018 alone does not separate the two; the absolute framing rests on Pulse's parameterisation in mL and on the two bodies differing in absolute, not per-kg, volume, which the paragraph states | NOTE (reading; no change proposed) |
+
+## Part S11 — Engine-side infrastructure recommendations (L893–911)
+
+Sources: Pulse `SetupPatient.cpp` and `docs/Methodology/PatientMethodology.md` at REL_4_3_1 (local clone),
+the live page `pulse.kitware.com/_patient_methodology.html` (fetched today), the ARDS condition and action
+sources at REL_4_3_1 and REL_4_4_0, paper L320. Signals 18–20 of the August prose sweep re-checked.
+
+| # | Claim | Check (2026-10-13) | Status |
+|---|---|---|---|
+| S11.1 | "The Discussion of the main manuscript mentions engine-side suggestions" (signal 19 was "closes with") | Paper L320: "engine-level observations that target tooling, documentation and validation infrastructure … (Supplement §S11)" | OK — signal 19 closed |
+| S11.2 | "each is anchored in a specific experiment of this work" (signal 18) | Items 3 and 6 still carry no experiment pointer. Proposal: "and each arises from this work" | **DECIDE** (low) — signal 18 still open |
+| S11.3 | Item 1: "Pulse currently reports input clamping (e.g. SBP > 120, DBP/SBP ratio out of range, HR or RR outside the initialisation band) as `[ERROR]`-prefixed log lines" | Every one of these is a `patient.Error` (HR L297–298, SBP/DBP L495–515, ratio L519–523, RR L580–587), i.e. a rejection, not a clamp; unchanged in REL_4_4_0. "input clamping" contradicts the item's own title ("input-rejection events") and §S3-clamp. → "reports input rejections", "detect rejections deterministically" | **MECH** |
+| S11.4 | Item 2: the 4,082.24 mL floor "is not exposed in the public patient-setup documentation … a one-line note in the patient-baseline reference table would have avoided that investigation" (signal 20) | **False.** The table already carries the row: "Blood Volume Baseline \| Optional \| Bv * 0.85 \| Bv * 1.15 \| Above Stage 1 Hypovolemia" (`PatientMethodology.md` L56 at REL_4_3_1; live page today). Our own `pulsepatientmethod` entry quotes it, and §S10 L836 derives the floor from it. Only the body-specific number is not printed, as it depends on weight. Same text in the monograph L3593–3597. Proposal: delete item 2 (L911 "items 1–6" → "1–5"; "tooling, documentation or validation infrastructure" in L895 and paper L320 → "tooling and validation infrastructure"), or rewrite it as "log the computed admissible range at setup" (the log prints the default, and the bound only once violated, L541–556) | **DECIDE** |
+| S11.5 | Monograph L4394: "**An undocumented constraint** was identified during boundary probing: … DBP / SBP ≤ 0.75" | **False.** `PatientMethodology.md` L60 at REL_4_3_1: "Diastolic Arterial Pressure Baseline … 60 mmHg \| 80 mmHg \| No hypotension or hypertension. Includes pressure fraction check: Dia > 0.75 Sys." (also on the live page). Paper and supplement do not call it undocumented | **DECIDE** (monograph only) |
+| S11.6 | Item 3: the 2020 `STUDY_SENSITIVITY_ANALYSIS_1_0_0` tag runs Sobol on internal circuit values | As in CLAUDE.md row 1 (S016 GitLab audit) | OK |
+| S11.7 | Item 4: "Pulse currently emits no setup-time warning when an ARDS action falls in this band" | True in REL_4_3_1 and REL_4_4_0: the ARDS condition and action sources contain no Warning or Error (calibrated: the same search finds the three unrelated `Warning(` calls of `RespiratoryModel.cpp`). But the band was measured on v4.3.1 and 4.4.0 rewrites the shunt mapping. Proposal: add "(measured on v4.3.1; untested under v4.4.0)" | **DECIDE** (low) |
+| S11.8 | Item 5: "with full convergence at ∼300 s" | 40 of 44 converge, 6 run away (§S9). Proposal: "with convergence by about 300 s in 40 of 44 Healthy reruns" | **DECIDE** (low) |
+| S11.9 | Item 6: "setup-time blood-pressure and pulse-pressure-ratio rejection messages require some domain knowledge to map back to the offending input field" | The blood-pressure messages name the field ("Patient systolic pressure baseline of … mmHg is too high", L495–515). Only the ratio message names neither field, and it states 0.75 as a "Minimum fraction allowed" although it caps DBP/SBP from above (L521). Proposal: restrict the sentence to the pulse-pressure-ratio message | **DECIDE** (low) |
+| S11.10 | Closing paragraph | No physiology prescription in any item | OK |
+
 ## Addendum to Part S1 (2026-10-13) — Pulse 4.4.0 has been released
 
 Flagged during a pre-submission review of the supplement; checked at the primary sources, twice
