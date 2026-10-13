@@ -811,7 +811,7 @@ unchanged between `76ae47c` and `54aa84a` (`git diff --stat`, empty).
 
 **Instruments, and one calibration failure.** PDF text: `pdftotext -enc UTF-8`.
 Word text: `pandoc -t plain` **drops every figure caption** (positive control: the
-Fig. 4 legend sentence "without identifying the numerical pathway" is in the PDF
+Fig. 5 legend sentence "without identifying the numerical pathway" is in the PDF
 and absent from the pandoc text, yet present in `word/document.xml`). The Word
 checks below therefore use the tag-stripped `document.xml`. Each paper sentence the
 review relies on was found exactly once in both (twice for "is a data-generation
@@ -853,7 +853,7 @@ Must (the letter says something the paper does not):
   "four ARDS severities" — the paper has a healthy baseline and three ARDS
   severities (§1, §4.3).
 - **L2** (L65): "with an identified mechanism" — §2.5 says "identified a
-  blood-volume dependence" and the Fig. 4 legend says "without identifying the
+  blood-volume dependence" and the Fig. 5 legend says "without identifying the
   numerical pathway of the failure".
 - **L3** (L69-71): "pooling ... at input extremes silently injects a spurious sex
   covariate into any downstream model" — the Discussion makes it conditional:
@@ -892,9 +892,28 @@ design; "first open reliability atlas"; principal deliverable, cell-level review
 priority, run-level screening whatever the colour, "neither layer is a
 distribution-neutral automatic filter"; "adjustments" (author's decision,
 `5fe2378`); 20 / 20 -> 0 / 20 at 4,400 and 4,082.24 mL (§S10); band [0.879,
-0.946]; "at most up to severity 0.9 ... inside 0.91–0.945" (§S5); BioGears and
+0.946]; "at most up to severity 0.9 ... inside 0.91–0.945" matches §S5 word for
+word (but see L11 in the addendum below: §S5 itself is wrong on "at most 0.9"); BioGears and
 HumMod; no competing interests.
 
 **Sequencing, already decided (`check_publication_gate.py`):** the 9 present-tense
 availability anchors, two of them in this letter, are false while the repository
 is private. Public repository first, `--verify-public`, then submission.
+
+**Erratum (same day) on this section and on the message of `40e6c37`.** The legend
+that says "without identifying the numerical pathway of the failure" is that of
+**Figure 5** (blood-volume rescue; `fig:sex_bv` = 5 in `build/paper.aux`), not
+Figure 4 (`fig:corrections` = 4, the two operator-actionable corrections). The two
+mentions above are corrected; the commit message of `40e6c37` still says "Fig. 4"
+twice for this sentence ("positive control" and the reason given for L2) and
+should be read as Figure 5. Found while checking the paper's float numbers for the
+supplement audit.
+
+**Addendum (same day), found in the supplement audit (Part S5.14 of
+`supplement_audit_2026-09-28.md`).** L11 (L74-76, must): "Published Pulse
+validation work and HowTo examples sample at most up to severity 0.9" is false
+for the HowTo examples taken together: `src/csharp/howto/HowTo_EngineUse.cs`
+(REL_4_3_1 and REL_4_3_2, L136-137) sets ARDS severity 1.0 on both lungs. The
+second half, "do not examine impairment fractions inside 0.91-0.945", holds (no
+severity in that interval in the 39 Pulse files that mention ARDS). The same
+sentence is in §S5 and is to be fixed the same way.

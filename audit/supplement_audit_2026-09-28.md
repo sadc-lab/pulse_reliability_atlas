@@ -105,10 +105,84 @@ Status at the end of 2026-09-28: audited in full; every check, instrument and
 result is listed in the message of commit `a1d21e9` (fixes: "3,349" logs,
 "the only amendment to a locked threshold", misplaced `%% S4` comment; a
 signal on "any drift … is caught" withdrawn after finding the crosswalk rows in
-`preprint_npj/paper_to_monograph_map.md`). The row-by-row table is still to be
-copied here from that message.
+`preprint_npj/paper_to_monograph_map.md`). Copied from that message on
+2026-10-13 (the table was not re-measured today):
+
+| # | Claim | Check (2026-09-28) | Status |
+|---|---|---|---|
+| S3.1 | "3,348 Pulse logs on disk" (paper L369, §S3.3, monograph L1211) | 3,349 under `data/`; the extra one is `data/clamp_probe/pulse.log`, the only log at depth 3, dated before the sentence was written. Replay of both pattern sets over all 3,349 still flips exactly one run (`s030b_bound_hr49`) | **FIXED** → 3,349 (three documents) |
+| S3.2 | "the only preregistration amendment (2026-04-22-b …)" (§S3.10, monograph L1251) | `preregistration.md` has several (2026-04-22 rescope, 2026-04-22-b, 2026-05-21 documentation, errata, 2026-08-04 post hoc record); the claim meant thresholds | **FIXED** → "the only amendment to a locked threshold" (supplement + monograph) |
+| S3.3 | `scripts/s019_sobol_bolton.py` docstring called the withdrawn 11,008-run figure "the figure the manuscript quotes" | §S3 Sobol and `sobol_ci_buckets.json` give 6,144 / 3,584 (8 cells, k = 3–6) | **FIXED** (docstring) |
+| S3.4 | Misplaced `%% S4` comment block inside S3 | source comment only | **FIXED** (removed) |
+| S3.5 | Hard bounds and drift thresholds | code, preregistration and crosswalk agree | OK |
+| S3.6 | CV and flatline constants; clamp calibration and replay | `src/detector.py` constants; replay as in S3.1 | OK |
+| S3.7 | FiO₂ cap 0.9996 | `Data.xlsx` ambient CO₂ 0.0004; 208 / 195 / 13 | OK |
+| S3.8 | Input instantiation, 10,160 contracts | re-run | OK |
+| S3.9 | CDC rows, BMI, blood volume, sampler constants | re-derived | OK |
+| S3.10 | All of §S3.7 (clip cost) | `s032` scripts re-run; max factor 15.4 recomputed independently | OK |
+| S3.11 | Sobol costs and the stable set | 23 at 500 / 1,000 / 2,000 / 4,000 resamples, re-measured | OK |
+| S3.12 | §S3.9–§S3.13 | via their own scripts | OK |
 
 Consequence noted after the rebuild: citing `pulsecardiomethod` in §S1 makes it
 reference [2] of the supplement, so the supplement's reference numbers shift
 (automatic, BibTeX). The paper's numbering is unchanged.
 
+
+---
+
+**Resumed 2026-10-13** at `54aa84a` (supplement 1,209 lines; re-freeze 58 =
+the version to submit). Any change to the supplement from here on means a
+re-freeze 59. Line numbers below are those of `54aa84a`.
+
+## Part S4 — Extended Table 3: not_steady_state attribution (L451–480)
+
+Instrument: an independent recompute from the per-channel statistics of
+`data/runs/full_sweep/aggregated.parquet` (`*_mean`, `*_std`, `*_cv`,
+`*_delta_60s`, `*_bound_lo/hi`), re-implementing the locked rule of
+`src/detector.py::check_not_steady_state` rather than parsing the reason strings
+that `scripts/nss_decomposition_table.py` parses. Positive control: the locked
+`not_steady_state` flag is reproduced on 1,280 / 1,280 runs (530 / 530).
+Script kept in the session scratchpad (`s4_recompute.py`); method as stated here.
+
+| # | Claim | Check | Status |
+|---|---|---|---|
+| S4.1 | "Table 3 of the main manuscript" (title, L453); "Cell-label key: Table 1" | `build/paper.aux`: `tab:flag_summary` = 3, `tab:terms` = 1. Signal 5 of the August sweep (§S4 pointing to Table 1) no longer applies here | OK |
+| S4.2 | Three sub-modes, pointer to §S3 (priority order) | §S3 "priority order" lists flatline, CV > 0.05 and drift (Table S-drift); `detector.py` L334–364 | OK |
+| S4.3 | 530 `not_steady_state` runs; columns n_nss, excl. SpO₂ sat., excl. Vt CV, excl. both | Recompute matches every cell and the totals (530 / 454 / 360 / 185) | OK |
+| S4.4 | Column "n_clean (excl. both)" and the text "Excluding both sub-modes raises the implied clean count from 663 / 1,280 (51.8 %) to 1,008 / 1,280 (78.8 %)" | **Wrong.** `nss_decomposition_table.py` L129 computes `n_clean + (n_nss − n_excl_both)`, which adds back every run that loses its `not_steady_state` flag, **including runs that are also `implausible`** (59 `not_steady_state` runs carry another flag). Such a run is never clean. Counting runs with no `clamped`, `diverged` or `implausible` flag and no remaining trigger: Healthy-M **119** (not 127), Healthy-F **122** (not 136), Severe-M **67** (not 72), Severe-F **67** (not 82), the four others unchanged; total **966 / 1,280 (75.5 %)**, not 1,008 (78.8 %). The 42 runs added back wrongly, measured: Healthy-M 8 and Healthy-F 14, all `implausible` on PaO₂ > 600 (the 34 Healthy `implausible` runs of Table 3 are all PaO₂ > 600, paper §2.4), with SpO₂ saturation as `not_steady_state` trigger (12 alone, 10 with Vt CV); Severe-M 5 and Severe-F 15, all `implausible` on SpO₂ < 0.5 and PaO₂ < 20, with Vt CV as the only trigger. The ledger (`T2.nssC.*`, `T2.nss.total.clean_excl_both`, `T2.nss.counterfactual`) passes because it compares the text with the CSV that the same formula wrote. Same figures in the monograph (Appendix C table L4674, L3481, L4717) | **DECIDE** (number change → re-freeze 59) |
+| S4.5 | "The two 'excl.' columns count residual not_steady_state runs after removing each sub-mode from the trigger criterion" | **Two readings.** The detector records at most one sub-mode per channel: once flatline or CV fires on a channel, its later checks are skipped (`continue`). The script counts runs that keep **another recorded** trigger (reading A). A classifier **without** the sub-mode would test the skipped checks: then Vt drift fires on 62 more runs (excl. Vt CV 422, not 360; excl. both 287, not 185; clean 878 / 1,280, 68.6 %) (reading B). Those 62 are the same oscillation seen through the drift check, so A is the more meaningful decomposition, but the caption's wording describes B | **DECIDE** (wording of what is counted) |
+| S4.6 | "76 runs" (SpO₂ saturation), "530 minus 360 = 170 runs" (Vt CV) | 530 − 454 = 76; 530 − 360 = 170; under reading A these are the runs whose only recorded trigger is that sub-mode | OK |
+| S4.7 | "the locked flatline rule (std/\|mean\| < 0.01 and mean within 0.001 of a hard bound)" | Code: `abs(mean − bound) <= 0.001 × max(\|bound\|, 1)`, i.e. 0.001 absolute for SpO₂ (a fraction) and 0.1 % relative for bounds ≥ 1. Exact for the SpO₂ ceiling the sentence is about; the paper's "within 0.1 % of a hard bound" is exact for every bound except the SpO₂ floor (0.5, tolerance 0.2 %) | NOTE |
+| S4.8 | "corrected there by setting the inspiration trigger pressure explicitly" | §2.3 calls the lock "a data-generation lever, not a clinical recommendation"; 78.1 % of reruns fall below 0.05, not all. Same word family as the letter's "fixes", changed to "adjustments" in `5fe2378`; the Figure 4 title keeps "corrections" | **DECIDE** (low; wording) |
+| S4.9 | Paper §2.1: "In the Healthy cells, the low four-flag retention mostly reflects the tidal-volume oscillation of §2.3 and SpO₂ pinned at saturation (Supplement §S4)" | Re-checked with the corrected count: 150 of the 229 non-clean Healthy runs (65.5 %) become clean when both sub-modes are excluded (reading A); 119 (52.0 %) under reading B, where the extra residual is the oscillation seen through Vt drift. "Mostly" holds | OK, paper unaffected |
+| S4.10 | Paper §2.3 "It is the primary flag on 20.6 % of runs"; §2.2 "139 of 320" (Healthy) and "36 of 320" (Moderate) | 264 runs have `not_steady_state` as primary flag with Vt CV > 0.05 (264 / 1,280 = 20.625 %); Vt CV > 0.05 on 139 / 320 and 36 / 320 | OK |
+
+## Part S5 — ARDS impairment-fraction instability zone (L486–600)
+
+Sources opened today: `results/s030_pf_by_arm.csv`, `results/s030_published_value_provenance.csv`,
+`results/s030_run_index.csv` (40 runs), `results/pf_berlin_by_scenario.csv` (regenerated by its
+script: identical), `results/continuous_ards_severity_sweep.parquet`, the sweep aggregate; Pulse at
+`REL_4_3_1` / `REL_4_3_2` (local clone); companion `Pulse_translation_new` (read-only):
+`experiments_log.md` L586–690 (March), L1905–1985 (E10), L2309–2330 (E6),
+`data/engine_runs/e6_ards_calibration/results.json`, `pipeline/tests/test_e4_e6.py`; Kitware
+Discourse search API.
+
+| # | Claim | Check | Status |
+|---|---|---|---|
+| S5.1 | March calibration: 28 runs, male 67.3 kg / 180 cm, VC-AC, Vt 403.8 mL (6 mL/kg), PEEP 10, FiO₂ 0.4; 0.26 / 0.60 / 0.95 → 256 / 150 / 96; full log in monograph App. B.3 | Companion log L586–690: 9 + 11 + 8 = 28 runs; P/F 256.0 / 150.1 / 96.1; 0.92 and 0.94 failed; 6 × 67.3 = 403.8. Monograph §B.3 (L4379) carries the 28-run log | OK |
+| S5.2 | E6 (2026-04), same settings, 252 / 148 / 75 | `results.json`: timestamp 2026-04-15, ventilation identical; reproducibility rows 251.9 / 148.2 / 74.8 | OK |
+| S5.3 | "the March log records 5-minute runs after a 120-s settle without stating its averaging window"; E6 "a 60-s settle, then a 108-s recording; … its last five 10-s samples" | Companion log L612 ("5 min per run, 120s settle time, 10s sampling", no window); `test_e4_e6.py` L61–63 (settle 60 s, 0.03 h "108s", sampling 10 s) and L143–144 (`time_points[-5:]`) | OK |
+| S5.4 | Replication: 40 runs 2026-07-26; [108, 168] s; 256.5 / 150.5 / 96.6; "within 0.6 %" at the three fractions; "within 2 %" across five | 40 rows in the run index. Calibration window: 256.537 / 150.458 / 96.598. Against the unrounded March values (256.0 / 150.1 / 96.1): +0.21 / +0.24 / +0.52 %; five fractions (with 199.3 and 118.7): max +1.91 % (0.9). Signal 7 of the August sweep (96.6 against 96 = 0.625 %) used the **rounded** 96: closed. A reader doing the same sum on the displayed 96 gets 0.625 % | OK; NOTE (rounding visible to readers) |
+| S5.5 | Band re-derived in the replication: 0.910–0.945 failed, 0.900 and 0.950 completed | `s030_pf_by_arm.csv`: 0.91, 0.92, 0.93, 0.94, 0.945 FAILED in both arms; 0.90 and 0.95 ok | OK |
+| S5.6 | Table caption: Pulse's documented {0.3, 0.6, 0.9} give 199 / 150 / 119 | `RespiratoryMethodology.md` L1402 (REL_4_3_1): "mild, moderate, and severe symptoms at severities of 0.3, 0.6, and 0.9"; March 199.3 / 150.1 / 118.7 | OK |
+| S5.7 | Table S5 sweep-wide P/F (n, medians, IQR, strata, bands) and the reading text | Script re-run, CSV identical (n = 458 = 61 + 114 + 192 + 91); every cell matches after rounding; the mid-FiO₂ stratum recovers mild / moderate / severe (282 / 163 / 99) | OK |
+| S5.8 | 0.95 protocol dependence: 87.3 / 96.6 / 112.6; alveolar PO₂ 231.3 → 230.7; A–a 196.4 → 185.7; RR 30.6 vs set 16; Vt 418 vs 403.8; PaCO₂ 43.6; lock: RR 20.0, PaCO₂ 50.8, P/F 91.5; A–a 185.7 vs 185.1; [60, 120]: 87.3 and 69.4 | All match `s030_pf_by_arm.csv` and `s030_published_value_provenance.csv`; set rate 16 in `run_s030_ards_berlin_recalibration.py` L71. "entirely the alveolar gas equation": PaO₂ differs by 8.46 mmHg, alveolar PO₂ by 9.01, A–a by 0.55 | OK |
+| S5.9 | Mapping table (12 multipliers) and text (MIN with recruitment, left/right factor, non-monotonic shunt, driver pressure, volumes, I:E) | `RespiratoryModel.cpp` at REL_4_3_1: resistance nodes 1/10/15/20/25 → 8.8 / 15 / 22.5 on the alveoli resistance path; compliance 1/0.65/0.55/0.5/0.4 → 0.70 / 0.55 / 0.45; diffusion 1/0.5/0.2/0.1/0.05 → 0.57 / 0.20 / 0.075; shunt damage 1/0.1/0.2/0.15/0.1 → 0.22 / 0.20 / 0.125, `MIN` with a recruitment curve of alveolar volume, left/right factors 0.6 / 1.8; ARDS also enters `UpdateVolumes`, `UpdateInspiratoryExpiratoryRatio`, `UpdateDriverPressure`. The atlas sets both lungs to the scenario fraction (`src/scenario.py` L190–193) | OK |
+| S5.10 | "each calibrated on the adult standard patient" | Pulse: parameters "tuned to meet validation data", on "the standard patient model of the engine (77 kg adult male)" (`RespiratoryMethodology.md` L423, L441); no line says so of the disease curves specifically | NOTE (supported in substance) |
+| S5.11 | "which is one reason why Pulse hard-gates age ≥ 18" | Pulse's own reason: "We do not model pediatrics" (`SetupPatient.cpp` age gate) and "No pediatric or geriatric modeling" (`PatientMethodology.md` L50). Kept on purpose by `dad75bd` (the facts on Pulse stay) | OK |
+| S5.12 | Surfactant absent: search of the whole tree at REL_4_3_2 (`e8a3649`) for surfactant, surface tension, Laplace, derecruitment, alveolar stability, opening/closing pressure; forum and methodology silent; P–V hysteresis and PEEP-calibrated recruitment | `git grep -i` at REL_4_3_2 (`e8a36497b`): 0 for every term except "laplace" ×2, both in a bundled binary (`src/java/jar/commons-math3-3.6.1.jar`, a maths library); control "recruit" 86. Discourse search API: "surfactant" 0 results, control "ARDS severity" 5 topics. Hysteresis: `RespiratoryMethodology.md` L855; recruitment "calibrated using empirical data … with varying levels of positive end-expiratory pressure" L993 | OK; NOTE ("no occurrence" holds for source and documentation, not for one third-party binary) |
+| S5.13 | "Three convergent boundary probes … (same Pulse v4.3.1 engine and male reference body, **non-overlapping** impairment-fraction grids, independent runs)" | **Wrong.** The grids overlap: March high end 0.90, 0.92, 0.94, 0.95–0.99; E10 0.90, then 0.91–0.95 by 0.005; E6 0.93–0.97 by 0.005. 0.94 and 0.95 are in all three; 0.90 in March and E10. Same wording in the monograph (L4473), since `df821f3` (2026-05-26). The counts are right: E10 10 runs, 8 consecutive failures 0.91–0.945, 0.90 and 0.95 pass (companion L1959–1968); E6 9 runs, 4 fail at 0.93–0.945, 5 pass at 0.95–0.97 (L2309–2322) | **DECIDE** (e.g. "different impairment-fraction grids") |
+| S5.14 | "published Pulse validation work and HowTo examples sample severities **up to 0.9 at most** (in `ARDSExacerbation.json` and `HowTo-IsoShuntAnalysis.cpp`) and do not examine impairment fractions within 0.91–0.945" | Both named files stop at 0.9 (0.3 / 0.6 / 0.9; {0.0, 0.3, 0.6, 0.9}). **But** `src/csharp/howto/HowTo_EngineUse.cs` L136–137 (REL_4_3_1 and REL_4_3_2) sets ARDS severity **1.0** on both lungs, in active code. Scan of the 39 files that mention ARDS: no severity inside 0.91–0.945. The "do not examine 0.91–0.945" half holds; the "up to 0.9 at most" half is false for the HowTo examples taken together. Same sentence in the cover letter (L74–76) | **DECIDE** (scope "at most 0.9" to the two files, or drop it and keep the band half) |
+| S5.15 | Continuous sweep: 200 runs (100 + 100, same values), midrange inputs, seed 2026, strata 50 / 30 / 20; Table S5-cont; band [0.879, 0.946] = smallest 3-decimal interval; widening 0.031 / 0.001; 0.9458; Wilson [0.09, 0.91] and [0, 0.66]; 0 / 50 per sex below 0.85 | All recomputed on the configured `ards_severity` (not the truncated label): every cell of the table, totals 19 / 14, diverged min 0.87977 and max 0.94585, 0 diverged outside the band, Wilson 0.0945–0.9055 and 0–0.658; `continuous_ards_sweep.py` L63–66 | OK |
+| S5.16 | Two regimes: input-driven at low HR, low SBP, high RR, requested FiO₂ 1.0; male only (20, and 0 of 640 female) | Diverged inputs: HR 50 in 16 / 20, SBP 90 in 16, RR 20 in 16, FiO₂ 1.0 in 13 (0.7367 in 7); 8 distinct vectors; 20 male, 0 / 640 female | OK |
+| S5.17 | Cross-references §2.6, §2.5, §2.1, §4.3; consistency with the paper (band, regimes, "first systematic characterisation") | Paper §4.3 "documented at design time … widened to [0.879, 0.946]", §2.5 lower / upper part of the band, Discussion priority claim: same wording | OK |
