@@ -336,6 +336,28 @@ Sources: `data/runs/full_sweep/aggregated.parquet` and `morris_sample.parquet`, 
 | S12.11 | macOS M2, macOS 26.5.1, emulated x86_64; `kitware/pulse:4.3.1` is `linux/amd64` only; max \|Δ\| 2.9 × 10⁻⁹, 22/22 | macOS README L45–53, L11; Docker Hub API today: one image, `linux` / `amd64` | OK |
 | S12.12 | "Pulse's fixed 20 ms time step" | `PulseConfiguration.cpp` L474 at REL_4_3_1: `GetTimeStep().SetValue(1.0 / 50.0, TimeUnit::s)` | OK |
 
+## Part S13 — SHAP cross-check and the clean-pair screen (L1023–1087)
+
+Sources: `results/s023/` (`rf_metrics.csv`, `topk_overlap.csv`, `topk_overlap_per_cell.csv`,
+`shap_vs_morris_summary.json`), `results/s034/` (`s034_summary.json`, `mu_star_by_screen.csv`,
+`rank_comparison.csv`), `results/phase4b_top3_comparison_seed44.csv`, `results/seed_stability_top3_comparison.csv`,
+the S009, S023 and S033 logs, Pulse `Saturation.cpp` at REL_4_3_1. Scripts: scratchpad `s13_check.py`,
+`s13_single.py`. Ledger anchors already covering this part: `T2.s023.pooled`, `.fullmatch`, `.ge2_pct`,
+`.r2_grouped_*` (PASS today).
+
+| # | Claim | Check (2026-10-13) | Status |
+|---|---|---|---|
+| S13.1 | Signals 24 ("works because the underlying physiology is real") and 25 ("any reasonable statistical method") | Both phrasings gone from paper, supplement and monograph (0 hits; witness "cross-check" 7 hits) | OK — signals 24, 25 closed |
+| S13.2 | n = 663 clean; one forest per output on the pooled subset with sex and scenario features; exact TreeExplainer values; per-cell n 42–144 | `shap_vs_morris_summary.json`: 663 of 1,280, 7 inputs + 2 sex + 4 scenario one-hot features; per-cell `n_runs_in_cell` 42–144. The artefact's own caveat still says "per-cell n=50-150" (stale, inside the JSON only) | OK |
+| S13.3 | 17 of 18 pooled (five 3/3, PaO₂ 2/3); 23 of 48 full; 44 of 48 (92 %) ≥ 2 | Recomputed from `topk_overlap*.csv` | OK |
+| S13.4 | "Pulse computes SpO₂ from the oxygen partial pressure through the haemoglobin dissociation relation, which also takes PaCO₂ and pH" | `Saturation.cpp` L90, L931: `CalculateHemoglobinSaturations(cs, O2PartialPressure, CO2PartialPressure, pH, temperature, hematocrit, …)` | OK |
+| S13.5 | Table S13 and its prose: training 0.993–0.99997; out-of-bag 0.949–0.9998; grouped values ± SD; optimism 0.078–0.087 vs 0.0003 for Vt; blood gases average 0.87 | All values = `rf_metrics.csv` to the printed digits; OOB − grouped: PaO₂ 0.0778, SpO₂ 0.0842, PaCO₂ 0.0867, Vt 0.0003; mean 0.8728 | OK |
+| S13.6 | "The three blood-gas channels average 0.87, with a spread ten to thirty times larger" (than Vt and HR) | Fold SD 0.053–0.071: 22–29 × HR's 0.0024, but 134–178 × Vt's 0.0004. Proposal: "twenty to thirty times that of heart rate" | **DECIDE** (low) |
+| S13.7 | "the SHAP top-three sets take **nine** distinct values in total versus 25 for Morris"; MAP, SpO₂, PaCO₂ invariant over the eight cells | 9 and 25 at the locked forest seed (recomputed); the three invariant outputs confirmed at that seed. But the S033 log's seed test gives 9 (seed 42), 10 (seed 7), 10 (seed 999), and records the decision to state the contrast rather than the exact figure. Proposal: "nine (ten under two other forest seeds) … versus 25" | **DECIDE** (low) |
+| S13.8 | "The 23 of 48 full-set agreement is stable across three independent forest seeds" | S033 log table: 23/48 at seeds 42, 7 and 999 (the artefacts keep only seed 42) | OK |
+| S13.9 | S034: 663 runs / 454 of 1,120 pairs; 1,134 / 969; 471 extra runs, all `not_steady_state`-only; 3,090 extra observations, 1,152 Healthy; H1 48/48 both screens, 0.658–0.998 (median 0.928) and 0.695–0.994 (0.901); 18 of 48 gain FiO₂ (Healthy-M, Healthy-F, Severe-F); on 30: rank 1 30, set 19, order 15; median cut margin 39 %, one below 10 %; on 48: 41, 26, 21; 318 rows reproduced exactly; 12 single-pair entries, 9 in a top three | All equal to `s034_summary.json` (`criteria_*`, `h1_by_screen`, `median_cut_margin_clean` 0.393, `narrow_cut` n = 1, calibration Δ 0.0); single-pair entries recomputed from `mu_star_by_screen.csv` (S1_F Vt-input ×6, S4_M FiO₂-input ×6; 9 ranked ≤ 3) | OK |
+| S13.10 | "Replaying cell Mild-M with an independent Morris sample seed preserves the rank-1 input in all 6 outputs, the top-three set in 4 and its order in 3; the screen change preserves 6, 2 and 2" | Comparator = seed 44, full size (`phase4b_top3_comparison_seed44.csv`): 6 / 4 / 3, recounted; screen: `criteria_S2_M_only` 6 / 2 / 2. ⚠️ Not to be confused with the older half-size seed-43 run of S009 (`seed_stability_top3_comparison.csv`: 5 / 3 / 1). Add "(seed 44, §S3-resample)" so the reader can tell them apart | **MECH** (cross-reference) |
+
 ## Addendum to Part S1 (2026-10-13) — Pulse 4.4.0 has been released
 
 Flagged during a pre-submission review of the supplement; checked at the primary sources, twice
