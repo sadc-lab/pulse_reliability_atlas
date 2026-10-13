@@ -1,7 +1,7 @@
 ---
 title: "Pulse Reliability Atlas: first sensitivity, clamping, and divergence map for the Pulse Physiology Engine v4.3.1"
 author: "Santino Nanini^1,2,3,4,5,\\*^, Arnaud Wiedemann^3,4,6^, Yassir Mamouni^3^, Cyril Schweitzer^4,5^, Philippe Jouvet^1,2,3^, Michael Sauthier^1,2,3^"
-date: "2026-10-12"
+date: "2026-10-13"
 header-includes:
   - \renewcommand{\arraystretch}{1.35}
   - \makeatletter\renewcommand{\@maketitle}{\newpage\null\vskip 2em\begin{center}\let\footnote\thanks{\LARGE\@title\par}\vskip 1.5em{\large\begin{minipage}{0.92\textwidth}\centering\@author\end{minipage}\par}\vskip 1em{\large\@date}\end{center}\par\vskip 1em}\makeatother
@@ -115,7 +115,8 @@ below; this section is the exhaustive findings digest.*
 * First open, **preregistered** reliability atlas for the **Pulse Physiology
   Engine v4.3.1** (Kitware, Apache-2.0), VC-AC ventilation, adult
   critical-care envelope. Results apply identically to the build-only v4.3.2
-  release.
+  release and may not carry over unchanged to v4.4.0, released after the
+  sweep with revised physiology models (§2.1).
 * **1,280 simulations** = 8 cells (4 scenarios, healthy S1 and ARDS S2/S3/S4,
   × 2 reference bodies M/F) × 160 runs. Seven swept operational inputs (HR, SBP, DBP, RR,
   Vt, FiO2, PEEP); six steady-state outputs (HR, MAP, Vt, SpO2, PaO2, PaCO2);
@@ -798,8 +799,9 @@ originally-diverged runs reproduce divergence with the same
 `exit_code = 1`). The [S014](#s014) patch is therefore a verified no-op for the
 original sweep, and the atlas's published numbers apply identically
 under the rebuilt image as under the original one. Upstream pin: `kitware/pulse:4.3.1`
-(`REL_4_3_2`, the current upstream `stable` head, is build-system-only;
-physiology unchanged per [S016](#s016) GitLab audit 2026-05-07).
+(`REL_4_3_2` is build-system-only, physiology unchanged per [S016](#s016)
+GitLab audit 2026-05-07; `REL_4_4_0`, released on 2026-09-30, changes the
+physiology, see the version-pinning rationale below).
 
 A source-level audit of the Pulse 4.3.1 C++ repository conducted
 alongside the wrapper work revealed three undocumented deviations
@@ -813,12 +815,24 @@ source. Full audit detail and source-line citations are in
 Appendix B.4.
 
 **Version-pinning rationale.** This atlas is pinned to Pulse 4.3.1.
-The current upstream `stable` head, `REL_4_3_2` (released 2025-08-12),
+`REL_4_3_2` (released 2025-08-12)
 differs from 4.3.1 by 7 files (+46 / −17 lines) covering build-system
 changes only; no physiology, validation, patient-setup, or solver
 code changed, verified by source audit in [S016](#s016) (2026-05-07). Atlas
-numerics therefore apply identically to 4.3.2. While future releases
-will inevitably alter underlying physiology, the atlas's methodology
+numerics therefore apply identically to 4.3.2. The next release,
+`REL_4_4_0` (2026-09-30, after the sweep), changes the physiology. Its
+release notes [@pulse440] list, among other changes, a distinction
+between anatomic and physiologic pulmonary shunting, revised respiratory
+resistance and compliance calculations, refactored respiratory
+compartments and volume distribution, and the removal of an inflection
+point in the CO2 saturation calculation at high dissolved CO2; the Eigen
+library used by the circuit solver moves from version 3.4.0 to 5.0.1. In
+its source (GitLab re-check, 2026-10-13), the patient-setup acceptance
+limits used here are unchanged, as is the rule that enables the
+respiratory-model patient trigger by default in VC-AC; the
+ARDS-severity-to-shunt mapping is rewritten, and the cardiovascular and
+nervous-system model sources also change. The results of this atlas may
+therefore not carry over unchanged to 4.4.0. The atlas's methodology
 — the four-flag classifier, Morris sweep, and traffic-light map — is
 engine-version-agnostic and designed to be re-applied to any future
 Pulse release.
@@ -3171,7 +3185,7 @@ validation matters most.*
 always set `InspirationPatientTriggerPressure` or
 `InspirationPatientTriggerFlow` explicitly. Leaving both unspecified
 causes Pulse to enable a respiratory-model-driven patient trigger
-(`SEMechanicalVentilatorVolumeControl.cpp` lines 120–128), which
+(`SEMechanicalVentilatorVolumeControl.cpp` lines 120–128, Pulse 4.3.1), which
 produces effort-dependent tidal-volume variability consistent with patient-ventilator dyssynchrony but renders
 delivered tidal volume non-steady at extreme input combinations. For sensitivity-analysis-style sweeps that require deterministic, steady-state-interpretable tidal volume, setting `InspirationPatientTriggerPressure = −2 cmH2O` collapses that variability (validated by [S014](#s014): median Vt_cv 0.351 to 0.016, a 96 % reduction; 78.1 % of locked runs below the 0.05 steady-state threshold). This is best read as a data-generation / exploration lever, not a clinical recommendation. In a real patient, the threshold is a clinical choice: with any fixed threshold, inspiratory efforts too weak to reach it fail to trigger a breath (ineffective triggering), a form of patient-ventilator dyssynchrony [@thille2006] that is clinically undesirable [@blanch2015]; such dyssynchrony is detectable on ventilator flow/pressure waveforms, though most directly confirmed with specialised monitoring such as esophageal pressure [@akoumianaki2014] or diaphragm electrical activity [@sinderby1999]. The −2 cmH2O lock is therefore an instrument for controlled software exploration and deterministic synthetic-data generation, not guidance for clinically realistic ventilation.
 
@@ -3743,7 +3757,9 @@ documentation and source (Apache-2.0) — retain their original terms.
   [S007](#s007) / [S015](#s015) / §2.8 Phase 4a).
 * **Atlas-version compatibility:** results on Pulse 4.3.1 apply
   identically to `REL_4_3_2` (2025-08-12); the upstream diff is
-  build-system-only, no physiology changed ([S016](#s016)).
+  build-system-only, no physiology changed ([S016](#s016)). They may not
+  carry over unchanged to `REL_4_4_0` (2026-09-30), whose physiology
+  changes (§2.1).
 * **Lab-notebook provenance:** dated experiment-log entries S001 – S034,
   indexed in [`experiments_log/INDEX.md`](../experiments_log/INDEX.md).
 * **Zenodo deposit:** the raw per-run artifacts excluded from git
@@ -3882,12 +3898,13 @@ the following or to an experiment-log entry in this repository.
    the upstream Kitware Pulse GitLab repository at
    <https://gitlab.kitware.com/physiology/engine> (locally cloned for
    read-only audit on 2026-04-07; GitLab re-audit 2026-05-07,
-   [S016](#s016)). The current
-   `stable` head is `REL_4_3_2` (2025-08-12), whose full diff vs
-   `REL_4_3_1` is 7 files / +46 −17 lines (web-WASM dockcross
+   [S016](#s016)). `REL_4_3_2` (2025-08-12) differs from
+   `REL_4_3_1` by 7 files / +46 −17 lines (web-WASM dockcross
    support, .NET binding tweak); no physiology, validation,
    patient-setup, or solver code changed. Atlas results on 4.3.1
-   apply identically to 4.3.2.
+   apply identically to 4.3.2. Since 2026-09-30 the `stable` head
+   is `REL_4_4_0`, which changes the physiology (§2.1; GitLab
+   re-check 2026-10-13).
 2. **Pulse FAQ.** *Have you done UQ / SA?*
    <https://pulse.kitware.com/_f_a_q.html> — verified verbatim
    2026-04-19, still current at the May 2026 re-audit; paragraph
@@ -4087,6 +4104,14 @@ during the literature-review pass logged in
   2026-06-05 from the Nervous System Methodology page (which does not
   carry this phrase) to the System Methodology page, where it appears
   verbatim.
+* []{#ref-pulse440} Kitware, Inc. *Pulse 4.4.0 Release Notes.*
+  <https://gitlab.kitware.com/physiology/engine/-/releases/REL_4_4_0>.
+  Released 30 September 2026; accessed 13 October 2026. Source of the
+  release-note items listed in §2.1 (anatomic vs physiologic pulmonary
+  shunting, respiratory resistance and compliance calculations, respiratory
+  compartments and volume distribution, the CO2 saturation inflection point
+  at high dissolved CO2, Eigen 5.0.1). Kitware's What's New page dates this
+  release "August 2026"; the dated GitLab release is cited instead.
 * []{#ref-cornish2023} Cornish R, Taufiq MF, Doucet A, Holmes C. *Causal Falsification
   of Digital Twins.* Journal of Machine Learning Research 27(152):1–52
   (2026); first posted as arXiv:2301.07210 and read in its v4 (November
