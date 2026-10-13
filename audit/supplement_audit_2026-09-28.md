@@ -401,6 +401,22 @@ Source: `data/runs/full_sweep/aggregated.parquet` (`*_delta_60s`), thresholds `s
 | S17.5 | "**Six** engine-side infrastructure recommendations … documentation of the male reference body's blood-volume floor; …" (signal 30: the list did not match §S11) | The six now match §S11 item for item (signal 30 closed). But the row depends on S11.4: if item 2 goes, "Six" → "Five" and the documentation item leaves the list | OK — signal 30 closed; **linked to S11.4** |
 | S17.6 | "of the main manuscript" harmonisation | 65 × "main manuscript", 0 × "main paper" in the supplement | OK |
 
+**Double-check of the decision block (2026-10-13, evening).** Re-verified before the re-freeze 59 lot:
+S4.4 recomputed again (966 / 1,280, 75.5 %, against the script's 1,008; positive control 530 / 530
+`not_steady_state` runs reproduced); S5.14 re-read at source: the ARDS severities of Pulse's scenario files
+stop at 0.9 (ARDSExacerbation 0.3 / 0.6 / 0.9, ECMOARDSOxygenation 0.8, others ≤ 0.6) and only the C#
+HowTo goes to 1.0 (live code, `HowTo_EngineUse.cs` L136–137); nothing in 0.91–0.945. Twins found or
+updated:
+- **S11.4 propagates further than its row says.** Supplement: L895 ("tooling, documentation or validation
+  infrastructure"), L900 (item 2), L911 ("items 1–6"), §S17 L1184 ("Six … documentation of the … floor").
+  Paper: L320 ("tooling, documentation and validation infrastructure"). Monograph: key-facts bullet
+  L277–278 ("Six engine-side infrastructure recommendations"), §4.7 introduction L3561–3569 ("six places",
+  "tooling, documentation, or validation"), item 2 L3589–3597. Nuance for the wording of any fix: the
+  documentation gives the rule (minimum = computed Bv × 0.85); only the body-specific number is not printed.
+- **S11.3 (MECH) has a monograph twin:** §4.7 item 1, "Pulse currently surfaces input clamping" (L3577–3583).
+- **S5.13 monograph twin** is now at L4508 (L4473 before today's monograph edits).
+- No twin in the paper or monograph for S6.2, S9.7 or S9.10; S9.19's twin is monograph L2815–2818.
+
 ## Addendum to Part S1 (2026-10-13) — Pulse 4.4.0 has been released
 
 Flagged during a pre-submission review of the supplement; checked at the primary sources, twice
