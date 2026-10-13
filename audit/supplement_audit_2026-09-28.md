@@ -313,6 +313,29 @@ sources at REL_4_3_1 and REL_4_4_0, paper L320. Signals 18–20 of the August pr
 | S11.9 | Item 6: "setup-time blood-pressure and pulse-pressure-ratio rejection messages require some domain knowledge to map back to the offending input field" | The blood-pressure messages name the field ("Patient systolic pressure baseline of … mmHg is too high", L495–515). Only the ratio message names neither field, and it states 0.75 as a "Minimum fraction allowed" although it caps DBP/SBP from above (L521). Proposal: restrict the sentence to the pulse-pressure-ratio message | **DECIDE** (low) |
 | S11.10 | Closing paragraph | No physiology prescription in any item | OK |
 
+## Part S12 — Reproducibility recipe (L917–1017)
+
+Sources: `data/runs/full_sweep/aggregated.parquet` and `morris_sample.parquet`, `src/sampler.py`,
+`scripts/analyze_sweep.py`, `data/runs/phase4a_run.log`, `experiments_log/santino/S006_full_morris_sweep.md`,
+`audits/` (the three reproduction folders and `reproduction_check_2026-06-07.md`), Docker Hub API, Pulse
+`PulseConfiguration.cpp` at REL_4_3_1. Scripts: scratchpad `s12_wall.py`, `s12_repro.py`, `s12_sample.py`
+(writes only to the scratchpad). §S12.6 (WSL2 on both hosts) was decided on 2026-10-08 and is not reopened.
+
+| # | Claim | Check (2026-10-13) | Status |
+|---|---|---|---|
+| S12.1 | L919: code "released under the Apache-2.0 license at github.com/…"; data "carry … CC-BY-4.0" (present tense) | True only once the repository is public; one of the present-tense sentences held by `check_publication_gate.py --verify-public` | NOTE (known, guarded) |
+| S12.2 | Hardware; three workers reduced to two mid-sweep | As in the project CLAUDE.md; S006 log L70, L86–94 (`MAX_PARALLEL_LAPTOP 3 → 2`) | OK |
+| S12.3 | Three end-to-end executions; 23 h 01 m on the reference machine and, "coincidentally", on the independent host; container time ≈ 27 h and 46 h | Two distinct logs: `phase4a_run.log` "23h01m12s", `reproduction_check_2026-06-07.md` "23h01m21s"; container time 27.39 h (canonical, without the two suspension records) and 46.0 h (reproduced aggregate) | OK |
+| S12.4 | S4_M_0123 / 0124 span one ≈ 6.84 h suspension; 41.1 h naive vs 27.4 h; 20.78 h calendar span; ≈ 13.9 h active | 24,722 s each, 6.85 h above the 77-s median run; 41.12 h / 27.39 h; first-to-last output and log modification times span 20.78 h; 20.78 − 6.84 = 13.94 | OK |
+| S12.5 | Docker template; "removing [the caps] does not change the simulation output (Pulse is single-threaded per run)" | Template as in CLAUDE.md. The single-thread statement was not checked today | NOTE (not independently verified) |
+| S12.6 | Command block: 1,000 bootstrap resamples; 394/394, 393/394 on a public clone; 95/95; ~14 h with 2 workers, ~9 h with 3, ~23 h on slower hardware | `analyze_sweep.py` L78–79 `n_bootstrap=1000`; today's gate: ledger 394, crosswalk 95, 0 FAIL; 27.4 h / 2 ≈ 14, / 3 ≈ 9; 23 h 01 m | OK |
+| S12.7 | Layer 1: the regenerated 160-point sample matches `morris_sample.parquet` byte for byte (signal 21 was "1,280-row") | Regenerated with `src.sampler.sample_morris(20, 4, 42)` + `save_sample`: 160 rows, values identical, SHA-256 `5d0803d4…` = committed file | OK — signal 21 closed |
+| S12.8 | Independent full sweep: 1,280/1,280 flags; continuous values bit-identical; three H4 statistics at ~10⁻¹⁴; same BH-FDR set | 0 flag mismatches; max \|Δ\| = 0 over 59 float columns (wall time excluded); report: Wasserstein columns 2.8 × 10⁻¹⁴ (and `spearman_p` 9.7 × 10⁻¹⁷), 5/24 survivors, same cells | OK |
+| S12.9 | Pilot "22/22 runs" (L1007) and "the 20 per-run output CSVs" (L1009) (signal 22) | 22 runs of which 2 are deliberate clamp probes that write no CSV (ThinkPad README L72–74); "five flags" of signal 22 is already fixed. Add "(the two deliberate clamp probes write none)" | **MECH** — signal 22 closes with it |
+| S12.10 | L1009: `reproduction_2026-06-07/` "carries … a numerical comparison report (`reproduction_check_2026-06-07.md`)" | The report is `audits/reproduction_check_2026-06-07.md`, beside the folder, not inside it (`git ls-files`). Reword the path | **MECH** |
+| S12.11 | macOS M2, macOS 26.5.1, emulated x86_64; `kitware/pulse:4.3.1` is `linux/amd64` only; max \|Δ\| 2.9 × 10⁻⁹, 22/22 | macOS README L45–53, L11; Docker Hub API today: one image, `linux` / `amd64` | OK |
+| S12.12 | "Pulse's fixed 20 ms time step" | `PulseConfiguration.cpp` L474 at REL_4_3_1: `GetTimeStep().SetValue(1.0 / 50.0, TimeUnit::s)` | OK |
+
 ## Addendum to Part S1 (2026-10-13) — Pulse 4.4.0 has been released
 
 Flagged during a pre-submission review of the supplement; checked at the primary sources, twice
