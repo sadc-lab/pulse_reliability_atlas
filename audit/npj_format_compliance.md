@@ -797,3 +797,104 @@ necessary to allow interpretation and replication of the results."
 **Side effect, measured:** Figure S4 now prints 4 pages after its first call
 (3 before), pushed by the added text; the paper keeps 24 pages, the supplement
 58, and every other float is unchanged in range.
+
+---
+
+## 2026-10-13 — Cover letter and portal metadata read against re-freeze 58
+
+Scope: `preprint_npj/cover_letter.md` (105 lines, every sentence) and
+`preprint_npj/submission_metadata.txt` (84 lines), against the files that will be
+submitted: re-freeze 58 (`fe570a0`, source `76ae47c`; SHA-256 of the four files in
+`build/freeze58/` re-checked today, all four match `dispatch_log.md`). Sources
+`paper.tex`, `supplement.tex`, `cover_letter.md` and `submission_metadata.txt` are
+unchanged between `76ae47c` and `54aa84a` (`git diff --stat`, empty).
+
+**Instruments, and one calibration failure.** PDF text: `pdftotext -enc UTF-8`.
+Word text: `pandoc -t plain` **drops every figure caption** (positive control: the
+Fig. 4 legend sentence "without identifying the numerical pathway" is in the PDF
+and absent from the pandoc text, yet present in `word/document.xml`). The Word
+checks below therefore use the tag-stripped `document.xml`. Each paper sentence the
+review relies on was found exactly once in both (twice for "is a data-generation
+lever, not a clinical recommendation", §2.3 and Fig. 4).
+
+### Portal metadata — no defect
+
+- Generated block: `sync_submission_metadata.py --check` PASS (32 lines).
+- Abstract: identical in the metadata, the frozen PDF and the frozen Word file
+  once no-break spaces, the typographic apostrophe and one PDF page break are
+  normalised; 149 whitespace tokens in all three (`wc -w`), 146 containing a
+  letter or digit (second instrument), as the header says. Cap 150.
+- Title, author order and the six affiliation numbers match the PDF and the Word
+  title block; keywords (8) match both.
+- ORCID: all six pass the ISO 7064 11-2 checksum (negative control: one digit
+  changed fails) and resolve on `pub.orcid.org` to the right person. The record
+  for M.S. writes his first name with a diaeresis; the paper writes it without
+  (author's choice, kept).
+- CRediT roles: no role contradicts the Author contributions statement of the
+  paper. The paper's statement is prose with initials, which is what `SG` asks
+  ("Please use initials"); CRediT roles exist only in this portal file.
+
+### Cover letter — external facts re-opened today
+
+| Claim | Source opened 2026-10-13 | Status |
+|---|---|---|
+| npj lists digital twins in its scope | Aims and scope page (`.firecrawl/npj_aims_2026-10-13.md`): bullet "Digital twins" | MATCH |
+| Pulse FAQ quotation | pulse.kitware.com FAQ: "We have not performed a systematic forward propagation or inverse quantification of model uncertainty, nor have we conducted a formal sensitivity analysis." | MATCH (elision faithful) |
+| Salvador et al. 2024: 43 parameters, global sensitivity analysis, parameter estimation with UQ | Europe PMC, PMID 38605089 (npj Digit Med 7:90) | MATCH |
+| Sel et al. 2025: survey and perspective on VVUQ of digital twins for precision medicine | Europe PMC, PMID 39825103 (npj Digit Med 8:40) | MATCH |
+| Ward et al., IEEE CBMS 2024 | `paper.bib` entry, full text read 2026-08-10 | MATCH |
+| Cover-letter requirements | Submission guidelines (`.firecrawl/npj_sg_2026-10-13.md`; body identical to the 2026-10-07 capture): affiliation and contact information of the corresponding author; confidential information; related work in press or submitted elsewhere | met, see O4 |
+
+### Cover letter — against the paper (proposals, nothing applied)
+
+Must (the letter says something the paper does not):
+
+- **L1** (L35; open since 2026-08-23 as signal 48 of `supplement_prose_sweep.md`):
+  "four ARDS severities" — the paper has a healthy baseline and three ARDS
+  severities (§1, §4.3).
+- **L2** (L65): "with an identified mechanism" — §2.5 says "identified a
+  blood-volume dependence" and the Fig. 4 legend says "without identifying the
+  numerical pathway of the failure".
+- **L3** (L69-71): "pooling ... at input extremes silently injects a spurious sex
+  covariate into any downstream model" — the Discussion makes it conditional:
+  "without flag-based filtering".
+- **L4** (L91-92): "All data and code are openly available" — the paper's Data
+  availability says the outputs "will be deposited at Zenodo" with pre-deposit
+  access on request. (Code: true once the repository is public, see below.)
+- **L5** (L91): "author contributions are specified in the manuscript (CRediT
+  taxonomy)" — the manuscript's statement is prose with initials.
+
+Recommended (stronger than the paper):
+
+- **L6** (L24-26): "Every downstream user has therefore been operating without a
+  map" — the paper says "no public map" and "may need to establish ... independently".
+- **L7** (L29-31): "any model fitted to that output absorbs whatever artefacts the
+  envelope contains" — absolute; the paper never says this of Ward et al., whose
+  pressure-targeted settings and 30-minute steps lie outside the atlas.
+- **L8** (L21-22): "applied to device-validation studies" — the cited uses are
+  ventilator-safety what-if analysis, validation of Pulse's own ventilator model,
+  education and computational physiology; none validates a device on Pulse output.
+- **L9** (L77-78): "Our continuous-severity sweep resolves two distinct divergence
+  regimes" — §S5 attributes the distinction to that sweep together with §2.5.
+- **L10** (L65-66): "All 20 of the 1,280 divergent runs" reads as if 1,280 runs
+  diverged.
+
+Optional (no defect): O1 "What has not been established is how reliable they are"
+is broad for digital twins in general (the letter itself cites a VVUQ survey);
+O2 the letter omits the paper's "not a clinical recommendation" for the trigger
+setting; O3 the signature shortens the affiliations (e.g. "Clinical Decision
+Support System (PEDIATRICS) Cluster" is not the name in the paper) and gives an
+e-mail only; O4 at submission fill the date, declare the arXiv preprint if it is
+posted first, and send a copy of any related manuscript submitted elsewhere.
+
+Verified exact, no action: title; 1,280 = 8 x 160; seven inputs; preregistered core
+design; "first open reliability atlas"; principal deliverable, cell-level review
+priority, run-level screening whatever the colour, "neither layer is a
+distribution-neutral automatic filter"; "adjustments" (author's decision,
+`5fe2378`); 20 / 20 -> 0 / 20 at 4,400 and 4,082.24 mL (§S10); band [0.879,
+0.946]; "at most up to severity 0.9 ... inside 0.91–0.945" (§S5); BioGears and
+HumMod; no competing interests.
+
+**Sequencing, already decided (`check_publication_gate.py`):** the 9 present-tense
+availability anchors, two of them in this letter, are false while the repository
+is private. Public repository first, `--verify-public`, then submission.
