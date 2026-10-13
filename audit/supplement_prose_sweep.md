@@ -89,6 +89,15 @@ findings and must not be reported as such.
 | 61 | `preprint_npj/README.md:106-110` | "The phrase 'clinical-AI training' applied to Pulse has **no verified citation** ... **as of 2026-05-23**. Do **not** write it without first adding a verified citation." The date-stamp makes the sentence honest, but it reads as a **live prohibition** whose premise has since been met: `ward2024ventilator` sits at `paper.bib:448` with a full-text-read verification note, and `cover_letter.md:27` uses it for exactly that | OPEN -- low; dated, not false |
 | 62 | `paper.tex:372`, `manuscript.md:3388` | HumMod named with no citation, and characterised as "lumped-parameter" / "cardiopulmonary" against a source supporting neither | ✅ **CLOSED 2026-08-24** -- both qualifiers removed, `hester2011hummod` added to **both** `.bib` files |
 
+**Status update, 2026-10-13 (supplement audit, `audit/supplement_audit_2026-09-28.md`).** The rows above were
+not all updated when the text changed. Re-checked against the current `supplement.tex`:
+- **Closed by earlier rewrites:** 19 (S11.1, "mentions"), 21 (S12.7, "160-point" design, regenerated
+  byte-identical), 24 and 25 (S13.1, wording gone), 27 (S15.1, four HR levels), 28 (S15.3, survivorship
+  confound now stated), 29 (S15.4, four flags), 30 (S17.5, the six items match §S11).
+- **Still open, carried into the supplement audit:** 18 → S11.2 (DECIDE, low); 20 → S11.4 (**confirmed
+  false**: Pulse's patient-methodology table lists the Bv × 0.85 minimum; DECIDE); 22, second half → S12.9
+  (MECH, the 22-run pilot's 20 CSVs); 31 → S12.13 (MECH, the missing `docker build` step).
+
 ### 1 — BioGears (§S1 ¶116)
 
 > Pulse v4.3.1 includes respiratory calibration for ventilated patients,

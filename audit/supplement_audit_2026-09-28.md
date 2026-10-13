@@ -335,6 +335,7 @@ Sources: `data/runs/full_sweep/aggregated.parquet` and `morris_sample.parquet`, 
 | S12.10 | L1009: `reproduction_2026-06-07/` "carries … a numerical comparison report (`reproduction_check_2026-06-07.md`)" | The report is `audits/reproduction_check_2026-06-07.md`, beside the folder, not inside it (`git ls-files`). Reword the path | **MECH** |
 | S12.11 | macOS M2, macOS 26.5.1, emulated x86_64; `kitware/pulse:4.3.1` is `linux/amd64` only; max \|Δ\| 2.9 × 10⁻⁹, 22/22 | macOS README L45–53, L11; Docker Hub API today: one image, `linux` / `amd64` | OK |
 | S12.12 | "Pulse's fixed 20 ms time step" | `PulseConfiguration.cpp` L474 at REL_4_3_1: `GetTimeStep().SetValue(1.0 / 50.0, TimeUnit::s)` | OK |
+| S12.13 | (added while checking S17) "The minimal command sequence to regenerate the canonical sweep + audit ledger from a fresh clone" (signal 31 of the August sweep) | **Still open, missed above.** The sequence has no image build, but `src/runner.py` L35 runs `pulse-atlas-engine`, a locally built image (`engine/Dockerfile`, from `kitware/pulse:4.3.1`); step 2 fails on a fresh clone. The README has the step (L35, L245): `docker build -t pulse-atlas-engine engine/`. Add it as step 0 | **MECH** — closes signal 31 |
 
 ## Part S13 — SHAP cross-check and the clean-pair screen (L1023–1087)
 
@@ -357,6 +358,48 @@ the S009, S023 and S033 logs, Pulse `Saturation.cpp` at REL_4_3_1. Scripts: scra
 | S13.8 | "The 23 of 48 full-set agreement is stable across three independent forest seeds" | S033 log table: 23/48 at seeds 42, 7 and 999 (the artefacts keep only seed 42) | OK |
 | S13.9 | S034: 663 runs / 454 of 1,120 pairs; 1,134 / 969; 471 extra runs, all `not_steady_state`-only; 3,090 extra observations, 1,152 Healthy; H1 48/48 both screens, 0.658–0.998 (median 0.928) and 0.695–0.994 (0.901); 18 of 48 gain FiO₂ (Healthy-M, Healthy-F, Severe-F); on 30: rank 1 30, set 19, order 15; median cut margin 39 %, one below 10 %; on 48: 41, 26, 21; 318 rows reproduced exactly; 12 single-pair entries, 9 in a top three | All equal to `s034_summary.json` (`criteria_*`, `h1_by_screen`, `median_cut_margin_clean` 0.393, `narrow_cut` n = 1, calibration Δ 0.0); single-pair entries recomputed from `mu_star_by_screen.csv` (S1_F Vt-input ×6, S4_M FiO₂-input ×6; 9 ranked ≤ 3) | OK |
 | S13.10 | "Replaying cell Mild-M with an independent Morris sample seed preserves the rank-1 input in all 6 outputs, the top-three set in 4 and its order in 3; the screen change preserves 6, 2 and 2" | Comparator = seed 44, full size (`phase4b_top3_comparison_seed44.csv`): 6 / 4 / 3, recounted; screen: `criteria_S2_M_only` 6 / 2 / 2. ⚠️ Not to be confused with the older half-size seed-43 run of S009 (`seed_stability_top3_comparison.csv`: 5 / 3 / 1). Add "(seed 44, §S3-resample)" so the reader can tell them apart | **MECH** (cross-reference) |
+
+## Part S14 — Pointer to the companion technical monograph (L1093–1097)
+
+| # | Claim | Check (2026-10-13) | Status |
+|---|---|---|---|
+| S14.1 | "A companion technical monograph of over 100 pages" | `preprint/build/manuscript.pdf` rebuilt today: 123 pages | OK |
+| S14.2 | Contents: preregistered hypotheses verbatim with amendment notes, experiment-log index, own reference list, sources of Table S1, boundary-probe summary, source-code audit; per-test rationale, ARDS calibration trace, engine-binary reproduction protocol | Monograph §2.0, Appendix A, §9, §1.2, Appendix B (B.3 ARDS calibration, B.4 source-code audit), §2.10, §2.8. Signal 26 (overclaims) already resolved | OK |
+| S14.3 | "the experiment-log entries it consolidates are openly available under `experiments_log/` in the code repository" (present tense) | True once the repository is public (publication gate) | NOTE (known, guarded) |
+
+## Part S15 — Compensatory tachycardia (L1109–1139)
+
+Source: `data/runs/full_sweep/aggregated.parquet`, `results/morris_indices.parquet`. Script: scratchpad `s15_s16.py`.
+
+| # | Claim | Check (2026-10-13) | Status |
+|---|---|---|---|
+| S15.1 | Table S15: 73.8 ± 20.4, 87.3 ± 24.3, 155.7 ± 34.7, 147.1 ± 31.8 over clean runs; input levels 50/70/90/110 | Clean n 91 / 179 / 266 / 127; means and SD (n − 1) identical to the printed digits; four HR levels | OK — signal 27 ("uniformly") closed |
+| S15.2 | Input HR is rank 1 for output HR in every Healthy cell; 145–160 bpm in Moderate and Severe, about 70 above the 80-bpm midpoint | Rank 1 = HR in all eight cells; 155.7 − 80 = 75.7, 147.1 − 80 = 67.1 | OK |
+| S15.3 | The Severe easing "may partly reflect differential clean-run retention" | 266 vs 127 clean (83.1 % vs 39.7 %); the confound is now stated | OK — signal 28 closed |
+| S15.4 | "those firing none of the four flags" | Four flags named | OK — signal 29 closed |
+| S15.5 | "Users running Pulse for ARDS device validation should treat output HR as …" | Advice, not a usage claim, but it presupposes device-validation use; the cover letter's "device-validation studies" (L8 of the letter review) is unsupported by the cited uses. Keep consistent with the author's decision on L8 (monograph L569, L2084, L2294, L3148 say the same) | NOTE (linked to letter L8) |
+
+## Part S16 — Output stability across the 120-second window (L1148–1156)
+
+Source: `data/runs/full_sweep/aggregated.parquet` (`*_delta_60s`), thresholds `src/detector.py`
+`DRIFT_MAX_DELTA_60S` (HR 5, MAP 5, Vt 50, SpO₂ 0.02, PaO₂ 15, PaCO₂ 5). Script: scratchpad `s15_s16.py`.
+
+| # | Claim | Check (2026-10-13) | Status |
+|---|---|---|---|
+| S16.1 | Hyperoxia arm (FiO₂ ≥ 0.95; 195 valid runs): HR 2.6 % (median 0.20), MAP 0 % (0.05), PaCO₂ 3.6 % (0.58), PaO₂ 19.5 % (4.3; p95 40.2), Vt 8.7 % | 195 non-diverged runs; 2.6 / 0.197; 0.0 / 0.0495; 3.6 / 0.575; 19.5 / 4.31 / 40.2; 8.7 % | OK |
+| S16.2 | Oscillation arm (Vt CV > 0.05; 303 runs): HR 2.3 %, MAP 0.7 %, PaO₂ 7.3 %, PaCO₂ 2.0 % | 303; 2.3 / 0.7 / 7.3 / 2.0 | OK |
+| S16.3 | "window-length sensitivity was thus concentrated in PaO₂ and delivered Vt … HR, MAP and PaCO₂ rarely exceed threshold" | Follows from S16.1–S16.2; §S9 contradicts it on Vt (S9.7) | OK (see S9.7) |
+
+## Part S17 — Summary of supplementary findings (L1163–1192)
+
+| # | Claim | Check (2026-10-13) | Status |
+|---|---|---|---|
+| S17.1 | Twelve verified limitations | Table S1 rows 1–12 (5–6 merged) | OK |
+| S17.2 | Sobol: 43 of 48, all eight cells, 6,144 or 3,584 vs the 1,500 envelope | = §S3-sobol L360 | OK |
+| S17.3 | Seed 44: rank 1 kept in all six outputs; Mild-M divergences 4/160 → 7/160 | = §S3-resample L428–432 and S13.10 | OK |
+| S17.4 | §S4, §S5, §S6, §S7 (15 Cornish channels), §S10, §S13 (17 of 18), §S15, §S16 rows | Consistent with the parts above | OK |
+| S17.5 | "**Six** engine-side infrastructure recommendations … documentation of the male reference body's blood-volume floor; …" (signal 30: the list did not match §S11) | The six now match §S11 item for item (signal 30 closed). But the row depends on S11.4: if item 2 goes, "Six" → "Five" and the documentation item leaves the list | OK — signal 30 closed; **linked to S11.4** |
+| S17.6 | "of the main manuscript" harmonisation | 65 × "main manuscript", 0 × "main paper" in the supplement | OK |
 
 ## Addendum to Part S1 (2026-10-13) — Pulse 4.4.0 has been released
 
