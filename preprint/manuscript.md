@@ -3495,7 +3495,8 @@ bounded.*
   exclusion the clean rate would rise from 51.8 % to 78.8 % — this is
   presented as a decomposition, not a re-classification.
 * **`not_steady_state` cross-validation by ML/SHAP surrogate.** A
-  supplementary RandomForest + SHAP attribution on the n = 663 clean
+  supplementary RandomForest + SHAP attribution, with exact TreeExplainer
+  values [@lundberg2020tree], on the n = 663 clean
   subset ([S023](#s023)) shares 17 / 18 possible input memberships with
   the Morris μ\* top-3 **sets** across the six pooled output-level
   comparisons (five outputs 3/3, PaO2 2/3), and matches 23 / 48 per-cell cases at full
@@ -4131,6 +4132,16 @@ during the literature-review pass logged in
   cross-mapping against the atlas's 6-output panel is presented in
   §4.4 (Table 2). Identified in the May 2026 audit logged in [S016](#s016)
   and verified against the v4 PDF in [S017](#s017) (2026-05-13).
+* []{#ref-ward2024ventilator} Ward IR, Asmar DM, Arief M, Mike JK,
+  Kochenderfer MJ. *Optimal Control of Mechanical Ventilators with Learned
+  Respiratory Dynamics.* 2024 IEEE 37th International Symposium on
+  Computer-Based Medical Systems (CBMS), pp. 192–198 (2024). DOI:
+  [10.1109/CBMS61543.2024.00040](https://doi.org/10.1109/CBMS61543.2024.00040).
+  Third-party peer-reviewed use of Pulse to gather simulated data for
+  neural-network and optimal-control ventilator policies in ARDS (§4.3).
+  Abstract read verbatim at arXiv:2411.07971 on 2026-08-03; full text not
+  read; metadata re-checked at Crossref on 2026-10-13. Cited in the body
+  since 2026-08 but missing from this list until 2026-10-13.
 
 **Sensitivity-analysis methods**
 
