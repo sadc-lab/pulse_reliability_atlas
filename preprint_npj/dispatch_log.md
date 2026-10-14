@@ -1972,3 +1972,52 @@ pre-commit check passed. Checked on the frozen files, PDF and Word alike:
   choice" appear once in each document, the e-mail once; "Materials
   availability" and "GPT-6" are absent;
 - "v4.4.0" appears once in the paper and three times in the supplement.
+
+## 2026-10-14 — re-freeze 60: one supplement summary row aligned (§S17, row S5); not sent
+
+**Status: NOT SENT.** Supersedes re-freeze 59 (frozen the same day, never
+sent) as the version to submit. One manuscript change since re-freeze 59, in
+`d8cd192`, found by a third double-check: the §S17 summary row for §S5 credited
+both divergence regimes to the continuous-severity sweep alone; it now reads
+"and, together with the main sweep, distinguishes two divergence regimes", as
+§S5 itself and the cover letter (item L9) say. The paper text is unchanged and
+was only rebuilt. The same commit aligns the monograph's conclusion ("four
+scenarios (a healthy baseline and three ARDS severities)") and the README
+("without a public map"); neither is part of a dispatch.
+
+| | |
+|---|---|
+| Sent | — |
+| Source commit | `d8cd192` |
+| Pages | 24 (paper) / 59 (supplement), unchanged |
+| Monograph | not part of a dispatch; rebuilt the same day (124 pages, was 123) |
+
+### Hashes, frozen before any further build
+
+| artefact | SHA-256 | bytes |
+|---|---|---|
+| `preprint_npj/build/paper.pdf` | `29cbb1318865f4eaff143ad1edf88ce1f49c46bccb94b0184df6f1cb136f2088` | 618,665 |
+| `preprint_npj/build/paper.docx` | `d69ca3d395fc4be28c9d1c2071010bccd3e57b22a7a8572aa78dd0fc778a0bc2` | 954,476 |
+| `preprint_npj/build/supplement.pdf` | `0b414547624c7fcbb4a4ffa06cee86a8d3ded13f837cc7cc5a681bc2fa83b833` | 718,120 |
+| `preprint_npj/build/supplement.docx` | `e85c804417ad5be3c5d2b48931759b634d30bbb4622207655850bd55dd84e58d` | 762,344 |
+
+Written 13:06:18–13:06:27 local time; `supplement.tex` last modified 13:05:09,
+`paper.tex` 11:52:47 and `paper.bib` 11:47:40, all before the build; the
+working tree equals `d8cd192`. Copies in `preprint_npj/build/freeze60/`
+(gitignored), SHA-256 identical to `build/`. `build/freeze59/` and
+`build/freeze58/` are kept. The paper's hashes differ from re-freeze 59 with
+the same text and the same byte size: the build is not byte-reproducible.
+
+### Gate state at freeze
+
+On this tree and this build: ledger 394 / 394 PASS, paper sync 95 / 95,
+monograph anchors 25 / 25, monograph number-audit guard 84 / 84 (one new
+banned-phrase check), publication anchors 9 / 9 (visibility not checked: the
+repository is still private), every other pre-commit check passed, pytest 80
+passed, ruff clean, render check passed, Word structure passed. Checked on the
+frozen files, PDF and Word alike: the 37 edited phrases of re-freezes 59–60 are
+present and the 22 removed ones absent; Table S4 reads 119 / 122 / 133 / 153 /
+148 / 157 / 67 / 67, total 966; "PEDIATRICS", "ineffective triggering" and "the
+threshold is a clinical choice" appear once in each document, the e-mail once;
+"Materials availability" and "GPT-6" are absent; "v4.4.0" appears once in the
+paper and three times in the supplement.
