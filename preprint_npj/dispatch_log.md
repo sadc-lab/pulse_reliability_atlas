@@ -1908,3 +1908,67 @@ Checked by hand on the frozen files, PDF and Word alike:
 - "Materials availability" and "GPT-6" are absent;
 - the six authors' affiliation numbers in `paper.docx` match `paper.tex`
   (6 / 6), and the corresponding-author line carries the e-mail.
+
+## 2026-10-14 — re-freeze 59: supplement audit S4–S17, Pulse 4.4.0 wording, cover-letter review (paper + supplement + letter); not sent
+
+**Status: NOT SENT.** Supersedes re-freeze 58 as the version to submit. One
+manuscript commit since re-freeze 58, `fbe90c8`, on the author's decisions of
+2026-10-13 (Pulse 4.4.0 wording) and 2026-10-14 (the whole S4–S17 and
+cover-letter block):
+
+- Paper: Discussion (i) adds that results "may not carry over unchanged to
+  v4.4.0, released after the sweep with revised physiology models" (new
+  reference `pulse440`, cited in the supplement); L320 "tooling, documentation
+  and validation infrastructure" → "tooling and validation infrastructure".
+- Supplement: Table S4 joint-exclusion clean count 1,008 (78.8 %) → 966
+  (75.5 %), with its caption saying what the columns count; §S1, §S2 (i) and
+  §S8.4 for Pulse 4.4.0; §S5, §S6, §S8, §S9, §S11 (item 2 deleted, five
+  recommendations), §S12 (a `docker build` step 0), §S13 and §S17 as listed in
+  the commit message of `fbe90c8` and in `audit/supplement_audit_2026-09-28.md`.
+- Cover letter: L1–L12, O2, O3 (`audit/npj_format_compliance.md`).
+- Monograph (not part of a dispatch): the same corrections where it carries
+  them; rebuilt the same day, 123 pages.
+
+`3d2c253` refreshed the number inventories and the registers; no manuscript
+change.
+
+Awaiting: the remaining answer to the re-freeze 57 message, then the public
+repository (`check_publication_gate.py --verify-public`) before submission.
+
+| | |
+|---|---|
+| Sent | — |
+| Source commit | `3d2c253` (manuscript sources as of `fbe90c8`) |
+| Pages | 24 (paper, unchanged) / 59 (supplement, was 58) |
+| Monograph | not part of a dispatch; rebuilt the same day (123 pages) |
+
+### Hashes, frozen before any further build
+
+| artefact | SHA-256 | bytes |
+|---|---|---|
+| `preprint_npj/build/paper.pdf` | `00effd2780456ad0dc6115fa76ae04929cc9e512bfb9b7eb533f318d83bf9b57` | 618,665 |
+| `preprint_npj/build/paper.docx` | `3f73515da2dac16fa96c8a7c88f436400f00e777da596a5b9d2733ddf5516263` | 954,476 |
+| `preprint_npj/build/supplement.pdf` | `191f73a3f2cb41874564d73dcd4c7d840b7ef5606f87891aa93424b5746f6151` | 718,105 |
+| `preprint_npj/build/supplement.docx` | `1a2a863f305428258f17db56b3986ee658e59450382ee8f14635c5215b43ce3f` | 762,331 |
+
+Written 11:58:20–11:58:31 local time; `paper.tex`, `supplement.tex` and
+`paper.bib` last modified 11:47–11:52, before the build; the working tree equals
+`3d2c253` (`git diff HEAD --quiet`). Copies in `preprint_npj/build/freeze59/`
+(gitignored), SHA-256 identical to `build/`. The re-freeze 58 files stay in
+`build/freeze58/`.
+
+### Gate state at freeze
+
+On this tree and this build: ledger 394 / 394 PASS, paper sync 95 / 95,
+monograph anchors 25 / 25, publication anchors 9 / 9 (visibility not checked:
+the repository is still private), citations passed, back-references passed,
+pytest 80 passed, render check passed, Word structure passed, every other
+pre-commit check passed. Checked on the frozen files, PDF and Word alike:
+- each of the 36 edited phrases of the paper and supplement is present and
+  each of the 22 removed phrases is absent (text normalised for line breaks,
+  hyphenation and Word's zero-width spaces, with a positive control per file);
+- Table S4 reads 119 / 122 / 133 / 153 / 148 / 157 / 67 / 67, total 966;
+- "PEDIATRICS", "ineffective triggering" and "the threshold is a clinical
+  choice" appear once in each document, the e-mail once; "Materials
+  availability" and "GPT-6" are absent;
+- "v4.4.0" appears once in the paper and three times in the supplement.
