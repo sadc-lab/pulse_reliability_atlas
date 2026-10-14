@@ -452,6 +452,25 @@ session; line numbers below are those of `7e6676e` (supplement and paper as at `
   L245, and L275–279 already warns that a fresh build does not match the image hash but reproduces the
   outputs); S13.6 (grouped SD 0.0532 / 0.0562 / 0.0705 vs HR 0.00243 and Vt 0.00040).
 
+**Applied (2026-10-14, `fbe90c8`, author's approval of the whole block the same day).** Every DECIDE
+and MECH row of S4–S17 above, with the proposals as written, plus their twins. Choices made while
+applying, none of which changes a claim beyond the approved rows:
+- S4.5 also aligned in the monograph's Appendix C sentence that describes the columns (same wording).
+- S4.4 is now measured by three instruments that agree: the rule re-implementation, the reason-string
+  parse and the corrected `nss_decomposition_table.py` (966; 119 / 122 / 133 / 153 / 148 / 157 / 67 / 67).
+- S11.5 names Pulse's Patient Methodology page in the monograph text instead of adding the
+  `pulsepatientmethod` key: a new Kitware 2026 entry would shift the a/b/c letters of the other Kitware
+  citations of the monograph. Alternative rejected: cite the key and re-letter.
+- S11.4 also removed [S018] from the anchor list of the monograph's §4.7 introduction (only item 2 used
+  it); items 3–6 renumbered 2–5 in the monograph source (LaTeX renumbers the supplement itself).
+- S11.9 keeps the `[ERROR][SystolicArterialPressure]` example: it illustrates the prefix format, which
+  applies to every setup error.
+- Not applied, left to the author: the monograph's abstract and F-004 summary (L54, L2793) still say the
+  oscillation is "corrected by setting trigger pressure to −2 cmH2O"; S4.8 concerned the supplement only.
+- Guards moved with the text: the continuous-band guard re-pinned on the new HowTo sentence (supplement
+  and letter); the SHAP spread guard now checks [20, 30] against heart rate; the back-reference manifest
+  follows the paper's reworded L320; crosswalk counts 78.1 % 3 → 4, 4,802.63 8 → 7, 4,082.24 6 → 5.
+
 ## Addendum to Part S1 (2026-10-13) — Pulse 4.4.0 has been released
 
 Flagged during a pre-submission review of the supplement; checked at the primary sources, twice

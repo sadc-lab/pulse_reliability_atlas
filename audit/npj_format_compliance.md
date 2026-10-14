@@ -947,3 +947,10 @@ sentence is in §S5 and is to be fixed the same way.
 - Re-read, no change: L1 (L34-35), L2 (L65), L3 (L69-71), L5 (L91), L6 (L24-26;
   paper L144 "no public map"), L7 (L29-31), L10 (L65), L11 (L74-76), O3
   (signature L101-104 against `\affil` 1-5, L107-115).
+
+**Applied (2026-10-14, `fbe90c8`, author's approval):** L1-L12, O2 and O3 as
+proposed above. O4 (date, arXiv declaration, copy of any related manuscript)
+stays for the day of submission; O1 not applied (optional). The publication-gate
+anchor follows L4's new present-tense sentence ("The code is openly available on
+GitHub"); the letter's HowTo sentence is pinned by the continuous-band guard of
+`audit_claims.py` together with its supplement twin.

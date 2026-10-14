@@ -754,6 +754,13 @@ that file's `n_clean` column sums to **663**, which is ledger anchor `T1.28`;
 counts are different statistics — locked classifier versus joint exclusion — and
 both are right.
 
+> **Correction (2026-10-14).** The 1,008 was not right. This check verified the
+> table's internal sums and the 663, but not the formula behind the last column,
+> which counted 42 runs that lose their `not_steady_state` flag yet are also
+> `implausible` as clean. The correct joint-exclusion count is **966 / 1,280
+> (75.5 %)**; see `supplement_audit_2026-09-28.md`, row S4.4, fixed in `fbe90c8`.
+> A sum that closes says nothing about the unit being summed.
+
 ## S5 — ARDS instability zone
 
 **Berlin sweep table against `results/pf_berlin_by_scenario.csv`, every cell:**
