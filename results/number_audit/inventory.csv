@@ -2643,7 +2643,7 @@ monograph,3628,5,5.0,ambiguous_small,"neralise it. Anchored in F-003, [S012 , an
 monograph,3647,1,1.0,ambiguous_small,per would have been substantially easier to produce had each of items 1–5 already been in place. --- ## 5. Conclusion *A short closing sum
 monograph,3647,5,5.0,ambiguous_small,r would have been substantially easier to produce had each of items 1–5 already been in place. --- ## 5. Conclusion *A short closing summa
 monograph,3652,5,5.0,ambiguous_small,sier to produce had each of items 1–5 already been in place. --- ## 5. Conclusion *A short closing summary of the atlas's headline contrib
-monograph,3663,"1,280",1280.0,guard,"ur ARDS severities and two adult reference surrogates ([S006 , 1,280 simulations), we identified both the engine's stable operational regi"
+monograph,3663,"1,280",1280.0,guard,"e ARDS severities) and two adult reference surrogates ([S006 , 1,280 simulations), we identified both the engine's stable operational regi"
 monograph,3666,6,6.0,ambiguous_small,"ndary-failure modes. The resulting per-cell traffic-light map (Figure 6) delivers an immediate, actionable curation and review-priority layer"
 monograph,3673,004,4.0,ambiguous_small,-actionable corrections — resolving VC-AC tidal-volume oscillation (F-004) via an explicit setti
 monograph,3675,0.351,0.351,guard,"setting ([S014 ; median Vt CV collapses 0.351 → 0.016, worst-case 1.826 → 0.018) and reframing the apparent FiO2 ="
@@ -5730,8 +5730,8 @@ supplement,1179,7,7.0,ambiguous_small,"mple-dependent, and the cell's divergence
 supplement,1179,160,160.0,guard,"-dependent, and the cell's divergence count moves from 4 / 160 to 7 / 160. A resampling check, not a convergence analysis. \\ \S &"
 supplement,1180,0.05,0.05,none,into three trigger sub-modes (SpO$_2$ flatline at ceiling; Vt CV $>$ 0.05; drift) without modifying the locked classifier. \\ \S &
 supplement,1181,200,200.0,guard,DS impairment-fraction instability band: atlas-specific extension.} A 200-run continuous-severity sweep at midrange Morris inputs extends the e
-supplement,1181,0.879,0.879,guard,"erity sweep at midrange Morris inputs extends the empirical band to $[0.879, 0.946]$, almost entirely on the low edge, and distinguishes two dive"
-supplement,1181,0.946,0.946,guard,"weep at midrange Morris inputs extends the empirical band to $[0.879, 0.946]$, almost entirely on the low edge, and distinguishes two divergence"
+supplement,1181,0.879,0.879,guard,"erity sweep at midrange Morris inputs extends the empirical band to $[0.879, 0.946]$, almost entirely on the low edge, and, together with the mai"
+supplement,1181,0.946,0.946,guard,"weep at midrange Morris inputs extends the empirical band to $[0.879, 0.946]$, almost entirely on the low edge, and, together with the main sweep"
 supplement,1182,95,95.0,none,"x agreement on Morris $\mu^{*}$ rankings, with paired-input bootstrap 95~\% CIs (\S ); ventilation-dose mismatch between the tw"
 supplement,1183,15,15.0,ambiguous_small,"bf{Cornish et al.\ 2026 per-channel cross-mapping.} Each of Cornish's 15 channels mapped against the atlas's six steady-state outputs, support"
 supplement,1184,20,20.0,ambiguous_small,ume dependence and sex-conditioned setup parameters.} Re-examines the 20-event male-only divergence cluster from Section~

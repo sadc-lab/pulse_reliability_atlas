@@ -488,6 +488,26 @@ applying, none of which changes a claim beyond the approved rows:
   variable), not in its acceptance limits; Eigen 3.4.0 → 5.0.1 (`External_Eigen3.cmake`); the 4.3.1 ARDS
   damage table on the shunt resistance (`{0.3, 0.100}, //Mild …`) is absent from 4.4.0.
 
+**Third pass (2026-10-14): twins of the approved letter decisions outside the letter.** The replaced
+phrasings were searched in every tracked file (not only the four documents), and the supplement's own
+summary table (§S17) was re-read row by row. Three twins found and aligned on the approved decision:
+- **§S17, row S5** (L1181): "A 200-run continuous-severity sweep … distinguishes two divergence regimes"
+  credited both regimes to that sweep alone, like the letter's L9; §S5 (L600) itself says "Together with
+  Section 2.5 …". Now "and, together with the main sweep, distinguishes two divergence regimes". This
+  changes the supplement after re-freeze 59, hence re-freeze 60.
+- **Monograph §5 conclusion** (L3662): "across four ARDS severities and two adult reference surrogates"
+  had the letter's L1 error (scenario S1 is the healthy baseline). Now "across four scenarios (a healthy
+  baseline and three ARDS severities)". The guard `MONO_AUDIT_TEXT_BANNED` already banned "4 ARDS
+  severities S1/S2/S3/S4" but not the spelled-out form; "four ARDS severities" is now banned in the
+  monograph and in the cover letter (positive control: the guard's normalisation finds it once in each
+  file's previous version, zero now).
+- **README** (L75): "operating without a map" → "without a public map" (letter L6, paper "no public map").
+Checked and left as they are: the monograph's "device-validation" advice (L2084, L2294; conditional advice,
+as §S15, row S15.5); "Blood-volume mechanism falsification", the title of experiment S018; "without
+flag-stratified filtering" in §S10 and the monograph (already conditional, L3). One more monograph twin of
+the pending "corrected by setting trigger pressure" decision: L3219 ("even though it is corrected by a
+single configuration flag"), with L54 and L2793. The monograph is now 124 pages (README npj updated).
+
 ## Addendum to Part S1 (2026-10-13) — Pulse 4.4.0 has been released
 
 Flagged during a pre-submission review of the supplement; checked at the primary sources, twice

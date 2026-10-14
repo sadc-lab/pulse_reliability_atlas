@@ -7021,6 +7021,7 @@ MONO_AUDIT_TEXT_BANNED = {
         "CDC weight audit step, 2026-03", "erratum of 2026-05-19, lines 9–34",
         "runs into halves the same size", "randomly into halves of the original sizes",
         "values fall on an exact rounding tie.", "pattern-matching the four-pattern regex set",
+        "four ARDS severities",
     ),
     "preprint_npj/paper.tex": ("exact rounding tie whose last digit",
                                "figure legends and abstract were rewritten to about half their length",
@@ -7034,6 +7035,10 @@ MONO_AUDIT_TEXT_BANNED = {
                                     "``80 of 85 Hoeffding rejections", "Separately, this absence"),
     "scripts/sobol_ci_buckets.py": ("identical at 1,000 / 2,000 / 4,000 (one combination is lost",),
     "preprint/supplementary.md": ("eleven independent layers", "11 independent verification points"),
+    # 2026-10-14: "four ARDS severities" survived in the cover letter (item L1) and in the
+    # monograph's conclusion although scenario S1 is the healthy baseline (impairment 0.00);
+    # the banned "4 ARDS severities S1/S2/S3/S4" above did not catch the spelled-out form.
+    "preprint_npj/cover_letter.md": ("four ARDS severities",),
 }
 MONO_AUDIT_JMLR_FIELDS = (
     ("journal", "Journal of Machine Learning Research"), ("volume", "27"), ("number", "152"),

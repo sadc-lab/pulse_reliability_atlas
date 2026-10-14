@@ -3659,8 +3659,8 @@ paper plays in the maintainer's PhD pipeline.*
 This reliability atlas provides the first open, preregistered
 sensitivity and divergence map for the Pulse Physiology Engine
 (v4.3.1) across the adult operational envelope. By sweeping seven
-user-facing inputs across four ARDS severities and two adult
-reference surrogates ([S006](#s006), 1,280 simulations), we
+user-facing inputs across four scenarios (a healthy baseline and
+three ARDS severities) and two adult reference surrogates ([S006](#s006), 1,280 simulations), we
 identified both the engine's stable operational regimes and its
 boundary-failure modes. The resulting per-cell traffic-light map
 (Figure 6) delivers an immediate, actionable curation and

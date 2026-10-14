@@ -722,7 +722,7 @@ supplement,1178,eight,cardinal,", the trigger fires on 43 of the 48 cell $\times
 supplement,1178,first,ordinal,"ght cells; the 1{,}500-run envelope would have required 6{,}144, or 3{,}584 for first-order and total indices alone. Reported rather than executed. \\ \S"
 supplement,1179,six,cardinal,"dent Morris sample at seed 44. The highest-$\mu^{*}$ input is preserved for all six outputs, the finer ranking is sample-dependent, and the cell's divergence count"
 supplement,1180,three,cardinal,ition.} Per-cell breakdown of the locked \texttt{not\_steady\_state} count into three trigger sub-modes (SpO$_2$ flatline at ceiling; Vt CV $>$ 0.05; drift) without
-supplement,1181,two,cardinal,"al band to $[0.879, 0.946]$, almost entirely on the low edge, and distinguishes two divergence regimes (input-driven, severity-driven). Supports Section~"
+supplement,1181,two,cardinal,"most entirely on the low edge, and, together with the main sweep, distinguishes two divergence regimes (input-driven, severity-driven). Supports Section~"
 supplement,1182,two,cardinal,bootstrap 95~\% CIs (\S ); ventilation-dose mismatch between the two bodies (\S ). Supports the Discussion and the caveat of Section
 supplement,1183,six,cardinal,"hannel cross-mapping.} Each of Cornish's 15 channels mapped against the atlas's six steady-state outputs, supporting the complementarity claim in the Discussion of"
 supplement,1185,Five,cardinal,ications for sex-balanced synthetic cohort design. \\ \S & \textbf{Five engine-side infrastructure recommendations} addressed to the Pulse maintainers:
@@ -1248,9 +1248,10 @@ monograph,3607,three,cardinal,"able and H3) and in the §1.2 limitations list (e
 monograph,3635,one,cardinal,edge (the BP messages already name the systolic or diastolic baseline). A one-token prefix indicating which input was rejected (
 monograph,3655,two,cardinal,"Conclusion *A short closing summary of the atlas's headline contribution, the two operator-actionable findings, the sex-as-reliability-axis result (in its regime"
 monograph,3659,first,ordinal,"r plays in the maintainer's PhD pipeline.* This reliability atlas provides the first open, preregistered sensitivity and divergence map for the Pulse Physiology Eng"
-monograph,3661,seven,cardinal,e Physiology Engine ( ) across the adult operational envelope. By sweeping seven user-facing inputs across four ARDS severities and two adult reference surrogat
-monograph,3662,four,cardinal,"oss the adult operational envelope. By sweeping seven user-facing inputs across four ARDS severities and two adult reference surrogates ([S006 , 1,280 simula"
-monograph,3662,two,cardinal,"envelope. By sweeping seven user-facing inputs across four ARDS severities and two adult reference surrogates ([S006 , 1,280 simulations), we identified bo"
+monograph,3661,seven,cardinal,e Physiology Engine ( ) across the adult operational envelope. By sweeping seven user-facing inputs across four scenarios (a healthy baseline and three ARDS sev
+monograph,3662,four,cardinal,oss the adult operational envelope. By sweeping seven user-facing inputs across four scenarios (a healthy baseline and three ARDS severities) and two adult referenc
+monograph,3663,three,cardinal,"sweeping seven user-facing inputs across four scenarios (a healthy baseline and three ARDS severities) and two adult reference surrogates ([S006 , 1,280 simul"
+monograph,3663,two,cardinal,"inputs across four scenarios (a healthy baseline and three ARDS severities) and two adult reference surrogates ([S006 , 1,280 simulations), we identified bo"
 monograph,3671,two,cardinal,"or synthetic cohort generation. Beyond mapping the envelope, this work yielded two operator-actionable corrections — resolving VC-AC tidal-volume oscillation (F-0"
 monograph,3692,two,cardinal,"orously validated baseline and foundational infrastructure for the maintainer's two downstream papers: a pediatric translation layer (Paper 1, in preparation) and"
 monograph,3705,one,cardinal,"ong in the Zenodo deposit, not in git history; see ) — which is why one ledger anchor ( ) auto-skips on a public clone, giving 393 / 394 there a"

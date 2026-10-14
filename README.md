@@ -72,7 +72,7 @@ FiO2, PEEP) has been published; the 2020 study's code is still in the
 [`experiments_log/santino/S016`](experiments_log/santino/S016_pulse_gitlab_audit_may2026.md)).
 
 That means **every Pulse user driving the engine from operational settings
-has been operating without a map of how the engine behaves across its
+has been operating without a public map of how the engine behaves across its
 operational envelope** — until
 this repository.
 
