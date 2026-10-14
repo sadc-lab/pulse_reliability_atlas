@@ -471,6 +471,23 @@ applying, none of which changes a claim beyond the approved rows:
   and letter); the SHAP spread guard now checks [20, 30] against heart rate; the back-reference manifest
   follows the paper's reworded L320; crosswalk counts 78.1 % 3 → 4, 4,802.63 8 → 7, 4,082.24 6 → 5.
 
+**Double-check after the re-freeze (2026-10-14).** Re-run on `044b994`, nothing changed in the manuscripts:
+- The frozen files: `build/` = `build/freeze59/` = the four hashes of `dispatch_log.md`; tree clean, no stash.
+- The old figure in any form (1,008, 78.8, 78.75, "four in five", "nearly 80", "joint exclusion") in the
+  paper, supplement, monograph, letter, README, experiment logs and `results/s022/`: only unrelated hits
+  (11,008 Sobol runs; a 0.75 × 105 = 78.75 DBP bound in S004) and the corrected monograph bullet.
+- **S5.14 / letter L11 now also hold for v4.4.0**, the current release, which the earlier checks (on 4.3.1
+  and 4.3.2) did not cover. Tag `REL_4_4_0` fetched into the local clone (`5e29e5b`, the GitLab release
+  commit; GitLab's compare endpoint timed out at 1,000 files with 888 empty diffs and could not be used).
+  In the 78 files that mention ARDS (66 at 4.3.1, same pattern), the only literal in [0.91, 0.945] is an
+  I:E tuning factor (`m_IERatioScaleFactor *= 0.94`, present in both tags: the positive control). ARDS
+  severities in the 4.4.0 scenario files: 0.0–0.9 (max 0.9); C# HowTo 1.0; the new Python ECMO studies
+  0.3 / 0.6 / 0.9, 0.7 and a fixed 0.9.
+- §S1's source-level statements re-read on the local tag: the VC-AC default-trigger block is identical
+  (4.3.1 L120–128 = 4.4.0 L156–164); `SetupPatient.cpp` differs by one line (L694, a tidal-volume
+  variable), not in its acceptance limits; Eigen 3.4.0 → 5.0.1 (`External_Eigen3.cmake`); the 4.3.1 ARDS
+  damage table on the shunt resistance (`{0.3, 0.100}, //Mild …`) is absent from 4.4.0.
+
 ## Addendum to Part S1 (2026-10-13) — Pulse 4.4.0 has been released
 
 Flagged during a pre-submission review of the supplement; checked at the primary sources, twice
