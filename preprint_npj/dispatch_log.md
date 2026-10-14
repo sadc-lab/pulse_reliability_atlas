@@ -1920,7 +1920,7 @@ cover-letter block):
   v4.4.0, released after the sweep with revised physiology models" (new
   reference `pulse440`, cited in the supplement); L320 "tooling, documentation
   and validation infrastructure" → "tooling and validation infrastructure".
-- Supplement: Table S4 joint-exclusion clean count 1,008 (78.8 %) → 966
+- Supplement: Table S7 (§S4) joint-exclusion clean count 1,008 (78.8 %) → 966
   (75.5 %), with its caption saying what the columns count; §S1, §S2 (i) and
   §S8.4 for Pulse 4.4.0; §S5, §S6, §S8, §S9, §S11 (item 2 deleted, five
   recommendations), §S12 (a `docker build` step 0), §S13 and §S17 as listed in
@@ -1967,7 +1967,7 @@ pre-commit check passed. Checked on the frozen files, PDF and Word alike:
 - each of the 36 edited phrases of the paper and supplement is present and
   each of the 22 removed phrases is absent (text normalised for line breaks,
   hyphenation and Word's zero-width spaces, with a positive control per file);
-- Table S4 reads 119 / 122 / 133 / 153 / 148 / 157 / 67 / 67, total 966;
+- Table S7 (§S4) reads 119 / 122 / 133 / 153 / 148 / 157 / 67 / 67, total 966;
 - "PEDIATRICS", "ineffective triggering" and "the threshold is a clinical
   choice" appear once in each document, the e-mail once; "Materials
   availability" and "GPT-6" are absent;
@@ -2016,7 +2016,7 @@ banned-phrase check), publication anchors 9 / 9 (visibility not checked: the
 repository is still private), every other pre-commit check passed, pytest 80
 passed, ruff clean, render check passed, Word structure passed. Checked on the
 frozen files, PDF and Word alike: the 37 edited phrases of re-freezes 59–60 are
-present and the 22 removed ones absent; Table S4 reads 119 / 122 / 133 / 153 /
+present and the 22 removed ones absent; Table S7 (§S4) reads 119 / 122 / 133 / 153 /
 148 / 157 / 67 / 67, total 966; "PEDIATRICS", "ineffective triggering" and "the
 threshold is a clinical choice" appear once in each document, the e-mail once;
 "Materials availability" and "GPT-6" are absent; "v4.4.0" appears once in the
@@ -2069,7 +2069,7 @@ passed. Checked on the frozen files, PDF and Word alike: the 39 edited phrases
 of re-freezes 59–61 are present and the 24 removed ones (now including
 "F-003" and "F-004") absent — in the PDF, the new opening sentence is split by
 the page break after page 1 and was confirmed in the extracted text and by
-eye; Table S4 reads 966 in total; "PEDIATRICS", "ineffective triggering" and
+eye; Table S7 (§S4) reads 966 in total; "PEDIATRICS", "ineffective triggering" and
 "the threshold is a clinical choice" appear once in each document, the e-mail
 once; "Materials availability" and "GPT-6" are absent; "v4.4.0" appears once in
 the paper and three times in the supplement.

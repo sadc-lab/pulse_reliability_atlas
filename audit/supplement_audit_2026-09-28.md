@@ -425,7 +425,7 @@ session; line numbers below are those of `7e6676e` (supplement and paper as at `
   "Vt CV" or an SpO₂ flatline at saturation. Result identical to the first instrument: 119 / 122 / 133 /
   153 / 148 / 157 / 67 / 67, total 966 / 1,280 (75.47 %); the 42 wrongly added runs are Healthy-M 8,
   Healthy-F 14, Severe-M 5, Severe-F 15. First instrument re-run: positive control 1,280 / 1,280, the
-  script formula still gives 1,008. Loci, re-derived: supplement Table S4 L463, L464, L472, L473 (four
+  script formula still gives 1,008. Loci, re-derived: supplement Table S7 (the table of §S4) L463, L464, L472, L473 (four
   cells) and L475 (total), text L480; monograph L3495, Appendix C table L4698–4710 (same four cells and
   the total), L4753. The row's monograph line numbers (L3481, L4674, L4717) are those of the number
   inventory, not of the current file. Paper, cover letter and README: no occurrence.
@@ -523,6 +523,15 @@ fixes found while checking how the finding labels read.**
   what they are, and a reader can take "S021" for a section number: one sentence of the opening
   paragraph now says that three-digit identifiers name entries of the experiment log indexed in the
   companion monograph (§S14), not sections of the supplement. Supplement changed again → re-freeze 61.
+
+**Erratum (2026-10-14, found while drafting the message to the co-authors).** The table that carries the
+not_steady_state decomposition (966 / 1,280) is **Table S7**, the table of §S4 (`tab:s4-nss` = S7, page 22,
+`build/supplement.aux`); Table S4 is the drift-threshold rationale table. This register (the loci line of
+the second double-check), the `dispatch_log.md` entries of re-freezes 59–61 and the commit messages of
+`ba75ebf` (once) and `fbe90c8` (twice; counted with `git log -1 --format=%B | grep -c`, 0 in the other
+commits of the day) said "Table S4" for it. The register line and the
+dispatch-log entries are corrected; the pushed commit messages cannot be, and should be read as "Table S7
+(§S4)". The manuscripts were never affected: they label the table by `\ref`.
 
 ## Addendum to Part S1 (2026-10-13) — Pulse 4.4.0 has been released
 
