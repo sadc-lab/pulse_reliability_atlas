@@ -2021,3 +2021,55 @@ present and the 22 removed ones absent; Table S4 reads 119 / 122 / 133 / 153 /
 threshold is a clinical choice" appear once in each document, the e-mail once;
 "Materials availability" and "GPT-6" are absent; "v4.4.0" appears once in the
 paper and three times in the supplement.
+
+## 2026-10-14 — re-freeze 61: supplement reader labels (F-003 removed, experiment-log identifiers explained); not sent
+
+**Status: NOT SENT.** Supersedes re-freeze 60 (frozen the same day, never
+sent) as the version to submit. Two supplement changes since re-freeze 60, in
+`d2f5a3f`, both presentational: the undefined finding label "F-003" is removed
+from the PaO₂-bound row of Table S2 (L233), and the opening paragraph now says
+that three-digit identifiers such as S011, S014 or S021 name experiment-log
+entries indexed in the companion monograph (§S14), not sections of the
+supplement. The paper text is unchanged and was only rebuilt. The same commit
+aligns the monograph and the README on the paper for the VC-AC trigger setting
+("largely suppressed", "a data-generation lever, not a clinical
+recommendation"); neither is part of a dispatch.
+
+| | |
+|---|---|
+| Sent | — |
+| Source commit | `d2f5a3f` |
+| Pages | 24 (paper) / 59 (supplement), unchanged |
+| Monograph | not part of a dispatch; rebuilt the same day (124 pages) |
+
+### Hashes, frozen before any further build
+
+| artefact | SHA-256 | bytes |
+|---|---|---|
+| `preprint_npj/build/paper.pdf` | `194006147b7e1999148cc0a4acd6cf7f4a20be760d634e81b9f38600b26322b0` | 618,665 |
+| `preprint_npj/build/paper.docx` | `f05cdeca4fc9a57acd70321eac33036874ce560675dafdc40c0bf1b0c46ab143` | 954,475 |
+| `preprint_npj/build/supplement.pdf` | `9cb9bd7b636fc9339fd94a10ef0523c11ff20d5974f09207a45f086517c51722` | 718,193 |
+| `preprint_npj/build/supplement.docx` | `6dce29181d917cae4187af6fd7d0414e6ab86f174b3692d2572f1a5e3440acd2` | 762,407 |
+
+Written 13:17:03–13:17:16 local time; `supplement.tex` last modified 13:15:36,
+`paper.tex` 11:52:47 and `paper.bib` 11:47:40, all before the build; the
+working tree equals `d2f5a3f`. Copies in `preprint_npj/build/freeze61/`
+(gitignored), SHA-256 identical to `build/`; `freeze60/`, `freeze59/` and
+`freeze58/` are kept. The paper's files differ from re-freeze 60 with the same
+text (the Word file by one byte): the build is not byte-reproducible.
+
+### Gate state at freeze
+
+On this tree and this build: ledger 394 / 394 PASS, paper sync 95 / 95,
+monograph anchors 25 / 25, README science guard 17 / 17, monograph
+number-audit guard 84 / 84, publication anchors 9 / 9 (visibility not
+checked: the repository is still private), every other pre-commit check
+passed, pytest 80 passed, ruff clean, render check passed, Word structure
+passed. Checked on the frozen files, PDF and Word alike: the 39 edited phrases
+of re-freezes 59–61 are present and the 24 removed ones (now including
+"F-003" and "F-004") absent — in the PDF, the new opening sentence is split by
+the page break after page 1 and was confirmed in the extracted text and by
+eye; Table S4 reads 966 in total; "PEDIATRICS", "ineffective triggering" and
+"the threshold is a clinical choice" appear once in each document, the e-mail
+once; "Materials availability" and "GPT-6" are absent; "v4.4.0" appears once in
+the paper and three times in the supplement.
