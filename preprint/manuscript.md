@@ -1,7 +1,7 @@
 ---
 title: "Pulse Reliability Atlas: first sensitivity, clamping, and divergence map for the Pulse Physiology Engine v4.3.1"
 author: "Santino Nanini^1,2,3,4,5,\\*^, Arnaud Wiedemann^3,4,6^, Yassir Mamouni^3^, Cyril Schweitzer^4,5^, Philippe Jouvet^1,2,3^, Michael Sauthier^1,2,3^"
-date: "2026-10-13"
+date: "2026-10-14"
 header-includes:
   - \renewcommand{\arraystretch}{1.35}
   - \makeatletter\renewcommand{\@maketitle}{\newpage\null\vskip 2em\begin{center}\let\footnote\thanks{\LARGE\@title\par}\vskip 1.5em{\large\begin{minipage}{0.92\textwidth}\centering\@author\end{minipage}\par}\vskip 1em{\large\@date}\end{center}\par\vskip 1em}\makeatother
@@ -274,7 +274,7 @@ below; this section is the exhaustive findings digest.*
   aggregate parquets, derived statistics); fixed seed 42; single pinned Docker
   image; preregistered before data collection.
 * Full pipeline + audit ledger (re-derives the computed quantitative claims from the
-  canonical artefacts, [S024](#s024)) released Apache-2.0. Six engine-side
+  canonical artefacts, [S024](#s024)) released Apache-2.0. Five engine-side
   infrastructure recommendations offered to the Pulse maintainers (§4.7).
 
 ---
@@ -2812,9 +2812,8 @@ corrected by setting trigger pressure to −2 cmH2O.*
   Linear extrapolation from FiO2 = 0.5 (PaO2 ≈ 228 mmHg) predicts
   PaO2 ≈ 480 mmHg at FiO2 = 1.0; the locked 120 s S1 means at
   FiO2 = 1.0 sit higher than this linear extrapolation, but this
-  deviation is the *physiologically expected non-linearity* in the
-  FiO2 → PaO2 relationship (hemoglobin saturation maxes out and
-  dissolved-oxygen kinetics take over above FiO2 ≈ 0.6) — not an
+  deviation reflects a non-linear FiO2 → PaO2 relation in these
+  simulations, whose cause is not analysed here — not an
   overshoot.
 
   **Two competing interpretations.** The original 120 s pattern
@@ -3492,7 +3491,7 @@ bounded.*
   [Appendix C](#appendix-c)
   for readers who want to score "engine instability" separately from
   "detector edge case on healthy oxygenation." Under the joint
-  exclusion the clean rate would rise from 51.8 % to 78.8 % — this is
+  exclusion the clean rate would rise from 51.8 % to 75.5 % — this is
   presented as a decomposition, not a re-classification.
 * **`not_steady_state` cross-validation by ML/SHAP surrogate.** A
   supplementary RandomForest + SHAP attribution, with exact TreeExplainer
@@ -3559,46 +3558,35 @@ this repository.
 maintainers, derived from operating the engine at scale during the
 1,280-run sweep. These are framed as observations from atlas-user
 experience, not as physiological prescriptions: every item targets
-tooling, documentation, or validation infrastructure, and each traces
+tooling or validation infrastructure, and each traces
 to a specific experiment-log entry. None of the items below recommend
 changes to Pulse's underlying lumped-parameter physiology, which is
 the domain of the Kitware biomedical-engineering team.*
 
 The 1,280-run sweep ([S006](#s006)) and the surrounding
 infrastructure work ([S004](#s004), [S014](#s014), [S017](#s017),
-[S018](#s018), [S021](#s021)) surfaced six places where small
-additions to Pulse's existing tooling, documentation, or validation
+[S021](#s021)) surfaced five places where small
+additions to Pulse's existing tooling or validation
 scaffolding would substantially lower the friction for downstream
 users running reliability- or sensitivity-style work. We offer these
 as a contribution back to the Pulse community in the same spirit as
 the atlas itself: every item below is anchored in a concrete
 experiment from this paper, and each is scoped to the tooling /
-documentation / validation layer rather than the physiology layer.
+validation layer rather than the physiology layer.
 
 1. **Structured input-rejection events.** Pulse currently surfaces
-   input clamping (e.g. SBP > 120, DBP/SBP ratio out of range, HR / RR
+   input rejections (e.g. SBP > 120, DBP/SBP ratio out of range, HR / RR
    outside the initialization band) as `[ERROR]`-prefixed log lines
    that downstream tools must regex-parse. A small structured-event
    API — one typed record per rejected field, with the offending
    value, the enforced bound, and the field name — would let
-   sensitivity-analysis wrappers detect clamping deterministically
+   sensitivity-analysis wrappers detect rejections deterministically
    instead of pattern-matching the regex set documented in §2.6. Anchored in
    the atlas's `src/detector.py` clamp-pattern catalogue and the
    pilot / full-sweep experience ([S004](#s004), [S005](#s005),
    [S006](#s006)).
 
-2. **Surface the male-surrogate `BloodVolumeBaseline` floor in user
-   documentation.** Pulse hard-enforces a 4,082.24 mL blood-volume
-   floor at setup on the 67.3 kg / 180 cm male reference body
-   (default 4,802.63 mL), but this constant is not currently exposed
-   in the public patient-setup documentation. We discovered it
-   empirically while investigating the all-male divergence cluster
-   ([S018](#s018)); a one-line note in the patient-baseline reference
-   table would have saved the investigation. Anchored in
-   [S018](#s018) and the verified BV-floor mechanism documented in
-   §3.5 of this paper.
-
-3. **A reference sensitivity-analysis recipe for user-facing
+2. **A reference sensitivity-analysis recipe for user-facing
    operational inputs.** Pulse's repository already carries a 2020
    `STUDY_SENSITIVITY_ANALYSIS_1_0_0` tag that performs Sobol
    sensitivity on internal lumped-parameter circuit values
@@ -3613,11 +3601,11 @@ documentation / validation layer rather than the physiology layer.
    Anchored in [S006](#s006) and the GitLab re-audit
    ([S016](#s016)).
 
-4. **A setup-time warning for the ARDS impairment-fraction
+3. **A setup-time warning for the ARDS impairment-fraction
    instability zone (~0.91–0.945).** This instability zone is
    documented in our preregistration (scenario table and H3) and in the
    §1.2 limitations list (entry 4), and corroborated by three independent
-   sources, but Pulse does not
+   sources (all measured on v4.3.1; untested under v4.4.0), but Pulse does not
    currently emit a setup-time warning when an ARDS action lands in
    the zone. A single console notice — "impairment fraction in
    reported instability band, results may not be reliable" — would
@@ -3626,10 +3614,10 @@ documentation / validation layer rather than the physiology layer.
    `Pulse_translation_new` E6 / E10 boundary probes and the atlas's
    continuous-severity sweep (§3.5.1).
 
-5. **Per-channel steady-state convergence diagnostic in CSV
+4. **Per-channel steady-state convergence diagnostic in CSV
    output.** Our F-003 finding (PaO2 still rising at the end of the
-   locked 120 s window at FiO2 = 1.0, with full convergence at
-   ~300 s — [S021](#s021)) suggests that an optional per-output
+   locked 120 s window at FiO2 = 1.0, with convergence by about
+   300 s in 40 of 44 Healthy reruns — [S021](#s021)) suggests that an optional per-output
    "drift over final 60 s" column appended to result CSVs would let
    users detect non-steady-state runs without writing their own
    post-processing. The atlas's `src/detector.py` already implements
@@ -3637,10 +3625,13 @@ documentation / validation layer rather than the physiology layer.
    would generalise it. Anchored in F-003, [S012](#s012), and
    [S021](#s021).
 
-6. **Field-attributed setup-error messages.** Current setup-time BP
-   and pulse-pressure-ratio rejection messages (verified in the
-   atlas's clamp-detection corpus, [S005](#s005)) require some
-   domain knowledge to map back to the offending input field. A
+5. **Field-attributed setup-error messages.** The current setup-time
+   pulse-pressure-ratio rejection message (verified in the atlas's
+   clamp-detection corpus, [S005](#s005)) reports a
+   systolic-versus-diastolic fraction without naming the input to
+   change, so mapping it back to the offending input field requires
+   some domain knowledge (the BP messages already name the systolic
+   or diastolic baseline). A
    one-token prefix indicating which input was rejected
    (`[ERROR][SystolicArterialPressure]` rather than the unprefixed
    text) would let downstream users and CI pipelines route the
@@ -3653,7 +3644,7 @@ what an external operational-reliability study can credibly
 prescribe. We share them in the spirit of an open contribution to a
 shared community tool — the atlas itself is offered to the Pulse
 community in exactly the same spirit, and the present paper would
-have been substantially easier to produce had each of items 1–6
+have been substantially easier to produce had each of items 1–5
 already been in place.
 
 ---
@@ -4391,7 +4382,9 @@ initialization failure prior to stabilization.
 * **Blood pressure (BP):** Systolic blood pressure (SBP) is
   constrained to 90–120 mmHg. Diastolic blood pressure (DBP) is
   constrained to 60–80 mmHg.
-* **Pulse-pressure constraint:** An undocumented constraint was
+* **Pulse-pressure constraint:** A constraint that Pulse's Patient
+  Methodology page also lists in its patient-baseline table
+  ("Includes pressure fraction check: Dia > 0.75 Sys.") was
   identified during boundary probing: the engine requires a
   pulse-pressure ratio where DBP / SBP ≤ 0.75. If this ratio is
   exceeded (e.g., SBP = 90 mmHg and DBP = 68 mmHg, ratio = 0.756),
@@ -4506,7 +4499,7 @@ is out of scope.
 
 **Solver instability zone.** Three convergent sweeps within the
 companion `pulse_translation_new` project (same engine version,
-same surrogate, same researcher, but with non-overlapping
+same surrogate, same researcher, but with different
 impairment-fraction grids and independent run-by-run execution)
 characterise the same numerical-bifurcation range in the
 respiratory solver:
@@ -4684,9 +4677,12 @@ The two sub-modes audited are:
   sampling is *not* aliasing — it captures real breath-to-breath
   delivered volume.
 
-Per-cell attribution counts (locked nss preserved; remaining columns
-show the residual nss count after excluding the named sub-mode from
-the trigger criterion):
+Per-cell attribution counts (locked nss preserved; the "excl."
+columns count the nss runs that keep at least one other recorded
+trigger once the named sub-mode is set aside, using the triggers the
+locked classifier recorded, at most one per channel, without
+re-running it; the last column counts the runs then left with no flag
+at all):
 
 ```{=latex}
 \begin{center}
@@ -4695,8 +4691,8 @@ the trigger criterion):
 Cell & n\_total & n\_nss & n\_nss excl. & n\_nss excl. & n\_nss excl. & n\_clean excl. \\
      &          &        & SpO2 sat.    & F-004        & both         & both         \\
 \midrule
-S1\_M & 160 & 107 & 91 & 74 & 29 & 127 \\
-S1\_F & 160 & 118 & 88 & 87 & 24 & 136 \\
+S1\_M & 160 & 107 & 91 & 74 & 29 & 119 \\
+S1\_F & 160 & 118 & 88 & 87 & 24 & 122 \\
 \midrule
 S2\_M & 160 & 69  & 60 & 45 & 23 & 133 \\
 S2\_F & 160 & 68  & 52 & 44 & 7  & 153 \\
@@ -4704,10 +4700,10 @@ S2\_F & 160 & 68  & 52 & 44 & 7  & 153 \\
 S3\_M & 160 & 12  & 11 & 9  & 8  & 148 \\
 S3\_F & 160 & 38  & 34 & 10 & 3  & 157 \\
 \midrule
-S4\_M & 160 & 44  & 44 & 39 & 39 & 72 \\
-S4\_F & 160 & 74  & 74 & 52 & 52 & 82 \\
+S4\_M & 160 & 44  & 44 & 39 & 39 & 67 \\
+S4\_F & 160 & 74  & 74 & 52 & 52 & 67 \\
 \midrule
-\textbf{Total} & \textbf{1,280} & \textbf{530} & \textbf{454} & \textbf{360} & \textbf{185} & \textbf{1,008} \\
+\textbf{Total} & \textbf{1,280} & \textbf{530} & \textbf{454} & \textbf{360} & \textbf{185} & \textbf{966} \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -4750,7 +4746,7 @@ not feed §3.1 Table 1 or any of the headline figures.
 * **Counterfactual "clean" recount.** Under the joint exclusion
   (treat SpO2 saturation as physiological *and* re-attribute the F-004
   oscillation to its own documented finding), the clean count would
-  rise from 663 / 1,280 (51.8 %) to 1,008 / 1,280 (78.8 %). This
+  rise from 663 / 1,280 (51.8 %) to 966 / 1,280 (75.5 %). This
   number is *not* a re-classification of the atlas — it is a
   decomposition of where the 51.8 % clean rate comes from. The
   headline locked-classifier numbers in §3.1 Table 1 stand.

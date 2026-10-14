@@ -108,6 +108,11 @@ def main() -> None:
         n_excl_spo2 = 0
         n_excl_f004 = 0
         n_excl_both = 0
+        # Runs that lose their nss flag under the joint exclusion AND carry no
+        # other flag. A run that is also clamped, diverged or implausible is never
+        # clean (2026-10-14 fix: the earlier formula n_clean + (n_nss - n_excl_both)
+        # added back 42 such runs, all implausible; supplement audit row S4.4).
+        n_freed_clean = 0
         for _, r in nss.iterrows():
             parsed = parse_reason(r["not_steady_state_reason"])
             if would_still_fire(parsed, exclude_spo2_sat=True, exclude_vt_cv=False):
@@ -116,6 +121,8 @@ def main() -> None:
                 n_excl_f004 += 1
             if would_still_fire(parsed, exclude_spo2_sat=True, exclude_vt_cv=True):
                 n_excl_both += 1
+            elif not (r["clamped"] or r["diverged"] or r["implausible"]):
+                n_freed_clean += 1
 
         rows.append(
             {
@@ -126,7 +133,7 @@ def main() -> None:
                 "n_nss_excl_F004_dyssynchrony": n_excl_f004,
                 "n_nss_excl_both": n_excl_both,
                 "n_clean_locked": n_clean,
-                "n_clean_excl_both": n_clean + (n_nss - n_excl_both),
+                "n_clean_excl_both": n_clean + n_freed_clean,
             }
         )
 

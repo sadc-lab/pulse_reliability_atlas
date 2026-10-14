@@ -18,21 +18,22 @@ computational methodology. What has not been established is how reliable they
 are as a source of data. **Our object of study is therefore not human
 physiology but the data-generating instrument itself.** The Pulse Physiology
 Engine (Kitware, Apache-2.0) is an actively maintained open-source whole-body
-physiology simulator whose synthetic patient trajectories are applied to
-device-validation studies and to computational physiology research; yet the
+physiology simulator whose synthetic patient trajectories are used for
+ventilator-safety analyses, medical education and computational physiology
+research; yet the
 engine's own maintainers state on their public FAQ that they "have not [...]
 conducted a formal sensitivity analysis" of the model. Every downstream user
-has therefore been operating without a map of how the engine behaves across
+has therefore been operating without a public map of how the engine behaves across
 its user-facing operational envelope — and the stakes are no longer
 hypothetical: an independent group has already used the engine's respiratory
 dynamics as a source of simulated data to learn and benchmark
 ventilator-control policies for ARDS (Ward et al., *IEEE CBMS* 2024), and any
-model fitted to that output absorbs whatever artefacts the envelope contains as
+model fitted to that output can absorb whatever artefacts the envelope contains as
 though they were physiology. **Our manuscript provides that map — the first
 open reliability atlas of Pulse, with a preregistered core design, across the
 adult critical-care envelope (1,280 Morris elementary-effects simulations of seven operational
-inputs, balanced across eight cells of 160 runs: four ARDS severities crossed
-with two patient reference bodies).**
+inputs, balanced across eight cells of 160 runs: four scenarios, a healthy
+baseline and three ARDS severities, crossed with two patient reference bodies).**
 
 The journal has also published on the credibility and use of computational
 physiological models: a cardiac digital-twin surrogate spanning 43 model
@@ -56,24 +57,26 @@ readership:
    separate run-level four-flag classifier, needed in every cell whatever its
    colour, supports exclusion, remediation, or stratified handling; neither
    layer is a distribution-neutral automatic filter. We also surface two
-   operator-actionable adjustments — a one-line VC-AC trigger setting (−2 cmH₂O) that
+   operator-actionable adjustments — a one-line VC-AC trigger setting (−2 cmH₂O;
+   a data-generation lever, not a clinical recommendation) that
    collapses tidal-volume variability consistent with patient–ventilator
    dyssynchrony, and a steady-state-window correction for
    hyperoxia simulation at FiO₂ = 1.0.
 
 2. **A previously uncharacterised, sex-stratified solver-divergence cluster
-   with an identified mechanism.** All 20 of the 1,280 divergent runs fell on
+   with an identified blood-volume dependence.** All 20 divergent runs (of 1,280) fell on
    the *male* reference body. We trace the effect to Pulse's allometric
    blood-volume baseline: reducing the male baseline toward its setup-time
    floor (4,082.24 mL) eliminated divergence at both bracket reductions (20/20 → 0/20). This
    is a structural artefact, not a clinical phenomenon — and it means that
-   pooling male and female synthetic cohorts at input extremes silently injects
+   pooling male and female synthetic cohorts at input extremes without
+   flag-based filtering silently injects
    a spurious sex covariate into any downstream model.
 
 3. **To our knowledge, the first systematic characterisation of an ARDS
-   impairment-fraction solver-instability band ([0.879, 0.946]).** Published
-   Pulse validation work and HowTo examples sample at most up to severity 0.9
-   and do not examine impairment fractions inside 0.91–0.945. Our
+   impairment-fraction solver-instability band ([0.879, 0.946]).**
+   Published Pulse validation work and HowTo examples do not examine impairment fractions inside 0.91–0.945.
+   Together with the main sweep, our
    continuous-severity sweep resolves two distinct divergence regimes — an
    input-driven regime on the male body and a severity-driven regime affecting
    both sexes — and gives downstream users a concrete band to avoid when stable
@@ -82,14 +85,14 @@ readership:
 The work directly addresses a stated gap acknowledged by the engine's
 maintainers; its methodology (Morris screening plus a categorise-don't-discard
 steady-state classifier) could be applied to related physiology engines such as
-BioGears and HumMod; and the entire pipeline — preregistration, Docker image,
+BioGears and HumMod; and the entire pipeline — preregistration, Dockerfile,
 fixed seed, and a machine-checked audit ledger of the computed quantitative
 claims — is released open-source under Apache-2.0 for full reproducibility.
 
 This manuscript is original, has not been published previously, and is not
 under consideration for publication elsewhere. All named authors have
-contributed to and approved the submission. The authors declare no competing interests, and author contributions are specified in the manuscript (CRediT taxonomy). All data and code are openly available; the data-availability
-statement will cite the repository and the archived dataset DOI.
+contributed to and approved the submission. The authors declare no competing interests, and author contributions are specified in the manuscript. The code is openly available on GitHub under Apache-2.0; the simulation data will be deposited at Zenodo, with pre-deposit access from the corresponding author, and the data-availability
+statement will cite the archived dataset DOI.
 
 We believe the reliability atlas offers a useful baseline for the growing community building digital-health and clinical-AI systems
 on synthetic physiology, and we hope you will find it suitable for *npj Digital
@@ -98,8 +101,11 @@ Medicine*.
 On behalf of all authors,
 
 **Santino Nanini** (corresponding author)
-Pediatric Intensive Care Unit, CHU Sainte-Justine / Université de Montréal;
-Clinical Decision Support System (PEDIATRICS) Cluster, CHU Sainte-Justine;
-Research Center, Sainte-Justine University Hospital; Pediatric Intensive Care
-Unit, Children Hospital, CHRU Nancy; UR 3450 DevAH, Université de Lorraine, Nancy
+Pediatric Intensive Care Unit, Department of Pediatrics, CHU Sainte-Justine,
+Université de Montréal, Montreal, QC, Canada; Clinical Decision Support System
+Artificial Intelligence Health Cluster in Acute Child Care (PEDIATRICS), CHU
+Sainte-Justine Centre Hospitalier Universitaire Mère-Enfant, Montréal, Canada;
+Research Center, Sainte-Justine University Hospital, Montreal, Quebec, Canada;
+Pediatric Intensive Care Unit, Department of Pediatrics, Children Hospital,
+CHRU Nancy, Nancy, France; UR 3450 DevAH, Université de Lorraine, Nancy, France
 santino.nanini@umontreal.ca

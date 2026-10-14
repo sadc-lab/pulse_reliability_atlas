@@ -337,8 +337,8 @@ caught equally.*
   monograph_claim_id: 'T1.06c.s14_frac_below'
   expected_value: 78.1
   format_in_paper: '78.1~\%'
-  expected_occurrences: 3
-  notes: 'Appears twice: §2.3 prose ("78.1~\% of locked-trigger reruns drop below the 0.05 steady-state threshold") and Figure 4 caption ("78.1~\% of locked reruns drop below the threshold"). New ledger claim T1.06c added in Step 4.'
+  expected_occurrences: 4
+  notes: 'Appears twice: §2.3 prose ("78.1~\% of locked-trigger reruns drop below the 0.05 steady-state threshold") and Figure 4 caption ("78.1~\% of locked reruns drop below the threshold"). New ledger claim T1.06c added in Step 4. 3 -> 4 (2026-10-14, re-freeze 59, supplement audit row S4.8): supplement §S4 no longer says the oscillation is "corrected" by the trigger setting but that the setting "brings 78.1~\% of reruns below the threshold" (paper 2, supplement 2, counted before and after).'
 
 - paper_section: 'Abstract + §2.3 subsection title + §2.3 prose ×2 + §2.4 caption + Supplement §S5 Berlin-calibration caveat + Supplement §S8 contribution-claim sentence'
   paper_context: 'Inspiration-trigger pressure for VC-AC lockout fix'
@@ -477,16 +477,16 @@ caught equally.*
   monograph_claim_id: 'T3.s027.bv_default'
   expected_value: 4802.63
   format_in_paper: '4{,}802.63'
-  expected_occurrences: 8
-  notes: 'Figure 5 caption + supplement S3.6 body-dimension provenance + supplement S10 prose. Count 8 -> 6 on 2026-06-16: the S018 dose-response rewording (20->0->0) removed two "4,802.63" mentions from supplement S10. Count 6 -> 8 on 2026-08-11: the new S10 paragraph documenting the BloodVolumeBaseline CEILING (allometric x 1.15) adds two mentions -- the male default as the level the female reference body cannot reach, and the same default recomputed for a female-configured body at 67.3 kg.'
+  expected_occurrences: 7
+  notes: 'Count 8 -> 7 on 2026-10-14 (re-freeze 59, supplement audit row S11.4): supplement §S11 item 2 (the blood-volume floor "not exposed in the documentation", false: Pulse documents the Bv * 0.85 rule) was deleted with its "default 4{,}802.63~mL" (supplement 8 -> 7, paper 0, counted before and after). Figure 5 caption + supplement S3.6 body-dimension provenance + supplement S10 prose. Count 8 -> 6 on 2026-06-16: the S018 dose-response rewording (20->0->0) removed two "4,802.63" mentions from supplement S10. Count 6 -> 8 on 2026-08-11: the new S10 paragraph documenting the BloodVolumeBaseline CEILING (allometric x 1.15) adds two mentions -- the male default as the level the female reference body cannot reach, and the same default recomputed for a female-configured body at 67.3 kg.'
 
 - paper_section: 'Abstract + §2.5 prose (×2) + Figure 5 caption'
   paper_context: 'Male reference body BloodVolumeBaseline floor (Pulse setup-time minimum)'
   monograph_claim_id: 'T3.s027.bv_floor'
   expected_value: 4082.24
   format_in_paper: '4{,}082.24'
-  expected_occurrences: 6
-  notes: 'Appears 4 times as of Step 5: abstract sentence 5 "4{,}082.24~mL floor" (1), §2.5 prose ¶2 "the engine''s setup-time minimum for this body (4{,}082.24~mL, a 15.0~\% reduction)" (1), §2.5 prose ¶3 "4{,}082.24~mL on this male body" (1), Figure 4 caption "4{,}082.24~mL Pulse setup-time floor on this body" (1). Bumped from 1 (Step 1, abstract-only format "4{,}082.24~mL") to 4 (Step 5). Format simplified to just "4{,}082.24" to match all four occurrences regardless of trailing unit/context. 5 -> 6 (2026-09-08, reviewer point 3.7): the new supplement §S10 subsection on the output quality of the rescued runs names the floor once when reporting that the same 12 of 20 runs are clean at both override levels.'
+  expected_occurrences: 5
+  notes: '6 -> 5 (2026-10-14, re-freeze 59, supplement audit row S11.4): the deleted supplement §S11 item 2 named the floor once (supplement 6 -> 5, paper 0, counted before and after). Appears 4 times as of Step 5: abstract sentence 5 "4{,}082.24~mL floor" (1), §2.5 prose ¶2 "the engine''s setup-time minimum for this body (4{,}082.24~mL, a 15.0~\% reduction)" (1), §2.5 prose ¶3 "4{,}082.24~mL on this male body" (1), Figure 4 caption "4{,}082.24~mL Pulse setup-time floor on this body" (1). Bumped from 1 (Step 1, abstract-only format "4{,}082.24~mL") to 4 (Step 5). Format simplified to just "4{,}082.24" to match all four occurrences regardless of trailing unit/context. 5 -> 6 (2026-09-08, reviewer point 3.7): the new supplement §S10 subsection on the output quality of the rescued runs names the floor once when reporting that the same 12 of 20 runs are clean at both override levels.'
 
 - paper_section: '§2.5 + Figure 5 + supplement S3.6'
   paper_context: 'Female reference body BloodVolumeBaseline default (Pulse allometric for 56.2 kg)'

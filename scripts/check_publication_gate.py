@@ -100,8 +100,12 @@ CLAIMS: list[tuple[str, str, int, str]] = [
      "Supplement: the experiment logs are public NOW."),
     ("preprint_npj/cover_letter.md", "is released open-source under Apache-2.0", 1,
      "Cover letter: the whole pipeline is public NOW."),
-    ("preprint_npj/cover_letter.md", "All data and code are openly available", 1,
-     "Cover letter: blanket present-tense availability."),
+    # 2026-10-14 (cover-letter item L4): the blanket "All data and code are openly
+    # available" became "The code is openly available on GitHub", the data being
+    # announced for deposit as in the paper's Data availability. The code half is
+    # still a present-tense claim, so the anchor follows it.
+    ("preprint_npj/cover_letter.md", "The code is openly available on GitHub", 1,
+     "Cover letter: the code is public NOW."),
     ("preprint_npj/reporting_summary_draft.md", "All analysis code is released under Apache-2.0 at", 1,
      "Reporting summary: public URL for the analysis code."),
 ]

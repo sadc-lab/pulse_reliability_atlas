@@ -17,7 +17,7 @@ the condensed, journal-formatted derivative used for peer review.
 preprint_npj/
 ├── paper.tex                      # main manuscript (sn-jnl class, sn-nature option)
 ├── paper.bib                      # full copy of ../preprint/references.bib (pruned at Step 8)
-├── supplement.tex                 # supplementary information document (58 pages)
+├── supplement.tex                 # supplementary information document (59 pages)
 ├── paper_to_monograph_map.md      # numerical-claim crosswalk for audit sync
 ├── figures/                       # main + supplement figure source files (PDF preferred)
 ├── template/                      # upstream Springer Nature LaTeX template
@@ -68,7 +68,7 @@ list-all-authors).
 | Aspect | Monograph (`../preprint/manuscript.md`) | npj submission (`paper.tex`) |
 |---|---|---|
 | Audience | PhD committee, Pulse community, deep technical readers | npj Digital Medicine reviewers, clinical and ML audience |
-| Length (builds of 2026-10-06) | 123 pages (markdown → PDF via pandoc) | 24 pages main + 58 pages supplement |
+| Length (builds of 2026-10-14) | 123 pages (markdown → PDF via pandoc) | 24 pages main + 59 pages supplement |
 | Word count (main text) | unconstrained | ~4,200 target (npj DM concise recommendation) |
 | Structure | Comprehensive: Intro → Methods → Results (8 subsections) → Discussion (7 subsections) → Conclusion → Appendices A/B/C | npj IMRaD: Abstract → Intro → Results → Discussion → Methods → closing sections |
 | Internal codes (`S006`, `S018`, `F-003`) | used throughout as cross-references to the lab notebook | **expunged** from main paper (descriptive names instead); allowed in supplement as lab-notebook cross-references |

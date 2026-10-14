@@ -35,6 +35,7 @@ marino2013icu  supplement
 morris1991  paper
 nadler1962  paper+supplement
 nin2017  supplement
+pulse440  supplement
 pulseabout  supplement
 pulsecardiomethod  supplement
 pulsecircuit  supplement

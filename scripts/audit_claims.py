@@ -1756,9 +1756,12 @@ add(
 add(
     claim_id="T2.nss.total.clean_excl_both",
     section="Appendix C L3248",
-    manuscript_text="clean excl both = 1,008",
+    # 2026-10-14: 1,008 -> 966. The value was right against its CSV, but the CSV's
+    # formula counted 42 runs that are also implausible as clean (supplement audit
+    # row S4.4); script, CSV and documents were corrected together.
+    manuscript_text="clean excl both = 966",
     source_file="results/s022/nss_decomposition.csv",
-    manuscript_value=1008,
+    manuscript_value=966,
     computed_value=int(total_row["n_clean_excl_both"]),
     tolerance_rule="exact_int",
 )
@@ -1790,16 +1793,15 @@ add(
     computed_value=int(total_row["n_nss_excl_both"]),
     tolerance_rule="exact_int",
 )
-# 56. Appendix C 78.7% counterfactual clean rate.
+# 56. Appendix C 75.5% counterfactual clean rate (78.8% before the 2026-10-14 fix).
 add(
     claim_id="T2.nss.counterfactual",
     section="Appendix C L3290-3291, §4.5 L2574",
-    manuscript_text="78.8% clean rate under joint exclusion (1008/1280)",
+    manuscript_text="75.5% clean rate under joint exclusion (966/1280)",
     source_file="results/s022/nss_decomposition.csv",
-    # 1,008/1,280 = 78.75 % exactly -- a tie at one decimal. The documents round
-    # it to 78.8; this field records what they say. Note that pct_1dp (+/-0.05)
-    # cannot arbitrate this tie: it accepts 78.7 and 78.8 alike against 78.75.
-    manuscript_value=78.8,
+    # 966/1,280 = 75.47 %, no rounding tie. (The former 1,008/1,280 = 78.75 % was a
+    # tie at one decimal, which pct_1dp could not arbitrate.)
+    manuscript_value=75.5,
     computed_value=100.0 * int(total_row["n_clean_excl_both"]) / int(total_row["n_total"]),
     tolerance_rule="pct_1dp",
 )
@@ -1807,14 +1809,14 @@ add(
 # Appendix C per-cell rows: 8 cells x 5 columns = 40 numbers.
 cells = ["S1_M", "S1_F", "S2_M", "S2_F", "S3_M", "S3_F", "S4_M", "S4_F"]
 nss_man_table = {
-    "S1_M": (160, 107, 91, 74, 29, 127),
-    "S1_F": (160, 118, 88, 87, 24, 136),
+    "S1_M": (160, 107, 91, 74, 29, 119),
+    "S1_F": (160, 118, 88, 87, 24, 122),
     "S2_M": (160, 69, 60, 45, 23, 133),
     "S2_F": (160, 68, 52, 44, 7, 153),
     "S3_M": (160, 12, 11, 9, 8, 148),
     "S3_F": (160, 38, 34, 10, 3, 157),
-    "S4_M": (160, 44, 44, 39, 39, 72),
-    "S4_F": (160, 74, 74, 52, 52, 82),
+    "S4_M": (160, 44, 44, 39, 39, 67),
+    "S4_F": (160, 74, 74, 52, 52, 67),
 }
 col_map = [
     ("n_total", 0),
@@ -6476,8 +6478,17 @@ CONT_TEXT_REQUIRED = (
     # (ARDSExacerbation.json), and RespiratoryMethodology.md:1746 reports the
     # ARDS validation "against a moderate severity scenario". Nothing lands
     # inside 0.91--0.945.
-    ("preprint_npj/supplement.tex", "sample severities up to 0.9 at most", 1),
-    ("preprint_npj/cover_letter.md", "sample at most up to severity 0.9", 1),
+    # Re-pinned 2026-10-14 (supplement audit row S5.14, cover-letter item L11):
+    # the "up to 0.9 at most" half was false for the HowTo examples taken
+    # together -- src/csharp/howto/HowTo_EngineUse.cs L136-137 (REL_4_3_1 and
+    # REL_4_3_2) sets ARDS severity 1.0 on both lungs, in live code, which the
+    # 2026-09-16 check above (C++ HowTos and scenarios only) did not open. Both
+    # loci now keep only the band half, which still holds: no Pulse file that
+    # mentions ARDS sets a severity inside 0.91--0.945.
+    ("preprint_npj/supplement.tex",
+     "HowTo examples do not examine impairment fractions within 0.91--0.945", 1),
+    ("preprint_npj/cover_letter.md",
+     "HowTo examples do not examine impairment fractions inside 0.91–0.945", 1),
     # Added 2026-09-17, on the author's decision, and paired for the same reason
     # as the two rows above. Results 2.5 states that all 20 divergences fall on
     # the male body; that is true of the Morris input extremes and false as a
@@ -7745,15 +7756,17 @@ def check_s023_oos_table() -> int:
             "The three blood-gas channels average 0.87" in supp
             and round(float(rf.loc[gas, "r2_grouped_cv"].mean()), 2) == 0.87)
 
-    # "a spread ten to thirty times larger" is a hedge, so it is checked for
-    # truth by containment, not pinned to an exact figure: the measured spread
-    # ratios against the tighter of the two well-determined channels must all
-    # fall inside the stated interval.
+    # The spread is a hedge, so it is checked for truth by containment, not
+    # pinned to an exact figure: the measured spread ratios against heart rate
+    # must all fall inside the stated interval. 2026-10-14 (supplement audit row
+    # S13.6): the prose said "ten to thirty times larger" than Vt and HR together,
+    # but against Vt's sd the ratios are 134-178; it now names heart rate, and the
+    # interval is the measured 22-29 rounded out to [20, 30].
     ratios = (rf.loc[gas, "r2_grouped_sd"] / rf.loc["HR", "r2_grouped_sd"]).tolist()
-    add_row("prose: spread `ten to thirty times larger` contains the measured ratios",
-            f"{[round(r, 1) for r in ratios]} against HR's sd, all within [10, 30]",
-            "a spread ten to thirty times larger" in supp
-            and all(10.0 <= r <= 30.0 for r in ratios))
+    add_row("prose: spread `twenty to thirty times that of heart rate` contains the measured ratios",
+            f"{[round(r, 1) for r in ratios]} against HR's sd, all within [20, 30]",
+            "a fold-to-fold spread twenty to thirty times that of heart rate" in supp
+            and all(20.0 <= r <= 30.0 for r in ratios))
 
     # ---- ordering the prose asserts --------------------------------------- #
     bad_order = [

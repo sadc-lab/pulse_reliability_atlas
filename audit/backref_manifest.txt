@@ -28,8 +28,7 @@ main manuscript summarises the complementarity between the atlas and the causal-
 main manuscript reports that setting Pulse's \texttt{InspirationPatientTriggerPressure} to $-	the median Vt CV from 0.351 to 0.016
 main manuscript reports that the locked 120-second window is too short for PaO$_2$ convergenc	40 of 44 reruns (90.9~\%)
 main manuscript reports that all 20 input-extreme divergences (of 1{,}280 runs) fall on the m	all 20 diverged runs (1.6~\%) were on the male reference body
-main manuscript mentions engine-side suggestions for the Pulse maintainers; they are listed be	engine-level observations that target tooling, documentation and validation infrastructure
-main manuscript); a one-line note in the patient-baseline reference table would have avoided that inves	POINTER
+main manuscript mentions engine-side suggestions for the Pulse maintainers; they are listed be	engine-level observations that target tooling and validation infrastructure
 main manuscript reports that, in moderate and severe ARDS, a compensatory tachycardia lifts P	a compensatory tachycardia that lifts mean output heart rate above the sampled input range in moderate and severe ARDS, although input heart rate remains its dominant within-scenario determinant
 main manuscript), which keeps the assumption auditable	POINTER
 main manuscript states how large language models were used and where responsibility rests; t	Large language models (LLMs) were used in this work
