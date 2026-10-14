@@ -917,3 +917,33 @@ for the HowTo examples taken together: `src/csharp/howto/HowTo_EngineUse.cs`
 second half, "do not examine impairment fractions inside 0.91-0.945", holds (no
 severity in that interval in the 39 Pulse files that mention ARDS). The same
 sentence is in §S5 and is to be fixed the same way.
+
+**Second double-check (2026-10-14)**, letter re-read in full against `paper.tex`:
+- **L12 (new, recommended).** L85-87: "the entire pipeline — preregistration,
+  Docker image, fixed seed, and a machine-checked audit ledger … — is released
+  open-source under Apache-2.0". The repository carries the Dockerfile
+  (`engine/Dockerfile`), not the image; no image is published anywhere yet (its
+  deposit is planned with the archive), and the paper's own list (L380: "sampler,
+  sweep driver, classifier, statistical-analysis pipeline and audit ledger are
+  released open-source") does not name an image. Proposal: "Docker image" ->
+  "Dockerfile". The gate anchor "is released open-source under Apache-2.0" is
+  unaffected.
+- **O2, precision.** The paper says "not a clinical recommendation" three times:
+  "a data-generation lever" at L267 and L279, "a data-generation tool" at L308.
+- **L8, concrete proposal.** "applied to device-validation studies and to
+  computational physiology research" -> "used for ventilator-safety analyses,
+  medical education and computational physiology research" (paper L142 lists
+  ventilator-safety what-if analysis, validation of Pulse's own ventilator model,
+  education, computational physiology and ARDS ventilator-control policies).
+- **L9, precision.** The paper attributes the input-extreme regime to the main
+  sweep (L297: "The asymmetry is specific to this input-extreme regime; at
+  midrange inputs across the instability band, both bodies diverge") and §S5
+  (L600) says "Together with Section 2.5 … these data distinguish two
+  operationally separate divergence regimes". The letter credits both regimes to
+  the continuous sweep alone.
+- **L4 and the gate.** If L4 is reworded, the anchor "All data and code are
+  openly available" in `scripts/check_publication_gate.py` must follow the new
+  present-tense phrase (code public now; data to be deposited), or the gate fails.
+- Re-read, no change: L1 (L34-35), L2 (L65), L3 (L69-71), L5 (L91), L6 (L24-26;
+  paper L144 "no public map"), L7 (L29-31), L10 (L65), L11 (L74-76), O3
+  (signature L101-104 against `\affil` 1-5, L107-115).

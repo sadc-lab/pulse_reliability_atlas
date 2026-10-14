@@ -417,6 +417,41 @@ updated:
 - **S5.13 monograph twin** is now at L4508 (L4473 before today's monograph edits).
 - No twin in the paper or monograph for S6.2, S9.7 or S9.10; S9.19's twin is monograph L2815–2818.
 
+**Second double-check (2026-10-14).** Every row of the decision block re-opened at its source in this
+session; line numbers below are those of `7e6676e` (supplement and paper as at `54aa84a`).
+- **S4.4, second instrument.** Parsing the recorded `not_steady_state_reason` strings (separator "; ",
+  checked on multi-trigger rows) instead of re-implementing the rule: a run is clean after the joint
+  exclusion when it has no `clamped`, `diverged` or `implausible` flag and every recorded trigger is
+  "Vt CV" or an SpO₂ flatline at saturation. Result identical to the first instrument: 119 / 122 / 133 /
+  153 / 148 / 157 / 67 / 67, total 966 / 1,280 (75.47 %); the 42 wrongly added runs are Healthy-M 8,
+  Healthy-F 14, Severe-M 5, Severe-F 15. First instrument re-run: positive control 1,280 / 1,280, the
+  script formula still gives 1,008. Loci, re-derived: supplement Table S4 L463, L464, L472, L473 (four
+  cells) and L475 (total), text L480; monograph L3495, Appendix C table L4698–4710 (same four cells and
+  the total), L4753. The row's monograph line numbers (L3481, L4674, L4717) are those of the number
+  inventory, not of the current file. Paper, cover letter and README: no occurrence.
+- **S6.2, register precision.** The eight uncovered Severe-F pairs have Δ60 s from +0.027 to +0.063 at
+  the FiO₂ = 0.473 endpoint (the eighth pair, whose FiO₂ = 1.0 endpoint carries Vt CV, is at +0.027; the
+  row's "+0.028" is the minimum over the other seven). SpO₂ mean 0.786–0.873. 8 / 20 confirmed.
+- **Monograph twins not listed above.** S11.7: §4.7 item 4 (L3616–3627) still quotes the narrower
+  "~0.91–0.945" zone and "does not currently emit a setup-time warning". S11.8: item 5 "with full
+  convergence at ~300 s" (L3631). S11.9: item 6 (L3640–3643), same sentence as the supplement. S11.4: the
+  §4.7 introduction lists [S018] among the anchors, and only item 2 is anchored in S018. The monograph's
+  items 3 and 6 do carry experiment pointers (S006/S016, S005), so S11.2 has no monograph twin. S9.10:
+  the monograph statements it agrees with are now at L158 and L2956. S5.13 twin at L4509–4510. No twin
+  for S8.13, S9.15 or S13.6 ("twentyfold", "order of magnitude", "ten to thirty": 0 hits besides an
+  unrelated Sobol-cost sentence at L1534).
+- **S11.3 is wording that matches the paper's own result** (H2: loud rejection, not silent clamping);
+  kept as MECH, but the explanation to the author says so.
+- Reconfirmed at source without change: S4.8 (78.125 %, `s014_trigger_lockout/summary.json`); S5.14
+  (`HowTo_EngineUse.cs` L136–137, severity 1.0 on both lungs, uncommented, in the `PatientFile`
+  initialisation branch); S8.9 (`s033_cycle_resolved_vtcv.py` L662–667, `n_pairs_in_estimands` 63);
+  S8.13 (21.42 / 22.66 / 27.84 / 25.63; 22.45 on the 64 group medians); S9.7 (Vt 13 / 44 at 120 s and
+  at 300 s; PaCO₂ +1.02 mmHg median, max 9.74); S9.15 (643.2 / 143.6 / 72.6); S9.18 (152 runs, 148
+  `implausible` or `not_steady_state`, 4 `diverged` only); S11.4 and S11.5 (`PatientMethodology.md`
+  L56 and L60 at REL_4_3_1); S12.9 (20 CSVs, README L72–74); S12.10 (`git ls-files`); S12.13 (README
+  L245, and L275–279 already warns that a fresh build does not match the image hash but reproduces the
+  outputs); S13.6 (grouped SD 0.0532 / 0.0562 / 0.0705 vs HR 0.00243 and Vt 0.00040).
+
 ## Addendum to Part S1 (2026-10-13) — Pulse 4.4.0 has been released
 
 Flagged during a pre-submission review of the supplement; checked at the primary sources, twice
