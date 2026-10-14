@@ -51,8 +51,9 @@ total simulations. A locked four-flag detector (`clamped` / `diverged` /
 (volume-controlled assist-control) tidal-volume oscillation appears in
 20.6 % of runs (finding **F-004**), and is **causally linked to the
 inspiration trigger, consistent with patient-ventilator dyssynchrony, and
-corrected by setting trigger pressure to −2 cmH2O** (median Vt CV collapses from
-0.351 to 0.016; worst-case from 1.826 to 0.018). Sensitivity is
+largely suppressed by setting trigger pressure to −2 cmH2O** (median Vt CV collapses from
+0.351 to 0.016 and 78.1 % of reruns fall below the 0.05 threshold; worst-case
+from 1.826 to 0.018; a data-generation lever, not a clinical recommendation). Sensitivity is
 strongly skewed: 48 of 48 (cell × output) combinations have ≥ 50 % of
 summed μ\* in their top-3 inputs (median 0.928), and the engine is
 **predominantly linear** for these dominant parameters — point-estimate
@@ -2790,7 +2791,8 @@ shown by a 300 s rerun ([S021](#s021)) on the same
 input combinations. **F-004**: VC-AC tidal-volume oscillation in
 20.6 % of runs, causally linked in [S014](#s014) to the
 inspiration trigger, consistent with patient-ventilator dyssynchrony, and
-corrected by setting trigger pressure to −2 cmH2O.*
+largely suppressed by setting trigger pressure to −2 cmH2O (78.1 % of reruns
+below the 0.05 threshold).*
 
 * **F-003 — Transient hyperoxia regime in the locked 120 s window.**
   Across the full sweep, **34 of 126 implausibly-flagged runs exceed
@@ -3216,8 +3218,8 @@ internalise simulator artefacts as if they were physiology:
   alveolar-gas-equation band when given a 300 s window ([S021](#s021)).
 * The 20.6 % VC-AC tidal-volume oscillation, consistent with inspiration-
   trigger dyssynchrony (F-004, §3.8), becomes "ventilator behaviour" to
-  the model, even though it is corrected by a single configuration
-  flag.
+  the model, even though a single configuration setting largely
+  suppresses it.
 * The compensatory tachycardia that shifts output HR upward in
   S3 / S4 (§3.4.1) is a particularly insidious feature-engineering
   trap: a neural network trained on these outputs will learn an

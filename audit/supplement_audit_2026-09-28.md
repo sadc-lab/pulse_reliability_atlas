@@ -508,6 +508,22 @@ flag-stratified filtering" in §S10 and the monograph (already conditional, L3).
 the pending "corrected by setting trigger pressure" decision: L3219 ("even though it is corrected by a
 single configuration flag"), with L54 and L2793. The monograph is now 124 pages (README npj updated).
 
+**Applied the same day (author: "oui … fait donc Monographie, résumé et F-004"), with two reader-facing
+fixes found while checking how the finding labels read.**
+- Monograph L54, L2793, L3219: "corrected by setting trigger pressure" → "largely suppressed" (with the
+  paper's 78.1 % and, in the abstract, "a data-generation lever, not a clinical recommendation"); README
+  "Operator fix" → "Operator adjustment (a data-generation lever, not a clinical recommendation)", the
+  letter's "fixes" → "adjustments" decision of `5fe2378`. The "worst-case from 1.826 to 0.018" wording is
+  kept: the ledger defines the worst case as the run with the largest drop (S1_F_0117, 1.826 → 0.018;
+  its tie S1_F_0118 drops to 0.024, as §S8 says).
+- Finding labels. The paper uses none (the "S028" in `paper.tex` sit in LaTeX comments). The monograph
+  defines F-003 and F-004 (glossary row and §3.8); the README defines them at first use. The supplement
+  used "the F-003 sensitivity-analysis reclassification" (L233) without ever defining F-003: the label is
+  removed. It also used experiment-log identifiers (S011, S012, S014, S021) in its prose without saying
+  what they are, and a reader can take "S021" for a section number: one sentence of the opening
+  paragraph now says that three-digit identifiers name entries of the experiment log indexed in the
+  companion monograph (§S14), not sections of the supplement. Supplement changed again → re-freeze 61.
+
 ## Addendum to Part S1 (2026-10-13) — Pulse 4.4.0 has been released
 
 Flagged during a pre-submission review of the supplement; checked at the primary sources, twice

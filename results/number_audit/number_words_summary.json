@@ -54,7 +54,7 @@
     "supplement": {
       "path": "preprint_npj/supplement.tex",
       "kept_per_class": {
-        "cardinal": 439,
+        "cardinal": 440,
         "multiplicative": 15,
         "ordinal": 84
       },
@@ -80,7 +80,7 @@
         "third": 6,
         "thirteen": 1,
         "thirty": 1,
-        "three": 82,
+        "three": 83,
         "twelve": 4,
         "twenty": 1,
         "twentyfold": 1,
@@ -89,10 +89,10 @@
         "two-thirds": 3,
         "zero": 15
       },
-      "lines_with_a_kept_token": 194,
+      "lines_with_a_kept_token": 195,
       "recall": {
-        "tokens_in_raw_text": 546,
-        "tokens_kept": 538,
+        "tokens_in_raw_text": 547,
+        "tokens_kept": 539,
         "tokens_masked": 8,
         "masked_per_rule": {
           "tex_comment": 8,
@@ -164,10 +164,10 @@
     }
   },
   "totals": {
-    "kept": 1311,
+    "kept": 1312,
     "masked": 14,
     "kept_per_class": {
-      "cardinal": 1102,
+      "cardinal": 1103,
       "multiplicative": 28,
       "ordinal": 181
     }

@@ -234,8 +234,8 @@ supplement,93,1,"Healthy & 44 & 643.2 & [592, 668] \\ Moderate & 8 & 143.6 & [93
 supplement,99,1,163 / 160 \\ Severe (0.95) & 91 & 75 [69--83] & severe & --- / 99 / 74 \\ \bottomrule \subsection{Severity-t
 monograph,18,28,"st one clean pair, so it covers six inputs rather than seven in the 18 combinations where FiO2 carries none (S1_M, S1_F, S4_F); the fracti"
 monograph,13,27,ry male run matching it diverges). **FiO2 = 1.0 is requested in 13 / 20** (enriched ~4× vs base rate) but is **not necessary** — the
+monograph,0.05,25,"CV collapses from 0.351 to 0.016 and 78.1 % of reruns fall below the 0.05 threshold; worst-case from 1.826 to 0.018; a data-generation lever, n"
 monograph,3.8,24,ion (PaO2 upper 700 mmHg) is reported as a sensitivity analysis in §3.8. * **A sex-stratified reliability-sensitivity axis** — the first male
-monograph,0.05,23,"steady-state distributions, under Benjamini–Hochberg FDR control (q = 0.05): 5 of 24 cell × output Wasserstein distances survive the permutation"
 monograph,394,16,canonical parquets/CSVs and verifies it against the manuscript text (394 / 394 PASS at the locked tolerance band on the authors' full data tre
 monograph,95,14,"ximum PaCO2 in the first 48 h of ventilation placed approximately the 95th percentile at 70 mmHg [@nin2017], so a 120 mmHg ceiling leaves seve"
 monograph,22,12,he detector clamp regex against real Pulse rejection logs. | | S005 | 22-run pilot on cell S1_M; passed all 5 preregistered gates. | | S006 |

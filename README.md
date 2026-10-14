@@ -174,7 +174,8 @@ Two structural Pulse findings, independent of the hypotheses:
 - **F-004** — 264 / 1,280 (20.6 %) of runs fail VC-AC's tidal-volume
   steady-state test in 60 s. **Causally linked to the inspiration trigger
   (S014)**, consistent with patient-ventilator dyssynchrony.
-  **Operator fix:** set inspiration trigger pressure to −2 cmH2O
+  **Operator adjustment** (a data-generation lever, not a clinical
+  recommendation): set inspiration trigger pressure to −2 cmH2O
   (collapses *median* Vt CV from 0.351 → 0.016; worst-case from 1.826
   → 0.018; lock-below-0.05 fraction = 78.1 %). See
   `preprint/manuscript.md` §3.8 + §4.2.
