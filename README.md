@@ -548,7 +548,7 @@ survives the deposit without splitting the archive. This mirrors the paper's
 
 ## Contact
 
-Santino Nanini · santino.nanini@umontreal.ca
+Questions and bug reports: please open an issue on this repository.
 
 PhD work conducted under the maintainer's PhD programme; this repo is
 self-contained and runs without any other internal dependencies.
