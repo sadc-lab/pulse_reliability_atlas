@@ -2073,3 +2073,57 @@ eye; Table S7 (§S4) reads 966 in total; "PEDIATRICS", "ineffective triggering" 
 "the threshold is a clinical choice" appear once in each document, the e-mail
 once; "Materials availability" and "GPT-6" are absent; "v4.4.0" appears once in
 the paper and three times in the supplement.
+
+## 2026-10-19 — re-freeze 62: Data availability announces the arXiv preprint (arXiv before npj); not sent
+
+**Status: NOT SENT.** Supersedes re-freeze 61 (never sent) as the version to
+send to the co-authors, to post on arXiv and to submit to npj Digital
+Medicine. One paper sentence changed in `c2174e4`, approved by the author on
+2026-10-19 after deciding to post on arXiv before submitting: the Data
+availability statement now reads "This paper and its Supplementary
+Information are also available as a preprint on arXiv; the Zenodo DOI will
+be added upon deposit." (was: "will also be posted on arXiv, and the Zenodo
+DOI and arXiv identifier will be added upon deposit"). The arXiv identifier
+goes to the cover letter and the submission portal on the day of
+submission. The supplement source is unchanged since `d2f5a3f`.
+
+| | |
+|---|---|
+| Sent | — |
+| Source commit | `c2174e4` |
+| Pages | 24 (paper) / 59 (supplement), unchanged |
+| Monograph | not part of a dispatch |
+
+### Hashes, frozen before any further build
+
+| artefact | SHA-256 | bytes |
+|---|---|---|
+| `preprint_npj/build/paper.pdf` | `b66a19eb0f0f3bfe5ca8dc958972cb87deb5da6894a7add369aa03883b55bdf2` | 618,663 |
+| `preprint_npj/build/paper.docx` | `d1e91f834ec87b12125891c5b64eaf1c5a4d62c5a8d5f2b887fb88275253867b` | 954,476 |
+| `preprint_npj/build/supplement.pdf` | `dfb27cfa31cc06c5f1ebec3d4f2b402fc46d9c6a30d86b077ae3bb11b0c7a4c3` | 718,193 |
+| `preprint_npj/build/supplement.docx` | `53df7935f2a10a566b78e0f6ad0d31ebe60eebe7f968825a8d72fe52846b2334` | 762,408 |
+
+Written 12:04:17–12:04:27 local time by `preprint_npj/build_npj.ps1`;
+`paper.tex` last modified 12:03:50, `supplement.tex` (2026-10-14 13:15:36)
+and `paper.bib` (2026-10-14 11:47:40) earlier; the sources equal
+`c2174e4`. Copies in `preprint_npj/build/freeze62/` (gitignored), SHA-256
+identical to `build/`; `freeze61/` and earlier are kept. The supplement
+files differ from re-freeze 61 with the same text (the Word file by one
+byte, the PDF not at all in size): the build is not byte-reproducible.
+
+### Checks on the frozen files
+
+Compared with re-freeze 61: the paper PDF text differs by the one sentence
+above and nothing else; the paper Word file by one paragraph (new sentence
+present once, old sentence absent; the old sentence is present once in
+re-freeze 61, as a control); the supplement text is identical in PDF and
+Word. Everything checked on re-freeze 61 therefore carries over. No
+undefined reference in either LaTeX log.
+
+### Gate state at freeze
+
+On this tree and this build: ledger 394 / 394 PASS, crosswalk 95, monograph
+anchors 25 / 25, README science guard 17 / 17, monograph number-audit guard
+84 / 84, publication anchors 9 / 9 (visibility not checked: the repository
+is still private), every other pre-commit check passed, pytest 80 passed,
+ruff clean, render check passed, Word structure passed.
