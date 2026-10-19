@@ -4154,15 +4154,15 @@ n_s021_fail = check_s021_clock()
 # S021 converged-plateau claim (2026-08-06).
 #
 # Two different statistics round to the same published integer 643:
-#   S1_plateau_median_mmHg           = 643.3063  (all 44 S1 reruns)
-#   S1_converged_plateau_median_mmHg = 642.8716  (the 41 drift-converged ones)
-# They differ by 0.4348, below whole_unit = 0.5, so no ledger anchor can tell
+#   S1_plateau_median_mmHg           = 643.2458  (all 44 S1 reruns)
+#   S1_converged_plateau_median_mmHg = 642.8704  (the 40 drift-converged ones)
+# They differ by 0.3754, below whole_unit = 0.5, so no ledger anchor can tell
 # them apart: swapping one for the other leaves any such anchor green.
 #
 # T1.23 correctly checks the 44-run median, because that is what the MONOGRAPH
-# claims (manuscript.md:2664 "S1 (n = 44): plateau median 643.3 mmHg", and the
-# table at :2684). The paper and supplement instead attribute their 643 to the
-# 41 CONVERGED runs, and nothing verified that quantity.
+# claims (manuscript.md §3.8, S021 paragraph: "S1 (n = 44): plateau median
+# 643.2 mmHg", and the table that follows). The paper and supplement instead attribute their
+# 643 to the 40 CONVERGED runs, and nothing verified that quantity.
 #
 # This check closes the gap without adding a 383rd anchor -- which would have
 # cascaded into 16 counter-bearing lines across README, supplement and

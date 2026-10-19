@@ -422,7 +422,7 @@ need to chase definitions through the prose.*
 | Runaway | A run whose PaO2 keeps climbing past the plausibility ceiling instead of settling — the numerically unstable tail of the hyperoxia regime (§3.8). |
 | Allometric | Scaling a physiological quantity by body size. Pulse sets blood volume allometrically as BV = 65.6 · weight^1.02 (§3.5). |
 | **Identifier families** | |
-| S001 – S026 | Atlas lab-notebook entries, one per experiment, in `experiments_log/santino/`. Indexed in Appendix A. |
+| S001 – S034 | Atlas lab-notebook entries, one per experiment, in `experiments_log/santino/`. S001 – S026 are indexed in Appendix A. |
 | F-003 / F-004 | The two named boundary findings the atlas carried from pilot to full sweep: F-003 the transient hyperoxia regime at FiO2 = 1.0 (§3.8), F-004 the VC-AC tidal-volume oscillation, consistent with patient-ventilator dyssynchrony (§3.8). No other F-numbers are in use. |
 | H1 – H4 | The four preregistered hypotheses, quoted verbatim in §2.0 and evaluated in §§3.3 – 3.6. |
 | T1.\* / T2.\* / T3.\* / T5.\* | Anchor identifiers in the audit ledger (`scripts/audit_claims.py`). Each re-derives one manuscript number from the canonical data. |
