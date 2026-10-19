@@ -2352,3 +2352,63 @@ Rendering after the edit: paper list [1]-[30]; Baird enters at [22], and
 `hester2011hummod`, `bakkes2023asynchrony`, `bikia2020aortic`,
 `sinnige2026active`, `pulserespmethod`, `kuczmarski2002cdc`, `iwanaga2022`,
 `herman2017salib` move by one (22-29 -> 23-30); Ward stays [10].
+
+## Addendum 2026-10-19 — `bray2019` and `webb2022vent` re-checked before shortening the monograph's correction notes
+
+Why: the author asked that every reference be verified (it exists, and the
+reason we cite it holds) before the three "previous draft" notes of the
+monograph's reference list are shortened.
+
+Sources opened on 2026-10-19:
+- Crossref API, `10.1007/s42399-019-00053-w`: "Pulse Physiology Engine: an
+  Open-Source Software Platform for Computational Modeling of Human Medical
+  Simulation", SN Comprehensive Clinical Medicine, volume 1, issue 5, pages
+  362-377, issued 2019-03-27; nine authors in the order Bray, Webb,
+  Enquobahrie, Vicory, Heneghan, Hubal, TerMaath, Asare, Clipp. MATCH with
+  `references.bib` and the monograph entry.
+- `local_sources/bray2019_pulse_engine.pdf` (16 pages, header "SN
+  Comprehensive Clinical Medicine (2019) 1:362–377", DOI as above): "The
+  numerical models currently execute with a time step of 20 ms". MATCH for the
+  monograph's 20 ms fixed-timestep citation.
+- Crossref API, `10.23919/annsim55834.2022.9859325`: "Implementation Of A
+  Dynamic And Extensible Mechanical Ventilator Model For Real-Time
+  Physiological Simulation", 2022 Annual Modeling and Simulation Conference
+  (ANNSIM), pages 282-293, published 2022-07-18. Crossref lists Clipp fifth;
+  the article byline on PMC (scraped to
+  `.firecrawl/webb2022_PMC10224749_2026-10-19.md`) and Europe PMC both give
+  Webb, Bray, Scheirich, VanPelt, Gerard, Frembgen, Clipp. Our entries follow
+  the byline: MATCH.
+- PMC10224749 full text: "provides bindings to various popular programming
+  languages including C, C#, Java, and Python" (supports the Python-interface
+  citation); ASL 5000 lung simulator with a "Dräger Evita® Infinity® V500";
+  "healthy lungs, restrictive disease, and obstructive disease in combination
+  with PC-AC, VC-AC, and CPAP modes, for nine total validation use cases";
+  "The waveforms created by the virtual ventilator match well" and "good
+  agreement". The monograph's "nine cases", "ASL 5000 + Dräger Evita" and
+  "qualitative waveform agreement" hold; the paper's Figure 7 also shows a
+  per-run table of monitor values and notes higher tidal volumes on the
+  physical ventilator, which "qualitative" summarises without contradicting.
+- The 2026-05-12 date of the shortened notes: commit `097092c` (2026-05-12)
+  replaced "Bray AC, Carpenter J, Webb JB, Clipp RB" by the nine-author list
+  and the "PulseExt" entry by the ANNSIM entry.
+
+Applied: the three notes shortened to "corrected on 2026-05-12 against the
+<record>"; the useful sentence of the Webb 2022 note (qualitative framework in
+this paper, quantitative errors from Pulse's validation tables) is kept. The
+notes are kept, not removed, because L3983-3984 and L3988-3990 say every entry
+was verified during the S010 pass, and the S010 commit (`0714c17`) is the one
+that introduced the "Carpenter J" error.
+
+**MISATTRIBUTION still open in the monograph (modify nothing; for the author).**
+Key-references list, item 8 (`preprint/manuscript.md` L3951-L3953 after this
+change): "Bray et al. 2019. Cardiovascular limitations of the lumped-parameter
+model — referenced for valve idealization, dicrotic-notch absence, and
+viscoelastic limitation." The Tier 2 audit of 2026-07-26 above already found
+these limbs absent from Bray 2019 and located the dicrotic-notch, retrograde-
+flow and valve limb in Pulse's Cardiovascular Methodology documentation; the
+paper and supplement were re-attributed, this monograph item was not.
+Re-checked today on the local PDF: "dicrotic" 0, "visco" 0, "notch" 0; "valve"
+appears only as a circuit element ("Valve (i.e., diode)"). "Viscoelastic
+limitation" has no located source anywhere in this register. Options:
+re-attribute the item to the Cardiovascular Methodology page and drop the
+viscoelastic limb, or delete the item.

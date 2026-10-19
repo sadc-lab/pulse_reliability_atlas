@@ -3937,10 +3937,8 @@ the following or to an experiment-log entry in this repository.
    simulation.* PubMed Central article PMC10224749. Describes Pulse's
    ASL 5000 + Dräger Evita validation framework across nine cases
    (healthy / restrictive / obstructive × PC-AC / VC-AC / CPAP);
-   reports qualitative waveform agreement. (Pre-submission audit
-   2026-05-12: a previous draft cited this paper as "Webb et al.
-   2023" with an invented "PulseExt" title and an incorrect author
-   list; corrected here against the actual PMC10224749 metadata.)
+   reports qualitative waveform agreement. (Entry corrected on
+   2026-05-12 against the PMC10224749 record.)
 7. **Pulse Mechanical Ventilator Methodology page (Kitware, v4.3.1
     documentation).** <https://pulse.kitware.com/_mechanical_ventilator_methodology.html>.
     Validation Tables 3 / 5 / 10 / 12 / 17 / 19 report Pulse vs ASL
@@ -3997,11 +3995,8 @@ during the literature-review pass logged in
   Medical Simulation.* SN Comprehensive Clinical Medicine 1(5):362-377
   (2019). DOI:
   [10.1007/s42399-019-00053-w](https://doi.org/10.1007/s42399-019-00053-w).
-  *(Author list and issue number corrected 2026-05-12 in
-  pre-submission audit; the previous draft listed a four-author
-  reduction including a non-existent "Carpenter J" — full nine-author
-  list confirmed against the Springer record and the Pulse
-  publications page.)*
+  *(Author list and issue number corrected on 2026-05-12 against the
+  Springer record.)*
 * []{#ref-webb2020} Webb JB, Bray A, Asare PK, Clipp RB, Mehta YB, Penupolu S, Patel
   AA, Poler SM. *Computational simulation to assess patient safety
   of uncompensated COVID-19 two-patient ventilator sharing using the
@@ -4014,13 +4009,7 @@ during the literature-review pass logged in
   Proceedings of the 2022 Annual Modeling and Simulation Conference
   (ANNSIM). PubMed Central:
   [PMC10224749](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10224749/).
-  *(Bibliographic entry corrected 2026-05-12 in pre-submission audit;
-  the previous draft cited this paper as "Webb et al. 2023, PulseExt:
-  validation of the Pulse Physiology Engine ventilator against the
-  ASL 5000 lung simulator" with author list "Webb J, Asare P, Bray A,
-  Clipp R" — the year, title, and author list were all incorrect.
-  The actual PMC10224749 paper is the 2022 ANNSIM mechanical-ventilator
-  implementation paper with the seven-author list above. The
+  *(Entry corrected on 2026-05-12 against the PMC10224749 record. The
   qualitative ASL 5000 validation framework is described in this
   paper; the quantitative VC-AC / PC-AC tidal-volume error percentages
   cited elsewhere in this manuscript come from Pulse's own validation
