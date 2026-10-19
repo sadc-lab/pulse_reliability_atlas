@@ -202,7 +202,6 @@ supplement,6.84,1,"metadata spanning the same suspension of the reference machin
 supplement,61,1,ian) & P/F by FiO$_2$ (low / mid / high) \\ \midrule Healthy (0.00) & 61 & 431 [388--481] & not-ARDS & 390 / 481 / --- \\ Mild (0.26) & 114 &
 supplement,62.5,1,"nine fall to 6.25~\% of it (0.83~mmHg), one to 56.25~\% and three to 62.5~\%, and none to zero. Second, in 8 of the 140 steps the changed input"
 supplement,641,1,". The median trajectory rises from about 530~mmHg at $t = 0$ to about 641~mmHg at $t = 300$~s, with 95~\% of this late gain reached at $t = 180"
-supplement,643.2,1,"dian (mmHg) & Final-60-s IQR (mmHg) \\ \midrule Healthy & 44 & 643.2 & [592, 668] \\ Moderate & 8 & 143.6 & [93, 218] \\ Severe & 8"
 supplement,657,1,"run, S1\_M\_0159 at FiO$_2$ = 1.0, has a steady-state mean PaO$_2$ of 657~mmHg at 4{,}400~mL and 686~mmHg at the floor, above the locked 600~mm"
 supplement,66,1,"lly reported range of 64--79.3~mL\,kg$^{-1}$ averaging 75 overall and 66 in women~ . Pulse therefore does not reproduce the mo"
 supplement,668,1,"Final-60-s IQR (mmHg) \\ \midrule Healthy & 44 & 643.2 & [592, 668] \\ Moderate & 8 & 143.6 & [93, 218] \\ Severe & 8 & 72.6 & ["
@@ -240,7 +239,7 @@ monograph,394,16,canonical parquets/CSVs and verifies it against the manuscript 
 monograph,95,14,"ximum PaCO2 in the first 48 h of ventilation placed approximately the 95th percentile at 70 mmHg [@nin2017], so a 120 mmHg ceiling leaves seve"
 monograph,22,12,he detector clamp regex against real Pulse rejection logs. | | S005 | 22-run pilot on cell S1_M; passed all 5 preregistered gates. | | S006 |
 monograph,70,12,outer bound | | MAP (mmHg) | 30 | 180 | Lower: well below both the 70 mmHg at which the Sepsis-3 SOFA cardiovascular score first registers
-monograph,3.5,11,. Pulse sets blood volume allometrically as BV = 65.6 · weight^1.02 (§3.5). | | **Identifier families** | | | S001 – S026 | Atlas lab-notebook
+monograph,3.5,11,. Pulse sets blood volume allometrically as BV = 65.6 · weight^1.02 (§3.5). | | **Identifier families** | | | S001 – S034 | Atlas lab-notebook
 monograph,0.21,10,mL | ARDSnet 6 mL/kg [@brower2000] to pre-ARDSnet 10 mL/kg | | FiO2 | 0.21–1.0 | fraction | room air → pure O2 (companion FiO2 = 1.0 crash probe
 monograph,14,10,"4,5^, Philippe Jouvet^1,2,3^, Michael Sauthier^1,2,3^"" date: ""2026-10-14"" header-includes: - \renewcommand{\arraystretch}{1.35} - \makeatl"
 monograph,163,10,"sed here — male 18 yr / 67.3 kg / 180 cm and female 18 yr / 56.2 kg / 163 cm — are **not** Pulse's source-code ""Standard"" patients: the weights"
@@ -260,7 +259,6 @@ monograph,2.25,6,"ion tables report ASL 5000-referenced tidal-volume errors of 0
 monograph,20.8,6,", and the male height is a researcher-fixed value chosen for a BMI of 20.8 — it is **not** Pulse's , but exactly"
 monograph,"4,400",6,"educing male BV eliminates divergence: **20/20 → 0/20** at both the 4,400 and 4,082.24 mL reductions (default 4,802.63 mL). * Engine-level side"
 monograph,4.3,6,"cted channel: **19.5 %** exceed the 15 mmHg drift threshold (median 4.3 mmHg, p95 = 40.2 mmHg). *Interpretation: the cardiovascular loop is"
-monograph,5000,6,irtual patient. Pulse's own ventilator-validation tables report ASL 5000-referenced tidal-volume errors of 0.07 – 2.25 % for VC-AC (volume-c
 monograph,75,6,-:|---:|---:|---:|---| | 100-to-120 | 3 | 9 | 20.44 | 15.74 | +4.70 | 75 → 80 (midpoint 77.5) | | 110-to-90 | 15 | 16 | 24.94 | 17.26 | +7.68
 monograph,94,6,ble 5) & Maps to atlas output? \\ \midrule Chloride & 24 / 94 & 47 / 94 & No (electrolyte) \\ Sodium & 21 / 94 & 46 /
 monograph,0.1,5,"ment, 2026-04-22-b, tightened the flatline-bound tolerance from 1 % → 0.1 % BEFORE any atlas data was collected). Clamp regex empirically calib"
@@ -274,6 +272,7 @@ monograph,3.4,5,"downstream adjustment (FiO2 1.0 → 0.9996, 195 runs) is docume
 monograph,340,5,"ults yield 199 / 150 / 119 mmHg at the same settings (vs. published 340 / 130 / 50 mmHg, Webb 2020) — calibration is *ventilation-setting-dep"
 monograph,393,5,"394 PASS at the locked tolerance band on the authors' full data tree; 393 / 394 on a public clone, where the one anchor needing the gitignored"
 monograph,4.7,5,e infrastructure recommendations offered to the Pulse maintainers (§4.7). --- ## Reader's roadmap *This paper is written for a cross-disci
+monograph,5000,5,irtual patient. Pulse's own ventilator-validation tables report ASL 5000-referenced tidal-volume errors of 0.07 – 2.25 % for VC-AC (volume-c
 monograph,65,5,"40 of 48 cells, and under trajectory-level bootstrap 31 of 48 cells (65 %) are CI-robustly linear (upper bootstrap CI < 0.6); of the remainin"
 monograph,86,5,"): a hard per-patient BV floor at **4,082.24 mL** on the male body, 86 mL above the female default — the two bodies cannot be made BV-equi"
 monograph,0.001,4,"— the lower edge moves down by 0.031 and the upper edge up by 0.001, extending the band on the low side by about 90 % of the original"
@@ -337,7 +336,6 @@ monograph,56.22969564,2,"ntile weight-for-age values at = 216.5 (67.28992603 kg 
 monograph,56.41,2,"at a 214-month row and treated the = 218.5 values (67.64 and 56.41 kg, in fact 18 y 2 m) as the 18.0-year ones; both were wrong, and not"
 monograph,58.9,2,"C within Pulse* at PIP = 20 cmH2O, where PC-AC delivers more (female +58.9 %, male +24.0 %; see §2.3). The two are not in conflict — one compare"
 monograph,580,2,"low the locked 15 mmHg / 60 s threshold) **and** *median plateau ∈ [580, 680] mmHg* (alveolar-gas-equation prediction ± 75 mmHg). Both were"
-monograph,643.2,2,"ere met by very large margins: * **S1 (n = 44):** plateau median 643.2 mmHg (decision band [580, 680] mmHg); 40 / 44 runs (90.9 %) con"
 monograph,67.28992603,2,"re the CDC 50th-percentile weight-for-age values at = 216.5 (67.28992603 kg boys, 56.22969564 kg girls; @kuczmarski2002cdc, <"
 monograph,680,2,"he locked 15 mmHg / 60 s threshold) **and** *median plateau ∈ [580, 680] mmHg* (alveolar-gas-equation prediction ± 75 mmHg). Both were met"
 monograph,7.8,2,n FiO2 = 1.0 crash probe reports a steeper ~7.8 mmHg / 0.01 slope on a focused single-input probe at FiO2 0.95 – 1.
