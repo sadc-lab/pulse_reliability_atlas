@@ -1,5 +1,7 @@
 # Pulse 4.3.1 — Verified Limitations (as of 2026-04-19, GitLab re-audit 2026-05-07)
 
+> The numbered table (items 1 to 12) that dated registers cite as "`CLAUDE.md` limitation #N" is [`verified_limitations_table.md`](verified_limitations_table.md); the section numbers below differ from it.
+
 Every claim here is traceable. Use this list when writing the preprint, preparing the demo, or designing experiments. Do NOT add items without re-verifying against a primary source or a logged experiment.
 
 > **Version-pin status (S016, 2026-05-07).** Pulse `REL_4_3_2` (2025-08-12) is on the public `stable` branch but its full diff vs `REL_4_3_1` is **7 files / +46 −17 lines, all build-system** (CMake, dockcross, web-WASM, .NET binding). No physiology, validation, patient-setup, or solver code changed. Our atlas's `pulse-pediatric-engine:latest` (built from 4.3.1) and `kitware/pulse:4.3.1` remain the correct evaluation targets — re-running on 4.3.2 would yield numerically identical results. Re-confirm before paper submission.

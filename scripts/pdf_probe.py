@@ -6,7 +6,8 @@ Why this exists
 Verifying a citation against a book means searching its whole text, which the
 native file reader cannot do (it is capped at a few pages per call). Running an
 ad-hoc interpreter for that would mean allowlisting arbitrary code execution,
-which `CLAUDE.md` forbids. This script is the least-privilege alternative: a
+which the project's rules for the AI assistant forbid. This script is the
+least-privilege alternative: a
 fixed, versioned, auditable tool that can only read a PDF and print matches.
 
 Guarantees, by construction

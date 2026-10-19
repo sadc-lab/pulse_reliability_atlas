@@ -46,6 +46,10 @@ Thumbs.db
 
 # Claude Code local — ALL of .claude/ is local state (not part of the paper)
 .claude/
+# The AI assistant's instruction file stays local, untracked since 2026-10-19
+# (see HISTORY.md); its verified-limitations table is published as
+# reference/verified_limitations_table.md.
+/CLAUDE.md
 
 # Sweep run logs — useful while debugging, not part of the publication
 logs/

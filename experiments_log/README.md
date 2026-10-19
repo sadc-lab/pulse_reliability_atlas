@@ -36,7 +36,7 @@ Copy [`TEMPLATE.md`](TEMPLATE.md). Every experiment file has:
 6. **Interpretation** — what it means. Confirms / rejects hypothesis. Limitations.
 7. **Next steps** — follow-ups, or "none — question closed."
 
-Never just action + result. This rule comes from `CLAUDE.md` (global project rule).
+Never just action + result. This is a standing project rule.
 
 ### 5. Status lifecycle
 
@@ -54,7 +54,7 @@ Reference code, data, and figures by path:
 
 ### 7. Commits are single-author
 
-Per `CLAUDE.md`: no `Co-authored-by:` trailers, not for Claude, and not between human contributors. Each commit has exactly one author, and that author is the person who ran the experiment described. Git blame is the attribution.
+Project rule: no `Co-authored-by:` trailers, not for Claude, and not between human contributors. Each commit has exactly one author, and that author is the person who ran the experiment described. Git blame is the attribution.
 
 ---
 

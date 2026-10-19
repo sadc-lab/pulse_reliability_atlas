@@ -6,7 +6,8 @@ Why this exists
 Several manuscript numbers are stated in prose but are not re-derived by any
 ledger anchor, so answering "is this figure still true?" means looking inside
 the artefact. Running an ad-hoc interpreter for that would mean allowlisting
-arbitrary code execution, which `CLAUDE.md` forbids. This script is the
+arbitrary code execution, which the project's rules for the AI assistant
+forbid. This script is the
 least-privilege alternative, and the exact twin of `scripts/pdf_probe.py`: a
 fixed, versioned, auditable tool that can only read a table and print rows.
 

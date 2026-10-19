@@ -354,8 +354,11 @@ that has never been observed to fail is an assumption, not a test.
 
 **The AI use is bounded by artifacts, not by intention.** Two models in
 separate sessions, one critiquing the other's output; the standing rules
-and verification protocol are versioned in [`CLAUDE.md`](CLAUDE.md); the
-preregistration was locked before data collection; every change was
+and verification protocol were versioned with the code throughout (the
+assistant's instruction file itself is not published, see
+[`HISTORY.md`](HISTORY.md); its table of verified Pulse limitations is in
+[`reference/verified_limitations_table.md`](reference/verified_limitations_table.md));
+the preregistration was locked before data collection; every change was
 reviewed and committed by the author. Methods §4.7 of the manuscript
 carries the disclosure, and Supplement §S18 the model identifiers,
 settings and phase-by-phase tasks.
@@ -371,9 +374,10 @@ met.
 
 ```
 pulse_reliability_atlas/
-├── CLAUDE.md                    project rules (AI sparring partner mode)
 ├── preregistration.md           commitments locked before data collection
 ├── README.md                    you are here
+├── HISTORY.md                   the 2026-10 history rewrite: what changed, and why
+├── history/commit-map.txt       former → new commit identifiers
 ├── preprint/
 │   ├── manuscript.md            companion technical monograph (123 pages)
 │   ├── interim_findings.md      every finding (F-001..F-013) traced to its experiment
@@ -432,8 +436,9 @@ characterises the adult Pulse engine that the rest of that work builds on.
 Origin note: this repository began as a 7-day Cerebral Valley "Built with
 Opus 4.7" hackathon entry (PulseProbe). The hackathon credit application
 was not granted; the scientific scope survived, executed as a methods-paper
-contribution to the PhD. Hackathon-era framing documents are preserved in
-[`attic/`](attic/) for historical traceability.
+contribution to the PhD. The repository's history was rewritten once before
+it became public; [`HISTORY.md`](HISTORY.md) says what changed and maps the
+former commit identifiers to the new ones.
 
 ---
 
