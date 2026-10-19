@@ -15,7 +15,7 @@ published.
 
 ## What was edited
 
-1. **Private correspondence.** E-mails quoted verbatim in a few working
+1. **Private correspondence.** Private messages quoted verbatim in a few working
    files (audit registers, the dispatch log, one script comment) and in a
    few commit messages are replaced by the mention "text of a private message
    removed from the public history; see HISTORY.md". The analysis around them
@@ -78,3 +78,6 @@ too.
   messages identical byte for byte apart from the edits listed above and the
   translated commit identifiers. The script, and the test showing that it
   fails on a single changed byte, are kept with the original.
+- The first run of the test workflow on this repository, on the rewritten
+  history, passed:
+  https://github.com/santinon/pulse_reliability_atlas/actions/runs/39324385258
