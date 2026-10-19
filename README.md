@@ -9,6 +9,10 @@ educator — *which regimes meet the stated screening criteria*, *whether it
 runs submitted inputs as given*, *where its solver gives up*, and
 *which inputs actually drive each output*.
 
+The atlas is pinned to Pulse v4.3.1; results apply identically to the
+build-only v4.3.2 and may not carry over unchanged to v4.4.0, released
+after the sweep with revised physiology models.
+
 The full result is [`preprint/manuscript.md`](preprint/manuscript.md). The
 short answer: see [Section "Plain-language summary"](#plain-language-summary)
 below.
@@ -57,7 +61,7 @@ respiratory, gas-exchange, and pharmacology dynamics. People use it for:
 
 Pulse is openly licensed and actively developed — but its developers themselves state
 on the [Pulse FAQ](https://pulse.kitware.com/_f_a_q.html) (verified verbatim
-2026-04-19, still current 2026-05-07):
+2026-04-19, still current 2026-10-19):
 
 > "We have not performed a systematic forward propagation or inverse
 > quantification of model uncertainty, nor have we conducted a formal
@@ -141,8 +145,8 @@ actionable single artifact.
 | **Clinician / domain expert** wanting to know which regimes require scenario-specific review | [`preprint/manuscript.md`](preprint/manuscript.md) §3.7 (traffic-light table) and [Figure 6](figures/fig06_reliability_traffic_light.png) | [§4.1](preprint/manuscript.md) practical recommendations |
 | **Engineer / device developer** building a Pulse-based validation pipeline | [`preprint/interim_findings.md`](preprint/interim_findings.md) (every finding linked to data) | [`results/cell_flag_summary.csv`](results/cell_flag_summary.csv) (Table 1 — failure breakdown per scenario × sex) |
 | **Researcher / reviewer** auditing the methodology | [`preregistration.md`](preregistration.md) (commitments locked before data collection) and [`experiments_log/INDEX.md`](experiments_log/INDEX.md) | [`src/detector.py`](src/detector.py) (locked-threshold classifier) |
-| **Student** wanting to learn how Pulse and Morris-EE sensitivity work | this README + [`src/sampler.py`](src/sampler.py) (~50 lines, well commented) | [`scripts/run_pilot.py`](scripts/run_pilot.py) (the 22-run gate study) |
-| **Future Pulse user** running their own simulations | [`engine/run_atlas_engine.py`](engine/run_atlas_engine.py) (drop-in wrapper without the silent FiO2 cap) | [`reference/pulse_run_template.md`](reference/pulse_run_template.md) |
+| **Student** wanting to learn how Pulse and Morris-EE sensitivity work | this README + [`src/sampler.py`](src/sampler.py) (well commented) | [`scripts/run_pilot.py`](scripts/run_pilot.py) (the 22-run gate study) |
+| **Future Pulse user** running their own simulations | [`engine/run_atlas_engine.py`](engine/run_atlas_engine.py) (drop-in wrapper that passes FiO2 up to 1.0 unchanged) | [`reference/pulse_run_template.md`](reference/pulse_run_template.md) |
 
 ---
 
@@ -326,7 +330,7 @@ numerical claims from the canonical data artifacts and compares each
 against the value printed in the manuscript. It runs on every push. A
 number that drifts from its source fails the build.
 
-**Each guard has an incident behind it.** Six gates run in CI on every
+**Each guard has an incident behind it.** Ten gates run in CI on every
 push, and the pre-commit hook runs a wider set locally. None was
 designed up front:
 
@@ -371,11 +375,15 @@ pulse_reliability_atlas/
 ├── preregistration.md           commitments locked before data collection
 ├── README.md                    you are here
 ├── preprint/
-│   ├── manuscript.md            the methods paper draft
+│   ├── manuscript.md            companion technical monograph (123 pages)
 │   ├── interim_findings.md      every finding (F-001..F-013) traced to its experiment
+├── preprint_npj/
+│   ├── paper.tex                the npj Digital Medicine article
+│   ├── supplement.tex           its Supplementary Information
+│   ├── dispatch_log.md          every freeze, its hashes and its dispatch
 ├── engine/
 │   ├── Dockerfile               atlas-only Pulse image
-│   ├── run_atlas_engine.py      wrapper without the silent FiO2 cap
+│   ├── run_atlas_engine.py      wrapper that passes FiO2 up to 1.0 unchanged
 ├── src/
 │   ├── sampler.py               Morris (SALib)
 │   ├── scenario.py              sample row → Pulse config
@@ -399,7 +407,7 @@ pulse_reliability_atlas/
 │   │   └── <cell>/aggregated.parquet  per-cell mirror
 │   ├── full_sweep_repro/        S007 / S015 reproducibility re-runs
 │   ├── s014_trigger_lockout/    S014 — F-004 mechanism causal test
-│   ├── s018_blood_volume/       S018 — BV dose-response (H3 mechanism)
+│   ├── s018_blood_volume/       S018 — BV dose-response (H3 mechanism test)
 │   └── s021_hyperoxia_convergence/  S021 — F-003 300 s window rerun
 ├── results/
 │   ├── (top-level)              core analysis artifacts (csv + parquet)
@@ -410,6 +418,7 @@ pulse_reliability_atlas/
 │   ├── INDEX.md                 auto-regenerated table of all experiments
 │   ├── README.md                lab-notebook conventions
 │   └── santino/                 S001 … S034 entries (one .md each)
+├── audit/                       dated audit registers (citations, numbers, reviews)
 └── reference/                   verified Pulse run templates and limits
 ```
 
@@ -417,14 +426,8 @@ pulse_reliability_atlas/
 
 ## Project context
 
-This atlas is the **first publishable output** in the maintainer's PhD
-pipeline. Two downstream papers will cite it:
-
-- **Paper 1** — pediatric translation layer for Pulse 4.3.1. Cites this
-  atlas for baseline adult Pulse behaviour and the verified reliability
-  envelope. [`Pulse_translation_new/`](https://github.com/santinon/) (separate repo, in progress).
-- **Paper 2** — native pediatric Pulse fork. Will use this atlas's Morris
-  μ\* ranking to prioritize which adult-tuned C++ equations to patch first.
+This atlas is the **first publishable output** of the maintainer's PhD; it
+characterises the adult Pulse engine that the rest of that work builds on.
 
 Origin note: this repository began as a 7-day Cerebral Valley "Built with
 Opus 4.7" hackathon entry (PulseProbe). The hackathon credit application
@@ -450,8 +453,9 @@ Quick map (highlights — full audit trail in
 - **S003** 12 verified Pulse 4.3.1 limitations (every claim → a primary
   source).
 - **S004** Atlas Docker image + 8-cell scenario smoke + detector regex
-  recalibration (this is where we discovered the upstream silent FiO2
-  cap and the false-positive `clamped` regex).
+  recalibration (this is where we found that the earlier wrapper of the
+  companion pediatric-translation pipeline silently capped FiO2 at 0.95 —
+  above Pulse, not in Pulse — and the false-positive `clamped` regex).
 - **S005** Pilot gate (22 runs, S1_M, all 5 preregistered criteria pass,
   3 pipeline bugs surfaced + fixed).
 - **S006** Full sweep + analysis + 8-step verification (the paper's
@@ -483,7 +487,7 @@ Quick map (highlights — full audit trail in
 - **S024** Pre-submission claims-ledger audit (393 / 394 PASS on a
   public clone — 1 anchor auto-skipped, needs gitignored raw S021 data;
   394 / 394 with the authors' full data tree).
-- **S025** Pre-release OSS code-hygiene audit + fixes (this release).
+- **S025** Pre-release OSS code-hygiene audit + fixes.
 
 ---
 
