@@ -6,7 +6,7 @@ Article. It is **separate from, and a strict subset of**, the audited
 123-page monograph at [`../preprint/manuscript.md`](../preprint/manuscript.md).
 
 The monograph remains the canonical, audited, single source of truth
-(195/195 PASS at the locked tolerance band). This directory contains
+(see the claims-ledger audit in the root README). This directory contains
 the condensed, journal-formatted derivative used for peer review.
 
 ---
@@ -23,7 +23,7 @@ preprint_npj/
 ├── template/                      # upstream Springer Nature LaTeX template
 │   ├── sn-template.zip            # gitignored; redownloadable from Springer CMS
 │   └── sn-article-template/       # extracted: sn-jnl.cls, sn-nature.bst, sample, user-manual
-├── build/                         # gitignored compiled outputs (.tex aux, .pdf)
+├── build/                         # gitignored compiled outputs (.aux, .pdf, .docx) and frozen copies (freezeNN/)
 └── README.md                      # this file
 ```
 
@@ -35,23 +35,15 @@ the Springer Nature template uses class-specific macros that pandoc
 cannot generate cleanly, and the npj review process expects a
 LaTeX-native submission at acceptance.
 
-```bash
-# From the repository root, build the main paper:
-cd preprint_npj
-pdflatex -output-directory=build paper.tex
-bibtex   build/paper
-pdflatex -output-directory=build paper.tex
-pdflatex -output-directory=build paper.tex
-
-# Build the supplement the same way:
-pdflatex -output-directory=build supplement.tex
-bibtex   build/supplement
-pdflatex -output-directory=build supplement.tex
-pdflatex -output-directory=build supplement.tex
+```powershell
+# From the repository root. Builds the supplement first (the paper reads
+# supplement.aux through \externaldocument), then the paper, each as PDF
+# and as a Word twin.
+powershell -NoProfile -ExecutionPolicy Bypass -File preprint_npj/build_npj.ps1
 ```
 
-A `build_npj.ps1` PowerShell wrapper will be added once the LaTeX
-sources stabilise (Step 1).
+`-MainOnly` and `-SupplementOnly` build a single document. The script holds
+the exact LaTeX and BibTeX passes and the Word conversion.
 
 **Document class.** `\documentclass[pdflatex,sn-nature]{sn-jnl}` —
 confirmed by the upstream Springer Nature template (`sn-article.tex`
@@ -75,7 +67,7 @@ list-all-authors).
 | Lab-notebook chronology | preserved | translated to synthesized scientific prose |
 | Reference style | hand-curated section §9.7 | `sn-nature.bst` formatted |
 | Build pipeline | pandoc-markdown → xelatex | native pdflatex |
-| Audit | `scripts/audit_claims.py` → 195/195 PASS | `scripts/audit_claims.py --check-paper-sync` (opt-in) verifies the subset that appears in paper.tex against the monograph ledger |
+| Audit | `scripts/audit_claims.py` (claims ledger) | `scripts/audit_claims.py --check-paper-sync` checks the numbers of `paper.tex` + `supplement.tex` against the ledger through the crosswalk |
 
 **Neither document is the master.** The monograph is the audited
 source of scientific truth. The submission is the version that
@@ -107,7 +99,12 @@ shares a keyword or is "vaguely related" does NOT qualify.
   citation** in our bibliography as of 2026-05-23 (S028 Step 2). Do
   not write it without first adding a verified citation that
   demonstrates a specific third-party team training a clinical AI on
-  Pulse-generated data.
+  Pulse-generated data. *Update 2026-08-03:* `ward2024ventilator` (Ward et
+  al., IEEE CBMS 2024), a third-party team that used Pulse's respiratory
+  simulator to gather simulated data, learn neural-network respiratory
+  dynamics and compare ARDS ventilator controllers, is cited in the paper
+  and the cover letter for that specific use; the rule still holds for any
+  broader claim.
 - Buzzwords ("digital twin", "synthetic data revolution") are allowed
   in `keywords` for searchability but should only appear in the body
   prose if they are anchored to a specific cited paper whose content
@@ -140,8 +137,8 @@ on every commit that touches `paper.tex`.
 
 Read-only audit extension. Opt-in flag (does not affect the default
 audit invocation, which continues to verify the monograph alone).
-When invoked, reads the crosswalk, regex-extracts each value from
-`paper.tex` with LaTeX-tolerant patterns
+When invoked, reads the crosswalk, regex-extracts each value from the
+combined `paper.tex` + `supplement.tex` corpus with LaTeX-tolerant patterns
 (`4,082.24` / `4{,}082.24` / `\num{4082.24}` / `4082.24~mL`), uses
 `re.findall(...)` to count occurrences, and FAILs on any of:
 
@@ -152,8 +149,8 @@ When invoked, reads the crosswalk, regex-extracts each value from
   value has drifted
 
 Graceful degradation: if `paper.tex` or the map file is missing,
-the audit emits a `WARN` and continues with the legacy 195-claim
-ledger unaffected.
+the audit emits a `WARN` and continues with the claims ledger
+unaffected.
 
 ### Monograph PDF rebuild discipline (S028 Step 10 retroactive)
 
@@ -178,6 +175,11 @@ catches drift in quantitative claims; this rule catches drift in
 the rendered output.
 
 ### Layer 3 — atomic dual-commit convention
+
+*Historical (May–June 2026): the tagged patterns below are no longer used;
+commits now carry bracketed theme tags such as `[FIX]`, `[LOG]`, `[AUDIT]`,
+`[MONOGRAPH]` or `[PAPER+SUPP]`. The rule itself still applies: a
+scientific change reaches every document that states it in one commit.*
 
 Every commit that changes scientific content in either document
 follows one of four tagged patterns in the commit message:
@@ -245,8 +247,6 @@ for macro syntax.
 
 ## Status
 
-* **Step 0 — Scaffold + template + crosswalk:** ✓ complete
-  (this commit).
-* **Step 1 — Title + Abstract + Methods stub + author block:** in
-  progress.
-* **Steps 2–10:** scheduled per the S028 splitting blueprint.
+Re-freeze 63 (2026-10-19) is the version to post on arXiv and to submit to
+*npj Digital Medicine*. Every freeze, with its hashes, gate state and
+dispatch, is recorded in [`dispatch_log.md`](dispatch_log.md).
