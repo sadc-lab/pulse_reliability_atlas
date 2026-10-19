@@ -2144,7 +2144,7 @@ of the paper or supplement changed.
 
 | | |
 |---|---|
-| Sent | — |
+| Sent | 2026-10-19, shortly before 13:23 Montreal time (UTC−4; author's confirmation); see the entry below |
 | Source commit | `201cf3c` |
 | Pages | 24 (paper) / 59 (supplement), unchanged |
 | Monograph | not part of a dispatch; rebuilt the same day (123 pages) |
@@ -2181,3 +2181,54 @@ anchors 25 / 25, README science guard 17 / 17, monograph number-audit guard
 84 / 84, publication anchors 9 / 9 (visibility not checked: the repository
 is still private), every other pre-commit check passed, pytest 80 passed,
 ruff clean, render check passed, Word structure passed.
+
+## 2026-10-19 — re-freeze 63 SENT to the co-authors; the two PDFs to the prospective arXiv endorser
+
+**Status: SENT.** The four files of the re-freeze 63 entry above (source
+`201cf3c`) left by e-mail on 2026-10-19, shortly before 13:23 Montreal time (UTC−4)
+(author's confirmation that the message had just left; the exact minute
+was not reported).
+Order of events: files written 12:39:57–12:40:07, re-freeze 63 committed
+12:43:42 (`aae2121`) and pushed by 12:49 (its CI run was created at
+16:49:13 UTC), then the send, so the freeze precedes the send.
+Just before this entry, the four files in `preprint_npj/build/` were
+re-hashed: each digest is found once in the re-freeze 63 entry, and
+`build/` equals `build/freeze63/`. That the attachments are exactly those
+files is the author's report, not a measurement. Copies in
+`preprint_npj/build/sent_2026-10-19_refreeze63/` (gitignored).
+
+| | |
+|---|---|
+| Sent | 2026-10-19, shortly before 13:23 Montreal time (UTC−4; author's confirmation) |
+| Recipients | the four supervisors (A.W., P.J., M.S., C.S.); Y.M. reported by the author to have been in copy since the start of the review rounds; not separately confirmed for this message |
+| Artefacts sent | `paper.pdf`, `paper.docx`, `supplement.pdf`, `supplement.docx` (re-freeze 63) |
+| Pages | 24 (paper) / 59 (supplement) |
+| Not sent | the companion monograph; re-freezes 58–62 were never sent, their changes reached the co-authors in this version |
+| Also sent, same day | `paper.pdf` and `supplement.pdf` (re-freeze 63) to the prospective arXiv endorser, with a request to read them and, if satisfied, to confirm the endorsement for q-bio.QM |
+
+### What the message said
+
+One message to all, in broad lines: thanks for the agreements; the changes
+since the version of 2026-10-12 (paper: a Pulse 4.4.0 sentence, the Figure 4
+legend aligned with §2.3, one word removed, the arXiv preprint mentioned;
+both documents: one reference link pointed to the Pulse 4.3.1
+documentation; supplement: wording clarified, one recommendation to the
+Pulse developers withdrawn as inaccurate, one table total corrected, 966
+instead of 1,008, a figure absent from the paper), with the statement that
+the conclusions do not change; the next steps (clean and publish the GitHub
+repository; post paper and supplement on arXiv after the endorser's
+reading; submit to npj Digital Medicine and forward the acknowledgement;
+archive code, data and monograph on Zenodo); for P.J., names versus
+initials in the public repository, initials by default; objections invited
+until Monday 2026-10-26, after which the arXiv deposit starts with this
+version.
+
+Open answers expected: P.J. on names versus initials; any objection by
+2026-10-26; the endorser's reading and endorsement.
+
+**Final approval of the four supervisors.** All four agreed to submit: M.S.
+and P.J. on re-freeze 54 (2026-10-08), A.W. on re-freeze 54 (2026-10-09) and
+again on re-freeze 57 (2026-10-12), C.S. on re-freeze 57 (2026-10-19); Y.M.,
+co-author, on 2026-10-14. What changed after those versions (re-freezes
+58–63) is listed in their entries and went to all of them with this
+message, with an objection deadline of 2026-10-26.
