@@ -2412,3 +2412,50 @@ appears only as a circuit element ("Valve (i.e., diode)"). "Viscoelastic
 limitation" has no located source anywhere in this register. Options:
 re-attribute the item to the Cardiovascular Methodology page and drop the
 viscoelastic limb, or delete the item.
+
+## Addendum 2026-10-19 (afternoon) — Pulse documentation now serves 4.4.0; one cited passage gone; item 8 source found
+
+Instruments: Firecrawl scrapes of the live pages (`.firecrawl/pulse_*_2026-10-19.md`,
+all labelled "Pulse Physiology Engine 4.4.0"), the REL_4_3_1 / REL_4_3_2 /
+REL_4_4_0 tags of the local engine clone, the REL_4_3_1 raw files on
+gitlab.kitware.com (CardiovascularMethodology.md identical to the local clone
+after CR removal), and the Wayback Machine snapshot of
+`_respiratory_methodology.html` dated 2026-04-14 (before REL_4_4_0, 2026-09-30).
+
+**Item 8 of the monograph's key-reference list (still citing Bray 2019).**
+All three limbs are in Pulse's Cardiovascular Methodology, identical in 4.3.1,
+4.3.2, 4.4.0 and on the live page: REL_4_3_1 L167 "the use of ideal valves in
+the simulated heart"; L213 "We assume the valves are perfect Booleans";
+L614 "This is the dicrotic notch ... This is not currently being modeled in
+the engine"; L211 "the visco-elastic nature of the blood vessels is not
+addressed in this model" (citing alastruey2011visco). The earlier note
+"no located source" for the viscoelastic limb is superseded: the limb is
+sourced. Fix awaiting the author: swap the attribution to the Cardiovascular
+Methodology page, keep the sentence.
+
+**Quoted passages of the paper.bib Pulse-documentation keys, re-checked on
+the live (4.4.0) pages**: 21 checked; 19 found; 2 not found but expected
+(our own phrase "byte-identical in REL_4_3_2", and a Doxygen "@cite" that the
+site renders as a number); **1 genuinely gone**: `pulserespmethod`, "five
+major functional units, or compartments, that are designated as the carina,
+right and left anatomic dead space, and right and left alveoli". REL_4_4_0
+rewrote that paragraph: "a serial tree of functional units, or compartments,
+that are designated as the mouth and nasal cavity, pharynx, larynx, trachea,
+right and left conducting airways, right and left alveolar dead space, and
+right and left alveoli". Our sentence is true for 4.3.1 (present in the
+REL_4_3_1 raw file on GitLab and in the 2026-04-14 Wayback snapshot), but a
+reader following the URL today reads a different model. Affected loci: paper
+Methods ("5-compartment lung"), supplement S1 description and the V/Q row of
+Table S1, and the monograph's uses of the key. The other `pulserespmethod`
+claims hold on both versions: inertance, laminar-flow resistance, the
+five-node ARDS severity caption (identical sentence in 4.3.1 and 4.4.0), the
+4.93 L / about 4.6 L vital-capacity passage; the 4,819 mL value is on the
+live patient page. Also checked live: the FAQ quotation of the paper, and the
+ventilator validation values (0.07 %, 11.28 %, 1.01 %, 25.29 %, 2.25 %,
+15.25 %; 935.217 / 1047, 409.439 / 528, 490.087 / 571).
+
+Nothing modified. Options for the author: pin `pulserespmethod` (both bib
+files) to a 4.3.x copy — the REL_4_3_1 file on gitlab.kitware.com or the
+Wayback snapshot — which changes the rendered reference lists (re-freeze);
+or keep the live URL, whose title already says "v4.3.1 documentation" and
+whose note gives the access date (3 August 2026).
