@@ -3,7 +3,7 @@
 # (second barrier, which also catches a `git commit --no-verify`).
 #
 # Why (2026-10-07). The guard used to list reviewer files by their exact names
-# (Paper_retour_PJ.pdf, paper_revised_Claude_MS.docx, ...). Every
+# (an annotated PDF, revised Word files, each named after its reviewer). Every
 # new review round arrives under a new name, so the next supervisor's file
 # would have passed. The rules below do not depend on names:
 #
@@ -14,7 +14,7 @@
 #      the Word twins of the paper live in the gitignored preprint_npj/build/;
 #   3. any PDF outside the folders that legitimately hold figures and the
 #      journal template (figures/, preprint_npj/figures/, preprint_npj/template/):
-#      supervisors also return annotated PDFs (Paper_retour_PJ.pdf);
+#      supervisors also return annotated PDFs;
 #   4. the internal notes the guard already covered (TODO_*, ROADMAP_*,
 #      NEXT_SESSION*, internal_morris_rebuttal.md).
 #

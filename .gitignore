@@ -96,11 +96,8 @@ audit/factcheck_paper_supplement_vs_monograph.md
 # an over-broad commit guard fails LOUDLY (the commit stops with an explanation
 # and a human decides). So breadth belongs in the guard, not here. See the long
 # comment at the top of .githooks/pre-commit before changing either.
-Paper_retour_PJ.pdf
-paper_feedback_michaelSauthier.docx
-paper_revised_Claude_MS.docx
-supplement_revised_Claude_MS.docx
-TODO_PJ_feedback.md
+# Reviewers' returns once listed here by file name were moved into retours_chefs/
+# (ignored below as a whole) on 2026-10-19, so no reviewer is named here.
 TODO_yassir_track.md
 TODO_publication_roadmap.md
 # Internal reviewer-prep rebuttal working doc (2026-07-07). Deploy only if a
@@ -137,7 +134,7 @@ Adult Pulse model *.docx
 
 # The one drop folder for supervisors' and co-authors' returns (2026-10-07).
 # Put every corrected Word file, annotated PDF or e-mail export there, e.g.
-# retours_chefs/2026-11_PJ/. Literal folder name, per the two-tier design
+# retours_chefs/2026-11_<reviewer>/. Literal folder name, per the two-tier design
 # above; the name-independent guard is .githooks/sensitive_paths.sh, used by
 # both the pre-commit and the pre-push hooks.
 retours_chefs/
