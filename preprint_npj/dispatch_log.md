@@ -2127,3 +2127,57 @@ anchors 25 / 25, README science guard 17 / 17, monograph number-audit guard
 84 / 84, publication anchors 9 / 9 (visibility not checked: the repository
 is still private), every other pre-commit check passed, pytest 80 passed,
 ruff clean, render check passed, Word structure passed.
+
+## 2026-10-19 — re-freeze 63: the respiratory-methodology reference pinned to the 4.3.1 source; not sent
+
+**Status: NOT SENT.** Supersedes re-freeze 62 (frozen the same day, never
+sent) as the version to send to the co-authors, to post on arXiv and to
+submit to npj Digital Medicine. One bibliography change in `201cf3c`,
+approved by the author on 2026-10-19: the `pulserespmethod` URL now points to
+the REL_4_3_1 file on gitlab.kitware.com
+(`/-/blob/REL_4_3_1/docs/Methodology/RespiratoryMethodology.md`), because
+pulse.kitware.com now serves the 4.4.0 documentation, whose respiratory page
+no longer contains the five-compartment sentence the paper and supplement
+cite (detail: `audit/reference_audit.md`, addendum of 2026-10-19
+afternoon). The access date of that entry becomes 19 October 2026. No text
+of the paper or supplement changed.
+
+| | |
+|---|---|
+| Sent | — |
+| Source commit | `201cf3c` |
+| Pages | 24 (paper) / 59 (supplement), unchanged |
+| Monograph | not part of a dispatch; rebuilt the same day (123 pages) |
+
+### Hashes, frozen before any further build
+
+| artefact | SHA-256 | bytes |
+|---|---|---|
+| `preprint_npj/build/paper.pdf` | `7d40ea1639bd9ffd2f18f21c9f609a9fdd357f55db7cdc5a19ce7e7dd8e62340` | 618,794 |
+| `preprint_npj/build/paper.docx` | `d1dce94990e3656eb95f0e96a7eb689fb6da5fa1acb1564f399bac9e76290fbd` | 954,578 |
+| `preprint_npj/build/supplement.pdf` | `69c12378802683c052945276e6eae018df5566885ff6aa83d6b0b90e500b09ff` | 718,308 |
+| `preprint_npj/build/supplement.docx` | `f41cd5dd10e3c222610e7bf05026d49c835cf5c20627b9da04fa7a6d3dcff74d` | 762,488 |
+
+Written 12:39:57–12:40:07 local time by `preprint_npj/build_npj.ps1`;
+`paper.bib` last modified 12:39:38, `paper.tex` (12:03:50) and
+`supplement.tex` (2026-10-14) earlier; the npj sources equal `201cf3c`.
+Copies in `preprint_npj/build/freeze63/` (gitignored), SHA-256 identical to
+`build/`; `freeze62/` and earlier are kept.
+
+### Checks on the frozen files
+
+Compared with re-freeze 62: the paper and supplement PDF text differ only in
+the `pulserespmethod` reference entry (URL and access date); the PDF link
+target is exactly the pinned URL; the Word files differ only in that URL
+(the Word twins print no access-date note, before or after); the entry keeps
+its number ([27] in the paper, [3] in the supplement). No undefined
+reference in either LaTeX log. Everything checked on re-freezes 61 and 62
+therefore carries over.
+
+### Gate state at freeze
+
+On this tree and this build: ledger 394 / 394 PASS, crosswalk 95, monograph
+anchors 25 / 25, README science guard 17 / 17, monograph number-audit guard
+84 / 84, publication anchors 9 / 9 (visibility not checked: the repository
+is still private), every other pre-commit check passed, pytest 80 passed,
+ruff clean, render check passed, Word structure passed.
