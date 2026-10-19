@@ -32,15 +32,15 @@
         "product_version": 11,
         "ref_or_machinery": 24,
         "typeset_length": 4,
-        "url_or_doi": 38,
-        "version": 82,
-        "year_like": 169
+        "url_or_doi": 39,
+        "version": 83,
+        "year_like": 168
       },
       "path": "preprint/manuscript.md",
       "recall": {
         "accounting_closes": true,
-        "literals_after_masking": 3568,
-        "literals_in_raw_text": 3833,
+        "literals_after_masking": 3567,
+        "literals_in_raw_text": 3832,
         "literals_removed_per_rule": {
           "file_path": 0,
           "line_reference": 13,
@@ -55,7 +55,7 @@
           "version": 62
         },
         "removed_by_masks": 265,
-        "retained_plus_year_like": 3568
+        "retained_plus_year_like": 3567
       },
       "retained_occurrences": 3399
     },

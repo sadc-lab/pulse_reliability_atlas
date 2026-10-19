@@ -3948,9 +3948,11 @@ the following or to an experiment-log entry in this repository.
     Vt-accuracy claims used to justify the atlas's VC-AC restriction;
     the surrounding validation framework is in entry 6 (Webb et al.
     2022 ANNSIM).
-8. **Bray et al. 2019.** Cardiovascular limitations of the
-   lumped-parameter model — referenced for valve idealization,
-   dicrotic-notch absence, and viscoelastic limitation.
+8. **Pulse Cardiovascular Methodology page (Kitware, v4.3.1
+   documentation).** <https://pulse.kitware.com/_cardiovascular_methodology.html>.
+   Cardiovascular limitations of the lumped-parameter model — referenced
+   for valve idealization, dicrotic-notch absence, and viscoelastic
+   limitation.
 9. **Pediatric Acute Lung Injury Consensus Conference (PALICC-2).**
    Cited as the parallel pediatric ARDS-severity framework (PALICC-2
    itself favours the Oxygenation Index / Oxygen Saturation Index over
@@ -4022,7 +4024,7 @@ during the literature-review pass logged in
   cited in §1.1 and §2.3. Verified 2026-05-12.
 * []{#ref-pulserespmethod} Kitware, Inc. *Respiratory Methodology — Pulse Physiology Engine
   documentation (v4.3.1).*
-  <https://pulse.kitware.com/_respiratory_methodology.html>.
+  <https://gitlab.kitware.com/physiology/engine/-/blob/REL_4_3_1/docs/Methodology/RespiratoryMethodology.md>.
   Source of the documented ARDS severity-to-impairment-fraction
   mapping (mild = 0.3, moderate = 0.6, severe = 0.9). This page does
   not itself state the per-band P/F-ratio values (340 / 130 / 50 mmHg);
