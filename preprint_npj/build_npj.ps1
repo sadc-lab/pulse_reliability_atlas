@@ -30,7 +30,7 @@
 #   - This wrapper rebuilds the paper deterministically; it does NOT enforce
 #     the paper-monograph claim crosswalk. Run the audit separately:
 #       uv run python scripts/audit_claims.py --check-paper-sync
-#     (See preprint_npj/README.md for the three-layer sync discipline.)
+#     (See preprint_npj/README.md, "Keeping the article and the monograph in step".)
 
 [CmdletBinding()]
 param(
