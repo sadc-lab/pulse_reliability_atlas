@@ -15,7 +15,6 @@ type: software
 authors:
   - family-names: Nanini
     given-names: Santino
-    email: santino.nanini@umontreal.ca
     orcid: "https://orcid.org/0009-0000-5645-4691"
 repository-code: "https://github.com/santinon/pulse_reliability_atlas"
 license: Apache-2.0
