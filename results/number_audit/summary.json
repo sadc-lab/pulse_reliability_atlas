@@ -15,10 +15,10 @@
   "per_artefact": {
     "monograph": {
       "buckets": {
-        "ambiguous_small": 1893,
+        "ambiguous_small": 1894,
         "guard": 697,
         "ledger": 26,
-        "none": 783
+        "none": 782
       },
       "distinct_unbucketed_values": 331,
       "distinct_values": 563,
@@ -146,11 +146,11 @@
   },
   "population_rule": "see the module docstring; exclusions are counted per artefact",
   "totals": {
-    "ambiguous_small_occurrences": 3144,
+    "ambiguous_small_occurrences": 3145,
     "distinct_values": 724,
     "not_demonstrably_covered_occurrences": 4349,
     "retained_occurrences": 5753,
     "unbucketed_distinct_values": 411,
-    "unbucketed_occurrences": 1205
+    "unbucketed_occurrences": 1204
   }
 }

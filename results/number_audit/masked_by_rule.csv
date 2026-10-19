@@ -264,7 +264,7 @@ monograph,version,4367,4.3,is published). ### B.2 Hard input acceptance gates Pu
 monograph,version,4540,4.3,checkout but applies identically to the atlas's 4.3.1 pin: touches no respira
 monograph,version,4568,4.3,ndings and discrepancies A source-level audit of the Pulse 4.3.1 C++ repository identified three discrepancies between
 monograph,version,4729,4.3,"t a detector edge case — it reflects the documented Pulse-4.3.1 patient-ventilator-trigger default behaviour, and th"
-monograph,year_like,4,2026,"weitzer^4,5^, Philippe Jouvet^1,2,3^, Michael Sauthier^1,2,3^"" date: ""2026-10-14"" header-includes: - \renewcommand{\arraystretch}{1.35} - \m"
+monograph,year_like,4,2026,"weitzer^4,5^, Philippe Jouvet^1,2,3^, Michael Sauthier^1,2,3^"" date: ""2026-10-19"" header-includes: - \renewcommand{\arraystretch}{1.35} - \m"
 monograph,year_like,266,2026,mmHg at the same settings. * **Complementarity with Cornish et al. 2026** ([S017 ): their causal-falsification on MIMIC-III reported
 monograph,year_like,304,2026,"se synthetic cohorts, a side-by-side mapping against Cornish et al. 2026 causal falsification (Table 2), explicit limitations (§4.5), downst"
 monograph,year_like,385,2020,"mmHg at the same settings (vs. published 340 / 130 / 50 mmHg, Webb 2020) — calibration is *ventilation-setting-dependent*. --- ## Notation"

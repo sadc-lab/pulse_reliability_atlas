@@ -241,10 +241,10 @@ monograph,22,12,he detector clamp regex against real Pulse rejection logs. | | S
 monograph,70,12,outer bound | | MAP (mmHg) | 30 | 180 | Lower: well below both the 70 mmHg at which the Sepsis-3 SOFA cardiovascular score first registers
 monograph,3.5,11,. Pulse sets blood volume allometrically as BV = 65.6 · weight^1.02 (§3.5). | | **Identifier families** | | | S001 – S034 | Atlas lab-notebook
 monograph,0.21,10,mL | ARDSnet 6 mL/kg [@brower2000] to pre-ARDSnet 10 mL/kg | | FiO2 | 0.21–1.0 | fraction | room air → pure O2 (companion FiO2 = 1.0 crash probe
-monograph,14,10,"4,5^, Philippe Jouvet^1,2,3^, Michael Sauthier^1,2,3^"" date: ""2026-10-14"" header-includes: - \renewcommand{\arraystretch}{1.35} - \makeatl"
 monograph,163,10,"sed here — male 18 yr / 67.3 kg / 180 cm and female 18 yr / 56.2 kg / 163 cm — are **not** Pulse's source-code ""Standard"" patients: the weights"
 monograph,27,10,0 | Lower: oxyhemoglobin dissociation curve P50 (SpO2 = 50 % ↔ PaO2 ≈ 27 mmHg [@severinghaus1979]); upper: hemoglobin saturation ceiling (defi
 monograph,28,10,"ded: * — built around the [S014 work (2026-04-28), after the sweep; recorded in [S015 (2026-05-04). *"
+monograph,14,9,"h the sex asymmetry reversed between the two severity bands (female 14/19 vs male 5/19 in (0.85, 0.91]; female 5/9 vs male 8/9 in (0.91, 0"
 monograph,96,9,"dependent): impairment {0.26, 0.60, 0.95} lands P/F ≈ **256 / 150 / 96 mmHg** (near the Berlin mild and moderate band centres; just inside"
 monograph,4.2,8,the ventilator-stress points where validation matters most. Section 4.2 details the −2 cmH2O setting validated by [S014 as a data-gen
 monograph,1.1,7,log tag system ([S001 – [S024 ) used throughout.* ### 1.1 Motivation *Why this paper exists. Pulse is used in clinical researc
@@ -411,7 +411,7 @@ monograph,1.13,1,5} & 1.91 & 3.38 & \textbf{0.003} & * \\ S4 & PaCO2 & 1.05 & 0.
 monograph,1.3,1,"es Pulse rather than being silently capped at the wrapper layer. ### 1.3 Contributions *The five methodological contributions of the paper, i"
 monograph,1.32,1,"= 74 Docker runs) reported the FiO2 → PaO2 elasticity collapsing from 1.32 in healthy to 0.26 in moderate ARDS — an ~80 % attenuation, consisten"
 monograph,1.33,1,& 12.8 & 0.245 & \\ S3 & \textbf{PaCO2} & \textbf{2.94} & 0.75 & 1.33 & \textbf{$<$ 0.001} & * \\ \midrule S4 & HR & 1.38 & 4.73 & 11.
-monograph,1.35,1,"date: ""2026-10-14"" header-includes: - \renewcommand{\arraystretch}{1.35} - \makeatletter\renewcommand{\@maketitle}{\newpage\null\vskip"
+monograph,1.35,1,"date: ""2026-10-19"" header-includes: - \renewcommand{\arraystretch}{1.35} - \makeatletter\renewcommand{\@maketitle}{\newpage\null\vskip"
 monograph,1.44,1,4 & HR & 1.38 & 4.73 & 11.2 & 0.953 & \\ S4 & MAP & 1.50 & 1.44 & 2.82 & 0.460 & \\ S4 & Vt & 14.1 & 29.0 & 64.1 & 0.897 &
 monograph,1.50,1,idrule S4 & HR & 1.38 & 4.73 & 11.2 & 0.953 & \\ S4 & MAP & 1.50 & 1.44 & 2.82 & 0.460 & \\ S4 & Vt & 14.1 & 29.0 & 64.1 &
 monograph,1.65,1,& 12.6 & 28.4 & 0.598 & \\ S1 & \textbf{PaCO2} & \textbf{4.69} & 1.65 & 3.56 & \textbf{0.009} & * \\ \midrule S2 & HR & 1.91 & 3.60 &
