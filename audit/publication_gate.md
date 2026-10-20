@@ -24,6 +24,17 @@ Under that order the sentences are true at every moment a reader can read them.
 Reversing steps 2 and 3 would publish four false statements (five before
 2026-09-28, see §2).
 
+**2026-10-20 — the public URL moved to the `sadc-lab` organisation.** On the
+author's decision of 2026-10-19, the repository made public at step 2 is
+`https://github.com/sadc-lab/pulse_reliability_atlas`, which received the same
+`main` branch and the same six `review-*` tags on 2026-10-20 (refs compared
+with the private copy: identical). `santinon/pulse_reliability_atlas` stays
+private and identical. The URL quoted above is the one this register was
+opened with; the paper, the supplement, `README.md`, `CITATION.cff`, the
+reporting-summary draft and `SLUG` in `scripts/check_publication_gate.py` now
+carry the `sadc-lab` URL. The constraint is unchanged and now applies to the
+`sadc-lab` repository.
+
 ## 2. The four loci, verbatim positions
 
 | file | line | claim |

@@ -16,7 +16,7 @@ authors:
   - family-names: Nanini
     given-names: Santino
     orcid: "https://orcid.org/0009-0000-5645-4691"
-repository-code: "https://github.com/santinon/pulse_reliability_atlas"
+repository-code: "https://github.com/sadc-lab/pulse_reliability_atlas"
 license: Apache-2.0
 version: "0.1.0"
 date-released: 2026-05-22

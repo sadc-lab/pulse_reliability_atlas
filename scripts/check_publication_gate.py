@@ -67,7 +67,7 @@ import sys
 sys.stdout.reconfigure(encoding="utf-8")
 
 REPO = pathlib.Path(__file__).resolve().parents[1]
-SLUG = "santinon/pulse_reliability_atlas"
+SLUG = "sadc-lab/pulse_reliability_atlas"
 CONTROL = "torvalds/linux"
 
 # file, anchor, expected occurrences, the proposition the anchor stands for

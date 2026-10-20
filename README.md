@@ -503,7 +503,7 @@ Plain text:
 ```
 Nanini, S., et al. (2026). An Open Reliability Atlas of Sensitivity and
 Failure Modes in the Pulse Physiology Engine.
-Preprint forthcoming on arXiv. Code: https://github.com/santinon/pulse_reliability_atlas
+Preprint forthcoming on arXiv. Code: https://github.com/sadc-lab/pulse_reliability_atlas
 ```
 
 BibTeX:
@@ -513,7 +513,7 @@ BibTeX:
   author       = {Nanini, Santino and others},
   title        = {An Open Reliability Atlas of Sensitivity and Failure Modes in the Pulse Physiology Engine},
   year         = {2026},
-  howpublished = {\url{https://github.com/santinon/pulse_reliability_atlas}},
+  howpublished = {\url{https://github.com/sadc-lab/pulse_reliability_atlas}},
   note         = {Preprint forthcoming on arXiv; arXiv identifier and Zenodo DOI added on deposit.}
 }
 ```

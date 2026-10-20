@@ -2,8 +2,9 @@
 
 This repository was private while the work was carried out. Before it was
 made public, in October 2026, its git history was rewritten once and pushed
-to a new repository under the same name. This file says what changed, why,
-and how the change can be checked.
+to a new repository under the same name. The same history, unchanged, was
+then pushed to this repository, in the `sadc-lab` organisation. This file
+says what changed, why, and how the change can be checked.
 
 ## What was kept
 
@@ -80,4 +81,4 @@ too.
   fails on a single changed byte, are kept with the original.
 - The first run of the test workflow on this repository, on the rewritten
   history, passed:
-  https://github.com/santinon/pulse_reliability_atlas/actions/runs/39324385258
+  https://github.com/sadc-lab/pulse_reliability_atlas/actions/runs/39452105545

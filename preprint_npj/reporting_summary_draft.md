@@ -112,7 +112,7 @@ manuscript.** Two ways forward, author's call:
 > (configuration validation); tqdm ≥ 4.66. The supplementary SHAP
 > cross-verification additionally used scikit-learn ≥ 1.5 and shap ≥ 0.46.
 > All analysis code is released under Apache-2.0 at
-> <https://github.com/santinon/pulse_reliability_atlas>.
+> <https://github.com/sadc-lab/pulse_reliability_atlas>.
 
 Taken from `pyproject.toml` as declared. 🔲 **AUTHOR** — decide whether to give
 the *resolved* versions from the lockfile instead of the declared floors. The
