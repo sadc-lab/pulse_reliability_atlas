@@ -2232,3 +2232,72 @@ again on re-freeze 57 (2026-10-12), C.S. on re-freeze 57 (2026-10-19); Y.M.,
 co-author, on 2026-10-14. What changed after those versions (re-freezes
 58–63) is listed in their entries and went to all of them with this
 message, with an objection deadline of 2026-10-26.
+
+## 2026-10-20 — re-freeze 64: the code URL points to the sadc-lab repository; not sent
+
+**Status: NOT SENT.** Supersedes re-freeze 63 as the version to post on
+arXiv and to submit to npj Digital Medicine. One change, in `8ff53a2`: the
+code URL of the paper (Code availability) and of the supplement (§S12) is now
+`https://github.com/sadc-lab/pulse_reliability_atlas`, the repository that
+will be made public (author's decision of 2026-10-19: the public copy lives
+in the sadc-lab organisation; `santinon/pulse_reliability_atlas` stays
+private and identical). No other text of the paper or supplement changed.
+
+Author's decisions of 2026-10-20, recorded here because they change the
+order announced with re-freeze 63: the endorser has confirmed the arXiv
+endorsement (author's report); the arXiv deposit goes ahead before the
+objection deadline of 2026-10-26 announced to the co-authors; the co-authors
+are told so in one message sent with this version, before the deposit; an
+objection received later would be handled in a revised arXiv version.
+
+| | |
+|---|---|
+| Sent | not yet |
+| Source commit | `8ff53a2` |
+| Pages | 24 (paper) / 59 (supplement), unchanged |
+| Monograph | not rebuilt: it carries no repository URL |
+
+### Hashes, frozen before any further build
+
+| artefact | SHA-256 | bytes |
+|---|---|---|
+| `preprint_npj/build/paper.pdf` | `d4b49e74c2fb1dbd3995587d18b5951a54083deeae12efc002f22d34cc27c666` | 618,792 |
+| `preprint_npj/build/paper.docx` | `d4fdfda16f7699e0f430670e662499a337b56de63b09a85665d1cecdad37eaeb` | 954,580 |
+| `preprint_npj/build/supplement.pdf` | `e3a28898e194004c7f611fdb4998bbad4501ed52b209fd3f38204229b33bb710` | 718,317 |
+| `preprint_npj/build/supplement.docx` | `bc80efee1427f57ac8f1feebfe2dcc202bea9f38b72cd955d3b720e310264c5c` | 762,490 |
+
+Written 11:53:52–11:54:02 local time by `preprint_npj/build_npj.ps1`;
+`paper.tex` and `supplement.tex` last modified 11:50:26, `paper.bib`
+2026-10-19 12:39:38; the npj sources equal `8ff53a2`, committed at 11:53:19,
+before the build. Copies in `preprint_npj/build/freeze64/` (gitignored),
+SHA-256 identical to `build/`; `freeze63/` and earlier are kept.
+
+### Checks on the frozen files
+
+Compared with re-freeze 63: the `pdftotext -layout` text of each PDF differs
+in exactly one line, the URL; the link annotation is exactly
+`https://github.com/sadc-lab/pulse_reliability_atlas` in both PDFs and the
+number of link annotations is unchanged (13 in the paper, 18 in the
+supplement, as listed by `pdfinfo -url`); the Word text (`document.xml`)
+differs in exactly one line, the URL, and the Word hyperlink targets carry the
+new URL; pages unchanged; no undefined reference in either LaTeX log; bibtex
+used 30 (paper) and 33 (supplement) entries, the 30 and 33 cited keys of the
+citation gate.
+
+### Gate state at freeze
+
+On this tree and this build: ledger 394 / 394 PASS, crosswalk 95, monograph
+anchors 25 / 25, README science guard 17 / 17, monograph number-audit guard
+84 / 84, every other guard of `audit_claims.py` 0 FAIL, publication anchors
+9 / 9 with `--verify-public` BLOCKED (the sadc-lab repository returns 404 and
+the control 200: still private, as expected before the deposit); citation,
+metadata-sync, stale-count, back-reference, input-range, pair-count and
+figure-freshness gates passed; render check passed; Word structure passed;
+ruff clean; pytest 80 passed.
+
+### Repository state at freeze
+
+`sadc-lab/pulse_reliability_atlas`: private; `main` = `d700e60` and the six
+`review-*` tags, identical to `santinon/pulse_reliability_atlas` (`git
+ls-remote` of both: 14 refs, no difference); its first test-workflow run
+(push, `d700e60`) passed. Commit `8ff53a2` is not yet pushed to either.
