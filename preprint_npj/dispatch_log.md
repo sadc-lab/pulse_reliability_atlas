@@ -2301,3 +2301,26 @@ ruff clean; pytest 80 passed.
 `review-*` tags, identical to `santinon/pulse_reliability_atlas` (`git
 ls-remote` of both: 14 refs, no difference); its first test-workflow run
 (push, `d700e60`) passed. Commit `8ff53a2` is not yet pushed to either.
+
+## 2026-10-20 — re-freeze 64 announced to the co-authors; repository made public
+
+**Status: SENT** (author's report, 2026-10-20, shortly before 12:40
+Montreal time, UTC−4). One message to the co-authors, sent before the arXiv
+submission as decided the same day (entry above). In broad lines: the arXiv
+endorsement is obtained and the preprint is deposited now, without waiting
+for the 2026-10-26 date announced in the previous message; one change since
+the version of 2026-10-19, the code URL, now
+`https://github.com/sadc-lab/pulse_reliability_atlas` in the SADC GitHub
+organisation instead of the author's personal account; no other change to the
+paper or the supplement; objections or remarks after the deposit can go into
+a version 2 on arXiv. **No attachment:** the message refers the co-authors to
+the two PDFs of the 2026-10-19 message, that is re-freeze 63, which differs
+from re-freeze 64 only by that URL (one line per document in the PDF and Word
+text, entry above) (author's confirmation, 2026-10-20).
+
+| | |
+|---|---|
+| Version announced | re-freeze 64 (source commit `8ff53a2`; hashes in the entry above) |
+| PDFs held by the co-authors | re-freeze 63, sent 2026-10-19 (old code URL) |
+| Repository | `sadc-lab/pulse_reliability_atlas` made public at 16:40 UTC, verified (see `audit/publication_gate.md`, section 3); `santinon/pulse_reliability_atlas` stays private |
+| Next | arXiv submission of the package built from this freeze by `scripts/build_arxiv_package.py` (81 pages) |

@@ -64,6 +64,18 @@ against a control repository returning 200. Re-verify immediately before step 2
 and again after it; a 404 for an unauthenticated reader is what "still private"
 looks like, and a 200 is what "now public" looks like.
 
+**2026-10-20 — Public.** `sadc-lab/pulse_reliability_atlas` was made public at
+16:40 UTC (12:40 Montreal time), on the author's instruction, after the
+co-authors were told and before the arXiv submission. Verified immediately
+after: `scripts/check_publication_gate.py --verify-public` reports CLEAR (the
+repository 200, the control 200, 9 / 9 anchors); unauthenticated fetches of
+the repository page, of `README.md` on `main`, of `paper.tex` at the tag
+`review-2026-10-19` and of the CI run cited in `HISTORY.md` return 200. The
+private copy `santinon/pulse_reliability_atlas` still returns 404 to an
+unauthenticated reader, as intended. Branch protection on `main`: force pushes
+and deletion refused, administrators included; no pull request or status
+check required.
+
 ## 4. What must be checked at the gate
 
 - [ ] arXiv deposit accepted and its identifier known.
