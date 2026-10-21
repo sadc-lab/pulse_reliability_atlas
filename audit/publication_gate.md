@@ -78,17 +78,28 @@ check required.
 
 ## 4. What must be checked at the gate
 
-- [ ] arXiv deposit accepted and its identifier known.
-- [ ] Repository visibility flipped to public, and confirmed by an
-      unauthenticated fetch returning 200.
+- [x] arXiv deposit accepted and its identifier known. *2026-10-21:*
+      arXiv:2610.28517v1 [q-bio.QM], submitted 2026-10-20, announced in the
+      q-bio.QM new listings for 2026-10-21; verified against the abstract page
+      (see `preprint_npj/dispatch_log.md`).
+- [x] Repository visibility flipped to public, and confirmed by an
+      unauthenticated fetch returning 200. *2026-10-20, section 3.*
 - [ ] Zenodo DOI minted, and the availability statements updated to carry the
       DOI and the arXiv identifier — both currently say they will be added.
-- [ ] `preprint_npj/dispatch_log.md` carries an entry for whatever build is
-      deposited, pinned to the commit whose sources produced it.
-- [ ] Sensitive files still absent from the history: `TODO_*.md`,
+      *2026-10-21: the arXiv identifier is now in `README.md` and
+      `CITATION.cff`; the paper's Data availability statement still says the
+      preprint is on arXiv without the identifier, and the Zenodo DOI is not
+      minted.*
+- [x] `preprint_npj/dispatch_log.md` carries an entry for whatever build is
+      deposited, pinned to the commit whose sources produced it. *Re-freeze
+      64, source commit `8ff53a2`.*
+- [x] Sensitive files still absent from the history: `TODO_*.md`,
       `ROADMAP_*.md`, `NEXT_SESSION*.md` and reviewer-feedback files are
       gitignored and guarded by `.githooks/pre-commit`; going public makes any
       past leak permanent, so re-check the history, not only the working tree.
+      *Re-checked on 2026-10-21 over every path ever committed on every ref
+      (496 distinct paths): none matches these names, `retours_chefs/` or a
+      Word-family extension; the pattern caught 4 of 4 planted positives.*
 
 ## 5. Not a licensing question
 

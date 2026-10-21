@@ -2324,3 +2324,28 @@ text, entry above) (author's confirmation, 2026-10-20).
 | PDFs held by the co-authors | re-freeze 63, sent 2026-10-19 (old code URL) |
 | Repository | `sadc-lab/pulse_reliability_atlas` made public at 16:40 UTC, verified (see `audit/publication_gate.md`, section 3); `santinon/pulse_reliability_atlas` stays private |
 | Next | arXiv submission of the package built from this freeze by `scripts/build_arxiv_package.py` (81 pages) |
+
+## 2026-10-21 — re-freeze 64 announced on arXiv: arXiv:2610.28517v1
+
+**Status: PUBLIC.** The arXiv package built from re-freeze 64 was submitted on
+2026-10-20 (v1 timestamp 16:55:30 UTC) and announced in the q-bio.QM new
+listings for Wednesday 2026-10-21 (the identifier appears on
+`https://arxiv.org/list/q-bio.QM/new`, fetched 2026-10-21). Verified the same
+day against the abstract page `https://arxiv.org/abs/2610.28517` (HTTP 200):
+the title, the six authors in the paper's order, primary category
+Quantitative Methods (q-bio.QM), licence
+`http://arxiv.org/licenses/nonexclusive-distrib/1.0/`, the comments line with
+the `sadc-lab` code URL, and the abstract, identical word for word to the text
+entered in the submission form. The arXiv DOI `10.48550/arXiv.2610.28517`
+resolves to the abstract page (HTTP 302).
+
+| | |
+|---|---|
+| Identifier | arXiv:2610.28517v1 [q-bio.QM]; DOI `10.48550/arXiv.2610.28517` |
+| Version deposited | re-freeze 64 (source commit `8ff53a2`; hashes in the entry of 2026-10-20 above) |
+| Package | paper and supplement merged into one source by `scripts/build_arxiv_package.py` (commit `501fe01`); `arxiv_upload.zip`, 19 files, 451,393 bytes, SHA-256 `295e8e92c4a1949c660f5e5bb45c495224b86e08ad8a801e213912f0a054ffde`; compiled by arXiv to 81 pages |
+| Checks before submitting (2026-10-20) | the PDF arXiv compiled for the preview matched the local build of the same package word for word on all 81 pages, the arXiv stamp aside |
+| Not checked | the announced PDF itself was not downloaded and compared |
+| Licence | arXiv.org perpetual, non-exclusive license |
+| Tag | `arxiv-2610.28517v1` on `8ff53a2` |
+| Next | *npj Digital Medicine* submission, declaring the preprint and its licence |
