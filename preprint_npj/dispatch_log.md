@@ -2350,3 +2350,51 @@ resolves to the abstract page (HTTP 302).
 | Licence | arXiv.org perpetual, non-exclusive license |
 | Tag | `arxiv-2610.28517v1` on `8ff53a2` |
 | Next | *npj Digital Medicine* submission, declaring the preprint and its licence |
+
+## 2026-10-21 — re-freeze 64 submitted to npj Digital Medicine
+
+**Status: SUBMITTED.** Submitted by the author through the Springer Nature
+submission system (Snapp) on 2026-10-21, at about 17:50 Montreal time
+(UTC−4) (author's report). The confirmation e-mail ("Your manuscript … has
+been submitted") and the submission record give the title, the type
+"article", the journal *npj Digital Medicine*, the submission version v.1.0
+and the submission ID below. Single-anonymous peer review; the first author
+is the only corresponding author; the Research Square preprint option was
+declined, since the preprint is on arXiv and the cover letter declares it
+with its DOI and licence. A second e-mail, from Research Square the same
+day, opens a private tracking dashboard for the submission and confirms the
+choice ("you chose not to share your manuscript as a preprint"); its
+"Post My Preprint" offer is not taken up.
+
+| | |
+|---|---|
+| Submission ID | `f585a8e8-a277-4fcd-909c-b8fa6196bd7a` (Snapp), version v.1.0 |
+| Research Square dashboard | RSID `rs-11460759` (status tracking only; no preprint posted there) |
+| Manuscript | `Nanini_2026_npjDigitMed_manuscript.pdf` = re-freeze 64 `paper.pdf`: SHA-256 `d4b49e74c2fb1dbd3995587d18b5951a54083deeae12efc002f22d34cc27c666`, 618,792 bytes |
+| Supplementary Information | `Nanini_2026_npjDigitMed_Supplementary_Information.pdf` = re-freeze 64 `supplement.pdf`: SHA-256 `e3a28898e194004c7f611fdb4998bbad4501ed52b209fd3f38204229b33bb710`, 718,317 bytes |
+| Cover letter | `Nanini_2026_npjDigitMed_cover_letter.pdf`, 2 pages, SHA-256 `b834294b73a687094ca3209bd0f8a93b7c4adf28b7cd9201ee2a7d75dc5c175e`, 68,465 bytes; rendered from `preprint_npj/cover_letter.md` as committed in `72cb6d9` |
+| Same text as | arXiv:2610.28517v1 (entry above) |
+| Next | the co-authors are sent the journal's acknowledgement (to be recorded when sent); at acceptance, the CC BY licence, then the HAL deposit of the published version |
+
+### Checks after submission (2026-10-21)
+
+On the files of `preprint_npj/build/submission_npj/` (gitignored), the
+folder the author uploaded from (author's report): the manuscript and the
+Supplementary Information have the SHA-256 and byte sizes of the re-freeze 64
+table (entry of 2026-10-20). The words of the cover-letter PDF
+(`pdftotext`) equal those of `cover_letter.md` at `72cb6d9`, except the
+file's working title (not rendered), the two page numbers, and "cmH₂O",
+which the extraction splits differently. Not checked: the copies held by the
+portal were not downloaded.
+
+### Portal fields
+
+Author contributions, competing interests and acknowledgements are entered
+in portal fields, which replace those sections of the manuscript in the
+published article; their texts were taken from re-freeze 64. Three
+typographic defects remain in the portal fields, to be corrected at revision
+or at proof: "Region Grand Est" (for "Région"), "Universite de Lorraine"
+(for "Université"), and a space before a semicolon after "PaO₂" in the
+portal's abstract field. The prepared texts (`PORTAL_FIELDS.txt` in the same
+gitignored folder) carry both accents and no such space: the defects arose
+in the portal entry.
