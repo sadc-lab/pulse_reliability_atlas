@@ -1,7 +1,10 @@
 # Pulse Reliability Atlas
 
 > **Note:** This repository (`pulse_reliability_atlas`) hosts the code and data for the
-> paper: *"An Open Reliability Atlas of Sensitivity and Failure Modes in the Pulse Physiology Engine."*
+> paper: *"An Open Reliability Atlas of Sensitivity and Failure Modes in the Pulse Physiology Engine,"*
+> preprint [arXiv:2610.28517](https://arxiv.org/abs/2610.28517).
+>
+> Maintainer: **Santino Nanini** ([ORCID 0009-0000-5645-4691](https://orcid.org/0009-0000-5645-4691)), first author of the paper.
 
 **The first open reliability atlas for the Pulse Physiology Engine
 (v4.3.1).** This repository tells you — clinician, engineer, researcher,
@@ -502,19 +505,24 @@ Plain text:
 
 ```
 Nanini, S., et al. (2026). An Open Reliability Atlas of Sensitivity and
-Failure Modes in the Pulse Physiology Engine.
-Preprint forthcoming on arXiv. Code: https://github.com/sadc-lab/pulse_reliability_atlas
+Failure Modes in the Pulse Physiology Engine. arXiv:2610.28517 [q-bio.QM].
+https://doi.org/10.48550/arXiv.2610.28517
+Code: https://github.com/sadc-lab/pulse_reliability_atlas
 ```
 
 BibTeX:
 
 ```bibtex
 @misc{nanini2026pulseatlas,
-  author       = {Nanini, Santino and others},
-  title        = {An Open Reliability Atlas of Sensitivity and Failure Modes in the Pulse Physiology Engine},
-  year         = {2026},
-  howpublished = {\url{https://github.com/sadc-lab/pulse_reliability_atlas}},
-  note         = {Preprint forthcoming on arXiv; arXiv identifier and Zenodo DOI added on deposit.}
+  author        = {Nanini, Santino and Wiedemann, Arnaud and Mamouni, Yassir and Schweitzer, Cyril and Jouvet, Philippe and Sauthier, Michael},
+  title         = {An Open Reliability Atlas of Sensitivity and Failure Modes in the Pulse Physiology Engine},
+  year          = {2026},
+  eprint        = {2610.28517},
+  archivePrefix = {arXiv},
+  primaryClass  = {q-bio.QM},
+  doi           = {10.48550/arXiv.2610.28517},
+  url           = {https://arxiv.org/abs/2610.28517},
+  note          = {Code: \url{https://github.com/sadc-lab/pulse_reliability_atlas}}
 }
 ```
 
@@ -522,7 +530,7 @@ A machine-readable [`CITATION.cff`](CITATION.cff) is also provided —
 GitHub renders a "Cite this repository" button from it, and reference
 managers (Zotero, Mendeley) import it directly.
 
-(arXiv preprint identifier added on upload. Zenodo DOI — covering code, data, and the companion monograph — added when the repository archive is deposited.)
+(Zenodo DOI — covering code, data, and the companion monograph — added when the repository archive is deposited.)
 
 ---
 

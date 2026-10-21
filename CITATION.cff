@@ -2,11 +2,10 @@
 # Reference managers (Zotero, Mendeley) and GitHub's "Cite this repository"
 # button auto-extract from this file.
 #
-# The `doi:` and `preferred-citation:` fields are intentionally blank until
-# deposit. At that point: set `doi:` to the Zenodo archive DOI (code + data +
-# monograph) and add a `preferred-citation:` block for the arXiv preprint
-# (paper + supplement), in a single follow-up commit. The schema below is
-# otherwise complete.
+# `preferred-citation:` points to the arXiv preprint (paper + supplement),
+# arXiv:2610.28517. The top-level `doi:` field is intentionally blank until
+# the Zenodo archive (code + data + monograph) is deposited; it then takes
+# that archive's DOI. The schema below is otherwise complete.
 
 cff-version: 1.2.0
 title: "Pulse Reliability Atlas"
@@ -37,5 +36,36 @@ abstract: >-
   ARDS severities). Reports H1-H4 hypothesis verdicts, a four-flag
   failure-mode classifier, two structural findings (F-003 transient
   hyperoxia regime, F-004 VC-AC patient-ventilator dyssynchrony with
-  an operator-actionable trigger-pressure fix), and a per-cell
-  traffic-light curation and review-priority map.
+  an operator-actionable trigger-pressure fix), a sex-stratified
+  finding (solver divergence was all-male in an input-extreme regime,
+  20/1,280 runs; reducing the male blood-volume baseline to the
+  4,082 mL floor eliminated it), and a per-cell traffic-light curation
+  and review-priority map.
+preferred-citation:
+  type: article
+  status: preprint
+  title: "An Open Reliability Atlas of Sensitivity and Failure Modes in the Pulse Physiology Engine"
+  authors:
+    - family-names: Nanini
+      given-names: Santino
+      orcid: "https://orcid.org/0009-0000-5645-4691"
+    - family-names: Wiedemann
+      given-names: Arnaud
+    - family-names: Mamouni
+      given-names: Yassir
+    - family-names: Schweitzer
+      given-names: Cyril
+    - family-names: Jouvet
+      given-names: Philippe
+    - family-names: Sauthier
+      given-names: Michael
+  journal: "arXiv"
+  year: 2026
+  month: 10
+  date-published: 2026-10-20
+  doi: "10.48550/arXiv.2610.28517"
+  url: "https://arxiv.org/abs/2610.28517"
+  identifiers:
+    - type: other
+      value: "arXiv:2610.28517"
+      description: "arXiv identifier (primary category q-bio.QM)"
