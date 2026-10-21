@@ -2344,8 +2344,8 @@ resolves to the abstract page (HTTP 302).
 | Identifier | arXiv:2610.28517v1 [q-bio.QM]; DOI `10.48550/arXiv.2610.28517` |
 | Version deposited | re-freeze 64 (source commit `8ff53a2`; hashes in the entry of 2026-10-20 above) |
 | Package | paper and supplement merged into one source by `scripts/build_arxiv_package.py` (commit `501fe01`); `arxiv_upload.zip`, 19 files, 451,393 bytes, SHA-256 `295e8e92c4a1949c660f5e5bb45c495224b86e08ad8a801e213912f0a054ffde`; compiled by arXiv to 81 pages |
-| Checks before submitting (2026-10-20) | the PDF arXiv compiled for the preview matched the local build of the same package word for word on all 81 pages, the arXiv stamp aside |
-| Not checked | the announced PDF itself was not downloaded and compared |
+| Checks before submitting (2026-10-20) | the PDF arXiv compiled for the preview matched the local build of the same package word for word on all 81 pages, the arXiv stamp aside (words only: that extraction joins hyphenated words and does not see line breaks; see the next row) |
+| Announced PDF (checked 2026-10-21) | `https://arxiv.org/pdf/2610.28517v1`, 1,062,412 bytes, 81 pages, SHA-256 `cb1d8dc1a9459effb859e752e4086bfe3db5725a1d9efa6761a7624078f355fd`: the words of every page match the local build of the same package, the arXiv stamp aside (`pdftotext` per page, the method used for the preview; the stamp removal checked on page 1). That extraction joins hyphenated words, so it cannot see line breaks. A second extraction with `-layout`, which keeps them, finds one typesetting difference: one paragraph of Supplement §S5.2 (the search for a surfactant model, page 47) is broken into lines differently over six lines, three words being hyphenated at a different point. arXiv compiled with TeX Live 2025, the local build with TeX Live 2026. Every other line of the 81 pages is identical, and the character streams are identical once line-end hyphens are removed (192,396 characters each) |
 | Licence | arXiv.org perpetual, non-exclusive license |
 | Tag | `arxiv-2610.28517v1` on `8ff53a2` |
 | Next | *npj Digital Medicine* submission, declaring the preprint and its licence |
