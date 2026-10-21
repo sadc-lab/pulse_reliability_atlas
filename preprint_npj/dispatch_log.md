@@ -2390,11 +2390,24 @@ portal were not downloaded.
 ### Portal fields
 
 Author contributions, competing interests and acknowledgements are entered
-in portal fields, which replace those sections of the manuscript in the
-published article; their texts were taken from re-freeze 64. Three
-typographic defects remain in the portal fields, to be corrected at revision
-or at proof: "Region Grand Est" (for "Région"), "Universite de Lorraine"
-(for "Université"), and a space before a semicolon after "PaO₂" in the
-portal's abstract field. The prepared texts (`PORTAL_FIELDS.txt` in the same
-gitignored folder) carry both accents and no such space: the defects arose
-in the portal entry.
+in portal fields. That these portal texts, rather than the manuscript's
+sections, are the ones published comes from the notes of the submission
+session; it was not checked against a journal source. The texts prepared for
+the portal (`PORTAL_FIELDS.txt`, same gitignored folder) equal those of
+re-freeze 64 word for word as the file now stands: acknowledgements, author
+contributions, competing interests, ethics and consent; the data and code
+availability texts give their three cross-references as the PDF prints them
+("Supplement § S14", "Table 3", "Supplement § S12").
+
+The portal's review page, as pasted by the author at 17:48, just before
+submitting, shows three typographic defects, to be corrected at revision or
+at proof: "Region Grand Est" (for "Région"), "Universite de Lorraine" (for
+"Université"), and a space before a semicolon after "PaO₂" in the abstract
+field. Where they came from is not established: the prepared file was
+itself corrected during the submission session (its list of funders read
+"Region") and was last written at 17:45, while the portal was being filled
+in.
+
+*Corrected the same day.* The first version of this entry stated as facts
+that the portal texts replace the manuscript's sections and that the defects
+arose in the portal entry. Neither was established.
