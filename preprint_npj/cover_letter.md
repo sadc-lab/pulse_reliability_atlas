@@ -12,41 +12,31 @@ Dear Editors,
 We are pleased to submit our original research article, **"An Open Reliability Atlas of Sensitivity and Failure Modes in the Pulse Physiology Engine,"** for
 consideration as an Article in *npj Digital Medicine*.
 
-*npj Digital Medicine* lists **digital twins** explicitly within its scope, at
-the intersection of digital health, synthetic data, and reproducible
-computational methodology. What has not been established is how reliable they
-are as a source of data. **Our object of study is therefore not human
-physiology but the data-generating instrument itself.** The Pulse Physiology
-Engine (Kitware, Apache-2.0) is an actively maintained open-source whole-body
-physiology simulator whose synthetic patient trajectories are used for
-ventilator-safety analyses, medical education and computational physiology
-research; yet the
+*npj Digital Medicine* lists **digital twins** explicitly within its scope.
+What has not been established is how reliable they are as a source of data.
+**Our object of study is therefore not human physiology but the
+data-generating instrument itself.**
+
+The Pulse Physiology Engine (Kitware, Apache-2.0) is an actively maintained open-source whole-body physiology
+simulator whose synthetic patient trajectories are used for ventilator-safety
+analyses, medical education and computational physiology research; yet the
 engine's own maintainers state on their public FAQ that they "have not [...]
-conducted a formal sensitivity analysis" of the model. Every downstream user
-has therefore been operating without a public map of how the engine behaves across
-its user-facing operational envelope — and the stakes are no longer
-hypothetical: an independent group has already used the engine's respiratory
-dynamics as a source of simulated data to learn and benchmark
-ventilator-control policies for ARDS (Ward et al., *IEEE CBMS* 2024), and any
-model fitted to that output can absorb whatever artefacts the envelope contains as
-though they were physiology. **Our manuscript provides that map — the first
-open reliability atlas of Pulse, with a preregistered core design, across the
-adult critical-care envelope (1,280 Morris elementary-effects simulations of seven operational
-inputs, balanced across eight cells of 160 runs: four scenarios, a healthy
-baseline and three ARDS severities, crossed with two patient reference bodies).**
+conducted a formal sensitivity analysis" of the model. An independent group
+has already used the engine's respiratory dynamics as a source of simulated
+data to learn and benchmark ventilator-control policies for ARDS (Ward et al.,
+*IEEE CBMS* 2024), and any model fitted to that output can absorb whatever
+artefacts the envelope contains as though they were physiology. **Our
+manuscript provides the first open reliability atlas of Pulse, with a
+preregistered core design, across the adult critical-care envelope.**
 
 The journal has also published on the credibility and use of computational
-physiological models: a cardiac digital-twin surrogate spanning 43 model
-parameters and used for global sensitivity analysis and parameter estimation
-with uncertainty quantification (Salvador et al., 2024), and a survey and
-perspective on verification, validation and uncertainty quantification of
-digital twins for precision medicine (Sel et al., 2025). Our study addresses a
-complementary upstream problem: before outputs from a mechanistic physiology
-engine are used to generate synthetic cohorts or train downstream models, its
-operational input space and failure modes need to be characterised. We
-therefore present the atlas as a reproducible curation and review-priority
-instrument, not as external physiological validation or a formal regulatory
-credibility assessment.
+physiological models (Salvador et al., 2024; Sel et al., 2025). Our study
+addresses a complementary upstream problem: before outputs from a mechanistic
+physiology engine are used to generate synthetic cohorts or train downstream
+models, its operational input space and failure modes need to be
+characterised. We therefore present the atlas as a reproducible curation and
+review-priority instrument, not as external physiological validation or a
+formal regulatory credibility assessment.
 
 Three findings make this contribution timely for the *npj Digital Medicine*
 readership:
@@ -58,10 +48,8 @@ readership:
    colour, supports exclusion, remediation, or stratified handling; neither
    layer is a distribution-neutral automatic filter. We also surface two
    operator-actionable adjustments — a one-line VC-AC trigger setting (−2 cmH₂O;
-   a data-generation lever, not a clinical recommendation) that
-   collapses tidal-volume variability consistent with patient–ventilator
-   dyssynchrony, and a steady-state-window correction for
-   hyperoxia simulation at FiO₂ = 1.0.
+   a data-generation lever, not a clinical recommendation) and a
+   steady-state-window correction for hyperoxia simulation at FiO₂ = 1.0.
 
 2. **A previously uncharacterised, sex-stratified solver-divergence cluster
    with an identified blood-volume dependence.** All 20 divergent runs (of 1,280) fell on
@@ -76,16 +64,13 @@ readership:
 3. **To our knowledge, the first systematic characterisation of an ARDS
    impairment-fraction solver-instability band ([0.879, 0.946]).**
    Published Pulse validation work and HowTo examples do not examine impairment fractions inside 0.91–0.945.
-   Together with the main sweep, our
-   continuous-severity sweep resolves two distinct divergence regimes — an
-   input-driven regime on the male body and a severity-driven regime affecting
-   both sexes — and gives downstream users a concrete band to avoid when stable
-   steady-state output is required.
+   Together with the main sweep, our continuous-severity sweep resolves two
+   distinct divergence regimes and gives downstream users a concrete band to
+   avoid when stable steady-state output is required.
 
-The work directly addresses a stated gap acknowledged by the engine's
-maintainers; its methodology (Morris screening plus a categorise-don't-discard
+The methodology (Morris screening plus a categorise-don't-discard
 steady-state classifier) could be applied to related physiology engines such as
-BioGears and HumMod; and the entire pipeline — preregistration, Dockerfile,
+BioGears and HumMod, and the entire pipeline — preregistration, Dockerfile,
 fixed seed, and a machine-checked audit ledger of the computed quantitative
 claims — is released open-source under Apache-2.0 for full reproducibility.
 
@@ -93,8 +78,12 @@ This manuscript is original, has not been published previously, and is not
 under consideration for publication elsewhere. A preprint of this manuscript
 is available on arXiv (arXiv:2610.28517; DOI 10.48550/arXiv.2610.28517)
 under the arXiv.org perpetual, non-exclusive license. All named authors have
-contributed to and approved the submission. The authors declare no competing interests, and author contributions are specified in the manuscript. The code is openly available on GitHub under Apache-2.0; the simulation data will be deposited at Zenodo, with pre-deposit access from the corresponding author, and the data-availability
-statement will cite the archived dataset DOI.
+contributed to and approved the submission. The authors declare no competing
+interests, and author contributions are specified in the manuscript.
+
+The code is openly available on GitHub under Apache-2.0; the simulation data
+will be deposited at Zenodo, with pre-deposit access from the corresponding
+author, and the data-availability statement will cite the archived dataset DOI.
 
 We believe the reliability atlas offers a useful baseline for the growing community building digital-health and clinical-AI systems
 on synthetic physiology, and we hope you will find it suitable for *npj Digital
