@@ -2,7 +2,7 @@
 
 ---
 
-[date of submission]
+21 October 2026
 
 The Editors
 *npj Digital Medicine*
