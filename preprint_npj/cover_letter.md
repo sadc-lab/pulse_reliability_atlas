@@ -90,7 +90,9 @@ fixed seed, and a machine-checked audit ledger of the computed quantitative
 claims — is released open-source under Apache-2.0 for full reproducibility.
 
 This manuscript is original, has not been published previously, and is not
-under consideration for publication elsewhere. All named authors have
+under consideration for publication elsewhere. A preprint of this manuscript
+is available on arXiv (arXiv:2610.28517; DOI 10.48550/arXiv.2610.28517)
+under the arXiv.org perpetual, non-exclusive license. All named authors have
 contributed to and approved the submission. The authors declare no competing interests, and author contributions are specified in the manuscript. The code is openly available on GitHub under Apache-2.0; the simulation data will be deposited at Zenodo, with pre-deposit access from the corresponding author, and the data-availability
 statement will cite the archived dataset DOI.
 
