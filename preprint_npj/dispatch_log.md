@@ -2411,3 +2411,24 @@ in.
 *Corrected the same day.* The first version of this entry stated as facts
 that the portal texts replace the manuscript's sections and that the defects
 arose in the portal entry. Neither was established.
+
+## 2026-10-21 — npj Digital Medicine acknowledgement sent to the co-authors
+
+**Status: SENT** (author's report: 2026-10-21, 18:13 Montreal time, UTC−4).
+One message to the co-authors, the step announced in the entry above. In
+broad lines: the manuscript is submitted to *npj Digital Medicine*, with its
+submission identifier; the submitted version is described as identical to the
+one published on arXiv; the journal's confirmation e-mail follows the
+message. On "identical": both come from the same sources (re-freeze 64,
+`8ff53a2`); the arXiv PDF is one document, paper and supplement merged by
+`scripts/build_arxiv_package.py` with a single bibliography (entry of
+2026-10-21 on arXiv). One internal administrative point of the message is not
+recorded in this public log.
+
+| | |
+|---|---|
+| Sent | 2026-10-21, 18:13 Montreal time (UTC−4; author's report) |
+| Recipients | the four supervisors (A.W., P.J., M.S., C.S.); Y.M. in copy (author's confirmation, 2026-10-22) |
+| Artefacts sent | no file reported; the journal's confirmation e-mail is included below the message |
+| Submission | `f585a8e8-a277-4fcd-909c-b8fa6196bd7a` (Snapp), version v.1.0 (entry above) |
+| Next | at acceptance, the CC BY licence, then the HAL deposit of the published version; Zenodo archive of the code, data, companion monograph and Docker image |
