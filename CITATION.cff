@@ -3,9 +3,8 @@
 # button auto-extract from this file.
 #
 # `preferred-citation:` points to the arXiv preprint (paper + supplement),
-# arXiv:2610.28517. The top-level `doi:` field is intentionally blank until
-# the Zenodo archive (code + data + monograph) is deposited; it then takes
-# that archive's DOI. The schema below is otherwise complete.
+# arXiv:2610.28517. The top-level `doi:` is the DOI of the Zenodo archive of
+# version v1.0.0 (code + data + companion monograph + engine image).
 
 cff-version: 1.2.0
 title: "Pulse Reliability Atlas"
@@ -17,8 +16,9 @@ authors:
     orcid: "https://orcid.org/0009-0000-5645-4691"
 repository-code: "https://github.com/sadc-lab/pulse_reliability_atlas"
 license: Apache-2.0
-version: "0.1.0"
-date-released: 2026-05-22
+doi: 10.5281/zenodo.23572721
+version: "v1.0.0"
+date-released: 2026-10-22
 keywords:
   - pulse-physiology-engine
   - sensitivity-analysis

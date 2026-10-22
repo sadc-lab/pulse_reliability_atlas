@@ -3,6 +3,8 @@
 > **Note:** This repository (`pulse_reliability_atlas`) hosts the code and data for the
 > paper: *"An Open Reliability Atlas of Sensitivity and Failure Modes in the Pulse Physiology Engine,"*
 > preprint [arXiv:2610.28517](https://arxiv.org/abs/2610.28517).
+> Archive of version v1.0.0 (code, data, companion monograph, engine image) on Zenodo:
+> [10.5281/zenodo.23572721](https://doi.org/10.5281/zenodo.23572721).
 >
 > Maintainer: **Santino Nanini** ([ORCID 0009-0000-5645-4691](https://orcid.org/0009-0000-5645-4691)), first author of the paper.
 
@@ -530,7 +532,8 @@ A machine-readable [`CITATION.cff`](CITATION.cff) is also provided —
 GitHub renders a "Cite this repository" button from it, and reference
 managers (Zotero, Mendeley) import it directly.
 
-(Zenodo DOI — covering code, data, and the companion monograph — added when the repository archive is deposited.)
+Archive of version v1.0.0 — code, data, the companion monograph and the engine image — on
+Zenodo: https://doi.org/10.5281/zenodo.23572721
 
 ---
 

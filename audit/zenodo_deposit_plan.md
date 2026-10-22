@@ -36,13 +36,20 @@ a new record with its own DOI.
    ID `sha256:b2e0e807803d…` read before and after the export, gzip archive of 1,454,718,524
    bytes passing `gzip -t`; monograph copy byte-identical to `preprint/build/manuscript.pdf`.
    Checksums are written once the code archive exists (step 3).
-2. *Maintainer.* Create the Zenodo draft and reserve the DOI.
+2. *Maintainer.* Create the Zenodo draft and reserve the DOI. *Done 2026-10-22:* reserved DOI
+   **`10.5281/zenodo.23572721`**, read on the maintainer's screenshot and then pasted by the
+   maintainer as text (both agree); draft saved with type Dataset and the title above.
 3. *Agent.* Put the reserved DOI into `CITATION.cff` (`doi`, `version`, `date-released`) and
-   `README.md`; commit; tag; push on the maintainer's go; rebuild the code zip from that tag.
-4. *Maintainer.* Upload the files, paste the metadata the agent prepared (title, six authors
-   with ORCID where known, description, licences, related identifiers: arXiv DOI
-   `10.48550/arXiv.2610.28517`, GitHub repository), preview, publish.
-5. *Later, at revision or proof.* The paper's Data availability statement
+   `README.md`; commit; annotated tag `v1.0.0`, both **local**; build the code archive from the
+   local tag (`git archive`), `README_zenodo.md` and the checksums.
+4. *Maintainer.* Upload the files, paste the metadata the agent prepared
+   (`preprint_npj/build/zenodo_metadata_a_coller.txt`, ignored by git), compare the MD5 that
+   Zenodo shows with the agent's list, preview, publish.
+5. *Agent, after publication and on the maintainer's go.* Push `main` and the tag `v1.0.0` to
+   both remotes. Publishing before pushing keeps a dead DOI out of the public repository if the
+   publication failed; the GitHub link in the record (`tree/v1.0.0`) answers once the tag is
+   pushed. The tag is the same object either way.
+6. *Later, at revision or proof.* The paper's Data availability statement
    (`preprint_npj/paper.tex`, the only mention of Zenodo in the paper) says the deposit "will
    be" made, together with the code and the monograph; the Code availability statement points
    to GitHub only. The DOI goes in at revision or proof, as a re-freeze; the submitted version
@@ -54,12 +61,12 @@ a new record with its own DOI.
 - Licences: **Apache-2.0** for the code, **CC BY 4.0** for the data and the monograph (D2).
 - The raw data are deposited **as they are**: the absolute paths carrying the maintainer's
   Windows user name stay (no third party appears; raw data are never edited).
-
-## Open decisions (maintainer)
-
-- **D3 — version label of the tag**, e.g. `v1.0.0`.
-- **D4 — Zenodo account and community**: which account deposits (yours, signed in with
-  ORCID?), and whether a SADC community exists on Zenodo (not known).
-- **D5 — the engine image** contains third-party software (the base system and Pulse,
-  Apache-2.0). Kitware itself distributes `kitware/pulse` publicly; whether redistributing our
-  derived image raises any licence question is not known.
+- Tag and version label: **`v1.0.0`** (D3).
+- Deposited from the maintainer's **own Zenodo account**; no community (D4).
+- The **engine image is included** (D5). The record's description states that the third-party
+  software inside it (the Pulse Physiology Engine, Apache-2.0, and its base system) keeps its
+  own licence, as the paper's Data availability statement does for third-party excerpts.
+  Whether redistributing the derived image raises any further licence question is not known.
+- **Creator: Santino Nanini** alone, as in the `authors` of `CITATION.cff`. **Contributors:**
+  Y.M. (reproduced the full sweep), A.W., C.S., P.J. and M.S. (supervision), the five
+  co-authors of the paper. The six-author paper is linked through its arXiv DOI.
