@@ -1,7 +1,9 @@
 # Zenodo deposit — plan (2026-10-22)
 
-Status: **prepared, nothing deposited.** Decisions already taken in earlier sessions are
-marked *decided*; the open ones are listed at the end for the maintainer.
+Status: **published.** Record **`10.5281/zenodo.23572721`** (concept DOI `10.5281/zenodo.23572720`):
+files published 2026-10-22, descriptive metadata added 2026-10-23; checks under *Published
+record* below, with the one open item. Decisions already taken are marked *decided*, and the
+maintainer's decisions are listed at the end.
 
 ## What the record holds (*decided*: code, data and monograph together; engine image too)
 
@@ -42,18 +44,72 @@ a new record with its own DOI.
 3. *Agent.* Put the reserved DOI into `CITATION.cff` (`doi`, `version`, `date-released`) and
    `README.md`; commit; annotated tag `v1.0.0`, both **local**; build the code archive from the
    local tag (`git archive`), `README_zenodo.md` and the checksums.
+   *Done 2026-10-22:* `d872524`; code archive `pulse_reliability_atlas-v1.0.0.zip` with 495
+   files, the 495 files tracked at the tag; `SHA256SUMS.txt` with 21 entries (all the files of
+   the record but itself).
 4. *Maintainer.* Upload the files, paste the metadata the agent prepared
    (`preprint_npj/build/zenodo_metadata_a_coller.txt`, ignored by git), compare the MD5 that
    Zenodo shows with the agent's list, preview, publish.
+   *Done 2026-10-22:* 21 files uploaded in the browser; the engine image (1,454,718,524 bytes)
+   did not complete in the browser and was uploaded through the Zenodo API by a script the
+   maintainer ran; the MD5 and sizes of all 22 files equalled the agent's list before
+   publishing; published at 22:21:53 UTC with files, title, type, date, creator (ORCID) and
+   both licences. *Completed 2026-10-23:* the prepared metadata were sent through the Zenodo API
+   into an edit draft (script run by the maintainer, nothing published by it), read back, then
+   published by the maintainer in the browser at 17:05:33 UTC. The API token was revoked
+   afterwards.
 5. *Agent, after publication and on the maintainer's go.* Push `main` and the tag `v1.0.0` to
    both remotes. Publishing before pushing keeps a dead DOI out of the public repository if the
    publication failed; the GitHub link in the record (`tree/v1.0.0`) answers once the tag is
    pushed. The tag is the same object either way.
+   *Done 2026-10-22:* `main` at `d872524` and the tag pushed to both remotes. The annotated tag
+   was re-created on the same commit before the push (tag object `a065ecd`); the code archive
+   depends on the commit only, and the archive rebuilt from the new tag has the deposited MD5
+   (`c6eb78ca…`).
 6. *Later, at revision or proof.* The paper's Data availability statement
    (`preprint_npj/paper.tex`, the only mention of Zenodo in the paper) says the deposit "will
    be" made, together with the code and the monograph; the Code availability statement points
    to GitHub only. The DOI goes in at revision or proof, as a re-freeze; the submitted version
    is not touched.
+
+## Published record (checked 2026-10-23)
+
+Read on the public API in the InvenioRDM format (revision 6, updated 2026-10-23 17:05:33 UTC),
+on the public page and at DataCite. The default API answer and the answer to the edit request
+use an older format that shows only the first affiliation, the first licence and the funding
+entries that carry an award number; every check below uses the InvenioRDM format.
+
+- DOI unchanged; title, type Dataset, publication date 2026-10-22, version `v1.0.0`, language
+  English; public, no embargo; no new version created.
+- Description identical to the text prepared (string comparison; a one-character change is
+  caught). Its abstract equals the arXiv abstract word for word (arXiv API, 147 words), and its
+  "16,514 files" equals the count of files in `data/runs/` (`find`, 2026-10-23).
+- Creator Santino Nanini, ORCID, two affiliations by ROR identifier (CHU Sainte-Justine,
+  Université de Lorraine). Contributors: Y.M. (Researcher); A.W., C.S., P.J. and M.S.
+  (Supervisor).
+- Licences CC BY 4.0 and Apache-2.0. Eight keywords.
+- Funding, four entries: Agence Nationale de la Recherche with award ANR-23-IACL-0004 (not in
+  Zenodo's award list, so entered by title and number; the same search finds a known ANR
+  award); Région Grand Est (ROR); CHU Sainte-Justine Foundation and R-SADC by name (not in
+  Zenodo's funder list).
+- Related works, both "is supplement to": the arXiv DOI and `tree/v1.0.0` on GitHub. Software
+  fields: repository URL, Python, active.
+- 22 files; MD5 equal to the agent's list, none missing and none extra (an altered MD5 is
+  caught).
+- Links answer: `tree/v1.0.0` and the repository (200), the arXiv DOI (302 to the abstract
+  page, 200), the record DOI (302 to Zenodo).
+- DataCite updated at the same second: two affiliations, four funders, one award number,
+  five contributors (1 Researcher, 4 Supervisor), eight subjects, two rights, three related
+  identifiers (two IsSupplementTo, one IsVersionOf the concept DOI).
+
+**Open: the engine image ID.** The description and `README_zenodo.md` name the image
+`sha256:b2e0e807803d…`. In the deposited archive that digest is the image index listed in
+`index.json`; `manifest.json` gives the configuration digest `sha256:eddbac488c01…`. The
+maintainer's Docker (28.4.0, containerd image store) shows `b2e0e807803d…` as the image ID
+(`docker image inspect`, 2026-10-23). A Docker using the classic image store is expected to
+show the configuration digest instead after `docker load`; this was not tested. Not an error,
+but a reader may not find the announced ID. *Decided 2026-10-23:* recorded here; a sentence
+giving both digests goes into the record's description at its next update.
 
 ## Decisions taken by the maintainer (2026-10-22)
 
