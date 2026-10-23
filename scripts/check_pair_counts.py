@@ -91,6 +91,7 @@ import sys
 from pathlib import Path
 
 import pandas as pd
+import pyarrow.parquet as pq
 
 REPO = Path(__file__).resolve().parents[1]
 PAPER = REPO / "preprint_npj" / "paper.tex"
@@ -128,6 +129,19 @@ NUM_WORDS = {
     1: "one", 2: "two", 3: "three", 4: "four", 5: "five", 6: "six",
     7: "seven", 8: "eight", 9: "nine", 10: "ten", 11: "eleven", 12: "twelve",
 }
+
+
+def read_morris() -> pd.DataFrame:
+    """Read MORRIS with pyarrow opening the file itself, not pandas.
+
+    pd.read_parquet on a local path hands pyarrow a Python file object. A
+    pyarrow pool thread can release it while the interpreter shuts down, and
+    the process then aborts with exit 134 AFTER printing PASSED (upstream
+    apache/arrow#54536). CI hit this exact signature here on 2026-09-10,
+    2026-10-07 and 2026-10-22. Through pq.read_table pyarrow opens the file
+    natively and the reader holds no Python object.
+    """
+    return pq.read_table(MORRIS).to_pandas()
 
 
 def measure(df: pd.DataFrame) -> dict[str, int]:
@@ -271,7 +285,7 @@ def check(paper_text: str, df: pd.DataFrame, supplement_text: str = "") -> list[
     if not MORRIS.exists():
         problems.append(f"artefact missing: {MORRIS.relative_to(REPO)}")
         return problems
-    n_outlined = int((pd.read_parquet(MORRIS)["n_clean_pairs"] == 1).sum())
+    n_outlined = int((read_morris()["n_clean_pairs"] == 1).sum())
     if n_outlined not in NUM_WORDS:
         problems.append(f"outlined-cell count {n_outlined} has no word form here")
         return problems
@@ -349,7 +363,7 @@ def self_test(paper_text: str, df: pd.DataFrame, supplement_text: str) -> int:
 
     # CHECK E calibrated on its own count, measured from the full table
     # rather than assumed from the 144 the sentence above uses.
-    n_out = int((pd.read_parquet(MORRIS)["n_clean_pairs"] == 1).sum())
+    n_out = int((read_morris()["n_clean_pairs"] == 1).sum())
     old_out = f"Outlined tiles ({NUM_WORDS[n_out]})"
     new_out = f"Outlined tiles ({NUM_WORDS[n_out - 1]})"
     if old_out not in paper_text:
@@ -446,7 +460,7 @@ def main() -> int:
     print(f"  ok    {design['n_seeds']} seeds in the paper, in the script and "
           f"in the CSV's ra_lo_* columns")
     print(f"  ok    no {DRAW_DEFECT!r} in paper.tex or supplement.tex")
-    morris = pd.read_parquet(MORRIS)
+    morris = read_morris()
     n_out = int((morris["n_clean_pairs"] == 1).sum())
     print(f"  ok    Figure 3 caption outlines {n_out} cells, matching the "
           f"single-pair rows of morris_indices.parquet ({len(morris)} entries)")
